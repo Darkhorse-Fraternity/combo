@@ -32,4 +32,4 @@ class App extends Component {
 }
 
 // var WhiteBoardRN = require('../example_advanced');
-AppRegistry.registerComponent('RNStartKit', () => App);
+AppRegistry.registerComponent('Combo', () => App);

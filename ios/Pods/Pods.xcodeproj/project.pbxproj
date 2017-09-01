@@ -7,36 +7,67 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3363828AD15AA1550D4C561974000314 /* Pods-RNStartKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 51AD06412DB5035DB3200AA60233CF92 /* Pods-RNStartKit-dummy.m */; };
-		67369DE3AD4F7C86A54D1B2D5D2DAAF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		234B8C85D3FA7B72558AE4CDB52945D2 /* Pods-Combo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */; };
+		97475DF6010FA024B6BD3A30CF0A7672 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B33ABE15AD0ECFB98091050F949D46C /* Pods-RNStartKit-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-RNStartKit-acknowledgements.plist"; sourceTree = "<group>"; };
+		033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Combo.a"; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
-		12FD610B3542258AF7D3384E6C33BBF9 /* libPods-RNStartKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-RNStartKit.a"; path = "libPods-RNStartKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4494D2D11D5AE3DF997906AE5EB9F5D9 /* Pods-RNStartKit-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RNStartKit-frameworks.sh"; sourceTree = "<group>"; };
-		51AD06412DB5035DB3200AA60233CF92 /* Pods-RNStartKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RNStartKit-dummy.m"; sourceTree = "<group>"; };
-		5B412171BA771F7FBCE0C98D52824006 /* Pods-RNStartKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RNStartKit.release.xcconfig"; sourceTree = "<group>"; };
-		843BC329B02E8AB4955A94C6AC1565DA /* Pods-RNStartKit-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-RNStartKit-acknowledgements.markdown"; sourceTree = "<group>"; };
+		1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Combo-dummy.m"; sourceTree = "<group>"; };
+		1DDDA40507F8E682D7CA2016EEC70CFF /* Pods-Combo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Combo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		391AD4CD10B36CC54CB0476D302FF0B1 /* Pods-Combo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Combo-acknowledgements.plist"; sourceTree = "<group>"; };
+		682344B6653CD3102606B863797F032B /* Pods-Combo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-frameworks.sh"; sourceTree = "<group>"; };
+		757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
+		84659FD50B76E42F172142CF5E5444D1 /* Pods-Combo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-resources.sh"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AABA1015775B00CBEEF35AD3633B0EF4 /* Pods-RNStartKit-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-RNStartKit-resources.sh"; sourceTree = "<group>"; };
-		B167102B4917B8164D0D49E13F2A99A1 /* Pods-RNStartKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RNStartKit.debug.xcconfig"; sourceTree = "<group>"; };
+		ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8FFCF1D80400E18E49673CE1CD34979F /* Frameworks */ = {
+		0E574A136BCDD0DA9DB8C542C9841F70 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				67369DE3AD4F7C86A54D1B2D5D2DAAF0 /* Foundation.framework in Frameworks */,
+				97475DF6010FA024B6BD3A30CF0A7672 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		396EF9BF493169DD9EAEB68203629465 /* Pods-Combo */ = {
+			isa = PBXGroup;
+			children = (
+				1DDDA40507F8E682D7CA2016EEC70CFF /* Pods-Combo-acknowledgements.markdown */,
+				391AD4CD10B36CC54CB0476D302FF0B1 /* Pods-Combo-acknowledgements.plist */,
+				1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */,
+				682344B6653CD3102606B863797F032B /* Pods-Combo-frameworks.sh */,
+				84659FD50B76E42F172142CF5E5444D1 /* Pods-Combo-resources.sh */,
+				ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */,
+				757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */,
+			);
+			name = "Pods-Combo";
+			path = "Target Support Files/Pods-Combo";
+			sourceTree = "<group>";
+		};
+		5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				396EF9BF493169DD9EAEB68203629465 /* Pods-Combo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
 		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -51,8 +82,8 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */,
-				A40E78BCD5822D944AB717B876DB6A40 /* Products */,
-				B9A9AF7D604270C7C27FB4C39804E3AB /* Targets Support Files */,
+				5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */,
+				6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,22 +93,6 @@
 				12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A40E78BCD5822D944AB717B876DB6A40 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				12FD610B3542258AF7D3384E6C33BBF9 /* libPods-RNStartKit.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		B9A9AF7D604270C7C27FB4C39804E3AB /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				E9B23C7BED81BB64A3294E709E597BF8 /* Pods-RNStartKit */,
-			);
-			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -105,38 +120,23 @@
 			path = "Reveal-iOS-SDK";
 			sourceTree = "<group>";
 		};
-		E9B23C7BED81BB64A3294E709E597BF8 /* Pods-RNStartKit */ = {
-			isa = PBXGroup;
-			children = (
-				843BC329B02E8AB4955A94C6AC1565DA /* Pods-RNStartKit-acknowledgements.markdown */,
-				0B33ABE15AD0ECFB98091050F949D46C /* Pods-RNStartKit-acknowledgements.plist */,
-				51AD06412DB5035DB3200AA60233CF92 /* Pods-RNStartKit-dummy.m */,
-				4494D2D11D5AE3DF997906AE5EB9F5D9 /* Pods-RNStartKit-frameworks.sh */,
-				AABA1015775B00CBEEF35AD3633B0EF4 /* Pods-RNStartKit-resources.sh */,
-				B167102B4917B8164D0D49E13F2A99A1 /* Pods-RNStartKit.debug.xcconfig */,
-				5B412171BA771F7FBCE0C98D52824006 /* Pods-RNStartKit.release.xcconfig */,
-			);
-			name = "Pods-RNStartKit";
-			path = "Target Support Files/Pods-RNStartKit";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A48029A04FE2C601A7D7877510F854AF /* Pods-RNStartKit */ = {
+		AA53023213765C4D6017B39B607B1BDE /* Pods-Combo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F0963E80BF123CCA8D616A414614FB94 /* Build configuration list for PBXNativeTarget "Pods-RNStartKit" */;
+			buildConfigurationList = 60162D748EFE46B44150CFB916AA105A /* Build configuration list for PBXNativeTarget "Pods-Combo" */;
 			buildPhases = (
-				B8DD1618E387B5465A0DE27C94DD0C96 /* Sources */,
-				8FFCF1D80400E18E49673CE1CD34979F /* Frameworks */,
+				F9B73FCDA5F206D3772118AD13A6B453 /* Sources */,
+				0E574A136BCDD0DA9DB8C542C9841F70 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pods-RNStartKit";
-			productName = "Pods-RNStartKit";
-			productReference = 12FD610B3542258AF7D3384E6C33BBF9 /* libPods-RNStartKit.a */;
+			name = "Pods-Combo";
+			productName = "Pods-Combo";
+			productReference = 033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -156,21 +156,21 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = A40E78BCD5822D944AB717B876DB6A40 /* Products */;
+			productRefGroup = 5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A48029A04FE2C601A7D7877510F854AF /* Pods-RNStartKit */,
+				AA53023213765C4D6017B39B607B1BDE /* Pods-Combo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B8DD1618E387B5465A0DE27C94DD0C96 /* Sources */ = {
+		F9B73FCDA5F206D3772118AD13A6B453 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3363828AD15AA1550D4C561974000314 /* Pods-RNStartKit-dummy.m in Sources */,
+				234B8C85D3FA7B72558AE4CDB52945D2 /* Pods-Combo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,9 +221,9 @@
 			};
 			name = Debug;
 		};
-		2B779EA77500C21B7F52BD0955DE6770 /* Release */ = {
+		3F549B8FC78D8D3B4FD8190EF58B2AF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B412171BA771F7FBCE0C98D52824006 /* Pods-RNStartKit.release.xcconfig */;
+			baseConfigurationReference = 757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -284,9 +284,9 @@
 			};
 			name = Release;
 		};
-		48AD0981F515A70532014C8C9462563D /* Debug */ = {
+		CCAFF644FD0638B51F84189D659D4646 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B167102B4917B8164D0D49E13F2A99A1 /* Pods-RNStartKit.debug.xcconfig */;
+			baseConfigurationReference = ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -319,11 +319,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F0963E80BF123CCA8D616A414614FB94 /* Build configuration list for PBXNativeTarget "Pods-RNStartKit" */ = {
+		60162D748EFE46B44150CFB916AA105A /* Build configuration list for PBXNativeTarget "Pods-Combo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				48AD0981F515A70532014C8C9462563D /* Debug */,
-				2B779EA77500C21B7F52BD0955DE6770 /* Release */,
+				CCAFF644FD0638B51F84189D659D4646 /* Debug */,
+				3F549B8FC78D8D3B4FD8190EF58B2AF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
