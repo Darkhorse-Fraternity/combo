@@ -1,4 +1,4 @@
-package com.rnstartkit;
+package com.combo;
 
 import android.app.Application;
 

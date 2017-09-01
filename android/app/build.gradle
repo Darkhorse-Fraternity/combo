@@ -93,7 +93,7 @@ android {
     defaultConfig {
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
-        applicationId "com.rnstartkit"
+        applicationId "com.combo"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
