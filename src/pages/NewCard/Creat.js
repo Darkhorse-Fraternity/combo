@@ -13,18 +13,20 @@ import {
     TextInput,
     Dimensions,
     TouchableOpacity,
-    Text
+    Text,
+    Alert
 } from 'react-native'
 import {connect} from 'react-redux'
-import {ICARD} from '../../redux/reqKeys'
+import {ICARD,IUSE} from '../../redux/reqKeys'
 import {add} from '../../redux/module/leancloud'
 import {bindActionCreators} from 'redux';
-import {addNormalizrEntity} from '../../redux/actions/list'
+import {addListNormalizrEntity} from '../../redux/actions/list'
+import {addNormalizrEntity} from  '../../redux/module/normalizr'
 import {mainColor} from '../../configure'
-import {selfUser} from '../../request/LCModle'
+import {selfUser,iCard} from '../../request/LCModle'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
-import OptionView,{StaticOption} from './OptionView'
+import OptionView, {StaticOption} from './OptionView'
 //static displayName = Creat
 @connect(
     state =>({
@@ -32,19 +34,20 @@ import OptionView,{StaticOption} from './OptionView'
     }),
     (dispatch, props) =>({
         //...bindActionCreators({},dispatch),
-        add: (title,option = StaticOption)=> dispatch(async(dispatch, getState)=> {
+        add: (title, option = StaticOption)=> dispatch(async(dispatch, getState)=> {
 
             // console.log('test:', option);
 
-            const state = getState()
-            const user = state.user.data;
+            // const state = getState()
+            // const user = state.user.data;
+            //新建卡片
             const param = {
                 title,
-                cycle: 0,
-                time: 0,
+                // cycle: 0,
+                // time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
                 ...option,
-                doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }
 
@@ -53,8 +56,36 @@ import OptionView,{StaticOption} from './OptionView'
                 ...param,
                 ...res
             }
-            dispatch(addNormalizrEntity(ICARD, entity))
+            // console.log('res:',res);
+            // dispatch(addNormalizrEntity(ICARD, entity))
+            dispatch(addNormalizrEntity(ICARD,entity))
             props.navigation.goBack()
+            const iCardId = res.objectId
+            //询问是否立即使用。
+            Alert.alert(
+                '你新建了一个卡片，是否立即使用它',
+                '您可以使用或者分享它',
+                [{text: '取消', onPress: () => _goUpDate(data)},
+                    {text: '确定', onPress: async () => {
+
+                        const param = {
+                            cycle: 0,
+                            time: 0,
+                            // notifyTime:option&&option.notifyTime||"20.00",
+                            doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                            ...selfUser(),
+                            ...iCard(iCardId)
+                        }
+                        const res = await add(param, IUSE)
+                        const entity = {
+                            ...param,
+                            ...res
+                        }
+                        dispatch(addListNormalizrEntity(IUSE, entity))
+                    }}
+                ]
+            )
+
         }),
     })
 )
@@ -91,7 +122,7 @@ export  default  class Creat extends Component {
         const step = this.state.step + 1
         this.setState({step})
         if (step == 2) {
-            this.props.add(this.state.title,this.option)
+            this.props.add(this.state.title, this.option)
         }
 
     }
@@ -176,7 +207,6 @@ export  default  class Creat extends Component {
             </View>
         )
     }
-
 
 
     render(): ReactElement<any> {

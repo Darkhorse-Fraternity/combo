@@ -90,7 +90,7 @@ function _backAnroid (getState) {
 
 function _isConnected(dispatch) {
     NetInfo.isConnected.addEventListener(
-        'NetInfo_IsConnected',
+        'connectionChange',
         (isConnected)=>{
            // console.log('isConnected:', isConnected);
             dispatch(dataStorage('isConnected',isConnected))

@@ -21,7 +21,7 @@ export const LIST_DELETE = 'LIST_DELETE'
 export const LIST_ADD = 'LIST_ADD'
 import Toast from 'react-native-simple-toast';
 const pageSize = 20;
-import {addEntities} from '../module/normalizr'
+import {addNormalizrEntity} from '../module/normalizr'
 /**
  * 保证加载的时候，同个请求不窜行。
  */
@@ -174,9 +174,10 @@ export function add(key,data) {
     }
 }
 
-export function addNormalizrEntity(key,data) : Function{
+export function addListNormalizrEntity(key,data) : Function{
     return (dispatch)=>{
-        dispatch(addEntities({[key]:{[data.objectId]:data}}))
+        dispatch(addNormalizrEntity(key,data))
+        // dispatch(addNormalizrEntities(key,data))
         dispatch(add(key,data.objectId))
     }
 }

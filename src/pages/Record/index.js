@@ -19,7 +19,7 @@ import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import {IRECORD, ICARD} from '../../redux/reqKeys'
+import {IRECORD, ICARD,IUSE} from '../../redux/reqKeys'
 import {selfUser} from '../../request/LCModle'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {addEntities} from '../../redux/module/normalizr'
@@ -41,7 +41,8 @@ const heightZoomIn= {
 Animatable.initializeRegistryWithDefinitions({heightZoomIn})
 @connect(
     state =>({
-        data:state.list.get(IRECORD)
+        data:state.list.get(IRECORD),
+        iCard:state.normalizr.get(ICARD)
     }),
     dispatch =>({
 
@@ -113,9 +114,10 @@ export default class Record extends Component {
     rows = []
     renderRow({item, index}: Object) {
         // md-refresh
-        // console.log('test:', item);
-        const days = item.period * (item.cycle ) + (item.time )
-        const reflesh = item.time == item.period || item.statu == 'stop'
+
+        const iCard = this.props.iCard.get(item[ICARD]).toJS()
+        const days = iCard.period * (item.cycle ) + (item.time )
+        const reflesh = item.time == iCard.period || item.statu == 'stop'
         return (
             <Animatable.View
                 ref={(row) => this.rows[index] = row}
@@ -137,13 +139,13 @@ export default class Record extends Component {
                         style={{flex:1}}
                         onPress={()=>{
 
-                    this.props.navigation.navigate('RecordDetail',{data:item})
+                    this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
             }}>
                         <View style={styles.row}>
                             <View style={styles.subRow}>
                                 <Icon style={styles.icon} name={reflesh?'ios-refresh':"ios-walk"} size={50}/>
                                 <View style={styles.des}>
-                                    <Text style={styles.title}>{item.title}</Text>
+                                    <Text style={styles.title}>{iCard.title}</Text>
                                     <Text style={styles.time}>坚持了{days}天</Text>
                                 </View>
                             </View>
@@ -158,13 +160,14 @@ export default class Record extends Component {
     render() {
 
         const param = {
-            'where': selfUser()
+            where: selfUser(),
+            include: ICARD
         }
         return (
             <LCList
                 renderHeader={this._renderHeader}
                 style={[this.props.style,styles.list]}
-                reqKey={ICARD}
+                reqKey={IUSE}
                 sKey={IRECORD}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{

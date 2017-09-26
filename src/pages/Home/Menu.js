@@ -141,6 +141,24 @@ export  default  class Menu extends Component {
                         onStartShouldSetResponder={()=>true}
                         onResponderGrant={()=>{
                             Pop.hide()
+
+                        }}
+                        onPress={()=>{
+
+                        }}>
+                        <Icon name="md-log-out" size={50}/>
+                        <Text>我的发布</Text>
+                    </Btn>
+                    <Btn
+                        delay={200}
+                        useNativeDriver
+                        duration={2000}
+                        easing="ease-in-out"
+                        animation="bounceIn"
+                        style={styles.close}
+                        onStartShouldSetResponder={()=>true}
+                        onResponderGrant={()=>{
+                            Pop.hide()
                             this.props.logOut()
                         }}
                         onPress={()=>{
@@ -191,6 +209,9 @@ const styles = StyleSheet.create({
         margin:20,
     },
     menu:{
-        flexDirection:'row'
+        flexDirection:'row',
+        flexWrap:'wrap',
+        alignItems:'center',
+        justifyContent:'center'
     }
 })

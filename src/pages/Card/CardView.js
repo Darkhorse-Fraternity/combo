@@ -18,11 +18,11 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {logout} from '../../redux/actions/user'
-import {ICARD, IDO} from '../../redux/reqKeys'
+import {ICARD, IDO,IUSE} from '../../redux/reqKeys'
 import {add, search, update,batch} from '../../redux/module/leancloud'
 import {classUpdate,classCreatNewOne} from '../../request/leanCloud'
-import {selfUser, iCard} from '../../request/LCModle'
-import {addNormalizrEntity} from '../../redux/actions/list'
+import {selfUser, iCard,iUse} from '../../request/LCModle'
+// import {addListNormalizrEntity} from '../../redux/actions/list'
 import {addEntities} from '../../redux/module/normalizr'
 import {clear} from '../../redux/actions/list'
 import Pop from '../../components/Pop'
@@ -50,8 +50,9 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
 //data:state.req.get()
 @connect(
     state =>({
-        data: state.list.get(ICARD),
-        normalizrData: state.normalizr.get(ICARD)
+        data: state.list.get(IUSE),
+        normalizrData: state.normalizr.get(IUSE),
+        iCard:state.normalizr.get(ICARD)
     }),
     (dispatch, props) =>({
         //...bindActionCreators({},dispatch),
@@ -63,55 +64,60 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                     ...selfUser(),
                     statu: 'start'
                 },
-                order: 'doneDate'
-
-
-            }, ICARD))
+                order: 'doneDate',
+                include: ICARD
+            }, IUSE))
         },
-        done: async(data) => {
-            //在这边添加新的判断
-            const id = data.objectId
-            const time = data.time + 1
-            const param = {
-                doneDate: {"__type": "Date", "iso": moment()},
-                time: time,
-                //cycle,
-                statu: time == data.period ? "stop" : "start"
-            }
+        done: (data) => {
+            dispatch(async (dispatch,getState)=>{
+                const state = getState()
+                const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
-            
-            if(data.record.length >0){
-                Pop.show(<Do data={data}/>,{maskStyle:{backgroundColor:'transparent'}})
-                return
-            }
-            
-            const iCardP = classUpdate(ICARD,id,param)
-            const iDoP = classCreatNewOne(IDO,{
-                ...selfUser(),
-                ...iCard(id)
-            })
-            
-            const res = await batch([iCardP,iDoP])
-            // const res = await update(id, param, ICARD)
-
-
-
-            const entity = {
-                ...param,
-                ...(res[0].success)
-            }
-
-            dispatch(addEntities({
-                [ICARD]: {
-                    [entity.objectId]: entity
+                //在这边添加新的判断
+                const id = data.objectId
+                const time = data.time + 1
+                const param = {
+                    doneDate: {"__type": "Date", "iso": moment()},
+                    time: time,
+                    //cycle,
+                    statu: time == data.period ? "stop" : "start"
                 }
-            }))
+
+
+                if(iCardM.record.length >0){
+                    Pop.show(<Do data={data}/>,{maskStyle:{backgroundColor:'transparent'}})
+                    return
+                }
+
+                const IUseP = classUpdate(IUSE,id,param)
+                const iDoP = classCreatNewOne(IDO,{
+                    ...selfUser(),
+                    ...iUse(id),
+                    ...iCard(iCardM.objectId)
+                })
+
+                const res = await batch([IUseP,iDoP])
+                // const res = await update(id, param, ICARD)
+
+
+
+                const entity = {
+                    ...param,
+                    ...(res[0].success)
+                }
+
+                dispatch(addEntities({
+                    [IUSE]: {
+                        [entity.objectId]: entity
+                    }
+                }))
+            })
         },
 
         setting: (entity, setting)=> {
             entity.setting = setting
             dispatch(addEntities({
-                [ICARD]: {
+                [IUSE]: {
                     [entity.objectId]: entity
                 }
             }))
@@ -122,18 +128,18 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 statu: 'stop',
                 //cycle,
             }
-            const res = await update(id, param, ICARD)
+            const res = await update(id, param, IUSE)
             const entity = {
                 ...param,
                 ...res,
                 setting:false,
             }
             dispatch(addEntities({
-                [ICARD]: {
+                [IUSE]: {
                     [entity.objectId]: entity
                 }
             }))
-            dispatch(clear(ICARD, index))
+            dispatch(clear(IUSE, index))
             callBack && callBack()
         },
         refresh: async(data) => {
@@ -195,13 +201,15 @@ export  default  class Home extends Component {
 
     __settingView = ({item, index}, data)=> {
         const self = this
+        const iCardId = data[ICARD]
+        const iCard = this.props.iCard.get(iCardId).toJS()
         return (<View>
             <BounceBtn
                 color="#rgb(136,175,160)"
                 radius={60}
                 moveColor="#rgba(136,175,160,0.4)"
                 onPress={()=>{
-                    this.props.navigation.navigate('OptionView',{opData:data})
+                    this.props.navigation.navigate('OptionView',{opData:iCard})
                 }}
                 title="修改配置"/>
             <View style={{height:20}}/>
@@ -264,6 +272,9 @@ export  default  class Home extends Component {
     __renderItem = ({item, index})=> {
         const data = this.props.normalizrData.get(item).toJS()
 
+        const iCardId = data[ICARD]
+        const iCard = this.props.iCard.get(iCardId)
+        // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
 
         //flag 为true 的时候说明离上次打卡已经有24小时了
@@ -289,7 +300,7 @@ export  default  class Home extends Component {
                             style={{marginTop:20}}>
                             <Icon name={!data.setting?"ios-settings-outline":'md-close'} size={20}/>
                         </TouchableOpacity>
-                        <Text style={styles.title}>{data.title}</Text>
+                        <Text style={styles.title}>{iCard.get('title')}</Text>
                         <View/>
                     </View>
                     {inView()}

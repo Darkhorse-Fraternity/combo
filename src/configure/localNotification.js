@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux'
-import {ICARD} from '../redux/reqKeys'
+import {ICARD,IUSE} from '../redux/reqKeys'
 export  function nowNotification() {
 
 
@@ -66,7 +66,7 @@ export async function  dayNotification(data) {
     data.forEach(item=>{
 
         if(item.statu == 'stop'){return}
-        let notifyTime = item.notifyTime.split(":")[0]
+        let notifyTime = item.iCard.notifyTime.split(":")[0]
         notifyTime = parseInt(notifyTime)
 
 
@@ -82,7 +82,7 @@ export async function  dayNotification(data) {
             :moment(notifyTime, "HH").add(1, 'days').toDate()
 
 
-        const message = item.notifyText ||( item.title +"完成了吗?")
+        const message = item.iCard.notifyText ||( item.iCard.title +"完成了吗?")
 
         PushNotification.localNotificationSchedule({
             message: message, // (required)
@@ -111,8 +111,9 @@ export async function  dayNotification(data) {
 
 @connect(
     state =>({
-        data: state.list.get(ICARD),
-        normalizrData: state.normalizr.get(ICARD)
+        data: state.list.get(IUSE),
+        normalizrData: state.normalizr.get(IUSE),
+        iCard:state.normalizr.get(ICARD)
     }),
     dispatch =>({})
 )
@@ -129,11 +130,15 @@ export  default  class PushManage extends Component {
         let  data = props.data.toJS()
 
 
-        if(data.loadStatu != "LIST_LOAD_DATA"){
+
+
+        if(!!this.props.iCard && data.loadStatu != "LIST_LOAD_DATA"){
             const ndata = props.normalizrData.toJS()
             data = data.listData
             const array = data.map(key =>{
-                return ndata[key]
+                const res = ndata[key]
+                res.iCard = this.props.iCard.get(res[ICARD]).toJS()
+                return res
             })
 
             // console.log('test:', array);

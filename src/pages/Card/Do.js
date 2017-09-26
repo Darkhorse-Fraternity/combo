@@ -29,75 +29,88 @@ import {connect} from 'react-redux'
 import Toast from 'react-native-simple-toast'
 import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
 import {batch} from '../../redux/module/leancloud'
-import {selfUser, iCard} from '../../request/LCModle'
+import {selfUser, iCard,iUse} from '../../request/LCModle'
 import {addEntities} from '../../redux/module/normalizr'
 import moment from 'moment'
 import {uploadFilesByLeanCloud} from '../../request/uploadAVImage'
-import {ICARD, IDO} from '../../redux/reqKeys'
+import {ICARD, IDO,IUSE} from '../../redux/reqKeys'
 
 import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
 //static displayName = 
 @connect(
     state =>({
         //data:state.req.get()
+        iCard:state.normalizr.get(ICARD)
+
     }),
     dispatch =>({
         //...bindActionCreators({},dispatch),
-        done: async(data, state, callBack) => {
+        done: (data, state, callBack) => {
             //先判断是否有图片，如果有则 先上传图片。
+            dispatch(async (dispatch,getState)=>{
+                callBack && callBack(true)
 
-            callBack && callBack(true)
+                try {
+                    const {files, ...otherState} = state
+                    let ims = []
 
-            try {
-                const {files, ...otherState} = state
-                let ims = []
-                if (data.record.indexOf('图片') !== -1) {
-                    const urls = files.map(file => file.uri)
-                    const res = await uploadFilesByLeanCloud(urls)
-                    ims = res.map(imgs=>imgs.attributes.url)
-                }
+                    const state2 = getState()
+                    const iCardM = state2.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
 
-                const id = data.objectId
-                const time = data.time + 1
-                const param = {
-                    doneDate: {"__type": "Date", "iso": moment()},
-                    time: time,
-                    //cycle,
-                    statu: time == data.period ? "stop" : "start"
-                }
-
-
-
-
-                const iCardP = classUpdate(ICARD, id, param)
-                const iDoP = classCreatNewOne(IDO, {
-                    ...selfUser(),
-                    ...iCard(id),
-                    ...otherState,
-                    imgs: ims
-                })
-
-                const res = await batch([iCardP, iDoP])
-
-
-                const entity = {
-                    ...param,
-                    ...(res[0].success)
-                }
-
-                dispatch(addEntities({
-                    [ICARD]: {
-                        [entity.objectId]: entity
+                    if (iCardM.record.indexOf('图片') !== -1) {
+                        const urls = files.map(file => file.uri)
+                        const res = await uploadFilesByLeanCloud(urls)
+                        ims = res.map(imgs=>imgs.attributes.url)
                     }
-                }))
 
-                callBack && callBack(false)
-                Pop.hide()
 
-            } catch (e) {
-                callBack && callBack(false)
-            }
+                    const id = data.objectId
+                    const time = data.time + 1
+                    const param = {
+                        doneDate: {"__type": "Date", "iso": moment()},
+                        time: time,
+                        //cycle,
+                        statu: time == data.period ? "stop" : "start"
+                    }
+
+
+
+
+                    const iCardP = classUpdate(IUSE, id, param)
+                    const iDoP = classCreatNewOne(IDO, {
+                        ...selfUser(),
+                        ...iUse(id),
+                        ...iCard(iCardM.objectId),
+                        ...otherState,
+                        imgs: ims
+                    })
+
+                    const res = await batch([iCardP, iDoP])
+
+
+                    const entity = {
+                        ...param,
+                        ...(res[0].success)
+                    }
+
+                    dispatch(addEntities({
+                        [IUSE]: {
+                            [entity.objectId]: entity
+                        }
+                    }))
+
+                    callBack && callBack(false)
+                    Pop.hide()
+
+                } catch (e) {
+                    console.log('test:', e.message);
+                    callBack && callBack(false)
+                }
+
+            })
+
+
 
         },
     })
@@ -134,7 +147,8 @@ export  default  class  extends Component {
 
     __checkType = (type)=> {
         const data = this.props.data
-        const record = data.record
+        const iCard = this.props.iCard.get(data[ICARD]).toJS()
+        const record = iCard.record
         return record.indexOf(type) !== -1
     }
 

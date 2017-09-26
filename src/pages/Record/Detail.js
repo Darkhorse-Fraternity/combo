@@ -17,7 +17,7 @@ import {
 } from 'react-native'
 import {IDO} from '../../redux/reqKeys'
 
-import {selfUser, iCard} from '../../request/LCModle'
+import {selfUser, iCard,iUse} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
@@ -25,8 +25,8 @@ import LCList from '../../components/Base/LCList';
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {update,} from '../../redux/module/leancloud'
-import {addNormalizrEntity} from '../../redux/actions/list'
-import {ICARD} from '../../redux/reqKeys'
+import {addListNormalizrEntity} from '../../redux/actions/list'
+import {ICARD,IUSE} from '../../redux/reqKeys'
 
 
 const listKey = IDO
@@ -34,14 +34,14 @@ const listKey = IDO
 
 @connect(
     (state,props) =>({
-        data: state.normalizr.get(ICARD).get(props.navigation.state.params.data.objectId)
+        data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId)
     }),
-    dispatch =>({
+    (dispatch,props) =>({
         refresh: async(data) => {
             const id = data.objectId
+            const card = props.navigation.state.params.card
 
-
-            const isDone = data.time == data.period
+            const isDone = data.time == card.period
 
             const param = {
                 time: isDone ? 0 : data.time,
@@ -49,7 +49,7 @@ const listKey = IDO
                 cycle: isDone ? data.cycle + 1 : data.cycle,
             }
 
-            const res = await update(id, param, ICARD)
+            const res = await update(id, param, IUSE)
             const entity = {
                 ...param,
                 ...res,
@@ -59,7 +59,7 @@ const listKey = IDO
             //         [entity.objectId]: entity
             //     }
             // }))
-            dispatch(addNormalizrEntity(ICARD, entity))
+            dispatch(addListNormalizrEntity(IUSE, entity))
         },
     })
 )
@@ -81,7 +81,8 @@ export default class Detail extends Component {
         const {state} = navigation;
         const {params} = state;
         const item = params.data
-        const reflesh = item.time == item.period || item.statu == 'stop'
+        const card = params.card
+        const reflesh = item.time == card.period || item.statu == 'stop'
         return {
             title: params.data.title,
             headerRight: reflesh && (
@@ -102,7 +103,7 @@ export default class Detail extends Component {
 
 
     __refresh = (data)=> {
-        const isDone = data.time == data.period
+        const isDone = data.time == this.props.navigation.state.params.card.period
         Alert.alert(
             isDone ? '再来一组?' : '重新开启',
             '',
@@ -116,7 +117,7 @@ export default class Detail extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('test:', nextProps);
+        // console.log('test:', nextProps);
         const {navigation} = this.props;
         const item = nextProps.data.toJS()
         const data = this.props.data.toJS()
@@ -162,7 +163,7 @@ export default class Detail extends Component {
         const param = {
             'where': {
                 ...selfUser(),
-                ...iCard(params.data.objectId)
+                ...iUse(params.data.objectId)
             }
         }
 
