@@ -52,7 +52,8 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
     state =>({
         data: state.list.get(IUSE),
         normalizrData: state.normalizr.get(IUSE),
-        iCard:state.normalizr.get(ICARD)
+        iCard:state.normalizr.get(ICARD),
+        user:state.user.data
     }),
     (dispatch, props) =>({
         //...bindActionCreators({},dispatch),
@@ -203,16 +204,17 @@ export  default  class Home extends Component {
         const self = this
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId).toJS()
+        const isSelf = iCard.user == this.props.user.objectId
         return (<View>
-            <BounceBtn
+            {isSelf &&  (<BounceBtn
                 color="#rgb(136,175,160)"
                 radius={60}
                 moveColor="#rgba(136,175,160,0.4)"
                 onPress={()=>{
                     this.props.navigation.navigate('OptionView',{opData:iCard})
                 }}
-                title="修改配置"/>
-            <View style={{height:20}}/>
+                title="修改配置"/>)}
+            {isSelf && (<View style={{height:20}}/>)}
             <BounceBtn
                 radius={60}
                 color="#rgb(156,175,170)"
@@ -274,6 +276,8 @@ export  default  class Home extends Component {
 
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId)
+        // const isSelf = iCard.get('user') == this.props.user.objectId
+        const isSelf = true
         // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
 
@@ -292,15 +296,16 @@ export  default  class Home extends Component {
                 style={styles.item}>
                 <View style={styles.card}>
                     <View style={styles.toper}>
-                        <TouchableOpacity
+                        {isSelf ?  (<TouchableOpacity
                             onPress={()=>{
                                 {/*this.__delete(index,data.objectId)*/}
                                 this.props.setting(data,!data.setting)
                             }}
+                            hitSlop={{top:20,left:20,bottom:20,right:20}}
                             style={{marginTop:20}}>
                             <Icon name={!data.setting?"ios-settings-outline":'md-close'} size={20}/>
-                        </TouchableOpacity>
-                        <Text style={styles.title}>{iCard.get('title')}</Text>
+                        </TouchableOpacity>):(<View/>)}
+                        <Text style={[styles.title]}>{iCard.get('title')}</Text>
                         <View/>
                     </View>
                     {inView()}
@@ -396,6 +401,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 17,
         marginTop: 10,
+        textAlign:'center',
     },
     headerBtn: {
         padding: 20,
@@ -414,7 +420,7 @@ const styles = StyleSheet.create({
         width: 200,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     noDataBc: {
         backgroundColor: '#fabc46',

@@ -140,13 +140,14 @@ export  default  class Menu extends Component {
                         style={styles.close}
                         onStartShouldSetResponder={()=>true}
                         onResponderGrant={()=>{
-                            Pop.hide()
 
+                            Pop.hide()
+                             push('Publish')
                         }}
                         onPress={()=>{
 
                         }}>
-                        <Icon name="md-log-out" size={50}/>
+                        <Icon name="ios-brush" size={50}/>
                         <Text>我的发布</Text>
                     </Btn>
                     <Btn

@@ -22,7 +22,8 @@ export const registerListKeys = [
     IDONE,
     IRECORD,
     IDO,
-    IUSE
+    IUSE,
+    ICARD
 ]
 
 export const registerNormalizrKeys = registerListKeys

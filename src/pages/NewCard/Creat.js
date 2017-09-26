@@ -65,7 +65,9 @@ import OptionView, {StaticOption} from './OptionView'
             Alert.alert(
                 '你新建了一个卡片，是否立即使用它',
                 '您可以使用或者分享它',
-                [{text: '取消', onPress: () => _goUpDate(data)},
+                [{text: '取消', onPress: () => {
+                    props.navigation.navigate('Publish')
+                }},
                     {text: '确定', onPress: async () => {
 
                         const param = {
