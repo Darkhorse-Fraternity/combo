@@ -23,7 +23,7 @@ import {add, search, update,batch} from '../../redux/module/leancloud'
 import {classUpdate,classCreatNewOne} from '../../request/leanCloud'
 import {selfUser, iCard,iUse} from '../../request/LCModle'
 // import {addListNormalizrEntity} from '../../redux/actions/list'
-import {addEntities} from '../../redux/module/normalizr'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {clear} from '../../redux/actions/list'
 import Pop from '../../components/Pop'
 import Do from './Do'
@@ -107,21 +107,24 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                     ...(res[0].success)
                 }
 
-                dispatch(addEntities({
-                    [IUSE]: {
-                        [entity.objectId]: entity
-                    }
-                }))
+                // dispatch(addEntities({
+                //     [IUSE]: {
+                //         [entity.objectId]: entity
+                //     }
+                // }))
+                dispatch(addNormalizrEntity(IUSE,entity))
+
             })
         },
 
         setting: (entity, setting)=> {
             entity.setting = setting
-            dispatch(addEntities({
-                [IUSE]: {
-                    [entity.objectId]: entity
-                }
-            }))
+            // dispatch(addEntities({
+            //     [IUSE]: {
+            //         [entity.objectId]: entity
+            //     }
+            // }))
+            dispatch(addNormalizrEntity(IUSE,entity))
         },
         stop: async(data, index, callBack)=> {
             const id = data.objectId
@@ -135,11 +138,12 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 ...res,
                 setting:false,
             }
-            dispatch(addEntities({
-                [IUSE]: {
-                    [entity.objectId]: entity
-                }
-            }))
+            // dispatch(addEntities({
+            //     [IUSE]: {
+            //         [entity.objectId]: entity
+            //     }
+            // }))
+            dispatch(addNormalizrEntity(IUSE,entity))
             dispatch(clear(IUSE, index))
             callBack && callBack()
         },
@@ -151,17 +155,18 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 cycle: data.cycle + 1,
             }
 
-            const res = await  await update(id, param, ICARD)
+            const res = await  await update(id, param, IUSE)
 
             const entity = {
                 ...param,
                 ...res
             }
-            dispatch(addEntities({
-                [ICARD]: {
-                    [entity.objectId]: entity
-                }
-            }))
+            // dispatch(addEntities({
+            //     [IUSE]: {
+            //         [entity.objectId]: entity
+            //     }
+            // }))
+            dispatch(addNormalizrEntity(IUSE,entity))
         },
 
     })

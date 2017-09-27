@@ -27,6 +27,7 @@ import {selfUser,iCard} from '../../request/LCModle'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import OptionView, {StaticOption} from './OptionView'
+
 //static displayName = Creat
 @connect(
     state =>({
@@ -56,10 +57,15 @@ import OptionView, {StaticOption} from './OptionView'
                 ...param,
                 ...res
             }
-            // console.log('res:',res);
-            // dispatch(addNormalizrEntity(ICARD, entity))
             dispatch(addNormalizrEntity(ICARD,entity))
-            props.navigation.goBack()
+
+            //返回首页
+            dispatch((dispatch,getState)=>{
+                const key = getState().nav.routes[1].key
+                props.navigation.goBack(key)
+            })
+
+
             const iCardId = res.objectId
             //询问是否立即使用。
             Alert.alert(

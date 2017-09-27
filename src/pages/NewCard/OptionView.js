@@ -19,7 +19,7 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import * as Animatable from 'react-native-animatable';
-import {addEntities} from '../../redux/module/normalizr'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {update} from '../../redux/module/leancloud'
 import {ICARD} from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -50,11 +50,12 @@ export const StaticOption = {
                 ...param,
                 ...res
             }
-            dispatch(addEntities({
-                [ICARD]: {
-                    [entity.objectId]: entity
-                }
-            }))
+            // dispatch(addEntities({
+            //     [ICARD]: {
+            //         [entity.objectId]: entity
+            //     }
+            // }))
+            dispatch(addNormalizrEntity(ICARD,entity))
         }
     })
 )

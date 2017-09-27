@@ -76,7 +76,7 @@ export  default  class Home extends Component {
             headerRight:!isLogin ?undefined: ( <TouchableOpacity
                 style={styles.headerBtn}
                 onPress={()=>{
-                        navigation.navigate('Creat')
+                        navigation.navigate('NewCard')
                     }}>
                 <Icon name="md-add" size={30}/>
             </TouchableOpacity>),
@@ -93,6 +93,7 @@ export  default  class Home extends Component {
 
 
     componentWillReceiveProps(nextProps) {
+        console.log('test:', nextProps);
         if (nextProps.isLogin != this.props.isLogin ||nextProps.localLoad != this.props.localLoad) {
             const {navigation} = nextProps;
             navigation.setParams({isLogin: nextProps.isLogin,localLoad: nextProps.localLoad})

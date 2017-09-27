@@ -22,8 +22,7 @@ import LCList from '../../components/Base/LCList';
 import {IRECORD, ICARD,IUSE} from '../../redux/reqKeys'
 import {selfUser} from '../../request/LCModle'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {addEntities} from '../../redux/module/normalizr'
-import {update, remove,search} from '../../redux/module/leancloud'
+import { remove,search} from '../../redux/module/leancloud'
 import {SwipeAction} from 'antd-mobile'
 import {clear} from '../../redux/actions/list'
 import * as Animatable from 'react-native-animatable';

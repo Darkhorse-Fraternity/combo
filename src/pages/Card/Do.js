@@ -30,7 +30,7 @@ import Toast from 'react-native-simple-toast'
 import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
 import {batch} from '../../redux/module/leancloud'
 import {selfUser, iCard,iUse} from '../../request/LCModle'
-import {addEntities} from '../../redux/module/normalizr'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import moment from 'moment'
 import {uploadFilesByLeanCloud} from '../../request/uploadAVImage'
 import {ICARD, IDO,IUSE} from '../../redux/reqKeys'
@@ -94,11 +94,13 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                         ...(res[0].success)
                     }
 
-                    dispatch(addEntities({
-                        [IUSE]: {
-                            [entity.objectId]: entity
-                        }
-                    }))
+                    // dispatch(addEntities({
+                    //     [IUSE]: {
+                    //         [entity.objectId]: entity
+                    //     }
+                    // }))
+
+                    dispatch(addNormalizrEntity(IUSE,entity))
 
                     callBack && callBack(false)
                     Pop.hide()
