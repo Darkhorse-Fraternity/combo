@@ -100,7 +100,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 const res = await batch([IUseP,iDoP])
                 // const res = await update(id, param, ICARD)
 
-
+                console.log('res:', res);
 
                 const entity = {
                     ...param,

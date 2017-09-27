@@ -93,7 +93,7 @@ export  default  class Home extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-        console.log('test:', nextProps);
+        // console.log('test:', nextProps);
         if (nextProps.isLogin != this.props.isLogin ||nextProps.localLoad != this.props.localLoad) {
             const {navigation} = nextProps;
             navigation.setParams({isLogin: nextProps.isLogin,localLoad: nextProps.localLoad})
