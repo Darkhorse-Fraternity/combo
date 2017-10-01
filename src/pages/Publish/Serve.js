@@ -112,7 +112,6 @@ export default class Detail extends Component {
 
         const param = {
             'where': {
-                ...selfUser(),
                 ...iCard(params.iCard.objectId),
             },
         }

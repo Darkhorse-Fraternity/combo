@@ -58,21 +58,15 @@ export default function pushConfig() {
     });
     if (Platform.OS != 'ios') {
 
-        const uniqueID = DeviceInfo.getUniqueID()
+        const LeanCloudPushNative = NativeModules.LeanCloudPush;
 
-        let token = uniqueID
-        if (global.TextEncoder) {
-            console.log('global.TextEncoder:', global.TextEncoder)
-            const buffer = new TextEncoder("utf-8").encode(uniqueID)
-            const uuid = require('react-native-uuid');
-            token = uuid.unparse(buffer)
-        }
-
-
-        const param = pushInstallation(Platform.OS, uniqueID)
-        send(param).then((response)=> {
-            console.log('response:', response)
+        LeanCloudPushNative.getInstallationId().then(id=>{
+            const param = pushInstallation(Platform.OS,id)
+            send(param).then((response)=>{
+                console.log('response:',response)
+            })
         })
+
 
 
         const LeanCloudPushNative = NativeModules.LeanCloudPush;
