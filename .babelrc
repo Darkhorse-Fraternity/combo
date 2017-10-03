@@ -4,6 +4,7 @@
   ],
   "plugins": [
     "transform-decorators-legacy",
+    "transform-strict-mode",
     ["import", {
       "libraryName": "antd-mobile"
     }]

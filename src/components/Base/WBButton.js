@@ -1,7 +1,8 @@
 /*@flow*/
 'use strict';
 import Button from 'react-native-button';
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ReactNative, {
     StyleSheet,
     View,

@@ -4,7 +4,8 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
@@ -30,7 +31,7 @@ import {denormalize} from 'normalizr'
     })
 )
 
-export  default  class ReqListView extends Component {
+export  default  class LCList extends Component {
     constructor(props: Object) {
         super(props);
     }
