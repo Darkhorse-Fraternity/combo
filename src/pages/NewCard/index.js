@@ -125,7 +125,6 @@ export default class Publish extends Component {
         }
         return (
             <LCList
-                renderHeader={this._renderHeader}
                 ListHeaderComponent={this._listHeaderComponet}
                 style={[this.props.style,styles.list]}
                 reqKey={listKey}

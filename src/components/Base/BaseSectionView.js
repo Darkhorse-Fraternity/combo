@@ -151,6 +151,7 @@ export default class BaseSectionView extends Component {
             TableView = SectionList
         }
 
+
         if (this.props.loadStatu === LIST_FIRST_JOIN) {
             return (
                 <ExceptionView

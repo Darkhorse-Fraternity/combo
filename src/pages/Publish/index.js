@@ -70,7 +70,7 @@ export default class Publish extends Component {
                     style={styles.title}>
                     {item.title}
                     </Text>
-                <Text style={styles.period}>周期:{item.period}天</Text>
+                <Text style={styles.period}>使用人数:{item.useNum}</Text>
             </TouchableOpacity>
         )
     }

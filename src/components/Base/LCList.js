@@ -109,9 +109,11 @@ export  default  class ReqListView extends Component {
         const loadData = (param)=>this.props.load(false,param,key,  {sKey, dataMap})
         const loadMore = ()=>this.props.loadMore(true,reqParam,key, {sKey, dataMap})
         this.loadData = loadData
+
         return (
             <BaseSectionView
                 {...this.props}
+                renderHeader={this.props.ListHeaderComponent}
                 loadData={()=>loadData(reqParam)}
                 loadMore={loadMore}
                 data={data}

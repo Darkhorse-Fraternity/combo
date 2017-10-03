@@ -35,7 +35,7 @@ export function send({
     timeout = 20000,
     params,
     head,
-    needSession = false,
+    needSession = true,
     ...otherParams,
 }:Object): Promise<any> {
 

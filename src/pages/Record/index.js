@@ -46,7 +46,7 @@ Animatable.initializeRegistryWithDefinitions({heightZoomIn})
     dispatch =>({
 
         delete: async(rowId, objectId, callBack)=> {
-            await remove(objectId, ICARD)
+            await remove(objectId,IUSE)
             dispatch(clear(IRECORD, rowId))
             callBack && callBack()
 

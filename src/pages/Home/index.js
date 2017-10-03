@@ -50,6 +50,9 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
     }),
     (dispatch, props) =>({
         //...bindActionCreators({},dispatch)
+        sayHello:()=>{
+
+        }
     })
 )
 

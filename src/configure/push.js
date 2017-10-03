@@ -67,9 +67,6 @@ export default function pushConfig() {
             })
         })
 
-
-
-        const LeanCloudPushNative = NativeModules.LeanCloudPush;
         LeanCloudPushNative.getInitialNotification().then((res)=> {
             console.log('InitialNotification:', res)
         }).catch((err)=> {
