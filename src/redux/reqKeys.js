@@ -7,6 +7,7 @@ export const IDO = 'iDo'
 export const IUSE = 'iUse'
 export const AUTHCODE = 'authCode'
 
+export const CARDLIST = 'cardList'
 //设置初始值
 
 export const registerReqKeys = [
@@ -23,7 +24,9 @@ export const registerListKeys = [
     IRECORD,
     IDO,
     IUSE,
-    ICARD
+    ICARD,
+    CARDLIST
+
 ]
 
 export const registerNormalizrKeys = registerListKeys

@@ -204,11 +204,11 @@ export function classNormalSearch(className:string,id:string = ''):Object{
 }
 
 export function limitSearch(className:string,page:Number = 0,
-                            limit:Number = 40,other:Object = {}):Object{
+                            limit:Number = 40,other:Object = {},callPath:string):Object{
     const skip = page * limit;
     return {
-      path:'/classes/' + className,
-      method:methodType.get,
+      path:!callPath?'/classes/' + className:'/call/' + callPath,
+      method:!callPath?methodType.get:methodType.post,
       params:{
         skip:skip +'',
         limit:limit + '',

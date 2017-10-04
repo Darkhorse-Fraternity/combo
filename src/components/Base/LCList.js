@@ -41,13 +41,14 @@ export  default  class LCList extends Component {
         reqKey:PropTypes.string.isRequired,
         load: PropTypes.func.isRequired,
         loadMore: PropTypes.func,
+        callPath:PropTypes.string //不为空则表示走leancloud 的云函数
     };
 
     static defaultProps = {
         data: immutable.fromJS({
             listData: [],
             //loadStatu: 'LIST_NORMAL',
-        })
+        }),
     };
 
     shouldComponentUpdate(nextProps: Object) {
@@ -73,7 +74,6 @@ export  default  class LCList extends Component {
 
     loadData:Function
     render(): ReactElement<any> {
-
         if(!this.props.data.get('listData')){
             return (<View/>)
         }
@@ -107,8 +107,8 @@ export  default  class LCList extends Component {
         const reqParam = this.props.reqParam
         const dataMap = this.props.dataMap
         const sKey = this.props.sKey //指定存入redux store 的key
-        const loadData = (param)=>this.props.load(false,param,key,  {sKey, dataMap})
-        const loadMore = ()=>this.props.loadMore(true,reqParam,key, {sKey, dataMap})
+        const loadData = (param)=>this.props.load(false,param,key,  {sKey, dataMap},this.props.callPath)
+        const loadMore = ()=>this.props.loadMore(true,reqParam,key, {sKey, dataMap},this.props.callPath)
         this.loadData = loadData
 
         return (

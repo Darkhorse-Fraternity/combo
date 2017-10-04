@@ -14,7 +14,7 @@ import {
     Text,
     Dimensions
 } from 'react-native'
-import {ICARD,IUSE} from '../../redux/reqKeys'
+import {ICARD,IUSE,CARDLIST} from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import {selfUser,iCard} from '../../request/LCModle'
@@ -118,24 +118,18 @@ export default class Publish extends Component {
 
     render() {
 
-        const param = {
-            'where': {
-                state:1
-            }
-        }
         return (
             <LCList
                 ListHeaderComponent={this._listHeaderComponet}
                 style={[this.props.style,styles.list]}
-                reqKey={listKey}
-                sKey={"NewCardList"}
+                reqKey={listKey} //在normalizr 中的位置
+                sKey={CARDLIST}  //在list 中的位置
+                callPath={CARDLIST} //表示走云函数,并告知云函数的路径
                 numColumns={3}
                 columnWrapperStyle={{paddingHorizontal:10}}
                 renderItem={this.renderRow.bind(this)}
-                //dataMap={(data)=>{
-                //   return {[OPENHISTORYLIST]:data.list}
-                //}}
-                reqParam={param}
+                dataMap={(data)=>{return {results:data.result}}}
+                reqParam={{}}
             />
         );
     }

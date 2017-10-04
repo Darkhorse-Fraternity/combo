@@ -107,6 +107,7 @@ export function register(state:Object):Function {
         return req(params).then((response)=>{
                 dispatch(_loginSucceed(response));
         }).catch(e=>{
+            Toast.show(e.message)
             dispatch(_loginFailed());
         })
     }
