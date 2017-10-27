@@ -14,6 +14,7 @@
 		00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302E41ABCB9EE00DB3ED1 /* libRCTVibration.a */; };
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
 		029BC7F5264747088E5024AB /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65803600DE744D58A3F6D5A0 /* libLRDRCTSimpleToast.a */; };
+		1007F04F65F447FA8BBDC65A /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C4198DA343472092E1C09B /* libInteractable.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -264,6 +265,13 @@
 			remoteGlobalIDString = 2DD0EFE61DA8533A00B0C975;
 			remoteInfo = "RCTPushNotification-tvOS";
 		};
+		CC998CD41FA2C1F90040ED73 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE1C6CE95718429DA4D9D756 /* Interactable.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CC0127971E3ACC3900B23C9F;
+			remoteInfo = Interactable;
+		};
 		CCA6646D1DFFFFC400BD9511 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */;
@@ -399,7 +407,9 @@
 		CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCC010561DF9485700613165 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D4C4198DA343472092E1C09B /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		ECCF4E078DE943C5B1B7BA60 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		EE1C6CE95718429DA4D9D756 /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 		F3027EBB794D45B4AC82FCB0 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		FE3142187D364EDDA87EED18 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -445,6 +455,7 @@
 				C762FD746F93AA3B36AE96CF /* libPods-Combo.a in Frameworks */,
 				FDC0B11A96934A92A28C0030 /* libRNBlur.a in Frameworks */,
 				029BC7F5264747088E5024AB /* libLRDRCTSimpleToast.a in Frameworks */,
+				1007F04F65F447FA8BBDC65A /* libInteractable.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,6 +646,7 @@
 				97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */,
 				3E6E624ABE2146FE8D6B7704 /* RNBlur.xcodeproj */,
 				6D6EEAEEE85A47BF94CB5955 /* LRDRCTSimpleToast.xcodeproj */,
+				EE1C6CE95718429DA4D9D756 /* Interactable.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -724,6 +736,7 @@
 				8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */,
 				7BA8997293374A3AA7C33A33 /* libRNBlur.a */,
 				65803600DE744D58A3F6D5A0 /* libLRDRCTSimpleToast.a */,
+				D4C4198DA343472092E1C09B /* libInteractable.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -742,6 +755,14 @@
 			children = (
 				CC7959BB1E02A6A600FAA8EB /* libRCTPushNotification.a */,
 				CC7959BD1E02A6A600FAA8EB /* libRCTPushNotification-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC998CD11FA2C1F90040ED73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC998CD51FA2C1F90040ED73 /* libInteractable.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -842,6 +863,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = CC998CD11FA2C1F90040ED73 /* Products */;
+					ProjectRef = EE1C6CE95718429DA4D9D756 /* Interactable.xcodeproj */;
+				},
 				{
 					ProductGroup = CCF7B93F1F4BD2380006AD0A /* Products */;
 					ProjectRef = 6D6EEAEEE85A47BF94CB5955 /* LRDRCTSimpleToast.xcodeproj */;
@@ -1131,6 +1156,13 @@
 			remoteRef = CC7959BC1E02A6A600FAA8EB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CC998CD51FA2C1F90040ED73 /* libInteractable.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libInteractable.a;
+			remoteRef = CC998CD41FA2C1F90040ED73 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		CCA6646E1DFFFFC400BD9511 /* libRCTCameraRoll.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1357,6 +1389,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1376,6 +1409,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
@@ -1410,6 +1444,7 @@
 					"$(SRCROOT)/../node_modules/react-native-wechat/ios",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1460,6 +1495,7 @@
 					"$(SRCROOT)/../node_modules/react-native-wechat/ios",
 					"$(SRCROOT)/../node_modules/react-native-blur/ios",
 					"$(SRCROOT)/../node_modules/react-native-simple-toast/ios/LRDRCTSimpleToast",
+					"$(SRCROOT)/../node_modules/react-native-interactable/lib/ios/Interactable",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

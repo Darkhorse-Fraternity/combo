@@ -75,7 +75,7 @@ export  default  class Home extends Component {
         // console.log('test:', params,localLoad);
         return {
             // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-            title:!isLogin ?  title: 'COMBO',
+            title:!isLogin ?  title: '金色光芒',
             headerRight:!isLogin ?undefined: ( <TouchableOpacity
                 style={styles.headerBtn}
                 onPress={()=>{

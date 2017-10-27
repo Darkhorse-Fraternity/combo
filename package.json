@@ -22,6 +22,7 @@
     "react-native-device-info": "git+https://github.com/Darkhorse-Fraternity/react-native-device-info.git",
     "react-native-dialogs": "0.0.20",
     "react-native-image-picker": "^0.26.7",
+    "react-native-interactable": "^0.1.6",
     "react-native-leancloud-push": "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git",
     "react-native-md5": "^1.0.0",
     "react-native-push-notification": "^3.0.1",
