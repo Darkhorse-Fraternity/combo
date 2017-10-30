@@ -4,18 +4,15 @@
  */
 'use strict';
 
-import * as immutable from 'immutable';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    FlatList,
-    Text,
+
     Dimensions,
     TouchableOpacity,
-    Alert,
-    LayoutAnimation
+
 } from 'react-native'
 import {connect} from 'react-redux'
 
@@ -46,7 +43,6 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
 @connect(
     state =>({
         isLogin: state.user.isLogin,
-        localLoad: state.user.localLoad,
     }),
     (dispatch, props) =>({
         //...bindActionCreators({},dispatch)
@@ -55,7 +51,6 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
         }
     })
 )
-
 export  default  class Home extends Component {
     constructor(props: Object) {
         super(props);
@@ -70,8 +65,7 @@ export  default  class Home extends Component {
         const {state} = navigation;
         const {params} = state;
         const isLogin = params ? params.isLogin : false
-        const localLoad = params ? params.localLoad : false
-        const title = localLoad?"登录":""
+        const title = "登录"
         // console.log('test:', params,localLoad);
         return {
             // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
@@ -96,22 +90,23 @@ export  default  class Home extends Component {
 
 
     componentWillReceiveProps(nextProps) {
-        // console.log('test:', nextProps);
-        if (nextProps.isLogin != this.props.isLogin ||nextProps.localLoad != this.props.localLoad) {
+
+        if (nextProps.isLogin != this.props.isLogin) {
             const {navigation} = nextProps;
-            navigation.setParams({isLogin: nextProps.isLogin,localLoad: nextProps.localLoad})
+            navigation.setParams({isLogin: nextProps.isLogin})
             // LayoutAnimation.spring()
         }
     }
 
 
     render(): ReactElement<any> {
-        const {localLoad, isLogin} = this.props
+        const {isLogin} = this.props
+
         return (
             <View style={[this.props.style,styles.container]}>
                 <PushManage/>
                 <BG style={styles.bc}/>
-                {localLoad && (<View style={styles.main}>
+                <View style={styles.main}>
                     {!isLogin && (
                             <LoginView/>
                     )}
@@ -127,11 +122,12 @@ export  default  class Home extends Component {
 
                         }}
                     />)}
-                </View>)}
+                </View>
             </View>
         );
     }
 }
+
 
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height

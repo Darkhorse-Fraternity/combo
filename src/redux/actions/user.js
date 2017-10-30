@@ -133,6 +133,8 @@ export function loginSucceed(data:Object):Object {
     //保存登录信息。
     setLeanCloudSession(data.sessionToken);
     // setAPPAuthorization(data.authorization);
+
+
     return {
         type: LOGIN_SUCCEED,
         loaded: false,

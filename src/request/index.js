@@ -5,6 +5,10 @@
 import {defaultHost, httpHeaders} from '../configure';
 import {addParams} from './useMeth';
 
+if(typeof global.self === "undefined")
+{
+    global.self = global;
+}
 
 export const schemeType = {
     http: 'http',
@@ -18,6 +22,8 @@ export const methodType = {
     put: 'PUT',
     delete: 'DELETE',
 }
+
+
 
 
 
