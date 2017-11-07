@@ -39,8 +39,8 @@ function httpHeaders(needSession:bool):Object{
 
 //主题色彩
 const themeColorConfig = {
-    mainColor: '#009af8', //主色彩，用于navbar 按钮颜色等、
-    backViewColor: '#F5FCFF',
+    mainColor: '#f1bd49', //主色彩，用于navbar 按钮颜色等、
+    backViewColor: 'white',
     lightMainColor: '#c18379', //主色彩，用于navbar 按钮颜色等、
     containingColor: '#ffffff', //内含主色彩
     lightContainingColor: '#d2d6d6', //内含主色彩

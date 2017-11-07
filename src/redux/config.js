@@ -107,6 +107,7 @@ export function preConfig():Function {
         _isConnected(dispatch)
         loadUserData().then((response)=>{
             dispatch(loginSucceed(response))
+            dispatch(NavigationActions.navigate({routeName: 'Tab', params: {transition: 'forVertical'}}))
         }).catch((error)=>{
             dispatch(_loginFailed())
             console.log('loadUserDataError:',error.message)

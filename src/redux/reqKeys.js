@@ -6,7 +6,7 @@ export const IRECORD = 'iRecord'
 export const IDO = 'iDo'
 export const IUSE = 'iUse'
 export const AUTHCODE = 'authCode'
-
+export const SCENELIST = 'sceneList'
 export const CARDLIST = 'cardList'
 //设置初始值
 
@@ -14,7 +14,8 @@ export const registerReqKeys = [
     ICARD,
     AUTHCODE,
     IDO,
-    IUSE
+    IUSE,
+    SCENELIST
 //设置初始值
 ]
 

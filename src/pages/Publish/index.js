@@ -63,7 +63,7 @@ export default class Publish extends Component {
             <TouchableOpacity
                 style={styles.item}
                 onPress={()=>{
-                    this.props.navigation.navigate('PublishDetail',{iCardID:item.objectId,title:item.title})
+                    this.props.navigation.navigate('PublishDetail',{iCardID:item.objectId,data:item})
             }}>
                 <Text
                     numberOfLines={1}

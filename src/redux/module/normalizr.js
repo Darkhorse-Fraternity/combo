@@ -55,7 +55,6 @@ export default function itemState(state: immutable.Map<string,any> = initialStat
 
             return   state.mergeDeep(action.payload)
         }
-
         default:
             return state
     }

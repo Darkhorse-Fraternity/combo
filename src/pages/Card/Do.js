@@ -87,7 +87,7 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                     })
 
                     const res = await batch([iCardP, iDoP])
-
+                    console.log('do res:', res);
 
                     const entity = {
                         ...param,

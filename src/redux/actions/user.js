@@ -106,6 +106,7 @@ export function register(state:Object):Function {
 
         return req(params).then((response)=>{
                 dispatch(_loginSucceed(response));
+            dispatch(NavigationActions.navigate({ routeName: 'Tab', params: {transition: 'forVertical'}}))
         }).catch(e=>{
             Toast.show(e.message)
             dispatch(_loginFailed());

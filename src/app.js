@@ -7,9 +7,10 @@
 
 import React, {Component} from 'react'
 import { Provider } from 'react-redux'
-import {AppRegistry} from 'react-native';
+import {AppRegistry,View} from 'react-native';
 import configureStore from './redux/configureStore'
 import {preConfig} from './redux/config'
+import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
 //启动初始配置
 configureStore.dispatch(preConfig())
@@ -25,7 +26,10 @@ class App extends Component {
 			<Provider store={configureStore}>
 				{/*{Route(store)}*/}
 				{/*<Route/>*/}
-				<AppWithNavigationState />
+				<View style={{flex: 1}}>
+					<AppWithNavigationState/>
+					<InfoBar/>
+				</View>
 			</Provider>
 		)
 	}

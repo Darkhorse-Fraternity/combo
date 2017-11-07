@@ -14,30 +14,36 @@ export const LOAD_AVATAR = 'LOAD_AVATAR'
 export const UPLOAD_IMAGES = 'UPLOAD_IMAGES'
 export const CHANGEAVATAR = 'CHANGEAVATAR'
 export const DATA_STORAGE = 'DATA_STORAGE'
+import {bindingFileToUser} from '../../request/leanCloud'
+import {updateUserData} from './user'
+import Toast from 'react-native-simple-toast'
+import {uploadFilesByLeanCloud} from '../../request/uploadAVImage'
+
+export function uploadAvatar(uri:string):Function {
+    return async (dispatch,getState) => {
+        const state = getState()
+        const user = state.user.data
+        try{
+
+            let res = await uploadFilesByLeanCloud([uri])
+            res = res[0]
+            const bindUserParam = bindingFileToUser(user.id, res.id, 'avatar');
+            await req(bindUserParam)
+            const avatar = {
+                objectId: res.id,
+                url: res.url(),
+            }
+            dispatch(updateUserData({avatar}))
+        }catch (e){
+            console.log('test:', e.message);
+            Toast.show(e.message)
+        }
 
 
-function _loadAvatar(statu: string): Object {
-    return {
-        type: LOAD_AVATAR,
-        statu: statu,
     };
 }
 
-function _changeAvatar(avatar: Object): Object {
-    return {
-        type: CHANGEAVATAR,
-        avatar: avatar,
-    };
-}
 
-
-function _uploadImg(statu: string, key: string) {
-    return {
-        type: UPLOAD_IMAGES,
-        statu,
-        key,
-    };
-}
 
 export function dataStorage(key: string, data: any): Object {
     return {

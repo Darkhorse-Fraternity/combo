@@ -80,7 +80,7 @@ export default class Record extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            title: '我的记录',
+            // title: '我的记录',
         }
     };
 
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'white',
     },
 
     text: {
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         color: 'rgb(150,150,150)'
     },
     subText: {
-        marginTop: 10,
+        // marginTop: 10,
         fontSize: 14,
         fontWeight: '500',
         color: 'rgb(200,200,200)'
@@ -206,10 +206,12 @@ const styles = StyleSheet.create({
     row: {
         backgroundColor: 'white',
         paddingHorizontal: 18,
-        paddingVertical: 18,
+        paddingVertical: 30,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#e4e4e4',
     },
     subRow: {
         flexDirection: 'row',
@@ -220,7 +222,7 @@ const styles = StyleSheet.create({
     },
     card: {
         // marginTop:10,
-        margin: 5,
+        // margin: 5,
         backgroundColor: "#fff",
         borderRadius: 2,
         shadowColor: "#000000",

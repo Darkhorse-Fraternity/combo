@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
-import  React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
     ScrollView,
     StyleSheet,
@@ -19,23 +19,26 @@ import {connect} from 'react-redux'
 import {logout} from '../../redux/actions/user'
 import {dataStorage} from '../../redux/actions/util'
 import DeviceInfo from 'react-native-device-info'
+
 const styles = StyleSheet.create({
     list: {
-        backgroundColor: backViewColor,
+        backgroundColor: 'white',
     },
     groupSpace: {
         height: 15 / 2,
     },
     group: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
     },
     row: {
         backgroundColor: 'white',
         paddingHorizontal: 15,
-        paddingVertical: 12,
+        paddingVertical: 25,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        borderBottomWidth: StyleSheet.hairlineWidth ,
+        borderBottomColor: '#e4e4e4',
     },
 
 
@@ -87,16 +90,24 @@ class WBSetting extends Component {
         }
     }
 
+
+    static navigationOptions = props => {
+        return {
+         //  title:'设置'
+        }
+    }
+
+
     state: {
-        logoutLoad:bool
+        logoutLoad: bool
     };
 
-    _renderRow(title: string, needArrow: bool, activity: bool = false, onPress: Function = ()=> {
+    _renderRow(title: string, needArrow: bool, activity: bool = false, onPress: Function = () => {
     }) {
         return (
             <TouchableHighlight onPress={onPress}>
                 <View style={styles.row}>
-                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                         {/*<Image
                          source={source}
                          style={styles.imageNail}
@@ -104,7 +115,7 @@ class WBSetting extends Component {
                         <Text style={styles.rowText}>
                             {title}
                         </Text>
-                    </View >
+                    </View>
                     {activity == false && needArrow && <View style={styles.arrowView}/>}
                     {activity == true && <ActivityIndicator/>}
                 </View>
@@ -112,59 +123,45 @@ class WBSetting extends Component {
         );
     }
 
-    _logout = ()=> {
+    _logout = () => {
         //发送请求给服务器
         this.props.logout();
     };
 
-    componentDidMount() {
-        if (this.props.notiValue == undefined) {
-            global.storage.load({key: 'Noti',}).then(ret => {
-                console.log('test:', ret)
-                this.props.noti(ret)
-            }).catch(err => {
-                this.props.noti(true)
-                // console.log('error:',err);
-            })
-        }
-
-    }
 
 
     render() {
+        const navigation = this.props.navigation
         return (
             <ScrollView style={styles.list}>
                 <View style={styles.groupSpace}/>
 
 
-                <View style={[styles.row,{paddingVertical: 5}]}>
-                    <View style={{flexDirection:'row',justifyContent:'center'}}>
-                        {/*<Image
-                         source={source}
-                         style={styles.imageNail}
-                         />*/}
-                        <Text style={styles.rowText}>
-                            消息通知
-                        </Text>
-                    </View >
-                    <Switch onTintColor={mainColor} onValueChange={this.props.noti} value={this.props.notiValue}/>
-                </View>
+                {/*<View style={[styles.row,{paddingVertical: 5}]}>*/}
+                {/*<View style={{flexDirection:'row',justifyContent:'center'}}>*/}
+                {/*/!*<Image*/}
+                {/*source={source}*/}
+                {/*style={styles.imageNail}*/}
+                {/*/>*!/*/}
+                {/*<Text style={styles.rowText}>*/}
+                {/*消息通知*/}
+                {/*</Text>*/}
+                {/*</View >*/}
+                {/*<Switch onTintColor={mainColor} onValueChange={this.props.noti} value={this.props.notiValue}/>*/}
+                {/*</View>*/}
 
 
-                <View style={styles.line}/>
-                {this._renderRow('修改手机', true, false, () => {
-                    this.props.push("ChangePhone");
+                {this._renderRow('意见反馈', true, false, () => {
+                    // NavigationManager.goToPage("Feedback");
+                    navigation.navigate("Feedback");
                 })}
-
+                {/*<View style={styles.line}/>*/}
+                {/*<View style={styles.groupSpace}/>*/}
+                {/*{this._renderRow('关于我们', true, false, () => {*/}
+                    {/*// NavigationManager.goToPage("Feedback");*/}
+                    {/*navigation.navigate("About");*/}
+                {/*})}*/}
                 <View style={styles.groupSpace}/>
-                {this._renderRow('客服中心', true, false, () => {
-                    this.props.push("Service");
-                })}
-                <View style={styles.line}/>
-                {this._renderRow('关于我们', true, false, () => {
-                    this.props.push("About");
-                })}
-                <View style={styles.line}/>
                 {this._renderRow('给个评价', true, false, () => {
                     let url = ''
                     if (Platform.OS == 'ios') {
@@ -177,65 +174,39 @@ class WBSetting extends Component {
                     Linking.openURL(url)
 
                 })}
-                <View style={styles.line}/>
+                {/*<View style={styles.line}/>*/}
+                {/*<View style={styles.groupSpace}/>*/}
+                {/*{this._renderRow('清除缓存', true, false, () => {*/}
+                {/*Toast.show('清除成功')*/}
+                {/*})}*/}
+
+
                 <View style={styles.groupSpace}/>
-                {this._renderRow('清除缓存', true, false, () => {
-                    Toast.show('清除成功')
+                {this._renderRow('退出登录', false, this.state.logoutLoad, () => {
+                    // Actions.asWhiteBoard();
+                    this._logout();
                 })}
-
-
-                <View style={styles.groupSpace}/>
-                <TouchableHighlight style={[styles.row,{justifyContent:'center'}]} onPress={this._logout}>
-                    <Text style={[styles.rowText,{fontSize:13}]}>
-                        退出登录
-                    </Text>
-                </TouchableHighlight>
 
             </ScrollView>
         );
     }
 }
 
-const cKey = 'Setting'
 const mapStateToProps = (state) => {
     //从login reduce 中获取state的初始值。
     //console.log('state:',state);
 
     return {
-        notiValue: state.util.get(cKey),
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        push: (key)=> {
-            // dispatch(navigatePush(key))
-        },
-        logout: ()=> {
 
-            //TODO:用这种方法清除了多动画，但是动画并没有按照最后一个页面的动画方向行驶、
-            //期待有更好的解决思路。
-
-            //清除数据。
-            // clearUserData();
-
-            //清除中间route
-            // dispatch(navigateClearMiddleScene('Setting'));
-            // //
-            // //返回到第一层
+        logout: () =>{
             dispatch(logout());
-            // DeviceEventEmitter.emit("logout");
-
 
         },
-        noti: (value)=> {
-            global.storage.save({
-                key: 'Noti',  //注意:请不要在key中使用_下划线符号!
-                data: value,
-            });
-            dispatch(dataStorage(cKey, value))
-        }
-
     }
 }
 

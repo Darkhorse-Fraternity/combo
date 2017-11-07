@@ -11,7 +11,7 @@ import {
     View,
     StyleSheet,
     TouchableOpacity,
-    Dimensions
+    Dimensions,
 } from 'react-native'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux';
@@ -49,16 +49,8 @@ export  default  class BG extends Component {
 
     render(): ReactElement<any> {
         return (
-            <View style={this.props.style}>
-                <Btn
-                    useNativeDriver
-                    iterationCount="infinite"
-                    duration={40000}
-                    easing="ease-in-out"
-                    animation="cloudMoveLeft"
-                    style={styles.sunny}>
-                    <Icon name="md-sunny" size={100} color="#f4be36"/>
-                </Btn>
+            <View style={[this.props.style,styles.bc]}>
+
                 <Btn
                     useNativeDriver
                     iterationCount="infinite"
@@ -79,6 +71,15 @@ export  default  class BG extends Component {
                     <Icon name="ios-cloud" size={100} color="rgb(230,240,240)"/>
                 </Btn>
                 <Btn
+                    useNativeDriver
+                    iterationCount="infinite"
+                    duration={40000}
+                    easing="ease-in-out"
+                    animation="cloudMoveLeft"
+                    style={styles.sunny}>
+                    <Icon name="md-sunny" size={100} color="#f4be36"/>
+                </Btn>
+                <Btn
                     delay={5000}
                     useNativeDriver
                     iterationCount="infinite"
@@ -93,6 +94,8 @@ export  default  class BG extends Component {
     }
 }
 
+const width = Dimensions.get('window').width
+const height = Dimensions.get('window').height
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
@@ -102,5 +105,10 @@ const styles = StyleSheet.create({
     },
     sunny: {
         left: 400,
+    },
+    bc: {
+        position: 'absolute',
+        width: width,
+        height: height - 44,
     },
 })

@@ -17,7 +17,7 @@ import {
 } from 'react-native'
 import {IDO} from '../../redux/reqKeys'
 
-import {selfUser, iCard,iUse} from '../../request/LCModle'
+import {selfUser, iCard, iUse} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
@@ -26,18 +26,15 @@ import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {update,} from '../../redux/module/leancloud'
 import {addListNormalizrEntity} from '../../redux/actions/list'
-import {ICARD,IUSE} from '../../redux/reqKeys'
+import {ICARD, IUSE} from '../../redux/reqKeys'
 
 
 const listKey = IDO
 
 
 @connect(
-    (state,props) =>({
-    }),
-    (dispatch,props) =>({
-
-    })
+    (state, props) => ({}),
+    (dispatch, props) => ({})
 )
 
 export default class Detail extends Component {
@@ -52,25 +49,23 @@ export default class Detail extends Component {
     static defaultProps = {
         iCard: {}
     };
-    static navigationOptions = props => {
-        const {navigation} = props;
-        const {state} = navigation;
-        const {params} = state;
-        return {
-            title: params.iCard.title,
-        }
-    };
+    // static navigationOptions = props => {
+    //     const {navigation} = props;
+    //     const {state} = navigation;
+    //     const {params} = state;
+    //     return {
+    //         title: params.iCard.title,
+    //     }
+    // };
 
     shouldComponentUpdate(nextProps: Object) {
         return !immutable.is(this.props, nextProps)
     }
 
 
-
-
     componentDidMount() {
-        const {navigation} = this.props;
-        navigation.setParams({refresh:this.__refresh})
+        // const {navigation} = this.props;
+        // navigation.setParams({refresh:this.__refresh})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -79,27 +74,45 @@ export default class Detail extends Component {
 
     }
 
+
+    _renderHeader = () => {
+        const {navigation} = this.props;
+        const {state} = navigation;
+        const {params} = state;
+
+        // console.log('test:', params);
+        return (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>{params.iCard.title}</Text>
+            </View>
+        )
+    }
+
+
     renderRow({item, index}: Object) {
 
-        // console.log('test:', item);
+        console.log('test:', item);
         const img = item.imgs && item.imgs[0] || null
 
         return (
             <View
-                style={{marginTop:10,backgroundColor:'white'}}
-                onPress={()=>{
-            }}>
+                style={styles.row}
+                onPress={() => {
+                }}>
 
-                {img && (<Image style={styles.image} source={{uri:img}}/>)}
+                <View style={styles.top}>
+                    <Image style={styles.avatar} source={{uri: item.user.avatar.url}}/>
+                    <Text style={styles.name}>{item.user.username || '路人甲'}   完成了任务</Text>
+                </View>
+                {img && (<Image style={styles.image} source={{uri: img}}/>)}
                 <View style={styles.bottom}>
                     <View>
                         {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
                         <Text style={styles.date}>{moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</Text>
                     </View>
-                    <Icon name="md-checkmark" size={30} color="green"/>
+                    {/*<Icon name="md-checkmark" size={30} co lor="green"/>*/}
                 </View>
 
-                <View style={styles.line}/>
             </View>
         )
     }
@@ -114,15 +127,16 @@ export default class Detail extends Component {
             'where': {
                 ...iCard(params.iCard.objectId),
             },
+            include: 'user'
         }
 
 
         return (
             <LCList
-                renderHeader={this._renderHeader}
-                style={[this.props.style,styles.list]}
+                ListHeaderComponent={this._renderHeader}
+                style={[this.props.style, styles.list]}
                 reqKey={listKey}
-                sKey={listKey+params.iCard.objectId}
+                sKey={listKey + params.iCard.objectId}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
@@ -139,6 +153,7 @@ const styles = StyleSheet.create({
     },
     list: {
         flex: 1,
+        backgroundColor: 'white',
     },
     line: {
         height: StyleSheet.hairlineWidth,
@@ -146,7 +161,7 @@ const styles = StyleSheet.create({
     },
     text: {
         paddingVertical: 3,
-        paddingHorizontal: 5,
+        // paddingHorizontal: 5,
         fontSize: 16,
         color: 'rgb(50,50,50)'
     },
@@ -160,28 +175,50 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'rgb(100,100,100)',
         paddingVertical: 3,
-        paddingHorizontal: 5,
+        // paddingHorizontal: 5,
     },
     row: {
         backgroundColor: 'white',
         paddingHorizontal: 18,
-        paddingVertical: 18,
+        paddingVertical: 10,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#e4e4e4',
     },
-
     image: {
         width: '100%',
         height: 200,
     },
+    top: {
+        paddingVertical:2,
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     bottom: {
+        marginTop: 10,
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 15,
+        // padding: 15,
     },
     headerBtn: {
         paddingHorizontal: 15,
     },
+    header: {
+        padding: 15,
+    },
+    headerTitle: {
+        fontSize: 25,
+    },
+    avatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+    },
+    name: {
+        marginLeft: 5,
+        color:'#4e4e4e'
+    }
 })
 
 

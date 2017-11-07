@@ -2,7 +2,7 @@
 //注册页面
 'use strict';
 import React, {Component, PropTypes} from 'react';
-import  {
+import {
     ScrollView,
     StyleSheet,
     Text,
@@ -16,6 +16,7 @@ import  {
     Platform,
     Keyboard
 } from 'react-native'
+import BG from '../../components/BG/BG'
 import Toast from 'react-native-simple-toast';
 import {BCButton} from '../../components/Base/WBButton'
 import Button from 'react-native-button'
@@ -27,29 +28,30 @@ import {connect} from 'react-redux'
 import {register} from '../../redux/actions/user'
 import * as Animatable from 'react-native-animatable';
 import {checkPhoneNum} from '../../request/validation'
+
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
 
 @connect(
-    state =>({
+    state => ({
         //data:state.req.get()
         userData: state.user,
         auth: state.req.get(AUTHCODE)
     }),
-    (dispatch, props) =>({
+    (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        push: ()=> {
+        push: () => {
             //index 为空 则为当前index
             // dispatch(navigateReplaceIndex('TabView'));
         },
-        mRegister: (state)=> {
+        mRegister: (state) => {
             Keyboard.dismiss()
             dispatch(register(state));
         },
-        pushWebView: (params)=> {
+        pushWebView: (params) => {
             // dispatch(navigatePush(params));
         },
-        authCode: (number)=> {
+        authCode: (number) => {
             const parmas = requestSmsCode(number)
             return req(parmas)
         }
@@ -57,7 +59,7 @@ const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=2016060
 )
 
 
-export  default class LoginView extends Component {
+export default class LoginView extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
@@ -70,11 +72,11 @@ export  default class LoginView extends Component {
     }
 
     state: {
-        phone:string,
-        time:number,
-        codeName:string,
-        ymCode:string,
-        isTap:bool, // 用于time 是否在走。
+        phone: string,
+        time: number,
+        codeName: string,
+        ymCode: string,
+        isTap: bool, // 用于time 是否在走。
     };
 
 
@@ -83,7 +85,12 @@ export  default class LoginView extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            title: '登录'
+            title: '登录',
+            headerStyle: {
+                backgroundColor: '#f5fcff',
+                shadowColor: '#F5FCFF',
+                borderBottomColor: '#F5FCFF',
+            },
         }
     };
 
@@ -164,6 +171,7 @@ export  default class LoginView extends Component {
 
         return (
             <View style={styles.rowMainStyle}>
+
                 <Text style={styles.textStyle}>{title}</Text>
                 <TextInput
                     ref={ref}
@@ -179,7 +187,7 @@ export  default class LoginView extends Component {
                     placeholder={placeholder}
                     clearButtonMode='while-editing'
                     enablesReturnKeyAutomatically={true}
-                    onSubmitEditing={() =>this.focusNextField(ref)}
+                    onSubmitEditing={() => this.focusNextField(ref)}
                     onChangeText={onChangeText}/>
 
             </View>
@@ -193,57 +201,62 @@ export  default class LoginView extends Component {
         const flag = reg.test(this.state.ymCode) && checkPhoneNum(this.state.phone)
         const authLoad = this.props.auth.get('load')
         return (
-            <Animatable.View
-                animation="slideInUp"
-                style={styles.container}
-                onStartShouldSetResponder={()=>true}
-                onResponderGrant={Keyboard.dismiss}
-            >
+            <View style={styles.container}>
+                {!this.props.userData.isLogin && (<BG/>)}
+                <Animatable.View
+                    animation="slideInUp"
 
-                <View style={styles.top}>
-                    {this._renderRowMain('手机号:', '请填入手机号',
-                        (text) => this.setState({phone: text}), 'numeric', true, 11, "1", this.state.phone
-                    )}
-                    <View style={styles.line}/>
-                    <View style={{flexDirection:'row'}}>
-                        {this._renderRowMain('验证码:', '请输入验证码',
-                            (text) => {
-                                this.setState({ymCode: text})
-                            },
-                            'numeric'
-                            , false, 6, "2", this.state.ymCode
-                        )}
-                        <View style={styles.valLine}/>
-                        <BCButton containerStyle={styles.buttonContainerStyle}
-                                  disabled={!codeEnable||authLoad}
-                                  isLoad={authLoad}
-                                  loadColor='rgb(230,230,230)'
-                            //styleDisabled={{fontWeight:'normal'}}
-                                  onPress={this._onClickCode.bind(this)}
-                                  style={{fontWeight:'400',fontSize:14,color:mainColor}}
-                        >
-                            {this.state.time == 60 || this.state.time == 0 ? '获取验证码' :
-                            this.state.time.toString() + '秒'}
-                        </BCButton>
+                    onStartShouldSetResponder={() => true}
+                    onResponderGrant={Keyboard.dismiss}
+                >
+
+                    <View style={styles.top}>
+                        <View style={{flexDirection: 'row'}}>
+                            {this._renderRowMain('手机号:', '请填入手机号',
+                                (text) => this.setState({phone: text}), 'numeric', true, 11, "1", this.state.phone
+                            )}
+                        </View>
+                        <View style={styles.line}/>
+                        <View style={{flexDirection: 'row'}}>
+                            {this._renderRowMain('验证码:', '请输入验证码',
+                                (text) => {
+                                    this.setState({ymCode: text})
+                                },
+                                'numeric'
+                                , false, 6, "2", this.state.ymCode
+                            )}
+                            <View style={styles.valLine}/>
+                            <BCButton containerStyle={styles.buttonContainerStyle}
+                                      disabled={!codeEnable || authLoad}
+                                      isLoad={authLoad}
+                                      loadColor='rgb(230,230,230)'
+                                //styleDisabled={{fontWeight:'normal'}}
+                                      onPress={this._onClickCode.bind(this)}
+                                      style={{fontWeight: '400', fontSize: 14, color: mainColor}}
+                            >
+                                {this.state.time == 60 || this.state.time == 0 ? '获取验证码' :
+                                    this.state.time.toString() + '秒'}
+                            </BCButton>
+                        </View>
                     </View>
-                </View>
 
-                <BCButton
-                    disabled={!flag}
-                    isLoad={this.props.userData.loaded}
-                    onPress={this._goRegist.bind(this)}
-                    containerStyle={styles.buttonContainerStyle2}>
-                    下一步
-                </BCButton>
-                {/*<View style={styles.bottom}>*/}
-                {/*<Text style={styles.protocolPre}>点击开始,即表示已阅读并同意</Text>*/}
-                {/*<Button*/}
-                {/*onPress={this._gowebView}*/}
-                {/*style={styles.protocolSuf}>*/}
-                {/*《diff使用条款》*/}
-                {/*</Button>*/}
-                {/*</View>*/}
-            </Animatable.View>
+                    <BCButton
+                        disabled={!flag}
+                        isLoad={this.props.userData.loaded}
+                        onPress={this._goRegist.bind(this)}
+                        containerStyle={styles.buttonContainerStyle2}>
+                        登 录
+                    </BCButton>
+                    {/*<View style={styles.bottom}>*/}
+                    {/*<Text style={styles.protocolPre}>点击开始,即表示已阅读并同意</Text>*/}
+                    {/*<Button*/}
+                    {/*onPress={this._gowebView}*/}
+                    {/*style={styles.protocolSuf}>*/}
+                    {/*《diff使用条款》*/}
+                    {/*</Button>*/}
+                    {/*</View>*/}
+                </Animatable.View>
+            </View>
         );
     }
 }
@@ -252,15 +265,15 @@ export  default class LoginView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: '#F5FCFF',
         paddingTop: 20,
         height: Dimensions.get('window').height - 64,
     },
 
 
     rowMainStyle: {
-        // flex: 1,
-        width: Dimensions.get('window').width - 100,
+        flex: 1,
+        // width: Dimensions.get('window').width,
         height: 40,
         //marginTop: 10,
         backgroundColor: 'white',
@@ -290,6 +303,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 14,
         color: 'black',
+        // backgroundColor: 'red'
     },
     buttonSelectStyle: {
         marginLeft: Platform.OS == 'ios' ? 29 / 2 : 27,

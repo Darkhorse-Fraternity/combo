@@ -61,7 +61,7 @@ import OptionView, {StaticOption} from './OptionView'
 
             //返回首页
             dispatch((dispatch,getState)=>{
-                const key = getState().nav.routes[1].key
+                const key = getState().nav.routes[2].key
                 props.navigation.goBack(key)
             })
 

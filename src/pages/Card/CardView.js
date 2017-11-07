@@ -14,15 +14,15 @@ import {
     Text,
     Dimensions,
     TouchableOpacity,
-    Alert
+    Alert,
+    Image
 } from 'react-native'
 import {connect} from 'react-redux'
-import {logout} from '../../redux/actions/user'
-import {ICARD, IDO,IUSE} from '../../redux/reqKeys'
-import {add, search, update,batch} from '../../redux/module/leancloud'
-import {classUpdate,classCreatNewOne} from '../../request/leanCloud'
-import {selfUser, iCard,iUse} from '../../request/LCModle'
-// import {addListNormalizrEntity} from '../../redux/actions/list'
+// import {logout} from '../../redux/actions/user'
+import {ICARD, IDO, IUSE} from '../../redux/reqKeys'
+import {add, search, update, batch} from '../../redux/module/leancloud'
+import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
+import {selfUser, iCard, iUse} from '../../request/LCModle'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {clear} from '../../redux/actions/list'
 import Pop from '../../components/Pop'
@@ -30,8 +30,12 @@ import Do from './Do'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import BounceBtn from '../../components/Button/BounceBtn'
+import SmallDoneBtn from '../../components/Button/SmallDoneBtn'
 import * as Animatable from 'react-native-animatable';
+
 const List = Animatable.createAnimatableComponent(FlatList);
+
+// import TinderCard from '../../components/Card/TinderCard'
 
 function makeScaleInTranslation(translationType, value) {
     return {
@@ -43,23 +47,24 @@ function makeScaleInTranslation(translationType, value) {
         },
     };
 }
+
 const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
 Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
 // import
 //static displayName = Home
 //data:state.req.get()
 @connect(
-    state =>({
+    state => ({
         data: state.list.get(IUSE),
         normalizrData: state.normalizr.get(IUSE),
-        iCard:state.normalizr.get(ICARD),
-        user:state.user.data
+        iCard: state.normalizr.get(ICARD),
+        user: state.user.data
     }),
-    (dispatch, props) =>({
+    (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        logout: ()=>dispatch(logout()),
+        // logout: () => dispatch(logout()),
 
-        search: ()=> {
+        search: () => {
             dispatch(search(false, {
                 where: {
                     ...selfUser(),
@@ -70,7 +75,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
             }, IUSE))
         },
         done: (data) => {
-            dispatch(async (dispatch,getState)=>{
+            dispatch(async (dispatch, getState) => {
                 const state = getState()
                 const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
@@ -85,19 +90,19 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 }
 
 
-                if(iCardM.record.length >0){
-                    Pop.show(<Do data={data}/>,{maskStyle:{backgroundColor:'transparent'}})
+                if (iCardM.record.length > 0) {
+                    Pop.show(<Do data={data}/>, {maskStyle: {backgroundColor: 'transparent'}})
                     return
                 }
 
-                const IUseP = classUpdate(IUSE,id,param)
-                const iDoP = classCreatNewOne(IDO,{
+                const IUseP = classUpdate(IUSE, id, param)
+                const iDoP = classCreatNewOne(IDO, {
                     ...selfUser(),
                     ...iUse(id),
                     ...iCard(iCardM.objectId)
                 })
 
-                const res = await batch([IUseP,iDoP])
+                const res = await batch([IUseP, iDoP])
                 // const res = await update(id, param, ICARD)
 
                 console.log('res:', res);
@@ -112,21 +117,21 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 //         [entity.objectId]: entity
                 //     }
                 // }))
-                dispatch(addNormalizrEntity(IUSE,entity))
+                dispatch(addNormalizrEntity(IUSE, entity))
 
             })
         },
 
-        setting: (entity, setting)=> {
+        setting: (entity, setting) => {
             entity.setting = setting
             // dispatch(addEntities({
             //     [IUSE]: {
             //         [entity.objectId]: entity
             //     }
             // }))
-            dispatch(addNormalizrEntity(IUSE,entity))
+            dispatch(addNormalizrEntity(IUSE, entity))
         },
-        stop: async(data, index, callBack)=> {
+        stop: async (data, index, callBack) => {
             const id = data.objectId
             const param = {
                 statu: 'stop',
@@ -136,18 +141,18 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
             const entity = {
                 ...param,
                 ...res,
-                setting:false,
+                setting: false,
             }
             // dispatch(addEntities({
             //     [IUSE]: {
             //         [entity.objectId]: entity
             //     }
             // }))
-            dispatch(addNormalizrEntity(IUSE,entity))
+            dispatch(addNormalizrEntity(IUSE, entity))
             dispatch(clear(IUSE, index))
             callBack && callBack()
         },
-        refresh: async(data) => {
+        refresh: async (data) => {
             const id = data.objectId
             const param = {
                 time: 0,
@@ -166,12 +171,12 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
             //         [entity.objectId]: entity
             //     }
             // }))
-            dispatch(addNormalizrEntity(IUSE,entity))
+            dispatch(addNormalizrEntity(IUSE, entity))
         },
 
     })
 )
-export  default  class Home extends Component {
+export default class Home extends Component {
     constructor(props: Object) {
         super(props);
     }
@@ -205,35 +210,35 @@ export  default  class Home extends Component {
     }
 
 
-    __settingView = ({item, index}, data)=> {
+    __settingView = ({item, index}, data) => {
         const self = this
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId).toJS()
         const isSelf = iCard.user == this.props.user.objectId
         return (<View>
-            {isSelf &&  (<BounceBtn
+            {isSelf && (<BounceBtn
                 color="#rgb(136,175,160)"
                 radius={60}
                 moveColor="#rgba(136,175,160,0.4)"
-                onPress={()=>{
-                    this.props.navigation.navigate('OptionView',{opData:iCard})
+                onPress={() => {
+                    this.props.navigation.navigate('OptionView', {opData: iCard})
                 }}
                 title="修改配置"/>)}
-            {isSelf && (<View style={{height:20}}/>)}
+            {isSelf && (<View style={{height: 20}}/>)}
             <BounceBtn
                 radius={60}
                 color="#rgb(156,175,170)"
                 moveColor="#rgba(156,175,170,0.4)"
-                onPress={async ()=>{
-                            const last = self.props.data.get('listData').size-1 == index
-                            const itemView = this.rows[index]
+                onPress={async () => {
+                    const last = self.props.data.get('listData').size - 1 == index
+                    const itemView = this.rows[index]
                     ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
-                            const endState = await itemView.fadeOutDownBig(500)
-                            endState.finished && this.props.stop(data,index,()=>{
-                                !last && itemView.fadeInRight(500)
-                            })
+                    const endState = await itemView.fadeOutDownBig(500)
+                    endState.finished && this.props.stop(data, index, () => {
+                        !last && itemView.fadeInRight(500)
+                    })
 
-                        }}
+                }}
                 title="暂停打卡"/>
         </View>)
     }
@@ -246,7 +251,7 @@ export  default  class Home extends Component {
                     color="#rgb(236,175,160)"
                     radius={60}
                     moveColor="#rgba(236,175,160,0.4)"
-                    onPress={()=>{
+                    onPress={() => {
                         this.props.refresh(data)
                     }}
                     title="再来一组"/>
@@ -254,21 +259,33 @@ export  default  class Home extends Component {
         )
     }
 
-    __flagView = ({item, index}, data)=> {
+    __flagView = ({item, index}, data, flag) => {
+        const iCardId = data[ICARD]
+        const iCard = this.props.iCard.get(iCardId)
         let FlagView = (
-            <Animatable.Text
-                animation="zoomInUp"
-                style={styles.num}>
-                {data.time}
-            </Animatable.Text>)
-        if (data.time == data.period) {
+            <View style={{height: 150, justifyContent: 'center'}}>
+                <Animatable.Text
+                    animation="zoomInUp"
+                    style={styles.num}>
+                    {data.time}
+                </Animatable.Text>
+                <Text
+                    style={styles.notifyText}>
+                    {iCard.get('title')}
+                </Text>
+            </View>)
+        if (data.time === data.period) {
             FlagView = this.__doneView(data)
         } else if (data.doneDate) {
-            const doneDate = data.doneDate.iso
-            const lastMoment = moment(doneDate)
-            if (moment.min(lastMoment, moment(2, "HH")) === lastMoment) {
+            if (flag) {
                 FlagView = (
-                    <BounceBtn onPress={()=>this.props.done(data)} title="轻触打卡"/>)
+                    <View style={{height: 150, justifyContent: 'center'}}>
+                        <Text
+                            numberOfLines={0}
+                            style={styles.notifyText}>
+                            {iCard.get('notifyText') || iCard.get('title')}
+                        </Text>
+                    </View>)
             }
         }
         return FlagView
@@ -276,45 +293,60 @@ export  default  class Home extends Component {
 
 
     rows = []
-    __renderItem = ({item, index})=> {
+    __renderItem = ({item, index}) => {
         const data = this.props.normalizrData.get(item).toJS()
 
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId)
         // const isSelf = iCard.get('user') == this.props.user.objectId
-        const isSelf = true
         // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
 
         //flag 为true 的时候说明离上次打卡已经有24小时了
-        const inView = ()=> {
+        const doneDate = data.doneDate.iso
+        const lastMoment = moment(doneDate)
+        const done = moment.min(lastMoment, moment(2, "HH")) === lastMoment
+        const inView = () => {
             if (!data.setting) {
-                return this.__flagView({item, index}, data)
+                return this.__flagView({item, index}, data, done)
             } else {
                 return this.__settingView({item, index}, data)
             }
-
         }
         return (
             <Animatable.View
                 ref={(row) => this.rows[index] = row}
                 style={styles.item}>
+                <Image
+                    style={styles.quotation}
+                    source={require('../../../source/img/op/quotation.png')}/>
                 <View style={styles.card}>
-                    <View style={styles.toper}>
-                        {isSelf ?  (<TouchableOpacity
-                            onPress={()=>{
-                                {/*this.__delete(index,data.objectId)*/}
-                                this.props.setting(data,!data.setting)
-                            }}
-                            hitSlop={{top:20,left:20,bottom:20,right:20}}
-                            style={{marginTop:20}}>
-                            <Icon name={!data.setting?"ios-settings-outline":'md-close'} size={20}/>
-                        </TouchableOpacity>):(<View/>)}
-                        <Text style={[styles.title]}>{iCard.get('title')}</Text>
-                        <View/>
-                    </View>
                     {inView()}
-                    <View style={{height:40}}/>
+                    <View style={styles.footer}>
+                        {/*<Text style={[styles.title]}>{iCard.get('title')}</Text>*/}
+                        <TouchableOpacity
+                            onPress={() => {
+                                {/*this.__delete(index,data.objectId)*/
+                                }
+                                this.props.setting(data, !data.setting)
+                            }}
+                            hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+                            style={styles.setting}>
+                            <Icon
+                                color='white'
+                                name={!data.setting ? "ios-settings" : 'md-close'}
+                                size={15}/>
+                        </TouchableOpacity>
+                        {done ? ( <SmallDoneBtn
+                                onPress={() => this.props.done(data)}/>) :
+                            ( <View style={styles.setting}>
+                                <Icon
+                                    color='white'
+                                    name={'md-checkmark'}
+                                    size={15}/>
+                            </View>)}
+
+                    </View>
                 </View>
             </Animatable.View>
         )
@@ -329,22 +361,23 @@ export  default  class Home extends Component {
 
         const data = this.props.data.toJS().listData
 
-        if ((statu === 'LIST_NO_DATA' ||statu == 'LIST_LOAD_NO_MORE') && data.length == 0) {
+        if ((statu === 'LIST_NO_DATA' || statu == 'LIST_LOAD_NO_MORE') && data.length == 0) {
             return (
-                <View style={{flex:1,alignItems:'center',justifyContent:'center',marginTop:-100}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100}}>
                     <TouchableOpacity
                         style={styles.noDataBc}
-                        onPress={()=>{
-                        this.props.navigation.navigate('Creat')
-                }}>
+                        onPress={() => {
+                            this.props.navigation.navigate('Creat')
+                        }}>
                         <Icon name="md-add" color="white" size={50}/>
                     </TouchableOpacity>
-                    <Text style={{marginTop:10}}>新增一个卡片吧</Text>
+                    <Text style={{marginTop: 10}}>新增一个卡片吧</Text>
                 </View>
             )
         }
 
         return (
+
             <List
                 onScroll={this.props.onScroll}
                 ref="list"
@@ -353,7 +386,7 @@ export  default  class Home extends Component {
                 data={data}
                 horizontal={true}
                 removeClippedSubviews={true}
-                pagingEnabled={true}
+                // pagingEnabled={true}
                 showsHorizontalScrollIndicator={false}
                 renderItem={this.__renderItem}
                 keyExtractor={this._keyExtractor}
@@ -384,29 +417,29 @@ const styles = StyleSheet.create({
     },
     list: {},
     item: {
-        width: width,
-        height: height - 100,
-        padding: 50,
+        padding: 10,
     },
     card: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: "rgba(255,255,255,0.6)",
-        borderRadius: 12,
-        // shadowColor: "#000000",
-        // shadowOpacity: 0.3,
-        // shadowRadius: 1,
-        // shadowOffset: {
-        //     height: 1,
-        //     width: 0.3,
-        // },
+        marginTop: 15,
+        paddingTop: 80,
+        width: width - 50,
+        height: width - 50,
+        backgroundColor: "#F0C98B",
+        // borderRadius: 12,
+        shadowColor: "#000000",
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+        shadowOffset: {
+            height: 1,
+            width: 0.3,
+        },
         justifyContent: 'space-between',
         // elevation:10,
     },
     title: {
         fontSize: 17,
         marginTop: 10,
-        textAlign:'center',
+        textAlign: 'center',
     },
     headerBtn: {
         padding: 20,
@@ -414,18 +447,33 @@ const styles = StyleSheet.create({
     },
     num: {
         fontSize: 100,
+        color: 'white',
+        textAlign: 'center',
     },
-
+    notifyText: {
+        color: 'white',
+        fontSize: 30,
+        textAlign: 'center',
+    },
 
     done: {
         fontSize: 17,
-        marginBottom: 20
+        marginBottom: 20,
+        color: 'white'
     },
     toper: {
-        width: 200,
+        width: width - 50,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    footer: {
+        width: width - 50,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+        paddingHorizontal: 50,
+        marginBottom: 30,
     },
     noDataBc: {
         backgroundColor: '#fabc46',
@@ -435,5 +483,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 50,
 
+    },
+    setting: {
+        height: 20,
+        width: 20,
+        backgroundColor: 'rgba(200,200,200,0.5)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+    },
+    quotation: {
+        alignSelf: 'center',
+        width: 82,
+        height: 50,
+        position: 'absolute',
+        zIndex: 10,
     }
 })
