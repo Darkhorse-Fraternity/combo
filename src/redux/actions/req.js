@@ -47,7 +47,7 @@ export function reqS(params) {
 export function reqM(params) {
     return reqS(params).then(response => {
         if (response[RESCODE]) {
-            __DEV__ && response[RESCODE] !== SUCCODE && console.log('message:', response[MSG]);
+            __DEV__ && response[RESCODE] !== SUCCODE && console.log('req message:', response[MSG]);
             response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG)
         }
 
@@ -106,6 +106,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 //不返回错误码，直接通过通用错误处理渠道。
 export function req(params: Object, key: string, option: Object = {}) {
     return reqA(params,key,option).then(response =>{
+            console.log('test:', response);
             if(response[RESCODE] === SUCCODE ){
                 return response[DATA]
             }else{

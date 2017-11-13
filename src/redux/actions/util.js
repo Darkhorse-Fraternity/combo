@@ -9,7 +9,7 @@
  * 工具类，
  */
 
-import {req} from './req'
+import {req,requestStart,requestFailed,requestSucceed} from './req'
 export const LOAD_AVATAR = 'LOAD_AVATAR'
 export const UPLOAD_IMAGES = 'UPLOAD_IMAGES'
 export const CHANGEAVATAR = 'CHANGEAVATAR'
@@ -38,11 +38,23 @@ export function uploadAvatar(uri:string):Function {
             console.log('test:', e.message);
             Toast.show(e.message)
         }
-
-
     };
 }
 
+export function uploadImages(uris:any,key:string) {
+    return async (dispatch) => {
+        dispatch(requestStart(key))
+        try{
+            let res = await uploadFilesByLeanCloud(uris)
+            return dispatch(requestSucceed(key, res))
+
+        }catch (e){
+            console.log('test:', e.message);
+            return dispatch(requestFailed(key, e.message))
+        }
+    };
+
+}
 
 
 export function dataStorage(key: string, data: any): Object {

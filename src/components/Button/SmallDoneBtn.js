@@ -9,9 +9,8 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    Text,
     TouchableWithoutFeedback,
-    TouchableHighlight
+    ActivityIndicator
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
@@ -54,9 +53,11 @@ export default class SmallDoneBtn extends Component {
 
     static propTypes = {
         radius: PropTypes.number,
+        load:PropTypes.bool
     };
     static defaultProps = {
-        radius: 20
+        radius: 20,
+        load: false
     };
     static
     navigationOptions = props => {
@@ -73,12 +74,13 @@ export default class SmallDoneBtn extends Component {
         // console.log('radius:', radius);
         return (
             <TouchableWithoutFeedback
+                disabled={this.props.load}
                 hitSlop={{top: 50, left: 50, bottom: 50, right: 50}}
                 onPress={this.props.onPress}>
-                <View style={styles.background1}>
+                {!this.props.load?(<View style={styles.background1}>
                     <View style={styles.background2}>
                     </View>
-                </View>
+                </View>):(<ActivityIndicator size="small" color={"white"}/>)}
             </TouchableWithoutFeedback>
         );
     }

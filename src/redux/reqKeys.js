@@ -8,6 +8,7 @@ export const IUSE = 'iUse'
 export const AUTHCODE = 'authCode'
 export const SCENELIST = 'sceneList'
 export const CARDLIST = 'cardList'
+export const IDOULIMAGE = 'iDoULImage'
 //设置初始值
 
 export const registerReqKeys = [
@@ -15,7 +16,8 @@ export const registerReqKeys = [
     AUTHCODE,
     IDO,
     IUSE,
-    SCENELIST
+    SCENELIST,
+    IDOULIMAGE
 //设置初始值
 ]
 

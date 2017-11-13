@@ -65,7 +65,8 @@ export function send({
     ]);
     return requestPromise.then((response)=> {
         if (__DEV__&& !response.ok) {
-            const message = __DEV__ ?'接口请求错误:\n' + 'URL:\n' + urlpath + '\n参数:\n' + JSON.stringify(params) + ' \n回值:\n'
+            const message = __DEV__ ?'接口请求错误:\n' + 'URL:\n' + urlpath +
+                '\n参数:\n' + JSON.stringify(params) + ' \n回值:\n'
             + response._bodyInit:response._bodyInit
             console.log('test:', message);
         }

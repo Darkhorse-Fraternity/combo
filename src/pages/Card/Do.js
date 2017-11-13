@@ -23,6 +23,8 @@ import {BlurView as BlurViewIOS} from 'react-native-blur';
 const BlurView = Platform.OS == 'ios' ? BlurViewIOS : View
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
+import {req} from '../../redux/actions/req'
+import {uploadImages} from '../../redux/actions/util'
 export const Btn = Animatable.createAnimatableComponent(TouchableWithoutFeedback);
 import Pop from '../../components/Pop'
 import {connect} from 'react-redux'
@@ -32,23 +34,21 @@ import {batch} from '../../redux/module/leancloud'
 import {selfUser, iCard,iUse} from '../../request/LCModle'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
 import moment from 'moment'
-import {uploadFilesByLeanCloud} from '../../request/uploadAVImage'
-import {ICARD, IDO,IUSE} from '../../redux/reqKeys'
+import {ICARD, IDO,IUSE,IDOULIMAGE} from '../../redux/reqKeys'
 
 import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
 //static displayName = 
 @connect(
     state =>({
         //data:state.req.get()
-        iCard:state.normalizr.get(ICARD)
-
+        iCard:state.normalizr.get(ICARD),
+        load: state.req.get(IDO).get('load') || state.req.get(IDOULIMAGE).get('load')
     }),
     dispatch =>({
         //...bindActionCreators({},dispatch),
         done: (data, state, callBack) => {
             //先判断是否有图片，如果有则 先上传图片。
             dispatch(async (dispatch,getState)=>{
-                callBack && callBack(true)
 
                 try {
                     const {files, ...otherState} = state
@@ -58,12 +58,14 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                     const iCardM = state2.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
 
+
                     if (iCardM.record.indexOf('图片') !== -1) {
                         const urls = files.map(file => file.uri)
-                        const res = await uploadFilesByLeanCloud(urls)
-                        ims = res.map(imgs=>imgs.attributes.url)
-                    }
+                        const res = await dispatch(uploadImages(urls,IDOULIMAGE))
 
+                        if(!res.payload){return}
+                        ims = res.payload.map(imgs=>imgs.attributes.url)
+                    }
 
                     const id = data.objectId
                     const time = data.time + 1
@@ -74,10 +76,7 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                         statu: time == data.period ? "stop" : "start"
                     }
 
-
-
-
-                    const iCardP = classUpdate(IUSE, id, param)
+                    // const IUseP = classUpdate(IUSE, id, param)
                     const iDoP = classCreatNewOne(IDO, {
                         ...selfUser(),
                         ...iUse(id),
@@ -86,28 +85,24 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                         imgs: ims
                     })
 
-                    const res = await batch([iCardP, iDoP])
-                    console.log('do res:', res);
+                    const res2 = await req(iDoP, IDO, {'normalizr':true})
+
+                    if(res2.error){
+                        Toast.show(res2.error)
+                        return
+                    }
+
 
                     const entity = {
                         ...param,
-                        ...(res[0].success)
+                        objectId:id
                     }
 
-                    // dispatch(addEntities({
-                    //     [IUSE]: {
-                    //         [entity.objectId]: entity
-                    //     }
-                    // }))
-
                     dispatch(addNormalizrEntity(IUSE,entity))
-
-                    callBack && callBack(false)
                     Pop.hide()
 
                 } catch (e) {
                     console.log('test:', e.message);
-                    callBack && callBack(false)
                 }
 
             })
@@ -122,7 +117,6 @@ export  default  class  extends Component {
         super(props);
         this.state = {
             backgroundView: null,
-            load: false,
             recordText: '',
             files: []
         }
@@ -168,10 +162,7 @@ export  default  class  extends Component {
         }
 
 
-        const self = this
-        this.props.done(this.props.data, state, load=> {
-            self.setState({load})
-        })
+        this.props.done(this.props.data, state)
     }
 
 
@@ -217,7 +208,7 @@ export  default  class  extends Component {
                         files={this.state.files}
                         maxImage={1}/>)}
 
-                    {this.state.load ?
+                    {this.props.load ?
                         (<View style={[{padding:20}]}>
                             <ActivityIndicator size="large"/>
                         </View>) :

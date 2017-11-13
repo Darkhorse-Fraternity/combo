@@ -69,7 +69,9 @@ export default class WBButton extends Component {
                 styleDisabled={this.props.styleDisabled}
                 containerStyle={containerStyle}
                 disabled={disabled || this.props.isLoad}>
-                {this.props.isLoad ? <ActivityIndicator color={this.props.loadColor}/> : this.props.children}
+                {this.props.isLoad ?
+                    <ActivityIndicator color={this.props.loadColor}/>
+                    : this.props.children}
             </Button>
         )
     }

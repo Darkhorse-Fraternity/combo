@@ -21,6 +21,8 @@ import {connect} from 'react-redux'
 // import {logout} from '../../redux/actions/user'
 import {ICARD, IDO, IUSE} from '../../redux/reqKeys'
 import {add, search, update, batch} from '../../redux/module/leancloud'
+import {req} from '../../redux/actions/req'
+
 import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
 import {selfUser, iCard, iUse} from '../../request/LCModle'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
@@ -58,7 +60,8 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
         data: state.list.get(IUSE),
         normalizrData: state.normalizr.get(IUSE),
         iCard: state.normalizr.get(ICARD),
-        user: state.user.data
+        user: state.user.data,
+        load: state.req.get(IDO).get('load')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -95,22 +98,59 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                     return
                 }
 
-                const IUseP = classUpdate(IUSE, id, param)
+                // const IUseP = classUpdate(IUSE, id, param)
                 const iDoP = classCreatNewOne(IDO, {
                     ...selfUser(),
                     ...iUse(id),
                     ...iCard(iCardM.objectId)
                 })
 
-                const res = await batch([IUseP, iDoP])
-                // const res = await update(id, param, ICARD)
 
-                console.log('res:', res);
+                const res2 = await req(iDoP, IDO, {'normalizr':true})
+
+                if(res2.error){
+                    Toast.show(res2.error)
+                    return
+                }
+
+
+                // const res3 = await req(IUseP)
+                //
+                // if(res3.error){
+                //     Toast.show(res3.error)
+                //     return
+                // }
+
+                // const res = await batch([iCardP, iDoP])
+                // if(res[0].error ){
+                //     Toast.show(res[0].error)
+                //     return
+                // }
+                //
 
                 const entity = {
                     ...param,
-                    ...(res[0].success)
+                    // ...(res3)
+                    objectId:id
                 }
+
+                // const res = await batch([IUseP, iDoP])
+                // // const res = await update(id, param, ICARD)
+                //
+                // if(res[0].error ){
+                //     Toast.show(res[0].error)
+                //     return
+                // }
+                // if(res[1].error){
+                //     Toast.show(res[1].error)
+                //     return
+                // }
+                //
+                //
+                // const entity = {
+                //     ...param,
+                //     ...(res[0].success)
+                // }
 
                 // dispatch(addEntities({
                 //     [IUSE]: {
@@ -143,11 +183,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 ...res,
                 setting: false,
             }
-            // dispatch(addEntities({
-            //     [IUSE]: {
-            //         [entity.objectId]: entity
-            //     }
-            // }))
+
             dispatch(addNormalizrEntity(IUSE, entity))
             dispatch(clear(IUSE, index))
             callBack && callBack()
@@ -166,11 +202,6 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 ...param,
                 ...res
             }
-            // dispatch(addEntities({
-            //     [IUSE]: {
-            //         [entity.objectId]: entity
-            //     }
-            // }))
             dispatch(addNormalizrEntity(IUSE, entity))
         },
 
@@ -338,6 +369,7 @@ export default class Home extends Component {
                                 size={15}/>
                         </TouchableOpacity>
                         {done ? ( <SmallDoneBtn
+                                load={this.props.load}
                                 onPress={() => this.props.done(data)}/>) :
                             ( <View style={styles.setting}>
                                 <Icon
