@@ -124,7 +124,9 @@ class CustomTabView extends Component {
         return (
             <View style={styles.container}>
                 <this.CustomTabBar navigation={navigation}/>
-                <TabViewAnimated {...props} />
+                <TabViewAnimated {...props} onIndexChange={()=>{
+                    
+                }} />
             </View>
         );
     }
