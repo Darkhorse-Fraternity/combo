@@ -34,8 +34,8 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new Interactable(),
-            new BlurViewPackage(),
+                    new Interactable(),
+                    new BlurViewPackage(),
                     new WeChatPackage(),
 //                    new QQPackage(),
                     new LeanCloudPushPackage(),
@@ -61,4 +61,21 @@ public class MainApplication extends Application implements ReactApplication {
         AVOSCloud.initialize(this, "q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt",
                 "y6ffzv6mq705pya2pd6kgl1ni1vwlppesis7f1qi19afg5nn");
     }
-}
+
+
+    @Override
+    protected String getJSMainModuleName() {
+        return "index";
+    }
+
+    @Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
+    }
+};

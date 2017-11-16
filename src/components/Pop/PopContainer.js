@@ -5,7 +5,7 @@
 'use strict';
 
 import React from 'react';
-import Modal from 'rc-dialog/lib/Modal';
+import Dialog from 'rc-dialog/lib/Dialog';
 import PropTypes from 'prop-types';
 
 
@@ -58,7 +58,7 @@ export default class PopupContainer extends React.Component<any> {
 
     render() {
         return (
-            <Modal
+            <Dialog
                 maskStyle={this.props.maskStyle}
                 animateAppear
                 onAnimationEnd={this.props.onAnimationEnd}
@@ -70,7 +70,7 @@ export default class PopupContainer extends React.Component<any> {
                 style={{backgroundColor:'transparent'}}
             >
                 {this.props.children}
-            </Modal>
+            </Dialog>
         );
     }
 }
