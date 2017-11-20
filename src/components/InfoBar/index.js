@@ -78,11 +78,20 @@ export default class InfoBar extends Component {
             onStartShouldSetPanResponder: () => true,
             onMoveShouldSetPanResponder:() => true,
             onPanResponderRelease: (evt, gestureState)=>{
+                console.log('test:', '');
                 if(gestureState.dy > -10){
                     this.setState({show:false})
+                    const notify = this.props.notify.get('notification').toJS()
+                    console.log('广播111111111111','广播111111111111')
+                    doReceiveNotify(notify)
                 }else {
                     this.refs.aniView.fadeOutUp().then(
-                        (endState) =>  endState.finished && this.props.hidden() )
+                        (endState) =>  {
+                            if(endState.finished){
+                                this.props.hidden()
+
+                            }
+                        } )
                 }
             }
         });

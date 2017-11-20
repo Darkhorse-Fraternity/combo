@@ -180,9 +180,10 @@ export default class BaseSectionView extends Component {
         }
 
 
+        console.log('this.props.loadStatu:', this.props.loadStatu);
         return (
             <TableView
-                refreshing={this.props.loadStatu == "LIST_LOAD_DATA"}
+                refreshing={this.props.loadStatu === "LIST_LOAD_DATA"}
                 onScroll={this.onScroll.bind(this)}
                 sections={this.props.data}
                 onRefresh={this._handleRefresh}

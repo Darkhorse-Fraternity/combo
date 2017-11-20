@@ -28,6 +28,8 @@ export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
 import Toast from 'react-native-simple-toast';
+import {push} from '../../configure/push'
+import {user} from '../../request/LCModle'
 //当为异步的时候这么写，返回一个函数
 export function loadAccountAction():Function {
 
@@ -82,6 +84,7 @@ export function login(state:Object):Function {
             if (response.statu) {
                 //加入sessionToken
                 dispatch(_loginSucceed(response));
+
                 dispatch(navigatePop());
             } else {
                 dispatch(_loginFailed(response));
@@ -127,6 +130,7 @@ function _loginSucceed(response:Object):Object {
     // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
     saveUserData(response);
     saveAccount(response.mobilePhoneNumber);
+
     return loginSucceed(response);
 }
 
@@ -135,7 +139,7 @@ export function loginSucceed(data:Object):Object {
     setLeanCloudSession(data.sessionToken);
     // setAPPAuthorization(data.authorization);
 
-
+    push(undefined,user(data.objectId))
     return {
         type: LOGIN_SUCCEED,
         loaded: false,
@@ -170,7 +174,7 @@ export function logout():Function {
                 clearUserData();
                 dispatch(logout2());//先退出
                 // dispatch(NavigationActions.navigate({ routeName: 'Login'}))
-
+            push(undefined,user("null"))
 
 
                 return loadAccount(ret => {

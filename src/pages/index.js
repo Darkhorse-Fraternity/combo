@@ -13,7 +13,7 @@ import PersonCenter from './PersonInfo/PersonCenter'
 import PersonInfo from './PersonInfo'
 import NickName from './PersonInfo/NickName'
 import Feedback from './Setting/Feedback'
-
+import Publishing from './Publish/Publishing'
 
 export const route = {
     Login: {screen: LoginView},
@@ -31,6 +31,7 @@ export const route = {
     PersonInfo: {screen: PersonInfo},
     NickName: {screen: NickName},
     Feedback: {screen:Feedback},
+    Publishing: {screen:Publishing}
 }
 
 export const tabRoute = {

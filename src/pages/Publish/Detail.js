@@ -118,12 +118,16 @@ export default class PublishDetail extends Component {
                 {this._renderRow('修改配置', () => {
                     this.props.navigation.navigate('OptionView', {opData: iCard})
                 })}
-                {this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {
-                    if (iCard.state === 0) {
-                        this.props.refresh(iCard)
-                    } else {
-                        this.__alert(iCard)
-                    }
+                {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
+                    {/*if (iCard.state === 0) {*/}
+                        {/*this.props.refresh(iCard)*/}
+                    {/*} else {*/}
+                        {/*this.__alert(iCard)*/}
+                    {/*}*/}
+                {/*})}*/}
+                {this._renderRow("立即发布", () => {
+                    this.props.navigation.navigate('Publishing',
+                        {iCardID: this.props.navigation.state.params.iCardID})
                 })}
                 {this._renderRow('查看记录', () => {
                     this.props.navigation.navigate('Serve', {iCard})

@@ -12,12 +12,13 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Dimensions
+    Dimensions,
+    Image
 } from 'react-native'
-import {ICARD,IUSE,CARDLIST} from '../../redux/reqKeys'
+import {ICARD, IUSE, CARDLIST} from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import {selfUser,iCard} from '../../request/LCModle'
+import {selfUser, iCard} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
@@ -31,13 +32,12 @@ import moment from 'moment'
 const listKey = ICARD
 
 
-
 @connect(
-    state =>({
+    state => ({
         data: state.normalizr.get(listKey)
     }),
-    (dispatch, props) =>({
-        use:async (card)=>{
+    (dispatch, props) => ({
+        use: async (card) => {
 
             const param = {
                 cycle: 0,
@@ -54,9 +54,9 @@ const listKey = ICARD
             }
             dispatch(addListNormalizrEntity(IUSE, entity))
             props.navigation.goBack()
-            Toast.show('你接受了一个卡片'+card.title)
+            Toast.show('你接受了一个卡片' + card.title)
         }
-        
+
     })
 )
 
@@ -73,7 +73,7 @@ export default class Publish extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            title: '选择卡片',
+            // title: '选择卡片',
         }
     };
 
@@ -87,28 +87,31 @@ export default class Publish extends Component {
     renderRow({item, index}: Object) {
 
         // console.log('test:', item);
+        const source = item.img ? {uri: item.img.url} : require('../../../source/img/my/icon-60.png')
         return (
             <TouchableOpacity
-                style={styles.item}
-                onPress={()=>this.props.use(item)}>
+                onPress={() => {
+                    // this.props.navigation.navigate('PublishDetail', {iCardID: item.objectId, data: item})
+                    // this.props.use(item)
+                }}>
+                <Image style={styles.item} source={source}/>
                 <Text
                     numberOfLines={1}
                     style={styles.title}>
                     {item.title}
                 </Text>
-                <Text style={styles.period}>周期:{item.period}天</Text>
             </TouchableOpacity>
         )
     }
 
-    _listHeaderComponet = ()=>{
+    _listHeaderComponet = () => {
         return (
             <View style={styles.header}>
                 <TouchableOpacity
-                    style={[styles.item,{justifyContent:'center'}]}
-                    onPress={()=>{
-                    this.props.navigation.navigate('Creat')
-            }}>
+                    style={[styles.item, {justifyContent: 'center'}]}
+                    onPress={() => {
+                        this.props.navigation.navigate('Creat')
+                    }}>
                     <Icon name="md-add" size={50}/>
                     <Text style={styles.period}>新建卡片</Text>
                 </TouchableOpacity>
@@ -121,14 +124,16 @@ export default class Publish extends Component {
         return (
             <LCList
                 ListHeaderComponent={this._listHeaderComponet}
-                style={[this.props.style,styles.list]}
+                style={[this.props.style, styles.list]}
                 reqKey={listKey} //在normalizr 中的位置
                 sKey={CARDLIST}  //在list 中的位置
                 callPath={CARDLIST} //表示走云函数,并告知云函数的路径
                 numColumns={3}
-                columnWrapperStyle={{paddingHorizontal:10}}
+                columnWrapperStyle={{paddingHorizontal: 10}}
                 renderItem={this.renderRow.bind(this)}
-                dataMap={(data)=>{return {results:data.result}}}
+                dataMap={(data) => {
+                    return {results: data.result}
+                }}
                 reqParam={{}}
             />
         );
@@ -141,14 +146,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF'
     },
-    item:{
-        backgroundColor:'white',
-        width:(width-50)/3,
-        height:width/3*1.3,
-        marginTop:10,
-        marginHorizontal:5,
-        borderRadius:10,
-        alignItems:'center',
+    item: {
+        backgroundColor: 'white',
+        width: (width - 50) / 3,
+        height: width / 3 * 1.3,
+        marginTop: 10,
+        marginHorizontal: 5,
+        borderRadius: 10,
+        alignItems: 'center',
         shadowColor: "#000000",
         shadowOpacity: 0.2,
         shadowRadius: 1,
@@ -156,29 +161,28 @@ const styles = StyleSheet.create({
             height: 0.5,
             width: 0.1,
         },
-        elevation:10,
+        // elevation:10,
     },
     list: {
         flex: 1,
     },
-    title:{
-        color:"black",
-        marginTop:10,
-        fontSize:16,
-        maxWidth:width/3-20
+    title: {
+        color: "black",
+        marginTop: 10,
+        fontSize: 16,
+        maxWidth: width / 3 - 20,
+        alignSelf: 'center'
 
     },
-    period:{
-        marginTop:5,
+    period: {
+        marginTop: 5,
 
     },
-    header:{
-        height:width/3*1.4,
+    header: {
+        height: width / 3 * 1.4,
         // backgroundColor:'red',
-        paddingHorizontal:10
+        paddingHorizontal: 10
     }
-
-
 
 
 })

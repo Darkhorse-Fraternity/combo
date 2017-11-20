@@ -19,18 +19,17 @@ export default function pushConfig() {
 
         // (optional) Called when Token is generated (iOS and Android)
         onRegister: function (value) {
-            console.log('tokenValue:', value)
-            const param = pushInstallation(value.os, value.token)
-            send(param).then((response)=> {
-                console.log('push Registe Success:', response)
-            })
+            push(value.token)
         },
 
         // (required) Called when a remote or local notification is opened or received
         onNotification: function (notification) {
             console.log('NOTIFICATION:', notification);
-            if (notification.foreground) {
-                Toast.show(notification.message)
+            if(notification.foreground && !notification.data.silent){
+                // Toast.show(notification.message)
+                store.dispatch(dataStorage('notify',{show:true,notification}))
+            }else {
+                doReceiveNotify(notification)
             }
         },
 
@@ -60,10 +59,7 @@ export default function pushConfig() {
         const LeanCloudPushNative = NativeModules.LeanCloudPush;
 
         LeanCloudPushNative.getInstallationId().then(id=>{
-            const param = pushInstallation(Platform.OS,id)
-            send(param).then((response)=>{
-                console.log('response:',response)
-            })
+            push(id)
         })
 
         LeanCloudPushNative.getInitialNotification().then((res)=> {
@@ -73,8 +69,15 @@ export default function pushConfig() {
         })
 
         DeviceEventEmitter.addListener(LeanCloudPushNative.ON_RECEIVE, (res) => {
-            console.log('ON_RECEIVE:', res.data)
-            Toast.show(res.data.toString())
+            const data= JSON.parse(res.data);
+            const foreground = res.foreground === '1' ? true : false
+            const notification = {'data': data, 'foreground': foreground}
+            console.log("数据", res)
+            if (!notification.data.silent && notification.foreground) {
+                store.dispatch(dataStorage('notify', {show: true, notification}))
+            } else {
+                doReceiveNotify(notification)
+            }
         });
         DeviceEventEmitter.addListener(LeanCloudPushNative.ON_ERROR, (res) => {
             console.log('ON_ERROR:', res)
@@ -82,4 +85,15 @@ export default function pushConfig() {
 
     }
 
+}
+
+let staticId ;
+export function push(id = staticId,user) {
+    if(id && id !== staticId){staticId = id}
+    console.log('staticId:', staticId);
+    const param = pushInstallation(Platform.OS,id,user)
+    console.log('push param:', param);
+    send(param).then((response)=>{
+        console.log('response:',response)
+    })
 }

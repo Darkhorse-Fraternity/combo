@@ -56,7 +56,7 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
                         dispatch(_listSucceed(data, page, listKey));
                     }else {
                         console.log('response:', response);
-                        dispatch(_listFailed(key, response[MSG]))
+                        dispatch(_listFailed(listKey, response[MSG]))
                     }
                 }
             }).catch((e) => {

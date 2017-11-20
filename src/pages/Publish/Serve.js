@@ -91,7 +91,7 @@ export default class Detail extends Component {
 
     renderRow({item, index}: Object) {
 
-        console.log('test:', item);
+        // console.log('test:', item);
         const img = item.imgs && item.imgs[0] || null
 
         return (
