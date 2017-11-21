@@ -10,6 +10,7 @@ export const SCENELIST = 'sceneList'
 export const CARDLIST = 'cardList'
 export const IDOULIMAGE = 'iDoULImage'
 export const PBULImage = 'PBULImage'
+export const IUSEExist = 'iUseExist'
 //设置初始值
 
 export const registerReqKeys = [
@@ -19,7 +20,8 @@ export const registerReqKeys = [
     IUSE,
     SCENELIST,
     IDOULIMAGE,
-    PBULImage
+    PBULImage,
+    IUSEExist
 //设置初始值
 ]
 

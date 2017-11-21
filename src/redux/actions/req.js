@@ -65,7 +65,11 @@ export function cleanData(key, response, option) {
     data = !option.dataMap ? data : option.dataMap(data) || data
 
     if (option.normalizr && data) {
-        data = normalizr(key, data)
+        if(option.sceme){
+            data = normalize(data[DATA], option.sceme);
+        }else {
+            data = normalizr(key, data)
+        }
         const dispatch = store.dispatch
         data && data.entities && dispatch(addEntities(data.entities))
         return data.result[DATA]
@@ -106,7 +110,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 //不返回错误码，直接通过通用错误处理渠道。
 export function req(params: Object, key: string, option: Object = {}) {
     return reqA(params,key,option).then(response =>{
-            console.log('test:', response);
+            // console.log('test:', response);
             if(response[RESCODE] === SUCCODE ){
                 return response[DATA]
             }else{

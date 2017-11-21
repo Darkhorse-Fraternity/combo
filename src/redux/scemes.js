@@ -6,12 +6,11 @@ export const code = 'results'
 
 
 const entity = (key,config={})=> new schema.Entity(key,config,{ idAttribute: 'objectId' });
-
 const list = (item) => new schema.Object({[code]: new schema.Array(item)})
 
 
 
-const user = entity(USER)
+export const user = entity(USER)
 const iCard = entity(ICARD,{user})
 const iUse = entity(IUSE,{user,iCard})
 

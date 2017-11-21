@@ -217,6 +217,20 @@ export function limitSearch(className:string,page:Number = 0,
       }
     }
 }
+
+export function existSearch(className:string,other:Object = {}) {
+
+    return {
+        path:'/classes/' + className,
+        method:methodType.get,
+        params:{
+            count:1,
+            limit:0,
+            ...other
+        }
+    }
+}
+
 /**
  * 增加
  * @param  {[type]} className:string 类名

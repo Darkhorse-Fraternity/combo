@@ -18,16 +18,12 @@ import {
 import {ICARD, IUSE, CARDLIST} from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-import {selfUser, iCard} from '../../request/LCModle'
+
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import Toast from 'react-native-simple-toast';
-import {add} from '../../redux/module/leancloud'
-import {addListNormalizrEntity} from '../../redux/actions/list'
 
-import moment from 'moment'
 
 const listKey = ICARD
 
@@ -37,25 +33,7 @@ const listKey = ICARD
         data: state.normalizr.get(listKey)
     }),
     (dispatch, props) => ({
-        use: async (card) => {
 
-            const param = {
-                cycle: 0,
-                time: 0,
-                // notifyTime:option&&option.notifyTime||"20.00",
-                doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-                ...selfUser(),
-                ...iCard(card.objectId)
-            }
-            const res = await add(param, IUSE)
-            const entity = {
-                ...param,
-                ...res
-            }
-            dispatch(addListNormalizrEntity(IUSE, entity))
-            props.navigation.goBack()
-            Toast.show('你接受了一个卡片' + card.title)
-        }
 
     })
 )
