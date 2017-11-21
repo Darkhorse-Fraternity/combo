@@ -3,7 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-
+console.ignoredYellowBox = ['Setting a timer'];
 require('./src/app');
 // import React, { Component } from 'react';
 // import {

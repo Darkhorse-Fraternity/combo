@@ -31,6 +31,10 @@ public class MainApplication extends Application implements ReactApplication {
         }
 
         @Override
+        protected String getJSMainModuleName() {
+            return "index";
+        }
+        @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
@@ -48,10 +52,6 @@ public class MainApplication extends Application implements ReactApplication {
         }
     };
 
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
-    }
 
     @Override
     public void onCreate() {
@@ -63,19 +63,11 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
 
-    @Override
-    protected String getJSMainModuleName() {
-        return "index";
-    }
+
 
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        SoLoader.init(this, /* native exopackage */ false);
-    }
 };

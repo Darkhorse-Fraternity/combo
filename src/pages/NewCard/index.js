@@ -86,7 +86,11 @@ export default class Publish extends Component {
         return (
             <View style={styles.header}>
                 <TouchableOpacity
-                    style={[styles.item, {justifyContent: 'center'}]}
+                    style={[styles.item,
+                        {justifyContent: 'center',
+                            borderColor:'#e4e4e4',
+                            borderWidth:StyleSheet.hairlineWidth,
+                            elevation:10}]}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
