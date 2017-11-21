@@ -12,6 +12,7 @@ import configureStore from './redux/configureStore'
 import {preConfig} from './redux/config'
 import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
+// import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
 configureStore.dispatch(preConfig())
 // const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)

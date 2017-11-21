@@ -90,10 +90,12 @@ export default function pushConfig() {
 let staticId ;
 export function push(id = staticId,user) {
     if(id && id !== staticId){staticId = id}
-    console.log('staticId:', staticId);
-    const param = pushInstallation(Platform.OS,id,user)
-    console.log('push param:', param);
-    send(param).then((response)=>{
-        console.log('response:',response)
-    })
+    // console.log('staticId:', staticId);
+    if(id){
+        const param = pushInstallation(Platform.OS,id,user)
+        console.log('push param:', param);
+        send(param).then((response)=>{
+            console.log('response:',response)
+        })
+    }
 }

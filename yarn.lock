@@ -3896,10 +3896,6 @@ react-native-interactable@^0.1.6:
   version "0.1.7"
   resolved "http://registry.npm.taobao.org/react-native-interactable/download/react-native-interactable-0.1.7.tgz#c785688ea6ec7c4ef443e715d145c6862ae210da"
 
-"react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git":
-  version "0.1.0"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#8db2f859a6eda924bb111cc9999e241878111559"
-
 react-native-md5@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-md5/download/react-native-md5-1.0.0.tgz#2320be24d674938ae5ef4f492698edbbfa0e0205"

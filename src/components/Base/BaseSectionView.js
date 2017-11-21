@@ -179,8 +179,6 @@ export default class BaseSectionView extends Component {
             //TODO:先不加，其他状态量判断太麻烦。
         }
 
-
-        console.log('this.props.loadStatu:', this.props.loadStatu);
         return (
             <TableView
                 refreshing={this.props.loadStatu === "LIST_LOAD_DATA"}
