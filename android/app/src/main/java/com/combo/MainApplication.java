@@ -58,8 +58,8 @@ public class MainApplication extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this, "q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt",
-                "y6ffzv6mq705pya2pd6kgl1ni1vwlppesis7f1qi19afg5nn");
+        AVOSCloud.initialize(this, "cmwLjTYWoYfN4jCgPR49rsi6-gzGzoHsz",
+                "S6wxWnhQfL9rBLo2ngEctK0u");
     }
 
 

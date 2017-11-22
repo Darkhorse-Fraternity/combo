@@ -5,7 +5,10 @@
 'use strict';
 
 
-import React, {Component} from 'react'
+import React, {
+	Component,
+} from 'react'
+import {Platform,StatusBar} from 'react-native'
 import { Provider } from 'react-redux'
 import {AppRegistry,View} from 'react-native';
 import configureStore from './redux/configureStore'
@@ -22,17 +25,25 @@ configureStore.dispatch(preConfig())
 // import App from './components/js/App'
 class App extends Component {
 
+
 	render() {
-		return (
+        return (
 			<Provider store={configureStore}>
-				{/*{Route(store)}*/}
-				{/*<Route/>*/}
+                {/*{Route(store)}*/}
+                {/*<Route/>*/}
 				<View style={{flex: 1}}>
+                    {Platform.OS !== 'ios' && Platform.Version >= 20 && (
+						<StatusBar
+							translucent={true}
+							backgroundColor="transparent"
+							barStyle="dark-content"
+						/>
+                    )}
 					<AppWithNavigationState/>
 					<InfoBar/>
 				</View>
 			</Provider>
-		)
+        );
 	}
 }
 

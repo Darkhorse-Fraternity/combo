@@ -86,11 +86,11 @@ export default class LoginView extends Component {
         // const {params} = state;
         return {
             title: '登录',
-            headerStyle: {
-                backgroundColor: '#f5fcff',
-                shadowColor: '#F5FCFF',
-                borderBottomColor: '#F5FCFF',
-            },
+            // headerStyle: {
+            //     backgroundColor: '#f5fcff',
+            //     shadowColor: '#F5FCFF',
+            //     borderBottomColor: '#F5FCFF',
+            // },
         }
     };
 
@@ -238,6 +238,7 @@ export default class LoginView extends Component {
                                     this.state.time.toString() + '秒'}
                             </BCButton>
                         </View>
+                        <View style={styles.line}/>
                     </View>
 
                     <BCButton
@@ -265,7 +266,7 @@ export default class LoginView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'white',
         paddingTop: 20,
         height: Dimensions.get('window').height - 64,
     },

@@ -51,7 +51,9 @@ function _preConfig() {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
 
-    // Platform.OS=='ios'&& StatusBar.setBarStyle('light-content', true);
+    // Platform.OS !=='ios'&& StatusBar.setBackgroundColor('white', true);
+    //
+    // if()
 
     pushConfig()
 

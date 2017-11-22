@@ -5,6 +5,7 @@ import {addNavigationHelpers, StackNavigator} from 'react-navigation';
 import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/Tab'
 import {route} from '../../../pages'
+import {Platform} from 'react-native'
 export const AppNavigator = StackNavigator({
     ...route,
     Tab: {screen: Tab},
@@ -13,9 +14,15 @@ export const AppNavigator = StackNavigator({
     navigationOptions: {
         headerStyle:{
             backgroundColor:'white',
-            shadowColor:'#F5FCFF',
+            shadowColor: 'red',
+            shadowOpacity: 0.1,
+            shadowRadius: 0,
+            shadowOffset: {
+                height: 0,
+            },
             borderBottomColor:'#F5FCFF',
-
+            elevation:0,
+            paddingTop: (Platform.OS &&  Platform.Version >= 20) === "ios" ? 0 : 25,
             //headerBackTitle:' '
         },
         headerTintColor:'black',
