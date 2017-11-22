@@ -16,7 +16,7 @@
     "normalizr": "^3.2.3",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
-    "react-native": "0.50.3",
+    "react-native": "^0.50.3",
     "react-native-animatable": "^1.2.4",
     "react-native-blur": "^3.2.2",
     "react-native-button": "^2.1.0",
