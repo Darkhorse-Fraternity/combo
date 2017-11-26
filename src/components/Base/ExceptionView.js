@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
-const AniView = Animatable.createAnimatableComponent(Icon);
+const AniView = Animatable.createAnimatableComponent(Image);
 
 export const ExceptionType = {
     Loading: 'exceptionTypeLoading',
@@ -93,9 +93,10 @@ export default class ExceptionView extends Component {
                     // <Image resizeMode = 'contain' source={this.props.image} style={styles.image}/>
                     <AniView
                         ref='icon'
-                        name='logo-freebsd-devil'
-                        size={100}
-                        color='rgb(180,180,180)'
+                        // name='logo-freebsd-devil'
+                        // size={100}
+                        // color='rgb(180,180,180)'
+                        source={require('../../../source/img/my/icon-60.png')}
                         style={styles.image}/>
                 );
         }
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 14,
-        color: 'rgb(180,180,180)',
+        color: 'black',
         alignSelf: 'center',
     },
     otherTips: {

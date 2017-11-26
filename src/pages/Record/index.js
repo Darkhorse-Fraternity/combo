@@ -114,7 +114,15 @@ export default class Record extends Component {
     renderRow({item, index}: Object) {
         // md-refresh
 
-        const iCard = this.props.iCard.get(item[ICARD]).toJS()
+        const iCardId = item[ICARD]
+        const card = this.props.iCard.get(iCardId)
+        const iCard = card && card.toJS()
+       // console.log('test:', item);
+
+        if(!iCard){
+            console.log('iCardId:', iCardId,iCard);
+            return <View/>
+        }
         const days = iCard.period * (item.cycle ) + (item.time )
         const reflesh = item.time == iCard.period || item.statu == 'stop'
         return (
