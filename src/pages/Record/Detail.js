@@ -207,7 +207,7 @@ export default class Detail extends Component {
                 reqKey={listKey}
                 sKey={listKey + params.data.objectId}
                 renderItem={this.renderRow.bind(this)}
-                noDataPrompt='还没有记录~'
+                noDataPrompt={'还没有记录'}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
                 //}}

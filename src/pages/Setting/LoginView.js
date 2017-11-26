@@ -213,7 +213,8 @@ export default class LoginView extends Component {
                     <View style={styles.top}>
                         <View style={{flexDirection: 'row'}}>
                             {this._renderRowMain('手机号:', '请填入手机号',
-                                (text) => this.setState({phone: text}), 'numeric', true, 11, "1", this.state.phone
+                                (text) => this.setState({phone: text}), 'numeric',
+                                true, 11, "1", this.state.phone
                             )}
                         </View>
                         <View style={styles.line}/>

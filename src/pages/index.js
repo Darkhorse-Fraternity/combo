@@ -57,7 +57,7 @@ export const tabiCon = {
         label: "Home",
         color: '#F3AC41',
         activityColor: '#F0C98B',
-        icon: 'logo-freebsd-devil'
+        icon: 'md-sunny'
     },
     PersonCenter: {
         label: "Setting",
