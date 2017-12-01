@@ -22,13 +22,13 @@ import {connect} from 'react-redux'
 // import styled from 'styled-components/native';
 import {ICARD, USER, IUSE, IUSEExist} from '../../redux/reqKeys'
 import {getUserByID, existSearch} from '../../request/leanCloud'
-import {req} from '../../redux/actions/req'
+import {req,requestSucceed,DATA} from '../../redux/actions/req'
 import {user} from '../../redux/scemes'
 import {selfUser, iCard} from '../../request/LCModle'
 import Toast from 'react-native-simple-toast';
 import {add} from '../../redux/module/leancloud'
 import {addListNormalizrEntity} from '../../redux/actions/list'
-
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import moment from 'moment'
 //static displayName = CardInfo
 @connect(
@@ -66,12 +66,22 @@ import moment from 'moment'
                 ...res
             }
             dispatch(addListNormalizrEntity(IUSE, entity))
+            dispatch(addNormalizrEntity(ICARD, {
+                ...card,
+                useNum:card.useNum +1,
+            }))
+            dispatch(requestSucceed(IUSEExist, {
+                [DATA]:{ count:1}
+            }))
             // props.navigation.goBack()
             Toast.show('你接受了一个卡片' + card.title)
         },
         exist: async (id) => {
             const params = existSearch(IUSE, {
-                where: iCard(id)
+                where: {
+                    ...iCard(id),
+                    ...selfUser()
+                }
             })
             req(params, IUSEExist)
         }
@@ -145,7 +155,7 @@ export default class CardInfo extends Component {
 
                 </ScrollView>
                 <TouchableOpacity onPress={() => {
-                    this.props.use()
+                    this.props.use(iCard)
                 }}
                                   disabled={exist || load}
                                   style={[styles.btn,{backgroundColor:!exist?"#F3AC41":"#F0C98B"}]}>

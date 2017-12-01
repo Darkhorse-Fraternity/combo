@@ -1,3 +1,4 @@
+
 curl -X POST \
   -H "X-LC-Id: q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt"          \
   -H "X-LC-Key: njvke2r653u04lm7dpporogtsgz2d2mw5wfcartktn9kwo6f,master"        \
@@ -7,7 +8,7 @@ curl -X POST \
             "user":{
                     "__type": "Pointer",
                     "className": "user",
-                    "objectId": "59a5029644d9040058136049"
+                    "objectId": "5a20c7630b616000457eb881"
             }
         },
         "prod": "dev",

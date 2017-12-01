@@ -8,7 +8,9 @@ import {
     DeviceEventEmitter,
     NativeModules,
 } from 'react-native'
-
+import store from '../redux/configureStore'
+import {doReceiveNotify} from './pushReceive'
+import {dataStorage} from '../redux/actions/util'
 export default function pushConfig() {
 
 

@@ -100,6 +100,7 @@ export default class InfoBar extends Component {
     render() {
         if (this.props.notify.get('show')) {
             const notify = this.props.notify.get('notification').toJS()
+            console.log('test:', notify.data);
             return (
                 <Animatable.View
                     ref="aniView"
@@ -109,7 +110,7 @@ export default class InfoBar extends Component {
                     {/*<Image source={require('../../../source/img/logo/logo.png')}*/}
                            {/*style={styles.img}/>*/}
                     <Text style={styles.text}>
-                        {notify.message}
+                        {notify.data.title}
                     </Text>
                 </Animatable.View>
             )
