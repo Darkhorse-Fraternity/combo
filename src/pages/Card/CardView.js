@@ -395,7 +395,7 @@ export default class Home extends Component {
 
         if ((statu === 'LIST_NO_DATA' || statu == 'LIST_LOAD_NO_MORE') && data.length == 0) {
             return (
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: -100}}>
+                <View style={{flex: 1, alignItems: 'center',paddingBottom:100, justifyContent: 'center'}}>
                     <TouchableOpacity
                         style={styles.noDataBc}
                         onPress={() => {
@@ -403,7 +403,7 @@ export default class Home extends Component {
                         }}>
                         <Icon name="md-add" color="white" size={50}/>
                     </TouchableOpacity>
-                    <Text style={{marginTop: 10}}>新增一个卡片吧</Text>
+                    <Text style={{marginTop: 10}}>给自己添加个习惯卡片吧~</Text>
                 </View>
             )
         }

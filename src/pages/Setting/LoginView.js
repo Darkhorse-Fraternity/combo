@@ -65,8 +65,8 @@ export default class LoginView extends Component {
         this.state = {
             time: 60,
             codeName: '',
-            phone: __DEV__ ? '13588833404' : "", //号码
-            ymCode: __DEV__ ? '007342' : "", //验证码
+            phone: __DEV__ ? '13696981385' : "", //号码
+            ymCode: __DEV__ ? '980678' : "", //验证码
             isTap: false,
         };
     }
@@ -201,13 +201,13 @@ export default class LoginView extends Component {
         const flag = reg.test(this.state.ymCode) && checkPhoneNum(this.state.phone)
         const authLoad = this.props.auth.get('load')
         return (
-            <View style={styles.container}>
+            <View
+                onStartShouldSetResponder={() => true}
+                onResponderGrant={Keyboard.dismiss}
+                style={styles.container}>
                 {!this.props.userData.isLogin && (<BG/>)}
                 <Animatable.View
                     animation="slideInUp"
-
-                    onStartShouldSetResponder={() => true}
-                    onResponderGrant={Keyboard.dismiss}
                 >
 
                     <View style={styles.top}>
