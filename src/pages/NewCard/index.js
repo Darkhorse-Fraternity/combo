@@ -51,7 +51,7 @@ export default class Publish extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            // title: '选择卡片',
+            //title: '新建卡片',
         }
     };
 

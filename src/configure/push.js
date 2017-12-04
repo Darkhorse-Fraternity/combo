@@ -58,7 +58,10 @@ export default function pushConfig() {
     });
     if (Platform.OS != 'ios') {
 
+
         const LeanCloudPushNative = NativeModules.LeanCloudPush;
+
+        LeanCloudPushNative.setinitKey()
 
         LeanCloudPushNative.getInstallationId().then(id=>{
             push(id)

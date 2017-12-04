@@ -106,7 +106,9 @@ export default class Home extends Component {
         const name = this.props.user.username || '陌生人'
         return (
             <View style={styles.headView}>
-                <Text style={styles.headViewText}>
+                <Text
+                    numberOfLines={2}
+                    style={styles.headViewText}>
                     -{name},您好！
                 </Text>
                 <View style={styles.headViewSub}>

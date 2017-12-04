@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
         width: width - 60,
-        height: 30,
+        height: 40,
         marginTop: 20,
         marginLeft: 10,
         textAlign: 'left',

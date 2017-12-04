@@ -11,7 +11,7 @@ import {
 import Toast from 'react-native-simple-toast';
 import {req} from '../../redux/actions/req'
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import {mainColor} from '../../configure'
 import {backViewColor, textInputTextColor, placeholderTextColor, grayFontColor} from '../../configure'
 import {feedbackParam} from '../../request/leanCloud'
 import {connect} from 'react-redux'
@@ -80,6 +80,7 @@ class Feedback extends Component {
                 <TextInput
                     multiline={true}
                     placeholderTextColor={placeholderTextColor}
+                    selectionColor= {mainColor}
                     style={styles.account}
                     underlineColorAndroid='transparent'
                     placeholder={"请填写您的宝贵意见。"}

@@ -132,9 +132,10 @@ export default class Detail extends Component {
         const {navigation} = this.props;
         const {state} = navigation;
         const {params} = state;
-        const item = params.data
+        const data = this.props.data && this.props.data.toJS()
+        const item = data || params.data
         const card = params.card
-        const reflesh = item.time === card.period || item.statu === 'stop'
+        const reflesh = item.time === Number(card.period) || item.statu === 'stop'
 
         // console.log('test:', item);
         return (

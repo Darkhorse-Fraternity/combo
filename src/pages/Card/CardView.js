@@ -246,7 +246,7 @@ export default class Home extends Component {
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId).toJS()
         const isSelf = iCard.user == this.props.user.objectId
-        return (<View>
+        return (<View style={styles.settingView}>
             {isSelf && (<BounceBtn
                 color="#rgb(136,175,160)"
                 radius={60}
@@ -305,7 +305,7 @@ export default class Home extends Component {
                     {iCard.get('title')}
                 </Text>
             </View>)
-        if (data.time === data.period) {
+        if (data.time === Number(iCard.get("period"))) {
             FlagView = this.__doneView(data)
         } else if (data.doneDate) {
             if (flag) {
@@ -410,7 +410,7 @@ export default class Home extends Component {
 
         return (
 
-            <List
+            <FlatList
                 onScroll={this.props.onScroll}
                 ref="list"
                 animation="slideInRight"
@@ -491,7 +491,9 @@ const styles = StyleSheet.create({
     done: {
         fontSize: 17,
         marginBottom: 20,
-        color: 'white'
+        color: 'white',
+        alignSelf:'center',
+        textAlign:'center'
     },
     toper: {
         width: width - 50,
@@ -530,5 +532,11 @@ const styles = StyleSheet.create({
         height: 50,
         position: 'absolute',
         zIndex: 10,
+    },
+    settingView:{
+        flexDirection:'row',
+        alignSelf:'center',
+        justifyContent: 'space-between',
+        padding: 10
     }
 })

@@ -23,6 +23,8 @@ import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {update} from '../../redux/module/leancloud'
 import {ICARD} from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
+import {mainColor} from '../../configure'
+
 //static displayName = OptionView
 
 export const StaticOption = {
@@ -198,7 +200,7 @@ export  default  class OptionView extends Component {
                 <TextInput
                     defaultValue={this.state.notifyText}
                     placeholderTextColor="rgba(180,180,180,1)"
-                    //selectionColor={mainColor}
+                    selectionColor={mainColor}
                     returnKeyType='done'
                     autoFocus={true}
                     maxLength={100}

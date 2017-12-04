@@ -125,7 +125,7 @@ export default class PublishDetail extends Component {
                         {/*this.__alert(iCard)*/}
                     {/*}*/}
                 {/*})}*/}
-                {this._renderRow("立即发布", () => {
+                {this._renderRow("发布设置", () => {
                     this.props.navigation.navigate('Publishing',
                         {iCardID: this.props.navigation.state.params.iCardID})
                 })}

@@ -115,7 +115,7 @@ export  default  class Creat extends Component {
         // const {params} = state;
         return {
             title: '新建卡片',
-            headerLeft: <View/>
+            headerLeft: null
         }
     };
 
@@ -168,6 +168,7 @@ export  default  class Creat extends Component {
                         //onSubmitEditing={() =>this.focusNextField(ref)}
                         onChangeText={(text)=>this.setState({title:text})}
                     />
+                    <View style={styles.line}/>
                 </View>
                 <View style={styles.ctrlView}>
                     <TouchableOpacity
@@ -234,7 +235,7 @@ export  default  class Creat extends Component {
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: '#F5FCFF'
+        backgroundColor: 'white'
     },
     row: {
         // borderBottomWidth: StyleSheet.hairlineWidth,
@@ -254,14 +255,14 @@ const styles = StyleSheet.create({
         marginLeft: 0,
         //textAlign: 'center',
         fontSize: 14,
-        height: 50,
+        height: 40,
         paddingLeft: 15,
         //width: Dimensions.get('window').width - 60,
-        color: 'black',
+        // color: 'black',
         marginTop: 10,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: "rgb(180,180,180)",
-        borderRadius: 25,
+        // borderWidth: StyleSheet.hairlineWidth,
+        // borderColor: "rgb(180,180,180)",
+        // borderRadius: 25,
 
     },
     sureBtn: {
@@ -299,5 +300,10 @@ const styles = StyleSheet.create({
     },
     doneTitle: {
         fontSize: 20,
+    },
+    line:{
+        width: '100%',
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: 'rgba(0,0,0,0.5)'
     }
 })
