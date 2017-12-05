@@ -291,7 +291,7 @@ export function classBatch(requests:[Object]):Object{
   }
 }
 
-export function pushInstallation(OS:String,token:string,owner:obejct) {
+export function pushInstallation(OS:String,token:string) {
     let installationId = OS == 'ios' ? { "deviceToken": token}:{ "installationId": token}
     // const LeanCloud_APP_ID = 'q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt';
     // const LeanCloud_APP_KEY = 'y6ffzv6mq705pya2pd6kgl1ni1vwlppesis7f1qi19afg5nn';
@@ -311,7 +311,21 @@ export function pushInstallation(OS:String,token:string,owner:obejct) {
             "channels": [
                 "public", "protected", "private"
             ],
-            ...owner,
         },
+    }
+}
+
+export function updateInstallation(id:String,params) {
+    return {
+        scheme:'https',
+        host:'leancloud.cn/1.1',
+        path:'/installations/'+ id,
+        method:methodType.put,
+        // head:{
+        //     "Content-Type": "application/json",
+        //     "X-LC-Key": LeanCloud_APP_KEY,
+        //     "X-LC-Id": LeanCloud_APP_ID,
+        // },
+        params
     }
 }

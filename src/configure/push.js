@@ -1,6 +1,8 @@
 import  {send} from'../request'
-import {pushInstallation} from '../request/leanCloud'
-import Toast from 'react-native-simple-toast';
+import {
+    pushInstallation,
+    updateInstallation
+} from '../request/leanCloud'
 import  PushNotification from 'react-native-push-notification'
 
 import {
@@ -11,6 +13,7 @@ import {
 import store from '../redux/configureStore'
 import {doReceiveNotify} from './pushReceive'
 import {dataStorage} from '../redux/actions/util'
+import {user} from '../request/LCModle'
 export default function pushConfig() {
 
 
@@ -61,7 +64,6 @@ export default function pushConfig() {
 
         const LeanCloudPushNative = NativeModules.LeanCloudPush;
 
-        LeanCloudPushNative.setinitKey()
 
         LeanCloudPushNative.getInstallationId().then(id=>{
             push(id)
@@ -92,13 +94,31 @@ export default function pushConfig() {
 
 }
 
-let staticId ;
-export function push(id = staticId,user) {
-    if(id && id !== staticId){staticId = id}
+let InstallationID
+export function push(token) {
     // console.log('staticId:', staticId);
-    if(id){
-        const param = pushInstallation(Platform.OS,id,user)
-        console.log('push param:', param);
+    if(token){
+        const param = pushInstallation(Platform.OS,token)
+        // console.log('push param:', param);
+        send(param).then(res => res.json()).then(res =>{
+            // console.log('response:',res)
+            // store.dispatch(dataStorage('InstallationID',res.objectId))
+            InstallationID = res.objectId
+            const state =store.getState()
+            const data = state.user.data
+            if(data && data.objectId){
+                updatePush(user(data.objectId))
+            }
+        })
+    }
+}
+
+
+
+export function updatePush(owner) {
+    if(InstallationID){
+        const param = updateInstallation(InstallationID,{...owner,badge:0})
+        console.log('param:', param);
         send(param).then((response)=>{
             console.log('response:',response)
         })

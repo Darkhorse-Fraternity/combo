@@ -93,7 +93,9 @@ export default class Detail extends Component {
 
         // console.log('test:', item);
         const img = item.imgs && item.imgs[0] || null
-
+        const avatar =  item.user.avatar
+        const avatarUrl = avatar && avatar.url
+        const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         return (
             <View
                 style={styles.row}
@@ -101,7 +103,7 @@ export default class Detail extends Component {
                 }}>
 
                 <View style={styles.top}>
-                    <Image style={styles.avatar} source={{uri: item.user.avatar.url}}/>
+                    <Image style={styles.avatar} source={avatarSource}/>
                     <Text style={styles.name}>{item.user.username || '路人甲'}   完成了任务</Text>
                 </View>
                 {img && (<Image style={styles.image} source={{uri: img}}/>)}
@@ -122,7 +124,6 @@ export default class Detail extends Component {
         const {navigation} = this.props;
         const {state} = navigation;
         const {params} = state;
-
         const param = {
             'where': {
                 ...iCard(params.iCard.objectId),
@@ -165,12 +166,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'rgb(50,50,50)'
     },
-    subText: {
-        marginTop: 10,
-        fontSize: 14,
-        fontWeight: '500',
-        color: 'rgb(200,200,200)'
-    },
     date: {
         fontSize: 14,
         color: 'rgb(100,100,100)',
@@ -180,7 +175,7 @@ const styles = StyleSheet.create({
     row: {
         backgroundColor: 'white',
         paddingHorizontal: 18,
-        paddingVertical: 10,
+        paddingVertical: 2,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e4e4e4',
     },
@@ -189,9 +184,18 @@ const styles = StyleSheet.create({
         height: 200,
     },
     top: {
-        paddingVertical:2,
+        paddingVertical:5,
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    avatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+    },
+    name: {
+        marginLeft: 5,
+        color:'#4e4e4e'
     },
     bottom: {
         marginTop: 10,
@@ -210,15 +214,7 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: 25,
     },
-    avatar: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-    },
-    name: {
-        marginLeft: 5,
-        color:'#4e4e4e'
-    }
+
 })
 
 

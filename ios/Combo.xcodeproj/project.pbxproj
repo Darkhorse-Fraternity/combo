@@ -36,6 +36,7 @@
 		B083C8D2978F494C9DD36A04 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 858A1DA5B94F48AA98B5A47F /* libRNDeviceInfo.a */; };
 		B11BDEC8C0DF4A5B9BBB840E /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6046A53161CD4BB78F8E775B /* SimpleLineIcons.ttf */; };
 		C762FD746F93AA3B36AE96CF /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
+		CC01F7D31FD6827C00A18EFD /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
 		CC0242A51DF69FAB0045A14A /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC02428F1DF69F4C0045A14A /* libRCTAnimation.a */; };
 		CC3E39A61E2622570019B85F /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3E39A51E2622570019B85F /* libiconv.tbd */; };
 		CC3E39A81E2622610019B85F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3E39A71E2622610019B85F /* libsqlite3.tbd */; };
@@ -415,6 +416,7 @@
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		C5795D33A59FFF7734212F5B /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
+		CC01F7D21FD6827C00A18EFD /* tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tip.mp3; sourceTree = "<group>"; };
 		CC0242881DF69F4C0045A14A /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		CC3E39A51E2622570019B85F /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		CC3E39A71E2622610019B85F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
@@ -581,6 +583,7 @@
 		13B07FAE1A68108700A75B9A /* Combo */ = {
 			isa = PBXGroup;
 			children = (
+				CC01F7A51FD6826F00A18EFD /* Source */,
 				CC4548E71E03FBAC00A6CE93 /* Combo.entitlements */,
 				CCC010561DF9485700613165 /* InfoPlist.strings */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -706,6 +709,14 @@
 				00E356EE1AD99517003FC87E /* ComboTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CC01F7A51FD6826F00A18EFD /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CC01F7D21FD6827C00A18EFD /* tip.mp3 */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		CC0242891DF69F4C0045A14A /* Products */ = {
@@ -1312,6 +1323,7 @@
 				4920617B57894581B3739215 /* MaterialIcons.ttf in Resources */,
 				EA37A754FED54D1288E2F9B5 /* Octicons.ttf in Resources */,
 				B11BDEC8C0DF4A5B9BBB840E /* SimpleLineIcons.ttf in Resources */,
+				CC01F7D31FD6827C00A18EFD /* tip.mp3 in Resources */,
 				4614FC31FCD348E9AC731080 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

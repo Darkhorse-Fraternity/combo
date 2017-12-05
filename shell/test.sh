@@ -7,21 +7,31 @@ curl -X POST \
         "where":{
             "user":{
                     "__type": "Pointer",
-                    "className": "user",
-                    "objectId": "5a20c7630b616000457eb881"
+                    "className": "_User",
+                    "objectId": "59a5029644d9040058136049"
             }
         },
         "prod": "dev",
         "data": {
+          "ios":{
              "alert" : {
                 "title":"test",
                 "body":"body",
              },
-              "webUrl" : "combo://Information",
-              "title": "combo test",
-              "silent": false,
-              "action": "com.avos.UPDATE_STATUS",
+              "webUrl" : "combo://Serve",
+              "badge":"Increment",
+              "sound": "tip.mp3",
+              "params":{"iCard":{"title":"ceshi","objectId":"59ff053b1579a300457b440a"}}
+           },
+          "android":{
+                   "webUrl" : "combo://Serve",
+                   "title": "combo test",
+                   "alert": "body",
+                   "silent": false,
+                   "action": "com.avos.UPDATE_STATUS",
+                   "params":{"iCard":{"title":"ceshi","objectId":"59ff053b1579a300457b440a"}}
+           }
         }
      }' \
-https://leancloud.cn/1.1/push
+https://api.leancloud.cn/1.1/push
 

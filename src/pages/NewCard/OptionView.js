@@ -90,7 +90,7 @@ export  default  class OptionView extends Component {
         // const {params} = state;
         return {
             title: '修改配置',
-            headerLeft: <View/>
+            headerLeft: null
         }
     };
 
@@ -241,7 +241,7 @@ export  default  class OptionView extends Component {
                                 this.setState({record:records})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:contain?'#00abfb':'white'}]}
+                            {backgroundColor:contain?'#F3AC41':'white'}]}
                             key={item}>
                             <Text style={{color:contain?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
         height: 50,
         marginTop: 0,
         borderRadius: 25,
-        backgroundColor: '#00abfb',
+        backgroundColor: '#F3AC41',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',

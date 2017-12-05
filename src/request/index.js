@@ -59,8 +59,8 @@ export function send({
     const requestPromise = Promise.race([
         fetch(request, {credentials: 'include'}),
         new Promise(function (resolve, reject) {
-            var reason = __DEV__ ? '网络请求超时' + urlpath : '网络请求超时'
-            setTimeout(() => reject(new Error(reason)), timeout);
+            // var reason = __DEV__ ? '网络请求超时' + urlpath : '网络请求超时'
+            // setTimeout(() => reject(new Error(reason)), timeout);
         })
     ]);
     return requestPromise.then((response)=> {

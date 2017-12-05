@@ -7,11 +7,11 @@ import {
 export function doReceiveNotify(notify) {
     const data = notify.data
     const url = data.webUrl
-    const hihomeHost = 'hihome://'
+    const hihomeHost = 'combo://'
     if (url &&  url.indexOf(hihomeHost) === 0) {
         const nUrl = url.slice(hihomeHost.length, url.length)
         console.log('nUrl:', nUrl);
-        store.dispatch(NavigationActions.navigate({routeName: nUrl, params: {}}))
+        store.dispatch(NavigationActions.navigate({routeName: nUrl, params: data.params}))
     }
 
 }

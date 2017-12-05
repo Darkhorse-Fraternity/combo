@@ -2,34 +2,27 @@
 
 import React, {Component} from 'react';
 import {
-    AppRegistry,
     StyleSheet,
-    Dimensions,
     Text,
-    Navigator,
-    Vibration,
-    Linking,
-    Animated,
-    Easing,
-    View,
     Image,
-    PixelRatio,
-    TouchableWithoutFeedback,
-    PanResponder
+    PanResponder,
+    Platform,
+    View
 } from 'react-native';
-
+import {doReceiveNotify} from '../../configure/pushReceive'
 import * as Animatable from 'react-native-animatable';
 import {dataStorage} from '../../redux/actions/util'
 import {connect} from 'react-redux'
 import {fromJS} from 'immutable';
+
 @connect(
-    state =>({
+    state => ({
         notify: state.util.get('notify')
     }),
-    dispatch =>({
+    dispatch => ({
 
-        hidden: ()=> {
-            dispatch(dataStorage('notify',{show:false}))
+        hidden: () => {
+            dispatch(dataStorage('notify', {show: false}))
         }
 
     })
@@ -40,7 +33,7 @@ export default class InfoBar extends Component {
     static propTypes = {}
 
     static defaultProps = {
-        notify:fromJS({show:false})
+        notify: fromJS({show: false})
     }
 
     constructor(props) {
@@ -61,14 +54,14 @@ export default class InfoBar extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.notify.get('show')){
+        if (nextProps.notify.get('show')) {
             //做一个定时器 5s后自定消失
-
-            const timer  = setTimeout(()=>{
-                   clearTimeout(timer);
+            const duration = Platform.OS  === ' ios' ? 10000 : 22000
+            const timer = setTimeout(() => {
+                clearTimeout(timer);
                 this.refs.aniView && this.refs.aniView.fadeOutUp().then(
-                    (endState) =>  endState.finished && this.props.hidden() )
-               },5000); //自动调用开始刷新 新增方法
+                    (endState) => endState.finished && this.props.hidden())
+            }, duration); //自动调用开始刷新 新增方法
             this.time = timer
         }
     }
@@ -76,22 +69,22 @@ export default class InfoBar extends Component {
     createPanResponder() {
         return PanResponder.create({
             onStartShouldSetPanResponder: () => true,
-            onMoveShouldSetPanResponder:() => true,
-            onPanResponderRelease: (evt, gestureState)=>{
+            onMoveShouldSetPanResponder: () => true,
+            onPanResponderRelease: (evt, gestureState) => {
                 console.log('test:', '');
-                if(gestureState.dy > -10){
-                    this.setState({show:false})
+                if (gestureState.dy > -10) {
+                    this.setState({show: false})
                     const notify = this.props.notify.get('notification').toJS()
-                    console.log('广播111111111111','广播111111111111')
+                    // console.log('广播111111111111','广播111111111111')
                     doReceiveNotify(notify)
-                }else {
+                    this.props.hidden()
+                } else {
                     this.refs.aniView.fadeOutUp().then(
-                        (endState) =>  {
-                            if(endState.finished){
+                        (endState) => {
+                            if (endState.finished) {
                                 this.props.hidden()
-
                             }
-                        } )
+                        })
                 }
             }
         });
@@ -100,18 +93,26 @@ export default class InfoBar extends Component {
     render() {
         if (this.props.notify.get('show')) {
             const notify = this.props.notify.get('notification').toJS()
-            console.log('test:', notify.data);
+            const data = notify.data
+            const message = notify.message
+            const title = Platform.OS === 'ios' ? message.title : data.title
+            const body = Platform.OS === 'ios' ? message.body : data.alert
             return (
                 <Animatable.View
                     ref="aniView"
                     {...this.createPanResponder().panHandlers}
                     animation="fadeInDown"
                     style={styles.infoBar}>
-                    {/*<Image source={require('../../../source/img/logo/logo.png')}*/}
-                           {/*style={styles.img}/>*/}
-                    <Text style={styles.text}>
-                        {notify.data.title}
-                    </Text>
+                    <Image source={require('../../../source/img/my/icon-60.png')}
+                           style={styles.img}/>
+                    <View>
+                        <Text numberOfLines={1} style={styles.title}>
+                            {title}
+                        </Text>
+                        <Text numberOfLines={1} style={styles.body}>
+                            {body}
+                        </Text>
+                    </View>
                 </Animatable.View>
             )
         } else {
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     infoBar: {
         position: 'absolute',
         top: 0,
-        backgroundColor: '#ee4121',
+        backgroundColor: '#F3AC41',
         width: "100%",
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 5},
@@ -135,9 +136,9 @@ const styles = StyleSheet.create({
         // justifyContent:'center'
         alignItems: 'center',
         paddingBottom: 10,
-        paddingTop:25,
+        paddingTop: 25,
         // paddingVertical:25,
-        paddingHorizontal:15,
+        paddingHorizontal: 15,
     },
 
     img: {
@@ -145,10 +146,14 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 10,
     },
-    text: {
+    title: {
         color: 'white',
-        fontSize: 15,
+        fontSize: 14,
         fontWeight: 'bold'
+    },
+    body: {
+        color: 'white',
+        fontSize: 13,
     }
 
 });
