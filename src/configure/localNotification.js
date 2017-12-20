@@ -82,11 +82,14 @@ export async function  dayNotification(data) {
             :moment(notifyTime, "HH").add(1, 'days').toDate()
 
 
+        const title = item.iCard.title
         const message = item.iCard.notifyText ||( item.iCard.title +"完成了吗?")
 
         PushNotification.localNotificationSchedule({
+            title,
             message: message, // (required)
             date: date, // in 60 secs
+            soundName:'tip.mp3',
             // date: new Date(Date.now() + (1*1000)), // in 60 secs
             number:  1,
             repeatType: 'day',

@@ -45,7 +45,7 @@ export default class ImageSelectView extends Component {
 
         const opt = {
             title: '添加图片',
-            maxWidth: 1000, // photos only
+            maxWidth: 2000, // photos only
             maxHeight: 2000, // photos only
         }
         imagePicker(opt, (response)=> {

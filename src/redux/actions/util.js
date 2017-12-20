@@ -27,7 +27,7 @@ export function uploadAvatar(uri:string):Function {
 
             let res = await uploadFilesByLeanCloud([uri])
             res = res[0]
-            const bindUserParam = bindingFileToUser(user.id, res.id, 'avatar');
+            const bindUserParam = bindingFileToUser(user.objectId, res.id, 'avatar');
             await req(bindUserParam)
             const avatar = {
                 objectId: res.id,

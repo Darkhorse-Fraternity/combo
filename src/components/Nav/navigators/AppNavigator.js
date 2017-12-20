@@ -22,7 +22,7 @@ export const AppNavigator = StackNavigator({
             },
             borderBottomColor:'#F5FCFF',
             elevation:0,
-            paddingTop: (Platform.OS  ||  Platform.Version < 20) === "ios" ? 0 : 25,
+            paddingTop: (Platform.OS === "ios"  ||  Platform.Version < 20)  ? 0 : 25,
             //headerBackTitle:' '
         },
         headerTintColor:'black',

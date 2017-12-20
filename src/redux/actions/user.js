@@ -139,7 +139,7 @@ export function loginSucceed(data:Object):Object {
     setLeanCloudSession(data.sessionToken);
     // setAPPAuthorization(data.authorization);
 
-    console.log('data:', data);
+    // console.log('data:', data);
     updatePush(user(data.objectId))
     return {
         type: LOGIN_SUCCEED,

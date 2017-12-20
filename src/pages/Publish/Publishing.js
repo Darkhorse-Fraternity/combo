@@ -80,7 +80,11 @@ import Toast from 'react-native-simple-toast'
         },
         picker: () => {
             // dispatch(pickerImage())
-            imagePicker({}, async (response) => {
+            imagePicker({
+                title: '添加图片',
+                maxWidth: 2000, // photos only
+                maxHeight: 2000, // photos only
+            }, async (response) => {
                 // console.log('Response = ', response);
                 if (response.uri) {
                     // dispatch(uploadAvatar(response.uri))

@@ -7,9 +7,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
+    ScrollView,
     View,
     StyleSheet,
-    ScrollView,
     Dimensions,
     Text,
     TouchableOpacity,
@@ -94,7 +94,7 @@ export default class Home extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        if (nextProps.isLogin != this.props.isLogin) {
+        if (nextProps.isLogin !== this.props.isLogin) {
             const {navigation} = nextProps;
             navigation.setParams({isLogin: nextProps.isLogin})
             // LayoutAnimation.spring()
@@ -103,7 +103,8 @@ export default class Home extends Component {
 
 
     _renderHeader = () => {
-        const name = this.props.user.username || '陌生人'
+        const user = this.props.user
+        const name = user.username !== user.mobilePhoneNumber ? user.username : '陌生人'
         return (
             <View style={styles.headView}>
                 <Text
@@ -114,7 +115,7 @@ export default class Home extends Component {
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>想尝试什么?</Text>
                     <TouchableOpacity
-                        onPress={()=>{
+                        onPress={() => {
                             this.props.navigation.navigate('NewCard')
                         }}
                         hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
@@ -130,7 +131,7 @@ export default class Home extends Component {
         const {isLogin} = this.props
 
         return (
-            <View style={[this.props.style, styles.container]}>
+            <ScrollView style={[this.props.style, styles.container]}>
                 <PushManage/>
 
                 {this._renderHeader()}
@@ -138,7 +139,7 @@ export default class Home extends Component {
                     animation="slideInDown"
                     navigation={this.props.navigation}
                 />)}
-            </View>
+            </ScrollView>
         );
     }
 }
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         paddingVertical: 3,
         paddingHorizontal: 5,
-        marginTop:10,
+        marginTop: 10,
     },
     headerBtnText: {
         color: 'white',

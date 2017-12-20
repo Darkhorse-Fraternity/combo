@@ -5,7 +5,7 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TouchableHighlight,
+    TouchableOpacity,
     View,
     Picker,
     Image,
@@ -132,7 +132,7 @@ class PersonInfo extends React.Component {
         const source = this.props.userData.avatar ? {uri: this.props.userData.avatar.url} : my_head
 
         return (
-            <TouchableHighlight onPress={onPress} style={styles.group}>
+            <TouchableOpacity onPress={onPress} style={styles.group}>
                 <View style={styles.headerStyle}>
 
                     <View style={styles.infoContainer}>
@@ -144,7 +144,7 @@ class PersonInfo extends React.Component {
                     />
                     <View style={styles.arrowView}/>
                 </View>
-            </TouchableHighlight>
+            </TouchableOpacity>
         );
     }
 
@@ -152,7 +152,7 @@ class PersonInfo extends React.Component {
     _renderRow(title: string, des: string, onPress: Function) {
         return (
             <View>
-                <TouchableHighlight onPress={onPress}>
+                <TouchableOpacity onPress={onPress}>
                     <View style={styles.row}>
                         <Text style={styles.rowText}>
                             {title}
@@ -164,7 +164,7 @@ class PersonInfo extends React.Component {
                             {title != '账号' && <View style={styles.arrowView}/>}
                         </View>
                     </View>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -288,7 +288,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         picker: () => {
             // dispatch(pickerImage())
-            imagePicker({}, (response) => {
+            imagePicker({
+                title: '添加图片',
+                maxWidth: 500, // photos only
+                maxHeight: 500, // photos only
+            }, (response) => {
                 // console.log('Response = ', response);
                 if (response.uri) {
                     dispatch(uploadAvatar(response.uri))

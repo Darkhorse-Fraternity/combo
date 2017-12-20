@@ -4,6 +4,7 @@ import {
     updateInstallation
 } from '../request/leanCloud'
 import  PushNotification from 'react-native-push-notification'
+import DeviceInfo from 'react-native-device-info'
 
 import {
     Platform,
@@ -117,7 +118,23 @@ export function push(token) {
 
 export function updatePush(owner) {
     if(InstallationID){
-        const param = updateInstallation(InstallationID,{...owner,badge:0})
+
+        const profile ={}
+        if(Platform.OS === 'ios'){
+            const devP = __DEV__ ? "dev" : "prod"
+            const getBundleId = DeviceInfo.getBundleId()
+            const enp = getBundleId === 'com.rn.combo' ? "":"_ep"
+
+            profile.deviceProfile =  devP + enp
+
+        }
+
+        const param = updateInstallation(InstallationID,{...owner,
+            badge:0,
+            ...profile,
+        })
+
+        console.log('getBundleId:', param);
         console.log('param:', param);
         send(param).then((response)=>{
             console.log('response:',response)

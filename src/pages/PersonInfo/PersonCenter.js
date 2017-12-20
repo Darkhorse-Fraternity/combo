@@ -131,7 +131,7 @@ class PersonCenter extends Component {
     }) {
         // let {grade_str,connect_phone} = data;
         // console.log('test111:',data.avatar.url)
-        const name = data.username || '陌生人'
+        const name = data.username !== data.mobilePhoneNumber ? data.username : '陌生人'
         const isLogin = this.props.login.isLogin
         const tip = isLogin?'查看或编辑个人资料':'先登录吧~'
         const arraw = ()=>{
