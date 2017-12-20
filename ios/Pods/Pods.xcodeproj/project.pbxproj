@@ -7,36 +7,86 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		234B8C85D3FA7B72558AE4CDB52945D2 /* Pods-Combo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */; };
-		97475DF6010FA024B6BD3A30CF0A7672 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		14DD78062E33839871A3CFA30EAEF0F8 /* HexColors-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */; };
+		5C15E9FEE3A7C5D621CCE7DB55B0DA53 /* HexColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B98BE9EE06BAC5D1F7F6B08B3ACBC78 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		A23E2B07BA730EA36F2C149B210D758B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		A4950E142AD29C6F3F5E021256208496 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		BC0600E4F245998DA12338BF2515165D /* Pods-Combo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		09F6DB38967C59C305FE0DDD657F3A1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EC7BAA2B0109B633CE06A36E872A9505;
+			remoteInfo = HexColors;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Combo.a"; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
 		1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Combo-dummy.m"; sourceTree = "<group>"; };
 		1DDDA40507F8E682D7CA2016EEC70CFF /* Pods-Combo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Combo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Combo.a"; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		391AD4CD10B36CC54CB0476D302FF0B1 /* Pods-Combo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Combo-acknowledgements.plist"; sourceTree = "<group>"; };
+		4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-dummy.m"; sourceTree = "<group>"; };
 		682344B6653CD3102606B863797F032B /* Pods-Combo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-frameworks.sh"; sourceTree = "<group>"; };
+		68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HexColors.xcconfig; sourceTree = "<group>"; };
 		757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		84659FD50B76E42F172142CF5E5444D1 /* Pods-Combo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-resources.sh"; sourceTree = "<group>"; };
+		8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AA9DA811D84FA0DB4298D2720408AAA4 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
 		ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CEF4CBB7297222DF3D92EB38E7AAC95B /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
+		E492583AC81D1BF057A90359F219D07E /* libHexColors.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libHexColors.a; path = libHexColors.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0E574A136BCDD0DA9DB8C542C9841F70 /* Frameworks */ = {
+		2F45FD804D336CC90E6F5B7EB2369D0E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97475DF6010FA024B6BD3A30CF0A7672 /* Foundation.framework in Frameworks */,
+				9B98BE9EE06BAC5D1F7F6B08B3ACBC78 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD5F52FB2255044B6C8201F9A8840971 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A23E2B07BA730EA36F2C149B210D758B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CA32861BA810813A6B5EF192FC197E3 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */,
+				4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */,
+				CEF4CBB7297222DF3D92EB38E7AAC95B /* HexColors-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/HexColors";
+			sourceTree = "<group>";
+		};
+		1D3A4ED15150D52087F8F3645FFA2D4D /* HexColors */ = {
+			isa = PBXGroup;
+			children = (
+				8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */,
+				FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */,
+				1CA32861BA810813A6B5EF192FC197E3 /* Support Files */,
+			);
+			name = HexColors;
+			path = HexColors;
+			sourceTree = "<group>";
+		};
 		396EF9BF493169DD9EAEB68203629465 /* Pods-Combo */ = {
 			isa = PBXGroup;
 			children = (
@@ -52,12 +102,30 @@
 			path = "Target Support Files/Pods-Combo";
 			sourceTree = "<group>";
 		};
-		5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */ = {
+		505C918584F73AB648735CF7FAEF45DA /* Reveal-iOS-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */,
+				56F95CE65AA93E91D6212AF1923EC450 /* Frameworks */,
 			);
-			name = Products;
+			name = "Reveal-iOS-SDK";
+			path = "Reveal-iOS-SDK";
+			sourceTree = "<group>";
+		};
+		56F95CE65AA93E91D6212AF1923EC450 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA9DA811D84FA0DB4298D2720408AAA4 /* Reveal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F33B34E11D4EC1CFDDBA3E56EE5CB9C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1D3A4ED15150D52087F8F3645FFA2D4D /* HexColors */,
+				505C918584F73AB648735CF7FAEF45DA /* Reveal-iOS-SDK */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */ = {
@@ -81,18 +149,10 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */,
-				5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */,
+				5F33B34E11D4EC1CFDDBA3E56EE5CB9C /* Pods */,
+				D56A2700C383328A1F4E344DEBD67DEC /* Products */,
 				6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		81C689C3AFC1C7FF242CFAB8DDD09E4A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -103,40 +163,61 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */ = {
+		D56A2700C383328A1F4E344DEBD67DEC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D70BEE20B57C04A4512260E625802768 /* Reveal-iOS-SDK */,
+				E492583AC81D1BF057A90359F219D07E /* libHexColors.a */,
+				2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */,
 			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		D70BEE20B57C04A4512260E625802768 /* Reveal-iOS-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				81C689C3AFC1C7FF242CFAB8DDD09E4A /* Frameworks */,
-			);
-			name = "Reveal-iOS-SDK";
-			path = "Reveal-iOS-SDK";
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		B614DA345A86993AB81695ABCAC62CE3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C15E9FEE3A7C5D621CCE7DB55B0DA53 /* HexColors.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		AA53023213765C4D6017B39B607B1BDE /* Pods-Combo */ = {
+		3636873C69233812FDEA79E338E5A797 /* Pods-Combo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 60162D748EFE46B44150CFB916AA105A /* Build configuration list for PBXNativeTarget "Pods-Combo" */;
+			buildConfigurationList = 5283A3A353CC1F28298516C1E2EF43B5 /* Build configuration list for PBXNativeTarget "Pods-Combo" */;
 			buildPhases = (
-				F9B73FCDA5F206D3772118AD13A6B453 /* Sources */,
-				0E574A136BCDD0DA9DB8C542C9841F70 /* Frameworks */,
+				57C58A34E07CA317AF076CC8DF5A4152 /* Sources */,
+				BD5F52FB2255044B6C8201F9A8840971 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D80CC451844A9675D6935D668F9D4569 /* PBXTargetDependency */,
+			);
+			name = "Pods-Combo";
+			productName = "Pods-Combo";
+			productReference = 2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		EC7BAA2B0109B633CE06A36E872A9505 /* HexColors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC7728CE8385DA0D792A4B410991DA2C /* Build configuration list for PBXNativeTarget "HexColors" */;
+			buildPhases = (
+				E8EFD4C0C40128513B4BF22F928B8067 /* Sources */,
+				2F45FD804D336CC90E6F5B7EB2369D0E /* Frameworks */,
+				B614DA345A86993AB81695ABCAC62CE3 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Pods-Combo";
-			productName = "Pods-Combo";
-			productReference = 033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */;
+			name = HexColors;
+			productName = HexColors;
+			productReference = E492583AC81D1BF057A90359F219D07E /* libHexColors.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -156,25 +237,44 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */;
+			productRefGroup = D56A2700C383328A1F4E344DEBD67DEC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AA53023213765C4D6017B39B607B1BDE /* Pods-Combo */,
+				EC7BAA2B0109B633CE06A36E872A9505 /* HexColors */,
+				3636873C69233812FDEA79E338E5A797 /* Pods-Combo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		F9B73FCDA5F206D3772118AD13A6B453 /* Sources */ = {
+		57C58A34E07CA317AF076CC8DF5A4152 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				234B8C85D3FA7B72558AE4CDB52945D2 /* Pods-Combo-dummy.m in Sources */,
+				BC0600E4F245998DA12338BF2515165D /* Pods-Combo-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8EFD4C0C40128513B4BF22F928B8067 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				14DD78062E33839871A3CFA30EAEF0F8 /* HexColors-dummy.m in Sources */,
+				A4950E142AD29C6F3F5E021256208496 /* HexColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D80CC451844A9675D6935D668F9D4569 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HexColors;
+			target = EC7BAA2B0109B633CE06A36E872A9505 /* HexColors */;
+			targetProxy = 09F6DB38967C59C305FE0DDD657F3A1C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
@@ -221,9 +321,9 @@
 			};
 			name = Debug;
 		};
-		3F549B8FC78D8D3B4FD8190EF58B2AF9 /* Release */ = {
+		283992143C2305EE38394694C2691309 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */;
+			baseConfigurationReference = 68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -231,14 +331,14 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
+				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -284,7 +384,30 @@
 			};
 			name = Release;
 		};
-		CCAFF644FD0638B51F84189D659D4646 /* Debug */ = {
+		6EDE42538BBBFE1A4A31F5D9611DADB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		EFC431370999381C3EAAADCCA6D84623 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */;
 			buildSettings = {
@@ -307,6 +430,29 @@
 			};
 			name = Debug;
 		};
+		F806DD7C19C5F5694233C50C3BDFABC6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -319,11 +465,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		60162D748EFE46B44150CFB916AA105A /* Build configuration list for PBXNativeTarget "Pods-Combo" */ = {
+		5283A3A353CC1F28298516C1E2EF43B5 /* Build configuration list for PBXNativeTarget "Pods-Combo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CCAFF644FD0638B51F84189D659D4646 /* Debug */,
-				3F549B8FC78D8D3B4FD8190EF58B2AF9 /* Release */,
+				EFC431370999381C3EAAADCCA6D84623 /* Debug */,
+				F806DD7C19C5F5694233C50C3BDFABC6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC7728CE8385DA0D792A4B410991DA2C /* Build configuration list for PBXNativeTarget "HexColors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6EDE42538BBBFE1A4A31F5D9611DADB8 /* Debug */,
+				283992143C2305EE38394694C2691309 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

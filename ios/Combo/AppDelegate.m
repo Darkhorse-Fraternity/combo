@@ -14,6 +14,7 @@
 #import "RCTPushNotificationManager.h"
 #import <React/RCTLog.h>
 #import "../Libraries/LinkingIOS/RCTLinkingManager.h"
+#import "AppearanceConfig.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -34,7 +35,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-
+  [AppearanceConfig appearanceConfig];
   return YES;
 }
 

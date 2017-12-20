@@ -6,7 +6,7 @@ platform :ios, '8.0'
 target 'Combo' do
     #定义dayibase的版本。
 pod 'Reveal-iOS-SDK' ,:configurations => ['Debug']
-
+pod 'HexColors'
 end
 
 
