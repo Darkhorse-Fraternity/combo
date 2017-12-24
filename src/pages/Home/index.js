@@ -218,13 +218,13 @@ const styles = StyleSheet.create({
     },
     headerBtn: {
         backgroundColor: 'black',
-        paddingVertical: 3,
-        paddingHorizontal: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         marginTop: 10,
     },
     headerBtnText: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 15,
         fontWeight: 'bold',
 
     }

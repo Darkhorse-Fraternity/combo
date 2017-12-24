@@ -89,7 +89,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                     doneDate: {"__type": "Date", "iso": moment()},
                     time: time,
                     //cycle,
-                    statu: time == data.period ? "stop" : "start"
+                    statu: time === data.period ? "stop" : "start"
                 }
 
 
@@ -242,39 +242,39 @@ export default class Home extends Component {
         return key + '';
     }
 
-
-    __settingView = ({item, index}, data) => {
-        const self = this
-        const iCardId = data[ICARD]
-        const iCard = this.props.iCard.get(iCardId).toJS()
-        const isSelf = iCard.user == this.props.user.objectId
-        return (<View style={styles.settingView}>
-            {isSelf && (<BounceBtn
-                color="#rgb(136,175,160)"
-                radius={60}
-                moveColor="#rgba(136,175,160,0.4)"
-                onPress={() => {
-                    this.props.navigation.navigate('OptionView', {opData: iCard})
-                }}
-                title="修改配置"/>)}
-            {isSelf && (<View style={{height: 20}}/>)}
-            <BounceBtn
-                radius={60}
-                color="#rgb(156,175,170)"
-                moveColor="#rgba(156,175,170,0.4)"
-                onPress={async () => {
-                    const last = self.props.data.get('listData').size - 1 == index
-                    const itemView = this.rows[index]
-                    ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
-                    const endState = await itemView.fadeOutDownBig(500)
-                    endState.finished && this.props.stop(data, index, () => {
-                        !last && itemView.fadeInRight(500)
-                    })
-
-                }}
-                title="暂停打卡"/>
-        </View>)
-    }
+    //
+    // __settingView = ({item, index}, data) => {
+    //     const self = this
+    //     const iCardId = data[ICARD]
+    //     const iCard = this.props.iCard.get(iCardId).toJS()
+    //     const isSelf = iCard.user == this.props.user.objectId
+    //     return (<View style={styles.settingView}>
+    //         {isSelf && (<BounceBtn
+    //             color="#rgb(136,175,160)"
+    //             radius={60}
+    //             moveColor="#rgba(136,175,160,0.4)"
+    //             onPress={() => {
+    //                 this.props.navigation.navigate('OptionView', {opData: iCard})
+    //             }}
+    //             title="修改配置"/>)}
+    //         {isSelf && (<View style={{height: 20}}/>)}
+    //         <BounceBtn
+    //             radius={60}
+    //             color="#rgb(156,175,170)"
+    //             moveColor="#rgba(156,175,170,0.4)"
+    //             onPress={async () => {
+    //                 const last = self.props.data.get('listData').size - 1 == index
+    //                 const itemView = this.rows[index]
+    //                 ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
+    //                 const endState = await itemView.fadeOutDownBig(500)
+    //                 endState.finished && this.props.stop(data, index, () => {
+    //                     !last && itemView.fadeInRight(500)
+    //                 })
+    //
+    //             }}
+    //             title="暂停打卡"/>
+    //     </View>)
+    // }
 
     __doneView = (data) => {
         return (
@@ -330,7 +330,7 @@ export default class Home extends Component {
         const data = this.props.normalizrData.get(item).toJS()
 
         const iCardId = data[ICARD]
-        const iCard = this.props.iCard.get(iCardId)
+        // const iCard = this.props.iCard.get(iCardId)
         // const isSelf = iCard.get('user') == this.props.user.objectId
         // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
@@ -343,7 +343,7 @@ export default class Home extends Component {
             if (!data.setting) {
                 return this.__flagView({item, index}, data, done)
             } else {
-                return this.__settingView({item, index}, data)
+                // return this.__settingView({item, index}, data)
             }
         }
         return (
@@ -356,20 +356,6 @@ export default class Home extends Component {
                 <View style={styles.card}>
                     {inView()}
                     <View style={styles.footer}>
-                        {/*<Text style={[styles.title]}>{iCard.get('title')}</Text>*/}
-                        <TouchableOpacity
-                            onPress={() => {
-                                {/*this.__delete(index,data.objectId)*/
-                                }
-                                this.props.setting(data, !data.setting)
-                            }}
-                            hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
-                            style={styles.setting}>
-                            <Icon
-                                color='white'
-                                name={!data.setting ? "ios-settings" : 'md-close'}
-                                size={15}/>
-                        </TouchableOpacity>
                         {done ? ( <SmallDoneBtn
                                 load={this.props.load}
                                 onPress={() => this.props.done(data)}/>) :
@@ -377,7 +363,7 @@ export default class Home extends Component {
                                 <Icon
                                     color='white'
                                     name={'md-checkmark'}
-                                    size={15}/>
+                                    size={20}/>
                             </View>)}
 
                     </View>
@@ -395,7 +381,7 @@ export default class Home extends Component {
 
         const data = this.props.data.toJS().listData
 
-        if ((statu === 'LIST_NO_DATA' || statu == 'LIST_LOAD_NO_MORE') && data.length == 0) {
+        if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
             return (
                 <View style={{flex: 1, alignItems: 'center',paddingBottom:100, justifyContent: 'center'}}>
                     <TouchableOpacity
@@ -454,19 +440,13 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     card: {
-        marginTop: 15,
-        paddingTop: 80,
+        marginTop:10,
+        paddingTop: 50,
         width: width - 50,
         height: width - 50,
         backgroundColor: "#F0C98B",
         // borderRadius: 12,
-        shadowColor: "#000000",
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 1,
-            width: 0.3,
-        },
+
         justifyContent: 'space-between',
         // elevation:10,
     },
@@ -506,7 +486,7 @@ const styles = StyleSheet.create({
     footer: {
         width: width - 50,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         padding: 10,
         paddingHorizontal: 50,
         marginBottom: 30,
@@ -521,12 +501,13 @@ const styles = StyleSheet.create({
 
     },
     setting: {
-        height: 20,
-        width: 20,
+        height: 25,
+        width: 25,
         backgroundColor: 'rgba(200,200,200,0.5)',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
+        padding:5,
     },
     quotation: {
         alignSelf: 'center',

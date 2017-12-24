@@ -18,7 +18,7 @@ import {
 } from 'react-native'
 import {IDO} from '../../redux/reqKeys'
 import ZoomImage from 'react-native-zoom-image';
-import {selfUser, iCard, iUse} from '../../request/LCModle'
+import {selfUser, iUse} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
@@ -27,14 +27,17 @@ import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {update,} from '../../redux/module/leancloud'
 import {addListNormalizrEntity} from '../../redux/actions/list'
-import {ICARD, IUSE} from '../../redux/reqKeys'
-
+import {IUSE} from '../../redux/reqKeys'
+import {claerByID} from '../../redux/actions/list'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
+import HeaderBtn from '../../components/Button/HeaderBtn'
 const listKey = IDO
 
 
 @connect(
     (state, props) => ({
-        data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId)
+        data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId),
+        load: state.req.get(IUSE).get('load')
     }),
     (dispatch, props) => ({
         refresh: async (data) => {
@@ -61,6 +64,24 @@ const listKey = IDO
             // }))
             dispatch(addListNormalizrEntity(IUSE, entity))
         },
+
+
+        stop: async (data) => {
+            const id = data.objectId
+            const param = {
+                statu: 'stop',
+                //cycle,
+            }
+            const res = await update(id, param, IUSE)
+            const entity = {
+                ...param,
+                ...res,
+            }
+
+            dispatch(addNormalizrEntity(IUSE, entity))
+            dispatch(claerByID(IUSE,id))
+        },
+
     })
 )
 
@@ -102,7 +123,7 @@ export default class Detail extends Component {
 
 
     __refresh = (data) => {
-        const isDone = data.time == this.props.navigation.state.params.card.period
+        const isDone = data.time === this.props.navigation.state.params.card.period
         Alert.alert(
             isDone ? '再来一组?' : '重新开启',
             '',
@@ -138,18 +159,27 @@ export default class Detail extends Component {
         const reflesh = item.time === Number(card.period) || item.statu === 'stop'
 
         // console.log('test:', item);
+        let text = item.time === Number(card.period) ?
+            "再来一组" :
+            "继续打卡"
+        if(!reflesh){
+            text = "暂停打卡"
+        }
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{card.title}</Text>
-                {reflesh && (
-                    <TouchableOpacity
-                        style={styles.headerBtn}
-                        onPress={() => {
-                            // params.refresh(item)
+                <HeaderBtn
+                    style={styles.headerBtn}
+                    load={this.props.load}
+                    title={text}
+                    onPress={() => {
+                        // params.refresh(item)
+                        if (reflesh) {
                             this.__refresh(item)
-                        }}>
-                        <Text style={styles.headerBtnText}>再来一组</Text>
-                    </TouchableOpacity>)}
+                        } else {
+                            this.props.stop(item)
+                        }
+                    }}/>
             </View>
         )
     }
@@ -173,14 +203,14 @@ export default class Detail extends Component {
                         //enableScaling={true}
                         easingFunc={Easing.bounce}
                     />
-                        // <Image style={styles.image} source={{uri: img}}/>
+                    // <Image style={styles.image} source={{uri: img}}/>
                 )}
                 <View style={styles.bottom}>
                     <View>
                         {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
                         <Text style={styles.date}>{moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</Text>
                     </View>
-                    {!item.recordText && (<Icon name="md-checkmark" size={30} color="green"/>)}
+                    {!item.recordText && (<Icon name="md-checkmark" size={30} color="#31d930"/>)}
                 </View>
 
                 <View style={styles.line}/>
@@ -258,7 +288,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
     },
-    imgStyle:{
+    imgStyle: {
         width: '100%',
         height: 200,
     },
@@ -277,15 +307,12 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     headerBtn: {
-        backgroundColor: 'black',
-        paddingVertical: 3,
-        paddingHorizontal: 5,
         marginTop: 10,
-        width: 60,
+        width: 85,
     },
     headerBtnText: {
         color: 'white',
-        fontSize: 12,
+        fontSize: 13,
         fontWeight: 'bold',
 
     }

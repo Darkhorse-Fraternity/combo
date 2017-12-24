@@ -148,7 +148,7 @@ export  default  class Menu extends Component {
 
                         }}>
                         <Icon name="ios-brush" size={50}/>
-                        <Text>我的发布</Text>
+                        <Text>我的卡片</Text>
                     </Btn>
                     <Btn
                         delay={200}

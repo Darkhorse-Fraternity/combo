@@ -12,15 +12,15 @@
 @implementation AppearanceConfig
 + (void)appearanceConfig {
   UIColor *MainColor = [UIColor hx_colorWithHexRGBAString:@"#F3AC41"];
-  UIColor *subColor = [UIColor hx_colorWithHexRGBAString:@"ffffff"];
+//  UIColor *subColor = [UIColor hx_colorWithHexRGBAString:@"ffffff"];
   [[UIWindow appearance]setTintColor:MainColor];
   
   [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
   
   //UINavigationBar
-  [[UINavigationBar appearance] setBarTintColor:  MainColor];
-  [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:subColor, NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17.],NSFontAttributeName,nil]];
-  [[UINavigationBar appearance] setTintColor:subColor];
+//  [[UINavigationBar appearance] setBarTintColor:  MainColor];
+//  [[UINavigationBar appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:subColor, NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17.],NSFontAttributeName,nil]];
+//  [[UINavigationBar appearance] setTintColor:subColor];
   
   //    UIImage *navgationShadow = [UIImage imageWithColor:[UIColor redColor] size:CGSizeMake(100, 1)];
   //    [[UINavigationBar appearance] setShadowImage:navgationShadow];
@@ -32,12 +32,12 @@
   
   
   //UIButton
-  [[UIButton appearance]setBackgroundColor:[UIColor redColor]];
+//  [[UIButton appearance]setBackgroundColor:[UIColor redColor]];
   [[UIButton appearance]setTintColor:MainColor ];
-  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:MainColor];
-  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundColor:[UIColor clearColor]];
-  [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:MainColor];
-  [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundColor:[UIColor clearColor]];
+//  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:MainColor];
+//  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundColor:[UIColor clearColor]];
+//  [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:MainColor];
+//  [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setBackgroundColor:[UIColor clearColor]];
   
   
   

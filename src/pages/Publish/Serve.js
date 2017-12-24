@@ -112,7 +112,6 @@ export default class Detail extends Component {
                         {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
                         <Text style={styles.date}>{moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</Text>
                     </View>
-                    {/*<Icon name="md-checkmark" size={30} co lor="green"/>*/}
                 </View>
 
             </View>

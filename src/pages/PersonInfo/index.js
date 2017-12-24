@@ -230,46 +230,12 @@ class PersonInfo extends React.Component {
         // console.log('test:',this.props.userData);
 
         return (
-            <AniScrollView animation="fadeIn" duration={500} delay={100} style={styles.list}>
-                {/*<View style={styles.groupSpace}/>*/}
+            <ScrollView  style={styles.list}>
                 {this._renderHeadRow(this.props.picker)}
-
-                {/*<View style={styles.groupSpace}/>*/}
-                {/*{this._renderRow('账号',this.props.userData.mobilePhoneNumber ,() => {
-
-          })}*/}
-                {/*<View style={styles.groupSpace}/>*/}
                 {this._renderRow('昵称', this.props.userData.username, () => {
-                    // NavigationManager.goToPage("NickName");
                     this.props.navigation.navigate("NickName");
                 })}
-                {/*<View style={styles.groupSpace}/>*/}
-                {/*{this._renderRow('年级', grade, () => {
-            this.props.push('GradeSelector');
-            // if(OS == 'ios'){
-            //   LayoutAnimation.spring();
-            //   this.setState({
-            //     showPicker: !this.state.showPicker,
-            //   });
-            // }else{
-            //   this._showDialog();
-            // }
-          })}*/}
-                {/*<View style={styles.groupSpace}/>
-          {this._renderRow('学校', school, () => {
-              this.props.push("SchoolSelector");
-          })}*/}
-
-
-                {/*<View style={styles.groupSpace}>*/}
-                {/*</View>*/}
-                {/*<View style={styles.group}>*/}
-                {/*{this._renderRow('*修改密码',"" ,() => {*/}
-                {/*// NavigationManager.goToPage("AlterPwd");*/}
-                {/*this.props.push("AlterPwd");*/}
-                {/*})}*/}
-                {/*</View>*/}
-            </AniScrollView>
+            </ScrollView>
         );
     }
 }

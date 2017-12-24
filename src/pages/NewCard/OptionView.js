@@ -123,7 +123,7 @@ export  default  class OptionView extends Component {
             <TouchableOpacity
                 onPress={this.__backStep}
                 style={[styles.sureBtn]}>
-                <Icon name="ios-arrow-back-outline" size={20} color="white"/>
+                <Text>返回</Text>
             </TouchableOpacity>
         )
     }
@@ -159,7 +159,7 @@ export  default  class OptionView extends Component {
                                 this.setState({period:item})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:this.state.period == item?'#00abfb':'white'}]}
+                            {backgroundColor:this.state.period == item?'#31d930':'white'}]}
                             key={item}>
                             <Text style={{color:this.state.period == item?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
@@ -180,7 +180,7 @@ export  default  class OptionView extends Component {
                                 this.setState({notifyTime:item})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:this.state.notifyTime == item?'#00abfb':'white'}]}
+                            {backgroundColor:this.state.notifyTime == item?'#31d930':'white'}]}
                             key={item}>
                             <Text style={{color:this.state.notifyTime == item?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
@@ -241,7 +241,7 @@ export  default  class OptionView extends Component {
                                 this.setState({record:records})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:contain?'#F3AC41':'white'}]}
+                            {backgroundColor:contain?'#31d930':'white'}]}
                             key={item}>
                             <Text style={{color:contain?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
@@ -264,7 +264,7 @@ export  default  class OptionView extends Component {
           }}
                 style={[this.props.style,styles.wrap]}>
 
-                {this.state.option == 0 && (<ScrollView style={[styles.wrap]}>
+                {this.state.option === 0 && (<ScrollView style={[styles.wrap]}>
                     <this.__renderItem
                         title={"提醒时间:   "+this.state.notifyTime}
                         type="notifyTime"
@@ -283,20 +283,20 @@ export  default  class OptionView extends Component {
                         index={1}/>)}
 
                 </ScrollView>)}
-                {this.state.option == 1 &&
-                this.state.type == 'notifyTime' &&
+                {this.state.option === 1 &&
+                this.state.type === 'notifyTime' &&
                 this.__renderNotifyTime()}
 
-                {this.state.option == 1 &&
-                this.state.type == 'period' &&
+                {this.state.option === 1 &&
+                this.state.type === 'period' &&
                 this.__renderperiod()}
 
-                {this.state.option == 1 &&
-                this.state.type == 'notifyText' &&
+                {this.state.option === 1 &&
+                this.state.type === 'notifyText' &&
                 this.__remderNotifyText()}
 
-                {this.state.option == 1 &&
-                this.state.type == 'record' &&
+                {this.state.option === 1 &&
+                this.state.type === 'record' &&
                 this.__remderRecord()}
 
                 {this.__remderBack()}
@@ -316,16 +316,14 @@ const styles = StyleSheet.create({
         width:200
     },
     sureBtn: {
-        width: 50,
-        height: 50,
         marginTop: 0,
-        borderRadius: 25,
-        backgroundColor: '#F3AC41',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
+        backgroundColor:'white',
+        padding:15,
+        paddingLeft:40,
         top: Dimensions.get('window').height - 150,
-        left: Dimensions.get('window').width - 100,
     },
     notifyTimeItem: {
         width: 60,

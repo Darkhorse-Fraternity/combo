@@ -98,10 +98,11 @@ export default class LoginView extends Component {
 
     async _onClickCode() {
         //发送验证码请求
-        var self = this;
+        const self = this;
+        this.refs['2'].focus();
         await this.props.authCode(this.state.phone)
         Toast.show("发送成功!");
-        if (this.state.isTap == false) {
+        if (this.state.isTap === false) {
             this.setState({isTap: true});
             this.id = setInterval(function () {
                 self.time()
@@ -113,14 +114,14 @@ export default class LoginView extends Component {
 
 
     time() {
-        if (this.state.time == 0) {
+        if (this.state.time === 0) {
             clearInterval(this.id);
             // this.isTap = false;
             this.setState({isTap: false});
         }
 
         this.setState({
-            time: this.state.time == 0 ? 60 : --this.state.time,
+            time: this.state.time === 0 ? 60 : --this.state.time,
         })
     }
 
@@ -235,7 +236,7 @@ export default class LoginView extends Component {
                                       onPress={this._onClickCode.bind(this)}
                                       style={{fontWeight: '400', fontSize: 14, color: mainColor}}
                             >
-                                {this.state.time == 60 || this.state.time == 0 ? '获取验证码' :
+                                {this.state.time === 60 || this.state.time === 0 ? '获取验证码' :
                                     this.state.time.toString() + '秒'}
                             </BCButton>
                         </View>
@@ -276,7 +277,7 @@ const styles = StyleSheet.create({
     rowMainStyle: {
         flex: 1,
         // width: Dimensions.get('window').width,
-        height: 40,
+        height: 50,
         //marginTop: 10,
         backgroundColor: 'white',
         paddingHorizontal: 15,
@@ -305,7 +306,8 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 14,
         color: 'black',
-        // backgroundColor: 'red'
+        // backgroundColor: 'red',
+        height:50
     },
     buttonSelectStyle: {
         marginLeft: Platform.OS == 'ios' ? 29 / 2 : 27,

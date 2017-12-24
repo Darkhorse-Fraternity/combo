@@ -133,7 +133,7 @@ export default class CardInfo extends Component {
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         const useExist = this.props.useExist.toJS().data
         const exist = useExist.results && useExist.results.count >= 1
-        const load = this.props.useExist.load
+        const load = this.props.useExist.get('load')
         // color: '#F3AC41',
         //     activityColor: '#F0C98B',
         return (
@@ -161,7 +161,7 @@ export default class CardInfo extends Component {
                                   style={[styles.btn,{backgroundColor:!exist?"#F3AC41":"#F0C98B"}]}>
 
 
-                    {load ? <ActivityIndicator/> :
+                    {load ? <ActivityIndicator color={"white"}/> :
                         <Text style={[styles.btnText]}>
                             {exist ? '已经参与' : "马上参与"}
                         </Text>}

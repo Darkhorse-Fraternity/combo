@@ -53,7 +53,7 @@ class PersonCenter extends Component {
                 {this._renderRow('我的记录', styles.group, true, () => {
                     navigation.navigate('Record');
                 })}
-                {this._renderRow('我的发布', styles.group, true, () => {
+                {this._renderRow('我的卡片', styles.group, true, () => {
                     navigation.navigate('Publish');
                 })}
 

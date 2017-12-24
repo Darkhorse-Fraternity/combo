@@ -16,19 +16,25 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import {backViewColor} from '../../configure'
-import {ICARD} from '../../redux/reqKeys'
+import {ICARD, IUSEExist, IUSE} from '../../redux/reqKeys'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
-import {update} from '../../redux/module/leancloud'
+import {update, add} from '../../redux/module/leancloud'
 import {bindActionCreators} from 'redux';
-import BounceBtn from '../../components/Button/BounceBtn'
-
+import HeaderBtn from '../../components/Button/HeaderBtn'
+import {existSearch} from '../../request/leanCloud'
+import {selfUser, iCard} from '../../request/LCModle'
+import {req, reqChangeData} from '../../redux/actions/req'
+import {addListNormalizrEntity} from '../../redux/actions/list'
+import moment from 'moment'
 //static displayName = PublishDetail
 @connect(
     (state, props) => ({
         //data:state.req.get()
-        iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID)
+        iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
+        useExist: state.req.get(IUSEExist),
+        load: state.req.get(IUSE).get('load')
     }),
-    dispatch => ({
+    (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
         refresh: async (data) => {
             const id = data.objectId
@@ -44,6 +50,39 @@ import BounceBtn from '../../components/Button/BounceBtn'
             }
             dispatch(addNormalizrEntity(ICARD, entity))
         },
+        exist: async () => {
+            const id = props.navigation.state.params.iCardID
+            const params = existSearch(IUSE, {
+                where: {
+                    ...iCard(id),
+                    ...selfUser()
+                }
+            })
+            req(params, IUSEExist)
+        },
+        add: async () => {
+            const id = props.navigation.state.params.iCardID
+            const param = {
+                cycle: 0,
+                time: 0,
+                // notifyTime:option&&option.notifyTime||"20.00",
+                doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                ...selfUser(),
+                ...iCard(id)
+            }
+            const res = await add(param, IUSE)
+            const entity = {
+                ...param,
+                ...res
+            }
+            dispatch(addListNormalizrEntity(IUSE, entity))
+            dispatch(reqChangeData(IUSEExist, {
+                results: {
+                    results: [],
+                    count: 1
+                }
+            }))
+        }
     })
 )
 export default class PublishDetail extends Component {
@@ -66,6 +105,9 @@ export default class PublishDetail extends Component {
         return !immutable.is(this.props, nextProps)
     }
 
+    componentDidMount() {
+        this.props.exist()
+    }
 
     __alert = (iCard) => {
         Alert.alert(
@@ -84,10 +126,26 @@ export default class PublishDetail extends Component {
         const {state} = navigation;
         const {params} = state;
 
+
+        const useExist = this.props.useExist.toJS().data
+        const exist = useExist.results && useExist.results.count >= 1
+        const load = this.props.useExist.get('load')
+        console.log('useExist:', this.props.useExist.get('load'));
+        const text = exist ? "正在使用" : '立即使用'
         return (
             <View style={styles.header}>
                 <Text style={styles.title}>{params.data.title}</Text>
-                <Text style={styles.useNum}>使用人数： {params.data.useNum}</Text>
+                <View style={styles.headerIn}>
+                    <Text style={styles.useNum}>使用人数： {params.data.useNum || (exist? 1:0)}</Text>
+                    <HeaderBtn
+                        style={styles.headerBtn}
+                        load={this.props.load || load}
+                        disabled={exist}
+                        title={text}
+                        onPress={() => {
+                            this.props.add()
+                        }}/>
+                </View>
             </View>
         )
 
@@ -119,11 +177,11 @@ export default class PublishDetail extends Component {
                     this.props.navigation.navigate('OptionView', {opData: iCard})
                 })}
                 {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
-                    {/*if (iCard.state === 0) {*/}
-                        {/*this.props.refresh(iCard)*/}
-                    {/*} else {*/}
-                        {/*this.__alert(iCard)*/}
-                    {/*}*/}
+                {/*if (iCard.state === 0) {*/}
+                {/*this.props.refresh(iCard)*/}
+                {/*} else {*/}
+                {/*this.__alert(iCard)*/}
+                {/*}*/}
                 {/*})}*/}
                 {this._renderRow("发布设置", () => {
                     this.props.navigation.navigate('Publishing',
@@ -145,6 +203,11 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 25,
+    },
+    headerIn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     title: {
         fontSize: 20,
@@ -185,5 +248,9 @@ const styles = StyleSheet.create({
         marginRight: 5,
         width: 10,
         height: 10,
+    },
+    headerBtn: {
+        marginTop: 5,
+        width: 85,
     },
 })

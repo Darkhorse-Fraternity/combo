@@ -17,25 +17,25 @@ import {
     Alert
 } from 'react-native'
 import {connect} from 'react-redux'
-import {ICARD,IUSE} from '../../redux/reqKeys'
+import {ICARD, IUSE} from '../../redux/reqKeys'
 import {add} from '../../redux/module/leancloud'
 import {bindActionCreators} from 'redux';
 import {addListNormalizrEntity} from '../../redux/actions/list'
-import {addNormalizrEntity} from  '../../redux/module/normalizr'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {mainColor} from '../../configure'
-import {selfUser,iCard} from '../../request/LCModle'
+import {selfUser, iCard} from '../../request/LCModle'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import OptionView, {StaticOption} from './OptionView'
 
 //static displayName = Creat
 @connect(
-    state =>({
+    state => ({
         //data:state.req.get()
     }),
-    (dispatch, props) =>({
+    (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        add: (title, option = StaticOption)=> dispatch(async(dispatch, getState)=> {
+        add: (title, option = StaticOption) => dispatch(async (dispatch, getState) => {
 
             // console.log('test:', option);
 
@@ -57,10 +57,10 @@ import OptionView, {StaticOption} from './OptionView'
                 ...param,
                 ...res
             }
-            dispatch(addNormalizrEntity(ICARD,entity))
+            dispatch(addNormalizrEntity(ICARD, entity))
 
             //返回首页
-            dispatch((dispatch,getState)=>{
+            dispatch((dispatch, getState) => {
                 const key = getState().nav.routes[2].key
                 props.navigation.goBack(key)
             })
@@ -71,10 +71,13 @@ import OptionView, {StaticOption} from './OptionView'
             Alert.alert(
                 '你新建了一个卡片，是否立即使用它',
                 '您可以使用或者分享它',
-                [{text: '取消', onPress: () => {
-                    props.navigation.navigate('Publish')
-                }},
-                    {text: '确定', onPress: async () => {
+                [{
+                    text: '取消', onPress: () => {
+                        props.navigation.navigate('PublishDetail', {iCardID: iCardId, data: entity})
+                    }
+                },
+                    {
+                        text: '确定', onPress: async () => {
 
                         const param = {
                             cycle: 0,
@@ -90,14 +93,15 @@ import OptionView, {StaticOption} from './OptionView'
                             ...res
                         }
                         dispatch(addListNormalizrEntity(IUSE, entity))
-                    }}
+                    }
+                    }
                 ]
             )
 
         }),
     })
 )
-export  default  class Creat extends Component {
+export default class Creat extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
@@ -114,7 +118,8 @@ export  default  class Creat extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            title: '新建卡片',
+            header:null,
+            title: null,
             headerLeft: null
         }
     };
@@ -129,29 +134,29 @@ export  default  class Creat extends Component {
 
         const step = this.state.step + 1
         this.setState({step})
-        if (step == 2) {
+        if (step === 2) {
             this.props.add(this.state.title, this.option)
         }
 
     }
 
-    __backStep = ()=> {
+    __backStep = () => {
 
         const step = this.state.step - 1
         this.setState({step})
-        if (step == -1) {
+        if (step === -1) {
             this.props.navigation.goBack()
         }
     }
 
-    __doOption = ()=> {
+    __doOption = () => {
         this.setState({optionOpen: true})
     }
 
 
-    __renderName = ()=> {
+    __renderName = () => {
         return (
-            <View >
+            <View>
                 <View style={styles.row}>
                     <TextInput
                         placeholderTextColor="rgba(180,180,180,1)"
@@ -162,26 +167,25 @@ export  default  class Creat extends Component {
                         //keyboardType={boardType}
                         style={styles.textInputStyle}
                         underlineColorAndroid='transparent'
-                        placeholder='立一个flag'
+                        placeholder='卡片名称'
                         clearButtonMode='while-editing'
                         enablesReturnKeyAutomatically={true}
                         //onSubmitEditing={() =>this.focusNextField(ref)}
-                        onChangeText={(text)=>this.setState({title:text})}
+                        onChangeText={(text) => this.setState({title: text})}
                     />
                     <View style={styles.line}/>
                 </View>
                 <View style={styles.ctrlView}>
                     <TouchableOpacity
                         onPress={this.__backStep}
-                        style={[styles.sureBtn,{backgroundColor:'#00abfb'}]}>
-                        <Icon name="ios-arrow-back-outline" size={20} color="white"/>
+                        style={[styles.sureBtn]}>
+                        <Text style={styles.sureBtnText}>上一步</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        disabled={this.state.title.length === 0 }
+                        disabled={this.state.title.length === 0}
                         onPress={this.__nextStep}
-                        style={[styles.sureBtn,{backgroundColor:
-                        this.state.title.length === 0?"rgb(220,200,200)":"#ff768e"}]}>
-                        <Icon name="ios-arrow-forward-outline" size={20} color="white"/>
+                        style={[styles.sureBtn,{backgroundColor:this.state.title.length === 0?"rgb(200,200,200)":"black"}]}>
+                        <Text style={styles.sureBtnText}>下一步</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -189,28 +193,26 @@ export  default  class Creat extends Component {
     }
 
 
-    __doneView = ()=> {
+    __doneView = () => {
         return (
             <View>
-                <View style={styles.downRow}>
-                    <Text style={styles.doneTitle}>{this.state.title}</Text>
-                </View>
+                <Text style={styles.doneTitle}>{this.state.title}</Text>
                 <View style={styles.doneCtrlView}>
                     <TouchableOpacity
                         onPress={this.__backStep}
-                        style={[styles.doneBtn,{backgroundColor:'#00abfb'}]}>
-                        <Icon name="ios-arrow-back-outline" size={20} color="white"/>
+                        style={[styles.sureBtn]}>
+                        <Text style={styles.sureBtnText}>上一步</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={this.__doOption}
-                        style={[styles.doneBtn,{backgroundColor:'#00abfb'}]}>
-                        <Icon name="ios-more" size={30} color="white"/>
+                        style={[styles.sureBtn]}>
+                        <Text style={styles.sureBtnText}>更多配置</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        disabled={this.state.title.length === 0 }
+                        disabled={this.state.title.length === 0}
                         onPress={this.__nextStep}
-                        style={[styles.doneBtn,{backgroundColor:this.state.title.length === 0?"rgb(220,200,200)":"#ff768e"}]}>
-                        <Icon name="md-checkmark" size={30} color="white"/>
+                        style={[styles.sureBtn]}>
+                        <Text style={styles.sureBtnText}>完成</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -220,11 +222,12 @@ export  default  class Creat extends Component {
 
     render(): ReactElement<any> {
         return (
-            <View style={[this.props.style,styles.wrap]}>
-                {this.state.step == 0 && !this.state.optionOpen && this.__renderName()}
-                {this.state.step == 1 && !this.state.optionOpen && this.__doneView()}
-                {this.state.optionOpen && (<OptionView goBack={(option)=>{
-                    this.setState({optionOpen:false})
+            <View style={[this.props.style, styles.wrap]}>
+                <View style={{height:60,backgroundColor:this.state.optionOpen?"#F5FCFF":"white"}}/>
+                {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
+                {this.state.step === 1 && !this.state.optionOpen && this.__doneView()}
+                {this.state.optionOpen && (<OptionView goBack={(option) => {
+                    this.setState({optionOpen: false})
                     this.option = option
                 }}/>)}
             </View>
@@ -235,13 +238,15 @@ export  default  class Creat extends Component {
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        // paddingTop:60,
     },
     row: {
         // borderBottomWidth: StyleSheet.hairlineWidth,
         // borderBottomColor: mainColor,
-        marginHorizontal: 30,
-        padding: 20,
+        // marginHorizontal: 30,
+        paddingHorizontal: 50,
+        // paddingVertical:20,
     },
     downRow: {
         marginHorizontal: 30,
@@ -252,7 +257,7 @@ const styles = StyleSheet.create({
     },
     textInputStyle: {
 
-        marginLeft: 0,
+        marginLeft: -15,
         //textAlign: 'center',
         fontSize: 14,
         height: 40,
@@ -266,44 +271,48 @@ const styles = StyleSheet.create({
 
     },
     sureBtn: {
-        width: 50,
-        height: 50,
-        marginTop: 0,
-        borderRadius: 25,
-        backgroundColor: '#ff768e',
+        backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
+        width: 100,
+        paddingVertical: 10,
+        marginTop: 20,
     },
     sureBtnText: {
-        color: 'white'
+        color: 'white',
+        fontWeight: '600',
+        fontSize: 15,
     },
     ctrlView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
         paddingHorizontal: 50,
         paddingTop: 20,
     },
     doneBtn: {
-        width: 50,
-        height: 50,
+        // width: 50,
+        // height: 50,
         marginTop: 20,
-        borderRadius: 25,
-        backgroundColor: '#ff768e',
+        // borderRadius: 25,
+        backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
     },
     doneCtrlView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
         paddingHorizontal: 50,
         paddingTop: 10,
     },
     doneTitle: {
+        marginTop:15,
+        paddingHorizontal: 55,
         fontSize: 20,
+        fontWeight: '600',
     },
-    line:{
+    line: {
         width: '100%',
         height: StyleSheet.hairlineWidth,
-        backgroundColor: 'rgba(0,0,0,0.5)'
+        backgroundColor: 'rgb(0,0,0)'
     }
 })

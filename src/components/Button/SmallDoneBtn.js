@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
+    Text,
     TouchableWithoutFeedback,
     ActivityIndicator
 } from 'react-native'
@@ -53,7 +54,7 @@ export default class SmallDoneBtn extends Component {
 
     static propTypes = {
         radius: PropTypes.number,
-        load:PropTypes.bool
+        load: PropTypes.bool
     };
     static defaultProps = {
         radius: 20,
@@ -69,45 +70,66 @@ export default class SmallDoneBtn extends Component {
         }
     };
 
+
+    __renderdot = () => {
+        return (
+            <View style={styles.dot1}>
+                <View style={styles.dot2}/>
+            </View>
+        )
+
+    }
+
     render() {
         const {title, radius} = this.props
         // console.log('radius:', radius);
         return (
             <TouchableWithoutFeedback
                 disabled={this.props.load}
-                hitSlop={{top: 50, left: 50, bottom: 50, right: 50}}
+                hitSlop={{top: 50, left: 100, bottom: 50, right: 100}}
                 onPress={this.props.onPress}>
-                {!this.props.load?(<View style={styles.background1}>
-                    <View style={styles.background2}>
-                    </View>
-                </View>):(<ActivityIndicator size="small" color={"white"}/>)}
+                {!this.props.load ? (<View style={styles.background}>
+                    {this.__renderdot()}
+                    <Text style={styles.title}>
+                        点击打卡
+                    </Text>
+                </View>) : (<ActivityIndicator size="large" color={"white"}/>)}
             </TouchableWithoutFeedback>
         );
     }
 }
 const styles = StyleSheet.create({
 
-    background1: {
-        height: 20,
-        width: 20,
-        backgroundColor: 'rgba(200,200,200,0.5)',
+    background: {
+        // backgroundColor: 'rgba(200,200,200,0.5)',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 10,
+        // borderRadius: 10,
+        // backgroundColor:'black',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        flexDirection: 'row'
     },
-    background2: {
-        height: 10,
-        width: 10,
-        borderRadius: 20,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+
     title: {
-        width: 40,
         color: 'white',
         textAlign: 'center',
-        lineHeight: 18,
-        fontSize: 16,
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft:5,
+    },
+    dot1: {
+        width:25,
+        height:25,
+        borderRadius:12.5,
+        backgroundColor: 'rgba(150,150,150,0.3)',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    dot2: {
+        width:12.5,
+        height:12.5,
+        borderRadius:12.5/2,
+        backgroundColor:'white',
     }
 })
