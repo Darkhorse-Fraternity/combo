@@ -89,8 +89,8 @@ export  default  class OptionView extends Component {
         // const {state} = navigation;
         // const {params} = state;
         return {
-            title: '修改配置',
-            headerLeft: null
+            header: null,
+            // headerLeft: null
         }
     };
 
@@ -100,7 +100,7 @@ export  default  class OptionView extends Component {
 
     __backStep = ()=> {
 
-        if (this.state.option != 0) {
+        if (this.state.option !== 0) {
             this.setState({option: 0})
         } else {
             const {option, type, ...other} = this.state
@@ -159,9 +159,9 @@ export  default  class OptionView extends Component {
                                 this.setState({period:item})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:this.state.period == item?'#31d930':'white'}]}
+                            {backgroundColor:this.state.period === item?'#31d930':'white'}]}
                             key={item}>
-                            <Text style={{color:this.state.period == item?'white':'black'}}>{item}</Text>
+                            <Text style={{color:this.state.period === item?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
                 })}
             </View>
@@ -180,9 +180,9 @@ export  default  class OptionView extends Component {
                                 this.setState({notifyTime:item})
                             }}
                             style={[styles.notifyTimeItem,
-                            {backgroundColor:this.state.notifyTime == item?'#31d930':'white'}]}
+                            {backgroundColor:this.state.notifyTime === item?'#31d930':'white'}]}
                             key={item}>
-                            <Text style={{color:this.state.notifyTime == item?'white':'black'}}>{item}</Text>
+                            <Text style={{color:this.state.notifyTime === item?'white':'black'}}>{item}</Text>
                         </TouchableOpacity>)
                 })}
             </View>
@@ -308,7 +308,8 @@ export  default  class OptionView extends Component {
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF',
+        paddingTop:20
     },
     item: {
         marginTop: 10,

@@ -31,11 +31,13 @@ import {PBULImage} from '../../redux/reqKeys'
 import {uploadImages} from '../../redux/actions/util'
 //static displayName = PublishDetail
 import Toast from 'react-native-simple-toast'
+import HeaderBtn from '../../components/Button/HeaderBtn'
 @connect(
     (state, props) => ({
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
-        imageLoad: state.req.get(PBULImage).get('load')
+        imageLoad: state.req.get(PBULImage).get('load'),
+        load:state.req.get(ICARD).get('load')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -225,13 +227,18 @@ export default class Publishing extends Component {
             <View style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
-                {this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {
-                    if (iCard.state === 0) {
-                        this.props.publish(iCard,this.state.keys)
-                    } else {
-                        this.__alert(iCard)
-                    }
-                })}
+
+                <HeaderBtn
+                    style={styles.headerBtn}
+                    load={this.props.load }
+                    title={iCard.state === 0 ? "马上发布" : '取消发布'}
+                    onPress={() => {
+                        if (iCard.state === 0) {
+                            this.props.publish(iCard,this.state.keys)
+                        } else {
+                            this.__alert(iCard)
+                        }
+                    }}/>
 
             </View>
         );
@@ -260,7 +267,8 @@ const styles = StyleSheet.create({
 
     row: {
         backgroundColor: 'white',
-        paddingHorizontal: 15,
+        // paddingHorizontal: 25,
+        marginHorizontal:30,
         paddingVertical: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -276,7 +284,7 @@ const styles = StyleSheet.create({
     },
 
     rowText: {
-        marginLeft: 10,
+        marginLeft: 3,
         fontSize: 14,
         color: 'rgb(100,100,100)',
     },
@@ -329,5 +337,12 @@ const styles = StyleSheet.create({
     img: {
         flex: 1,
         borderRadius: 10,
-    }
+    },
+    headerBtn: {
+        marginTop: 20,
+        paddingHorizontal: 15,
+        width:120,
+        marginLeft:25,
+        // backgroundColor:'#F3AC41'
+    },
 })
