@@ -6,7 +6,8 @@ import {
     View,
     TextInput,
     findNodeHandle,
-    TouchableOpacity
+    TouchableOpacity,
+    Text
 } from 'react-native'
 import {backViewColor, mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
 import {updateUserName} from '../../request/leanCloud'
@@ -15,8 +16,39 @@ import {connect} from 'react-redux'
 import {updateUserData} from '../../redux/actions/user'
 import Toast from 'react-native-simple-toast';
 import {req} from '../../redux/actions/req'
+import {UPDATEUSERNAME} from '../../redux/reqKeys'
+import HeaderBtn from '../../components/Button/HeaderBtn'
+@connect(
+    (state, props) => ({
+        //data:state.req.get()
+        userData: state.user.data,
+        load:state.req.get(UPDATEUSERNAME).get('load')
+    }),
+    (dispatch, props) => ({
+        update: (username) => {
 
-class NickName extends React.Component {
+            dispatch(async (dispatch, getState) => {
+
+                const user = getState().user.data
+                const params = updateUserName(user.objectId, username);
+
+                await req(params,UPDATEUSERNAME)
+
+
+                Toast.show('修改成功');
+                //修改store
+                dispatch(updateUserData({username}))
+                props.navigation.goBack()
+
+
+            })
+
+        }
+    })
+)
+
+
+export default class NickName extends React.Component {
 
 
     constructor(props: Object) {
@@ -38,25 +70,25 @@ class NickName extends React.Component {
         // const {state} = navigation;le
         // const {params} = state;
         return {
-            title: '修改昵称',
-            headerRight: ( <TouchableOpacity
-                style={styles.headerBtn}
-                onPress={() => {
-                    props.navigation.state.params.send()
-                }}>
-                <Icon name="md-send" size={20}/>
-            </TouchableOpacity>),
+            title: null,
+            // headerRight: ( <TouchableOpacity
+            //     style={styles.headerBtn}
+            //     onPress={() => {
+            //         props.navigation.state.params.send()
+            //     }}>
+            //     <Icon name="md-send" size={20}/>
+            // </TouchableOpacity>),
         }
     };
 
     componentWillMount() {
-        this.props.navigation.setParams({send: this._tapRight})
+        // this.props.navigation.setParams({send: this._tapRight})
 
     }
 
     _tapRight = () => {
-        if (this.state != null) {
-            if (this.state.nickName.length == 0) {
+        if (this.state !== null) {
+            if (this.state.nickName.length === 0) {
                 Toast.show('昵称不能为空');
                 this.refs.nameInput.focus();
                 return;
@@ -70,6 +102,15 @@ class NickName extends React.Component {
         }
     }
 
+
+    _renderHeader = () => {
+
+        return (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>修改昵称</Text>
+            </View>
+        )
+    }
 
     renderRowMain(title: string, placeholder: string, onChangeText: Function,
                   keyboardType: string = 'default', autoFocus: bool = false) {
@@ -106,6 +147,8 @@ class NickName extends React.Component {
                           this.refs.nameInput.blur();
                       }
                   }}>
+
+                {this._renderHeader()}
                 <View style={styles.rowStyle}>
                     {this.renderRowMain('昵称修改:', "请输入的昵称",
                         (text) => {
@@ -114,6 +157,14 @@ class NickName extends React.Component {
                         }, 'default'
                     )}
                 </View>
+                <View style={styles.line}/>
+                <HeaderBtn
+                    style={styles.headerBtn}
+                    load={this.props.load }
+                    title={'确定'}
+                    onPress={() => {
+                        this._tapRight()
+                    }}/>
             </View>
         );
     }
@@ -123,9 +174,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: backViewColor,
+        paddingHorizontal:25,
     },
     rowStyle: {
-        marginTop: 10,
+        marginTop: 20,
         flexDirection: 'row',
         alignItems: 'center',
         height: 40,
@@ -135,7 +187,7 @@ const styles = StyleSheet.create({
 
     textInputStyle: {
         //  padding:15,
-        marginLeft: 15,
+        marginLeft: 2,
         fontSize: 13,
         height: 40,
         flex: 1,
@@ -145,46 +197,22 @@ const styles = StyleSheet.create({
     },
 
     headerBtn: {
-        padding: 20,
+        marginTop: 30,
         paddingHorizontal: 15,
+        width:80
+    },
+    line: {
+        width: '100%',
+        height: StyleSheet.hairlineWidth,
+        backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    header: {
+        paddingTop: 25,
+
+    },
+    headerTitle: {
+        fontSize: 17,
     },
 })
 
 
-const mapStateToProps = (state) => {
-
-    return {
-        userData: state.user.data,
-
-    }
-}
-
-
-const mapDispatchToProps = (dispatch, props) => {
-    return {
-        update: (username) => {
-
-            dispatch(async (dispatch, getState) => {
-
-                const user = getState().user.data
-                const params = updateUserName(user.objectId, username);
-
-                await req(params)
-
-
-                Toast.show('修改成功');
-                //修改store
-                dispatch(updateUserData({username}))
-                props.navigation.goBack()
-
-
-            })
-
-        }
-    }
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(NickName)

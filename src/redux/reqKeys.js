@@ -11,6 +11,8 @@ export const CARDLIST = 'cardList'
 export const IDOULIMAGE = 'iDoULImage'
 export const PBULImage = 'PBULImage'
 export const IUSEExist = 'iUseExist'
+export const UPDATEUSERNAME = 'updateUserName'
+export const FEEDBACKPARAM = 'feedbackParam'
 //设置初始值
 
 export const registerReqKeys = [
@@ -21,7 +23,9 @@ export const registerReqKeys = [
     SCENELIST,
     IDOULIMAGE,
     PBULImage,
-    IUSEExist
+    IUSEExist,
+    UPDATEUSERNAME,
+    FEEDBACKPARAM
 //设置初始值
 ]
 
