@@ -37,11 +37,12 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
         imageLoad: state.req.get(PBULImage).get('load'),
-        load:state.req.get(ICARD).get('load')
+        load:state.req.get(ICARD).get('load'),
+        user:state.user.data
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        publish: async (data,keys) => {
+        publish:  (data,keys) => {
 
             if(!data.img){
                 Toast.show('发布的卡片必须有图片哟!');
@@ -52,19 +53,33 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                 return;
             }
 
-            const id = data.objectId
-            const param = {
-                state: data.state === 0 ? 1 : 0,
-                keys:keys.split(',')
-            }
+            dispatch(async (dispatch,getState)=>{
 
-            const res = await  update(id, param, ICARD)
+                const user = getState().user.data
+                if(!user.username || user.username === user.mobilePhoneNumber){
 
-            const entity = {
-                ...param,
-                ...res
-            }
-            dispatch(addNormalizrEntity(ICARD, entity))
+                    props.navigation.navigate('NickName')
+                    Toast.show('发布卡片前需要先设置昵称~!');
+                    return;
+                }
+
+
+                const id = data.objectId
+                const param = {
+                    state: data.state === 0 ? 1 : 0,
+                    keys:keys.split(',')
+                }
+                const res = await  update(id, param, ICARD)
+
+                const entity = {
+                    ...param,
+                    ...res
+                }
+                dispatch(addNormalizrEntity(ICARD, entity))
+
+
+            })
+
         },
 
         unPublish: async (data)=>{

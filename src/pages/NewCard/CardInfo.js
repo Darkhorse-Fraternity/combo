@@ -134,6 +134,7 @@ export default class CardInfo extends Component {
         const useExist = this.props.useExist.toJS().data
         const exist = useExist.results && useExist.results.count >= 1
         const load = this.props.useExist.get('load')
+        const nickName = iCardUser.username === iCard.mobilePhoneNumber ?'光芒':iCardUser.username
         // color: '#F3AC41',
         //     activityColor: '#F0C98B',
         return (
@@ -143,11 +144,11 @@ export default class CardInfo extends Component {
                     <View style={styles.row}>
                         <Image source={avatarSource} style={styles.avatar}/>
                         <Text style={styles.name}>
-                            {iCardUser.username || '.'}
+                            {nickName}
                         </Text>
                     </View>
-                    {this.row('名字:', iCard.title)}
-                    {this.row('周期:', iCard.period)}
+                    {this.row('卡片名称:', iCard.title)}
+                    {this.row('卡片周期:', iCard.period)}
                     {this.row('记录模式:', iCard.record.join("+"))}
                     {this.row('关键字:', iCard.keys.join("+"))}
                     {this.row('使用人数:', iCard.useNum)}
