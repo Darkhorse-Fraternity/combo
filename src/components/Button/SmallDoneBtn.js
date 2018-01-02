@@ -91,7 +91,7 @@ export default class SmallDoneBtn extends Component {
                 {!this.props.load ? (<View style={styles.background}>
                     {this.__renderdot()}
                     <Text style={styles.title}>
-                        点击打卡
+                        {this.props.title}
                     </Text>
                 </View>) : (<ActivityIndicator size="large" color={"white"}/>)}
             </TouchableWithoutFeedback>

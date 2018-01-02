@@ -31,11 +31,10 @@ import Pop from '../../components/Pop'
 import Do from './Do'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
-import BounceBtn from '../../components/Button/BounceBtn'
+import HeaderBtn from '../../components/Button/HeaderBtn'
 import SmallDoneBtn from '../../components/Button/SmallDoneBtn'
 import * as Animatable from 'react-native-animatable';
 
-const List = Animatable.createAnimatableComponent(FlatList);
 
 // import TinderCard from '../../components/Card/TinderCard'
 
@@ -61,7 +60,8 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
         normalizrData: state.normalizr.get(IUSE),
         iCard: state.normalizr.get(ICARD),
         user: state.user.data,
-        load: state.req.get(IDO).get('load')
+        load: state.req.get(IDO).get("load"),
+        refreshLoad: state.req.get(IUSE).get("load")
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -106,9 +106,9 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 })
 
 
-                const res2 = await req(iDoP, IDO, {'normalizr':true})
+                const res2 = await req(iDoP, IDO, {'normalizr': true})
 
-                if(res2.error){
+                if (res2.error) {
                     Toast.show(res2.error)
                     return
                 }
@@ -131,7 +131,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 const entity = {
                     ...param,
                     // ...(res3)
-                    objectId:id
+                    objectId: id
                 }
 
                 // const res = await batch([IUseP, iDoP])
@@ -276,23 +276,8 @@ export default class Home extends Component {
     //     </View>)
     // }
 
-    __doneView = (data) => {
-        return (
-            <View>
-                <Text style={styles.done}>{'恭喜,已完成'}</Text>
-                <BounceBtn
-                    color="#rgb(236,175,160)"
-                    radius={60}
-                    moveColor="#rgba(236,175,160,0.4)"
-                    onPress={() => {
-                        this.props.refresh(data)
-                    }}
-                    title="再来一组"/>
-            </View>
-        )
-    }
 
-    __flagView = ({item, index}, data, flag) => {
+    __flagView = (data, flag) => {
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId)
         let FlagView = (
@@ -308,18 +293,24 @@ export default class Home extends Component {
                 </Text>
             </View>)
         if (data.time === Number(iCard.get("period"))) {
-            FlagView = this.__doneView(data)
-        } else if (data.doneDate) {
-            if (flag) {
-                FlagView = (
-                    <View style={{height: 150, justifyContent: 'center'}}>
-                        <Text
-                            numberOfLines={0}
-                            style={styles.notifyText}>
-                            {iCard.get('notifyText') || iCard.get('title')}
-                        </Text>
-                    </View>)
-            }
+            FlagView = (
+                <View style={{height: 150, justifyContent: 'center'}}>
+                    <Text style={styles.done}>{
+                        '恭喜,\n第' +
+                        (data.cycle + 1) +
+                        '组已经完成'}</Text>
+                </View>)
+        } else if (data.doneDate && flag) {
+
+            FlagView = (
+                <View style={{height: 150, justifyContent: 'center'}}>
+                    <Text
+                        numberOfLines={0}
+                        style={styles.notifyText}>
+                        {iCard.get('notifyText') || iCard.get('title')}
+                    </Text>
+                </View>)
+
         }
         return FlagView
     }
@@ -330,7 +321,7 @@ export default class Home extends Component {
         const data = this.props.normalizrData.get(item).toJS()
 
         const iCardId = data[ICARD]
-        // const iCard = this.props.iCard.get(iCardId)
+        const iCard = this.props.iCard.get(iCardId)
         // const isSelf = iCard.get('user') == this.props.user.objectId
         // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
@@ -339,11 +330,23 @@ export default class Home extends Component {
         const doneDate = data.doneDate.iso
         const lastMoment = moment(doneDate)
         const done = moment.min(lastMoment, moment(2, "HH")) === lastMoment
-        const inView = () => {
-            if (!data.setting) {
-                return this.__flagView({item, index}, data, done)
+        const over = data.time === Number(iCard.get("period"))
+        const doneBtn = () => {
+            if (over) {
+                return (<HeaderBtn
+                    title={"再来一组"}
+                    load={ this.props.refreshLoad}
+                    onPress={() => {
+                        this.props.refresh(data)
+                    }}/>)
             } else {
-                // return this.__settingView({item, index}, data)
+                return (<SmallDoneBtn
+                    title={"点击打卡"}
+                    load={this.props.load}
+                    onPress={() => {
+                        this.props.done(data)
+
+                    }}/>)
             }
         }
         return (
@@ -354,11 +357,9 @@ export default class Home extends Component {
                     style={styles.quotation}
                     source={require('../../../source/img/op/quotation.png')}/>
                 <View style={styles.card}>
-                    {inView()}
+                    {this.__flagView(data, done)}
                     <View style={styles.footer}>
-                        {done ? ( <SmallDoneBtn
-                                load={this.props.load}
-                                onPress={() => this.props.done(data)}/>) :
+                        {(done || over) ? ( doneBtn()) :
                             ( <View style={styles.setting}>
                                 <Icon
                                     color='white'
@@ -383,7 +384,7 @@ export default class Home extends Component {
 
         if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
             return (
-                <View style={{flex: 1, alignItems: 'center',paddingBottom:100, justifyContent: 'center'}}>
+                <View style={{flex: 1, alignItems: 'center', paddingBottom: 100, justifyContent: 'center'}}>
                     <TouchableOpacity
                         style={styles.noDataBc}
                         onPress={() => {
@@ -440,7 +441,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     card: {
-        marginTop:10,
+        marginTop: 10,
         paddingTop: 50,
         width: width - 50,
         height: width - 50,
@@ -471,11 +472,11 @@ const styles = StyleSheet.create({
     },
 
     done: {
-        fontSize: 17,
+        fontSize: 35,
         marginBottom: 20,
         color: 'white',
-        alignSelf:'center',
-        textAlign:'center'
+        alignSelf: 'center',
+        textAlign: 'center'
     },
     toper: {
         width: width - 50,
@@ -507,7 +508,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
-        padding:5,
+        padding: 5,
     },
     quotation: {
         alignSelf: 'center',
@@ -516,9 +517,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         zIndex: 10,
     },
-    settingView:{
-        flexDirection:'row',
-        alignSelf:'center',
+    settingView: {
+        flexDirection: 'row',
+        alignSelf: 'center',
         justifyContent: 'space-between',
         padding: 10
     }

@@ -15,11 +15,13 @@ import {
     Dimensions,
     ScrollView,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Easing
 } from 'react-native'
 import {connect} from 'react-redux'
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components/native';
+import ZoomImage from 'react-native-zoom-image';
 import {ICARD, USER, IUSE, IUSEExist} from '../../redux/reqKeys'
 import {getUserByID, existSearch} from '../../request/leanCloud'
 import {req,requestSucceed,DATA} from '../../redux/actions/req'
@@ -140,7 +142,10 @@ export default class CardInfo extends Component {
         return (
             <View style={{flex: 1}}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
-                    <Image source={{uri: iCard.img.url}} style={styles.img}/>
+                    <ZoomImage
+                        easingFunc={Easing.bounce}
+                        source={{uri: iCard.img.url}}
+                        imgStyle={styles.img}/>
                     <View style={styles.row}>
                         <Image source={avatarSource} style={styles.avatar}/>
                         <Text style={styles.name}>
@@ -180,7 +185,7 @@ const styles = StyleSheet.create({
     },
     img: {
 
-        width: width,
+        width: '100%',
         height: width * 0.7,
     },
     avatar: {

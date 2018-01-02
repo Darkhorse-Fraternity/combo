@@ -26,7 +26,7 @@ import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
 import {req} from '../../redux/actions/req'
 import {uploadImages} from '../../redux/actions/util'
-
+import HeaderBtn from '../../components/Button/HeaderBtn'
 export const Btn = Animatable.createAnimatableComponent(TouchableWithoutFeedback);
 import Pop from '../../components/Pop'
 import {connect} from 'react-redux'
@@ -171,12 +171,13 @@ export default class  extends Component {
     __textType = () => {
         return (
             <View>
-                <Text style={{fontSize: 15}}>一句话日记</Text>
+                {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
                 <TextInput
                     placeholderTextColor="rgba(180,180,180,1)"
                     selectionColor={mainColor}
                     returnKeyType='next'
                     maxLength={50}
+                    placeholder={"一句话日记"}
                     value={this.state.recordText}
                     //keyboardType={boardType}
                     style={styles.textInputStyle}
@@ -229,27 +230,19 @@ export default class  extends Component {
                         (<View style={[{padding: 20}]}>
                             <ActivityIndicator size="large"/>
                         </View>) :
-                        (<View style={[styles.top, {padding: 20}]}>
-                            <Btn
-                                useNativeDriver
-                                duration={2000}
-                                easing="ease-in-out"
-                                animation="bounceIn"
+                        (<View style={[styles.top]}>
+                            <HeaderBtn
+                                title="取消"
                                 style={styles.close}
+                                hitSlop={{top: 5, left: 50, bottom: 5, right: 50}}
                                 onPress={() => {
                                     Pop.hide()
-                                }}>
-                                <Icon name="md-close" size={80}/>
-                            </Btn>
-                            <Btn
-                                useNativeDriver
-                                duration={2000}
-                                easing="ease-in-out"
-                                animation="bounceIn"
+                                }}/>
+                            <HeaderBtn
+                                title="打卡"
+                                hitSlop={{top: 5, left: 50, bottom: 5, right: 50}}
                                 style={styles.close}
-                                onPress={this.__chackDone}>
-                                <Icon name="md-checkmark" size={80}/>
-                            </Btn>
+                                onPress={this.__chackDone}/>
                         </View>)}
                 </View>
             </View>
@@ -272,17 +265,18 @@ const styles = StyleSheet.create({
         padding: 50,
     },
     top: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: '100%'
+        marginTop:15
     },
     textInputStyle: {
-        marginTop: 5,
+        height:40
     },
     line: {
         width: '100%',
         height: StyleSheet.hairlineWidth,
         backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    close:{
+        marginTop:15,
+        width:80,
     }
 })

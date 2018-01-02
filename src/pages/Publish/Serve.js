@@ -10,23 +10,19 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
     Text,
     Image,
-    Alert
+    Easing
 } from 'react-native'
 import {IDO} from '../../redux/reqKeys'
 
-import {selfUser, iCard, iUse} from '../../request/LCModle'
+import {iCard} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import moment from 'moment'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {update,} from '../../redux/module/leancloud'
-import {addListNormalizrEntity} from '../../redux/actions/list'
-import {ICARD, IUSE} from '../../redux/reqKeys'
+import ZoomImage from 'react-native-zoom-image';
 
 
 const listKey = IDO
@@ -93,7 +89,7 @@ export default class Detail extends Component {
 
         // console.log('test:', item);
         const img = item.imgs && item.imgs[0] || null
-        const avatar =  item.user.avatar
+        const avatar = item.user.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         return (
@@ -103,10 +99,19 @@ export default class Detail extends Component {
                 }}>
 
                 <View style={styles.top}>
-                    <Image style={styles.avatar} source={avatarSource}/>
-                    <Text style={styles.name}>{item.user.username || '路人甲'}   完成了任务</Text>
+                    <Image
+                        style={styles.avatar}
+                        source={avatarSource}/>
+                    <Text style={styles.name}>
+                        {item.user.username !== item.user.mobilePhoneNumber
+                            ? item.user.username : '路人甲'}
+                        完成了任务
+                    </Text>
                 </View>
-                {img && (<Image style={styles.image} source={{uri: img}}/>)}
+                {img && (<ZoomImage
+                    easingFunc={Easing.bounce}
+                    imgStyle={styles.image}
+                    source={{uri: img}}/>)}
                 <View style={styles.bottom}>
                     <View>
                         {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
         height: 200,
     },
     top: {
-        paddingVertical:5,
+        paddingVertical: 5,
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
     },
     name: {
         marginLeft: 5,
-        color:'#4e4e4e'
+        color: '#4e4e4e'
     },
     bottom: {
         marginTop: 10,
