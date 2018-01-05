@@ -4,13 +4,11 @@
 
 import React, {Component} from 'react';
 import  {
-    NavigationExperimental,
     StyleSheet,
     Text,
     TouchableOpacity,
     Image,
     View,
-    Platform,
     LayoutAnimation,
 } from 'react-native';
 import imagePicker from './imagePicker'
@@ -49,9 +47,10 @@ export default class ImageSelectView extends Component {
             maxHeight: 2000, // photos only
         }
         imagePicker(opt, (response)=> {
-            LayoutAnimation.spring();
+
             // console.log('response:', response);
             if(response.uri){
+                // LayoutAnimation.spring();
                 const files = this.state.files.concat(response)
                 this.props.onChange && this.props.onChange(files);
             }
