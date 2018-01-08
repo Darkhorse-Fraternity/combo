@@ -93,6 +93,10 @@ export async function  dayNotification(data) {
             // date: new Date(Date.now() + (1*1000)), // in 60 secs
             number:  1,
             repeatType: 'day',
+            data:{
+                webUrl:"",
+                action: "com.avos.UPDATE_STATUS",
+            },
             userInfo: {'type': 'local'},
         });
     })
@@ -104,6 +108,10 @@ export async function  dayNotification(data) {
         message: "设置一些本周挑战吧~！", // (required)
         date: moment(21, "HH").day(7).toDate(), // in 60 secs
         // date: new Date(Date.now() + (1*1000)), // in 60 secs
+        data:{
+            webUrl:"",
+            action: "com.avos.UPDATE_STATUS",
+        },
         number: 1,
         repeatType: 'week',
         userInfo: {'type': 'local'},
