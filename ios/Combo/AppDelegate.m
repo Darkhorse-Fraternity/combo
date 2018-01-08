@@ -15,6 +15,7 @@
 #import <React/RCTLog.h>
 #import "../Libraries/LinkingIOS/RCTLinkingManager.h"
 #import "AppearanceConfig.h"
+#import "Orientation.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -89,6 +90,10 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 {
   return [RCTLinkingManager application:application openURL:url
                       sourceApplication:sourceApplication annotation:annotation];
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 @end

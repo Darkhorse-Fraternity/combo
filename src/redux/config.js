@@ -21,7 +21,8 @@ import pushConfig from '../configure/push'
 import {dataStorage} from '../redux/actions/util'
 export const PRE_CONFIG_STATU = 'PRE_CONFIG_STATU'
 import { NavigationActions } from 'react-navigation';
-
+import Orientation from 'react-native-orientation';
+import DeviceInfo from 'react-native-device-info'
 import {pop} from './nav'
 
 
@@ -56,8 +57,13 @@ function _preConfig() {
     // if()
 
     pushConfig()
+    // Orientation.lockToPortrait()
 
-
+    if (DeviceInfo.isTablet()) {
+        Orientation.lockToLandscape();
+    } else {
+        Orientation.lockToPortrait()
+    }
 
 
     // dayNotification()
