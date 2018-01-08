@@ -40,11 +40,12 @@ public class MainApplication extends Application implements ReactApplication {
         protected String getJSMainModuleName() {
             return "index";
         }
+
         @Override
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new OrientationPackage(),
+                    new OrientationPackage(),
                     new Interactable(),
                     new BlurViewPackage(),
                     new WeChatPackage(),
@@ -73,26 +74,25 @@ public class MainApplication extends Application implements ReactApplication {
     }
 
 
-
-
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
     }
 
-    private void ActivityLifecycleCallbacks(){
+    private void ActivityLifecycleCallbacks() {
         mIntent = new Intent();
         mIntent.setAction("com.action.isForeground");
         registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
-            public void onActivityCreated(Activity activity, Bundle bundle) {}
+            public void onActivityCreated(Activity activity, Bundle bundle) {
+            }
 
             @Override
             public void onActivityStarted(Activity activity) {
                 Log.v("viclee", activity + "onActivityStarted");
                 if (count == 0) {
                     Log.e("viclee", ">>>>>>>>>>>>>>>>>>>切到前台  lifecycle");
-                    mIntent.putExtra("isForeground",true);
+                    mIntent.putExtra("isForeground", true);
                     mIntent.putExtra("icon", R.mipmap.ic_launcher);
                     sendBroadcast(mIntent);
                 }
@@ -100,26 +100,30 @@ public class MainApplication extends Application implements ReactApplication {
             }
 
             @Override
-            public void onActivityResumed(Activity activity) {}
+            public void onActivityResumed(Activity activity) {
+            }
 
             @Override
-            public void onActivityPaused(Activity activity) {}
+            public void onActivityPaused(Activity activity) {
+            }
 
             @Override
             public void onActivityStopped(Activity activity) {
                 count--;
                 if (count == 0) {
                     Log.e("viclee", ">>>>>>>>>>>>>>>>>>>切到后台  lifecycle");
-                    mIntent.putExtra("isForeground",false);
+                    mIntent.putExtra("isForeground", false);
                     sendBroadcast(mIntent);
                 }
             }
 
             @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {}
+            public void onActivitySaveInstanceState(Activity activity, Bundle bundle) {
+            }
 
             @Override
-            public void onActivityDestroyed(Activity activity) {}
+            public void onActivityDestroyed(Activity activity) {
+            }
         });
     }
 
