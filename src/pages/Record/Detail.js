@@ -10,27 +10,22 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
     Text,
-    Image,
     Alert,
-    Easing
 } from 'react-native'
 import {IDO} from '../../redux/reqKeys'
-import ZoomImage from 'react-native-zoom-image';
 import {selfUser, iUse} from '../../request/LCModle'
 import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import moment from 'moment'
-import Icon from 'react-native-vector-icons/Ionicons'
 import {update,} from '../../redux/module/leancloud'
 import {addListNormalizrEntity} from '../../redux/actions/list'
 import {IUSE} from '../../redux/reqKeys'
 import {claerByID} from '../../redux/actions/list'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
 import HeaderBtn from '../../components/Button/HeaderBtn'
+import RecordRow from './RecordRow'
 const listKey = IDO
 
 
@@ -187,33 +182,15 @@ export default class Detail extends Component {
     renderRow({item, index}: Object) {
 
         // console.log('test:', item);
-        const img = item.imgs && item.imgs[0] || null
+        // const img = item.imgs && item.imgs[0] || null
 
         return (
             <View
                 style={styles.row}
                 onPress={() => {
                 }}>
-                {img && (
-                    <ZoomImage
-                        source={{uri: img}}
-                        imgStyle={styles.image}
-                        //style={styles.image}
-                        //duration={200}
-                        //enableScaling={true}
-                        easingFunc={Easing.bounce}
-                    />
-                    // <Image style={styles.image} source={{uri: img}}/>
-                )}
-                <View style={styles.bottom}>
-                    <View>
-                        {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
-                        <Text style={styles.date}>{moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</Text>
-                    </View>
-                    {!item.recordText && (<Icon name="md-checkmark" size={30} color="#31d930"/>)}
-                </View>
-
-                <View style={styles.line}/>
+               <RecordRow item={item}  navigation={this.props.navigation}/>
+                {/*<View style={styles.line}/>*/}
             </View>
         )
     }

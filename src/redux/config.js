@@ -47,7 +47,7 @@ function _preConfig() {
     //配置友盟信息
     // umeng.configure();
 
-    if (Platform.OS != 'ios') {
+    if (Platform.OS !== 'ios') {
         UIManager.setLayoutAnimationEnabledExperimental &&
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -111,7 +111,7 @@ export function preConfig():Function {
     _preConfig();
 
     return (dispatch,getState) =>{
-        Platform.OS != 'ios' && _backAnroid(getState)
+        Platform.OS !== 'ios' && _backAnroid(getState)
         _isConnected(dispatch)
         loadUserData().then((response)=>{
             dispatch(loginSucceed(response))

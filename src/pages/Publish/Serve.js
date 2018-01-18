@@ -21,9 +21,8 @@ import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import moment from 'moment'
-import ZoomImage from 'react-native-zoom-image';
 
+import RecordRow from '../Record/RecordRow'
 
 const listKey = IDO
 
@@ -88,7 +87,6 @@ export default class Detail extends Component {
     renderRow({item, index}: Object) {
 
         // console.log('test:', item);
-        const img = item.imgs && item.imgs[0] || null
         const avatar = item.user.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
@@ -108,17 +106,7 @@ export default class Detail extends Component {
                         完成了任务
                     </Text>
                 </View>
-                {img && (<ZoomImage
-                    easingFunc={Easing.bounce}
-                    imgStyle={styles.image}
-                    source={{uri: img}}/>)}
-                <View style={styles.bottom}>
-                    <View>
-                        {item.recordText && (<Text style={styles.text}>{item.recordText}</Text>)}
-                        <Text style={styles.date}>{moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss")}</Text>
-                    </View>
-                </View>
-
+                <RecordRow item={item} navigation={this.props.navigation}/>
             </View>
         )
     }
