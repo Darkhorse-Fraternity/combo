@@ -78,7 +78,7 @@ export default function pushConfig() {
 
         DeviceEventEmitter.addListener(LeanCloudPushNative.ON_RECEIVE, (res) => {
             const data= JSON.parse(res.data);
-            const foreground = res.foreground === '1' ? true : false
+            const foreground = res.foreground === '1'
             const notification = {'data': data, 'foreground': foreground}
             console.log("数据", res)
             if (!notification.data.silent && notification.foreground) {
@@ -134,8 +134,6 @@ export function updatePush(owner) {
             ...profile,
         })
 
-        console.log('getBundleId:', param);
-        console.log('param:', param);
         send(param).then((response)=>{
             console.log('response:',response)
         })
