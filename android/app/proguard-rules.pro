@@ -68,5 +68,6 @@
 -keep class com.tencent.mm.sdk.** {
    *;
 }
+-dontwarn com.wix.reactnativekeyboardinput.**
 
 -ignorewarnings

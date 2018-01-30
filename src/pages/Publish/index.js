@@ -73,9 +73,9 @@ export default class Publish extends Component {
         const source = item.img?{uri:item.img.url}:require('../../../source/img/my/icon-60.png')
         return (
             <TouchableOpacity
-
                 onPress={() => {
-                    this.props.navigation.navigate('PublishDetail', {iCardID: item.objectId, data: item})
+                    this.props.navigation.navigate('PublishDetail',
+                        {iCardID: item.objectId, data: item})
                 }}>
                 <Image style={styles.item} source={source}/>
                 <Text

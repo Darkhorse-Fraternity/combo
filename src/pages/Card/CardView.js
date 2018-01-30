@@ -335,7 +335,7 @@ export default class Home extends Component {
             if (over) {
                 return (<HeaderBtn
                     title={"再来一组"}
-                    load={ this.props.refreshLoad}
+                    load={this.props.refreshLoad}
                     onPress={() => {
                         this.props.refresh(data)
                     }}/>)
@@ -374,29 +374,36 @@ export default class Home extends Component {
     }
 
 
+    __renderNoData = () => {
+        return (
+            <View style={styles.noDataView}>
+                <TouchableOpacity
+                    style={styles.noDataBc}
+                    onPress={() => {
+                        this.props.navigation.navigate('Creat')
+                    }}>
+                    <Icon name="md-add" color="white" size={50}/>
+                </TouchableOpacity>
+                <Text style={{marginTop: 10}}>给自己添加个习惯卡片吧~</Text>
+            </View>
+
+        )
+
+    }
+
     render(): ReactElement<any> {
 
         // const navigation = this.props.navigation
-        // console.log('test:',typeof View());
+        // console.log('test:',typeof View())
+
+
         const statu = this.props.data.get('loadStatu')
 
         const data = this.props.data.toJS().listData
 
         if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
-            return (
-                <View style={{flex: 1, alignItems: 'center', paddingBottom: 100, justifyContent: 'center'}}>
-                    <TouchableOpacity
-                        style={styles.noDataBc}
-                        onPress={() => {
-                            this.props.navigation.navigate('Creat')
-                        }}>
-                        <Icon name="md-add" color="white" size={50}/>
-                    </TouchableOpacity>
-                    <Text style={{marginTop: 10}}>给自己添加个习惯卡片吧~</Text>
-                </View>
-            )
+            return this.__renderNoData()
         }
-
         return (
 
             <FlatList
@@ -522,5 +529,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         justifyContent: 'space-between',
         padding: 10
+    },
+    noDataView: {
+        flex: 1,
+        alignItems: 'center',
+        paddingBottom: 100,
+        justifyContent: 'center'
     }
 })

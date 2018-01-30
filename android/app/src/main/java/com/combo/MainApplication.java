@@ -11,16 +11,17 @@ import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
-import com.github.yamill.orientation.OrientationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.github.yamill.orientation.OrientationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.theweflex.react.WeChatPackage;
 import com.wix.interactable.Interactable;
+import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new KeyboardInputPackage(MainApplication.this), // (this = Android application object)
                     new OrientationPackage(),
                     new Interactable(),
                     new BlurViewPackage(),

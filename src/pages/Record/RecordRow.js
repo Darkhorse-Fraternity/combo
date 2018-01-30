@@ -53,7 +53,7 @@ export default class RecordRow extends Component {
             <TouchableOpacity
                 onPress={() => {
                     this.props.navigation &&
-                    this.props.navigation.navigate('RComment',{data:item})
+                    this.props.navigation.navigate('RComment', {data: item})
                 }}
                 style={styles.chatbtn}
             >
@@ -76,7 +76,7 @@ export default class RecordRow extends Component {
         )
     }
 
-    _renderDone = ()=>{
+    _renderDone = () => {
         return (
             <Icon
                 ref={this.chatBtnRef}
@@ -92,6 +92,7 @@ export default class RecordRow extends Component {
 
     render(): ReactElement<any> {
         const {item} = this.props
+        if(!item)return null
         const img = item.imgs && item.imgs[0] || null
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
@@ -111,8 +112,9 @@ export default class RecordRow extends Component {
                         <Text style={styles.date}>
                             {date}
                         </Text>
-                        {this._renderDone()
-                        }
+                        {this.props.showChat?
+                            this._renderChatBtn(item):
+                            this._renderDone()}
                     </View>
                 </View>
             </View>
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
         height: width * 0.7,
     },
     date: {
-        fontSize: 14,
+        fontSize: 15,
         color: 'rgb(100,100,100)',
         paddingVertical: 3,
         // paddingHorizontal: 5,
