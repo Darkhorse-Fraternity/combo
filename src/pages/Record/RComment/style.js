@@ -1,8 +1,17 @@
-import React from "react";
 import styled from "styled-components/native";
 
-export const StyledText = styled.Text`
-  color: ${props => props.theme.main};
-  font-size: 17px; 
-  margin: 10px 10px 2px;
+
+export const StyledContent = styled.View`
+    flex: 1;
+    background-color: ${props => props.theme.contentColor};
+    justify-content: space-between;
+`
+export const StyledBody = styled.View`
+    flex: 1;
+    padding: 0px 15px 0px 15px;
+`
+
+export const StyledHeader = styled.View`
+    border-bottom-width: ${props => props.theme.hairlineWidth};
+    border-bottom-color: ${props => props.theme.hairlineColor};
 `

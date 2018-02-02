@@ -17,23 +17,90 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 import RecordRow from '../RecordRow'
-import {StyledText} from './style'
 import {BlurView} from 'react-native-blur';
-import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
+// import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
 import {KeyboardAccessoryView, KeyboardUtils} from 'react-native-keyboard-input';
+
+import {
+    IDO,
+    IUSEExist,
+    IUSE,
+    ICOMMENT
+} from '../../../redux/reqKeys'
+import {addNormalizrEntity} from '../../../redux/module/normalizr'
+import {update, add, search} from '../../../redux/module/leancloud'
+import {selfUser, iCard, iDo} from '../../../request/LCModle'
+import {req, reqChangeData} from '../../../redux/actions/req'
+import {addListNormalizrEntity} from '../../../redux/actions/list'
+import ChatSendForm, {FormID} from '../../../components/Form/ChatSendForm'
+import {
+    StyledHeader,
+    StyledBody,
+    StyledContent
+} from './style'
+
+import {formValueSelector} from 'redux-form/immutable'
+import {reset} from 'redux-form'
+import {immutableRenderDecorator} from 'react-immutable-render-mixin';
+
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
 //static displayName = RComment
+
+const Name = 'text'
+
 @connect(
     state => ({
         //data:state.req.get()
     }),
-    dispatch => ({
-        //...bindActionCreators({},dispatch),
+    (dispatch, props) => ({
+        load: async () => {
+            const iDoData = props.navigation.state.params.data
+
+            dispatch(search(false, {
+                where: {
+                    ...iDo(iDoData.objectId)
+                },
+            }, ICOMMENT))
+
+        },
+        send: () => dispatch(async (dispatch, getState) => {
+            const iDoData = props.navigation.state.params.data
+
+            const selector = formValueSelector(FormID) // <-- same as form name
+            KeyboardUtils.dismiss()
+
+            const text = selector(getState(), Name)
+            const param = {
+                text,
+                ...selfUser(),
+                ...iDo(iDoData.objectId)
+            }
+            const res = await add(param, ICOMMENT)
+            const entity = {
+                ...param,
+                ...res
+            }
+            dispatch(addListNormalizrEntity(ICOMMENT, entity))
+
+            dispatch(reset(FormID))
+
+
+            // // dispatch(reqChangeData(IUSEExist, {
+
+            //     results: {
+            //         results: [],
+            //         count: 1
+            //     }
+            // }))
+        })
     })
 )
+
+@immutableRenderDecorator
+
 export default class RComment extends Component {
     constructor(props: Object) {
         super(props);
@@ -41,11 +108,8 @@ export default class RComment extends Component {
         this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
 
         this.state = {
-            customKeyboard: {
-                component: undefined,
-                initialProps: undefined,
-            },
-            receivedKeyboardData: undefined,
+
+            text: '',
         };
 
     }
@@ -61,10 +125,11 @@ export default class RComment extends Component {
         }
     };
 
-    shouldComponentUpdate(nextProps: Object) {
-        return !immutable.is(this.props, nextProps)
-    }
 
+
+    componentDidMount() {
+        this.props.load()
+    }
 
     componentWillUnmount() {
         KeyboardUtils.dismiss()
@@ -73,11 +138,9 @@ export default class RComment extends Component {
     _renderHeader = () => {
         const data = this.props.navigation.state.params.data
         return (
-            <View>
+            <StyledHeader>
                 <RecordRow item={data} showChat={false}/>
-                <View style={styles.line}/>
-                <StyledText>my test</StyledText>
-            </View>
+            </StyledHeader>
         )
     }
 
@@ -89,24 +152,21 @@ export default class RComment extends Component {
         const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
         return (
             <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
-                <View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/>
-
-                <View style={styles.inputContainer}>
-                    <AutoGrowingTextInput
-                        maxHeight={200}
-                        style={styles.textInput}
-                        ref={(r) => {
-                            this.textInputRef = r;
-                        }}
-                        placeholder={'消息'}
-                        underlineColorAndroid="transparent"
-                        //onFocus={() => this.resetKeyboardView()}
-                        testID={'input'}
-                    />
-                    <TouchableOpacity style={styles.sendButton} onPress={() => KeyboardUtils.dismiss()}>
-                        <Text>发送</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/>*/}
+                <ChatSendForm
+                    maxHeight={200}
+                    ref={(r) => {
+                        this.textInputRef = r;
+                    }}
+                    name={Name}
+                    maxLength={5000}
+                    placeholder='消息'
+                    //onFocus={() => this.resetKeyboardView()}
+                    // onChangeText={text => this.setState({text})}
+                    testID='input'
+                    key=''
+                    onSubmit={this.props.send}
+                />
             </InnerContainerComponent>
         );
     }
@@ -115,52 +175,26 @@ export default class RComment extends Component {
     render(): ReactElement<any> {
 
         return (
-            <View style={[this.props.style, styles.wrap]}>
-                <ScrollView
-                    contentContainerStyle={styles.scrollContainer}
+            <StyledContent>
+                <StyledBody
                     keyboardDismissMode={TrackInteractive ? 'interactive' : 'none'}
                 >
                     {this._renderHeader()}
-                </ScrollView>
+                </StyledBody>
 
                 <KeyboardAccessoryView
                     renderContent={this.keyboardAccessoryViewContent}
-                    onHeightChanged={IsIOS ? height => this.setState({keyboardAccessoryViewHeight: height}) :
-                        undefined}
                     trackInteractive={TrackInteractive}
                     kbInputRef={this.textInputRef}
-                    kbComponent={this.state.customKeyboard.component}
-                    kbInitialProps={this.state.customKeyboard.initialProps}
-                    onItemSelected={this.onKeyboardItemSelected}
                     onKeyboardResigned={this.onKeyboardResigned}
                     revealKeyboardInteractive
                 />
-            </View>
+            </StyledContent>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    wrap: {
-        flex: 1,
-        backgroundColor: 'white',
-        justifyContent: 'space-between'
-        // paddingHorizontal: 20,
-    },
-    scrollContainer: {
-        flex: 1,
-        paddingHorizontal: 20,
-    },
-    line: {
-        height: StyleSheet.hairlineWidth * 2,
-        backgroundColor: '#ebebeb',
-        marginTop: 10,
-    },
-    inputContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
     blurContainer: {
         ...Platform.select({
             ios: {
@@ -168,22 +202,5 @@ const styles = StyleSheet.create({
             },
         }),
     },
-    textInput: {
-        flex: 1,
-        marginLeft: 10,
-        marginTop: 10,
-        marginBottom: 10,
-        paddingLeft: 10,
-        paddingTop: 2,
-        paddingBottom: 5,
-        fontSize: 16,
-        backgroundColor: 'white',
-        borderWidth: StyleSheet.hairlineWidth,
-        borderRadius: 18,
-    },
-    sendButton: {
-        paddingRight: 15,
-        paddingLeft: 15,
-        alignSelf: 'center',
-    },
+
 })

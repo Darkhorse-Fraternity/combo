@@ -32,3 +32,7 @@ export function iUse(id) {
     return pointModel('iUse',id)
 }
 
+export function iDo(id) {
+    return pointModel('iDo',id)
+}
+

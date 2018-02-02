@@ -16,14 +16,14 @@ import {preConfig} from './redux/config'
 import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
 import {ThemeProvider} from 'styled-components'
+import theme from './Theme'
+// import Form from './components/Form/Form'
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
 configureStore.dispatch(preConfig())
 // const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
 // const store = configureStore()
-const theme = {
-    main: 'red'
-};
+
 
 // import App from './components/js/App'
 class App extends Component {
@@ -45,6 +45,7 @@ class App extends Component {
                         )}
                         <AppWithNavigationState/>
                         <InfoBar/>
+                        {/*<Form/>*/}
                     </View>
                 </ThemeProvider>
             </Provider>

@@ -13,7 +13,9 @@ export const PBULImage = 'PBULImage'
 export const IUSEExist = 'iUseExist'
 export const UPDATEUSERNAME = 'updateUserName'
 export const FEEDBACKPARAM = 'feedbackParam'
+export const ICOMMENT = 'iComment'
 //设置初始值
+
 
 export const registerReqKeys = [
     ICARD,
@@ -36,8 +38,8 @@ export const registerListKeys = [
     IDO,
     IUSE,
     ICARD,
-    CARDLIST
-
+    CARDLIST,
+    ICOMMENT
 ]
 
 export const registerNormalizrKeys = registerListKeys
