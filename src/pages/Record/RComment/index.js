@@ -149,6 +149,7 @@ export default class RComment extends Component {
     }
 
     keyboardAccessoryViewContent() {
+        const {objectId} = this.props.navigation.state.params.data
         const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
         return (
             <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
@@ -164,7 +165,9 @@ export default class RComment extends Component {
                     //onFocus={() => this.resetKeyboardView()}
                     // onChangeText={text => this.setState({text})}
                     testID='input'
+                    localSaveID={objectId}
                     key=''
+                    localSaveEnable
                     onSubmit={this.props.send}
                 />
             </InnerContainerComponent>

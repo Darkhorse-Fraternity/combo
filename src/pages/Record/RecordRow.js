@@ -93,6 +93,7 @@ export default class RecordRow extends Component {
     render(): ReactElement<any> {
         const {item} = this.props
         if(!item)return null
+        console.log('test:', item.recordText);
         const img = item.imgs && item.imgs[0] || null
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
@@ -102,9 +103,7 @@ export default class RecordRow extends Component {
                     imgStyle={styles.image}
                     source={{uri: img}}/>)}
                 <View style={styles.bottom}>
-                    {item.recordText &&
-                    (<Text
-                        numberOfLines={1}
+                    {!!item.recordText &&(<Text numberOfLines={1}
                         style={styles.text}>
                         {item.recordText}
                     </Text>)}

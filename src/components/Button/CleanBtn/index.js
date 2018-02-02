@@ -28,7 +28,7 @@ export default class  CleanBtn extends Component {
     render() {
         const {onPress,text,submitting,hitSlop,...rest} = this.props
         return (
-            <StyledBtn hitSlop={hitSlop} onPress={onPress} {...rest} >
+            <StyledBtn {...rest} hitSlop={hitSlop} onPress={onPress}  >
                 {submitting?
                     (<ActivityIndicator size="small"
                                         color={theme.normalBtn.activityIndicatorColor} />):
