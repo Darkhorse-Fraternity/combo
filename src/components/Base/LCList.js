@@ -39,6 +39,7 @@ export  default  class LCList extends Component {
     static propTypes = {
         reqParam:PropTypes.object.isRequired,
         reqKey:PropTypes.string.isRequired,
+        sKey:PropTypes.string,
         load: PropTypes.func.isRequired,
         loadMore: PropTypes.func,
         callPath:PropTypes.string //不为空则表示走leancloud 的云函数

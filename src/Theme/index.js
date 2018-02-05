@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native'
 export default {
     ...FormTheme,
     hairlineWidth:StyleSheet.hairlineWidth,
-    hairlineColor:'rgb(150,150,150)',
+    hairlineColor:'rgb(200,200,200)',
     contentColor: 'white',
     normalBtn:{
         color:'black',

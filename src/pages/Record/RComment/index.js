@@ -19,6 +19,7 @@ import {connect} from 'react-redux'
 import RecordRow from '../RecordRow'
 import {BlurView} from 'react-native-blur';
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
+import LCList from '../../../components/Base/LCList'
 
 import {KeyboardAccessoryView, KeyboardUtils} from 'react-native-keyboard-input';
 
@@ -28,18 +29,24 @@ import {
     IUSE,
     ICOMMENT
 } from '../../../redux/reqKeys'
-import {addNormalizrEntity} from '../../../redux/module/normalizr'
 import {update, add, search} from '../../../redux/module/leancloud'
 import {selfUser, iCard, iDo} from '../../../request/LCModle'
 import {req, reqChangeData} from '../../../redux/actions/req'
-import {addListNormalizrEntity} from '../../../redux/actions/list'
+import {add as listAdd} from '../../../redux/actions/list'
+import {addNormalizrEntity,} from '../../../redux/module/normalizr'
 import ChatSendForm, {FormID} from '../../../components/Form/ChatSendForm'
 import {
     StyledHeader,
-    StyledBody,
-    StyledContent
+    StyledContent,
+    StyledRow,
+    StyledRowLeft,
+    StyledAvatar,
+    StyledRowRight,
+    StyledNickText,
+    StyledContentText,
+    StyledDate,
 } from './style'
-
+import moment from 'moment'
 import {formValueSelector} from 'redux-form/immutable'
 import {reset} from 'redux-form'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin';
@@ -56,23 +63,14 @@ const Name = 'text'
         //data:state.req.get()
     }),
     (dispatch, props) => ({
-        load: async () => {
-            const iDoData = props.navigation.state.params.data
-
-            dispatch(search(false, {
-                where: {
-                    ...iDo(iDoData.objectId)
-                },
-            }, ICOMMENT))
-
-        },
         send: () => dispatch(async (dispatch, getState) => {
             const iDoData = props.navigation.state.params.data
 
             const selector = formValueSelector(FormID) // <-- same as form name
             KeyboardUtils.dismiss()
 
-            const text = selector(getState(), Name)
+            const state = getState()
+            const text = selector(state, Name)
             const param = {
                 text,
                 ...selfUser(),
@@ -81,20 +79,16 @@ const Name = 'text'
             const res = await add(param, ICOMMENT)
             const entity = {
                 ...param,
-                ...res
+                ...res,
+                user:state.user.data
             }
-            dispatch(addListNormalizrEntity(ICOMMENT, entity))
+            // dispatch(addListNormalizrEntity(ICOMMENT, entity))
+
+            dispatch(addNormalizrEntity(ICOMMENT, entity))
+            // dispatch(addNormalizrEntities(key,data))
+            dispatch(listAdd(ICOMMENT + iDoData.objectId, entity.objectId))
 
             dispatch(reset(FormID))
-
-
-            // // dispatch(reqChangeData(IUSEExist, {
-
-            //     results: {
-            //         results: [],
-            //         count: 1
-            //     }
-            // }))
         })
     })
 )
@@ -126,11 +120,6 @@ export default class RComment extends Component {
     };
 
 
-
-    componentDidMount() {
-        this.props.load()
-    }
-
     componentWillUnmount() {
         KeyboardUtils.dismiss()
     }
@@ -161,7 +150,7 @@ export default class RComment extends Component {
                     }}
                     name={Name}
                     maxLength={5000}
-                    placeholder='消息'
+                    placeholder='请输入评论'
                     //onFocus={() => this.resetKeyboardView()}
                     // onChangeText={text => this.setState({text})}
                     testID='input'
@@ -175,16 +164,49 @@ export default class RComment extends Component {
     }
 
 
+    renderRow({item}: Object): ReactElement<any> {
+        const date = moment(item.createdAt).format("MM/DD HH:mm")
+        return (<StyledRow>
+            <StyledRowLeft>
+                <StyledAvatar source={{uri:item.user.avatar.url}}/>
+            </StyledRowLeft>
+            <StyledRowRight>
+                <StyledNickText>
+                    {item.user.username}
+                </StyledNickText>
+                <StyledContentText>
+                    {item.text}
+                </StyledContentText>
+                <StyledDate>
+                    {date}
+                </StyledDate>
+            </StyledRowRight>
+        </StyledRow>)
+    }
+
+
     render(): ReactElement<any> {
+
+        const iDoData = this.props.navigation.state.params.data
+
+        const params = {
+            where: {
+                ...iDo(iDoData.objectId),
+
+            },
+            include: 'user'
+        }
 
         return (
             <StyledContent>
-                <StyledBody
-                    keyboardDismissMode={TrackInteractive ? 'interactive' : 'none'}
-                >
-                    {this._renderHeader()}
-                </StyledBody>
-
+                <LCList
+                    ListHeaderComponent={this._renderHeader}
+                    style={[styles.list]}
+                    reqKey={ICOMMENT}
+                    sKey={ICOMMENT + iDoData.objectId}
+                    renderItem={this.renderRow.bind(this)}
+                    reqParam={params}
+                />
                 <KeyboardAccessoryView
                     renderContent={this.keyboardAccessoryViewContent}
                     trackInteractive={TrackInteractive}
@@ -205,5 +227,7 @@ const styles = StyleSheet.create({
             },
         }),
     },
-
+    list:{
+        marginBottom:50
+    }
 })
