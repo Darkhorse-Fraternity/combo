@@ -16,7 +16,7 @@ export const StyledHeader = styled.View`
 `
 
 
-export const StyledRow = styled.View`
+export const StyledRow = styled.TouchableOpacity`
    flex-direction: row;
    padding: 15px 15px 5px 15px;
 `

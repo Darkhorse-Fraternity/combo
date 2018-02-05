@@ -59,7 +59,7 @@ export  default  class LCList extends Component {
     componentWillReceiveProps(nextProps: Object) {
 
         //只进行值比较
-        if (JSON.stringify(nextProps.reqParam) != JSON.stringify(this.props.reqParam)) {
+        if (JSON.stringify(nextProps.reqParam) !== JSON.stringify(this.props.reqParam)) {
             this.loadData(nextProps.reqParam)
         }
 
@@ -81,6 +81,10 @@ export  default  class LCList extends Component {
 
 
         const loadStatu = this.props.data.get('loadStatu')
+
+        console.log('this.props.loadStatu:', loadStatu);
+
+
         let listDataKey = this.props.data.get('listData').toJS()
         // listData = listData && listData.toJS()
         // console.log('listDataKey:', listDataKey);
@@ -111,6 +115,8 @@ export  default  class LCList extends Component {
         const loadData = (param)=>this.props.load(false,param,key,  {sKey, dataMap},this.props.callPath)
         const loadMore = ()=>this.props.loadMore(true,reqParam,key, {sKey, dataMap},this.props.callPath)
         this.loadData = loadData
+
+        
 
         return (
             <BaseSectionView

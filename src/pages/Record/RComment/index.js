@@ -13,7 +13,8 @@ import {
     ScrollView,
     TouchableOpacity,
     Text,
-    PixelRatio
+    PixelRatio,
+    Clipboard
 } from 'react-native'
 import {connect} from 'react-redux'
 import RecordRow from '../RecordRow'
@@ -24,15 +25,11 @@ import LCList from '../../../components/Base/LCList'
 import {KeyboardAccessoryView, KeyboardUtils} from 'react-native-keyboard-input';
 
 import {
-    IDO,
-    IUSEExist,
-    IUSE,
     ICOMMENT
 } from '../../../redux/reqKeys'
-import {update, add, search} from '../../../redux/module/leancloud'
-import {selfUser, iCard, iDo} from '../../../request/LCModle'
-import {req, reqChangeData} from '../../../redux/actions/req'
-import {add as listAdd} from '../../../redux/actions/list'
+import {add, remove} from '../../../redux/module/leancloud'
+import {selfUser, iDo} from '../../../request/LCModle'
+import {add as listAdd,claerByID} from '../../../redux/actions/list'
 import {addNormalizrEntity,} from '../../../redux/module/normalizr'
 import ChatSendForm, {FormID} from '../../../components/Form/ChatSendForm'
 import {
@@ -50,17 +47,20 @@ import moment from 'moment'
 import {formValueSelector} from 'redux-form/immutable'
 import {reset} from 'redux-form'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin';
+import {showSelector} from '../../../components/Selector'
 
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
 //static displayName = RComment
+import Toast from 'react-native-simple-toast'
 
 const Name = 'text'
 
 @connect(
     state => ({
         //data:state.req.get()
+        user:state.user.data
     }),
     (dispatch, props) => ({
         send: () => dispatch(async (dispatch, getState) => {
@@ -89,7 +89,16 @@ const Name = 'text'
             dispatch(listAdd(ICOMMENT + iDoData.objectId, entity.objectId))
 
             dispatch(reset(FormID))
-        })
+        }),
+        delete:async(item) => {
+            const iDoData = props.navigation.state.params.data
+            await remove(item.objectId, ICOMMENT)
+            dispatch(claerByID(ICOMMENT + iDoData.objectId,item.objectId))
+        },
+        copy:(item)=>{
+            Clipboard.setString(item.text)
+            Toast.show('已复制评论!')
+        }
     })
 )
 
@@ -166,7 +175,26 @@ export default class RComment extends Component {
 
     renderRow({item}: Object): ReactElement<any> {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
-        return (<StyledRow>
+        return (<StyledRow onPress={()=>{
+            const {user} = this.props
+
+            if(item.user.objectId === user.objectId){
+                showSelector(['删除','复制'],(index)=>{
+                    if(index === 0 ){
+                        this.props.delete(item)
+                    }else if(index === 1){
+                        this.props.copy(item)
+                    }
+                })
+            }else {
+                showSelector(['复制'],(index)=>{
+                    if(index === 0){
+                        this.props.copy(item)
+                    }
+                })
+            }
+
+        }}>
             <StyledRowLeft>
                 <StyledAvatar source={{uri:item.user.avatar.url}}/>
             </StyledRowLeft>
@@ -206,6 +234,7 @@ export default class RComment extends Component {
                     sKey={ICOMMENT + iDoData.objectId}
                     renderItem={this.renderRow.bind(this)}
                     reqParam={params}
+                    noDataPrompt='还没有评论~'
                 />
                 <KeyboardAccessoryView
                     renderContent={this.keyboardAccessoryViewContent}

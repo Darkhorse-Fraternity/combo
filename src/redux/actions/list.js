@@ -114,7 +114,7 @@ function _listSucceed(data: Object, page: number = 0, key: string): Object {
     if (data.length < pageSize) {
         loadStatu = LIST_LOAD_NO_MORE
     }
-    if (page == 0 && data.length == 0) {
+    if (page === 0 && data.length === 0) {
         loadStatu = LIST_NO_DATA
     }
     return {
@@ -160,11 +160,12 @@ function _listStart(isLoadMore: bool, isFirst: bool, key: string): Object {
 }
 
 
-export function clear(key: string, rowID: number) {
+export function clear(key: string, rowID: number, loadStatu: string) {
     return {
         type: LIST_DELETE,
         rowID,
-        key
+        key,
+        loadStatu
     }
 }
 
@@ -174,7 +175,8 @@ export function claerByID(key: string, objID: string) {
         const list = getState().list.get(key).get("listData").toJS()
         const rowID = list.indexOf(objID)
         if (rowID > -1) {
-            return dispatch(clear(key, rowID))
+            const loadStatu = list.length <= 1 ? LIST_NO_DATA : LIST_NORMAL
+            return dispatch(clear(key, rowID, loadStatu))
         }
     }
 }
@@ -183,7 +185,8 @@ export function add(key, data) {
     return {
         type: LIST_ADD,
         key,
-        data
+        data,
+        loadStatu: LIST_NORMAL,
     }
 }
 
