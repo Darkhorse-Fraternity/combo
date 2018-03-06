@@ -17,7 +17,7 @@
     "react": "16.0.0",
     "react-dom": "^16.1.1",
     "react-immutable-render-mixin": "^0.9.7",
-    "react-native": "0.51.0",
+    "react-native": "0.54.0",
     "react-native-animatable": "^1.2.4",
     "react-native-autogrow-textinput": "^5.1.0",
     "react-native-blur": "^3.2.2",

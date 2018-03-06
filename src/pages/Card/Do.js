@@ -76,7 +76,7 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                         doneDate: {"__type": "Date", "iso": moment()},
                         time: time,
                         //cycle,
-                        statu: time == data.period ? "stop" : "start"
+                        statu: time === data.period ? "stop" : "start"
                     }
 
                     // const IUseP = classUpdate(IUSE, id, param)

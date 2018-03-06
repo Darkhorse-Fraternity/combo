@@ -4173,10 +4173,6 @@ react-native-keyboard-tracking-view@^5.0.0:
   version "5.0.1"
   resolved "http://registry.npm.taobao.org/react-native-keyboard-tracking-view/download/react-native-keyboard-tracking-view-5.0.1.tgz#6c8c2857e644a88cc004b7d765c8bebd2c6065ea"
 
-"react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git":
-  version "0.1.0"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#cd5b4cd0da885790144afa1c22bbd9808f96e83a"
-
 react-native-md5@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-md5/download/react-native-md5-1.0.0.tgz#2320be24d674938ae5ef4f492698edbbfa0e0205"

@@ -27,7 +27,7 @@ import {KeyboardAccessoryView, KeyboardUtils} from 'react-native-keyboard-input'
 import {
     ICOMMENT
 } from '../../../redux/reqKeys'
-import {add, remove} from '../../../redux/module/leancloud'
+import {add, remove, batch} from '../../../redux/module/leancloud'
 import {selfUser, iDo} from '../../../request/LCModle'
 import {add as listAdd,claerByID} from '../../../redux/actions/list'
 import {addNormalizrEntity,} from '../../../redux/module/normalizr'
@@ -76,7 +76,11 @@ const Name = 'text'
                 ...selfUser(),
                 ...iDo(iDoData.objectId)
             }
-            const res = await add(param, ICOMMENT)
+            // const res = await add(param, ICOMMENT)
+
+            const res = await add(param, ICOMMENT) //
+
+
             const entity = {
                 ...param,
                 ...res,
@@ -85,7 +89,7 @@ const Name = 'text'
             // dispatch(addListNormalizrEntity(ICOMMENT, entity))
 
             dispatch(addNormalizrEntity(ICOMMENT, entity))
-            // dispatch(addNormalizrEntities(key,data))
+            // // dispatch(addNormalizrEntities(key,data))
             dispatch(listAdd(ICOMMENT + iDoData.objectId, entity.objectId))
 
             dispatch(reset(FormID))

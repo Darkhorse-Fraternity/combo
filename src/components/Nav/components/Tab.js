@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     tabContainer: {
         backgroundColor: 'white',
         flexDirection: 'row',
-        height: Platform.OS == 'android' ? 50 : 60,
+        height: Platform.OS === 'android' ? 50 : 60,
     },
     tab: {
         flex: 1,

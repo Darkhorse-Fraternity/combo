@@ -82,7 +82,7 @@ export  default  class LCList extends Component {
 
         const loadStatu = this.props.data.get('loadStatu')
 
-        console.log('this.props.loadStatu:', loadStatu);
+        // console.log('this.props.loadStatu:', loadStatu);
 
 
         let listDataKey = this.props.data.get('listData').toJS()
