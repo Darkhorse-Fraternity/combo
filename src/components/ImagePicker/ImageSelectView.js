@@ -39,6 +39,7 @@ export default class ImageSelectView extends Component {
         files:[]
     };
 
+
     _selectImage = ()=> {
 
         const opt = {
@@ -59,10 +60,20 @@ export default class ImageSelectView extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.files && nextProps.files != this.props.files) {
+        if (nextProps.files && nextProps.files !== this.props.files) {
             this.setState({files: nextProps.files})
         }
     }
+
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if(nextProps.files && nextProps.files !== prevState.files) {
+    //         return {
+    //             files: nextProps.files
+    //         };
+    //     }
+    // }
+
+
 
     _renderLastButton() {
         if (this.props.files.length < this.props.maxImage) {

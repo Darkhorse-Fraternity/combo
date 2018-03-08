@@ -77,10 +77,7 @@ export default class Feedback extends Component {
         }
     }
 
-    componentWillMount() {
-        // this.props.navigation.setParams({send: () => this.props.send(this.state.content)})
 
-    }
 
 
     _renderHeader = () => {

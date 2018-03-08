@@ -8,12 +8,12 @@ import {
     classDelete,
     classCreatNewOne,
     classUpdate,
-    classBatch
+    classBatch,
+    classSearch
 } from '../../request/leanCloud';
 
 import {listReq} from '../actions/list'
 import {req} from  '../actions/req'
-import  store from '../configureStore'
 export function add(params: Object, key: string, option: Object = {}) {
 
     const lParams = classCreatNewOne(key, params)
@@ -29,6 +29,11 @@ export function update(objectId: string, params: Object, key: string, option: Ob
 export function remove(objectId: string, key: string, option: Object = {}) {
 
     const lParams = classDelete(key, objectId)
+    return req(lParams, key, option)
+}
+
+export function find(key: string,params: Object, option: Object = {}) {
+    const lParams = classSearch(key,params)
     return req(lParams, key, option)
 }
 

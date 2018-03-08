@@ -140,9 +140,6 @@ export  default  class PushManage extends Component {
 
         let  data = props.data.toJS()
 
-
-
-
         if(!!this.props.iCard && data.loadStatu != "LIST_LOAD_DATA"){
             const ndata = props.normalizrData.toJS()
             data = data.listData
@@ -155,9 +152,28 @@ export  default  class PushManage extends Component {
             // console.log('test:', array);
             dayNotification(array)
 
-
         }
     }
+
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //
+    //     let  data = nextProps.data.toJS()
+    //
+    //     if(!!nextProps.iCard && data.loadStatu !== "LIST_LOAD_DATA"){
+    //         const ndata = nextProps.normalizrData.toJS()
+    //         data = data.listData
+    //         const array = data.map(key =>{
+    //             const res = ndata[key]
+    //             res.iCard = nextProps.iCard.get(res[ICARD]).toJS()
+    //             return res
+    //         })
+    //
+    //         // console.log('test:', array);
+    //         dayNotification(array)
+    //
+    //     }
+    // }
+
     
     render(): ReactElement<any> {
         return null

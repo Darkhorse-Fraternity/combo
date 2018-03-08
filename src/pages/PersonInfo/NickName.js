@@ -81,10 +81,7 @@ export default class NickName extends React.Component {
         }
     };
 
-    componentWillMount() {
-        // this.props.navigation.setParams({send: this._tapRight})
 
-    }
 
     _tapRight = () => {
         if (this.state !== null) {

@@ -16,6 +16,8 @@ import Feedback from './Setting/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
 import RComment from './Record/RComment'
+import CardDetail from './Card/Detail'
+
 
 export const route = {
     Login: {screen: LoginView},
@@ -35,7 +37,8 @@ export const route = {
     Feedback: {screen: Feedback},
     Publishing: {screen: Publishing},
     CardInfo: {screen: CardInfo},
-    RComment: {screen: RComment}
+    RComment: {screen: RComment},
+    CardDetail: {screen: CardDetail}
 }
 
 export const tabRoute = {

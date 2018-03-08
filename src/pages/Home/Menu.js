@@ -75,7 +75,7 @@ export  default  class Menu extends Component {
     // }
 
 
-    componentWillMount() {
+    componentDidMount() {
         this._gestureHandlers = {
             onStartShouldSetResponder: () => true,  //对触摸进行响应
             onMoveShouldSetResponder: ()=> true,  //对滑动进行响应

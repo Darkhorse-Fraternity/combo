@@ -6,6 +6,12 @@ import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/Tab'
 import {route} from '../../../pages'
 import {Platform} from 'react-native'
+
+import {
+    createReduxBoundAddListener,
+} from 'react-navigation-redux-helpers'
+
+
 export const AppNavigator = StackNavigator({
     ...route,
     Tab: {screen: Tab},
@@ -43,9 +49,10 @@ export const AppNavigator = StackNavigator({
     transitionConfig: TransitionConfiguration,
 });
 
-const AppWithNavigationState = ({dispatch, nav}) => (
-    <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })}/>
-);
+const AppWithNavigationState = ({dispatch, nav}) => {
+    const addListener = createReduxBoundAddListener("root");
+    return (<AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav,addListener })}/>)
+};
 
 AppWithNavigationState.propTypes = {
     dispatch: PropTypes.func.isRequired,

@@ -39,7 +39,7 @@ const listKey = IDO
             const id = data.objectId
             const card = props.navigation.state.params.card
 
-            const isDone = data.time == card.period
+            const isDone = data.time === card.period
 
             const param = {
                 time: isDone ? 0 : data.time,
@@ -131,18 +131,9 @@ export default class Detail extends Component {
         // navigation.setParams({refresh: this.__refresh})
     }
 
-    componentWillReceiveProps(nextProps) {
-        // console.log('test:', nextProps);
-        // const {navigation} = this.props;
-        // const item = nextProps.data.toJS()
-        // const data = this.props.data.toJS()
-        // const reflesh = item.time !== data.time || item.statu !== data.statu
-        // if (reflesh) {
-        //
-        //     navigation.setParams({data: item})
-        // }
 
-    }
+
+
 
     _renderHeader = () => {
         const {navigation} = this.props;

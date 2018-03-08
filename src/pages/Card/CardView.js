@@ -345,18 +345,22 @@ export default class Home extends Component {
                     load={this.props.load}
                     onPress={() => {
                         this.props.done(data)
-
                     }}/>)
             }
         }
         return (
             <Animatable.View
+
                 ref={(row) => this.rows[index] = row}
                 style={styles.item}>
                 <Image
                     style={styles.quotation}
                     source={require('../../../source/img/op/quotation.png')}/>
-                <View style={styles.card}>
+                <TouchableOpacity
+                    onPress={()=>{
+                        this.props.navigation.navigate('CardDetail',{iUse:data,iCard:iCard})
+                    }}
+                    style={styles.card}>
                     {this.__flagView(data, done)}
                     <View style={styles.footer}>
                         {(done || over) ? ( doneBtn()) :
@@ -368,7 +372,7 @@ export default class Home extends Component {
                             </View>)}
 
                     </View>
-                </View>
+                </TouchableOpacity>
             </Animatable.View>
         )
     }
