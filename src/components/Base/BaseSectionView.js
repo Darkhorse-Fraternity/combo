@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -17,9 +17,10 @@ import {
     Platform,
     FlatList
 } from 'react-native'
-import {mainColor, backViewColor} from '../../configure';
-import ExceptionView, {ExceptionType} from './ExceptionView';
-import {is} from 'immutable';
+import { mainColor, backViewColor } from '../../configure';
+import ExceptionView, { ExceptionType } from './ExceptionView';
+import { is } from 'immutable';
+
 const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 export const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN'
@@ -34,7 +35,8 @@ export default class BaseSectionView extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            shouldShowloadMore: false
+            shouldShowloadMore: false,
+            joinTime: 0
         };
 
     }
@@ -42,7 +44,7 @@ export default class BaseSectionView extends Component {
     static propTypes = {
         loadData: PropTypes.func.isRequired,
         loadMore: PropTypes.func,
-        loadStatu: PropTypes.string.isRequired,
+        loadStatu: PropTypes.string,
         needDelay: PropTypes.bool,
         noDataImg: PropTypes.number,
         noDataPrompt: PropTypes.string,
@@ -65,7 +67,7 @@ export default class BaseSectionView extends Component {
         let nativeEvent = e.nativeEvent;
         const shouldShowloadMore = nativeEvent.contentSize.height > nativeEvent.layoutMeasurement.height;
         this.state.shouldShowloadMore !== shouldShowloadMore &&
-        this.setState({shouldShowloadMore})
+        this.setState({ shouldShowloadMore })
         // console.log('test:', shouldShowloadMore);
         this.props.onScroll && this.props.onScroll(arguments);
     }
@@ -74,20 +76,27 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.loadStatu === LIST_LOAD_DATA && this.state.joinTime < 2) {
+            this.setState({ joinTime: this.state.joinTime + 1 })
 
-    shouldComponentUpdate(nextProps: Object, nextState: Object) {
-        return !is(this.props, nextProps) || !is(this.state, nextState)
+        }
     }
 
 
-    _handleRefresh = ()=> {
+    // shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    //     return !is(this.props, nextProps) || !is(this.state, nextState)
+    // }
+
+
+    _handleRefresh = () => {
         if (this.props.loadStatu === LIST_LOAD_DATA) {
             return;
         }
         this.props.loadData && this.props.loadData();
     };
 
-    _handleloadMore = (info: {distanceFromEnd: number})=> {
+    _handleloadMore = (info: { distanceFromEnd: number }) => {
         if (this.props.loadStatu === LIST_LOAD_MORE
             || this.props.loadStatu === LIST_LOAD_NO_MORE
             || this.props.loadStatu === LIST_LOAD_DATA
@@ -119,13 +128,14 @@ export default class BaseSectionView extends Component {
 
 
         // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
-        if (this.props.loadStatu == LIST_LOAD_MORE) {
+        if (this.props.loadStatu === LIST_LOAD_MORE) {
             return (
                 <View style={styles.footer}>
-                    <ActivityIndicator style={{marginTop:8, marginBottom:8}} size='small' animating={true}/>
+                    <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
+                                       animating={true}/>
                 </View>
             );
-        } else if (this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore) {
+        } else if (this.props.loadStatu === LIST_LOAD_NO_MORE && this.state.shouldShowloadMore) {
             return (
                 <View style={styles.footer}>
                     <Text>没有更多了</Text>
@@ -138,7 +148,7 @@ export default class BaseSectionView extends Component {
 
 
     _keyExtractor = (item, index) => {
-        const key = item.id || index ;
+        const key = item.id || index;
         return key + '';
     }
 
@@ -157,14 +167,14 @@ export default class BaseSectionView extends Component {
                 <ExceptionView
                     renderHeader={this.props.renderHeader}
                     exceptionType={ExceptionType.Loading}
-                    style={[styles.list,this.props.style]}
+                    style={[styles.list, this.props.style]}
                 />
             );
         } else if (this.props.loadStatu === LIST_NO_DATA) {
             return (
 
                 <ExceptionView
-                    style={[styles.list,this.props.style]}
+                    style={[styles.list, this.props.style]}
                     renderHeader={this.props.renderHeader}
                     exceptionType={ExceptionType.NoData}
                     image={this.props.noDataImg}
@@ -174,13 +184,14 @@ export default class BaseSectionView extends Component {
                 />
             );
         } else if (this.props.loadStatu === LIST_LOAD_ERROR && this.props.dataSource &&
-            this.props.dataSource.count == 0) {
+            this.props.dataSource.count === 0) {
             //TODO:先不加，其他状态量判断太麻烦。
         }
 
         return (
             <TableView
-                refreshing={this.props.loadStatu === "LIST_LOAD_DATA"}
+                refreshing={this.state.joinTime === 2
+                && this.props.loadStatu === LIST_LOAD_DATA}
                 onScroll={this.onScroll.bind(this)}
                 sections={this.props.data}
                 onRefresh={this._handleRefresh}
@@ -188,7 +199,7 @@ export default class BaseSectionView extends Component {
                 keyExtractor={this._keyExtractor}
                 ListFooterComponent={this.renderFooter.bind(this)}
                 {...this.props}
-                style={[styles.list,this.props.style]}
+                style={[styles.list, this.props.style]}
                 onEndReachedThreshold={Platform.OS == 'ios' ? 0.1 : 0.1}
             />
         );

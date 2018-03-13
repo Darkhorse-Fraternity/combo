@@ -75,8 +75,12 @@ export  default  class LCList extends Component {
 
     loadData:Function
     render(): ReactElement<any> {
-        if(!this.props.data.get('listData')){
-            return (<View style={this.props.style}/>)
+        if(!this.props.data.get('listData' || !this.props.reqParam)){
+            return (<BaseSectionView
+                {...this.props}
+                loadData={()=>{}}
+                renderHeader={this.props.ListHeaderComponent}
+            />)
         }
 
 
@@ -97,9 +101,7 @@ export  default  class LCList extends Component {
         if(!key){
             console.error('ReqListView传入的reqKey 不能为空~');
         }
-        if(!this.props.reqParam){
-            return <View style={this.props.style}/>
-        }
+
         //  const sckeyData = { [key]: listDataKey }
         //  const mySchema =  schemas[key]
         //  const normalizrData = {[key]:this.props.normalizrData.toJS()}

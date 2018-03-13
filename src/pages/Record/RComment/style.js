@@ -9,7 +9,7 @@ export const StyledContent = styled.View`
 
 
 export const StyledHeader = styled.View`
-    padding: 15px 15px 15px  15px;
+    padding: 15px 0px 15px  0px;
     border-bottom-width: ${props => props.theme.hairlineWidth};
     border-bottom-color: ${props => props.theme.hairlineColor};
     

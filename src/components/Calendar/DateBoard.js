@@ -16,6 +16,8 @@ import {
 let { width } = Dimensions.get('window');
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import theme from '../../Theme'
+
 
 export default class DateBoard extends React.Component {
     static defaultProps = {
@@ -99,7 +101,7 @@ export default class DateBoard extends React.Component {
                     }}
                                       key={i}
                                       style={styles.dateBox}>
-                        <View style={[styles.selected, { backgroundColor: '#007ae0' }]}>
+                        <View style={[styles.selected, { backgroundColor: theme.mainColor }]}>
                             <Text style={[styles.dateText, {
                                 color: '#fff',
                                 fontWeight: 'bold'
@@ -117,7 +119,7 @@ export default class DateBoard extends React.Component {
                     }}
                                       key={i}
                                       style={styles.dateBox}>
-                        <View style={[styles.selected, { backgroundColor: '#596167' }]}>
+                        <View style={[styles.selected, { backgroundColor: theme.mainLightColor }]}>
                             <Text style={[styles.dateText, {
                                 color: 'white',
                                 fontWeight: 'bold'
@@ -160,18 +162,16 @@ export default class DateBoard extends React.Component {
 
 const styles = StyleSheet.create({
     dateBoard: {
+        marginTop:10,
         width: width,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        backgroundColor: 'rgb(250, 250, 250)',
-        borderBottomWidth: 1 / PixelRatio.get(),
-        borderBottomColor: '#ccc'
     },
     dateBox: {
         justifyContent: 'center',
         alignItems: 'center',
         width: width / 7 - 1,
-        height: width / 7 - 1,
+        height: 45,
     },
     dateText: {
         fontSize: 17,

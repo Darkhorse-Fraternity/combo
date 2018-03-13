@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         // width: '100%',
         // justifyContent: 'space-between',
         // alignItems: 'center',
-        // padding: 15,
+        paddingHorizontal: 15,
     },
     dateView: {
         flexDirection: 'row',

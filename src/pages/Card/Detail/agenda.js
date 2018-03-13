@@ -30,10 +30,9 @@ import { withTheme } from 'styled-components'
 
 
 @connect(
-    state => ({
-    }),
+    state => ({}),
     (dispatch, props) => ({
-        load: async (first,last,callback) => {
+        load: async (first, last, callback) => {
             //获取iDo
 
             const use = props.navigation.state.params.iUse
@@ -42,12 +41,12 @@ import { withTheme } from 'styled-components'
                     ...selfUser(),
                     ...iUse(use.objectId),
                     "createdAt": {
-                        "$gte": { "__type": "Date", "iso": first+"T00:00:00.000Z" },
-                        "$lte": { "__type": "Date", "iso": last+"T00:00:00.000Z" },
+                        "$gte": { "__type": "Date", "iso": first + "T00:00:00.000Z" },
+                        "$lte": { "__type": "Date", "iso": last + "T00:00:00.000Z" },
                     }
                 }
             }
-            const params = classSearch(IDO,param)
+            const params = classSearch(IDO, param)
             const res = await  req(params)
 
             callback && callback(res.results)
@@ -114,8 +113,6 @@ export default class AgendaScreen extends Component {
     // }
 
 
-
-
     componentDidMount() {
 
     }
@@ -125,29 +122,28 @@ export default class AgendaScreen extends Component {
 
         const data = this.state.data
 
-        console.log('data:', data);
 
 
         return (
-            <Calendar date={new Date()} fetchData={(data) => {
+                <Calendar date={new Date()} fetchData={(data) => {
 
-                this.props.navigation.navigate('RComment', {data: data})
+                    this.props.navigation.navigate('RComment', { data: data })
 
-            }} busyDay={data} move={(firstDay,lastDay,) => {
-                this.props.load(firstDay,lastDay,(res)=> {
-                    if(res.length >0){
-                        const data = this.state.data
-                        res.map(item=>{
-                            const strTime = this.timeToString(item.updatedAt);
-                            data[strTime] = item
+                }} busyDay={data} move={(firstDay, lastDay,) => {
+                    this.props.load(firstDay, lastDay, (res) => {
+                        if (res.length > 0) {
+                            const data = this.state.data
+                            res.map(item => {
+                                const strTime = this.timeToString(item.updatedAt);
+                                data[strTime] = item
 
-                        })
-                        this.setState({data:data})
-                    }
+                            })
+                            this.setState({ data: data })
+                        }
 
-                })
+                    })
 
-            }}/>
+                }}/>
         );
     }
 

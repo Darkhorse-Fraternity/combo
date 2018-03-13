@@ -321,7 +321,7 @@ export default class Home extends Component {
         const data = this.props.normalizrData.get(item).toJS()
 
         const iCardId = data[ICARD]
-        const iCard = this.props.iCard.get(iCardId)
+        let iCard = this.props.iCard.get(iCardId)
         // const isSelf = iCard.get('user') == this.props.user.objectId
         // data[ICARD] = iCard.toJS()
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
@@ -358,7 +358,7 @@ export default class Home extends Component {
                     source={require('../../../source/img/op/quotation.png')}/>
                 <TouchableOpacity
                     onPress={()=>{
-                        this.props.navigation.navigate('CardDetail',{iUse:data,iCard:iCard})
+                        this.props.navigation.navigate('CardDetail',{iUse:data,iCard:iCard.toJS()})
                     }}
                     style={styles.card}>
                     {this.__flagView(data, done)}

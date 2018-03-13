@@ -154,30 +154,34 @@ export default class Calendar extends Component {
         }
     }
 
+
+
     render() {
+        const month = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
+
         return (
             <View style={[this.props.style, styles.wrap]}>
                 <View style={styles.dayTitle}>
                     <View style={styles.dayTimeTouch}>
-                        <TouchableOpacity onPress={() => this.goTo('left')}>
-                            <View style={styles.leftBtn}/>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity onPress={() => this.goTo('left')}>*/}
+                            {/*<View style={styles.leftBtn}/>*/}
+                        {/*</TouchableOpacity>*/}
                         <Text style={styles.t1}>
-                            {this.state.year + '年' + (this.state.month + 1) + '月'}
+                            {(month[this.state.month]) + '月' +' '+this.state.year  }
                         </Text>
-                        <TouchableOpacity onPress={() => this.goTo('right')}>
-                            <View style={styles.rightBtn}/>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity onPress={() => this.goTo('right')}>*/}
+                            {/*<View style={styles.rightBtn}/>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
                 </View>
                 <View style={styles.dateTitle}>
-                    <Text style={styles.dateTitleText}>日</Text>
-                    <Text style={styles.dateTitleText}>一</Text>
-                    <Text style={styles.dateTitleText}>二</Text>
-                    <Text style={styles.dateTitleText}>三</Text>
-                    <Text style={styles.dateTitleText}>四</Text>
-                    <Text style={styles.dateTitleText}>五</Text>
-                    <Text style={styles.dateTitleText}>六</Text>
+                    <Text style={styles.dateTitleText}>周日</Text>
+                    <Text style={styles.dateTitleText}>周一</Text>
+                    <Text style={styles.dateTitleText}>周二</Text>
+                    <Text style={styles.dateTitleText}>周三</Text>
+                    <Text style={styles.dateTitleText}>周四</Text>
+                    <Text style={styles.dateTitleText}>周五</Text>
+                    <Text style={styles.dateTitleText}>周六</Text>
                 </View>
                 <ScrollView horizontal={true} contentOffset={{ x: width, y: 0 }}
                             bounces={false} onMomentumScrollEnd={event => this.myScroll(event)}
@@ -209,20 +213,21 @@ const styles = StyleSheet.create({
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#e9eef4',
+        backgroundColor: 'white',
     },
     dateTitle: {
         flexDirection: 'row',
-        paddingTop: 3,
-        paddingBottom: 3,
-        borderBottomWidth: .5,
-        borderColor: '#ddd',
-        // backgroundColor: '#ecedee'
+        paddingTop: 10,
+        // paddingBottom: 10,
+        // borderBottomWidth: .5,
+        // borderColor: '#ddd',
+        backgroundColor: 'white'
     },
     dateTitleText: {
         width: width / 7 - 1,
         textAlign: 'center',
-        fontSize: 17,
+        fontSize: 15,
+        color:'rgb(100,100,100)',
     },
     dayTimeTouch: {
         flexDirection: 'row',
@@ -232,7 +237,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#007ddd',
-        transform: [{ rotate: '135deg' }],
+        transform: [{rotate: '135deg'}],
         width: 10,
         height: 10,
         marginHorizontal: 40,
@@ -243,7 +248,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#007ddd',
-        transform: [{ rotate: '315deg' }],
+        transform: [{rotate: '315deg'}],
         width: 10,
         height: 10,
         marginHorizontal: 40,
@@ -262,6 +267,6 @@ const styles = StyleSheet.create({
     header: {
         justifyContent: 'space-between',
         flexDirection: 'row',
-        backgroundColor: '#e9eef4'
+        // backgroundColor: '#e9eef4'
     }
 })
