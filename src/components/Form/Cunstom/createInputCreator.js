@@ -31,7 +31,7 @@ const createInputCreator = ReduxFormFieldComponent => (name, renderFunction, Pro
   }
 
   FieldWrapper.displayName = 'FieldWrapper'
-  FieldWrapper.PropTypes = Object.assign({
+  FieldWrapper.propTypes = Object.assign({
     name: PropTypes.string.isRequired
   }, PropTypesOverrides)
   FieldWrapper.defaultProps = Object.assign({}, defaultProps)

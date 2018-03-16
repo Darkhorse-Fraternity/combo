@@ -36,7 +36,6 @@ export default class BaseSectionView extends Component {
         super(props);
         this.state = {
             shouldShowloadMore: false,
-            joinTime: 0
         };
 
     }
@@ -76,9 +75,10 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
+    joinTime = 0;
     componentWillReceiveProps(nextProps) {
-        if (nextProps.loadStatu === LIST_LOAD_DATA && this.state.joinTime < 2) {
-            this.setState({ joinTime: this.state.joinTime + 1 })
+        if (nextProps.loadStatu === LIST_LOAD_DATA && this.joinTime < 2) {
+            this.joinTime++
 
         }
     }
@@ -138,7 +138,7 @@ export default class BaseSectionView extends Component {
         } else if (this.props.loadStatu === LIST_LOAD_NO_MORE && this.state.shouldShowloadMore) {
             return (
                 <View style={styles.footer}>
-                    <Text>没有更多了</Text>
+                    <Text style={{color:'rgb(150,150,150)'}}>没有更多了</Text>
                 </View>
             );
         } else {
@@ -190,7 +190,7 @@ export default class BaseSectionView extends Component {
 
         return (
             <TableView
-                refreshing={this.state.joinTime === 2
+                refreshing={this.joinTime === 2
                 && this.props.loadStatu === LIST_LOAD_DATA}
                 onScroll={this.onScroll.bind(this)}
                 sections={this.props.data}

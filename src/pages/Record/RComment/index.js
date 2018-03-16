@@ -78,6 +78,8 @@ const Name = 'text'
             }
             // const res = await add(param, ICOMMENT)
 
+            console.log('JSON:', JSON.stringify(param));
+
             const res = await add(param, ICOMMENT) //
 
 
