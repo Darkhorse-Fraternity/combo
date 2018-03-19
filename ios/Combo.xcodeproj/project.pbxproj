@@ -1054,6 +1054,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				D930B211DA61A6E9DDD1CF98 /* [CP] Embed Pods Frameworks */,
 				22FD1BBA514C509E325496DC /* [CP] Copy Pods Resources */,
+				CC2CCE61205BC66E00627D3A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1075,6 +1076,7 @@
 				CCA7159F2019C9DA00A25FB9 /* Bundle React Native code and images */,
 				CCA715A02019C9DA00A25FB9 /* [CP] Embed Pods Frameworks */,
 				CCA715A12019C9DA00A25FB9 /* [CP] Copy Pods Resources */,
+				CC2CCE2D205BC65A00627D3A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1674,6 +1676,32 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Combo/Pods-Combo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		CC2CCE2D205BC65A00627D3A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun agvtool next-version -all";
+		};
+		CC2CCE61205BC66E00627D3A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "xcrun agvtool next-version -all";
+		};
 		CCA7156D2019C9DA00A25FB9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1884,7 +1912,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1945,7 +1973,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2108,7 +2136,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2174,7 +2202,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (

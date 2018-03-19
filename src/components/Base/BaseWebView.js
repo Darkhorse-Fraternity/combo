@@ -2,7 +2,7 @@
 'use strict';
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactNative, {
+import  {
     StyleSheet,
     Text,
     View,
@@ -11,14 +11,16 @@ import ReactNative, {
     TouchableOpacity,
     Image,
     Platform,
-    Linking
+    Linking,
+    Dimensions
 } from 'react-native';
 
-import {navbarHeight, screenHeight} from '../../util';
+
+const  navbarHeight = 0
+const screenHeight = Dimensions.get('window').height
 
 import ExceptionView, {ExceptionType} from './ExceptionView';
 import {connect} from 'react-redux';
-
 
 
 
@@ -225,7 +227,7 @@ const styles = StyleSheet.create({
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 5,
         borderRightWidth: StyleSheet.hairlineWidth * 5,
-        borderColor: '#0093cb',
+        borderColor: 'black',
         transform: [{rotate: '135deg'}],
         marginLeft: 15,
         width: 13,

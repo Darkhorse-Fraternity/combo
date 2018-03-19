@@ -184,17 +184,17 @@ export default class Calendar extends Component {
                     <View>
                         <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.state.busyDay}/>
+                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>
                     <View>
                         <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.state.busyDay}/>
+                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>
                     <View>
                         <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.state.busyDay}/>
+                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>
 
                 </ViewPagerAndroid>

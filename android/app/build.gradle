@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+import java.text.SimpleDateFormat
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -86,6 +88,12 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = true
 
+def buildTime() {
+    def df = new SimpleDateFormat("yyMMddHHmm")
+    df.setTimeZone(TimeZone.getTimeZone("UTC+08:00"))
+    return new Date()
+}
+
 repositories {
     maven { url "https://jitpack.io" }
 }
@@ -101,7 +109,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "${buildTime()}"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

@@ -6,6 +6,8 @@ import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/Tab'
 import {route} from '../../../pages'
 import {Platform} from 'react-native'
+import WebView from '../../Base/BaseWebView'
+
 
 import {
     createReduxBoundAddListener,
@@ -15,6 +17,7 @@ import {
 export const AppNavigator = StackNavigator({
     ...route,
     Tab: {screen: Tab},
+    WebView: {screen: WebView}
 }, {
     // initialRouteName:'Home',
     navigationOptions: {
