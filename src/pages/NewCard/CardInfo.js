@@ -153,10 +153,10 @@ export default class CardInfo extends Component {
                         </Text>
                     </View>
                     {this.row('卡片名称:', iCard.title)}
-                    {this.row('卡片周期:', iCard.period)}
-                    {this.row('记录模式:', iCard.record.join("+"))}
+                    {this.row('卡片周期:', iCard.period+'次')}
+                    {this.row('记录模式:', iCard.record.join("+")||'无')}
                     {this.row('关键字:', iCard.keys.join("+"))}
-                    {this.row('使用人数:', iCard.useNum)}
+                    {this.row('使用人数:', iCard.useNum+'人')}
                     {this.row('提醒时间:', iCard.notifyTime)}
 
                 </ScrollView>

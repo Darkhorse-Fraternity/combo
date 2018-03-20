@@ -5,43 +5,62 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TextInput,
+    // TextInput,
     Dimensions,
     TouchableOpacity,
     Text,
     Alert
 } from 'react-native'
-import {connect} from 'react-redux'
-import {ICARD, IUSE} from '../../redux/reqKeys'
-import {add} from '../../redux/module/leancloud'
-import {bindActionCreators} from 'redux';
-import {addListNormalizrEntity} from '../../redux/actions/list'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
-import {mainColor} from '../../configure'
-import {selfUser, iCard} from '../../request/LCModle'
+import { connect } from 'react-redux'
+import { ICARD, IUSE } from '../../redux/reqKeys'
+import { add } from '../../redux/module/leancloud'
+import { bindActionCreators } from 'redux';
+import { addListNormalizrEntity } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { mainColor } from '../../configure'
+import { selfUser, iCard } from '../../request/LCModle'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
-import OptionView, {StaticOption} from './OptionView'
+import OptionDo,{StaticOption} from './OptionDo'
+import {
+    reduxForm,
+    formValueSelector,
+    formValues
+} from 'redux-form/immutable'
 
+
+export const FormID = 'CreatCardForm'
+const selector = formValueSelector(FormID) // <-- same as form name
+
+
+import { TextInput } from '../../components/Form/Cunstom'
 //static displayName = Creat
+
+
+
+
 @connect(
     state => ({
         //data:state.req.get()
+        title: selector(state, 'title') ,
+        initialValues:StaticOption
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        add: (title, option = StaticOption) => dispatch(async (dispatch, getState) => {
+        add: (option = StaticOption) => dispatch(async (dispatch, getState) => {
 
             // console.log('test:', option);
 
             // const state = getState()
             // const user = state.user.data;
             //新建卡片
+            const state = getState()
+            const title = selector(state, 'title')
             const param = {
                 title,
                 // cycle: 0,
@@ -73,7 +92,10 @@ import OptionView, {StaticOption} from './OptionView'
                 '您可以使用或者分享它',
                 [{
                     text: '取消', onPress: () => {
-                        props.navigation.navigate('PublishDetail', {iCardID: iCardId, data: entity})
+                        props.navigation.navigate('PublishDetail', {
+                            iCardID: iCardId,
+                            data: entity
+                        })
                     }
                 },
                     {
@@ -83,7 +105,7 @@ import OptionView, {StaticOption} from './OptionView'
                             cycle: 0,
                             time: 0,
                             // notifyTime:option&&option.notifyTime||"20.00",
-                            doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                            doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                             ...selfUser(),
                             ...iCard(iCardId)
                         }
@@ -101,24 +123,36 @@ import OptionView, {StaticOption} from './OptionView'
         }),
     })
 )
+
+
+@reduxForm({
+    form: FormID,
+})
+
+// @formValues('title')
+
+
 export default class Creat extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            title: '',
             step: 0,
             optionOpen: false,
         }
     }
 
-    static propTypes = {};
-    static defaultProps = {};
+    static propTypes = {
+        title: PropTypes.string
+    };
+    static defaultProps = {
+        title:''
+    };
     static navigationOptions = props => {
         // const {navigation} = props;
         // const {state} = navigation;
         // const {params} = state;
         return {
-            header:null,
+            header: null,
             title: null,
             headerLeft: null
         }
@@ -133,9 +167,9 @@ export default class Creat extends Component {
 
 
         const step = this.state.step + 1
-        this.setState({step})
+        this.setState({ step })
         if (step === 2) {
-            this.props.add(this.state.title, this.option)
+            this.props.add()
         }
 
     }
@@ -143,14 +177,14 @@ export default class Creat extends Component {
     __backStep = () => {
 
         const step = this.state.step - 1
-        this.setState({step})
+        this.setState({ step })
         if (step === -1) {
             this.props.navigation.goBack()
         }
     }
 
     __doOption = () => {
-        this.setState({optionOpen: true})
+        this.setState({ optionOpen: true })
     }
 
 
@@ -159,11 +193,11 @@ export default class Creat extends Component {
             <View>
                 <View style={styles.row}>
                     <TextInput
+                        name='title'
                         placeholderTextColor="rgba(180,180,180,1)"
                         selectionColor={mainColor}
                         returnKeyType='next'
                         maxLength={50}
-                        value={this.state.title}
                         //keyboardType={boardType}
                         style={styles.textInputStyle}
                         underlineColorAndroid='transparent'
@@ -171,7 +205,7 @@ export default class Creat extends Component {
                         clearButtonMode='while-editing'
                         enablesReturnKeyAutomatically={true}
                         //onSubmitEditing={() =>this.focusNextField(ref)}
-                        onChangeText={(text) => this.setState({title: text})}
+                        // onChangeText={(text) => this.setState({title: text})}
                     />
                     <View style={styles.line}/>
                 </View>
@@ -182,9 +216,12 @@ export default class Creat extends Component {
                         <Text style={styles.sureBtnText}>上一步</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        disabled={this.state.title.length === 0}
+                        disabled={this.props.title.length === 0}
                         onPress={this.__nextStep}
-                        style={[styles.sureBtn,{backgroundColor:this.state.title.length === 0?"rgb(200,200,200)":"black"}]}>
+                        style={[styles.sureBtn, {
+                            backgroundColor:
+                                this.props.title.length === 0 ? "rgb(200,200,200)" : "black"
+                        }]}>
                         <Text style={styles.sureBtnText}>下一步</Text>
                     </TouchableOpacity>
                 </View>
@@ -196,7 +233,7 @@ export default class Creat extends Component {
     __doneView = () => {
         return (
             <View>
-                <Text style={styles.doneTitle}>{this.state.title}</Text>
+                <Text style={styles.doneTitle}>{this.props.title}</Text>
                 <View style={styles.doneCtrlView}>
                     <TouchableOpacity
                         onPress={this.__backStep}
@@ -209,7 +246,7 @@ export default class Creat extends Component {
                         <Text style={styles.sureBtnText}>更多配置</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        disabled={this.state.title.length === 0}
+                        disabled={this.props.title.length === 0}
                         onPress={this.__nextStep}
                         style={[styles.sureBtn]}>
                         <Text style={styles.sureBtnText}>完成</Text>
@@ -223,12 +260,14 @@ export default class Creat extends Component {
     render(): ReactElement<any> {
         return (
             <View style={[this.props.style, styles.wrap]}>
-                <View style={{height:60,backgroundColor:this.state.optionOpen?"#F5FCFF":"white"}}/>
+                <View style={{
+                    height: 60,
+                    backgroundColor: this.state.optionOpen ? "#F5FCFF" : "white"
+                }}/>
                 {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
                 {this.state.step === 1 && !this.state.optionOpen && this.__doneView()}
-                {this.state.optionOpen && (<OptionView goBack={(option) => {
-                    this.setState({optionOpen: false})
-                    this.option = option
+                {this.state.optionOpen && (<OptionDo goBack={() => {
+                    this.setState({ optionOpen: false })
                 }}/>)}
             </View>
         );
@@ -305,7 +344,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     doneTitle: {
-        marginTop:15,
+        marginTop: 15,
         paddingHorizontal: 55,
         fontSize: 20,
         fontWeight: '600',

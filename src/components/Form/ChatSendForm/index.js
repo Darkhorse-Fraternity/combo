@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {reduxForm} from 'redux-form/immutable'
-import {AutoGrowingInput} from '../Cunstom'
+import {AutoGrowingChatInput} from '../Cunstom'
 import PropTypes from 'prop-types';
 import {Form} from './style'
 
@@ -61,7 +61,7 @@ export default class ChatSendForm extends Component {
         const {submitting, invalid} = rest
         return (
             <Form>
-                <AutoGrowingInput underlineColorAndroid="transparent"
+                <AutoGrowingChatInput underlineColorAndroid="transparent"
                                   {...rest} />
                 <CleanBtn
                     {...rest}
