@@ -158,6 +158,7 @@ export default class CardInfo extends Component {
                     {this.row('关键字:', iCard.keys.join("+"))}
                     {this.row('使用人数:', iCard.useNum+'人')}
                     {this.row('提醒时间:', iCard.notifyTime)}
+                    {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
 
                 </ScrollView>
                 <TouchableOpacity onPress={() => {

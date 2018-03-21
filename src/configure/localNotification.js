@@ -140,12 +140,16 @@ export  default  class PushManage extends Component {
 
         let  data = props.data.toJS()
 
+
+
+
         if(!!this.props.iCard && data.loadStatu != "LIST_LOAD_DATA"){
             const ndata = props.normalizrData.toJS()
             data = data.listData
             const array = data.map(key =>{
                 const res = ndata[key]
-                res.iCard = this.props.iCard.get(res[ICARD]).toJS()
+                const iCard =  this.props.iCard.get(res[ICARD]);
+                res.iCard =  iCard &&iCard.toJS()
                 return res
             })
 

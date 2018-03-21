@@ -25,12 +25,10 @@ import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { mainColor } from '../../configure'
 import { selfUser, iCard } from '../../request/LCModle'
 import moment from 'moment'
-import Icon from 'react-native-vector-icons/Ionicons'
-import OptionDo,{StaticOption} from './OptionDo'
+import OptionDo, { StaticOption } from './OptionDo'
 import {
     reduxForm,
     formValueSelector,
-    formValues
 } from 'redux-form/immutable'
 
 
@@ -41,28 +39,38 @@ const selector = formValueSelector(FormID) // <-- same as form name
 import { TextInput } from '../../components/Form/Cunstom'
 //static displayName = Creat
 
-
-
+import HeaderBtn from '../../components/Button/HeaderBtn'
 
 @connect(
     state => ({
         //data:state.req.get()
-        title: selector(state, 'title') ,
-        initialValues:StaticOption
+        title: selector(state, 'title'),
+        initialValues: StaticOption,
+        load: state.req.get(ICARD).get('load')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        add: (option = StaticOption) => dispatch(async (dispatch, getState) => {
+        add: () => dispatch(async (dispatch, getState) => {
 
             // console.log('test:', option);
 
             // const state = getState()
             // const user = state.user.data;
             //新建卡片
+
+
             const state = getState()
-            const title = selector(state, 'title')
+            // const title = selector(state, 'title')
+            const option = selector(
+                state,
+                'title',
+                'notifyTime',
+                'period',
+                'notifyText',
+                'record')
+
             const param = {
-                title,
+                // title,
                 // cycle: 0,
                 // time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
@@ -70,6 +78,8 @@ import { TextInput } from '../../components/Form/Cunstom'
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }
+
+
 
             const res = await add(param, ICARD)
             const entity = {
@@ -145,7 +155,7 @@ export default class Creat extends Component {
         title: PropTypes.string
     };
     static defaultProps = {
-        title:''
+        title: ''
     };
     static navigationOptions = props => {
         // const {navigation} = props;
@@ -231,6 +241,7 @@ export default class Creat extends Component {
 
 
     __doneView = () => {
+
         return (
             <View>
                 <Text style={styles.doneTitle}>{this.props.title}</Text>
@@ -245,12 +256,11 @@ export default class Creat extends Component {
                         style={[styles.sureBtn]}>
                         <Text style={styles.sureBtnText}>更多配置</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        disabled={this.props.title.length === 0}
-                        onPress={this.__nextStep}
-                        style={[styles.sureBtn]}>
-                        <Text style={styles.sureBtnText}>完成</Text>
-                    </TouchableOpacity>
+                    <HeaderBtn
+                        style={styles.sureBtn1}
+                        load={this.props.load }
+                        title={'完成'}
+                        onPress={this.__nextStep}/>
                 </View>
             </View>
         )
@@ -265,7 +275,8 @@ export default class Creat extends Component {
                     backgroundColor: this.state.optionOpen ? "#F5FCFF" : "white"
                 }}/>
                 {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
-                {this.state.step === 1 && !this.state.optionOpen && this.__doneView()}
+                {(this.state.step === 1 || this.state.step === 2)
+                && !this.state.optionOpen && this.__doneView()}
                 {this.state.optionOpen && (<OptionDo goBack={() => {
                     this.setState({ optionOpen: false })
                 }}/>)}
@@ -311,6 +322,13 @@ const styles = StyleSheet.create({
     },
     sureBtn: {
         backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 100,
+        paddingVertical: 10,
+        marginTop: 20,
+    },
+    sureBtn1: {
         alignItems: 'center',
         justifyContent: 'center',
         width: 100,

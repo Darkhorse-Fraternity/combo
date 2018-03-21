@@ -118,7 +118,7 @@ export  default  class LCList extends Component {
         const loadMore = ()=>this.props.loadMore(true,reqParam,key, {sKey, dataMap},this.props.callPath)
         this.loadData = loadData
 
-        
+
 
         return (
             <BaseSectionView

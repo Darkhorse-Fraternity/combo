@@ -14,20 +14,14 @@ import {
     ScrollView,
     TouchableOpacity,
     Dimensions,
-    TextInput,
     Keyboard
 } from 'react-native'
-import { connect } from 'react-redux'
 import * as Animatable from 'react-native-animatable';
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { update } from '../../redux/module/leancloud'
-import { ICARD } from '../../redux/reqKeys'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { mainColor } from '../../configure'
-import { AutoGrowingInput } from '../../components/Form/Cunstom'
-import { Radio, Multiple } from '../../components/Form/Select'
 
-//static displayName = OptionView
+import { mainColor } from '../../configure'
+import { AutoGrowingInput,TextInput } from '../../components/Form/Cunstom'
+import { Radio, Multiple } from '../../components/Form/Select'
+import Toast from 'react-native-simple-toast'
 
 export const StaticOption = {
     notifyTime: '20:00',
@@ -41,44 +35,12 @@ import {
 } from 'redux-form/immutable'
 
 
-
-
-@connect(
-    state => ({
-        //data:state.req.get()
-    }),
-    dispatch => ({
-        //...bindActionCreators({},dispatch),
-        refresh: async (data, op) => {
-            const id = data.objectId
-            const param = {
-                ...op
-            }
-
-            const res = await update(id, param, ICARD)
-
-            const entity = {
-                ...param,
-                ...res
-            }
-            // dispatch(addEntities({
-            //     [ICARD]: {
-            //         [entity.objectId]: entity
-            //     }
-            // }))
-            dispatch(addNormalizrEntity(ICARD, entity))
-        }
-    })
-)
-
-@formValues('notifyTime','notifyText','period','record')
+@formValues('title','notifyTime', 'notifyText', 'period', 'record')
 
 export default class OptionDo extends Component {
     constructor(props: Object) {
         super(props);
 
-        console.log('props:', props);
-        // const data = props.navigation.state.params.opData
         this.state = {
             option: 0,
             type: 'notifyTime'
@@ -87,15 +49,7 @@ export default class OptionDo extends Component {
 
     static propTypes = {};
     static defaultProps = {};
-    static navigationOptions = props => {
-        // const {navigation} = props;
-        // const {state} = navigation;
-        // const {params} = state;
-        return {
-            header: null,
-            // headerLeft: null
-        }
-    };
+
 
     shouldComponentUpdate(nextProps: Object, nextState: Object) {
         return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
@@ -103,22 +57,18 @@ export default class OptionDo extends Component {
 
     __backStep = () => {
 
+        if(this.props.title.length === 0){
+
+            Toast.show('没有标题是不行的~')
+            return;
+        }
+
         if (this.state.option !== 0) {
             this.setState({ option: 0 })
         } else {
-            const { option, type, ...other } = this.state
 
-            const revise = this.props.navigation
-            if (revise) {
-                const data = this.props.navigation.state.params.opData
-                this.props.refresh(data, {
-                    notifyTime: other.notifyTime,
-                    notifyText: other.notifyText
-                })
-                this.props.navigation.goBack()
-            } else {
-                this.props.goBack && this.props.goBack(other)
-            }
+
+            this.props.goBack && this.props.goBack()
 
         }
     }
@@ -151,6 +101,35 @@ export default class OptionDo extends Component {
                 </TouchableOpacity>
             </Animatable.View>
         )
+    }
+
+
+    __renderTitle = ()=> {
+
+        return (
+            <View
+                style={{
+                    marginHorizontal: 5,
+                    backgroundColor: 'white'
+                }}>
+                <TextInput
+                    name='title'
+                    placeholderTextColor="rgba(180,180,180,1)"
+                    selectionColor={mainColor}
+                    returnKeyType='done'
+                    autoFocus={true}
+                    maxLength={50}
+                    //keyboardType={boardType}
+                    style={styles.textInputStyle}
+                    underlineColorAndroid='transparent'
+                    placeholder={"title,不可为空~"}
+                    clearButtonMode='while-editing'
+                    enablesReturnKeyAutomatically={true}
+                />
+            </View>
+        )
+
+
     }
 
     __renderperiod = () => {
@@ -240,12 +219,12 @@ export default class OptionDo extends Component {
 
         const __renderRadioItem = (item, contain) => {
             return (
-                    <View
-                        style={[styles.notifyTimeItem,
-                            { backgroundColor: contain ? '#31d930' : 'white' }]}
-                        key={item}>
-                        <Text style={{ color: contain ? 'white' : 'black' }}>{item}</Text>
-                    </View>)
+                <View
+                    style={[styles.notifyTimeItem,
+                        { backgroundColor: contain ? '#31d930' : 'white' }]}
+                    key={item}>
+                    <Text style={{ color: contain ? 'white' : 'black' }}>{item}</Text>
+                </View>)
         }
 
 
@@ -262,20 +241,25 @@ export default class OptionDo extends Component {
 
 
     render(): ReactElement<any> {
-        const revise = this.props.navigation
+        const revise = this.props.revise
         const notifyText = this.props.notifyText.length > 0 ? this.props.notifyText : '未定义'
-        console.log('test:', this.props.record);
+        // console.log('test:', this.props.record);
         let record = this.props.record
-        record = record.length === 0 ? '无' : record.join('+')
+        record = (record.length === 0 || record.size === 0)
+            ? '无' : record.join('+')
         return (
             <View
                 onStartShouldSetResponder={() => true}
                 onResponderGrant={() => {
                     Keyboard.dismiss()
                 }}
-                style={[this.props.style, styles.wrap]}>
+                style={[styles.wrap, this.props.style]}>
 
                 {this.state.option === 0 && (<ScrollView style={[styles.wrap]}>
+                    {revise && (<this.__renderItem
+                        title={"标题:   " + this.props.title  }
+                        type="title"
+                        index={1}/>)}
                     <this.__renderItem
                         title={"提醒时间:   " + this.props.notifyTime}
                         type="notifyTime"
@@ -288,12 +272,17 @@ export default class OptionDo extends Component {
                         title={"周期:   " + this.props.period + '天'}
                         type="period"
                         index={1}/>)}
-                    {!revise && (<this.__renderItem
+                    <this.__renderItem
                         title={"记录方式:   " + record}
                         type="record"
-                        index={1}/>)}
+                        index={1}/>
 
                 </ScrollView>)}
+
+                {this.state.option === 1 &&
+                this.state.type === 'title' &&
+                this.__renderTitle()}
+
                 {this.state.option === 1 &&
                 this.state.type === 'notifyTime' &&
                 this.__renderNotifyTime()}

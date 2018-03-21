@@ -19,7 +19,7 @@ export default  class Radio extends Component {
     constructor(props) {
         super(props)
         let value = props.value
-        console.log('value:', typeof value,value);
+        // console.log('value:', typeof value,value);
         // if (typeof defoultValue === 'object' && defoultValue.toJS) {
         //     defoultValue = defoultValue.toJS()
         // }

@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -14,17 +14,17 @@ import {
     Text,
     TouchableOpacity
 } from 'react-native'
-import {connect} from 'react-redux'
-import {backViewColor} from '../../configure'
-import {ICARD, IUSEExist, IUSE} from '../../redux/reqKeys'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
-import {update, add} from '../../redux/module/leancloud'
-import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux'
+import { backViewColor } from '../../configure'
+import { ICARD, IUSEExist, IUSE } from '../../redux/reqKeys'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { update, add } from '../../redux/module/leancloud'
+import { bindActionCreators } from 'redux';
 import HeaderBtn from '../../components/Button/HeaderBtn'
-import {existSearch} from '../../request/leanCloud'
-import {selfUser, iCard} from '../../request/LCModle'
-import {req, reqChangeData} from '../../redux/actions/req'
-import {addListNormalizrEntity} from '../../redux/actions/list'
+import { existSearch } from '../../request/leanCloud'
+import { selfUser, iCard } from '../../request/LCModle'
+import { req, reqChangeData } from '../../redux/actions/req'
+import { addListNormalizrEntity } from '../../redux/actions/list'
 import moment from 'moment'
 //static displayName = PublishDetail
 @connect(
@@ -66,7 +66,7 @@ import moment from 'moment'
                 cycle: 0,
                 time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
-                doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                 ...selfUser(),
                 ...iCard(id)
             }
@@ -109,24 +109,19 @@ export default class PublishDetail extends Component {
         this.props.exist()
     }
 
-    __alert = (iCard) => {
-        Alert.alert(
-            '确定取消发布?',
-            '取消发布后意味着您不再提供服务',
-            [{text: '取消'}, {
-                text: '确定', onPress: () => {
-                    this.props.refresh(iCard)
-                }
-            }]
-        )
-    }
+    // __alert = (iCard) => {
+    //     Alert.alert(
+    //         '确定取消发布?',
+    //         '取消发布后意味着您不再提供服务',
+    //         [{text: '取消'}, {
+    //             text: '确定', onPress: () => {
+    //                 this.props.refresh(iCard)
+    //             }
+    //         }]
+    //     )
+    // }
 
-    _renderHeader = () => {
-        const {navigation} = this.props;
-        const {state} = navigation;
-        const {params} = state;
-
-
+    _renderHeader = (iCard) => {
         const useExist = this.props.useExist.toJS().data
         const exist = useExist.results && useExist.results.count >= 1
         const load = this.props.useExist.get('load')
@@ -134,9 +129,9 @@ export default class PublishDetail extends Component {
         const text = exist ? "正在使用" : '立即使用'
         return (
             <View style={styles.header}>
-                <Text style={styles.title}>{params.data.title}</Text>
+                <Text style={styles.title}>{iCard.title}</Text>
                 <View style={styles.headerIn}>
-                    <Text style={styles.useNum}>使用人数： {params.data.useNum || (exist? 1:0)}</Text>
+                    <Text style={styles.useNum}>使用人数： {iCard.useNum || (exist ? 1 : 0)}</Text>
                     <HeaderBtn
                         style={styles.headerBtn}
                         load={this.props.load || load}
@@ -155,7 +150,7 @@ export default class PublishDetail extends Component {
     }) {
         return (
             <TouchableOpacity onPress={onPress} style={styles.row}>
-                <View style={{flexDirection: 'row', alignItems: 'center',}}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                     <Text style={styles.rowText}>
                         {title}
                     </Text>
@@ -171,10 +166,10 @@ export default class PublishDetail extends Component {
         const iCard = this.props.iCard.toJS()
         return (
             <View style={[this.props.style, styles.wrap]}>
-                {this._renderHeader()}
+                {this._renderHeader(iCard)}
 
                 {this._renderRow('修改配置', () => {
-                    this.props.navigation.navigate('OptionView', {opData: iCard})
+                    this.props.navigation.navigate('OptionView', { opData: iCard })
                 })}
                 {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
                 {/*if (iCard.state === 0) {*/}
@@ -185,10 +180,10 @@ export default class PublishDetail extends Component {
                 {/*})}*/}
                 {this._renderRow("发布设置", () => {
                     this.props.navigation.navigate('Publishing',
-                        {iCardID: this.props.navigation.state.params.iCardID})
+                        { iCardID: this.props.navigation.state.params.iCardID })
                 })}
                 {this._renderRow('查看记录', () => {
-                    this.props.navigation.navigate('Serve', {iCard})
+                    this.props.navigation.navigate('Serve', { iCard })
                 })}
             </View>
         );
@@ -244,7 +239,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#8c8c85',
-        transform: [{rotate: '315deg'}],
+        transform: [{ rotate: '315deg' }],
         marginRight: 5,
         width: 10,
         height: 10,

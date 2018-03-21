@@ -36,6 +36,7 @@ export default class BaseSectionView extends Component {
         super(props);
         this.state = {
             shouldShowloadMore: false,
+            joinTime:0,
         };
 
     }
@@ -75,11 +76,11 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
-    joinTime = 0;
+    // joinTime = 0;
     componentWillReceiveProps(nextProps) {
         if (nextProps.loadStatu === LIST_LOAD_DATA && this.joinTime < 2) {
-            this.joinTime++
-
+            // this.joinTime++
+            this.setState({joinTime:this.state.joinTime+1})
         }
     }
 
@@ -188,10 +189,12 @@ export default class BaseSectionView extends Component {
             //TODO:先不加，其他状态量判断太麻烦。
         }
 
+        const refreshing = this.state.joinTime === 2
+            && this.props.loadStatu === LIST_LOAD_DATA
+
         return (
             <TableView
-                refreshing={this.joinTime === 2
-                && this.props.loadStatu === LIST_LOAD_DATA}
+                refreshing={refreshing}
                 onScroll={this.onScroll.bind(this)}
                 sections={this.props.data}
                 onRefresh={this._handleRefresh}
