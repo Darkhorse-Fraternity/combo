@@ -22,9 +22,11 @@ import LCList from '../../components/Base/LCList';
 import {IRECORD, ICARD,IUSE} from '../../redux/reqKeys'
 import {selfUser} from '../../request/LCModle'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { remove,search} from '../../redux/module/leancloud'
+import { update,search} from '../../redux/module/leancloud'
 import {SwipeAction} from 'antd-mobile'
-import {clear} from '../../redux/actions/list'
+import {claerByID} from '../../redux/actions/list'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
+
 import * as Animatable from 'react-native-animatable';
 
 const heightZoomIn= {
@@ -45,9 +47,21 @@ Animatable.initializeRegistryWithDefinitions({heightZoomIn})
     }),
     dispatch =>({
 
-        delete: async(rowId, objectId, callBack)=> {
-            await remove(objectId,IUSE)
-            dispatch(clear(IRECORD, rowId))
+        delete: async(objectId, callBack)=> {
+            // await remove(objectId,IUSE)
+            // 做伪删除
+
+            const param = {
+                statu:'del'
+            }
+            const res = await update(objectId, param, IUSE)
+            const entity = {
+                ...param,
+                ...res
+            }
+            dispatch(addNormalizrEntity(IUSE, entity))
+
+            dispatch(claerByID(IRECORD, objectId))
             callBack && callBack()
 
             //刷新首页的数据
@@ -59,7 +73,7 @@ Animatable.initializeRegistryWithDefinitions({heightZoomIn})
                 order: 'doneDate'
 
 
-            }, ICARD))
+            }, IUSE))
         },
     })
 )
@@ -90,20 +104,20 @@ export default class Record extends Component {
 
 
 
-    __delete = (index, objectId)=> {
+    __delete = (index,objectId)=> {
         const self= this
         Alert.alert(
             '确定删除?',
             '删除后不可恢复~！',
             [{text: '取消'}, {
                 text: '确定', onPress: async() => {
-                    const last = self.props.data.get('listData').size-1 == index
+                    const last = self.props.data.get('listData').size-1 === index
                     const itemView = this.rows[index]
                     ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
 
                     await itemView.fadeOutLeft(500)
                     const endState = await itemView.heightZoomIn(500)
-                    endState.finished && this.props.delete(index, objectId,()=>{
+                    endState.finished && self.props.delete(objectId,()=>{
                         !last && itemView.bounce(1)
                     })
                 }
@@ -168,7 +182,8 @@ export default class Record extends Component {
 
         const param = {
             where: selfUser(),
-            include: ICARD
+            include: ICARD,
+            statu:{"$ne":'del'},
         }
         return (
             <LCList

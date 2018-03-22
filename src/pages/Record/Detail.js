@@ -139,7 +139,7 @@ export default class Detail extends Component {
         const {navigation} = this.props;
         const {state} = navigation;
         const {params} = state;
-        console.log('this.props.data:', params);
+        // console.log('this.props.data:', params);
         const data = this.props.data && this.props.data.toJS && this.props.data.toJS()
         const item = data || params.data
         const card = params.card

@@ -82,7 +82,7 @@ import moment from 'moment'
             const params = existSearch(IUSE, {
                 where: {
                     ...iCard(id),
-                    ...selfUser()
+                    ...selfUser(),
                 }
             })
             req(params, IUSEExist)

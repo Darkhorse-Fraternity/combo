@@ -5,7 +5,7 @@
 'use strict';
 
 // import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -15,7 +15,7 @@ import {
     Easing,
     TouchableOpacity
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import ZoomImage from 'react-native-zoom-image';
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -23,6 +23,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 @connect(
     state => ({
         //data:state.req.get()
+        user: state.user.data
     }),
     dispatch => ({
         //...bindActionCreators({},dispatch),
@@ -49,15 +50,22 @@ export default class RecordRow extends Component {
 
     chatBtnRef = 0
     _renderChatBtn = (item) => {
+        const { commentNew, commentNum, user } = item
+
         return (
             <TouchableOpacity
                 onPress={() => {
                     this.props.navigation &&
-                    this.props.navigation.navigate('RComment', {data: item})
+                    this.props.navigation.navigate('RComment', { data: item })
                 }}
                 style={styles.chatbtn}
             >
                 {/*<Image style={{width:20,height:20}} source={icon}/>*/}
+
+
+                {commentNew && user.objectId === this.props.user.objectId
+                && (<View style={styles.newTip}/>)}
+
                 <Icon
                     ref={this.chatBtnRef}
                     name={'ios-chatbubbles-outline'}
@@ -67,10 +75,9 @@ export default class RecordRow extends Component {
                     //resizeMode = 'contain'
                     //source={image}
                     style={styles.icon}/>
-
-                <Text
+                {commentNum > 0 && (<Text
                     numberOfLines={1}
-                    style={styles.chatBtnText}>122</Text>
+                    style={[styles.chatBtnText,]}>{item.commentNum}</Text>)}
                 {/*<Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text>*/}
             </TouchableOpacity>
         )
@@ -91,8 +98,8 @@ export default class RecordRow extends Component {
     }
 
     render(): ReactElement<any> {
-        const {item} = this.props
-        if(!item)return null
+        const { item } = this.props
+        if (!item) return null
         const img = item.imgs && item.imgs[0] || null
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
@@ -100,18 +107,18 @@ export default class RecordRow extends Component {
                 {img && (<ZoomImage
                     easingFunc={Easing.bounce}
                     imgStyle={styles.image}
-                    source={{uri: img}}/>)}
+                    source={{ uri: img }}/>)}
                 <View style={styles.bottom}>
-                    {!!item.recordText &&(<Text numberOfLines={1}
-                        style={styles.text}>
+                    {!!item.recordText && (<Text numberOfLines={1}
+                                                 style={styles.text}>
                         {item.recordText}
                     </Text>)}
                     <View style={styles.dateView}>
                         <Text style={styles.date}>
                             {date}
                         </Text>
-                        {this.props.showChat?
-                            this._renderChatBtn(item):
+                        {this.props.showChat ?
+                            this._renderChatBtn(item) :
                             this._renderDone()}
                     </View>
                 </View>
@@ -127,7 +134,8 @@ const styles = StyleSheet.create({
         // marginBottom:2,
     },
     bottom: {
-        marginTop: 10,
+        marginTop: 5,
+        marginBottom: 5,
         // flexDirection: 'row',
         // width: '100%',
         // justifyContent: 'space-between',
@@ -142,6 +150,13 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: width * 0.7,
+    },
+    newTip: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: 'red',
+        marginRight: 5
     },
     date: {
         fontSize: 15,
@@ -166,7 +181,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     chatBtnText: {
-        width: 30,
-        marginLeft: 10,
+        marginLeft: 5,
     }
 })

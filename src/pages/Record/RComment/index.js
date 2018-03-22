@@ -2,10 +2,11 @@
  * Created by lintong on 2018/1/16.
  * @flow
  */
+
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
@@ -16,22 +17,22 @@ import {
     PixelRatio,
     Clipboard
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import RecordRow from '../RecordRow'
-import {BlurView} from 'react-native-blur';
+import { BlurView } from 'react-native-blur';
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import LCList from '../../../components/Base/LCList'
 
-import {KeyboardAccessoryView, KeyboardUtils} from 'react-native-keyboard-input';
+import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-input';
 
 import {
-    ICOMMENT
+    ICOMMENT, IDO
 } from '../../../redux/reqKeys'
-import {add, remove, batch} from '../../../redux/module/leancloud'
-import {selfUser, iDo} from '../../../request/LCModle'
-import {add as listAdd,claerByID} from '../../../redux/actions/list'
-import {addNormalizrEntity,} from '../../../redux/module/normalizr'
-import ChatSendForm, {FormID} from '../../../components/Form/ChatSendForm'
+import { add, remove, update } from '../../../redux/module/leancloud'
+import { selfUser, iDo } from '../../../request/LCModle'
+import { add as listAdd, claerByID } from '../../../redux/actions/list'
+import { addNormalizrEntity, } from '../../../redux/module/normalizr'
+import ChatSendForm, { FormID } from '../../../components/Form/ChatSendForm'
 import {
     StyledHeader,
     StyledContent,
@@ -44,10 +45,10 @@ import {
     StyledDate,
 } from './style'
 import moment from 'moment'
-import {formValueSelector} from 'redux-form/immutable'
-import {reset} from 'redux-form'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin';
-import {showSelector} from '../../../components/Selector'
+import { formValueSelector } from 'redux-form/immutable'
+import { reset } from 'redux-form'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin';
+import { showSelector } from '../../../components/Selector'
 
 
 const IsIOS = Platform.OS === 'ios';
@@ -60,7 +61,7 @@ const Name = 'text'
 @connect(
     state => ({
         //data:state.req.get()
-        user:state.user.data
+        user: state.user.data
     }),
     (dispatch, props) => ({
         send: () => dispatch(async (dispatch, getState) => {
@@ -78,32 +79,56 @@ const Name = 'text'
             }
             // const res = await add(param, ICOMMENT)
 
-            console.log('JSON:', JSON.stringify(param));
 
             const res = await add(param, ICOMMENT) //
+
+            console.log('res:', res);
 
 
             const entity = {
                 ...param,
                 ...res,
-                user:state.user.data
+                user: state.user.data
             }
             // dispatch(addListNormalizrEntity(ICOMMENT, entity))
 
+            iDoData.commentNum++
+
             dispatch(addNormalizrEntity(ICOMMENT, entity))
+
+            dispatch(addNormalizrEntity(IDO, iDoData))
             // // dispatch(addNormalizrEntities(key,data))
             dispatch(listAdd(ICOMMENT + iDoData.objectId, entity.objectId))
 
             dispatch(reset(FormID))
         }),
-        delete:async(item) => {
+        delete: async (item) => {
             const iDoData = props.navigation.state.params.data
             await remove(item.objectId, ICOMMENT)
-            dispatch(claerByID(ICOMMENT + iDoData.objectId,item.objectId))
+            dispatch(claerByID(ICOMMENT + iDoData.objectId, item.objectId))
         },
-        copy:(item)=>{
+        copy: (item) => {
             Clipboard.setString(item.text)
             Toast.show('已复制评论!')
+        },
+        refresh: async (user) => {
+            let iDoData = props.navigation.state.params.data
+            if (iDoData.commentNew && iDoData.user.objectId === user.objectId) {
+
+                const params = {
+                    commentNew: false
+                }
+                const res = await update(iDoData.objectId, params, IDO)
+
+                iDoData = {
+                    ...iDoData,
+                    ...res,
+                    ...params
+                }
+
+                dispatch(addNormalizrEntity(IDO, iDoData))
+
+            }
         }
     })
 )
@@ -134,6 +159,9 @@ export default class RComment extends Component {
         }
     };
 
+    componentDidMount() {
+        this.props.refresh(this.props.user)
+    }
 
     componentWillUnmount() {
         KeyboardUtils.dismiss()
@@ -153,7 +181,7 @@ export default class RComment extends Component {
     }
 
     keyboardAccessoryViewContent() {
-        const {objectId} = this.props.navigation.state.params.data
+        const { objectId } = this.props.navigation.state.params.data
         const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
         return (
             <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
@@ -179,22 +207,24 @@ export default class RComment extends Component {
     }
 
 
-    renderRow({item}: Object): ReactElement<any> {
+    renderRow({ item }: Object): ReactElement<any> {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
-        return (<StyledRow onPress={()=>{
-            const {user} = this.props
+        const my_head = require('../../../../source/img/my/my_head.png');
+        const source = item.user.avatar ? { uri: item.user.avatar.url } : my_head
+        return (<StyledRow onPress={() => {
+            const { user } = this.props
 
-            if(item.user.objectId === user.objectId){
-                showSelector(['删除','复制'],(index)=>{
-                    if(index === 0 ){
+            if (item.user.objectId === user.objectId) {
+                showSelector(['删除', '复制'], (index) => {
+                    if (index === 0) {
                         this.props.delete(item)
-                    }else if(index === 1){
+                    } else if (index === 1) {
                         this.props.copy(item)
                     }
                 })
-            }else {
-                showSelector(['复制'],(index)=>{
-                    if(index === 0){
+            } else {
+                showSelector(['复制'], (index) => {
+                    if (index === 0) {
                         this.props.copy(item)
                     }
                 })
@@ -202,7 +232,7 @@ export default class RComment extends Component {
 
         }}>
             <StyledRowLeft>
-                <StyledAvatar source={{uri:item.user.avatar.url}}/>
+                <StyledAvatar source={source}/>
             </StyledRowLeft>
             <StyledRowRight>
                 <StyledNickText>
@@ -262,7 +292,7 @@ const styles = StyleSheet.create({
             },
         }),
     },
-    list:{
-        marginBottom:50
+    list: {
+        marginBottom: 50
     }
 })

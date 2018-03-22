@@ -90,8 +90,12 @@ export default class Publish extends Component {
 
     render() {
 
+        //state 不为-1的时候
         const param = {
-            'where': selfUser()
+            'where': {
+                ...selfUser(),
+                state:{"$ne":-1}
+            }
         }
         return (
             <LCList

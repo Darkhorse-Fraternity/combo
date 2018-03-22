@@ -59,8 +59,6 @@ const themeColorConfig = {
 }
 
 
-//主题字体 这边看是否需要把CSS 样式进行抽取
-const themeFontConfig = {}
 
 
 module.exports = {

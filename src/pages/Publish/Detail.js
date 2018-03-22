@@ -24,7 +24,8 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
 import { existSearch } from '../../request/leanCloud'
 import { selfUser, iCard } from '../../request/LCModle'
 import { req, reqChangeData } from '../../redux/actions/req'
-import { addListNormalizrEntity } from '../../redux/actions/list'
+import { addListNormalizrEntity,claerByID } from '../../redux/actions/list'
+
 import moment from 'moment'
 //static displayName = PublishDetail
 @connect(
@@ -39,7 +40,7 @@ import moment from 'moment'
         refresh: async (data) => {
             const id = data.objectId
             const param = {
-                state: data.state === 0 ? 1 : 0
+                state: -1
             }
 
             const res = await  await update(id, param, ICARD)
@@ -49,13 +50,16 @@ import moment from 'moment'
                 ...res
             }
             dispatch(addNormalizrEntity(ICARD, entity))
+            dispatch(claerByID(ICARD,id))
+            props.navigation.goBack()
         },
         exist: async () => {
             const id = props.navigation.state.params.iCardID
             const params = existSearch(IUSE, {
                 where: {
                     ...iCard(id),
-                    ...selfUser()
+                    ...selfUser(),
+                    statu:{"$ne":'del'},
                 }
             })
             req(params, IUSEExist)
@@ -109,17 +113,17 @@ export default class PublishDetail extends Component {
         this.props.exist()
     }
 
-    // __alert = (iCard) => {
-    //     Alert.alert(
-    //         '确定取消发布?',
-    //         '取消发布后意味着您不再提供服务',
-    //         [{text: '取消'}, {
-    //             text: '确定', onPress: () => {
-    //                 this.props.refresh(iCard)
-    //             }
-    //         }]
-    //     )
-    // }
+    __alert = (iCard) => {
+        Alert.alert(
+            '确定删除?',
+            '删除后不可恢复',
+            [{text: '取消'}, {
+                text: '确定', onPress: () => {
+                    this.props.refresh(iCard)
+                }
+            }]
+        )
+    }
 
     _renderHeader = (iCard) => {
         const useExist = this.props.useExist.toJS().data
@@ -184,6 +188,10 @@ export default class PublishDetail extends Component {
                 })}
                 {this._renderRow('查看记录', () => {
                     this.props.navigation.navigate('Serve', { iCard })
+                })}
+                {this._renderRow('删除卡片', () => {
+                    //伪删除
+                    this.__alert(iCard)
                 })}
             </View>
         );

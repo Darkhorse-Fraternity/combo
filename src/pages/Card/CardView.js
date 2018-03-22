@@ -242,39 +242,7 @@ export default class Home extends Component {
         return key + '';
     }
 
-    //
-    // __settingView = ({item, index}, data) => {
-    //     const self = this
-    //     const iCardId = data[ICARD]
-    //     const iCard = this.props.iCard.get(iCardId).toJS()
-    //     const isSelf = iCard.user == this.props.user.objectId
-    //     return (<View style={styles.settingView}>
-    //         {isSelf && (<BounceBtn
-    //             color="#rgb(136,175,160)"
-    //             radius={60}
-    //             moveColor="#rgba(136,175,160,0.4)"
-    //             onPress={() => {
-    //                 this.props.navigation.navigate('OptionView', {opData: iCard})
-    //             }}
-    //             title="修改配置"/>)}
-    //         {isSelf && (<View style={{height: 20}}/>)}
-    //         <BounceBtn
-    //             radius={60}
-    //             color="#rgb(156,175,170)"
-    //             moveColor="#rgba(156,175,170,0.4)"
-    //             onPress={async () => {
-    //                 const last = self.props.data.get('listData').size - 1 == index
-    //                 const itemView = this.rows[index]
-    //                 ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
-    //                 const endState = await itemView.fadeOutDownBig(500)
-    //                 endState.finished && this.props.stop(data, index, () => {
-    //                     !last && itemView.fadeInRight(500)
-    //                 })
-    //
-    //             }}
-    //             title="暂停打卡"/>
-    //     </View>)
-    // }
+
 
 
     __flagView = (data, flag) => {

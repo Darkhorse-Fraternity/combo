@@ -7,7 +7,7 @@ import {
 export function doReceiveNotify(notify) {
     const data = notify.data
     if(!data){return}
-    console.log('push data:', data);
+    // console.log('push data:', data);
     const url = data.webUrl
     const hihomeHost = 'combo://'
     if (url &&  url.indexOf(hihomeHost) === 0) {
@@ -17,3 +17,5 @@ export function doReceiveNotify(notify) {
     }
 
 }
+
+
