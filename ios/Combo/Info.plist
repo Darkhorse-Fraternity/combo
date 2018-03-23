@@ -62,7 +62,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>14</string>
+	<string>30</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>
@@ -138,6 +138,7 @@
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
+		<string></string>
 		<string>armv7</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
