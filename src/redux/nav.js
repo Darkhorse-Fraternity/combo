@@ -1,17 +1,10 @@
 import  store from './configureStore'
-import { addNavigationHelpers } from 'react-navigation'
-import {
-    createReduxBoundAddListener,
-} from 'react-navigation-redux-helpers'
+import { NavigationActions } from 'react-navigation'
+
 export function push(key,params) {
-    navigation().navigate(key,params)
+    store.dispatch( NavigationActions.navigate(key,params))
 }
 
 export function pop() {
-    navigation().goBack()
-}
-export function navigation() {
-    const state = store.getState()
-    const addListener = createReduxBoundAddListener("root");
-    return addNavigationHelpers({  dispatch:store.dispatch, state: state.nav ,addListener})
+    store.dispatch( NavigationActions.back())
 }

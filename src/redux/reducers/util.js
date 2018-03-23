@@ -22,7 +22,7 @@ export default function drawState(state: immutable.Map<string,any> = initialUtil
         }
 
         case DATA_STORAGE: {
-            const data = typeof action.data == 'object' ? immutable.fromJS(action.data) : action.data
+            const data = typeof action.data === 'object' ? immutable.fromJS(action.data) : action.data
             return state.set(action.key, data);
         }
         case UPLOAD_IMAGES:{

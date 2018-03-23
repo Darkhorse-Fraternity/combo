@@ -3,16 +3,18 @@
  * @flow
  */
 'use strict';
-import {send} from '../../request'
+import { send } from '../../request'
+
 export const REQUEST_LOAD = 'REQUEST_LOAD'
 export const REQUEST_SUCCEEED = 'REQUEST_SUCCEEED'
 export const REQUEST_FAILED = 'REQUEST_FAILED'
 export const REQUESR_CHANGE_DATA = 'REQUESR_CHANGE_DATA'
 import Toast from 'react-native-simple-toast';
-import  store from '../configureStore'
-import {schemas} from '../scemes'
-import {normalize} from 'normalizr';
-import {addEntities} from '../module/normalizr'
+import store from '../configureStore'
+import { schemas } from '../scemes'
+import { normalize } from 'normalizr';
+import { addEntities } from '../module/normalizr'
+
 export const RESCODE = 'code'
 export const SUCCODE = -1000
 export const MSG = 'error'
@@ -20,7 +22,7 @@ export const DATA = 'results'
 
 
 export function reqY(params) {
-    return send(params).then((response)=> {
+    return send(params).then((response) => {
         const contentType = response.headers.get("content-type")
         let responseData = contentType.indexOf("application/json") !== -1 ? response.json() : {}
         return responseData;
@@ -32,7 +34,7 @@ export function reqS(params) {
     return reqY(params).then(response => {
         //对leancloud 的数据格式进行包装，兼容通用数据模型
         if (!params.host && !response[RESCODE]) {
-            response = {[DATA]: response, [RESCODE]:SUCCODE}
+            response = { [DATA]: response, [RESCODE]: SUCCODE }
         }
 
         // if (response[RESCODE] === "2" || response[RESCODE] === "3") {
@@ -54,24 +56,14 @@ export function reqM(params) {
         return response
     })
 }
-export function normalizr(key, data) {
-    //根据key 进行normalizr处理
-    return normalize(data, schemas[key]);
-}
+
 
 export function cleanData(key, response, option) {
-    // let data = response[DATA] ? response[DATA] : response
-    let data = response
-    data = !option.dataMap ? data : option.dataMap(data) || data
+    let data = !option.dataMap ? response : option.dataMap(response) || response
 
     if (option.normalizr && data) {
-        if(option.sceme){
-            data = normalize(data[DATA], option.sceme);
-        }else {
-            data = normalizr(key, data)
-        }
-        const dispatch = store.dispatch
-        data && data.entities && dispatch(addEntities(data.entities))
+        data = normalize(data, option.sceme || schemas[key]);
+        data && data.entities && store.dispatch(addEntities(data.entities))
         return data.result[DATA]
     }
     return data;
@@ -86,21 +78,21 @@ export function reqA(params: Object, key: string, option: Object = {}) {
     const dispatch = store.dispatch
     dispatch(requestStart(key))
     return reqM(params).then(response => {
-        if(response[RESCODE]){
-            if(response[RESCODE] === SUCCODE){
+        if (response[RESCODE]) {
+            if (response[RESCODE] === SUCCODE) {
                 const data = cleanData(key, response, option)
                 dispatch(requestSucceed(key, data))
-            }else {
+            } else {
                 dispatch(requestFailed(key, response[MSG]))
             }
         }
         return response
     }).catch(e => {
-        if(e.message){
+        if (e.message) {
             console.log('message:', e.message)
             Toast.show(e.message, Toast.LONG)
         }
-        if(key){
+        if (key) {
             dispatch(requestFailed(key, e.message))
         }
 
@@ -109,25 +101,23 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 
 //不返回错误码，直接通过通用错误处理渠道。
 export function req(params: Object, key: string, option: Object = {}) {
-    return reqA(params,key,option).then(response =>{
-            // console.log('test:', response);
-            if(response[RESCODE] === SUCCODE ){
-                return response[DATA]
-            }else{
-                throw new Error();
-            }
-        })
+    return reqA(params, key, option).then(response => {
+        // console.log('test:', response);
+        if (response[RESCODE] === SUCCODE) {
+            return response[DATA]
+        } else {
+            throw new Error();
+        }
+    })
 }
 
 
 export function load(params: Object, key: stringg) {
-    return req(params, key, {'normalizr': true})
+    return req(params, key, { 'normalizr': true })
 }
 
 
-
-
-export  function requestSucceed(key: string, data: Object): Object {
+export function requestSucceed(key: string, data: Object): Object {
     return {
         type: REQUEST_SUCCEEED,
         load: false,

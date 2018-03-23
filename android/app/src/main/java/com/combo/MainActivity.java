@@ -42,6 +42,7 @@ public class MainActivity extends ReactActivity {
             public void run() {
                 mPopupWindowView.setVisibility(View.GONE);
             }
-        },3000);
+        }, 3000);
     }
+
 }

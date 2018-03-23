@@ -10,18 +10,18 @@ export const SHARE_TO_QQ = 'SHARE_TO_QQ'
 export const Share_TO_ZONE = 'Share_TO_ZONE'
 export const SHARE_TO_SINA = 'SHARE_TO_SINA'
 import * as WeChat from 'react-native-wechat';
-// import * as QQAPI from 'react-native-qq';
+import * as QQAPI from 'react-native-qq';
 
 
-WeChat.registerApp('wx36c691847cf43305')
+WeChat.registerApp('wx637e6f35f8211c6d')
 
 export function shareTo(type: string,param:object):Function {
 
-    if(type ==SHARE_TO_TIMELINE || type == SHARE_TO_SESSION){
+    if(type ===SHARE_TO_TIMELINE || type === SHARE_TO_SESSION){
         shareToWechat(type,param)
-    }else if(type ==SHARE_TO_QQ || type == Share_TO_ZONE) {
+    }else if(type ===SHARE_TO_QQ || type === Share_TO_ZONE) {
         shareToQQ(type,param)
-    }else if(type == SHARE_TO_SINA) {
+    }else if(type === SHARE_TO_SINA) {
         shareToWeibo(param)
     }
 

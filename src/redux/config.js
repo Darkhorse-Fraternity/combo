@@ -23,7 +23,6 @@ export const PRE_CONFIG_STATU = 'PRE_CONFIG_STATU'
 import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info'
-import {pop} from './nav'
 import {epUpdate} from '../request/EPUpdate'
 
 
@@ -75,26 +74,33 @@ function _preConfig() {
 
 let lastBackPressed: number = 0;
 
-function _backAnroid (getState) {
-    // const BackHandler =  BackHandler || BackAndroid
-    BackHandler.addEventListener('hardwareBackPress', ()=> {
-        const state = getState().nav;
-        const index = state.index;
-        //idnex 前两个分别是登录和tabview
-        if (index > 1) {
-            pop();
-            return true;
-        }
-        let times = Date.now();
-        if (times - lastBackPressed >= 2500) {
-            //再次点击退出应用
-            lastBackPressed = times;
-            ToastAndroid.show("再按一次退出应用", 0);
-            return true;
-        }
-        lastBackPressed = 0;
-        return false;
-    });
+function _backAnroid () {
+
+    return (dispatch,getState) => {
+        // const BackHandler =  BackHandler || BackAndroid
+        if( Platform.OS === 'ios')return;
+
+        BackHandler.addEventListener('hardwareBackPress', ()=> {
+            const state = getState().nav;
+            const index = state.index;
+            //idnex 前两个分别是登录和tabview
+            if (index > 1) {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+            let times = Date.now();
+            if (times - lastBackPressed >= 2500) {
+                //再次点击退出应用
+                lastBackPressed = times;
+                ToastAndroid.show("再按一次退出应用", 0);
+                return true;
+            }
+            lastBackPressed = 0;
+            return false;
+        });
+    }
+
+
 }
 
 function _isConnected(dispatch) {
@@ -112,7 +118,7 @@ export function preConfig():Function {
     _preConfig();
 
     return (dispatch,getState) =>{
-        Platform.OS !== 'ios' && _backAnroid(getState)
+        dispatch(_backAnroid())
         _isConnected(dispatch)
         loadUserData().then((response)=>{
             dispatch(loginSucceed(response))

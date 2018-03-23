@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
@@ -26,9 +27,10 @@ import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends MultiDexApplication implements ReactApplication {
     private Intent mIntent;
     public int count = 0;
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
@@ -46,12 +48,12 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new QQPackage(),
                     new KeyboardInputPackage(MainApplication.this), // (this = Android application object)
                     new OrientationPackage(),
                     new Interactable(),
                     new BlurViewPackage(),
                     new WeChatPackage(),
-//                    new QQPackage(),
                     new LeanCloudPushPackage(),
                     new ReactNativePushNotificationPackage(),
                     new VectorIconsPackage(),

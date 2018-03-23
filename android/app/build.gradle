@@ -114,8 +114,9 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
         manifestPlaceholders = [
-                QQ_APPID: "<平台申请的APPID>",
+                QQ_APPID: "1106001821",
         ]
+        multiDexEnabled true
     }
     signingConfigs {
         release {
@@ -163,6 +164,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-qq')
     compile project(':react-native-vector-icons')
     compile project(":reactnativekeyboardinput")
     compile project(':react-native-orientation')
