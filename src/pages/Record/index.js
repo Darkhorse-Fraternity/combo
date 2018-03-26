@@ -138,7 +138,7 @@ export default class Record extends Component {
             return <View/>
         }
         const days = iCard.period * (item.cycle ) + (item.time )
-        const reflesh = item.time == iCard.period || item.statu == 'stop'
+        const reflesh = item.time === iCard.period || item.statu === 'stop'
         return (
             <Animatable.View
                 ref={(row) => this.rows[index] = row}
@@ -181,9 +181,11 @@ export default class Record extends Component {
     render() {
 
         const param = {
-            where: selfUser(),
+            where: {
+                ...selfUser(),
+                statu:{"$ne":'del'},
+            },
             include: ICARD,
-            statu:{"$ne":'del'},
         }
         return (
             <LCList

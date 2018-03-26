@@ -66,6 +66,7 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                 'title',
                 'notifyTime',
                 'period',
+                'recordDay',
                 'notifyText',
                 'record')
 

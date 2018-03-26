@@ -9,6 +9,9 @@ import {
 import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 
+import {fromJS} from 'immutable';
+
+
 
 const SelectWrapper = styled.View`
   flex: 1;
@@ -18,7 +21,7 @@ export default class Multiple extends Component {
     constructor(props) {
         super(props)
         let value = props.value
-        console.log('value:', typeof value, value);
+        // console.log('value:', typeof value, value);
         if (typeof value === 'object' && value.toJS) {
             value = value.toJS()
         }
@@ -47,18 +50,18 @@ export default class Multiple extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.onValueChange(nextProps.value)
-        }
+        // if (nextProps.value !== this.state.value) {
+        //     this.onValueChange(nextProps.value)
+        // }
     }
 
 
     onValueChange(newValue) {
-        this.setState({
-            value: newValue
-        }, () => {
-            this.props.onValueChange(newValue)
-        })
+        // this.setState({
+        //     value: newValue
+        // }, () => {
+            this.props.onValueChange(fromJS(newValue))
+        // })
     }
 
 
@@ -68,9 +71,7 @@ export default class Multiple extends Component {
         } = this.props
         const key = keyName.length !== 0 ? item[keyName] + '' : item + ''
 
-        const { value } = this.state
-
-        console.log('value:', value);
+        const  value  = this.props.value.toJS()
 
         const index = value.indexOf(item)
         const contain = index !== -1

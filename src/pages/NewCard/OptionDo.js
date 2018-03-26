@@ -19,7 +19,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 import { mainColor } from '../../configure'
-import { AutoGrowingInput,TextInput } from '../../components/Form/Cunstom'
+import { AutoGrowingInput, TextInput } from '../../components/Form/Cunstom'
 import { Radio, Multiple } from '../../components/Form/Select'
 import Toast from 'react-native-simple-toast'
 
@@ -27,7 +27,8 @@ export const StaticOption = {
     notifyTime: '20:00',
     period: '7',
     notifyText: '',
-    record: []
+    record: [],
+    recordDay: [1, 2, 3, 4, 5, 6, 7],
 }
 
 import {
@@ -35,7 +36,7 @@ import {
 } from 'redux-form/immutable'
 
 
-@formValues('title','notifyTime', 'notifyText', 'period', 'record')
+@formValues('title', 'notifyTime', 'notifyText', 'period', 'record', 'recordDay')
 
 export default class OptionDo extends Component {
     constructor(props: Object) {
@@ -57,7 +58,7 @@ export default class OptionDo extends Component {
 
     __backStep = () => {
 
-        if(this.props.title.length === 0){
+        if (this.props.title.length === 0) {
 
             Toast.show('没有标题是不行的~')
             return;
@@ -104,7 +105,7 @@ export default class OptionDo extends Component {
     }
 
 
-    __renderTitle = ()=> {
+    __renderTitle = () => {
 
         return (
             <View
@@ -239,6 +240,53 @@ export default class OptionDo extends Component {
 
     }
 
+    __renderRecordDay = () => {
+
+        const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        const sels = [1, 2, 3, 4, 5, 6, 7]
+
+        const __renderRadioItem = (item, contain) => {
+            return (
+                <View
+                    style={[styles.notifyTimeItem,
+                        { backgroundColor: contain ? '#31d930' : 'white' }]}
+                    key={names[item]}>
+                    <Text style={{ color: contain ? 'white' : 'black' }}>{names[item - 1]}</Text>
+                </View>)
+        }
+
+        return (
+            <Multiple
+                style={styles.notifyTimeView}
+                name='recordDay'
+                //keyName='ItemId'
+                options={sels}
+                renderItem={__renderRadioItem}/>
+        )
+    }
+
+
+    __renderDayText = (recordDay) => {
+        const days = recordDay.toJS().sort();
+
+        console.log('days:', days);
+
+        if (days.length === 0) {
+            return "无"
+        }else if (days.length === 7) {
+            return "每天"
+        }else if (days.length === 2 && days[0] === 6) {
+            return '休息日'
+        }else if (days.length === 5 && days[4] === 5) {
+            return '工作日'
+        }else {
+            const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+            return days.map(day=>names[day-1]).toString()
+        }
+
+
+
+    }
 
     render(): ReactElement<any> {
         const revise = this.props.revise
@@ -247,6 +295,11 @@ export default class OptionDo extends Component {
         let record = this.props.record
         record = (record.length === 0 || record.size === 0)
             ? '无' : record.join('+')
+
+
+        const recordDay = this.__renderDayText(this.props.recordDay)
+
+
         return (
             <View
                 onStartShouldSetResponder={() => true}
@@ -257,7 +310,7 @@ export default class OptionDo extends Component {
 
                 {this.state.option === 0 && (<ScrollView style={[styles.wrap]}>
                     {revise && (<this.__renderItem
-                        title={"标题:   " + this.props.title  }
+                        title={"标题:   " + this.props.title}
                         type="title"
                         index={1}/>)}
                     <this.__renderItem
@@ -267,6 +320,10 @@ export default class OptionDo extends Component {
                     <this.__renderItem
                         title={"提醒文字:   " + notifyText}
                         type="notifyText"
+                        index={1}/>
+                    <this.__renderItem
+                        title={"提醒日:   " + recordDay}
+                        type="recordDay"
                         index={1}/>
                     {!revise && (<this.__renderItem
                         title={"周期:   " + this.props.period + '天'}
@@ -294,6 +351,10 @@ export default class OptionDo extends Component {
                 {this.state.option === 1 &&
                 this.state.type === 'notifyText' &&
                 this.__remderNotifyText()}
+
+                {this.state.option === 1 &&
+                this.state.type === 'recordDay' &&
+                this.__renderRecordDay()}
 
                 {this.state.option === 1 &&
                 this.state.type === 'record' &&

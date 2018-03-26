@@ -54,7 +54,7 @@ const FormID = 'CreatCardForm'
                 const data = props.navigation.state.params.opData
                 const state = getState()
                 const selector = formValueSelector(FormID)
-                const op = selector(state, 'notifyTime', 'notifyText','record','title')
+                const op = selector(state, 'notifyTime', 'notifyText','record','title','recordDay')
 
 
                 const id = data.objectId
