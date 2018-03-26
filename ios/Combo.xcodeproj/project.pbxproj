@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
+		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CCA7156F2019C9DA00A25FB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		CCA715702019C9DA00A25FB9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		CCA715712019C9DA00A25FB9 /* AppearanceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFBC84D1FEA7B2200DA269C /* AppearanceConfig.m */; };
@@ -574,6 +576,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
 				CCCE410720649C0800F282E3 /* libRCTQQAPI.a in Frameworks */,
 				CCBDB6622057D9940097762A /* libKeyboardTrackingView.a in Frameworks */,
 				CCA715732019C9DA00A25FB9 /* libRCTOrientation.a in Frameworks */,
@@ -613,6 +616,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
 				CCCE418D2064A0F000F282E3 /* libRCTQQAPI.a in Frameworks */,
 				CCCE418E2064A0F000F282E3 /* libKeyboardTrackingView.a in Frameworks */,
 				CCCE418F2064A0F000F282E3 /* libRCTOrientation.a in Frameworks */,
@@ -2043,7 +2047,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2111,7 +2115,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2174,7 +2178,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2242,7 +2246,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 57;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (

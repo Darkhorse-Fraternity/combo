@@ -70,7 +70,7 @@ const Name = 'text'
 
             const selector = formValueSelector(FormID) // <-- same as form name
             // KeyboardUtils.dismiss()
-            Keyboard.dismiss()
+            KeyboardUtils.dismiss()
 
             const state = getState()
             const text = selector(state, Name)
@@ -166,7 +166,7 @@ export default class RComment extends Component {
     }
 
     componentWillUnmount() {
-        Keyboard.dismiss()
+        KeyboardUtils.dismiss()
     }
 
     _renderHeader = () => {
