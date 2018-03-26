@@ -101,6 +101,7 @@ export default class RecordRow extends Component {
         const { item } = this.props
         if (!item) return null
         const img = item.imgs && item.imgs[0] || null
+        console.log('test:',item, img);
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
             <View style={[this.props.style, styles.wrap]}>

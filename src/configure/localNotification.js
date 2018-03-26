@@ -65,40 +65,51 @@ export async function  dayNotification(data) {
 
     data.forEach(item=>{
 
-        if(item.statu == 'stop'){return}
+        if(item.statu !== 'start'){return}
         let notifyTime = item.iCard.notifyTime.split(":")[0]
         notifyTime = parseInt(notifyTime)
-
-
-        //如果上次打卡的时间超过夜里两点则需提醒，否则要到明天才提醒。
-        const doneDate = item.doneDate.iso
-        const lastMoment = moment(doneDate)
-        const flag = moment.min(lastMoment, moment(2,"HH")) === lastMoment //没超过
-
-
-        // console.log('test:', moment(notifyTime, "HH").toDate());
-        // console.log('test:', moment(notifyTime, "HH").add(1, 'days').toDate());
-        const date = !flag?moment(notifyTime, "HH").toDate()
-            :moment(notifyTime, "HH").add(1, 'days').toDate()
-
+        
 
         const title = item.iCard.title
         const message = item.iCard.notifyText ||( item.iCard.title +"完成了吗?")
+        const recordDay = item.iCard.recordDay
 
-        PushNotification.localNotificationSchedule({
-            title,
-            message: message, // (required)
-            date: date, // in 60 secs
-            soundName:'tip.mp3',
-            // date: new Date(Date.now() + (1*1000)), // in 60 secs
-            number:  1,
-            repeatType: 'day',
-            data:{
-                webUrl:"",
-                action: "com.avos.UPDATE_STATUS",
-            },
-            userInfo: {'type': 'local'},
-        });
+        recordDay.forEach(day => {
+
+            let momentDate = moment(notifyTime, "HH").days(day)
+
+            const lastMoment = moment(item.doneDate.iso)
+            //如果当天凌晨两点后已经打卡并且没有超过提醒时间，则需要到下周才打卡
+            const flag = lastMoment.isBefore(momentDate) &&
+                lastMoment.isAfter(moment(2,"HH"))
+            //提醒时间已经超过当前时间
+            if(moment().isAfter(momentDate)|| flag){
+                momentDate.add(1, 'weeks')
+            }
+            // console.log('localPushDate:',day,notifyTime, momentDate.format('YYYY-MM-DD HH:mm'));
+
+            // const date = !flag?notifyTimeHH
+            //     :notifyTimeHH.add(1, 'weeks').toDate()
+
+            PushNotification.localNotificationSchedule({
+                title,
+                message: message, // (required)
+                date: momentDate.toDate(), // in 60 secs
+                soundName:'tip.mp3',
+                // date: new Date(Date.now() + (1*1000)), // in 60 secs
+                number:  1,
+                repeatType: 'week',
+                data:{
+                    webUrl:"",
+                    action: "com.avos.UPDATE_STATUS",
+                },
+                userInfo: {'type': 'local'},
+            });
+
+
+        })
+
+
     })
 
 
@@ -178,7 +189,7 @@ export  default  class PushManage extends Component {
     //     }
     // }
 
-    
+
     render(): ReactElement<any> {
         return null
     }

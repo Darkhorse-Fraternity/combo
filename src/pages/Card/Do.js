@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -19,26 +19,25 @@ import {
     Keyboard,
     ActivityIndicator
 } from 'react-native'
-import { BlurView as BlurViewIOS } from 'react-native-blur';
+import {BlurView as BlurViewIOS} from 'react-native-blur';
 
 const BlurView = Platform.OS == 'ios' ? BlurViewIOS : View
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
-import { req, load } from '../../redux/actions/req'
-import { uploadImages } from '../../redux/actions/util'
+import {req,load} from '../../redux/actions/req'
+import {uploadImages} from '../../redux/actions/util'
 import HeaderBtn from '../../components/Button/HeaderBtn'
-
 export const Btn = Animatable.createAnimatableComponent(TouchableWithoutFeedback);
 import Pop from '../../components/Pop'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import Toast from 'react-native-simple-toast'
-import { classUpdate, classCreatNewOne } from '../../request/leanCloud'
-import { batch } from '../../redux/module/leancloud'
-import { selfUser, iCard, iUse } from '../../request/LCModle'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
+import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
+import {batch} from '../../redux/module/leancloud'
+import {selfUser, iCard, iUse} from '../../request/LCModle'
+import {addNormalizrEntity} from '../../redux/module/normalizr'
 import moment from 'moment'
-import { ICARD, IDO, IUSE, IDOULIMAGE } from '../../redux/reqKeys'
-import { mainColor } from '../../configure'
+import {ICARD, IDO, IUSE, IDOULIMAGE} from '../../redux/reqKeys'
+import {mainColor} from '../../configure'
 import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
 //static displayName = 
 @connect(
@@ -54,7 +53,7 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
             dispatch(async (dispatch, getState) => {
 
                 try {
-                    const { files, ...otherState } = state
+                    const {files, ...otherState} = state
                     let ims = []
 
                     const state2 = getState()
@@ -68,13 +67,14 @@ import ImageSelectView from '../../components/ImagePicker/ImageSelectView'
                         if (!res.payload) {
                             return
                         }
+
                         ims = res.payload.map(imgs => imgs.attributes.url)
                     }
 
                     const id = data.objectId
                     const time = data.time + 1
                     const param = {
-                        doneDate: { "__type": "Date", "iso": moment() },
+                        doneDate: {"__type": "Date", "iso": moment()},
                         time: time,
                         //cycle,
                         statu: time === data.period ? "stop" : "start"
@@ -152,14 +152,14 @@ export default class  extends Component {
     }
 
     __chackDone = () => {
-        const { backgroundView, load, ...state } = this.state
+        const {backgroundView, load, ...state} = this.state
 
-        if (this.__checkType('文字') && this.state.recordText.length == 0) {
+        if (this.__checkType('文字') && this.state.recordText.length === 0) {
             Toast.show('需要添加文字记录~')
             return;
         }
 
-        if (this.__checkType('图片') && this.state.files.length == 0) {
+        if (this.__checkType('图片') && this.state.files.length === 0) {
             Toast.show('需要添加图片~')
             return;
         }
@@ -186,7 +186,7 @@ export default class  extends Component {
                     clearButtonMode='while-editing'
                     enablesReturnKeyAutomatically={true}
                     //onSubmitEditing={() =>this.focusNextField(ref)}
-                    onChangeText={(text) => this.setState({ recordText: text })}
+                    onChangeText={(text) => this.setState({recordText: text})}
                 />
                 <View style={styles.line}/>
             </View>
@@ -200,7 +200,7 @@ export default class  extends Component {
                 onResponderGrant={Keyboard.dismiss}
                 ref={(e) => {
                     if (this.state.backgroundView === null && Platform.OS === 'ios') {
-                        this.setState({ backgroundView: findNodeHandle(e) })
+                        this.setState({backgroundView: findNodeHandle(e)})
                     }
                 }}
                 style={[this.props.style, styles.wrap, {
@@ -219,7 +219,7 @@ export default class  extends Component {
 
                     {this.__checkType('图片') && (<ImageSelectView
                         onChange={(files) => {
-                            this.setState({ files })
+                            this.setState({files})
                         }}
                         files={this.state.files}
                         maxImage={1}/>)}
@@ -228,20 +228,20 @@ export default class  extends Component {
 
 
                     {this.props.load ?
-                        (<View style={[{ padding: 20 }]}>
+                        (<View style={[{padding: 20}]}>
                             <ActivityIndicator size="large"/>
                         </View>) :
                         (<View style={[styles.top]}>
                             <HeaderBtn
                                 title="取消"
                                 style={styles.close}
-                                hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                                hitSlop={{top: 5, left: 50, bottom: 5, right: 50}}
                                 onPress={() => {
                                     Pop.hide()
                                 }}/>
                             <HeaderBtn
                                 title="打卡"
-                                hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                                hitSlop={{top: 5, left: 50, bottom: 5, right: 50}}
                                 style={styles.close}
                                 onPress={this.__chackDone}/>
                         </View>)}
@@ -266,18 +266,18 @@ const styles = StyleSheet.create({
         padding: 50,
     },
     top: {
-        marginTop: 15
+        marginTop:15
     },
     textInputStyle: {
-        height: 40
+        height:40
     },
     line: {
         width: '100%',
         height: StyleSheet.hairlineWidth,
         backgroundColor: 'rgba(0,0,0,0.5)'
     },
-    close: {
-        marginTop: 15,
-        width: 80,
+    close:{
+        marginTop:15,
+        width:80,
     }
 })

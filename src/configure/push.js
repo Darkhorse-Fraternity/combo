@@ -60,7 +60,7 @@ export default function pushConfig() {
          */
         requestPermissions: true,
     });
-    if (Platform.OS != 'ios') {
+    if (Platform.OS !== 'ios') {
 
 
         const LeanCloudPushNative = NativeModules.LeanCloudPush;
