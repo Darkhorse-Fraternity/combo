@@ -32,7 +32,7 @@ import {
     state => ({}),
     dispatch => ({
         share:(type,params)=>{
-            shareTo(type,params)
+            dispatch(shareTo(type,params))
         }
     })
 )

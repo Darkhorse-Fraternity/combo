@@ -257,6 +257,8 @@ export default class Creat extends Component {
                         <Text style={styles.sureBtnText}>更多配置</Text>
                     </TouchableOpacity>
                     <HeaderBtn
+                        hitSlop={
+                        {top: 0, left: 20, bottom: 20, right: 20}}
                         style={styles.sureBtn1}
                         load={this.props.load }
                         title={'完成'}

@@ -244,6 +244,7 @@ export default class Publishing extends Component {
 
 
                 <HeaderBtn
+                    hitSlop={{top: 0, left: 20, bottom: 20, right: 20}}
                     style={styles.headerBtn}
                     load={this.props.load }
                     title={iCard.state === 0 ? "马上发布" : '取消发布'}

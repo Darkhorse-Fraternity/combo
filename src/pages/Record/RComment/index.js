@@ -15,7 +15,8 @@ import {
     TouchableOpacity,
     Text,
     PixelRatio,
-    Clipboard
+    Clipboard,
+    Keyboard
 } from 'react-native'
 import { connect } from 'react-redux'
 import RecordRow from '../RecordRow'
@@ -68,7 +69,8 @@ const Name = 'text'
             const iDoData = props.navigation.state.params.data
 
             const selector = formValueSelector(FormID) // <-- same as form name
-            KeyboardUtils.dismiss()
+            // KeyboardUtils.dismiss()
+            Keyboard.dismiss()
 
             const state = getState()
             const text = selector(state, Name)
@@ -164,7 +166,7 @@ export default class RComment extends Component {
     }
 
     componentWillUnmount() {
-        KeyboardUtils.dismiss()
+        Keyboard.dismiss()
     }
 
     _renderHeader = () => {
@@ -264,6 +266,7 @@ export default class RComment extends Component {
         return (
             <StyledContent>
                 <LCList
+                    keyboardDismissMode='interactive'
                     ListHeaderComponent={this._renderHeader}
                     style={[styles.list]}
                     reqKey={ICOMMENT}

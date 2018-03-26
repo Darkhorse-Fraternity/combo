@@ -8,7 +8,19 @@ export  function dataCleanInject(data) {
 
 const icommnetInject = (data)=>{
     return dispatch =>{
-        console.log('test:', data);
+        const {iDo} = data
+        if(!iDo) return;
+
+        // const doKeys = Object.keys(iDo)
+        // console.log('test:', doKeys);
+        // if(doKeys.length === 0) return
+        //
+        // const flag = doKeys.find(key => {
+        //     return iDo[key].commentNew
+        // })
+        //
+        // console.log('test:', flag);
+
 
     }
 }

@@ -92,8 +92,16 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                       sourceApplication:sourceApplication annotation:annotation];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+            options:(NSDictionary<NSString*, id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
+
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
   return [Orientation getOrientation];
 }
+
+
 
 @end

@@ -25,7 +25,7 @@ import ZoomImage from 'react-native-zoom-image';
 import {ICARD, USER, IUSE, IUSEExist} from '../../redux/reqKeys'
 import {getUserByID, existSearch} from '../../request/leanCloud'
 import {req,requestSucceed,DATA} from '../../redux/actions/req'
-import {user} from '../../redux/scemes'
+import {entityFromCode} from '../../redux/scemes'
 import {selfUser, iCard} from '../../request/LCModle'
 import Toast from 'react-native-simple-toast';
 import {add} from '../../redux/module/leancloud'
@@ -48,7 +48,7 @@ import moment from 'moment'
             if (!iCardUser.username && iCardUser.objectId) {
 
                 const param = getUserByID(iCardUser.objectId)
-                req(param, USER, {normalizr: true, sceme: user})
+                req(param, USER, {normalizr: true, sceme: entityFromCode(USER)})
 
             }
         },

@@ -1,18 +1,22 @@
-import  {registerListKeys,ICARD,USER,IUSE}  from './reqKeys'
+import { registerListKeys, ICARD, USER, IUSE } from './reqKeys'
 
-import {schema} from 'normalizr';
+import { schema } from 'normalizr';
 
 export const code = 'results'
 
 
-const entity = (key,config={})=> new schema.Entity(key,config,{ idAttribute: 'objectId' });
-const list = (item) => new schema.Object({[code]: new schema.Array(item)})
+const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
+const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
+export const entityFromCode = key => new schema.Object({ [code]: entity(key)})
+
+
+const user = entity(USER)
 
 
 
-export const user = entity(USER)
-const iCard = entity(ICARD,{user})
-const iUse = entity(IUSE,{user,iCard})
+const iCard = entity(ICARD, { user })
+const iUse = entity(IUSE, { user, iCard })
+
 
 //
 // const config = {
@@ -38,14 +42,17 @@ const iUse = entity(IUSE,{user,iCard})
 // }
 
 const entitys = {
-    [ICARD]:iCard,
-    [IUSE]:iUse
+    [ICARD]: iCard,
+    [IUSE]: iUse
 }
 
-const auto = (key)=> list(entitys[key]||entity(key))
+const auto = (key) => list(entitys[key] || entity(key))
+
 function autoKeys(keys) {
     const schemas = {}
-    keys.forEach( key =>{ schemas[key] = auto(key) })
+    keys.forEach(key => {
+        schemas[key] = auto(key)
+    })
     return schemas
 }
 
@@ -56,6 +63,4 @@ export const schemas = {
 
 
 //从normalizr 数据库中取得、存入对应值的key
-export const listDefouteKey = {
-
-}
+export const listDefouteKey = {}

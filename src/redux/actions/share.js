@@ -15,43 +15,50 @@ import * as QQAPI from 'react-native-qq';
 
 WeChat.registerApp('wx637e6f35f8211c6d')
 
-export function shareTo(type: string,param:object):Function {
+export function shareTo(type: string, param: object): Function {
 
-    if(type ===SHARE_TO_TIMELINE || type === SHARE_TO_SESSION){
-        shareToWechat(type,param)
-    }else if(type ===SHARE_TO_QQ || type === Share_TO_ZONE) {
-        shareToQQ(type,param)
-    }else if(type === SHARE_TO_SINA) {
-        shareToWeibo(param)
+    return dispatch => {
+        if (type === SHARE_TO_TIMELINE || type === SHARE_TO_SESSION) {
+            dispatch(shareToWechat(type, param))
+        } else if (type === SHARE_TO_QQ || type === Share_TO_ZONE) {
+            dispatch(shareToQQ(type, param))
+        } else if (type === SHARE_TO_SINA) {
+            dispatch(shareToWeibo(param))
+        }
     }
 
 
 }
 
 
-export function shareToWechat(type: string,param:object): Function {
+export function shareToWechat(type: string, param: object ={}): Function {
 
     let Method = WeChat.shareToTimeline;
-    if (type == SHARE_TO_SESSION) Method = WeChat.shareToSession
+    if (type === SHARE_TO_SESSION) Method = WeChat.shareToSession
 
-    return async(dispatch)=> {
+    return async (dispatch) => {
         try {
             let result = await Method({
                 type: 'news',
-                title: param.title||'web image',
-                webpageUrl: param.webpageUrl||'www.baidu.com',
-                description: param.description||'share web image to time line',
+                title: param.title || '金色光芒',
+                webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn/',
+                description: param.description || '勇敢地成为你自己',
                 mediaTagName: 'email signature',
                 messageAction: undefined,
                 messageExt: undefined,
-                imageUrl: param.imageUrl||'http://www.ncloud.hk/email-signature-262x100.png',
-                thumbImage:param.thumbImage||'http://www.ncloud.hk/email-signature-262x100.png'
+                imageUrl: param.imageUrl || 'http://www.ncloud.hk/email-signature-262x100.png',
+                thumbImage: param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png'
             });
             console.log('share text message to time line successful:', result);
-            return dispatch(()=> {
-                type, result
+            return dispatch(() => {
+                // type, result
             })
         } catch (e) {
+            if (e instanceof WeChat.WechatError) {
+                console.error(e.stack);
+            } else {
+                throw e;
+            }
             console.error('share text message to time line failed with:', e.message);
         }
     }
@@ -59,22 +66,22 @@ export function shareToWechat(type: string,param:object): Function {
 
 }
 
-export function shareToQQ(type:string,param:object):Function{
+export function shareToQQ(type: string, param: object = {}): Function {
     let Method = QQAPI.shareToQQ;
-    if(type == Share_TO_ZONE)  Method = QQAPI.shareToQzone
+    if (type === Share_TO_ZONE) Method = QQAPI.shareToQzone
 
-    return async (dispatch)=> {
+    return async (dispatch) => {
         try {
             let result = await Method({
                 type: 'news',
-                title: param.title||'分享标题',
-                description:  param.description||'描述',
-                webpageUrl: param.webpageUrl||'网页地址',
-                imageUrl: param.imageUrl||param.thumbImage||'http://www.ncloud.hk/email-signature-262x100.png',
+                title: param.title || '金色光芒',
+                description: param.description || '',
+                webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn/',
+                imageUrl: param.imageUrl || param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png',
             });
             console.log('share text message to time line successful:', result);
-            return dispatch(()=> {
-                type, result
+            return dispatch(() => {
+                // type, result
             })
         } catch (e) {
             console.error('share text message to time line failed with:', e.message);
@@ -82,8 +89,8 @@ export function shareToQQ(type:string,param:object):Function{
     }
 }
 
-export  function shareToWeibo(param:object) :Function{
-    return async    (dispatch)=> {
+export function shareToWeibo(param: object): Function {
+    return async (dispatch) => {
         try {
             let result = await WeiboAPI.share({
                 type: 'news',
@@ -91,7 +98,7 @@ export  function shareToWeibo(param:object) :Function{
                 imageUrl: '远程图片地址',
             });
             console.log('share text message to time line successful:', result);
-            return dispatch(()=> {
+            return dispatch(() => {
                 type:SHARE_TO_SINA, result
             })
         } catch (e) {

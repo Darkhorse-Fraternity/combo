@@ -44,9 +44,9 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
         const listKey = option.sKey || key
         const page = !more ? 0 : getState().list.getIn([listKey, 'page']) + 1;
         const load = getState().list.getIn([listKey, 'loadStatu'])
-        if (load != LIST_LOAD_DATA && load != LIST_LOAD_MORE) {//not serial
+        if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {//not serial
             // params.params[pageKey] = page + '';
-            dispatch(_listStart(page !== 0, load == undefined, listKey));//当page 不为0 的时候则表示不是加载多页。
+            dispatch(_listStart(page !== 0, load === undefined, listKey));//当page 不为0 的时候则表示不是加载多页。
             reqA(params).then(response => {
                 if (response[RESCODE]) {
                     if (response[RESCODE] === SUCCODE) {
@@ -76,7 +76,7 @@ export function listLoad(key: string, params: Object, more: bool = false, dataMa
     return (dispatch, getState) => {
         const page = !more ? 0 : getState().list.getIn([key, 'page']) + 1;
         const load = getState().list.getIn([key, 'loadStatu'])
-        if (load != LIST_LOAD_DATA && load != LIST_LOAD_MORE) {//not serial
+        if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {//not serial
             params.params[pageKey] = page + '';
             // const newParams = limitSearch(path,page,pageSize,params);
             dispatch(_listStart(page !== 0, load == undefined, key));//当page 不为0 的时候则表示不是加载多页。
