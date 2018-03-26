@@ -11,9 +11,10 @@ export const REQUEST_FAILED = 'REQUEST_FAILED'
 export const REQUESR_CHANGE_DATA = 'REQUESR_CHANGE_DATA'
 import Toast from 'react-native-simple-toast';
 import store from '../configureStore'
-import { schemas } from '../scemes'
 import { normalize } from 'normalizr';
 import { addEntities } from '../module/normalizr'
+import { schemas } from '../scemes'
+
 
 export const RESCODE = 'code'
 export const SUCCODE = -1000
@@ -58,13 +59,14 @@ export function reqM(params) {
 }
 
 
-export function cleanData(key, response, option) {
-    let data = !option.dataMap ? response : option.dataMap(response) || response
+export function cleanData(response, option) {
+    const data = !option.dataMap ? response : option.dataMap(response) || response
 
-    if (option.normalizr && data) {
-        data = normalize(data, option.sceme || schemas[key]);
-        data && data.entities && store.dispatch(addEntities(data.entities))
-        return data.result[DATA]
+    if (option.sceme  && data) {
+        const  normalizeData = normalize(data, option.sceme);
+        normalizeData && normalizeData.entities
+        && store.dispatch(addEntities(normalizeData.entities))
+        return normalizeData.result[DATA]
     }
     return data;
 }
@@ -80,7 +82,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
     return reqM(params).then(response => {
         if (response[RESCODE]) {
             if (response[RESCODE] === SUCCODE) {
-                const data = cleanData(key, response, option)
+                const data = cleanData(response, option)
                 dispatch(requestSucceed(key, data))
             } else {
                 dispatch(requestFailed(key, response[MSG]))
@@ -113,7 +115,7 @@ export function req(params: Object, key: string, option: Object = {}) {
 
 
 export function load(params: Object, key: stringg) {
-    return req(params, key, { 'normalizr': true })
+    return req(params, key, { 'sceme':schemas[key] })
 }
 
 

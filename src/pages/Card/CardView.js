@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -17,16 +17,16 @@ import {
     Alert,
     Image
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 // import {logout} from '../../redux/actions/user'
-import {ICARD, IDO, IUSE} from '../../redux/reqKeys'
-import {add, search, update, batch} from '../../redux/module/leancloud'
-import {req} from '../../redux/actions/req'
+import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
+import { add, search, update, batch } from '../../redux/module/leancloud'
+import { req, load } from '../../redux/actions/req'
 
-import {classUpdate, classCreatNewOne} from '../../request/leanCloud'
-import {selfUser, iCard, iUse} from '../../request/LCModle'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
-import {clear} from '../../redux/actions/list'
+import { classUpdate, classCreatNewOne } from '../../request/leanCloud'
+import { selfUser, iCard, iUse } from '../../request/LCModle'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { clear } from '../../redux/actions/list'
 import Pop from '../../components/Pop'
 import Do from './Do'
 import moment from 'moment'
@@ -50,7 +50,7 @@ function makeScaleInTranslation(translationType, value) {
 }
 
 const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
-Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
+Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
 // import
 //static displayName = Home
 //data:state.req.get()
@@ -86,7 +86,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 const id = data.objectId
                 const time = data.time + 1
                 const param = {
-                    doneDate: {"__type": "Date", "iso": moment()},
+                    doneDate: { "__type": "Date", "iso": moment() },
                     time: time,
                     //cycle,
                     statu: time === data.period ? "stop" : "start"
@@ -94,7 +94,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
 
 
                 if (iCardM.record.length > 0) {
-                    Pop.show(<Do data={data}/>, {maskStyle: {backgroundColor: 'transparent'}})
+                    Pop.show(<Do data={data}/>, { maskStyle: { backgroundColor: 'transparent' } })
                     return
                 }
 
@@ -106,7 +106,7 @@ Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
                 })
 
 
-                const res2 = await req(iDoP, IDO, {'normalizr': true})
+                const res2 = await load(iDoP, IDO)
 
                 if (res2.error) {
                     Toast.show(res2.error)
@@ -226,7 +226,7 @@ export default class Home extends Component {
 
         if (size1 > size2 && size2 != 0) {
             this.refs.list &&
-            this.refs.list.scrollToOffset({x: 0, y: 0, animated: false})
+            this.refs.list.scrollToOffset({ x: 0, y: 0, animated: false })
         }
     }
 
@@ -243,13 +243,11 @@ export default class Home extends Component {
     }
 
 
-
-
     __flagView = (data, flag) => {
         const iCardId = data[ICARD]
         const iCard = this.props.iCard.get(iCardId)
         let FlagView = (
-            <View style={{height: 150, justifyContent: 'center'}}>
+            <View style={{ height: 150, justifyContent: 'center' }}>
                 <Animatable.Text
                     animation="zoomInUp"
                     style={styles.num}>
@@ -262,7 +260,7 @@ export default class Home extends Component {
             </View>)
         if (data.time === Number(iCard.get("period"))) {
             FlagView = (
-                <View style={{height: 150, justifyContent: 'center'}}>
+                <View style={{ height: 150, justifyContent: 'center' }}>
                     <Text style={styles.done}>{
                         '恭喜,\n第' +
                         (data.cycle + 1) +
@@ -271,7 +269,7 @@ export default class Home extends Component {
         } else if (data.doneDate && flag) {
 
             FlagView = (
-                <View style={{height: 150, justifyContent: 'center'}}>
+                <View style={{ height: 150, justifyContent: 'center' }}>
                     <Text
                         numberOfLines={0}
                         style={styles.notifyText}>
@@ -285,7 +283,7 @@ export default class Home extends Component {
 
 
     rows = []
-    __renderItem = ({item, index}) => {
+    __renderItem = ({ item, index }) => {
         const data = this.props.normalizrData.get(item).toJS()
 
         const iCardId = data[ICARD]
@@ -325,8 +323,11 @@ export default class Home extends Component {
                     style={styles.quotation}
                     source={require('../../../source/img/op/quotation.png')}/>
                 <TouchableOpacity
-                    onPress={()=>{
-                        this.props.navigation.navigate('CardDetail',{iUse:data,iCard:iCard.toJS()})
+                    onPress={() => {
+                        this.props.navigation.navigate('CardDetail', {
+                            iUse: data,
+                            iCard: iCard.toJS()
+                        })
                     }}
                     style={styles.card}>
                     {this.__flagView(data, done)}
@@ -356,7 +357,7 @@ export default class Home extends Component {
                     }}>
                     <Icon name="md-add" color="white" size={50}/>
                 </TouchableOpacity>
-                <Text style={{marginTop: 10}}>给自己添加个习惯卡片吧~</Text>
+                <Text style={{ marginTop: 10 }}>给自己添加个习惯卡片吧~</Text>
             </View>
 
         )

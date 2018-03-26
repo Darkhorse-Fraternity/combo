@@ -6,7 +6,7 @@ export const code = 'results'
 
 
 const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
-const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
+export const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
 export const entityFromCode = key => new schema.Object({ [code]: entity(key)})
 
 

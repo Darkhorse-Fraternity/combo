@@ -48,7 +48,7 @@ import moment from 'moment'
             if (!iCardUser.username && iCardUser.objectId) {
 
                 const param = getUserByID(iCardUser.objectId)
-                req(param, USER, {normalizr: true, sceme: entityFromCode(USER)})
+                req(param, USER, {sceme: entityFromCode(USER)})
 
             }
         },

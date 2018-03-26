@@ -21,6 +21,7 @@ export const LIST_SELECT = 'LIST_SELECT'
 export const LIST_DELETE = 'LIST_DELETE'
 export const LIST_ADD = 'LIST_ADD'
 import Toast from 'react-native-simple-toast';
+import { schemas } from '../scemes'
 
 const pageSize = 20;
 import {addNormalizrEntity} from '../module/normalizr'
@@ -50,7 +51,8 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
             reqA(params).then(response => {
                 if (response[RESCODE]) {
                     if (response[RESCODE] === SUCCODE) {
-                        const data = cleanData(key, response[DATA], {...option, 'normalizr': true})
+                        const data = cleanData(response[DATA], {...option,
+                            'sceme':option.sceme||schemas[key]})
                         if (!data) {
                             console.log(key, response[DATA], '数据为空');
                             return dispatch(_listFailed(listKey));
