@@ -68,7 +68,7 @@ export async function  dayNotification(data) {
         if(item.statu !== 'start'){return}
         let notifyTime = item.iCard.notifyTime.split(":")[0]
         notifyTime = parseInt(notifyTime)
-        
+
 
         const title = item.iCard.title
         const message = item.iCard.notifyText ||( item.iCard.title +"完成了吗?")
