@@ -21,7 +21,7 @@ import Menu from '../../pages/Home/Menu'
 import Icon from 'react-native-vector-icons/Ionicons'
 import * as Animatable from 'react-native-animatable';
 
-import CardView from '../Card/CardView'
+import CardView from '../Card'
 import LoginView from '../Setting/LoginView'
 
 import PushManage from '../../configure/localNotification'
@@ -113,7 +113,7 @@ export default class Home extends Component {
                     -{name},您好！
                 </Text>
                 <View style={styles.headViewSub}>
-                    <Text style={styles.headViewSubText}>想尝试什么?</Text>
+                    <Text style={styles.headViewSubText}>长按打卡，轻触查看详情</Text>
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('NewCard')

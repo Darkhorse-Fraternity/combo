@@ -32,20 +32,17 @@ class App extends Component {
     render() {
         return (
             <Provider store={configureStore}>
-                {/*{Route(store)}*/}
-                {/*<Route/>*/}
                 <ThemeProvider theme={theme} >
                     <View style={{flex: 1}}>
                         {Platform.OS !== 'ios' && Platform.Version >= 20 && (
                             <StatusBar
                                 translucent={true}
-                                backgroundColor="transparent"
-                                barStyle="dark-content"
+                                backgroundColor={'rgba(0, 0, 0, 0.3)'}
+                                barStyle={'light-content'}
                             />
                         )}
                         <AppWithNavigationState/>
                         <InfoBar/>
-                        {/*<Form/>*/}
                     </View>
                 </ThemeProvider>
             </Provider>

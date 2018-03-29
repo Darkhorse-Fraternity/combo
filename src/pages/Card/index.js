@@ -26,6 +26,7 @@ import { req, load } from '../../redux/actions/req'
 import { classUpdate, classCreatNewOne } from '../../request/leanCloud'
 import { selfUser, iCard, iUse } from '../../request/LCModle'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
+import SliderEntry from './Cell/SliderEntry'
 import { clear } from '../../redux/actions/list'
 import Pop from '../../components/Pop'
 import Do from './Do'
@@ -34,32 +35,35 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import SmallDoneBtn from '../../components/Button/SmallDoneBtn'
 import * as Animatable from 'react-native-animatable';
+import Carousel from 'react-native-snap-carousel';
+import { sliderWidth, itemWidth } from './Cell/SliderEntry.style';
 
+
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 // import TinderCard from '../../components/Card/TinderCard'
 
-function makeScaleInTranslation(translationType, value) {
-    return {
-        from: {
-            [translationType]: 0,
-        },
-        to: {
-            [translationType]: value,
-        },
-    };
-}
-
-const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
-Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
+// function makeScaleInTranslation(translationType, value) {
+//     return {
+//         from: {
+//             [translationType]: 0,
+//         },
+//         to: {
+//             [translationType]: value,
+//         },
+//     };
+// }
+//
+// const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
+// Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
 // import
 //static displayName = Home
 //data:state.req.get()
 @connect(
     state => ({
         data: state.list.get(IUSE),
-        normalizrData: state.normalizr.get(IUSE),
+        iUse: state.normalizr.get(IUSE),
         iCard: state.normalizr.get(ICARD),
-        user: state.user.data,
         load: state.req.get(IDO).get("load"),
         refreshLoad: state.req.get(IUSE).get("load")
     }),
@@ -114,80 +118,17 @@ Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
                 }
 
 
-                // const res3 = await req(IUseP)
-                //
-                // if(res3.error){
-                //     Toast.show(res3.error)
-                //     return
-                // }
-
-                // const res = await batch([iCardP, iDoP])
-                // if(res[0].error ){
-                //     Toast.show(res[0].error)
-                //     return
-                // }
-                //
-
                 const entity = {
                     ...param,
                     // ...(res3)
                     objectId: id
                 }
 
-                // const res = await batch([IUseP, iDoP])
-                // // const res = await update(id, param, ICARD)
-                //
-                // if(res[0].error ){
-                //     Toast.show(res[0].error)
-                //     return
-                // }
-                // if(res[1].error){
-                //     Toast.show(res[1].error)
-                //     return
-                // }
-                //
-                //
-                // const entity = {
-                //     ...param,
-                //     ...(res[0].success)
-                // }
-
-                // dispatch(addEntities({
-                //     [IUSE]: {
-                //         [entity.objectId]: entity
-                //     }
-                // }))
                 dispatch(addNormalizrEntity(IUSE, entity))
 
             })
         },
 
-        setting: (entity, setting) => {
-            entity.setting = setting
-            // dispatch(addEntities({
-            //     [IUSE]: {
-            //         [entity.objectId]: entity
-            //     }
-            // }))
-            dispatch(addNormalizrEntity(IUSE, entity))
-        },
-        stop: async (data, index, callBack) => {
-            const id = data.objectId
-            const param = {
-                statu: 'stop',
-                //cycle,
-            }
-            const res = await update(id, param, IUSE)
-            const entity = {
-                ...param,
-                ...res,
-                setting: false,
-            }
-
-            dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(clear(IUSE, index))
-            callBack && callBack()
-        },
         refresh: async (data) => {
             const id = data.objectId
             const param = {
@@ -210,24 +151,26 @@ Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
 export default class Home extends Component {
     constructor(props: Object) {
         super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+
     }
 
     static propTypes = {};
     static defaultProps = {};
 
 
-    shouldComponentUpdate(nextProps: Object) {
-        return !immutable.is(this.props, nextProps)
-    }
+    // shouldComponentUpdate(nextProps: Object) {
+    //     return !immutable.is(this.props, nextProps)
+    // }
 
     componentWillReceiveProps(nextProps: Objec) {
-        const size1 = nextProps.data.get('listData').size
-        const size2 = this.props.data.get('listData').size
-
-        if (size1 > size2 && size2 != 0) {
-            this.refs.list &&
-            this.refs.list.scrollToOffset({ x: 0, y: 0, animated: false })
-        }
+        // const size1 = nextProps.data.get('listData').size
+        // const size2 = this.props.data.get('listData').size
+        //
+        // if (size1 > size2 && size2 !== 0) {
+        //     this.refs.list &&
+        //     this.refs.list.scrollToOffset({ x: 0, y: 0, animated: false })
+        // }
     }
 
 
@@ -284,8 +227,9 @@ export default class Home extends Component {
 
     rows = []
     __renderItem = ({ item, index }) => {
-        const data = this.props.normalizrData.get(item).toJS()
+        const data = this.props.iUse.get(item).toJS()
 
+        console.log('data:', data);
         const iCardId = data[ICARD]
         let iCard = this.props.iCard.get(iCardId)
         // const isSelf = iCard.get('user') == this.props.user.objectId
@@ -293,10 +237,39 @@ export default class Home extends Component {
         //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
 
         //flag 为true 的时候说明离上次打卡已经有24小时了
-        const doneDate = data.doneDate.iso
-        const lastMoment = moment(doneDate)
-        const done = moment.min(lastMoment, moment(2, "HH")) === lastMoment
+        // const lastMoment = moment(data.doneDate.iso)
+        // const done = moment.min(lastMoment, moment(2, "HH")) === lastMoment
+        const done =  moment(2, "HH").isBefore(data.doneDate.iso)
         const over = data.time === Number(iCard.get("period"))
+
+
+        return <SliderEntry
+            over={over}
+            done={done}
+            refreshLoad={this.props.refreshLoad}
+            onLongPress={()=>{
+               !this.props.load &&
+               !done &&
+               this.props.done(data)
+
+            }}
+            onPress={() => {
+                this.props.navigation.navigate('CardDetail', {
+                    iUse: data,
+                    iCard: iCard.toJS()
+                })
+            }}
+            onRefresh = {()=>{
+                !this.props.refreshLoad && over
+                && this.props.refresh(data)
+            }}
+            carouselRef={this._carousel}
+            parallax={true}
+            data={data}
+            iCard={iCard.toJS()}
+            even={false}
+        />;
+
         const doneBtn = () => {
             if (over) {
                 return (<HeaderBtn
@@ -377,21 +350,39 @@ export default class Home extends Component {
         if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
             return this.__renderNoData()
         }
-        return (
+        //
+        // <FlatList
+        //     onScroll={this.props.onScroll}
+        //     ref="list"
+        //     animation="slideInRight"
+        //     style={styles.container}
+        //     data={data}
+        //     horizontal={true}
+        //     // removeClippedSubviews={true}
+        //     // pagingEnabled={true}
+        //     showsHorizontalScrollIndicator={false}
+        //     renderItem={this.__renderItem}
+        //     keyExtractor={this._keyExtractor}
+        // />
 
-            <FlatList
-                onScroll={this.props.onScroll}
-                ref="list"
-                animation="slideInRight"
-                style={styles.container}
-                data={data}
-                horizontal={true}
-                // removeClippedSubviews={true}
-                // pagingEnabled={true}
-                showsHorizontalScrollIndicator={false}
-                renderItem={this.__renderItem}
-                keyExtractor={this._keyExtractor}
-            />
+
+        return (
+            <View>
+
+                <Carousel
+                    ref={(c) => {
+                        this._carousel = c;
+                    }}
+                    data={data}
+                    renderItem={this.__renderItem}
+                    sliderWidth={sliderWidth}
+                    itemWidth={itemWidth}
+                    // layout='stack'
+                    // loop={true}
+                    containerCustomStyle={styles.slider}
+                    contentContainerCustomStyle={styles.sliderContentContainer}
+                />
+            </View>
         );
     }
 }
@@ -404,6 +395,13 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         // backgroundColor: '#F5FCFF',
     },
+    slider: {
+        //overflow: 'visible' // for custom animations
+    },
+    sliderContentContainer: {
+        paddingVertical: 0 // for custom animation
+    },
+
     bc: {
         position: 'absolute',
         width: Dimensions.get('window').width,

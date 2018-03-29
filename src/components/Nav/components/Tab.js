@@ -45,6 +45,7 @@ class CustomTabView extends Component {
             const focused = index === navigation.state.index;
             let tabInfo = tabiCon[route.routeName]
             const color = focused ? tabInfo.color : tabInfo.activityColor
+            const size = focused ? 40: 30
             const refs = {}
             return (<TouchableOpacity
                     onPress={() => {
@@ -58,7 +59,7 @@ class CustomTabView extends Component {
                     <AniView
                         ref={node=> refs[tabInfo.label] =node}
                         name={tabInfo.icon}
-                        size={30}
+                        size={size}
                         color={color}
                         //backgroundColor="transparent"
                         //resizeMode = 'contain'
