@@ -17,7 +17,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
-import ZoomImage from 'react-native-zoom-image';
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 //static displayName = RecordRow
@@ -102,7 +101,6 @@ export default class RecordRow extends Component {
         const { item } = this.props
         if (!item) return null
         const img = item.imgs && item.imgs[0] || null
-        console.log('test:',item, img);
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
             <TouchableOpacity

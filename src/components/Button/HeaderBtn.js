@@ -34,7 +34,7 @@ export default class SmallDoneBtn extends Component {
                     backgroundColor:disabled?'rgb(150,150,150)':'black'
                 }, this.props.style]}
                 hitSlop={this.props.hitSlop ||
-                {top: 50, left: 100, bottom: 50, right: 100}}
+                {top: 20, left: 50, bottom: 20, right: 50}}
             >
                 {!this.props.load ? (
                         <Text
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,
-        paddingHorizontal: 10,
+        height:35,
         backgroundColor: 'black',
     },
     title: {

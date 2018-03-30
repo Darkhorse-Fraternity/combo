@@ -322,6 +322,7 @@ export default class Home extends Component {
                     renderItem={this.__renderItem}
                     sliderWidth={sliderWidth}
                     itemWidth={itemWidth}
+                    removeClippedSubviews={false}
                     // layout='stack'
                     // loop={true}
                     containerCustomStyle={styles.slider}
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#F5FCFF',
     },
     slider: {
-        //overflow: 'visible' // for custom animations
+        overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
         paddingVertical: 0 // for custom animation
