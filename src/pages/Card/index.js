@@ -229,16 +229,9 @@ export default class Home extends Component {
     __renderItem = ({ item, index }) => {
         const data = this.props.iUse.get(item).toJS()
 
-        console.log('data:', data);
+        // console.log('data:', data);
         const iCardId = data[ICARD]
         let iCard = this.props.iCard.get(iCardId)
-        // const isSelf = iCard.get('user') == this.props.user.objectId
-        // data[ICARD] = iCard.toJS()
-        //计算上次完成时间和当前完成时间， 只有大于24个小时，才能再次打卡。
-
-        //flag 为true 的时候说明离上次打卡已经有24小时了
-        // const lastMoment = moment(data.doneDate.iso)
-        // const done = moment.min(lastMoment, moment(2, "HH")) === lastMoment
         const done =  moment(2, "HH").isBefore(data.doneDate.iso)
         const over = data.time === Number(iCard.get("period"))
 
@@ -269,54 +262,6 @@ export default class Home extends Component {
             iCard={iCard.toJS()}
             even={false}
         />;
-
-        const doneBtn = () => {
-            if (over) {
-                return (<HeaderBtn
-                    title={"再来一组"}
-                    load={this.props.refreshLoad}
-                    onPress={() => {
-                        this.props.refresh(data)
-                    }}/>)
-            } else {
-                return (<SmallDoneBtn
-                    title={"点击打卡"}
-                    load={this.props.load}
-                    onPress={() => {
-                        this.props.done(data)
-                    }}/>)
-            }
-        }
-        return (
-            <Animatable.View
-
-                ref={(row) => this.rows[index] = row}
-                style={styles.item}>
-                <Image
-                    style={styles.quotation}
-                    source={require('../../../source/img/op/quotation.png')}/>
-                <TouchableOpacity
-                    onPress={() => {
-                        this.props.navigation.navigate('CardDetail', {
-                            iUse: data,
-                            iCard: iCard.toJS()
-                        })
-                    }}
-                    style={styles.card}>
-                    {this.__flagView(data, done)}
-                    <View style={styles.footer}>
-                        {(done || over) ? ( doneBtn()) :
-                            ( <View style={styles.setting}>
-                                <Icon
-                                    color='white'
-                                    name={'md-checkmark'}
-                                    size={20}/>
-                            </View>)}
-
-                    </View>
-                </TouchableOpacity>
-            </Animatable.View>
-        )
     }
 
 

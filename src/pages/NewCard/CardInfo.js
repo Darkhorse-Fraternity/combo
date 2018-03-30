@@ -23,7 +23,7 @@ import {connect} from 'react-redux'
 // import styled from 'styled-components/native';
 import ZoomImage from 'react-native-zoom-image';
 import {ICARD, USER, IUSE, IUSEExist} from '../../redux/reqKeys'
-import {getUserByID, existSearch} from '../../request/leanCloud'
+import {getUserByID, classSearch} from '../../request/leanCloud'
 import {req,requestSucceed,DATA} from '../../redux/actions/req'
 import {entityFromCode} from '../../redux/scemes'
 import {selfUser, iCard} from '../../request/LCModle'
@@ -32,13 +32,17 @@ import {add} from '../../redux/module/leancloud'
 import {addListNormalizrEntity} from '../../redux/actions/list'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
 import moment from 'moment'
+import { schemas } from '../../redux/scemes'
+
 //static displayName = CardInfo
 @connect(
     (state, props) => ({
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId),
         user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
-        useExist: state.req.get(IUSEExist)
+        useExist: state.req.get(IUSEExist),
+        data:state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
+        dataId:state.req.get(IUSEExist).get('data').get('0')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -72,20 +76,18 @@ import moment from 'moment'
                 ...card,
                 useNum:card.useNum +1,
             }))
-            dispatch(requestSucceed(IUSEExist, {
-                [DATA]:{ count:1}
-            }))
+            dispatch(requestSucceed(IUSEExist, [res.objectId]))
             // props.navigation.goBack()
             Toast.show('你接受了一个卡片' + card.title)
         },
         exist: async (id) => {
-            const params = existSearch(IUSE, {
+            const params = classSearch(IUSE, {
                 where: {
                     ...iCard(id),
                     ...selfUser(),
                 }
             })
-            req(params, IUSEExist)
+            req(params, IUSEExist,{sceme:schemas[IUSE]})
         }
 
     })
@@ -128,15 +130,17 @@ export default class CardInfo extends Component {
 
 
     render(): ReactElement<any> {
+
+
         const iCard = this.props.iCard.toJS()
         const iCardUser = this.props.user.toJS()
         const avatar = iCardUser.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
-        const useExist = this.props.useExist.toJS().data
-        const exist = useExist.results && useExist.results.count >= 1
+        const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
         const nickName = iCardUser.username === iCard.mobilePhoneNumber ?'光芒':iCardUser.username
+        const iUseData = this.props.data && this.props.data.toJS()
         // color: '#F3AC41',
         //     activityColor: '#F0C98B',
         return (
@@ -162,10 +166,18 @@ export default class CardInfo extends Component {
 
                 </ScrollView>
                 <TouchableOpacity onPress={() => {
-                    this.props.use(iCard)
+                    if(exist && iUseData){
+                        this.props.navigation.navigate('CardDetail', {
+                            iUse: iUseData,
+                            iCard: iCard
+                        })
+
+                    }else {
+                        this.props.use(iCard)
+                    }
                 }}
-                                  disabled={exist || load}
-                                  style={[styles.btn,{backgroundColor:!exist?"#F3AC41":"#F0C98B"}]}>
+                                  disabled={load}
+                                  style={[styles.btn,{backgroundColor:!load?"#F3AC41":"#F0C98B"}]}>
 
 
                     {load ? <ActivityIndicator color={"white"}/> :

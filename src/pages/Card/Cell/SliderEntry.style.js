@@ -43,6 +43,20 @@ export default StyleSheet.create({
         shadowOffset: { width: 0, height: 10 },
         shadowRadius: 10,
         borderRadius: entryBorderRadius,
+        // elevation: 10,
+    },
+    androidShadow:{
+        flex:1,
+        position: 'absolute',
+        top: 0,
+        left: itemHorizontalMargin,
+        right: itemHorizontalMargin,
+        bottom: 18,
+        shadowColor: colors.black,
+        shadowOpacity: 0.25,
+        shadowOffset: { width: 0, height: 10 },
+        shadowRadius: 10,
+        borderRadius: entryBorderRadius,
         elevation: 10,
     },
 
@@ -59,7 +73,7 @@ export default StyleSheet.create({
         shadowRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        elevation: 10,
+        elevation: 11,
     },
     overViewText: {
         color: 'white',
@@ -103,6 +117,7 @@ export default StyleSheet.create({
     image: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: 'cover',
+        width:'100%',
         borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius

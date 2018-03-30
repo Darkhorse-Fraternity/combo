@@ -5,7 +5,7 @@
 'use strict';
 
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -15,12 +15,12 @@ import {
     Dimensions,
     Image
 } from 'react-native'
-import {ICARD, IUSE, CARDLIST} from '../../redux/reqKeys'
+import { ICARD, IUSE, CARDLIST } from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 
-import {mainColor} from '../../configure'
-import {connect} from 'react-redux'
+import { mainColor } from '../../configure'
+import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 
@@ -32,10 +32,7 @@ const listKey = ICARD
     state => ({
         data: state.normalizr.get(listKey)
     }),
-    (dispatch, props) => ({
-
-
-    })
+    (dispatch, props) => ({})
 )
 
 export default class Publish extends Component {
@@ -62,22 +59,27 @@ export default class Publish extends Component {
     componentDidMount() {
     }
 
-    renderRow({item, index}: Object) {
+    renderRow({ item, index }: Object) {
 
         // console.log('test:', item);
-        const source = item.img ? {uri: item.img.url} : require('../../../source/img/my/icon-60.png')
+        const source = item.img ? { uri: item.img.url } : require('../../../source/img/my/icon-60.png')
         return (
             <TouchableOpacity
+                style={styles.item}
                 onPress={() => {
-                    this.props.navigation.navigate('CardInfo', {iCard: item})
+                    this.props.navigation.navigate('CardInfo', { iCard: item })
                     // this.props.use(item)
                 }}>
-                <Image style={styles.item} source={source}/>
-                <Text
-                    numberOfLines={1}
-                    style={styles.title}>
-                    {item.title}
-                </Text>
+                <View style={styles.shadow}/>
+                <Image style={styles.itemImage} source={source}/>
+                <View style={styles.itemTextView}>
+                    <Text
+                        numberOfLines={1}
+                        style={styles.title}>
+                        {item.title}
+                    </Text>
+                </View>
+
             </TouchableOpacity>
         )
     }
@@ -87,10 +89,7 @@ export default class Publish extends Component {
             <View style={styles.header}>
                 <TouchableOpacity
                     style={[styles.item,
-                        {justifyContent: 'center',
-                            borderColor:'#e4e4e4',
-                            borderWidth:StyleSheet.hairlineWidth,
-                            elevation:10}]}
+                        styles.shadow,{marginLeft:15}]}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
@@ -111,10 +110,10 @@ export default class Publish extends Component {
                 sKey={CARDLIST}  //在list 中的位置
                 callPath={CARDLIST} //表示走云函数,并告知云函数的路径
                 numColumns={3}
-                columnWrapperStyle={{paddingHorizontal: 10}}
+                columnWrapperStyle={{ paddingHorizontal: 10 }}
                 renderItem={this.renderRow.bind(this)}
                 dataMap={(data) => {
-                    return {results: data.result}
+                    return { results:{results: data.results.result} }
                 }}
                 reqParam={{}}
             />
@@ -132,28 +131,56 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: (width - 50) / 3,
         height: width / 3 * 1.3,
-        marginTop: 10,
+        marginTop: 20,
         marginHorizontal: 5,
         borderRadius: 10,
         alignItems: 'center',
-        shadowColor: "#000000",
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
+        elevation: 10,
+        justifyContent: 'center',
+
+    },
+
+    shadow: {
+        backgroundColor: 'white',
+        position: 'absolute',
+        top: 0,
+        left:0,
+        right:0,
+        bottom: 0,
+        shadowColor: "black",
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
         shadowOffset: {
-            height: 0.5,
-            width: 0.1,
+            height: 10,
+            width: 0,
         },
-        // elevation:10,
+        borderRadius: 10,
+        // elevation: 10,
+    },
+
+    itemImage: {
+        backgroundColor: 'white',
+        width: (width - 50) / 3,
+        height: width / 3 * 1.3,
+        borderRadius: 10,
+    },
+    itemTextView:{
+      width:"100%",
+        position: 'absolute',
+        bottom: 0,
+        backgroundColor:'rgba(0,0,0,0.5)',
+        alignItems:'center',
+        justifyContent:'center',
+        height:25,
+        borderRadius:10,
+
     },
     list: {
         flex: 1,
     },
     title: {
-        color: "black",
-        marginTop: 10,
+        color: "white",
         fontSize: 16,
-        maxWidth: width / 3 - 20,
-        alignSelf: 'center'
 
     },
     period: {
@@ -163,7 +190,8 @@ const styles = StyleSheet.create({
     header: {
         height: width / 3 * 1.4,
         // backgroundColor:'red',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginBottom:10,
     }
 
 

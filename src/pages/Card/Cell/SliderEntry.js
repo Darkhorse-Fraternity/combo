@@ -4,7 +4,8 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { ParallaxImage } from 'react-native-snap-carousel';
@@ -22,7 +23,7 @@ export default class SliderEntry extends Component {
         parallaxProps: PropTypes.object
     };
 
-    get image() {
+    image = () => {
         const {
             iCard: { img },
             parallax,
@@ -31,11 +32,11 @@ export default class SliderEntry extends Component {
             carouselRef
         } = this.props;
 
-        console.log('test:', this.props);
+        // console.log('test:', this.props);
 
         const source = img ? { uri: img.url } : require('../../../../source/img/my/icon-60.png')
 
-        return parallax ? (
+        return 0 ? (
             <ParallaxImage
                 carouselRef={carouselRef}
                 //dimensions={{width:100,height:100}}
@@ -50,6 +51,7 @@ export default class SliderEntry extends Component {
         ) : (
             <Image
                 source={source}
+                resizeMode={'center'}
                 style={styles.image}
             />
         );
@@ -90,22 +92,28 @@ export default class SliderEntry extends Component {
                     onLongPress={onLongPress}
                     onPress={onPress}
                 >
-                    <View style={styles.shadow}/>
-                    <View style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
-                        {this.image}
-                        <View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]}/>
-                    </View>
-                    <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
-                        {uppercaseTitle}
-                        <Text
-                            style={[styles.subtitle, even ? styles.subtitleEven : {}]}
-                            numberOfLines={2}
-                        >
-                            {notifyText}
-                        </Text>
+                    {Platform.OS ==='ios' &&(<View style={styles.shadow}/>)}
+                    <View style={styles.androidShadow}>
+                        <View
+                            style={[styles.imageContainer, even ? styles.imageContainerEven : {}]}>
+                            {this.image()}
+                            {Platform.OS ==='ios' &&
+                            (<View style={[styles.radiusMask, even ? styles.radiusMaskEven : {}]}/>)}
+                        </View>
+                        <View style={[styles.textContainer, even ? styles.textContainerEven : {}]}>
+                            {uppercaseTitle}
+                            <Text
+                                style={[styles.subtitle, even ? styles.subtitleEven : {}]}
+                                numberOfLines={2}
+                            >
+                                {notifyText}
+                            </Text>
+                        </View>
                     </View>
                     {done &&
-                    (<Animatable.View style={styles.doneView}>
+                    (<Animatable.View
+                        animation="fadeInDown"
+                        style={styles.doneView}>
                         <Icon
                             color='green'
                             name={'md-checkmark'}
@@ -115,7 +123,7 @@ export default class SliderEntry extends Component {
                         </Text>
                     </Animatable.View>)}
                     {over && (<TouchableOpacity
-                        animation="fadeInDown"
+
                         onPress={onRefresh}
                         disabled={refreshLoad}
                         style={styles.overView}>

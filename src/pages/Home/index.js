@@ -110,7 +110,7 @@ export default class Home extends Component {
                 <Text
                     numberOfLines={2}
                     style={styles.headViewText}>
-                    -{name},您好！
+                    -{name},{'\n'}您好！
                 </Text>
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>长按打卡，轻触查看详情</Text>

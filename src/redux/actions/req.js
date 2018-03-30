@@ -63,11 +63,12 @@ export function cleanData(response, option) {
     const data = !option.dataMap ? response : option.dataMap(response) || response
 
     if (option.sceme  && data) {
-        const  normalizeData = normalize(data, option.sceme);
+        const  normalizeData = normalize(data[DATA], option.sceme);
         normalizeData && normalizeData.entities
         && store.dispatch(addEntities(normalizeData.entities))
         return normalizeData.result[DATA]
     }
+
     return data;
 }
 

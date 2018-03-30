@@ -159,7 +159,6 @@ export default class Record extends Component {
                     <TouchableOpacity
                         style={{flex:1}}
                         onPress={()=>{
-
                     this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
             }}>
                         <View style={styles.row}>

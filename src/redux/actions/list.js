@@ -51,10 +51,10 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
             reqA(params).then(response => {
                 if (response[RESCODE]) {
                     if (response[RESCODE] === SUCCODE) {
-                        const data = cleanData(response[DATA], {...option,
+                        const data = cleanData(response, {...option,
                             'sceme':option.sceme||schemas[key]})
                         if (!data) {
-                            console.log(key, response[DATA], '数据为空');
+                            console.log(key, response, '数据为空');
                             return dispatch(_listFailed(listKey));
                         }
                         dispatch(_listSucceed(data, page, listKey));

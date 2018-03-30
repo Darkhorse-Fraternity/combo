@@ -13,6 +13,7 @@ import {
     Dimensions,
     Text,
     Easing,
+    Image,
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
@@ -53,7 +54,7 @@ export default class RecordRow extends Component {
         const { commentNew, commentNum, user } = item
 
         return (
-            <TouchableOpacity
+            <View
                 onPress={() => {
                     this.props.navigation &&
                     this.props.navigation.navigate('RComment', { data: item })
@@ -79,7 +80,7 @@ export default class RecordRow extends Component {
                     numberOfLines={1}
                     style={[styles.chatBtnText,]}>{item.commentNum}</Text>)}
                 {/*<Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text>*/}
-            </TouchableOpacity>
+            </View>
         )
     }
 
@@ -104,10 +105,16 @@ export default class RecordRow extends Component {
         console.log('test:',item, img);
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
-            <View style={[this.props.style, styles.wrap]}>
-                {img && (<ZoomImage
-                    easingFunc={Easing.bounce}
-                    imgStyle={styles.image}
+            <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => {
+                    this.props.navigation &&
+                    this.props.navigation.navigate('RComment', { data: item })
+                }}
+                style={[this.props.style, styles.wrap]}>
+                {img && (<Image
+                    // easingFunc={Easing.bounce}
+                    style={styles.image}
                     source={{ uri: img }}/>)}
                 <View style={styles.bottom}>
                     {!!item.recordText && (<Text numberOfLines={1}
@@ -123,7 +130,7 @@ export default class RecordRow extends Component {
                             this._renderDone()}
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 }

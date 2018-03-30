@@ -15,7 +15,7 @@ const user = entity(USER)
 
 
 const iCard = entity(ICARD, { user })
-const iUse = entity(IUSE, { user, iCard })
+export const iUse = entity(IUSE, { user, iCard })
 
 
 //
