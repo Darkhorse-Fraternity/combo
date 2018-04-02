@@ -1,4 +1,4 @@
-package com.rnstartkit.wxapi;
+package com.combo.wxapi;
 
 /**
  * Created by lintong on 2016/11/11.

@@ -18,7 +18,7 @@ import { selfUser, iUse } from '../../../request/LCModle'
 import { req,clear } from '../../../redux/actions/req'
 
 import Calendar from '../../../components/Calendar'
-
+import moment from 'moment'
 
 import {
     StyledAgendaRow
@@ -55,9 +55,8 @@ import { withTheme } from 'styled-components'
                 req(params,IDOCALENDAR,{dataMap:datas=>{
 
                     datas.results.forEach(item => {
-                        const date = new Date(item.createdAt);
-                        const time = date.toISOString().split('T')[0];
-                        data[time] = item
+                        const date = moment(item.createdAt).format("YYYY-MM-DD")
+                        data[date] = item
                     })
 
                     // console.log('first:', first,datas,data);

@@ -12,6 +12,7 @@ export const SHARE_TO_SINA = 'SHARE_TO_SINA'
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
 
+import Toast from 'react-native-simple-toast'
 
 WeChat.registerApp('wx637e6f35f8211c6d')
 
@@ -49,17 +50,25 @@ export function shareToWechat(type: string, param: object ={}): Function {
                 imageUrl: param.imageUrl || 'http://www.ncloud.hk/email-signature-262x100.png',
                 thumbImage: param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png'
             });
-            console.log('share text message to time line successful:', result);
+            console.log('shareToWechat successful:', result);
             return dispatch(() => {
                 // type, result
             })
         } catch (e) {
             if (e instanceof WeChat.WechatError) {
-                console.error(e.stack);
+                // console.error(e.stack);
+                const errObj = {
+                    '-1':'普通错误类型',
+                    '-2':'分享取消',
+                    '-3':'发送失败',
+                    '-4':'授权失败',
+                    '-5':'微信不支持',
+                }
+                Toast.show(errObj[e.code +""])
             } else {
                 throw e;
             }
-            console.error('share text message to time line failed with:', e.message);
+            // console.error('shareToWechat:', e);
         }
     }
 
@@ -84,6 +93,7 @@ export function shareToQQ(type: string, param: object = {}): Function {
                 // type, result
             })
         } catch (e) {
+            Toast.show(e.message)
             console.error('share text message to time line failed with:', e.message);
         }
     }
