@@ -4,6 +4,7 @@ export const ICARD = 'iCard'
 export const IDONE = 'iDone'
 export const IRECORD = 'iRecord'
 export const IDO = 'iDo'
+export const IDOCALENDAR = 'iDoCalendar'
 export const IUSE = 'iUse'
 export const AUTHCODE = 'authCode'
 export const SCENELIST = 'sceneList'
@@ -27,7 +28,8 @@ export const registerReqKeys = [
     PBULImage,
     IUSEExist,
     UPDATEUSERNAME,
-    FEEDBACKPARAM
+    FEEDBACKPARAM,
+    IDOCALENDAR
 //设置初始值
 ]
 

@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -18,19 +18,19 @@ import {
     ActivityIndicator,
     Easing
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components/native';
 import ZoomImage from 'react-native-zoom-image';
-import {ICARD, USER, IUSE, IUSEExist} from '../../redux/reqKeys'
-import {getUserByID, classSearch} from '../../request/leanCloud'
-import {req,requestSucceed,DATA} from '../../redux/actions/req'
-import {entityFromCode} from '../../redux/scemes'
-import {selfUser, iCard} from '../../request/LCModle'
+import { ICARD, USER, IUSE, IUSEExist } from '../../redux/reqKeys'
+import { getUserByID, classSearch } from '../../request/leanCloud'
+import { req, requestSucceed, DATA } from '../../redux/actions/req'
+import { entityFromCode } from '../../redux/scemes'
+import { selfUser, iCard } from '../../request/LCModle'
 import Toast from 'react-native-simple-toast';
-import {add} from '../../redux/module/leancloud'
-import {addListNormalizrEntity} from '../../redux/actions/list'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
+import { add } from '../../redux/module/leancloud'
+import { addListNormalizrEntity } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
 import moment from 'moment'
 import { schemas } from '../../redux/scemes'
 
@@ -41,8 +41,8 @@ import { schemas } from '../../redux/scemes'
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId),
         user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
         useExist: state.req.get(IUSEExist),
-        data:state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
-        dataId:state.req.get(IUSEExist).get('data').get('0')
+        data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
+        dataId: state.req.get(IUSEExist).get('data').get('0')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -52,7 +52,7 @@ import { schemas } from '../../redux/scemes'
             if (!iCardUser.username && iCardUser.objectId) {
 
                 const param = getUserByID(iCardUser.objectId)
-                req(param, USER, {sceme: entityFromCode(USER)})
+                req(param, USER, { sceme: entityFromCode(USER) })
 
             }
         },
@@ -62,7 +62,7 @@ import { schemas } from '../../redux/scemes'
                 cycle: 0,
                 time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
-                doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+                doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                 ...selfUser(),
                 ...iCard(card.objectId)
             }
@@ -74,7 +74,7 @@ import { schemas } from '../../redux/scemes'
             dispatch(addListNormalizrEntity(IUSE, entity))
             dispatch(addNormalizrEntity(ICARD, {
                 ...card,
-                useNum:card.useNum +1,
+                useNum: card.useNum + 1,
             }))
             dispatch(requestSucceed(IUSEExist, [res.objectId]))
             // props.navigation.goBack()
@@ -85,10 +85,10 @@ import { schemas } from '../../redux/scemes'
                 where: {
                     ...iCard(id),
                     ...selfUser(),
-                    statu:{"$ne":'del'},
+                    statu: { "$ne": 'del' },
                 }
             })
-            req(params, IUSEExist,{sceme:schemas[IUSE]})
+            req(params, IUSEExist, { sceme: schemas[IUSE] })
         }
 
     })
@@ -137,19 +137,19 @@ export default class CardInfo extends Component {
         const iCardUser = this.props.user.toJS()
         const avatar = iCardUser.avatar
         const avatarUrl = avatar && avatar.url
-        const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
+        const avatarSource = avatarUrl ? { uri: avatarUrl } : require('../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
-        const nickName = iCardUser.username === iCard.mobilePhoneNumber ?'光芒':iCardUser.username
+        const nickName = iCardUser.username === iCard.mobilePhoneNumber ? '光芒' : iCardUser.username
         const iUseData = this.props.data && this.props.data.toJS()
         // color: '#F3AC41',
         //     activityColor: '#F0C98B',
         return (
-            <View style={{flex: 1}}>
+            <View style={{ flex: 1 }}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     <ZoomImage
                         easingFunc={Easing.bounce}
-                        source={{uri: iCard.img.url}}
+                        source={{ uri: iCard.img.url }}
                         imgStyle={styles.img}/>
                     <View style={styles.row}>
                         <Image source={avatarSource} style={styles.avatar}/>
@@ -158,27 +158,27 @@ export default class CardInfo extends Component {
                         </Text>
                     </View>
                     {this.row('卡片名称:', iCard.title)}
-                    {this.row('卡片周期:', iCard.period+'次')}
-                    {this.row('记录模式:', iCard.record.join("+")||'无')}
+                    {this.row('卡片周期:', iCard.period + '次')}
+                    {this.row('记录模式:', iCard.record.join("+") || '无')}
                     {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
-                    {this.row('使用人数:', iCard.useNum+'人')}
+                    {this.row('使用人数:', iCard.useNum + '人')}
                     {this.row('提醒时间:', iCard.notifyTime)}
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
 
                 </ScrollView>
                 <TouchableOpacity onPress={() => {
-                    if(exist && iUseData){
+                    if (exist && iUseData) {
                         this.props.navigation.navigate('CardDetail', {
                             iUse: iUseData,
                             iCard: iCard
                         })
 
-                    }else {
+                    } else {
                         this.props.use(iCard)
                     }
                 }}
                                   disabled={load}
-                                  style={[styles.btn,{backgroundColor:!load?"#F3AC41":"#F0C98B"}]}>
+                                  style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>
 
 
                     {load ? <ActivityIndicator color={"white"}/> :
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     },
     name: {
         marginLeft: 18,
-        fontSize:17,
+        fontSize: 17,
         color: 'rgb(100,100,100)'
     },
     btn: {
@@ -232,13 +232,13 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: 'white',
-        fontSize:17,
+        fontSize: 17,
     },
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#8c8c85',
-        transform: [{rotate: '315deg'}],
+        transform: [{ rotate: '315deg' }],
         marginRight: 5,
         width: 10,
         height: 10,

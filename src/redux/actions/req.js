@@ -60,10 +60,11 @@ export function reqM(params) {
 
 
 export function cleanData(response, option) {
-    const data = !option.dataMap ? response : option.dataMap(response) || response
+    const data = (!option.dataMap ? response[DATA] : option.dataMap(response[DATA]))
+        || response
 
-    if (option.sceme  && data) {
-        const  normalizeData = normalize(data[DATA], option.sceme);
+    if (option.sceme && data) {
+        const normalizeData = normalize(data, option.sceme);
         normalizeData && normalizeData.entities
         && store.dispatch(addEntities(normalizeData.entities))
         return normalizeData.result[DATA]
@@ -116,7 +117,13 @@ export function req(params: Object, key: string, option: Object = {}) {
 
 
 export function load(params: Object, key: stringg) {
-    return req(params, key, { 'sceme':schemas[key] })
+    return req(params, key, { 'sceme': schemas[key] })
+}
+
+export function clear(key: stringg) {
+
+    // return requestSucceed(key, {})
+    return requestSucceed(key, {})
 }
 
 

@@ -113,7 +113,7 @@ export default class Publish extends Component {
                 columnWrapperStyle={{ paddingHorizontal: 10 }}
                 renderItem={this.renderRow.bind(this)}
                 dataMap={(data) => {
-                    return { results:{results: data.results.result} }
+                    return { results: data.result }
                 }}
                 reqParam={{}}
             />

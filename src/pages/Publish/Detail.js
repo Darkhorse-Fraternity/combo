@@ -127,7 +127,7 @@ export default class PublishDetail extends Component {
 
     _renderHeader = (iCard) => {
         const useExist = this.props.useExist.toJS().data
-        const exist = useExist.results && useExist.results.count >= 1
+        const exist = useExist.count >= 1
         const load = this.props.useExist.get('load')
         // console.log('useExist:', this.props.useExist.get('load'));
         const text = exist ? "正在使用" : '立即使用'

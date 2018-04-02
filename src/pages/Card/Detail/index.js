@@ -127,22 +127,19 @@ export default class CardDetail extends Component {
 
         return (
             <StyledBottomMenu>
-
                 <TouchableOpacity
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
-
                         Pop.show(<ShareView/>, {
                             animationType: 'slide-up',
                             wrapStyle: {
                                 justifyContent: 'flex-end',
                             }
                         })
-
                     }}>
                     <StyledIcon name={'md-share'} size={30} color={'white'}/>
                 </TouchableOpacity>
-                {iCard.user === this.props.user.objectId &&
+                {iCard.user === this.props.user.objectId && iUse.statu !== 'del' &&
                 (<TouchableOpacity
                     hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
                     onPress={() => {
