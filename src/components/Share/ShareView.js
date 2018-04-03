@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
     View,
     TouchableOpacity,
@@ -15,9 +15,9 @@ import {
     StyleSheet,
     Dimensions
 } from 'react-native'
-import {connect} from 'react-redux'
-import {mainColor} from '../../configure'
-import {Toast} from 'react-native-simple-toast'
+import { connect } from 'react-redux'
+import { mainColor } from '../../configure'
+import { Toast } from 'react-native-simple-toast'
 import Pop from '../../../src/components/Pop'
 import {
     shareTo,
@@ -31,8 +31,8 @@ import {
 @connect(
     state => ({}),
     dispatch => ({
-        share:(type,params)=>{
-            dispatch(shareTo(type,params))
+        share: (type, params) => {
+            dispatch(shareTo(type, params))
         }
     })
 )
@@ -47,7 +47,7 @@ export default class ShareView extends Component {
         const item = (source, titel, press) => {
             return (
                 <TouchableOpacity onPress={press}>
-                    <View style={{paddingHorizontal: 15}}>
+                    <View style={{ paddingHorizontal: 15 }}>
                         <Image style={styles.pop_item_image} source={source}/>
                         <Text style={styles.pop_item_text}>{titel}</Text>
                     </View>
@@ -55,17 +55,28 @@ export default class ShareView extends Component {
 
         }
 
-        const share = this.props.share
+        const {share,iCard,iUse} = this.props
+        const time = iUse.cycle * iCard.period + iUse.time
+
+        const shareParams = {
+            title: iCard.title,
+            webpageUrl: 'https://icard.leanapp.cn/share?id='+iUse.objectId,
+            description: `${iCard.notifyText}:我的第${time}次打卡`,
+            imageUrl: iCard.img.url,
+            thumbImage: iCard.img.url +'?imageView/1/w/100/h/50/q/50' // /1/代表center
+        }
+
+        console.log('thumbImage:', shareParams.thumbImage);
 
         return (
-            <View style={{backgroundColor: 'white', alignItems: 'center'}}>
+            <View style={{ backgroundColor: 'white', alignItems: 'center' }}>
 
                 <View style={styles.top}>
                     <TouchableOpacity
                         onPress={() => {
                             Pop.hide()
                         }}
-                        hitSlop={{top: 15, left: 25, bottom: 15, right: 15}}
+                        hitSlop={{ top: 15, left: 25, bottom: 15, right: 15 }}
                     >
                         <Image style={styles.delImg}
                                source={require('../../../source/img/visitor/visitor_delete.png')}/>
@@ -73,25 +84,25 @@ export default class ShareView extends Component {
                 </View>
 
 
-                <View style={{flexDirection:'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                     <View style={styles.pop_item}>
                         {item(require('../../../source/img/icon/朋友圈分享.png'), '朋友圈', () => {
-                            share(SHARE_TO_TIMELINE)
+                            share(SHARE_TO_TIMELINE, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
                         {item(require('../../../source/img/icon/好友分享.png'), '微信好友', () => {
-                            share(SHARE_TO_SESSION)
+                            share(SHARE_TO_SESSION, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
                         {item(require('../../../source/img/icon/Qzone分享.png'), 'Q-Zone', () => {
-                            share(Share_TO_ZONE)
+                            share(Share_TO_ZONE, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
                         {item(require('../../../source/img/icon/QQ分享.png'), 'QQ', () => {
-                            share(SHARE_TO_QQ)
+                            share(SHARE_TO_QQ, shareParams)
                         })}
                     </View>
                 </View>

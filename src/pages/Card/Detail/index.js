@@ -130,7 +130,7 @@ export default class CardDetail extends Component {
                 <TouchableOpacity
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
-                        Pop.show(<ShareView/>, {
+                        Pop.show(<ShareView iCard={iCard} iUse={iUse} />, {
                             animationType: 'slide-up',
                             wrapStyle: {
                                 justifyContent: 'flex-end',

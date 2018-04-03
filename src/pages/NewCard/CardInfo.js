@@ -16,12 +16,13 @@ import {
     ScrollView,
     TouchableOpacity,
     ActivityIndicator,
-    Easing
+    Easing,
+    Modal
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components/native';
-import ZoomImage from 'react-native-zoom-image';
+import ZoomImage from '../../components/ZoomImage/ZoomImage'
 import { ICARD, USER, IUSE, IUSEExist } from '../../redux/reqKeys'
 import { getUserByID, classSearch } from '../../request/leanCloud'
 import { req, requestSucceed, DATA } from '../../redux/actions/req'
@@ -35,6 +36,13 @@ import moment from 'moment'
 import { schemas } from '../../redux/scemes'
 
 //static displayName = CardInfo
+
+const images = [
+    {
+        url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460"
+    }
+]
+
 @connect(
     (state, props) => ({
         //data:state.req.get()
@@ -96,6 +104,8 @@ import { schemas } from '../../redux/scemes'
 export default class CardInfo extends Component {
     constructor(props: Object) {
         super(props);
+
+
     }
 
     static propTypes = {};
@@ -148,9 +158,8 @@ export default class CardInfo extends Component {
             <View style={{ flex: 1 }}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     <ZoomImage
-                        easingFunc={Easing.bounce}
-                        source={{ uri: iCard.img.url }}
-                        imgStyle={styles.img}/>
+                        height={width * 0.7}
+                        style={styles.img} imageUrls={[{url:iCard.img.url}]}/>
                     <View style={styles.row}>
                         <Image source={avatarSource} style={styles.avatar}/>
                         <Text style={styles.name}>
