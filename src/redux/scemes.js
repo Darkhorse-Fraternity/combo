@@ -10,7 +10,7 @@ export const list = (item) => new schema.Object({ [code]: new schema.Array(item)
 export const entityFromCode = key => new schema.Object({ [code]: entity(key)})
 
 
-const user = entity(USER)
+export const user = entity(USER)
 
 
 

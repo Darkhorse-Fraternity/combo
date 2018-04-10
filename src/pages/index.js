@@ -17,11 +17,15 @@ import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
 import RComment from './Record/RComment'
 import CardDetail from './Card/Detail'
-
-
+import Followee from './PersonInfo/Follow/Followee'
+import Follower from './PersonInfo/Follow/Follower'
+import Following from './PersonInfo/Follow/Following'
 export const route = {
     Login: {screen: LoginView},
     Home: {screen: Home},
+    Followee:{screen: Followee},
+    Follower:{screen: Follower},
+    Following:{screen: Following},
     Setting: {screen: Setting},
     Creat: {screen: Creat},
     NewCard: {screen: NewCard},

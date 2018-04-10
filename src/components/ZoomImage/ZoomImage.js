@@ -13,7 +13,6 @@ import {
     Modal,
     Image,
     Dimensions,
-    Text
 } from 'react-native'
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Swiper from 'react-native-swiper'
@@ -29,15 +28,32 @@ export default class ZoomImage extends Component {
     state: {};
     static propTypes = {
         imageUrls: PropTypes.array.isRequired,
-        height:PropTypes.number,
+        height: PropTypes.number,
     };
     static defaultProps = {
-        height:250
+        height: 250
     };
+
+
+    __renderHeader = () => {
+
+        return (
+            <View>
+                <TouchableOpacity onPress={()=>{
+                    this.setState({ visible: false })
+                }}>
+                    <Image
+                        source={require('../../../source/img/visitor/visitor_delete.png')}
+                        style={styles.close}/>
+                </TouchableOpacity>
+            </View>
+        )
+
+    }
 
     render() {
 
-        const { style, imageUrls,height } = this.props
+        const { style, imageUrls, height } = this.props
 
 
         return (
@@ -48,11 +64,7 @@ export default class ZoomImage extends Component {
                         onCancel={() => {
                             this.setState({ visible: false })
                         }}
-                        renderHeader={() => (
-                            <View>
-                                <Text style={{ color: "white" }}>Render footer</Text>
-                            </View>
-                        )}
+                        renderHeader={this.__renderHeader}
                         failImageSource={{
                             url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460",
                             width: Dimensions.get("window").width,
@@ -62,7 +74,7 @@ export default class ZoomImage extends Component {
                 </Modal>
                 <Swiper
                     height={height}
-                     showsButtons={false}>
+                    showsButtons={false}>
                     {imageUrls.map(item => (
                         <TouchableOpacity
                             style={styles.slide}
@@ -87,7 +99,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#9DD6EB',
     },
-    img:{
-       flex:1,
+    img: {
+        flex: 1,
+    },
+    close:{
+        marginTop:25,
+        marginLeft:25,
+       width:25,
+       height:25,
+        tintColor: "white"
     }
 })

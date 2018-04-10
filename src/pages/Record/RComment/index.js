@@ -144,7 +144,6 @@ export default class RComment extends Component {
         this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
 
         this.state = {
-
             text: '',
         };
 
@@ -173,14 +172,13 @@ export default class RComment extends Component {
         const data = this.props.navigation.state.params.data
         return (
             <StyledHeader>
-                <RecordRow item={data} showChat={false}/>
+                <RecordRow item={data} showChat={false} showImage={true}/>
             </StyledHeader>
         )
     }
 
 
-    onKeyboardResigned() {
-    }
+    onKeyboardResigned() {}
 
     keyboardAccessoryViewContent() {
         const { objectId } = this.props.navigation.state.params.data

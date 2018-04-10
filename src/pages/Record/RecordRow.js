@@ -19,6 +19,7 @@ import {
 import { connect } from 'react-redux'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
+import ZoomImage from '../../components/ZoomImage/ZoomImage'
 //static displayName = RecordRow
 @connect(
     state => ({
@@ -37,10 +38,12 @@ export default class RecordRow extends Component {
     static propTypes = {
         item: PropTypes.object.isRequired,
         navigation: PropTypes.object,
-        showChat: PropTypes.bool
+        showChat: PropTypes.bool,
+        showImage:PropTypes.bool,
     };
     static defaultProps = {
-        showChat: true
+        showChat: true,
+        showImage:false,
     };
 
 
@@ -98,7 +101,7 @@ export default class RecordRow extends Component {
     }
 
     render(): ReactElement<any> {
-        const { item } = this.props
+        const { item,showImage } = this.props
         if (!item) return null
         const img = item.imgs && item.imgs[0] || null
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
@@ -110,10 +113,13 @@ export default class RecordRow extends Component {
                     this.props.navigation.navigate('RComment', { data: item })
                 }}
                 style={[this.props.style, styles.wrap]}>
-                {img && (<Image
+                {img && !showImage && (<Image
                     // easingFunc={Easing.bounce}
                     style={styles.image}
                     source={{ uri: img }}/>)}
+                {img && showImage &&(<ZoomImage
+                    height={width * 0.7}
+                    style={styles.image} imageUrls={[{url:img}]}/>)}
                 <View style={styles.bottom}>
                     {!!item.recordText && (<Text numberOfLines={1}
                                                  style={styles.text}>

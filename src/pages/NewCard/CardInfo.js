@@ -33,15 +33,10 @@ import { add } from '../../redux/module/leancloud'
 import { addListNormalizrEntity } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import moment from 'moment'
-import { schemas } from '../../redux/scemes'
+import { user as UserEntity,schemas } from '../../redux/scemes'
 
 //static displayName = CardInfo
 
-const images = [
-    {
-        url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460"
-    }
-]
 
 @connect(
     (state, props) => ({
@@ -60,7 +55,7 @@ const images = [
             if (!iCardUser.username && iCardUser.objectId) {
 
                 const param = getUserByID(iCardUser.objectId)
-                req(param, USER, { sceme: entityFromCode(USER) })
+                req(param, USER, { sceme: UserEntity })
 
             }
         },
@@ -145,12 +140,14 @@ export default class CardInfo extends Component {
 
         const iCard = this.props.iCard.toJS()
         const iCardUser = this.props.user.toJS()
+
+
         const avatar = iCardUser.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } : require('../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
-        const nickName = iCardUser.username === iCard.mobilePhoneNumber ? '光芒' : iCardUser.username
+        const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '光芒' : iCardUser.username
         const iUseData = this.props.data && this.props.data.toJS()
         // color: '#F3AC41',
         //     activityColor: '#F0C98B',

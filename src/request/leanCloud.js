@@ -300,6 +300,76 @@ export function classBatch(requests: [Object]): Object {
     }
 }
 
+
+//关注
+export function friendshipAdd(userId: string, friendshipId: string): Object {
+    return {
+        path: '/users/' + userId + "/friendship/" + friendshipId,
+        method: methodType.post,
+        params: {},
+    }
+}
+
+//取消关注
+export function friendshipDelete(userId: string, friendshipId: string): Object {
+    return {
+        path: '/users/' + userId + "/friendship/" + friendshipId,
+        method: methodType.delete,
+        params: {},
+    }
+}
+
+export function friendshipList(userId: string): Object {
+    return {
+        path: '/users/' + userId + "/followersAndFollowees",
+        method: methodType.get,
+        params: {
+            include: "followee"
+        },
+    }
+}
+
+//查询关注的人
+export function followeeList() {
+    return {
+        path: '/users/' + userId + "/followees",
+        method: methodType.get,
+        params: {
+            include: "followee"
+        },
+    }
+}
+
+//查询粉丝
+export function followerList() {
+    return {
+        path: '/users/' + userId + "/followers",
+        method: methodType.get,
+        params: {
+            include: "follower"
+        },
+    }
+}
+
+//判断是否已经关注或者被关注
+//这边有点奇怪，并没有加include，然后却返回了followee的完全值
+export function friendExist(userId: string, followId: string) {
+    return {
+        path: '/users/' + userId + "/followees",
+        method: methodType.get,
+        params: {
+            where: {
+                followee: {
+                    "__type": "Pointer",
+                    "className": "_User",
+                    "objectId": followId
+                },
+            },
+            count: 1,
+        }
+    }
+}
+
 export function pushInstallation(OS: String, token: string) {
     let installationId = OS == 'ios' ? { "deviceToken": token } : { "installationId": token }
     // const LeanCloud_APP_ID = 'q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt';
