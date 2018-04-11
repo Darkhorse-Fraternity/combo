@@ -5,7 +5,7 @@
 'use strict';
 
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -13,26 +13,28 @@ import {
     Text,
     Alert,
 } from 'react-native'
-import {IDO} from '../../redux/reqKeys'
-import {selfUser, iUse} from '../../request/LCModle'
-import {mainColor} from '../../configure'
-import {connect} from 'react-redux'
+import { IDO } from '../../redux/reqKeys'
+import { user as UserModle, iUse } from '../../request/LCModle'
+import { mainColor } from '../../configure'
+import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import {update,} from '../../redux/module/leancloud'
-import {addListNormalizrEntity} from '../../redux/actions/list'
-import {IUSE} from '../../redux/reqKeys'
-import {claerByID} from '../../redux/actions/list'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
+import { update, } from '../../redux/module/leancloud'
+import { addListNormalizrEntity } from '../../redux/actions/list'
+import { IUSE } from '../../redux/reqKeys'
+import { claerByID } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import RecordRow from './RecordRow'
+
 const listKey = IDO
 
 
 @connect(
     (state, props) => ({
         data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId),
-        load: state.req.get(IUSE).get('load')
+        load: state.req.get(IUSE).get('load'),
+        user: state.user.data
     }),
     (dispatch, props) => ({
         refresh: async (data) => {
@@ -74,7 +76,7 @@ const listKey = IDO
             }
 
             dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE,id))
+            dispatch(claerByID(IUSE, id))
         },
 
     })
@@ -122,7 +124,7 @@ export default class Detail extends Component {
         Alert.alert(
             isDone ? '再来一组?' : '重新开启',
             '',
-            [{text: '取消'}, {text: '确定', onPress: () => this.props.refresh(data)}]
+            [{ text: '取消' }, { text: '确定', onPress: () => this.props.refresh(data) }]
         )
     }
 
@@ -132,30 +134,30 @@ export default class Detail extends Component {
     }
 
 
-
-
-
     _renderHeader = () => {
-        const {navigation} = this.props;
-        const {state} = navigation;
-        const {params} = state;
+        const { navigation } = this.props;
+        const { state } = navigation;
+        const { params } = state;
         // console.log('this.props.data:', params);
+
+
+        //只有当为自己的时候，才会用到以下数据。
         const data = this.props.data && this.props.data.toJS && this.props.data.toJS()
         const item = data || params.data
-        const card = params.card
+        const { card } = params
         const reflesh = item.time === Number(card.period) || item.statu === 'stop'
 
         // console.log('test:', item);
         let text = item.time === Number(card.period) ?
             "再来一组" :
             "继续打卡"
-        if(!reflesh){
+        if (!reflesh) {
             text = "暂停打卡"
         }
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{card.title}</Text>
-                <HeaderBtn
+                {this.props.isSelf && (<HeaderBtn
                     style={styles.headerBtn}
                     load={this.props.load}
                     title={text}
@@ -166,12 +168,12 @@ export default class Detail extends Component {
                         } else {
                             this.props.stop(item)
                         }
-                    }}/>
+                    }}/>)}
             </View>
         )
     }
 
-    renderRow({item, index}: Object) {
+    renderRow({ item, index }: Object) {
 
         // console.log('test:', item);
         // const img = item.imgs && item.imgs[0] || null
@@ -181,7 +183,7 @@ export default class Detail extends Component {
                 style={styles.row}
                 onPress={() => {
                 }}>
-               <RecordRow item={item}  navigation={this.props.navigation}/>
+                <RecordRow item={item} navigation={this.props.navigation}/>
                 {/*<View style={styles.line}/>*/}
             </View>
         )
@@ -189,13 +191,15 @@ export default class Detail extends Component {
 
     render() {
 
-        const {navigation} = this.props;
-        const {state} = navigation;
-        const {params} = state;
+        const { navigation } = this.props;
+        const { state } = navigation;
+        const { params } = state;
+        const { data, user } = params
+        const userNoNull = user || this.props.user
         const param = {
             'where': {
-                ...selfUser(),
-                ...iUse(params.data.objectId)
+                ...UserModle(userNoNull.objectId),
+                ...iUse(data.objectId)
             }
         }
 

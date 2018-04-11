@@ -17,7 +17,7 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     Easing,
-    Modal
+    Modal,
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
@@ -33,7 +33,7 @@ import { add } from '../../redux/module/leancloud'
 import { addListNormalizrEntity } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import moment from 'moment'
-import { user as UserEntity,schemas } from '../../redux/scemes'
+import { user as UserEntity, schemas } from '../../redux/scemes'
 
 //static displayName = CardInfo
 
@@ -43,6 +43,7 @@ import { user as UserEntity,schemas } from '../../redux/scemes'
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId),
         user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
+        userLoad: state.req.get(USER).get('load'),
         useExist: state.req.get(IUSEExist),
         data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
         dataId: state.req.get(IUSEExist).get('data').get('0')
@@ -147,22 +148,34 @@ export default class CardInfo extends Component {
         const avatarSource = avatarUrl ? { uri: avatarUrl } : require('../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
-        const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '光芒' : iCardUser.username
+        const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '' : iCardUser.username
         const iUseData = this.props.data && this.props.data.toJS()
-        // color: '#F3AC41',
-        //     activityColor: '#F0C98B',
+
+        const userLoad = this.props.userLoad
+        console.log('userLoad:', userLoad);
+
+
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     <ZoomImage
                         height={width * 0.7}
-                        style={styles.img} imageUrls={[{url:iCard.img.url}]}/>
-                    <View style={styles.row}>
-                        <Image source={avatarSource} style={styles.avatar}/>
-                        <Text style={styles.name}>
-                            {nickName}
-                        </Text>
-                    </View>
+                        style={styles.img} imageUrls={[{ url: iCard.img.url }]}/>
+                    <TouchableOpacity
+                        disabled={userLoad}
+                        onPress={() => {
+                            this.props.navigation.navigate('Following', { user: iCardUser })
+                        }}
+                        style={styles.row}>
+                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                            <Image source={avatarSource} style={styles.avatar}/>
+                            <Text style={styles.name}>
+                                {nickName}
+                            </Text>
+                        </View>
+                        {userLoad?<ActivityIndicator size="small" />:
+                            <View style={styles.arrowView}/>}
+                    </TouchableOpacity>
                     {this.row('卡片名称:', iCard.title)}
                     {this.row('卡片周期:', iCard.period + '次')}
                     {this.row('记录模式:', iCard.record.join("+") || '无')}

@@ -15,6 +15,7 @@ export const StyledContent = styled.ScrollView`
 export const StyleHeader = styled.View`
   margin-top: 30px;
   padding: 25px;
+   margin-bottom: 20px;
 `
 
 export const StyledHeaderTop = styled.TouchableOpacity`
@@ -36,7 +37,7 @@ export const StyleFolllow = styled.View`
     
     flex-direction: row;
     align-content: center;
-    margin-bottom: 20px;
+   
 `
 
 export const StyleFollowText = styled.Text`

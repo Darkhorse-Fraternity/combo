@@ -3,6 +3,10 @@ export const USER  ='user'
 export const ICARD = 'iCard'
 export const IDONE = 'iDone'
 export const IRECORD = 'iRecord'
+export const FOLLOWRECORD = 'FollowRecord'
+export const FRIENDNUM = 'friendNum'
+export const FRIENDEXIST = 'friendExist'
+export const FOLLOWING = 'following'
 export const IDO = 'iDo'
 export const IDOCALENDAR = 'iDoCalendar'
 export const IUSE = 'iUse'
@@ -29,7 +33,9 @@ export const registerReqKeys = [
     IUSEExist,
     UPDATEUSERNAME,
     FEEDBACKPARAM,
-    IDOCALENDAR
+    IDOCALENDAR,
+    FOLLOWING,
+    USER
 //设置初始值
 ]
 

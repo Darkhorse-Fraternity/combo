@@ -39,9 +39,11 @@ export default class ZoomImage extends Component {
 
         return (
             <View>
-                <TouchableOpacity onPress={()=>{
-                    this.setState({ visible: false })
-                }}>
+                <TouchableOpacity
+                    style={{width:100,height:100}}
+                    onPress={() => {
+                        this.setState({ visible: false })
+                    }}>
                     <Image
                         source={require('../../../source/img/visitor/visitor_delete.png')}
                         style={styles.close}/>
@@ -102,11 +104,11 @@ const styles = StyleSheet.create({
     img: {
         flex: 1,
     },
-    close:{
-        marginTop:25,
-        marginLeft:25,
-       width:25,
-       height:25,
+    close: {
+        marginTop: 25,
+        marginLeft: 25,
+        width: 25,
+        height: 25,
         tintColor: "white"
     }
 })

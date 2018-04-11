@@ -166,7 +166,7 @@ export default class BaseSectionView extends Component {
         if (this.props.loadStatu === LIST_FIRST_JOIN) {
             return (
                 <ExceptionView
-                    renderHeader={this.props.renderHeader}
+                    renderHeader={this.props.ListHeaderComponent}
                     exceptionType={ExceptionType.Loading}
                     style={[styles.list, this.props.style]}
                 />
@@ -176,7 +176,7 @@ export default class BaseSectionView extends Component {
 
                 <ExceptionView
                     style={[styles.list, this.props.style]}
-                    renderHeader={this.props.renderHeader}
+                    renderHeader={this.props.ListHeaderComponent}
                     exceptionType={ExceptionType.NoData}
                     image={this.props.noDataImg}
                     prompt={this.props.noDataPrompt}

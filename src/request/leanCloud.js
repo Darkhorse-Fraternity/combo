@@ -319,12 +319,12 @@ export function friendshipDelete(userId: string, friendshipId: string): Object {
     }
 }
 
-export function friendshipList(userId: string): Object {
+export function friendNum(userId: string): Object {
     return {
         path: '/users/' + userId + "/followersAndFollowees",
         method: methodType.get,
         params: {
-            include: "followee"
+            count: 1,
         },
     }
 }
@@ -366,12 +366,13 @@ export function friendExist(userId: string, followId: string) {
                 },
             },
             count: 1,
+            limit: 1,
         }
     }
 }
 
 export function pushInstallation(OS: String, token: string) {
-    let installationId = OS == 'ios' ? { "deviceToken": token } : { "installationId": token }
+    let installationId = OS === 'ios' ? { "deviceToken": token } : { "installationId": token }
     // const LeanCloud_APP_ID = 'q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt';
     // const LeanCloud_APP_KEY = 'y6ffzv6mq705pya2pd6kgl1ni1vwlppesis7f1qi19afg5nn';
     return {

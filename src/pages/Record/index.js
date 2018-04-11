@@ -43,7 +43,8 @@ Animatable.initializeRegistryWithDefinitions({heightZoomIn})
 @connect(
     state =>({
         data:state.list.get(IRECORD),
-        iCard:state.normalizr.get(ICARD)
+        iCard:state.normalizr.get(ICARD),
+        user:state.user.data
     }),
     dispatch =>({
 
@@ -153,8 +154,8 @@ export default class Record extends Component {
           style: { backgroundColor: '#F4333C', color: 'white',fontSize:17 },
         },
       ]}
-                    onOpen={() => console.log('global open')}
-                    onClose={() => console.log('global close')}
+                    // onOpen={() => console.log('global open')}
+                    // onClose={() => console.log('global close')}
                 >
                     <TouchableOpacity
                         style={{flex:1}}
@@ -188,7 +189,6 @@ export default class Record extends Component {
         }
         return (
             <LCList
-                renderHeader={this._renderHeader}
                 style={[this.props.style,styles.list]}
                 reqKey={IUSE}
                 sKey={IRECORD}
