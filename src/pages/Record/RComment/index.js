@@ -12,11 +12,11 @@ import {
     StyleSheet,
     Platform,
     ScrollView,
-    TouchableOpacity,
     Text,
     PixelRatio,
     Clipboard,
-    Keyboard
+    Keyboard,
+    TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 import RecordRow from '../RecordRow'
@@ -178,7 +178,8 @@ export default class RComment extends Component {
     }
 
 
-    onKeyboardResigned() {}
+    onKeyboardResigned() {
+    }
 
     keyboardAccessoryViewContent() {
         const { objectId } = this.props.navigation.state.params.data
@@ -232,7 +233,11 @@ export default class RComment extends Component {
 
         }}>
             <StyledRowLeft>
-                <StyledAvatar source={source}/>
+                <TouchableOpacity onPress={()=>{
+                    this.props.navigation.navigate('Following',{user: item.user})
+                }}>
+                    <StyledAvatar source={source}/>
+                </TouchableOpacity>
             </StyledRowLeft>
             <StyledRowRight>
                 <StyledNickText>

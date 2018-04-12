@@ -1,55 +1,85 @@
-import styled from "styled-components/native";
+/**
+ * Created by lintong on 2018/4/12.
+ * @flow
+ */
+'use strict';
+
+import React, { Component } from 'react';
+import {
+    View,
+} from 'react-native'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 import HeaderBtn from '../../../components/Button/HeaderBtn'
-export function followRow() {
-    return (
-        <StyledContent>
-            <StyledInnerView>
-                <StyledAvatar>
-                </StyledAvatar>
-                <StyledInnerRight>
-                    <StyledName>
-                    </StyledName>
-                    <StyledDiscrib>
-                    </StyledDiscrib>
-                </StyledInnerRight>
-            </StyledInnerView>
-            <StyledFollowBtn
-                load={false }
-                title={'关注'}
-                onPress={() => {
-                    this._tapRight()
-                }}/>
-        </StyledContent>
-    )
+
+
+import {
+    StyledRowContent,
+    StyledInnerView,
+    StyledSmallAvatar,
+    StyledInnerRight,
+    StyledName,
+    StyledArrow,
+    StyledDiscrib
+} from './style'
+
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import moment from 'moment'
+
+@connect(
+    state => ({}),
+    dispatch => ({})
+)
+
+
+export default class FollowRow extends Component {
+    constructor(props: Object) {
+        super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+
+    }
+
+    static propTypes = {
+        data: PropTypes.object.isRequired
+    };
+    static defaultProps = {};
+    static navigationOptions = props => {
+        // const {navigation} = props;
+        // const {state} = navigation;
+        // const {params} = state;
+        return {
+            title: '',
+        }
+    };
+
+
+    render(): ReactElement<any> {
+
+        const { data, navigation } = this.props
+        const { item, index } = data
+        const { avatar, username, mobilePhoneNumber, createdAt } = item
+        const avatarSource = avatar ? { uri: avatar.url } :
+            require('../../../../source/img/my/icon-60.png')
+        const name = username !== mobilePhoneNumber ? username : ''
+        return (
+            <StyledRowContent onPress={() => {
+                navigation.navigate('Following',{user: item})
+            }}>
+                <StyledInnerView>
+                    <StyledSmallAvatar source={avatarSource}/>
+                    <StyledInnerRight>
+                        <StyledName>
+                            {name}
+                        </StyledName>
+                        <StyledDiscrib>
+                            加入时间:{moment(item.createdAt).format("YYYY-MM-DD")}
+                        </StyledDiscrib>
+                    </StyledInnerRight>
+                </StyledInnerView>
+                <StyledArrow/>
+            </StyledRowContent>
+        );
+    }
 }
 
 
-export const StyledContent = styled.View`
-    background-color: white;
-    
-`
-export const StyledInnerView = styled.View`
-    
-`
-
-export const StyledInnerRight = styled.View`
-
-`
-
-export const StyledAvatar = styled.Image`
-    width: 50px;
-    height: 50px;
-    border-right: 25px;
-`
-
-export const StyledName = styled.Text`
-  
-`
-
-export const StyledDiscrib = styled.Text`
-
-`
-
-export const StyledFollowBtn = styled(HeaderBtn)`
-    
-`

@@ -47,7 +47,8 @@ export const registerListKeys = [
     IUSE,
     ICARD,
     CARDLIST,
-    ICOMMENT
+    ICOMMENT,
+    USER
 ]
 
 export const registerNormalizrKeys = registerListKeys

@@ -99,7 +99,7 @@ import {
                     dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId,{ count: 1 } ))
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,
-                        { followers_count: num - 1 }))
+                        { followers_count: num + 1 }))
 
                 }
 
@@ -136,7 +136,7 @@ export default class Following extends Component {
     _renderHeader(data: Object) {
         // let {grade_str,connect_phone} = data;
         // console.log('test111:',data.avatar.url)
-        const name = data.username !== data.mobilePhoneNumber ? data.username : '光芒'
+        const name = data.username !== data.mobilePhoneNumber ? data.username : ''
         const avatar = data.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
@@ -182,12 +182,12 @@ export default class Following extends Component {
                     load={load || this.props.followLoad}
                     title={isFollow ? "取消关注" : "关注"}
                     style={{
-                        width: isFollow ? 100 : 60,
+                        width: isFollow ? 100 : 80,
                         marginTop: 20,
                     }}
                     hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                     onPress={() => {
-                        this.props.follow(isFollow,followees_count)
+                        this.props.follow(isFollow,followers_count)
                     }}/>)}
             </StyleHeader>
         );
@@ -205,7 +205,7 @@ export default class Following extends Component {
                     navigation.navigate('Followee', { userId: data.objectId });
                 }}>
                     <StyleFollowText>
-                        关注:{followees_count}
+                        关注: {followees_count}
                     </StyleFollowText>
                 </TouchableOpacity>
                 <StyleFollowDevide/>

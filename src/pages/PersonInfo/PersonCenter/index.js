@@ -24,15 +24,30 @@ import {
     StyledHeaderName,
     StyledHeaderSubText
 } from './style'
-
-
+import { req, } from '../../../redux/actions/req'
+import {
+    FRIENDNUM,
+} from '../../../redux/reqKeys'
+import {
+    friendNum,
+} from '../../../request/leanCloud'
 
 @connect(
     state => ({
         avatar: state.util.get('loadAvatar').toObject(),
         user: state.user,
+        friendNum: state.req.get(FRIENDNUM + state.user.data.objectId),
     }),
-    dispatch => ({})
+    dispatch => ({
+        loadFriendNum: () => {
+            dispatch((dispatch,getState)=>{
+                const userId = getState().user.data.objectId
+                const param = friendNum(userId)
+                req(param, FRIENDNUM + userId)
+            })
+
+        },
+    })
 )
 
 export default class PersonCenter extends Component {
@@ -57,6 +72,9 @@ export default class PersonCenter extends Component {
         }
     };
 
+    componentDidMount() {
+        this.props.loadFriendNum()
+    }
 
     _renderHeadRow(data: Object, onPress: Function = () => {
     }) {
@@ -77,14 +95,24 @@ export default class PersonCenter extends Component {
         );
     }
     _renderFollow = () => {
-        const navigation = this.props.navigation
+
+        const { friendNum,navigation } = this.props
+        let followers_count = 0, followees_count = 0
+        const friendNumData = friendNum && friendNum.toJS()
+
+        if (friendNumData && friendNumData.data) {
+
+            followers_count = friendNumData.data.followers_count
+            followees_count = friendNumData.data.followees_count
+        }
+
         return (
             <StyleFolllow>
                 <TouchableOpacity onPress={()=>{
                     navigation.navigate('Followee',{userId:this.props.user.data.objectId});
                 }}>
                     <StyleFollowText>
-                        关注:15
+                        关注: {followees_count}
                     </StyleFollowText>
                 </TouchableOpacity>
                 <StyleFollowDevide/>
@@ -92,7 +120,7 @@ export default class PersonCenter extends Component {
                     navigation.navigate('Follower',{userId:this.props.user.data.objectId});
                 }}>
                     <StyleFollowText>
-                        被关注：17
+                        被关注：{followers_count}
                     </StyleFollowText>
                 </TouchableOpacity>
             </StyleFolllow>

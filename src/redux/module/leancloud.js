@@ -9,7 +9,9 @@ import {
     classCreatNewOne,
     classUpdate,
     classBatch,
-    classSearch
+    classSearch,
+    followeeList,
+    followerList
 } from '../../request/leanCloud';
 
 import {listReq} from '../actions/list'
@@ -49,6 +51,17 @@ export function search(more: bool,
         const lParams = limitSearch(key, page, pageSize, params,callPath)
         return dispatch(listReq(key, lParams, more, option))
     }
+}
+
+export function followList(eeOrEr:'string') {
+    return (more,params,key,option)=> (dispatch, getState) => {
+
+            const follow = eeOrEr === 'ee'?followeeList:followerList
+            const page = !more ? 0 : getState().list.getIn([key, 'page']) + 1;
+            const lParams = follow(params.uid,page)
+            return dispatch(listReq(key, lParams, more,option))
+    }
+
 }
 
 export function batch(reqs: array,key:string, option: Object = {}) {

@@ -2,6 +2,7 @@
  * Created by lintong on 2018/4/9.
  * @flow
  */
+
 'use strict';
 
 import React, { Component } from 'react';
@@ -11,16 +12,17 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
-
+import { followList } from '../../../redux/module/leancloud'
 
 import {
     StyledContent,
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { followRow } from './FollowRow'
+import  FollowRow  from './FollowRow'
+import {USER} from "../../../redux/reqKeys";
 
-const listKey = ''
+const listKey = USER
 
 
 @connect(
@@ -57,25 +59,23 @@ export default class Follow extends Component {
         const { navigation } = this.props;
         const { state } = navigation;
         const { params } = state;
-        const param = {
-            'where': {
-                ...selfUser(),
-                ...iUse(params.data.objectId)
-            }
-        }
+        const param = {uid:params.userId}
 
         return (
             <StyledContent>
                 {this._renderHeader()}
                 <LCList
-                    style={{}}
+                    style={{flex:1}}
                     reqKey={listKey}
-                    sKey={listKey + params.userId}
-                    renderItem={followRow}
+                    sKey={"followee_" + params.userId}
+                    renderItem={(data)=>(<FollowRow data={data} navigation={navigation}/>)}
                     noDataPrompt={'还没有人关注~'}
-                    //dataMap={(data)=>{
-                    //   return {[OPENHISTORYLIST]:data.list}
-                    //}}
+                    search={followList('ee')}
+                    dataMap={(data) => {
+                        const list = data['results']
+                        const newList = list.map(item => item.followee)
+                        return { results: newList }
+                    }}
                     reqParam={param}
                 />
             </StyledContent>

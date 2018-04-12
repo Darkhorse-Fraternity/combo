@@ -136,6 +136,11 @@ export default class CardInfo extends Component {
     )
 
 
+    touchRow = () => {
+        _
+    }
+
+
     render(): ReactElement<any> {
 
 
@@ -152,7 +157,7 @@ export default class CardInfo extends Component {
         const iUseData = this.props.data && this.props.data.toJS()
 
         const userLoad = this.props.userLoad
-        console.log('userLoad:', userLoad);
+        // console.log('userLoad:', userLoad);
 
 
         return (

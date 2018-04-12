@@ -330,23 +330,33 @@ export function friendNum(userId: string): Object {
 }
 
 //查询关注的人
-export function followeeList() {
+export function followeeList(userId: string, page: number = 0) {
+    const limit = 20;
+    const skip = page * limit;
     return {
         path: '/users/' + userId + "/followees",
         method: methodType.get,
         params: {
-            include: "followee"
+            include: "followee",
+            skip: skip + '',
+            limit: limit + '',
+            order: '-createdAt',//降序
         },
     }
 }
 
 //查询粉丝
-export function followerList() {
+export function followerList(userId: string, page: number = 0) {
+    const limit = 20;
+    const skip = page * limit;
     return {
         path: '/users/' + userId + "/followers",
         method: methodType.get,
         params: {
-            include: "follower"
+            include: "follower",
+            skip: skip + '',
+            limit: limit + '',
+            order: '-createdAt',//降序
         },
     }
 }

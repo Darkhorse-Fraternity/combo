@@ -43,7 +43,7 @@ export const iUse = entity(IUSE, { user, iCard })
 
 const entitys = {
     [ICARD]: iCard,
-    [IUSE]: iUse
+    [IUSE]: iUse,
 }
 
 const auto = (key) => list(entitys[key] || entity(key))
