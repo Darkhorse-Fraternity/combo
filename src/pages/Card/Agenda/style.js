@@ -39,6 +39,8 @@ export const StyledRow = styled.View`
   justify-content: space-between;
 `
 
+
+
 export const StyledRowText = styled.Text`
   font-size: 15px;
   color: black;

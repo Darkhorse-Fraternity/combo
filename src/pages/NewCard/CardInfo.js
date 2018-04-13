@@ -151,10 +151,11 @@ export default class CardInfo extends Component {
 
         const avatar = iCardUser.avatar
 
-        console.log('iCardUser:', iCardUser);
+        // console.log('iCardUser:', iCardUser);
 
         const avatarUrl = avatar && avatar.url
-        const avatarSource = avatarUrl ? { uri: avatarUrl } : require('../../../source/img/my/icon-60.png')
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
+            require('../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
         const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '' : iCardUser.username

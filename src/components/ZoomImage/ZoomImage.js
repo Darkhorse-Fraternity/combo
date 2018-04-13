@@ -46,7 +46,7 @@ export default class ZoomImage extends Component {
                         this.setState({ visible: false })
                     }}>
                     <Image
-                        source={require('../../../source/img/visitor/visitor_delete.png')}  
+                        source={require('../../../source/img/visitor/visitor_delete.png')}
                         style={styles.close}/>
                 </TouchableOpacity>
             </View>

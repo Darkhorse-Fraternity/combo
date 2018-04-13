@@ -26,10 +26,8 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
 
 @connect(
-    state => ({ user: state.user.data }),
-    (dispatch,props) => ({
-
-    })
+    state => ({}),
+    (dispatch,props) => ({})
 )
 
 

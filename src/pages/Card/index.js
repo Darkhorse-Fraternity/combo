@@ -78,7 +78,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
                     statu: 'start'
                 },
                 order: 'doneDate',
-                include: ICARD
+                include: ICARD+',iCard.user'
             }, IUSE))
         },
         done: (data) => {
@@ -180,52 +180,7 @@ export default class Home extends Component {
     }
 
 
-    _keyExtractor = (item, index) => {
-        const key = item.id || index;
-        return key + '';
-    }
 
-
-    __flagView = (data, flag) => {
-        const iCardId = data[ICARD]
-        const iCard = this.props.iCard.get(iCardId)
-        let FlagView = (
-            <View style={{ height: 150, justifyContent: 'center' }}>
-                <Animatable.Text
-                    animation="zoomInUp"
-                    style={styles.num}>
-                    {data.time}
-                </Animatable.Text>
-                <Text
-                    style={styles.notifyText}>
-                    {iCard.get('title')}
-                </Text>
-            </View>)
-        if (data.time === Number(iCard.get("period"))) {
-            FlagView = (
-                <View style={{ height: 150, justifyContent: 'center' }}>
-                    <Text style={styles.done}>{
-                        '恭喜,\n第' +
-                        (data.cycle + 1) +
-                        '组已经完成'}</Text>
-                </View>)
-        } else if (data.doneDate && flag) {
-
-            FlagView = (
-                <View style={{ height: 150, justifyContent: 'center' }}>
-                    <Text
-                        numberOfLines={0}
-                        style={styles.notifyText}>
-                        {iCard.get('notifyText') || iCard.get('title')}
-                    </Text>
-                </View>)
-
-        }
-        return FlagView
-    }
-
-
-    rows = []
     __renderItem = ({ item, index }) => {
         const data = this.props.iUse.get(item).toJS()
 
