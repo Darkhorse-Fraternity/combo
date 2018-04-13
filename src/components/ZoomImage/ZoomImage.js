@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     },
     slide: {
         flex: 1,
-        backgroundColor: '#9DD6EB',
     },
     img: {
         flex: 1,

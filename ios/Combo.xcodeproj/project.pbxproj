@@ -12,6 +12,7 @@
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
+		CC8FE12C20804EDE00413559 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
 		CCA7156F2019C9DA00A25FB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		CCA715702019C9DA00A25FB9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		CCA715712019C9DA00A25FB9 /* AppearanceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFBC84D1FEA7B2200DA269C /* AppearanceConfig.m */; };
@@ -90,7 +91,6 @@
 		CCCE41A62064A0F000F282E3 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 03425A176E554E0CA0F9D1AB /* libRNImagePicker.a */; };
 		CCCE41A72064A0F000F282E3 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16815CB8C8B24DFDB0DBFA28 /* libRNVectorIcons.a */; };
 		CCCE41A82064A0F000F282E3 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */; };
-		CCCE41A92064A0F000F282E3 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
 		CCCE41AA2064A0F000F282E3 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BA8997293374A3AA7C33A33 /* libRNBlur.a */; };
 		CCCE41AB2064A0F000F282E3 /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65803600DE744D58A3F6D5A0 /* libLRDRCTSimpleToast.a */; };
 		CCCE41AC2064A0F000F282E3 /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D4C4198DA343472092E1C09B /* libInteractable.a */; };
@@ -544,6 +544,7 @@
 		CC4548E71E03FBAC00A6CE93 /* Combo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Combo.entitlements; path = Combo/Combo.entitlements; sourceTree = "<group>"; };
 		CC72BAAA2003461500ED0D9A /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		CC8FE12D20804EDE00413559 /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCA715A52019C9DA00A25FB9 /* ComboEp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComboEp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA715A62019C9DB00A25FB9 /* Combo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Combo copy-Info.plist"; path = "/Users/lintong/Project/react-native/Combo/ios/Combo copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -576,6 +577,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC8FE12C20804EDE00413559 /* libPods-Combo.a in Frameworks */,
 				CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
 				CCCE410720649C0800F282E3 /* libRCTQQAPI.a in Frameworks */,
 				CCBDB6622057D9940097762A /* libKeyboardTrackingView.a in Frameworks */,
@@ -644,7 +646,6 @@
 				CCCE41A62064A0F000F282E3 /* libRNImagePicker.a in Frameworks */,
 				CCCE41A72064A0F000F282E3 /* libRNVectorIcons.a in Frameworks */,
 				CCCE41A82064A0F000F282E3 /* libRCTWeChat.a in Frameworks */,
-				CCCE41A92064A0F000F282E3 /* libPods-Combo.a in Frameworks */,
 				CCCE41AA2064A0F000F282E3 /* libRNBlur.a in Frameworks */,
 				CCCE41AB2064A0F000F282E3 /* libLRDRCTSimpleToast.a in Frameworks */,
 				CCCE41AC2064A0F000F282E3 /* libInteractable.a in Frameworks */,
@@ -717,6 +718,7 @@
 		115E0148E2FB61C13FFE9539 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC8FE12D20804EDE00413559 /* libPods-Combo.a */,
 				CC3E39B31E2624580019B85F /* TencentOpenAPI.framework */,
 				CC3E39B11E26234D0019B85F /* libsqlite3.0.tbd */,
 				CC3E39AF1E2623400019B85F /* CoreTelephony.framework */,
@@ -2015,7 +2017,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2083,7 +2085,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2146,7 +2148,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2214,7 +2216,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 68;
+				CURRENT_PROJECT_VERSION = 69;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (

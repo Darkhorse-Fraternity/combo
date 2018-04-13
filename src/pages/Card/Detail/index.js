@@ -30,7 +30,7 @@ import AgendaScreen from './agenda'
 import { selfUser, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
 import { IDO ,IUSE} from '../../../redux/reqKeys'
-
+import ScrollableTabView from  'react-native-scrollable-tab-view'
 
 const listKey = IDO
 

@@ -68,7 +68,8 @@ import { user as UserEntity, schemas } from '../../redux/scemes'
                 // notifyTime:option&&option.notifyTime||"20.00",
                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                 ...selfUser(),
-                ...iCard(card.objectId)
+                ...iCard(card.objectId),
+                include: 'avatar'
             }
             const res = await add(param, IUSE)
             const entity = {
@@ -149,6 +150,9 @@ export default class CardInfo extends Component {
 
 
         const avatar = iCardUser.avatar
+
+        console.log('iCardUser:', iCardUser);
+
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } : require('../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
