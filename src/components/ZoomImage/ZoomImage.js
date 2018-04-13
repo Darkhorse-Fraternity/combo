@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
+    TouchableWithoutFeedback,
     TouchableOpacity,
     Modal,
     Image,
@@ -38,14 +39,14 @@ export default class ZoomImage extends Component {
     __renderHeader = () => {
 
         return (
-            <View>
+            <View style={styles.header}>
                 <TouchableOpacity
-                    style={{width:100,height:100}}
+                    style={{width:100,height:70}}
                     onPress={() => {
                         this.setState({ visible: false })
                     }}>
                     <Image
-                        source={require('../../../source/img/visitor/visitor_delete.png')}
+                        source={require('../../../source/img/visitor/visitor_delete.png')}  
                         style={styles.close}/>
                 </TouchableOpacity>
             </View>
@@ -66,7 +67,7 @@ export default class ZoomImage extends Component {
                         onCancel={() => {
                             this.setState({ visible: false })
                         }}
-                        renderHeader={this.__renderHeader}
+                         renderHeader={this.__renderHeader}
                         failImageSource={{
                             url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460",
                             width: Dimensions.get("window").width,
@@ -109,5 +110,12 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         tintColor: "white"
+    },
+    header:{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        zIndex:10,
     }
+
 })
