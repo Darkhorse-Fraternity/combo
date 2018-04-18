@@ -85,7 +85,7 @@ export default class AgendaScreen extends Component {
 
 
         const data = this.props.data.get('data').toJS()
-        console.log('data:', data);
+        // console.log('data:', data);
 
         return (
                 <Calendar date={new Date()} fetchData={(item) => {

@@ -8,11 +8,13 @@ import React, { Component } from 'react';
 import {
     View,
     TouchableOpacity,
-    Text
+    Text,
+    Dimensions
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import PropTypes from 'prop-types';
+import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 
 
 import {
@@ -28,14 +30,15 @@ import {
     StyledRowTouch,
     StyledBottomMenuButton,
     StyledTitleView,
-    StyledTitleText
+    StyledTitleText,
+    StyeldDoneView
 } from './style'
 
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ShareView from '../../../components/Share/ShareView'
 import Pop from '../../../components/Pop'
-
+const width = Dimensions.get('window').width
 
 @connect(
     (state, props) => ({
@@ -56,6 +59,13 @@ export default class Info extends Component {
     static propTypes = {};
     static defaultProps = {};
 
+
+
+    _renderDoneView = (done,over)=>{
+        return (
+            <StyeldDoneView/>
+        )
+    }
 
     _renderBottomMenu = (params) => {
 
@@ -138,13 +148,24 @@ export default class Info extends Component {
         const { navigation, iCardUser, user } = this.props;
         const { state } = navigation;
         const { params } = state;
+
+        //TODO 这个iCard 需要实时 要从store中取。
         const { iCard, iUse } = params
 
         const iCardUserData = iCardUser && iCardUser.toJS()
 
 
+        const done =  moment(2, "HH").isBefore(iUse.doneDate.iso)
+        const over = iUse.time === Number(iCard.period)
+
+
         return (
             <StyledContent>
+                {this._renderDoneView(done,over)}
+                {iCard.img && (<ZoomImage
+                    height={width * 0.7}
+                    style={{width: '100%',
+                        height: width * 0.7}} imageUrls={[{ url: iCard.img.url }]}/>)}
                 {this.row('卡片名称:', iCard.title)}
                 {this.row('卡片周期:', iCard.period + '次')}
                 {this.row('记录模式:', iCard.record.join("+") || '无')}

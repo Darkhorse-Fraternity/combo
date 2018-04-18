@@ -37,8 +37,8 @@ class App extends Component {
                         {Platform.OS !== 'ios' && Platform.Version >= 20 && (
                             <StatusBar
                                 translucent={true}
-                                backgroundColor={'rgba(0, 0, 0, 0.3)'}
-                                barStyle={'light-content'}
+                                backgroundColor='transparent'
+                                barStyle={'dark-content'}
                             />
                         )}
                         <AppWithNavigationState/>

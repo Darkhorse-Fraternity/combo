@@ -86,3 +86,6 @@ export const StyledArrow = styled.View`
   height: 10px;
   margin-left: 5px;
 `
+
+export const StyeldDoneView = styled.View`
+`
