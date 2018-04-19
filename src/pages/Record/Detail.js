@@ -183,7 +183,7 @@ export default class Detail extends Component {
                 style={styles.row}
                 onPress={() => {
                 }}>
-                <RecordRow item={item} navigation={this.props.navigation}/>
+                <RecordRow style={{ paddingVertical: 10}} item={item} navigation={this.props.navigation}/>
                 {/*<View style={styles.line}/>*/}
             </View>
         )
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     },
     row: {
         backgroundColor: 'white',
-        paddingVertical: 10,
+
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e4e4e4',
     },

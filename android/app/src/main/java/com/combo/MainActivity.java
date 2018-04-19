@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.combo.util.LightStatusBarUtil;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -25,6 +26,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LightStatusBarUtil.MIUISetStatusBarLightMode(this, true);
         initView();
     }
 

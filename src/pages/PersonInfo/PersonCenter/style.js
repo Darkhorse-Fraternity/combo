@@ -5,6 +5,7 @@
 'use strict';
 
 import styled from "styled-components/native";
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
@@ -15,11 +16,11 @@ export const StyledContent = styled.ScrollView`
 export const StyleHeader = styled.View`
   margin-top: 30px;
   padding: 25px;
-   margin-bottom: 20px;
+   margin-bottom: 10px;
 `
 
-export const StyledHeaderTop = styled.TouchableOpacity`
-    margin-bottom: 25px;
+export const StyledHeaderTop = styled(Button)`
+    margin-bottom: 15px;
 `
 
 
@@ -41,14 +42,13 @@ export const StyleFolllow = styled.View`
 `
 
 export const StyleFollowText = styled.Text`
-    color: black;
     font-size: 14px;
-    font-weight: bold;
+    
 `
 export const StyleFollowDevide = styled.View`
     width:3px;
     height:18px;
-    background-color: black;
     margin: 0px 15px 0px 15px;
+    background-color: #aaaaaa;
    
 `

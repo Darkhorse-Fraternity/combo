@@ -9,9 +9,9 @@ import {
     ScrollView,
     TouchableOpacity,
     PixelRatio,
-    TouchableHighlight,
     Image
 } from 'react-native';
+
 
 let { width } = Dimensions.get('window');
 import React, { Component } from 'react';

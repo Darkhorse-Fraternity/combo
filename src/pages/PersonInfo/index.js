@@ -15,9 +15,7 @@ import imagePicker from '../../components/ImagePicker/imagePicker'
 import {connect} from 'react-redux'
 import {uploadAvatar} from '../../redux/actions/util'
 import {backViewColor, blackFontColor, grayFontColor} from '../../configure';
-import {createAnimatableComponent} from 'react-native-animatable';
-
-const AniScrollView = createAnimatableComponent(ScrollView);
+import Button from '../../components/Button'
 const styles = StyleSheet.create({
     list: {
         backgroundColor: 'white',
@@ -34,13 +32,11 @@ const styles = StyleSheet.create({
         paddingLeft: 29 / 2,
         paddingRight: 23 / 2,
         flexDirection: 'row',
-        backgroundColor: 'white',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
     row: {
         alignItems: 'center',
-        backgroundColor: 'white',
         paddingLeft: 29 / 2,
         paddingRight: 23 / 2,
         paddingVertical:30,
@@ -132,7 +128,7 @@ class PersonInfo extends React.Component {
         const source = this.props.userData.avatar ? {uri: this.props.userData.avatar.url} : my_head
 
         return (
-            <TouchableOpacity onPress={onPress} style={styles.group}>
+            <Button onPress={onPress} style={styles.group}>
                 <View style={styles.headerStyle}>
 
                     <View style={styles.infoContainer}>
@@ -144,7 +140,7 @@ class PersonInfo extends React.Component {
                     />
                     <View style={styles.arrowView}/>
                 </View>
-            </TouchableOpacity>
+            </Button>
         );
     }
 
@@ -152,7 +148,7 @@ class PersonInfo extends React.Component {
     _renderRow(title: string, des: string, onPress: Function) {
         return (
             <View>
-                <TouchableOpacity onPress={onPress}>
+                <Button onPress={onPress}>
                     <View style={styles.row}>
                         <Text style={styles.rowText}>
                             {title}
@@ -164,7 +160,7 @@ class PersonInfo extends React.Component {
                             {title != '账号' && <View style={styles.arrowView}/>}
                         </View>
                     </View>
-                </TouchableOpacity>
+                </Button>
             </View>
         );
     }

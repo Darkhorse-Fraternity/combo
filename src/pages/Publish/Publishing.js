@@ -12,12 +12,12 @@ import {
     StyleSheet,
     Alert,
     Text,
-    TouchableOpacity,
     Dimensions,
     TextInput,
     ActivityIndicator,
     Image
 } from 'react-native'
+import Button from '../../components/Button'
 import {connect} from 'react-redux'
 import {backViewColor} from '../../configure'
 import {ICARD} from '../../redux/reqKeys'
@@ -185,12 +185,12 @@ export default class Publishing extends Component {
                         <ActivityIndicator/>
                     </View>
                     :
-                    <TouchableOpacity
+                    <Button
                         style={[styles.item,{alignItems:url?null:'center'}]}
                         onPress={this.props.picker}>
                         {!url ? (<Icon name="md-add" size={50}/>) :
                             (<Image style={styles.img} source={{uri: url}}/>)}
-                    </TouchableOpacity>}
+                    </Button>}
 
 
                 <Text style={[styles.addImageText,{marginTop:20}]}>
@@ -223,7 +223,7 @@ export default class Publishing extends Component {
     _renderRow(title: string, onPress: Function = () => {
     }) {
         return (
-            <TouchableOpacity onPress={onPress} style={styles.row}>
+            <Button onPress={onPress} style={styles.row}>
                 <View style={{flexDirection: 'row', alignItems: 'center',}}>
                     <Text style={styles.rowText}>
                         {title}
@@ -232,7 +232,7 @@ export default class Publishing extends Component {
                 <View style={styles.row2}>
                     <View style={styles.arrowView}/>
                 </View>
-            </TouchableOpacity>
+            </Button>
         );
     }
 

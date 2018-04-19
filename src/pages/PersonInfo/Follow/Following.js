@@ -7,11 +7,11 @@
 import React, { Component } from 'react';
 import {
     View,
-    TouchableOpacity,
     StyleSheet,
     Text
 } from 'react-native'
 import { connect } from 'react-redux'
+import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
 
@@ -88,7 +88,7 @@ import {
                     req(param, FOLLOWING)
                     //取消关注，friendeExist 数据变更。
                     //friendNum 数据-1
-                    dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId,{ count: 0 }))
+                    dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 0 }))
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num - 1 }))
@@ -96,7 +96,7 @@ import {
                 } else {
                     const param = friendshipAdd(userId, beFollowedUserId)
                     req(param, FOLLOWING)
-                    dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId,{ count: 1 } ))
+                    dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 1 }))
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num + 1 }))
@@ -187,7 +187,7 @@ export default class Following extends Component {
                     }}
                     hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                     onPress={() => {
-                        this.props.follow(isFollow,followers_count)
+                        this.props.follow(isFollow, followers_count)
                     }}/>)}
             </StyleHeader>
         );
@@ -201,21 +201,21 @@ export default class Following extends Component {
 
         return (
             <StyleFolllow>
-                <TouchableOpacity onPress={() => {
+                <Button innerView onPress={() => {
                     navigation.navigate('Followee', { userId: data.objectId });
                 }}>
-                    <StyleFollowText>
-                        关注: {followees_count}
-                    </StyleFollowText>
-                </TouchableOpacity>
+                        <StyleFollowText>
+                            关注: {followees_count}
+                        </StyleFollowText>
+                </Button>
                 <StyleFollowDevide/>
-                <TouchableOpacity onPress={() => {
+                <Button  innerView onPress={() => {
                     navigation.navigate('Follower', { userId: data.objectId });
                 }}>
-                    <StyleFollowText>
-                        被关注：{followers_count}
-                    </StyleFollowText>
-                </TouchableOpacity>
+                        <StyleFollowText>
+                            被关注：{followers_count}
+                        </StyleFollowText>
+                </Button>
             </StyleFolllow>
         )
     }
@@ -232,7 +232,7 @@ export default class Following extends Component {
         }
         const days = iCard.period * (item.cycle ) + (item.time )
         return (
-            <TouchableOpacity
+            <Button
                 style={{ flex: 1 }}
                 onPress={() => {
                     const { navigation } = this.props;
@@ -256,7 +256,7 @@ export default class Following extends Component {
                     </View>
                     <Text style={styles.time}>第{item.cycle + 1}组</Text>
                 </View>
-            </TouchableOpacity>
+            </Button>
         )
     }
 

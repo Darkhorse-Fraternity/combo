@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
     Text,
     Alert
 } from 'react-native'
@@ -26,7 +25,7 @@ import { update,search} from '../../redux/module/leancloud'
 import {SwipeAction} from 'antd-mobile'
 import {claerByID} from '../../redux/actions/list'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
-
+import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 
 const heightZoomIn= {
@@ -157,7 +156,7 @@ export default class Record extends Component {
                     // onOpen={() => console.log('global open')}
                     // onClose={() => console.log('global close')}
                 >
-                    <TouchableOpacity
+                    <Button
                         style={{flex:1}}
                         onPress={()=>{
                     this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
@@ -172,7 +171,7 @@ export default class Record extends Component {
                             </View>
                             <Text style={styles.time}>第{item.cycle + 1}组</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Button>
                 </SwipeAction>
             </Animatable.View>
         )
@@ -228,7 +227,7 @@ const styles = StyleSheet.create({
         color: 'rgb(100,100,100)'
     },
     row: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         paddingHorizontal: 18,
         paddingVertical: 30,
         flexDirection: 'row',

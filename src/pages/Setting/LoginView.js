@@ -9,9 +9,6 @@ import {
     View,
     TextInput,
     Picker,
-    LayoutAnimation,
-    TouchableOpacity,
-    NativeModules,
     Dimensions,
     Platform,
     Keyboard

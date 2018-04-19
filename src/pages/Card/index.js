@@ -32,14 +32,13 @@ import Pop from '../../components/Pop'
 import Do from './Do'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
-import HeaderBtn from '../../components/Button/HeaderBtn'
-import SmallDoneBtn from '../../components/Button/SmallDoneBtn'
-import * as Animatable from 'react-native-animatable';
+
 import Carousel from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './Cell/SliderEntry.style';
 
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import Button from '../../components/Button'
 
 // import TinderCard from '../../components/Card/TinderCard'
 
@@ -223,13 +222,13 @@ export default class Home extends Component {
     __renderNoData = () => {
         return (
             <View style={styles.noDataView}>
-                <TouchableOpacity
+                <Button
                     style={styles.noDataBc}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
                     <Icon name="md-add" color="white" size={50}/>
-                </TouchableOpacity>
+                </Button>
                 <Text style={{ marginTop: 10 }}>给自己添加个习惯卡片吧~</Text>
             </View>
 

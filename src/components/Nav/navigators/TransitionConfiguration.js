@@ -24,7 +24,7 @@ export  const TransitionConfiguration = () => ({
         const params = route.params || {};
 
         let transition = params.transition || 'forHorizontal';
-        if(params.transition == 'none'){return null}
+        if(params.transition === 'none'){return null}
 
         // andorid 上拉不同。翻转动画实现，如果需要和ios一致，则在这边修改
         if(transition === 'forVertical' && Platform.OS === 'android')

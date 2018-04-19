@@ -5,7 +5,6 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TouchableHighlight,
     View,
     Image,
     ActivityIndicator,
@@ -19,6 +18,7 @@ import {connect} from 'react-redux'
 import {logout} from '../../redux/actions/user'
 import {dataStorage} from '../../redux/actions/util'
 import DeviceInfo from 'react-native-device-info'
+import Button from '../../components/Button'
 
 const styles = StyleSheet.create({
     list: {
@@ -105,7 +105,7 @@ class WBSetting extends Component {
     _renderRow(title: string, needArrow: bool, activity: bool = false, onPress: Function = () => {
     }) {
         return (
-            <TouchableHighlight onPress={onPress}>
+            <Button onPress={onPress}>
                 <View style={styles.row}>
                     <View style={{flexDirection: 'row', justifyContent: 'center'}}>
                         {/*<Image
@@ -116,10 +116,10 @@ class WBSetting extends Component {
                             {title}
                         </Text>
                     </View>
-                    {activity == false && needArrow && <View style={styles.arrowView}/>}
-                    {activity == true && <ActivityIndicator/>}
+                    {activity === false && needArrow && <View style={styles.arrowView}/>}
+                    {activity === true && <ActivityIndicator/>}
                 </View>
-            </TouchableHighlight>
+            </Button>
         );
     }
 

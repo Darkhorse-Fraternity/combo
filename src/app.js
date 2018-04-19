@@ -5,9 +5,7 @@
 'use strict';
 
 
-import React, {
-    Component,
-} from 'react'
+import React, { Component, } from 'react'
 import {Platform, StatusBar} from 'react-native'
 import {Provider} from 'react-redux'
 import {AppRegistry, View} from 'react-native';
@@ -17,6 +15,7 @@ import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
 import {ThemeProvider} from 'styled-components'
 import theme from './Theme'
+import LightStatuBar from './Theme/LightStatuBar'
 // import Form from './components/Form/Form'
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
@@ -34,13 +33,7 @@ class App extends Component {
             <Provider store={configureStore}>
                 <ThemeProvider theme={theme} >
                     <View style={{flex: 1}}>
-                        {Platform.OS !== 'ios' && Platform.Version >= 20 && (
-                            <StatusBar
-                                translucent={true}
-                                backgroundColor='transparent'
-                                barStyle={'dark-content'}
-                            />
-                        )}
+                        <LightStatuBar/>
                         <AppWithNavigationState/>
                         <InfoBar/>
                     </View>

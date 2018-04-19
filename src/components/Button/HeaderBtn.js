@@ -13,7 +13,7 @@ import {
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native'
-
+import Button from './'
 
 export default class SmallDoneBtn extends Component {
     constructor(props: Object) {
@@ -26,7 +26,8 @@ export default class SmallDoneBtn extends Component {
 
         const disabled = this.props.load || this.props.disabled
         return (
-            <TouchableOpacity
+            <Button
+
                 {...this.props}
                 disabled={disabled}
                 style={[styles.btn,{
@@ -43,7 +44,7 @@ export default class SmallDoneBtn extends Component {
                             {this.props.title}
                         </Text>) :
                     (<ActivityIndicator size="small" color={"white"}/>)}
-            </TouchableOpacity>
+            </Button>
         );
     }
 }

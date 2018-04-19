@@ -6,7 +6,6 @@ import {
     View,
     TextInput,
     findNodeHandle,
-    TouchableOpacity,
     Text
 } from 'react-native'
 import {backViewColor, mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
@@ -71,13 +70,7 @@ export default class NickName extends React.Component {
         // const {params} = state;
         return {
             title: null,
-            // headerRight: ( <TouchableOpacity
-            //     style={styles.headerBtn}
-            //     onPress={() => {
-            //         props.navigation.state.params.send()
-            //     }}>
-            //     <Icon name="md-send" size={20}/>
-            // </TouchableOpacity>),
+
         }
     };
 

@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
     Dimensions,
 } from 'react-native'
 import {connect} from 'react-redux'

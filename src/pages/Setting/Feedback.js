@@ -30,6 +30,7 @@ import {FEEDBACKPARAM} from '../../redux/reqKeys'
             dispatch(async (dispatch, getState) => {
                 if (content.length === 0) {
                     Toast.show('内容不能为空。')
+                    return;
                 }
                 try {
                     const user = getState().user.data
@@ -108,6 +109,7 @@ export default class Feedback extends Component {
                 <HeaderBtn
                     style={styles.headerBtn}
                     load={this.props.load }
+                    disabled={this.state.content.length === 0}
                     title={'确定'}
                     onPress={() => {
                         this.props.send(this.state.content)

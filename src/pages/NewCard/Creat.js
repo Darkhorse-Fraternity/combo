@@ -26,6 +26,7 @@ import { mainColor } from '../../configure'
 import { selfUser, iCard } from '../../request/LCModle'
 import moment from 'moment'
 import OptionDo, { StaticOption } from './OptionDo'
+import Button from '../../components/Button'
 import {
     reduxForm,
     formValueSelector,
@@ -221,12 +222,12 @@ export default class Creat extends Component {
                     <View style={styles.line}/>
                 </View>
                 <View style={styles.ctrlView}>
-                    <TouchableOpacity
+                    <Button
                         onPress={this.__backStep}
                         style={[styles.sureBtn]}>
                         <Text style={styles.sureBtnText}>上一步</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Button>
+                    <Button
                         disabled={this.props.title.length === 0}
                         onPress={this.__nextStep}
                         style={[styles.sureBtn, {
@@ -234,7 +235,7 @@ export default class Creat extends Component {
                                 this.props.title.length === 0 ? "rgb(200,200,200)" : "black"
                         }]}>
                         <Text style={styles.sureBtnText}>下一步</Text>
-                    </TouchableOpacity>
+                    </Button>
                 </View>
             </View>
         )
@@ -247,16 +248,16 @@ export default class Creat extends Component {
             <View>
                 <Text style={styles.doneTitle}>{this.props.title}</Text>
                 <View style={styles.doneCtrlView}>
-                    <TouchableOpacity
+                    <Button
                         onPress={this.__backStep}
                         style={[styles.sureBtn]}>
                         <Text style={styles.sureBtnText}>上一步</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
+                    </Button>
+                    <Button
                         onPress={this.__doOption}
                         style={[styles.sureBtn]}>
                         <Text style={styles.sureBtnText}>更多配置</Text>
-                    </TouchableOpacity>
+                    </Button>
                     <HeaderBtn
                         hitSlop={
                         {top: 0, left: 20, bottom: 20, right: 20}}

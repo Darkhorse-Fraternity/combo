@@ -6,11 +6,11 @@ import {
     ScrollView,
     StyleSheet,
     Text,
-    TouchableOpacity,
     View,
     Image,
     RefreshControl,
 } from 'react-native'
+import Button from '../../../components/Button'
 
 import { blackFontColor, grayFontColor, backViewColor } from '../../../configure/index';
 import { connect } from 'react-redux'
@@ -108,21 +108,23 @@ export default class PersonCenter extends Component {
 
         return (
             <StyleFolllow>
-                <TouchableOpacity onPress={()=>{
+                <Button
+                    innerView
+                    onPress={()=>{
                     navigation.navigate('Followee',{userId:this.props.user.data.objectId});
                 }}>
                     <StyleFollowText>
                         关注: {followees_count}
                     </StyleFollowText>
-                </TouchableOpacity>
+                </Button>
                 <StyleFollowDevide/>
-                <TouchableOpacity onPress={()=>{
+                <Button innerView onPress={()=>{
                     navigation.navigate('Follower',{userId:this.props.user.data.objectId});
                 }}>
                     <StyleFollowText>
                         被关注：{followers_count}
                     </StyleFollowText>
-                </TouchableOpacity>
+                </Button>
             </StyleFolllow>
         )
     }
@@ -184,7 +186,7 @@ export default class PersonCenter extends Component {
     _renderRow(title: string, style: any, isArraw: bool = false, onPress: Function = () => {
     }, description: any = null) {
         return (
-            <TouchableOpacity onPress={onPress} style={style}>
+            <Button onPress={onPress} style={style}>
                 <View style={styles.row}>
                     <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                         {/*<Image
@@ -201,7 +203,7 @@ export default class PersonCenter extends Component {
                         {isArraw ? <View style={styles.arrowView}/> : null}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </Button>
         );
     }
 
@@ -237,7 +239,6 @@ const styles = StyleSheet.create({
         borderBottomColor: '#e4e4e4',
     },
     row: {
-        backgroundColor: 'white',
         paddingHorizontal: 15,
         paddingVertical: 25,
         flexDirection: 'row',

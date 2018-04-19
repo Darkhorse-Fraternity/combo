@@ -16,13 +16,11 @@ import {
 } from 'react-native'
 import {connect} from 'react-redux'
 
-import Pop from '../../components/Pop'
-import Menu from '../../pages/Home/Menu'
-import Icon from 'react-native-vector-icons/Ionicons'
+
 import * as Animatable from 'react-native-animatable';
 
 import CardView from '../Card'
-import LoginView from '../Setting/LoginView'
+import Button from '../../components/Button'
 
 import PushManage from '../../configure/localNotification'
 
@@ -114,14 +112,15 @@ export default class Home extends Component {
                 </Text>
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>长按打卡，轻触查看详情</Text>
-                    <TouchableOpacity
+                    <Button
+                        innerView
                         onPress={() => {
                             this.props.navigation.navigate('NewCard')
                         }}
                         hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
                         style={styles.headerBtn}>
                         <Text style={styles.headerBtnText}>添加</Text>
-                    </TouchableOpacity>
+                    </Button>
                 </View>
             </View>
         )

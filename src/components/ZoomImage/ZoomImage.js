@@ -2,6 +2,7 @@
  * Created by lintong on 2018/4/3.
  * @flow
  */
+
 'use strict';
 
 import React, { Component } from 'react';
@@ -14,9 +15,13 @@ import {
     Modal,
     Image,
     Dimensions,
+    ViewPagerAndroid,
+    StatusBar,
+    Platform
 } from 'react-native'
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Swiper from 'react-native-swiper'
+import { reqChangeData } from "../../redux/actions/req";
 
 export default class ZoomImage extends Component {
     constructor(props: Object) {
@@ -58,10 +63,17 @@ export default class ZoomImage extends Component {
 
         const { style, imageUrls, height } = this.props
 
-
         return (
-            <View style={[style]}>
-                <Modal visible={this.state.visible} transparent={true}>
+            <View style={[style, styles.wrapper]}>
+                <Modal
+                    onRequestClose={()=>{
+                        this.setState({ visible: false })
+                    }}
+                    visible={this.state.visible}
+                    transparent={true}>
+                    {Platform.OS !== 'ios' &&  (
+                        <StatusBar backgroundColor='black'/>
+                    )}
                     <ImageViewer
                         imageUrls={imageUrls}
                         onCancel={() => {
@@ -75,8 +87,10 @@ export default class ZoomImage extends Component {
                         }}
                     />
                 </Modal>
-                <Swiper
+                <View
                     height={height}
+                    containerStyle={{flex:1}}
+                    style={{flex:1}}
                     showsButtons={false}>
                     {imageUrls.map(item => (
                         <TouchableOpacity
@@ -89,14 +103,15 @@ export default class ZoomImage extends Component {
                             <Image source={{ uri: item.url }} style={styles.img}/>
                         </TouchableOpacity>
                     ))}
-                </Swiper>
+                </View>
+
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
     wrapper: {
-        flex: 1,
+        backgroundColor:'rgb(250,250,250)'
     },
     slide: {
         flex: 1,
@@ -116,6 +131,10 @@ const styles = StyleSheet.create({
         left: 0,
         top: 0,
         zIndex:10,
+    },
+    pageStyle: {
+        alignItems: 'center',
+        padding: 20,
     }
 
 })

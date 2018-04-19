@@ -14,12 +14,12 @@ import {
     Text,
     Easing,
     Image,
-    TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 import ZoomImage from '../../components/ZoomImage/ZoomImage'
+import Button from '../../components/Button'
 //static displayName = RecordRow
 @connect(
     state => ({
@@ -69,18 +69,19 @@ export default class RecordRow extends Component {
                 {commentNew && user.objectId === this.props.user.objectId
                 && (<View style={styles.newTip}/>)}
 
-                <Icon
-                    ref={this.chatBtnRef}
-                    name={'ios-chatbubbles-outline'}
-                    size={25}
-                    color={'black'}
-                    //backgroundColor="transparent"
-                    //resizeMode = 'contain'
-                    //source={image}
-                    style={styles.icon}/>
+                {/*<Icon*/}
+                    {/*ref={this.chatBtnRef}*/}
+                    {/*name={'ios-chatbubbles-outline'}*/}
+                    {/*size={25}*/}
+                    {/*color={'black'}*/}
+                    {/*//backgroundColor="transparent"*/}
+                    {/*//resizeMode = 'contain'*/}
+                    {/*//source={image}*/}
+                    {/*style={styles.icon}/>*/}
                 {commentNum > 0 && (<Text
                     numberOfLines={1}
                     style={[styles.chatBtnText,]}>{item.commentNum}</Text>)}
+                    <View style={styles.arrowView}/>
                 {/*<Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text>*/}
             </View>
         )
@@ -106,7 +107,7 @@ export default class RecordRow extends Component {
         const img = item.imgs && item.imgs[0] || null
         const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
         return (
-            <TouchableOpacity
+            <Button
                 activeOpacity={1}
                 onPress={() => {
                     this.props.navigation &&
@@ -134,7 +135,7 @@ export default class RecordRow extends Component {
                             this._renderDone()}
                     </View>
                 </View>
-            </TouchableOpacity>
+            </Button>
         );
     }
 }
@@ -188,11 +189,20 @@ const styles = StyleSheet.create({
     chatbtn: {
         justifyContent: 'space-between',
         margin: 4,
-        backgroundColor: 'white',
         flexDirection: 'row',
         alignItems: 'center',
     },
     chatBtnText: {
         marginLeft: 5,
-    }
+    },
+    arrowView: {
+        borderBottomWidth: StyleSheet.hairlineWidth * 2,
+        borderRightWidth: StyleSheet.hairlineWidth * 2,
+        borderColor: '#8c8c85',
+        transform: [{rotate: '315deg'}],
+        marginRight: 5,
+        marginLeft: 5,
+        width: 10,
+        height: 10,
+    },
 })

@@ -8,13 +8,12 @@ import  {
     View,
     ScrollView,
     WebView,
-    TouchableOpacity,
     Image,
     Platform,
     Linking,
     Dimensions
 } from 'react-native';
-
+import Button from '../Button'
 
 const  navbarHeight = 0
 const screenHeight = Dimensions.get('window').height
@@ -60,7 +59,7 @@ class BaseWebView extends Component {
         return {
             title: params && params.title || '加载中。。',
             headerLeft: (
-                <TouchableOpacity style={styles.buttonContainer} onPress={()=>{
+                <Button style={styles.buttonContainer} onPress={()=>{
                     if(params.canGoBack){
                         params.webView && params.webView.goBack()
                     }else {
@@ -68,7 +67,7 @@ class BaseWebView extends Component {
                     }
                 }}>
                     <View style={styles.arrowView}/>
-                </TouchableOpacity>)
+                </Button>)
         }
     };
 

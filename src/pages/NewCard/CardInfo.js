@@ -14,7 +14,6 @@ import {
     Text,
     Dimensions,
     ScrollView,
-    TouchableOpacity,
     ActivityIndicator,
     Easing,
     Modal,
@@ -34,7 +33,7 @@ import { addListNormalizrEntity } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import moment from 'moment'
 import { user as UserEntity, schemas } from '../../redux/scemes'
-
+import Button from '../../components/Button'
 //static displayName = CardInfo
 
 
@@ -168,10 +167,10 @@ export default class CardInfo extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
-                    <ZoomImage
+                    {iCard.img && <ZoomImage
                         height={width * 0.7}
-                        style={styles.img} imageUrls={[{ url: iCard.img.url }]}/>
-                    <TouchableOpacity
+                        style={styles.img} imageUrls={[{ url: iCard.img.url }]}/>}
+                    <Button
                         disabled={userLoad}
                         onPress={() => {
                             this.props.navigation.navigate('Following', { user: iCardUser })
@@ -185,7 +184,7 @@ export default class CardInfo extends Component {
                         </View>
                         {userLoad?<ActivityIndicator size="small" />:
                             <View style={styles.arrowView}/>}
-                    </TouchableOpacity>
+                    </Button>
                     {this.row('卡片名称:', iCard.title)}
                     {this.row('卡片周期:', iCard.period + '次')}
                     {this.row('记录模式:', iCard.record.join("+") || '无')}
@@ -195,7 +194,7 @@ export default class CardInfo extends Component {
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
 
                 </ScrollView>
-                <TouchableOpacity onPress={() => {
+                <Button onPress={() => {
                     if (exist && iUseData) {
                         this.props.navigation.navigate('CardDetail', {
                             iUse: iUseData,
@@ -214,7 +213,7 @@ export default class CardInfo extends Component {
                         <Text style={[styles.btnText]}>
                             {exist ? '已经参与' : "马上参与"}
                         </Text>}
-                </TouchableOpacity>
+                </Button>
             </View>
         );
     }
