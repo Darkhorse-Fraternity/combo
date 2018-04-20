@@ -12,7 +12,8 @@ import {
     Text,
     TouchableOpacity,
     ListView,
-    ScrollView
+    ScrollView,
+    ActivityIndicator
 } from 'react-native'
 
 let { width } = Dimensions.get('window');
@@ -169,6 +170,7 @@ export default class Calendar extends Component {
                         <Text style={styles.t1}>
                             {(month[this.state.month]) + '月' +' '+this.state.year  }
                         </Text>
+                        <ActivityIndicator style={{marginLeft:10}} animating={this.props.load}/>
                         {/*<TouchableOpacity onPress={() => this.goTo('right')}>*/}
                             {/*<View style={styles.rightBtn}/>*/}
                         {/*</TouchableOpacity>*/}

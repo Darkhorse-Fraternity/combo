@@ -156,7 +156,9 @@ export default class CardDetail extends Component {
                 style={styles.row}
                 onPress={() => {
                 }}>
-                <RecordRow item={item} navigation={this.props.navigation}/>
+                <RecordRow style={{paddingVertical:10}}
+                           item={item}
+                           navigation={this.props.navigation}/>
                 {/*<View style={styles.line}/>*/}
             </View>
         )
