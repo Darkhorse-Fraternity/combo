@@ -13,11 +13,12 @@ import {
     TouchableOpacity,
     Text,
     Dimensions,
-    Image
+    Image,
+    Platform
 } from 'react-native'
 import { ICARD, IUSE, CARDLIST } from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import Button from '../../components/Button'
 
 import { mainColor } from '../../configure'
 import { connect } from 'react-redux'
@@ -64,13 +65,13 @@ export default class Publish extends Component {
         // console.log('test:', item);
         const source = item.img ? { uri: item.img.url } : require('../../../source/img/my/icon-60.png')
         return (
-            <TouchableOpacity
+            <Button
                 style={styles.item}
                 onPress={() => {
                     this.props.navigation.navigate('CardInfo', { iCard: item })
                     // this.props.use(item)
                 }}>
-                <View style={styles.shadow}/>
+                {Platform.OS==='ios' && <View style={styles.shadow}/>}
                 <Image style={styles.itemImage} source={source}/>
                 <View style={styles.itemTextView}>
                     <Text
@@ -80,22 +81,22 @@ export default class Publish extends Component {
                     </Text>
                 </View>
 
-            </TouchableOpacity>
+            </Button>
         )
     }
 
     _listHeaderComponet = () => {
         return (
             <View style={styles.header}>
-                <TouchableOpacity
-                    style={[styles.item,
+                <Button
+                    style={[styles.itemAdd,
                         styles.shadow,{marginLeft:15}]}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
                     <Icon name="md-add" size={50}/>
                     <Text style={styles.period}>新建卡片</Text>
-                </TouchableOpacity>
+                </Button>
             </View>
         )
     }
@@ -127,15 +128,26 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#F5FCFF'
     },
-    item: {
-        backgroundColor: 'white',
+
+    itemAdd:{
         width: (width - 50) / 3,
         height: width / 3 * 1.3,
         marginTop: 20,
         marginHorizontal: 5,
         borderRadius: 10,
         alignItems: 'center',
-        elevation: 10,
+        elevation: 5,
+        justifyContent: 'center',
+    },
+    item: {
+        // backgroundColor: 'white',
+        width: (width - 50) / 3,
+        height: width / 3 * 1.3,
+        marginTop: 20,
+        marginHorizontal: 5,
+        borderRadius: 10,
+        alignItems: 'center',
+        elevation: 5,
         justifyContent: 'center',
 
     },

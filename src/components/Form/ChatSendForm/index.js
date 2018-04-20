@@ -66,9 +66,9 @@ export default class ChatSendForm extends Component {
                 <CleanBtn
                     {...rest}
                     disabled={ !enableSumbmit  || submitting || invalid || disabled}
-                    style={{width: 31}}
+                    style={{width: 41,paddingHorizontal:5}}
                     text='发送'
-                    hitSlop={{top: 10, left: 10, bottom: 10, right: 10}}
+                    hitSlop={{top: 10, left: 0, bottom: 10, right: 0}}
                     onPress={onSubmit && handleSubmit(onSubmit)}
                 />
             </Form>

@@ -163,7 +163,8 @@ export default class Record extends Component {
             }}>
                         <View style={styles.row}>
                             <View style={styles.subRow}>
-                                <Icon style={styles.icon} name={reflesh?'ios-refresh':"ios-walk"} size={50}/>
+                                <Icon style={styles.icon}
+                                      name={reflesh?'ios-refresh':"ios-walk"} size={50}/>
                                 <View style={styles.des}>
                                     <Text style={styles.title}>{iCard.title}</Text>
                                     <Text style={styles.time}>坚持了{days}天</Text>

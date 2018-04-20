@@ -297,8 +297,9 @@ const styles = StyleSheet.create({
                 flex: 1,
             },
         }),
+        backgroundColor:'#f7f7f7'
     },
     list: {
-        marginBottom: 50
+        // marginBottom: 50
     }
 })

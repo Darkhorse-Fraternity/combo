@@ -293,7 +293,6 @@ export default class Following extends Component {
 
 const styles = StyleSheet.create({
     row: {
-        backgroundColor: 'white',
         paddingHorizontal: 18,
         paddingVertical: 30,
         flexDirection: 'row',

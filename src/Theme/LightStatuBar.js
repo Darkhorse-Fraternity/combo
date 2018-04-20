@@ -23,9 +23,9 @@ export default class LightStatuBar extends Component {
         //判断不为小米或者魅族
 
 
-       if(DeviceInfo.getBrand() === 'Xiaomi'){
-           return <View/>
-       }
+       // if(DeviceInfo.getBrand() === 'Xiaomi'){
+       //     return <View/>
+       // }
 
        //魅族下是正常的 Version < 23
 

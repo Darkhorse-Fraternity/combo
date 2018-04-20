@@ -34,7 +34,8 @@ const listKey = IDO
     (state, props) => ({
         data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId),
         load: state.req.get(IUSE).get('load'),
-        user: state.user.data
+        user: state.user.data,
+
     }),
     (dispatch, props) => ({
         refresh: async (data) => {
@@ -134,7 +135,7 @@ export default class Detail extends Component {
     }
 
 
-    _renderHeader = () => {
+    _renderHeader = (user) => {
         const { navigation } = this.props;
         const { state } = navigation;
         const { params } = state;
@@ -154,10 +155,13 @@ export default class Detail extends Component {
         if (!reflesh) {
             text = "暂停打卡"
         }
+
+        const isSelf = this.props.user.objectId === user.objectId
+
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{card.title}</Text>
-                {this.props.isSelf && (<HeaderBtn
+                {isSelf && (<HeaderBtn
                     style={styles.headerBtn}
                     load={this.props.load}
                     title={text}
@@ -183,7 +187,9 @@ export default class Detail extends Component {
                 style={styles.row}
                 onPress={() => {
                 }}>
-                <RecordRow style={{ paddingVertical: 10}} item={item} navigation={this.props.navigation}/>
+                <RecordRow style={{ paddingVertical: 10}}
+                           item={item}
+                           navigation={this.props.navigation}/>
                 {/*<View style={styles.line}/>*/}
             </View>
         )
@@ -206,7 +212,7 @@ export default class Detail extends Component {
 
         return (
             <LCList
-                ListHeaderComponent={this._renderHeader}
+                ListHeaderComponent={()=>this._renderHeader(userNoNull)}
                 style={[this.props.style, styles.list]}
                 reqKey={listKey}
                 sKey={listKey + params.data.objectId}
