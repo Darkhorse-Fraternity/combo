@@ -12,7 +12,8 @@ import {
     Text,
     TouchableOpacity,
     ListView,
-    ViewPagerAndroid
+    ViewPagerAndroid,
+    ActivityIndicator
 } from 'react-native'
 let {width} = Dimensions.get('window');
 import DateBoard from './DateBoard'
@@ -60,10 +61,10 @@ export default class Calendar extends Component {
 
     myScroll(event) {
         var that = this;
-        if (event.nativeEvent.position == 2) {
+        if (event.nativeEvent.position === 2) {
             this.nextMonth()
         }
-        if (event.nativeEvent.position == 0) {
+        if (event.nativeEvent.position === 0) {
             this.prev()
         }
         that.refs.trueViewPager.setPageWithoutAnimation(1)
@@ -188,12 +189,12 @@ export default class Calendar extends Component {
                                    fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>
                     <View>
-                        <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
+                        <DateBoard year={this.state.year} month={this.state.month} date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
                                    fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>
                     <View>
-                        <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
+                        <DateBoard year={this.state.year} month={this.state.month+1} date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
                                    fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     </View>

@@ -143,7 +143,7 @@ export default class Calendar extends Component {
 
 
     goTo = (direction) => {
-        if (direction == 'left') {
+        if (direction === 'left') {
             this.refs.trueScroll.scrollTo({ x: 0, y: 0, animated: true })
 
         } else {

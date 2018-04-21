@@ -23,6 +23,8 @@ function firUpdate(bundleId, api_token, type) {
     }
 }
 
+
+
 const checkIos = (str) => str.lastIndexOf('ep') !== -1
 //当为android 时 只有大于或等于指定版本进入测试状态
 const checkAndroid = () => parseFloat(DeviceInfo.getVersion()) >= AppTestVersion
@@ -45,8 +47,8 @@ const checkUpdate = (res, callBack) => {
         console.log('buildNumber:', buildNumber);
 
         if (versionShort > appVersion || versionShort === appVersion && version > buildNumber) {
-            const changelog = `当前版本号:${appVersion},编译号:${buildNumber};
-            更新版本号:${versionShort},更新编译号:${version}`
+            const changelog = `当前版本号:${appVersion},\n编译号:${buildNumber};
+            \n更新版本号:${versionShort},\n更新编译号:${version}`
 
             // console.log('changelog:', changelog)
             Alert.alert(
@@ -78,25 +80,35 @@ const goWebView = (uri) => {
 //用于企业端自动更新
 export const epUpdate = async () => {
     const bundleId = DeviceInfo.getBundleId()
+    console.log('checkAndroid():', DeviceInfo.getVersion());
     if (Platform.OS === 'ios' && checkIos(bundleId)) {
         const res = await sendBack(bundleId)
         // console.log('update:', res);
         const callback = () => {
-            // try{
-            //     const services = 'itms-services://?action=download-manifest&url='
-            //     const url = services + res.installUrl
-            //     Linking.openURL(url);
-            // }catch(e){
-            //     Toash.show(e.message)
-            // }
+            try{
+                const services = 'itms-services://?action=download-manifest&url='
+                const url = services + res.installUrl
+                Linking.openURL(url);
+            }catch(e){
+                Toash.show(e.message)
+            }
             goWebView(res.update_url)
+            // Linking.openURL(res.update_url);
         }
         checkUpdate(res, callback)
     } else if (Platform.OS === 'android' && checkAndroid()) {
         const res = await sendBack(bundleId)
+        console.log('update:', res);
         const callback = () => {
-            // Linking.openURL(services);
-            goWebView(res.update_url)
+
+            Linking.openURL(res.installUrl);
+            Linking.openURL(res.update_url);
+
+            // const request = new Request(res.installUrl, {method: 'get'});
+            // fetch(request)
+
+            // Linking.openURL('combo://Tab');
+            // goWebView(res.update_url)
         }
         //Android 识别当前测试版本号 来检测更新
         checkUpdate(res, callback)
