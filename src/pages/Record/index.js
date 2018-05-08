@@ -5,7 +5,7 @@
 'use strict';
 
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -14,45 +14,45 @@ import {
     Alert
 } from 'react-native'
 
-import {mainColor} from '../../configure'
-import {connect} from 'react-redux'
+import { mainColor } from '../../configure'
+import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import {IRECORD, ICARD,IUSE} from '../../redux/reqKeys'
-import {selfUser} from '../../request/LCModle'
+import { IRECORD, ICARD, IUSE } from '../../redux/reqKeys'
+import { selfUser } from '../../request/LCModle'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { update,search} from '../../redux/module/leancloud'
-import {SwipeAction} from 'antd-mobile'
-import {claerByID} from '../../redux/actions/list'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
+import { update, search } from '../../redux/module/leancloud'
+import { SwipeAction } from 'antd-mobile'
+import { claerByID } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
 import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 
-const heightZoomIn= {
+const heightZoomIn = {
     from: {
         height: 100,
-        translateX:500,
+        translateX: 500,
     },
     to: {
         height: 0,
-        translateX:500,
+        translateX: 500,
     },
 }
-Animatable.initializeRegistryWithDefinitions({heightZoomIn})
+Animatable.initializeRegistryWithDefinitions({ heightZoomIn })
 @connect(
-    state =>({
-        data:state.list.get(IRECORD),
-        iCard:state.normalizr.get(ICARD),
-        user:state.user.data
+    state => ({
+        data: state.list.get(IRECORD),
+        iCard: state.normalizr.get(ICARD),
+        user: state.user.data
     }),
-    dispatch =>({
+    dispatch => ({
 
-        delete: async(objectId, callBack)=> {
+        delete: async (objectId, callBack) => {
             // await remove(objectId,IUSE)
             // 做伪删除
 
             const param = {
-                statu:'del'
+                statu: 'del'
             }
             const res = await update(objectId, param, IUSE)
             const entity = {
@@ -68,7 +68,7 @@ Animatable.initializeRegistryWithDefinitions({heightZoomIn})
             dispatch(search(false, {
                 where: {
                     ...selfUser(),
-                    statu:'start'
+                    statu: 'start'
                 },
                 order: 'doneDate'
 
@@ -82,7 +82,7 @@ export default class Record extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            scrollEnabled:true
+            scrollEnabled: true
         }
     }
 
@@ -98,26 +98,25 @@ export default class Record extends Component {
         }
     };
 
-    shouldComponentUpdate(nextProps: Object,nextState:Object) {
-        return !immutable.is(this.props, nextProps)||!immutable.is(this.state,nextState)
+    shouldComponentUpdate(nextProps: Object, nextState: Object) {
+        return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
     }
 
 
-
-    __delete = (index,objectId)=> {
-        const self= this
+    __delete = (index, objectId) => {
+        const self = this
         Alert.alert(
             '确定删除?',
             '删除后不可恢复~！',
-            [{text: '取消'}, {
-                text: '确定', onPress: async() => {
-                    const last = self.props.data.get('listData').size-1 === index
+            [{ text: '取消' }, {
+                text: '确定', onPress: async () => {
+                    const last = self.props.data.get('listData').size - 1 === index
                     const itemView = this.rows[index]
                     ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
 
                     await itemView.fadeOutLeft(500)
                     const endState = await itemView.heightZoomIn(500)
-                    endState.finished && self.props.delete(objectId,()=>{
+                    endState.finished && self.props.delete(objectId, () => {
                         !last && itemView.bounce(1)
                     })
                 }
@@ -125,16 +124,17 @@ export default class Record extends Component {
         )
     }
     rows = []
-    renderRow({item, index}: Object) {
+
+    renderRow({ item, index }: Object) {
         // md-refresh
 
         const iCardId = item[ICARD]
         const card = this.props.iCard.get(iCardId)
         const iCard = card && card.toJS()
-       // console.log('test:', item);
+        // console.log('test:', item);
 
-        if(!iCard){
-            console.log('iCardId:', iCardId,iCard);
+        if (!iCard) {
+            console.log('iCardId:', iCardId, iCard);
             return <View/>
         }
         const days = iCard.period * (item.cycle ) + (item.time )
@@ -142,29 +142,35 @@ export default class Record extends Component {
         return (
             <Animatable.View
                 ref={(row) => this.rows[index] = row}
-               >
+            >
                 <SwipeAction
                     style={styles.card}
                     autoClose
                     right={[
-        {
-          text: '删除',
-          onPress: () => this.__delete(index,item.objectId),
-          style: { backgroundColor: '#F4333C', color: 'white',fontSize:17 },
-        },
-      ]}
+                        {
+                            text: '删除',
+                            onPress: () => this.__delete(index, item.objectId),
+                            style: { backgroundColor: '#F4333C', color: 'white', fontSize: 17 },
+                        },
+                    ]}
                     // onOpen={() => console.log('global open')}
                     // onClose={() => console.log('global close')}
                 >
                     <Button
-                        style={{flex:1}}
-                        onPress={()=>{
-                    this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
-            }}>
+                        style={{ flex: 1 }}
+                        onPress={() => {
+                            // this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
+
+                            this.props.navigation.navigate('CardDetail', {
+                                iUse: item,
+                                iCard: iCard
+                            })
+
+                        }}>
                         <View style={styles.row}>
                             <View style={styles.subRow}>
                                 <Icon style={styles.icon}
-                                      name={reflesh?'ios-refresh':"ios-walk"} size={50}/>
+                                      name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>
                                 <View style={styles.des}>
                                     <Text style={styles.title}>{iCard.title}</Text>
                                     <Text style={styles.time}>坚持了{days}天</Text>
@@ -183,13 +189,13 @@ export default class Record extends Component {
         const param = {
             where: {
                 ...selfUser(),
-                statu:{"$ne":'del'},
+                statu: { "$ne": 'del' },
             },
             include: ICARD,
         }
         return (
             <LCList
-                style={[this.props.style,styles.list]}
+                style={[this.props.style, styles.list]}
                 reqKey={IUSE}
                 sKey={IRECORD}
                 renderItem={this.renderRow.bind(this)}

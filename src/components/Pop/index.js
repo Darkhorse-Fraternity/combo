@@ -8,6 +8,7 @@ import React from 'react';
 import topView from 'rn-topview';
 import PopContainer from './PopContainer';
 import configureStore from '../../redux/configureStore'
+import {Platform} from 'react-native'
 let popupInstance;
 let mContent;
 export default {
@@ -18,7 +19,9 @@ export default {
         maskStyle,
         onMaskClose=()=> {},
     }={}) {
-        if(!content && mContent == content)return
+        if(!content && mContent === content)return
+        Platform.OS !=='ios' && StatusBar.setBackgroundColor('rgb(130,130,130)', true);
+
         mContent = content
         topView.set(
             <PopContainer
@@ -27,7 +30,10 @@ export default {
                 ref={i => popupInstance = i}
                 animationType={animationType}
                 maskClosable={maskClosable}
-                onMaskClose={onMaskClose}
+                onMaskClose={()=>{
+                    Platform.OS !=='ios' && StatusBar.setBackgroundColor('white', true);
+                    onMaskClose()
+                }}
                 wrapStyle={wrapStyle}
                 onAnimationEnd={visible => { if (!visible) { topView.remove(); } }}
                 visible

@@ -92,8 +92,8 @@ export const epUpdate = async () => {
             }catch(e){
                 Toash.show(e.message)
             }
-            goWebView(res.update_url)
-            // Linking.openURL(res.update_url);
+            // goWebView(res.update_url)
+            Linking.openURL(res.update_url);
         }
         checkUpdate(res, callback)
     } else if (Platform.OS === 'android' && checkAndroid()) {

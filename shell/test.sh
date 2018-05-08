@@ -11,7 +11,7 @@ curl -X POST \
                     "objectId": "59a5029644d9040058136049"
             }
         },
-        "prod": "dev",
+        "deviceProfile": "prod_ep",
         "data": {
           "ios":{
              "alert" : {

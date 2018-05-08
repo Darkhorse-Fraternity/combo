@@ -95,39 +95,14 @@ export default class Detail extends Component {
     static defaultProps = {
         data: {}
     };
-    // static navigationOptions = props => {
-    //     const {navigation} = props;
-    //     const {state} = navigation;
-    //     const {params} = state;
-    //     const item = params.data
-    //     const card = params.card
-    //     const reflesh = item.time == card.period || item.statu == 'stop'
-    //     return {
-    //         headerRight: reflesh && (
-    //             <TouchableOpacity
-    //                 style={styles.headerBtn}
-    //                 onPress={() => {
-    //                     params.refresh(item)
-    //
-    //                 }}>
-    //                 <Icon style={styles.icon} name={reflesh ? 'ios-refresh' : "ios-walk"} size={30}/>
-    //             </TouchableOpacity>)
-    //     }
-    // };
+
 
     shouldComponentUpdate(nextProps: Object) {
         return !immutable.is(this.props, nextProps)
     }
 
 
-    __refresh = (data) => {
-        const isDone = data.time === this.props.navigation.state.params.card.period
-        Alert.alert(
-            isDone ? '再来一组?' : '重新开启',
-            '',
-            [{ text: '取消' }, { text: '确定', onPress: () => this.props.refresh(data) }]
-        )
-    }
+
 
     componentDidMount() {
         // const {navigation} = this.props;
@@ -135,7 +110,7 @@ export default class Detail extends Component {
     }
 
 
-    _renderHeader = (user) => {
+    _renderHeader = (user,iUse) => {
         const { navigation } = this.props;
         const { state } = navigation;
         const { params } = state;
@@ -146,33 +121,21 @@ export default class Detail extends Component {
         const data = this.props.data && this.props.data.toJS && this.props.data.toJS()
         const item = data || params.data
         const { card } = params
-        const reflesh = item.time === Number(card.period) || item.statu === 'stop'
 
-        // console.log('test:', item);
-        let text = item.time === Number(card.period) ?
-            "再来一组" :
-            "继续打卡"
-        if (!reflesh) {
-            text = "暂停打卡"
-        }
-
-        const isSelf = this.props.user.objectId === user.objectId
+        // const isSelf = this.props.user.objectId === user.objectId
 
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>{card.title}</Text>
-                {isSelf && (<HeaderBtn
+                 <HeaderBtn
                     style={styles.headerBtn}
-                    load={this.props.load}
-                    title={text}
+                    title={'查看详情'}
                     onPress={() => {
-                        // params.refresh(item)
-                        if (reflesh) {
-                            this.__refresh(item)
-                        } else {
-                            this.props.stop(item)
-                        }
-                    }}/>)}
+                        navigation.navigate('CardDetail', {
+                            iUse: iUse,
+                            iCard: card
+                        })
+                    }}/>
             </View>
         )
     }
@@ -212,7 +175,7 @@ export default class Detail extends Component {
 
         return (
             <LCList
-                ListHeaderComponent={()=>this._renderHeader(userNoNull)}
+                ListHeaderComponent={()=>this._renderHeader(userNoNull,data)}
                 style={[this.props.style, styles.list]}
                 reqKey={listKey}
                 sKey={listKey + params.data.objectId}

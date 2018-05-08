@@ -9,7 +9,8 @@ import {
     View,
     TouchableOpacity,
     Text,
-    Dimensions
+    Dimensions,
+    ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -38,14 +39,64 @@ import {
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ShareView from '../../../components/Share/ShareView'
 import Pop from '../../../components/Pop'
+
 const width = Dimensions.get('window').width
+
+import { update, } from '../../../redux/module/leancloud'
+import { IUSE } from '../../../redux/reqKeys'
+import { claerByID } from '../../../redux/actions/list'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import { addListNormalizrEntity } from '../../../redux/actions/list'
+
 
 @connect(
     (state, props) => ({
         user: state.user.data,
-        iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user)
+        iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user),
+        iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUse.objectId),
+        iUseLoad: state.req.get(IUSE).get('load'),
     }),
-    dispatch => ({})
+    (dispatch, props) => ({
+        refresh: async (data) => {
+            const id = data.objectId
+            const card = props.navigation.state.params.iCard
+
+            const isDone = data.time === card.period
+
+            const param = {
+                time: isDone ? 0 : data.time,
+                statu: 'start',
+                cycle: isDone ? data.cycle + 1 : data.cycle,
+            }
+
+            const res = await update(id, param, IUSE)
+            const entity = {
+                ...param,
+                ...res,
+            }
+            // dispatch(addEntities({
+            //     [ICARD]: {
+            //         [entity.objectId]: entity
+            //     }
+            // }))
+            dispatch(addListNormalizrEntity(IUSE, entity))
+        },
+        stop: async (data) => {
+            const id = data.objectId
+            const param = {
+                statu: 'stop',
+                //cycle,
+            }
+            const res = await update(id, param, IUSE)
+            const entity = {
+                ...param,
+                ...res,
+            }
+
+            dispatch(addNormalizrEntity(IUSE, entity))
+            dispatch(claerByID(IUSE, id))
+        },
+    })
 )
 
 
@@ -60,8 +111,7 @@ export default class Info extends Component {
     static defaultProps = {};
 
 
-
-    _renderDoneView = (done,over)=>{
+    _renderDoneView = (done, over) => {
         return (
             <StyeldDoneView/>
         )
@@ -69,9 +119,23 @@ export default class Info extends Component {
 
     _renderBottomMenu = (params) => {
 
-        const { iCard, iUse } = params
+        let { iCard, iUse } = params
         const { navigation } = this.props;
+        const pUse = this.props.iUse && this.props.iUse.toJS()
+        iUse = pUse || iUse
 
+
+        const reflesh = iUse.time === Number(iCard.period) || iUse.statu === 'stop'
+
+        // console.log('test:', item);
+        let text = iUse.time === Number(iCard.period) ?
+            "再来一组" :
+            "继续打卡"
+        if (!reflesh) {
+            text = "暂停打卡"
+        }
+
+        console.log('iUse:', iUse);
 
         return (
             <StyledBottomMenu>
@@ -85,7 +149,7 @@ export default class Info extends Component {
                             }
                         })
                     }}>
-                    <StyledIcon name={'md-share'} size={30} />
+                    <StyledIcon name={'md-share'} size={30}/>
                     <StyledBottomMenuText>
                         点击分享
                     </StyledBottomMenuText>
@@ -97,19 +161,24 @@ export default class Info extends Component {
                         navigation.navigate('PublishDetail',
                             { iCardID: iCard.objectId, data: iCard })
                     }}>
-                    <StyledIcon name={'md-settings'} size={30} />
+                    <StyledIcon name={'md-settings'} size={30}/>
                     <StyledBottomMenuText>
                         卡片设置
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>)}
-                <StyledBottomMenuButton
-                    hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
-                    onPress={this.props.stop}>
-                    <StyledIcon name={'md-trash'} size={30} />
-                    <StyledBottomMenuText>
-                        放弃打卡
-                    </StyledBottomMenuText>
-                </StyledBottomMenuButton>
+                {this.props.iUseLoad ? <ActivityIndicator style={{padding:40}}/> :
+                    <StyledBottomMenuButton
+                        hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
+                        onPress={() => {
+                            !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
+                        }}>
+                        <StyledIcon name={!reflesh ?
+                            'md-trash' : 'md-refresh'}
+                                    size={30}/>
+                        <StyledBottomMenuText>
+                            {text}
+                        </StyledBottomMenuText>
+                    </StyledBottomMenuButton>}
             </StyledBottomMenu>
         )
 
@@ -155,17 +224,19 @@ export default class Info extends Component {
         const iCardUserData = iCardUser && iCardUser.toJS()
 
 
-        const done =  moment(2, "HH").isBefore(iUse.doneDate.iso)
+        const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
         const over = iUse.time === Number(iCard.period)
 
 
         return (
             <StyledContent>
-                {this._renderDoneView(done,over)}
+                {this._renderDoneView(done, over)}
                 {iCard.img && (<ZoomImage
                     height={width * 0.7}
-                    style={{width: '100%',
-                        height: width * 0.7}} imageUrls={[{ url: iCard.img.url }]}/>)}
+                    style={{
+                        width: '100%',
+                        height: width * 0.7
+                    }} imageUrls={[{ url: iCard.img.url }]}/>)}
                 {this.row('卡片名称:', iCard.title)}
                 {this.row('卡片周期:', iCard.period + '次')}
                 {this.row('记录模式:', iCard.record.join("+") || '无')}
@@ -174,7 +245,7 @@ export default class Info extends Component {
                 {this.row('使用人数:', iCard.useNum + '人')}
                 {iCardUserData.objectId !== user.objectId &&
                 this.rowTouch('拥有人:', iCardUserData.username + '', () => {
-                    console.log('iCardUserData:', iCardUserData);
+                    // console.log('iCardUserData:', iCardUserData);
                     this.props.navigation.navigate('Following', { user: iCardUserData })
                 })}
 
