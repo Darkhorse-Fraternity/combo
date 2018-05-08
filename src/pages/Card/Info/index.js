@@ -139,6 +139,31 @@ export default class Info extends Component {
 
         return (
             <StyledBottomMenu>
+                {iCard.user === this.props.user.objectId && iUse.statu !== 'del' &&
+                (<StyledBottomMenuButton
+                    hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
+                    onPress={() => {
+                        navigation.navigate('PublishDetail',
+                            { iCardID: iCard.objectId, data: iCard })
+                    }}>
+                    <StyledIcon name={'md-settings'} size={30}/>
+                    <StyledBottomMenuText>
+                        卡片设置
+                    </StyledBottomMenuText>
+                </StyledBottomMenuButton>)}
+                {this.props.iUseLoad ? <ActivityIndicator style={{ padding: 40 }}/> :
+                    <StyledBottomMenuButton
+                        hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
+                        onPress={() => {
+                            !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
+                        }}>
+                        <StyledIcon name={!reflesh ?
+                            'md-trash' : 'md-refresh'}
+                                    size={30}/>
+                        <StyledBottomMenuText>
+                            {text}
+                        </StyledBottomMenuText>
+                    </StyledBottomMenuButton>}
                 <StyledBottomMenuButton
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
@@ -154,31 +179,6 @@ export default class Info extends Component {
                         点击分享
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>
-                {iCard.user === this.props.user.objectId && iUse.statu !== 'del' &&
-                (<StyledBottomMenuButton
-                    hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
-                    onPress={() => {
-                        navigation.navigate('PublishDetail',
-                            { iCardID: iCard.objectId, data: iCard })
-                    }}>
-                    <StyledIcon name={'md-settings'} size={30}/>
-                    <StyledBottomMenuText>
-                        卡片设置
-                    </StyledBottomMenuText>
-                </StyledBottomMenuButton>)}
-                {this.props.iUseLoad ? <ActivityIndicator style={{padding:40}}/> :
-                    <StyledBottomMenuButton
-                        hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
-                        onPress={() => {
-                            !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
-                        }}>
-                        <StyledIcon name={!reflesh ?
-                            'md-trash' : 'md-refresh'}
-                                    size={30}/>
-                        <StyledBottomMenuText>
-                            {text}
-                        </StyledBottomMenuText>
-                    </StyledBottomMenuButton>}
             </StyledBottomMenu>
         )
 
@@ -199,13 +199,14 @@ export default class Info extends Component {
     rowTouch = (title, des, onPress) => (
         <StyledRowTouch onPress={onPress}>
 
-            <StyledRowText>
-                {title}
-            </StyledRowText>
+            {/*<StyledRowText>*/}
+                {/*{title}*/}
+            {/*</StyledRowText>*/}
+            <StyledRowDes>
+                {des}
+            </StyledRowDes>
             <StyledRowInner>
-                <StyledRowDes>
-                    {des}
-                </StyledRowDes>
+
                 <StyledArrow/>
             </StyledRowInner>
         </StyledRowTouch>
@@ -237,23 +238,25 @@ export default class Info extends Component {
                         width: '100%',
                         height: width * 0.7
                     }} imageUrls={[{ url: iCard.img.url }]}/>)}
-                {this.row('卡片名称:', iCard.title)}
-                {this.row('卡片周期:', iCard.period + '次')}
-                {this.row('记录模式:', iCard.record.join("+") || '无')}
-                {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
-                {this.row('提醒时间:', iCard.notifyTime)}
-                {this.row('使用人数:', iCard.useNum + '人')}
-                {iCardUserData.objectId !== user.objectId &&
-                this.rowTouch('拥有人:', iCardUserData.username + '', () => {
-                    // console.log('iCardUserData:', iCardUserData);
-                    this.props.navigation.navigate('Following', { user: iCardUserData })
+                {this.rowTouch('卡片名称:', iCard.title , () => {
+                     this.props.navigation.navigate('CardInfo', { iCard: iCard })
                 })}
+                {/*{this.row('卡片周期:', iCard.period + '次')}*/}
+                {/*{this.row('记录模式:', iCard.record.join("+") || '无')}*/}
+                {/*/!*{this.row('关键字:', iCard.keys.join("+"))}*!/*/}
+                {/*{this.row('提醒时间:', iCard.notifyTime)}*/}
+                {/*{this.row('使用人数:', iCard.useNum + '人')}*/}
+                {/*{iCardUserData.objectId !== user.objectId &&*/}
+                {/*this.rowTouch('拥有人:', iCardUserData.username + '', () => {*/}
+                    {/*// console.log('iCardUserData:', iCardUserData);*/}
+                    {/*this.props.navigation.navigate('Following', { user: iCardUserData })*/}
+                {/*})}*/}
 
-                <StyledTitleView>
-                    <StyledTitleText>
-                        卡片功能
-                    </StyledTitleText>
-                </StyledTitleView>
+                {/*<StyledTitleView>*/}
+                    {/*<StyledTitleText>*/}
+                        {/*卡片功能*/}
+                    {/*</StyledTitleText>*/}
+                {/*</StyledTitleView>*/}
                 {this._renderBottomMenu(params)}
             </StyledContent>
         );

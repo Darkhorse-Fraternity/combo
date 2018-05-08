@@ -8,12 +8,13 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Text
+    Text,
 } from 'react-native'
 import { connect } from 'react-redux'
 import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
+import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 
 import {
     StyleFolllow,
@@ -82,6 +83,7 @@ import {
                 const beFollowedUserId = props.navigation.state.params.user.objectId
                 const state = getState()
                 const userId = state.user.data.objectId
+                const selfNum = state.req.get(FRIENDNUM + userId).get('data').get('followees_count')
 
                 if (isExist) {
                     const param = friendshipDelete(userId, beFollowedUserId)
@@ -92,6 +94,10 @@ import {
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num - 1 }))
+                    //自己
+                    dispatch(reqChangeData(
+                        FRIENDNUM + userId,
+                        { followees_count: selfNum - 1 }))
 
                 } else {
                     const param = friendshipAdd(userId, beFollowedUserId)
@@ -100,6 +106,10 @@ import {
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num + 1 }))
+                    //自己
+                    dispatch(reqChangeData(
+                        FRIENDNUM + userId,
+                        { followees_count: selfNum + 1 }))
 
                 }
 
@@ -176,7 +186,14 @@ export default class Following extends Component {
                             followees_count,
                             followers_count)}
                     </StyleHeaderInner>
-                    <StyledAvatar source={avatarSource}/>
+                    {!avatarUrl? <StyledAvatar source={avatarSource}/>:<ZoomImage
+                        height={80}
+                        style={{
+                            width: 80,
+                            height:80,
+                            borderRadius:40,
+                        }} imageUrls={[{ url: avatarUrl }]}/>}
+
                 </StyleHeaderInnerRight>
                 {!isSelf && (<HeaderBtn
                     load={load || this.props.followLoad}

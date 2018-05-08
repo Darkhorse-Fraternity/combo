@@ -64,7 +64,7 @@ export default class ZoomImage extends Component {
         const { style, imageUrls, height } = this.props
 
         return (
-            <View style={[style, styles.wrapper]}>
+            <View style={[ styles.wrapper]}>
                 <Modal
                     onRequestClose={()=>{
                         this.setState({ visible: false })
@@ -100,7 +100,7 @@ export default class ZoomImage extends Component {
                                 this.setState({ visible: true })
                             }}
                         >
-                            <Image source={{ uri: item.url }} style={styles.img}/>
+                            <Image source={{ uri: item.url }} style={[style,styles.img]}/>
                         </TouchableOpacity>
                     ))}
                 </View>

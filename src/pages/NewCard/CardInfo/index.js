@@ -21,20 +21,31 @@ import {
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components/native';
-import ZoomImage from '../../components/ZoomImage/ZoomImage'
-import { ICARD, USER, IUSE, IUSEExist } from '../../redux/reqKeys'
-import { getUserByID, classSearch } from '../../request/leanCloud'
-import { req, requestSucceed, DATA } from '../../redux/actions/req'
-import { entityFromCode } from '../../redux/scemes'
-import { selfUser, iCard } from '../../request/LCModle'
+import ZoomImage from '../../../components/ZoomImage/ZoomImage'
+import { ICARD, USER, IUSE, IUSEExist } from '../../../redux/reqKeys'
+import { getUserByID, classSearch } from '../../../request/leanCloud'
+import { req, requestSucceed, DATA } from '../../../redux/actions/req'
+import { entityFromCode } from '../../../redux/scemes'
+import { selfUser, iCard } from '../../../request/LCModle'
 import Toast from 'react-native-simple-toast';
-import { add } from '../../redux/module/leancloud'
-import { addListNormalizrEntity } from '../../redux/actions/list'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { add } from '../../../redux/module/leancloud'
+import { addListNormalizrEntity } from '../../../redux/actions/list'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
-import { user as UserEntity, schemas } from '../../redux/scemes'
-import Button from '../../components/Button'
+import { user as UserEntity, schemas } from '../../../redux/scemes'
+import Button from '../../../components/Button/index'
 //static displayName = CardInfo
+
+import {
+    StyledContent,
+    StyledRow,
+    StyledRowText,
+    StyledRowDes,
+    StyledArrow,
+    StyledRowInner,
+    StyledRowTouch,
+    StyeldDoneView
+} from './style'
 
 
 @connect(
@@ -125,20 +136,33 @@ export default class CardInfo extends Component {
 
 
     row = (title, des) => (
-        <View style={styles.row}>
-            <Text style={styles.title}>
+        <StyledRow>
+            <StyledRowText>
                 {title}
-            </Text>
-            <Text style={styles.des}>
+            </StyledRowText>
+            <StyledRowDes>
                 {des}
-            </Text>
-        </View>
+            </StyledRowDes>
+        </StyledRow>
     )
 
 
-    touchRow = () => {
-        _
-    }
+    rowTouch = (title, des, onPress) => (
+        <StyledRowTouch onPress={onPress}>
+
+            <StyledRowText>
+                {title}
+            </StyledRowText>
+
+            <StyledRowInner>
+                <StyledRowDes>
+                    {des}
+                </StyledRowDes>
+                <StyledArrow/>
+            </StyledRowInner>
+        </StyledRowTouch>
+
+    )
 
 
     render(): ReactElement<any> {
@@ -154,7 +178,7 @@ export default class CardInfo extends Component {
 
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../source/img/my/icon-60.png')
+            require('../../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
         const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '' : iCardUser.username
@@ -165,7 +189,7 @@ export default class CardInfo extends Component {
 
 
         return (
-            <View style={{ flex: 1 }}>
+            <StyledContent style={{ flex: 1 }}>
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     {iCard.img && <ZoomImage
                         height={width * 0.7}
@@ -176,23 +200,24 @@ export default class CardInfo extends Component {
                             this.props.navigation.navigate('Following', { user: iCardUser })
                         }}
                         style={styles.row}>
-                        <View style={{flexDirection:'row',alignItems:'center'}}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={avatarSource} style={styles.avatar}/>
                             <Text style={styles.name}>
                                 {nickName}
                             </Text>
                         </View>
-                        {userLoad?<ActivityIndicator size="small" />:
+                        {userLoad ? <ActivityIndicator size="small"/> :
                             <View style={styles.arrowView}/>}
                     </Button>
                     {this.row('卡片名称:', iCard.title)}
                     {this.row('卡片周期:', iCard.period + '次')}
                     {this.row('记录模式:', iCard.record.join("+") || '无')}
                     {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
-                    {this.row('使用人数:', iCard.useNum + '人')}
                     {this.row('提醒时间:', iCard.notifyTime)}
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
-
+                    {this.rowTouch('使用人数:', iCard.useNum + '人',()=>[
+                        this.props.navigation.navigate('CardUse', { iCard: iCard })
+                    ])}
                 </ScrollView>
                 <Button onPress={() => {
                     if (exist && iUseData) {
@@ -205,8 +230,8 @@ export default class CardInfo extends Component {
                         this.props.use(iCard)
                     }
                 }}
-                                  disabled={load}
-                                  style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>
+                        disabled={load}
+                        style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>
 
 
                     {load ? <ActivityIndicator color={"white"}/> :
@@ -214,7 +239,7 @@ export default class CardInfo extends Component {
                             {exist ? '已经参与' : "马上参与"}
                         </Text>}
                 </Button>
-            </View>
+            </StyledContent>
         );
     }
 }

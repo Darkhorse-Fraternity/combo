@@ -20,6 +20,7 @@ import CardDetail from './Card/Detail'
 import Followee from './PersonInfo/Follow/Followee'
 import Follower from './PersonInfo/Follow/Follower'
 import Following from './PersonInfo/Follow/Following'
+import CardUse from './NewCard/CardUse'
 export const route = {
     Login: {screen: LoginView},
     Home: {screen: Home},
@@ -42,7 +43,8 @@ export const route = {
     Publishing: {screen: Publishing},
     CardInfo: {screen: CardInfo},
     RComment: {screen: RComment},
-    CardDetail: {screen: CardDetail}
+    CardDetail: {screen: CardDetail},
+    CardUse: {screen: CardUse},
 }
 
 export const tabRoute = {

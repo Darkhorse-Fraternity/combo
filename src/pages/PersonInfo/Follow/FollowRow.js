@@ -60,7 +60,7 @@ export default class FollowRow extends Component {
         const { avatar, username, mobilePhoneNumber, createdAt } = item
         const avatarSource = avatar ? { uri: avatar.url } :
             require('../../../../source/img/my/icon-60.png')
-        const name = username !== mobilePhoneNumber ? username : ''
+        const name = username !== mobilePhoneNumber ? username : '路人甲'
         return (
             <StyledRowContent onPress={() => {
                 navigation.navigate('Following',{user: item})
