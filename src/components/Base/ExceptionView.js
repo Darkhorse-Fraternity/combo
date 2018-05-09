@@ -10,7 +10,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
 const AniView = Animatable.createAnimatableComponent(Image);
@@ -68,15 +68,15 @@ export default class ExceptionView extends Component {
         return (
             <ScrollView style={[{flex:1},this.props.style]}>
                 {this.props.renderHeader && this.props.renderHeader()}
-                <TouchableOpacity
-                    activeOpacity={0.5}
+                <Button
+                    innerView
                     onPress={()=>{
                         this.props.onRefresh()
                     }}>
                     {this._renderPromptIndicator(this.props.exceptionType)}
                     {this.renderPrompt()}
                     {this.renderOtherTips()}
-                </TouchableOpacity>
+                </Button>
             </ScrollView>
         );
     }

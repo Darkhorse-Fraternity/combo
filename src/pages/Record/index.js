@@ -159,12 +159,12 @@ export default class Record extends Component {
                     <Button
                         style={{ flex: 1 }}
                         onPress={() => {
-                            // this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
-
-                            this.props.navigation.navigate('CardDetail', {
-                                iUse: item,
-                                iCard: iCard
-                            })
+                            this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
+                            //
+                            // this.props.navigation.navigate('CardDetail', {
+                            //     iUse: item,
+                            //     iCard: iCard
+                            // })
 
                         }}>
                         <View style={styles.row}>

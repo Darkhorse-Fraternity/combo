@@ -13,7 +13,8 @@ import {
     Image,
     Clipboard,
     StyleSheet,
-    Dimensions
+    Dimensions,
+    TouchableNativeFeedback
 } from 'react-native'
 import { connect } from 'react-redux'
 import { mainColor } from '../../configure'
@@ -26,7 +27,7 @@ import {
     SHARE_TO_QQ,
     Share_TO_ZONE
 } from '../../redux/actions/share'
-
+import Button from '../../components/Button'
 
 @connect(
     state => ({}),
@@ -46,12 +47,14 @@ export default class ShareView extends Component {
 
         const item = (source, titel, press) => {
             return (
-                <TouchableOpacity onPress={press}>
+                <Button
+                    background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                    onPress={press}>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Image style={styles.pop_item_image} source={source}/>
                         <Text style={styles.pop_item_text}>{titel}</Text>
                     </View>
-                </TouchableOpacity>)
+                </Button>)
 
         }
 

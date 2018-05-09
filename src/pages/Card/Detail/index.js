@@ -59,8 +59,8 @@ export default class CardDetail extends Component {
                     tabBarActiveTextColor={theme.mainColor}
                     tabBarUnderlineStyle={{backgroundColor:theme.mainColor}}
                     tabBarPosition ='bottom'>
-                    <Agenda {...this.props} tabLabel="记录"/>
                     <Info {...this.props} tabLabel="设置"/>
+                    <Agenda {...this.props} tabLabel="记录"/>
                 </ScrollableTabView>
 
 

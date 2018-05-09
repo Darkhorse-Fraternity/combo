@@ -236,6 +236,8 @@ export default class Home extends Component {
 
     }
 
+
+
     render(): ReactElement<any> {
 
         // const navigation = this.props.navigation

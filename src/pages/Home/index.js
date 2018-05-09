@@ -135,7 +135,6 @@ export default class Home extends Component {
 
                 {this._renderHeader()}
                 {isLogin && (<CardView
-                    animation="slideInDown"
                     navigation={this.props.navigation}
                 />)}
             </ScrollView>

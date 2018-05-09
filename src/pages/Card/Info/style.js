@@ -6,7 +6,7 @@
 
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
@@ -35,7 +35,7 @@ export const StyledBottomMenuText = styled.Text`
   font-weight: 500;
 `
 
-export const StyledBottomMenuButton = styled.TouchableOpacity`
+export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 20px;
 `
@@ -53,7 +53,7 @@ export const StyledRow = styled.View`
   border-bottom-color: #e4e4e4;
 `
 
-export const StyledRowTouch = styled.TouchableOpacity`
+export const StyledRowTouch = styled(Button)`
   padding: 25px 15px 25px 15px;
   flex-direction: row;
   align-items: center;

@@ -19,7 +19,7 @@ const ButtonAndroid = (props) => {
         background={TouchableNativeFeedback.SelectableBackground()} // eslint-disable-line new-cap
         {...props}
     >
-        {props.innerView ||props.style ? (
+        {props.children && props.children.length>1 ||props.style ? (
             <View style={props.style}>
                 {props.children}
             </View>) : props.children}

@@ -99,11 +99,13 @@ export async function  dayNotification(data) {
                 // date: new Date(Date.now() + (1*1000)), // in 60 secs
                 number:  1,
                 repeatType: 'week',
-                data:{
-                    webUrl:"",
-                    action: "com.avos.UPDATE_STATUS",
+                userInfo:{
+                    webUrl:"combo://CardDetail",
+                    params:{iUse: item,iCard: item.iCard},
+                    //action: "com.avos.UPDATE_STATUS",
+                    type: 'local'
                 },
-                userInfo: {'type': 'local'},
+                //userInfo: {'type': 'local'},
             });
 
 
