@@ -9,34 +9,34 @@ import {
     Text
 } from 'react-native'
 import {backViewColor, mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
-import {updateUserName} from '../../request/leanCloud'
+import {updateNickName} from '../../request/leanCloud'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
 import {updateUserData} from '../../redux/actions/user'
 import Toast from 'react-native-simple-toast';
 import {req} from '../../redux/actions/req'
-import {UPDATEUSERNAME} from '../../redux/reqKeys'
+import {UPDATENICKNAME} from '../../redux/reqKeys'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 @connect(
     (state, props) => ({
         //data:state.req.get()
         userData: state.user.data,
-        load:state.req.get(UPDATEUSERNAME).get('load')
+        load:state.req.get(UPDATENICKNAME).get('load')
     }),
     (dispatch, props) => ({
-        update: (username) => {
+        update: (nickname) => {
 
             dispatch(async (dispatch, getState) => {
 
                 const user = getState().user.data
-                const params = updateUserName(user.objectId, username);
+                const params = updateNickName(user.objectId, nickname);
 
-                await req(params,UPDATEUSERNAME)
+                await req(params,UPDATENICKNAME)
 
 
                 Toast.show('修改成功');
                 //修改store
-                dispatch(updateUserData({username}))
+                dispatch(updateUserData({nickname}))
                 props.navigation.goBack()
 
 
@@ -54,7 +54,7 @@ export default class NickName extends React.Component {
         super(props);
         this.state = {
             loaded: false,
-            nickName: this.props.userData.username,
+            nickName: this.props.userData.nickname,
         }
     }
 
@@ -115,7 +115,7 @@ export default class NickName extends React.Component {
                 onChangeText={onChangeText}
                 maxLength={16}
                 underlineColorAndroid='transparent'
-                defaultValue={this.props.userData.username}
+                defaultValue={this.props.userData.nickname}
                 clearButtonMode='while-editing'
                 enablesReturnKeyAutomatically={true}
                 returnKeyType='done'

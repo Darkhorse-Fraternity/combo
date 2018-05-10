@@ -16,7 +16,7 @@ export const CARDLIST = 'cardList'
 export const IDOULIMAGE = 'iDoULImage'
 export const PBULImage = 'PBULImage'
 export const IUSEExist = 'iUseExist'
-export const UPDATEUSERNAME = 'updateUserName'
+export const UPDATENICKNAME = 'updateNickName'
 export const FEEDBACKPARAM = 'feedbackParam'
 export const ICOMMENT = 'iComment'
 //设置初始值
@@ -31,7 +31,7 @@ export const registerReqKeys = [
     IDOULIMAGE,
     PBULImage,
     IUSEExist,
-    UPDATEUSERNAME,
+    UPDATENICKNAME,
     FEEDBACKPARAM,
     IDOCALENDAR,
     FOLLOWING,

@@ -146,7 +146,7 @@ export default class Following extends Component {
     _renderHeader(data: Object) {
         // let {grade_str,connect_phone} = data;
         // console.log('test111:',data.avatar.url)
-        const name = data.username !== data.mobilePhoneNumber ? data.username : ''
+        const name = data.nickname || '路人甲'
         const avatar = data.avatar
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } :

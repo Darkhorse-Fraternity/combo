@@ -251,7 +251,7 @@ export default class Info extends Component {
                 {/*{this.row('提醒时间:', iCard.notifyTime)}*/}
                 {/*{this.row('使用人数:', iCard.useNum + '人')}*/}
                 {/*{iCardUserData.objectId !== user.objectId &&*/}
-                {/*this.rowTouch('拥有人:', iCardUserData.username + '', () => {*/}
+                {/*this.rowTouch('拥有人:', iCardUserData.nickname + '', () => {*/}
                     {/*// console.log('iCardUserData:', iCardUserData);*/}
                     {/*this.props.navigation.navigate('Following', { user: iCardUserData })*/}
                 {/*})}*/}

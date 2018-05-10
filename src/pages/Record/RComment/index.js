@@ -241,7 +241,7 @@ export default class RComment extends Component {
             </StyledRowLeft>
             <StyledRowRight>
                 <StyledNickText>
-                    {item.user.username}
+                    {item.user.nickname||'路人甲'}
                 </StyledNickText>
                 <StyledContentText>
                     {item.text}

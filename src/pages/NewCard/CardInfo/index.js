@@ -63,7 +63,7 @@ import {
         loadUser: (iCardUser) => {
 
 
-            if (!iCardUser.username && iCardUser.objectId) {
+            if (!iCardUser.nickname && iCardUser.objectId) {
 
                 const param = getUserByID(iCardUser.objectId)
                 req(param, USER, { sceme: UserEntity })
@@ -181,7 +181,7 @@ export default class CardInfo extends Component {
             require('../../../../source/img/my/icon-60.png')
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
-        const nickName = iCardUser.username === iCardUser.mobilePhoneNumber ? '' : iCardUser.username
+        const nickName = iCardUser.nickname
         const iUseData = this.props.data && this.props.data.toJS()
 
         const userLoad = this.props.userLoad
@@ -203,7 +203,7 @@ export default class CardInfo extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={avatarSource} style={styles.avatar}/>
                             <Text style={styles.name}>
-                                {nickName}
+                                {nickName||"路人甲"}
                             </Text>
                         </View>
                         {userLoad ? <ActivityIndicator size="small"/> :

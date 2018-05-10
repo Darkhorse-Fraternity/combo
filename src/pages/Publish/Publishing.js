@@ -56,7 +56,7 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
             dispatch(async (dispatch,getState)=>{
 
                 const user = getState().user.data
-                if(!user.username || user.username === user.mobilePhoneNumber){
+                if(!user.nickname || nickName.length === 0){
 
                     props.navigation.navigate('NickName')
                     Toast.show('发布卡片前需要先设置昵称~!');

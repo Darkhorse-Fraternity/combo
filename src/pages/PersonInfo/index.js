@@ -228,7 +228,7 @@ class PersonInfo extends React.Component {
         return (
             <ScrollView  style={styles.list}>
                 {this._renderHeadRow(this.props.picker)}
-                {this._renderRow('昵称', this.props.userData.username, () => {
+                {this._renderRow('昵称', this.props.userData.nickname, () => {
                     this.props.navigation.navigate("NickName");
                 })}
             </ScrollView>

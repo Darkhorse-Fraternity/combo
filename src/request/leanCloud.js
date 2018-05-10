@@ -131,17 +131,17 @@ export function updatePassword(id: string, old_password: string,
 /**
  * 跟新用户昵称
  * @param  {[type]} id:string       用户ID
- * @param  {[type]} username:string 更新后的名字
+ * @param  {[type]} nickname:string 更新后的名字
  * @return {[type]}                 [description]
  */
-export function updateUserName(id: string, username: string): Object {
+export function updateNickName(id: string, nickname: string): Object {
     return {
         path: '/users/' + id,
         method: methodType.put,
         needSession: true,
         params: {
             id,
-            username
+            nickname
         }
     }
 }

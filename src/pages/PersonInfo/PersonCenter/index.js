@@ -80,8 +80,8 @@ export default class PersonCenter extends Component {
     }) {
         // let {grade_str,connect_phone} = data;
         // console.log('test111:',data.avatar.url)
-        const name = data.username !== data.mobilePhoneNumber ? data.username : '陌生人'
-        const tip =  '查看或编辑个人资料'
+        const name = data.nickname  ||  '陌生人'
+        const tip =  '点击查看或编辑个人资料'
         return (
             <StyleHeader>
                 <StyledHeaderTop onPress={onPress}>

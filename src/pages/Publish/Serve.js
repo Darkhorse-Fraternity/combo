@@ -101,8 +101,7 @@ export default class Detail extends Component {
                         style={styles.avatar}
                         source={avatarSource}/>
                     <Text style={styles.name}>
-                        {item.user.username !== item.user.mobilePhoneNumber
-                            ? item.user.username : '路人甲'}
+                        {item.user.nickname || '路人甲'}
                         完成了任务
                     </Text>
                 </View>

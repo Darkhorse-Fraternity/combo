@@ -102,7 +102,7 @@ export default class Home extends Component {
 
     _renderHeader = () => {
         const user = this.props.user
-        const name = user.username !== user.mobilePhoneNumber ? user.username : '陌生人'
+        const name = user.nickname || '陌生人'
         return (
             <View style={styles.headView}>
                 <Text
