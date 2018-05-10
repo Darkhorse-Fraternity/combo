@@ -13,7 +13,8 @@ import {
     TouchableOpacity,
     Text,
     Dimensions,
-    Image
+    Image,
+    TouchableNativeFeedback
 } from 'react-native'
 import {ICARD} from '../../redux/reqKeys'
 
@@ -22,6 +23,7 @@ import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
+import Button from '../../components/Button'
 
 const listKey = ICARD
 
@@ -73,6 +75,7 @@ export default class Publish extends Component {
         const source = item.img?{uri:item.img.url}:require('../../../source/img/my/icon-60.png')
         return (
             <TouchableOpacity
+               // background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
                 onPress={() => {
                     this.props.navigation.navigate('PublishDetail',
                         {iCardID: item.objectId, data: item})

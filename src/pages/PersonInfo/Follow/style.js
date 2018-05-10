@@ -5,7 +5,7 @@
 'use strict';
 
 import styled from "styled-components/native";
-
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -43,7 +43,7 @@ export const StyledSmallAvatar = styled.Image`
   border-radius: 30px;
 `
 
-export const StyledRowContent = styled.TouchableOpacity`
+export const StyledRowContent = styled(Button)`
     background-color: white;
     flex-direction: row;
     justify-content: space-between;

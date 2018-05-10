@@ -29,14 +29,14 @@ export default class LightStatuBar extends Component {
 
        //魅族下是正常的 Version < 23
 
+
         return (<View>
             {Platform.OS !== 'ios' && Platform.Version >= 21 && Platform.Version < 23 && (
                 <StatusBar
-                    translucent={true}
                     backgroundColor='white'
                 />
             )}
-            {Platform.OS !== 'ios' && Platform.Version >= 21 && Platform.Version >= 23 && (
+            {Platform.OS !== 'ios'  && Platform.Version >= 23 && (
                 <StatusBar
                     translucent={true}
                     backgroundColor='transparent'

@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -16,9 +16,9 @@ export const StyledHeader = styled.View`
 `
 
 
-export const StyledRow = styled.TouchableOpacity`
+export const StyledRow = styled(Button)`
    flex-direction: row;
-   padding: 15px 15px 5px 15px;
+   padding: 15px 15px 0px 15px;
 `
 
 export const StyledRowLeft = styled.View`

@@ -12,7 +12,6 @@ import {
     StyleSheet,
     Text,
     ScrollView,
-    TouchableOpacity,
     Dimensions,
     Keyboard
 } from 'react-native'
@@ -34,7 +33,7 @@ export const StaticOption = {
 import {
     formValues,
 } from 'redux-form/immutable'
-
+import Button from '../../components/Button'
 
 @formValues('title', 'notifyTime', 'notifyText', 'period', 'record', 'recordDay')
 
@@ -76,11 +75,11 @@ export default class OptionDo extends Component {
 
     __remderBack = () => {
         return (
-            <TouchableOpacity
+            <Button
                 onPress={this.__backStep}
                 style={[styles.sureBtn]}>
                 <Text>返回</Text>
-            </TouchableOpacity>
+            </Button>
         )
     }
 
@@ -89,7 +88,7 @@ export default class OptionDo extends Component {
             <Animatable.View animation="fadeInLeft"
                              delay={Math.random() * 300}
             >
-                <TouchableOpacity
+                <Button
                     onPress={() => {
                         this.setState({ option: props.index, type: props.type })
                     }}
@@ -99,7 +98,7 @@ export default class OptionDo extends Component {
                         numberOfLines={1}>
                         {props.title}
                     </Text>
-                </TouchableOpacity>
+                </Button>
             </Animatable.View>
         )
     }

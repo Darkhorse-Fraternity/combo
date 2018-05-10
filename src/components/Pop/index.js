@@ -22,7 +22,7 @@ export default {
         },
     } = {}) {
         if (!content && mContent === content) return
-        Platform.OS !== 'ios' && StatusBar.setBackgroundColor('rgb(130,130,130)', true);
+         Platform.OS !== 'ios' && StatusBar.setBackgroundColor('rgb(130,130,130)', true);
 
         mContent = content
         topView.set(
@@ -33,7 +33,7 @@ export default {
                 animationType={animationType}
                 maskClosable={maskClosable}
                 onMaskClose={() => {
-                    Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
+                     Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
                     onMaskClose()
                 }}
                 wrapStyle={wrapStyle}
@@ -50,6 +50,7 @@ export default {
     },
     hide() {
         if (popupInstance) {
+            Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
             popupInstance.hide();
             mContent = null;
         }

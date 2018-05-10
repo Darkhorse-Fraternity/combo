@@ -10,7 +10,6 @@ import {
     View,
     StyleSheet,
     Text,
-    TouchableOpacity,
     ActivityIndicator
 } from 'react-native'
 import Button from './'
@@ -27,7 +26,6 @@ export default class SmallDoneBtn extends Component {
         const disabled = this.props.load || this.props.disabled
         return (
             <Button
-
                 {...this.props}
                 disabled={disabled}
                 style={[styles.btn,{

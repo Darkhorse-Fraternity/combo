@@ -8,7 +8,6 @@ import * as immutable from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import {
     View,
-    TouchableOpacity,
     Text,
     Image,
     Clipboard,
@@ -75,7 +74,8 @@ export default class ShareView extends Component {
             <View style={{ backgroundColor: 'white', alignItems: 'center' }}>
 
                 <View style={styles.top}>
-                    <TouchableOpacity
+                    <Button
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
                         onPress={() => {
                             Pop.hide()
                         }}
@@ -83,7 +83,7 @@ export default class ShareView extends Component {
                     >
                         <Image style={styles.delImg}
                                source={require('../../../source/img/visitor/visitor_delete.png')}/>
-                    </TouchableOpacity>
+                    </Button>
                 </View>
 
 

@@ -6,7 +6,7 @@
 
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -26,7 +26,7 @@ export const StyledRow = styled.View`
   border-bottom-color: #e4e4e4;
 `
 
-export const StyledRowTouch = styled.TouchableOpacity`
+export const StyledRowTouch = styled(Button)`
   padding: 25px 15px 25px 15px;
   flex-direction: row;
   align-items: center;

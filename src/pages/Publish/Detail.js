@@ -2,6 +2,7 @@
  * Created by lintong on 2017/9/26.
  * @flow
  */
+
 'use strict';
 
 import * as immutable from 'immutable';
@@ -27,6 +28,7 @@ import { req, reqChangeData } from '../../redux/actions/req'
 import { addListNormalizrEntity,claerByID } from '../../redux/actions/list'
 
 import moment from 'moment'
+import Button from "../../components/Button";
 //static displayName = PublishDetail
 @connect(
     (state, props) => ({
@@ -153,7 +155,7 @@ export default class PublishDetail extends Component {
     _renderRow(title: string, onPress: Function = () => {
     }) {
         return (
-            <TouchableOpacity onPress={onPress} style={styles.row}>
+            <Button onPress={onPress} style={styles.row}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                     <Text style={styles.rowText}>
                         {title}
@@ -162,7 +164,7 @@ export default class PublishDetail extends Component {
                 <View style={styles.row2}>
                     <View style={styles.arrowView}/>
                 </View>
-            </TouchableOpacity>
+            </Button>
         );
     }
 

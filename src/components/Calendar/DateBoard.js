@@ -9,7 +9,8 @@ import {
     ScrollView,
     TouchableOpacity,
     PixelRatio,
-    Image
+    Image,
+    TouchableNativeFeedback
 } from 'react-native';
 
 
@@ -17,7 +18,7 @@ let { width } = Dimensions.get('window');
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import theme from '../../Theme'
-
+import Button from '../../components/Button'
 
 export default class DateBoard extends React.Component {
     static defaultProps = {
@@ -94,7 +95,9 @@ export default class DateBoard extends React.Component {
             // console.log('test:', i);
             if (this.props.date === now) {
                 arr.push(
-                    <TouchableOpacity onPress={()=>{
+                    <Button
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        onPress={()=>{
                         this.props.selectDay(now)
                         busyDay[now] &&
                         this.props.fetchData && this.props.fetchData(busyDay[now])
@@ -107,13 +110,14 @@ export default class DateBoard extends React.Component {
                                 fontWeight: 'bold'
                             }]}>{i + ""}</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Button>
                 )
             } else if (busyDay[now]) {
                 const d = i
                 arr.push(
-                    <TouchableOpacity onPress={() => {
-
+                    <Button
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        onPress={() => {
                         this.props.selectDay(now)
                         this.props.fetchData && this.props.fetchData(busyDay[now])
                     }}
@@ -125,17 +129,19 @@ export default class DateBoard extends React.Component {
                                 fontWeight: 'bold'
                             }]}>{i + ""}</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Button>
                 )
             } else {
                 arr.push(
-                    <TouchableOpacity onPress={this.props.selectDay.bind(this, now)}
+                    <Button
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        onPress={this.props.selectDay.bind(this, now)}
                                       key={i}
                                       style={styles.dateBox}>
                         <View style={[styles.selected]}>
                             <Text style={[styles.dateText]}>{i + ""}</Text>
                         </View>
-                    </TouchableOpacity>
+                    </Button>
                 )
             }
         }
