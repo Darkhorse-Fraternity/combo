@@ -47,7 +47,8 @@ export default class ShareView extends Component {
         const item = (source, titel, press) => {
             return (
                 <Button
-                    background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                    background={TouchableNativeFeedback.SelectableBackgroundBorderless &&
+                    TouchableNativeFeedback.SelectableBackgroundBorderless()}
                     onPress={press}>
                     <View style={{ paddingHorizontal: 15 }}>
                         <Image style={styles.pop_item_image} source={source}/>
@@ -75,7 +76,8 @@ export default class ShareView extends Component {
 
                 <View style={styles.top}>
                     <Button
-                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        background={TouchableNativeFeedback.SelectableBackgroundBorderless &&
+                        TouchableNativeFeedback.SelectableBackgroundBorderless()}
                         onPress={() => {
                             Pop.hide()
                         }}

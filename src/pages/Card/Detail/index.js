@@ -15,9 +15,10 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import {
     StyledContent,
-
 } from './style'
 
+
+import DoCardButton from '../../../components/Button/DoCardButton'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import Agenda from '../Agenda'
 import Info from '../Info'
@@ -63,7 +64,7 @@ export default class CardDetail extends Component {
                     <Agenda {...this.props} tabLabel="记录"/>
                 </ScrollableTabView>
 
-
+                <DoCardButton/>
             </StyledContent>
         );
     }

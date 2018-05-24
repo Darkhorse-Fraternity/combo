@@ -1976,7 +1976,7 @@ fbjs-scripts@^0.8.1:
     semver "^5.1.0"
     through2 "^2.0.0"
 
-fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.3, fbjs@^0.8.5, fbjs@^0.8.9:
+fbjs@^0.8.14, fbjs@^0.8.16, fbjs@^0.8.3, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.9:
   version "0.8.16"
   resolved "http://registry.npm.taobao.org/fbjs/download/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -4064,6 +4064,14 @@ prop-types@15.x, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, pr
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
+prop-types@^15.6.1:
+  version "15.6.1"
+  resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 protobufjs@^5.0.1:
   version "5.0.2"
   resolved "http://registry.npm.taobao.org/protobufjs/download/protobufjs-5.0.2.tgz#59748d7dcf03d2db22c13da9feb024e16ab80c91"
@@ -4238,6 +4246,13 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-addons-shallow-compare@15.6.2:
+  version "15.6.2"
+  resolved "http://registry.npm.taobao.org/react-addons-shallow-compare/download/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
+
 react-clone-referenced-element@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/react-clone-referenced-element/download/react-clone-referenced-element-1.0.1.tgz#2bba8c69404c5e4a944398600bcc4c941f860682"
@@ -4272,9 +4287,9 @@ react-native-animatable@^1.2.4:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-autogrow-textinput@5.1.0:
-  version "5.1.0"
-  resolved "http://registry.npm.taobao.org/react-native-autogrow-textinput/download/react-native-autogrow-textinput-5.1.0.tgz#04aa7b0923a3b552a4c21cd7b187fb1a6e6a5661"
+react-native-autogrow-textinput@^5.1.0:
+  version "5.1.1"
+  resolved "http://registry.npm.taobao.org/react-native-autogrow-textinput/download/react-native-autogrow-textinput-5.1.1.tgz#e6c85077f2a7c3371f382ab3224808b88f385819"
 
 react-native-blur@^3.2.2:
   version "3.2.2"
@@ -4319,9 +4334,9 @@ react-native-default-preference@^1.3.1:
   version "1.3.1"
   resolved "http://registry.npm.taobao.org/react-native-default-preference/download/react-native-default-preference-1.3.1.tgz#5eeb415bdc71334e39d7837a0399dee1169a832e"
 
-react-native-device-info@^0.17.3:
-  version "0.17.3"
-  resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.17.3.tgz#7aa58f5c6ce1381beddc86429b9fd4e06e3ce20d"
+react-native-device-info@^0.21.5:
+  version "0.21.5"
+  resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.21.5.tgz#99478a2d68182e012297f2d63f2bd1b788106dee"
 
 react-native-dialogs@0.0.21:
   version "0.0.21"
@@ -4343,9 +4358,35 @@ react-native-drawer-layout@1.3.2, react-native-drawer-layout@~1.3.0:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
+react-native-flip-card@^3.5.2:
+  version "3.5.2"
+  resolved "http://registry.npm.taobao.org/react-native-flip-card/download/react-native-flip-card-3.5.2.tgz#6563f4a6d95b999c21e82deec9b2f502175847d6"
+  dependencies:
+    prop-types "^15.5.10"
+
+react-native-image-pan-zoom@^2.1.2:
+  version "2.1.3"
+  resolved "http://registry.npm.taobao.org/react-native-image-pan-zoom/download/react-native-image-pan-zoom-2.1.3.tgz#1f1847518eb0d10a43fce20ee387a9f273dacd9a"
+
 react-native-image-picker@^0.26.7:
   version "0.26.7"
   resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.26.7.tgz#ad2ee957f7f6cc01396893ea03d84cb2adb2e376"
+
+react-native-image-progress@^0.6.0:
+  version "0.6.0"
+  resolved "http://registry.npm.taobao.org/react-native-image-progress/download/react-native-image-progress-0.6.0.tgz#14614add12beaa247a052e5a52e6a9fee0fb8c67"
+
+react-native-image-viewer@0.0.3:
+  version "0.0.3"
+  resolved "http://registry.npm.taobao.org/react-native-image-viewer/download/react-native-image-viewer-0.0.3.tgz#312266f173ae4362c2da318094163358d8862037"
+  dependencies:
+    react-native-image-progress "^0.6.0"
+
+react-native-image-zoom-viewer@^2.1.0:
+  version "2.2.5"
+  resolved "http://registry.npm.taobao.org/react-native-image-zoom-viewer/download/react-native-image-zoom-viewer-2.2.5.tgz#ad06f7b4666ef554ab2a900b92b56d2658570464"
+  dependencies:
+    react-native-image-pan-zoom "^2.1.2"
 
 react-native-interactable@^0.1.10:
   version "0.1.10"
@@ -4382,9 +4423,9 @@ react-native-orientation@^3.1.3:
   version "3.1.3"
   resolved "http://registry.npm.taobao.org/react-native-orientation/download/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
 
-react-native-push-notification@^3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-3.0.1.tgz#0e23db302d03bb4a3f28dc072dcaf2a9a1178ed8"
+react-native-push-notification@^3.0.2:
+  version "3.0.2"
+  resolved "http://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-3.0.2.tgz#3fa7d654cfd915436597b0dd5ba8b0f898c4b0f5"
 
 react-native-qq@^2.0.5:
   version "2.0.5"
@@ -4407,6 +4448,13 @@ react-native-scrollable-tab-view@^0.8.0:
 react-native-simple-toast@0.0.8:
   version "0.0.8"
   resolved "http://registry.npm.taobao.org/react-native-simple-toast/download/react-native-simple-toast-0.0.8.tgz#513f4add8d30e4c5109e536bfc6ea5825fea5d83"
+
+react-native-snap-carousel@^3.6.0:
+  version "3.7.0"
+  resolved "http://registry.npm.taobao.org/react-native-snap-carousel/download/react-native-snap-carousel-3.7.0.tgz#7d2794339c661d3e1f8ec4786b6335ae7cb23262"
+  dependencies:
+    prop-types "^15.6.1"
+    react-addons-shallow-compare "15.6.2"
 
 react-native-storage@^0.2.2:
   version "0.2.2"
@@ -4463,10 +4511,6 @@ react-native-wechat@^1.9.9:
   resolved "http://registry.npm.taobao.org/react-native-wechat/download/react-native-wechat-1.9.9.tgz#acc4f7f22a3aeae13671108bcee39cbcb023c23a"
   dependencies:
     events "1.0.2"
-
-react-native-zoom-image@^0.1.2:
-  version "0.1.2"
-  resolved "http://registry.npm.taobao.org/react-native-zoom-image/download/react-native-zoom-image-0.1.2.tgz#33c26744ba47ed5e0637925b92a7bf1e1c8c4515"
 
 react-native@^0.53.0:
   version "0.53.3"
@@ -5634,6 +5678,10 @@ uuid@3.0.1:
 uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
+
+uuid@^3.2.1:
+  version "3.2.1"
+  resolved "http://registry.npm.taobao.org/uuid/download/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"

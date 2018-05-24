@@ -136,13 +136,13 @@ export default class Info extends Component {
             text = "暂停打卡"
         }
 
-        console.log('iUse:', iUse);
-
+        const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <StyledBottomMenu>
                 {iCard.user === this.props.user.objectId && iUse.statu !== 'del' &&
                 (<StyledBottomMenuButton
-                    background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                    background={background}
                     hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
                     onPress={() => {
                         navigation.navigate('PublishDetail',
@@ -155,7 +155,7 @@ export default class Info extends Component {
                 </StyledBottomMenuButton>)}
                 {this.props.iUseLoad ? <ActivityIndicator style={{ padding: 40 }}/> :
                     <StyledBottomMenuButton
-                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        background={background}
                         hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
                         onPress={() => {
                             !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
@@ -168,7 +168,7 @@ export default class Info extends Component {
                         </StyledBottomMenuText>
                     </StyledBottomMenuButton>}
                 <StyledBottomMenuButton
-                    background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                    background={background}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
                         Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {

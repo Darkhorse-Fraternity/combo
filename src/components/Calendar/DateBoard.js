@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     PixelRatio,
     Image,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Platform
 } from 'react-native';
 
 
@@ -88,6 +89,11 @@ export default class DateBoard extends React.Component {
                 <Text style={styles.dateText2}>{monthDay[lastMonth] - firstDay + i + 1 + ''}</Text>
             </View>)
         }
+
+
+        const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
+
         for (var i = 1; i < monthDay[myMonth] + 1; i++) {
 
             const now  = this.getNowDay(myYear,myMonth+1,i)
@@ -96,7 +102,7 @@ export default class DateBoard extends React.Component {
             if (this.props.date === now) {
                 arr.push(
                     <Button
-                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        background={ background}
                         onPress={()=>{
                         this.props.selectDay(now)
                         busyDay[now] &&
@@ -116,7 +122,7 @@ export default class DateBoard extends React.Component {
                 const d = i
                 arr.push(
                     <Button
-                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        background={background}
                         onPress={() => {
                         this.props.selectDay(now)
                         this.props.fetchData && this.props.fetchData(busyDay[now])
@@ -134,7 +140,7 @@ export default class DateBoard extends React.Component {
             } else {
                 arr.push(
                     <Button
-                        background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+                        background={background}
                         onPress={this.props.selectDay.bind(this, now)}
                                       key={i}
                                       style={styles.dateBox}>
