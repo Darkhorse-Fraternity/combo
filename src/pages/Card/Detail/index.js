@@ -55,6 +55,7 @@ export default class CardDetail extends Component {
 
         return (
             <StyledContent>
+
                 <ScrollableTabView
                     tabBarInactiveTextColor={theme.mainColor}
                     tabBarActiveTextColor={theme.mainColor}
@@ -63,8 +64,8 @@ export default class CardDetail extends Component {
                     <Info {...this.props} tabLabel="设置"/>
                     <Agenda {...this.props} tabLabel="记录"/>
                 </ScrollableTabView>
-
                 <DoCardButton/>
+
             </StyledContent>
         );
     }
