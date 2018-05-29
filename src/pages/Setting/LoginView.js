@@ -16,7 +16,6 @@ import {
 import BG from '../../components/BG/BG'
 import Toast from 'react-native-simple-toast';
 import {BCButton} from '../../components/Base/WBButton'
-import Button from 'react-native-button'
 import {req} from '../../redux/actions/req'
 import {AUTHCODE} from '../../redux/reqKeys'
 import {requestSmsCode} from '../../request/leanCloud'

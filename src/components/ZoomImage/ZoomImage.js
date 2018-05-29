@@ -10,18 +10,11 @@ import PropTypes from 'prop-types';
 import {
     View,
     StyleSheet,
-    TouchableWithoutFeedback,
     TouchableOpacity,
-    Modal,
     Image,
-    Dimensions,
-    ViewPagerAndroid,
-    StatusBar,
-    Platform
 } from 'react-native'
-import ImageViewer from 'react-native-image-zoom-viewer';
-import Swiper from 'react-native-swiper'
-import { reqChangeData } from "../../redux/actions/req";
+import ImagesViewModal from './ImagesViewModal'
+
 
 export default class ZoomImage extends Component {
     constructor(props: Object) {
@@ -41,23 +34,6 @@ export default class ZoomImage extends Component {
     };
 
 
-    __renderHeader = () => {
-
-        return (
-            <View style={styles.header}>
-                <TouchableOpacity
-                    style={{width:100,height:70}}
-                    onPress={() => {
-                        this.setState({ visible: false })
-                    }}>
-                    <Image
-                        source={require('../../../source/img/visitor/visitor_delete.png')}
-                        style={styles.close}/>
-                </TouchableOpacity>
-            </View>
-        )
-
-    }
 
     render() {
 
@@ -65,28 +41,12 @@ export default class ZoomImage extends Component {
 
         return (
             <View style={[ styles.wrapper]}>
-                <Modal
-                    onRequestClose={()=>{
+                <ImagesViewModal
+                    visible={this.state.visible}
+                    closeCallBack={()=>{
                         this.setState({ visible: false })
                     }}
-                    visible={this.state.visible}
-                    transparent={true}>
-                    {Platform.OS !== 'ios' &&  (
-                        <StatusBar backgroundColor='black'/>
-                    )}
-                    <ImageViewer
-                        imageUrls={imageUrls}
-                        onCancel={() => {
-                            this.setState({ visible: false })
-                        }}
-                         renderHeader={this.__renderHeader}
-                        failImageSource={{
-                            url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460",
-                            width: Dimensions.get("window").width,
-                            height: Dimensions.get("window").width
-                        }}
-                    />
-                </Modal>
+                    imageUrls={imageUrls}/>
                 <View
                     height={height}
                     containerStyle={{flex:1}}
@@ -119,22 +79,6 @@ const styles = StyleSheet.create({
     img: {
         flex: 1,
     },
-    close: {
-        marginTop: 25,
-        marginLeft: 25,
-        width: 25,
-        height: 25,
-        tintColor: "white"
-    },
-    header:{
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        zIndex:10,
-    },
-    pageStyle: {
-        alignItems: 'center',
-        padding: 20,
-    }
+
 
 })

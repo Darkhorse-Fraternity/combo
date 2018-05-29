@@ -297,7 +297,9 @@ const styles = StyleSheet.create({
                 flex: 1,
             },
         }),
-        backgroundColor:'#f7f7f7'
+        backgroundColor:'white',
+        borderTopColor:'rgb(200,200,200)',
+        borderTopWidth:StyleSheet.hairlineWidth,
     },
     list: {
         // marginBottom: 50

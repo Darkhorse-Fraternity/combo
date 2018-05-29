@@ -46,7 +46,7 @@ export default class CardDetail extends Component {
         const { state } = navigation;
         const { params } = state;
         return {
-            title: params.iCard.title,
+            // title: params.iCard.title,
         }
     };
 

@@ -4,7 +4,9 @@ import SelectRenderer from './Select'
 import RadioRenderer from './Radio'
 import MultipleRenderer from './Multiple'
 import React from 'react'
-
+import {
+    StyleImageSelect
+} from './style'
 
 const createInput = inputCreator => {
     const renderSelect = ({input: {onChange, value}, labelKey, valueKey, options, placeholder, ...rest}) => (
@@ -51,10 +53,20 @@ const createInput = inputCreator => {
     const Multiple = inputCreator('Radio', RenderMultiple, RadioRenderer.PropTypes,
         RadioRenderer.defaultProps)
 
+
+    const renderImageSelectView = ({input: {value, ...restInput}, ...rest}) => (
+        <StyleImageSelect  files={value}
+                           {...rest} {...restInput}/>
+    )
+
+    const ImageSelectView = inputCreator('ImgSelect', renderImageSelectView, {}, {})
+
+
     return {
         Select,
         Radio,
-        Multiple
+        Multiple,
+        ImageSelectView
     }
 }
 
@@ -63,10 +75,12 @@ const {
     Select,
     Radio,
     Multiple,
+    ImageSelectView
 } = createInput(createInputCreator(Field))
 
 export {
     Select,
     Radio,
-    Multiple
+    Multiple,
+    ImageSelectView
 }

@@ -48,6 +48,7 @@ class CustomTabView extends Component {
             const size = focused ? 40: 30
             const refs = {}
             return (<TouchableOpacity
+                    activeOpacity={1}
                     onPress={() => {
                         refs[tabInfo.label] && refs[tabInfo.label].bounceIn(1000);
                         navigation.navigate(route.routeName)
@@ -150,6 +151,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         height: Platform.OS === 'android' ? 50 : 60,
+        borderTopColor:'rgb(200,200,200)',
+        borderTopWidth:StyleSheet.hairlineWidth,
+        // shadowColor: 'black',
+        // shadowOffset: {width: 0, height: -5},
+        // shadowOpacity: 0.1,
+        // margin:5
     },
     tab: {
         flex: 1,
@@ -164,7 +171,7 @@ const styles = StyleSheet.create({
         //top: 12.5
     },
     tabLinkText: {
-        marginTop: Platform.OS == 'ios' ? 4 : 2,
+        marginTop: Platform.OS === 'ios' ? 4 : 2,
         fontSize: 11,
         color: 'rgb(100,100,100)'
     },

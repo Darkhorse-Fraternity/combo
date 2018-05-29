@@ -18,16 +18,14 @@ import {
     Image
 } from 'react-native'
 import { connect } from 'react-redux'
-// import {logout} from '../../redux/actions/user'
 import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
-import { add, search, update, batch } from '../../redux/module/leancloud'
-import { req, load } from '../../redux/actions/req'
+import {  search, update } from '../../redux/module/leancloud'
+import {  load } from '../../redux/actions/req'
 
-import { classUpdate, classCreatNewOne } from '../../request/leanCloud'
+import {  classCreatNewOne } from '../../request/leanCloud'
 import { selfUser, iCard, iUse } from '../../request/LCModle'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import SliderEntry from './Cell/SliderEntry'
-import { clear } from '../../redux/actions/list'
 import Pop from '../../components/Pop'
 import Do from './Do'
 import moment from 'moment'
@@ -39,25 +37,8 @@ import { sliderWidth, itemWidth } from './Cell/SliderEntry.style';
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
+import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
 
-// import TinderCard from '../../components/Card/TinderCard'
-
-// function makeScaleInTranslation(translationType, value) {
-//     return {
-//         from: {
-//             [translationType]: 0,
-//         },
-//         to: {
-//             [translationType]: value,
-//         },
-//     };
-// }
-//
-// const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
-// Animatable.initializeRegistryWithDefinitions({ cloudMoveLeft })
-// import
-//static displayName = Home
-//data:state.req.get()
 @connect(
     state => ({
         data: state.list.get(IUSE),
@@ -81,51 +62,7 @@ import Button from '../../components/Button'
             }, IUSE))
         },
         done: (data) => {
-            dispatch(async (dispatch, getState) => {
-                const state = getState()
-                const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
-
-                //在这边添加新的判断
-                const id = data.objectId
-                const time = data.time + 1
-                const param = {
-                    doneDate: { "__type": "Date", "iso": moment() },
-                    time: time,
-                    //cycle,
-                    statu: time === data.period ? "stop" : "start"
-                }
-
-
-                if (iCardM.record.length > 0) {
-                    Pop.show(<Do data={data}/>, { maskStyle: { backgroundColor: 'transparent' } })
-                    return
-                }
-
-                // const IUseP = classUpdate(IUSE, id, param)
-                const iDoP = classCreatNewOne(IDO, {
-                    ...selfUser(),
-                    ...iUse(id),
-                    ...iCard(iCardM.objectId)
-                })
-
-
-                const res2 = await load(iDoP, IDO)
-
-                if (res2.error) {
-                    Toast.show(res2.error)
-                    return
-                }
-
-
-                const entity = {
-                    ...param,
-                    // ...(res3)
-                    objectId: id
-                }
-
-                dispatch(addNormalizrEntity(IUSE, entity))
-
-            })
+            dispatch(doCardWithNone(data))
         },
 
         refresh: async (data) => {

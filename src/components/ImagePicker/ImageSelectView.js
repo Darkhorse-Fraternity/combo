@@ -12,16 +12,27 @@ import  {
     LayoutAnimation,
 } from 'react-native';
 import imagePicker from './imagePicker'
-import Button from 'react-native-button'
+import Button from '../Button'
 import PropTypes from 'prop-types';
 // const source = require('../../source/img/pic_upload/pic_upload.png');
 import * as immutable from 'immutable';
+import ImagesViewModal from '../ZoomImage/ImagesViewModal'
+
 
 export default class ImageSelectView extends Component {
     constructor(props: Object) {
         super(props);
+
+        let value = props.files
+        // console.log('value:', typeof value, value);
+        if (typeof value === 'object' && value.toJS) {
+            value = value.toJS()
+        }
+
         this.state = {
-            files: []
+            files: value || [],
+            visible:false
+
         };
     }
 
@@ -31,12 +42,13 @@ export default class ImageSelectView extends Component {
 
     static propTypes = {
         maxImage: PropTypes.number,
-        files: PropTypes.array,
+        files: PropTypes.any,
         onChange: PropTypes.func,
     };
     static defaultProps = {
         maxImage: 8,
-        files:[]
+        files:[],
+        index:0
     };
 
 
@@ -60,8 +72,16 @@ export default class ImageSelectView extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
+
+        // console.log('test:', nextProps.files);
         if (nextProps.files && nextProps.files !== this.props.files) {
-            this.setState({files: nextProps.files})
+            let value = nextProps.files
+            // console.log('value:', typeof value, value);
+            if (typeof value === 'object' && value.toJS) {
+                value = value.toJS()
+            }
+            // console.log('value:', value);
+            this.setState({files: value})
         }
     }
 
@@ -76,12 +96,12 @@ export default class ImageSelectView extends Component {
 
 
     _renderLastButton() {
-        if (this.props.files.length < this.props.maxImage) {
+        if (this.state.files.length < this.props.maxImage) {
             return (
-                <TouchableOpacity style={styles.addBtn} onPress={this._selectImage}>
+                <Button style={styles.addBtn} onPress={this._selectImage}>
                     {/*<Image style={styles.image} source={source}/>*/}
                     <Text style={styles.add}>+</Text>
-                </TouchableOpacity>
+                </Button>
             );
         }
     }
@@ -95,11 +115,24 @@ export default class ImageSelectView extends Component {
         // console.log('files:', files);
         return (
             <View style={[styles.imageBackView,this.props.style]}>
+                { files &&<ImagesViewModal
+                    visible={this.state.visible}
+                    closeCallBack={()=>{
+                        this.setState({ visible: false })
+                    }}
+                    index={this.state.index}
+                    imageUrls={files&&files.map(file=>{
+                        return {url:file.uri}
+                    })||[]}/>}
                 {
                     files && files.map((file, i)=> {
                         if (i < this.props.maxImage) {
                             return (
-                                <Button key={i}>
+                                <Button
+                                    onPress={()=>{
+                                        this.setState({ visible: true,index:i })
+                                    }}
+                                    key={i}>
                                     <Image style={[styles.image]}
                                            source={{uri:file.uri}}/>
                                     <TouchableOpacity

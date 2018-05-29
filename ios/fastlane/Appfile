@@ -1,4 +1,4 @@
-app_identifier "com.rn.combo.ep" # The bundle identifier of your app
+app_identifier "com.rn.combo" # The bundle identifier of your app
 apple_id "420156367@qq.com" # Your Apple email address
 
 itc_team_id "117883650" # iTunes Connect Team ID

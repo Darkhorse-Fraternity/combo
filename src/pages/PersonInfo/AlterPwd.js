@@ -9,7 +9,6 @@ import ReactNative, {
 } from 'react-native'
 import {pixel,navbarHeight,Toast} from '../../util/';
 // import {Actions} from "react-native-router-flux";
-// import Button from 'react-native-button'
 import {BCButton} from '../../components/Base/WBButton'
 import {mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
 import {request} from '../../request'

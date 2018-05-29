@@ -5,11 +5,11 @@ import { Field } from 'redux-form/immutable'
 const {
     AutoGrowingInput,
     TextInput,
-    AutoGrowingChatInput
+    AutoGrowingChatInput,
 } = createInputs(createInputCreator(Field))
 
 export {
     AutoGrowingInput,
     TextInput,
-    AutoGrowingChatInput
+    AutoGrowingChatInput,
 }

@@ -9,7 +9,6 @@ import {
 
 import Button from "react-native-button";
 import {mainColor, grayFontColor} from '../configure';
-// import {mainColor,lightFontColor} from '../configure'
 export default class CourseTabBar extends Component {
   static propTypes = {
     goToPage: PropTypes.func,
