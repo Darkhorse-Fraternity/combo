@@ -60,7 +60,8 @@ import { formValueSelector } from 'redux-form/immutable'
 
                     const selector = formValueSelector(FormID)
                     const recordText = selector(state,'recordText') || ""
-                    const files = selector(state, 'imgs')|| []
+                    let imgs = selector(state, 'imgs')
+                    imgs = imgs && imgs.toJS()
 
 
                     if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
@@ -68,21 +69,20 @@ import { formValueSelector } from 'redux-form/immutable'
                         return;
                     }
 
-                    if (iCardM.record.indexOf('图片') !== -1 && files.length === 0) {
+                    if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
                         Toast.show('需要添加图片~')
                         return;
                     }
 
 
-                    let imgs = []
 
                     if (iCardM.record.indexOf('图片') !== -1) {
-                        const urls = files.map(file => file.uri)
+                        const urls = imgs.map(file => file.uri)
                         const res = await dispatch(uploadImages(urls, IDOULIMAGE))
                         if (!res.payload) {
                             return
                         }
-                        imgs = res.payload.map(imgs => imgs.attributes.url)
+                        imgs = res.payload.map(img => img.attributes.url)
                     }
 
 
@@ -158,7 +158,10 @@ export default class  extends Component {
                     blurAmount={3}
                 />)}
                 <View/>
-                <DoCardForm record={record} onSubmit={this.props.done}/>
+                <DoCardForm
+                    submitting={this.props.load}
+                    record={record}
+                    onSubmit={this.props.done}/>
             </View>
         );
     }

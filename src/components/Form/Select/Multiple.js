@@ -14,7 +14,6 @@ import {fromJS} from 'immutable';
 
 
 const SelectWrapper = styled.View`
-  flex: 1;
 `
 
 export default class Multiple extends Component {
@@ -71,13 +70,13 @@ export default class Multiple extends Component {
         } = this.props
         const key = keyName.length !== 0 ? item[keyName] + '' : item + ''
 
-        const  value  = this.props.value.toJS()
+        const  value  = this.props.value.toJS && this.props.value.toJS()
 
         const index = value.indexOf(item)
         const contain = index !== -1
         // console.log('key:',keyName, key,item);
         return (
-            <TouchableOpacity key={key} onPress={() => {
+            <TouchableOpacity key={key}  onPress={() => {
 
                 if (contain) {
                     value.splice(index, 1)

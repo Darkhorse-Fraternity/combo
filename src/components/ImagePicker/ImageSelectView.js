@@ -65,7 +65,7 @@ export default class ImageSelectView extends Component {
             if(response.uri){
                 // LayoutAnimation.spring();
                 const files = this.state.files.concat(response)
-                this.props.onChange && this.props.onChange(files);
+                this.props.onChange && this.props.onChange(immutable.fromJS(files));
             }
 
         })

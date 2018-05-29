@@ -268,7 +268,7 @@ export default class OptionDo extends Component {
     __renderDayText = (recordDay) => {
         const days = recordDay.toJS().sort();
 
-        console.log('days:', days);
+        // console.log('days:', days);
 
         if (days.length === 0) {
             return "无"

@@ -27,13 +27,14 @@ import { dataStorage } from '../../../redux/actions/util'
 import Pop from '../../Pop'
 
 
-const isEmpty = value => value === undefined || value === null || value === '';
+const isEmpty = value => value === undefined || value === null || value === '' || value.length ===0;
 
 
 @connect(
     (state, props) => {
         const recordText = selector(state, 'recordText');
-        const imgs = selector(state, 'imgs');
+        let imgs = selector(state, 'imgs');
+        imgs = imgs && imgs.toJS()
         const config = {"文字":recordText,"图片":imgs}
         const record = props.record || []//需要满足的条件
         // const mustText = chechType(record, '文字') && !isEmpty(config[文字])
@@ -41,7 +42,6 @@ const isEmpty = value => value === undefined || value === null || value === '';
        const hasNone =  record.findIndex(key=>{
             return record.includes(key) && isEmpty(config[key])
         }) !== -1
-
 
         return {
             enableSumbmit: !hasNone,

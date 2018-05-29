@@ -17,7 +17,6 @@ import {
     StyledContent,
 } from './style'
 
-
 import DoCardButton from '../../../components/Button/DoCardButton'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import Agenda from '../Agenda'
@@ -53,6 +52,10 @@ export default class CardDetail extends Component {
 
     render(): ReactElement<any> {
 
+        // const params = this.props.navigation.state.params
+        // const {iUse,iCard} = params
+
+
         return (
             <StyledContent>
 
@@ -64,7 +67,7 @@ export default class CardDetail extends Component {
                     <Info {...this.props} tabLabel="设置"/>
                     <Agenda {...this.props} tabLabel="记录"/>
                 </ScrollableTabView>
-                <DoCardButton/>
+                <DoCardButton {...this.props} />
 
             </StyledContent>
         );

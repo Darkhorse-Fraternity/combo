@@ -59,7 +59,9 @@ const FormID = 'CreatCardForm'
 
                 const id = data.objectId
                 const param = {
-                    ...op
+                    ...op,
+                    record:op.record.toJS(),
+                    recordDay:op.recordDay.toJS()
                 }
 
                 const res = await update(id, param, ICARD)
@@ -68,6 +70,7 @@ const FormID = 'CreatCardForm'
                     ...param,
                     ...res
                 }
+                // console.log('entity:', entity);
                 // dispatch(addEntities({
                 //     [ICARD]: {
                 //         [entity.objectId]: entity
