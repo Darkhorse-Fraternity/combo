@@ -34,7 +34,7 @@ export function reqS(params) {
 
     return reqY(params).then(response => {
         //对leancloud 的数据格式进行包装，兼容通用数据模型
-        if (!params.host && !response[RESCODE]) {
+        if (!params.host && response &&!response[RESCODE]) {
             response = { [DATA]: response, [RESCODE]: SUCCODE }
         }
 
@@ -49,7 +49,7 @@ export function reqS(params) {
 //加入msg
 export function reqM(params) {
     return reqS(params).then(response => {
-        if (response[RESCODE]) {
+        if (response && response[RESCODE]) {
             __DEV__ && response[RESCODE] !== SUCCODE && console.log('req message:', response[MSG]);
             response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG)
         }
@@ -83,11 +83,11 @@ export function reqA(params: Object, key: string, option: Object = {}) {
     const dispatch = store.dispatch
     dispatch(requestStart(key))
     return reqM(params).then(response => {
-        if (response[RESCODE]) {
+        if (response && response[RESCODE]) {
             if (response[RESCODE] === SUCCODE) {
                 const data = cleanData(response, option)
                 dispatch(requestSucceed(key, data))
-            } else {
+            } else if(response){
                 dispatch(requestFailed(key, response[MSG]))
             }
         }
@@ -108,7 +108,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 export function req(params: Object, key: string, option: Object = {}) {
     return reqA(params, key, option).then(response => {
         // console.log('test:', response);
-        if (response[RESCODE] === SUCCODE) {
+        if (response && response[RESCODE] === SUCCODE) {
             return response[DATA]
         } else {
             throw new Error();

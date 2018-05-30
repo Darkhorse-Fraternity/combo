@@ -58,10 +58,11 @@ function creatIDO(iUseM,iCardM,other) {
         })
 
 
-        const res2 = await load(iDoP, IDO)
+        const res = await load(iDoP, IDO)
 
-        if (res2.error) {
-            Toast.show(res2.error)
+        // console.log('res:', res);
+        if (res.error) {
+            Toast.show(res.error.message)
             return
         }
 

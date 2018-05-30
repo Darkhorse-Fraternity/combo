@@ -12,7 +12,8 @@ export const StyledIndicator = styled.ActivityIndicator`
 `
 
 export const StyledIndicatorView = styled.View`
-    padding: 20px;
+    margin-top: 50px;
+     width:80px;
 `
 
 export const StyledButtonView = styled.View`

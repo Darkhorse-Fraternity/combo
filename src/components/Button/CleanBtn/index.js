@@ -7,7 +7,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-    TouchableOpacity,
     ActivityIndicator
 } from 'react-native'
 import {StyleBtnText,StyledBtn} from './style'

@@ -31,7 +31,7 @@ export const StyledFace = styled.View`
     shadow-opacity: 0.25;
     shadow-radius: 5px;
     shadow-color: black;
-    shadow-offset: 3px 3px;   
+    shadow-offset: 1px 3px;   
     elevation: 5;
     margin: 10px;
 `
@@ -65,3 +65,4 @@ export const StyledBackText = styled.Text`
 export const StyledIcon = styled(Icon)`
     align-self: center;
 `
+

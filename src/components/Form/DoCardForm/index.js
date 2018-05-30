@@ -105,9 +105,12 @@ export default class ChatSendForm extends Component {
 
     render() {
         // pristine 是否是初始化
-        const { handleSubmit, onSubmit, disabled, pristine, enableSumbmit, ...rest } = this.props
+        const { handleSubmit, onSubmit,load, disabled, pristine, enableSumbmit, ...rest } = this.props
         const { submitting, invalid } = rest
         const record = this.props.record
+
+        // console.log('submitting222:', load);
+
         return (
             <Form>
 
@@ -118,7 +121,7 @@ export default class ChatSendForm extends Component {
                 {record.includes('文字') && this.__textType()}
 
 
-                {submitting ?
+                {load ?
                     (<StyledIndicatorView>
                         <StyledIndicator size="large"/>
                     </StyledIndicatorView>) :

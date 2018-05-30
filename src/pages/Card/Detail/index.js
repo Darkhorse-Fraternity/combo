@@ -56,6 +56,7 @@ export default class CardDetail extends Component {
         // const {iUse,iCard} = params
 
 
+
         return (
             <StyledContent>
 

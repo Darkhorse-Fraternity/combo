@@ -8,7 +8,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { doCardWithNone } from '../../Button/DoCardButton/DoCard'
 import moment from 'moment'
-
+import {
+    ActivityIndicator,
+    View
+} from 'react-native'
+import theme from '../../../Theme'
 
 import {
     StyledContent,
@@ -19,13 +23,16 @@ import {
     StyledBackText,
     StyledIcon
 } from './style'
+import { IUSE, IDO } from '../../../redux/reqKeys'
+
+// import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 import { connect } from 'react-redux'
 
 @connect(
     (state, props) => ({
-        iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUse.objectId),
-
+        iUse: state.normalizr.get(IUSE).get(props.navigation.state.params.iUse.objectId),
+        load: state.req.get(IDO).get('load'),
     }),
     (dispatch, props) => ({
         doCard: (data) => {
@@ -37,6 +44,7 @@ import { connect } from 'react-redux'
 export default class DoCardButton extends Component {
     constructor(props: Object) {
         super(props);
+        // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
         let { iUse } = props
         iUse = iUse && iUse.toJS()
@@ -56,6 +64,12 @@ export default class DoCardButton extends Component {
     };
     static defaultProps = {};
 
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.statu !== nextState.statu ||
+            this.props.load !== nextProps.load
+    }
+
     componentWillReceiveProps(nextProps) {
 
         let { iUse } = nextProps
@@ -63,22 +77,23 @@ export default class DoCardButton extends Component {
 
         const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
 
-        if(done && this.state.statu === 0){
-            this.setState({ statu: 1})
+        if (done && this.state.statu === 0) {
+            this.setState({ statu: 1 })
         }
     }
 
 
     render() {
+        // console.log('test:', this.state.statu !== 0 || this.props.load);
         return (
             <StyledContent
                 activeOpacity={1}
-                disabled={this.state.statu === 1}
+                disabled={this.state.statu === 1 || this.props.load}
                 onPress={() => {
-                    // if(this.state.statu ===0){
-                    //     this.setState({statu:1})
-                    // }else {
-                    //     this.setState({statu:0})
+                    // if (this.state.statu === 0) {
+                    //     this.setState({ statu: 1 })
+                    // } else {
+                    //     this.setState({ statu: 0 })
                     // }
                     let { iUse } = this.props
                     iUse = iUse && iUse.toJS()
@@ -100,10 +115,16 @@ export default class DoCardButton extends Component {
                 >
                     {/* Face Side */}
                     <StyledFace>
-                        <StyledFaceText>点击{"\n"}打卡</StyledFaceText>
+                        {!this.props.load && this.state.statu === 0 ?
+                            (<StyledFaceText>点击{"\n"}打卡</StyledFaceText>) :
+                            (<ActivityIndicator size="small"
+                                                color={theme.normalBtn.activityIndicatorColor}/>)
+                        }
                     </StyledFace>
                     {/* Back Side */}
                     <StyledBack>
+
+
                         <StyledIcon
                             ref={this.chatBtnRef}
                             name={'md-checkmark'}
@@ -114,6 +135,7 @@ export default class DoCardButton extends Component {
                             //source={image}
                         />
                         <StyledBackText>已完成</StyledBackText>
+
                     </StyledBack>
                 </StyledCard>
             </StyledContent>

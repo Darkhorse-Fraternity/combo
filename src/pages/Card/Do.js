@@ -41,7 +41,8 @@ import { formValueSelector } from 'redux-form/immutable'
     state => ({
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD),
-        load: state.req.get(IDO).get('load') || state.req.get(IDOULIMAGE).get('load')
+        load: state.req.get(IDO).get('load') ||
+        state.req.get(IDOULIMAGE).get('load')
     }),
     (dispatch,props) => ({
         //...bindActionCreators({},dispatch),
@@ -138,6 +139,9 @@ export default class  extends Component {
         const data = this.props.data
         const iCard = this.props.iCard.get(data[ICARD]).toJS()
         const record = iCard.record
+
+        // console.log('submitting:', this.props.load);
+
         return (
             <View
                 onStartShouldSetResponder={() => true}
@@ -159,7 +163,7 @@ export default class  extends Component {
                 />)}
                 <View/>
                 <DoCardForm
-                    submitting={this.props.load}
+                    load={this.props.load}
                     record={record}
                     onSubmit={this.props.done}/>
             </View>

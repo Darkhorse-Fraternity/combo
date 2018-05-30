@@ -54,7 +54,7 @@ export const StyledRow = styled.View`
 `
 
 export const StyledRowTouch = styled(Button)`
-  padding: 25px 15px 25px 15px;
+  padding: 25px 25px 25px 25px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
