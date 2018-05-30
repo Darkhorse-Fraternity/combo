@@ -43,6 +43,7 @@ export default StyleSheet.create({
         shadowOffset: { width: 0, height: 10 },
         shadowRadius: 10,
         borderRadius: entryBorderRadius,
+        margin:5,
         // elevation: 10,
     },
     androidShadow:{
@@ -52,17 +53,14 @@ export default StyleSheet.create({
         left: itemHorizontalMargin,
         right: itemHorizontalMargin,
         bottom: 18,
-        // shadowColor: colors.black,
-        // shadowOpacity: 0.25,
-        // shadowOffset: { width: 0, height: 10 },
-        // shadowRadius: 10,
         borderRadius: entryBorderRadius,
-        elevation: 10,
+        elevation: 5,
+        margin:5,
     },
 
     doneView: {
         position: 'absolute',
-        top: 0,
+        top: 3,
         width: 40,
         height: 80,
         right: 20,
