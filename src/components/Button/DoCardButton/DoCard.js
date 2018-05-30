@@ -19,7 +19,9 @@ export function doCardWithNone(data) {
 
         if (iCardM.record.length > 0) {
             Pop.show(<Do data={data}/>,
-                { maskStyle: { backgroundColor: 'transparent' } })
+                {wrapStyle:{justifyContent: 'flex-start'},
+                    maskStyle: { backgroundColor: 'transparent',
+                    } })
             return
         }
 

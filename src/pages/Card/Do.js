@@ -9,28 +9,21 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
+    ScrollView,
     StyleSheet,
     Platform,
     Dimensions,
     findNodeHandle,
-    Text,
-    TouchableWithoutFeedback,
-    TextInput,
     Keyboard,
-    ActivityIndicator
 } from 'react-native'
 import {BlurView as BlurViewIOS} from 'react-native-blur';
 
 const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
-import {load} from '../../redux/actions/req'
 import {uploadImages} from '../../redux/actions/util'
 import Pop from '../../components/Pop'
 import {connect} from 'react-redux'
 import Toast from 'react-native-simple-toast'
-import {classCreatNewOne} from '../../request/leanCloud'
-import {selfUser, iCard, iUse} from '../../request/LCModle'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
-import moment from 'moment'
+
 import {ICARD, IDO, IUSE, IDOULIMAGE} from '../../redux/reqKeys'
 import DoCardForm,{FormID} from '../../components/Form/DoCardForm'
 //static displayName =
@@ -143,7 +136,7 @@ export default class  extends Component {
         // console.log('submitting:', this.props.load);
 
         return (
-            <View
+            <ScrollView
                 onStartShouldSetResponder={() => true}
                 onResponderGrant={Keyboard.dismiss}
                 ref={(e) => {
@@ -166,7 +159,7 @@ export default class  extends Component {
                     load={this.props.load}
                     record={record}
                     onSubmit={this.props.done}/>
-            </View>
+            </ScrollView>
         );
     }
 }
