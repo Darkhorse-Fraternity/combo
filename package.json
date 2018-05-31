@@ -41,6 +41,7 @@
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-simple-toast": "0.0.8",
     "react-native-snap-carousel": "^3.6.0",
+    "react-native-splash-screen": "^3.0.7",
     "react-native-storage": "^0.2.2",
     "react-native-swiper": "^1.5.12",
     "react-native-textinput-effects": "^0.4.2",

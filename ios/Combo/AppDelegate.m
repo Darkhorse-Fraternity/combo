@@ -16,6 +16,7 @@
 #import "../Libraries/LinkingIOS/RCTLinkingManager.h"
 #import "AppearanceConfig.h"
 #import "Orientation.h"
+#import "SplashScreen.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -37,6 +38,7 @@
   [self.window makeKeyAndVisible];
   
   [AppearanceConfig appearanceConfig];
+  [SplashScreen show];
   return YES;
 }
 

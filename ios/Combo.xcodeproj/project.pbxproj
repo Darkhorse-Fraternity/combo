@@ -13,6 +13,8 @@
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC8FE12C20804EDE00413559 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
+		CC9F95A520BE916400FE5469 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9F95A420BE914800FE5469 /* libSplashScreen.a */; };
+		CC9F95A620BE916800FE5469 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC9F95A420BE914800FE5469 /* libSplashScreen.a */; };
 		CCA7156F2019C9DA00A25FB9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		CCA715702019C9DA00A25FB9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		CCA715712019C9DA00A25FB9 /* AppearanceConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = CCFBC84D1FEA7B2200DA269C /* AppearanceConfig.m */; };
@@ -339,6 +341,13 @@
 			remoteGlobalIDString = CC0127971E3ACC3900B23C9F;
 			remoteInfo = Interactable;
 		};
+		CC9F95A320BE914800FE5469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC9F956B20BE914700FE5469 /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		CCA6646D1DFFFFC400BD9511 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */;
@@ -542,6 +551,7 @@
 		CC72BAAA2003461500ED0D9A /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		CC8FE12D20804EDE00413559 /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC9F956B20BE914700FE5469 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCA715A52019C9DA00A25FB9 /* ComboEp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComboEp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCA715A62019C9DB00A25FB9 /* Combo copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Combo copy-Info.plist"; path = "/Users/lintong/Project/react-native/Combo/ios/Combo copy-Info.plist"; sourceTree = "<absolute>"; };
@@ -575,6 +585,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9F95A620BE916800FE5469 /* libSplashScreen.a in Frameworks */,
 				CCBA7CAA20B6D18D006F00DF /* libRNDeviceInfo.a in Frameworks */,
 				CC8FE12C20804EDE00413559 /* libPods-Combo.a in Frameworks */,
 				CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
@@ -613,6 +624,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9F95A520BE916400FE5469 /* libSplashScreen.a in Frameworks */,
 				CCBA7CAB20B6D1A3006F00DF /* libRNDeviceInfo.a in Frameworks */,
 				CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
 				CCCE418D2064A0F000F282E3 /* libRCTQQAPI.a in Frameworks */,
@@ -828,6 +840,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				CC9F956B20BE914700FE5469 /* SplashScreen.xcodeproj */,
 				CCBA7C6F20B6D160006F00DF /* RNDeviceInfo.xcodeproj */,
 				CC72BAAA2003461500ED0D9A /* RCTOrientation.xcodeproj */,
 				CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */,
@@ -990,6 +1003,14 @@
 			isa = PBXGroup;
 			children = (
 				CC998CD51FA2C1F90040ED73 /* libInteractable.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC9F956C20BE914700FE5469 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC9F95A420BE914800FE5469 /* libSplashScreen.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1241,6 +1262,10 @@
 					ProductGroup = CC4E42B11DF59F2E005783A6 /* Products */;
 					ProjectRef = 0E7269983BAB4CB7AA00ED41 /* RNVectorIcons.xcodeproj */;
 				},
+				{
+					ProductGroup = CC9F956C20BE914700FE5469 /* Products */;
+					ProjectRef = CC9F956B20BE914700FE5469 /* SplashScreen.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1481,6 +1506,13 @@
 			fileType = archive.ar;
 			path = libInteractable.a;
 			remoteRef = CC998CD41FA2C1F90040ED73 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC9F95A420BE914800FE5469 /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = CC9F95A320BE914800FE5469 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CCA6646E1DFFFFC400BD9511 /* libRCTCameraRoll.a */ = {
@@ -1947,6 +1979,7 @@
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
 					"$(SRCROOT)/../node_modules/react-native-wechat/ios",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1997,6 +2030,7 @@
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
 					"$(SRCROOT)/../node_modules/react-native-wechat/ios",
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

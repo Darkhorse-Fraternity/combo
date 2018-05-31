@@ -16,6 +16,7 @@ import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
 import {ThemeProvider} from 'styled-components'
 import theme from './Theme'
 import LightStatuBar from './Theme/LightStatuBar'
+import SplashScreen from 'react-native-splash-screen'
 // import Form from './components/Form/Form'
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
@@ -27,6 +28,12 @@ configureStore.dispatch(preConfig())
 // import App from './components/js/App'
 class App extends Component {
 
+
+    componentDidMount() {
+        // do stuff while splash screen is shown
+        // After having done stuff (such as async tasks) hide the splash screen
+        SplashScreen.hide();
+    }
 
     render() {
         return (
