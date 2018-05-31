@@ -24,6 +24,8 @@ import com.theweflex.react.WeChatPackage;
 import com.wix.interactable.Interactable;
 import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,6 +50,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new SplashScreenReactPackage(),
                     new QQPackage(),
                     new KeyboardInputPackage(MainApplication.this), // (this = Android application object)
                     new OrientationPackage(),
