@@ -1,22 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {addNavigationHelpers, StackNavigator} from 'react-navigation';
-import {TransitionConfiguration} from './TransitionConfiguration'
-import Tab from '../components/Tab'
+import { StackNavigator} from 'react-navigation';
+// import {TransitionConfiguration} from './TransitionConfiguration'
+// import Tab from '../components/Tab'
 import {route} from '../../../pages'
 import {Platform} from 'react-native'
 import WebView from '../../Base/BaseWebView'
 
 
 import {
+    createNavigationPropConstructor,
     createReduxBoundAddListener,
 } from 'react-navigation-redux-helpers'
 
 
 export const AppNavigator = StackNavigator({
     ...route,
-    Tab: {screen: Tab},
+    // Tab: {screen: Tab},
     WebView: {screen: WebView}
 }, {
     // initialRouteName:'Home',
@@ -49,21 +50,45 @@ export const AppNavigator = StackNavigator({
     headerMode:'screen',
 
 
-    transitionConfig: TransitionConfiguration,
+    // transitionConfig: TransitionConfiguration,
 });
 
-const AppWithNavigationState = ({dispatch, nav}) => {
-    const addListener = createReduxBoundAddListener("root");
-    return (<AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav,addListener })}/>)
-};
+// const AppWithNavigationState = ({dispatch, nav}) => {
+//     const addListener = createReduxBoundAddListener("root");
+//     return (<AppNavigator navigation={{ dispatch, state: nav,addListener }}/>)
+// };
+//
+// AppWithNavigationState.propTypes = {
+//     dispatch: PropTypes.func.isRequired,
+//     nav: PropTypes.object.isRequired,
+// };
+//
+// const mapStateToProps = state => ({
+//     nav: state.nav,
+// });
+//
+// export default connect(mapStateToProps)(AppWithNavigationState);
+// const navigationPropConstructor = createNavigationPropConstructor("root");
 
-AppWithNavigationState.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    nav: PropTypes.object.isRequired,
-};
+@connect(
+    state => ({ nav: state.nav, }),
+    dispatch => ({})
+)
 
-const mapStateToProps = state => ({
-    nav: state.nav,
-});
+export default class AppWithNavigationState extends React.Component {
 
-export default connect(mapStateToProps)(AppWithNavigationState);
+    componentDidMount() {
+        // initializeListeners("root", this.props.nav);
+    }
+
+    render() {
+        const addListener = createReduxBoundAddListener("root");
+        const {dispatch,nav} = this.props
+        // const navigation = navigationPropConstructor(
+        //     this.props.dispatch,
+        //     this.props.nav,
+        // );
+        return <AppNavigator navigation={{ dispatch, state: nav,addListener }} />;
+    }
+
+}
