@@ -15,6 +15,7 @@ import {
     createNavigator,
     createNavigationContainer,
     TabRouter,
+    createBottomTabNavigator
 } from 'react-navigation';
 import {connect} from 'react-redux'
 import {TabViewAnimated, TabViewPagerPan, TabBar, SceneMap} from 'react-native-tab-view';

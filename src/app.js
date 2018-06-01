@@ -36,6 +36,7 @@ class App extends Component {
     }
 
     render() {
+
         return (
             <Provider store={configureStore}>
                 <ThemeProvider theme={theme} >

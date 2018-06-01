@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { createStackNavigator} from 'react-navigation';
 // import {TransitionConfiguration} from './TransitionConfiguration'
-// import Tab from '../components/Tab'
+import Tab from '../components/StaticTab'
 import {route} from '../../../pages'
 import {Platform} from 'react-native'
 import WebView from '../../Base/BaseWebView'
@@ -17,7 +17,7 @@ import {
 
 export const AppNavigator = createStackNavigator({
     ...route,
-    // Tab: {screen: Tab},
+    Tab: {screen: Tab},
     WebView: {screen: WebView}
 }, {
     // initialRouteName:'Home',
@@ -57,25 +57,26 @@ export const AppNavigator = createStackNavigator({
 //     const addListener = createReduxBoundAddListener("root");
 //     return (<AppNavigator navigation={{ dispatch, state: nav,addListener }}/>)
 // };
-//
+
 // AppWithNavigationState.propTypes = {
 //     dispatch: PropTypes.func.isRequired,
 //     nav: PropTypes.object.isRequired,
 // };
-//
-// const mapStateToProps = state => ({
-//     nav: state.nav,
-// });
-//
-// export default connect(mapStateToProps)(AppWithNavigationState);
+
+
 // const navigationPropConstructor = createNavigationPropConstructor("root");
 
 @connect(
-    state => ({ nav: state.nav, }),
-    dispatch => ({})
+    state => ({ nav: state.nav, })
 )
 
-export default class AppWithNavigationState extends React.Component {
+export default  class AppWithNavigationState extends React.Component {
+
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        nav: PropTypes.object.isRequired,
+    };
+    static defaultProps = {};
 
     componentDidMount() {
         // initializeListeners("root", this.props.nav);
@@ -84,6 +85,7 @@ export default class AppWithNavigationState extends React.Component {
     render() {
         const addListener = createReduxBoundAddListener("root");
         const {dispatch,nav} = this.props
+        console.log('AppWithNavigationState:', this.props);
         // const navigation = navigationPropConstructor(
         //     this.props.dispatch,
         //     this.props.nav,
@@ -92,3 +94,9 @@ export default class AppWithNavigationState extends React.Component {
     }
 
 }
+
+// const mapStateToProps = state => ({
+//     nav: state.nav,
+// });
+
+// export default connect(mapStateToProps)(AppWithNavigationState);
