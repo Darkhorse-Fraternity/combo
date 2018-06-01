@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { StackNavigator} from 'react-navigation';
+import { createStackNavigator} from 'react-navigation';
 // import {TransitionConfiguration} from './TransitionConfiguration'
 // import Tab from '../components/Tab'
 import {route} from '../../../pages'
@@ -15,7 +15,7 @@ import {
 } from 'react-navigation-redux-helpers'
 
 
-export const AppNavigator = StackNavigator({
+export const AppNavigator = createStackNavigator({
     ...route,
     // Tab: {screen: Tab},
     WebView: {screen: WebView}
