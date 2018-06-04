@@ -21,12 +21,9 @@ export default function nav(state = initialNavState, action) {
         //         state
         //     );
         //     break;
-        // case 'Logout':
-        //     nextState = AppNavigator.router.getStateForAction(
-        //         NavigationActions.navigate({ routeName: 'Login' }),
-        //         state
-        //     );
-        //     break;
+        case 'Logout':
+            nextState = initialNavState
+            break;
         default:
             nextState = AppNavigator.router.getStateForAction(action, state);
             break;

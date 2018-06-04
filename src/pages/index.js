@@ -1,3 +1,6 @@
+import {Platform} from 'react-native'
+
+
 import Setting from './Setting'
 import Home from './Home'
 import Creat from './NewCard/Creat'
@@ -21,13 +24,12 @@ import Followee from './PersonInfo/Follow/Followee'
 import Follower from './PersonInfo/Follow/Follower'
 import Following from './PersonInfo/Follow/Following'
 import CardUse from './NewCard/CardUse'
-export const route = {
-    Login: {screen: LoginView},
-    Home: {screen: Home},
+
+export const otherRoute = {
+    Setting: {screen: Setting},
     Followee:{screen: Followee},
     Follower:{screen: Follower},
     Following:{screen: Following},
-    Setting: {screen: Setting},
     Creat: {screen: Creat},
     NewCard: {screen: NewCard},
     Record: {screen: Record},
@@ -36,7 +38,6 @@ export const route = {
     Publish: {screen: Publish},
     PublishDetail: {screen: PublishDetail},
     Serve: {screen: Serve},
-    PersonCenter: {screen: PersonCenter},
     PersonInfo: {screen: PersonInfo},
     NickName: {screen: NickName},
     Feedback: {screen: Feedback},
@@ -45,7 +46,27 @@ export const route = {
     RComment: {screen: RComment},
     CardDetail: {screen: CardDetail},
     CardUse: {screen: CardUse},
+    PersonCenter: {screen: PersonCenter},
 }
+
+export const homeRoute = {
+    Home: {screen: Home},
+    ...otherRoute
+}
+
+export const settingRoute = {
+    ...otherRoute
+}
+
+
+export const route = {
+    Login: {screen: LoginView},
+    ...homeRoute,
+    ...settingRoute,
+}
+
+
+
 
 export const tabRoute = {
     Home: {
@@ -76,4 +97,28 @@ export const tabiCon = {
         icon: "ios-happy"
     },
 
+}
+
+
+export const navigationOptions = {
+    headerStyle:{
+        backgroundColor:'white',
+        shadowColor: 'red',
+        shadowOpacity: 0.1,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0,
+        },
+        borderBottomColor:'#F5FCFF',
+        elevation:0,
+        paddingTop: (Platform.OS === "ios"  ||  Platform.Version < 20)  ? 0 : 25,
+        //headerBackTitle:' '
+    },
+    headerTintColor:'black',
+    headerTitleStyle:{
+        color: 'black',
+        alignItems:'center',
+        fontSize:13,
+    },
+    headerBackTitle:null,
 }

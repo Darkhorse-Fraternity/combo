@@ -265,8 +265,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
-        paddingTop: 20,
-        height: Dimensions.get('window').height - 64,
+        // paddingTop: 20,
+        // height: Dimensions.get('window').height - 64,
+        paddingTop:64,
     },
 
 

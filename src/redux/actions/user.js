@@ -5,9 +5,9 @@
  */
 'use strict'
 
-import {requestLogin, requestUsersByMobilePhone,getUserByID} from '../../request/leanCloud';
-import {leancloud_installationId} from '../../configure/push'
-import {saveAccount,saveUserData, loadAccount, clearUserData} from '../../configure/XGlobal'
+import { requestLogin, requestUsersByMobilePhone, getUserByID } from '../../request/leanCloud';
+import { leancloud_installationId } from '../../configure/push'
+import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../configure/XGlobal'
 // import {
 //     navigatePush,
 //     navigatePop,
@@ -15,9 +15,9 @@ import {saveAccount,saveUserData, loadAccount, clearUserData} from '../../config
 //     navigatePopToIndex,
 //     navigateReplaceIndex
 // } from './nav'
-import {req} from './req'
+import { req } from './req'
 import { NavigationActions } from 'react-navigation';
-import {setLeanCloudSession,setAPPAuthorization} from '../../configure'
+import { setLeanCloudSession, setAPPAuthorization } from '../../configure'
 // *** Action Types ***
 export const ACCOUNT_CHANGE = 'ACCOUNTTEXT_CHANGE'
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE'
@@ -28,10 +28,11 @@ export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
 import Toast from 'react-native-simple-toast';
-import {updatePush} from '../../configure/push'
-import {user} from '../../request/LCModle'
+import { updatePush } from '../../configure/push'
+import { user } from '../../request/LCModle'
+import {popToIndex} from '../nav'
 //当为异步的时候这么写，返回一个函数
-export function loadAccountAction():Function {
+export function loadAccountAction(): Function {
 
     return dispatch => {
         return loadAccount(ret => {
@@ -39,7 +40,8 @@ export function loadAccountAction():Function {
         });
     }
 }
-function _loadAccount(ret:string):Object {
+
+function _loadAccount(ret: string): Object {
     return {
         type: LOAD_ACCOUNT,
         accountText: ret,
@@ -47,14 +49,14 @@ function _loadAccount(ret:string):Object {
     }
 }
 
-export function accountTextChange(text:string):Object {
+export function accountTextChange(text: string): Object {
     return {
         type: ACCOUNT_CHANGE,
         accountText: text,
     }
 }
 
-export function passwordTextChange(text:string):Object {
+export function passwordTextChange(text: string): Object {
     return {
         type: ACCOUNT_CHANGE,
         passwordText: text,
@@ -72,7 +74,7 @@ export function passwordTextChange(text:string):Object {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function login(state:Object):Function {
+export function login(state: Object): Function {
 
     const parame = requestLogin(state.phone, state.ymCode);
 
@@ -80,7 +82,7 @@ export function login(state:Object):Function {
         dispatch(_loginRequest());
 
 
-        return req(parame).then((response)=>{
+        return req(parame).then((response) => {
             if (response.statu) {
                 //加入sessionToken
                 dispatch(_loginSucceed(response));
@@ -100,17 +102,20 @@ export function login(state:Object):Function {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function register(state:Object):Function {
+export function register(state: Object): Function {
 
     return dispatch => {
         const params = requestUsersByMobilePhone(state.phone, state.ymCode,
             state.setPwd);
         dispatch(_loginRequest());
 
-        return req(params).then((response)=>{
-                dispatch(_loginSucceed(response));
-            dispatch(NavigationActions.navigate({ routeName: 'Tab', params: {transition: 'forVertical'}}))
-        }).catch(e=>{
+        return req(params).then((response) => {
+            dispatch(_loginSucceed(response));
+            dispatch(NavigationActions.navigate({
+                routeName: 'Tab',
+                params: { transition: 'forVertical' }
+            }))
+        }).catch(e => {
             // Toast.show(e.message)
             dispatch(_loginFailed());
         })
@@ -118,15 +123,14 @@ export function register(state:Object):Function {
 }
 
 
-
-function _loginRequest():Object {
+function _loginRequest(): Object {
     return {
         type: LOGIN_REQUEST,
         loaded: true,
     }
 }
 
-function _loginSucceed(response:Object):Object {
+function _loginSucceed(response: Object): Object {
     // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
     saveUserData(response);
     saveAccount(response.mobilePhoneNumber);
@@ -134,7 +138,7 @@ function _loginSucceed(response:Object):Object {
     return loginSucceed(response);
 }
 
-export function loginSucceed(data:Object):Object {
+export function loginSucceed(data: Object): Object {
     //保存登录信息。
     setLeanCloudSession(data.sessionToken);
     // setAPPAuthorization(data.authorization);
@@ -149,7 +153,7 @@ export function loginSucceed(data:Object):Object {
 
 }
 
-export function _loginFailed(response:Object):Object {
+export function _loginFailed(response: Object): Object {
     return {
         type: LOGIN_FAILED,
         loaded: false
@@ -157,9 +161,9 @@ export function _loginFailed(response:Object):Object {
 }
 
 
-export function logout():Function {
+export function logout(): Function {
 
-    return async (dispatch,getState) => {
+    return async (dispatch, getState) => {
 
         try {
             const state = getState()
@@ -170,29 +174,33 @@ export function logout():Function {
             //     //加入sessionToken
 
 
-                // dispatch(navigatePush('TabView'));
-                // Router.pop()
-                clearUserData();
-                dispatch(logout2());//先退出
-                // dispatch(NavigationActions.navigate({ routeName: 'Login'}))
+            // dispatch(navigatePush('TabView'));
+            // Router.pop()
+            popToIndex()
+            clearUserData();
+            // dispatch(NavigationActions.back())
+            // dispatch(NavigationActions.back())
+            // dispatch(NavigationActions.back())
+
+            dispatch(logout2());//先退出
+            // dispatch(NavigationActions.navigate({ routeName: 'Login'}))
             updatePush(user("null"))
 
 
-                return loadAccount(ret => {
-                    //加载本地数据。
-                    dispatch(_loadAccount(ret));
-                });
+            return loadAccount(ret => {
+                //加载本地数据。
+                dispatch(_loadAccount(ret));
+            });
             // } else {
             //     Toast.show(response.msg)
             //
             //     // dispatch(_loginFailed(response));
             // }
-        }catch (e){
+        } catch (e) {
             console.log('test:', e.message);
             Toast.show(e.message)
             // dispatch(_loginFailed(e.message));
         }
-
 
 
     }
@@ -207,19 +215,19 @@ function logout2() {
     }
 }
 
-export function updateUserData(data:Object){
+export function updateUserData(data: Object) {
     return {
-      type:UPDATE_USERDATA,
-      data:data,
+        type: UPDATE_USERDATA,
+        data: data,
     }
 }
 
 
-export  function getUserByObjectID(objectID:string,callBack:Function) :Function{
+export function getUserByObjectID(objectID: string, callBack: Function): Function {
     return dispatch => {
         dispatch(_loginRequest());
-       const param = getUserByID(objectID);
-        return req(param, (response)=> {
+        const param = getUserByID(objectID);
+        return req(param, (response) => {
 
             if (response) {
                 dispatch(_loginSucceed(response));

@@ -10,7 +10,8 @@ import {
     Easing
 } from 'react-native'
 
-import CardStackStyleInterpolator from 'react-navigation/src/views/CardStack/CardStackStyleInterpolator';
+import CardStackStyleInterpolator from
+    'react-navigation/src/views/StackView/StackViewStyleInterpolator';
 import * as Transition from './Transition'
 
 

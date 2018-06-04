@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { createStackNavigator} from 'react-navigation';
-// import {TransitionConfiguration} from './TransitionConfiguration'
+import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/StaticTab'
 import {route} from '../../../pages'
 import {Platform} from 'react-native'
@@ -22,27 +22,7 @@ export const AppNavigator = createStackNavigator({
 }, {
     // initialRouteName:'Home',
     navigationOptions: {
-        headerStyle:{
-            backgroundColor:'white',
-            shadowColor: 'red',
-            shadowOpacity: 0.1,
-            shadowRadius: 0,
-            shadowOffset: {
-                height: 0,
-            },
-            borderBottomColor:'#F5FCFF',
-            elevation:0,
-            paddingTop: (Platform.OS === "ios"  ||  Platform.Version < 20)  ? 0 : 25,
-            //headerBackTitle:' '
-        },
-        headerTintColor:'black',
-        headerTitleStyle:{
-            color: 'black',
-            alignItems:'center',
-            fontSize:13,
-        },
-        headerBackTitle:null,
-
+        header:null,
     },
     //使得视图和头部一起运动，
     // 目前没有办法单独设置，除非使页面单独存在一个栈中
@@ -50,7 +30,7 @@ export const AppNavigator = createStackNavigator({
     headerMode:'screen',
 
 
-    // transitionConfig: TransitionConfiguration,
+    transitionConfig: TransitionConfiguration,
 });
 
 // const AppWithNavigationState = ({dispatch, nav}) => {
@@ -85,7 +65,7 @@ export default  class AppWithNavigationState extends React.Component {
     render() {
         const addListener = createReduxBoundAddListener("root");
         const {dispatch,nav} = this.props
-        console.log('AppWithNavigationState:', this.props);
+        // console.log('AppWithNavigationState:', this.props);
         // const navigation = navigationPropConstructor(
         //     this.props.dispatch,
         //     this.props.nav,

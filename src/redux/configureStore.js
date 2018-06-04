@@ -31,7 +31,10 @@ const rootReducer = (state, action) => {
     if (action.type === 'LOGOUT') {
         // 	umeng.pageEnd('设置');
         // 	umeng.pageStart("登录");
-        state = undefined
+
+        // console.log('test:', state);
+        const {nav} = state
+        state = {nav}
     }
 
     if (action.type === "NAV_PUSH") {
