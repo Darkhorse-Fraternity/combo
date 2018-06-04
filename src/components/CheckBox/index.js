@@ -10,7 +10,6 @@ export default class CheckboxItem extends React.Component< any> {
     };
     handleClick = () => {
         let checkBox = this.refs[refCheckbox];
-        console.log('test:', '1111');
         checkBox.handleClick();
 
         if (this.props.onClick) {

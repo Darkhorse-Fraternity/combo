@@ -72,36 +72,9 @@ function _preConfig() {
 }
 
 
-let lastBackPressed: number = 0;
-
-function _backAnroid () {
-
-    return (dispatch,getState) => {
-        // const BackHandler =  BackHandler || BackAndroid
-        if( Platform.OS === 'ios')return;
-
-        BackHandler.addEventListener('hardwareBackPress', ()=> {
-            const state = getState().nav;
-            const index = state.index;
-            //idnex 前两个分别是登录和tabview
-            if (index > 1) {
-                dispatch(NavigationActions.back())
-                return true;
-            }
-            let times = Date.now();
-            if (times - lastBackPressed >= 2500) {
-                //再次点击退出应用
-                lastBackPressed = times;
-                ToastAndroid.show("再按一次退出应用", 0);
-                return true;
-            }
-            lastBackPressed = 0;
-            return false;
-        });
-    }
+// let lastBackPressed: number = 0;
 
 
-}
 
 function _isConnected(dispatch) {
     NetInfo.isConnected.addEventListener(
@@ -118,7 +91,7 @@ export function preConfig():Function {
     _preConfig();
 
     return (dispatch,getState) =>{
-        dispatch(_backAnroid())
+        // dispatch(_backAnroid())
         _isConnected(dispatch)
         loadUserData().then((response)=>{
             dispatch(loginSucceed(response))

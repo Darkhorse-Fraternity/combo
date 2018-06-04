@@ -30,7 +30,6 @@ const reducer = combineReducers({
 });
 
 
-console.log('test:', '1111');
 const middleware = createReactNavigationReduxMiddleware(
     "root",
     state => state.nav,
