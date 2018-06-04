@@ -42,7 +42,7 @@ class App extends Component {
                 <ThemeProvider theme={theme} >
                     <View style={{flex: 1}}>
                         <LightStatuBar/>
-                        <AppWithNavigationState/>
+                        <AppWithNavigationState {...this.props}/>
                         <InfoBar/>
                     </View>
                 </ThemeProvider>

@@ -50,7 +50,7 @@
     "react-native-wechat": "^1.9.9",
     "react-navigation": "^2.0.4",
     "react-navigation-material-bottom-tabs": "^0.2.0",
-    "react-navigation-redux-helpers": "^1.0.3",
+    "react-navigation-redux-helpers": "^1.1.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-api-middleware": "^2.3.0",
@@ -74,6 +74,9 @@
     "react-test-renderer": "^15.6.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|react-navigation-redux-helpers)"
+    ]
   }
 }

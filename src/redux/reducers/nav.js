@@ -3,7 +3,7 @@
  * @flow
  */
 'use strict';
-import { AppNavigator } from '../../components/Nav/navigators/AppNavigator';
+import { AppNavigator } from '../../components/Nav/navigators/CreateAppNavigator';
 import { NavigationActions } from 'react-navigation';
 
 const firstAction = AppNavigator.router.getActionForPathAndParams('Login');
