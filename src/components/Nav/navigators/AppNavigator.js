@@ -17,12 +17,13 @@ import {
 
 export const AppNavigator = createStackNavigator({
     ...route,
-    Tab: {screen: Tab},
+    Tab: {screen: Tab,},
     WebView: {screen: WebView}
 }, {
     // initialRouteName:'Home',
     navigationOptions: {
         header:null,
+        gesturesEnabled: false,
     },
     //使得视图和头部一起运动，
     // 目前没有办法单独设置，除非使页面单独存在一个栈中

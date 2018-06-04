@@ -61,8 +61,6 @@ export const settingRoute = {
 
 export const route = {
     Login: {screen: LoginView},
-    ...homeRoute,
-    ...settingRoute,
 }
 
 
