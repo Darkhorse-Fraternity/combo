@@ -22,6 +22,7 @@ import Button from '../../components/Button'
 const styles = StyleSheet.create({
     list: {
         backgroundColor: 'white',
+        paddingTop:15,
     },
     groupSpace: {
         height: 15 / 2,
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
     row: {
         backgroundColor: 'white',
         paddingHorizontal: 15,
-        paddingVertical: 25,
+        paddingVertical: 15,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -104,9 +105,9 @@ class WBSetting extends Component {
     _renderRow(title: string, needArrow: bool, activity: bool = false, onPress: Function = () => {
     }) {
         return (
-            <Button onPress={onPress}>
-                <View style={styles.row}>
-                    <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+            <Button style={styles.row} onPress={onPress}>
+                    <View style={{flexDirection: 'row',
+                        justifyContent: 'center'}}>
                         {/*<Image
                          source={source}
                          style={styles.imageNail}
@@ -115,9 +116,9 @@ class WBSetting extends Component {
                             {title}
                         </Text>
                     </View>
-                    {activity === false && needArrow && <View style={styles.arrowView}/>}
+                    {activity === false &&
+                    needArrow && <View style={styles.arrowView}/>}
                     {activity === true && <ActivityIndicator/>}
-                </View>
             </Button>
         );
     }
@@ -133,7 +134,6 @@ class WBSetting extends Component {
         const navigation = this.props.navigation
         return (
             <ScrollView style={styles.list}>
-                <View style={styles.groupSpace}/>
 
 
                 {/*<View style={[styles.row,{paddingVertical: 5}]}>*/}
@@ -160,7 +160,6 @@ class WBSetting extends Component {
                     {/*// NavigationManager.goToPage("Feedback");*/}
                     {/*navigation.navigate("About");*/}
                 {/*})}*/}
-                <View style={styles.groupSpace}/>
                 {this._renderRow('给个评价', true, false, () => {
                     let url = ''
                     if (Platform.OS == 'ios') {
