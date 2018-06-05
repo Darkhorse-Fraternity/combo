@@ -1,69 +1,103 @@
-/* @flow */
-'use strict'
-// import DeviceInfo from 'react-native-device-info'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import  {
+    Platform,
+    UIManager,
+    ToastAndroid,
+    StatusBar,
+    BackHandler,
+    NetInfo,
+} from 'react-native';
+import pushConfig from '../configure/push/push'
+// import {dataStorage} from '../redux/actions/util'
+import { NavigationActions } from 'react-navigation';
+import Orientation from 'react-native-orientation';
+import DeviceInfo from 'react-native-device-info'
+import {epUpdate} from '../request/EPUpdate'
 
-import {LeanCloud_APP_ID,LeanCloud_APP_SIGN} from './leancloud'
-const defaultHost = !__DEV__ ?
-    /*release*/   'cmwljtyw.api.lncld.net/1.1' :
-    /*debug*/     'q81jdsbi.api.lncld.net/1.1'
+// const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
+
+@connect(
+    state => ({ nav: state.nav, })
+)
+
+export default class Configure extends React.Component {
+    constructor(props) {
+        super(props);
+        //企业版检测版本
+        this.config()
+    }
 
 
-let LeanCloud_APP_Session = '';
+    config= ()=>{
+        epUpdate()
+        pushConfig()
+        if (Platform.OS !== 'ios') {
+            UIManager.setLayoutAnimationEnabledExperimental &&
+            UIManager.setLayoutAnimationEnabledExperimental(true);
+        }
+        if (DeviceInfo.isTablet()) {
+            Orientation.lockToLandscape();
+        } else {
+            Orientation.lockToPortrait()
+        }
+    }
 
-function setLeanCloudSession(session:string){
-  LeanCloud_APP_Session = session;
+
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        nav: PropTypes.object.isRequired,
+    };
+    static defaultProps = {};
+
+    componentDidMount() {
+        BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+
+        // NetInfo.isConnected.addEventListener(
+        //     'connectionChange',
+        //     (isConnected)=>{
+        //        dispatch(dataStorage('isConnected',isConnected))
+        //     }
+        // );
+
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+
+
+    }
+
+    lastBackPressed: number = 0
+    onBackPress = () => {
+        const { dispatch, nav } = this.props;
+        const { routes, index } = nav
+        const { routeName } = routes[index]
+        //idnex 前两个分别是登录和tabview
+        if (routeName === 'Tab') {
+            const tab = routes[index]
+            const tabIndex = tab.index
+            const tabNav = tab.routes[tabIndex]
+            if (tabNav.index > 0) {
+                dispatch(NavigationActions.back())
+                return true;
+            }
+        }
+        let times = Date.now();
+        if (times - this.lastBackPressed >= 2500) {
+            //再次点击退出应用
+            this.lastBackPressed = times;
+            ToastAndroid.show("再按一次退出应用", 0);
+            return true;
+        }
+        this.lastBackPressed = 0;
+        return false;
+    }
+
+
+    render() {
+        return this.props.children;
+    }
+
 }
-
-
-
-function httpHeaders(needSession:bool):Object{
-
-   let header = {
-     "Content-Type": "application/json",
-     "X-LC-Sign": LeanCloud_APP_SIGN,
-     "X-LC-Id": LeanCloud_APP_ID,
-   }
-
-   if(needSession){
-      header = Object.assign({},
-        header,
-      {
-        "X-LC-Session":LeanCloud_APP_Session
-      })
-   }
-   return header;
-}
-
-
-
-
-//主题色彩
-const themeColorConfig = {
-    mainColor: '#f1bd49', //主色彩，用于navbar 按钮颜色等、
-    backViewColor: 'white',
-    lightMainColor: '#c18379', //主色彩，用于navbar 按钮颜色等、
-    containingColor: '#ffffff', //内含主色彩
-    lightContainingColor: '#d2d6d6', //内含主色彩
-    mainBackgroundColor: '#f7f7f7',
-
-    //字体颜色 需自行补充
-    deepFontColor: '#000000',
-    lightFontColor: '#d5ded3',
-    grayFontColor: '#999999',
-    blackFontColor: '#333333',
-
-    // 线的颜色
-    lineColor: '#dbdbdb',
-    textInputTextColor: '#333333',
-    placeholderTextColor: '#b7b7b7',
-}
-
-
-
-
-module.exports = {
-    defaultHost,
-    httpHeaders,
-    ...themeColorConfig,
-    setLeanCloudSession,
-};

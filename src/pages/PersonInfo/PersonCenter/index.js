@@ -12,7 +12,6 @@ import {
 } from 'react-native'
 import Button from '../../../components/Button'
 
-import { blackFontColor, grayFontColor, backViewColor } from '../../../configure/index';
 import { connect } from 'react-redux'
 import {
     StyledContent,
@@ -263,7 +262,7 @@ const styles = StyleSheet.create({
     rowText: {
         marginLeft: 10,
         fontSize: 14,
-        color: blackFontColor,
+        color: '#333333',
     },
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
@@ -287,7 +286,7 @@ const styles = StyleSheet.create({
     description: {
         marginRight: 12,
         fontSize: 13,
-        color: blackFontColor
+        color: '#333333'
     },
 
 

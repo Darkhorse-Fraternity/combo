@@ -10,7 +10,7 @@ export const REQUEST_SUCCEEED = 'REQUEST_SUCCEEED'
 export const REQUEST_FAILED = 'REQUEST_FAILED'
 export const REQUESR_CHANGE_DATA = 'REQUESR_CHANGE_DATA'
 import Toast from 'react-native-simple-toast';
-import store from '../configureStore'
+import store from '../store'
 import { normalize } from 'normalizr';
 import { addEntities } from '../module/normalizr'
 import { schemas } from '../scemes'

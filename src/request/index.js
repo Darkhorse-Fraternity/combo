@@ -2,7 +2,7 @@
 
 'use strict';
 
-import {defaultHost, httpHeaders} from '../configure';
+import {defaultHost, httpHeaders} from '../configure/reqConfigs';
 import {addParams} from './useMeth';
 
 if(typeof global.self === "undefined")

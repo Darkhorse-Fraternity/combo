@@ -6,8 +6,8 @@
 'use strict'
 
 import { requestLogin, requestUsersByMobilePhone, getUserByID } from '../../request/leanCloud';
-import { leancloud_installationId } from '../../configure/push'
-import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../configure/XGlobal'
+import { leancloud_installationId } from '../../configure/push/push'
+import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../configure/storage'
 // import {
 //     navigatePush,
 //     navigatePop,
@@ -17,7 +17,7 @@ import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../con
 // } from './nav'
 import { req } from './req'
 import { NavigationActions } from 'react-navigation';
-import { setLeanCloudSession, setAPPAuthorization } from '../../configure'
+import { setLeanCloudSession, setAPPAuthorization } from '../../configure/reqConfigs'
 // *** Action Types ***
 export const ACCOUNT_CHANGE = 'ACCOUNTTEXT_CHANGE'
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE'
@@ -28,7 +28,7 @@ export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
 import Toast from 'react-native-simple-toast';
-import { updatePush } from '../../configure/push'
+import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
 import {popToIndex} from '../nav'
 //当为异步的时候这么写，返回一个函数
@@ -178,9 +178,6 @@ export function logout(): Function {
             // Router.pop()
             popToIndex()
             clearUserData();
-            // dispatch(NavigationActions.back())
-            // dispatch(NavigationActions.back())
-            // dispatch(NavigationActions.back())
 
             dispatch(logout2());//先退出
             dispatch(NavigationActions.navigate({ routeName: 'Login'}))

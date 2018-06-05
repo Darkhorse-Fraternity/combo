@@ -9,7 +9,7 @@ import {
     Platform,
     View
 } from 'react-native';
-import {doReceiveNotify} from '../../configure/pushReceive'
+import {doReceiveNotify} from '../../configure/push/pushReceive'
 import * as Animatable from 'react-native-animatable';
 import {dataStorage} from '../../redux/actions/util'
 import {connect} from 'react-redux'

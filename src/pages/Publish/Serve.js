@@ -17,7 +17,6 @@ import {
 import {IDO} from '../../redux/reqKeys'
 
 import {iCard} from '../../request/LCModle'
-import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';

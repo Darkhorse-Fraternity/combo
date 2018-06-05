@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
-import {Linking,Alert,AsyncStorage} from 'react-native';
+import {AsyncStorage} from 'react-native';
 import Storage from 'react-native-storage';
 import DefaultPreference from 'react-native-default-preference';
 
@@ -114,38 +114,5 @@ export  function loadAccount(callBack:Function){
     })
 }
 
-/**
- * 提示升级
- */
 
-// static alert(title: string, message?: string, button?: Buttons, type?: AlertType)
-//  {
-//  	'update':1,
-//  	'enfoce':0,
-//  	content:'',
-//  	title:'',
-//  	download_url:''
-//  }
 
-export function alertUpdate(data:Object) {
-    if(data.update){
-        Alert.alert(
-            data.title||'有新版本了',
-            data.content||'我们需要升级~',
-            data.enfoce?
-                [{text: '点击升级', onPress: () => _goUpDate(data)}]
-                :[{text: '取消'},{text: '点击升级', onPress: () => _goUpDate(data)}]
-        )
-    }
-}
-
-function _goUpDate(data:Object){
-    if (data.enfoce) {
-        alertUpdate(data);
-    }
-    // if (Platform.OS == 'ios') {
-    Linking.openURL(data.download_url);
-    // }else{
-    //
-    // }
-};

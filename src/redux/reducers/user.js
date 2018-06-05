@@ -16,7 +16,7 @@ import {
     UPDATE_USERDATA
 } from '../actions/user'
 import {CHANGEAVATAR} from '../actions/util'
-import {saveUserData} from '../../configure/XGlobal'
+import {saveUserData} from '../../configure/storage'
 const initialLoginState = {
     loaded: false,
     isLogin: false,

@@ -7,7 +7,7 @@
 import React from 'react';
 import topView from 'rn-topview';
 import PopContainer from './PopContainer';
-import configureStore from '../../redux/configureStore'
+import store from '../../redux/store'
 import { Platform, StatusBar } from 'react-native'
 
 let popupInstance;
@@ -28,7 +28,7 @@ export default {
         topView.set(
             <PopContainer
                 maskStyle={maskStyle}
-                store={configureStore}
+                store={store}
                 ref={i => popupInstance = i}
                 animationType={animationType}
                 maskClosable={maskClosable}

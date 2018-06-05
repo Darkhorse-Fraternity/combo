@@ -19,7 +19,6 @@ import {
 } from 'react-native'
 import Button from '../../components/Button'
 import {connect} from 'react-redux'
-import {backViewColor} from '../../configure'
 import {ICARD} from '../../redux/reqKeys'
 import {addNormalizrEntity} from '../../redux/module/normalizr'
 import {update} from '../../redux/module/leancloud'

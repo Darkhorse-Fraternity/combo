@@ -19,7 +19,6 @@ import {
 import {ICARD} from '../../redux/reqKeys'
 
 import {selfUser} from '../../request/LCModle'
-import {mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';

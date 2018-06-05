@@ -20,7 +20,6 @@ import { ICARD, IUSE, CARDLIST } from '../../redux/reqKeys'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Button from '../../components/Button'
 
-import { mainColor } from '../../configure'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';

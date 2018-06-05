@@ -13,7 +13,6 @@ import {
     Platform,
 } from 'react-native'
 import Toast from 'react-native-simple-toast';
-import {blackFontColor, backViewColor, mainColor} from '../../configure';
 import {connect} from 'react-redux'
 import {logout} from '../../redux/actions/user'
 import {dataStorage} from '../../redux/actions/util'
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
     rowText: {
         marginLeft: 10,
         fontSize: 14,
-        color: blackFontColor,
+        color: '#333333',
     },
     line: {
         height: StyleSheet.hairlineWidth,

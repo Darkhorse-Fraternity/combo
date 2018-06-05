@@ -9,12 +9,10 @@ import {
     View,
     Picker,
     Image,
-    LayoutAnimation,
 } from 'react-native'
 import imagePicker from '../../components/ImagePicker/imagePicker'
 import {connect} from 'react-redux'
 import {uploadAvatar} from '../../redux/actions/util'
-import {backViewColor, blackFontColor, grayFontColor} from '../../configure';
 import Button from '../../components/Button'
 const styles = StyleSheet.create({
     list: {
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
     rowText: {
         fontSize: 14,
         // fontWeight: '500',
-        color: blackFontColor,
+        color: '#333333',
     },
     separator: {
         height: StyleSheet.hairlineWidth,
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         // marginLeft:15,
         fontSize: 11,
-        color: grayFontColor
+        color: '#999999'
     },
 
     thumbnail: {

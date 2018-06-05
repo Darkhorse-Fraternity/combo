@@ -10,14 +10,12 @@ import {
 } from 'react-native'
 import Toast from 'react-native-simple-toast';
 import {req} from '../../redux/actions/req'
-import Icon from 'react-native-vector-icons/Ionicons'
-import {mainColor} from '../../configure'
-import {backViewColor, textInputTextColor, placeholderTextColor, grayFontColor} from '../../configure'
+
 import {feedbackParam} from '../../request/leanCloud'
 import {connect} from 'react-redux'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import {FEEDBACKPARAM} from '../../redux/reqKeys'
-
+import {mainColor} from '../../Theme'
 
 @connect(
     (state, props) => ({
@@ -97,7 +95,6 @@ export default class Feedback extends Component {
                 {this._renderHeader()}
                 <TextInput
                     multiline={true}
-                    placeholderTextColor={placeholderTextColor}
                     selectionColor= {mainColor}
                     style={styles.input}
                     underlineColorAndroid='transparent'
@@ -124,7 +121,7 @@ const styles = StyleSheet.create({
 
     containerStyle: {
         flex: 1,
-        backgroundColor: backViewColor,
+        backgroundColor: 'white',
         paddingHorizontal:25,
     },
 
@@ -137,7 +134,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: 'white',
         height: 168,
-        color: textInputTextColor,
+        color: '#333333',
         fontSize: 14,
         marginTop: 25,
         textAlignVertical: 'top',
@@ -145,7 +142,7 @@ const styles = StyleSheet.create({
     textStyle: {
         marginTop: 5,
         textAlign: 'right',
-        color: grayFontColor,
+        color: '#999999',
     },
     headerBtn: {
         marginTop: 20,

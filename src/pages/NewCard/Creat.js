@@ -22,11 +22,11 @@ import { add } from '../../redux/module/leancloud'
 import { bindActionCreators } from 'redux';
 import { addListNormalizrEntity } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { mainColor } from '../../configure'
 import { selfUser, iCard } from '../../request/LCModle'
 import moment from 'moment'
 import OptionDo, { StaticOption } from './OptionDo'
 import Button from '../../components/Button'
+import {mainColor} from '../../Theme'
 import {
     reduxForm,
     formValueSelector,

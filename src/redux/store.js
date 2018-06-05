@@ -84,7 +84,6 @@ if (__DEV__) {
 // }
 
 
-// function configureStore(initialState:Object ={}) {
 const store = createStore(rootReducer, {}, enhancer);
 if (global.reduxNativeDevTools) {
     global.reduxNativeDevToolsCompose(store);

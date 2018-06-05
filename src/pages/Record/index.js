@@ -14,7 +14,6 @@ import {
     Alert
 } from 'react-native'
 
-import { mainColor } from '../../configure'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';

@@ -19,12 +19,12 @@ import {BCButton} from '../../components/Base/WBButton'
 import {req} from '../../redux/actions/req'
 import {AUTHCODE} from '../../redux/reqKeys'
 import {requestSmsCode} from '../../request/leanCloud'
-import {deepFontColor, backViewColor, blackFontColor, mainColor} from '../../configure'
 import {connect} from 'react-redux'
 import {register} from '../../redux/actions/user'
 import * as Animatable from 'react-native-animatable';
 import {checkPhoneNum} from '../../request/validation'
 
+import {mainColor} from '../../Theme'
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
 
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
         // flex: ,
         width: 65,
         fontSize: 14,
-        color: blackFontColor,
+        color: '#333333',
     },
     textInputStyle: {
         // width:200,
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
         height:50
     },
     buttonSelectStyle: {
-        marginLeft: Platform.OS == 'ios' ? 29 / 2 : 27,
+        marginLeft: Platform.OS === 'ios' ? 29 / 2 : 27,
         flex: 1,
         height: 30,
         justifyContent: 'center',
@@ -316,10 +316,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#9ba0a2'
     },
-    buttonMainTextStyle: {
-        fontSize: 14,
-        color: deepFontColor,
-    },
+
     buttonContainerStyle2: {
         marginLeft: 29 / 2,
         marginRight: 29 / 2,

@@ -1,8 +1,8 @@
-import  {send} from'../request'
+import  {send} from '../../request/index'
 import {
     pushInstallation,
     updateInstallation
-} from '../request/leanCloud'
+} from '../../request/leanCloud'
 import  PushNotification from 'react-native-push-notification'
 import DeviceInfo from 'react-native-device-info'
 
@@ -11,10 +11,10 @@ import {
     DeviceEventEmitter,
     NativeModules,
 } from 'react-native'
-import store from '../redux/configureStore'
+import store from '../../redux/store'
 import {doReceiveNotify} from './pushReceive'
-import {dataStorage} from '../redux/actions/util'
-import {user} from '../request/LCModle'
+import {dataStorage} from '../../redux/actions/util'
+import {user} from '../../request/LCModle'
 export default function pushConfig() {
 
 

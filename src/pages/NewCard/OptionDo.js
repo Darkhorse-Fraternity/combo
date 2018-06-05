@@ -17,10 +17,10 @@ import {
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 
-import { mainColor } from '../../configure'
 import { AutoGrowingInput, TextInput } from '../../components/Form/Cunstom'
 import { Radio, Multiple } from '../../components/Form/Select'
 import Toast from 'react-native-simple-toast'
+import {mainColor} from '../../Theme'
 
 export const StaticOption = {
     notifyTime: '20:00',

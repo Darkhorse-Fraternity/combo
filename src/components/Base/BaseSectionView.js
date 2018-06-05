@@ -17,7 +17,6 @@ import {
     Platform,
     FlatList
 } from 'react-native'
-import { mainColor, backViewColor } from '../../configure';
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
 
@@ -211,7 +210,7 @@ export default class BaseSectionView extends Component {
 const styles = StyleSheet.create({
     list: {
         flex: 1,
-        backgroundColor: backViewColor,
+        backgroundColor: 'white',
     },
 
     otherTips: {

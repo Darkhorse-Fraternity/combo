@@ -16,7 +16,6 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
-import { backViewColor } from '../../configure'
 import { ICARD, IUSEExist, IUSE } from '../../redux/reqKeys'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { update, add } from '../../redux/module/leancloud'

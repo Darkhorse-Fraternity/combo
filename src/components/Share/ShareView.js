@@ -16,9 +16,10 @@ import {
     TouchableNativeFeedback
 } from 'react-native'
 import { connect } from 'react-redux'
-import { mainColor } from '../../configure'
 import { Toast } from 'react-native-simple-toast'
 import Pop from '../../../src/components/Pop'
+import {mainColor} from '../../Theme'
+
 import {
     shareTo,
     SHARE_TO_TIMELINE,

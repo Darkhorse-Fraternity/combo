@@ -6,23 +6,19 @@
 
 
 import React, { Component, } from 'react'
-import {Platform, StatusBar} from 'react-native'
-import {Provider} from 'react-redux'
-import {AppRegistry, View} from 'react-native';
-import configureStore from './redux/configureStore'
-import {preConfig} from './redux/config'
+import { Platform, StatusBar } from 'react-native'
+import { Provider } from 'react-redux'
+import { AppRegistry, View } from 'react-native';
+import store from './redux/store'
 import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
-import {ThemeProvider} from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import theme from './Theme'
 import LightStatuBar from './Theme/LightStatuBar'
 import SplashScreen from 'react-native-splash-screen'
-// import Form from './components/Form/Form'
+import Configure from './configure'
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
-configureStore.dispatch(preConfig())
-// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-// const store = configureStore()
 
 
 // import App from './components/js/App'
@@ -38,13 +34,15 @@ class App extends Component {
     render() {
 
         return (
-            <Provider store={configureStore}>
-                <ThemeProvider theme={theme} >
-                    <View style={{flex: 1}}>
-                        <LightStatuBar/>
-                        <AppWithNavigationState {...this.props}/>
-                        <InfoBar/>
-                    </View>
+            <Provider store={store}>
+                <ThemeProvider theme={theme}>
+                    <Configure>
+                        <View style={{ flex: 1 }}>
+                            <LightStatuBar/>
+                            <AppWithNavigationState {...this.props}/>
+                            <InfoBar/>
+                        </View>
+                    </Configure>
                 </ThemeProvider>
             </Provider>
         );

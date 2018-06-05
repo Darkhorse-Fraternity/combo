@@ -15,7 +15,6 @@ import {
 } from 'react-native'
 import { IDO } from '../../redux/reqKeys'
 import { user as UserModle, iUse } from '../../request/LCModle'
-import { mainColor } from '../../configure'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';

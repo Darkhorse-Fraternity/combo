@@ -8,7 +8,6 @@ import {
     findNodeHandle,
     Text
 } from 'react-native'
-import {backViewColor, mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
 import {updateNickName} from '../../request/leanCloud'
 import Icon from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
@@ -16,6 +15,7 @@ import {updateUserData} from '../../redux/actions/user'
 import Toast from 'react-native-simple-toast';
 import {req} from '../../redux/actions/req'
 import {UPDATENICKNAME} from '../../redux/reqKeys'
+import {mainColor} from '../../Theme'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 @connect(
     (state, props) => ({
@@ -109,7 +109,6 @@ export default class NickName extends React.Component {
             //  <View style={styles.rowMainStyle} >
             <TextInput
                 ref="nameInput"
-                placeholderTextColor={placeholderTextColor}
                 placeholder={placeholder}
                 style={styles.textInputStyle}
                 onChangeText={onChangeText}
@@ -163,7 +162,7 @@ export default class NickName extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: backViewColor,
+        backgroundColor: 'white',
         paddingHorizontal:25,
     },
     rowStyle: {
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
         flex: 1,
         borderColor: 'gray',
         backgroundColor: '#00000000',
-        color: textInputTextColor,
+        color: '#333333',
     },
 
     headerBtn: {

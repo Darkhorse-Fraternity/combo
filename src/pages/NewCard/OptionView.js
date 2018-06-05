@@ -21,7 +21,6 @@ import { connect } from 'react-redux'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { update } from '../../redux/module/leancloud'
 import { ICARD } from '../../redux/reqKeys'
-import { mainColor } from '../../configure'
 
 import {
     reduxForm,

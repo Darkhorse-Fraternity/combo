@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import Button from "react-native-button";
-import {mainColor, grayFontColor} from '../configure';
+import {mainColor} from '../../Theme'
 export default class CourseTabBar extends Component {
   static propTypes = {
     goToPage: PropTypes.func,
@@ -21,8 +21,8 @@ export default class CourseTabBar extends Component {
   };
   renderTabOption(name:string, page:number) {
     const isTabActive = this.props.activeTab === page;
-    const activeTextColor = this.props.activeTextColor || mainColor;
-    const inactiveTextColor = this.props.inactiveTextColor || grayFontColor;
+    const activeTextColor = this.props.activeTextColor || '#f1bd49';
+    const inactiveTextColor = this.props.inactiveTextColor || '#999999';
     const textStyle = this.props.textStyle || {};
     return <Button
       key={name}

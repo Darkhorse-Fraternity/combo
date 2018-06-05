@@ -1,4 +1,4 @@
-import  store from './configureStore'
+import  store from './store'
 import { NavigationActions } from 'react-navigation'
 
 export function push(key,params) {

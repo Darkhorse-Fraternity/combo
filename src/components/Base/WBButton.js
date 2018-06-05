@@ -11,17 +11,16 @@ import ReactNative, {
 } from 'react-native';
 // import Spinner from 'react-native-gifted-spinner';
 
-import {mainColor, containingColor, lightMainColor, lightContainingColor} from '../../configure';
 
 const styles = StyleSheet.create({
     WBbuttonStyle: {
-        color: containingColor,
+        color: '#d2d6d6',
     },
     WBDisabledStyle: {
         color: '#999999'//lightContainingColor,
     },
     WBContainerStyle: {
-        backgroundColor: mainColor,
+        backgroundColor: '#f1bd49',
         borderRadius: 3
     },
     WBContainerDisabledStyle: {

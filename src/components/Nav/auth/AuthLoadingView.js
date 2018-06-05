@@ -6,7 +6,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-import {loadUserData} from '../../../configure/XGlobal'
+import {loadUserData} from '../../../configure/storage'
 import {loginSucceed} from '../../../redux/actions/user'
 export default class AuthLoadingScreen extends React.Component {
     constructor(props) {

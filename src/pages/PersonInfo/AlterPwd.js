@@ -10,13 +10,12 @@ import ReactNative, {
 import {pixel,navbarHeight,Toast} from '../../util/';
 // import {Actions} from "react-native-router-flux";
 import {BCButton} from '../../components/Base/WBButton'
-import {mainColor, textInputTextColor, placeholderTextColor} from '../../configure'
 import {request} from '../../request'
 // import {pwdRequest} from '../../request/info'
 import {updatePassword} from '../../request/leanCloud'
 // import NavigationManager from '../Route/NavigationManager'
 import {renderNavSenderButton} from '../../util/viewUtil'
-
+import {mainColor} from '../../Theme'
 import {connect} from 'react-redux'
 import {navigatePop,navigateRefresh} from '../../redux/actions/nav'
  class AlterPwd extends React.Component{
@@ -121,7 +120,6 @@ import {navigatePop,navigateRefresh} from '../../redux/actions/nav'
      return(
          <TextInput
            ref={ref}
-           placeholderTextColor={placeholderTextColor}
            autoFocus = {autoFocus}
            maxLength={16}
            keyboardType={keyboardType}
@@ -131,7 +129,7 @@ import {navigatePop,navigateRefresh} from '../../redux/actions/nav'
            underlineColorAndroid='transparent'
            onChangeText={onChangeText}
            selectTextOnFocus ={false}
-           returnKeyType= {ref== '3'?'done':'next'}
+           returnKeyType= {ref=== '3'?'done':'next'}
            selectionColor= {mainColor}
            clearButtonMode = 'while-editing'
            onSubmitEditing={() =>this.focusNextField(ref)}
@@ -141,11 +139,11 @@ import {navigatePop,navigateRefresh} from '../../redux/actions/nav'
 
  focusNextField(nextField:string) {
 
-   if(nextField == '1'){
+   if(nextField === '1'){
      this.refs['2'].focus();
-   }else if(nextField == '2'){
+   }else if(nextField === '2'){
       this.refs['3'].focus();
-   }else if(nextField == '3'){
+   }else if(nextField === '3'){
      this._tapRight();
    }
  }
@@ -214,7 +212,7 @@ const styles = StyleSheet.create({
      flex:1 ,
      borderColor: 'gray',
      backgroundColor: '#00000000',
-     color: textInputTextColor,
+     color: '#333333',
    },
 
 })
