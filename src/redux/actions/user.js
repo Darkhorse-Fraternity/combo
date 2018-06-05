@@ -183,7 +183,7 @@ export function logout(): Function {
             // dispatch(NavigationActions.back())
 
             dispatch(logout2());//先退出
-            // dispatch(NavigationActions.navigate({ routeName: 'Login'}))
+            dispatch(NavigationActions.navigate({ routeName: 'Login'}))
             updatePush(user("null"))
 
 

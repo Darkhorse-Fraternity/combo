@@ -35,7 +35,6 @@ export  const TransitionConfiguration = () => ({
             ...CardStackStyleInterpolator,
             ...Transition
         }
-
         return StackTransitions[transition](sceneProps);
     },
     transitionSpec: {

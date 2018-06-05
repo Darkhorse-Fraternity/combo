@@ -72,7 +72,6 @@ function _preConfig() {
 }
 
 
-// let lastBackPressed: number = 0;
 
 
 
@@ -93,13 +92,13 @@ export function preConfig():Function {
     return (dispatch,getState) =>{
         // dispatch(_backAnroid())
         _isConnected(dispatch)
-        loadUserData().then((response)=>{
-            dispatch(loginSucceed(response))
-            dispatch(NavigationActions.navigate({routeName: 'Tab', params: {transition: 'forVertical'}}))
-        }).catch((error)=>{
-            dispatch(_loginFailed())
-            console.log('loadUserDataError:',error.message)
-        });
+        // loadUserData().then((response)=>{
+        //     dispatch(loginSucceed(response))
+        //     dispatch(NavigationActions.navigate({routeName: 'Tab', params: {transition: 'forVertical'}}))
+        // }).catch((error)=>{
+        //     dispatch(_loginFailed())
+        //     console.log('loadUserDataError:',error.message)
+        // });
 
     }
 

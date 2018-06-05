@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import {
     Platform,
-    BackHandler ,
-    ToastAndroid} from 'react-native'
+    BackHandler,
+    ToastAndroid,
+    ActivityIndicator
+} from 'react-native'
 import { AppNavigator } from './CreateAppNavigator'
 import { NavigationActions } from "react-navigation";
 import {
@@ -13,6 +15,8 @@ import {
     initializeListeners
 } from 'react-navigation-redux-helpers'
 
+
+// const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 @connect(
     state => ({ nav: state.nav, })
@@ -35,17 +39,17 @@ export default class AppWithNavigationState extends React.Component {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
     }
 
-    lastBackPressed : number = 0
+    lastBackPressed: number = 0
     onBackPress = () => {
         if (Platform.OS === 'ios') return;
         const { dispatch, nav } = this.props;
-        const{ routes ,index} = nav
+        const { routes, index } = nav
         const tab = routes[index]
         const tabIndex = tab.index
         const tabNav = tab.routes[tabIndex]
 
         //idnex 前两个分别是登录和tabview
-        if (index > 0 && tabNav.index > 0 ) {
+        if (index > 0 && tabNav.index > 0) {
             dispatch(NavigationActions.back())
             return true;
         }
@@ -65,7 +69,13 @@ export default class AppWithNavigationState extends React.Component {
         const { dispatch, nav } = this.props
         const navigationPropConstructor = createNavigationPropConstructor("root");
         const navigation = navigationPropConstructor(dispatch, nav,);
-        return <AppNavigator navigation={navigation}/>;
+
+
+        return <AppNavigator
+            navigation={navigation}
+            // persistenceKey={navigationPersistenceKey}
+            // renderLoadingExperimental={() => <ActivityIndicator/>}
+        />;
     }
 
 }

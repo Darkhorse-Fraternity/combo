@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
+import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
 
 const AniIonicons = Animatable.createAnimatableComponent(Ionicons);
 import {
@@ -64,13 +65,15 @@ const HomeStack = createStackNavigator({
 }, {
     initialRouteName: 'Home',
     navigationOptions,
+    transitionConfig: TransitionConfiguration,
 });
 
 const SettingsStack = createStackNavigator({
     ...settingRoute,
 }, {
     initialRouteName: 'PersonCenter',
-    navigationOptions
+    navigationOptions,
+    transitionConfig: TransitionConfiguration,
 });
 
 const refs = {}
@@ -141,5 +144,5 @@ export default createBottomTabNavigator(
             // }
 
         },
-    }
+    },
 );

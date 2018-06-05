@@ -22,10 +22,10 @@ import {
 } from 'react-navigation-redux-helpers'
 // import nav from "./reducers/nav";
 
-// const navReducer = createNavigationReducer(AppNavigator);
+const navReducer = createNavigationReducer(AppNavigator);
 const reducer = combineReducers({
     ...reducers,
-    // nav: navReducer,
+    nav: navReducer,
     form
 });
 

@@ -3,24 +3,24 @@ import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/StaticTab'
 import {route} from '../../../pages'
 import WebView from '../../Base/BaseWebView'
-import { createStackNavigator} from 'react-navigation';
+import { createStackNavigator,createSwitchNavigator} from 'react-navigation';
+import AuthLoadingScreen from '../auth/AuthLoadingView'
+const AuthStack = createStackNavigator(route);
 
-
-export const AppNavigator = createStackNavigator({
+export const AppNavigator = createSwitchNavigator({
+    // Auth: AuthStack,
     ...route,
+    AuthLoading: AuthLoadingScreen,
     Tab: {screen: Tab,},
-    WebView: {screen: WebView}
+    // WebView: {screen: WebView}
 }, {
     // initialRouteName:'Home',
-    navigationOptions: {
-        header:null,
-        gesturesEnabled: false,
-    },
-    //使得视图和头部一起运动，
-    // 目前没有办法单独设置，除非使页面单独存在一个栈中
-    //https://github.com/react-community/react-navigation/issues/1276
-    headerMode:'screen',
+    // navigationOptions: {
+    //     header:null,
+    //     gesturesEnabled: false,
+    // },
+    // mode:'modal',
+    // headerMode: 'none',
+    initialRouteName: 'AuthLoading',
 
-
-    transitionConfig: TransitionConfiguration,
 });
