@@ -1,17 +1,19 @@
-import {
-    createBottomTabNavigator,
-    createStackNavigator,
-} from 'react-navigation';
-// import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 import React from 'react'
 import {
     View,
     Button,
     Text
 } from 'react-native'
+
+
+import {
+    createBottomTabNavigator,
+    createStackNavigator,
+} from 'react-navigation';
+// import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
-import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
 
 const AniIonicons = Animatable.createAnimatableComponent(Ionicons);
 import {
@@ -19,46 +21,8 @@ import {
     settingRoute,
     navigationOptions
 } from '../../../pages'
+import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
 
-class DetailsScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Details!</Text>
-            </View>
-        );
-    }
-}
-
-class HomeScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {/* other code from before here */}
-                <Button
-                    title="Go to Details"
-                    onPress={() => this.props.navigation.navigate('Details')}
-                />
-            </View>
-        );
-    }
-}
-
-class SettingsScreen extends React.Component {
-
-    render() {
-        console.log('test:', this.props);
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                {/* other code from before here */}
-                <Button
-                    title="Go to Details"
-                    onPress={() => this.props.navigation.navigate('Details')}
-                />
-            </View>
-        );
-    }
-}
 
 const HomeStack = createStackNavigator({
     ...homeRoute
@@ -67,6 +31,7 @@ const HomeStack = createStackNavigator({
     navigationOptions,
     transitionConfig: TransitionConfiguration,
 });
+
 
 const SettingsStack = createStackNavigator({
     ...settingRoute,
