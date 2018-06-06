@@ -49,7 +49,8 @@ export default class DoCardButton extends Component {
         let { iUse } = props
         iUse = iUse && iUse.toJS()
 
-        const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
+
+        const done = iUse? moment(2, "HH").isBefore(iUse.doneDate.iso) :false
         // const over = iUse.time === Number(iCard.period)
 
 
@@ -75,7 +76,7 @@ export default class DoCardButton extends Component {
         let { iUse } = nextProps
         iUse = iUse && iUse.toJS()
 
-        const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
+        const done = iUse ?moment(2, "HH").isBefore(iUse.doneDate.iso):false
 
         if (done && this.state.statu === 0) {
             this.setState({ statu: 1 })

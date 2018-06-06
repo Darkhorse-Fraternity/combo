@@ -13,6 +13,7 @@ import * as immutable from 'immutable';
 import { Platform } from 'react-native';
 import * as reducers from './reducers'
 import {AppNavigator} from "../components/Nav/navigators/CreateAppNavigator";
+import screenTracking from './middleware/screenTracking'
 // import { combineReducers } from 'redux-immutablejs'
 import { reducer as form } from 'redux-form/immutable'
 // import { fromJS } from 'immutable'
@@ -22,6 +23,16 @@ import {
 } from 'react-navigation-redux-helpers'
 // import nav from "./reducers/nav";
 
+
+const rootReducer = (state, action) => {
+    if (action.type === 'LOGOUT') {
+        const {nav} = state
+        state = {nav}
+    }
+    return reducer(state, action)
+}
+
+
 const navReducer = createNavigationReducer(AppNavigator);
 const reducer = combineReducers({
     ...reducers,
@@ -29,33 +40,12 @@ const reducer = combineReducers({
     form
 });
 
-
 const middleware = createReactNavigationReduxMiddleware(
     "root",
     state => state.nav,
 );
 
-const rootReducer = (state, action) => {
-    if (action.type === 'LOGOUT') {
-        // 	umeng.pageEnd('设置');
-        // 	umeng.pageStart("登录");
-
-        // console.log('test:', state);
-        const {nav} = state
-        state = {nav}
-    }
-
-    if (action.type === "NAV_PUSH") {
-        //  const navigationState =  state.route.navigationState
-        // 	umeng.pageStart(navigationState.routes[navigationState.index].title);
-    }else if(action.type === 'NAV_POP'){
-        // 	const navigationState =  state.route.navigationState;
-        // 	umeng.pageEnd(navigationState.routes[navigationState.index].title);
-    }
-
-    return reducer(state, action)
-}
-const middlewares = [thunk,middleware];
+const middlewares = [thunk,middleware,screenTracking];
 let enhancer;
 if (__DEV__) {
     const installDevTools = require('immutable-devtools');
@@ -72,16 +62,6 @@ if (__DEV__) {
     enhancer = applyMiddleware(...middlewares);
 }
 
-
-
-
-// export default function configureStore(initialState) {
-//   const enhancer = compose(
-//     applyMiddleware(thunk),
-//     tools,//安卓无法使用，bug on
-//   );
-//   return createStore(rootReducer, initialState, enhancer);
-// }
 
 
 const store = createStore(rootReducer, {}, enhancer);
