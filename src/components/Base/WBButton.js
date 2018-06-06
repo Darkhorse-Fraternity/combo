@@ -14,7 +14,7 @@ import ReactNative, {
 
 const styles = StyleSheet.create({
     WBbuttonStyle: {
-        color: '#d2d6d6',
+        color: 'white',
     },
     WBDisabledStyle: {
         color: '#999999'//lightContainingColor,

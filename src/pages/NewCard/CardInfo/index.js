@@ -189,7 +189,7 @@ export default class CardInfo extends Component {
 
 
         return (
-            <StyledContent style={{ flex: 1 }}>
+            <StyledContent >
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     {iCard.img && <ZoomImage
                         height={width * 0.7}

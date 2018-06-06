@@ -10,4 +10,6 @@ export const Form = styled.View`
      background-color: white;
      border-top-color: #c8c8c8;
      border-top-width: ${props => props.theme.hairlineWidth};
+     border-bottom-color:  #c8c8c8;
+     border-bottom-width: ${props => props.theme.hairlineWidth};
 `

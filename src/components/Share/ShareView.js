@@ -92,22 +92,22 @@ export default class ShareView extends Component {
 
                 <View style={{ flexDirection: 'row' }}>
                     <View style={styles.pop_item}>
-                        {item(require('../../../source/img/icon/朋友圈分享.png'), '朋友圈', () => {
+                        {item(require('../../../source/img/icon/circleShare.png'), '朋友圈', () => {
                             share(SHARE_TO_TIMELINE, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
-                        {item(require('../../../source/img/icon/好友分享.png'), '微信好友', () => {
+                        {item(require('../../../source/img/icon/friendShare.png'), '微信好友', () => {
                             share(SHARE_TO_SESSION, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
-                        {item(require('../../../source/img/icon/Qzone分享.png'), 'Q-Zone', () => {
+                        {item(require('../../../source/img/icon/QzoneShare.png'), 'Q-Zone', () => {
                             share(Share_TO_ZONE, shareParams)
                         })}
                     </View>
                     <View style={styles.pop_item}>
-                        {item(require('../../../source/img/icon/QQ分享.png'), 'QQ', () => {
+                        {item(require('../../../source/img/icon/QQShare.png'), 'QQ', () => {
                             share(SHARE_TO_QQ, shareParams)
                         })}
                     </View>
