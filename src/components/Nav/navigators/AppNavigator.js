@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator } from 'react-navigation';
 import {
-    ActivityIndicator
+    ActivityIndicator,
+    Platform
 } from 'react-native'
 import { AppNavigator } from './CreateAppNavigator'
 import {
@@ -11,12 +12,14 @@ import {
     initializeListeners
 } from 'react-navigation-redux-helpers'
 
+const prefix = Platform.OS === 'android' ? 'combo://combo/' : 'combo://';
 
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 @connect(
     state => ({ nav: state.nav, })
 )
+
 
 export default class AppWithNavigationState extends React.Component {
 
@@ -41,6 +44,7 @@ export default class AppWithNavigationState extends React.Component {
 
         return <AppNavigator
             navigation={navigation}
+            // uriPrefix={prefix}
             // persistenceKey={navigationPersistenceKey}
             // renderLoadingExperimental={() => <ActivityIndicator/>}
         />;

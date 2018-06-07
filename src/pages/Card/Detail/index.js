@@ -58,7 +58,7 @@ export default class CardDetail extends Component {
 
 
         return (
-            <StyledContent>
+            <StyledContent forceInset={{ top: 'never' }}>
 
                 <ScrollableTabView
                     tabBarInactiveTextColor={theme.mainColor}

@@ -30,7 +30,7 @@ const screenTracking = ({ getState }) => next => (action) => {
         // the line below uses the Google Analytics tracker
         // change the tracker here to use other Mobile analytics SDK.
         // tracker.trackScreenView(nextScreen);
-        console.log('screenTracking:', nextScreen);
+        // console.log('screenTracking:', nextScreen);
     }
     return result;
 };

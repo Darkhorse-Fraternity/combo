@@ -41,6 +41,9 @@ const SettingsStack = createStackNavigator({
     transitionConfig: TransitionConfiguration,
 });
 
+
+
+
 const refs = {}
 export default createBottomTabNavigator(
     {

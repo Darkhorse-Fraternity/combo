@@ -27,10 +27,10 @@ import CardUse from './NewCard/CardUse'
 
 export const otherRoute = {
     Setting: {screen: Setting},
-    Followee:{screen: Followee},
+    Followee:{screen: Followee,path:'combo/:Followee'},
     Follower:{screen: Follower},
     Following:{screen: Following},
-    Creat: {screen: Creat},
+    Creat: {screen: Creat,path:'combo/:Creat'},
     NewCard: {screen: NewCard},
     Record: {screen: Record},
     OptionView: {screen: OptionView},

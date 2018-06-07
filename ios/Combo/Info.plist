@@ -60,6 +60,16 @@
 				<string>wb1915346979</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>combo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>combo</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>80</string>
