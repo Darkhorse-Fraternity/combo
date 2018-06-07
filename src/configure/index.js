@@ -62,12 +62,15 @@ export default class Configure extends React.Component {
 
 
     _handleOpenURL = async (event)=>{
-         console.log('test:', event.url);
+         console.log('handleOpenURL:', event.url);
     }
 
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         Linking.addEventListener('url', this._handleOpenURL);
+        Linking.getInitialURL().then(url=>{
+            console.log('getInitialURL:', url);
+        })
         // NetInfo.isConnected.addEventListener(
         //     'connectionChange',
         //     (isConnected)=>{
