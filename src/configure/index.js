@@ -62,15 +62,34 @@ export default class Configure extends React.Component {
 
 
     _handleOpenURL = async (event)=>{
-         console.log('handleOpenURL:', event.url);
+        this._handleUrl(event.url)
+    }
+
+    _getInitialURL = async ()=>{
+        const url = await Linking.getInitialURL()
+        this._handleUrl(url)
+    }
+
+    _handleUrl = (url)=> {
+        if(url){
+            const wurl = require('wurl');
+            const key =  wurl(1, url)
+            const params = wurl('?', url);
+            const hostname =  wurl('hostname', url)
+            const protocol = wurl('protocol', url)
+            if(hostname==='combo' && protocol === 'combo'){
+                console.log('params:', params);
+                this.props.dispatch(NavigationActions.navigate({ routeName: key, params }))
+            }
+        }
+
+
     }
 
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         Linking.addEventListener('url', this._handleOpenURL);
-        Linking.getInitialURL().then(url=>{
-            console.log('getInitialURL:', url);
-        })
+        this._getInitialURL()
         // NetInfo.isConnected.addEventListener(
         //     'connectionChange',
         //     (isConnected)=>{

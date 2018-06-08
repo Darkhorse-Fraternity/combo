@@ -4,7 +4,7 @@
 
 
 export function addParams(url:string, params:Object) {
-  if (url.indexOf('?') == -1) {
+  if (url.indexOf('?') === -1) {
     return url+'?'+toQueryString(params);
   }else {
     return url + '&' + toQueryString(params);
