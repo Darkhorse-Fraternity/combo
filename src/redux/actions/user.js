@@ -208,7 +208,6 @@ export function logout(): Function {
 function logout2() {
     return {
         type: LOGOUT,
-        index: 0,
     }
 }
 

@@ -20,7 +20,6 @@ import {saveUserData} from '../../configure/storage'
 const initialLoginState = {
     loaded: false,
     isLogin: false,
-    localLoad:false,
     accountText: __DEV__ ? "13696981385" : '',
     passwordText: __DEV__ ? "980678" : '',
     data: {},
@@ -47,13 +46,11 @@ export default function userState(state:immutable.Map<string,any> = initialLogin
             return Object.assign({}, state, {
                 ...action,
                 isLogin:false,
-                localLoad:true,
             });
         case LOGIN_SUCCEED:
             return Object.assign({}, state, {
                 ...action,
                 isLogin:true,
-                localLoad:true,
             });
 
 
