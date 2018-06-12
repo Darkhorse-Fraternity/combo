@@ -11,7 +11,8 @@ import {
     View,
     StyleSheet,
     Text,
-    Alert
+    Alert,
+    Image
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -138,6 +139,10 @@ export default class Record extends Component {
         }
         const days = iCard.period * (item.cycle ) + (item.time )
         const reflesh = item.time === iCard.period || item.statu === 'stop'
+        const { img } = iCard
+        const source = img ? { uri: img.url } :
+            require('../../../source/img/my/icon-60.png')
+
         return (
             <Animatable.View
                 ref={(row) => this.rows[index] = row}
@@ -158,7 +163,10 @@ export default class Record extends Component {
                     <Button
                         style={{ flex: 1 }}
                         onPress={() => {
-                            this.props.navigation.navigate('RecordDetail',{data:item,card:iCard})
+                            this.props.navigation.navigate('RecordDetail', {
+                                data: item,
+                                card: iCard
+                            })
                             //
                             // this.props.navigation.navigate('CardDetail', {
                             //     iUse: item,
@@ -166,16 +174,20 @@ export default class Record extends Component {
                             // })
 
                         }}>
+                        <Image style={styles.img} source={source}/>
                         <View style={styles.row}>
                             <View style={styles.subRow}>
-                                <Icon style={styles.icon}
-                                      name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>
+                                {/*<Icon style={styles.icon}*/}
+                                {/*name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>*/}
                                 <View style={styles.des}>
                                     <Text style={styles.title}>{iCard.title}</Text>
                                     <Text style={styles.time}>坚持了{days}天</Text>
                                 </View>
                             </View>
-                            <Text style={styles.time}>第{item.cycle + 1}组</Text>
+                            <View style={styles.rightView}>
+                                <Text style={styles.rowText}>第{item.cycle + 1}组</Text>
+                                <View style={styles.arrowView}/>
+                            </View>
                         </View>
                     </Button>
                 </SwipeAction>
@@ -235,7 +247,8 @@ const styles = StyleSheet.create({
     row: {
         // backgroundColor: 'white',
         paddingHorizontal: 18,
-        paddingVertical: 30,
+        paddingVertical: 15,
+        paddingBottom:20,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -266,8 +279,29 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     time: {
-        marginTop: 3,
+        marginTop: 5,
         fontSize: 13,
+    },
+    img: {
+        width: '100%',
+        height: 200,
+    },
+    arrowView: {
+        borderBottomWidth: StyleSheet.hairlineWidth * 2,
+        borderRightWidth: StyleSheet.hairlineWidth * 2,
+        borderColor: '#8c8c85',
+        transform: [{ rotate: '315deg' }],
+        marginRight: 5,
+        width: 10,
+        height: 10,
+    },
+    rightView:{
+        flexDirection:'row',
+        alignItems:'center',
+    },
+    rowText:{
+        fontSize: 13,
+        marginRight:5
     }
 
 })
