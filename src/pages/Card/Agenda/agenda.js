@@ -97,14 +97,6 @@ export default class AgendaScreen extends Component {
 
 
 
-    renderItem(item) {
-        return (
-            <StyledAgendaRow>
-                <RecordRow item={item} navigation={this.props.navigation}/>
-            </StyledAgendaRow>
-        );
-    }
-
 
 
 }

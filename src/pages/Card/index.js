@@ -32,7 +32,7 @@ import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Carousel from 'react-native-snap-carousel';
-import { sliderWidth, itemWidth } from './Cell/SliderEntry.style';
+import { sliderWidth, itemWidth } from './Cell/style';
 
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';

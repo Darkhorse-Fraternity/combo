@@ -202,6 +202,8 @@ export default class CardDetail extends Component {
 const styles = StyleSheet.create({
     row: {
         backgroundColor: 'white',
+        paddingHorizontal: 18,
+        paddingVertical: 2,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e4e4e4',
     },

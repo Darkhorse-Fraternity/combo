@@ -218,11 +218,14 @@ const styles = StyleSheet.create({
         // paddingHorizontal: 5,
     },
     row: {
-        backgroundColor: 'white',
-
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#e4e4e4',
+        backgroundColor: 'white',
+        paddingHorizontal: 18,
+        paddingVertical: 2,
+
     },
+
 
     image: {
         width: '100%',

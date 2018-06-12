@@ -1,5 +1,5 @@
 /*@flow*/
-import React, {Component, isValidElement} from 'react';
+import React, { Component, isValidElement } from 'react';
 import {
     StyleSheet,
     Text,
@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
+
 const AniView = Animatable.createAnimatableComponent(Image);
 
 export const ExceptionType = {
@@ -66,17 +67,19 @@ export default class ExceptionView extends Component {
     render() {
         // let prompt = this.getPromptText(this.props.exceptionType);
         return (
-            <ScrollView style={[{flex:1},this.props.style]}>
+            <ScrollView contentContainerStyle={{flex:1}} style={[{ flex: 1 }, this.props.style]}>
                 {this.props.renderHeader && this.props.renderHeader()}
-                <Button
-                    innerView
-                    onPress={()=>{
-                        this.props.onRefresh()
-                    }}>
-                    {this._renderPromptIndicator(this.props.exceptionType)}
-                    {this.renderPrompt()}
-                    {this.renderOtherTips()}
-                </Button>
+                    <Button
+                        style={{flex:1,alignItems:'center',
+                            justifyContent:'center',minHeight:100}}
+                        onPress={() => {
+                            this.props.onRefresh && this.props.onRefresh()
+                        }}>
+                        {this._renderPromptIndicator(this.props.exceptionType)}
+                        {this.renderPrompt()}
+                        {this.renderOtherTips()}
+                    </Button>
+
             </ScrollView>
         );
     }
@@ -85,7 +88,8 @@ export default class ExceptionView extends Component {
         switch (type) {
             case ExceptionType.Loading:
                 return (
-                    <ActivityIndicator color="#9e9e9e" style={styles.spinner} size="large" styleAttr="Large"/>
+                    <ActivityIndicator color="#9e9e9e" style={styles.spinner} size="large"
+                                       styleAttr="Large"/>
                 );
             case ExceptionType.NoData:
             case ExceptionType.NetError:
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'black',
         alignSelf: 'center',
-        marginTop:20,
+        marginTop: 20,
     },
     otherTips: {
         marginTop: 27,
@@ -150,7 +154,5 @@ const styles = StyleSheet.create({
         color: '#9e9e9e',
         lineHeight: 26,
     },
-    spinner: {
-        marginTop: 130
-    }
+    spinner: {}
 });

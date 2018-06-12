@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
+        marginTop:10,
     },
     name: {
         marginLeft: 5,

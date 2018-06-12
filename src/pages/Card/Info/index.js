@@ -11,7 +11,8 @@ import {
     Text,
     Dimensions,
     ActivityIndicator,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Image
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -232,16 +233,20 @@ export default class Info extends Component {
         const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
         const over = iUse.time === Number(iCard.period)
 
+        const {img} = iCard
+        const source = img ? { uri: img.url }
+        : require('../../../../source/img/my/icon-60.png')
 
         return (
             <StyledContent>
                 {this._renderDoneView(done, over)}
-                {iCard.img && (<ZoomImage
+                {!!iCard.img ?(<ZoomImage
                     height={width * 0.7}
                     style={{
                         width: '100%',
                         height: width * 0.7
-                    }} imageUrls={[{ url: iCard.img.url }]}/>)}
+                    }} imageUrls={[{ url: iCard.img.url }]}/>):
+                    (<Image style={{ alignSelf: 'center'}} resizeMode={'center'} source={source}/>)}
                 {this.rowTouch('卡片名称:', iCard.title , () => {
                      this.props.navigation.navigate('CardInfo', { iCard: iCard })
                 })}

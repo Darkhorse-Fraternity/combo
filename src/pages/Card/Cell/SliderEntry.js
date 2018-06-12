@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { ParallaxImage } from 'react-native-snap-carousel';
-import styles from './SliderEntry.style';
+import styles from './style';
 import Icon from 'react-native-vector-icons/Ionicons'
 import moment from 'moment'
 import * as Animatable from 'react-native-animatable';

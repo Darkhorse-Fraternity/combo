@@ -11,20 +11,25 @@ export const StyledButton = styled(Button)`
 export const StyledImage = styled.Image`
     width: 100%;
     height: ${props =>props.theme.width * 0.7};
+    border-radius: 10px;
+    margin: 15px 0px 0px 0px; 
 `
 
 export const StyledZoomImage = styled(ZoomImage)`
     width: 100%;
     height: ${props =>props.theme.width * 0.7};
+    border-radius: 10px;
+    margin: 15px 0px 0px 0px;
 `
 
 export const StyledBottom = styled.View`
     margin-top: 5px;
     margin-bottom: 5px;
-    padding: 0px 15px;
+    padding: 0px 0px;
 `
 
 export const StyledDateView = styled.View`
+    margin: 10px 0px 0px 0px; 
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -40,13 +45,15 @@ export const StyledNewTip = styled.View`
 `
 
 export const StyledDateText = styled.Text`
-    font-size: 15px;
+    
+    font-size: 13px;
     color: #646464;
-    padding: 3px 0px;
 `
 
 export const StyledRecordText = styled.Text`
    color: #323232;
+   font-size: 15px;
+   margin: 10px 0px 0px 0px; 
 `
 
 export const StyledIcon = styled(Icon)`

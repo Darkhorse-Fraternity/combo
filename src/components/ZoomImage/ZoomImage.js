@@ -71,7 +71,6 @@ export default class ZoomImage extends Component {
 }
 const styles = StyleSheet.create({
     wrapper: {
-        backgroundColor:'rgb(250,250,250)'
     },
     slide: {
         flex: 1,

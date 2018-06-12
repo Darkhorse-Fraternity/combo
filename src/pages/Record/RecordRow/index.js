@@ -113,6 +113,10 @@ export default class RecordRow extends Component {
                     this.props.navigation.navigate('RComment', { data: item })
                 }}
                 style={this.props.style}>
+                {!!item.recordText &&
+                (<StyledRecordText numberOfLines={3}>
+                    {item.recordText}
+                </StyledRecordText>)}
                 {img && !showImage && (<StyledImage
                     // easingFunc={Easing.bounce}
                     source={{ uri: img }}/>)}
@@ -120,9 +124,7 @@ export default class RecordRow extends Component {
                     height={width * 0.7}
                     imageUrls={[{ url: img }]}/>)}
                 <StyledBottom >
-                    {!!item.recordText && (<StyledRecordText numberOfLines={1}>
-                        {item.recordText}
-                    </StyledRecordText>)}
+
                     <StyledDateView >
                         <StyledDateText >
                             {date}
