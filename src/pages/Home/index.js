@@ -22,7 +22,7 @@ import * as Animatable from 'react-native-animatable';
 import CardView from '../Card'
 import Button from '../../components/Button'
 
-import PushManage from '../../configure/localNotification'
+
 
 function makeScaleInTranslation(translationType, value) {
     return {
@@ -131,7 +131,7 @@ export default class Home extends Component {
 
         return (
             <ScrollView style={[this.props.style, styles.container]}>
-                <PushManage/>
+
 
                 {this._renderHeader()}
                 {isLogin && (<CardView

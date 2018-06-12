@@ -93,10 +93,13 @@ export default class InfoBar extends Component {
     render() {
         if (this.props.notify.get('show')) {
             const notify = this.props.notify.get('notification').toJS()
-            const data = notify.data
+            const data = notify.data || {}
+            console.log('notify:', notify);
             const message = notify.message
-            const title = Platform.OS === 'ios' ? message.title : data.title
-            const body = Platform.OS === 'ios' ? message.body : data.alert
+            const title = Platform.OS === 'ios' && data.type !=='local'
+                ? message.title : data.title
+            const body = Platform.OS === 'ios' && data.type !=='local'
+                ? message.body : data.alert
             return (
                 <Animatable.View
                     ref="aniView"

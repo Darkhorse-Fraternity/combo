@@ -17,6 +17,7 @@ import theme from './Theme'
 import LightStatuBar from './Theme/LightStatuBar'
 import SplashScreen from 'react-native-splash-screen'
 import Configure from './configure'
+import PushManage from './configure/localNotification'
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
 
@@ -38,6 +39,7 @@ class App extends Component {
                 <ThemeProvider theme={theme}>
                     <Configure>
                         <View style={{ flex: 1 }}>
+                            <PushManage/>
                             <LightStatuBar/>
                             <AppWithNavigationState {...this.props}/>
                             <InfoBar/>

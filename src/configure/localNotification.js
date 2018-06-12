@@ -100,6 +100,8 @@ export async function  dayNotification(data) {
                 number:  1,
                 repeatType: 'week',
                 userInfo:{
+                    title,
+                    alert:message,
                     webUrl:"combo://CardDetail",
                     params:{iUse: item,iCard: item.iCard},
                     //action: "com.avos.UPDATE_STATUS",
