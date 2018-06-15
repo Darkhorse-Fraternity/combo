@@ -24,7 +24,9 @@ public class MainActivity extends ReactActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SplashScreen.show(this,true);
+        if(!BuildConfig.DEBUG){
+            SplashScreen.show(this,true);
+        }
         super.onCreate(savedInstanceState);
         LightStatusBarUtil.MIUISetStatusBarLightMode(this, true);
 
