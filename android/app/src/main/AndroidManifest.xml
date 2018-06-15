@@ -57,6 +57,7 @@
 
     <application
         android:name=".MainApplication"
+        android:usesCleartextTraffic="${isDebug}"
         android:launchMode="singleTask"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

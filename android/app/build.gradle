@@ -98,15 +98,15 @@ repositories {
 }
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 26
+    buildToolsVersion "26.1.0"
 
     defaultConfig {
         renderscriptTargetApi 23
         renderscriptSupportModeEnabled true
         applicationId "com.combo"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode buildTime()
         versionName "1.0"
         ndk {
@@ -127,7 +127,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            manifestPlaceholders = [isDebug:true]
+        }
         release {
+            manifestPlaceholders = [isDebug:false]
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
@@ -139,12 +143,6 @@ android {
             enable enableSeparateBuildPerCPUArchitecture
             universalApk false  // If true, also generate a universal APK
             include "armeabi-v7a", "x86"
-        }
-    }
-    buildTypes {
-        release {
-            minifyEnabled enableProguardInReleaseBuilds
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
     // applicationVariants are e.g. debug, release
@@ -173,13 +171,13 @@ dependencies {
     implementation project(':react-native-wechat')
     implementation project(':react-native-leancloud-push')
     implementation project(':react-native-push-notification')
-    implementation ('com.google.android.gms:play-services-gcm:9.4.0') { force = true; }
+    implementation ('com.google.android.gms:play-services-gcm:10.2.1') { force = true; }
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-image-picker')
     implementation project(':react-native-dialogs')
     implementation project(':react-native-device-info')
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:27.0.3"
+    implementation "com.android.support:appcompat-v7:26.1.0"
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation "com.facebook.react:react-native:+"  // From node_modules
 }

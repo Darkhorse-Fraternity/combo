@@ -50,7 +50,6 @@ export default class ZoomImage extends Component {
                 <View
                     height={height}
                     containerStyle={{flex:1}}
-                    style={{flex:1}}
                     showsButtons={false}>
                     {imageUrls.map(item => (
                         <TouchableOpacity
