@@ -39,10 +39,12 @@
   
   [AppearanceConfig appearanceConfig];
   
-#ifndef RELEASE
-//  [SplashScreen show];
-#endif
+
+#ifdef DEBUG
   
+#else
+  [SplashScreen show];
+#endif
 
   return YES;
 }
