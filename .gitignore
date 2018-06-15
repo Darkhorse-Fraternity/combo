@@ -53,5 +53,8 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+# Bundle artifact
+*.jsbundle
+
 .update
 *.apk
