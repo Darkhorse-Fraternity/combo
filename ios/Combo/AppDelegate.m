@@ -38,7 +38,12 @@
   [self.window makeKeyAndVisible];
   
   [AppearanceConfig appearanceConfig];
-  [SplashScreen show];
+  
+#ifndef RELEASE
+//  [SplashScreen show];
+#endif
+  
+
   return YES;
 }
 

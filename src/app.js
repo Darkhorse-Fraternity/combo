@@ -41,7 +41,7 @@ class App extends Component {
                         <View style={{ flex: 1 }}>
                             <PushManage/>
                             <LightStatuBar/>
-                            <AppWithNavigationState {...this.props}/>
+                            <AppWithNavigationState/>
                             <InfoBar/>
                         </View>
                     </Configure>

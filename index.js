@@ -3,5 +3,5 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-// console.ignoredYellowBox = ['Setting a timer'];
+console.ignoredYellowBox = ['Warning: isMounted(...)'];
 require('./src/app');
