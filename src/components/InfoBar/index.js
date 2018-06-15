@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     body: {
         color: 'white',
         fontSize: 13,
+        marginTop:5,
     }
 
 });
