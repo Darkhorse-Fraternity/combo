@@ -1116,6 +1116,8 @@
 				CCCE41AD2064A0F000F282E3 /* Resources */,
 				CCCE41BB2064A0F000F282E3 /* Bundle React Native code and images */,
 				CCCE41BE2064A0F000F282E3 /* ShellScript */,
+				AE43CB8B07860A8DD8EFCDB7 /* [CP] Embed Pods Frameworks */,
+				B05FCC5A10E69E9D5B1D2972 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1706,6 +1708,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		AE43CB8B07860A8DD8EFCDB7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Combo/Pods-Combo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B05FCC5A10E69E9D5B1D2972 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Combo/Pods-Combo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CC2CCE2D205BC65A00627D3A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1748,7 +1780,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		CCCE41BB2064A0F000F282E3 /* Bundle React Native code and images */ = {
@@ -1944,7 +1976,7 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1995,7 +2027,7 @@
 					"$(SRCROOT)/../node_modules/react-native-orientation/iOS/RCTOrientation/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -2176,8 +2208,6 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public\"",
 					"-isystem",
-					"\"${PODS_ROOT}/Headers/Public/HexColors\"",
-					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK\"",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/Toast\"",
@@ -2239,8 +2269,6 @@
 					"$(inherited)",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public\"",
-					"-isystem",
-					"\"${PODS_ROOT}/Headers/Public/HexColors\"",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK\"",
 					"-isystem",

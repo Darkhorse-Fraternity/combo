@@ -8,14 +8,14 @@
 
 #import "AppearanceConfig.h"
 #import <UIKit/UIKit.h>
-#import "HexColors.h"
 @implementation AppearanceConfig
 + (void)appearanceConfig {
-  UIColor *MainColor = [UIColor hx_colorWithHexRGBAString:@"#F3AC41"];
+  UIColor *MainColor = [UIColor colorWithRed:243 green:172 blue:65 alpha:1];
+  
 //  UIColor *subColor = [UIColor hx_colorWithHexRGBAString:@"ffffff"];
   [[UIWindow appearance]setTintColor:MainColor];
   
-  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+//  [UIViewController preferredStatusBarStyle:UIStatusBarStyleDefault];
   
   //UINavigationBar
 //  [[UINavigationBar appearance] setBarTintColor:  MainColor];
@@ -42,10 +42,10 @@
   
   
   //UIBarButtonItem
-  [[UIBarButtonItem appearance] setTintColor:MainColor];
-  [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:MainColor];
-  [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:MainColor];
-  [[UIBarButtonItem appearanceWhenContainedIn:[UIToolbar class], nil] setTintColor:MainColor];
+//  [[UIBarButtonItem appearance] setTintColor:MainColor];
+//  [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:[UISearchBar class], nil] setTintColor:MainColor];
+//  [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:[UINavigationBar class], nil] setTintColor:MainColor];
+//  [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:[UIToolbar class], nil] setTintColor:MainColor];
   
   
   //UIProgressView
@@ -67,7 +67,7 @@
   [[UISlider appearance]setTintColor:MainColor];
   
   //UISwitch
-  [[UISwitch appearance]setTintColor:[UIColor hx_colorWithHexRGBAString:@"#262324"]];
+//  [[UISwitch appearance]setTintColor:[UIColor hx_colorWithHexRGBAString:@"#262324"]];
   [[UISwitch appearance]setOnTintColor:MainColor];
   
   //UITabBar

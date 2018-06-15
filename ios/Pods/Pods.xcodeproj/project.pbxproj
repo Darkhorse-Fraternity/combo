@@ -7,50 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D5095ED30D4440B822886D5D64158AE /* HexColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		402A2C5FD08D6740CB8CA797614332EF /* Pods-Combo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */; };
-		6FE18741605C6EA884A37502A8B4F5A4 /* HexColors-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */; };
-		8797F5312C31783C2D054EEFC702FF9B /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E3263BC5488FA0B2CF06DB3CD16FDA09 /* Pods-Combo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		73DD21D8120A4A14FBA764FFBF75DBA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 44E0EA3B752124CEF8B34BA4CE86CF64;
-			remoteInfo = HexColors;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Combo.a"; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
 		1C673912A7FDD5EB93387F2EEFA83F09 /* Pods-Combo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Combo-dummy.m"; sourceTree = "<group>"; };
 		1DDDA40507F8E682D7CA2016EEC70CFF /* Pods-Combo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Combo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Combo.a"; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		391AD4CD10B36CC54CB0476D302FF0B1 /* Pods-Combo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Combo-acknowledgements.plist"; sourceTree = "<group>"; };
-		4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-dummy.m"; sourceTree = "<group>"; };
 		682344B6653CD3102606B863797F032B /* Pods-Combo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-frameworks.sh"; sourceTree = "<group>"; };
-		68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HexColors.xcconfig; sourceTree = "<group>"; };
 		757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		84659FD50B76E42F172142CF5E5444D1 /* Pods-Combo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-resources.sh"; sourceTree = "<group>"; };
-		8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		AA9DA811D84FA0DB4298D2720408AAA4 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "Reveal-Framework-iOS-1.6.2/Reveal.framework"; sourceTree = "<group>"; };
 		ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
-		CEF4CBB7297222DF3D92EB38E7AAC95B /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
-		E492583AC81D1BF057A90359F219D07E /* libHexColors.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libHexColors.a; path = libHexColors.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2622C1649F849201CE4EB7C5EC8B56C5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8ACF591157A3E63C6B8116B5355DDEAE /* Frameworks */ = {
+		E122A52795F8705D9614EC18FD1E59E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -65,28 +39,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1CA32861BA810813A6B5EF192FC197E3 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */,
-				4A116F93DA25E5E9CCDAF254530E14D7 /* HexColors-dummy.m */,
-				CEF4CBB7297222DF3D92EB38E7AAC95B /* HexColors-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/HexColors";
-			sourceTree = "<group>";
-		};
-		1D3A4ED15150D52087F8F3645FFA2D4D /* HexColors */ = {
-			isa = PBXGroup;
-			children = (
-				8561E712C7F3B66E59EFDE65B5356AB0 /* HexColors.h */,
-				FCE5FAF1BF9841AC849D56E35DA981CD /* HexColors.m */,
-				1CA32861BA810813A6B5EF192FC197E3 /* Support Files */,
-			);
-			name = HexColors;
-			path = HexColors;
 			sourceTree = "<group>";
 		};
 		396EF9BF493169DD9EAEB68203629465 /* Pods-Combo */ = {
@@ -104,30 +56,12 @@
 			path = "Target Support Files/Pods-Combo";
 			sourceTree = "<group>";
 		};
-		505C918584F73AB648735CF7FAEF45DA /* Reveal-iOS-SDK */ = {
+		5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				56F95CE65AA93E91D6212AF1923EC450 /* Frameworks */,
+				033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */,
 			);
-			name = "Reveal-iOS-SDK";
-			path = "Reveal-iOS-SDK";
-			sourceTree = "<group>";
-		};
-		56F95CE65AA93E91D6212AF1923EC450 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AA9DA811D84FA0DB4298D2720408AAA4 /* Reveal.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		5F33B34E11D4EC1CFDDBA3E56EE5CB9C /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1D3A4ED15150D52087F8F3645FFA2D4D /* HexColors */,
-				505C918584F73AB648735CF7FAEF45DA /* Reveal-iOS-SDK */,
-			);
-			name = Pods;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */ = {
@@ -143,67 +77,54 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
-				5F33B34E11D4EC1CFDDBA3E56EE5CB9C /* Pods */,
-				D56A2700C383328A1F4E344DEBD67DEC /* Products */,
+				C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */,
+				5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */,
 				6782797B672C95148A80CD1BA3AAF3BF /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		D56A2700C383328A1F4E344DEBD67DEC /* Products */ = {
+		81C689C3AFC1C7FF242CFAB8DDD09E4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E492583AC81D1BF057A90359F219D07E /* libHexColors.a */,
-				2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */,
+				12DFEEB3509D877B6CE65BCE2EEB0562 /* Reveal.framework */,
 			);
-			name = Products;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D70BEE20B57C04A4512260E625802768 /* Reveal-iOS-SDK */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D70BEE20B57C04A4512260E625802768 /* Reveal-iOS-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				81C689C3AFC1C7FF242CFAB8DDD09E4A /* Frameworks */,
+			);
+			name = "Reveal-iOS-SDK";
+			path = "Reveal-iOS-SDK";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		A7A18D5CE0B4CB02F8B1D55AE5924B6C /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0D5095ED30D4440B822886D5D64158AE /* HexColors.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		44E0EA3B752124CEF8B34BA4CE86CF64 /* HexColors */ = {
+		3B7D318B26705FE7F0E72F4FB09E930E /* Pods-Combo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E020BC3B1436326D3A5BE2E9EE2FC1E9 /* Build configuration list for PBXNativeTarget "HexColors" */;
+			buildConfigurationList = 19AD1E18124DC84136DC2F757BA93AD1 /* Build configuration list for PBXNativeTarget "Pods-Combo" */;
 			buildPhases = (
-				9A0B8AF296F6BA4997DE9F0EA4542DAD /* Sources */,
-				8ACF591157A3E63C6B8116B5355DDEAE /* Frameworks */,
-				A7A18D5CE0B4CB02F8B1D55AE5924B6C /* Headers */,
+				C7C69E2916A2E25C3540F0D2EDB2428F /* Sources */,
+				E122A52795F8705D9614EC18FD1E59E4 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-			);
-			name = HexColors;
-			productName = HexColors;
-			productReference = E492583AC81D1BF057A90359F219D07E /* libHexColors.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		BB51B9511AA907E26C15C148D61A1B12 /* Pods-Combo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 66112E0146C8980D075CB57239CBC341 /* Build configuration list for PBXNativeTarget "Pods-Combo" */;
-			buildPhases = (
-				20EE8C4E3CD1EE3B2ABD5C877DC3049F /* Sources */,
-				2622C1649F849201CE4EB7C5EC8B56C5 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				56B998DA0415E18E16D42A64F2C04432 /* PBXTargetDependency */,
 			);
 			name = "Pods-Combo";
 			productName = "Pods-Combo";
-			productReference = 2F56A7760BDAD4DB11258550BDF58D58 /* libPods-Combo.a */;
+			productReference = 033D4D202618BFD8DB6E7B9C2B42C53C /* libPods-Combo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -223,51 +144,31 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = D56A2700C383328A1F4E344DEBD67DEC /* Products */;
+			productRefGroup = 5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				44E0EA3B752124CEF8B34BA4CE86CF64 /* HexColors */,
-				BB51B9511AA907E26C15C148D61A1B12 /* Pods-Combo */,
+				3B7D318B26705FE7F0E72F4FB09E930E /* Pods-Combo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		20EE8C4E3CD1EE3B2ABD5C877DC3049F /* Sources */ = {
+		C7C69E2916A2E25C3540F0D2EDB2428F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				402A2C5FD08D6740CB8CA797614332EF /* Pods-Combo-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9A0B8AF296F6BA4997DE9F0EA4542DAD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6FE18741605C6EA884A37502A8B4F5A4 /* HexColors-dummy.m in Sources */,
-				8797F5312C31783C2D054EEFC702FF9B /* HexColors.m in Sources */,
+				E3263BC5488FA0B2CF06DB3CD16FDA09 /* Pods-Combo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		56B998DA0415E18E16D42A64F2C04432 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = HexColors;
-			target = 44E0EA3B752124CEF8B34BA4CE86CF64 /* HexColors */;
-			targetProxy = 73DD21D8120A4A14FBA764FFBF75DBA2 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		19DDFAE166218AC903A5BA98EE4AC7AD /* Release */ = {
+		0A329376F27A05CAE46B4A5CC46740B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -285,7 +186,27 @@
 			};
 			name = Release;
 		};
-		1EE19F5DD95931924296F637BF18BD8F /* Debug */ = {
+		5951DAEDFA4401DA95FDE68A671C94F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		991D2ACF36318340024E3F7ACF7FB825 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -317,7 +238,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -342,81 +262,13 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
-		4BCF918E79008C0AE2C277AF5B4B8C5F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4F0FF3CB24BF0B20F8311D14E3E8362C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = HexColors;
-				PRODUCT_NAME = HexColors;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		C03F967D7F694EBF78608200F5E8B0A4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68EF4A3D2714D72DCCDE1C3AEC87C75D /* HexColors.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = HexColors;
-				PRODUCT_NAME = HexColors;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F4568DEE257655D290C2B9CEAB37C934 /* Release */ = {
+		DA03565BE765DB55C6448FB363A44481 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -448,7 +300,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_ALLOWED = NO;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -469,6 +320,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
 			};
@@ -477,29 +329,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		19AD1E18124DC84136DC2F757BA93AD1 /* Build configuration list for PBXNativeTarget "Pods-Combo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5951DAEDFA4401DA95FDE68A671C94F9 /* Debug */,
+				0A329376F27A05CAE46B4A5CC46740B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1EE19F5DD95931924296F637BF18BD8F /* Debug */,
-				F4568DEE257655D290C2B9CEAB37C934 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		66112E0146C8980D075CB57239CBC341 /* Build configuration list for PBXNativeTarget "Pods-Combo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4BCF918E79008C0AE2C277AF5B4B8C5F /* Debug */,
-				19DDFAE166218AC903A5BA98EE4AC7AD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E020BC3B1436326D3A5BE2E9EE2FC1E9 /* Build configuration list for PBXNativeTarget "HexColors" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4F0FF3CB24BF0B20F8311D14E3E8362C /* Debug */,
-				C03F967D7F694EBF78608200F5E8B0A4 /* Release */,
+				991D2ACF36318340024E3F7ACF7FB825 /* Debug */,
+				DA03565BE765DB55C6448FB363A44481 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
