@@ -87,7 +87,7 @@ export default class ChatSendForm extends Component {
                 {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
                 <AutoGrowingInput
                     placeholderTextColor="rgba(180,180,180,1)"
-                    selectionColor={theme.mainColor}
+                    // selectionColor={theme.mainColor}
                     returnKeyType='next'
                     name={'recordText'}
                     maxLength={500}

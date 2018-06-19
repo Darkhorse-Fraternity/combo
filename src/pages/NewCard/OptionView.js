@@ -112,7 +112,7 @@ export default class OptionView extends Component {
 
     render(): ReactElement<any> {
         return (
-            <OptionDo style={{paddingTop:80}} revise goBack={this.__backStep}/>
+            <OptionDo revise goBack={this.__backStep}/>
         );
     }
 }

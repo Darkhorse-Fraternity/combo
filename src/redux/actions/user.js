@@ -110,6 +110,7 @@ export function register(state: Object): Function {
         dispatch(_loginRequest());
 
         return req(params).then((response) => {
+
             dispatch(_loginSucceed(response));
             dispatch(NavigationActions.navigate({
                 routeName: 'Tab',

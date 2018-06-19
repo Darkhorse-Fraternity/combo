@@ -8,6 +8,7 @@ import { Field } from 'redux-form/immutable'
 
 
 
+
 const createInputCreator = ReduxFormFieldComponent => (name, renderFunction, PropTypesOverrides = {}, defaultProps = {}) => {
     const Component = render(renderFunction)
     Component.displayName = name

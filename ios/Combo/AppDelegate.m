@@ -37,7 +37,7 @@
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   
-  [AppearanceConfig appearanceConfig];
+//  [AppearanceConfig appearanceConfig];
   
 
 #ifdef DEBUG

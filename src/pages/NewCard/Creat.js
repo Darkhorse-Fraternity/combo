@@ -37,7 +37,7 @@ export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 
-import { TextInput } from '../../components/Form/Cunstom'
+import { AutoGrowingInput } from '../../components/Form/Cunstom'
 //static displayName = Creat
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
@@ -202,12 +202,12 @@ export default class Creat extends Component {
 
     __renderName = () => {
         return (
-            <View>
+            <View style={{marginTop:60}}>
                 <View style={styles.row}>
-                    <TextInput
+                    <AutoGrowingInput
                         name='title'
                         placeholderTextColor="rgba(180,180,180,1)"
-                        selectionColor={mainColor}
+                        // selectionColor={mainColor}
                         returnKeyType='next'
                         maxLength={50}
                         //keyboardType={boardType}
@@ -245,7 +245,7 @@ export default class Creat extends Component {
     __doneView = () => {
 
         return (
-            <View>
+            <View style={{marginTop:60}}>
                 <Text style={styles.doneTitle}>{this.props.title}</Text>
                 <View style={styles.doneCtrlView}>
                     <Button
@@ -274,14 +274,11 @@ export default class Creat extends Component {
     render(): ReactElement<any> {
         return (
             <View style={[this.props.style, styles.wrap]}>
-                <View style={{
-                    height: 60,
-                    backgroundColor: this.state.optionOpen ? "#F5FCFF" : "white"
-                }}/>
+
                 {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
                 {(this.state.step === 1 || this.state.step === 2)
                 && !this.state.optionOpen && this.__doneView()}
-                {this.state.optionOpen && (<OptionDo goBack={() => {
+                {this.state.optionOpen && (<OptionDo  goBack={() => {
                     this.setState({ optionOpen: false })
                 }}/>)}
             </View>
@@ -292,8 +289,6 @@ export default class Creat extends Component {
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: 'white',
-        // paddingTop:60,
     },
     row: {
         // borderBottomWidth: StyleSheet.hairlineWidth,

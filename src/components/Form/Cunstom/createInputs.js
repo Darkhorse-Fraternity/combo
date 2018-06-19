@@ -7,9 +7,8 @@ import {
 } from '../Cunstom/style'
 
 const createInputs = inputCreator => {
-    const renderInput = ({ input: { onChangeText,value,onSelectionChange, ...restInput }, ...rest }) => (
+    const renderInput = ({ input: { onChangeText, ...restInput }, ...rest }) => (
         <StyleAutoGrowingTextInput onChangeText={onChangeText}
-                                   onSelectionChange={()=>{}}
                                    {...rest} {...restInput}
 
         />
@@ -19,14 +18,12 @@ const createInputs = inputCreator => {
     const renderChatInput = ({ input: { onChangeText, ...restInput }, ...rest }) => (
         <StyleAutoGrowingChatTextInput
             onChangeText={onChangeText}
-            onSelectionChange={()=>{}}
             {...rest} {...restInput} />
     )
     const AutoGrowingChatInput = inputCreator('Input', renderChatInput, {}, {})
 
     const renderTextInput = ({input: {onChangeText, ...restInput}, ...rest}) => (
         <StyleTextInput onChangeText={onChangeText}
-                        onSelectionChange={()=>{}}
                         {...rest}
                         {...restInput} />
     )

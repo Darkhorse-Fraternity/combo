@@ -20,7 +20,7 @@ import * as Animatable from 'react-native-animatable';
 import { AutoGrowingInput, TextInput } from '../../components/Form/Cunstom'
 import { Radio, Multiple } from '../../components/Form/Select'
 import Toast from 'react-native-simple-toast'
-import {mainColor} from '../../Theme'
+import { mainColor } from '../../Theme'
 
 export const StaticOption = {
     notifyTime: '20:00',
@@ -75,11 +75,15 @@ export default class OptionDo extends Component {
 
     __remderBack = () => {
         return (
-            <Button
-                onPress={this.__backStep}
-                style={[styles.sureBtn]}>
-                <Text>返回</Text>
-            </Button>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <Button
+                    onPress={this.__backStep}
+                    style={[styles.item, styles.shadow, { marginBottom: 20 }]}>
+                    <Text>返回</Text>
+                </Button>
+            </Animatable.View>
         )
     }
 
@@ -92,9 +96,9 @@ export default class OptionDo extends Component {
                     onPress={() => {
                         this.setState({ option: props.index, type: props.type })
                     }}
-                    style={[styles.item]}>
+                    style={[styles.item, styles.shadow]}>
                     <Text
-                        style={{ backgroundColor: 'white', padding: 15 }}
+                        style={{}}
                         numberOfLines={1}>
                         {props.title}
                     </Text>
@@ -139,7 +143,7 @@ export default class OptionDo extends Component {
             return (
                 <View
                     style={[styles.notifyTimeItem,
-                        { backgroundColor: selItem === item ? '#31d930' : 'white' }]}
+                        { backgroundColor: selItem === item ? '#31d930' : 'transparent' }]}
                     key={item}>
                     <Text
                         style={{ color: selItem === item ? 'white' : 'black' }}>{item}</Text>
@@ -165,7 +169,7 @@ export default class OptionDo extends Component {
                 <View
 
                     style={[styles.notifyTimeItem,
-                        { backgroundColor: selItem === item ? '#31d930' : 'white' }]}
+                        { backgroundColor: selItem === item ? '#31d930' : 'transparent' }]}
                     key={item}>
                     <Text
                         style={{ color: selItem === item ? 'white' : 'black' }}>{item}</Text>
@@ -188,7 +192,6 @@ export default class OptionDo extends Component {
         return (
             <View
                 style={{
-                    marginHorizontal: 5,
                     backgroundColor: 'white'
                 }}>
                 <AutoGrowingInput
@@ -221,7 +224,7 @@ export default class OptionDo extends Component {
             return (
                 <View
                     style={[styles.notifyTimeItem,
-                        { backgroundColor: contain ? '#31d930' : 'white' }]}
+                        { backgroundColor: contain ? '#31d930' : 'transparent' }]}
                     key={item}>
                     <Text style={{ color: contain ? 'white' : 'black' }}>{item}</Text>
                 </View>)
@@ -248,7 +251,7 @@ export default class OptionDo extends Component {
             return (
                 <View
                     style={[styles.notifyTimeItem,
-                        { backgroundColor: contain ? '#31d930' : 'white' }]}
+                        { backgroundColor: contain ? '#31d930' : 'transparent' }]}
                     key={names[item]}>
                     <Text style={{ color: contain ? 'white' : 'black' }}>{names[item - 1]}</Text>
                 </View>)
@@ -272,24 +275,24 @@ export default class OptionDo extends Component {
 
         if (days.length === 0) {
             return "无"
-        }else if (days.length === 7) {
+        } else if (days.length === 7) {
             return "每天"
-        }else if (days.length === 2 && days[0] === 6) {
+        } else if (days.length === 2 && days[0] === 6) {
             return '休息日'
-        }else if (days.length === 5 && days[4] === 5) {
+        } else if (days.length === 5 && days[4] === 5) {
             return '工作日'
-        }else {
+        } else {
             const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
-            return days.map(day=>names[day-1]).toString()
+            return days.map(day => names[day - 1]).toString()
         }
-
 
 
     }
 
     render(): ReactElement<any> {
         const revise = this.props.revise
-        const notifyText = this.props.notifyText.length > 0 ? this.props.notifyText : '未定义'
+        const notifyText = this.props.notifyText && this.props.notifyText.length > 0
+            ? this.props.notifyText : '未定义'
         // console.log('test:', this.props.record);
         let record = this.props.record
         record = (record.length === 0 || record.size === 0)
@@ -300,14 +303,15 @@ export default class OptionDo extends Component {
 
 
         return (
-            <View
+            <ScrollView
                 onStartShouldSetResponder={() => true}
                 onResponderGrant={() => {
                     Keyboard.dismiss()
                 }}
                 style={[styles.wrap, this.props.style]}>
+                {this.__remderBack()}
 
-                {this.state.option === 0 && (<ScrollView style={[styles.wrap]}>
+                {this.state.option === 0 && (<View >
                     {revise && (<this.__renderItem
                         title={"标题:   " + this.props.title}
                         type="title"
@@ -333,7 +337,8 @@ export default class OptionDo extends Component {
                         type="record"
                         index={1}/>
 
-                </ScrollView>)}
+                </View>)}
+
 
                 {this.state.option === 1 &&
                 this.state.type === 'title' &&
@@ -359,35 +364,37 @@ export default class OptionDo extends Component {
                 this.state.type === 'record' &&
                 this.__remderRecord()}
 
-                {this.__remderBack()}
-            </View>
+
+            </ScrollView>
         );
     }
 }
 
+const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
-        paddingTop: 20
+        paddingTop:80,
     },
     item: {
-        marginTop: 10,
+        marginTop: 7.5,
         flexDirection: 'row',
-        width: 200
-    },
-    sureBtn: {
-        marginTop: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
         backgroundColor: 'white',
         padding: 15,
-        paddingLeft: 40,
-        top: Dimensions.get('window').height - 150,
+        alignSelf: 'flex-start',
+        marginBottom:7.5,
+        marginRight:5,
     },
+    shadow: {
+        shadowColor: 'black',
+        shadowOpacity: 0.25,
+        shadowOffset: { width: 2, height: 5 },
+        shadowRadius: 5,
+        elevation: 5
+    },
+
     notifyTimeItem: {
-        width: 60,
+        width: (width - 20- 40)/4,
         height: 35,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -407,7 +414,11 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         fontSize: 15,
         color: 'black',
-        lineHeight: 40,
 
     },
+    line:{
+        backgroundColor:'rgb(150,150,150)',
+        height:StyleSheet.hairlineWidth,
+        margin:5,
+    }
 })

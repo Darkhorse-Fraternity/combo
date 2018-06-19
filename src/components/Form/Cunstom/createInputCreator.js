@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components/native'
 import {Theme as defaultTheme} from 'react-native-clean-form'
 
-const ErrorMessage = styled.Text`
-  color: ${props => props.theme.ErrorMessage.color};
-  fontSize: ${props => props.theme.ErrorMessage.fontSize};
-  marginBottom: ${props => props.theme.ErrorMessage.marginBottom};
-  textAlign: ${props => props.theme.ErrorMessage.textAlign};
-`
-
-ErrorMessage.defaultProps = {
-  theme: defaultTheme
-}
+// const ErrorMessage = styled.Text`
+//   color: ${props => props.theme.ErrorMessage.color};
+//   fontSize: ${props => props.theme.ErrorMessage.fontSize};
+//   marginBottom: ${props => props.theme.ErrorMessage.marginBottom};
+//   textAlign: ${props => props.theme.ErrorMessage.textAlign};
+// `
+//
+// ErrorMessage.defaultProps = {
+//   theme: defaultTheme
+// }
 
 const render = renderComponent => props => {
   return renderComponent(props)
