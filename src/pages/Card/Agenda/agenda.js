@@ -24,7 +24,6 @@ import {
     StyledAgendaRow
 } from './style'
 
-import RecordRow from '../../Record/RecordRow'
 
 import { withTheme } from 'styled-components'
 

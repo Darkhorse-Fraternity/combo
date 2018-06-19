@@ -108,6 +108,7 @@ export default class RecordRow extends Component {
         return (
             <StyledButton
                 activeOpacity={1}
+                disabled={!this.props.navigation}
                 onPress={() => {
                     this.props.navigation &&
                     this.props.navigation.navigate('RComment', { data: item })

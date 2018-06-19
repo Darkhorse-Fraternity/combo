@@ -172,7 +172,7 @@ export default class RComment extends Component {
         const data = this.props.navigation.state.params.data
         return (
             <StyledHeader>
-                <RecordRow item={data} showChat={false} showImage={true}/>
+                <RecordRow item={data}  showChat={false} showImage={true}/>
             </StyledHeader>
         )
     }

@@ -90,10 +90,7 @@ export default class Detail extends Component {
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         return (
-            <View
-                style={styles.row}
-                onPress={() => {
-                }}>
+            <View>
 
                 <View style={styles.top}>
                     <Image
@@ -104,7 +101,7 @@ export default class Detail extends Component {
                         完成了任务
                     </Text>
                 </View>
-                <RecordRow item={item} navigation={this.props.navigation}/>
+                <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
             </View>
         )
     }
@@ -175,6 +172,7 @@ const styles = StyleSheet.create({
     },
     top: {
         paddingVertical: 5,
+        paddingHorizontal: 18,
         flexDirection: 'row',
         alignItems: 'center',
     },

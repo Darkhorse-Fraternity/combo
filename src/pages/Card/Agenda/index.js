@@ -152,15 +152,9 @@ export default class CardDetail extends Component {
         // const img = item.imgs && item.imgs[0] || null
 
         return (
-            <View
-                style={styles.row}
-                onPress={() => {
-                }}>
-                <RecordRow style={{paddingVertical:10}}
+                <RecordRow style={[styles.row,{paddingVertical:10}]}
                            item={item}
                            navigation={this.props.navigation}/>
-                {/*<View style={styles.line}/>*/}
-            </View>
         )
     }
 
