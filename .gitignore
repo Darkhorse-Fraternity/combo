@@ -58,3 +58,5 @@ buck-out/
 
 .update
 *.apk
+*.zip
+
