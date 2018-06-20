@@ -61,6 +61,7 @@ export default class CardDetail extends Component {
             <StyledContent forceInset={{ top: 'never' }}>
 
                 <ScrollableTabView
+                    prerenderingSiblingsNumber={0}
                     tabBarInactiveTextColor={theme.mainColor}
                     tabBarActiveTextColor={theme.mainColor}
                     tabBarUnderlineStyle={{backgroundColor:theme.mainColor}}

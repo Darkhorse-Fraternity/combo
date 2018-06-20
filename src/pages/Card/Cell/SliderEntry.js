@@ -51,6 +51,7 @@ export default class SliderEntry extends Component {
         ) : (
             <Image
                 source={source}
+                defaultSource={ require('../../../../source/img/my/icon-60.png')}
                 resizeMode={'center'}
                 style={styles.image}
             />

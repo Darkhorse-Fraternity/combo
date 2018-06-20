@@ -85,11 +85,32 @@ export default class Configure extends React.Component {
 
 
     }
+    async requestCameraPermission() {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                {
+                    'title': '申请摄像头权限',
+                    'message': '一个很牛逼的应用想借用你的摄像头，' +
+                    '然后你就可以拍出酷炫的皂片啦。'
+                }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log("现在你获得摄像头权限了")
+            } else {
+                console.log("用户并不屌你")
+            }
+        } catch (err) {
+            console.warn(err)
+        }
+    }
 
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         Linking.addEventListener('url', this._handleOpenURL);
         this._getInitialURL()
+        // this.requestCameraPermission()
+
         // NetInfo.isConnected.addEventListener(
         //     'connectionChange',
         //     (isConnected)=>{

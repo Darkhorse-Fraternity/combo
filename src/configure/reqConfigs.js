@@ -5,7 +5,7 @@
 import {LeanCloud_APP_ID,LeanCloud_APP_SIGN} from './leancloud'
 export const defaultHost = !__DEV__ ?
     /*release*/   'cmwljtyw.api.lncld.net/1.1' :
-    /*debug*/     'q81jdsbi.api.lncld.net/1.1'
+    /*debug*/     'cmwljtyw.api.lncld.net/1.1'
 
 
 let LeanCloud_APP_Session = '';

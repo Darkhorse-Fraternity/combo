@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.combo"
+          xmlns:tools="http://schemas.android.com/tools"
           android:versionCode="1"
           android:versionName="1.01">
 
@@ -10,6 +11,7 @@
     <!-- add following permissions -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- 基础模块（必须加入以下声明）START -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -57,7 +59,6 @@
 
     <application
         android:name=".MainApplication"
-        android:usesCleartextTraffic="${isDebug}"
         android:launchMode="singleTask"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -137,6 +138,16 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                tools:replace="android:resource"
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_image_picker_paths" />
+        </provider>
     </application>
 
 </manifest>

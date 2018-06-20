@@ -1,7 +1,6 @@
 package com.combo;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.combo.util.LightStatusBarUtil;
 import com.facebook.react.ReactActivity;
@@ -10,7 +9,6 @@ import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
-    private View mPopupWindowView;
 
     /**
      * Returns the name of the main component registered from JavaScript.

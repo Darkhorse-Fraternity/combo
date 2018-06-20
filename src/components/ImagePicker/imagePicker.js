@@ -50,7 +50,7 @@ export default function imagePicker(options:Object,callBack:Function){
   }
   else if (response.error) {
     Toast.show(response.error)
-    // console.log('ImagePicker Error: ', response.error);
+    console.log('ImagePicker Error: ', response.error);
   }
   else if (response.customButton) {
     console.log('User tapped custom button: ', response.customButton);

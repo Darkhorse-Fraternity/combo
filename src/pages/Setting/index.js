@@ -118,7 +118,7 @@ class WBSetting extends Component {
                     </View>
                     {activity === false &&
                     needArrow && <View style={styles.arrowView}/>}
-                    {activity === true && <ActivityIndicator/>}
+                    {activity === true && <ActivityIndicator size="small"/>}
             </Button>
         );
     }
