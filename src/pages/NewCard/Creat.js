@@ -26,7 +26,7 @@ import { selfUser, iCard } from '../../request/LCModle'
 import moment from 'moment'
 import OptionDo, { StaticOption } from './OptionDo'
 import Button from '../../components/Button'
-import {mainColor} from '../../Theme'
+import { mainColor } from '../../Theme'
 import {
     reduxForm,
     formValueSelector,
@@ -37,10 +37,12 @@ export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 
-import { AutoGrowingInput } from '../../components/Form/Cunstom'
+import { TextInput } from '../../components/Form/Cunstom'
 //static displayName = Creat
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
+import BackBtn from '../../components/Button/BackBtn'
+
 
 @connect(
     state => ({
@@ -80,7 +82,6 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }
-
 
 
             const res = await add(param, ICARD)
@@ -186,12 +187,13 @@ export default class Creat extends Component {
 
     }
 
-    __backStep = () => {
+    __backStep = (handle) => {
 
         const step = this.state.step - 1
         this.setState({ step })
         if (step === -1) {
-            this.props.navigation.goBack()
+            // this.props.navigation.goBack()
+            handle()
         }
     }
 
@@ -202,41 +204,34 @@ export default class Creat extends Component {
 
     __renderName = () => {
         return (
-            <View style={{marginTop:60}}>
-                <View style={styles.row}>
-                    <AutoGrowingInput
-                        name='title'
-                        placeholderTextColor="rgba(180,180,180,1)"
-                        // selectionColor={mainColor}
-                        returnKeyType='next'
-                        maxLength={50}
-                        //keyboardType={boardType}
-                        style={styles.textInputStyle}
-                        underlineColorAndroid='transparent'
-                        placeholder='卡片名称'
-                        clearButtonMode='while-editing'
-                        enablesReturnKeyAutomatically={true}
-                        //onSubmitEditing={() =>this.focusNextField(ref)}
-                        // onChangeText={(text) => this.setState({title: text})}
-                    />
-                    <View style={styles.line}/>
-                </View>
-                <View style={styles.ctrlView}>
-                    <Button
-                        onPress={this.__backStep}
-                        style={[styles.sureBtn]}>
-                        <Text style={styles.sureBtnText}>上一步</Text>
-                    </Button>
-                    <Button
-                        disabled={this.props.title.length === 0}
-                        onPress={this.__nextStep}
-                        style={[styles.sureBtn, {
-                            backgroundColor:
-                                this.props.title.length === 0 ? "rgb(200,200,200)" : "black"
-                        }]}>
-                        <Text style={styles.sureBtnText}>下一步</Text>
-                    </Button>
-                </View>
+            <View style={{ marginTop: 60 }}>
+                <BackBtn onBackPress={this.__backStep}/>
+                <TextInput
+                    name='title'
+                    placeholderTextColor="rgba(180,180,180,1)"
+                    // selectionColor={mainColor}
+                    returnKeyType='next'
+                    maxLength={50}
+                    //keyboardType={boardType}
+                    style={styles.textInputStyle}
+                    underlineColorAndroid='transparent'
+                    placeholder='卡片名称'
+                    clearButtonMode='while-editing'
+                    enablesReturnKeyAutomatically={true}
+                    //onSubmitEditing={() =>this.focusNextField(ref)}
+                    // onChangeText={(text) => this.setState({title: text})}
+                />
+                {/*<View style={styles.line}/>*/}
+                <Button
+                    disabled={this.props.title.length === 0}
+                    onPress={this.__nextStep}
+                    style={[styles.sureBtn, {
+                        backgroundColor:
+                            this.props.title.length === 0 ?
+                                "rgb(200,200,200)" : "black"
+                    }]}>
+                    <Text style={styles.sureBtnText}>下一步</Text>
+                </Button>
             </View>
         )
     }
@@ -245,27 +240,26 @@ export default class Creat extends Component {
     __doneView = () => {
 
         return (
-            <View style={{marginTop:60}}>
+            <View style={{ marginTop: 60 }}>
+                <BackBtn onBackPress={this.__backStep}/>
                 <Text style={styles.doneTitle}>{this.props.title}</Text>
-                <View style={styles.doneCtrlView}>
-                    <Button
-                        onPress={this.__backStep}
-                        style={[styles.sureBtn]}>
-                        <Text style={styles.sureBtnText}>上一步</Text>
-                    </Button>
-                    <Button
-                        onPress={this.__doOption}
-                        style={[styles.sureBtn]}>
-                        <Text style={styles.sureBtnText}>更多配置</Text>
-                    </Button>
-                    <HeaderBtn
-                        hitSlop={
-                        {top: 0, left: 20, bottom: 20, right: 20}}
-                        style={styles.sureBtn1}
-                        load={this.props.load }
-                        title={'完成'}
-                        onPress={this.__nextStep}/>
-                </View>
+                {/*<Button*/}
+                {/*onPress={this.__backStep}*/}
+                {/*style={[styles.sureBtn]}>*/}
+                {/*<Text style={styles.sureBtnText}>上一步</Text>*/}
+                {/*</Button>*/}
+                <Button
+                    onPress={this.__doOption}
+                    style={[styles.sureBtn]}>
+                    <Text style={styles.sureBtnText}>更多配置</Text>
+                </Button>
+                <HeaderBtn
+                    hitSlop={
+                        { top: 0, left: 20, bottom: 20, right: 20 }}
+                    style={styles.sureBtn}
+                    load={this.props.load}
+                    title={'完成'}
+                    onPress={this.__nextStep}/>
             </View>
         )
     }
@@ -278,7 +272,7 @@ export default class Creat extends Component {
                 {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
                 {(this.state.step === 1 || this.state.step === 2)
                 && !this.state.optionOpen && this.__doneView()}
-                {this.state.optionOpen && (<OptionDo  goBack={() => {
+                {this.state.optionOpen && (<OptionDo goBack={() => {
                     this.setState({ optionOpen: false })
                 }}/>)}
             </View>
@@ -305,21 +299,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textInputStyle: {
-
-        marginLeft: -15,
-        //textAlign: 'center',
-        fontSize: 14,
-        height: 40,
-        paddingLeft: 15,
-        //width: Dimensions.get('window').width - 60,
-        // color: 'black',
-        marginTop: 10,
-        // borderWidth: StyleSheet.hairlineWidth,
-        // borderColor: "rgb(180,180,180)",
-        // borderRadius: 25,
-
+        margin: 5,
+        backgroundColor: 'white',
+        height: 50,
+        marginTop: 50,
     },
     sureBtn: {
+        marginLeft: 20,
         backgroundColor: 'black',
         alignItems: 'center',
         justifyContent: 'center',
@@ -361,7 +347,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
     },
     doneTitle: {
-        marginTop: 15,
+        marginTop: 35,
         paddingHorizontal: 55,
         fontSize: 20,
         fontWeight: '600',

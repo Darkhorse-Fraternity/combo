@@ -9,7 +9,10 @@ import {
     StyledIndicatorView,
     StyledButtonView,
     StyledBtn,
-    StyledLine
+    StyledLine,
+    StyledBackBtn,
+    StyledBackBtnText,
+    StyledContent
 } from './style'
 
 import { View } from 'react-native'
@@ -27,19 +30,19 @@ import { dataStorage } from '../../../redux/actions/util'
 import Pop from '../../Pop'
 
 
-const isEmpty = value => value === undefined || value === null || value === '' || value.length ===0;
-
+const isEmpty = value => value === undefined || value === null || value === '' || value.length === 0;
 
 @connect(
     (state, props) => {
         const recordText = selector(state, 'recordText');
         let imgs = selector(state, 'imgs');
-        imgs = imgs && imgs.toJS()
-        const config = {"文字":recordText,"图片":imgs}
+        console.log('imgs:', imgs);
+        imgs = imgs && imgs.toJS && imgs.toJS()
+        const config = { "文字": recordText, "图片": imgs }
         const record = props.record || []//需要满足的条件
         // const mustText = chechType(record, '文字') && !isEmpty(config[文字])
         //遍历查询是否条件未被满足
-       const hasNone =  record.findIndex(key=>{
+        const hasNone = record.findIndex(key => {
             return record.includes(key) && isEmpty(config[key])
         }) !== -1
 
@@ -73,8 +76,6 @@ export default class ChatSendForm extends Component {
     };
 
 
-
-
     componentWillUnmount() {
         this.props.localSaveEnable && this.props.localSave(this.props.inputText)
     }
@@ -83,10 +84,10 @@ export default class ChatSendForm extends Component {
     __textType = () => {
 
         return (
-            <View>
+            <View style={{marginBottom:10}}>
                 {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
                 <AutoGrowingInput
-                    placeholderTextColor="rgba(180,180,180,1)"
+                    // placeholderTextColor="rgba(180,180,180,1)"
                     // selectionColor={theme.mainColor}
                     returnKeyType='next'
                     name={'recordText'}
@@ -105,7 +106,7 @@ export default class ChatSendForm extends Component {
 
     render() {
         // pristine 是否是初始化
-        const { handleSubmit, onSubmit,load, disabled, pristine, enableSumbmit, ...rest } = this.props
+        const { handleSubmit, onSubmit, load, disabled, pristine, enableSumbmit, ...rest } = this.props
         const { submitting, invalid } = rest
         const record = this.props.record
 
@@ -113,31 +114,38 @@ export default class ChatSendForm extends Component {
 
         return (
             <Form>
+                <StyledBackBtn onPress={() => {
+                    Pop.hide()
+                }}>
+                    <StyledBackBtnText>返回</StyledBackBtnText>
+                </StyledBackBtn>
 
-                {record.includes('图片') && (<ImageSelectView
-                    name={'imgs'}
-                    maxImage={1}/>)}
+                <StyledContent>
+                    {record.includes('图片') && (<ImageSelectView
+                        name={'imgs'}
+                        maxImage={1}/>)}
 
-                {record.includes('文字') && this.__textType()}
+                    {record.includes('文字') && this.__textType()}
 
 
-                {load ?
-                    (<StyledIndicatorView>
-                        <StyledIndicator size="large"/>
-                    </StyledIndicatorView>) :
-                    (<StyledButtonView>
-                        <StyledBtn
-                            title="取消"
-                            hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                            onPress={() => {
-                                Pop.hide()
-                            }}/>
-                        <StyledBtn
-                            disabled={!enableSumbmit}
-                            title="打卡"
-                            hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                            onPress={onSubmit && handleSubmit(onSubmit)}/>
-                    </StyledButtonView>)}
+                    {load ?
+                        (<StyledIndicatorView>
+                            <StyledIndicator size="large"/>
+                        </StyledIndicatorView>) :
+                        (<StyledButtonView>
+                            {/*<StyledBtn*/}
+                            {/*title="取消"*/}
+                            {/*hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}*/}
+                            {/*onPress={() => {*/}
+                            {/*Pop.hide()*/}
+                            {/*}}/>*/}
+                            <StyledBtn
+                                disabled={!enableSumbmit}
+                                title="打卡"
+                                hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                                onPress={onSubmit && handleSubmit(onSubmit)}/>
+                        </StyledButtonView>)}
+                </StyledContent>
             </Form>
         )
     }

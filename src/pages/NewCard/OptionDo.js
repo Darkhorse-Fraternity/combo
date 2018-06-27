@@ -57,9 +57,9 @@ export default class OptionDo extends Component {
 
     __backStep = () => {
 
-        if (this.props.title.length === 0) {
+        if (!this.props.title || this.props.title.length === 0) {
 
-            Toast.show('没有标题是不行的~')
+            Toast.show('卡片名称不可为空~')
             return;
         }
 
@@ -85,6 +85,21 @@ export default class OptionDo extends Component {
                 </Button>
             </Animatable.View>
         )
+    }
+
+    __renderDone = () => {
+        return (
+            <Animatable.View animation="fadeInRight"
+                             delay={Math.random() * 300}
+            >
+                <Button
+                    onPress={()=>{}}
+                    style={[styles.done, styles.shadow, { marginBottom: 50 }]}>
+                    <Text>保存</Text>
+                </Button>
+            </Animatable.View>
+        )
+
     }
 
     __renderItem = (props) => {
@@ -126,7 +141,7 @@ export default class OptionDo extends Component {
                     //keyboardType={boardType}
                     style={styles.textInputStyle}
                     underlineColorAndroid='transparent'
-                    placeholder={"title,不可为空~"}
+                    placeholder={"卡片名称"}
                     clearButtonMode='while-editing'
                     enablesReturnKeyAutomatically={true}
                 />
@@ -304,16 +319,17 @@ export default class OptionDo extends Component {
 
         return (
             <ScrollView
-                onStartShouldSetResponder={() => true}
-                onResponderGrant={() => {
-                    Keyboard.dismiss()
-                }}
+                // onStartShouldSetResponder={() => true}
+                // onResponderGrant={() => {
+                //     Keyboard.dismiss()
+                // }}
                 style={[styles.wrap, this.props.style]}>
                 {this.__remderBack()}
 
+
                 {this.state.option === 0 && (<View >
-                    {revise && (<this.__renderItem
-                        title={"标题:   " + this.props.title}
+                    {(<this.__renderItem
+                        title={"卡片名称:   " + this.props.title}
                         type="title"
                         index={1}/>)}
                     <this.__renderItem
@@ -336,7 +352,7 @@ export default class OptionDo extends Component {
                         title={"记录方式:   " + record}
                         type="record"
                         index={1}/>
-
+                    {!revise && this.__renderDone()}
                 </View>)}
 
 
@@ -385,6 +401,16 @@ const styles = StyleSheet.create({
         marginBottom:7.5,
         marginRight:5,
     },
+    done:{
+        marginTop: 7.5,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        padding: 15,
+        alignSelf: 'flex-end',
+        marginBottom:7.5,
+        marginLeft:5,
+    },
+
     shadow: {
         shadowColor: 'black',
         shadowOpacity: 0.25,

@@ -72,8 +72,8 @@ export default class SliderEntry extends Component {
             onRefresh
         } = this.props;
 
-        const { title, notifyText } = iCard
-
+        const { title, notifyText,period } = iCard
+        const time = data.cycle * period + data.time
 
         const uppercaseTitle = title ? (
             <Text
@@ -107,7 +107,7 @@ export default class SliderEntry extends Component {
                                 style={[styles.subtitle, even ? styles.subtitleEven : {}]}
                                 numberOfLines={2}
                             >
-                                {notifyText}
+                                {notifyText||`第${time}次打卡`}
                             </Text>
                         </View>
                     </View>

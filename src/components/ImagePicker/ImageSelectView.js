@@ -138,8 +138,8 @@ export default class ImageSelectView extends Component {
                                     <TouchableOpacity
                                         hitSlop={{top: 15, left: 25, bottom: 25, right: 15}}
                                         onPress={()=>{
-                                        const n = files.filter((f)=>f != file)
-                                        this.props.onChange &&  this.props.onChange(n)
+                                        const n = files.filter((f)=>f !== file)
+                                        this.props.onChange &&  this.props.onChange(immutable.fromJS(n))
                                  }}
                                         style={styles.delete}>
                                         <Text style={styles.deleteText}>x</Text>

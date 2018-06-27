@@ -55,7 +55,8 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
             dispatch(async (dispatch,getState)=>{
 
                 const user = getState().user.data
-                if(!user.nickname || nickName.length === 0){
+                console.log('user:', user);
+                if(!user.nickname ||user.nickname.length === 0){
 
                     props.navigation.navigate('NickName')
                     Toast.show('发布卡片前需要先设置昵称~!');
@@ -251,7 +252,8 @@ export default class Publishing extends Component {
                         if (iCard.state === 0) {
                             this.props.publish(iCard,this.state.keys)
                         } else {
-                            this.__alert(iCard)
+                            // this.__alert(iCard)
+                            this.props.unPublish(iCard)
                         }
                     }}/>
 
@@ -324,8 +326,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1,
         shadowOffset: {
-            height: 0.5,
-            width: 0.1,
+            height: 3,
+            width: 2,
         },
         elevation: 10,
         justifyContent: 'center'

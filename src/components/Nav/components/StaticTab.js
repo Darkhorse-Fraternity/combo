@@ -52,16 +52,20 @@ export default createBottomTabNavigator(
     },
     {
         navigationOptions: ({ navigation }) => {
-
+            const { routeName,index } = navigation.state;
+            let iconName;
+            let labelName;
+            if (routeName === 'Home') {
+                iconName = `md-sunny`;
+                labelName = '小习惯'
+            } else if (routeName === 'Settings') {
+                iconName = `ios-happy`;
+                labelName = '我的'
+            }
             return {
                 tabBarIcon: ({ focused, tintColor }) => {
-                    const { routeName } = navigation.state;
-                    let iconName;
-                    if (routeName === 'Home') {
-                        iconName = `md-sunny`;
-                    } else if (routeName === 'Settings') {
-                        iconName = `ios-happy`;
-                    }
+
+
 
                     // You can return any component that you like here! We usually use an
                     // icon component from react-native-vector-icons
@@ -70,7 +74,7 @@ export default createBottomTabNavigator(
                         // useNativeDriver={true}
                         ref={node => refs[routeName] = node}
                         name={iconName}
-                        size={!!focused ? 35 : 35}
+                        size={!!focused ? 25 : 25}
                         color={tintColor}/>;
                 },
                 tabBarOnPress: ({ navigation, defaultHandler }: args) => {
@@ -85,7 +89,8 @@ export default createBottomTabNavigator(
                     // },1000)
 
                 },
-                tabBarVisible: navigation.state.index === 0
+                tabBarVisible: index === 0,
+                tabBarLabel: labelName
             }
         },
         // tabBarComponent: (option, k) => {
@@ -102,14 +107,19 @@ export default createBottomTabNavigator(
         // },
         tabBarOptions: {
             activeTintColor: '#F3AC41',
-            inactiveTintColor: '#F0C98B',
-            showLabel: false,
+            inactiveTintColor: '#cbcbcb',
+            showLabel: true,
             style: {
                 backgroundColor: "white",
             },
-            // tabStyle:{
-            //     backgroundColor:'red'
-            // }
+            labelStyle: {
+                fontSize: 12,
+                marginTop:-1,
+                marginBottom:2
+            },
+            tabStyle:{
+                paddingTop:3,
+            }
 
         },
     },

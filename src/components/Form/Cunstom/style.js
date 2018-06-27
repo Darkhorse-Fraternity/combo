@@ -26,5 +26,4 @@ export const StyleTextInput = styled.TextInput`
     font-size: 17px;
     background: white;
     height:50px;
-    width: 100%;
 `

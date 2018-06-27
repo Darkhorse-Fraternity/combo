@@ -68,9 +68,10 @@ export default class Home extends Component {
         // console.log('test:', params,localLoad);
         return {
             // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-            title: '金色光芒',
+            title: '小习惯',
             gesturesEnabled: false,
-            header: null
+            header: null,
+
             //     headerRight: ( <TouchableOpacity
             //         style={styles.headerBtn}
             //         onPress={()=>{

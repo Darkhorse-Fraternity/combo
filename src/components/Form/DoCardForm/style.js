@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components/native";
 import HeaderBtn from '../../../components/Button/HeaderBtn'
-
+import Button from '../../../components/Button/'
 export const Form = styled.View`
      flex:1;
-     padding: 50px;
+     padding: 50px 0px;
+`
+
+export const StyledContent = styled.View`
+  padding: 0px 50px;
 `
 
 export const StyledIndicator = styled.ActivityIndicator`
@@ -17,7 +21,7 @@ export const StyledIndicatorView = styled.View`
 `
 
 export const StyledButtonView = styled.View`
-   margin-top: 15px;
+   margin-top: 0px;
 `
 
 export const StyledBtn = styled(HeaderBtn)`
@@ -28,5 +32,24 @@ export const StyledBtn = styled(HeaderBtn)`
 export const StyledLine = styled.View`
     width: 100%;
     height: 1px;
-    background-color: #c8c8c8;
+    background-color: #a4a4a4;
+`
+
+export const StyledBackBtn = styled(Button)`
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    shadow-opacity: 0.25;
+    shadow-radius: 5px;
+    shadow-color: black;
+    shadow-offset: 1px 3px;   
+    elevation: 10;
+    padding:15px;
+    align-self: flex-start;
+    flex-direction: row;
+    margin:7.5px 5px 7.5px 0px;
+`
+
+export const StyledBackBtnText = styled.Text`
+  font-size: 15px;
 `
