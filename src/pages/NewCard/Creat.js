@@ -285,7 +285,8 @@ export default class Creat extends Component {
                 {/*{(this.state.step === 1 || this.state.step === 2)*/}
                 {/*&& !this.state.optionOpen && this.__doneView()}*/}
                 {this.state.optionOpen && (<OptionDo goBack={() => {
-                    this.setState({ optionOpen: false })
+                    // this.setState({ optionOpen: false })
+                    this.props.navigation.goBack()
                 }} done={this.props.add}/>)}
             </View>
         );
