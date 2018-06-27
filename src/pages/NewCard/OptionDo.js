@@ -93,9 +93,9 @@ export default class OptionDo extends Component {
                              delay={Math.random() * 300}
             >
                 <Button
-                    onPress={()=>{}}
+                    onPress={this.props.done}
                     style={[styles.done, styles.shadow, { marginBottom: 50 }]}>
-                    <Text>保存</Text>
+                    <Text>提交</Text>
                 </Button>
             </Animatable.View>
         )

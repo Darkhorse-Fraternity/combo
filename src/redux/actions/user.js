@@ -177,7 +177,7 @@ export function logout(): Function {
 
             // dispatch(navigatePush('TabView'));
             // Router.pop()
-            popToIndex()
+            // popToIndex()
             clearUserData();
 
             dispatch(logout2());//先退出

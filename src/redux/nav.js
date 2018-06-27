@@ -15,8 +15,16 @@ export function popToIndex(index = 1) {
         const state = getState()
         const routes = state.nav.routes
         const routesIndex = state.nav.index
-        if(routesIndex >= index){
-            const key = routes[index].key
+        const tab =routes[routesIndex]
+        const tabRoutes = tab.routes
+        if(!tabRoutes) return;
+        const tabIndex = tab.index
+        const nav = tabRoutes[tabIndex]
+        const navRoutes = nav.routes
+        const navIndex = nav.index
+
+        if(navIndex >= index){
+            const key = navRoutes[index].key
             console.log('key:', key);
             dispatch( NavigationActions.back({key}))
         }

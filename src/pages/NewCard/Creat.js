@@ -31,7 +31,7 @@ import {
     reduxForm,
     formValueSelector,
 } from 'redux-form/immutable'
-
+import { popToIndex } from '../../redux/nav'
 
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
@@ -42,7 +42,7 @@ import { TextInput } from '../../components/Form/Cunstom'
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import BackBtn from '../../components/Button/BackBtn'
-
+import * as Animatable from 'react-native-animatable';
 
 @connect(
     state => ({
@@ -92,11 +92,10 @@ import BackBtn from '../../components/Button/BackBtn'
             dispatch(addNormalizrEntity(ICARD, entity))
 
             //返回首页
-            dispatch((dispatch, getState) => {
-                const key = getState().nav.routes[2].key
-                props.navigation.goBack(key)
-            })
-
+            // dispatch((dispatch, getState) => {
+            //
+            // })
+            popToIndex()
 
             const iCardId = res.objectId
             //询问是否立即使用。
@@ -179,12 +178,12 @@ export default class Creat extends Component {
     __nextStep = () => {
 
 
-        const step = this.state.step + 1
-        this.setState({ step })
-        if (step === 2) {
-            this.props.add()
-        }
-
+        // const step = this.state.step + 1
+        // this.setState({ step })
+        // if (step === 2) {
+        //     this.props.add()
+        // }
+        this.setState({ optionOpen: true })
     }
 
     __backStep = (handle) => {
@@ -204,8 +203,12 @@ export default class Creat extends Component {
 
     __renderName = () => {
         return (
-            <View style={{ marginTop: 60 }}>
-                <BackBtn onBackPress={this.__backStep}/>
+            <View style={{ marginTop: 90 }}>
+                <Animatable.View animation="fadeInLeft"
+                                 delay={Math.random() * 300}
+                >
+                    <BackBtn onBackPress={this.__backStep}/>
+                </Animatable.View>
                 <TextInput
                     name='title'
                     placeholderTextColor="rgba(180,180,180,1)"
@@ -222,16 +225,25 @@ export default class Creat extends Component {
                     // onChangeText={(text) => this.setState({title: text})}
                 />
                 {/*<View style={styles.line}/>*/}
-                <Button
-                    disabled={this.props.title.length === 0}
-                    onPress={this.__nextStep}
-                    style={[styles.sureBtn, {
-                        backgroundColor:
-                            this.props.title.length === 0 ?
-                                "rgb(200,200,200)" : "black"
-                    }]}>
-                    <Text style={styles.sureBtnText}>下一步</Text>
-                </Button>
+                {/*<Button*/}
+                {/*disabled={this.props.title.length === 0}*/}
+                {/*onPress={this.__nextStep}*/}
+                {/*style={[styles.sureBtn, {*/}
+                {/*backgroundColor:*/}
+                {/*this.props.title.length === 0 ?*/}
+                {/*"rgb(200,200,200)" : "black"*/}
+                {/*}]}>*/}
+                {/*<Text style={styles.sureBtnText}>下一步</Text>*/}
+                {/*</Button>*/}
+                <Animatable.View animation="fadeInRight"
+                                 delay={Math.random() * 300}
+                >
+                    <Button
+                        onPress={this.__nextStep}
+                        style={[styles.done, styles.shadow, { marginBottom: 50 }]}>
+                        <Text>下一步</Text>
+                    </Button>
+                </Animatable.View>
             </View>
         )
     }
@@ -269,12 +281,12 @@ export default class Creat extends Component {
         return (
             <View style={[this.props.style, styles.wrap]}>
 
-                {this.state.step === 0 && !this.state.optionOpen && this.__renderName()}
-                {(this.state.step === 1 || this.state.step === 2)
-                && !this.state.optionOpen && this.__doneView()}
+                {!this.state.optionOpen && this.__renderName()}
+                {/*{(this.state.step === 1 || this.state.step === 2)*/}
+                {/*&& !this.state.optionOpen && this.__doneView()}*/}
                 {this.state.optionOpen && (<OptionDo goBack={() => {
                     this.setState({ optionOpen: false })
-                }}/>)}
+                }} done={this.props.add}/>)}
             </View>
         );
     }
@@ -302,7 +314,7 @@ const styles = StyleSheet.create({
         margin: 5,
         backgroundColor: 'white',
         height: 50,
-        marginTop: 50,
+        marginTop: 30,
     },
     sureBtn: {
         marginLeft: 20,
@@ -356,5 +368,22 @@ const styles = StyleSheet.create({
         width: '100%',
         height: StyleSheet.hairlineWidth,
         backgroundColor: 'rgb(0,0,0)'
-    }
+    },
+    done: {
+        marginTop: 25,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        padding: 15,
+        alignSelf: 'flex-end',
+        marginBottom: 7.5,
+        marginLeft: 5,
+    },
+
+    shadow: {
+        shadowColor: 'black',
+        shadowOpacity: 0.25,
+        shadowOffset: { width: 2, height: 5 },
+        shadowRadius: 5,
+        elevation: 5
+    },
 })
