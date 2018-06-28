@@ -28,7 +28,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
-
+import com.combo.util.update.*;
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
 
@@ -62,7 +62,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                     new VectorIconsPackage(),
                     new ImagePickerPackage(),
                     new ReactNativeDialogsPackage(),
-                    new RNDeviceInfo()
+                    new RNDeviceInfo(),
+                    new RNUpdateAppPackage()
             );
         }
     };
