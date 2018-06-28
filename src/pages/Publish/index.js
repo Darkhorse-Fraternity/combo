@@ -62,7 +62,7 @@ export default class Publish extends Component {
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>
-                    我的卡片
+                    圈子管理
                 </Text>
             </View>
         )

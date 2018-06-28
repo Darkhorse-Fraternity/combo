@@ -7,8 +7,8 @@ import {
   Animated,
 } from 'react-native';
 
-import Button from "react-native-button";
-import {mainColor} from '../../Theme'
+import Button from "../Button";
+import theme from '../../Theme'
 export default class CourseTabBar extends Component {
   static propTypes = {
     goToPage: PropTypes.func,
@@ -30,7 +30,8 @@ export default class CourseTabBar extends Component {
       accessibilityLabel={name}
       accessibilityTraits='button'
       onPress={() => this.props.goToPage(page)}>
-      <View style={[styles.tab, {width:this.props.containerWidth/this.props.tabs.length}]}>
+      <View style={[styles.tab,
+          {width:this.props.containerWidth/this.props.tabs.length}]}>
         <Text style={[{color: isTabActive ? activeTextColor : inactiveTextColor, fontWeight: isTabActive ? 'bold' : 'normal', fontSize:15 }, textStyle]}>
           {name}
         </Text>
@@ -45,8 +46,8 @@ export default class CourseTabBar extends Component {
     const tabUnderlineStyle = {
       position: 'absolute',
       width: tabWidth,
-      height: 2,
-      backgroundColor: this.props.underlineColor || mainColor,
+      height: 3,
+      backgroundColor: this.props.underlineColor || theme.mainColor,
       bottom: 0,
     };
 
@@ -55,7 +56,8 @@ export default class CourseTabBar extends Component {
     });
 
     return (
-      <View style={[styles.tabs, {backgroundColor: this.props.backgroundColor || 'white', }, this.props.style, ]}>
+      <View style={[styles.tabs, {backgroundColor:
+      this.props.backgroundColor || 'white', }, this.props.style, ]}>
         {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
         <Animated.View style={[tabUnderlineStyle,
           {
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
     // paddingBottom: 10,
   },
   tabs: {
-    height: 35,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderWidth: 1,

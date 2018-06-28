@@ -1,4 +1,4 @@
-import { send } from '../request'
+import { send } from '../../request/index'
 
 //当前测试版本号
 const AppTestVersion = 1
@@ -8,7 +8,7 @@ const api_token = 'a3f43472f64ddccbc58c2dcf75438f18'
 import DeviceInfo from 'react-native-device-info'
 import { Platform, Linking, Alert } from 'react-native'
 import Toash from 'react-native-simple-toast'
-import { push } from '../redux/nav'
+import { push } from '../../redux/nav'
 
 function firUpdate(bundleId, api_token, type) {
     return {
@@ -101,7 +101,7 @@ export const epUpdate = async () => {
         console.log('update:', res);
         const callback = () => {
 
-            Linking.openURL(res.installUrl);
+            Linking.openURL(res.install_url);
             Linking.openURL(res.update_url);
 
             // const request = new Request(res.installUrl, {method: 'get'});

@@ -15,7 +15,7 @@ import pushConfig from '../configure/push/push'
 import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info'
-import { epUpdate } from '../request/EPUpdate'
+import { epUpdate } from '../components/Update/EPUpdate'
 
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 

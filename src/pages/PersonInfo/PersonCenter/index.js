@@ -134,10 +134,10 @@ export default class PersonCenter extends Component {
         const navigation = this.props.navigation
         return (
             <View>
-                {this._renderRow('我的记录', styles.group, true, () => {
+                {this._renderRow('打卡记录', styles.group, true, () => {
                     navigation.navigate('Record');
                 })}
-                {this._renderRow('我的卡片', styles.group, true, () => {
+                {this._renderRow('圈子管理', styles.group, true, () => {
                     navigation.navigate('Publish');
                 })}
 

@@ -151,7 +151,7 @@ export default class Info extends Component {
                     }}>
                     <StyledIcon name={'md-settings'} size={30}/>
                     <StyledBottomMenuText>
-                        卡片设置
+                        圈子管理
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>)}
                 {this.props.iUseLoad ? <ActivityIndicator style={{ padding: 40 }}/> :

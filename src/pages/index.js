@@ -119,4 +119,5 @@ export const navigationOptions = {
         fontSize:13,
     },
     headerBackTitle:null,
+    gesturesEnabled:true,
 }

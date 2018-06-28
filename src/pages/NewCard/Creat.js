@@ -101,9 +101,9 @@ import * as Animatable from 'react-native-animatable';
             //询问是否立即使用。
             Alert.alert(
                 '你新建了一个卡片，是否立即使用它',
-                '您可以使用或者分享它',
+                '您可以立即  使用或者成立圈子',
                 [{
-                    text: '取消', onPress: () => {
+                    text: '建立圈子', onPress: () => {
                         props.navigation.navigate('PublishDetail', {
                             iCardID: iCardId,
                             data: entity
@@ -111,7 +111,7 @@ import * as Animatable from 'react-native-animatable';
                     }
                 },
                     {
-                        text: '确定', onPress: async () => {
+                        text: '自己使用', onPress: async () => {
 
                         const param = {
                             cycle: 0,

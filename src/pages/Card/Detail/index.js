@@ -19,6 +19,7 @@ import {
 
 import DoCardButton from '../../../components/Button/DoCardButton'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
+import BackTabBar from '../../../components/Groceries/BackTabBar'
 import Agenda from '../Agenda'
 import Info from '../Info'
 
@@ -46,6 +47,7 @@ export default class CardDetail extends Component {
         const { params } = state;
         return {
             // title: params.iCard.title,
+            header: null,
         }
     };
 
@@ -61,11 +63,16 @@ export default class CardDetail extends Component {
             <StyledContent forceInset={{ top: 'never' }}>
 
                 <ScrollableTabView
+                    renderTabBar={()=>(
+                        <BackTabBar
+                            onBackPress={this.props.navigation.goBack} />
+                    )}
                     prerenderingSiblingsNumber={0}
                     tabBarInactiveTextColor={theme.mainColor}
                     tabBarActiveTextColor={theme.mainColor}
                     tabBarUnderlineStyle={{backgroundColor:theme.mainColor}}
-                    tabBarPosition ='bottom'>
+                    // tabBarPosition ='bottom'
+                >
                     <Info {...this.props} tabLabel="设置"/>
                     <Agenda {...this.props} tabLabel="记录"/>
                 </ScrollableTabView>
