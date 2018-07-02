@@ -34,7 +34,8 @@ import {
     StyledBottomMenuButton,
     StyledTitleView,
     StyledTitleText,
-    StyeldDoneView
+    StyeldDoneView,
+    StyledActivityIndicator
 } from './style'
 
 
@@ -49,7 +50,10 @@ import { IUSE } from '../../../redux/reqKeys'
 import { claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
-
+import { showSelector } from '../../../components/Selector'
+import { Privacy } from '../../../configure/enum'
+import { classUpdate } from '../../../request/leanCloud'
+import { req } from '../../../redux/actions/req'
 
 @connect(
     (state, props) => ({
@@ -57,6 +61,7 @@ import { addListNormalizrEntity } from '../../../redux/actions/list'
         iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user),
         iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUse.objectId),
         iUseLoad: state.req.get(IUSE).get('load'),
+        updatePrivacyLoad:state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
     }),
     (dispatch, props) => ({
         refresh: async (data) => {
@@ -98,6 +103,20 @@ import { addListNormalizrEntity } from '../../../redux/actions/list'
             dispatch(addNormalizrEntity(IUSE, entity))
             dispatch(claerByID(IUSE, id))
         },
+        updatePrivacy: async (data, privacy) => {
+            const id = data.objectId
+            const param = {
+                privacy,
+            }
+            // const res = await update(id, param, IUSE)
+            const lParams = classUpdate(IUSE, id, param)
+            const res = await req(lParams,'updatePrivacy')
+            const entity = {
+                ...param,
+                ...res,
+            }
+            dispatch(addNormalizrEntity(IUSE, entity))
+        }
     })
 )
 
@@ -137,6 +156,7 @@ export default class Info extends Component {
             text = "暂停打卡"
         }
 
+
         const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
             TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
@@ -154,7 +174,7 @@ export default class Info extends Component {
                         圈子管理
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>)}
-                {this.props.iUseLoad ? <ActivityIndicator style={{ padding: 40 }}/> :
+                {this.props.iUseLoad ? <StyledActivityIndicator/> :
                     <StyledBottomMenuButton
                         background={background}
                         hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
@@ -184,22 +204,25 @@ export default class Info extends Component {
                         点击分享
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>
-                <StyledBottomMenuButton
+                {this.props.updatePrivacyLoad ? <StyledActivityIndicator/> : <StyledBottomMenuButton
                     background={background}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
-                        Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
-                            animationType: 'slide-up',
-                            wrapStyle: {
-                                justifyContent: 'flex-end',
-                            }
-                        })
+                        const titles = ['不对外开放', '仅对教练开放', '对外开放']
+                        showSelector(
+                            titles, (index) => {
+                                if (index < 3 && iUse.privacy !== index) {
+                                    this.props.updatePrivacy(iUse, index)
+                                }
+                            })
                     }}>
-                    <StyledIcon name={'md-share'} size={30}/>
+                    <StyledIcon name={iUse.privacy ===
+                    Privacy.open ? 'md-unlock' :
+                        'md-lock'} size={30}/>
                     <StyledBottomMenuText>
                         隐私设置
                     </StyledBottomMenuText>
-                </StyledBottomMenuButton>
+                </StyledBottomMenuButton>}
             </StyledBottomMenu>
         )
 
@@ -221,7 +244,7 @@ export default class Info extends Component {
         <StyledRowTouch onPress={onPress}>
 
             {/*<StyledRowText>*/}
-                {/*{title}*/}
+            {/*{title}*/}
             {/*</StyledRowText>*/}
             <StyledRowDes>
                 {des}
@@ -249,22 +272,23 @@ export default class Info extends Component {
         const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
         const over = iUse.time === Number(iCard.period)
 
-        const {img} = iCard
+        const { img } = iCard
         const source = img ? { uri: img.url }
-        : require('../../../../source/img/my/icon-60.png')
+            : require('../../../../source/img/my/icon-60.png')
 
         return (
             <StyledContent>
                 {this._renderDoneView(done, over)}
-                {!!iCard.img ?(<ZoomImage
-                    height={width * 0.7}
-                    style={{
-                        width: '100%',
-                        height: width * 0.7
-                    }} imageUrls={[{ url: iCard.img.url }]}/>):
-                    (<Image style={{ alignSelf: 'center'}} resizeMode={'center'} source={source}/>)}
-                {this.rowTouch('卡片名称:', iCard.title , () => {
-                     this.props.navigation.navigate('CardInfo', { iCard: iCard })
+                {!!iCard.img ? (<ZoomImage
+                        height={width * 0.7}
+                        style={{
+                            width: '100%',
+                            height: width * 0.7
+                        }} imageUrls={[{ url: iCard.img.url }]}/>) :
+                    (<Image style={{ alignSelf: 'center' }} resizeMode={'center'}
+                            source={source}/>)}
+                {this.rowTouch('卡片名称:', iCard.title, () => {
+                    this.props.navigation.navigate('CardInfo', { iCard: iCard })
                 })}
                 {/*{this.row('卡片周期:', iCard.period + '次')}*/}
                 {/*{this.row('记录模式:', iCard.record.join("+") || '无')}*/}
@@ -273,14 +297,14 @@ export default class Info extends Component {
                 {/*{this.row('使用人数:', iCard.useNum + '人')}*/}
                 {/*{iCardUserData.objectId !== user.objectId &&*/}
                 {/*this.rowTouch('拥有人:', iCardUserData.nickname + '', () => {*/}
-                    {/*// console.log('iCardUserData:', iCardUserData);*/}
-                    {/*this.props.navigation.navigate('Following', { user: iCardUserData })*/}
+                {/*// console.log('iCardUserData:', iCardUserData);*/}
+                {/*this.props.navigation.navigate('Following', { user: iCardUserData })*/}
                 {/*})}*/}
 
                 {/*<StyledTitleView>*/}
-                    {/*<StyledTitleText>*/}
-                        {/*卡片功能*/}
-                    {/*</StyledTitleText>*/}
+                {/*<StyledTitleText>*/}
+                {/*卡片功能*/}
+                {/*</StyledTitleText>*/}
                 {/*</StyledTitleView>*/}
                 {this._renderBottomMenu(params)}
             </StyledContent>

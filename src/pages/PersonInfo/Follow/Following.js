@@ -15,7 +15,7 @@ import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
 import ZoomImage from '../../../components/ZoomImage/ZoomImage'
-
+import { Privacy } from '../../../configure/enum'
 import {
     StyleFolllow,
     StyleFollowText,
@@ -186,12 +186,12 @@ export default class Following extends Component {
                             followees_count,
                             followers_count)}
                     </StyleHeaderInner>
-                    {!avatarUrl? <StyledAvatar source={avatarSource}/>:<ZoomImage
+                    {!avatarUrl ? <StyledAvatar source={avatarSource}/> : <ZoomImage
                         height={80}
                         style={{
                             width: 80,
-                            height:80,
-                            borderRadius:40,
+                            height: 80,
+                            borderRadius: 40,
                         }} imageUrls={[{ url: avatarUrl }]}/>}
 
                 </StyleHeaderInnerRight>
@@ -221,17 +221,17 @@ export default class Following extends Component {
                 <Button innerView onPress={() => {
                     navigation.navigate('Followee', { userId: data.objectId });
                 }}>
-                        <StyleFollowText>
-                            关注: {followees_count}
-                        </StyleFollowText>
+                    <StyleFollowText>
+                        关注: {followees_count}
+                    </StyleFollowText>
                 </Button>
                 <StyleFollowDevide/>
-                <Button  innerView onPress={() => {
+                <Button innerView onPress={() => {
                     navigation.navigate('Follower', { userId: data.objectId });
                 }}>
-                        <StyleFollowText>
-                            被关注：{followers_count}
-                        </StyleFollowText>
+                    <StyleFollowText>
+                        被关注：{followers_count}
+                    </StyleFollowText>
                 </Button>
             </StyleFolllow>
         )
@@ -287,7 +287,7 @@ export default class Following extends Component {
             where: {
                 ...userModel(user.objectId),
                 statu: { "$ne": 'del' },
-                privacy:2
+                privacy: Privacy.open
             },
             include: ICARD,
         }

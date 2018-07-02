@@ -39,7 +39,13 @@ export const StyledBottomMenuText = styled.Text`
 export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
-  width:${props => props.theme.width/4 };
+  width:${props => props.theme.width>340?props.theme.width/4: 
+    props.theme.width/3 };
+`
+
+export const StyledActivityIndicator = styled.ActivityIndicator`
+  width:${props => props.theme.width>340?props.theme.width/4:
+    props.theme.width/3 };
 `
 
 export const StyledIcon = styled(Icon)`

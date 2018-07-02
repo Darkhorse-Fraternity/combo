@@ -20,7 +20,7 @@ import {iCard} from '../../request/LCModle'
 import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-
+import { Privacy } from '../../configure/enum'
 import RecordRow from '../Record/RecordRow'
 
 const listKey = IDO
@@ -116,7 +116,7 @@ export default class Detail extends Component {
                 ...iCard(params.iCard.objectId),
             },
             include: 'user',
-            privacy: {"$gte":1},//为0的时候只有自己可以查看
+            privacy: {"$gte":Privacy.openToCoach},//为0的时候只有自己可以查看
         }
 
 

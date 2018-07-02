@@ -46,7 +46,7 @@ import {
     StyledRowTouch,
     StyeldDoneView
 } from './style'
-
+import {Privacy} from '../../../configure/enum'
 
 @connect(
     (state, props) => ({
@@ -75,6 +75,7 @@ import {
             const param = {
                 cycle: 0,
                 time: 0,
+                privacy: Privacy.open,//对外开放
                 // notifyTime:option&&option.notifyTime||"20.00",
                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                 ...selfUser(),
