@@ -184,6 +184,22 @@ export default class Info extends Component {
                         点击分享
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>
+                <StyledBottomMenuButton
+                    background={background}
+                    hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
+                    onPress={() => {
+                        Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
+                            animationType: 'slide-up',
+                            wrapStyle: {
+                                justifyContent: 'flex-end',
+                            }
+                        })
+                    }}>
+                    <StyledIcon name={'md-share'} size={30}/>
+                    <StyledBottomMenuText>
+                        隐私设置
+                    </StyledBottomMenuText>
+                </StyledBottomMenuButton>
             </StyledBottomMenu>
         )
 

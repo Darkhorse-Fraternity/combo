@@ -115,7 +115,8 @@ export default class Detail extends Component {
             'where': {
                 ...iCard(params.iCard.objectId),
             },
-            include: 'user'
+            include: 'user',
+            privacy: {"$gte":1},//为0的时候只有自己可以查看
         }
 
 

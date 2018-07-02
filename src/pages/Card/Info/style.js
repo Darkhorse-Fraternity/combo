@@ -25,6 +25,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledBottomMenu = styled.View`
   flex-direction: row;
+  flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 20px;
 `
@@ -37,7 +38,8 @@ export const StyledBottomMenuText = styled.Text`
 
 export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
-  padding: 20px;
+  padding: 15px 0px;
+  width:${props => props.theme.width/4 };
 `
 
 export const StyledIcon = styled(Icon)`

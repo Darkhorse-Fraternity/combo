@@ -287,6 +287,7 @@ export default class Following extends Component {
             where: {
                 ...userModel(user.objectId),
                 statu: { "$ne": 'del' },
+                privacy:2
             },
             include: ICARD,
         }

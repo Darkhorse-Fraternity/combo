@@ -183,6 +183,7 @@ export  default  class Menu extends Component {
                     onPress={()=>{}}>
                     <Icon name="md-close" size={50}/>
                 </Btn>
+
             </View>
         );
     }
