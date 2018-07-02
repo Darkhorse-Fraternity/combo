@@ -121,7 +121,7 @@ class RNUpdate extends Component {
         }).promise.then(response => {
             // 下载完成后
             this.hideModal()
-            if (response.statusCode == 200) {
+            if (response.statusCode === 200) {
                 console.log("FILES UPLOADED!") // response.statusCode, response.headers, response.body
                 RNUpdateApp.install(toFile)
             } else {

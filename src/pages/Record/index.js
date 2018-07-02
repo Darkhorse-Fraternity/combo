@@ -197,10 +197,13 @@ export default class Record extends Component {
 
     render() {
 
+
+        const {params} = this.props.navigation.state
+        const statu = params?params.statu: { "$ne": 'del' }
         const param = {
             where: {
                 ...selfUser(),
-                statu: { "$ne": 'del' },
+                statu,
             },
             include: ICARD,
         }

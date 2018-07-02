@@ -14,6 +14,7 @@ export const LOAD_AVATAR = 'LOAD_AVATAR'
 export const UPLOAD_IMAGES = 'UPLOAD_IMAGES'
 export const CHANGEAVATAR = 'CHANGEAVATAR'
 export const DATA_STORAGE = 'DATA_STORAGE'
+export const APP_STATE_UPDATE = 'APP_STATE_UPDATE'
 import {bindingFileToUser} from '../../request/leanCloud'
 import {updateUserData} from './user'
 import Toast from 'react-native-simple-toast'
@@ -66,3 +67,9 @@ export function dataStorage(key: string, data: any): Object {
     }
 }
 
+export function appStateUpdate(state):Object {
+    return {
+        type:APP_STATE_UPDATE,
+        state,
+    }
+}

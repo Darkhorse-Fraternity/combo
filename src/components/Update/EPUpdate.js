@@ -9,6 +9,7 @@ import DeviceInfo from 'react-native-device-info'
 import { Platform, Linking, Alert } from 'react-native'
 import Toash from 'react-native-simple-toast'
 import { push } from '../../redux/nav'
+// import {androidUpdate} from './downLoad'
 
 function firUpdate(bundleId, api_token, type) {
     return {
@@ -51,6 +52,7 @@ const checkUpdate = (res, callBack) => {
             \n更新版本号:${versionShort},\n更新编译号:${version}`
 
             // console.log('changelog:', changelog)
+            if(ios)
             Alert.alert(
                 '版本更新~',
                 res.changelog || changelog,
@@ -103,7 +105,7 @@ export const epUpdate = async () => {
 
             Linking.openURL(res.install_url);
             Linking.openURL(res.update_url);
-
+            // androidUpdate(res.install_url)
             // const request = new Request(res.installUrl, {method: 'get'});
             // fetch(request)
 

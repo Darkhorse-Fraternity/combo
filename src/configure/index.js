@@ -8,7 +8,8 @@ import {
     StatusBar,
     BackHandler,
     NetInfo,
-    Linking
+    Linking,
+    AppState
 } from 'react-native';
 import pushConfig from '../configure/push/push'
 // import {dataStorage} from '../redux/actions/util'
@@ -16,7 +17,7 @@ import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info'
 import { epUpdate } from '../components/Update/EPUpdate'
-
+import {appStateUpdate} from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 
@@ -108,6 +109,8 @@ export default class Configure extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         Linking.addEventListener('url', this._handleOpenURL);
+        AppState.addEventListener('change', this._handleAppStateChange);
+        this.props.dispatch(appStateUpdate(AppState.currentState))
         this._getInitialURL()
         // this.requestCameraPermission()
 
@@ -123,8 +126,13 @@ export default class Configure extends React.Component {
     componentWillUnmount() {
         BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
         Linking.removeEventListener('url', this._handleOpenURL);
+        AppState.removeEventListener('change', this._handleAppStateChange);
 
 
+    }
+
+    _handleAppStateChange = (nextAppState) => {
+        this.props.dispatch(appStateUpdate(nextAppState))
     }
 
     lastBackPressed: number = 0

@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -28,7 +29,9 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 
 import java.util.Arrays;
 import java.util.List;
+
 import com.combo.util.update.*;
+
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
 
@@ -50,6 +53,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+                    new RNFSPackage(),
                     new SplashScreenReactPackage(),
                     new QQPackage(),
                     new KeyboardInputPackage(MainApplication.this), // (this = Android application object)

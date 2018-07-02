@@ -19,21 +19,20 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
-import {  search, update } from '../../redux/module/leancloud'
-import {  load } from '../../redux/actions/req'
+import {  search, update, } from '../../redux/module/leancloud'
+import {  classSearch } from '../../request/leanCloud'
+import { req } from '../../redux/actions/req'
 
-import {  classCreatNewOne } from '../../request/leanCloud'
 import { selfUser, iCard, iUse } from '../../request/LCModle'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import SliderEntry from './Cell/SliderEntry'
-import Pop from '../../components/Pop'
-import Do from './Do'
+
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Carousel from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from './Cell/style';
-
+import StopCell from './Cell/StopCell'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
@@ -45,7 +44,8 @@ import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
         iUse: state.normalizr.get(IUSE),
         iCard: state.normalizr.get(ICARD),
         load: state.req.get(IDO).get("load"),
-        refreshLoad: state.req.get(IUSE).get("load")
+        refreshLoad: state.req.get(IUSE).get("load"),
+        stopIUSEexist:state.req.get('StopIUSEexist')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -81,6 +81,17 @@ import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
             }
             dispatch(addNormalizrEntity(IUSE, entity))
         },
+        exist: async () => {
+            const params = classSearch(IUSE, {
+                where: {
+                    ...selfUser(),
+                    statu: 'stop',
+                },
+                limit:0,
+                count:1,
+            })
+            req(params, 'StopIUSEexist')
+        }
 
     })
 )
@@ -112,12 +123,23 @@ export default class Home extends Component {
 
     componentDidMount() {
         this.props.search()
+        this.props.exist()
         // console.log('this.refs.list:', this.refs.list.scrollToOffset);
     }
 
 
 
     __renderItem = ({ item, index }) => {
+
+        if(item === -1){
+            return <StopCell title='查看已完成的打卡'
+                             des='重新打卡点这里'
+                             onPress={()=>{
+                                 this.props.navigation.navigate('Record',
+                                     {statu:'stop'})
+                             }}/>
+        }
+
         const data = this.props.iUse.get(item).toJS()
 
         // console.log('data:', data);
@@ -183,11 +205,21 @@ export default class Home extends Component {
 
         const statu = this.props.data.get('loadStatu')
 
-        const data = this.props.data.toJS().listData
+        let data = this.props.data.toJS().listData
 
         if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
             return this.__renderNoData()
         }
+
+        let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
+        stopIUSEexist = !stopIUSEexist?false:stopIUSEexist.get('count')>0
+
+
+        if(stopIUSEexist && statu !== 'LIST_FIRST_JOIN' && statu !== 'LIST_LOAD_DATA'){
+            data = [...data,-1];
+        }
+
+
         //
         // <FlatList
         //     onScroll={this.props.onScroll}
@@ -205,7 +237,6 @@ export default class Home extends Component {
 
 
         return (
-            <View>
 
                 <Carousel
                     ref={(c) => {
@@ -221,7 +252,6 @@ export default class Home extends Component {
                     containerCustomStyle={styles.slider}
                     contentContainerCustomStyle={styles.sliderContentContainer}
                 />
-            </View>
         );
     }
 }

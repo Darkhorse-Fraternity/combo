@@ -419,3 +419,19 @@ export function updateInstallation(id: String, params) {
         params
     }
 }
+
+//统计数据API
+export function openCollet(params) {
+    return {
+        scheme: 'https',
+        host: 'leancloud.cn/1.1',
+        path: '/stats/open/collect',
+        method: methodType.post,
+        // head:{
+        //     "Content-Type": "application/json",
+        //     "X-LC-Key": LeanCloud_APP_KEY,
+        //     "X-LC-Id": LeanCloud_APP_ID,
+        // },
+        params
+    }
+}
