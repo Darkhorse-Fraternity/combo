@@ -6,7 +6,8 @@ import {
     View,
     Animated,
     Dimensions,
-    Image
+    Image,
+    TouchableOpacity
 } from 'react-native';
 
 import Button from "../Button";
@@ -29,18 +30,20 @@ export default class BackTabBar extends Component {
 
     renderTabOption(name: string, page: number) {
         const containerWidth = this.props.containerWidth - backWidth * 2;
+        const numberOfTabs = this.props.tabs.length;
+        const tabWidth = containerWidth / numberOfTabs ;
         const isTabActive = this.props.activeTab === page;
         const activeTextColor = this.props.activeTextColor || '#f1bd49';
         const inactiveTextColor = this.props.inactiveTextColor || '#999999';
         const textStyle = this.props.textStyle || {};
-        return <Button
+        return <TouchableOpacity
             key={name}
             accessible={true}
             accessibilityLabel={name}
             accessibilityTraits='button'
             onPress={() => this.props.goToPage(page)}>
             <View style={[styles.tab,
-                { width: containerWidth / this.props.tabs.length }]}>
+                { width: tabWidth }]}>
                 <Text style={[{
                     color: isTabActive ? activeTextColor : inactiveTextColor,
                     fontWeight: isTabActive ? 'bold' : 'normal',
@@ -49,16 +52,17 @@ export default class BackTabBar extends Component {
                     {name}
                 </Text>
             </View>
-        </Button>;
+        </TouchableOpacity>;
     }
 
     render() {
-        const containerWidth = 375 - backWidth * 2;
+        const containerWidth = this.props.containerWidth  - backWidth * 2;
         const numberOfTabs = this.props.tabs.length;
-        const tabWidth = containerWidth / numberOfTabs / 3;
+        const tabWidth = containerWidth / numberOfTabs ;
+        const underLineWidth = tabWidth / 3
         const tabUnderlineStyle = {
             position: 'absolute',
-            width: tabWidth,
+            width: underLineWidth,
             height: 3,
             backgroundColor: this.props.underlineColor || theme.mainColor,
             bottom: 5,
@@ -66,8 +70,9 @@ export default class BackTabBar extends Component {
 
         const translateX = this.props.scrollValue.interpolate({
             inputRange: [0, 1,],
-            outputRange: [-tabWidth * 1.5, tabWidth * 1.5],
+            outputRange: [-underLineWidth/2*3 , underLineWidth/2*3],
         });
+        // console.log('this.props.onBackPress:', this.props.onBackPress);
 
 
         return (
