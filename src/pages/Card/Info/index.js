@@ -54,7 +54,7 @@ import { showSelector } from '../../../components/Selector'
 import { Privacy } from '../../../configure/enum'
 import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
-
+import PrivacyView from '../PrivacyView'
 @connect(
     (state, props) => ({
         user: state.user.data,
@@ -209,12 +209,24 @@ export default class Info extends Component {
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
                     onPress={() => {
                         const titles = ['不对外开放', '仅对教练开放', '对外开放']
-                        showSelector(
-                            titles, (index) => {
-                                if (index < 3 && iUse.privacy !== index) {
-                                    this.props.updatePrivacy(iUse, index)
-                                }
-                            })
+                        // showSelector(
+                        //     titles, (index) => {
+                        //         if (index < 3 && iUse.privacy !== index) {
+                        //             this.props.updatePrivacy(iUse, index)
+                        //         }
+                        //     })
+                        Pop.show(<PrivacyView titles={titles}
+                                              onPress={(index)=>{
+                                                  if (index < 3 && iUse.privacy !== index) {
+                                                      this.props.updatePrivacy(iUse, index)
+                                                  }
+                                              }}
+                                              index={iUse.privacy}/>, {
+                            animationType: 'slide-up',
+                            wrapStyle: {
+                                justifyContent: 'flex-end',
+                            }
+                        })
                     }}>
                     <StyledIcon name={iUse.privacy ===
                     Privacy.open ? 'md-unlock' :

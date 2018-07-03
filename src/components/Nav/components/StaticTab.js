@@ -57,7 +57,7 @@ export default createBottomTabNavigator(
             let labelName;
             if (routeName === 'Home') {
                 iconName = `md-sunny`;
-                labelName = '小习惯'
+                labelName = '小改变'
             } else if (routeName === 'Settings') {
                 iconName = `ios-happy`;
                 labelName = '我的'

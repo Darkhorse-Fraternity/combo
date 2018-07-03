@@ -68,7 +68,7 @@ export default class Home extends Component {
         // console.log('test:', params,localLoad);
         return {
             // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-            title: '小习惯',
+            title: '小改变',
             gesturesEnabled: false,
             header: null,
 

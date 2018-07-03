@@ -52,7 +52,6 @@ const checkUpdate = (res, callBack) => {
             \n更新版本号:${versionShort},\n更新编译号:${version}`
 
             // console.log('changelog:', changelog)
-            if(ios)
             Alert.alert(
                 '版本更新~',
                 res.changelog || changelog,
