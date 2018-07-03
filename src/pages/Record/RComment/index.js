@@ -49,7 +49,7 @@ import moment from 'moment'
 import { formValueSelector } from 'redux-form/immutable'
 import { reset } from 'redux-form'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
-import { showSelector } from '../../../components/Selector'
+import Dialog from '../../../components/Dialog'
 
 
 const IsIOS = Platform.OS === 'ios';
@@ -172,7 +172,7 @@ export default class RComment extends Component {
         const data = this.props.navigation.state.params.data
         return (
             <StyledHeader>
-                <RecordRow item={data}  showChat={false} showImage={true}/>
+                <RecordRow item={data} showChat={false} showImage={true}/>
             </StyledHeader>
         )
     }
@@ -212,36 +212,48 @@ export default class RComment extends Component {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
         const my_head = require('../../../../source/img/my/my_head.png');
         const source = item.user.avatar ? { uri: item.user.avatar.url } : my_head
-        return (<StyledRow onPress={() => {
+        return (<StyledRow onPress={async () => {
             const { user } = this.props
 
+            // if (item.user.objectId === user.objectId) {
+            //     showSelector(['删除', '复制'], (index) => {
+            //         if (index === 0) {
+            //             this.props.delete(item)
+            //         } else if (index === 1) {
+            //             this.props.copy(item)
+            //         }
+            //     })
+            // } else {
+            //     showSelector(['复制'], (index) => {
+            //         if (index === 0) {
+            //             this.props.copy(item)
+            //         }
+            //     })
+            // }
+
+            const items = [{ label: '复制', id: 'copy' }]
             if (item.user.objectId === user.objectId) {
-                showSelector(['删除', '复制'], (index) => {
-                    if (index === 0) {
-                        this.props.delete(item)
-                    } else if (index === 1) {
-                        this.props.copy(item)
-                    }
-                })
-            } else {
-                showSelector(['复制'], (index) => {
-                    if (index === 0) {
-                        this.props.copy(item)
-                    }
-                })
+                items.push({ label: '删除', id: 'delete' })
             }
+            const { selectedItem } = await Dialog.showPicker('请选择', null, { items });
+            if (selectedItem) {
+                const { id } = selectedItem
+                console.log('You selected item:', selectedItem);
+                // this.props[id] && this.props[id](item)
+            }
+
 
         }}>
             <StyledRowLeft>
-                <TouchableOpacity onPress={()=>{
-                    this.props.navigation.navigate('Following',{user: item.user})
+                <TouchableOpacity onPress={() => {
+                    this.props.navigation.navigate('Following', { user: item.user })
                 }}>
                     <StyledAvatar source={source}/>
                 </TouchableOpacity>
             </StyledRowLeft>
             <StyledRowRight>
                 <StyledNickText>
-                    {item.user.nickname||'路人甲'}
+                    {item.user.nickname || '路人甲'}
                 </StyledNickText>
                 <StyledContentText>
                     {item.text}
@@ -297,9 +309,9 @@ const styles = StyleSheet.create({
                 flex: 1,
             },
         }),
-        backgroundColor:'white',
-        borderTopColor:'rgb(200,200,200)',
-        borderTopWidth:StyleSheet.hairlineWidth,
+        backgroundColor: 'white',
+        borderTopColor: 'rgb(200,200,200)',
+        borderTopWidth: StyleSheet.hairlineWidth,
     },
     list: {
         // marginBottom: 50
