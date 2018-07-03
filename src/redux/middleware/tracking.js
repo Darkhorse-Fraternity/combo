@@ -1,4 +1,4 @@
-import { NavigationActions } from 'react-navigation';
+    import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info'
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
 import { Platform } from 'react-native'
@@ -90,9 +90,7 @@ const appStateTracking = async (state) => {
         trackingEvents.splice(0, trackingEvents.length);
 
         let params = {
-            client: {
-                id: uniqueId,
-            },
+            client: client(),
             session: {
                 id: sessionId()
             },
@@ -128,9 +126,7 @@ const screenTracking = async (sceen) => {
     screenStartTime = sceenEndTime
     if (trackingEvents.length === 10) {
         let params = {
-            client: {
-                id: uniqueId,
-            },
+            client: client(),
             session: {
                 id: sessionId()
             },

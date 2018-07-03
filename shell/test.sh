@@ -1,7 +1,7 @@
 
 curl -X POST \
-  -H "X-LC-Id: q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt"          \
-  -H "X-LC-Key: njvke2r653u04lm7dpporogtsgz2d2mw5wfcartktn9kwo6f,master"        \
+  -H "X-LC-Id: cmwLjTYWoYfN4jCgPR49rsi6-gzGzoHsz"          \
+  -H "X-LC-Key: jYL7hiGyAArkuMcp8F8llI52,master"        \
   -H "Content-Type: application/json" \
   -d '{
         "where":{
@@ -11,7 +11,7 @@ curl -X POST \
                     "objectId": "59a5029644d9040058136049"
             }
         },
-        "deviceProfile": "prod_ep",
+        "deviceProfile": "dev",
         "data": {
           "ios":{
              "alert" : {

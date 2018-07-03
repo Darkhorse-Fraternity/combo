@@ -36,7 +36,7 @@ const isEmpty = value => value === undefined || value === null || value === '' |
     (state, props) => {
         const recordText = selector(state, 'recordText');
         let imgs = selector(state, 'imgs');
-        console.log('imgs:', imgs);
+        // console.log('imgs:', imgs);
         imgs = imgs && imgs.toJS && imgs.toJS()
         const config = { "文字": recordText, "图片": imgs }
         const record = props.record || []//需要满足的条件

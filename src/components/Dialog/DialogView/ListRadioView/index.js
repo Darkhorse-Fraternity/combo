@@ -15,17 +15,17 @@ import {
     Dimensions,
     TouchableNativeFeedback
 } from 'react-native'
-import Pop from '../../../components/Pop'
-import { mainColor } from '../../../Theme'
+import Pop from '../../../Pop/index'
+import { mainColor } from '../../../../Theme/index'
 import {
     StyledIcon,
     StyledRowInnerView
 } from './style'
 
-import Button from '../../../components/Button'
+import Button from '../../../Button'
 
 
-export default class PrivacyView extends Component {
+export default class ListRadioView extends Component {
     // shouldComponentUpdate(nextProps: Object) {
     //     return !immutable.is(this.props, nextProps)
     // }
@@ -38,18 +38,18 @@ export default class PrivacyView extends Component {
 
     render(): ReactElement<any> {
 
-        const item = (titel, index) => {
+        const itemView = (item, index) => {
             return (
                 <Button
-                    key={titel}
+                    key={item}
                     style={{}}
                     onPress={() => {
                         Pop.hide()
                         this.props.onPress && this.props.onPress(index)
                     }}>
                     <StyledRowInnerView>
-                        <Text style={styles.pop_item_text}>{titel}</Text>
-                        {this.props.index === index &&  <StyledIcon
+                        <Text style={styles.pop_item_text}>{item}</Text>
+                        {this.props.selectedIndex === index &&  <StyledIcon
                             ref={this.chatBtnRef}
                             name={'md-checkmark'}
                             size={25}
@@ -81,14 +81,14 @@ export default class PrivacyView extends Component {
                         hitSlop={{ top: 15, left: 25, bottom: 15, right: 15 }}
                     >
                         <Image style={styles.delImg}
-                               source={require('../../../../source/img/visitor/visitor_delete.png')}/>
+                               source={require('../../../../../source/img/visitor/visitor_delete.png')}/>
                     </Button>
                 </View>
 
 
                 <View style={{ paddingBottom: 20 }}>
-                    {this.props.titles.map((title, index) => {
-                        return item(title, index)
+                    {this.props.items.map((item, index) => {
+                        return itemView(item, index)
                     })}
                 </View>
             </View>

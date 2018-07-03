@@ -11,7 +11,7 @@ import {
     ActionSheetIOS
 } from 'react-native'
 import Pop from '../Pop'
-
+import ListRadioView from './DialogView/ListRadioView'
 
 function processColors(nativeConfig: {}) {
     for (const prop of Object.keys(nativeConfig)) {
@@ -151,23 +151,31 @@ function getChecked(nativeConfig, checked) {
 
 
 const show = (nativeConfig, callback) => {
-    const { type, items } = nativeConfig
+    const {
+        items,
+        itemsCallbackSingleChoice,
+        itemsCallback,
+        itemsCallbackMultiChoice,
+        ...rest
+    } = nativeConfig
     // console.log('nativeConfig:', nativeConfig);
-    switch (type) {
-        case DialogIOS.listCheckbox: {
 
-            break;
-        }
-        case DialogIOS.listRadio: {
+    if (itemsCallbackSingleChoice) {
+        const { selectedIndex } = rest
+        showListRadio(items, selectedIndex, (index) => {
+            callback('itemsCallbackSingleChoice', index, false)
+        })
 
-            break;
-        }
-        default:
-            showActionSheetWithOptions(items, (index) => {
-                callback('itemsCallback', index, false)
-            })
-            break;
+    } else if (itemsCallback) {
+        showActionSheetWithOptions(items, (index) => {
+            callback('itemsCallback', index, false)
+        })
+    }else if(itemsCallbackMultiChoice){
+
+
+
     }
+
 }
 
 
@@ -185,3 +193,17 @@ function showActionSheetWithOptions(items: Array<string>,
 
 }
 
+function showListRadio(items: Array<string>, selectedIndex, callBack: Function) {
+    Pop.show(<ListRadioView items={items}
+                            onPress={(index) => {
+                                if (index < items.length) {
+                                    callBack && callBack(index)
+                                }
+                            }}
+                            selectedIndex={selectedIndex}/>, {
+        animationType: 'slide-up',
+        wrapStyle: {
+            justifyContent: 'flex-end',
+        }
+    })
+}

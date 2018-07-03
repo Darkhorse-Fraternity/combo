@@ -238,8 +238,8 @@ export default class RComment extends Component {
             const { selectedItem } = await Dialog.showPicker('请选择', null, { items });
             if (selectedItem) {
                 const { id } = selectedItem
-                console.log('You selected item:', selectedItem);
-                // this.props[id] && this.props[id](item)
+                // console.log('You selected item:', selectedItem);
+                this.props[id] && this.props[id](item)
             }
 
 

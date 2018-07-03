@@ -53,7 +53,7 @@ import { addListNormalizrEntity } from '../../../redux/actions/list'
 import { Privacy } from '../../../configure/enum'
 import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
-import PrivacyView from '../PrivacyView'
+import Dialog from  '../../../components/Dialog'
 @connect(
     (state, props) => ({
         user: state.user.data,
@@ -206,26 +206,36 @@ export default class Info extends Component {
                 {this.props.updatePrivacyLoad ? <StyledActivityIndicator/> : <StyledBottomMenuButton
                     background={background}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
-                    onPress={() => {
-                        const titles = ['不对外开放', '仅对教练开放', '对外开放']
-                        // showSelector(
-                        //     titles, (index) => {
-                        //         if (index < 3 && iUse.privacy !== index) {
-                        //             this.props.updatePrivacy(iUse, index)
-                        //         }
-                        //     })
-                        Pop.show(<PrivacyView titles={titles}
-                                              onPress={(index)=>{
-                                                  if (index < 3 && iUse.privacy !== index) {
-                                                      this.props.updatePrivacy(iUse, index)
-                                                  }
-                                              }}
-                                              index={iUse.privacy}/>, {
-                            animationType: 'slide-up',
-                            wrapStyle: {
-                                justifyContent: 'flex-end',
-                            }
-                        })
+                    onPress={async () => {
+                        // const titles = ['不对外开放', '仅对教练开放', '对外开放']
+                        // Pop.show(<ListRadioView titles={titles}
+                        //                       onPress={(index)=>{
+                        //                           if (index < titles.length && iUse.privacy !== index) {
+                        //                               this.props.updatePrivacy(iUse, index)
+                        //                           }
+                        //                       }}
+                        //                       index={iUse.privacy}/>, {
+                        //     animationType: 'slide-up',
+                        //     wrapStyle: {
+                        //         justifyContent: 'flex-end',
+                        //     }
+                        // })
+                        const { selectedItem } = await Dialog.showPicker('隐私设置', null, {
+                            negativeText: '取消',
+                            type: Dialog.listRadio,
+                            selectedId: iUse.privacy+ "",
+                            items: [
+                                { label:'不对外开放', id:'0' },
+                                { label:'仅对教练开放', id:'1' },
+                                { label:'对外开放', id:'2' }
+                            ]
+                        });
+                        if (selectedItem) {
+                            const {id} = selectedItem;
+                            iUse.privacy !== Number(id) && this.props.updatePrivacy(iUse, Number(id))
+                            // when negative button is clicked, selectedItem is not present, so it doesn't get here
+                            // console.log('You picked:', selectedItem);
+                        }
                     }}>
                     <StyledIcon name={iUse.privacy ===
                     Privacy.open ? 'md-unlock' :

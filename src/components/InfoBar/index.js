@@ -100,13 +100,15 @@ export default class InfoBar extends Component {
                 ? message.title : data.title
             const body = Platform.OS === 'ios' && data.type !=='local'
                 ? message.body : data.alert
+
+            const source = require('../../../source/img/my/icon-60.png')
             return (
                 <Animatable.View
                     ref="aniView"
                     {...this.createPanResponder().panHandlers}
                     animation="fadeInDown"
                     style={styles.infoBar}>
-                    <Image source={require('../../../source/img/my/icon-60.png')}
+                    <Image source={source}
                            style={styles.img}/>
                     <View>
                         <Text numberOfLines={1} style={styles.title}>
@@ -129,9 +131,9 @@ export default class InfoBar extends Component {
 const styles = StyleSheet.create({
     infoBar: {
         position: 'absolute',
-        top: 0,
-        backgroundColor: '#F3AC41',
-        width: "100%",
+        top: 25,
+        backgroundColor: 'white',
+        width: "90%",
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 5},
         shadowOpacity: 0.15,
@@ -139,9 +141,12 @@ const styles = StyleSheet.create({
         // justifyContent:'center'
         alignItems: 'center',
         paddingBottom: 10,
-        paddingTop: 25,
+        paddingVertical:15,
         // paddingVertical:25,
         paddingHorizontal: 15,
+        elevation: 3,
+        alignSelf:'center',
+        borderRadius:6,
     },
 
     img: {
@@ -150,14 +155,14 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     title: {
-        color: 'white',
-        fontSize: 14,
+        color: 'black',
+        fontSize: 15,
         fontWeight: 'bold'
     },
     body: {
-        color: 'white',
+        color: 'black',
         fontSize: 13,
-        marginTop:5,
+        marginTop:Platform.OS === 'ios'?5:2,
     }
 
 });
