@@ -68,7 +68,7 @@ import Button from "../../components/Button";
         add: async () => {
             const id = props.navigation.state.params.iCardID
             const param = {
-                cycle: 0,
+                // cycle: 0,
                 time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },

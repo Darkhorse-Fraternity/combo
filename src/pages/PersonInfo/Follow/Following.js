@@ -247,7 +247,8 @@ export default class Following extends Component {
             console.log('iCardId:', iCardId, iCard);
             return <View/>
         }
-        const days = iCard.period * (item.cycle ) + (item.time )
+        const days = item.time
+        const cycle = parseInt(item.time /  iCard.period)
         return (
             <Button
                 style={{ flex: 1 }}
@@ -271,7 +272,7 @@ export default class Following extends Component {
                             <Text style={styles.time}>坚持了{days}天</Text>
                         </View>
                     </View>
-                    <Text style={styles.time}>第{item.cycle + 1}组</Text>
+                    <Text style={styles.time}>第{cycle + 1}组</Text>
                 </View>
             </Button>
         )

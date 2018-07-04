@@ -27,15 +27,15 @@ import AgendaScreen from './agenda'
 
 import { selfUser, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
-import { IDO ,IUSE} from '../../../redux/reqKeys'
+import { IDO, IUSE } from '../../../redux/reqKeys'
 
 const listKey = IDO
 
 import RecordRow from '../../Record/RecordRow'
 
-import {update,} from '../../../redux/module/leancloud'
-import {claerByID} from '../../../redux/actions/list'
-import {addNormalizrEntity} from '../../../redux/module/normalizr'
+import { update, } from '../../../redux/module/leancloud'
+import { claerByID } from '../../../redux/actions/list'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
 
 
@@ -44,36 +44,36 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 @connect(
     state => ({ user: state.user.data }),
-    (dispatch,props) => ({
-        stop:  () => {
+    (dispatch, props) => ({
+        stop: () => {
             Alert.alert(
                 '放弃当前打卡?',
                 '',
-                [{text: '取消'},
-                 {text: '确定', onPress:async () => {
+                [{ text: '取消' },
+                    {
+                        text: '确定', onPress: async () => {
 
-                     const { navigation } = props;
-                     const { state } = navigation;
-                     const { params } = state;
-                     const data = params.iUse
-                     const id = data.objectId
-                     const param = {
-                         statu: 'stop',
-                         //cycle,
-                     }
-                     const res = await update(id, param, IUSE)
-                     const entity = {
-                         ...param,
-                         ...res,
-                     }
+                        const { navigation } = props;
+                        const { state } = navigation;
+                        const { params } = state;
+                        const data = params.iUse
+                        const id = data.objectId
+                        const param = {
+                            statu: 'stop',
+                        }
+                        const res = await update(id, param, IUSE)
+                        const entity = {
+                            ...param,
+                            ...res,
+                        }
 
-                     dispatch(addNormalizrEntity(IUSE, entity))
-                     dispatch(claerByID(IUSE,id))
-                     props.navigation.goBack()
+                        dispatch(addNormalizrEntity(IUSE, entity))
+                        dispatch(claerByID(IUSE, id))
+                        props.navigation.goBack()
 
-                }}]
+                    }
+                    }]
             )
-
 
 
         },
@@ -92,7 +92,6 @@ export default class CardDetail extends Component {
     static defaultProps = {};
 
 
-
     _renderRow = (title, des) => {
         return (
             <StyledRow>
@@ -107,9 +106,6 @@ export default class CardDetail extends Component {
     }
 
 
-
-
-
     _renderHeader = () => {
 
         const { navigation } = this.props;
@@ -122,9 +118,11 @@ export default class CardDetail extends Component {
         // const useCreatedAt = moment(iUse.createdAt).format("YYYY-MM-DD")
         const date1 = new Date();
         const date2 = new Date(iUse.createdAt);
-        const date =  ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)).toFixed(1);
+        const date = ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)).toFixed(1);
 
-        const time = iUse.cycle * iCard.period + iUse.time
+        const time = iUse.time
+
+
         return (
             <StyledInner>
                 <AgendaScreen {...this.props}/>
@@ -133,9 +131,9 @@ export default class CardDetail extends Component {
                         习惯统计
                     </StyledTitleText>
                 </StyledTitleView>
-                {this._renderRow('已完成周期', iUse.cycle+'轮')}
+                {this._renderRow('已完成周期', (time / iCard.period).toFixed(2) + '轮')}
                 {this._renderRow('总打卡次数', time + '次')}
-                {this._renderRow('加入天数', date+"天")}
+                {this._renderRow('加入天数', date + "天")}
                 {this._renderRow('建立日期', cardCreatedAt)}
                 <StyledTitleView>
                     <StyledTitleText>
@@ -152,9 +150,9 @@ export default class CardDetail extends Component {
         // const img = item.imgs && item.imgs[0] || null
 
         return (
-                <RecordRow style={[styles.row,{paddingVertical:10}]}
-                           item={item}
-                           navigation={this.props.navigation}/>
+            <RecordRow style={[styles.row, { paddingVertical: 10 }]}
+                       item={item}
+                       navigation={this.props.navigation}/>
         )
     }
 

@@ -73,7 +73,7 @@ export default class SliderEntry extends Component {
         } = this.props;
 
         const { title, notifyText,period } = iCard
-        const time = data.cycle * period + data.time
+        const time =  data.time
 
         const uppercaseTitle = title ? (
             <Text

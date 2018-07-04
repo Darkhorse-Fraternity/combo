@@ -344,10 +344,10 @@ export default class OptionDo extends Component {
                         title={"提醒日:   " + recordDay}
                         type="recordDay"
                         index={1}/>
-                    {!revise && (<this.__renderItem
+                    <this.__renderItem
                         title={"周期:   " + this.props.period + '天'}
                         type="period"
-                        index={1}/>)}
+                        index={1}/>
                     <this.__renderItem
                         title={"记录方式:   " + record}
                         type="record"

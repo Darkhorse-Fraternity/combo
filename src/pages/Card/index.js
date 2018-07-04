@@ -68,9 +68,7 @@ import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
         refresh: async (data) => {
             const id = data.objectId
             const param = {
-                time: 0,
                 statu: 'start',
-                cycle: data.cycle + 1,
             }
 
             const res = await  await update(id, param, IUSE)
@@ -146,7 +144,7 @@ export default class Home extends Component {
         const iCardId = data[ICARD]
         let iCard = this.props.iCard.get(iCardId)
         const done =  moment(2, "HH").isBefore(data.doneDate.iso)
-        const over = data.time === Number(iCard.get("period"))
+        const over = data.time % Number(iCard.get("period")) === 0
 
 
         return <SliderEntry

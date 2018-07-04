@@ -41,12 +41,12 @@ const listKey = IDO
             const id = data.objectId
             const card = props.navigation.state.params.card
 
-            const isDone = data.time === card.period
+            // const isDone = data.time / card.period === 0
 
             const param = {
-                time: isDone ? 0 : data.time,
+                // time: isDone ? 0 : data.time,
                 statu: 'start',
-                cycle: isDone ? data.cycle + 1 : data.cycle,
+                // cycle: isDone ? data.cycle + 1 : data.cycle,
             }
 
             const res = await update(id, param, IUSE)

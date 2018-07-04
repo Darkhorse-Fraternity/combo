@@ -137,8 +137,9 @@ export default class Record extends Component {
             console.log('iCardId:', iCardId, iCard);
             return <View/>
         }
-        const days = iCard.period * (item.cycle ) + (item.time )
-        const reflesh = item.time === iCard.period || item.statu === 'stop'
+        const days = item.time
+        // const reflesh = item.time === iCard.period || item.statu === 'stop'
+        const cycle = parseInt(item.time / iCard.period)
         const { img } = iCard
         const source = img ? { uri: img.url } :
             require('../../../source/img/my/icon-60.png')
@@ -185,7 +186,7 @@ export default class Record extends Component {
                                 </View>
                             </View>
                             <View style={styles.rightView}>
-                                <Text style={styles.rowText}>第{item.cycle + 1}组</Text>
+                                <Text style={styles.rowText}>第{cycle + 1}组</Text>
                                 <View style={styles.arrowView}/>
                             </View>
                         </View>

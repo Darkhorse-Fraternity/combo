@@ -73,14 +73,14 @@ import {Privacy} from '../../../configure/enum'
         use: async (card) => {
 
             const param = {
-                cycle: 0,
+                // cycle: 0,
                 time: 0,
                 privacy: Privacy.open,//对外开放
                 // notifyTime:option&&option.notifyTime||"20.00",
                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
                 ...selfUser(),
                 ...iCard(card.objectId),
-                include: 'avatar'
+                // include: 'avatar'
             }
             const res = await add(param, IUSE)
             const entity = {

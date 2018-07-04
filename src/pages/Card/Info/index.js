@@ -67,12 +67,12 @@ import Dialog from  '../../../components/Dialog'
             const id = data.objectId
             const card = props.navigation.state.params.iCard
 
-            const isDone = data.time === card.period
+            // const isDone = data.time % card.period === 0
 
             const param = {
-                time: isDone ? 0 : data.time,
+                // time: isDone ? 0 : data.time,
                 statu: 'start',
-                cycle: isDone ? data.cycle + 1 : data.cycle,
+                // cycle: isDone ? data.cycle + 1 : data.cycle,
             }
 
             const res = await update(id, param, IUSE)
@@ -145,12 +145,13 @@ export default class Info extends Component {
         iUse = pUse || iUse
 
 
-        const reflesh = iUse.time === Number(iCard.period) || iUse.statu === 'stop'
+        const reflesh = iUse.time % Number(iCard.period) === 0 || iUse.statu === 'stop'
 
         // console.log('test:', item);
-        let text = iUse.time === Number(iCard.period) ?
+        let text = iUse.time % Number(iCard.period) === 0 ?
             "再来一组" :
             "继续打卡"
+
         if (!reflesh) {
             text = "暂停打卡"
         }
@@ -291,7 +292,7 @@ export default class Info extends Component {
 
 
         const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
-        const over = iUse.time === Number(iCard.period)
+        const over = iUse.time % Number(iCard.period) === 0
 
         const { img } = iCard
         const source = img ? { uri: img.url }

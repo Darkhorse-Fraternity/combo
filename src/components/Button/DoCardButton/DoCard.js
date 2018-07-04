@@ -73,7 +73,7 @@ function creatIDO(iUseM,iCardM,other) {
             doneDate: { "__type": "Date", "iso": moment() },
             time: time,
             //cycle,
-            statu: time === iUseM.period ? "stop" : "start"
+            statu: time % iUseM.period === 0 ? "stop" : "start"
         }
         const entity = {
             ...param,

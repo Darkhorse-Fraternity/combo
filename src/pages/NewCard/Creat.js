@@ -114,7 +114,6 @@ import * as Animatable from 'react-native-animatable';
                         text: '自己使用', onPress: async () => {
 
                         const param = {
-                            cycle: 0,
                             time: 0,
                             // notifyTime:option&&option.notifyTime||"20.00",
                             doneDate: { "__type": "Date", "iso": moment('2017-03-20') },

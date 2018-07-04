@@ -60,7 +60,7 @@ export default class ShareView extends Component {
         }
 
         const {share,iCard,iUse} = this.props
-        const time = iUse.cycle * iCard.period + iUse.time
+        const time =  iUse.time
 
         const shareParams = {
             title: iCard.title,
