@@ -43,7 +43,7 @@ const client = () => {
     const uniqueId = DeviceInfo.getUniqueID();
     const platform = Platform.OS === 'ios' ? 'iOS' : 'Android'
     const app_version = DeviceInfo.getVersion()
-    // const app_channel = 'appStore'
+    const app_channel = Platform.OS === 'ios' ? 'appStore':''
     const os_version = DeviceInfo.getSystemVersion();
     const device_brand = DeviceInfo.getBrand();
     const device_model = DeviceInfo.getModel();
@@ -52,6 +52,7 @@ const client = () => {
     return {
         id: uniqueId,
         platform,
+        app_channel,
         app_version,
         os_version,
         device_brand,
@@ -81,11 +82,11 @@ const appStateTracking = async (state) => {
     } else if (state === 'background') {
         const endTime = new Date().getTime()
         const duration = endTime - stateTime
-        const events = [{
+        const events = [...trackingEvents,{
             "event": "_session.close", //必须为 _session.close 表示一次使用结束
             'ts': endTime,
             "duration": duration // 使用时长，单位毫秒
-        }, ...trackingEvents]
+        }]
 
         trackingEvents.splice(0, trackingEvents.length);
 
