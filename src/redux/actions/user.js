@@ -17,7 +17,7 @@ import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../con
 // } from './nav'
 import { req } from './req'
 import { NavigationActions } from 'react-navigation';
-import { setLeanCloudSession, setAPPAuthorization } from '../../configure/reqConfigs'
+import { setLeanCloudSession } from '../../configure/reqConfigs'
 // *** Action Types ***
 export const ACCOUNT_CHANGE = 'ACCOUNTTEXT_CHANGE'
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE'
@@ -30,7 +30,9 @@ export const UPDATE_USERDATA = 'UPDATE_USERDATA'
 import Toast from 'react-native-simple-toast';
 import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
-import {popToIndex} from '../nav'
+import { usersMe } from '../../request/leanCloud'
+// import { popToIndex } from '../nav'
+
 //当为异步的时候这么写，返回一个函数
 export function loadAccountAction(): Function {
 
@@ -68,6 +70,28 @@ export function passwordTextChange(text: string): Object {
  * dipacth 能够实现其异步，是通过 redux-thund 这个库来实现异步的。
  *
  */
+
+
+const sessionTokenkey = 'sessionToken'
+
+export   function userInfo() {
+
+    return  async dispatch => {
+
+        const sessionToken = await storage.load({ key: sessionTokenkey, })
+        setLeanCloudSession(sessionToken)
+        const params = usersMe()
+
+        if(sessionToken){
+            const res = await req(params)
+            dispatch(_loginSucceed(res));
+            return res;
+        }
+
+
+    }
+}
+
 
 /**
  * 登录
@@ -133,8 +157,16 @@ function _loginRequest(): Object {
 
 function _loginSucceed(response: Object): Object {
     // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
-    saveUserData(response);
+    // saveUserData(response);
     // saveAccount(response.mobilePhoneNumber);
+
+    //只保存 sessionToken
+    const { sessionToken } = response
+    storage.save({
+        key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
+        data: sessionToken,
+    });
+
 
     return loginSucceed(response);
 }
@@ -178,10 +210,13 @@ export function logout(): Function {
             // dispatch(navigatePush('TabView'));
             // Router.pop()
             // popToIndex()
-            clearUserData();
+            // clearUserData();
+
+            storage.remove({ key: sessionTokenkey });
+
 
             dispatch(logout2());//先退出
-            dispatch(NavigationActions.navigate({ routeName: 'Login'}))
+            dispatch(NavigationActions.navigate({ routeName: 'Login' }))
             updatePush(user("null"))
 
 

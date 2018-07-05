@@ -17,6 +17,18 @@ export function requestSmsCode(mobilePhoneNumber) {
 }
 
 
+export function usersMe() {
+    return {
+        path: '/users/me',
+        // head:{
+        //     "Content-Type": "application/json",
+        //     "X-LC-Key": LeanCloud_APP_KEY,
+        //     "X-LC-Id": LeanCloud_APP_ID,
+        // },
+        method: methodType.get,
+    }
+}
+
 /**
  * 通过手机短信来实现「忘记密码」的功能：
  * @param mobilePhoneNumber
