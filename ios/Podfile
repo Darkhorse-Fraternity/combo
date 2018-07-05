@@ -7,6 +7,8 @@ target 'Combo' do
     #定义dayibase的版本。
 pod 'Reveal-iOS-SDK' ,:configurations => ['Debug']
 #  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+#  pod 'RNKeychain', :path => '../node_modules/react-native-keychain'
+# Add new pods below this line
 end
 
 

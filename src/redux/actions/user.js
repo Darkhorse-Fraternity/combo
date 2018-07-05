@@ -31,6 +31,7 @@ import Toast from 'react-native-simple-toast';
 import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
 import { usersMe } from '../../request/leanCloud'
+import * as Keychain from 'react-native-keychain';
 // import { popToIndex } from '../nav'
 
 //当为异步的时候这么写，返回一个函数
@@ -78,7 +79,10 @@ export   function userInfo() {
 
     return  async dispatch => {
 
-        const sessionToken = await storage.load({ key: sessionTokenkey, })
+
+        const credentials = await Keychain.getGenericPassword();
+        const sessionToken = credentials.password;
+        // const sessionToken = await storage.load({ key: sessionTokenkey, })
         setLeanCloudSession(sessionToken)
         const params = usersMe()
 
@@ -161,12 +165,14 @@ function _loginSucceed(response: Object): Object {
     // saveAccount(response.mobilePhoneNumber);
 
     //只保存 sessionToken
-    const { sessionToken } = response
-    storage.save({
-        key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
-        data: sessionToken,
-    });
+    const { sessionToken,username } = response
+    // storage.save({
+    //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
+    //     data: sessionToken,
+    // });
 
+
+    Keychain.setGenericPassword(username, sessionToken);
 
     return loginSucceed(response);
 }
@@ -212,8 +218,8 @@ export function logout(): Function {
             // popToIndex()
             // clearUserData();
 
-            storage.remove({ key: sessionTokenkey });
-
+            // storage.remove({ key: sessionTokenkey });
+            Keychain.resetGenericPassword()
 
             dispatch(logout2());//先退出
             dispatch(NavigationActions.navigate({ routeName: 'Login' }))

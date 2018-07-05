@@ -107,6 +107,7 @@
 		CCCE41B82064A0F000F282E3 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6046A53161CD4BB78F8E775B /* SimpleLineIcons.ttf */; };
 		CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
 		CCCE41BA2064A0F000F282E3 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F015BAB208C4C81AE45397E /* Zocial.ttf */; };
+		E362F9F7BDAD4F18B9597759 /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F75574203C4AA595167C53 /* libRNKeychain.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -467,6 +468,20 @@
 			remoteGlobalIDString = CCCE41862064A0F000F282E3;
 			remoteInfo = "ComboEp copy";
 		};
+		CCD487A720EE14F10017ED35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5D82366F1B0CE05B005A9EF3;
+			remoteInfo = RNKeychain;
+		};
+		CCD487A920EE14F10017ED35 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6478985F1F38BF9100DA1C12;
+			remoteInfo = "RNKeychain-tvOS";
+		};
 		CCE915D6201F234E007DDE65 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 32A4378ECF2B42C89020A537 /* RCTCustomInputController.xcodeproj */;
@@ -532,9 +547,11 @@
 		80C22219815181E16F163146 /* libPods-Combo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Combo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		813FEAB873D3467994CE926B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		84F75574203C4AA595167C53 /* libRNKeychain.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKeychain.a; sourceTree = "<group>"; };
 		858A1DA5B94F48AA98B5A47F /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
+		9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKeychain.xcodeproj; path = "../node_modules/react-native-keychain/RNKeychain.xcodeproj"; sourceTree = "<group>"; };
 		A61AFD2B2D6643398F8C7193 /* KeyboardTrackingView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = KeyboardTrackingView.xcodeproj; path = "../node_modules/react-native-keyboard-tracking-view/lib/KeyboardTrackingView.xcodeproj"; sourceTree = "<group>"; };
 		B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
 		CC01F7D21FD6827C00A18EFD /* tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tip.mp3; sourceTree = "<group>"; };
@@ -656,6 +673,7 @@
 				CCBA7CB520B6D33A006F00DF /* libInteractable.a in Frameworks */,
 				AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */,
 				7A8C2FF1CFDF595E0D859695 /* libPods-Combo.a in Frameworks */,
+				E362F9F7BDAD4F18B9597759 /* libRNKeychain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,6 +881,7 @@
 				32A4378ECF2B42C89020A537 /* RCTCustomInputController.xcodeproj */,
 				A61AFD2B2D6643398F8C7193 /* KeyboardTrackingView.xcodeproj */,
 				305888BE2E6B442EB4282B45 /* RCTQQAPI.xcodeproj */,
+				9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -965,6 +984,7 @@
 				D31AAD173C824FABA33FF086 /* libRCTCustomInputController.a */,
 				1770132A42DF4BA8AA918694 /* libKeyboardTrackingView.a */,
 				1213E52D387B4E92BC2FBA92 /* libRCTQQAPI.a */,
+				84F75574203C4AA595167C53 /* libRNKeychain.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1024,6 +1044,15 @@
 			children = (
 				CCBA7CA520B6D160006F00DF /* libRNDeviceInfo.a */,
 				CCBA7CA720B6D160006F00DF /* libRNDeviceInfo-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCD487A320EE14F10017ED35 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCD487A820EE14F10017ED35 /* libRNKeychain.a */,
+				CCD487AA20EE14F10017ED35 /* libRNKeychain.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1130,7 +1159,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 920;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1146,6 +1175,9 @@
 						DevelopmentTeam = G54H3R6236;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
@@ -1260,6 +1292,10 @@
 				{
 					ProductGroup = CC4E428E1DF59F1F005783A6 /* Products */;
 					ProjectRef = FE3142187D364EDDA87EED18 /* RNImagePicker.xcodeproj */;
+				},
+				{
+					ProductGroup = CCD487A320EE14F10017ED35 /* Products */;
+					ProjectRef = 9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */;
 				},
 				{
 					ProductGroup = CC4E42B11DF59F2E005783A6 /* Products */;
@@ -1630,6 +1666,20 @@
 			remoteRef = CCC926851F453387008CD87F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CCD487A820EE14F10017ED35 /* libRNKeychain.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKeychain.a;
+			remoteRef = CCD487A720EE14F10017ED35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CCD487AA20EE14F10017ED35 /* libRNKeychain.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNKeychain.a;
+			remoteRef = CCD487A920EE14F10017ED35 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1889,6 +1939,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1908,6 +1959,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2072,11 +2124,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-input/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-tracking-view/lib",
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
+					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2132,11 +2186,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-input/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-tracking-view/lib",
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
+					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2198,11 +2254,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-input/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-tracking-view/lib",
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
+					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -2260,11 +2318,13 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-input/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-tracking-view/lib",
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
+					"$(SRCROOT)/../node_modules/react-native-keychain/RNKeychainManager",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

@@ -9,5 +9,9 @@
 		<string>applinks:icard.leanapp.cn</string>
 		<string>applinks:www.icard.leanapp.cn</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.rn.combo</string>
+	</array>
 </dict>
 </plist>
