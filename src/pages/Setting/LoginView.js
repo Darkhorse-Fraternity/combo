@@ -147,7 +147,7 @@ export default class LoginView extends Component {
     }
 
     componentWillReceiveProps(Props: Object) {
-        if (Props.userData.mobilePhoneNumber != this.props.userData.mobilePhoneNumber) {
+        if (Props.userData.mobilePhoneNumber !== this.props.userData.mobilePhoneNumber) {
             this.setState({phone: Props.userData.mobilePhoneNumber})
         }
     }
@@ -155,9 +155,9 @@ export default class LoginView extends Component {
 
     focusNextField(nextField: string) {
 
-        if (nextField == '1') {
+        if (nextField === '1') {
             this.refs['2'].focus();
-        } else if (nextField == '2') {
+        } else if (nextField === '2') {
             this._goRegist()
         }
     }
@@ -193,7 +193,7 @@ export default class LoginView extends Component {
 
     render() {
         var codeEnable = checkPhoneNum(this.state.phone) &&
-            this.state.time == 60 && !this.state.isTap;
+            this.state.time === 60 && !this.state.isTap;
         const reg = /^\d{6}$/;
         const flag = reg.test(this.state.ymCode) && checkPhoneNum(this.state.phone)
         const authLoad = this.props.auth.get('load')

@@ -97,28 +97,11 @@ class PersonInfo extends React.Component {
         this.state = {}
     }
 
-    state: {};
-
-    componentDidMount() {
 
 
 
-        // this.userListener = userManager.lestenUerInfo((info) => {
-        //   // self.setState({userCenterData:info})
-        //   this.setState({...info})
-        // })
-    }
 
-    componentWillUnmount() {
-        // this.schoolChangeListener.remove();
-        // this.nickNameListener.remove();
-        // this.phoneListener.remove();
-        // this.placeIDChangeListener.remove();
-        // let listeners = DeviceEventEmitter.listeners("schoolChanged");
-        // console.log("listeners", listeners);
-        // this.handle && this.handle.next();
-        // this.userListener && this.userListener.remove();
-    }
+
 
     _renderHeadRow(onPress: Function = () => {
     }) {
@@ -163,65 +146,11 @@ class PersonInfo extends React.Component {
         );
     }
 
-    // handle:Object;
-    // _changeGrade=(value:string)=>{
-    //
-    //   if(!value || value == '未设定') return;
-    //   this.setState({grade_str: value});
-    //   //保存到服务器
-    //   saveUserInfoRequest.params.grade = gradeName.indexOf(value) +1;
-    //   if(saveUserInfoRequest.params.grade >0){
-    //     this.handle  = request(saveUserInfoRequest, function(response){
-    //          if(response.statu){
-    //            userManager.saveInfo({grade_str:value,grade:
-    //              saveUserInfoRequest.params.grade});
-    //          }
-    //     });
-    //   }
-    // };
 
-
-    // _showDialog(){
-    //   if(OS != 'ios'){
-    //     const callBack = (id, text)=>{
-    //        this._changeGrade(text);
-    //     };
-    //     const data =   {
-    //         items: gradeName,
-    //         title: "选择年级",
-    //         itemsCallback: callBack,
-    //         negativeText: "取消",
-    //     }
-    //
-    //     const dialog = new DialogAndroid();
-    //     dialog.set(data);
-    //     dialog.show();
-    //   }
-    // }
-
-    // _renderPicker() {
-    //
-    //   if(this.state.showPicker && OS == 'ios' ){
-    //       let selectedValue = this.state.grade_str|| '高一';
-    //       return (
-    //         <View>
-    //           <Picker
-    //             selectedValue={selectedValue}
-    //             mode = 'dropdown'
-    //             onValueChange={(value) => this._changeGrade(value)}>
-    //             {gradeName.map((key) =>
-    //                 <Picker.Item label={key} value={key} key='test' />
-    //             )}
-    //           </Picker>
-    //         </View>
-    //       );
-    //     }
-    // }
 
     render() {
 
 
-        // console.log('test:',this.props.userData);
 
         return (
             <ScrollView  style={styles.list}>
@@ -229,6 +158,9 @@ class PersonInfo extends React.Component {
                 {this._renderRow('昵称', this.props.userData.nickname, () => {
                     this.props.navigation.navigate("NickName");
                 })}
+                {/*{this._renderRow('手机号码修改', this.props.userData.nickname, () => {*/}
+                    {/*this.props.navigation.navigate("NickName");*/}
+                {/*})}*/}
             </ScrollView>
         );
     }

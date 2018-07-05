@@ -134,7 +134,7 @@ function _loginRequest(): Object {
 function _loginSucceed(response: Object): Object {
     // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
     saveUserData(response);
-    saveAccount(response.mobilePhoneNumber);
+    // saveAccount(response.mobilePhoneNumber);
 
     return loginSucceed(response);
 }
