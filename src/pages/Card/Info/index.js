@@ -57,8 +57,9 @@ import Dialog from  '../../../components/Dialog'
 @connect(
     (state, props) => ({
         user: state.user.data,
-        iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user),
-        iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUse.objectId),
+        // iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user),
+        // iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
+        // iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
         iUseLoad: state.req.get(IUSE).get('load'),
         updatePrivacyLoad:state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
     }),
@@ -141,11 +142,12 @@ export default class Info extends Component {
 
         let { iCard, iUse } = params
         const { navigation } = this.props;
-        const pUse = this.props.iUse && this.props.iUse.toJS()
-        iUse = pUse || iUse
+        // const pUse = this.props.iUse && this.props.iUse.toJS()
+        // iUse = pUse || iUse
 
 
-        const reflesh = iUse.time % Number(iCard.period) === 0 || iUse.statu === 'stop'
+        const reflesh = (iUse.time !==0 && iUse.time % Number(iCard.period) === 0 )
+            || iUse.statu === 'stop'
 
         // console.log('test:', item);
         let text = iUse.time % Number(iCard.period) === 0 ?
@@ -282,13 +284,14 @@ export default class Info extends Component {
     render(): ReactElement<any> {
 
         const { navigation, iCardUser, user } = this.props;
-        const { state } = navigation;
-        const { params } = state;
+        // const { state } = navigation;
+        // const { params } = state;
 
-        //TODO 这个iCard 需要实时 要从store中取。
-        const { iCard, iUse } = params
+        const iCard = this.props.iCard.toJS()
+        const iUse = this.props.iUse.toJS()
+        // const { iCard, iUse } = params
 
-        const iCardUserData = iCardUser && iCardUser.toJS()
+        // const iCardUserData = iCardUser && iCardUser.toJS()
 
 
         const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
@@ -328,7 +331,7 @@ export default class Info extends Component {
                 {/*卡片功能*/}
                 {/*</StyledTitleText>*/}
                 {/*</StyledTitleView>*/}
-                {this._renderBottomMenu(params)}
+                {this._renderBottomMenu({iCard,iUse})}
             </StyledContent>
         );
     }

@@ -39,11 +39,11 @@ import { withTheme } from 'styled-components'
 
                 const data = getState().req.get(IDOCALENDAR).get('data').toJS()
 
-                const use = props.navigation.state.params.iUse
+                const iUseId = props.navigation.state.params.iUseId
                 const param = {
                     'where': {
                         ...selfUser(),
-                        ...iUse(use.objectId),
+                        ...iUse(iUseId),
                         "createdAt": {
                             "$gte": { "__type": "Date", "iso": first + "T00:00:00.000Z" },
                             "$lte": { "__type": "Date", "iso": last + "T00:00:00.000Z" },

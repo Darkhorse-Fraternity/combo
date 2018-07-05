@@ -13,7 +13,8 @@ import {
     Text,
     ScrollView,
     Dimensions,
-    Keyboard
+    Keyboard,
+    ActivityIndicator
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 
@@ -47,8 +48,14 @@ export default class OptionDo extends Component {
         }
     }
 
-    static propTypes = {};
-    static defaultProps = {};
+    static propTypes = {
+        goBack: PropTypes.func.isRequired,
+        done: PropTypes.func.isRequired,
+        load: PropTypes.bool
+    };
+    static defaultProps = {
+        load: false
+    };
 
 
     shouldComponentUpdate(nextProps: Object, nextState: Object) {
@@ -66,10 +73,7 @@ export default class OptionDo extends Component {
         if (this.state.option !== 0) {
             this.setState({ option: 0 })
         } else {
-
-
             this.props.goBack && this.props.goBack()
-
         }
     }
 
@@ -93,10 +97,15 @@ export default class OptionDo extends Component {
                              delay={Math.random() * 300}
             >
                 <Button
+                    disabled={this.props.load}
                     onPress={this.props.done}
-                    style={[styles.done, styles.shadow, { marginBottom: 50 }]}>
-                    <Text>提交</Text>
+                    style={[styles.done, styles.shadow,
+                        { marginBottom: 50,width:60 }]}>
+                    {this.props.load ? <ActivityIndicator
+                            style={{marginVertical:-3}} />
+                        : <Text>提交</Text>}
                 </Button>
+
             </Animatable.View>
         )
 
@@ -327,7 +336,7 @@ export default class OptionDo extends Component {
                 {this.__remderBack()}
 
 
-                {this.state.option === 0 && (<View >
+                {this.state.option === 0 && (<View>
                     {(<this.__renderItem
                         title={"卡片名称:   " + this.props.title}
                         type="title"
@@ -352,7 +361,7 @@ export default class OptionDo extends Component {
                         title={"记录方式:   " + record}
                         type="record"
                         index={1}/>
-                    {!revise && this.__renderDone()}
+                    {this.__renderDone()}
                 </View>)}
 
 
@@ -390,7 +399,7 @@ const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        paddingTop:80,
+        paddingTop: 80,
     },
     item: {
         marginTop: 7.5,
@@ -398,17 +407,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 15,
         alignSelf: 'flex-start',
-        marginBottom:7.5,
-        marginRight:5,
+        marginBottom: 7.5,
+        marginRight: 5,
     },
-    done:{
+    done: {
         marginTop: 7.5,
         flexDirection: 'row',
         backgroundColor: 'white',
         padding: 15,
         alignSelf: 'flex-end',
-        marginBottom:7.5,
-        marginLeft:5,
+        marginBottom: 7.5,
+        marginLeft: 5,
     },
 
     shadow: {
@@ -420,7 +429,7 @@ const styles = StyleSheet.create({
     },
 
     notifyTimeItem: {
-        width: (width - 20- 40)/4,
+        width: (width - 20 - 40) / 4,
         height: 35,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -442,9 +451,9 @@ const styles = StyleSheet.create({
         color: 'black',
 
     },
-    line:{
-        backgroundColor:'rgb(150,150,150)',
-        height:StyleSheet.hairlineWidth,
-        margin:5,
+    line: {
+        backgroundColor: 'rgb(150,150,150)',
+        height: StyleSheet.hairlineWidth,
+        margin: 5,
     }
 })

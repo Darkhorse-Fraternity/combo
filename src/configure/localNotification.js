@@ -103,7 +103,7 @@ export async function  dayNotification(data) {
                     title,
                     alert:message,
                     webUrl:"combo://CardDetail",
-                    params:{iUse: item,iCard: item.iCard},
+                    params:{iUseId: item.objectId,iCardId: item.iCard.objectId},
                     //action: "com.avos.UPDATE_STATUS",
                     type: 'local'
                 },

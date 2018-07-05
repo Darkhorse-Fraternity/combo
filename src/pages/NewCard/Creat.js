@@ -64,7 +64,7 @@ import * as Animatable from 'react-native-animatable';
 
             const state = getState()
             // const title = selector(state, 'title')
-            const option = selector(
+            const op = selector(
                 state,
                 'title',
                 'notifyTime',
@@ -78,7 +78,9 @@ import * as Animatable from 'react-native-animatable';
                 // cycle: 0,
                 // time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
-                ...option,
+                ...op,
+                record:op.record.toJS(),
+                recordDay:op.recordDay.toJS(),
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }
@@ -248,32 +250,32 @@ export default class Creat extends Component {
     }
 
 
-    __doneView = () => {
-
-        return (
-            <View style={{ marginTop: 60 }}>
-                <BackBtn onBackPress={this.__backStep}/>
-                <Text style={styles.doneTitle}>{this.props.title}</Text>
-                {/*<Button*/}
-                {/*onPress={this.__backStep}*/}
-                {/*style={[styles.sureBtn]}>*/}
-                {/*<Text style={styles.sureBtnText}>上一步</Text>*/}
-                {/*</Button>*/}
-                <Button
-                    onPress={this.__doOption}
-                    style={[styles.sureBtn]}>
-                    <Text style={styles.sureBtnText}>更多配置</Text>
-                </Button>
-                <HeaderBtn
-                    hitSlop={
-                        { top: 0, left: 20, bottom: 20, right: 20 }}
-                    style={styles.sureBtn}
-                    load={this.props.load}
-                    title={'完成'}
-                    onPress={this.__nextStep}/>
-            </View>
-        )
-    }
+    // __doneView = () => {
+    //
+    //     return (
+    //         <View style={{ marginTop: 60 }}>
+    //             <BackBtn onBackPress={this.__backStep}/>
+    //             <Text style={styles.doneTitle}>{this.props.title}</Text>
+    //             {/*<Button*/}
+    //             {/*onPress={this.__backStep}*/}
+    //             {/*style={[styles.sureBtn]}>*/}
+    //             {/*<Text style={styles.sureBtnText}>上一步</Text>*/}
+    //             {/*</Button>*/}
+    //             <Button
+    //                 onPress={this.__doOption}
+    //                 style={[styles.sureBtn]}>
+    //                 <Text style={styles.sureBtnText}>更多配置</Text>
+    //             </Button>
+    //             <HeaderBtn
+    //                 hitSlop={
+    //                     { top: 0, left: 20, bottom: 20, right: 20 }}
+    //                 style={styles.sureBtn}
+    //                 load={this.props.load}
+    //                 title={'完成'}
+    //                 onPress={this.__nextStep}/>
+    //         </View>
+    //     )
+    // }
 
 
     render(): ReactElement<any> {
@@ -283,10 +285,12 @@ export default class Creat extends Component {
                 {!this.state.optionOpen && this.__renderName()}
                 {/*{(this.state.step === 1 || this.state.step === 2)*/}
                 {/*&& !this.state.optionOpen && this.__doneView()}*/}
-                {this.state.optionOpen && (<OptionDo goBack={() => {
-                    // this.setState({ optionOpen: false })
+                {this.state.optionOpen &&
+                (<OptionDo goBack={() => {
                     this.props.navigation.goBack()
-                }} done={this.props.add}/>)}
+                }}
+                           done={this.props.add}
+                           load={this.props.load}/>)}
             </View>
         );
     }

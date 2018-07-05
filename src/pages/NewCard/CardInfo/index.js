@@ -223,8 +223,8 @@ export default class CardInfo extends Component {
                 <Button onPress={() => {
                     if (exist && iUseData) {
                         this.props.navigation.navigate('CardDetail', {
-                            iUse: iUseData,
-                            iCard: iCard
+                            iUseId: iUseData.objectId,
+                            iCardId: iCard.objectId
                         })
 
                     } else {

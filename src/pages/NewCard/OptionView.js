@@ -21,6 +21,7 @@ import { connect } from 'react-redux'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { update } from '../../redux/module/leancloud'
 import { ICARD } from '../../redux/reqKeys'
+import Toast from 'react-native-simple-toast'
 
 import {
     reduxForm,
@@ -35,28 +36,40 @@ const FormID = 'CreatCardForm'
 @connect(
     (state, props) => {
 
-        const data = props.navigation.state.params.opData
+        const id = props.navigation.state.params.iCardId
+        let iCard = state.normalizr.get('iCard').get(id)
+        iCard = iCard && iCard.toJS()
+
+        // const data = props.navigation.state.params.opData
         const propsOption = {
             ...StaticOption,
-            ...data
+            ...iCard
         }
 
 
         return {
-            initialValues: propsOption
+            initialValues: propsOption,
+            load:state.req.get('iCard').get('load')
         }
     },
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
         refresh: async () => dispatch(async (dispatch, getState) => {
             {
-                const data = props.navigation.state.params.opData
+                const id = props.navigation.state.params.iCardId
                 const state = getState()
                 const selector = formValueSelector(FormID)
-                const op = selector(state, 'notifyTime', 'notifyText','record','title','recordDay')
+                const op = selector(
+                    state,
+                    'notifyTime',
+                    'notifyText',
+                    'period',
+                    'record',
+                    'title',
+                    'recordDay')
 
 
-                const id = data.objectId
+
                 const param = {
                     ...op,
                     record:op.record.toJS(),
@@ -76,6 +89,7 @@ const FormID = 'CreatCardForm'
                 //     }
                 // }))
                 dispatch(addNormalizrEntity(ICARD, entity))
+                Toast.show('修改配置成功~!')
             }
         })
     })
@@ -105,14 +119,16 @@ export default class OptionView extends Component {
     }
 
     __backStep = () => {
-        this.props.refresh()
         this.props.navigation.goBack()
     }
 
 
     render(): ReactElement<any> {
         return (
-            <OptionDo revise goBack={this.__backStep}/>
+            <OptionDo
+                goBack={this.__backStep}
+                done={this.props.refresh}
+                load={this.props.load}/>
         );
     }
 }

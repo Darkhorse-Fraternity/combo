@@ -131,8 +131,8 @@ export default class Detail extends Component {
                     title={'查看详情'}
                     onPress={() => {
                         navigation.navigate('CardDetail', {
-                            iUse: iUse,
-                            iCard: card
+                            iUseId: iUse.objectId,
+                            iCardId: card.objectId
                         })
                     }}/>
             </View>

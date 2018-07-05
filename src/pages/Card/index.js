@@ -144,7 +144,7 @@ export default class Home extends Component {
         const iCardId = data[ICARD]
         let iCard = this.props.iCard.get(iCardId)
         const done =  moment(2, "HH").isBefore(data.doneDate.iso)
-        const over = data.time % Number(iCard.get("period")) === 0
+        const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
 
 
         return <SliderEntry
@@ -158,9 +158,10 @@ export default class Home extends Component {
 
             }}
             onPress={() => {
+                const iCardM = iCard.toJS()
                 this.props.navigation.navigate('CardDetail', {
-                    iUse: data,
-                    iCard: iCard.toJS()
+                    iUseId: data.objectId,
+                    iCardId: iCardM.objectId
                 })
             }}
             onRefresh = {()=>{

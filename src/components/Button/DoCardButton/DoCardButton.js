@@ -31,7 +31,7 @@ import { connect } from 'react-redux'
 
 @connect(
     (state, props) => ({
-        iUse: state.normalizr.get(IUSE).get(props.navigation.state.params.iUse.objectId),
+        // iUse: state.normalizr.get(IUSE).get(props.navigation.state.params.iUse.objectId),
         load: state.req.get(IDO).get('load'),
     }),
     (dispatch, props) => ({

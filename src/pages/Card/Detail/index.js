@@ -27,7 +27,10 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
 
 @connect(
-    state => ({}),
+    (state,props) => ({
+        iCard:state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
+        iUse:state.normalizr.get('iUse').get(props.navigation.state.params.iUseId)
+    }),
     (dispatch,props) => ({})
 )
 
@@ -39,7 +42,9 @@ export default class CardDetail extends Component {
 
     }
 
-    static propTypes = {};
+    static propTypes = {
+
+    };
     static defaultProps = {};
     static navigationOptions = props => {
         const { navigation } = props;

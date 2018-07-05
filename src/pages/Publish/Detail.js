@@ -174,7 +174,7 @@ export default class PublishDetail extends Component {
                 {this._renderHeader(iCard)}
 
                 {this._renderRow('卡片配置', () => {
-                    this.props.navigation.navigate('OptionView', { opData: iCard })
+                    this.props.navigation.navigate('OptionView', {iCardId : iCard.objectId })
                 })}
                 {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
                 {/*if (iCard.state === 0) {*/}

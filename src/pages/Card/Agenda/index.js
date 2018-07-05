@@ -109,10 +109,12 @@ export default class CardDetail extends Component {
     _renderHeader = () => {
 
         const { navigation } = this.props;
-        const { state } = navigation;
-        const { params } = state;
-        const { iCard, iUse } = params
+        // const { state } = navigation;
+        // const { params } = state;
+        // const { iCard, iUse } = params
         // console.log('test:', iCard,iUse);
+        const iCard = this.props.iCard.toJS()
+        const iUse = this.props.iUse.toJS()
 
         const cardCreatedAt = moment(iCard.createdAt).format("YYYY-MM-DD")
         // const useCreatedAt = moment(iUse.createdAt).format("YYYY-MM-DD")
@@ -160,13 +162,14 @@ export default class CardDetail extends Component {
 
         const { navigation } = this.props;
         const { state } = navigation;
-        const { params } = state;
-
+        // const { params } = state;
+        // const iCard = this.props.iCard.toJS()
+        const iUseM = this.props.iUse.toJS()
 
         const param = {
             'where': {
                 ...selfUser(),
-                ...iUse(params.iUse.objectId)
+                ...iUse(iUseM.objectId)
             }
         }
 
@@ -176,7 +179,7 @@ export default class CardDetail extends Component {
                     ListHeaderComponent={this._renderHeader}
                     reqKey={listKey}
                     style={{ flex: 1 }}
-                    sKey={listKey + params.iUse.objectId}
+                    sKey={listKey + iUseM.objectId}
                     renderItem={this.renderRow.bind(this)}
                     noDataPrompt={'还没有记录'}
                     //dataMap={(data)=>{

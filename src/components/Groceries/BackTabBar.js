@@ -7,7 +7,8 @@ import {
     Animated,
     Dimensions,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableNativeFeedback
 } from 'react-native';
 
 import Button from "../Button";
@@ -74,13 +75,15 @@ export default class BackTabBar extends Component {
         });
         // console.log('this.props.onBackPress:', this.props.onBackPress);
 
-
+        const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <View style={[styles.tabs, {
                 backgroundColor:
                 this.props.backgroundColor || 'white',paddingTop:20
             }, this.props.style,]}>
                 <Button
+                    background={background}
                     onPress={()=>{
                         this.props.onBackPress &&
                         this.props.onBackPress()

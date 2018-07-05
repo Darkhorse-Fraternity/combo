@@ -7,12 +7,15 @@ import {
     View,
     ScrollView,
     ActivityIndicator,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 import Icon from 'react-native-vector-icons/Ionicons'
+
+const height = Dimensions.get('window').height
 
 const AniView = Animatable.createAnimatableComponent(Image);
 
@@ -67,10 +70,10 @@ export default class ExceptionView extends Component {
     render() {
         // let prompt = this.getPromptText(this.props.exceptionType);
         return (
-            <ScrollView contentContainerStyle={{flex:1}} style={[{ flex: 1 }, this.props.style]}>
+            <ScrollView  style={[{ flex: 1 }, this.props.style]}>
                 {this.props.renderHeader && this.props.renderHeader()}
                     <Button
-                        style={{flex:1,alignItems:'center',
+                        style={{height:height/2,alignItems:'center',
                             justifyContent:'center',minHeight:100}}
                         onPress={() => {
                             this.props.onRefresh && this.props.onRefresh()

@@ -9,6 +9,7 @@ import { normalize } from 'normalizr';
 import { schemas, code } from '../scemes'
 import { registerNormalizrKeys } from '../reqKeys'
 import { dataCleanInject } from './inject'
+import merger from './merge'
 
 const registerKeys = (keys = []) => {
     const newKyes = {}
@@ -23,6 +24,7 @@ const initialState = immutable.fromJS({ ...registerKeys(registerNormalizrKeys) }
 export const ADD_NORMALIZR = 'ADD_NORMALIZR'
 
 
+//我们使用的是mergeDeep 有个特点是只会覆盖，当存在array的时候转成了list，就只会添加了。
 export function addNormalizrEntity(key, data) {
     return dispatch => dispatch(addNormalizrEntities(key, { [code]: [data] }))
 }
@@ -40,7 +42,7 @@ export function addNormalizrEntities(schemeOrkey, data) {
 
 export function addEntities(data: Object): Object {
     return dispatch => {
-        dispatch(dataCleanInject(data))
+        // dispatch(dataCleanInject(data))
         return dispatch({
             type: ADD_NORMALIZR,
             payload: data,
@@ -59,8 +61,9 @@ export default function itemState(state: immutable.Map<string, any> = initialSta
             // const nested2 = nested.mergeDeep({ a: { b: {d:{s:2,m:3} } } })
             // console.log('nested2:', nested2.toJS());
             // { a: { b: { d:{s:2,m:3,k:4}  } } }  只会去覆盖 存在的属性，如eg
+            //  当存在【】 的时候，不会覆盖，变成了添加 所以无法直接使用mergedeep
 
-            return state.mergeDeep(action.payload)
+            return merger(state,action.payload)
         }
         default:
             return state
