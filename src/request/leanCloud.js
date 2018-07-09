@@ -54,6 +54,27 @@ export function resetPasswordBySmsCode(password: string, code: string) {
     }
 }
 
+
+//发送验证码
+export function requestMobilePhoneVerify(mobilePhoneNumber) {
+    return {
+        path: '/requestMobilePhoneVerify' ,
+        method: methodType.post,
+        params: {
+            mobilePhoneNumber,
+        },
+    }
+}
+
+//检验验证码
+export function verifySmsCode(code) {
+    return {
+        path: '/verifySmsCode/' + code,
+        method: methodType.post,
+    }
+}
+
+
 /**
  * 用手机号码来注册
  * @param  {[type]} mobilePhoneNumber:string [description]
