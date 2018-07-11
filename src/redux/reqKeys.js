@@ -20,7 +20,7 @@ export const UPDATENICKNAME = 'updateNickName'
 export const FEEDBACKPARAM = 'feedbackParam'
 export const ICOMMENT = 'iComment'
 //设置初始值
-
+export const COURSE = 'Course'
 
 export const registerReqKeys = [
     ICARD,
@@ -35,7 +35,8 @@ export const registerReqKeys = [
     FEEDBACKPARAM,
     IDOCALENDAR,
     FOLLOWING,
-    USER
+    USER,
+    COURSE
 //设置初始值
 ]
 
@@ -48,7 +49,8 @@ export const registerListKeys = [
     ICARD,
     CARDLIST,
     ICOMMENT,
-    USER
+    USER,
+    COURSE
 ]
 
 export const registerNormalizrKeys = registerListKeys

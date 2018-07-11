@@ -24,9 +24,15 @@ import Followee from './PersonInfo/Follow/Followee'
 import Follower from './PersonInfo/Follow/Follower'
 import Following from './PersonInfo/Follow/Following'
 import CardUse from './NewCard/CardUse'
+import CourseChoose from './Course/Choose'
+import CourseCreat from './Course/Creat'
+import CourseRelease from './Course/Release'
 
 export const otherRoute = {
     Setting: {screen: Setting},
+    CourseChoose:{screen: CourseChoose},
+    CourseCreat:{screen: CourseCreat},
+    CourseRelease:{screen: CourseRelease},
     Followee:{screen: Followee,path:'combo/:Followee'},
     Follower:{screen: Follower},
     Following:{screen: Following},

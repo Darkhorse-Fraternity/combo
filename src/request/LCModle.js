@@ -36,3 +36,8 @@ export function iDo(id) {
     return pointModel('iDo',id)
 }
 
+
+export function Course(id) {
+    return pointModel('course',id)
+}
+
