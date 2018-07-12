@@ -52,13 +52,16 @@ import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
         // logout: () => dispatch(logout()),
 
         search: () => {
+
+            //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
+
             dispatch(search(false, {
                 where: {
                     ...selfUser(),
                     statu: 'start'
                 },
                 order: 'doneDate',
-                include: ICARD+',iCard.user'+',iCard.course'
+                include: ICARD  +',iCard.user'
             }, IUSE))
         },
         done: (data) => {
@@ -206,7 +209,7 @@ export default class Home extends Component {
 
         let data = this.props.data.toJS().listData
 
-        if ((statu === 'LIST_NO_DATA' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
+        if ((statu === 'LIST_NORMAL' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
             return this.__renderNoData()
         }
 

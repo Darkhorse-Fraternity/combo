@@ -17,7 +17,7 @@ export const StyledHeader = styled.View`
 `
 
 export const StyledTitleView = styled.View`
-  margin: 30px 0px;
+  margin: 30px 0px 0px 0px;
   background-color: #e7ebeb;
   padding: 15px;
 `

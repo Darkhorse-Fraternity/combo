@@ -23,7 +23,7 @@ import { is } from 'immutable';
 const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 export const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN'
-export const LIST_NO_DATA = 'LIST_NO_DATA'
+// export const LIST_NO_DATA = 'LIST_NO_DATA'
 export const LIST_LOAD_DATA = 'LIST_LOAD_DATA'
 export const LIST_LOAD_MORE = 'LIST_LOAD_MORE'
 export const LIST_LOAD_NO_MORE = 'LIST_LOAD_NO_MORE'
@@ -173,20 +173,7 @@ export default class BaseSectionView extends Component {
                     style={[styles.list, this.props.style]}
                 />
             );
-        } else if (this.props.loadStatu === LIST_NO_DATA) {
-            return (
-
-                <ExceptionView
-                    style={[styles.list, this.props.style]}
-                    renderHeader={this.props.ListHeaderComponent}
-                    exceptionType={ExceptionType.NoData}
-                    image={this.props.noDataImg}
-                    prompt={this.props.noDataPrompt}
-                    otherTips={this.renderNoDataTips()}
-                    onRefresh={this._handleRefresh}
-                />
-            );
-        } else if (this.props.loadStatu === LIST_LOAD_ERROR && this.props.dataSource &&
+        }  else if (this.props.loadStatu === LIST_LOAD_ERROR && this.props.dataSource &&
             this.props.dataSource.count === 0) {
             //TODO:先不加，其他状态量判断太麻烦。
         }
@@ -203,6 +190,18 @@ export default class BaseSectionView extends Component {
                 onEndReached={this._handleloadMore}
                 keyExtractor={this._keyExtractor}
                 ListFooterComponent={this.renderFooter.bind(this)}
+                ListEmptyComponent={()=>(
+                    <ExceptionView
+                        style={[styles.list, this.props.style]}
+                        // renderHeader={this.props.ListHeaderComponent}
+                        exceptionType={ExceptionType.NoData}
+                        image={this.props.noDataImg}
+                        prompt={this.props.noDataPrompt}
+                        otherTips={this.renderNoDataTips()}
+                        onRefresh={this._handleRefresh}
+                    />
+
+                )}
                 {...this.props}
                 style={[styles.list, this.props.style]}
                 onEndReachedThreshold={Platform.OS == 'ios' ? 0.1 : 0.1}

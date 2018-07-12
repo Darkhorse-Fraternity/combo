@@ -6,7 +6,7 @@
 
 import {
     LIST_FIRST_JOIN,
-    LIST_NO_DATA,
+    // LIST_NO_DATA,
     LIST_LOAD_DATA,
     LIST_LOAD_MORE,
     LIST_LOAD_NO_MORE,
@@ -113,12 +113,12 @@ export function listLoad(key: string, params: Object, more: bool = false, dataMa
 
 function _listSucceed(data: Object, page: number = 0, key: string): Object {
     let loadStatu = LIST_NORMAL
-    if (data.length < pageSize) {
+    if (page !== 0  && data.length < pageSize) {
         loadStatu = LIST_LOAD_NO_MORE
     }
-    if (page === 0 && data.length === 0) {
-        loadStatu = LIST_NO_DATA
-    }
+    // if (page === 0 && data.length === 0) {
+    //     loadStatu = LIST_NO_DATA
+    // }
     return {
         type: LIST_SUCCEED,
         page,
@@ -177,8 +177,8 @@ export function claerByID(key: string, objID: string) {
         const list = getState().list.get(key).get("listData").toJS()
         const rowID = list.indexOf(objID)
         if (rowID > -1) {
-            const loadStatu = list.length <= 1 ? LIST_NO_DATA : LIST_NORMAL
-            return dispatch(clear(key, rowID, loadStatu))
+            // const loadStatu = list.length <= 1 ? LIST_NO_DATA : LIST_NORMAL
+            return dispatch(clear(key, rowID, LIST_NORMAL))
         }
     }
 }
