@@ -176,16 +176,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 18,
         flexDirection: 'row',
         alignItems: 'center',
+        paddingTop:15
     },
     avatar: {
         width: 30,
         height: 30,
         borderRadius: 15,
-        marginTop:10,
     },
     name: {
         marginLeft: 5,
-        color: '#4e4e4e'
+        color: '#4e4e4e',
     },
     bottom: {
         marginTop: 10,

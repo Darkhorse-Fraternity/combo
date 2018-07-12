@@ -71,7 +71,7 @@ export default class BackTabBar extends Component {
 
         const translateX = this.props.scrollValue.interpolate({
             inputRange: [0, 1,],
-            outputRange: [-underLineWidth/2*3 , underLineWidth/2*3],
+            outputRange: [-tabWidth , 0],
         });
         // console.log('this.props.onBackPress:', this.props.onBackPress);
 

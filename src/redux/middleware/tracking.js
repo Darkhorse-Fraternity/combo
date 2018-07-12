@@ -20,6 +20,9 @@ function getActiveRouteName(navigationState) {
 
 const tracking = ({ getState }) => next => (action) => {
 
+
+    if(__DEV__){return next(action);}
+
     action.type === 'APP_STATE_UPDATE' && appStateTracking(action.state)
 
     if (

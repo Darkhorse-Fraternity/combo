@@ -34,7 +34,7 @@ export default class BaseSectionView extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            shouldShowloadMore: false,
+            shouldShowloadMore: true,
             joinTime:0,
         };
 
@@ -126,7 +126,8 @@ export default class BaseSectionView extends Component {
 
     renderFooter() {
 
-
+        // console.log('loadStatu:', this.props.loadStatu);
+        
         // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
         if (this.props.loadStatu === LIST_LOAD_MORE) {
             return (
@@ -136,6 +137,7 @@ export default class BaseSectionView extends Component {
                 </View>
             );
         } else if (this.props.loadStatu === LIST_LOAD_NO_MORE && this.state.shouldShowloadMore) {
+
             return (
                 <View style={styles.footer}>
                     <Text style={{color:'rgb(150,150,150)'}}>没有更多了</Text>

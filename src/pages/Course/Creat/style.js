@@ -35,6 +35,15 @@ export const StyledHeaderItem = styled.View`
 
 `
 
+export const StyledActivietyView = styled.View`
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+`
+
+export const StyledActivityIndicator = styled.ActivityIndicator`
+   
+`
 
 
 

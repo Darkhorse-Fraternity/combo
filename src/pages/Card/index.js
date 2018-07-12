@@ -58,7 +58,7 @@ import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
                     statu: 'start'
                 },
                 order: 'doneDate',
-                include: ICARD+',iCard.user'
+                include: ICARD+',iCard.user'+',iCard.course'
             }, IUSE))
         },
         done: (data) => {

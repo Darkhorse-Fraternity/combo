@@ -1,20 +1,26 @@
-import { registerListKeys, ICARD, USER, IUSE } from './reqKeys'
+import {
+    registerListKeys,
+    ICARD,
+    USER,
+    IUSE,
+    COURSE
+} from './reqKeys'
 
 import { schema } from 'normalizr';
 
 export const code = 'results'
 
 
-const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
+export const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
 export const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
 export const entityFromCode = key => new schema.Object({ [code]: entity(key)})
 
 
 export const user = entity(USER)
+export const course = entity(COURSE)
 
 
-
-const iCard = entity(ICARD, { user })
+const iCard = entity(ICARD, { user,course })
 export const iUse = entity(IUSE, { user, iCard })
 
 

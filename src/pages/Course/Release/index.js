@@ -11,7 +11,6 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-
 import {
     StyledContent,
     StyledTitle,
@@ -20,7 +19,7 @@ import {
     StyledHeaderBtn,
     StyledEditBtn
 } from './style'
-import { update, add } from '../../../redux/module/leancloud'
+import { update, add ,findByID} from '../../../redux/module/leancloud'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { ICARD,COURSE } from '../../../redux/reqKeys'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
@@ -28,9 +27,15 @@ import { selfUser, Course } from '../../../request/LCModle'
 @connect(
     (state,props) => ({
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
-        load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load')
+        load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load'),
+        course: state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+
     }),
     (dispatch,props) => ({
+        dataLoad: () => {
+            const id = props.navigation.state.params.CourseId
+            findByID(COURSE, id)
+        },
         add: async () => {
 
             //创建 Course
@@ -58,9 +63,9 @@ import { selfUser, Course } from '../../../request/LCModle'
             dispatch(addNormalizrEntity(ICARD, entity))
             props.navigation.navigate('CourseCreat',{CourseId:course.objectId})
         },
-        edit:(course)=>{
+        edit:(CourseId)=>{
 
-            props.navigation.navigate('CourseCreat',{CourseId:course.objectId})
+            props.navigation.navigate('CourseCreat',{CourseId})
 
         }
     })
@@ -86,14 +91,28 @@ export default class CourseRelease extends Component {
     };
 
 
+
+
+    componentDidMount() {
+        //判断是否存在 course 如果不存在则直接加载一个
+        // const course = this.props.iCard.get('course')
+        // const courseId = course && course.get('objectId')
+        // console.log('courseId:', courseId);
+        !this.props.course && this.props.dataLoad()
+
+    }
+
+
     render(): ReactElement<any> {
 
 
-        const iCard = this.props.iCard.toJS()
+        const courseId = this.props.iCard.get('course')
 
-        console.log('iCard:', iCard);
+        // console.log('iCard:', iCard);
 
-        const course = iCard.course
+
+        console.log('iCard:', courseId);
+
 
         return (
             <StyledContent>
@@ -101,13 +120,13 @@ export default class CourseRelease extends Component {
                     课程发布
                 </StyledTitle>
 
-                {!!course &&
+                {!!courseId &&
                 <StyledEditBtn
 
-                    onPress={()=>this.props.edit(course)}
+                    onPress={()=>this.props.edit(courseId)}
                     title={'编辑'}
                 />}
-                {!course && <StyledMain>
+                {!courseId && <StyledMain>
                     <StyledDes>
                         还没有课程
                     </StyledDes>

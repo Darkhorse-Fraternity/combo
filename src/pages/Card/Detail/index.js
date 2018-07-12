@@ -22,16 +22,17 @@ import ScrollableTabView from 'react-native-scrollable-tab-view'
 import BackTabBar from '../../../components/Groceries/BackTabBar'
 import Agenda from '../Agenda'
 import Info from '../Info'
+import Course from '../Course'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
 
 @connect(
-    (state,props) => ({
-        iCard:state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
-        iUse:state.normalizr.get('iUse').get(props.navigation.state.params.iUseId)
+    (state, props) => ({
+        iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
+        iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId)
     }),
-    (dispatch,props) => ({})
+    (dispatch, props) => ({})
 )
 
 
@@ -42,9 +43,7 @@ export default class CardDetail extends Component {
 
     }
 
-    static propTypes = {
-
-    };
+    static propTypes = {};
     static defaultProps = {};
     static navigationOptions = props => {
         const { navigation } = props;
@@ -62,24 +61,26 @@ export default class CardDetail extends Component {
         // const params = this.props.navigation.state.params
         // const {iUse,iCard} = params
 
+        // const { iCard } = this.props
 
 
         return (
             <StyledContent forceInset={{ top: 'never' }}>
 
                 <ScrollableTabView
-                    renderTabBar={()=>(
+                    renderTabBar={() => (
                         <BackTabBar
-                            onBackPress={this.props.navigation.goBack} />
+                            onBackPress={this.props.navigation.goBack}/>
                     )}
                     prerenderingSiblingsNumber={0}
                     tabBarInactiveTextColor={theme.mainColor}
                     tabBarActiveTextColor={theme.mainColor}
-                    tabBarUnderlineStyle={{backgroundColor:theme.mainColor}}
+                    tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
                     // tabBarPosition ='bottom'
                 >
-                    <Info {...this.props} tabLabel="设置"/>
+                    <Course {...this.props} tabLabel='课程'/>
                     <Agenda {...this.props} tabLabel="记录"/>
+                    <Info {...this.props} tabLabel="设置"/>
                 </ScrollableTabView>
                 <DoCardButton {...this.props} />
 

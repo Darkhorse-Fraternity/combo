@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
     View,
+    ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -35,8 +36,9 @@ import { showImagePicker } from '../../../ImagePicker/imagePicker'
                 maxHeight: 2000, // photos only
             })
 
-            if (res.uri) {
-                props.onChange && props.onChange(res.uri);
+            if (res.uri && props.handleImage) {
+                const uri = await props.handleImage(res.uri)
+                uri && uri.length > 0 && !!props.onChange && props.onChange(uri);
             }
         }
     })
@@ -51,9 +53,14 @@ export default class ImageSelect extends Component {
     }
 
     static propTypes = {
-        uri: PropTypes.string
+        uri: PropTypes.string,
+        imageLoad:PropTypes.bool,
+        handleImage:PropTypes.func
+
     };
-    static defaultProps = {};
+    static defaultProps = {
+        imageLoad:false
+    };
 
 
     render(): ReactElement<any> {

@@ -15,6 +15,7 @@ const initialUtilState = immutable.fromJS({
         statu: "success",
     },
     appState:'',
+    loadStatu:{},
 });
 
 export default function drawState(state: immutable.Map<string,any> = initialUtilState, action: Object) {
@@ -30,6 +31,7 @@ export default function drawState(state: immutable.Map<string,any> = initialUtil
         case UPLOAD_IMAGES:{
             return state.set(action.key, action.statu);
         }
+
         case APP_STATE_UPDATE:{
             return state.set('appState',action.state)
         }

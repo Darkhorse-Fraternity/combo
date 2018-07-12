@@ -29,6 +29,7 @@ export const StyledHeaderItem = styled.View`
     margin: 10px 5px;
     width: 250px;
     align-self: center;
+    justify-content: center;
     border-radius: 10px;
 
     shadow-opacity: 0.25;

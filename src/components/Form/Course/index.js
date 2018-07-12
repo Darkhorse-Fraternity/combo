@@ -29,7 +29,20 @@ export const FormID = 'CourseForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 @connect(
-    state => ({}),
+    (state, props) => {
+        const title = selector(state, 'title');
+        const subtitle = selector(state, 'subtitle');
+        const cover = selector(state, 'cover');
+        const config = [title, cover]
+        // console.log('imgs:', imgs);
+        const isEmpty = value => value === undefined || value === null ||
+            value === '';
+
+        return {
+            enableSumbmit: config.findIndex(isEmpty) === -1,
+            initialValues: props.initialValues
+        }
+    },
     dispatch => ({})
 )
 @reduxForm({
@@ -41,8 +54,13 @@ const selector = formValueSelector(FormID) // <-- same as form name
 export default class CourseForm extends Component {
 
 
-    static propTypes = {};
-    static defaultProps = {};
+    static propTypes = {
+        handleImage:PropTypes.func,
+        imageLoad:PropTypes.bool
+    };
+    static defaultProps = {
+        imageLoad:false
+    };
 
 
     render(): ReactElement<any> {
@@ -55,12 +73,6 @@ export default class CourseForm extends Component {
             <Form
                 behavior={'padding'}
                 keyboardVerticalOffset={65}
-                relativeKeyboardHeight={(keyboardFrame)=>{
-                    console.log('keyboardFrame:', keyboardFrame);
-                }}
-                onKeyboardChange={(event)=>{
-                    console.log('event:', event);
-                }}
             >
 
 
@@ -69,6 +81,7 @@ export default class CourseForm extends Component {
                         创建课程
                     </StyledTitle>
                     <StyledHeaderBtn
+                        load = {load}
                         disabled={!enableSumbmit}
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                         onPress={onSubmit && handleSubmit(onSubmit)}
@@ -76,6 +89,8 @@ export default class CourseForm extends Component {
                 </StyledHeader>
                 <StyledContent>
                     <StyleImageSelect
+                        imageLoad={this.props.imageLoad}
+                        handleImage={this.props.handleImage}
                         name='cover'/>
 
                     <StyledHearderTitle
@@ -100,7 +115,7 @@ export default class CourseForm extends Component {
                         placeholderTextColor='rgb(200,200,200)'
                         placeholder='点此输入副标题(选填)'/>
 
-                    <View style={{height:200}}/>
+                    <View style={{ height: 200 }}/>
                 </StyledContent>
             </Form>
         );

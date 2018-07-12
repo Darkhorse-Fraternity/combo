@@ -138,7 +138,7 @@ class PersonInfo extends React.Component {
                             <Text style={styles.rowText}>
                                 {des}
                             </Text>
-                            {title != '账号' && <View style={styles.arrowView}/>}
+                            {title !== '账号' && <View style={styles.arrowView}/>}
                         </View>
                     </View>
                 </Button>

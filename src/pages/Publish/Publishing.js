@@ -105,7 +105,8 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                 // console.log('Response = ', response);
                 if (response.uri) {
                     // dispatch(uploadAvatar(response.uri))
-                    const res = await dispatch(uploadImages([response.uri], PBULImage))
+                    const res = await dispatch(uploadImages([response.uri],
+                        PBULImage))
 
                     if (!res.payload) {
                         return

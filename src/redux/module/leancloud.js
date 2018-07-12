@@ -13,7 +13,7 @@ import {
     followeeList,
     followerList
 } from '../../request/leanCloud';
-
+import {list,entity} from '../../redux/scemes'
 import {listReq} from '../actions/list'
 import {req} from  '../actions/req'
 export function add(params: Object, key: string, option: Object = {}) {
@@ -28,6 +28,22 @@ export function update(objectId: string, params: Object, key: string, option: Ob
 
 }
 
+
+//新构建的全自动更新函数。
+export async function  updateByID(key,id,param,option) {
+    return update(id,param,key,{
+        dataMap:(data)=>{
+            return {
+                ...param,
+                ...data,
+            }
+        },
+        sceme:entity(key),
+        ...option,
+    })
+}
+
+
 export function remove(objectId: string, key: string, option: Object = {}) {
 
     const lParams = classDelete(key, objectId)
@@ -37,6 +53,15 @@ export function remove(objectId: string, key: string, option: Object = {}) {
 export function find(key: string,params: Object, option: Object = {}) {
     const lParams = classSearch(key,params)
     return req(lParams, key, option)
+}
+
+export function findByID(key,id,option) {
+    const params = classSearch(key,{
+        where:{
+            objectId:id
+        }
+    })
+    return find(key, params, {sceme:list(entity(key)),...option})
 }
 
 export function search(more: bool,
