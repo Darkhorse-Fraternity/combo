@@ -86,6 +86,7 @@ export   function userInfo() {
         setLeanCloudSession(sessionToken)
         const params = usersMe()
 
+  
         if(sessionToken){
             const res = await req(params)
             dispatch(_loginSucceed(res));

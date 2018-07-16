@@ -16,6 +16,7 @@ import Toast from 'react-native-simple-toast'
     state => ({}),
     (dispatch, props) => ({
         bootstrapAsync: async () => {
+          
             try {
                 const user = await dispatch(userInfo())
                 // const user = await loadUserData();
@@ -37,6 +38,7 @@ export default class AuthLoadingScreen extends React.Component {
     constructor(props) {
         super(props);
         this.props.bootstrapAsync();
+
     }
 
     // Fetch the token from storage then navigate to our appropriate place

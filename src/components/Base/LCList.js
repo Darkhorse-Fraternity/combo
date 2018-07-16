@@ -80,7 +80,7 @@ export default class LCList extends Component {
     loadData: Function
 
     render(): ReactElement<any> {
-        if (!this.props.data.get('listData' || !this.props.reqParam)) {
+        if (!this.props.reqParam) {
             return (<BaseSectionView
                 {...this.props}
                 loadData={() => {
@@ -92,10 +92,13 @@ export default class LCList extends Component {
 
         const loadStatu = this.props.data.get('loadStatu')
 
+
+        // console.log('test111:', loadStatu);
         // console.log('this.props.loadStatu:', loadStatu);
 
 
-        let listDataKey = this.props.data.get('listData').toJS()
+        const listData = this.props.data.get('listData')
+        let listDataKey = !listData?[]:listData.toJS()
         // listData = listData && listData.toJS()
         // console.log('listDataKey:', listDataKey);
 

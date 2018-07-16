@@ -24,7 +24,7 @@ import Toast from 'react-native-simple-toast';
 import { schemas } from '../scemes'
 
 const pageSize = 20;
-import {addNormalizrEntity} from '../module/normalizr'
+import { addNormalizrEntity } from '../module/normalizr'
 /**
  * 保证加载的时候，同个请求不窜行。
  */
@@ -46,13 +46,16 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
         const page = !more ? 0 : getState().list.getIn([listKey, 'page']) + 1;
         const load = getState().list.getIn([listKey, 'loadStatu'])
         if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {//not serial
-            // params.params[pageKey] = page + '';
-            dispatch(_listStart(page !== 0, load === undefined, listKey));//当page 不为0 的时候则表示不是加载多页。
+            // params.params[pageKey] = page + ''
+
+            dispatch(_listStart(page, listKey));//当page 不为0 的时候则表示不是加载多页。
             reqA(params).then(response => {
                 if (response[RESCODE]) {
                     if (response[RESCODE] === SUCCODE) {
-                        const data = cleanData(response, {...option,
-                            'sceme':option.sceme||schemas[key]})
+                        const data = cleanData(response, {
+                            ...option,
+                            'sceme': option.sceme || schemas[key]
+                        })
                         if (!data) {
                             console.log(key, response, '数据为空');
                             return dispatch(_listFailed(listKey));
@@ -81,7 +84,7 @@ export function listLoad(key: string, params: Object, more: bool = false, dataMa
         if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {//not serial
             params.params[pageKey] = page + '';
             // const newParams = limitSearch(path,page,pageSize,params);
-            dispatch(_listStart(page !== 0, load == undefined, key));//当page 不为0 的时候则表示不是加载多页。
+            dispatch(_listStart(page , key));//当page 不为0 的时候则表示不是加载多页。
             req(params).then(response => {
                 // console.log('response:', response);
                 if (response[RESCODE] === SUCCODE) {
@@ -112,13 +115,10 @@ export function listLoad(key: string, params: Object, more: bool = false, dataMa
  */
 
 function _listSucceed(data: Object, page: number = 0, key: string): Object {
-    let loadStatu = LIST_NORMAL
-    if (page !== 0  && data.length < pageSize) {
-        loadStatu = LIST_LOAD_NO_MORE
-    }
-    // if (page === 0 && data.length === 0) {
-    //     loadStatu = LIST_NO_DATA
-    // }
+
+    const loadStatu =  data.length < pageSize ?
+        LIST_LOAD_NO_MORE : LIST_NORMAL
+
     return {
         type: LIST_SUCCEED,
         page,
@@ -149,11 +149,8 @@ function _listFailed(key: string): Object {
  * @param  {[type]} response:Object [description]
  * @return {[type]}                 [description]
  */
-function _listStart(isLoadMore: bool, isFirst: bool, key: string): Object {
-    let loadStatu = LIST_FIRST_JOIN
-    if (!isFirst) {
-        loadStatu = isLoadMore ? LIST_LOAD_MORE : LIST_LOAD_DATA
-    }
+function _listStart(page: number, key: string): Object {
+    const loadStatu = page !== 0 ? LIST_LOAD_MORE : LIST_LOAD_DATA
     return {
         type: LIST_START,
         loadStatu: loadStatu,

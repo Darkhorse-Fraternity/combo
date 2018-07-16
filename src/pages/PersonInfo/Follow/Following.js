@@ -66,6 +66,7 @@ import {
         loadFriendNum: () => {
             const userId = props.navigation.state.params.user.objectId
             const param = friendNum(userId)
+            console.log('test000:', userId);
             req(param, FRIENDNUM + userId)
         },
         loadfriendExist: () => {
@@ -83,7 +84,12 @@ import {
                 const beFollowedUserId = props.navigation.state.params.user.objectId
                 const state = getState()
                 const userId = state.user.data.objectId
-                const selfNum = state.req.get(FRIENDNUM + userId).get('data').get('followees_count')
+
+                let  selfNum = state.req.get(FRIENDNUM + userId)
+                if(selfNum){
+                    selfNum = selfNum.get('data').get('followees_count')
+                }
+                // const selfNum = state.req.get(FRIENDNUM + userId).get('data').get('followees_count')
 
                 if (isExist) {
                     const param = friendshipDelete(userId, beFollowedUserId)
@@ -95,7 +101,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num - 1 }))
                     //自己
-                    dispatch(reqChangeData(
+                    selfNum && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum - 1 }))
 
@@ -107,7 +113,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num + 1 }))
                     //自己
-                    dispatch(reqChangeData(
+                    selfNum && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum + 1 }))
 

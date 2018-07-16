@@ -217,7 +217,8 @@ export default class Home extends Component {
         stopIUSEexist = !stopIUSEexist?false:stopIUSEexist.get('count')>0
 
 
-        if(stopIUSEexist && statu !== 'LIST_FIRST_JOIN' && statu !== 'LIST_LOAD_DATA'){
+        if(stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
+            && statu !== 'LIST_LOAD_DATA'){
             data = [...data,-1];
         }
 

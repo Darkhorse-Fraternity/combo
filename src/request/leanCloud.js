@@ -358,6 +358,7 @@ export function friendNum(userId: string): Object {
         method: methodType.get,
         params: {
             count: 1,
+            limit: 0
         },
     }
 }
@@ -409,7 +410,7 @@ export function friendExist(userId: string, followId: string) {
                 },
             },
             count: 1,
-            limit: 1,
+            limit: 0,
         }
     }
 }

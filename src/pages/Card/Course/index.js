@@ -16,25 +16,31 @@ import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
-import {iCard} from '../../../request/LCModle'
-import {IDO} from '../../../redux/reqKeys'
+import { iCard } from '../../../request/LCModle'
+import { IDO } from '../../../redux/reqKeys'
+
 const listKey = IDO
 
 import {
-    StyledContent,
     StyledHeader,
     StyledTitleView,
-    StyledTitleText
+    StyledTitleText,
+
+
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
+import Info from '../../Course/Info'
 
 @connect(
-    state => ({
+    (state, props) => ({
         user: state.user.data,
+
     }),
-    dispatch => ({})
+    (dispatch, props) => ({
+
+    })
 )
 
 
@@ -50,21 +56,13 @@ export default class Course extends Component {
 
 
 
+    __renderHeader = () => {
 
 
-
-    __renderHeader = ()=>{
-
-
-        let course = this.props.iCard.get('course')
-        course = course && course.toJS()
-        console.log('course:', course);
-
-
-
+        const  courseId  = this.props.iCard.get('course')
         return (
             <StyledHeader>
-                <Text style={{fontSize:50,alignSelf:'center'}}>课程展示,设计中。。。</Text>
+                {courseId && <Info {...this.props} courseId={courseId}/>}
                 <StyledTitleView>
                     <StyledTitleText>
                         打卡记录
@@ -78,12 +76,12 @@ export default class Course extends Component {
 
     }
 
-    renderRow({item, index}: Object) {
+    renderRow({ item, index }: Object) {
 
         // console.log('test:', item);
         const avatar = item.user.avatar
         const avatarUrl = avatar && avatar.url
-        const avatarSource = avatarUrl ? {uri: avatarUrl} :
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
             require('../../../../source/img/my/icon-60.png')
         return (
             <View>
@@ -106,27 +104,27 @@ export default class Course extends Component {
 
         const iCardId = this.props.iCard.get('objectId')
 
-        const privacy = this.props.iCard.get('user') === this.props.user.objectId?
-            Privacy.openToCoach:Privacy.open
+        const privacy = this.props.iCard.get('user') === this.props.user.objectId ?
+            Privacy.openToCoach : Privacy.open
         const param = {
             'where': {
                 ...iCard(iCardId),
             },
             include: 'user',
-            privacy: {"$gte":privacy},//为0的时候只有自己可以查看
+            privacy: { "$gte": privacy },//为0的时候只有自己可以查看
         }
         return (
-                <LCList
-                     ListHeaderComponent={this.__renderHeader}
-                    style={[this.props.style, styles.list]}
-                    reqKey={listKey}
-                    sKey={listKey + iCardId}
-                    renderItem={this.renderRow.bind(this)}
-                    //dataMap={(data)=>{
-                    //   return {[OPENHISTORYLIST]:data.list}
-                    //}}
-                    reqParam={param}
-                />
+            <LCList
+                ListHeaderComponent={this.__renderHeader}
+                style={[this.props.style, styles.list]}
+                reqKey={listKey}
+                sKey={listKey + iCardId}
+                renderItem={this.renderRow.bind(this)}
+                //dataMap={(data)=>{
+                //   return {[OPENHISTORYLIST]:data.list}
+                //}}
+                reqParam={param}
+            />
         );
     }
 }
@@ -157,7 +155,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 18,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop:15
+        paddingTop: 15
     },
     avatar: {
         width: 30,
@@ -168,7 +166,6 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         color: '#4e4e4e',
     },
-
 
 
 })

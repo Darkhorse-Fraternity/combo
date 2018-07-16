@@ -22,7 +22,7 @@ import { is } from 'immutable';
 
 const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
-export const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN'
+const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN'
 // export const LIST_NO_DATA = 'LIST_NO_DATA'
 export const LIST_LOAD_DATA = 'LIST_LOAD_DATA'
 export const LIST_LOAD_MORE = 'LIST_LOAD_MORE'
@@ -34,7 +34,7 @@ export default class BaseSectionView extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            shouldShowloadMore: true,
+            shouldShowloadMore: false,
             joinTime:0,
         };
 
@@ -56,15 +56,16 @@ export default class BaseSectionView extends Component {
         needDelay: true,
         // noDataImg: require('../../../source/img/xy_course/xy_course.png'),
         noDataPrompt: "没有新内容~",
-        type: 'list'
+        type: 'list',
+        data:[]
     };
 
-    state: {};
-    _dataSource: ListView.DataSource;
 
     onScroll(e: Object) {
         let nativeEvent = e.nativeEvent;
-        const shouldShowloadMore = nativeEvent.contentSize.height > nativeEvent.layoutMeasurement.height;
+        const shouldShowloadMore = nativeEvent.contentSize.height >
+            nativeEvent.layoutMeasurement.height;
+
         this.state.shouldShowloadMore !== shouldShowloadMore &&
         this.setState({ shouldShowloadMore })
         // console.log('test:', shouldShowloadMore);
@@ -75,11 +76,11 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
-    // joinTime = 0;
+    joinTime = 0;
+    _scrollView
     componentWillReceiveProps(nextProps) {
-        if (nextProps.loadStatu === LIST_LOAD_DATA && this.joinTime < 2) {
-            // this.joinTime++
-            this.setState({joinTime:this.state.joinTime+1})
+        if (nextProps.loadStatu !== LIST_FIRST_JOIN && this.joinTime < 2) {
+            this.joinTime++
         }
     }
 
@@ -88,6 +89,9 @@ export default class BaseSectionView extends Component {
     //     return !is(this.props, nextProps) || !is(this.state, nextState)
     // }
 
+    shouldComponentUpdate(nextProps: Object, nextState: Object) {
+        return nextProps.loadStatu !== this.props.loadStatu || !is(this.state, nextState)
+    }
 
     _handleRefresh = () => {
         if (this.props.loadStatu === LIST_LOAD_DATA) {
@@ -129,6 +133,12 @@ export default class BaseSectionView extends Component {
         // console.log('loadStatu:', this.props.loadStatu);
         
         // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
+
+        const hasData = this.props.data.length > 0
+
+        // console.log('data:',this.props.data, hasData);
+
+
         if (this.props.loadStatu === LIST_LOAD_MORE) {
             return (
                 <View style={styles.footer}>
@@ -136,7 +146,8 @@ export default class BaseSectionView extends Component {
                                        animating={true}/>
                 </View>
             );
-        } else if (this.props.loadStatu === LIST_LOAD_NO_MORE && this.state.shouldShowloadMore) {
+        } else if (hasData && this.props.loadStatu === LIST_LOAD_NO_MORE &&
+            this.state.shouldShowloadMore) {
 
             return (
                 <View style={styles.footer}>
@@ -154,17 +165,25 @@ export default class BaseSectionView extends Component {
         return key + '';
     }
 
+
+
     render() {
         // const refreshable = this.props.refreshable && this.props.loadData;
         const type = this.props.type
         // const TableView = type == 'section' ? SectionList : FlatList
         let TableView = FlatList
         const data = this.props.data
-        if (data && data[0] && data[0].data) {
+        if (type !== 'list') {
             TableView = SectionList
         }
 
-        if (this.props.loadStatu === LIST_FIRST_JOIN) {
+
+
+        if (!this.props.ListHeaderComponent &&
+            this.joinTime < 2 &&
+            this.props.loadStatu !== LIST_LOAD_NO_MORE &&
+            this.props.loadStatu !== LIST_NORMAL
+        ) {
             return (
                 <ExceptionView
                     renderHeader={this.props.ListHeaderComponent}
@@ -173,13 +192,17 @@ export default class BaseSectionView extends Component {
                     style={[styles.list, this.props.style]}
                 />
             );
-        }  else if (this.props.loadStatu === LIST_LOAD_ERROR && this.props.dataSource &&
-            this.props.dataSource.count === 0) {
+        }  else if (this.props.loadStatu === LIST_LOAD_ERROR &&
+            this.props.data.length === 0) {
             //TODO:先不加，其他状态量判断太麻烦。
         }
 
-        const refreshing = this.state.joinTime === 2
+        const refreshing =  this.joinTime === 2
             && this.props.loadStatu === LIST_LOAD_DATA
+
+
+
+
 
         return (
             <TableView

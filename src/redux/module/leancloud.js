@@ -13,7 +13,7 @@ import {
     followeeList,
     followerList
 } from '../../request/leanCloud';
-import {list,entity} from '../../redux/scemes'
+import {list,entitys} from '../../redux/scemes'
 import {listReq} from '../actions/list'
 import {req} from  '../actions/req'
 export function add(params: Object, key: string, option: Object = {}) {
@@ -38,7 +38,7 @@ export async function  updateByID(key,id,param,option) {
                 ...data,
             }
         },
-        sceme:entity(key),
+        sceme:entitys[key],
         ...option,
     })
 }
@@ -61,7 +61,7 @@ export function findByID(key,id,option) {
             objectId:id
         }
     })
-    return find(key, params, {sceme:list(entity(key)),...option})
+    return find(key, params, {sceme:list(entitys[key]),...option})
 }
 
 export function search(more: bool,

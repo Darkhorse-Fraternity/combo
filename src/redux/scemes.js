@@ -13,14 +13,14 @@ export const code = 'results'
 
 export const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
 export const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
-export const entityFromCode = key => new schema.Object({ [code]: entity(key)})
+export const entityFromCode = key => new schema.Object({ [code]: entity(key) })
 
 
 export const user = entity(USER)
-export const course = entity(COURSE)
+export const course = entity(COURSE, { user })
 
 
-const iCard = entity(ICARD, { user,course })
+const iCard = entity(ICARD, { user, course })
 export const iUse = entity(IUSE, { user, iCard })
 
 
@@ -47,9 +47,10 @@ export const iUse = entity(IUSE, { user, iCard })
 //     return entity(key,getConfig(key)||{})
 // }
 
-const entitys = {
+export const entitys = {
     [ICARD]: iCard,
     [IUSE]: iUse,
+    [COURSE] :course
 }
 
 const auto = (key) => list(entitys[key] || entity(key))

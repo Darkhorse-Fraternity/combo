@@ -5,6 +5,8 @@
 'use strict';
 
 import styled from "styled-components/native";
+import Button from '../../../components/Button'
+
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
@@ -12,12 +14,13 @@ export const StyledContent = styled.ScrollView`
 `
 
 export const StyledHeader = styled.View`
-    
   
 `
 
+
+
+
 export const StyledTitleView = styled.View`
-  margin: 30px 0px 0px 0px;
   background-color: #e7ebeb;
   padding: 15px;
 `
