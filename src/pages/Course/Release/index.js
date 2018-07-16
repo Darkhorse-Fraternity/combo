@@ -24,6 +24,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { ICARD,COURSE } from '../../../redux/reqKeys'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { selfUser, Course } from '../../../request/LCModle'
+import  Info from '../../Course/Info'
 @connect(
     (state,props) => ({
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
@@ -111,7 +112,7 @@ export default class CourseRelease extends Component {
         // console.log('iCard:', iCard);
 
 
-        console.log('iCard:', courseId);
+        // console.log('courseId:', courseId);
 
 
         return (
@@ -126,6 +127,7 @@ export default class CourseRelease extends Component {
                     onPress={()=>this.props.edit(courseId)}
                     title={'编辑'}
                 />}
+                <Info {...this.props} courseId={courseId}/>
                 {!courseId && <StyledMain>
                     <StyledDes>
                         还没有课程
@@ -134,6 +136,7 @@ export default class CourseRelease extends Component {
                         load={this.props.load}
                         onPress={this.props.add}
                         title={'添加'}/>
+
                 </StyledMain>}
             </StyledContent>
         );

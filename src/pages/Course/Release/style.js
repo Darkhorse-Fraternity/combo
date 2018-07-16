@@ -8,7 +8,7 @@ import styled from "styled-components/native";
 import HeaderBtn from "../../../components/Button/HeaderBtn";
 
 
-export const StyledContent = styled.View`
+export const StyledContent = styled.ScrollView`
     flex: 1;
     background-color: white;
 `

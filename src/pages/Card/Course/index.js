@@ -62,7 +62,8 @@ export default class Course extends Component {
         const  courseId  = this.props.iCard.get('course')
         return (
             <StyledHeader>
-                {courseId && <Info {...this.props} courseId={courseId}/>}
+
+                <Info {...this.props} courseId={courseId}/>
                 <StyledTitleView>
                     <StyledTitleText>
                         打卡记录

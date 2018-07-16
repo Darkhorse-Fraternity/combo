@@ -177,8 +177,6 @@ export default class BaseSectionView extends Component {
             TableView = SectionList
         }
 
-
-
         // if (!this.props.ListHeaderComponent &&
         //     this.joinTime < 2 &&
         //     this.props.loadStatu !== LIST_LOAD_NO_MORE &&
@@ -200,6 +198,7 @@ export default class BaseSectionView extends Component {
         const refreshing =  this.joinTime === 2
             && this.props.loadStatu === LIST_LOAD_DATA
 
+        // console.log('refreshing:', refreshing);
         return (
             <TableView
                 refreshing={refreshing}

@@ -60,7 +60,8 @@ export function reqM(params) {
 
 
 export function cleanData(response, option) {
-    const data = (!option.dataMap ? response[DATA] : option.dataMap(response[DATA]))
+    const data = (!option.dataMap ? response[DATA] :
+        option.dataMap(response[DATA]))
         || response
 
 

@@ -6,7 +6,7 @@
 
 import styled from "styled-components/native";
 import Button from '../../../components/Button'
-
+import Icon from 'react-native-vector-icons/Ionicons'
 
 export const StyledContent = styled.View`
 
@@ -48,6 +48,32 @@ export const StyledHeaderCover = styled(Button)`
 
 `
 
+export const StyledHeaderConverTip = styled.View`
+    width: 60px;
+    height: 60px;
+    z-index: 10;
+    position: absolute;
+    align-self: center;
+    border-color: white;
+    border-width: 3px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    background-color: rgba(0,0,0,0.6);
+`
+
+export const StyledTriangle = styled.View`
+    border-top-width: 11px;
+    border-right-width: 0px;
+    border-left-width: 19px;
+    border-bottom-width: 11px;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: white;
+    border-right-color: transparent;
+    border-style: solid;
+`
+
 export const StyledHeaderTitle = styled.Text`
     font-size: 30px;
     font-weight: 700;
@@ -67,12 +93,20 @@ export const StyledHeaderInnerLeft = styled.View`
 `
 export const StyledNickName = styled.Text`
     font-size: 17px;
+     margin-bottom: 5px;
 `
 export const StyledSubTitle = styled.Text`
-    margin-top: 5px;
+   
     font-size: 17px;
-     color: #c1c1c1;
+    margin-bottom: 5px;
 `
+export  const StyleKeys = styled.Text`
+    color: #c1c1c1;
+    font-size: 17px;
+    margin-bottom: 5px;
+`
+
+
 export const StyledReadNum = styled.Text`
     margin-top: 10px;
     font-size: 13px;

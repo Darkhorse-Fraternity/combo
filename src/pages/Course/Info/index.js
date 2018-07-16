@@ -27,7 +27,9 @@ import {
     StyledSubTitle,
     StyledReadNum,
     StyledAvatar,
-    StyledFollowBtnText
+    StyledFollowBtnText,
+    StyledHeaderConverTip,
+    StyledTriangle
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -41,17 +43,28 @@ import {
 import { findByID } from '../../../redux/module/leancloud'
 import Button from '../../../components/Button'
 import { req, reqChangeData } from '../../../redux/actions/req'
+import { classUpdate } from '../../../request/leanCloud'
 import {
     friendExist,
     friendshipAdd,
     friendshipDelete,
     friendNum
 } from '../../../request/leanCloud'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+
+
+const hasReadmap = {
+
+}
 
 @connect(
     (state, props) => {
         const users = state.normalizr.get(USER)
         const course = state.normalizr.get(COURSE).get(props.courseId)
+
+        if(!props.courseId){
+            return {}
+        }
 
         return {
             load: state.req.get(COURSE).get('load'),
@@ -63,8 +76,8 @@ import {
         }
     },
     (dispatch, props) => ({
-        dataLoad: () => {
-            props.courseId && findByID(COURSE, props.courseId)
+        dataLoad: async () => {
+            props.courseId && await findByID(COURSE, props.courseId)
         },
         loadfriendExist: () => {
             dispatch((dispatch, getState) => {
@@ -76,11 +89,31 @@ import {
                 if (!beFollowedUserId) {
                     return
                 }
+
                 const userId = state.user.data.objectId
 
                 const param = friendExist(userId, beFollowedUserId)
                 req(param, FRIENDEXIST + beFollowedUserId)
             })
+        },
+        increaseReadNum: async (num,objectId) => {
+
+            const hasReadmapKey = props.courseId+objectId
+            if (props.courseId && !hasReadmap[hasReadmapKey] &&num !== undefined) {
+                const params = {
+                    readNum: { "__op": "Increment", "amount": 1 }
+                }
+
+                const lParams = classUpdate(COURSE, props.courseId, params)
+                const res = await req(lParams)
+                const entity = {
+                    readNum: ++num,
+                    ...res,
+                }
+                num <1000 && dispatch(addNormalizrEntity(COURSE, entity))
+                hasReadmap[hasReadmapKey] = true
+            }
+
         },
         follow: (isExist) => {
             dispatch(async (dispatch, getState) => {
@@ -112,8 +145,6 @@ import {
                 const param = friendNum(userId)
                 req(param, FRIENDNUM + userId)
 
-
-
             })
         }
     })
@@ -130,12 +161,29 @@ export default class Info extends Component {
     static propTypes = {};
     static defaultProps = {};
 
-    componentDidMount() {
 
-        !this.props.friendeExist && this.props.loadfriendExist()
+    load = async () => {
+        let { user, selfUser } = this.props
+
+        const isSelf = user && user.get('objectId') === selfUser.objectId
 
         this.props.course && !this.props.course.get('title')
-        && this.props.dataLoad()
+        && await this.props.dataLoad()
+        if (!isSelf) {
+            !this.props.friendeExist && await this.props.loadfriendExist()
+        }
+        const { course } = this.props
+        this.props.increaseReadNum(course.get('readNum'),
+            this.props.selfUser.objectId)
+
+    }
+
+    componentDidMount() {
+
+        if(this.props.courseId){
+            this.load()
+        }
+
 
 
         // console.log('this.props.friendeExist:', this.props.friendeExist);
@@ -145,7 +193,7 @@ export default class Info extends Component {
 
     __renderFocusOn = () => {
 
-        let {  user, selfUser } = this.props
+        let { user, selfUser } = this.props
         user = user && user.toJS()
 
 
@@ -164,7 +212,7 @@ export default class Info extends Component {
 
 
         return (
-            <View style={{height:45}}>
+            <View style={{ height: 45 }}>
                 {!myLoad && !isSelf && <Button onPress={() => {
                     this.props.follow(isFollow)
                 }}>
@@ -172,7 +220,7 @@ export default class Info extends Component {
                         {isFollow ? '已关注' : '关注'}
                     </StyledFollowBtnText>
                 </Button>}
-                {myLoad && <StyledIndicator/>}
+                {myLoad && !isSelf && <StyledIndicator/>}
             </View>
         )
     }
@@ -181,30 +229,40 @@ export default class Info extends Component {
 
         let { load, user, course } = this.props
         course = course && course.toJS()
+
+
+        if (!this.props.courseId) {
+            return (
+                <StyledContent>
+                    {!load && !course &&
+                    <StyledHeaderContent style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <StyledHeaderTipText>
+                            课程还没有开启
+                        </StyledHeaderTipText>
+                    </StyledHeaderContent>}
+                </StyledContent>
+            )
+        }
+
         user = user && user.toJS()
 
-
-
-        // console.log('isSelf:', isSelf);
+        const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
 
         return (
             <StyledContent>
                 {load &&
                 <StyledHeaderContent style={{ justifyContent: 'center' }}>
-                    <StyledIndicator/>
-                </StyledHeaderContent>
-                }
 
-                {!load && !course &&
-                <StyledHeaderContent style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <StyledHeaderTipText>
-                        还没有开启
-                    </StyledHeaderTipText>
+                    <StyledIndicator/>
+
                 </StyledHeaderContent>}
 
 
                 {!load && course && course.title && <StyledHeaderContent>
                     <StyledHeaderCover>
+                        <StyledHeaderConverTip>
+                            <StyledTriangle/>
+                        </StyledHeaderConverTip>
                         <StyledHeaderImage source={{ uri: course.cover.url }}/>
                     </StyledHeaderCover>
                     <StyledHeaderTitle>
@@ -212,14 +270,15 @@ export default class Info extends Component {
                     </StyledHeaderTitle>
                     <StyledHeaderInner>
                         <StyledHeaderInnerLeft>
+                            {course.subtitle && <StyledSubTitle>
+                                {course.subtitle}
+                            </StyledSubTitle>}
                             <StyledNickName>
                                 作者: {user.nickname}
                             </StyledNickName>
-                            <StyledSubTitle>
-                                {course.subtitle}
-                            </StyledSubTitle>
+
                             <StyledReadNum>
-                                阅读人数：100
+                                阅读数：{readNum}
                             </StyledReadNum>
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
