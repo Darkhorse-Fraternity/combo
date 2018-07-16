@@ -179,30 +179,26 @@ export default class BaseSectionView extends Component {
 
 
 
-        if (!this.props.ListHeaderComponent &&
-            this.joinTime < 2 &&
-            this.props.loadStatu !== LIST_LOAD_NO_MORE &&
-            this.props.loadStatu !== LIST_NORMAL
-        ) {
-            return (
-                <ExceptionView
-                    renderHeader={this.props.ListHeaderComponent}
-                    exceptionType={ExceptionType.Loading}
-                    image={this.props.noDataImg}
-                    style={[styles.list, this.props.style]}
-                />
-            );
-        }  else if (this.props.loadStatu === LIST_LOAD_ERROR &&
-            this.props.data.length === 0) {
-            //TODO:先不加，其他状态量判断太麻烦。
-        }
+        // if (!this.props.ListHeaderComponent &&
+        //     this.joinTime < 2 &&
+        //     this.props.loadStatu !== LIST_LOAD_NO_MORE &&
+        //     this.props.loadStatu !== LIST_NORMAL
+        // ) {
+        //     return (
+        //         <ExceptionView
+        //             renderHeader={this.props.ListHeaderComponent}
+        //             exceptionType={ExceptionType.Loading}
+        //             image={this.props.noDataImg}
+        //             style={[styles.list, this.props.style]}
+        //         />
+        //     );
+        // }  else if (this.props.loadStatu === LIST_LOAD_ERROR &&
+        //     this.props.data.length === 0) {
+        //     //TODO:先不加，其他状态量判断太麻烦。
+        // }
 
         const refreshing =  this.joinTime === 2
             && this.props.loadStatu === LIST_LOAD_DATA
-
-
-
-
 
         return (
             <TableView
@@ -216,10 +212,14 @@ export default class BaseSectionView extends Component {
                 ListEmptyComponent={()=>(
                     <ExceptionView
                         style={[styles.list, this.props.style]}
-                        // renderHeader={this.props.ListHeaderComponent}
-                        exceptionType={ExceptionType.NoData}
+                        exceptionType={
+                            this.props.loadStatu === LIST_LOAD_DATA
+                            ?ExceptionType.Loading:
+                            ExceptionType.NoData}
                         image={this.props.noDataImg}
-                        prompt={this.props.noDataPrompt}
+                        prompt={this.props.loadStatu === LIST_LOAD_DATA?
+                            '正在加载~':
+                            this.props.noDataPrompt}
                         otherTips={this.renderNoDataTips()}
                         onRefresh={this._handleRefresh}
                     />
