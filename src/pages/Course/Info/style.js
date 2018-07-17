@@ -9,7 +9,6 @@ import Button from '../../../components/Button'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export const StyledContent = styled.View`
-
 `
 
 
@@ -47,6 +46,23 @@ export const StyledHeaderCover = styled(Button)`
     elevation: 10;
 
 `
+
+export const StyledReportBtn = styled(Button)`
+    margin-top: 15px;
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 5px;
+    shadow-opacity: 0.25;
+    shadow-radius: 5px;
+    shadow-color: #979797;
+    shadow-offset: 2px 5px;   
+    elevation: 5;
+`
+
+export const StyledReportText = styled.Text`
+    font-size: 15px;
+`
+
 
 export const StyledHeaderConverTip = styled.View`
     width: 60px;
@@ -135,3 +151,5 @@ export const StyledHeaderImage = styled.Image`
     flex: 1;
     border-radius: 5px;
 `
+
+

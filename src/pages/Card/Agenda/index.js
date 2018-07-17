@@ -174,7 +174,6 @@ export default class CardDetail extends Component {
         }
 
         return (
-            <StyledContent>
                 <LCList
                     ListHeaderComponent={this._renderHeader}
                     reqKey={listKey}
@@ -187,8 +186,6 @@ export default class CardDetail extends Component {
                     //}}
                     reqParam={param}
                 />
-
-            </StyledContent>
         );
     }
 }

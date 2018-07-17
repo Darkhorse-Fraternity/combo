@@ -4,7 +4,7 @@ import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled.TouchableOpacity`
 
 `
 

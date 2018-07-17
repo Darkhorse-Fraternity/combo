@@ -9,15 +9,15 @@ import {
     View,
     StyleSheet,
     Image,
-    Text
+    Text,
+    Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
-import { iCard } from '../../../request/LCModle'
-import { IDO } from '../../../redux/reqKeys'
+import { IDO, REPORT } from '../../../redux/reqKeys'
 
 const listKey = IDO
 
@@ -25,13 +25,22 @@ import {
     StyledHeader,
     StyledTitleView,
     StyledTitleText,
-
+    StyledReportBtn,
+    StyledReportText
 
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import Toast from 'react-native-simple-toast'
 
 import Info from '../../Course/Info'
+
+import {
+    classCreatNewOne,
+    existSearch
+} from '../../../request/leanCloud';
+import {req} from  '../../../redux/actions/req'
+import {selfUser, iCard} from '../../../request/LCModle'
 
 @connect(
     (state, props) => ({
@@ -39,7 +48,33 @@ import Info from '../../Course/Info'
 
     }),
     (dispatch, props) => ({
+        report: ()=>{
+            Alert.alert(
+                '确定举报该卡片吗?',
+                '举报该卡片',
+                [{ text: '取消' }, {
+                    text: '确定', onPress: async () => {
+                        const where = {
+                            ...selfUser(),
+                            ...iCard(props.iCard.get('objectId')),
 
+                        }
+
+                        const exParams = existSearch(REPORT,{
+                            where
+                        })
+                        const res = await req(exParams)
+                        if(res.count > 0){
+                            return Toast.show('已经举报了~!')
+                        }
+
+                        const params = classCreatNewOne(REPORT, where)
+                        await  req(params)
+                        Toast.show('我们已受理!')
+                    }
+                }]
+            )
+        }
     })
 )
 
@@ -55,18 +90,29 @@ export default class Course extends Component {
     static defaultProps = {};
 
 
-
     __renderHeader = () => {
 
 
-        const  courseId  = this.props.iCard.get('course')
-        return (
-            <StyledHeader>
+        const courseId = this.props.iCard.get('course')
+        const user = this.props.iCard.get('user')
+        const selfUser = this.props.user.objectId
+        const isSelf = user === selfUser
 
-                <Info {...this.props} courseId={courseId}/>
+        return (
+            <StyledHeader colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+                {courseId &&  <StyledReportBtn onPress={this.props.report}>
+                    <StyledReportText>
+                        举报
+                    </StyledReportText>
+                </StyledReportBtn>}
+                <Info {...this.props}
+                      iCardID={this.props.iCard.get('objectId')}
+                      isSelf={isSelf}
+                      showNoOpen
+                      courseId={courseId}/>
                 <StyledTitleView>
                     <StyledTitleText>
-                        打卡记录
+                        圈子记录
                     </StyledTitleText>
                 </StyledTitleView>
             </StyledHeader>

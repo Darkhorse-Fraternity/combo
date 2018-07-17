@@ -207,6 +207,7 @@ export default class BaseSectionView extends Component {
                 onRefresh={this._handleRefresh}
                 onEndReached={this._handleloadMore}
                 keyExtractor={this._keyExtractor}
+                removeClippedSubviews={true}
                 ListFooterComponent={this.renderFooter.bind(this)}
                 ListEmptyComponent={()=>(
                     <ExceptionView
@@ -226,7 +227,7 @@ export default class BaseSectionView extends Component {
                 )}
                 {...this.props}
                 style={[styles.list, this.props.style]}
-                onEndReachedThreshold={Platform.OS == 'ios' ? 0.1 : 0.1}
+                onEndReachedThreshold={Platform.OS === 'ios' ? 0.1 : 0.1}
             />
         );
     }
@@ -234,6 +235,7 @@ export default class BaseSectionView extends Component {
 const styles = StyleSheet.create({
     list: {
         flex: 1,
+        overflow:'hidden',
         backgroundColor: 'white',
     },
 

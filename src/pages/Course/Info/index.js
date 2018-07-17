@@ -29,7 +29,9 @@ import {
     StyledAvatar,
     StyledFollowBtnText,
     StyledHeaderConverTip,
-    StyledTriangle
+    StyledTriangle,
+    StyledReportBtn,
+    StyledReportText
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -51,11 +53,9 @@ import {
     friendNum
 } from '../../../request/leanCloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import Toast from 'react-native-simple-toast'
 
-
-const hasReadmap = {
-
-}
+const hasReadmap = {}
 
 @connect(
     (state, props) => {
@@ -227,11 +227,20 @@ export default class Info extends Component {
 
     render(): ReactElement<any> {
 
-        let { load, user, course } = this.props
-        course = course && course.toJS()
+        let {
+            load,
+            user,
+            course,
+            isSelf,
+            navigation,
+            iCardID,
+            showNoOpen
+        } = this.props
 
-
-        if (!this.props.courseId) {
+        if (!this.props.courseId ) {
+            if(!showNoOpen){
+                return null
+            }
             return (
                 <StyledContent>
                     {!load && !course &&
@@ -239,14 +248,24 @@ export default class Info extends Component {
                         <StyledHeaderTipText>
                             课程还没有开启
                         </StyledHeaderTipText>
+                        {isSelf &&  <StyledReportBtn onPress={() => {
+                            navigation.navigate('CourseRelease',{iCardID})
+                        }}>
+                            <StyledReportText>
+                                点击开启
+                            </StyledReportText>
+                        </StyledReportBtn>}
                     </StyledHeaderContent>}
                 </StyledContent>
             )
         }
 
         user = user && user.toJS()
+        course = course && course.toJS()
 
         const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
+
+        // console.log('course:', course);
 
         return (
             <StyledContent>
@@ -259,7 +278,9 @@ export default class Info extends Component {
 
 
                 {!load && course && course.title && <StyledHeaderContent>
-                    <StyledHeaderCover>
+                    <StyledHeaderCover onPress={()=>{
+                        Toast.show('设计中~')
+                    }}>
                         <StyledHeaderConverTip>
                             <StyledTriangle/>
                         </StyledHeaderConverTip>

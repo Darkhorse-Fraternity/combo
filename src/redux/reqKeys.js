@@ -19,6 +19,7 @@ export const IUSEExist = 'iUseExist'
 export const UPDATENICKNAME = 'updateNickName'
 export const FEEDBACKPARAM = 'feedbackParam'
 export const ICOMMENT = 'iComment'
+export const REPORT = 'Report'
 //设置初始值
 export const COURSE = 'Course'
 
