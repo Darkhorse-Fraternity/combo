@@ -46,7 +46,8 @@ import {
     StyledRowTouch,
     StyeldDoneView
 } from './style'
-import {Privacy} from '../../../configure/enum'
+import { Privacy } from '../../../configure/enum'
+import FlipButton from '../../../components/Button/FlipButton'
 
 @connect(
     (state, props) => ({
@@ -102,7 +103,7 @@ import {Privacy} from '../../../configure/enum'
                     ...iCard(id),
                     ...selfUser(),
                     statu: { "$ne": 'del' },
-                }
+                },
             })
             req(params, IUSEExist, { sceme: schemas[IUSE] })
         }
@@ -186,11 +187,28 @@ export default class CardInfo extends Component {
         const iUseData = this.props.data && this.props.data.toJS()
 
         const userLoad = this.props.userLoad
-        // console.log('userLoad:', userLoad);
 
 
         return (
-            <StyledContent  forceInset={{ top: 'never' }}>
+            <StyledContent forceInset={{ top: 'never' }}>
+                <FlipButton
+                    faceText={'马上\n参与'}
+                    backText={'已参与'}
+                    load={load}
+                    statu={exist?1:0}
+                    onPress={() => {
+                        if (exist && iUseData) {
+                            this.props.navigation.navigate('CardDetail', {
+                                iUseId: iUseData.objectId,
+                                iCardId: iCard.objectId
+                            })
+
+                        } else {
+                            this.props.use(iCard)
+                        }
+                    }}
+                    containStyle={styles.containStyle}
+                    style={styles.flip}/>
                 <ScrollView style={[this.props.style, styles.wrap]}>
                     {iCard.img && <ZoomImage
                         height={width * 0.7}
@@ -204,7 +222,7 @@ export default class CardInfo extends Component {
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                             <Image source={avatarSource} style={styles.avatar}/>
                             <Text style={styles.name}>
-                                {nickName||"路人甲"}
+                                {nickName || "路人甲"}
                             </Text>
                         </View>
                         {userLoad ? <ActivityIndicator size="small"/> :
@@ -216,30 +234,30 @@ export default class CardInfo extends Component {
                     {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
                     {this.row('提醒时间:', iCard.notifyTime)}
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
-                    {this.rowTouch('使用人数:', iCard.useNum + '人',()=>[
+                    {this.rowTouch('使用人数:', iCard.useNum + '人', () => [
                         this.props.navigation.navigate('CardUse', { iCard: iCard })
                     ])}
                 </ScrollView>
-                <Button onPress={() => {
-                    if (exist && iUseData) {
-                        this.props.navigation.navigate('CardDetail', {
-                            iUseId: iUseData.objectId,
-                            iCardId: iCard.objectId
-                        })
+                {/*<Button onPress={() => {*/}
+                    {/*if (exist && iUseData) {*/}
+                        {/*this.props.navigation.navigate('CardDetail', {*/}
+                            {/*iUseId: iUseData.objectId,*/}
+                            {/*iCardId: iCard.objectId*/}
+                        {/*})*/}
 
-                    } else {
-                        this.props.use(iCard)
-                    }
-                }}
-                        disabled={load}
-                        style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>
+                    {/*} else {*/}
+                        {/*this.props.use(iCard)*/}
+                    {/*}*/}
+                {/*}}*/}
+                        {/*disabled={load}*/}
+                        {/*style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>*/}
 
 
-                    {load ? <ActivityIndicator color={"white"}/> :
-                        <Text style={[styles.btnText]}>
-                            {exist ? '已经参与' : "马上参与"}
-                        </Text>}
-                </Button>
+                    {/*{load ? <ActivityIndicator color={"white"}/> :*/}
+                        {/*<Text style={[styles.btnText]}>*/}
+                            {/*{exist ? '已经参与' : "马上参与"}*/}
+                        {/*</Text>}*/}
+                {/*</Button>*/}
             </StyledContent>
         );
     }
@@ -304,5 +322,16 @@ const styles = StyleSheet.create({
     des: {
         color: 'rgb(50,50,50)',
         fontSize: 19,
+    },
+    flip: {
+        position:'absolute',
+        zIndex:100,
+        bottom:50,
+        right:15,
+    },
+    containStyle:{
+       width:70,
+       height:70,
+        borderRadius:35,
     }
 })

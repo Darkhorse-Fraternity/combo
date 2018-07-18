@@ -35,7 +35,9 @@ import {
     StyledTitleView,
     StyledTitleText,
     StyeldDoneView,
-    StyledActivityIndicator
+    StyledActivityIndicator,
+    StyledBtn,
+    StyledHeader
 } from './style'
 
 
@@ -53,7 +55,8 @@ import { addListNormalizrEntity } from '../../../redux/actions/list'
 import { Privacy } from '../../../configure/enum'
 import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
-import Dialog from  '../../../components/Dialog'
+import Dialog from '../../../components/Dialog'
+
 @connect(
     (state, props) => ({
         user: state.user.data,
@@ -61,7 +64,7 @@ import Dialog from  '../../../components/Dialog'
         // iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
         // iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
         iUseLoad: state.req.get(IUSE).get('load'),
-        updatePrivacyLoad:state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
+        updatePrivacyLoad: state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
     }),
     (dispatch, props) => ({
         refresh: async (data) => {
@@ -110,7 +113,7 @@ import Dialog from  '../../../components/Dialog'
             }
             // const res = await update(id, param, IUSE)
             const lParams = classUpdate(IUSE, id, param)
-            const res = await req(lParams,'updatePrivacy')
+            const res = await req(lParams, 'updatePrivacy')
             const entity = {
                 ...param,
                 ...res,
@@ -146,7 +149,7 @@ export default class Info extends Component {
         // iUse = pUse || iUse
 
 
-        const reflesh = (iUse.time !==0 && iUse.time % Number(iCard.period) === 0 )
+        const reflesh = (iUse.time !== 0 && iUse.time % Number(iCard.period) === 0 )
             || iUse.statu === 'stop'
 
         // console.log('test:', item);
@@ -226,15 +229,15 @@ export default class Info extends Component {
                         const { selectedItem } = await Dialog.showPicker('隐私设置', null, {
                             negativeText: '取消',
                             type: Dialog.listRadio,
-                            selectedId: iUse.privacy+ "",
+                            selectedId: iUse.privacy + "",
                             items: [
-                                { label:'不对外开放', id:'0' },
-                                { label:'仅对教练开放', id:'1' },
-                                { label:'对外开放', id:'2' }
+                                { label: '不对外开放', id: '0' },
+                                { label: '仅对教练开放', id: '1' },
+                                { label: '对外开放', id: '2' }
                             ]
                         });
                         if (selectedItem) {
-                            const {id} = selectedItem;
+                            const { id } = selectedItem;
                             iUse.privacy !== Number(id) && this.props.updatePrivacy(iUse, Number(id))
                             // when negative button is clicked, selectedItem is not present, so it doesn't get here
                             // console.log('You picked:', selectedItem);
@@ -273,10 +276,10 @@ export default class Info extends Component {
             <StyledRowDes>
                 {des}
             </StyledRowDes>
-            <StyledRowInner>
+            {/*<StyledRowInner>*/}
 
-                <StyledArrow/>
-            </StyledRowInner>
+            {/*<StyledArrow/>*/}
+            {/*</StyledRowInner>*/}
         </StyledRowTouch>
 
     )
@@ -303,18 +306,18 @@ export default class Info extends Component {
 
         return (
             <StyledContent>
-                {this._renderDoneView(done, over)}
-                {!!iCard.img ? (<ZoomImage
-                        height={width * 0.7}
-                        style={{
-                            width: '100%',
-                            height: width * 0.7
-                        }} imageUrls={[{ url: iCard.img.url }]}/>) :
-                    (<Image style={{ alignSelf: 'center' }} resizeMode={'center'}
-                            source={source}/>)}
-                {this.rowTouch('卡片名称:', iCard.title, () => {
-                    this.props.navigation.navigate('CardInfo', { iCard: iCard })
-                })}
+                {/*{this._renderDoneView(done, over)}*/}
+                {/*{!!iCard.img ? (<ZoomImage*/}
+                {/*height={width * 0.7}*/}
+                {/*style={{*/}
+                {/*width: '100%',*/}
+                {/*height: width * 0.7*/}
+                {/*}} imageUrls={[{ url: iCard.img.url }]}/>) :*/}
+                {/*(<Image style={{ alignSelf: 'center' }} resizeMode={'center'}*/}
+                {/*source={source}/>)}*/}
+                {/*{this.rowTouch('卡片名称:', iCard.title, () => {*/}
+                {/*this.props.navigation.navigate('CardInfo', { iCard: iCard })*/}
+                {/*})}*/}
                 {/*{this.row('卡片周期:', iCard.period + '次')}*/}
                 {/*{this.row('记录模式:', iCard.record.join("+") || '无')}*/}
                 {/*/!*{this.row('关键字:', iCard.keys.join("+"))}*!/*/}
@@ -331,7 +334,18 @@ export default class Info extends Component {
                 {/*卡片功能*/}
                 {/*</StyledTitleText>*/}
                 {/*</StyledTitleView>*/}
-                {this._renderBottomMenu({iCard,iUse})}
+                <StyledHeader>
+                    <StyledRowDes>
+                        {iCard.title}
+                    </StyledRowDes>
+                    <StyledBtn
+                        title="查看"
+                        hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                        onPress={() => {
+                            this.props.navigation.navigate('CardInfo', { iCard: iCard })
+                        }}/>
+                </StyledHeader>
+                {this._renderBottomMenu({ iCard, iUse })}
             </StyledContent>
         );
     }

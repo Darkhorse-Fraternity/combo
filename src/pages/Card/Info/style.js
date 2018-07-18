@@ -7,6 +7,8 @@
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
+import HeaderBtn from '../../../components/Button/HeaderBtn'
+
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
@@ -61,13 +63,11 @@ export const StyledRow = styled.View`
   border-bottom-color: #e4e4e4;
 `
 
-export const StyledRowTouch = styled(Button)`
+export const StyledRowTouch = styled.View`
   padding: 25px 25px 25px 25px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom-width: ${props => props.theme.hairlineWidth };
-  border-bottom-color: #e4e4e4;
 `
 
 export const StyledRowText = styled.Text`
@@ -78,11 +78,17 @@ export const StyledRowText = styled.Text`
 export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 19px;
+  font-weight: 500;
 `
 
 export const StyledRowInner = styled.View`
   flex-direction: row;
   align-items: center;
+`
+
+export const StyledBtn = styled(HeaderBtn)`
+   margin-top:15px;
+   width:80px;
 `
 
 export const StyledArrow = styled.View`
@@ -96,4 +102,8 @@ export const StyledArrow = styled.View`
 `
 
 export const StyeldDoneView = styled.View`
+`
+
+export const StyledHeader = styled.View`
+  padding:15px;
 `

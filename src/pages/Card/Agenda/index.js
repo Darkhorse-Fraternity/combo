@@ -133,6 +133,7 @@ export default class CardDetail extends Component {
                         习惯统计
                     </StyledTitleText>
                 </StyledTitleView>
+                <View style={{height:10}}/>
                 {this._renderRow('已完成周期', (time / iCard.period).toFixed(2) + '轮')}
                 {this._renderRow('总打卡次数', time + '次')}
                 {this._renderRow('加入天数', date + "天")}

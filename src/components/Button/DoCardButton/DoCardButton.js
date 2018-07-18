@@ -24,7 +24,8 @@ import {
     StyledIcon
 } from './style'
 import { IUSE, IDO } from '../../../redux/reqKeys'
-
+import * as Animatable from 'react-native-animatable';
+export const AniStyledContent = Animatable.createAnimatableComponent(StyledContent);
 // import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 import { connect } from 'react-redux'
@@ -87,7 +88,11 @@ export default class DoCardButton extends Component {
     render() {
         // console.log('test:', this.state.statu !== 0 || this.props.load);
         return (
-            <StyledContent
+            <AniStyledContent
+                useNativeDriver
+                duration={2000}
+                easing="ease-in-out"
+                animation="bounceIn"
                 activeOpacity={1}
                 disabled={this.state.statu === 1 || this.props.load}
                 onPress={() => {
@@ -139,7 +144,7 @@ export default class DoCardButton extends Component {
 
                     </StyledBack>
                 </StyledCard>
-            </StyledContent>
+            </AniStyledContent>
         );
     }
 }

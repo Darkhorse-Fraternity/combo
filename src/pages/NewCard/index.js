@@ -132,6 +132,7 @@ const styles = StyleSheet.create({
         height: 150,
         // marginTop: 20,
         marginHorizontal: 10,
+        marginTop:10,
         marginBottom: 10,
         borderRadius: 10,
         alignItems: 'center',

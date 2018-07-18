@@ -24,13 +24,13 @@ export const StyledAgendaRow = styled.View`
 `
 
 export const StyledTitleView = styled.View`
-  background-color: #e7ebeb;
-  padding: 15px;
+  padding: 25px 5px 5px 5px;
 `
 
 export const StyledTitleText = styled.Text`
-  font-size: 17px;
-  color: black;
+  font-size: 15px;
+  color: #979797;
+  margin-left: 10px;
 `
 
 export const StyledRow = styled.View`

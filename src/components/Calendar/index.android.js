@@ -125,7 +125,7 @@ export default class Calendar extends Component {
 
     goTo = (direction)=> {
         var that = this;
-        if (direction == 'left') {
+        if (direction === 'left') {
             that.refs.trueViewPager.setPage(0)
             this.prev()
 
