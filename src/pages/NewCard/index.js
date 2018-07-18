@@ -70,14 +70,13 @@ export default class Publish extends Component {
                     this.props.navigation.navigate('CardInfo', { iCard: item })
                     // this.props.use(item)
                 }}>
-                {Platform.OS==='ios' && <View style={styles.shadow}/>}
+                {Platform.OS === 'ios' && <View style={styles.shadow}/>}
                 <Image style={styles.itemImage} source={source}/>
-                <View style={styles.itemTextView}>
+                <View style={styles.row}>
                     <Text
-                        numberOfLines={1}
-                        style={styles.title}>
-                        {item.title}
-                    </Text>
+                        // numberOfLines={1}
+                        style={styles.title}>{item.title}</Text>
+                    <Text style={styles.time}>人数:{item.useNum}</Text>
                 </View>
 
             </Button>
@@ -88,13 +87,13 @@ export default class Publish extends Component {
         return (
             <View style={styles.header}>
                 <Button
-                    style={[styles.itemAdd,
-                        styles.shadow,{marginLeft:15}]}
+                    style={[styles.itemAdd,styles.shadow]}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
-                    <Icon name="md-add" size={50}/>
-                    <Text style={styles.period}>新建卡片</Text>
+
+                        <Icon name="md-add" size={50}/>
+                        <Text style={styles.period}>新建卡片</Text>
                 </Button>
             </View>
         )
@@ -109,8 +108,8 @@ export default class Publish extends Component {
                 reqKey={listKey} //在normalizr 中的位置
                 sKey={CARDLIST}  //在list 中的位置
                 callPath={CARDLIST} //表示走云函数,并告知云函数的路径
-                numColumns={3}
-                columnWrapperStyle={{ paddingHorizontal: 10 }}
+                numColumns={2}
+                columnWrapperStyle={{ padding: 5 }}
                 renderItem={this.renderRow.bind(this)}
                 dataMap={(data) => {
                     return { results: data.result }
@@ -125,39 +124,38 @@ const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: '#F5FCFF'
+        // backgroundColor: '#F5FCFF'
     },
 
-    itemAdd:{
-        width: (width - 50) / 3,
-        height: width / 3 * 1.3,
-        marginTop: 20,
+    itemAdd: {
+        width: (width -50) / 2,
+        height: 150,
+        // marginTop: 20,
         marginHorizontal: 10,
-        marginBottom:10,
+        marginBottom: 10,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
     item: {
         // backgroundColor: 'white',
-        //width: (width - 50) / 3,
         //height: width / 3 * 1.3,
-        marginTop: 20,
+        // marginTop: 20,
+        // backgroundColor:'red',
+        // borderRadius: 5,
+        width:width/2 -15,
         marginHorizontal: 5,
         borderRadius: 10,
-        alignItems: 'center',
-
-        justifyContent: 'center',
-
+        backgroundColor: "#f9f9f9",
     },
 
     shadow: {
         backgroundColor: 'white',
-        position: 'absolute',
-        top: 0,
-        left:0,
-        right:0,
-        bottom: 0,
+        // position: 'absolute',
+        // top: 0,
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
         shadowColor: "black",
         shadowOpacity: 0.25,
         shadowRadius: 5,
@@ -167,33 +165,35 @@ const styles = StyleSheet.create({
         },
         borderRadius: 10,
         elevation: 10,
-        margin:10,
+        // margin: 10,
         // elevation: 10,
     },
 
     itemImage: {
-        backgroundColor: 'white',
-        width: (width - 50) / 3,
-        height: width / 3 * 1.3,
+        // backgroundColor: 'white',
+        width: '100%',
+        height: 250,
         borderRadius: 10,
     },
-    itemTextView:{
-      width:"100%",
-        position: 'absolute',
-        bottom: 0,
-        backgroundColor:'rgba(0,0,0,0.5)',
-        alignItems:'center',
-        justifyContent:'center',
-        height:25,
-        borderRadius:10,
-
+    row: {
+        paddingHorizontal: 10,
+        paddingVertical: 30,
     },
     list: {
         flex: 1,
     },
     title: {
-        color: "white",
-        fontSize: 16,
+        fontSize: 19,
+        fontWeight:'600',
+        lineHeight:30,
+    },
+    time: {
+        marginTop: 30,
+        fontSize: 15,
+        // textAlign:'right',
+        alignSelf:'flex-end',
+        color: 'rgb(150,150,200)',
+
 
     },
     period: {
@@ -201,10 +201,12 @@ const styles = StyleSheet.create({
 
     },
     header: {
-        height: width / 3 * 1.4,
+        // height: width / 3 * 1.4,
         // backgroundColor:'red',
-        paddingHorizontal: 10,
-        marginBottom:10,
+        // paddingHorizontal: 10,
+        // marginBottom: 10,
+        alignItems:'center',
+        justifyContent:'center'
     }
 
 

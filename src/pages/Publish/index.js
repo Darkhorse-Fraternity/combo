@@ -73,19 +73,21 @@ export default class Publish extends Component {
 
         const source = item.img?{uri:item.img.url}:require('../../../source/img/my/icon-60.png')
         return (
-            <TouchableOpacity
+            <Button
+                style={styles.item}
                // background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
                 onPress={() => {
                     this.props.navigation.navigate('PublishDetail',
                         {iCardID: item.objectId, data: item})
                 }}>
-                <Image style={styles.item} source={source}/>
-                <Text
-                    numberOfLines={1}
-                    style={styles.title}>
-                    {item.title}
-                </Text>
-            </TouchableOpacity>
+                <Image style={styles.itemImage} source={source}/>
+                <View style={styles.row}>
+                    <Text
+                        // numberOfLines={1}
+                        style={styles.title}>{item.title}</Text>
+                    <Text style={styles.time}>人数:{item.useNum}</Text>
+                </View>
+            </Button>
         )
     }
 
@@ -104,8 +106,8 @@ export default class Publish extends Component {
                 ListHeaderComponent={this._renderHeader}
                 style={[this.props.style, styles.list]}
                 reqKey={listKey}
-                numColumns={3}
-                columnWrapperStyle={{paddingHorizontal: 10}}
+                numColumns={2}
+                columnWrapperStyle={{ padding: 5 }}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
@@ -122,31 +124,27 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     item: {
-        backgroundColor: 'white',
-        width: (width - 50) / 3,
-        height: width / 3 * 1.3,
-        marginTop: 30,
+        width:width/2 -15,
         marginHorizontal: 5,
         borderRadius: 10,
-        alignItems: 'center',
-        shadowColor: "#000000",
-        shadowOpacity: 0.2,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 0.5,
-            width: 0.1,
-        },
+        backgroundColor: "#f9f9f9",
         // elevation: 10,
     },
     list: {
         flex: 1,
     },
     title: {
-        color: "black",
-        marginTop: 10,
-        fontSize: 16,
-        alignSelf:'center',
-        maxWidth: width / 3 - 20
+        fontSize: 19,
+        fontWeight:'600',
+        lineHeight:30,
+    },
+    time: {
+        marginTop: 30,
+        fontSize: 15,
+        // textAlign:'right',
+        alignSelf:'flex-end',
+        color: 'rgb(150,150,200)',
+
 
     },
     period: {
@@ -160,7 +158,16 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
 
-
+    itemImage: {
+        // backgroundColor: 'white',
+        width: '100%',
+        height: 250,
+        borderRadius: 10,
+    },
+    row: {
+        paddingHorizontal: 10,
+        paddingVertical: 30,
+    },
 })
 
 

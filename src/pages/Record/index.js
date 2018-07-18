@@ -2,6 +2,7 @@
  * Created by lintong on 2017/7/14.
  * @flow
  */
+
 'use strict';
 
 
@@ -12,7 +13,8 @@ import {
     StyleSheet,
     Text,
     Alert,
-    Image
+    Image,
+    Dimensions
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -27,6 +29,7 @@ import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
+import { sliderWidth } from "../Card/Cell/style";
 
 const heightZoomIn = {
     from: {
@@ -139,7 +142,7 @@ export default class Record extends Component {
         }
         const days = item.time
         // const reflesh = item.time === iCard.period || item.statu === 'stop'
-        const cycle = parseInt(item.time / iCard.period)
+        // const cycle = parseInt(item.time / iCard.period)
         const { img } = iCard
         const source = img ? { uri: img.url } :
             require('../../../source/img/my/icon-60.png')
@@ -177,18 +180,22 @@ export default class Record extends Component {
                         }}>
                         <Image style={styles.img} source={source}/>
                         <View style={styles.row}>
-                            <View style={styles.subRow}>
-                                {/*<Icon style={styles.icon}*/}
-                                {/*name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>*/}
-                                <View style={styles.des}>
-                                    <Text style={styles.title}>{iCard.title}</Text>
-                                    <Text style={styles.time}>坚持了{days}天</Text>
-                                </View>
-                            </View>
-                            <View style={styles.rightView}>
-                                <Text style={styles.rowText}>第{cycle + 1}组</Text>
-                                <View style={styles.arrowView}/>
-                            </View>
+                            <Text
+                                // numberOfLines={1}
+                                style={styles.title}>{iCard.title}</Text>
+                            <Text style={styles.time}>第{days}天</Text>
+                            {/*<View style={styles.des}>*/}
+                              {/**/}
+                            {/*</View>*/}
+                            {/*<View style={styles.subRow}>*/}
+                                {/*/!*<Icon style={styles.icon}*!/*/}
+                                {/*/!*name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>*!/*/}
+                               {/**/}
+                            {/*</View>*/}
+                            {/*<View style={styles.rightView}>*/}
+                                {/*<Text style={styles.rowText}>第{cycle + 1}组</Text>*/}
+                                {/*<View style={styles.arrowView}/>*/}
+                            {/*</View>*/}
                         </View>
                     </Button>
                 </SwipeAction>
@@ -213,6 +220,8 @@ export default class Record extends Component {
                 style={[this.props.style, styles.list]}
                 reqKey={IUSE}
                 sKey={IRECORD}
+                numColumns={2}
+                columnWrapperStyle={{ padding: 5 }}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
@@ -222,6 +231,8 @@ export default class Record extends Component {
         );
     }
 }
+
+const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     wrap: {
@@ -248,47 +259,54 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'rgb(100,100,100)'
     },
-    row: {
-        // backgroundColor: 'white',
-        paddingHorizontal: 18,
-        paddingVertical: 15,
-        paddingBottom:20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
-    },
+
     subRow: {
         flexDirection: 'row',
-        alignItems: 'center'
+        // backgroundColor:'red',
+        // alignItems: 'center'
     },
     des: {
-        marginLeft: 10
+        // marginLeft: 10
+
     },
     card: {
         // marginTop:10,
         // margin: 5,
-        backgroundColor: "#fff",
-        borderRadius: 2,
-        shadowColor: "#000000",
-        shadowOpacity: 0.3,
-        shadowRadius: 1,
-        shadowOffset: {
-            height: 1,
-            width: 0.3,
-        }
+        backgroundColor: "#f9f9f9",
+        // backgroundColor:'red',
+        // borderRadius: 5,
+        width:width/2 -15,
+        marginHorizontal: 5,
+        borderRadius: 10,
+
+    },
+    row: {
+        // backgroundColor: 'white',
+        paddingHorizontal: 10,
+        paddingVertical: 30,
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // justifyContent: 'space-between',
+
     },
     title: {
-        fontSize: 16,
+        fontSize: 19,
+        fontWeight:'600',
+        lineHeight:30,
     },
     time: {
-        marginTop: 5,
-        fontSize: 13,
+        marginTop: 30,
+        fontSize: 15,
+        // textAlign:'right',
+        alignSelf:'flex-end',
+        color: 'rgb(150,150,200)',
+
+
     },
     img: {
         width: '100%',
         height: 250,
+        borderRadius: 10,
     },
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 2,

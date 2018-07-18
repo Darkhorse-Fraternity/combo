@@ -9,6 +9,8 @@ import {
     View,
     StyleSheet,
     Text,
+    Image,
+    Dimensions
 } from 'react-native'
 import { connect } from 'react-redux'
 import Button from '../../../components/Button'
@@ -255,9 +257,13 @@ export default class Following extends Component {
         }
         const days = item.time
         const cycle = parseInt(item.time /  iCard.period)
+
+        const { img } = iCard
+        const source = img ? { uri: img.url } :
+            require('../../../../source/img/my/icon-60.png')
         return (
             <Button
-                style={{ flex: 1 }}
+                style={styles.card}
                 onPress={() => {
                     const { navigation } = this.props;
                     const { state } = navigation;
@@ -269,16 +275,12 @@ export default class Following extends Component {
                         user
                     })
                 }}>
+                <Image style={styles.img} source={source}/>
                 <View style={styles.row}>
-                    <View style={styles.subRow}>
-                        <Icon style={styles.icon} name={"ios-walk"}
-                              size={50}/>
-                        <View style={styles.des}>
-                            <Text style={styles.title}>{iCard.title}</Text>
-                            <Text style={styles.time}>坚持了{days}天</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.time}>第{cycle + 1}组</Text>
+                    <Text
+                        // numberOfLines={1}
+                        style={styles.title}>{iCard.title}</Text>
+                    <Text style={styles.time}>第{days}天</Text>
                 </View>
             </Button>
         )
@@ -305,6 +307,8 @@ export default class Following extends Component {
                 style={{ flex: 1 }}
                 reqKey={IUSE}
                 sKey={FOLLOWRECORD + user.objectId}
+                numColumns={2}
+                columnWrapperStyle={{ padding: 5 }}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
@@ -315,16 +319,11 @@ export default class Following extends Component {
     }
 }
 
-
+const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     row: {
-        paddingHorizontal: 18,
+        paddingHorizontal: 10,
         paddingVertical: 30,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
     },
     subRow: {
         flexDirection: 'row',
@@ -333,12 +332,34 @@ const styles = StyleSheet.create({
     des: {
         marginLeft: 15
     },
+    card: {
+        // marginTop:10,
+        // margin: 5,
+        backgroundColor: "#f9f9f9",
+        // backgroundColor:'red',
+        // borderRadius: 5,
+        width:width/2 -15,
+        marginHorizontal: 5,
+        borderRadius: 10,
+
+    },
     title: {
-        fontSize: 16,
+        fontSize: 19,
+        fontWeight:'600',
+        lineHeight:30,
     },
     time: {
-        marginTop: 3,
-        fontSize: 13,
-    }
+        marginTop: 30,
+        fontSize: 15,
+        // textAlign:'right',
+        alignSelf:'flex-end',
+        color: 'rgb(150,150,200)',
+
+
+    },
+    img: {
+        width: '100%',
+        height: 250,
+    },
 
 })
