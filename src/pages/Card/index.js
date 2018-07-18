@@ -37,6 +37,8 @@ import StopCell from './Cell/StopCell'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
 import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
+import ExceptionView, {ExceptionType} from '../../components/Base/ExceptionView'
+
 
 @connect(
     state => ({
@@ -181,20 +183,18 @@ export default class Home extends Component {
 
 
     __renderNoData = () => {
+
+
         return (
-            <View style={styles.noDataView}>
-                <Button
-                    style={styles.noDataBc}
-                    onPress={() => {
-                        this.props.navigation.navigate('Creat')
-                    }}>
-                    <Icon name="md-add" color="white" size={50}/>
-                </Button>
-                <Text style={{ marginTop: 10 }}>给自己添加个习惯卡片吧~</Text>
-            </View>
-
+            <ExceptionView
+                style={{height:Dimensions.get('window').height/2}}
+                exceptionType={ExceptionType.NoData}
+                tipBtnText={'添加卡片'}
+                prompt={'空空如也~'}
+                onRefresh={()=>{
+                this.props.navigation.navigate('NewCard')
+            }}/>
         )
-
     }
 
 
@@ -203,7 +203,6 @@ export default class Home extends Component {
 
         // const navigation = this.props.navigation
         // console.log('test:',typeof View())
-
 
         const statu = this.props.data.get('loadStatu')
 
@@ -342,15 +341,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         marginBottom: 30,
     },
-    noDataBc: {
-        backgroundColor: '#fabc46',
-        width: 100,
-        height: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 50,
 
-    },
     setting: {
         height: 25,
         width: 25,
@@ -373,10 +364,5 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         padding: 10
     },
-    noDataView: {
-        flex: 1,
-        alignItems: 'center',
-        paddingBottom: 100,
-        justifyContent: 'center'
-    }
+
 })

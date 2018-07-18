@@ -15,7 +15,8 @@ import {
     ActivityIndicator,
     Text,
     Platform,
-    FlatList
+    FlatList,
+    Dimensions
 } from 'react-native'
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
@@ -118,15 +119,7 @@ export default class BaseSectionView extends Component {
 
     };
 
-    renderNoDataTips() {
-        if (this.props.noDataTips) {
-            return this.props.noDataTips;
-        }
-        return (
-            <Text style={styles.otherTips}>
-            </Text>
-        );
-    }
+
 
     renderFooter() {
 
@@ -198,6 +191,9 @@ export default class BaseSectionView extends Component {
         const refreshing =  this.joinTime === 2
             && this.props.loadStatu === LIST_LOAD_DATA
 
+        const exceptionViewRefreshing = this.joinTime<2
+            && this.props.loadStatu === LIST_LOAD_DATA
+
         // console.log('refreshing:', refreshing);
         return (
             <TableView
@@ -211,17 +207,18 @@ export default class BaseSectionView extends Component {
                 ListFooterComponent={this.renderFooter.bind(this)}
                 ListEmptyComponent={()=>(
                     <ExceptionView
-                        style={[styles.list, this.props.style]}
+                        styles={styles.exceptionViewStyle}
+                        refresh={exceptionViewRefreshing}
                         exceptionType={
-                            this.props.loadStatu === LIST_LOAD_DATA
-                            ?ExceptionType.Loading:
+                            exceptionViewRefreshing?ExceptionType.Loading:
                             ExceptionType.NoData}
                         image={this.props.noDataImg}
-                        prompt={this.props.loadStatu === LIST_LOAD_DATA?
+                        prompt={exceptionViewRefreshing?
                             '正在加载~':
                             this.props.noDataPrompt}
-                        otherTips={this.renderNoDataTips()}
+                        // otherTips={this.renderNoDataTips()}
                         onRefresh={this._handleRefresh}
+                        {...this.props}
                     />
 
                 )}
@@ -233,6 +230,10 @@ export default class BaseSectionView extends Component {
     }
 }
 const styles = StyleSheet.create({
+    exceptionViewStyle:{
+       height:Dimensions.get('window').height/1.5,
+    },
+
     list: {
         flex: 1,
         overflow:'hidden',

@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     ScrollView,
@@ -14,34 +14,19 @@ import {
     Text,
     TouchableOpacity,
 } from 'react-native'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
-
-import * as Animatable from 'react-native-animatable';
 
 import CardView from '../Card'
 import Button from '../../components/Button'
-
-
-
-function makeScaleInTranslation(translationType, value) {
-    return {
-        from: {
-            [translationType]: 0,
-        },
-        to: {
-            [translationType]: value,
-        },
-    };
-}
-
-const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
-Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
+import {
+    StyledContent,
+    StyledInnerdContent
+} from './style'
 
 
 @connect(
     state => ({
-        isLogin: state.user.isLogin,
         user: state.user.data
     }),
     (dispatch, props) => ({
@@ -61,14 +46,11 @@ export default class Home extends Component {
 
 
     static navigationOptions = props => {
-        const {navigation} = props;
-        const {state} = navigation;
-        const {params} = state;
-        const isLogin = params ? params.isLogin : false
+        const { navigation } = props;
+        const { state } = navigation;
+        const { params } = state;
         // console.log('test:', params,localLoad);
         return {
-            // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-            title: '小改变',
             gesturesEnabled: false,
             header: null,
 
@@ -94,8 +76,8 @@ export default class Home extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.isLogin !== this.props.isLogin) {
-            const {navigation} = nextProps;
-            navigation.setParams({isLogin: nextProps.isLogin})
+            const { navigation } = nextProps;
+            navigation.setParams({ isLogin: nextProps.isLogin })
             // LayoutAnimation.spring()
         }
     }
@@ -118,7 +100,7 @@ export default class Home extends Component {
                         onPress={() => {
                             this.props.navigation.navigate('NewCard')
                         }}
-                        hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+                        hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
                         style={styles.headerBtn}>
                         <Text style={styles.headerBtnText}>添加</Text>
                     </Button>
@@ -128,17 +110,17 @@ export default class Home extends Component {
     }
 
     render(): ReactElement<any> {
-        const {isLogin} = this.props
 
         return (
-            <ScrollView style={[this.props.style, styles.container]}>
+            <StyledContent
+                style={this.props.style}>
+                <StyledInnerdContent
+                    colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
 
-
-                {this._renderHeader()}
-                {isLogin && (<CardView
-                    navigation={this.props.navigation}
-                />)}
-            </ScrollView>
+                    {this._renderHeader()}
+                    <CardView navigation={this.props.navigation}/>
+                </StyledInnerdContent>
+            </StyledContent>
         );
     }
 }

@@ -8,16 +8,18 @@ import {
     ScrollView,
     ActivityIndicator,
     TouchableOpacity,
-    Dimensions
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Button from '../../components/Button'
-import * as Animatable from 'react-native-animatable';
-import Icon from 'react-native-vector-icons/Ionicons'
 
-const height = Dimensions.get('window').height
+import {
+    StyledContent,
+    StyledReportBtn,
+    StyledReportText,
+    StyledActivityIndicator,
+    StyledImage,
+    StyleReportView
+} from './style'
 
-const AniView = Animatable.createAnimatableComponent(Image);
 
 export const ExceptionType = {
     Loading: 'exceptionTypeLoading',
@@ -29,15 +31,16 @@ export const ExceptionType = {
 export default class ExceptionView extends Component {
 
     static propTypes = {
-        renderHeader: PropTypes.func,
         exceptionType: PropTypes.string,
         prompt: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
         image: PropTypes.number,
         otherTips: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
         onRefresh: PropTypes.func,
+        tipBtnText: PropTypes.string
     };
     static defaultProps = {
         exceptionType: ExceptionType.Loading,
+        tipBtnText: '点击刷新'
     };
 
     constructor(props: Object) {
@@ -56,9 +59,6 @@ export default class ExceptionView extends Component {
     }
 
     renderOtherTips() {
-        if (!this.props.otherTips) {
-            return null;
-        }
         if (isValidElement(this.props.otherTips)) {
             return this.props.otherTips;
         }
@@ -67,23 +67,44 @@ export default class ExceptionView extends Component {
         );
     }
 
+    renderTipButton = () => {
+
+        return (
+            <StyledReportBtn onPress={() => {
+                this.props.onRefresh && this.props.onRefresh()
+            }}>
+                <StyledReportText>
+                    {this.props.tipBtnText}
+                </StyledReportText>
+            </StyledReportBtn>
+        )
+
+    }
+
     render() {
         // let prompt = this.getPromptText(this.props.exceptionType);
+        // console.log('test:', this.props.styles);
+        // const style = {height:300,... this.props.styles}
+        // console.log('test:', style);
+        const { otherTips, onRefresh, refresh,style,styles } = this.props
         return (
-            <ScrollView  style={[{ flex: 1 }, this.props.style]}>
-                {this.props.renderHeader && this.props.renderHeader()}
-                    <Button
-                        style={{height:height/2,alignItems:'center',
-                            justifyContent:'center',minHeight:100}}
-                        onPress={() => {
-                            this.props.onRefresh && this.props.onRefresh()
-                        }}>
-                        {this._renderPromptIndicator(this.props.exceptionType)}
-                        {this.renderPrompt()}
-                        {this.renderOtherTips()}
-                    </Button>
+            <StyledContent
+                style={[style,styles]}>
+                {this._renderPromptIndicator(this.props.exceptionType)}
+                {this.renderPrompt()}
+                {otherTips && this.renderOtherTips()}
+                {!refresh && onRefresh ? this.renderTipButton():
+                <StyleReportView/>}
+                {/*<Button*/}
+                {/*style={}*/}
+                {/*onPress={() => {*/}
+                {/*this.props.onRefresh && this.props.onRefresh()*/}
+                {/*}}>*/}
 
-            </ScrollView>
+                {/**/}
+                {/*</Button>*/}
+
+            </StyledContent>
         );
     }
 
@@ -91,20 +112,14 @@ export default class ExceptionView extends Component {
         switch (type) {
             case ExceptionType.Loading:
                 return (
-                    <ActivityIndicator color="#9e9e9e" style={styles.spinner} size="large"
-                                       styleAttr="Large"/>
+                    <StyledActivityIndicator color="#9e9e9e" size="large"/>
                 );
             case ExceptionType.NoData:
             case ExceptionType.NetError:
                 return (
-                    // <Image resizeMode = 'contain' source={this.props.image} style={styles.image}/>
-                    <AniView
-                        ref='icon'
-                        // name='logo-freebsd-devil'
-                        // size={100}
-                        // color='rgb(180,180,180)'
-                        source={require('../../../source/img/my/icon-60.png')}
-                        style={styles.image}/>
+                    <StyledImage
+                        source={require('../../../../source/img/my/icon-60.png')}
+                    />
                 );
         }
     };
@@ -132,22 +147,16 @@ export default class ExceptionView extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        backgroundColor: 'white',
-    },
     image: {
         // position:'absolute',
-        alignSelf: 'center',
-        marginTop: 50,
+        width: 50,
+        height: 50
     },
     text: {
-        fontSize: 14,
-        color: 'black',
+        fontSize: 25,
+        color: 'rgb(200,200,200)',
         alignSelf: 'center',
-        marginTop: 20,
+        marginTop: 5,
     },
     otherTips: {
         marginTop: 27,
@@ -157,5 +166,4 @@ const styles = StyleSheet.create({
         color: '#9e9e9e',
         lineHeight: 26,
     },
-    spinner: {}
 });
