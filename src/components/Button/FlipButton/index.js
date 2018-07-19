@@ -72,6 +72,7 @@ export default class FlipButton extends Component {
             animation
         } = this.props
 
+        console.log('flip:', load,statu);
 
         return (
             <AniStyledContent

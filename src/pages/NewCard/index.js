@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         // textAlign:'right',
         alignSelf:'flex-end',
-        color: 'rgb(150,150,200)',
+        color: 'rgb(150,150,150)',
 
 
     },

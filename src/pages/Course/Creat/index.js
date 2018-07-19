@@ -59,7 +59,7 @@ const selector = formValueSelector(FormID)
                 const title = selector(state, 'title');
                 const subtitle = selector(state, 'subtitle');
                 // const cover = selector(state, 'cover');
-                const params = { title, subtitle }
+                const params = { title, subtitle, statu:1}
 
 
                 updateByID(COURSE,id, params )

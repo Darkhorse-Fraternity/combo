@@ -36,6 +36,7 @@ const listKey = ICARD
 export default class Publish extends Component {
     constructor(props: Object) {
         super(props);
+
     }
 
     static propTypes = {};
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         // textAlign:'right',
         alignSelf:'flex-end',
-        color: 'rgb(150,150,200)',
+        color: 'rgb(150,150,150)',
 
 
     },

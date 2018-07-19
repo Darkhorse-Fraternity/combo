@@ -9,7 +9,7 @@ import styled from "styled-components/native";
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
 
-export const StyledContent = styled(SafeAreaView)`
+export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
 `
@@ -19,31 +19,24 @@ export const StyledContent = styled(SafeAreaView)`
 
 
 export const StyledRow = styled.View`
-  padding: 25px 15px 25px 15px;
+  padding: 15px 0px ;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  border-bottom-width: ${props => props.theme.hairlineWidth };
-  border-bottom-color: #e4e4e4;
+ 
+
 `
 
-export const StyledRowTouch = styled(Button)`
-  padding: 25px 15px 25px 15px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom-width: ${props => props.theme.hairlineWidth };
-  border-bottom-color: #e4e4e4;
-`
 
 export const StyledRowText = styled.Text`
   color: #323232;
-  font-size: 18px;
+  font-size: 17px;
+  fontStyle:italic;
 `
 
 export const StyledRowDes = styled.Text`
   color: #323232;
-  font-size: 19px;
+  font-size: 17px;
+  fontStyle:italic;
 `
 
 export const StyledRowInner = styled.View`
@@ -59,4 +52,18 @@ export const StyledArrow = styled.View`
   width: 10px;
   height: 10px;
   margin-left: 5px;
+`
+
+
+export const StyledTitleView = styled.View`
+  padding: 0px 0px 15px 0px;
+`
+
+export const StyledTitleText = styled.Text`
+  font-size: 15px;
+  color: #979797;
+`
+
+export const StyledCourseView = styled.View`
+
 `

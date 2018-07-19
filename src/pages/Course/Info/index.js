@@ -284,7 +284,9 @@ export default class Info extends Component {
                         <StyledHeaderConverTip>
                             <StyledTriangle/>
                         </StyledHeaderConverTip>
-                        <StyledHeaderImage source={{ uri: course.cover.url }}/>
+                        <StyledHeaderImage
+                            width={200}
+                            source={{ uri: course.cover.url }}/>
                     </StyledHeaderCover>
                     <StyledHeaderTitle>
                         {course.title}

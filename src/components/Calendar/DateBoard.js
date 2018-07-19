@@ -99,25 +99,7 @@ export default class DateBoard extends React.Component {
             const now  = this.getNowDay(myYear,myMonth+1,i)
 
             // console.log('test:', i);
-            if (this.props.date === now) {
-                arr.push(
-                    <Button
-                        background={ background}
-                        onPress={()=>{
-                        this.props.selectDay(now)
-                        busyDay[now] &&
-                        this.props.fetchData && this.props.fetchData(busyDay[now])
-                    }}
-                                      key={i}
-                                      style={styles.dateBox}>
-                        <View style={[styles.selected]}>
-                            <Text style={[styles.dateText, {
-                                fontWeight: 'bold'
-                            }]}>{i + ""}</Text>
-                        </View>
-                    </Button>
-                )
-            } else if (busyDay[now]) {
+             if (busyDay[now]) {
                 const d = i
                 arr.push(
                     <Button
@@ -131,6 +113,24 @@ export default class DateBoard extends React.Component {
                         <View style={[styles.selected, { backgroundColor: theme.mainLightColor }]}>
                             <Text style={[styles.dateText, {
                                 color: 'white',
+                                fontWeight: 'bold'
+                            }]}>{i + ""}</Text>
+                        </View>
+                    </Button>
+                )
+            }else if (this.props.date === now) {
+                arr.push(
+                    <Button
+                        background={ background}
+                        onPress={()=>{
+                            this.props.selectDay(now)
+                            busyDay[now] &&
+                            this.props.fetchData && this.props.fetchData(busyDay[now])
+                        }}
+                        key={i}
+                        style={styles.dateBox}>
+                        <View style={[styles.selected]}>
+                            <Text style={[styles.dateText, {
                                 fontWeight: 'bold'
                             }]}>{i + ""}</Text>
                         </View>

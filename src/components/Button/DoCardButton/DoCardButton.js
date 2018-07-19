@@ -10,7 +10,8 @@ import { doCardWithNone } from '../../Button/DoCardButton/DoCard'
 import moment from 'moment'
 import {
     ActivityIndicator,
-    View
+    View,
+    Platform
 } from 'react-native'
 import theme from '../../../Theme'
 
@@ -63,8 +64,12 @@ export default class DoCardButton extends Component {
 
     static propTypes = {
         iUse: PropTypes.object.isRequired,
+        animation:PropTypes.string,
+
     };
-    static defaultProps = {};
+    static defaultProps = {
+        animation:Platform.OS === 'ios'?'bounceIn':'bounceInRight'
+    };
 
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -87,12 +92,13 @@ export default class DoCardButton extends Component {
 
     render() {
         // console.log('test:', this.state.statu !== 0 || this.props.load);
+        const {animation} = this.props
         return (
             <AniStyledContent
                 useNativeDriver
                 duration={2000}
                 easing="ease-in-out"
-                animation="bounceIn"
+                animation={animation}
                 activeOpacity={1}
                 disabled={this.state.statu === 1 || this.props.load}
                 onPress={() => {

@@ -21,8 +21,14 @@ import {
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components/native';
-import ZoomImage from '../../../components/ZoomImage/ZoomImage'
-import { ICARD, USER, IUSE, IUSEExist } from '../../../redux/reqKeys'
+import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
+import {
+    ICARD,
+    USER,
+    IUSE,
+    IUSEExist,
+    COURSE
+} from '../../../redux/reqKeys'
 import { getUserByID, classSearch } from '../../../request/leanCloud'
 import { req, requestSucceed, DATA } from '../../../redux/actions/req'
 import { entityFromCode } from '../../../redux/scemes'
@@ -43,24 +49,54 @@ import {
     StyledRowDes,
     StyledArrow,
     StyledRowInner,
-    StyledRowTouch,
-    StyeldDoneView
+    StyledTitleView,
+    StyledTitleText,
+    StyledCourseView
 } from './style'
+
+import {
+    StyledHeaderCover,
+    StyledHeaderImage,
+    StyledHeaderTitle,
+    StyledHeaderInner,
+    StyledHeaderInnerLeft,
+    StyledHeaderInnerRight,
+    StyledNickName,
+    StyledSubTitle,
+    StyledReadNum,
+    StyledAvatar,
+    StyledFollowBtnText,
+
+} from '../../Course/Info/style'
+
 import { Privacy } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import {findByID} from '../../../redux/module/leancloud'
 
 @connect(
-    (state, props) => ({
-        //data:state.req.get()
-        iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId),
-        user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
-        userLoad: state.req.get(USER).get('load'),
-        useExist: state.req.get(IUSEExist),
-        data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
-        dataId: state.req.get(IUSEExist).get('data').get('0')
-    }),
+    (state, props) => {
+        const iCard = state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId)
+
+        return {
+            //data:state.req.get()
+            iCard,
+            user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
+            userLoad: state.req.get(USER).get('load'),
+            useExist: state.req.get(IUSEExist),
+            data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
+            dataId: state.req.get(IUSEExist).get('data').get('0'),
+            course: state.normalizr.get(COURSE).get(iCard.get('course'))
+        }
+    },
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
+        loadCourse: (course) => {
+            if(course && !course.get('title')){
+                const id = course.get('objectId')
+                findByID(COURSE, id)
+            }
+        },
         loadUser: (iCardUser) => {
 
 
@@ -113,8 +149,10 @@ import FlipButton from '../../../components/Button/FlipButton'
 export default class CardInfo extends Component {
     constructor(props: Object) {
         super(props);
-
-
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+        this.state = {
+            visible: false
+        }
     }
 
     static propTypes = {};
@@ -130,11 +168,12 @@ export default class CardInfo extends Component {
     componentDidMount() {
         this.props.loadUser(this.props.user.toJS())
         this.props.exist(this.props.navigation.state.params.iCard.objectId)
+        this.props.loadCourse(this.props.course)
     }
 
-    shouldComponentUpdate(nextProps: Object) {
-        return !immutable.is(this.props, nextProps)
-    }
+    // shouldComponentUpdate(nextProps: Object) {
+    //     return !immutable.is(this.props, nextProps)
+    // }
 
 
     row = (title, des) => (
@@ -142,6 +181,7 @@ export default class CardInfo extends Component {
             <StyledRowText>
                 {title}
             </StyledRowText>
+            <View style={{ width: 20 }}/>
             <StyledRowDes>
                 {des}
             </StyledRowDes>
@@ -150,22 +190,34 @@ export default class CardInfo extends Component {
 
 
     rowTouch = (title, des, onPress) => (
-        <StyledRowTouch onPress={onPress}>
+        <Button onPress={onPress}>
+            <StyledRow>
 
-            <StyledRowText>
-                {title}
-            </StyledRowText>
+                <StyledRowText>
+                    {title}
+                </StyledRowText>
 
-            <StyledRowInner>
-                <StyledRowDes>
-                    {des}
-                </StyledRowDes>
-                <StyledArrow/>
-            </StyledRowInner>
-        </StyledRowTouch>
+                <StyledRowInner>
+                    <StyledRowDes>
+                        {des}
+                    </StyledRowDes>
+                    <StyledArrow/>
+                </StyledRowInner>
+            </StyledRow>
+        </Button>
 
     )
 
+
+    _renderCourse = (course) => {
+        console.log('course:', course);
+        return (
+            <StyledCourseView>
+
+            </StyledCourseView>
+        )
+
+    }
 
     render(): ReactElement<any> {
 
@@ -189,13 +241,22 @@ export default class CardInfo extends Component {
         const userLoad = this.props.userLoad
 
 
+        let {course} = this.props
+        course = course && course.toJS()
+
         return (
             <StyledContent forceInset={{ top: 'never' }}>
+                <ImagesViewModal
+                    visible={this.state.visible}
+                    closeCallBack={() => {
+                        this.setState({ visible: false })
+                    }}
+                    imageUrls={[{ url: iCard.img.url }]}/>
                 <FlipButton
                     faceText={'马上\n参与'}
                     backText={'已参与'}
                     load={load}
-                    statu={exist?1:0}
+                    statu={exist ? 1 : 0}
                     onPress={() => {
                         if (exist && iUseData) {
                             this.props.navigation.navigate('CardDetail', {
@@ -210,54 +271,64 @@ export default class CardInfo extends Component {
                     containStyle={styles.containStyle}
                     style={styles.flip}/>
                 <ScrollView style={[this.props.style, styles.wrap]}>
-                    {iCard.img && <ZoomImage
-                        height={width * 0.7}
-                        style={styles.img} imageUrls={[{ url: iCard.img.url }]}/>}
-                    <Button
-                        disabled={userLoad}
-                        onPress={() => {
-                            this.props.navigation.navigate('Following', { user: iCardUser })
-                        }}
-                        style={styles.row}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Image source={avatarSource} style={styles.avatar}/>
-                            <Text style={styles.name}>
-                                {nickName || "路人甲"}
-                            </Text>
-                        </View>
-                        {userLoad ? <ActivityIndicator size="small"/> :
-                            <View style={styles.arrowView}/>}
-                    </Button>
-                    {this.row('卡片名称:', iCard.title)}
+                    <StyledHeaderCover onPress={() => {
+                        this.setState({ visible: true })
+                    }}>
+                        <StyledHeaderImage
+                            source={{ uri: iCard.img.url }}/>
+                    </StyledHeaderCover>
+
+                    <StyledHeaderTitle style={{ marginTop: 50 }}>
+                        {iCard.title}
+                    </StyledHeaderTitle>
+                    <StyledHeaderInner>
+                        <StyledHeaderInnerLeft>
+                            {iCard.subtitle && <StyledSubTitle>
+                                {iCard.subtitle}
+                            </StyledSubTitle>}
+                            <StyledNickName>
+                                教练: {nickName}
+                            </StyledNickName>
+
+                            <Button onPress={() => {
+                                !userLoad && this.props.navigation.navigate('CardUse', { iCard: iCard })
+                            }}>
+                                <StyledReadNum>
+                                    参与人数：{iCard.useNum}
+                                </StyledReadNum>
+                            </Button>
+
+                        </StyledHeaderInnerLeft>
+                        <StyledHeaderInnerRight>
+                            <Button onPress={() => {
+                                this.props.navigation.navigate('Following',
+                                    { user: iCardUser })
+
+                            }}>
+                                <StyledAvatar source={avatarSource}/>
+                            </Button>
+                            {/*{this.__renderFocusOn()}*/}
+                        </StyledHeaderInnerRight>
+                    </StyledHeaderInner>
+
+                    <View style={{ height: 50 }}/>
+
+                    <StyledTitleView>
+                        <StyledTitleText>
+                            卡片介绍
+                        </StyledTitleText>
+                    </StyledTitleView>
+
                     {this.row('卡片周期:', iCard.period + '次')}
                     {this.row('记录模式:', iCard.record.join("+") || '无')}
                     {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
                     {this.row('提醒时间:', iCard.notifyTime)}
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
-                    {this.rowTouch('使用人数:', iCard.useNum + '人', () => [
-                        this.props.navigation.navigate('CardUse', { iCard: iCard })
-                    ])}
+                    {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
+                    {course && course.title && this._renderCourse(course)}
+                    <View style={{ height: 200 }}/>
+
                 </ScrollView>
-                {/*<Button onPress={() => {*/}
-                    {/*if (exist && iUseData) {*/}
-                        {/*this.props.navigation.navigate('CardDetail', {*/}
-                            {/*iUseId: iUseData.objectId,*/}
-                            {/*iCardId: iCard.objectId*/}
-                        {/*})*/}
-
-                    {/*} else {*/}
-                        {/*this.props.use(iCard)*/}
-                    {/*}*/}
-                {/*}}*/}
-                        {/*disabled={load}*/}
-                        {/*style={[styles.btn, { backgroundColor: !load ? "#F3AC41" : "#F0C98B" }]}>*/}
-
-
-                    {/*{load ? <ActivityIndicator color={"white"}/> :*/}
-                        {/*<Text style={[styles.btnText]}>*/}
-                            {/*{exist ? '已经参与' : "马上参与"}*/}
-                        {/*</Text>}*/}
-                {/*</Button>*/}
             </StyledContent>
         );
     }
@@ -268,6 +339,7 @@ const styles = StyleSheet.create({
     wrap: {
         flex: 1,
         backgroundColor: 'white',
+        padding: 15,
     },
     img: {
 
@@ -324,14 +396,14 @@ const styles = StyleSheet.create({
         fontSize: 19,
     },
     flip: {
-        position:'absolute',
-        zIndex:100,
-        bottom:50,
-        right:15,
+        position: 'absolute',
+        zIndex: 100,
+        bottom: 50,
+        right: 15,
     },
-    containStyle:{
-       width:70,
-       height:70,
-        borderRadius:35,
+    containStyle: {
+        width: 70,
+        height: 70,
+        borderRadius: 35,
     }
 })

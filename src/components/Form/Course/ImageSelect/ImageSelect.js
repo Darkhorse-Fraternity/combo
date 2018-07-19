@@ -95,7 +95,7 @@ export default class ImageSelect extends Component {
                                                 更换封面
                                             </StyledTipViewText>
                                         </StyledTipView>
-                                        <StyledHeaderImage source={{ uri }}/>
+                                        <StyledHeaderImage width={250} source={{ uri }}/>
                                     </View>
                                 )}
                         </StyledButton>

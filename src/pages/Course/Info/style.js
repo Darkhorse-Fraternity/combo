@@ -32,9 +32,9 @@ export const StyledIndicator = styled.ActivityIndicator`
 
 export const StyledHeaderCover = styled(Button)`
     background-color: white;
-    height: 200px;
+   
     margin: 10px 5px;
-    width: 250px;
+   
     align-self: center;
     justify-content: center;
     border-radius: 10px;
@@ -148,7 +148,9 @@ export const StyledFollowBtnText = styled.Text`
 
 
 export const StyledHeaderImage = styled.Image`
-    flex: 1;
+    width:250px;
+    height: 200px;
+    
     border-radius: 5px;
 `
 
