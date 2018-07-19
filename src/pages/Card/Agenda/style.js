@@ -5,12 +5,11 @@
 'use strict';
 
 import styled from "styled-components/native";
-
+import LinearGradient from 'react-native-linear-gradient';
 
 
 export const StyledContent = styled.View`
     flex: 1;
-    background-color: white;
 `
 
 export const StyledInner = styled.View`
@@ -36,7 +35,7 @@ export const StyledTitleText = styled.Text`
 export const StyledRow = styled.View`
   padding: 15px;
   flex-direction: row;
-  justify-content: space-between;
+  
 `
 
 
@@ -44,5 +43,6 @@ export const StyledRow = styled.View`
 export const StyledRowText = styled.Text`
   font-size: 15px;
   color: black;
+  fontStyle:italic;
 `
 

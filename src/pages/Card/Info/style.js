@@ -8,11 +8,10 @@ import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/Ionicons'
 import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
+import LinearGradient from 'react-native-linear-gradient';
 
-
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled.View`
     flex: 1;
-    background-color: white;
 `
 
 export const StyledTitleView = styled.View`

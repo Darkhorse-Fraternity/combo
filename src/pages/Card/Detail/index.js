@@ -66,7 +66,6 @@ export default class CardDetail extends Component {
 
         return (
             <StyledContent forceInset={{ top: 'never' }}>
-
                 <ScrollableTabView
                     renderTabBar={() => (
                         <BackTabBar
@@ -83,7 +82,6 @@ export default class CardDetail extends Component {
                     <Info {...this.props} tabLabel="设置"/>
                 </ScrollableTabView>
                 <DoCardButton {...this.props} />
-
             </StyledContent>
         );
     }

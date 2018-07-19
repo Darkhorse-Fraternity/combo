@@ -96,8 +96,9 @@ export default class CardDetail extends Component {
         return (
             <StyledRow>
                 <StyledRowText>
-                    {title}
+                    {title+':'}
                 </StyledRowText>
+                <View style={{width:20}}/>
                 <StyledRowText>
                     {des}
                 </StyledRowText>
@@ -126,7 +127,8 @@ export default class CardDetail extends Component {
 
 
         return (
-            <StyledInner>
+            <StyledInner
+                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']} >
                 <AgendaScreen {...this.props}/>
                 <StyledTitleView>
                     <StyledTitleText>
@@ -194,7 +196,7 @@ export default class CardDetail extends Component {
 
 const styles = StyleSheet.create({
     row: {
-        backgroundColor: 'white',
+        backgroundColor:'white',
         paddingHorizontal: 18,
         paddingVertical: 2,
         borderBottomWidth: StyleSheet.hairlineWidth,

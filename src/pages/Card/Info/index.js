@@ -32,8 +32,6 @@ import {
     StyledRowInner,
     StyledRowTouch,
     StyledBottomMenuButton,
-    StyledTitleView,
-    StyledTitleText,
     StyeldDoneView,
     StyledActivityIndicator,
     StyledBtn,
@@ -305,7 +303,8 @@ export default class Info extends Component {
             : require('../../../../source/img/my/icon-60.png')
 
         return (
-            <StyledContent>
+            <StyledContent
+                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
                 {/*{this._renderDoneView(done, over)}*/}
                 {/*{!!iCard.img ? (<ZoomImage*/}
                 {/*height={width * 0.7}*/}

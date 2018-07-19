@@ -22,6 +22,7 @@ import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import { Privacy } from '../../configure/enum'
 import RecordRow from '../Record/RecordRow'
+import Button from '../../components/Button'
 
 const listKey = IDO
 
@@ -90,9 +91,12 @@ export default class Detail extends Component {
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         return (
-            <View>
-
-                <View style={styles.top}>
+            <View >
+                <Button
+                    onPress={()=>{
+                        this.props.navigation.navigate('Following', { user: item.user })
+                    }}
+                    style={styles.top}>
                     <Image
                         style={styles.avatar}
                         source={avatarSource}/>
@@ -100,7 +104,7 @@ export default class Detail extends Component {
                         {item.user.nickname || '路人甲'}
                         完成了任务
                     </Text>
-                </View>
+                </Button>
                 <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
             </View>
         )
@@ -172,11 +176,11 @@ const styles = StyleSheet.create({
         height: 200,
     },
     top: {
+        marginTop:15,
         paddingVertical: 5,
         paddingHorizontal: 18,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop:15
     },
     avatar: {
         width: 30,

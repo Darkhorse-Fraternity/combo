@@ -18,8 +18,12 @@ import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
 import { IDO, REPORT } from '../../../redux/reqKeys'
+import Button from '../../../components/Button'
+
 
 const listKey = IDO
+
+
 
 import {
     StyledHeader,
@@ -99,7 +103,8 @@ export default class Course extends Component {
         const isSelf = user === selfUser
 
         return (
-            <StyledHeader colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+            <StyledHeader
+                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
                 {courseId &&  <StyledReportBtn onPress={this.props.report}>
                     <StyledReportText>
                         举报
@@ -132,7 +137,11 @@ export default class Course extends Component {
             require('../../../../source/img/my/icon-60.png')
         return (
             <View>
-                <View style={styles.top}>
+                <Button
+                    onPress={()=>{
+                        this.props.navigation.navigate('Following', { user: item.user })
+                    }}
+                    style={styles.top}>
                     <Image
                         style={styles.avatar}
                         source={avatarSource}/>
@@ -140,7 +149,7 @@ export default class Course extends Component {
                         {item.user.nickname || '路人甲'}
                         完成了任务
                     </Text>
-                </View>
+                </Button>
                 <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
             </View>
         )
@@ -198,11 +207,12 @@ const styles = StyleSheet.create({
         height: 200,
     },
     top: {
+        marginTop:15,
         paddingVertical: 5,
         paddingHorizontal: 18,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 15
+        // backgroundColor:'red'
     },
     avatar: {
         width: 30,

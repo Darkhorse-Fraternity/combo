@@ -8,10 +8,10 @@ import styled from "styled-components/native";
 
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
+import LinearGradient from 'react-native-linear-gradient';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(LinearGradient)`
     flex: 1;
-    background-color: white;
 `
 
 

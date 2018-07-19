@@ -245,7 +245,9 @@ export default class CardInfo extends Component {
         course = course && course.toJS()
 
         return (
-            <StyledContent forceInset={{ top: 'never' }}>
+            <StyledContent
+                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
+                forceInset={{ top: 'never' }}>
                 <ImagesViewModal
                     visible={this.state.visible}
                     closeCallBack={() => {
@@ -338,7 +340,6 @@ const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
     wrap: {
         flex: 1,
-        backgroundColor: 'white',
         padding: 15,
     },
     img: {

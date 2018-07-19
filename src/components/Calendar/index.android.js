@@ -206,13 +206,11 @@ export default class Calendar extends Component {
 }
 const styles = StyleSheet.create({
     wrap: {
-        backgroundColor: 'white',
     },
     dayTitle: {
         height: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'white',
     },
     dateTitle: {
         flexDirection: 'row',
@@ -220,7 +218,6 @@ const styles = StyleSheet.create({
         // paddingBottom: 10,
         // borderBottomWidth: .5,
         // borderColor: '#ddd',
-        backgroundColor: 'white'
     },
     dateTitleText: {
         width: width / 7 - 1,

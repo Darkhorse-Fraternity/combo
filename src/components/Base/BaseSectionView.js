@@ -20,6 +20,7 @@ import {
 } from 'react-native'
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
@@ -34,6 +35,7 @@ export const LIST_NORMAL = 'LIST_NORMAL'
 export default class BaseSectionView extends Component {
     constructor(props: Object) {
         super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.state = {
             shouldShowloadMore: false,
             joinTime:0,
@@ -77,22 +79,24 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
-    joinTime = 0;
+    // joinTime = 0;
     _scrollView
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.loadStatu !== LIST_FIRST_JOIN && this.joinTime < 2) {
-            this.joinTime++
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.loadStatu !== LIST_FIRST_JOIN && this.state.joinTime < 2) {
+    //
+    //         // this.joinTime++
+    //         this.setState({joinTime:this.state.joinTime+1})
+    //     }
+    // }
 
 
     // shouldComponentUpdate(nextProps: Object, nextState: Object) {
     //     return !is(this.props, nextProps) || !is(this.state, nextState)
     // }
 
-    shouldComponentUpdate(nextProps: Object, nextState: Object) {
-        return nextProps.loadStatu !== this.props.loadStatu || !is(this.state, nextState)
-    }
+    // shouldComponentUpdate(nextProps: Object, nextState: Object) {
+    //     return nextProps.loadStatu !== this.props.loadStatu || !is(this.state, nextState)
+    // }
 
     _handleRefresh = () => {
         if (this.props.loadStatu === LIST_LOAD_DATA) {
@@ -188,13 +192,14 @@ export default class BaseSectionView extends Component {
         //     //TODO:先不加，其他状态量判断太麻烦。
         // }
 
-        const refreshing =  this.joinTime === 2
-            && this.props.loadStatu === LIST_LOAD_DATA
+        // console.log('this.joinTime:', this.joinTime ,this.props.loadStatu);
+        const refreshing = this.props.loadStatu === LIST_LOAD_DATA
+            && data.length > 0
 
-        const exceptionViewRefreshing = this.joinTime<2
-            && this.props.loadStatu === LIST_LOAD_DATA
 
-        // console.log('refreshing:', refreshing);
+        const exceptionViewRefreshing =
+            this.props.loadStatu === LIST_LOAD_DATA
+
         return (
             <TableView
                 refreshing={refreshing}
