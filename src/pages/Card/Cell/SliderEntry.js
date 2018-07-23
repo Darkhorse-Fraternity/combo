@@ -122,7 +122,7 @@ export default class SliderEntry extends Component {
                             {moment(data.doneDate.iso).format("MM/DD")}
                         </Text>
                     </Animatable.View>)}
-                    {over && (<TouchableOpacity
+                    {!done && over && (<TouchableOpacity
 
                         onPress={onRefresh}
                         disabled={refreshLoad}

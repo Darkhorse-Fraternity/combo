@@ -139,9 +139,43 @@ export default class Info extends Component {
         )
     }
 
+
+    _renderRresh = (reflesh,params)=> {
+        const { iCard, iUse } = params
+        const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
+
+
+        let text = iUse.time % Number(iCard.period) === 0 ?
+            "再来一组" :
+            "继续打卡"
+
+        if (!reflesh) {
+            text = "暂停打卡"
+        }
+        return (<View>
+            {this.props.iUseLoad ? <StyledActivityIndicator/> :
+                <StyledBottomMenuButton
+                    background={background}
+                    hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
+                    onPress={() => {
+                        !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
+                    }}>
+                    <StyledIcon name={!reflesh ?
+                        'md-trash' : 'md-refresh'}
+                                size={30}/>
+                    <StyledBottomMenuText>
+                        {text}
+                    </StyledBottomMenuText>
+                </StyledBottomMenuButton>}
+        </View>)
+
+
+    }
+
     _renderBottomMenu = (params) => {
 
-        let { iCard, iUse } = params
+        const { iCard, iUse } = params
         const { navigation } = this.props;
         // const pUse = this.props.iUse && this.props.iUse.toJS()
         // iUse = pUse || iUse
@@ -151,20 +185,16 @@ export default class Info extends Component {
             || iUse.statu === 'stop'
 
         // console.log('test:', item);
-        let text = iUse.time % Number(iCard.period) === 0 ?
-            "再来一组" :
-            "继续打卡"
 
-        if (!reflesh) {
-            text = "暂停打卡"
-        }
 
 
         const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
             TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <StyledBottomMenu>
-                {iCard.user === this.props.user.objectId && iUse.statu !== 'del' &&
+                {iCard.user === this.props.user.objectId &&
+                    iCard.state !== -2
+                && iUse.statu !== 'del' &&
                 (<StyledBottomMenuButton
                     background={background}
                     hitSlop={{ top: 10, left: 20, bottom: 10, right: 20 }}
@@ -177,20 +207,8 @@ export default class Info extends Component {
                         圈子管理
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>)}
-                {this.props.iUseLoad ? <StyledActivityIndicator/> :
-                    <StyledBottomMenuButton
-                        background={background}
-                        hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
-                        onPress={() => {
-                            !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
-                        }}>
-                        <StyledIcon name={!reflesh ?
-                            'md-trash' : 'md-refresh'}
-                                    size={30}/>
-                        <StyledBottomMenuText>
-                            {text}
-                        </StyledBottomMenuText>
-                    </StyledBottomMenuButton>}
+
+                {this._renderRresh(reflesh,params)}
                 <StyledBottomMenuButton
                     background={background}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}

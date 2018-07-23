@@ -48,10 +48,10 @@ export default StyleSheet.create({
     },
     androidShadow:{
         flex:1,
-        position: 'absolute',
+        // position: 'absolute',
         top: 0,
-        left: itemHorizontalMargin,
-        right: itemHorizontalMargin,
+        // left: itemHorizontalMargin,
+        // right: itemHorizontalMargin,
         bottom: 18,
         borderRadius: entryBorderRadius,
         elevation: 5,
@@ -85,14 +85,16 @@ export default StyleSheet.create({
         fontSize: 13,
     },
     overView: {
+        ...StyleSheet.absoluteFillObject,
         height: slideHeight / 2,
-        top: slideHeight / 4,
+        top: slideHeight / 5,
         left: 8,
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
         backgroundColor: 'rgba(0,0,0,0.3)',
-        width: "100%"
+        width: "98%",
+        zIndex:50000,
+        elevation: 10   ,
     },
     refreshView: {
         flexDirection: 'row',

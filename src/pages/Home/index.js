@@ -114,14 +114,16 @@ export default class Home extends Component {
         return (
             <StyledInnerdContent
                 colors={['#f1f6f9', '#ffffff']}>
-                <StyledContent
-                    style={this.props.style}>
+                {/*<StyledContent*/}
+                    {/*style={this.props.style}>*/}
 
 
-                    {this._renderHeader()}
-                    <CardView navigation={this.props.navigation}/>
+                    {/*{this._renderHeader()}*/}
+                    <CardView
+                        header = {this._renderHeader}
+                        navigation={this.props.navigation}/>
 
-                </StyledContent>
+                {/*</StyledContent>*/}
             </StyledInnerdContent>
         );
     }

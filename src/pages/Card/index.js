@@ -15,7 +15,8 @@ import {
     Dimensions,
     TouchableOpacity,
     Alert,
-    Image
+    Image,
+
 } from 'react-native'
 import { connect } from 'react-redux'
 import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
@@ -38,7 +39,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
 import { doCardWithNone } from '../../components/Button/DoCardButton/DoCard'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView'
-
+import {claerByID} from '../../redux/actions/list'
 
 @connect(
     state => ({
@@ -71,9 +72,12 @@ import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionVie
         },
 
         refresh: async (data) => {
+
+
+
             const id = data.objectId
             const param = {
-                statu: 'start',
+                statu: 'stop',
             }
 
             const res = await  await update(id, param, IUSE)
@@ -83,6 +87,7 @@ import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionVie
                 ...res
             }
             dispatch(addNormalizrEntity(IUSE, entity))
+            dispatch(claerByID(IUSE,id))
         },
         exist: async () => {
             const params = classSearch(IUSE, {
@@ -169,8 +174,24 @@ export default class Home extends Component {
                 })
             }}
             onRefresh={() => {
-                !this.props.refreshLoad && over
-                && this.props.refresh(data)
+
+
+                Alert.alert(
+                    '再来一组?',
+                    '放弃打卡不会删除卡片',
+                    [{text: '放弃打卡',onPress: () => {
+                        !this.props.refreshLoad && over
+                        && this.props.refresh(data)
+                    }}, {
+                        text: '点击打卡', onPress: () => {
+                            !this.props.load &&
+                            !done &&
+                            this.props.done(data)
+                        }
+                    }]
+                )
+
+
             }}
             carouselRef={this._carousel}
             parallax={true}
@@ -232,6 +253,10 @@ export default class Home extends Component {
             (
 
                 <FlatList
+                    refreshing={false}
+                    onRefresh={()=>{
+                        this.props.search()
+                    }}
                     style={styles.container}
                     data={data}
                     numColumns={2}
@@ -242,28 +267,29 @@ export default class Home extends Component {
                     showsVerticalScrollIndicator={false}
                     renderItem={this.__renderItem}
                     keyExtractor={this._keyExtractor}
+                    ListHeaderComponent={this.props.header}
                 />
             )
         )
 
 
-        return (
-
-            <Carousel
-                ref={(c) => {
-                    this._carousel = c;
-                }}
-                data={data}
-                renderItem={this.__renderItem}
-                sliderWidth={sliderWidth}
-                itemWidth={itemWidth}
-                removeClippedSubviews={false}
-                // layout='stack'
-                // loop={true}
-                containerCustomStyle={styles.slider}
-                contentContainerCustomStyle={styles.sliderContentContainer}
-            />
-        );
+        // return (
+        //
+        //     <Carousel
+        //         ref={(c) => {
+        //             this._carousel = c;
+        //         }}
+        //         data={data}
+        //         renderItem={this.__renderItem}
+        //         sliderWidth={sliderWidth}
+        //         itemWidth={itemWidth}
+        //         removeClippedSubviews={false}
+        //         // layout='stack'
+        //         // loop={true}
+        //         containerCustomStyle={styles.slider}
+        //         contentContainerCustomStyle={styles.sliderContentContainer}
+        //     />
+        // );
     }
 }
 

@@ -24,7 +24,8 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
 import { existSearch } from '../../request/leanCloud'
 import { selfUser, iCard } from '../../request/LCModle'
 import { req, reqChangeData } from '../../redux/actions/req'
-import { addListNormalizrEntity,claerByID } from '../../redux/actions/list'
+import { addListNormalizrEntity, claerByID } from '../../redux/actions/list'
+
 
 import moment from 'moment'
 import Button from "../../components/Button";
@@ -51,7 +52,7 @@ import Button from "../../components/Button";
                 ...res
             }
             dispatch(addNormalizrEntity(ICARD, entity))
-            dispatch(claerByID(ICARD,id))
+            dispatch(claerByID(ICARD, id))
             props.navigation.goBack()
         },
         exist: async () => {
@@ -60,7 +61,7 @@ import Button from "../../components/Button";
                 where: {
                     ...iCard(id),
                     ...selfUser(),
-                    statu:{"$ne":'del'},
+                    statu: { "$ne": 'del' },
                 }
             })
             req(params, IUSEExist)
@@ -118,7 +119,7 @@ export default class PublishDetail extends Component {
         Alert.alert(
             '确定删除?',
             '删除后不可恢复',
-            [{text: '取消'}, {
+            [{ text: '取消' }, {
                 text: '确定', onPress: () => {
                     this.props.refresh(iCard)
                 }
@@ -169,12 +170,20 @@ export default class PublishDetail extends Component {
 
     render(): ReactElement<any> {
         const iCard = this.props.iCard.toJS()
+
+        //当为-2 时候，则为系统禁止
+        const allow = iCard.state !== -2
         return (
             <View style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
-                {this._renderRow('卡片配置', () => {
-                    this.props.navigation.navigate('OptionView', {iCardId : iCard.objectId })
+
+                {!allow && <Text style={{padding:20,color:'red',fontSize:50}}>
+                    该圈子已被系统删除
+                </Text>}
+
+                {allow && this._renderRow('卡片配置', () => {
+                    this.props.navigation.navigate('OptionView', { iCardId: iCard.objectId })
                 })}
                 {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
                 {/*if (iCard.state === 0) {*/}
@@ -183,15 +192,18 @@ export default class PublishDetail extends Component {
                 {/*this.__alert(iCard)*/}
                 {/*}*/}
                 {/*})}*/}
-                {this._renderRow("发布设置", () => {
+
+
+
+                {allow && this._renderRow("发布设置", () => {
                     this.props.navigation.navigate('Publishing',
                         { iCardID: this.props.navigation.state.params.iCardID })
                 })}
-                {this._renderRow('发布课程', () => {
+                {allow && this._renderRow('发布课程', () => {
                     this.props.navigation.navigate('CourseRelease',
                         { iCardID: this.props.navigation.state.params.iCardID })
                 })}
-                {this._renderRow('查看记录', () => {
+                {allow && this._renderRow('查看记录', () => {
                     this.props.navigation.navigate('Serve', { iCard })
                 })}
 
