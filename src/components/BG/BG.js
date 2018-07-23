@@ -17,6 +17,21 @@ import {bindActionCreators} from 'redux';
 import * as Animatable from 'react-native-animatable';
 export const Btn = Animatable.createAnimatableComponent(View);
 import Icon from 'react-native-vector-icons/Ionicons'
+
+function makeScaleInTranslation(translationType, value) {
+    return {
+        from: {
+            [translationType]: 0,
+        },
+        to: {
+            [translationType]: value,
+        },
+    };
+}
+
+const cloudMoveLeft = makeScaleInTranslation('translateX', -500);
+Animatable.initializeRegistryWithDefinitions({cloudMoveLeft})
+
 //static displayName = BG
 @connect(
     state =>({
