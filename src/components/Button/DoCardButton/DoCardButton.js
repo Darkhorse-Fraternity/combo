@@ -28,6 +28,8 @@ import { IUSE, IDO } from '../../../redux/reqKeys'
 import * as Animatable from 'react-native-animatable';
 export const AniStyledContent = Animatable.createAnimatableComponent(StyledContent);
 // import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import FlipButton from '../FlipButton'
+
 
 import { connect } from 'react-redux'
 
@@ -72,11 +74,11 @@ export default class DoCardButton extends Component {
     };
 
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state.statu !== nextState.statu ||
-            this.props.load !== nextProps.load
-    }
-
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.state.statu !== nextState.statu ||
+    //         this.props.load !== nextProps.load
+    // }
+    //
     componentWillReceiveProps(nextProps) {
 
         let { iUse } = nextProps
@@ -92,65 +94,29 @@ export default class DoCardButton extends Component {
 
     render() {
         // console.log('test:', this.state.statu !== 0 || this.props.load);
-        const {animation} = this.props
+        const {animation,load} = this.props
+
+
+        console.log('test:', '1111');
+
         return (
-            <AniStyledContent
-                useNativeDriver
-                duration={2000}
-                easing="ease-in-out"
-                animation={animation}
-                activeOpacity={1}
-                disabled={this.state.statu === 1 || this.props.load}
+            <FlipButton
+                faceText={`点击${"\n"}打卡`}
+                backText={'已完成'}
+                // animation={}
+                load={load}
+                flip={this.state.statu !== 0}
                 onPress={() => {
-                    // if (this.state.statu === 0) {
-                    //     this.setState({ statu: 1 })
-                    // } else {
-                    //     this.setState({ statu: 0 })
-                    // }
                     let { iUse } = this.props
                     iUse = iUse && iUse.toJS()
                     this.props.doCard(iUse)
+                }}
+                containStyle={{width:70,height:70,borderRadius:35}}
+                style={{ zIndex: 10,
+                    position: 'absolute',
+                    right: 10,
+                    bottom:  50}}/>
+        )
 
-                }}>
-                <StyledCard
-                    useNativeDriver={true}
-                    friction={6}
-                    perspective={1000}
-                    flipHorizontal={true}
-                    flipVertical={false}
-                    flip={this.state.statu !== 0}
-                    clickable={false}
-                    onFlipEnd={(isFlipEnd) => {
-                        // console.log('isFlipEnd', isFlipEnd)
-                        // this.setState({statu:1})
-                    }}
-                >
-                    {/* Face Side */}
-                    <StyledFace>
-                        {!this.props.load && this.state.statu === 0 ?
-                            (<StyledFaceText>点击{"\n"}打卡</StyledFaceText>) :
-                            (<ActivityIndicator size="small"
-                                                color={theme.normalBtn.activityIndicatorColor}/>)
-                        }
-                    </StyledFace>
-                    {/* Back Side */}
-                    <StyledBack>
-
-
-                        <StyledIcon
-                            ref={this.chatBtnRef}
-                            name={'md-checkmark'}
-                            size={20}
-                            color={'#a6a6a6'}
-                            //backgroundColor="transparent"
-                            //resizeMode = 'contain'
-                            //source={image}
-                        />
-                        <StyledBackText>已完成</StyledBackText>
-
-                    </StyledBack>
-                </StyledCard>
-            </AniStyledContent>
-        );
     }
 }

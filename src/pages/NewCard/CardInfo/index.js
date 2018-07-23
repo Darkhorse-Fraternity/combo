@@ -17,6 +17,7 @@ import {
     ActivityIndicator,
     Easing,
     Modal,
+    Platform
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
@@ -262,7 +263,8 @@ export default class CardInfo extends Component {
                     faceText={'马上\n参与'}
                     backText={'已参与'}
                     load={load}
-                    statu={exist ? 1 : 0}
+                    flip={exist}
+                    animation={Platform.OS === 'ios'?'bounceIn':'bounceInRight'}
                     onPress={() => {
                         if (exist && iUseData) {
                             this.props.navigation.navigate('CardDetail', {

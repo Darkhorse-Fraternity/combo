@@ -8,7 +8,7 @@ import styled from "styled-components/native";
 import { SafeAreaView } from 'react-navigation';
 
 
-export const StyledContent = styled(SafeAreaView)`
+export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
 `

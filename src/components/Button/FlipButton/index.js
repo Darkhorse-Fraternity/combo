@@ -46,15 +46,16 @@ export default class FlipButton extends Component {
 
 
     static propTypes = {
-        statu: PropTypes.number,
         faceText: PropTypes.string.isRequired,
         backText: PropTypes.string.isRequired,
         load: PropTypes.bool,
+        flip: PropTypes.bool,
+        animation: PropTypes.string,
     };
     static defaultProps = {
-        statu: 0,
         load: true,
-        animation:'bounceInRight'
+        // animation:'bounceInRight',
+        flip: false
     };
 
 
@@ -77,11 +78,11 @@ export default class FlipButton extends Component {
 
         const {
             containStyle,
-            load,
-            statu,
+            flip,
             faceText,
             backText,
         } = this.props
+
 
 
         return (
@@ -92,7 +93,7 @@ export default class FlipButton extends Component {
                 perspective={1000}
                 flipHorizontal={true}
                 flipVertical={false}
-                flip={statu !== 0 && !load}
+                flip={flip}
                 clickable={false}
                 onFlipEnd={(isFlipEnd) => {
                     // console.log('isFlipEnd', isFlipEnd)
@@ -101,11 +102,7 @@ export default class FlipButton extends Component {
             >
                 {/* Face Side */}
                 <StyledFace style={containStyle}>
-                    {!load && statu === 0 ?
-                        (<StyledFaceText>{faceText}</StyledFaceText>) :
-                        (<ActivityIndicator size="small"
-                                            color={theme.normalBtn.activityIndicatorColor}/>)
-                    }
+                        <StyledFaceText>{faceText}</StyledFaceText>
                 </StyledFace>
                 {/* Back Side */}
                 <StyledBack style={containStyle}>
@@ -147,7 +144,7 @@ export default class FlipButton extends Component {
         return (
             <AniStyledContent
                 useNativeDriver
-                duration={2000}
+                duration={1000}
                 easing="ease-in-out"
                 animation={animation}
                 style={style}

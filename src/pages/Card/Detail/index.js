@@ -65,7 +65,8 @@ export default class CardDetail extends Component {
 
 
         return (
-            <StyledContent forceInset={{ top: 'never' }}>
+            <StyledContent>
+
                 <ScrollableTabView
                     renderTabBar={() => (
                         <BackTabBar
