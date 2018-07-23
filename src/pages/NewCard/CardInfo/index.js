@@ -345,7 +345,7 @@ export default class CardInfo extends Component {
 
 
                     {describe &&<StyledDescirbe>
-                        {describe}
+                        {'\t'}{describe}
                     </StyledDescirbe>}
 
                     <View style={{ height: 200 }}/>

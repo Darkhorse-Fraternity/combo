@@ -30,6 +30,8 @@ import { addNormalizrEntity } from '../../redux/module/normalizr'
 import Button from '../../components/Button'
 import * as Animatable from 'react-native-animatable';
 import { sliderWidth } from "../Card/Cell/style";
+import CardRow from '../NewCard/CardRow'
+
 
 const heightZoomIn = {
     from: {
@@ -106,6 +108,17 @@ export default class Record extends Component {
     }
 
 
+    _renderHeader = () => {
+        return (
+            <View style={styles.header}>
+                <Text style={styles.headerTitle}>
+                    打卡记录
+                </Text>
+            </View>
+        )
+    }
+
+
     __delete = (index, objectId) => {
         const self = this
         Alert.alert(
@@ -144,8 +157,7 @@ export default class Record extends Component {
         // const reflesh = item.time === iCard.period || item.statu === 'stop'
         // const cycle = parseInt(item.time / iCard.period)
         const { img } = iCard
-        const source = img ? { uri: img.url } :
-            require('../../../source/img/my/icon-60.png')
+
 
         return (
             <Animatable.View
@@ -164,40 +176,17 @@ export default class Record extends Component {
                     // onOpen={() => console.log('global open')}
                     // onClose={() => console.log('global close')}
                 >
-                    <Button
-                        style={{ flex: 1 }}
+
+                    <CardRow
+                        title={iCard.title}
+                        des={`人数:${iCard.useNum}`}
+                        img={iCard.img }
                         onPress={() => {
                             this.props.navigation.navigate('RecordDetail', {
                                 data: item,
                                 card: iCard
                             })
-                            //
-                            // this.props.navigation.navigate('CardDetail', {
-                            //     iUse: item,
-                            //     iCard: iCard
-                            // })
-
-                        }}>
-                        <Image style={styles.img} source={source}/>
-                        <View style={styles.row}>
-                            <Text
-                                // numberOfLines={1}
-                                style={styles.title}>{iCard.title}</Text>
-                            <Text style={styles.time}>第{days}天</Text>
-                            {/*<View style={styles.des}>*/}
-                              {/**/}
-                            {/*</View>*/}
-                            {/*<View style={styles.subRow}>*/}
-                                {/*/!*<Icon style={styles.icon}*!/*/}
-                                {/*/!*name={reflesh ? 'ios-refresh' : "ios-walk"} size={50}/>*!/*/}
-                               {/**/}
-                            {/*</View>*/}
-                            {/*<View style={styles.rightView}>*/}
-                                {/*<Text style={styles.rowText}>第{cycle + 1}组</Text>*/}
-                                {/*<View style={styles.arrowView}/>*/}
-                            {/*</View>*/}
-                        </View>
-                    </Button>
+                        }}/>
                 </SwipeAction>
             </Animatable.View>
         )
@@ -217,6 +206,7 @@ export default class Record extends Component {
         }
         return (
             <LCList
+                ListHeaderComponent={this._renderHeader}
                 style={[this.props.style, styles.list]}
                 reqKey={IUSE}
                 sKey={IRECORD}
@@ -289,20 +279,15 @@ const styles = StyleSheet.create({
         // justifyContent: 'space-between',
 
     },
-    title: {
-        fontSize: 19,
-        fontWeight:'600',
-        lineHeight:30,
-    },
-    time: {
-        marginTop: 30,
-        fontSize: 15,
-        // textAlign:'right',
-        alignSelf:'flex-end',
-        color: 'rgb(150,150,200)',
 
-
+    header: {
+        padding: 15,
+        marginBottom:20,
     },
+    headerTitle: {
+        fontSize: 20,
+    },
+
     img: {
         width: '100%',
         height: 250,

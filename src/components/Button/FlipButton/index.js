@@ -58,21 +58,91 @@ export default class FlipButton extends Component {
     };
 
 
+
+    __renderActivety = ()=> {
+        const {
+            containStyle,
+        } = this.props
+        return (
+            <StyledFace style={containStyle}>
+                <ActivityIndicator size="small"
+                                    color={theme.normalBtn.activityIndicatorColor}/>
+            </StyledFace>
+
+        )
+
+    }
+
+    __renderCard = () => {
+
+        const {
+            containStyle,
+            load,
+            statu,
+            faceText,
+            backText,
+        } = this.props
+
+
+        return (
+
+            <StyledCard
+                useNativeDriver={true}
+                friction={6}
+                perspective={1000}
+                flipHorizontal={true}
+                flipVertical={false}
+                flip={statu !== 0 && !load}
+                clickable={false}
+                onFlipEnd={(isFlipEnd) => {
+                    // console.log('isFlipEnd', isFlipEnd)
+                    // this.setState({statu:1})
+                }}
+            >
+                {/* Face Side */}
+                <StyledFace style={containStyle}>
+                    {!load && statu === 0 ?
+                        (<StyledFaceText>{faceText}</StyledFaceText>) :
+                        (<ActivityIndicator size="small"
+                                            color={theme.normalBtn.activityIndicatorColor}/>)
+                    }
+                </StyledFace>
+                {/* Back Side */}
+                <StyledBack style={containStyle}>
+
+
+                    <StyledIcon
+                        ref={this.chatBtnRef}
+                        name={'md-checkmark'}
+                        size={20}
+                        color={'green'}
+                        //backgroundColor="transparent"
+                        //resizeMode = 'contain'
+                        //source={image}
+                    />
+                    <StyledBackText>{backText}</StyledBackText>
+
+                </StyledBack>
+            </StyledCard>
+
+
+        )
+
+    }
+
+
+
     render() {
         // console.log('test:', this.state.statu !== 0 || this.props.load);
         const {
             style ,
             onPress,
-            containStyle,
             disabled,
             load,
-            statu,
-            faceText,
-            backText,
             animation
         } = this.props
 
-        // console.log('flip:', load,statu);
+
 
         return (
             <AniStyledContent
@@ -84,44 +154,8 @@ export default class FlipButton extends Component {
                 activeOpacity={1}
                 disabled={disabled || load}
                 onPress={onPress}>
-                <StyledCard
-                    useNativeDriver={true}
-                    friction={6}
-                    perspective={1000}
-                    flipHorizontal={true}
-                    flipVertical={false}
-                    flip={statu !== 0 && !load}
-                    clickable={false}
-                    onFlipEnd={(isFlipEnd) => {
-                        // console.log('isFlipEnd', isFlipEnd)
-                        // this.setState({statu:1})
-                    }}
-                >
-                    {/* Face Side */}
-                    <StyledFace style={containStyle}>
-                        {!load && statu === 0 ?
-                            (<StyledFaceText>{faceText}</StyledFaceText>) :
-                            (<ActivityIndicator size="small"
-                                                color={theme.normalBtn.activityIndicatorColor}/>)
-                        }
-                    </StyledFace>
-                    {/* Back Side */}
-                    <StyledBack style={containStyle}>
-
-
-                        <StyledIcon
-                            ref={this.chatBtnRef}
-                            name={'md-checkmark'}
-                            size={20}
-                            color={'green'}
-                            //backgroundColor="transparent"
-                            //resizeMode = 'contain'
-                            //source={image}
-                        />
-                        <StyledBackText>{backText}</StyledBackText>
-
-                    </StyledBack>
-             </StyledCard>
+                {load && this.__renderActivety()}
+                {!load && this.__renderCard()}
             </AniStyledContent>
         );
     }

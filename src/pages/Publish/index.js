@@ -23,7 +23,7 @@ import {connect} from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import Button from '../../components/Button'
-
+import CardRow from '../NewCard/CardRow'
 const listKey = ICARD
 
 
@@ -72,23 +72,16 @@ export default class Publish extends Component {
 
     renderRow({item, index}: Object) {
 
-        const source = item.img?{uri:item.img.url}:require('../../../source/img/my/icon-60.png')
+
         return (
-            <Button
-                style={styles.item}
-               // background={TouchableNativeFeedback.SelectableBackgroundBorderless()}
+            <CardRow
+                title={item.title}
+                des={`人数:${item.useNum}`}
+                img={item.img }
                 onPress={() => {
                     this.props.navigation.navigate('PublishDetail',
                         {iCardID: item.objectId, data: item})
-                }}>
-                <Image style={styles.itemImage} source={source}/>
-                <View style={styles.row}>
-                    <Text
-                        // numberOfLines={1}
-                        style={styles.title}>{item.title}</Text>
-                    <Text style={styles.time}>人数:{item.useNum}</Text>
-                </View>
-            </Button>
+                }}/>
         )
     }
 
@@ -154,6 +147,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 15,
+        marginBottom:20,
     },
     headerTitle: {
         fontSize: 20,

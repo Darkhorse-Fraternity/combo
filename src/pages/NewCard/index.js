@@ -23,6 +23,7 @@ import Button from '../../components/Button'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
+import CardRow from './CardRow'
 
 
 const listKey = ICARD
@@ -62,38 +63,31 @@ export default class Publish extends Component {
     renderRow({ item, index }: Object) {
 
         // console.log('test:', item);
-        const source = item.img ? { uri: item.img.url } : require('../../../source/img/my/icon-60.png')
+
+
         return (
-            <Button
-                style={styles.item}
+            <CardRow
+                title={item.title}
+                des={`人数:${item.useNum}`}
+                img={item.img }
                 onPress={() => {
                     this.props.navigation.navigate('CardInfo', { iCard: item })
-                    // this.props.use(item)
-                }}>
-                {Platform.OS === 'ios' && <View style={styles.shadow}/>}
-                <Image style={styles.itemImage} source={source}/>
-                <View style={styles.row}>
-                    <Text
-                        // numberOfLines={1}
-                        style={styles.title}>{item.title}</Text>
-                    <Text style={styles.time}>人数:{item.useNum}</Text>
-                </View>
-
-            </Button>
+                }}/>
         )
+
     }
 
     _listHeaderComponet = () => {
         return (
             <View style={styles.header}>
                 <Button
-                    style={[styles.itemAdd,styles.shadow]}
+                    style={[styles.itemAdd, styles.shadow]}
                     onPress={() => {
                         this.props.navigation.navigate('Creat')
                     }}>
 
-                        <Icon name="md-add" size={50}/>
-                        <Text style={styles.period}>新建卡片</Text>
+                    <Icon name="md-add" size={50}/>
+                    <Text style={styles.period}>新建卡片</Text>
                 </Button>
             </View>
         )
@@ -128,26 +122,15 @@ const styles = StyleSheet.create({
     },
 
     itemAdd: {
-        width: (width -50) / 2,
-        height: 150,
+        width: width / 2 - 15,
+        height: 200,
         // marginTop: 20,
         marginHorizontal: 10,
-        marginTop:10,
+        marginTop: 10,
         marginBottom: 10,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    item: {
-        // backgroundColor: 'white',
-        //height: width / 3 * 1.3,
-        // marginTop: 20,
-        // backgroundColor:'red',
-        // borderRadius: 5,
-        width:width/2 -15,
-        marginHorizontal: 5,
-        borderRadius: 10,
-        backgroundColor: "#f9f9f9",
     },
 
     shadow: {
@@ -170,33 +153,11 @@ const styles = StyleSheet.create({
         // elevation: 10,
     },
 
-    itemImage: {
-        // backgroundColor: 'white',
-        width: '100%',
-        height: 250,
-        borderRadius: 10,
-    },
-    row: {
-        paddingHorizontal: 10,
-        paddingVertical: 30,
-    },
+
     list: {
         flex: 1,
     },
-    title: {
-        fontSize: 19,
-        fontWeight:'600',
-        lineHeight:30,
-    },
-    time: {
-        marginTop: 30,
-        fontSize: 15,
-        // textAlign:'right',
-        alignSelf:'flex-end',
-        color: 'rgb(150,150,150)',
 
-
-    },
     period: {
         marginTop: 5,
 
@@ -206,8 +167,8 @@ const styles = StyleSheet.create({
         // backgroundColor:'red',
         // paddingHorizontal: 10,
         // marginBottom: 10,
-        alignItems:'center',
-        justifyContent:'center'
+        // alignItems:'center',
+        // justifyContent:'center'
     }
 
 

@@ -33,6 +33,8 @@ import {
     StyledHeaderTop
 } from './style'
 import Icon from 'react-native-vector-icons/Ionicons'
+import CardRow from '../../NewCard/CardRow'
+
 
 import { user as userModel } from '../../../request/LCModle'
 
@@ -256,34 +258,27 @@ export default class Following extends Component {
             return <View/>
         }
         const days = item.time
-        const cycle = parseInt(item.time /  iCard.period)
+        const cycle = parseInt(item.time / iCard.period)
 
         const { img } = iCard
         const source = img ? { uri: img.url } :
             require('../../../../source/img/my/icon-60.png')
+
+
         return (
-            <Button
-                style={styles.card}
+            <CardRow
+                title={iCard.title}
+                des={`第${days}天`}
+                img={img}
                 onPress={() => {
-                    const { navigation } = this.props;
-                    const { state } = navigation;
-                    const { params } = state;
-                    const { user } = params
                     this.props.navigation.navigate('RecordDetail', {
                         data: item,
                         card: iCard,
                         user
                     })
-                }}>
-                <Image style={styles.img} source={source}/>
-                <View style={styles.row}>
-                    <Text
-                        // numberOfLines={1}
-                        style={styles.title}>{iCard.title}</Text>
-                    <Text style={styles.time}>第{days}天</Text>
-                </View>
-            </Button>
+                }}/>
         )
+
     }
 
     render(): ReactElement<any> {
@@ -332,34 +327,7 @@ const styles = StyleSheet.create({
     des: {
         marginLeft: 15
     },
-    card: {
-        // marginTop:10,
-        // margin: 5,
-        backgroundColor: "#f9f9f9",
-        // backgroundColor:'red',
-        // borderRadius: 5,
-        width:width/2 -15,
-        marginHorizontal: 5,
-        borderRadius: 10,
-
-    },
-    title: {
-        fontSize: 19,
-        fontWeight:'600',
-        lineHeight:30,
-    },
-    time: {
-        marginTop: 30,
-        fontSize: 15,
-        // textAlign:'right',
-        alignSelf:'flex-end',
-        color: 'rgb(150,150,200)',
 
 
-    },
-    img: {
-        width: '100%',
-        height: 250,
-    },
 
 })
