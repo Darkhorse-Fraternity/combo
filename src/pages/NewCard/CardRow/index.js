@@ -62,7 +62,7 @@ export default class CardRow extends Component {
                     </StyledTitle>
                     <StyledDes>
                         {des}
-                    </StyledDes>>
+                    </StyledDes>
                 </StyledInnerView>
             </StyledContent>
         );
