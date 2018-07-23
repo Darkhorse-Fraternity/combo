@@ -11,12 +11,12 @@ const IS_IOS = Platform.OS === 'ios';
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
 
 function wp(percentage) {
-    const value = (percentage * viewportWidth) / 100;
+    const value = (percentage * viewportWidth) / 130;
     return Math.round(value);
 }
 
-const slideHeight = viewportHeight * 0.50;
-const slideWidth = wp(75);
+const slideHeight = viewportHeight * 0.38;
+const slideWidth = viewportWidth/2 -20;
 const itemHorizontalMargin = wp(2);
 
 export const sliderWidth = viewportWidth;
@@ -134,9 +134,9 @@ export default StyleSheet.create({
     },
     textContainer: {
         justifyContent: 'center',
-        paddingTop: 20 - entryBorderRadius,
-        paddingBottom: 20,
-        paddingHorizontal: 16,
+        paddingTop: 10 - entryBorderRadius,
+        paddingBottom: 10,
+        paddingHorizontal: 8,
         backgroundColor: 'white',
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius

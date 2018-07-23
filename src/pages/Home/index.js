@@ -89,9 +89,9 @@ export default class Home extends Component {
         return (
             <View style={styles.headView}>
                 <Text
-                    numberOfLines={2}
+                    numberOfLines={1}
                     style={styles.headViewText}>
-                    -{name},{'\n'}您好！
+                    小改变
                 </Text>
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>长按打卡，轻触查看详情</Text>
@@ -112,15 +112,17 @@ export default class Home extends Component {
     render(): ReactElement<any> {
 
         return (
-            <StyledContent
-                style={this.props.style}>
-                <StyledInnerdContent
-                    colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+            <StyledInnerdContent
+                colors={['#f1f6f9', '#ffffff']}>
+                <StyledContent
+                    style={this.props.style}>
+
 
                     {this._renderHeader()}
                     <CardView navigation={this.props.navigation}/>
-                </StyledInnerdContent>
-            </StyledContent>
+
+                </StyledContent>
+            </StyledInnerdContent>
         );
     }
 }
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
     headViewText: {
         marginTop: 30,
         marginHorizontal: 20,
-        fontSize: 50,
+        fontSize: 35,
         fontWeight: 'bold',
     },
     headViewSubText: {

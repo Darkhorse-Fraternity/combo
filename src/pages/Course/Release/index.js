@@ -19,20 +19,23 @@ import {
     StyledHeaderBtn,
     StyledEditBtn
 } from './style'
-import { update, add ,findByID} from '../../../redux/module/leancloud'
+import { update, add, findByID } from '../../../redux/module/leancloud'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { ICARD,COURSE } from '../../../redux/reqKeys'
+import { ICARD, COURSE } from '../../../redux/reqKeys'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { selfUser, Course } from '../../../request/LCModle'
-import  Info from '../../Course/Info'
+import Info from '../../Course/Info'
+import ExceptionView, { ExceptionType } from '../../../components/Base/ExceptionView'
+
+
 @connect(
-    (state,props) => ({
+    (state, props) => ({
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
         load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load'),
         course: state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
 
     }),
-    (dispatch,props) => ({
+    (dispatch, props) => ({
         dataLoad: () => {
             const id = props.navigation.state.params.CourseId
             findByID(COURSE, id)
@@ -62,11 +65,11 @@ import  Info from '../../Course/Info'
                 ...res
             }
             dispatch(addNormalizrEntity(ICARD, entity))
-            props.navigation.navigate('CourseCreat',{CourseId:course.objectId})
+            props.navigation.navigate('CourseCreat', { CourseId: course.objectId })
         },
-        edit:(CourseId)=>{
+        edit: (CourseId) => {
 
-            props.navigation.navigate('CourseCreat',{CourseId})
+            props.navigation.navigate('CourseCreat', { CourseId })
 
         }
     })
@@ -90,8 +93,6 @@ export default class CourseRelease extends Component {
             title: '',
         }
     };
-
-
 
 
     componentDidMount() {
@@ -124,20 +125,28 @@ export default class CourseRelease extends Component {
                 {!!courseId &&
                 <StyledEditBtn
 
-                    onPress={()=>this.props.edit(courseId)}
+                    onPress={() => this.props.edit(courseId)}
                     title={'编辑'}
                 />}
                 <Info {...this.props} courseId={courseId}/>
-                {!courseId && <StyledMain>
-                    <StyledDes>
-                        还没有课程
-                    </StyledDes>
-                    <StyledHeaderBtn
-                        load={this.props.load}
-                        onPress={this.props.add}
-                        title={'添加'}/>
+                {/*{!courseId && <StyledMain>*/}
+                {/*<StyledDes>*/}
+                {/*还没有课程*/}
+                {/*</StyledDes>*/}
+                {/*<StyledHeaderBtn*/}
+                {/*load={this.props.load}*/}
+                {/*onPress={this.props.add}*/}
+                {/*title={'添加'}/>*/}
 
-                </StyledMain>}
+                {/*</StyledMain>}*/}
+
+                {!courseId &&
+                <ExceptionView
+                    style={{height:400}}
+                    prompt={'还没有课程'}
+                    tipBtnText={'添加'}
+                    onRefresh={this.props.add}
+                    exceptionType={ExceptionType.NoData}/>}
             </StyledContent>
         );
     }

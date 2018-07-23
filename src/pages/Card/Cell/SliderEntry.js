@@ -86,7 +86,6 @@ export default class SliderEntry extends Component {
         ) : false;
 
         return (
-            <View>
                 <TouchableOpacity
                     activeOpacity={1}
                     style={styles.slideInnerContainer}
@@ -143,7 +142,6 @@ export default class SliderEntry extends Component {
 
                 </TouchableOpacity>
 
-            </View>
         );
     }
 }

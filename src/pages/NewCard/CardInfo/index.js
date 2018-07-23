@@ -51,7 +51,9 @@ import {
     StyledRowInner,
     StyledTitleView,
     StyledTitleText,
-    StyledCourseView
+    StyledCourseView,
+    StyledKeysView,
+    StyledDescirbe
 } from './style'
 
 import {
@@ -72,7 +74,7 @@ import {
 import { Privacy } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import {findByID} from '../../../redux/module/leancloud'
+import { findByID } from '../../../redux/module/leancloud'
 
 @connect(
     (state, props) => {
@@ -92,7 +94,7 @@ import {findByID} from '../../../redux/module/leancloud'
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
         loadCourse: (course) => {
-            if(course && !course.get('title')){
+            if (course && !course.get('title')) {
                 const id = course.get('objectId')
                 findByID(COURSE, id)
             }
@@ -236,12 +238,14 @@ export default class CardInfo extends Component {
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
         const nickName = iCardUser.nickname
+        const keys = iCard.keys
+        const { describe } = iCard
         const iUseData = this.props.data && this.props.data.toJS()
 
         const userLoad = this.props.userLoad
 
 
-        let {course} = this.props
+        let { course } = this.props
         course = course && course.toJS()
 
         return (
@@ -292,6 +296,16 @@ export default class CardInfo extends Component {
                                 教练: {nickName}
                             </StyledNickName>
 
+
+                            {keys && <StyledKeysView>
+                                {keys.map(key => {
+                                    return '#' + key
+                                }).join(' ')}
+
+
+                            </StyledKeysView>}
+
+
                             <Button onPress={() => {
                                 !userLoad && this.props.navigation.navigate('CardUse', { iCard: iCard })
                             }}>
@@ -328,6 +342,12 @@ export default class CardInfo extends Component {
                     {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
                     {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
                     {course && course.title && this._renderCourse(course)}
+
+
+                    {describe &&<StyledDescirbe>
+                        {describe}
+                    </StyledDescirbe>}
+
                     <View style={{ height: 200 }}/>
 
                 </ScrollView>

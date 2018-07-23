@@ -99,6 +99,7 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledHeaderInner = styled.View`
+    margin-top: 15px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -111,6 +112,11 @@ export const StyledNickName = styled.Text`
     font-size: 17px;
      margin-bottom: 5px;
 `
+
+
+
+
+
 export const StyledSubTitle = styled.Text`
    
     font-size: 17px;

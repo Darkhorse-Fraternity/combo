@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -18,56 +18,63 @@ import {
     Image
 } from 'react-native'
 import Button from '../../components/Button'
-import {connect} from 'react-redux'
-import {ICARD} from '../../redux/reqKeys'
-import {addNormalizrEntity} from '../../redux/module/normalizr'
-import {update} from '../../redux/module/leancloud'
+import { connect } from 'react-redux'
+import { ICARD } from '../../redux/reqKeys'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { update } from '../../redux/module/leancloud'
 import imagePicker from '../../components/ImagePicker/imagePicker'
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import BounceBtn from '../../components/Button/BounceBtn'
 import Icon from 'react-native-vector-icons/Ionicons'
-import {PBULImage} from '../../redux/reqKeys'
-import {uploadImages} from '../../redux/actions/util'
+import { PBULImage } from '../../redux/reqKeys'
+import { uploadImages } from '../../redux/actions/util'
 //static displayName = PublishDetail
 import Toast from 'react-native-simple-toast'
 import HeaderBtn from '../../components/Button/HeaderBtn'
+import CardPublishForm,{FormID} from '../../components/Form/CardPublish'
+import { formValueSelector } from 'redux-form/immutable'
+const selector = formValueSelector(FormID)
+
 @connect(
     (state, props) => ({
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
         imageLoad: state.req.get(PBULImage).get('load'),
-        load:state.req.get(ICARD).get('load'),
-        user:state.user.data
+        load: state.req.get(ICARD).get('load'),
+        user: state.user.data
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
-        publish:  (data,keys) => {
+        publish: (data) => {
 
-            if(!data.img){
+            if (!data.img) {
                 Toast.show('发布的卡片必须有图片哟!');
                 return;
             }
-            if(!keys){
-                Toast.show('发布的卡片必须有关键字哟!');
-                return;
-            }
+            // if (!keys) {
+            //     Toast.show('发布的卡片必须有关键字哟!');
+            //     return;
+            // }
 
-            dispatch(async (dispatch,getState)=>{
+            dispatch(async (dispatch, getState) => {
 
-                const user = getState().user.data
-                console.log('user:', user);
-                if(!user.nickname ||user.nickname.length === 0){
+                const state = getState()
+                const user = state.user.data
+                // console.log('user:', user);
+                if (!user.nickname || user.nickname.length === 0) {
 
                     props.navigation.navigate('NickName')
                     Toast.show('发布卡片前需要先设置昵称~!');
                     return;
                 }
 
-
+                const keys = selector(state, 'keys');
+                const describe = selector(state, 'describe');
                 const id = data.objectId
                 const param = {
                     state: data.state === 0 ? 1 : 0,
-                    keys:keys.split(',')
+                    keys: keys.split(','),
+                    describe,
                 }
                 const res = await  update(id, param, ICARD)
 
@@ -82,7 +89,7 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
 
         },
 
-        unPublish: async (data)=>{
+        unPublish: async (data) => {
             const id = data.objectId
             const param = {
                 state: data.state === 0 ? 1 : 0
@@ -95,22 +102,18 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
             }
             dispatch(addNormalizrEntity(ICARD, entity))
         },
-        picker: () => {
+        picker: async (uri) => {
             // dispatch(pickerImage())
-            imagePicker({
-                title: '添加图片',
-                maxWidth: 2000, // photos only
-                maxHeight: 2000, // photos only
-            }, async (response) => {
-                // console.log('Response = ', response);
-                if (response.uri) {
+
+                if (uri) {
                     // dispatch(uploadAvatar(response.uri))
-                    const res = await dispatch(uploadImages([response.uri],
+                    const res = await dispatch(uploadImages([uri],
                         PBULImage))
 
                     if (!res.payload) {
                         return
                     }
+
                     const id = props.navigation.state.params.iCardID
                     const img = res.payload[0]
                     console.log('img:', img);
@@ -118,7 +121,7 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                         img: {
                             "id": img.id,
                             "__type": "File",
-                            url:img.attributes.url
+                            url: img.attributes.url
                         }
                     }
                     const res2 = await  update(id, param, ICARD)
@@ -127,8 +130,9 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
                         ...res2
                     }
                     dispatch(addNormalizrEntity(ICARD, entity))
+
+                    return img.attributes.url
                 }
-            })
         }
     })
 )
@@ -137,7 +141,7 @@ export default class Publishing extends Component {
         super(props);
         const keys = props.iCard.get('keys')
         this.state = {
-            keys : keys && keys.join(",")
+            keys: keys && keys.join(",")
         }
     }
 
@@ -161,7 +165,7 @@ export default class Publishing extends Component {
         Alert.alert(
             '确定取消发布?',
             '取消发布后意味着您不再提供服务',
-            [{text: '取消'}, {
+            [{ text: '取消' }, {
                 text: '确定', onPress: () => {
                     this.props.unPublish(iCard)
                 }
@@ -187,14 +191,14 @@ export default class Publishing extends Component {
                     </View>
                     :
                     <Button
-                        style={[styles.item,{alignItems:url?null:'center'}]}
+                        style={[styles.item, { alignItems: url ? null : 'center' }]}
                         onPress={this.props.picker}>
                         {!url ? (<Icon name="md-add" size={50}/>) :
-                            (<Image style={styles.img} source={{uri: url}}/>)}
+                            (<Image style={styles.img} source={{ uri: url }}/>)}
                     </Button>}
 
 
-                <Text style={[styles.addImageText,{marginTop:20}]}>
+                <Text style={[styles.addImageText, { marginTop: 20 }]}>
                     添加关键字,多个之间以 ","相隔离。
                 </Text>
                 <TextInput
@@ -202,7 +206,7 @@ export default class Publishing extends Component {
                     returnKeyType='done'
                     selectionColor='#f0ab4e'
                     //autoFocus={autoFocus}
-                    value ={this.state.keys}
+                    value={this.state.keys}
                     maxLength={100}
                     style={styles.textInputStyle}
                     underlineColorAndroid='transparent'
@@ -211,7 +215,7 @@ export default class Publishing extends Component {
                     onSubmitEditing={() => {
                     }}
                     onChangeText={(text) => {
-                        this.setState({keys:text})
+                        this.setState({ keys: text })
                     }}
                 />
                 <View style={styles.line}/>
@@ -221,43 +225,56 @@ export default class Publishing extends Component {
 
     }
 
-    _renderRow(title: string, onPress: Function = () => {
-    }) {
-        return (
-            <Button onPress={onPress} style={styles.row}>
-                <View style={{flexDirection: 'row', alignItems: 'center',}}>
-                    <Text style={styles.rowText}>
-                        {title}
-                    </Text>
-                </View>
-                <View style={styles.row2}>
-                    <View style={styles.arrowView}/>
-                </View>
-            </Button>
-        );
-    }
 
     render(): ReactElement<any> {
-        const iCard = this.props.iCard.toJS()
+        const { imageLoad, iCard ,picker} = this.props
+        // const iCard = this.props.iCard
+        // const url = iCard.img && iCard.img.url
+        const cover = iCard.get('img')
+        let keys = iCard.get('keys')
+        keys = keys && keys.toJS()
+
         return (
             <View style={[this.props.style, styles.wrap]}>
-                {this._renderHeader(iCard)}
+                {/*{this._renderHeader(iCard)}*/}
 
 
-                <HeaderBtn
-                    hitSlop={{top: 0, left: 20, bottom: 20, right: 20}}
-                    style={styles.headerBtn}
-                    load={this.props.load }
-                    title={iCard.state === 0 ? "马上发布" : '取消发布'}
-                    onPress={() => {
-                        if (iCard.state === 0) {
-                            this.props.publish(iCard,this.state.keys)
+                {/*<HeaderBtn*/}
+                {/*hitSlop={{ top: 0, left: 20, bottom: 20, right: 20 }}*/}
+                {/*style={styles.headerBtn}*/}
+                {/*load={this.props.load}*/}
+                {/*title={iCard.state === 0 ? "马上发布" : '取消发布'}*/}
+                {/*onPress={() => {*/}
+                {/*if (iCard.state === 0) {*/}
+                {/*this.props.publish(iCard, this.state.keys)*/}
+                {/*} else {*/}
+                {/*// this.__alert(iCard)*/}
+                {/*this.props.unPublish(iCard)*/}
+                {/*}*/}
+                {/*}}/>*/}
+
+                <CardPublishForm
+                    load={false}
+                    initialValues={{
+                        cover: cover && cover.get('url'),
+                        keys: keys && keys.toString(),
+                        describe: iCard.get('describe')
+                    }}
+                    title={iCard.get('title')}
+                    imageLoad={imageLoad}
+                    state = {iCard.get('state')}
+                    handleImage={picker}
+                    onSubmit={() => {
+
+                        const iCardModel = iCard.toJS()
+                        if (iCardModel.state === 0) {
+                            this.props.publish(iCardModel, this.state.keys)
                         } else {
                             // this.__alert(iCard)
-                            this.props.unPublish(iCard)
+                            this.props.unPublish(iCardModel)
                         }
                     }}/>
-
+                />
             </View>
         );
     }
@@ -271,7 +288,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 25,
-        paddingVertical:10,
+        paddingVertical: 10,
     },
     title: {
         fontSize: 20,
@@ -286,7 +303,7 @@ const styles = StyleSheet.create({
     row: {
         backgroundColor: 'white',
         // paddingHorizontal: 25,
-        marginHorizontal:30,
+        marginHorizontal: 30,
         paddingVertical: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -310,7 +327,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#8c8c85',
-        transform: [{rotate: '315deg'}],
+        transform: [{ rotate: '315deg' }],
         marginRight: 5,
         width: 10,
         height: 10,
@@ -359,8 +376,8 @@ const styles = StyleSheet.create({
     headerBtn: {
         marginTop: 20,
         paddingHorizontal: 15,
-        width:120,
-        marginLeft:25,
+        width: 120,
+        marginLeft: 25,
         // backgroundColor:'#F3AC41'
     },
 })

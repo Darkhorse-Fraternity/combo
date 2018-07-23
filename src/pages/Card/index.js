@@ -19,8 +19,8 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
-import {  search, update, } from '../../redux/module/leancloud'
-import {  classSearch } from '../../request/leanCloud'
+import { search, update, } from '../../redux/module/leancloud'
+import { classSearch } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
 
 import { selfUser, iCard, iUse } from '../../request/LCModle'
@@ -36,8 +36,8 @@ import StopCell from './Cell/StopCell'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
-import {doCardWithNone} from '../../components/Button/DoCardButton/DoCard'
-import ExceptionView, {ExceptionType} from '../../components/Base/ExceptionView'
+import { doCardWithNone } from '../../components/Button/DoCardButton/DoCard'
+import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView'
 
 
 @connect(
@@ -47,7 +47,7 @@ import ExceptionView, {ExceptionType} from '../../components/Base/ExceptionView'
         iCard: state.normalizr.get(ICARD),
         load: state.req.get(IDO).get("load"),
         refreshLoad: state.req.get(IUSE).get("load"),
-        stopIUSEexist:state.req.get('StopIUSEexist')
+        stopIUSEexist: state.req.get('StopIUSEexist')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
@@ -63,7 +63,7 @@ import ExceptionView, {ExceptionType} from '../../components/Base/ExceptionView'
                     statu: 'start'
                 },
                 order: 'doneDate',
-                include: ICARD  +',iCard.user'
+                include: ICARD + ',iCard.user'
             }, IUSE))
         },
         done: (data) => {
@@ -90,8 +90,8 @@ import ExceptionView, {ExceptionType} from '../../components/Base/ExceptionView'
                     ...selfUser(),
                     statu: 'stop',
                 },
-                limit:0,
-                count:1,
+                limit: 0,
+                count: 1,
             })
             req(params, 'StopIUSEexist')
         }
@@ -131,15 +131,14 @@ export default class Home extends Component {
     }
 
 
-
     __renderItem = ({ item, index }) => {
 
-        if(item === -1){
+        if (item === -1) {
             return <StopCell title='查看已完成的打卡'
                              des='重新打卡点这里'
-                             onPress={()=>{
+                             onPress={() => {
                                  this.props.navigation.navigate('Record',
-                                     {statu:'stop'})
+                                     { statu: 'stop' })
                              }}/>
         }
 
@@ -148,7 +147,7 @@ export default class Home extends Component {
         // console.log('data:', data);
         const iCardId = data[ICARD]
         let iCard = this.props.iCard.get(iCardId)
-        const done =  moment(2, "HH").isBefore(data.doneDate.iso)
+        const done = moment(2, "HH").isBefore(data.doneDate.iso)
         const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
 
 
@@ -156,10 +155,10 @@ export default class Home extends Component {
             over={over}
             done={done}
             refreshLoad={this.props.refreshLoad}
-            onLongPress={()=>{
-               !this.props.load &&
-               !done &&
-               this.props.done(data)
+            onLongPress={() => {
+                !this.props.load &&
+                !done &&
+                this.props.done(data)
 
             }}
             onPress={() => {
@@ -169,7 +168,7 @@ export default class Home extends Component {
                     iCardId: iCardM.objectId
                 })
             }}
-            onRefresh = {()=>{
+            onRefresh={() => {
                 !this.props.refreshLoad && over
                 && this.props.refresh(data)
             }}
@@ -184,19 +183,25 @@ export default class Home extends Component {
 
     __renderNoData = () => {
 
+        const { refreshLoad } = this.props
 
         return (
             <ExceptionView
-                style={{height:Dimensions.get('window').height/2}}
-                exceptionType={ExceptionType.NoData}
+                style={{ height: Dimensions.get('window').height / 2 }}
+                exceptionType={refreshLoad?
+                    ExceptionType.Loading:ExceptionType.NoData}
                 tipBtnText={'添加卡片'}
-                prompt={'空空如也~'}
-                onRefresh={()=>{
-                this.props.navigation.navigate('NewCard')
-            }}/>
+                prompt={refreshLoad?'正在加载':'空空如也~'}
+                onRefresh={() => {
+                    this.props.navigation.navigate('NewCard')
+                }}/>
         )
     }
 
+    _keyExtractor = (item, index) => {
+        const key = item.id || index;
+        return key + '';
+    }
 
 
     render(): ReactElement<any> {
@@ -213,47 +218,51 @@ export default class Home extends Component {
         }
 
         let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
-        stopIUSEexist = !stopIUSEexist?false:stopIUSEexist.get('count')>0
+        stopIUSEexist = !stopIUSEexist ? false : stopIUSEexist.get('count') > 0
 
 
-        if(stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
-            && statu !== 'LIST_LOAD_DATA'){
-            data = [...data,-1];
+        if (stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
+            && statu !== 'LIST_LOAD_DATA') {
+            data = [...data, -1];
         }
-
-
-        //
-        // <FlatList
-        //     onScroll={this.props.onScroll}
-        //     ref="list"
-        //     animation="slideInRight"
-        //     style={styles.container}
-        //     data={data}
-        //     horizontal={true}
-        //     // removeClippedSubviews={true}
-        //     // pagingEnabled={true}
-        //     showsHorizontalScrollIndicator={false}
-        //     renderItem={this.__renderItem}
-        //     keyExtractor={this._keyExtractor}
-        // />
 
 
         return (
 
-                <Carousel
-                    ref={(c) => {
-                        this._carousel = c;
-                    }}
+            (
+
+                <FlatList
+                    style={styles.container}
                     data={data}
+                    numColumns={2}
+                    columnWrapperStyle={{ padding: 5 }}
+                    // removeClippedSubviews={true}
+                    // pagingEnabled={true}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                     renderItem={this.__renderItem}
-                    sliderWidth={sliderWidth}
-                    itemWidth={itemWidth}
-                    removeClippedSubviews={false}
-                    // layout='stack'
-                    // loop={true}
-                    containerCustomStyle={styles.slider}
-                    contentContainerCustomStyle={styles.sliderContentContainer}
+                    keyExtractor={this._keyExtractor}
                 />
+            )
+        )
+
+
+        return (
+
+            <Carousel
+                ref={(c) => {
+                    this._carousel = c;
+                }}
+                data={data}
+                renderItem={this.__renderItem}
+                sliderWidth={sliderWidth}
+                itemWidth={itemWidth}
+                removeClippedSubviews={false}
+                // layout='stack'
+                // loop={true}
+                containerCustomStyle={styles.slider}
+                contentContainerCustomStyle={styles.sliderContentContainer}
+            />
         );
     }
 }

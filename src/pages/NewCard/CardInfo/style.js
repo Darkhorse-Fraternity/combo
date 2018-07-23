@@ -64,6 +64,18 @@ export const StyledTitleText = styled.Text`
   color: #979797;
 `
 
+export const StyledKeysView = styled.Text`
+  color: #c1c1c1;
+  font-size: 17px;
+  margin-top: 5px;
+`
+
 export const StyledCourseView = styled.View`
 
+`
+
+export const StyledDescirbe = styled.Text`
+  margin-top: 30px;
+  font-size: 17px;
+  color: #979797;
 `

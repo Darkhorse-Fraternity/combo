@@ -79,7 +79,13 @@ export default class BaseSectionView extends Component {
         this._handleRefresh();
     }
 
-    // joinTime = 0;
+
+
+    // componentWillUnmount() {
+    //   this.joinTime = 0
+    //     console.log('componentWillUnmount:', this.joinTime);
+    // }
+    joinTime = 0;
     _scrollView
     // componentWillReceiveProps(nextProps) {
     //     if (nextProps.loadStatu !== LIST_FIRST_JOIN && this.state.joinTime < 2) {
@@ -164,6 +170,8 @@ export default class BaseSectionView extends Component {
 
 
 
+    openRefreshing = false
+
     render() {
         // const refreshable = this.props.refreshable && this.props.loadData;
         const type = this.props.type
@@ -193,10 +201,13 @@ export default class BaseSectionView extends Component {
         // }
 
         // console.log('this.joinTime:', this.joinTime ,this.props.loadStatu);
+
+
+
         const refreshing = this.props.loadStatu === LIST_LOAD_DATA
-            && data.length > 0
+            && data.length > 0 && this.openRefreshing
 
-
+        // console.log('refreshing:', refreshing);
         const exceptionViewRefreshing =
             this.props.loadStatu === LIST_LOAD_DATA
 
@@ -205,7 +216,10 @@ export default class BaseSectionView extends Component {
                 refreshing={refreshing}
                 onScroll={this.onScroll.bind(this)}
                 sections={this.props.data}
-                onRefresh={this._handleRefresh}
+                onRefresh={()=>{
+                    this.openRefreshing = true;
+                    this._handleRefresh()
+                }}
                 onEndReached={this._handleloadMore}
                 keyExtractor={this._keyExtractor}
                 removeClippedSubviews={true}
