@@ -3,6 +3,7 @@
  * @flow
  */
 
+
 'use strict';
 
 import * as immutable from 'immutable';
@@ -59,25 +60,36 @@ import Toast from 'react-native-simple-toast'
 
 const Name = 'text'
 
+import { findByID } from "../../../redux/module/leancloud";
+
 @connect(
-    state => ({
+    (state, props) => ({
         //data:state.req.get()
-        user: state.user.data
+        user: state.user.data,
+        iDoData: state.normalizr.get(IDO).get(props.navigation.state.params.iDoID)
     }),
     (dispatch, props) => ({
+        find: () => {
+            const id = props.navigation.state.params.iDoID
+            findByID(IDO, id)
+
+        },
         send: () => dispatch(async (dispatch, getState) => {
-            const iDoData = props.navigation.state.params.data
+            const state = getState()
+            const iDoID = props.navigation.state.params.iDoID
+            let iDoData = state.normalizr.get(IDO).get(props.navigation.state.params.iDoID)
+            iDoData = iDoData && iDoData.toJS()
 
             const selector = formValueSelector(FormID) // <-- same as form name
             // KeyboardUtils.dismiss()
             KeyboardUtils.dismiss()
 
-            const state = getState()
+
             const text = selector(state, Name)
             const param = {
                 text,
                 ...selfUser(),
-                ...iDo(iDoData.objectId)
+                ...iDo(iDoID)
             }
             // const res = await add(param, ICOMMENT)
 
@@ -94,43 +106,53 @@ const Name = 'text'
             }
             // dispatch(addListNormalizrEntity(ICOMMENT, entity))
 
-            iDoData.commentNum++
 
             dispatch(addNormalizrEntity(ICOMMENT, entity))
+            if (iDoData) {
+                iDoData.commentNum++
+                dispatch(addNormalizrEntity(IDO, iDoData))
+            }
 
-            dispatch(addNormalizrEntity(IDO, iDoData))
             // // dispatch(addNormalizrEntities(key,data))
-            dispatch(listAdd(ICOMMENT + iDoData.objectId, entity.objectId))
+            dispatch(listAdd(ICOMMENT + iDoID, entity.objectId))
 
             dispatch(reset(FormID))
         }),
         delete: async (item) => {
-            const iDoData = props.navigation.state.params.data
+            const iDoID = props.navigation.state.params.iDoID
             await remove(item.objectId, ICOMMENT)
-            dispatch(claerByID(ICOMMENT + iDoData.objectId, item.objectId))
+            dispatch(claerByID(ICOMMENT + iDoID, item.objectId))
         },
         copy: (item) => {
             Clipboard.setString(item.text)
             Toast.show('已复制评论!')
         },
-        refresh: async (user) => {
-            let iDoData = props.navigation.state.params.data
-            if (iDoData.commentNew && iDoData.user.objectId === user.objectId) {
+        refresh: () => {
+            dispatch(async (dispatch, getState) => {
+                const state = getState()
+                const user = state.user.data
+                let iDoData = state.normalizr.get(IDO).get(props.navigation.state.params.iDoID)
+                iDoData = iDoData && iDoData.toJS()
+                let iDoID = props.navigation.state.params.iDoID
+                if (iDoData && iDoData.commentNew && iDoData.user.objectId === user.objectId) {
 
-                const params = {
-                    commentNew: false
+                    const params = {
+                        commentNew: false
+                    }
+                    const res = await update(iDoID, params, IDO)
+
+                    iDoData = {
+                        ...iDoData,
+                        ...res,
+                        ...params
+                    }
+
+                    dispatch(addNormalizrEntity(IDO, iDoData))
+
                 }
-                const res = await update(iDoData.objectId, params, IDO)
 
-                iDoData = {
-                    ...iDoData,
-                    ...res,
-                    ...params
-                }
+            })
 
-                dispatch(addNormalizrEntity(IDO, iDoData))
-
-            }
         }
     })
 )
@@ -161,7 +183,11 @@ export default class RComment extends Component {
     };
 
     componentDidMount() {
-        this.props.refresh(this.props.user)
+        if (!this.props.iDoData) {
+            this.props.find()
+        }else {
+            this.props.refresh()
+        }
     }
 
     componentWillUnmount() {
@@ -169,10 +195,11 @@ export default class RComment extends Component {
     }
 
     _renderHeader = () => {
-        const data = this.props.navigation.state.params.data
+        let iDoData = this.props.iDoData
+        iDoData = iDoData && iDoData.toJS()
         return (
             <StyledHeader>
-                <RecordRow item={data} showChat={false} showImage={true}/>
+                {iDoData && <RecordRow item={iDoData} showChat={false} showImage={true}/>}
             </StyledHeader>
         )
     }
@@ -182,7 +209,7 @@ export default class RComment extends Component {
     }
 
     keyboardAccessoryViewContent() {
-        const { objectId } = this.props.navigation.state.params.data
+        const iDoID = this.props.navigation.state.params.iDoID
         const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
         return (
             <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
@@ -198,7 +225,7 @@ export default class RComment extends Component {
                     //onFocus={() => this.resetKeyboardView()}
                     // onChangeText={text => this.setState({text})}
                     testID='input'
-                    localSaveID={objectId}
+                    localSaveID={iDoID}
                     key=''
                     localSaveEnable
                     onSubmit={this.props.send}
@@ -268,11 +295,11 @@ export default class RComment extends Component {
 
     render(): ReactElement<any> {
 
-        const iDoData = this.props.navigation.state.params.data
+        const iDoID = this.props.navigation.state.params.iDoID
 
         const params = {
             where: {
-                ...iDo(iDoData.objectId),
+                ...iDo(iDoID),
 
             },
             include: 'user'
@@ -285,7 +312,7 @@ export default class RComment extends Component {
                     ListHeaderComponent={this._renderHeader}
                     style={[styles.list]}
                     reqKey={ICOMMENT}
-                    sKey={ICOMMENT + iDoData.objectId}
+                    sKey={ICOMMENT + iDoID}
                     renderItem={this.renderRow.bind(this)}
                     reqParam={params}
                     noDataPrompt='还没有评论~'

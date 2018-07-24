@@ -139,7 +139,7 @@ export default class Home extends Component {
     __renderItem = ({ item, index }) => {
 
         if (item === -1) {
-            return <StopCell title='查看已完成的打卡'
+            return <StopCell title='查看已归档的卡片'
                              des='重新打卡点这里'
                              onPress={() => {
                                  this.props.navigation.navigate('Record',
