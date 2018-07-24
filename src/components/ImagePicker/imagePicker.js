@@ -11,7 +11,7 @@ import Toast from 'react-native-simple-toast';
 import { StatusBar } from 'react-native'
 
 const DEFAULT_OPTIONS = {
-    title: '修改头像', // specify null or empty string to remove the title
+    title: '添加图片', // specify null or empty string to remove the title
     cancelButtonTitle: '取消',
     takePhotoButtonTitle: '拍照', // specify null or empty string to remove this button
     chooseFromLibraryButtonTitle: '从手机相册选择', // specify null or empty string to remove this button

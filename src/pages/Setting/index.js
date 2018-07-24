@@ -31,9 +31,8 @@ const styles = StyleSheet.create({
         // backgroundColor: 'white',
     },
     row: {
-        backgroundColor: 'white',
         paddingHorizontal: 15,
-        paddingVertical: 15,
+        paddingVertical: 20,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -102,7 +101,10 @@ class WBSetting extends Component {
         logoutLoad: bool
     };
 
-    _renderRow(title: string, needArrow: bool, activity: bool = false, onPress: Function = () => {
+    _renderRow(title: string,
+               needArrow: bool,
+               activity: bool = false,
+               onPress: Function = () => {
     }) {
         return (
             <Button style={styles.row} onPress={onPress}>
@@ -162,7 +164,7 @@ class WBSetting extends Component {
                 {/*})}*/}
                 {this._renderRow('给个评价', true, false, () => {
                     let url = ''
-                    if (Platform.OS == 'ios') {
+                    if (Platform.OS === 'ios') {
                         url = 'http://itunes.apple.com/WebObjects/MZStore.woa/wa/' +
                             'viewContentsUserReviews?id=APPID' +
                             '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8'
@@ -179,7 +181,7 @@ class WBSetting extends Component {
                 {/*})}*/}
 
 
-                <View style={styles.groupSpace}/>
+                {/*<View style={styles.groupSpace}/>*/}
                 {this._renderRow('退出登录', false, this.state.logoutLoad, () => {
                     // Actions.asWhiteBoard();
                     this._logout();

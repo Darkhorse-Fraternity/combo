@@ -97,8 +97,6 @@ export default class DoCardButton extends Component {
         const {animation,load} = this.props
 
 
-        console.log('test:', '1111');
-
         return (
             <FlipButton
                 faceText={`点击${"\n"}打卡`}
