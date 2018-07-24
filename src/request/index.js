@@ -51,8 +51,9 @@ export function send({
     const body = httpHeader["Content-Type"] === "application/x-www-form-urlencoded"
         ? toQueryString(params) :
         JSON.stringify(params)
+
     const request
-        = method == 'GET' ? new Request(addParams(urlpath, params), {
+        = method === 'GET' ? new Request(addParams(urlpath, params), {
         method: method,
         headers: httpHeader
     }) : new Request(urlpath, {method: method, headers: httpHeader, body: body});

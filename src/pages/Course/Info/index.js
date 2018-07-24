@@ -42,7 +42,7 @@ import {
     FOLLOWING,
     FRIENDNUM
 } from '../../../redux/reqKeys'
-import { findByID } from '../../../redux/module/leancloud'
+import { findByID, find } from '../../../redux/module/leancloud'
 import Button from '../../../components/Button'
 import { req, reqChangeData } from '../../../redux/actions/req'
 import { classUpdate } from '../../../request/leanCloud'
@@ -54,6 +54,8 @@ import {
 } from '../../../request/leanCloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import Toast from 'react-native-simple-toast'
+import {classSearch} from '../../../request/leanCloud'
+import {list,entitys} from '../../../redux/scemes'
 
 const hasReadmap = {}
 
@@ -66,6 +68,9 @@ const hasReadmap = {}
             return {}
         }
 
+        // console.log('course:', course.toJS() );
+        // console.log('user:', course && users.get(course.get(USER)));
+
         return {
             load: state.req.get(COURSE).get('load'),
             course,
@@ -77,7 +82,16 @@ const hasReadmap = {}
     },
     (dispatch, props) => ({
         dataLoad: async () => {
-            props.courseId && await findByID(COURSE, props.courseId)
+            if( props.courseId){
+                const params = {
+                    include: 'user',
+                    where:{
+                        objectId:props.courseId
+                    },
+                }
+                await find(COURSE,params,{sceme:list(entitys[COURSE])})
+            }
+
         },
         loadfriendExist: () => {
             dispatch((dispatch, getState) => {
@@ -305,12 +319,12 @@ export default class Info extends Component {
                             </StyledReadNum>
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
-                            <Button onPress={() => {
+                            {user.avatar && <Button onPress={() => {
                                 this.props.navigation.navigate('Following', { user: user })
 
                             }}>
                                 <StyledAvatar source={{ uri: user.avatar.url }}/>
-                            </Button>
+                            </Button>}
                             {this.__renderFocusOn()}
                         </StyledHeaderInnerRight>
                     </StyledHeaderInner>

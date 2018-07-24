@@ -140,7 +140,7 @@ export default class Info extends Component {
     }
 
 
-    _renderRresh = (reflesh,params)=> {
+    _renderRresh = (reflesh, params) => {
         const { iCard, iUse } = params
         const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
             TouchableNativeFeedback.SelectableBackgroundBorderless()
@@ -153,22 +153,21 @@ export default class Info extends Component {
         if (!reflesh) {
             text = "暂停打卡"
         }
-        return (<View>
-            {this.props.iUseLoad ? <StyledActivityIndicator/> :
-                <StyledBottomMenuButton
-                    background={background}
-                    hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
-                    onPress={() => {
-                        !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
-                    }}>
-                    <StyledIcon name={!reflesh ?
-                        'md-trash' : 'md-refresh'}
-                                size={30}/>
-                    <StyledBottomMenuText>
-                        {text}
-                    </StyledBottomMenuText>
-                </StyledBottomMenuButton>}
-        </View>)
+        return (
+            <StyledBottomMenuButton
+                background={background}
+                hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
+                onPress={() => {
+                    !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
+                }}>
+                <StyledIcon name={!reflesh ?
+                    'md-trash' : 'md-refresh'}
+                            size={30}/>
+                <StyledBottomMenuText>
+                    {text}
+                </StyledBottomMenuText>
+            </StyledBottomMenuButton>
+        )
 
 
     }
@@ -187,13 +186,12 @@ export default class Info extends Component {
         // console.log('test:', item);
 
 
-
         const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
             TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <StyledBottomMenu>
                 {iCard.user === this.props.user.objectId &&
-                    iCard.state !== -2
+                iCard.state !== -2
                 && iUse.statu !== 'del' &&
                 (<StyledBottomMenuButton
                     background={background}
@@ -208,7 +206,8 @@ export default class Info extends Component {
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>)}
 
-                {this._renderRresh(reflesh,params)}
+                {this.props.iUseLoad ? <StyledActivityIndicator/> :
+                    this._renderRresh(reflesh, params)}
                 <StyledBottomMenuButton
                     background={background}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}

@@ -202,16 +202,17 @@ export default class Home extends Component {
     }
 
 
-    __renderNoData = () => {
+    __renderNoData = (statu) => {
 
-        const { refreshLoad } = this.props
 
+        const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
         return (
             <ExceptionView
                 style={{ height: Dimensions.get('window').height / 2 }}
                 exceptionType={refreshLoad?
                     ExceptionType.Loading:ExceptionType.NoData}
                 tipBtnText={'添加卡片'}
+                refresh = {refreshLoad}
                 prompt={refreshLoad?'正在加载':'空空如也~'}
                 onRefresh={() => {
                     this.props.navigation.navigate('NewCard')
@@ -234,9 +235,9 @@ export default class Home extends Component {
 
         let data = this.props.data.toJS().listData
 
-        if ((statu === 'LIST_NORMAL' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
-            return this.__renderNoData()
-        }
+        // if ((statu === 'LIST_NORMAL' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
+        //     return this.__renderNoData()
+        // }
 
         let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
         stopIUSEexist = !stopIUSEexist ? false : stopIUSEexist.get('count') > 0
@@ -268,6 +269,7 @@ export default class Home extends Component {
                     renderItem={this.__renderItem}
                     keyExtractor={this._keyExtractor}
                     ListHeaderComponent={this.props.header}
+                    ListEmptyComponent={()=>this.__renderNoData(statu)}
                 />
             )
         )
@@ -298,11 +300,12 @@ const height = Dimensions.get('window').height
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        overflow:'hidden',
         // alignItems: 'center',
         // backgroundColor: '#F5FCFF',
     },
     slider: {
-        overflow: 'visible' // for custom animations
+        // overflow: 'visible' // for custom animations
     },
     sliderContentContainer: {
         paddingVertical: 0 // for custom animation
