@@ -44,8 +44,8 @@ export default class Configure extends React.Component {
         epUpdate()
         pushConfig()
         if (Platform.OS !== 'ios') {
-            UIManager.setLayoutAnimationEnabledExperimental &&
-            UIManager.setLayoutAnimationEnabledExperimental(true);
+            // UIManager.setLayoutAnimationEnabledExperimental &&
+            // UIManager.setLayoutAnimationEnabledExperimental(true);
         }
         if (DeviceInfo.isTablet()) {
             Orientation.lockToLandscape();
