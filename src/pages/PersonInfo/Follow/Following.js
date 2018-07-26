@@ -274,7 +274,6 @@ export default class Following extends Component {
                     this.props.navigation.navigate('RecordDetail', {
                         data: item,
                         card: iCard,
-                        user
                     })
                 }}/>
         )

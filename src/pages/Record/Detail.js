@@ -13,14 +13,13 @@ import {
     Text,
     Alert,
 } from 'react-native'
-import { IDO } from '../../redux/reqKeys'
 import { user as UserModle, iUse } from '../../request/LCModle'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import { update, } from '../../redux/module/leancloud'
 import { addListNormalizrEntity } from '../../redux/actions/list'
-import { IUSE } from '../../redux/reqKeys'
+import { IUSE,IDO,USER } from '../../redux/reqKeys'
 import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import HeaderBtn from '../../components/Button/HeaderBtn'
@@ -33,7 +32,7 @@ const listKey = IDO
     (state, props) => ({
         data: state.normalizr.get(IUSE).get(props.navigation.state.params.data.objectId),
         load: state.req.get(IUSE).get('load'),
-        user: state.user.data,
+        user: state.normalizr.get(USER).get(props.navigation.state.params.data.user),
 
     }),
     (dispatch, props) => ({
@@ -156,11 +155,15 @@ export default class Detail extends Component {
         const { navigation } = this.props;
         const { state } = navigation;
         const { params } = state;
-        const { data, user } = params
-        const userNoNull = user || this.props.user
+        const { data } = params
+        const userNoNull = this.props.user
+
+        console.log('userNoNull:', userNoNull);
+        console.log('data:', data);
+
         const param = {
             'where': {
-                ...UserModle(userNoNull.objectId),
+                ...UserModle(userNoNull.get('objectId')),
                 ...iUse(data.objectId)
             }
         }
