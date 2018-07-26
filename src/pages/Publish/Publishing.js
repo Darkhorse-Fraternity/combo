@@ -22,7 +22,6 @@ import { connect } from 'react-redux'
 import { ICARD } from '../../redux/reqKeys'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { update } from '../../redux/module/leancloud'
-import imagePicker from '../../components/ImagePicker/imagePicker'
 import { bindActionCreators } from 'redux';
 import BounceBtn from '../../components/Button/BounceBtn'
 import Icon from 'react-native-vector-icons/Ionicons'

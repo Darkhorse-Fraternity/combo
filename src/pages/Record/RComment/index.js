@@ -71,6 +71,7 @@ import { findByID } from "../../../redux/module/leancloud";
     (dispatch, props) => ({
         find: () => {
             const id = props.navigation.state.params.iDoID
+            console.log('id:', id);
             findByID(IDO, id)
 
         },

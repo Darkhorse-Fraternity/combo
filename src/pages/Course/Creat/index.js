@@ -16,7 +16,6 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/Ionicons'
-import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
 import {
     StyledContent,
     StyledHeaderImage,

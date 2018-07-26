@@ -94,7 +94,7 @@ export default class Home extends Component {
                     小改变
                 </Text>
                 <View style={styles.headViewSub}>
-                    <Text style={styles.headViewSubText}>长按打卡，轻触查看详情</Text>
+                    <Text style={styles.headViewSubText}>想改变什么？</Text>
                     <Button
                         innerView
                         onPress={() => {

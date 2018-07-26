@@ -56,11 +56,12 @@ export function find(key: string,params: Object, option: Object = {}) {
 }
 
 export function findByID(key,id,option) {
-    const params = classSearch(key,{
+    const params = {
         where:{
             objectId:id
-        }
-    })
+        },
+        limit:1,
+    }
     return find(key, params, {sceme:list(entitys[key]),...option})
 }
 

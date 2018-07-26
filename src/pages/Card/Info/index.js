@@ -180,8 +180,7 @@ export default class Info extends Component {
         // iUse = pUse || iUse
 
 
-        const reflesh = (iUse.time !== 0 && iUse.time % Number(iCard.period) === 0 )
-            || iUse.statu === 'stop'
+        const reflesh =  iUse.statu === 'stop'
 
         // console.log('test:', item);
 

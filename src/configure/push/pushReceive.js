@@ -12,6 +12,7 @@ export function doReceiveNotify(notify) {
     if (url &&  url.indexOf(hihomeHost) === 0) {
         const nUrl = url.slice(hihomeHost.length, url.length)
         console.log('nUrl:', nUrl);
+
         store.dispatch(NavigationActions.navigate({routeName: nUrl, params: data.params}))
     }
 

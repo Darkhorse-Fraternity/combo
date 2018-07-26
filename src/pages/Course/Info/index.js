@@ -255,7 +255,7 @@ export default class Info extends Component {
 
 
 
-        if (!load && !this.props.courseId || course && !course.title ) {
+        if (!load && (!this.props.courseId || course && !course.title) ) {
             if(!showNoOpen){
                 return null
             }

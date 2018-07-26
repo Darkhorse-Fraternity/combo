@@ -27,18 +27,24 @@ import {
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch)
-        picker: () => {
+
+
+        picker: (e) => {
+
+
+                /* 事件的默认动作已被取消*/
+                imagePicker({
+                    title: '修改头像',
+                    maxWidth: 500, // photos only
+                    maxHeight: 500, // photos only
+                }, (response) => {
+                    // console.log('Response = ', response);
+                    if (response.uri) {
+                        dispatch(uploadAvatar(response.uri))
+                    }
+                })
             // dispatch(pickerImage())
-            imagePicker({
-                title: '修改头像',
-                maxWidth: 500, // photos only
-                maxHeight: 500, // photos only
-            }, (response) => {
-                // console.log('Response = ', response);
-                if (response.uri) {
-                    dispatch(uploadAvatar(response.uri))
-                }
-            })
+
         }
     })
 )
