@@ -82,6 +82,8 @@ export default class CardPublishForm extends Component {
         const { submitting, invalid } = rest
 
 
+
+
         return (
             <Form
                 behavior={'padding'}
@@ -136,7 +138,6 @@ export default class CardPublishForm extends Component {
                         underlineColorAndroid='transparent'
                         placeholderTextColor='rgb(200,200,200)'
                         placeholder='圈子描述'/>
-                    />
                     <View style={{ height: 200 }}/>
                 </StyledContent>
             </Form>

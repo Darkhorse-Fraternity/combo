@@ -251,13 +251,18 @@ export default class Info extends Component {
             showNoOpen
         } = this.props
 
-        if (!this.props.courseId ) {
+        course = course && course.toJS()
+
+
+
+        if (!load && !this.props.courseId || course && !course.title ) {
             if(!showNoOpen){
                 return null
             }
+
             return (
                 <StyledContent>
-                    {!load && !course &&
+
                     <StyledHeaderContent style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <StyledHeaderTipText>
                             课程还没有开启
@@ -269,17 +274,18 @@ export default class Info extends Component {
                                 点击开启
                             </StyledReportText>
                         </StyledReportBtn>}
-                    </StyledHeaderContent>}
+                    </StyledHeaderContent>
                 </StyledContent>
             )
         }
 
         user = user && user.toJS()
-        course = course && course.toJS()
+
 
         const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
 
         // console.log('course:', course);
+
 
         return (
             <StyledContent>

@@ -17,31 +17,31 @@ import {
     Alert
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD, IUSE } from '../../redux/reqKeys'
-import { add } from '../../redux/module/leancloud'
+import { ICARD, IUSE } from '../../../redux/reqKeys'
+import { add } from '../../../redux/module/leancloud'
 import { bindActionCreators } from 'redux';
-import { addListNormalizrEntity } from '../../redux/actions/list'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { selfUser, iCard } from '../../request/LCModle'
+import { addListNormalizrEntity } from '../../../redux/actions/list'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import { selfUser, iCard } from '../../../request/LCModle'
 import moment from 'moment'
 import OptionDo, { StaticOption } from './OptionDo'
-import Button from '../../components/Button'
-import { mainColor } from '../../Theme'
+import Button from '../../../components/Button/index'
+import { mainColor } from '../../../Theme/index'
 import {
     reduxForm,
     formValueSelector,
 } from 'redux-form/immutable'
-import { popToIndex } from '../../redux/nav'
+import { popToIndex } from '../../../redux/nav'
 
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 
-import { TextInput } from '../../components/Form/Cunstom'
+import { TextInput } from '../../../components/Form/Cunstom/index'
 //static displayName = Creat
 
-import HeaderBtn from '../../components/Button/HeaderBtn'
-import BackBtn from '../../components/Button/BackBtn'
+import HeaderBtn from '../../../components/Button/HeaderBtn'
+import BackBtn from '../../../components/Button/BackBtn/index'
 import * as Animatable from 'react-native-animatable';
 
 @connect(
@@ -79,8 +79,8 @@ import * as Animatable from 'react-native-animatable';
                 // time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
                 ...op,
-                record:op.record.toJS(),
-                recordDay:op.recordDay.toJS(),
+                record: op.record.toJS(),
+                recordDay: op.recordDay.toJS(),
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }
@@ -205,26 +205,46 @@ export default class Creat extends Component {
     __renderName = () => {
         return (
             <View style={{ marginTop: 90 }}>
+                <View style={{
+                    flexDirection: 'row',
+                    width: Dimensions.get('window').width,
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                }}>
+                    <Animatable.View animation="fadeInLeft"
+                                     delay={Math.random() * 300}
+                    >
+                        <BackBtn onBackPress={this.__backStep}/>
+                    </Animatable.View>
+                    <Animatable.View animation="fadeInRight"
+                                     delay={Math.random() * 300}
+                    >
+                        <Button
+                            onPress={this.__nextStep}
+                            style={[styles.done, styles.shadow]}>
+                            <Text>下一步</Text>
+                        </Button>
+                    </Animatable.View>
+                </View>
                 <Animatable.View animation="fadeInLeft"
                                  delay={Math.random() * 300}
                 >
-                    <BackBtn onBackPress={this.__backStep}/>
+                    <TextInput
+                        name='title'
+                        placeholderTextColor="rgba(180,180,180,1)"
+                        // selectionColor={mainColor}
+                        returnKeyType='next'
+                        maxLength={50}
+                        //keyboardType={boardType}
+                        style={styles.textInputStyle}
+                        underlineColorAndroid='transparent'
+                        placeholder='卡片名称'
+                        clearButtonMode='while-editing'
+                        enablesReturnKeyAutomatically={true}
+                        //onSubmitEditing={() =>this.focusNextField(ref)}
+                        // onChangeText={(text) => this.setState({title: text})}
+                    />
                 </Animatable.View>
-                <TextInput
-                    name='title'
-                    placeholderTextColor="rgba(180,180,180,1)"
-                    // selectionColor={mainColor}
-                    returnKeyType='next'
-                    maxLength={50}
-                    //keyboardType={boardType}
-                    style={styles.textInputStyle}
-                    underlineColorAndroid='transparent'
-                    placeholder='卡片名称'
-                    clearButtonMode='while-editing'
-                    enablesReturnKeyAutomatically={true}
-                    //onSubmitEditing={() =>this.focusNextField(ref)}
-                    // onChangeText={(text) => this.setState({title: text})}
-                />
                 {/*<View style={styles.line}/>*/}
                 {/*<Button*/}
                 {/*disabled={this.props.title.length === 0}*/}
@@ -236,15 +256,7 @@ export default class Creat extends Component {
                 {/*}]}>*/}
                 {/*<Text style={styles.sureBtnText}>下一步</Text>*/}
                 {/*</Button>*/}
-                <Animatable.View animation="fadeInRight"
-                                 delay={Math.random() * 300}
-                >
-                    <Button
-                        onPress={this.__nextStep}
-                        style={[styles.done, styles.shadow, { marginBottom: 50 }]}>
-                        <Text>下一步</Text>
-                    </Button>
-                </Animatable.View>
+
             </View>
         )
     }
@@ -315,10 +327,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     textInputStyle: {
-        margin: 5,
         backgroundColor: 'white',
         height: 50,
         marginTop: 30,
+        paddingHorizontal:10
     },
     sureBtn: {
         marginLeft: 20,
@@ -374,13 +386,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(0,0,0)'
     },
     done: {
-        marginTop: 25,
         flexDirection: 'row',
         backgroundColor: 'white',
         padding: 15,
         alignSelf: 'flex-end',
-        marginBottom: 7.5,
-        marginLeft: 5,
+        marginVertical:5,
+        marginLeft:5,
     },
 
     shadow: {
@@ -388,6 +399,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowOffset: { width: 2, height: 5 },
         shadowRadius: 5,
-        elevation: 5
+        elevation: 3
     },
 })

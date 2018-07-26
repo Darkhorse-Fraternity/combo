@@ -66,7 +66,7 @@ import Button from "../../components/Button";
             })
             req(params, IUSEExist)
         },
-        add: async () => {
+        add: async (useNum = 0) => {
             const id = props.navigation.state.params.iCardID
             const param = {
                 // cycle: 0,
@@ -82,6 +82,10 @@ import Button from "../../components/Button";
                 ...res
             }
             dispatch(addListNormalizrEntity(IUSE, entity))
+            dispatch(addNormalizrEntity(ICARD, {
+                objectId:id,
+                useNum:useNum+1
+            }))
             dispatch(reqChangeData(IUSEExist, {
                 results: {
                     results: [],
@@ -144,7 +148,7 @@ export default class PublishDetail extends Component {
                         disabled={exist}
                         title={text}
                         onPress={() => {
-                            this.props.add()
+                            this.props.add(iCard.useNum)
                         }}/>
                 </View>
             </View>

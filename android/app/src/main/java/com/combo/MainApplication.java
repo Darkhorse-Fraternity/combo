@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.keychain.KeychainPackage;
 import com.rnfs.RNFSPackage;
@@ -55,6 +56,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new AutoGrowTextInputPackage(),
             new LinearGradientPackage(),
             new KeychainPackage(),
                     new RNFSPackage(),

@@ -34,7 +34,7 @@ export const StyledContent = styled(Button)`
     shadow-radius: 5px;
     shadow-color: black;
     shadow-offset: 1px 3px;   
-    elevation: 10;
+    elevation: 3;
     padding:15px;
     
     align-self: flex-start;

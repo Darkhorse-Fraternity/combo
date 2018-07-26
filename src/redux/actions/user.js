@@ -5,9 +5,17 @@
  */
 'use strict'
 
-import { requestLogin, requestUsersByMobilePhone, getUserByID } from '../../request/leanCloud';
+import {
+    requestLogin,
+    requestUsersByMobilePhone,
+    getUserByID }
+    from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
-import { saveAccount, saveUserData, loadAccount, clearUserData } from '../../configure/storage'
+import {
+    saveAccount,
+    saveUserData,
+    loadAccount,
+    clearUserData } from '../../configure/storage'
 // import {
 //     navigatePush,
 //     navigatePop,
@@ -35,6 +43,10 @@ import * as Keychain from 'react-native-keychain';
 // import { popToIndex } from '../nav'
 
 //当为异步的时候这么写，返回一个函数
+
+import * as WeChat from 'react-native-wechat';
+import * as QQAPI from 'react-native-qq';
+
 export function loadAccountAction(): Function {
 
     return dispatch => {
@@ -276,4 +288,9 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
             callBack(response);
         });
     }
+}
+
+
+export function wechatBinding() {
+    WeChat.sendAuthRequest()
 }

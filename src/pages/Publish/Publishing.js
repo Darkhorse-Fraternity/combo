@@ -31,8 +31,9 @@ import { uploadImages } from '../../redux/actions/util'
 //static displayName = PublishDetail
 import Toast from 'react-native-simple-toast'
 import HeaderBtn from '../../components/Button/HeaderBtn'
-import CardPublishForm,{FormID} from '../../components/Form/CardPublish'
+import CardPublishForm, { FormID } from '../../components/Form/CardPublish'
 import { formValueSelector } from 'redux-form/immutable'
+
 const selector = formValueSelector(FormID)
 
 @connect(
@@ -105,34 +106,34 @@ const selector = formValueSelector(FormID)
         picker: async (uri) => {
             // dispatch(pickerImage())
 
-                if (uri) {
-                    // dispatch(uploadAvatar(response.uri))
-                    const res = await dispatch(uploadImages([uri],
-                        PBULImage))
+            if (uri) {
+                // dispatch(uploadAvatar(response.uri))
+                const res = await dispatch(uploadImages([uri],
+                    PBULImage))
 
-                    if (!res.payload) {
-                        return
-                    }
-
-                    const id = props.navigation.state.params.iCardID
-                    const img = res.payload[0]
-                    console.log('img:', img);
-                    const param = {
-                        img: {
-                            "id": img.id,
-                            "__type": "File",
-                            url: img.attributes.url
-                        }
-                    }
-                    const res2 = await  update(id, param, ICARD)
-                    const entity = {
-                        ...param,
-                        ...res2
-                    }
-                    dispatch(addNormalizrEntity(ICARD, entity))
-
-                    return img.attributes.url
+                if (!res.payload) {
+                    return
                 }
+
+                const id = props.navigation.state.params.iCardID
+                const img = res.payload[0]
+                console.log('img:', img);
+                const param = {
+                    img: {
+                        "id": img.id,
+                        "__type": "File",
+                        url: img.attributes.url
+                    }
+                }
+                const res2 = await  update(id, param, ICARD)
+                const entity = {
+                    ...param,
+                    ...res2
+                }
+                dispatch(addNormalizrEntity(ICARD, entity))
+
+                return img.attributes.url
+            }
         }
     })
 )
@@ -161,73 +162,8 @@ export default class Publishing extends Component {
     }
 
 
-    __alert = (iCard) => {
-        Alert.alert(
-            '确定取消发布?',
-            '取消发布后意味着您不再提供服务',
-            [{ text: '取消' }, {
-                text: '确定', onPress: () => {
-                    this.props.unPublish(iCard)
-                }
-            }]
-        )
-    }
-
-    _renderHeader = (iCard) => {
-
-        // console.log('iCard:', iCard);
-        const load = this.props.imageLoad
-
-        const url = iCard.img && iCard.img.url
-        // console.log('test:', this.state.keys);
-        return (
-            <View style={styles.header}>
-                <Text style={styles.addImageText}>
-                    添加发布时候展示的图片。
-                </Text>
-                {load ?
-                    <View style={styles.item}>
-                        <ActivityIndicator/>
-                    </View>
-                    :
-                    <Button
-                        style={[styles.item, { alignItems: url ? null : 'center' }]}
-                        onPress={this.props.picker}>
-                        {!url ? (<Icon name="md-add" size={50}/>) :
-                            (<Image style={styles.img} source={{ uri: url }}/>)}
-                    </Button>}
-
-
-                <Text style={[styles.addImageText, { marginTop: 20 }]}>
-                    添加关键字,多个之间以 ","相隔离。
-                </Text>
-                <TextInput
-                    placeholderTextColor="rgba(180,180,180,1)"
-                    returnKeyType='done'
-                    selectionColor='#f0ab4e'
-                    //autoFocus={autoFocus}
-                    value={this.state.keys}
-                    maxLength={100}
-                    style={styles.textInputStyle}
-                    underlineColorAndroid='transparent'
-                    clearButtonMode='while-editing'
-                    enablesReturnKeyAutomatically={true}
-                    onSubmitEditing={() => {
-                    }}
-                    onChangeText={(text) => {
-                        this.setState({ keys: text })
-                    }}
-                />
-                <View style={styles.line}/>
-
-            </View>
-        )
-
-    }
-
-
     render(): ReactElement<any> {
-        const { imageLoad, iCard ,picker} = this.props
+        const { imageLoad, iCard, picker ,load} = this.props
         // const iCard = this.props.iCard
         // const url = iCard.img && iCard.img.url
         const cover = iCard.get('img')
@@ -254,7 +190,7 @@ export default class Publishing extends Component {
                 {/*}}/>*/}
 
                 <CardPublishForm
-                    load={false}
+                    load={load}
                     initialValues={{
                         cover: cover && cover.get('url'),
                         keys: keys && keys.toString(),
@@ -262,7 +198,7 @@ export default class Publishing extends Component {
                     }}
                     title={iCard.get('title')}
                     imageLoad={imageLoad}
-                    state = {iCard.get('state')}
+                    state={iCard.get('state')}
                     handleImage={picker}
                     onSubmit={() => {
 
@@ -273,7 +209,7 @@ export default class Publishing extends Component {
                             // this.__alert(iCard)
                             this.props.unPublish(iCardModel)
                         }
-                    }}/>
+                    }}
                 />
             </View>
         );

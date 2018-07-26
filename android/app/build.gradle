@@ -161,6 +161,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-autogrow-textinput')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-keychain')
     compile project(':react-native-fs')

@@ -18,9 +18,9 @@ import {
     Keyboard
 } from 'react-native'
 import { connect } from 'react-redux'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { update } from '../../redux/module/leancloud'
-import { ICARD } from '../../redux/reqKeys'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import { update } from '../../../redux/module/leancloud'
+import { ICARD } from '../../../redux/reqKeys'
 import Toast from 'react-native-simple-toast'
 
 import {

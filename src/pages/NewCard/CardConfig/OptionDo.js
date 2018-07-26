@@ -18,10 +18,15 @@ import {
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 
-import { AutoGrowingInput, TextInput } from '../../components/Form/Cunstom'
-import { Radio, Multiple } from '../../components/Form/Select'
+import { AutoGrowingInput, TextInput } from '../../../components/Form/Cunstom/index'
+import { Radio, Multiple } from '../../../components/Form/Select/index'
 import Toast from 'react-native-simple-toast'
-import { mainColor } from '../../Theme'
+import { mainColor } from '../../../Theme/index'
+import {
+    StyledTitleView,
+    StyledTitleText
+} from './style'
+
 
 export const StaticOption = {
     notifyTime: '20:00',
@@ -34,7 +39,7 @@ export const StaticOption = {
 import {
     formValues,
 } from 'redux-form/immutable'
-import Button from '../../components/Button'
+import Button from '../../../components/Button/index'
 
 @formValues('title', 'notifyTime', 'notifyText', 'period', 'record', 'recordDay')
 
@@ -84,7 +89,7 @@ export default class OptionDo extends Component {
             >
                 <Button
                     onPress={this.__backStep}
-                    style={[styles.item, styles.shadow, { marginBottom: 20 }]}>
+                    style={[styles.item, styles.shadow]}>
                     <Text>返回</Text>
                 </Button>
             </Animatable.View>
@@ -100,9 +105,9 @@ export default class OptionDo extends Component {
                     disabled={this.props.load}
                     onPress={this.props.done}
                     style={[styles.done, styles.shadow,
-                        { marginBottom: 50,width:60 }]}>
+                    ]}>
                     {this.props.load ? <ActivityIndicator
-                            style={{marginVertical:-3}} />
+                            style={{ marginVertical: -3 }}/>
                         : <Text>提交</Text>}
                 </Button>
 
@@ -135,26 +140,30 @@ export default class OptionDo extends Component {
     __renderTitle = () => {
 
         return (
-            <View
-                style={{
-                    marginHorizontal: 5,
-                    backgroundColor: 'white'
-                }}>
-                <TextInput
-                    name='title'
-                    placeholderTextColor="rgba(180,180,180,1)"
-                    selectionColor={mainColor}
-                    returnKeyType='done'
-                    autoFocus={true}
-                    maxLength={50}
-                    //keyboardType={boardType}
-                    style={styles.textInputStyle}
-                    underlineColorAndroid='transparent'
-                    placeholder={"卡片名称"}
-                    clearButtonMode='while-editing'
-                    enablesReturnKeyAutomatically={true}
-                />
-            </View>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <View
+                    style={[styles.showItem, {
+                        backgroundColor: 'white',
+                        paddingHorizontal:10
+                    }]}>
+                    <TextInput
+                        name='title'
+                        placeholderTextColor="rgba(180,180,180,1)"
+                        selectionColor={mainColor}
+                        returnKeyType='done'
+                        autoFocus={true}
+                        maxLength={50}
+                        //keyboardType={boardType}
+                        style={[styles.textInputStyle]}
+                        underlineColorAndroid='transparent'
+                        placeholder={"卡片名称"}
+                        clearButtonMode='while-editing'
+                        enablesReturnKeyAutomatically={true}
+                    />
+                </View>
+            </Animatable.View>
         )
 
 
@@ -175,12 +184,16 @@ export default class OptionDo extends Component {
         }
 
         return (
-            <Radio
-                style={styles.notifyTimeView}
-                name='period'
-                //keyName='ItemId'
-                options={items}
-                renderItem={__renderRadioItem}/>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <Radio
+                    style={[styles.showItem, styles.notifyTimeView]}
+                    name='period'
+                    //keyName='ItemId'
+                    options={items}
+                    renderItem={__renderRadioItem}/>
+            </Animatable.View>
         )
     }
 
@@ -201,12 +214,16 @@ export default class OptionDo extends Component {
         }
 
         return (
-            <Radio
-                style={styles.notifyTimeView}
-                name='notifyTime'
-                //keyName='ItemId'
-                options={items}
-                renderItem={__renderRadioItem}/>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <Radio
+                    style={[styles.notifyTimeView, styles.showItem]}
+                    name='notifyTime'
+                    //keyName='ItemId'
+                    options={items}
+                    renderItem={__renderRadioItem}/>
+            </Animatable.View>
         )
     }
 
@@ -214,27 +231,31 @@ export default class OptionDo extends Component {
 
 
         return (
-            <View
-                style={{
-                    backgroundColor: 'white'
-                }}>
-                <AutoGrowingInput
-                    name='notifyText'
-                    maxHeight={200}
-                    defaultValue={this.state.notifyText}
-                    placeholderTextColor="rgba(180,180,180,1)"
-                    selectionColor={mainColor}
-                    returnKeyType='done'
-                    autoFocus={true}
-                    maxLength={100}
-                    //keyboardType={boardType}
-                    style={styles.textInputStyle}
-                    underlineColorAndroid='transparent'
-                    placeholder={"提醒文字"}
-                    clearButtonMode='while-editing'
-                    enablesReturnKeyAutomatically={true}
-                />
-            </View>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <View
+                    style={[ styles.showItem, {
+                        backgroundColor: 'white'
+                    }]}>
+                    <AutoGrowingInput
+                        name='notifyText'
+                        maxHeight={200}
+                        defaultValue={this.state.notifyText}
+                        placeholderTextColor="rgba(180,180,180,1)"
+                        selectionColor={mainColor}
+                        returnKeyType='done'
+                        autoFocus={true}
+                        maxLength={100}
+                        //keyboardType={boardType}
+                        style={styles.textInputStyle}
+                        underlineColorAndroid='transparent'
+                        placeholder={"提醒文字"}
+                        clearButtonMode='while-editing'
+                        enablesReturnKeyAutomatically={true}
+                    />
+                </View>
+            </Animatable.View>
         )
 
     }
@@ -256,12 +277,16 @@ export default class OptionDo extends Component {
 
 
         return (
-            <Multiple
-                style={styles.notifyTimeView}
-                name='record'
-                //keyName='ItemId'
-                options={items}
-                renderItem={__renderRadioItem}/>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <Multiple
+                    style={[styles.notifyTimeView, styles.showItem]}
+                    name='record'
+                    //keyName='ItemId'
+                    options={items}
+                    renderItem={__renderRadioItem}/>
+            </Animatable.View>
         )
 
     }
@@ -282,12 +307,16 @@ export default class OptionDo extends Component {
         }
 
         return (
-            <Multiple
-                style={styles.notifyTimeView}
-                name='recordDay'
-                //keyName='ItemId'
-                options={sels}
-                renderItem={__renderRadioItem}/>
+            <Animatable.View animation="fadeInLeft"
+                             delay={Math.random() * 300}
+            >
+                <Multiple
+                    style={[styles.notifyTimeView, styles.showItem,]}
+                    name='recordDay'
+                    //keyName='ItemId'
+                    options={sels}
+                    renderItem={__renderRadioItem}/>
+            </Animatable.View>
         )
     }
 
@@ -333,14 +362,51 @@ export default class OptionDo extends Component {
                 //     Keyboard.dismiss()
                 // }}
                 style={[styles.wrap, this.props.style]}>
-                {this.__remderBack()}
+                <View style={{
+                    flexDirection: 'row',
+                    width: Dimensions.get('window').width,
+                    justifyContent: 'space-between'
+                }}>
+                    {this.__remderBack()}
+                    {this.state.option === 0 && this.__renderDone()}
+                </View>
+
+                {this.state.option !== 0 && <Animatable.View animation="fadeIn">
+                    <StyledTitleView>
+                        <StyledTitleText>
+                            返回自动保存
+                        </StyledTitleText>
+                    </StyledTitleView>
+                </Animatable.View>}
 
 
                 {this.state.option === 0 && (<View>
+
+                    <Animatable.View animation="fadeIn">
+                        <StyledTitleView>
+                            <StyledTitleText>
+                                必填项
+                            </StyledTitleText>
+                        </StyledTitleView>
+                    </Animatable.View>
                     {(<this.__renderItem
                         title={"卡片名称:   " + this.props.title}
                         type="title"
                         index={1}/>)}
+
+                    <Animatable.View animation="fadeIn">
+                        <StyledTitleView>
+                            <StyledTitleText>
+                                选填项
+                            </StyledTitleText>
+                        </StyledTitleView>
+                    </Animatable.View>
+
+
+                    <this.__renderItem
+                        title={"记录方式:   " + record}
+                        type="record"
+                        index={1}/>
                     <this.__renderItem
                         title={"提醒时间:   " + this.props.notifyTime}
                         type="notifyTime"
@@ -354,14 +420,12 @@ export default class OptionDo extends Component {
                         type="recordDay"
                         index={1}/>
                     <this.__renderItem
-                        title={"周期:   " + this.props.period + '天'}
+                        title={"打卡周期:   " + this.props.period + '天'}
                         type="period"
                         index={1}/>
-                    <this.__renderItem
-                        title={"记录方式:   " + record}
-                        type="record"
-                        index={1}/>
-                    {this.__renderDone()}
+
+                    <View style={{ height: 100 }}/>
+
                 </View>)}
 
 
@@ -407,7 +471,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 15,
         alignSelf: 'flex-start',
-        marginBottom: 7.5,
+        marginBottom: 7.,
         marginRight: 5,
     },
     done: {
@@ -425,7 +489,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowOffset: { width: 2, height: 5 },
         shadowRadius: 5,
-        elevation: 5
+        elevation: 3
     },
 
     notifyTimeItem: {
@@ -438,10 +502,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     notifyTimeView: {
+
         padding: 10,
         flexDirection: 'row',
         flexWrap: 'wrap'
     },
+
+    showItem: {
+        marginTop: 20,
+    },
+
     textInputStyle: {
         // width:200,
         // marginLeft: 0,

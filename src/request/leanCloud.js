@@ -197,6 +197,15 @@ export function bindingFileToUser(userID: string, fileID: string, name: string):
     return bindingToUser(userID, param);
 }
 
+
+/**
+ * 连接第三方用户
+ */
+export function bindingAuthDataToUser(userID: string,authData:object):Object {
+    return bindingToUser(userID, authData);
+}
+
+
 /**
  * 删除文件
  * @param  {[type]} fileID:string 文件的ID，

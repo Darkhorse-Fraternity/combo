@@ -2,7 +2,7 @@
 'use strict';
 import {AsyncStorage} from 'react-native';
 import Storage from 'react-native-storage';
-import DefaultPreference from 'react-native-default-preference';
+// import DefaultPreference from 'react-native-default-preference';
 
 const storage = new Storage({
     // maximum capacity, default 1000
