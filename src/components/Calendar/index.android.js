@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
     View,
     StyleSheet,
@@ -15,9 +15,11 @@ import {
     ViewPagerAndroid,
     ActivityIndicator
 } from 'react-native'
-let {width} = Dimensions.get('window');
+
+let { width } = Dimensions.get('window');
 import DateBoard from './DateBoard'
 import Pop from '../Pop'
+
 export default class Calendar extends Component {
     constructor(props: Object) {
         super(props);
@@ -48,7 +50,7 @@ export default class Calendar extends Component {
 
 
     isLeap(year) {
-        return ((year % 100 === 0) ? (year % 400 === 0 ? 1 : 0) :  (year % 4 === 0) ? 1 : 0);
+        return ((year % 100 === 0) ? (year % 400 === 0 ? 1 : 0) : (year % 4 === 0) ? 1 : 0);
     };
 
     selectDay(d) {
@@ -81,7 +83,7 @@ export default class Calendar extends Component {
             this.setState({
                 year: this.state.year + 1,
                 month: 0,
-            },this.move)
+            }, this.move)
         } else {
             if (this.state.date > this.monthDay[this.state.month + 1]) {
                 this.setState({
@@ -90,7 +92,7 @@ export default class Calendar extends Component {
             }
             this.setState({
                 month: this.state.month + 1,
-            },this.move)
+            }, this.move)
         }
     };
 
@@ -105,7 +107,7 @@ export default class Calendar extends Component {
             this.setState({
                 year: this.state.year - 1,
                 month: 11,
-            },this.move)
+            }, this.move)
         } else {
             if (this.state.date > this.monthDay[this.state.month - 1]) {
                 this.setState({
@@ -114,7 +116,7 @@ export default class Calendar extends Component {
             }
             this.setState({
                 month: this.state.month - 1,
-            },this.move)
+            }, this.move)
         }
     }
 
@@ -123,7 +125,7 @@ export default class Calendar extends Component {
 
     };
 
-    goTo = (direction)=> {
+    goTo = (direction) => {
         var that = this;
         if (direction === 'left') {
             that.refs.trueViewPager.setPage(0)
@@ -135,7 +137,7 @@ export default class Calendar extends Component {
         }
 
         this.timer = setTimeout(() =>
-            that.refs.trueViewPager.setPageWithoutAnimation(1),
+                that.refs.trueViewPager.setPageWithoutAnimation(1),
             1000);
         // that.refs.trueViewPager.setPageWithoutAnimation(1)
     }
@@ -146,7 +148,7 @@ export default class Calendar extends Component {
         month = month < 10 ? '0' + month : '' + month
         const firstDay = `${year}-${month}-01`
         const lastDay = `${year}-${month}-${this.monthDay[this.state.month]}`
-        this.props.move && this.props.move(firstDay,lastDay)
+        this.props.move && this.props.move(firstDay, lastDay)
     }
 
     componentWillUnmount() {
@@ -154,59 +156,55 @@ export default class Calendar extends Component {
     }
 
     render() {
-        const month = ['一','二','三','四','五','六','七','八','九','十','十一','十二']
+        const month = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
+        const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+        const pageMonth = [this.state.month - 1,this.state.month,this.state.month + 1]
+
 
         return (
-            <View style={[this.props.style,styles.wrap]}>
+            <View style={[this.props.style, styles.wrap]}>
                 <View style={styles.dayTitle}>
                     <View style={styles.dayTimeTouch}>
                         {/*<TouchableOpacity onPress={()=>this.goTo('left')}>*/}
-                            {/*<View style={styles.leftBtn}/>*/}
+                        {/*<View style={styles.leftBtn}/>*/}
                         {/*</TouchableOpacity>*/}
                         <Text style={styles.t1}>
-                            {(month[this.state.month]) + '月' +' '+this.state.year  }
+                            {(month[this.state.month]) + '月' + ' ' + this.state.year}
                         </Text>
-                        <ActivityIndicator style={{marginLeft:10}} animating={this.props.load}/>
+                        <ActivityIndicator style={{ marginLeft: 10 }} animating={this.props.load}/>
                         {/*<TouchableOpacity onPress={()=>this.goTo('right')}>*/}
-                            {/*<View style={styles.rightBtn}/>*/}
+                        {/*<View style={styles.rightBtn}/>*/}
                         {/*</TouchableOpacity>*/}
                     </View>
                 </View>
                 <View style={styles.dateTitle}>
-                    <Text style={styles.dateTitleText}>周日</Text>
-                    <Text style={styles.dateTitleText}>周一</Text>
-                    <Text style={styles.dateTitleText}>周二</Text>
-                    <Text style={styles.dateTitleText}>周三</Text>
-                    <Text style={styles.dateTitleText}>周四</Text>
-                    <Text style={styles.dateTitleText}>周五</Text>
-                    <Text style={styles.dateTitleText}>周六</Text>
-                </View>
-                <ViewPagerAndroid  style={{height:300,width:width}} initialPage={1}
-                                   onPageSelected={event=>this.myScroll(event)} ref="trueViewPager">
-                    <View>
-                        <DateBoard year={this.state.year} month={this.state.month-1} date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
-                    </View>
-                    <View>
-                        <DateBoard year={this.state.year} month={this.state.month} date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
-                    </View>
-                    <View>
-                        <DateBoard year={this.state.year} month={this.state.month+1} date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
-                    </View>
+                    {dateTitle.map(title =>
+                        (<Text key={title}
+                               style={styles.dateTitleText}>
+                            {title}
+                        </Text>))}
 
+                </View>
+                <ViewPagerAndroid style={{ height: 300, width: width }}
+                                  initialPage={1}
+                                  onPageSelected={event => this.myScroll(event)}
+                                  ref="trueViewPager">
+                    {pageMonth.map(month=>(
+                        <DateBoard year={this.state.year}
+                                   month={month}
+                                   date={this.state.date}
+                                   selectDay={this.selectDay.bind(this)}
+                                   isLeap={this.isLeap}
+                                   fetchData={this.props.fetchData}
+                                   busyDay={this.props.busyDay}/>
+                    ))}
                 </ViewPagerAndroid>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    wrap: {
-    },
+    wrap: {},
     dayTitle: {
         height: 40,
         alignItems: 'center',
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
         width: width / 7 - 1,
         textAlign: 'center',
         fontSize: 15,
-        color:'rgb(100,100,100)',
+        color: 'rgb(100,100,100)',
     },
     dayTimeTouch: {
         flexDirection: 'row',
@@ -233,7 +231,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#007ddd',
-        transform: [{rotate: '135deg'}],
+        transform: [{ rotate: '135deg' }],
         width: 10,
         height: 10,
         marginHorizontal: 40,
@@ -244,7 +242,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth * 2,
         borderRightWidth: StyleSheet.hairlineWidth * 2,
         borderColor: '#007ddd',
-        transform: [{rotate: '315deg'}],
+        transform: [{ rotate: '315deg' }],
         width: 10,
         height: 10,
         marginHorizontal: 40,

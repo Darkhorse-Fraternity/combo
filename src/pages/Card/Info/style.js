@@ -34,7 +34,6 @@ export const StyledBottomMenu = styled.View`
 export const StyledBottomMenuText = styled.Text`
   font-size: 15px;
   margin-top: 10px;
-  font-weight: 500;
 `
 
 export const StyledBottomMenuButton = styled(Button)`

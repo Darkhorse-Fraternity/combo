@@ -236,6 +236,12 @@ export default class CardInfo extends Component {
         const avatarUrl = avatar && avatar.url
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
             require('../../../../source/img/my/icon-60.png')
+
+
+        const cover  = iCard.img ? { uri: iCard.img.url } :
+            require('../../../../source/img/my/icon-60.png')
+
+
         const exist = this.props.useExist.get('data').size >= 1
         const load = this.props.useExist.get('load')
         const nickName = iCardUser.nickname
@@ -253,12 +259,12 @@ export default class CardInfo extends Component {
             <StyledContent
                 colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
                 forceInset={{ top: 'never' }}>
-                <ImagesViewModal
+                {iCard.img && <ImagesViewModal
                     visible={this.state.visible}
                     closeCallBack={() => {
                         this.setState({ visible: false })
                     }}
-                    imageUrls={[{ url: iCard.img.url }]}/>
+                    imageUrls={[{ url: iCard.img.url }]}/>}
                 <FlipButton
                     faceText={'马上\n参与'}
                     backText={'已参与'}
@@ -283,7 +289,7 @@ export default class CardInfo extends Component {
                         this.setState({ visible: true })
                     }}>
                         <StyledHeaderImage
-                            source={{ uri: iCard.img.url }}/>
+                            source={cover}/>
                     </StyledHeaderCover>
 
                     <StyledHeaderTitle style={{ marginTop: 50 }}>

@@ -61,18 +61,18 @@ export default class RecordRow extends Component {
 
     chatBtnRef = 0
     _renderChatBtn = (item) => {
-        const { commentNew, commentNum, user, obejctId } = item
+        const { commentNew, commentNum, user, objectId } = item
 
         return (
             <StyledChatbtn
                 onPress={() => {
                     this.props.navigation &&
-                    this.props.navigation.navigate('RComment', { iDoID: obejctId })
+                    this.props.navigation.navigate('RComment', { iDoID: objectId })
                 }}>
                 {/*<Image style={{width:20,height:20}} source={icon}/>*/}
 
 
-                {commentNew && user.objectId === this.props.user.objectId
+                {commentNew && user === this.props.user.objectId
                 && (<StyledNewTip/>)}
                 {commentNum > 0 &&
                 (<StyledChatBtnText

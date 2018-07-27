@@ -23,7 +23,7 @@ import LCList from '../../components/Base/LCList';
 import { Privacy } from '../../configure/enum'
 import RecordRow from '../Record/RecordRow'
 import Button from '../../components/Button'
-
+import Header from '../Record/RecordRow/Header'
 const listKey = IDO
 
 
@@ -86,25 +86,14 @@ export default class Detail extends Component {
 
     renderRow({item, index}: Object) {
 
-        // console.log('test:', item);
-        const avatar = item.user.avatar
-        const avatarUrl = avatar && avatar.url
-        const avatarSource = avatarUrl ? {uri: avatarUrl} : require('../../../source/img/my/icon-60.png')
         return (
             <View >
-                <Button
-                    onPress={()=>{
-                        this.props.navigation.navigate('Following', { user: item.user })
-                    }}
-                    style={styles.top}>
-                    <Image
-                        style={styles.avatar}
-                        source={avatarSource}/>
-                    <Text style={styles.name}>
-                        {item.user.nickname || '路人甲'}
-                        完成了任务
-                    </Text>
-                </Button>
+                <Header
+                    userId={item.user}
+                    onPress={(user) => {
+                        this.props.navigation.navigate('Following',
+                            { user })
+                    }}/>
                 <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
             </View>
         )

@@ -17,12 +17,12 @@ import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
+import Header from '../../Record/RecordRow/Header'
 import { IDO, REPORT } from '../../../redux/reqKeys'
 import Button from '../../../components/Button'
 
 
 const listKey = IDO
-
 
 
 import {
@@ -43,8 +43,8 @@ import {
     classCreatNewOne,
     existSearch
 } from '../../../request/leanCloud';
-import {req} from  '../../../redux/actions/req'
-import {selfUser, iCard} from '../../../request/LCModle'
+import { req } from '../../../redux/actions/req'
+import { selfUser, iCard } from '../../../request/LCModle'
 
 @connect(
     (state, props) => ({
@@ -52,7 +52,7 @@ import {selfUser, iCard} from '../../../request/LCModle'
 
     }),
     (dispatch, props) => ({
-        report: ()=>{
+        report: () => {
             Alert.alert(
                 '确定举报该卡片吗?',
                 '举报该卡片',
@@ -64,11 +64,11 @@ import {selfUser, iCard} from '../../../request/LCModle'
 
                         }
 
-                        const exParams = existSearch(REPORT,{
+                        const exParams = existSearch(REPORT, {
                             where
                         })
                         const res = await req(exParams)
-                        if(res.count > 0){
+                        if (res.count > 0) {
                             return Toast.show('已经举报了~!')
                         }
 
@@ -105,7 +105,7 @@ export default class Course extends Component {
         return (
             <StyledHeader
                 colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
-                {courseId &&  <StyledReportBtn onPress={this.props.report}>
+                {courseId && <StyledReportBtn onPress={this.props.report}>
                     <StyledReportText>
                         举报
                     </StyledReportText>
@@ -129,27 +129,14 @@ export default class Course extends Component {
     }
 
     renderRow({ item, index }: Object) {
-
-        // console.log('test:', item);
-        const avatar = item.user.avatar
-        const avatarUrl = avatar && avatar.url
-        const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
         return (
             <View>
-                <Button
-                    onPress={()=>{
-                        this.props.navigation.navigate('Following', { user: item.user })
-                    }}
-                    style={styles.top}>
-                    <Image
-                        style={styles.avatar}
-                        source={avatarSource}/>
-                    <Text style={styles.name}>
-                        {item.user.nickname || '路人甲'}
-                        完成了任务
-                    </Text>
-                </Button>
+                <Header
+                    userId={item.user}
+                    onPress={(user) => {
+                        this.props.navigation.navigate('Following',
+                            { user })
+                    }}/>
                 <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
             </View>
         )
@@ -207,7 +194,7 @@ const styles = StyleSheet.create({
         height: 200,
     },
     top: {
-        marginTop:15,
+        marginTop: 15,
         paddingVertical: 5,
         paddingHorizontal: 18,
         flexDirection: 'row',
