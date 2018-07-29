@@ -17,14 +17,8 @@ import theme from '../../../Theme'
 
 import {
     StyledContent,
-    StyledCard,
-    StyledFace,
-    StyledBack,
-    StyledFaceText,
-    StyledBackText,
-    StyledIcon
 } from './style'
-import { IUSE, IDO } from '../../../redux/reqKeys'
+import { IDO } from '../../../redux/reqKeys'
 import * as Animatable from 'react-native-animatable';
 export const AniStyledContent = Animatable.createAnimatableComponent(StyledContent);
 // import { shouldComponentUpdate } from 'react-immutable-render-mixin';

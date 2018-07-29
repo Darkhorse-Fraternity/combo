@@ -14,7 +14,7 @@ import * as QQAPI from 'react-native-qq';
 
 import Toast from 'react-native-simple-toast'
 
-WeChat.registerApp('wx637e6f35f8211c6d')
+// WeChat.registerApp('wx637e6f35f8211c6d')
 
 export function shareTo(type: string, param: object): Function {
 

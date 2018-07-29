@@ -46,12 +46,12 @@ export default class Home extends Component {
 
 
     static navigationOptions = props => {
-        const { navigation } = props;
-        const { state } = navigation;
-        const { params } = state;
+        // const { navigation } = props;
+        // const { state } = navigation;
+        // const { params } = state;
         // console.log('test:', params,localLoad);
         return {
-            gesturesEnabled: false,
+            // gesturesEnabled: false,
             header: null,
 
             //     headerRight: ( <TouchableOpacity

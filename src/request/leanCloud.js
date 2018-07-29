@@ -201,8 +201,12 @@ export function bindingFileToUser(userID: string, fileID: string, name: string):
 /**
  * 连接第三方用户
  */
-export function bindingAuthDataToUser(userID: string,authData:object):Object {
-    return bindingToUser(userID, authData);
+export function bindingAuthDataToUser(userID: string,key:string,authData:object):Object {
+    return bindingToUser(userID, {
+        authData:{
+           [key] :  authData
+        }
+    });
 }
 
 
@@ -476,5 +480,22 @@ export function openCollet(params) {
         //     "X-LC-Id": LeanCloud_APP_ID,
         // },
         params
+    }
+}
+
+//获取微信用户信息
+export function wechatInfo(appid,secret,code) {
+    return {
+        scheme: 'https',
+        host: 'api.weixin.qq.com',
+        path: '/sns/oauth2/access_token',
+        method: methodType.get,
+        head:{},
+        params:{
+            appid,
+            secret,
+            code,
+            grant_type:'authorization_code'
+        }
     }
 }

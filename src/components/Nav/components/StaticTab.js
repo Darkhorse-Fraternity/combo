@@ -63,6 +63,7 @@ export default createBottomTabNavigator(
                 labelName = '我的'
             }
             return {
+                // header:null,
                 tabBarIcon: ({ focused, tintColor }) => {
 
 

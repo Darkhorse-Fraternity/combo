@@ -2,11 +2,10 @@
 
 'use strict';
 
-import {defaultHost, httpHeaders} from '../configure/reqConfigs';
-import {addParams} from './useMeth';
+import { defaultHost, httpHeaders } from '../configure/reqConfigs';
+import { addParams } from './useMeth';
 
-if(typeof global.self === "undefined")
-{
+if (typeof global.self === "undefined") {
     global.self = global;
 }
 
@@ -24,26 +23,23 @@ export const methodType = {
 }
 
 
-
-
-
 function throwIfMissing(paramName: string = ''): string {
     throw new Error('Missing parameter' + paramName);
     // return '';
 }
 
 
-export function send({
-    scheme = schemeType.https,
-    host = defaultHost,
-    path = throwIfMissing('send/path'),
-    method = 'GET',
-    timeout = 200000,
-    params,
-    head,
-    needSession = true,
-    ...otherParams,
-}:Object): Promise<any> {
+export async function send({
+                         scheme = schemeType.https,
+                         host = defaultHost,
+                         path = throwIfMissing('send/path'),
+                         method = 'GET',
+                         timeout = 200000,
+                         params,
+                         head,
+                         needSession = true,
+                         ...otherParams,
+                     }: Object): Promise<any> {
 
     const urlpath = scheme + '://' + host + path;
     const httpHeader = head ? head : httpHeaders(needSession);
@@ -56,22 +52,29 @@ export function send({
         = method === 'GET' ? new Request(addParams(urlpath, params), {
         method: method,
         headers: httpHeader
-    }) : new Request(urlpath, {method: method, headers: httpHeader, body: body});
+    }) : new Request(urlpath, {
+        method: method,
+        headers: httpHeader,
+        body: body
+    });
     const requestPromise = Promise.race([
-        fetch(request, {credentials: 'include'}),
-        new Promise(function (resolve, reject) {
+        fetch(request, { credentials: 'include' }),
+        new Promise(function(resolve, reject) {
             // var reason = __DEV__ ? '网络请求超时' + urlpath : '网络请求超时'
             // setTimeout(() => reject(new Error(reason)), timeout);
         })
     ]);
-    return requestPromise.then((response)=> {
-        if (__DEV__&& !response.ok) {
-            const message = __DEV__ ?'接口请求错误:\n' + 'URL:\n' + urlpath +
-                '\n参数:\n' + JSON.stringify(params) + ' \n回值:\n'
-            + response._bodyInit:response._bodyInit
-            console.log('test:', message);
-        }
-        return response;
-    })
+
+
+
+    const response = await requestPromise.then()
+    if (__DEV__ && !response.ok) {
+        const message = __DEV__ ? '接口请求错误:\n' + 'URL:\n' + urlpath +
+            '\n参数:\n' + JSON.stringify(params) + ' \n回值:\n'
+            + response._bodyInit : response._bodyInit
+        console.log('test:', message);
+    }
+    return response;
+
 }
 

@@ -5,28 +5,6 @@
  */
 'use strict'
 
-import {
-    requestLogin,
-    requestUsersByMobilePhone,
-    getUserByID }
-    from '../../request/leanCloud';
-import { leancloud_installationId } from '../../configure/push/push'
-import {
-    saveAccount,
-    saveUserData,
-    loadAccount,
-    clearUserData } from '../../configure/storage'
-// import {
-//     navigatePush,
-//     navigatePop,
-//     navigateClearMiddleScene,
-//     navigatePopToIndex,
-//     navigateReplaceIndex
-// } from './nav'
-import { req } from './req'
-import { NavigationActions } from 'react-navigation';
-import { setLeanCloudSession } from '../../configure/reqConfigs'
-// *** Action Types ***
 export const ACCOUNT_CHANGE = 'ACCOUNTTEXT_CHANGE'
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
@@ -35,17 +13,38 @@ export const LOGIN_FAILED = 'LOGIN_FAILED'
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
+
+import {
+    requestLogin,
+    requestUsersByMobilePhone,
+    getUserByID,
+    usersMe,
+    bindingAuthDataToUser,
+    wechatInfo
+} from '../../request/leanCloud';
+import { leancloud_installationId } from '../../configure/push/push'
+import {
+    loadAccount,
+} from '../../configure/storage'
+
+import { req } from './req'
+import { NavigationActions } from 'react-navigation';
+import { setLeanCloudSession } from '../../configure/reqConfigs'
+// *** Action Types ***
+
 import Toast from 'react-native-simple-toast';
 import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
-import { usersMe } from '../../request/leanCloud'
 import * as Keychain from 'react-native-keychain';
+import * as WeChat from 'react-native-wechat';
+import * as QQAPI from 'react-native-qq';
+
+const secret = '00e7625e8d2fdd453ac54e83f2de153c'
+WeChat.registerApp('wx637e6f35f8211c6d')
 // import { popToIndex } from '../nav'
 
 //当为异步的时候这么写，返回一个函数
 
-import * as WeChat from 'react-native-wechat';
-import * as QQAPI from 'react-native-qq';
 
 export function loadAccountAction(): Function {
 
@@ -87,9 +86,9 @@ export function passwordTextChange(text: string): Object {
 
 const sessionTokenkey = 'sessionToken'
 
-export   function userInfo() {
+export function userInfo() {
 
-    return  async dispatch => {
+    return async dispatch => {
 
 
         const credentials = await Keychain.getGenericPassword();
@@ -98,8 +97,8 @@ export   function userInfo() {
         setLeanCloudSession(sessionToken)
         const params = usersMe()
 
-  
-        if(sessionToken){
+
+        if (sessionToken) {
             const res = await req(params)
             dispatch(_loginSucceed(res));
             return res;
@@ -178,7 +177,7 @@ function _loginSucceed(response: Object): Object {
     // saveAccount(response.mobilePhoneNumber);
 
     //只保存 sessionToken
-    const { sessionToken,username } = response
+    const { sessionToken, username } = response
     // storage.save({
     //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
     //     data: sessionToken,
@@ -292,5 +291,69 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
 
 
 export function wechatBinding() {
-    WeChat.sendAuthRequest()
+
+
+    return async (dispatch, getState) => {
+        try {
+            const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
+            const { appid, code } = weConfig
+
+            const wechatInfoParam = wechatInfo(appid, secret, code)
+            const weInfo = await req(wechatInfoParam)
+            const state = getState()
+            const userId = state.user.data.objectId;
+            const params = bindingAuthDataToUser(userId, 'weixin', weInfo)
+
+
+            const res = await req(params)
+            const entity = {
+                ...params.params,
+                ...res
+            }
+            dispatch(updateUserData(entity))
+
+        } catch (e) {
+            if (e instanceof WeChat.WechatError) {
+                const errObj = {
+                    '-1': '普通错误类型',
+                    '-2': '分享取消',
+                    '-3': '发送失败',
+                    '-4': '授权失败',
+                    '-5': '微信不支持',
+                }
+                Toast.show(errObj[e.code + ""])
+            } else {
+                Toast.show(e.message)
+            }
+        }
+
+        // const res2 = req(params)
+    }
+
+
+}
+
+export async function qqBinding() {
+    // const res = await QQAPI.login()
+    // console.log('test:', res);
+
+}
+
+
+
+export  function breakBinding(key) {
+
+
+    return async  (dispatch, getState) => {
+        const state = getState()
+        const userId = state.user.data.objectId;
+        const params = bindingAuthDataToUser(userId, key, null)
+        const res = await req(params)
+        const entity = {
+            ...params.params,
+            ...res
+        }
+        dispatch(updateUserData(entity))
+    }
+
 }

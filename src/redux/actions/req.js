@@ -22,40 +22,103 @@ export const MSG = 'error'
 export const DATA = 'results'
 
 
-export function reqY(params) {
-    return send(params).then((response) => {
-        const contentType = response.headers.get("content-type")
-        let responseData = contentType.indexOf("application/json") !== -1 ? response.json() : {}
-        return responseData;
-    })
+// export function reqF(params) {
+//     return send(params).then(res => res.ok
+//         ? res : res.json().then(err => Promise.reject(err)));
+// }
+//
+
+export async function reqY(params) {
+    const response = await send(params)
+    const contentType = response.headers.get("content-type")
+    switch (contentType) {
+        case 'application/json':
+        case 'application/json;charset=utf-8':
+        case 'text/plain':
+            return await response.json()
+
+        default:
+            console.error('contentType:', contentType);
+            return {}
+    }
+
+
 }
 
-export function reqS(params) {
+export async function reqS(params) {
 
-    return reqY(params).then(response => {
-        //对leancloud 的数据格式进行包装，兼容通用数据模型
-        if (!params.host && response &&!response[RESCODE]) {
-            response = { [DATA]: response, [RESCODE]: SUCCODE }
-        }
+    let response = await reqY(params)
+    if (!params.host && response && !response[RESCODE]) {
+        response = { [DATA]: response, [RESCODE]: SUCCODE }
+    }
+    return response
 
-        // if (response[RESCODE] === "2" || response[RESCODE] === "3") {
-        //     console.log('response[RESCODE]:', response[RESCODE]);
-        //     store.dispatch(logout())
-        // }
-        return response
-    })
 }
 
 //加入msg
-export function reqM(params) {
-    return reqS(params).then(response => {
-        if (response && response[RESCODE]) {
-            __DEV__ && response[RESCODE] !== SUCCODE && console.log('req message:', response[MSG]);
-            response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG)
-        }
+export async function reqM(params) {
 
-        return response
-    })
+    const response = await reqS(params)
+    if (response && response[RESCODE]) {
+        __DEV__ && response[RESCODE] !== SUCCODE && console.log('req message:', response[MSG]);
+        response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG)
+    }
+
+    return response
+
+}
+
+
+//加入 根据key 存入store
+export async function reqA(params: Object, key: string, option: Object = {}) {
+
+
+    if (!key) {return reqM(params)}
+
+    const dispatch = store.dispatch
+    dispatch(requestStart(key))
+
+    const response = await reqM(params)
+    if (response && response[RESCODE]) {
+        if (response[RESCODE] === SUCCODE) {
+            const data = cleanData(response, option)
+            dispatch(requestSucceed(key, data))
+        } else if (response) {
+            dispatch(requestFailed(key, response[MSG]))
+        }
+    }
+    return response
+
+
+}
+
+//不返回错误码，直接通过通用错误处理渠道。
+export async function req(params: Object, key: string, option: Object = {}) {
+
+
+    try {
+        const response = await reqA(params, key, option)
+        if (response && response[RESCODE] === SUCCODE) {
+            return response[DATA]
+        } else {
+            return response
+        }
+    } catch (e) {
+        if (e.message) {
+            console.log('message:', e.message)
+            Toast.show(e.message, Toast.LONG)
+        }
+        if (key) {
+            dispatch(requestFailed(key, e.message))
+        }
+    }
+
+
+}
+
+
+export function load(params: Object, key: stringg) {
+    return req(params, key, { 'sceme': schemas[key] })
 }
 
 
@@ -75,52 +138,6 @@ export function cleanData(response, option) {
     return data;
 }
 
-
-//加入 根据key 存入store
-export function reqA(params: Object, key: string, option: Object = {}) {
-    if (!key) {
-        return reqM(params)
-    }
-    const dispatch = store.dispatch
-    dispatch(requestStart(key))
-    return reqM(params).then(response => {
-        if (response && response[RESCODE]) {
-            if (response[RESCODE] === SUCCODE) {
-                const data = cleanData(response, option)
-                dispatch(requestSucceed(key, data))
-            } else if(response){
-                dispatch(requestFailed(key, response[MSG]))
-            }
-        }
-        return response
-    }).catch(e => {
-        if (e.message) {
-            console.log('message:', e.message)
-            Toast.show(e.message, Toast.LONG)
-        }
-        if (key) {
-            dispatch(requestFailed(key, e.message))
-        }
-
-    })
-}
-
-//不返回错误码，直接通过通用错误处理渠道。
-export function req(params: Object, key: string, option: Object = {}) {
-    return reqA(params, key, option).then(response => {
-        // console.log('test:', response);
-        if (response && response[RESCODE] === SUCCODE) {
-            return response[DATA]
-        } else {
-            throw new Error();
-        }
-    })
-}
-
-
-export function load(params: Object, key: stringg) {
-    return req(params, key, { 'sceme': schemas[key] })
-}
 
 export function clear(key: stringg) {
 
