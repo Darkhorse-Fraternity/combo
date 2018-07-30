@@ -50,7 +50,7 @@ export default class DateBoard extends React.Component {
 
     isLeap(year) {
         let res;
-        return ((year % 100 == 0) ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0) ? 1 : 0);
+        return ((year % 100 === 0) ? res = (year % 400 == 0 ? 1 : 0) : res = (year % 4 == 0) ? 1 : 0);
     };
 
     getNowDay(year,month,day){
@@ -78,7 +78,7 @@ export default class DateBoard extends React.Component {
 
         const busyDay = this.props.busyDay
 
-        lastMonth = myMonth == 0 ? 11 : myMonth - 1;
+        lastMonth = myMonth === 0 ? 11 : myMonth - 1;
 
         let fd = new Date(myYear, myMonth, 1);
         let firstDay = fd.getDay();

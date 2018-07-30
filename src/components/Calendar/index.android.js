@@ -158,7 +158,7 @@ export default class Calendar extends Component {
     render() {
         const month = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
         const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-        const pageMonth = [this.state.month - 1,this.state.month,this.state.month + 1]
+        const pageMonth = [this.state.month - 1, this.state.month, this.state.month + 1]
 
 
         return (
@@ -185,18 +185,21 @@ export default class Calendar extends Component {
                         </Text>))}
 
                 </View>
-                <ViewPagerAndroid style={{ height: 300, width: width }}
+                <ViewPagerAndroid style={{ height: 280, width: width }}
                                   initialPage={1}
                                   onPageSelected={event => this.myScroll(event)}
                                   ref="trueViewPager">
-                    {pageMonth.map(month=>(
-                        <DateBoard year={this.state.year}
-                                   month={month}
-                                   date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)}
-                                   isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData}
-                                   busyDay={this.props.busyDay}/>
+                    {pageMonth.map(month => (
+                        <View key={month}>
+                            <DateBoard
+                                year={this.state.year}
+                                month={month}
+                                date={this.state.date}
+                                selectDay={this.selectDay.bind(this)}
+                                isLeap={this.isLeap}
+                                fetchData={this.props.fetchData}
+                                busyDay={this.props.busyDay}/>
+                        </View>
                     ))}
                 </ViewPagerAndroid>
             </View>

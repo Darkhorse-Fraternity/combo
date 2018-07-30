@@ -31,17 +31,13 @@ export const DATA = 'results'
 export async function reqY(params) {
     const response = await send(params)
     const contentType = response.headers.get("content-type")
-    switch (contentType) {
-        case 'application/json':
-        case 'application/json;charset=utf-8':
-        case 'text/plain':
-            return await response.json()
-
-        default:
-            console.error('contentType:', contentType);
-            return {}
+    const jsonTypes = ['application/json', 'text/plain']
+    const isJSON = jsonTypes.some(type => contentType.includes(type))
+    if (isJSON) {
+        return await response.json()
+    } else {
+        return await response.text()
     }
-
 
 }
 
@@ -73,7 +69,9 @@ export async function reqM(params) {
 export async function reqA(params: Object, key: string, option: Object = {}) {
 
 
-    if (!key) {return reqM(params)}
+    if (!key) {
+        return reqM(params)
+    }
 
     const dispatch = store.dispatch
     dispatch(requestStart(key))
