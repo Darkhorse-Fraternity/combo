@@ -185,22 +185,37 @@ export default class Calendar extends Component {
                         </Text>))}
 
                 </View>
-                <ViewPagerAndroid style={{ height: 280, width: width }}
-                                  initialPage={1}
+                <ViewPagerAndroid style={{ height: 280, width: width }} initialPage={1}
                                   onPageSelected={event => this.myScroll(event)}
                                   ref="trueViewPager">
-                    {pageMonth.map(month => (
-                        <View key={month}>
-                            <DateBoard
-                                year={this.state.year}
-                                month={month}
-                                date={this.state.date}
-                                selectDay={this.selectDay.bind(this)}
-                                isLeap={this.isLeap}
-                                fetchData={this.props.fetchData}
-                                busyDay={this.props.busyDay}/>
-                        </View>
-                    ))}
+                    <View>
+                        <DateBoard year={this.state.year}
+                                   month={this.state.month - 1}
+                                   date={this.state.date}
+                                   selectDay={this.selectDay.bind(this)} i
+                                   sLeap={this.isLeap}
+                                   fetchData={this.props.fetchData}
+                                   busyDay={this.props.busyDay}/>
+                    </View>
+                    <View>
+                        <DateBoard year={this.state.year}
+                                   month={this.state.month}
+                                   date={this.state.date}
+                                   selectDay={this.selectDay.bind(this)}
+                                   isLeap={this.isLeap}
+                                   fetchData={this.props.fetchData}
+                                   busyDay={this.props.busyDay}/>
+                    </View>
+                    <View>
+                        <DateBoard year={this.state.year}
+                                   month={this.state.month + 1}
+                                   date={this.state.date}
+                                   selectDay={this.selectDay.bind(this)}
+                                   isLeap={this.isLeap}
+                                   fetchData={this.props.fetchData}
+                                   busyDay={this.props.busyDay}/>
+                    </View>
+
                 </ViewPagerAndroid>
             </View>
         );
