@@ -17,12 +17,17 @@ import {
     StyledArrow,
     StyledTitle,
     StyledRow,
-    StyledDes
+    StyledDes,
+    StyledActivityIndicator
 } from './style'
+
+import {WECHATLOGIN, QQLOGIN} from '../../redux/reqKeys'
 
 @connect(
     state => ({
         user: state.user.data,
+        wechatLoad: state.req.get(WECHATLOGIN).get('load'),
+        qqLoad: state.req.get(QQLOGIN).get('load')
     }),
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch)
@@ -43,16 +48,16 @@ import {
 
         },
         wechatBinding: () => {
-            dispatch(wechatBinding())
+            dispatch(wechatBinding(WECHATLOGIN))
         },
         qqBinding: () => {
-            dispatch(qqBinding())
+            dispatch(qqBinding(QQLOGIN))
         },
         mobilePhoneNumBinding: () => {
 
         },
-        brekeBinding:(key)=>{
-            dispatch(breakBinding(key))
+        brekeBinding:(key,loadKey)=>{
+            dispatch(breakBinding(key,loadKey))
         }
 
 
@@ -89,22 +94,30 @@ export default class PersonInfo extends React.Component {
     }
 
 
-    _renderRow(title: string, des: string, onPress: Function) {
+    _renderRow(title: string,
+               des: string,
+               onPress: Function,
+               load:bool
+    ) {
         return (
-            <StyledButton onPress={onPress}>
+            <StyledButton
+                disabled={load}
+                onPress={onPress}>
                 <StyledTitle>{title}</StyledTitle>
                 <StyledRow>
                     <StyledDes>
                         {des}
                     </StyledDes>
-                    <StyledArrow/>
+                    {load? <StyledActivityIndicator/>:<StyledArrow/>}
                 </StyledRow>
             </StyledButton>
         );
     }
 
 
-    _renderThirdLoginRow = (title: string, des: string, onPress: Function) => {
+    _renderThirdLoginRow = (title: string,
+                            des: string,
+                            onPress: Function) => {
         return (
             <StyledButton onPress={onPress}>
                 <StyledTitle>{title}</StyledTitle>
@@ -125,6 +138,7 @@ export default class PersonInfo extends React.Component {
         const { authData, mobilePhoneVerified } = user
         const { weixin, qq } = authData || {}
 
+        console.log('authData:', authData);
 
 
         return (
@@ -141,15 +155,15 @@ export default class PersonInfo extends React.Component {
 
 
                 {this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
-                    !!weixin ?this.props.brekeBinding('weixin')
+                    !!weixin ?this.props.brekeBinding('weixin',WECHATLOGIN)
                         :this.props.wechatBinding()
 
-                })}
+                },this.props.wechatLoad)}
 
                 {this._renderRow('QQ', !!qq ? '解除绑定' : '点击绑定', ()=>{
-                    !!qq ?this.props.brekeBinding('qq')
+                    !!qq ?this.props.brekeBinding('qq',QQLOGIN)
                         :this.props.qqBinding()
-                })}
+                },this.props.qqLoad)}
 
 
                 {/*{this._renderRow('手机号码修改', this.props.user.nickname, () => {*/}

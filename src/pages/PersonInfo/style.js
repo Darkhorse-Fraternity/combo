@@ -53,3 +53,9 @@ export const StyledRow = styled.View`
   align-items: center;
 `
 
+export const StyledActivityIndicator = styled.ActivityIndicator`
+    margin-left: 5px;
+     width: 10px;
+    height: 10px;
+
+`

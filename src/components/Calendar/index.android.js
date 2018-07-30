@@ -193,7 +193,7 @@ export default class Calendar extends Component {
                                    month={this.state.month - 1}
                                    date={this.state.date}
                                    selectDay={this.selectDay.bind(this)} i
-                                   sLeap={this.isLeap}
+                                   isLeap={this.isLeap}
                                    fetchData={this.props.fetchData}
                                    busyDay={this.props.busyDay}/>
                     </View>

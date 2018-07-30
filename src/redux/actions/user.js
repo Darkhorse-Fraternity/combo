@@ -290,7 +290,7 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
 }
 
 
-export function wechatBinding() {
+export function wechatBinding(KEY) {
 
 
     return async (dispatch, getState) => {
@@ -305,9 +305,14 @@ export function wechatBinding() {
             const params = bindingAuthDataToUser(userId, 'weixin', weInfo)
 
 
-            const res = await req(params)
+            const res = await req(params, KEY)
+            const authData = {
+                ...state.user.data.authData,
+                ...params.params.authData,
+
+            }
             const entity = {
-                ...params.params,
+                authData,
                 ...res
             }
             dispatch(updateUserData(entity))
@@ -333,24 +338,64 @@ export function wechatBinding() {
 
 }
 
-export async function qqBinding() {
+export  function qqBinding(KEY) {
     // const res = await QQAPI.login()
     // console.log('test:', res);
+    return async (dispatch, getState) => {
+        try {
+            const qqConfig = await QQAPI.login()
+            // const { appid, code } = qqConfig
+
+            // const wechatInfoParam = wechatInfo(appid, secret, code)
+            // const qqInfo = await req(wechatInfoParam)
+            const state = getState()
+            const userId = state.user.data.objectId;
+            const params = bindingAuthDataToUser(userId, 'qq', qqConfig)
+
+
+
+            const res = await req(params, KEY)
+            const authData = {
+                ...state.user.data.authData,
+                ...params.params.authData,
+
+            }
+
+            const entity = {
+                authData,
+                ...res
+            }
+            dispatch(updateUserData(entity))
+
+        } catch (e) {
+
+            Toast.show(e.message)
+
+        }
+
+        // const res2 = req(params)
+    }
+
 
 }
 
 
+export function breakBinding(key, loadKey) {
 
-export  function breakBinding(key) {
 
-
-    return async  (dispatch, getState) => {
+    return async (dispatch, getState) => {
         const state = getState()
         const userId = state.user.data.objectId;
         const params = bindingAuthDataToUser(userId, key, null)
-        const res = await req(params)
+        const res = await req(params, loadKey)
+
+        const authData = {
+            ...state.user.data.authData,
+            ...params.params.authData,
+
+        }
         const entity = {
-            ...params.params,
+            authData,
             ...res
         }
         dispatch(updateUserData(entity))

@@ -22,6 +22,8 @@ export const ICOMMENT = 'iComment'
 export const REPORT = 'Report'
 //设置初始值
 export const COURSE = 'Course'
+export const WECHATLOGIN = 'WeChatLogin'
+export const QQLOGIN = 'QQLogin'
 
 export const registerReqKeys = [
     ICARD,
@@ -37,7 +39,9 @@ export const registerReqKeys = [
     IDOCALENDAR,
     FOLLOWING,
     USER,
-    COURSE
+    COURSE,
+    WECHATLOGIN,
+    QQLOGIN
 //设置初始值
 ]
 
