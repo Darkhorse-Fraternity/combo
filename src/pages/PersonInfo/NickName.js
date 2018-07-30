@@ -9,7 +9,6 @@ import {
     Text
 } from 'react-native'
 import {updateNickName} from '../../request/leanCloud'
-import Icon from 'react-native-vector-icons/Ionicons'
 import {connect} from 'react-redux'
 import {updateUserData} from '../../redux/actions/user'
 import Toast from 'react-native-simple-toast';

@@ -17,7 +17,7 @@ import {
     StyledReportText,
     StyledActivityIndicator,
     StyledImage,
-    StyleReportView
+    StyleReportView,
 } from './style'
 
 

@@ -58,7 +58,7 @@ export function resetPasswordBySmsCode(password: string, code: string) {
 //发送验证码
 export function requestMobilePhoneVerify(mobilePhoneNumber) {
     return {
-        path: '/requestMobilePhoneVerify' ,
+        path: '/requestMobilePhoneVerify',
         method: methodType.post,
         params: {
             mobilePhoneNumber,
@@ -201,11 +201,15 @@ export function bindingFileToUser(userID: string, fileID: string, name: string):
 /**
  * 连接第三方用户
  */
-export function bindingAuthDataToUser(userID: string,key:string,authData:object):Object {
+export function bindingAuthDataToUser(userID: string,
+                                      key: string,
+                                      authData: object,
+                                      exData: obejct): Object {
     return bindingToUser(userID, {
-        authData:{
-           [key] :  authData
-        }
+        authData: {
+            [key]: authData
+        },
+        ...exData
     });
 }
 
@@ -483,19 +487,50 @@ export function openCollet(params) {
     }
 }
 
-//获取微信用户信息
-export function wechatInfo(appid,secret,code) {
+//获取微信OPENID
+export function wechatInfo(appid, secret, code) {
     return {
         scheme: 'https',
         host: 'api.weixin.qq.com',
         path: '/sns/oauth2/access_token',
         method: methodType.get,
-        head:{},
-        params:{
+        head: {},
+        params: {
             appid,
             secret,
             code,
-            grant_type:'authorization_code'
+            grant_type: 'authorization_code'
+        }
+    }
+}
+
+//获取微信用户信息
+export function wechatUserInfo(access_token,openid) {
+    return {
+        scheme: 'https',
+        host: 'api.weixin.qq.com',
+        path: '/sns/userinfo',
+        method: methodType.get,
+        head: {},
+        params: {
+            access_token,
+            openid,
+        }
+    }
+}
+
+//获取QQ用户信息
+export function QQUserInfo(access_token,oauth_consumer_key,openid) {
+    return {
+        scheme: 'https',
+        host: 'graph.qq.com',
+        path: '/user/get_user_info',
+        method: methodType.get,
+        head: {},
+        params: {
+            access_token,
+            oauth_consumer_key,
+            openid
         }
     }
 }

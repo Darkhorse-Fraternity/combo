@@ -20,7 +20,9 @@ import {
     getUserByID,
     usersMe,
     bindingAuthDataToUser,
-    wechatInfo
+    wechatInfo,
+    wechatUserInfo,
+    QQUserInfo
 } from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
 import {
@@ -298,24 +300,28 @@ export function wechatBinding(KEY) {
             const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
             const { appid, code } = weConfig
 
+            //获取openid
             const wechatInfoParam = wechatInfo(appid, secret, code)
             const weInfo = await req(wechatInfoParam)
-            const state = getState()
-            const userId = state.user.data.objectId;
-            const params = bindingAuthDataToUser(userId, 'weixin', weInfo)
+            const { access_token, openid } = weInfo
 
+            //获取微信用户信息
+            const state =  getState()
+            const user = state.user.data
+            let exData = {}
+            if(!user.headimgurl){
+                const userInfoParams = wechatUserInfo(access_token, openid)
+                const userInfo = await req(userInfoParams)
+                let { nickname, headimgurl } = userInfo
 
-            const res = await req(params, KEY)
-            const authData = {
-                ...state.user.data.authData,
-                ...params.params.authData,
-
+                nickname = user.nickname || nickname
+                exData = {
+                    nickname,
+                    headimgurl
+                }
             }
-            const entity = {
-                authData,
-                ...res
-            }
-            dispatch(updateUserData(entity))
+
+            return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
 
         } catch (e) {
             if (e instanceof WeChat.WechatError) {
@@ -338,34 +344,35 @@ export function wechatBinding(KEY) {
 
 }
 
-export  function qqBinding(KEY) {
-    // const res = await QQAPI.login()
-    // console.log('test:', res);
+export function qqBinding(KEY) {
     return async (dispatch, getState) => {
         try {
             const qqConfig = await QQAPI.login()
-            // const { appid, code } = qqConfig
 
-            // const wechatInfoParam = wechatInfo(appid, secret, code)
-            // const qqInfo = await req(wechatInfoParam)
-            const state = getState()
-            const userId = state.user.data.objectId;
-            const params = bindingAuthDataToUser(userId, 'qq', qqConfig)
+            const {access_token,oauth_consumer_key,openid} = qqConfig
 
+            //获取微信用户信息
+            const state =  getState()
+            const user = state.user.data
+            let exData = {}
 
+            if(!user.headimgurl){
+                const params = QQUserInfo(access_token,oauth_consumer_key,openid)
+                const info = await req(params)
+                const userInfo = JSON.parse(info)
 
-            const res = await req(params, KEY)
-            const authData = {
-                ...state.user.data.authData,
-                ...params.params.authData,
+                let { nickname, figureurl_2,figureurl_qq_2 } = userInfo
 
+                nickname = user.nickname || nickname
+                exData = {
+                    nickname,
+                    headimgurl:figureurl_qq_2
+                }
             }
 
-            const entity = {
-                authData,
-                ...res
-            }
-            dispatch(updateUserData(entity))
+
+            return dispatch(bindingAuthData('qq', KEY, qqConfig,exData))
+
 
         } catch (e) {
 
@@ -382,11 +389,19 @@ export  function qqBinding(KEY) {
 
 export function breakBinding(key, loadKey) {
 
+    return dispatch => {
+        return dispatch(bindingAuthData(key, loadKey, null))
+    }
 
+
+}
+
+
+export function bindingAuthData(key, loadKey, ad,exData) {
     return async (dispatch, getState) => {
         const state = getState()
         const userId = state.user.data.objectId;
-        const params = bindingAuthDataToUser(userId, key, null)
+        const params = bindingAuthDataToUser(userId, key, ad,exData)
         const res = await req(params, loadKey)
 
         const authData = {
@@ -396,9 +411,9 @@ export function breakBinding(key, loadKey) {
         }
         const entity = {
             authData,
+            ...exData,
             ...res
         }
         dispatch(updateUserData(entity))
     }
-
 }

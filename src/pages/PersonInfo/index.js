@@ -147,11 +147,11 @@ export default class PersonInfo extends React.Component {
                 {this._renderRow('昵称', this.props.user.nickname, () => {
                     this.props.navigation.navigate("NickName");
                 })}
-                {this._renderRow('手机号码', mobilePhoneVerified ? '已绑定' : '点击绑定', () => {
+                {/*{this._renderRow('手机号码', mobilePhoneVerified ? '已绑定' : '点击绑定', () => {*/}
 
-                //     !!weixin ?this.props.mobilePhoneNumBinding()
-                //         :this.props.mobilePhoneNumBinding()
-                })}
+                {/*//     !!weixin ?this.props.mobilePhoneNumBinding()*/}
+                {/*//         :this.props.mobilePhoneNumBinding()*/}
+                {/*})}*/}
 
 
                 {this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
