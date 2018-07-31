@@ -162,7 +162,7 @@ export function register(state: Object): Function {
                 params: { transition: 'forVertical' }
             }))
         }).catch(e => {
-            // Toast.show(e.message)
+            Toast.show(e.message)
             dispatch(_loginFailed());
         })
     }

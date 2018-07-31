@@ -65,7 +65,7 @@ export default class CardDetail extends Component {
 
 
         return (
-            <StyledContent>
+            <StyledContent >
 
                 <ScrollableTabView
                     renderTabBar={() => (

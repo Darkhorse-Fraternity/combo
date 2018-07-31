@@ -8,7 +8,8 @@ import {
     Dimensions,
     Image,
     TouchableOpacity,
-    TouchableNativeFeedback
+    TouchableNativeFeedback,
+    Platform
 } from 'react-native';
 
 import Button from "../Button";
@@ -32,7 +33,7 @@ export default class BackTabBar extends Component {
     renderTabOption(name: string, page: number) {
         const containerWidth = this.props.containerWidth - backWidth * 2;
         const numberOfTabs = this.props.tabs.length;
-        const tabWidth = containerWidth / numberOfTabs ;
+        const tabWidth = containerWidth / numberOfTabs;
         const isTabActive = this.props.activeTab === page;
         const activeTextColor = this.props.activeTextColor || '#f1bd49';
         const inactiveTextColor = this.props.inactiveTextColor || '#999999';
@@ -48,7 +49,7 @@ export default class BackTabBar extends Component {
                 <Text style={[{
                     color: isTabActive ? activeTextColor : inactiveTextColor,
                     fontWeight: isTabActive ? 'bold' : 'normal',
-                    fontSize: isTabActive ? 15: 14
+                    fontSize: isTabActive ? 15 : 14
                 }, textStyle]}>
                     {name}
                 </Text>
@@ -57,9 +58,9 @@ export default class BackTabBar extends Component {
     }
 
     render() {
-        const containerWidth = this.props.containerWidth  - backWidth * 2;
+        const containerWidth = this.props.containerWidth - backWidth * 2;
         const numberOfTabs = this.props.tabs.length;
-        const tabWidth = containerWidth / numberOfTabs ;
+        const tabWidth = containerWidth / numberOfTabs;
         const underLineWidth = tabWidth / 3
         const tabUnderlineStyle = {
             position: 'absolute',
@@ -71,7 +72,7 @@ export default class BackTabBar extends Component {
 
         const translateX = this.props.scrollValue.interpolate({
             inputRange: [0, 1,],
-            outputRange: [-tabWidth , 0],
+            outputRange: [-tabWidth, 0],
         });
         // console.log('this.props.onBackPress:', this.props.onBackPress);
 
@@ -80,18 +81,20 @@ export default class BackTabBar extends Component {
         return (
             <View style={[styles.tabs, {
                 backgroundColor:
-                this.props.backgroundColor || 'white',paddingTop:20
+                this.props.backgroundColor || 'white',marginTop:Platform.OS==='ios'?0:20
             }, this.props.style,]}>
                 <Button
                     background={background}
-                    onPress={()=>{
+                    onPress={() => {
                         this.props.onBackPress &&
                         this.props.onBackPress()
                     }}
-                    style={{ width: backWidth,
-                        justifyContent:'center',paddingLeft:16}}>
+                    style={{
+                        width: backWidth,
+                        justifyContent: 'center', paddingLeft: 16
+                    }}>
                     <Image
-                        style={{tintColor:'black'}}
+                        style={{ tintColor: 'black' }}
                         source={require('react-navigation/src/views/assets/back-icon.png')}/>
                 </Button>
                 <View style={[styles.tab, styles.contain]}>
@@ -123,7 +126,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     tabs: {
-        height: 65,
+        height: 45,
         flexDirection: 'row',
         justifyContent: 'space-around',
         borderWidth: 1,
