@@ -16,7 +16,7 @@ export const StyledContent = styled.View`
 export const StyledImage = styled.Image`
     width: 200px;
     height: 200px;
-    margin-top: 30px;
+    margin-top: ${props=> props.theme.height/6};
     align-self: center;
 `
 export const SyledImageName = styled.Text`
@@ -42,9 +42,9 @@ export const StyledIconItem = styled(Button)`
 export const StyledIconView = styled.View`
    align-items: center;
    justify-content: center;
-    width: 70px;
-    height: 70px;
-    border-radius: 35px;   
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;   
 `
 
 export const StyledIconText = styled.Text`

@@ -57,13 +57,15 @@ export default class FollowRow extends Component {
 
         const { data, navigation } = this.props
         const { item, index } = data
-        const { avatar, nickname, createdAt } = item
-        const avatarSource = avatar ? { uri: avatar.url } :
+        const { avatar, headimgurl, nickname } = item
+
+        const avatarUrl = avatar ? avatar.url : headimgurl
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
             require('../../../../source/img/my/icon-60.png')
         const name = nickname || '路人甲'
         return (
             <StyledRowContent onPress={() => {
-                navigation.navigate('Following',{user: item})
+                navigation.navigate('Following', { user: item })
             }}>
                 <StyledInnerView>
                     <StyledSmallAvatar source={avatarSource}/>

@@ -233,9 +233,9 @@ export default class CardInfo extends Component {
 
         // console.log('iCardUser:', iCardUser);
 
-        const avatarUrl = avatar && avatar.url
+        const avatarUrl = avatar ? avatar.url :iCardUser.headimgurl
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
+              require('../../../../source/img/my/icon-60.png')
 
 
         const cover  = iCard.img ? { uri: iCard.img.url } :

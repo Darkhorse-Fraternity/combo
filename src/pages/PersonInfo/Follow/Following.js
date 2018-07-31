@@ -89,8 +89,8 @@ import {
                 const state = getState()
                 const userId = state.user.data.objectId
 
-                let  selfNum = state.req.get(FRIENDNUM + userId)
-                if(selfNum){
+                let selfNum = state.req.get(FRIENDNUM + userId)
+                if (selfNum) {
                     selfNum = selfNum.get('data').get('followees_count')
                 }
                 // const selfNum = state.req.get(FRIENDNUM + userId).get('data').get('followees_count')
@@ -158,7 +158,7 @@ export default class Following extends Component {
         // console.log('test111:',data.avatar.url)
         const name = data.nickname || '路人甲'
         const avatar = data.avatar
-        const avatarUrl = avatar && avatar.url
+        const avatarUrl = avatar ? avatar.url : data.headimgurl
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
             require('../../../../source/img/my/icon-60.png')
         const isSelf = this.props.user.objectId === data.objectId
@@ -326,7 +326,6 @@ const styles = StyleSheet.create({
     des: {
         marginLeft: 15
     },
-
 
 
 })

@@ -48,8 +48,8 @@ export default class Header extends Component {
         let { onPress, user } = this.props
         user = user && user.toJS() || {}
 
-        const avatar = user.avatar
-        const avatarUrl = avatar && avatar.url
+        const { avatar, headimgurl } = user
+        const avatarUrl = avatar ? avatar.url : headimgurl
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
             require('../../../../source/img/my/icon-60.png')
 

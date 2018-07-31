@@ -173,7 +173,6 @@ export function updateNickName(id: string, nickname: string): Object {
         method: methodType.put,
         needSession: true,
         params: {
-            id,
             nickname
         }
     }
@@ -211,6 +210,19 @@ export function bindingAuthDataToUser(userID: string,
         },
         ...exData
     });
+}
+
+export function thirdLogin(key, authData) {
+    return {
+        path: '/users',
+        method: methodType.post,
+        params: {
+            authData: {
+                [key]: authData
+            }
+        },
+    }
+
 }
 
 
@@ -505,7 +517,7 @@ export function wechatInfo(appid, secret, code) {
 }
 
 //获取微信用户信息
-export function wechatUserInfo(access_token,openid) {
+export function wechatUserInfo(access_token, openid) {
     return {
         scheme: 'https',
         host: 'api.weixin.qq.com',
@@ -520,7 +532,7 @@ export function wechatUserInfo(access_token,openid) {
 }
 
 //获取QQ用户信息
-export function QQUserInfo(access_token,oauth_consumer_key,openid) {
+export function QQUserInfo(access_token, oauth_consumer_key, openid) {
     return {
         scheme: 'https',
         host: 'graph.qq.com',

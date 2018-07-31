@@ -21,7 +21,12 @@ import { req } from '../../../redux/actions/req'
 import { AUTHCODE } from '../../../redux/reqKeys'
 import { requestSmsCode } from '../../../request/leanCloud'
 import { connect } from 'react-redux'
-import { register } from '../../../redux/actions/user'
+import {
+    register,
+    weChatLogin,
+    qqLogin
+} from '../../../redux/actions/user'
+import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys'
 import * as Animatable from 'react-native-animatable';
 import { checkPhoneNum } from '../../../request/validation'
 import {
@@ -62,6 +67,12 @@ const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=2016060
         authCode: (number) => {
             const parmas = requestSmsCode(number)
             return req(parmas)
+        },
+        qqLogin: () => {
+            dispatch(qqLogin(WECHATLOGIN))
+        },
+        wxLogin: () => {
+            dispatch(weChatLogin(QQLOGIN))
         }
     })
 )
@@ -216,7 +227,7 @@ export default class LoginView extends Component {
                 useNativeDriver
                 duration={1000}
                 easing="ease-in-out"
-                delay={Math.random() * 300}
+                delay={Math.random() * 500}
                 animation="bounceInUp"
 
             >
@@ -322,21 +333,19 @@ export default class LoginView extends Component {
                     <View/>
                     <ThirdPartyInnerLoginView>
 
-                        {this.renderLoginItem(30,
+                        {this.renderLoginItem(25,
                             '#30d77f',
                             '微信登录',
                             'weixin',
-                            () => {
-                            },
+                            this.props.wxLogin,
                         )}
-                        {this.renderLoginItem(30,
+                        {this.renderLoginItem(25,
                             '#37c2fc',
                             'QQ登录',
                             'qq',
-                            () => {
-                            },
+                            this.props.qqLogin,
                             { marginHorizontal: Dimensions.get('window').width / 10 })}
-                        {this.renderLoginItem(40,
+                        {this.renderLoginItem(35,
                             '#38d5c2',
                             '手机登录',
                             'mobile',
@@ -428,7 +437,7 @@ const styles = StyleSheet.create({
     },
     top: {
         backgroundColor: 'white',
-        marginTop:64,
+        marginTop: 100,
     },
     line: {
         height: StyleSheet.hairlineWidth,

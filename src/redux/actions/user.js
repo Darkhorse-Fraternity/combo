@@ -22,7 +22,9 @@ import {
     bindingAuthDataToUser,
     wechatInfo,
     wechatUserInfo,
-    QQUserInfo
+    QQUserInfo,
+    thirdLogin,
+    bindingToUser
 } from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
 import {
@@ -96,11 +98,11 @@ export function userInfo() {
         const credentials = await Keychain.getGenericPassword();
         const sessionToken = credentials.password;
         // const sessionToken = await storage.load({ key: sessionTokenkey, })
-        setLeanCloudSession(sessionToken)
-        const params = usersMe()
 
 
         if (sessionToken) {
+            setLeanCloudSession(sessionToken)
+            const params = usersMe()
             const res = await req(params)
             dispatch(_loginSucceed(res));
             return res;
@@ -292,6 +294,119 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
 }
 
 
+export function weChatLogin(Key) {
+    return async (dispatch, getState) => {
+        try {
+            const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
+            const { appid, code } = weConfig
+
+            //获取openid
+            const wechatInfoParam = wechatInfo(appid, secret, code)
+            const weInfo = await req(wechatInfoParam)
+            const { access_token, openid } = weInfo
+            console.log('weInfo:', weInfo);
+
+            const userInfoParmas = thirdLogin('weixin', weInfo)
+            const user = await req(userInfoParmas)
+            if (user.sessionToken) {
+                dispatch(_loginSucceed(user));
+                dispatch(NavigationActions.navigate({
+                    routeName: 'Tab',
+                    params: { transition: 'forVertical' }
+                }))
+            }
+
+            //获取微信用户信息
+
+            let exData = {}
+            if (!user.headimgurl) {
+                const userInfoParams = wechatUserInfo(access_token, openid)
+                const userInfo = await req(userInfoParams)
+                let { nickname, headimgurl } = userInfo
+
+                nickname = user.nickname || nickname
+                exData = {
+                    nickname,
+                    headimgurl
+                }
+                const params = bindingToUser(user.objectId, exData)
+                const res = await req(params)
+
+                dispatch(updateUserData({
+                    ...exData,
+                    ...res
+                }))
+            }
+
+            // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
+
+        } catch (e) {
+            if (e instanceof WeChat.WechatError) {
+                const errObj = {
+                    '-1': '普通错误类型',
+                    '-2': '分享取消',
+                    '-3': '发送失败',
+                    '-4': '授权失败',
+                    '-5': '微信不支持',
+                }
+                Toast.show(errObj[e.code + ""])
+            } else {
+                Toast.show(e.message)
+            }
+        }
+
+        // const res2 = req(params)
+    }
+
+}
+
+export function qqLogin(Key) {
+    return async (dispatch, getState) => {
+        try {
+            const qqConfig = await QQAPI.login()
+            const userInfoParmas = thirdLogin('qq', qqConfig)
+            const user = await req(userInfoParmas)
+            if (user.sessionToken) {
+                 dispatch(_loginSucceed(user));
+                 dispatch(NavigationActions.navigate({
+                    routeName: 'Tab',
+                    params: { transition: 'forVertical' }
+                }))
+            }
+
+
+            //获取微信用户信息
+
+            let exData = {}
+            if (!user.headimgurl) {
+                const { access_token,oauth_consumer_key, openid } = qqConfig
+                const userInfoParams = QQUserInfo(access_token, oauth_consumer_key,openid)
+                const info = await req(userInfoParams)
+                const userInfo = JSON.parse(info)
+                let { nickname, figureurl_qq_2 } = userInfo
+                nickname = user.nickname || nickname
+                exData = {
+                    nickname,
+                    headimgurl: figureurl_qq_2
+                }
+                const params = bindingToUser(user.objectId, exData)
+                console.log('params:', params);
+                const res = await req(params)
+
+                dispatch(updateUserData({
+                    ...exData,
+                    ...res
+                }))
+            }
+
+
+        } catch (e) {
+            Toast.show(e.message)
+        }
+
+    }
+}
+
 export function wechatBinding(KEY) {
 
 
@@ -306,10 +421,10 @@ export function wechatBinding(KEY) {
             const { access_token, openid } = weInfo
 
             //获取微信用户信息
-            const state =  getState()
+            const state = getState()
             const user = state.user.data
             let exData = {}
-            if(!user.headimgurl){
+            if (!user.headimgurl) {
                 const userInfoParams = wechatUserInfo(access_token, openid)
                 const userInfo = await req(userInfoParams)
                 let { nickname, headimgurl } = userInfo
@@ -321,7 +436,7 @@ export function wechatBinding(KEY) {
                 }
             }
 
-            return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
+            return dispatch(bindingAuthData('weixin', KEY, weInfo, exData))
 
         } catch (e) {
             if (e instanceof WeChat.WechatError) {
@@ -349,29 +464,29 @@ export function qqBinding(KEY) {
         try {
             const qqConfig = await QQAPI.login()
 
-            const {access_token,oauth_consumer_key,openid} = qqConfig
+            const { access_token, oauth_consumer_key, openid } = qqConfig
 
             //获取微信用户信息
-            const state =  getState()
+            const state = getState()
             const user = state.user.data
             let exData = {}
 
-            if(!user.headimgurl){
-                const params = QQUserInfo(access_token,oauth_consumer_key,openid)
+            if (!user.headimgurl) {
+                const params = QQUserInfo(access_token, oauth_consumer_key, openid)
                 const info = await req(params)
                 const userInfo = JSON.parse(info)
 
-                let { nickname, figureurl_2,figureurl_qq_2 } = userInfo
+                let { nickname, figureurl_2, figureurl_qq_2 } = userInfo
 
                 nickname = user.nickname || nickname
                 exData = {
                     nickname,
-                    headimgurl:figureurl_qq_2
+                    headimgurl: figureurl_qq_2
                 }
             }
 
 
-            return dispatch(bindingAuthData('qq', KEY, qqConfig,exData))
+            return dispatch(bindingAuthData('qq', KEY, qqConfig, exData))
 
 
         } catch (e) {
@@ -397,11 +512,11 @@ export function breakBinding(key, loadKey) {
 }
 
 
-export function bindingAuthData(key, loadKey, ad,exData) {
+export function bindingAuthData(key, loadKey, ad, exData) {
     return async (dispatch, getState) => {
         const state = getState()
         const userId = state.user.data.objectId;
-        const params = bindingAuthDataToUser(userId, key, ad,exData)
+        const params = bindingAuthDataToUser(userId, key, ad, exData)
         const res = await req(params, loadKey)
 
         const authData = {

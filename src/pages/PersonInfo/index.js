@@ -76,9 +76,9 @@ export default class PersonInfo extends React.Component {
     _renderHeadRow(onPress: Function = () => {
     }) {
         const my_head = require('../../../source/img/my/my_head.png');
-        const source = this.props.user.avatar ?
-            { uri: this.props.user.avatar.url } :
-            my_head
+        const { avatar, headimgurl } = this.props.user
+        const avatarUrl = avatar ? avatar.url : headimgurl
+        const source = avatarUrl ? { uri: avatarUrl } : my_head
 
         return (
             <StyledButton onPress={onPress}>

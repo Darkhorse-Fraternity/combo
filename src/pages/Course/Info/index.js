@@ -285,7 +285,10 @@ export default class Info extends Component {
         const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
 
         // console.log('course:', course);
-
+        const { avatar, headimgurl, } = user
+        const avatarUrl = avatar ? avatar.url : headimgurl
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
+             require('../../../../source/img/my/icon-60.png')
 
         return (
             <StyledContent>
@@ -325,12 +328,12 @@ export default class Info extends Component {
                             </StyledReadNum>
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
-                            {user.avatar && <Button onPress={() => {
+                             <Button onPress={() => {
                                 this.props.navigation.navigate('Following', { user: user })
 
                             }}>
-                                <StyledAvatar source={{ uri: user.avatar.url }}/>
-                            </Button>}
+                                <StyledAvatar source={avatarSource}/>
+                            </Button>
                             {this.__renderFocusOn()}
                         </StyledHeaderInnerRight>
                     </StyledHeaderInner>
