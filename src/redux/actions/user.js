@@ -44,6 +44,7 @@ import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c'
+const wechatAppID = 'wx637e6f35f8211c6d'
 WeChat.registerApp('wx637e6f35f8211c6d')
 // import { popToIndex } from '../nav'
 
@@ -301,10 +302,10 @@ export function weChatLogin(Key) {
             const { appid, code } = weConfig
 
             //获取openid
-            const wechatInfoParam = wechatInfo(appid, secret, code)
+            const wechatInfoParam = wechatInfo(wechatAppID, secret, code)
             const weInfo = await req(wechatInfoParam)
             const { access_token, openid } = weInfo
-            console.log('weInfo:', weInfo);
+            // console.log('weInfo:', weInfo);
 
             const userInfoParmas = thirdLogin('weixin', weInfo)
             const user = await req(userInfoParmas)
@@ -314,12 +315,14 @@ export function weChatLogin(Key) {
                     routeName: 'Tab',
                     params: { transition: 'forVertical' }
                 }))
+            }else {
+                Toast.show(JSON.stringify(weConfig))
             }
 
             //获取微信用户信息
 
             let exData = {}
-            if (!user.headimgurl) {
+            if (user.sessionToken && !user.headimgurl) {
                 const userInfoParams = wechatUserInfo(access_token, openid)
                 const userInfo = await req(userInfoParams)
                 let { nickname, headimgurl } = userInfo
@@ -378,7 +381,7 @@ export function qqLogin(Key) {
             //获取微信用户信息
 
             let exData = {}
-            if (!user.headimgurl) {
+            if (user.sessionToken && !user.headimgurl) {
                 const { access_token,oauth_consumer_key, openid } = qqConfig
                 const userInfoParams = QQUserInfo(access_token, oauth_consumer_key,openid)
                 const info = await req(userInfoParams)
@@ -390,7 +393,7 @@ export function qqLogin(Key) {
                     headimgurl: figureurl_qq_2
                 }
                 const params = bindingToUser(user.objectId, exData)
-                console.log('params:', params);
+                // console.log('params:', params);
                 const res = await req(params)
 
                 dispatch(updateUserData({
@@ -416,7 +419,7 @@ export function wechatBinding(KEY) {
             const { appid, code } = weConfig
 
             //获取openid
-            const wechatInfoParam = wechatInfo(appid, secret, code)
+            const wechatInfoParam = wechatInfo(wechatAppID, secret, code)
             const weInfo = await req(wechatInfoParam)
             const { access_token, openid } = weInfo
 
@@ -424,7 +427,7 @@ export function wechatBinding(KEY) {
             const state = getState()
             const user = state.user.data
             let exData = {}
-            if (!user.headimgurl) {
+            if (openid && !user.headimgurl) {
                 const userInfoParams = wechatUserInfo(access_token, openid)
                 const userInfo = await req(userInfoParams)
                 let { nickname, headimgurl } = userInfo

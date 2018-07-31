@@ -13,7 +13,6 @@
 		2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6726C820089B4C888439340C /* libRNFS.a */; };
 		57E663334A514D32A4AAEB03 /* TodayWidgetExtension.appex in Frameworks */ = {isa = PBXBuildFile; fileRef = E91638B966B244148ADED973 /* TodayWidgetExtension.appex */; };
 		7A8C2FF1CFDF595E0D859695 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
-		85132532D2E5F6AD93F1C45B /* TodayWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 35645F8E9E35B1F63B4AEEBE /* TodayWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
@@ -171,13 +170,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
-		};
-		6314011FD18A832E35106FD0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 046891F87F6D45BA9F58FF88 /* RNTodayWidgetExtension.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 57DB434B1ED1A1E3002AE0EB;
-			remoteInfo = TodayWidgetExtension;
 		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -550,13 +542,6 @@
 			remoteGlobalIDString = 15209BEF1D250F63000D0F44;
 			remoteInfo = LRDRCTSimpleToast;
 		};
-		DB475962497BF2069CA89D7C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 046891F87F6D45BA9F58FF88 /* RNTodayWidgetExtension.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 57DB434C1ED1A1E3002AE0EB;
-			remoteInfo = TodayWidgetExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -566,7 +551,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				85132532D2E5F6AD93F1C45B /* TodayWidgetExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +569,6 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ComboTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComboTests.m; sourceTree = "<group>"; };
 		03425A176E554E0CA0F9D1AB /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
-		046891F87F6D45BA9F58FF88 /* RNTodayWidgetExtension.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNTodayWidgetExtension.xcodeproj; path = "../node_modules/react-native-today-widget/ios/RNTodayWidgetExtension.xcodeproj"; sourceTree = "<group>"; };
 		0DE946A314CE4BD5B8DD70B6 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		0E7269983BAB4CB7AA00ED41 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		0F015BAB208C4C81AE45397E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -965,7 +948,6 @@
 				143EFF2B50934D29BA2B230E /* BVLinearGradient.xcodeproj */,
 				8F0676DE5D6F40F48EDFBC07 /* AutoGrowTextInput.xcodeproj */,
 				0003EFED60A24CBF85E215A3 /* RNFS.xcodeproj */,
-				046891F87F6D45BA9F58FF88 /* RNTodayWidgetExtension.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1205,14 +1187,6 @@
 			path = Combo/Config;
 			sourceTree = "<group>";
 		};
-		F1BDD933B7E9133763AA8B7A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				35645F8E9E35B1F63B4AEEBE /* TodayWidgetExtension.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1270,7 +1244,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				CC28E894A4D8EE4F96E4D7F0 /* PBXTargetDependency */,
 			);
 			name = Combo;
 			productName = "Hello World";
@@ -1297,7 +1270,7 @@
 					};
 					CCCE41862064A0F000F282E3 = {
 						DevelopmentTeam = G54H3R6236;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -1434,10 +1407,6 @@
 					ProjectRef = 9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */;
 				},
 				{
-					ProductGroup = F1BDD933B7E9133763AA8B7A /* Products */;
-					ProjectRef = 046891F87F6D45BA9F58FF88 /* RNTodayWidgetExtension.xcodeproj */;
-				},
-				{
 					ProductGroup = CC4E42B11DF59F2E005783A6 /* Products */;
 					ProjectRef = 0E7269983BAB4CB7AA00ED41 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1510,13 +1479,6 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		35645F8E9E35B1F63B4AEEBE /* TodayWidgetExtension.appex */ = {
-			isa = PBXReferenceProxy;
-			fileType = "wrapper.app-extension";
-			path = TodayWidgetExtension.appex;
-			remoteRef = DB475962497BF2069CA89D7C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -2072,11 +2034,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		CC28E894A4D8EE4F96E4D7F0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TodayWidgetExtension;
-			targetProxy = 6314011FD18A832E35106FD0 /* PBXContainerItemProxy */;
-		};
 		CCCE422B2064A30A00F282E3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CCCE41862064A0F000F282E3 /* Combo */;
@@ -2272,7 +2229,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 114;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2337,7 +2294,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 114;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2396,9 +2353,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 114;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2425,7 +2382,6 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-autogrow-textinput/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
-					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2450,8 +2406,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "de833b15-4674-4ef9-96e2-c30c4b780de9";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.rn.combo";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2463,9 +2419,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 114;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2487,7 +2443,6 @@
 					"$(SRCROOT)/../node_modules/react-native-linear-gradient/BVLinearGradient",
 					"$(SRCROOT)/../node_modules/react-native-autogrow-textinput/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
-					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2512,8 +2467,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "de833b15-4674-4ef9-96e2-c30c4b780de9";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.rn.combo";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

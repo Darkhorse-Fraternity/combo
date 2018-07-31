@@ -279,7 +279,7 @@ export default class Info extends Component {
             )
         }
 
-        user = user && user.toJS()
+        user = user && user.toJS() || {}
 
 
         const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
