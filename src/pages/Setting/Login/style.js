@@ -7,8 +7,9 @@
 import styled from "styled-components/native";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Button from '../../../components/Button'
+import LinearGradient from 'react-native-linear-gradient';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(LinearGradient)`
     flex: 1;
     background-color: white;
 `

@@ -259,6 +259,7 @@ export default class LoginView extends Component {
         const authLoad = this.props.auth.get('load')
         return (
             <StyledContent
+                colors={['#f1f6f9', '#ffffff']}
                 onStartShouldSetResponder={() => true}
                 onResponderGrant={Keyboard.dismiss}>
                 {!this.props.userData.isLogin && (<BG/>)}

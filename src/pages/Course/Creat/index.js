@@ -29,7 +29,7 @@ import Button from '../../../components/Button'
 import { formValueSelector } from 'redux-form/immutable'
 import CourseForm, { FormID } from '../../../components/Form/Course'
 import { uploadImages } from '../../../redux/actions/util'
-import { update, updateByID,findByID } from '../../../redux/module/leancloud'
+import { update, updateByID, findByID } from '../../../redux/module/leancloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { COURSE } from '../../../redux/reqKeys'
 import { deleteFile } from '../../../request/leanCloud'
@@ -42,7 +42,7 @@ const selector = formValueSelector(FormID)
     (state, props) => ({
         coverLoad: state.req.get('CourseCover'),
         course: state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId),
-        courseLoad:state.req.get(COURSE).get('load')
+        courseLoad: state.req.get(COURSE).get('load')
     }),
     (dispatch, props) => ({
 
@@ -51,19 +51,23 @@ const selector = formValueSelector(FormID)
             findByID(COURSE, id)
         },
 
-        onSubmit:  () => {
+        onSubmit: () => {
             dispatch(async (dispatch, getState) => {
                 const id = props.navigation.state.params.CourseId
                 const state = getState()
+
+                const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+
+
                 const title = selector(state, 'title');
                 const subtitle = selector(state, 'subtitle');
                 // const cover = selector(state, 'cover');
-                const params = { title, subtitle, statu:1}
+                const params = { title, subtitle, statu: course.get('statu') === 0 ? 1 : 0 }
 
 
-                updateByID(COURSE,id, params )
+                updateByID(COURSE, id, params)
 
-                Toast.show('发布成功')
+                Toast.show(course.get('statu') === 0 ? '发布成功' : '取消发布成功')
                 props.navigation.goBack()
             })
 
@@ -97,16 +101,15 @@ const selector = formValueSelector(FormID)
                 }
 
 
-
-                dispatch((dispatch, getstate) => {
-                    const state = getstate()
-                    const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
-                    const cover = course && course.get('cover')
-                    if (cover) {
-                        const deleteFileParam = deleteFile(cover.get('objectId'))
-                        req(deleteFileParam)
-                    }
-                })
+                // dispatch((dispatch, getstate) => {
+                //     const state = getstate()
+                //     const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+                //     const cover = course && course.get('cover')
+                //     if (cover) {
+                //         const deleteFileParam = deleteFile(cover.get('objectId'))
+                //         req(deleteFileParam)
+                //     }
+                // })
 
                 dispatch(addNormalizrEntity(COURSE, entity))
 
@@ -165,22 +168,24 @@ export default class CourseCreat extends Component {
 
     render(): ReactElement<any> {
 
-        const data = [{ id: 0, img: null, audio: null }, { id: 1, img: null, audio: null }]
 
         const coverLoad = this.props.coverLoad && this.props.coverLoad.get('load')
 
         const course = this.props.course
         const cover = course && course.get('cover')
 
+        console.log('course:', course.toJS());
+
         return (
             <StyledContent>
                 {course ? <CourseForm
-                        load = {this.props.courseLoad}
+                        load={this.props.courseLoad}
                         initialValues={{
                             cover: cover && cover.get('url'),
                             title: course.get('title'),
-                            subtitle:course.get('subtitle')
+                            subtitle: course.get('subtitle')
                         }}
+                        cance={course.get('statu') === 1}
                         imageLoad={coverLoad}
                         handleImage={this.props.handleImage}
                         onSubmit={this.props.onSubmit}/> :

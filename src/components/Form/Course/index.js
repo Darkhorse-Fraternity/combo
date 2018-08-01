@@ -21,10 +21,11 @@ import {
     StyledTitle,
     StyledHeaderBtn,
     StyledHearderTitle,
+    StyledSubTitle,
     StyleImageSelect
 } from './style'
 
-
+import PPT from './ppt'
 export const FormID = 'CourseForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
@@ -34,12 +35,13 @@ const selector = formValueSelector(FormID) // <-- same as form name
         const subtitle = selector(state, 'subtitle');
         const cover = selector(state, 'cover');
         const config = [title, cover]
+        const { cance } = props
         // console.log('imgs:', imgs);
         const isEmpty = value => value === undefined || value === null ||
             value === '';
 
         return {
-            enableSumbmit: config.findIndex(isEmpty) === -1,
+            enableSumbmit: config.findIndex(isEmpty) === -1 || cance,
             initialValues: props.initialValues
         }
     },
@@ -55,19 +57,29 @@ export default class CourseForm extends Component {
 
 
     static propTypes = {
-        handleImage:PropTypes.func,
-        imageLoad:PropTypes.bool
+        handleImage: PropTypes.func,
+        imageLoad: PropTypes.bool
     };
     static defaultProps = {
-        imageLoad:false
+        imageLoad: false
     };
 
 
     render(): ReactElement<any> {
 
-        const { handleSubmit, onSubmit, load, disabled, pristine, enableSumbmit, ...rest } = this.props
+        const {
+            handleSubmit,
+            onSubmit,
+            load,
+            disabled,
+            pristine,
+            enableSumbmit,
+            cance,
+            ...rest
+        } = this.props
         const { submitting, invalid } = rest
 
+        console.log('cance:', cance);
 
         return (
             <Form
@@ -81,11 +93,11 @@ export default class CourseForm extends Component {
                         创建课程
                     </StyledTitle>
                     <StyledHeaderBtn
-                        load = {load}
+                        load={load}
                         disabled={!enableSumbmit}
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                         onPress={onSubmit && handleSubmit(onSubmit)}
-                        title='发布'/>
+                        title={cance ? '取消发布' : '发布'}/>
                 </StyledHeader>
                 <StyledContent>
                     <StyleImageSelect
@@ -115,7 +127,11 @@ export default class CourseForm extends Component {
                         placeholderTextColor='rgb(200,200,200)'
                         placeholder='点此输入副标题(选填)'/>
 
+
+                    <PPT/>
                     <View style={{ height: 200 }}/>
+
+
                 </StyledContent>
             </Form>
         );

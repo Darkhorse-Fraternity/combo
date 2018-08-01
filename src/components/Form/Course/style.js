@@ -39,6 +39,11 @@ export const StyledTitle = styled.Text`
    font-size: 17px;
    font-weight: 700;
 `
+export const StyledSubTitle = styled.Text`
+  font-size: 13px;
+  color: #adadad;
+  margin-left:5px;
+`
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
     padding: 0px 15px;

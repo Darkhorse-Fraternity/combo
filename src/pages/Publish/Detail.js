@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
+    ScrollView,
     StyleSheet,
     Alert,
     Text,
@@ -178,7 +179,7 @@ export default class PublishDetail extends Component {
         //当为-2 时候，则为系统禁止
         const allow = iCard.state !== -2
         return (
-            <View style={[this.props.style, styles.wrap]}>
+            <ScrollView style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
 
@@ -215,7 +216,7 @@ export default class PublishDetail extends Component {
                     //伪删除
                     this.__alert(iCard)
                 })}
-            </View>
+            </ScrollView>
         );
     }
 }

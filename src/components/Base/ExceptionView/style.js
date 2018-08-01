@@ -19,10 +19,10 @@ export const StyledReportBtn = styled(Button)`
     padding: 10px 15px;
     background-color: white;
     border-radius: 5px;
-    shadow-opacity: 0.25;
-    shadow-radius: 5px;
+    shadow-opacity: 0.5;
+    shadow-radius:10px;
     shadow-color: #979797;
-    shadow-offset: 5px 10px;   
+    shadow-offset: 2px 4px;      
     elevation: 10;
    
 `
