@@ -203,10 +203,10 @@ export default class PublishDetail extends Component {
                     this.props.navigation.navigate('Publishing',
                         { iCardID: this.props.navigation.state.params.iCardID })
                 })}
-                {/*{allow && this._renderRow('发布课程', () => {*/}
-                    {/*this.props.navigation.navigate('CourseRelease',*/}
-                        {/*{ iCardID: this.props.navigation.state.params.iCardID })*/}
-                {/*})}*/}
+                {allow && this._renderRow('发布课程', () => {
+                    this.props.navigation.navigate('CourseRelease',
+                        { iCardID: this.props.navigation.state.params.iCardID })
+                })}
                 {allow && this._renderRow('查看记录', () => {
                     this.props.navigation.navigate('Serve', { iCard })
                 })}

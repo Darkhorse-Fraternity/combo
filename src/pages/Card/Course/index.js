@@ -158,7 +158,7 @@ export default class Course extends Component {
         }
         return (
             <LCList
-                // ListHeaderComponent={this.__renderHeader}
+                ListHeaderComponent={this.__renderHeader}
                 style={[this.props.style, styles.list]}
                 reqKey={listKey}
                 sKey={listKey + iCardId}
