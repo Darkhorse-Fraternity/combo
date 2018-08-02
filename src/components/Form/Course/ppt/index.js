@@ -34,7 +34,7 @@ import {
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { required } from "../../../../request/validation";
-import { FieldArray } from 'redux-form/immutable'
+import { FieldArray,Field } from 'redux-form/immutable'
 import { Map } from 'immutable';
 import { connect } from 'react-redux'
 import { showImagePicker } from '../../../../components/ImagePicker/imagePicker'
@@ -81,14 +81,13 @@ export default class ppt extends Component {
     };
 
 
-    renderTipButton = (fields,index) => {
+    renderTipButton = (fields, index) => {
 
-        console.log('fields:', fields);
         return (
             <StyledReportBtn onPress={async () => {
                 const url = await this.props.picker()
                 url && url.length > 0 &&
-                fields.splice(index,0,new Map({ img: url }))
+                fields.insert(index, new Map({ img: url }))
 
 
             }}>
@@ -110,8 +109,10 @@ export default class ppt extends Component {
 
         return [
             ...fields.map((ppt, index) => (
-                <StyledItem key={'ppt' + index}>
-                    {this.renderTipButton(fields,index)}
+                <StyledItem
+                    animation="fadeIn"
+                    key={'ppt' + index}>
+                    {this.renderTipButton(fields, index)}
                     <StyledItemTop>
                         <Button onPress={() => {
                             Alert.alert(
@@ -130,12 +131,23 @@ export default class ppt extends Component {
                             {`${index + 1}/${fields.length}`}
                         </StyledPagination>
                     </StyledItemTop>
-                    <StyledItemContent>
-                        <StyledTipButton>
-                            <StyledTipButtonText>
-                                跟换图片
-                            </StyledTipButtonText>
-                        </StyledTipButton>
+                    <StyledItemContent
+                        animation="fadeInRight"
+                    >
+                        <Field name={`${ppt}.img`}
+                               component={props =>(
+                            <StyledTipButton
+                                onPress={async () => {
+                                    console.log('props:', props);
+                                    const url = await this.props.picker()
+                                    url && url.length >0 && props.input.onChange(url)
+                                }}>
+                                <StyledTipButtonText>
+                                    跟换图片
+                                </StyledTipButtonText>
+                            </StyledTipButton>)
+                        }/>
+
                         <StyledImg
                             width={Dimensions.get('window').width - 30}
                             source={{ uri: fields.get(index).get('img') }}/>
@@ -150,7 +162,7 @@ export default class ppt extends Component {
             ))
             ,
             <StyledItem key={'bottom'}>
-                {this.renderTipButton(fields,fields.length)}
+                {this.renderTipButton(fields, fields.length)}
             </StyledItem>
         ]
     }

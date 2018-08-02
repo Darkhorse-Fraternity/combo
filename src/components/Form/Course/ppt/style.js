@@ -11,7 +11,7 @@ import AutoHeightImage from 'react-native-auto-height-image'
 import {AutoGrowingInput} from '../../Cunstom'
 
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import * as Animatable from 'react-native-animatable';
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -82,7 +82,7 @@ export const StyledIcon = styled(Icon)`
 `
 
 
-export const StyledItemContent = styled.View`
+export const StyledItemContent = styled(Animatable.View)`
     background-color: white;
     shadow-opacity: 0.5;
     shadow-radius:5px;
