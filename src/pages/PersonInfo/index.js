@@ -20,6 +20,7 @@ import {
     StyledDes,
     StyledActivityIndicator
 } from './style'
+import * as WeChat from 'react-native-wechat';
 
 import {WECHATLOGIN, QQLOGIN} from '../../redux/reqKeys'
 
@@ -69,7 +70,10 @@ export default class PersonInfo extends React.Component {
 
     constructor(props: Object) {
         super(props);
-        this.state = {}
+        this.state = {isWXAppInstalled:false}
+        WeChat.isWXAppInstalled().then(isWXAppInstalled =>{
+            this.setState({isWXAppInstalled})
+        })
     }
 
 
@@ -154,7 +158,7 @@ export default class PersonInfo extends React.Component {
                 {/*})}*/}
 
 
-                {this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
+                {this.stateisWXAppInstalled &&this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
                     !!weixin ?this.props.brekeBinding('weixin',WECHATLOGIN)
                         :this.props.wechatBinding()
 
