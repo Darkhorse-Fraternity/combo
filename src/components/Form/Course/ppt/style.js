@@ -35,7 +35,7 @@ export const StyledReportBtn = styled(Button)`
     shadow-radius:10px;
     shadow-color: #979797;
     shadow-offset: 2px 4px;   
-    elevation: 10;
+    elevation: 5;
     align-self: center;
    
 `
@@ -47,7 +47,25 @@ export const StyledReportText = styled.Text`
 
 export const StyledItem = styled.View`
       padding: 15px;
+      overflow: hidden;
 `
+
+export const StyledTipButton = styled(Button)`
+    background-color: black;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    left: 0px;
+    top: 50px;
+    position: absolute;
+    z-index: 100px;
+    padding: 5px 10px;
+`
+export const StyledTipButtonText = styled.Text`
+  color: white;
+  font-weight: 500;
+`
+
+
 
 export const StyledItemTop = styled.View`
    flex-direction: row;
@@ -66,20 +84,21 @@ export const StyledIcon = styled(Icon)`
 
 export const StyledItemContent = styled.View`
     background-color: white;
-     shadow-opacity: 0.5;
-    shadow-radius:10px;
+    shadow-opacity: 0.5;
+    shadow-radius:5px;
     shadow-color: #979797;
-    shadow-offset: 2px 4px; 
+    shadow-offset: 2px 2px; 
     border-radius: 10px;
-    padding: 0px 15px;
+    padding: 0px 0px 0px 0px;
+   elevation: 5;
 `
 
 export const StyledImg = styled(AutoHeightImage)`
-
+    border-radius: 10px;
 `
 
 export const StyledBottom = styled.View`
-  margin: 20px;
+  margin: 10px 0px;
 `
 
 export const StyledTextInput = styled(AutoGrowingInput)`

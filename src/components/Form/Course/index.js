@@ -26,6 +26,7 @@ import {
 } from './style'
 
 import PPT from './ppt'
+
 export const FormID = 'CourseForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
@@ -99,37 +100,38 @@ export default class CourseForm extends Component {
                         onPress={onSubmit && handleSubmit(onSubmit)}
                         title={cance ? '取消发布' : '发布'}/>
                 </StyledHeader>
-                <StyledContent>
-                    <StyleImageSelect
-                        imageLoad={this.props.imageLoad}
-                        handleImage={this.props.handleImage}
-                        name='cover'/>
+                <StyledContent removeClippedSubviews={true}>
+                    <View style={{overflow:'hidden'}}>
+                        <StyleImageSelect
+                            imageLoad={this.props.imageLoad}
+                            handleImage={this.props.handleImage}
+                            name='cover'/>
 
-                    <StyledHearderTitle
-                        name='title'
-                        ref='title'
-                        maxLength={37}
-                        style={{ height: 60 }}
-                        underlineColorAndroid='transparent'
-                        returnKeyType='next'
-                        onSubmitEditing={() => {
-                            this.refs['subtitle'].root.focus()
-                        }}
-                        placeholderTextColor='rgb(100,100,100)'
-                        placeholder='点此输入标题'/>
+                        <StyledHearderTitle
+                            name='title'
+                            ref='title'
+                            maxLength={37}
+                            style={{ height: 60 }}
+                            underlineColorAndroid='transparent'
+                            returnKeyType='next'
+                            onSubmitEditing={() => {
+                                this.refs['subtitle'].root.focus()
+                            }}
+                            placeholderTextColor='rgb(100,100,100)'
+                            placeholder='点此输入标题'/>
 
-                    <StyledHearderTitle
-                        name='subtitle'
-                        ref='subtitle'
-                        maxLength={37}
-                        style={{ fontSize: 17 }}
-                        underlineColorAndroid='transparent'
-                        placeholderTextColor='rgb(200,200,200)'
-                        placeholder='点此输入副标题(选填)'/>
+                        <StyledHearderTitle
+                            name='subtitle'
+                            ref='subtitle'
+                            maxLength={37}
+                            style={{ fontSize: 17 }}
+                            underlineColorAndroid='transparent'
+                            placeholderTextColor='rgb(200,200,200)'
+                            placeholder='点此输入副标题(选填)'/>
 
-
+                    </View>
                     <PPT/>
-                    <View style={{ height: 200 }}/>
+                    <View style={{ height: 200,overflow:'hidden' }}/>
 
 
                 </StyledContent>
