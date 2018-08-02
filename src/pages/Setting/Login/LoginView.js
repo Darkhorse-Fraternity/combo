@@ -41,7 +41,7 @@ import {
     SyledImageName
 } from './style'
 import { mainColor } from '../../../Theme/index'
-
+import * as WeChat from 'react-native-wechat';
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
 
@@ -88,7 +88,13 @@ export default class LoginView extends Component {
             ymCode: __DEV__ ? '732061' : "", //验证码
             isTap: false,
             showMobile: false,
+            isWXAppInstalled:false,
         };
+
+        WeChat.isWXAppInstalled().then(isWXAppInstalled =>{
+            this.setState({isWXAppInstalled})
+        })
+
     }
 
     state: {
@@ -251,8 +257,11 @@ export default class LoginView extends Component {
         )
     }
 
-    render() {
-        var codeEnable = checkPhoneNum(this.state.phone) &&
+     render () {
+
+
+
+        const codeEnable = checkPhoneNum(this.state.phone) &&
             this.state.time === 60 && !this.state.isTap;
         const reg = /^\d{6}$/;
         const flag = reg.test(this.state.ymCode) && checkPhoneNum(this.state.phone)
@@ -334,7 +343,7 @@ export default class LoginView extends Component {
                     <View/>
                     <ThirdPartyInnerLoginView>
 
-                        {this.renderLoginItem(25,
+                        {this.state.isWXAppInstalled && this.renderLoginItem(25,
                             '#30d77f',
                             '微信登录',
                             'weixin',
@@ -345,7 +354,7 @@ export default class LoginView extends Component {
                             'QQ登录',
                             'qq',
                             this.props.qqLogin,
-                            { marginHorizontal: Dimensions.get('window').width / 10 })}
+                        )}
                         {this.renderLoginItem(35,
                             '#38d5c2',
                             '手机登录',

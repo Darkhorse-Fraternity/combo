@@ -34,10 +34,12 @@ export const ThirdPartyLoginView = styled.View`
 export const ThirdPartyInnerLoginView = styled.View`
     flex-direction: row;
     margin: 100px 0px;
+    padding: 15px;
 `
 
 export const StyledIconItem = styled(Button)`
   align-items: center;
+  width: 100px;
 `
 
 export const StyledIconView = styled.View`
