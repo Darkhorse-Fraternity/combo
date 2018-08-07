@@ -36,7 +36,7 @@ import { popToIndex } from '../../../redux/nav'
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
-
+import {StyledContent} from './style'
 import { TextInput } from '../../../components/Form/Cunstom/index'
 //static displayName = Creat
 
@@ -100,38 +100,51 @@ import * as Animatable from 'react-native-animatable';
             popToIndex()
 
             const iCardId = res.objectId
-            //询问是否立即使用。
-            Alert.alert(
-                '你新建了一个卡片，是否立即使用它',
-                '您可以立即  使用或者成立圈子',
-                [{
-                    text: '建立圈子', onPress: () => {
-                        props.navigation.navigate('PublishDetail', {
-                            iCardID: iCardId,
-                            data: entity
-                        })
-                    }
-                },
-                    {
-                        text: '自己使用', onPress: async () => {
-
-                        const param = {
-                            time: 0,
-                            // notifyTime:option&&option.notifyTime||"20.00",
-                            doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
-                            ...selfUser(),
-                            ...iCard(iCardId)
-                        }
-                        const res = await add(param, IUSE)
-                        const entity = {
-                            ...param,
-                            ...res
-                        }
-                        dispatch(addListNormalizrEntity(IUSE, entity))
-                    }
-                    }
-                ]
-            )
+            // //询问是否立即使用。
+            // Alert.alert(
+            //     '你新建了一个卡片，是否立即使用它',
+            //     '您可以立即  使用或者成立圈子',
+            //     [{
+            //         text: '建立圈子', onPress: () => {
+            //             props.navigation.navigate('PublishDetail', {
+            //                 iCardID: iCardId,
+            //                 data: entity
+            //             })
+            //         }
+            //     },
+            //         {
+            //             text: '自己使用', onPress: async () => {
+            //
+            //             const param = {
+            //                 time: 0,
+            //                 // notifyTime:option&&option.notifyTime||"20.00",
+            //                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
+            //                 ...selfUser(),
+            //                 ...iCard(iCardId)
+            //             }
+            //             const res = await add(param, IUSE)
+            //             const entity = {
+            //                 ...param,
+            //                 ...res
+            //             }
+            //             dispatch(addListNormalizrEntity(IUSE, entity))
+            //         }
+            //         }
+            //     ]
+            // )
+            const addParam = {
+                time: 0,
+                // notifyTime:option&&option.notifyTime||"20.00",
+                doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
+                ...selfUser(),
+                ...iCard(iCardId)
+            }
+            const addRes = await add(addParam, IUSE)
+            const addEntity = {
+                ...addParam,
+                ...addRes
+            }
+            dispatch(addListNormalizrEntity(IUSE, addEntity))
 
         }),
     })
@@ -292,7 +305,9 @@ export default class Creat extends Component {
 
     render(): ReactElement<any> {
         return (
-            <View style={[this.props.style, styles.wrap]}>
+            <StyledContent
+                colors={['#f1f6f9', '#ffffff']}
+                style={[this.props.style, styles.wrap]}>
 
                 {!this.state.optionOpen && this.__renderName()}
                 {/*{(this.state.step === 1 || this.state.step === 2)*/}
@@ -303,7 +318,7 @@ export default class Creat extends Component {
                 }}
                            done={this.props.add}
                            load={this.props.load}/>)}
-            </View>
+            </StyledContent>
         );
     }
 }

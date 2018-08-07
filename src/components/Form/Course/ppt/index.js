@@ -34,7 +34,7 @@ import {
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { required } from "../../../../request/validation";
-import { FieldArray,Field } from 'redux-form/immutable'
+import { FieldArray, Field } from 'redux-form/immutable'
 import { Map } from 'immutable';
 import { connect } from 'react-redux'
 import { showImagePicker } from '../../../../components/ImagePicker/imagePicker'
@@ -88,7 +88,8 @@ export default class ppt extends Component {
                 const url = await this.props.picker()
                 url && url.length > 0 &&
                 fields.insert(index, new Map({ img: url }))
-
+                this.handleViewRef['ppt' + index] &&
+                this.handleViewRef['ppt' + index].root.fadeInRight(800)
 
             }}>
                 <StyledReportText>
@@ -100,31 +101,37 @@ export default class ppt extends Component {
 
     }
 
-
+    handleViewRef = {}
     renderPPT = ({ fields, meta: { error, submitFailed } }) => {
 
         // console.log('test:', fields, error, submitFailed);
         // const source = require('../../../../../source/img/my/icon-60.png')
 
+        const self = this
 
         return [
             ...fields.map((ppt, index) => (
                 <StyledItem
+
                     animation="fadeIn"
                     key={'ppt' + index}>
                     {this.renderTipButton(fields, index)}
                     <StyledItemTop>
-                        <Button onPress={() => {
-                            Alert.alert(
-                                '确定删除?',
-                                '删除后不可恢复',
-                                [{ text: '取消' }, {
-                                    text: '确定', onPress: () => {
-                                        fields.remove(index)
-                                    }
-                                }]
-                            )
-                        }}>
+                        <Button
+                            hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+                            onPress={() => {
+                                Alert.alert(
+                                    '确定删除?',
+                                    '删除后不可恢复',
+                                    [{ text: '取消' }, {
+                                        text: '确定', onPress: async () => {
+                                            self.handleViewRef['ppt' + index] &&
+                                            await self.handleViewRef['ppt' + index].root.fadeOutLeft(800)
+                                            fields.remove(index)
+                                        }
+                                    }]
+                                )
+                            }}>
                             <StyledIcon size={30} name={'ios-close'}/>
                         </Button>
                         <StyledPagination>
@@ -132,25 +139,29 @@ export default class ppt extends Component {
                         </StyledPagination>
                     </StyledItemTop>
                     <StyledItemContent
-                        animation="fadeInRight"
+                        ref={res => this.handleViewRef['ppt' + index] = res}
+                        // animation="fadeInRight"
                     >
                         <Field name={`${ppt}.img`}
-                               component={props =>(
-                            <StyledTipButton
-                                onPress={async () => {
-                                    console.log('props:', props);
-                                    const url = await this.props.picker()
-                                    url && url.length >0 && props.input.onChange(url)
-                                }}>
-                                <StyledTipButtonText>
-                                    跟换图片
-                                </StyledTipButtonText>
-                            </StyledTipButton>)
-                        }/>
+                               component={props => [
+                                   <StyledTipButton
+                                       key={'button'}
+                                       onPress={async () => {
+                                           const url = await this.props.picker()
+                                           url && url.length > 0 && url !== props.input.value
+                                           && props.input.onChange(url)
+                                       }}>
+                                       <StyledTipButtonText>
+                                           跟换图片
+                                       </StyledTipButtonText>
+                                   </StyledTipButton>,
+                                   <StyledImg
+                                       key={'img'}
+                                       width={Dimensions.get('window').width - 30}
+                                       source={{ uri: props.input.value }}/>
+                               ]}/>
 
-                        <StyledImg
-                            width={Dimensions.get('window').width - 30}
-                            source={{ uri: fields.get(index).get('img') }}/>
+
                         <StyledBottom>
                             <StyledTextInput
                                 name={`${ppt}.text`}

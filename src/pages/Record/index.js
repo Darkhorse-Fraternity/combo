@@ -160,43 +160,26 @@ export default class Record extends Component {
 
 
         return (
-            <Animatable.View
-                ref={(row) => this.rows[index] = row}
-            >
-                <SwipeAction
-                    style={styles.card}
-                    autoClose
-                    right={[
-                        {
-                            text: '删除',
-                            onPress: () => this.__delete(index, item.objectId),
-                            style: { backgroundColor: '#F4333C', color: 'white', fontSize: 17 },
-                        },
-                    ]}
-                    // onOpen={() => console.log('global open')}
-                    // onClose={() => console.log('global close')}
-                >
 
-                    <CardRow
-                        title={iCard.title}
-                        des={`人数:${iCard.useNum}`}
-                        img={iCard.img }
-                        onPress={() => {
-                            this.props.navigation.navigate('RecordDetail', {
-                                data: item,
-                                card: iCard
-                            })
-                        }}/>
-                </SwipeAction>
-            </Animatable.View>
+
+            <CardRow
+                title={iCard.title}
+                des={`人数:${iCard.useNum}`}
+                img={iCard.img}
+                onPress={() => {
+                    this.props.navigation.navigate('RecordDetail', {
+                        data: item,
+                        card: iCard
+                    })
+                }}/>
         )
     }
 
     render() {
 
 
-        const {params} = this.props.navigation.state
-        const statu = params?params.statu: { "$ne": 'del' }
+        const { params } = this.props.navigation.state
+        const statu = params ? params.statu : { "$ne": 'del' }
         const param = {
             where: {
                 ...selfUser(),
@@ -265,7 +248,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f9f9f9",
         // backgroundColor:'red',
         // borderRadius: 5,
-        width:width/2 -15,
+        width: width / 2 - 15,
         marginHorizontal: 5,
         borderRadius: 10,
 
@@ -282,7 +265,7 @@ const styles = StyleSheet.create({
 
     header: {
         padding: 15,
-        marginBottom:20,
+        marginBottom: 20,
     },
     headerTitle: {
         fontSize: 20,
@@ -302,13 +285,13 @@ const styles = StyleSheet.create({
         width: 10,
         height: 10,
     },
-    rightView:{
-        flexDirection:'row',
-        alignItems:'center',
+    rightView: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    rowText:{
+    rowText: {
         fontSize: 13,
-        marginRight:5
+        marginRight: 5
     }
 
 })

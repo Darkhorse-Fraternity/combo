@@ -19,7 +19,7 @@ import DeviceInfo from 'react-native-device-info'
 import { epUpdate } from '../components/Update/EPUpdate'
 import {appStateUpdate} from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
-
+import KeyboardManager from 'react-native-keyboard-manager'
 
 
 @connect(
@@ -106,12 +106,21 @@ export default class Configure extends React.Component {
         }
     }
 
+
+    keyboardConfig = ()=>{
+        KeyboardManager.setEnable(true);
+        KeyboardManager.setEnableDebugging(false);
+        KeyboardManager.setKeyboardDistanceFromTextField(20);
+        KeyboardManager.setEnableAutoToolbar(false);
+    }
+
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
         Linking.addEventListener('url', this._handleOpenURL);
         AppState.addEventListener('change', this._handleAppStateChange);
         this.props.dispatch(appStateUpdate(AppState.currentState))
         this._getInitialURL()
+        this.keyboardConfig()
         // this.requestCameraPermission()
 
         // NetInfo.isConnected.addEventListener(

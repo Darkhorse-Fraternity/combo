@@ -235,6 +235,7 @@ export default class Home extends Component {
 
         let data = this.props.data.toJS().listData
 
+        // data = data.filter(item=> item.statu !== 'del')
         // if ((statu === 'LIST_NORMAL' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
         //     return this.__renderNoData()
         // }

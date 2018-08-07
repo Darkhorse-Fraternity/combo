@@ -12,7 +12,8 @@ import {
     Dimensions,
     ActivityIndicator,
     TouchableNativeFeedback,
-    Image
+    Image,
+    Alert
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -45,7 +46,8 @@ import Pop from '../../../components/Pop'
 
 const width = Dimensions.get('window').width
 
-import { update, } from '../../../redux/module/leancloud'
+import { update, search } from '../../../redux/module/leancloud'
+
 import { IUSE } from '../../../redux/reqKeys'
 import { claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
@@ -54,6 +56,7 @@ import { Privacy } from '../../../configure/enum'
 import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
 import Dialog from '../../../components/Dialog'
+import { selfUser } from '../../../request/LCModle'
 
 @connect(
     (state, props) => ({
@@ -117,6 +120,32 @@ import Dialog from '../../../components/Dialog'
                 ...res,
             }
             dispatch(addNormalizrEntity(IUSE, entity))
+        },
+        delete: async (objectId) => {
+            // await remove(objectId,IUSE)
+            // 做伪删除
+
+            Alert.alert(
+                '确定删除?',
+                '删除后不可恢复~！',
+                [{ text: '取消' }, {
+                    text: '确定', onPress: async () => {
+                        const param = {
+                            statu: 'del'
+                        }
+                        const res = await update(objectId, param, IUSE)
+                        const entity = {
+                            ...param,
+                            ...res
+                        }
+                        dispatch(addNormalizrEntity(IUSE, entity))
+                        dispatch(claerByID(IUSE, objectId))
+                        props.navigation.goBack()
+                    }
+                }]
+            )
+
+
         }
     })
 )
@@ -146,13 +175,13 @@ export default class Info extends Component {
             TouchableNativeFeedback.SelectableBackgroundBorderless()
 
 
-        let text = iUse.time % Number(iCard.period) === 0 ?
-            "再来一组" :
+        let text = !reflesh ?
+            "卡片归档" :
             "继续打卡"
-
-        if (!reflesh) {
-            text = "暂停打卡"
-        }
+        //
+        // if (!reflesh) {
+        //     text = "暂停打卡"
+        // }
         return (
             <StyledBottomMenuButton
                 background={background}
@@ -161,7 +190,7 @@ export default class Info extends Component {
                     !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
                 }}>
                 <StyledIcon name={!reflesh ?
-                    'md-trash' : 'md-refresh'}
+                    'md-pause' : 'md-refresh'}
                             size={30}/>
                 <StyledBottomMenuText>
                     {text}
@@ -180,7 +209,7 @@ export default class Info extends Component {
         // iUse = pUse || iUse
 
 
-        const reflesh =  iUse.statu === 'stop'
+        const reflesh = iUse.statu === 'stop'
 
         // console.log('test:', item);
 
@@ -264,6 +293,18 @@ export default class Info extends Component {
                         隐私设置
                     </StyledBottomMenuText>
                 </StyledBottomMenuButton>}
+                {this.props.iUseLoad ? <StyledActivityIndicator/> :
+                    <StyledBottomMenuButton
+                        background={background}
+                        hitSlop={{ top: 10, left: 10, bottom: 10, right: 20 }}
+                        onPress={() => {
+                            this.props.delete(iUse.objectId)
+                        }}>
+                        <StyledIcon name={'md-trash'} size={30}/>
+                        <StyledBottomMenuText>
+                            删除卡片
+                        </StyledBottomMenuText>
+                    </StyledBottomMenuButton>}
             </StyledBottomMenu>
         )
 

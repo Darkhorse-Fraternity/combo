@@ -6,10 +6,13 @@
 
 import styled from "styled-components/native";
 
-export const StyledContent = styled.View`
-    flex: 1;
-    background-color: white;
-`
+import LinearGradient from 'react-native-linear-gradient';
+
+
+// export const StyledContent = styled.View`
+//     flex: 1;
+//     background-color: white;
+// `
 
 
 export const StyledTitleView = styled.View`
@@ -20,4 +23,8 @@ export const StyledTitleText = styled.Text`
   font-size: 15px;
   color: #979797;
   margin-left: 10px;
+`
+
+export const StyledContent = styled(LinearGradient)`
+    flex: 1;
 `

@@ -22,7 +22,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 import { ICARD } from '../../../redux/reqKeys'
 import Toast from 'react-native-simple-toast'
-
+import { StyledContent } from './style'
 import {
     reduxForm,
     formValueSelector,
@@ -49,7 +49,7 @@ const FormID = 'CreatCardForm'
 
         return {
             initialValues: propsOption,
-            load:state.req.get('iCard').get('load')
+            load: state.req.get('iCard').get('load')
         }
     },
     (dispatch, props) => ({
@@ -69,11 +69,10 @@ const FormID = 'CreatCardForm'
                     'recordDay')
 
 
-
                 const param = {
                     ...op,
-                    record:op.record.toJS(),
-                    recordDay:op.recordDay.toJS()
+                    record: op.record.toJS(),
+                    recordDay: op.recordDay.toJS()
                 }
 
                 const res = await update(id, param, ICARD)
@@ -125,10 +124,12 @@ export default class OptionView extends Component {
 
     render(): ReactElement<any> {
         return (
-            <OptionDo
-                goBack={this.__backStep}
-                done={this.props.refresh}
-                load={this.props.load}/>
+            <StyledContent colors={['#f1f6f9', '#ffffff']}>
+                <OptionDo
+                    goBack={this.__backStep}
+                    done={this.props.refresh}
+                    load={this.props.load}/>
+            </StyledContent>
         );
     }
 }

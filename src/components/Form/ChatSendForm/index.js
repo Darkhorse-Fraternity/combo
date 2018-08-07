@@ -16,7 +16,7 @@ export const FormID = 'ChatSendForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 import {dataStorage} from '../../../redux/actions/util'
-
+import KeyboardManager from 'react-native-keyboard-manager'
 
 
 @connect(
@@ -51,8 +51,13 @@ export default class ChatSendForm extends Component {
     static defaultProps = {};
 
 
+    componentDidMount() {
+        KeyboardManager.setEnable(false);
+
+    }
 
     componentWillUnmount() {
+        KeyboardManager.setEnable(true);
        this.props.localSaveEnable && this.props.localSave(this.props.inputText)
     }
 

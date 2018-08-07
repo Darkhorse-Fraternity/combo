@@ -13,7 +13,7 @@ import ImageSelect from './ImageSelect'
 
 import { Platform } from 'react-native'
 
-const KeyboardAvoidingView = Platform.OS === 'ios'?styled.KeyboardAvoidingView:
+const KeyboardAvoidingView = Platform.OS === 'ios'?styled.View:
     styled.View
 
 export const Form = KeyboardAvoidingView`

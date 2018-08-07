@@ -200,7 +200,7 @@ export default class PublishDetail extends Component {
 
 
 
-                {allow && this._renderRow("发布设置", () => {
+                {allow && this._renderRow("发布圈子", () => {
                     this.props.navigation.navigate('Publishing',
                         { iCardID: this.props.navigation.state.params.iCardID })
                 })}
@@ -212,7 +212,7 @@ export default class PublishDetail extends Component {
                     this.props.navigation.navigate('Serve', { iCard })
                 })}
 
-                {this._renderRow('删除卡片', () => {
+                {this._renderRow('删除圈子', () => {
                     //伪删除
                     this.__alert(iCard)
                 })}
