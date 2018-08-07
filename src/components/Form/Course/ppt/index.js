@@ -29,7 +29,11 @@ import {
     StyledIcon,
     StyledBottom,
     StyledTipButton,
-    StyledTipButtonText
+    StyledTipButtonText,
+    StyledBottomTextView,
+    StyledBottomTView,
+    StyledBottomT,
+    StyledBottomText
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -118,7 +122,7 @@ export default class ppt extends Component {
                     {this.renderTipButton(fields, index)}
                     <StyledItemTop>
                         <Button
-                            hitSlop={{top: 20, left: 20, bottom: 20, right: 20}}
+                            hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
                             onPress={() => {
                                 Alert.alert(
                                     '确定删除?',
@@ -127,7 +131,9 @@ export default class ppt extends Component {
                                         text: '确定', onPress: async () => {
                                             self.handleViewRef['ppt' + index] &&
                                             await self.handleViewRef['ppt' + index].root.fadeOutLeft(800)
-                                            fields.remove(index)
+                                            await fields.remove(index)
+
+                                            self.handleViewRef['ppt' + index] && self.handleViewRef['ppt' + index].root.fadeInUp(800)
                                         }
                                     }]
                                 )
@@ -139,6 +145,7 @@ export default class ppt extends Component {
                         </StyledPagination>
                     </StyledItemTop>
                     <StyledItemContent
+                        useNativeDriver
                         ref={res => this.handleViewRef['ppt' + index] = res}
                         // animation="fadeInRight"
                     >
@@ -163,10 +170,42 @@ export default class ppt extends Component {
 
 
                         <StyledBottom>
-                            <StyledTextInput
-                                name={`${ppt}.text`}
-                                maxLength={100}
-                                placeholder={'添加文字 (选填)'}/>
+                            <Field name={`${ppt}.text`}
+                                   component={props => {
+                                       const { input } = props
+                                       if (input.value.length === 0) {
+                                           return (
+                                               <StyledBottomTextView onPress={() => {
+                                                   this.props.navigation.navigate('PPTDescribe', { input: input })
+                                               }}>
+                                                   <StyledBottomTView>
+                                                       <StyledBottomT>
+                                                           T
+                                                       </StyledBottomT>
+                                                   </StyledBottomTView>
+                                                   <StyledBottomText>
+                                                       添加文字(选填)
+                                                   </StyledBottomText>
+                                               </StyledBottomTextView>
+                                           )
+                                       } else {
+                                           return (
+                                               <StyledBottomTextView onPress={() => {
+                                                   this.props.navigation.navigate('PPTDescribe', { input: input })
+                                               }}>
+                                                   <StyledBottomText
+                                                       style={{ color: 'rgb(150,150,150)', margin: 15}}>
+                                                       {input.value}
+                                                   </StyledBottomText>
+                                               </StyledBottomTextView>
+                                           )
+                                       }
+                                   }}/>
+                            {/*<StyledTextInput*/}
+                            {/*name={`${ppt}.text`}*/}
+                            {/*maxLength={100}*/}
+                            {/*placeholder={'添加文字 (选填)'}/>*/}
+
                         </StyledBottom>
                     </StyledItemContent>
                 </StyledItem>

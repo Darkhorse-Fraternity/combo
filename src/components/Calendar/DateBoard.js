@@ -173,7 +173,7 @@ export default class DateBoard extends React.Component {
 
 const styles = StyleSheet.create({
     dateBoard: {
-        marginTop:10,
+        marginTop:8,
         width: width,
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -181,23 +181,23 @@ const styles = StyleSheet.create({
     dateBox: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: width / 7 - 1,
+        width: (width-20) / 7 ,
         height: 45,
     },
     dateText: {
-        fontSize: 17,
+        fontSize: 15,
     },
     dateText2: {
-        fontSize: 17,
+        fontSize: 15,
         color: 'rgb(150,150,150)'
     },
 
     selected: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 34,
+        height: 34,
+        borderRadius: 17,
     },
     addBtn: {
         width: width,

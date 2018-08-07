@@ -13,7 +13,9 @@ import {
     TouchableOpacity,
     ListView,
     ViewPagerAndroid,
-    ActivityIndicator
+    ActivityIndicator,
+    Platform,
+    ScrollView
 } from 'react-native'
 
 let { width } = Dimensions.get('window');
@@ -62,15 +64,29 @@ export default class Calendar extends Component {
 
 
     myScroll(event) {
-        var that = this;
-        if (event.nativeEvent.position === 2) {
-            this.nextMonth()
+        if (Platform.OS === 'ios') {
+            let scrollX = event.nativeEvent.contentOffset.x;
+            if (scrollX > width) {
+                this.nextMonth()
+            } else if (scrollX < width) {
+                this.prev()
+            } else {
+
+            }
+            this.refs.trueScroll.scrollTo({ x: width, y: 0, animated: false })
+
+        } else {
+            if (event.nativeEvent.position === 2) {
+                this.nextMonth()
+            }
+            if (event.nativeEvent.position === 0) {
+                this.prev()
+            }
+            this.refs.trueViewPager.setPageWithoutAnimation(1)
         }
-        if (event.nativeEvent.position === 0) {
-            this.prev()
-        }
-        that.refs.trueViewPager.setPageWithoutAnimation(1)
+
     };
+
 
     nextMonth() {
         //let monthDay = [31, 28 + this.isLeap(this.state.year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -156,18 +172,59 @@ export default class Calendar extends Component {
     }
 
 
+    renderDateBorad = (month) => {
+        return (
+            <DateBoard
+                key={month}
+                year={this.state.year}
+                month={month}
+                date={this.state.date}
+                selectDay={this.selectDay.bind(this)}
+                isLeap={this.isLeap}
+                fetchData={this.props.fetchData}
+                busyDay={this.props.busyDay}/>
+        )
+    }
 
+    renderMain = () => {
+        const pageMonth = [this.state.month - 1, this.state.month, this.state.month + 1]
 
-
-    renderMain = ()=>{
-        
+        if (Platform.OS === 'ios') {
+            return (
+                <ScrollView horizontal={true}
+                            style={{ paddingHorizontal: 10 }}
+                            contentOffset={{ x: width, y: 0 }}
+                            bounces={false}
+                            onMomentumScrollEnd={event => this.myScroll(event)}
+                            ref="trueScroll"
+                            showsHorizontalScrollIndicator={false} pagingEnabled={true}>
+                    {pageMonth.map(mouth => this.renderDateBorad(mouth))}
+                </ScrollView>
+            )
+        } else {
+            return (
+                <ViewPagerAndroid style={{ height: 280, width: width, }}
+                                  initialPage={1}
+                                  onPageSelected={event => this.myScroll(event)}
+                                  ref="trueViewPager">
+                    <View  style={{paddingHorizontal: 10}}>
+                        {this.renderDateBorad(pageMonth[0])}
+                    </View>
+                    <View  style={{paddingHorizontal: 10}}>
+                        {this.renderDateBorad(pageMonth[1])}
+                    </View>
+                    <View  style={{paddingHorizontal: 10}}>
+                        {this.renderDateBorad(pageMonth[2])}
+                    </View>
+                </ViewPagerAndroid>
+            )
+        }
     }
 
 
     render() {
         const month = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
         const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-        const pageMonth = [this.state.month - 1, this.state.month, this.state.month + 1]
 
 
         return (
@@ -194,46 +251,14 @@ export default class Calendar extends Component {
                         </Text>))}
 
                 </View>
-                <ViewPagerAndroid style={{ height: 280, width: width }} initialPage={1}
-                                  onPageSelected={event => this.myScroll(event)}
-                                  ref="trueViewPager">
-                    <View>
-                        <DateBoard year={this.state.year}
-                                   month={this.state.month - 1}
-                                   date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)} i
-                                   isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData}
-                                   busyDay={this.props.busyDay}/>
-                    </View>
-                    <View>
-                        <DateBoard year={this.state.year}
-                                   month={this.state.month}
-                                   date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)}
-                                   isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData}
-                                   busyDay={this.props.busyDay}/>
-                    </View>
-                    <View>
-                        <DateBoard year={this.state.year}
-                                   month={this.state.month + 1}
-                                   date={this.state.date}
-                                   selectDay={this.selectDay.bind(this)}
-                                   isLeap={this.isLeap}
-                                   fetchData={this.props.fetchData}
-                                   busyDay={this.props.busyDay}/>
-                    </View>
 
-                </ViewPagerAndroid>
+                {this.renderMain()}
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    wrap: {
-        padding:15,
-    },
+    wrap: {},
     dayTitle: {
         height: 40,
         alignItems: 'center',
@@ -242,14 +267,13 @@ const styles = StyleSheet.create({
     dateTitle: {
         flexDirection: 'row',
         paddingTop: 10,
-        paddingHorizontal:15,
-        backgroundColor:'yellow'
+        paddingHorizontal: 10,
         // paddingBottom: 10,
         // borderBottomWidth: .5,
         // borderColor: '#ddd',
     },
     dateTitleText: {
-        width: width / 7 - 1,
+        flex: 1,
         textAlign: 'center',
         fontSize: 15,
         color: 'rgb(100,100,100)',

@@ -8,7 +8,7 @@ import styled from "styled-components/native";
 import Button from '../../../Button'
 import AutoHeightImage from 'react-native-auto-height-image'
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput'
-import {AutoGrowingInput} from '../../Cunstom'
+import { AutoGrowingInput } from '../../Cunstom'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import * as Animatable from 'react-native-animatable';
@@ -17,6 +17,15 @@ export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
 `
+
+
+export const StyledHeaderView = styled.View`
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px;
+`
+
 export const StyledTitle = styled.Text`
    font-size: 17px;
    font-weight: 700;
@@ -66,7 +75,6 @@ export const StyledTipButtonText = styled.Text`
 `
 
 
-
 export const StyledItemTop = styled.View`
    flex-direction: row;
    justify-content: space-between;
@@ -101,7 +109,40 @@ export const StyledBottom = styled.View`
   margin: 10px 0px;
 `
 
+
+export const StyledBottomTextView = styled(Button)`
+    flex-direction: row;
+    align-items: center;
+`
+export const StyledBottomTView = styled.View`
+
+  background-color: #e1e1e1;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 10px;
+`
+export const StyledBottomT = styled.Text`
+  color: #979797;
+  font-size: 17px;
+  font-weight: 500;
+`
+
+export const StyledBottomText = styled.Text`
+  font-size: 15px;
+  color: #c1c1c1;
+  margin-left: 10px;
+`
+
+
 export const StyledTextInput = styled(AutoGrowingInput)`
     height: 45px;
-   
+`
+
+export const StyledTextInputDes = styled.TextInput`
+    padding:15px;
+    font-size: 17px;
+    line-height: 30px;
 `

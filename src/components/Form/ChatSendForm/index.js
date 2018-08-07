@@ -7,7 +7,7 @@ import {Form} from './style'
 import CleanBtn from '../../../components/Button/CleanBtn'
 
 import {connect} from 'react-redux'
-
+import { Platform} from 'react-native'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin';
 import {formValueSelector} from 'redux-form/immutable'
 // import {getFormValues} from 'redux-form/immutable' //获取全部
@@ -57,7 +57,7 @@ export default class ChatSendForm extends Component {
     }
 
     componentWillUnmount() {
-        KeyboardManager.setEnable(true);
+        Platform.OS === 'ios' && KeyboardManager.setEnable(true);
        this.props.localSaveEnable && this.props.localSave(this.props.inputText)
     }
 

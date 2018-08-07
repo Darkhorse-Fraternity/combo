@@ -130,7 +130,7 @@ export default class CourseForm extends Component {
                             placeholder='点此输入副标题(选填)'/>
 
                     </View>
-                    <PPT/>
+                    <PPT {...this.props}/>
                     <View style={{ height: 200,overflow:'hidden' }}/>
 
 

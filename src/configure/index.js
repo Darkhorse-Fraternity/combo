@@ -108,10 +108,13 @@ export default class Configure extends React.Component {
 
 
     keyboardConfig = ()=>{
-        KeyboardManager.setEnable(true);
-        KeyboardManager.setEnableDebugging(false);
-        KeyboardManager.setKeyboardDistanceFromTextField(20);
-        KeyboardManager.setEnableAutoToolbar(false);
+        if (Platform.OS === 'ios') {
+            KeyboardManager.setEnable(true);
+            KeyboardManager.setEnableDebugging(false);
+            KeyboardManager.setKeyboardDistanceFromTextField(20);
+            KeyboardManager.setEnableAutoToolbar(false);
+        }
+
     }
 
     componentDidMount() {

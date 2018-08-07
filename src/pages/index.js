@@ -27,6 +27,8 @@ import CardUse from './NewCard/CardUse'
 import CourseChoose from './Course/Choose'
 import CourseCreat from './Course/Creat'
 import CourseRelease from './Course/Release'
+import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
+
 
 export const otherRoute = {
     Setting: {screen: Setting},
@@ -53,6 +55,7 @@ export const otherRoute = {
     CardDetail: {screen: CardDetail},
     CardUse: {screen: CardUse},
     PersonCenter: {screen: PersonCenter},
+    PPTDescribe: {screen:PPTDescribe}
 }
 
 export const homeRoute = {

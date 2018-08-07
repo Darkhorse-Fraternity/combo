@@ -179,6 +179,7 @@ export default class CourseCreat extends Component {
         return (
             <StyledContent>
                 {course ? <CourseForm
+                        {...this.props}
                         load={this.props.courseLoad}
                         initialValues={{
                             cover: cover && cover.get('url'),
