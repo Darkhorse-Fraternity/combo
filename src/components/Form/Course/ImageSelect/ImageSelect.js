@@ -30,16 +30,15 @@ import { showImagePicker } from '../../../ImagePicker/imagePicker'
     (dispatch, props) => ({
         picker: async () => {
             // dispatch(pickerImage())
-            const res = await  showImagePicker({
-                title: '添加图片',
-                maxWidth: 2000, // photos only
-                maxHeight: 2000, // photos only
-            })
+            // const res = await  showImagePicker({
+            //     title: '添加图片',
+            //     maxWidth: 2000, // photos only
+            //     maxHeight: 2000, // photos only
+            // })
 
-            if (res.uri && props.handleImage) {
-                const uri = await props.handleImage(res.uri)
-                uri && uri.length > 0 && !!props.onChange && props.onChange(uri);
-            }
+
+             props.handleImage(props.onChange)
+
         }
     })
 )
@@ -53,7 +52,7 @@ export default class ImageSelect extends Component {
     }
 
     static propTypes = {
-        uri: PropTypes.string,
+        value: PropTypes.object,
         imageLoad:PropTypes.bool,
         handleImage:PropTypes.func
 
@@ -65,8 +64,9 @@ export default class ImageSelect extends Component {
 
     render(): ReactElement<any> {
         const imageLoad = this.props.imageLoad
-        let uri = this.props.uri;
+        let uri =this.props.value && this.props.value.get&&  this.props.value.get('url');
 
+        // console.log('this.props.value:', this.props.value);
 
         return (
             <StyledHeaderItem>

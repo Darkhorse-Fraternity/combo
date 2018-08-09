@@ -23,7 +23,7 @@ import {
     StyledActivietyView,
     StyledActivityIndicator
 } from './style'
-
+import { Map } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../../components/Button'
 import { formValueSelector } from 'redux-form/immutable'
@@ -35,6 +35,7 @@ import { COURSE } from '../../../redux/reqKeys'
 import { deleteFile } from '../../../request/leanCloud'
 import { load, req } from "../../../redux/actions/req";
 import Toast from 'react-native-simple-toast'
+import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
 
 const selector = formValueSelector(FormID)
 
@@ -61,44 +62,78 @@ const selector = formValueSelector(FormID)
 
                 const title = selector(state, 'title');
                 const subtitle = selector(state, 'subtitle');
+                let cover = selector(state, 'cover')
+                const ppt = selector(state, 'ppt')
+
+                //修改本地保存
+                storage.save({
+                    key: "course" + id,  //注意:请不要在key中使用_下划线符号!
+                    data: {
+                        title,
+                        cover,
+                        subtitle,
+                        ppt,
+                    },
+                });
+                cover = {
+                    "id": cover.get('id'),
+                    "__type": "File",
+                    url: cover.get('url')
+                }
                 // const cover = selector(state, 'cover');
-                const params = { title, subtitle, statu: course.get('statu') === 0 ? 1 : 0 }
+                const params = {
+                    title,
+                    cover,
+                    subtitle,
+                    ppt,
+                    // statu: course.get('statu') === 0 ? 1 : 0
+                }
 
 
                 updateByID(COURSE, id, params)
 
-                Toast.show(course.get('statu') === 0 ? '发布成功' : '取消发布成功')
+
+                Toast.show('发布成功' )
                 props.navigation.goBack()
             })
 
         },
-        handleImage: async (url) => {
+        handleImage: async (onChange) => {
 
             const id = props.navigation.state.params.CourseId
 
-            if (url.length > 0) {
+
+            const response = await showImagePicker({
+                title: '添加封面',
+                maxWidth: 2000, // photos only
+                maxHeight: 2000, // photos only
+            })
+
+            const { uri } = response
+
+            if (uri.length > 0) {
                 //上传image
                 //判断是否有老照片,有的话就删除
 
 
-                const res = await dispatch(uploadImages([url], 'CourseCover'))
+                const res = await dispatch(uploadImages([uri], 'CourseCover'))
                 const img = res.payload[0]
-                if (!img) {
-                    return null
-                }
-                const param = {
-                    cover: {
-                        "id": img.id,
-                        "__type": "File",
-                        url: img.attributes.url
-                    }
-                }
+                // if (!img) {
+                //     return null
+                // }
+                // const param = {
+                //     cover: {
+                //         "id": img.id,
+                //         "__type": "File",
+                //         url: img.attributes.url
+                //     }
+                // }
 
-                const res2 = await update(id, param, COURSE)
-                const entity = {
-                    ...param,
-                    ...res2
-                }
+                // const res2 = await update(id, param, COURSE)
+                // const entity = {
+                //     ...param,
+                //     ...res2
+                // }
 
 
                 // dispatch((dispatch, getstate) => {
@@ -111,9 +146,13 @@ const selector = formValueSelector(FormID)
                 //     }
                 // })
 
-                dispatch(addNormalizrEntity(COURSE, entity))
+                // dispatch(addNormalizrEntity(COURSE, entity))
 
-                return img.attributes.url
+
+                if (img) {
+                    onChange(new Map({ id: img.id, url: img.attributes.url }))
+                }
+
 
             }
 
@@ -127,6 +166,24 @@ export default class CourseCreat extends Component {
     constructor(props: Object) {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+
+        this.state = {
+            getSave:false,
+        }
+
+        const id = props.course.get('objectId')
+        storage.load({
+            key: "course" + id,
+        }).then(localSave=>{
+            this.setState({
+                getSave:true,
+                localSave
+            })
+        }).catch(e=>{
+            this.setState({
+                getSave:true,
+            })
+        })
 
     }
 
@@ -174,19 +231,28 @@ export default class CourseCreat extends Component {
         const course = this.props.course
         const cover = course && course.get('cover')
 
-        console.log('course:', course.toJS());
+
+
+
+        const initialValues = {
+            cover: new Map({
+                url: cover && cover.get('url'),
+                id: cover && cover.get('objectId')
+            }),
+            title: course.get('title'),
+            subtitle: course.get('subtitle'),
+            ppt: course.get('ppt'),
+            ...this.state.localSave,
+        }
+        // console.log('cover:', cover);
 
         return (
             <StyledContent>
-                {course ? <CourseForm
+                {course && this.state.getSave ? <CourseForm
                         {...this.props}
                         load={this.props.courseLoad}
-                        initialValues={{
-                            cover: cover && cover.get('url'),
-                            title: course.get('title'),
-                            subtitle: course.get('subtitle')
-                        }}
-                        cance={course.get('statu') === 1}
+                        initialValues={initialValues}
+                        cance={0}
                         imageLoad={coverLoad}
                         handleImage={this.props.handleImage}
                         onSubmit={this.props.onSubmit}/> :

@@ -33,7 +33,10 @@ import HeaderBtn from '../../components/Button/HeaderBtn'
 import CardPublishForm, { FormID } from '../../components/Form/CardPublish'
 import { formValueSelector } from 'redux-form/immutable'
 
+import { Map } from 'immutable';
 const selector = formValueSelector(FormID)
+import { showImagePicker } from '../../components/ImagePicker/imagePicker'
+
 
 @connect(
     (state, props) => ({
@@ -48,7 +51,7 @@ const selector = formValueSelector(FormID)
         publish: (data) => {
 
             if (!data.img) {
-                Toast.show('发布的卡片必须有图片哟!');
+                Toast.show('发布的卡片必须有封面哟!');
                 return;
             }
             // if (!keys) {
@@ -71,10 +74,33 @@ const selector = formValueSelector(FormID)
                 const keys = selector(state, 'keys');
                 const describe = selector(state, 'describe');
                 const id = data.objectId
+                let cover = selector(state, 'cover')
+                const imgs = selector(state, 'imgs')
+
+                storage.save({
+                    key: "CardPublish"+id,  //注意:请不要在key中使用_下划线符号!
+                    data: {
+                        keys,
+                        describe,
+                        cover,
+                        imgs
+                    },
+                });
+
+
+                cover = {
+                    "id": cover.get('id'),
+                    "__type": "File",
+                    url: cover.get('url')
+                }
+
                 const param = {
                     state: data.state === 0 ? 1 : 0,
                     keys: keys.split(','),
                     describe,
+                    img:cover,
+                    imgs
+
                 }
                 const res = await  update(id, param, ICARD)
 
@@ -84,7 +110,7 @@ const selector = formValueSelector(FormID)
                 }
                 dispatch(addNormalizrEntity(ICARD, entity))
 
-
+                props.navigation.goBack()
             })
 
         },
@@ -102,8 +128,17 @@ const selector = formValueSelector(FormID)
             }
             dispatch(addNormalizrEntity(ICARD, entity))
         },
-        picker: async (uri) => {
+        picker: async (onChange) => {
             // dispatch(pickerImage())
+
+            const response = await showImagePicker({
+                title: '添加封面',
+                maxWidth: 2000, // photos only
+                maxHeight: 2000, // photos only
+            })
+
+            const { uri } = response
+
 
             if (uri) {
                 // dispatch(uploadAvatar(response.uri))
@@ -114,24 +149,25 @@ const selector = formValueSelector(FormID)
                     return
                 }
 
-                const id = props.navigation.state.params.iCardID
+                // const id = props.navigation.state.params.iCardID
                 const img = res.payload[0]
-                console.log('img:', img);
-                const param = {
-                    img: {
-                        "id": img.id,
-                        "__type": "File",
-                        url: img.attributes.url
-                    }
+                // console.log('img:', img);
+                // const param = {
+                //     img: {
+                //         "id": img.id,
+                //         "__type": "File",
+                //         url: img.attributes.url
+                //     }
+                // }
+                // const res2 = await  update(id, param, ICARD)
+                // const entity = {
+                //     ...param,
+                //     ...res2
+                // }
+                // dispatch(addNormalizrEntity(ICARD, entity))
+                if (img) {
+                    onChange(new Map({ id: img.id, url: img.attributes.url }))
                 }
-                const res2 = await  update(id, param, ICARD)
-                const entity = {
-                    ...param,
-                    ...res2
-                }
-                dispatch(addNormalizrEntity(ICARD, entity))
-
-                return img.attributes.url
             }
         }
     })
@@ -141,8 +177,25 @@ export default class Publishing extends Component {
         super(props);
         const keys = props.iCard.get('keys')
         this.state = {
-            keys: keys && keys.join(",")
+            keys: keys && keys.join(","),
+            getSave:false,
         }
+
+
+        const id = props.navigation.state.params.iCardID
+        storage.load({
+            key: "CardPublish" + id,
+        }).then(localSave=>{
+            this.setState({
+                getSave:true,
+                localSave
+            })
+        }).catch(e=>{
+            this.setState({
+                getSave:true,
+            })
+        })
+
     }
 
     static propTypes = {};
@@ -169,6 +222,20 @@ export default class Publishing extends Component {
         let keys = iCard.get('keys')
         keys = keys && keys.toJS()
 
+
+        const initialValues = {
+            cover: new Map({
+                url: cover && cover.get('url'),
+                id: cover && cover.get('objectId')
+            }),
+            keys: keys && keys.toString(),
+            describe: iCard.get('describe'),
+            imgs: iCard.get('imgs'),
+            ...this.state.localSave,
+        }
+
+        // console.log('this.state.localSave:', this.state.localSave);
+
         return (
             <View style={[this.props.style, styles.wrap]}>
                 {/*{this._renderHeader(iCard)}*/}
@@ -188,13 +255,11 @@ export default class Publishing extends Component {
                 {/*}*/}
                 {/*}}/>*/}
 
-                <CardPublishForm
+                {this.state.getSave && <CardPublishForm
                     load={load}
-                    initialValues={{
-                        cover: cover && cover.get('url'),
-                        keys: keys && keys.toString(),
-                        describe: iCard.get('describe')
-                    }}
+                    maxIndex={5}
+                    iCardId={this.props.navigation.state.params.iCardID}
+                    initialValues={initialValues}
                     title={iCard.get('title')}
                     imageLoad={imageLoad}
                     state={iCard.get('state')}
@@ -209,7 +274,7 @@ export default class Publishing extends Component {
                             this.props.unPublish(iCardModel)
                         }
                     }}
-                />
+                />}
             </View>
         );
     }

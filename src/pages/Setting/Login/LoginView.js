@@ -40,7 +40,7 @@ import {
     StyledImage,
     SyledImageName
 } from './style'
-import { mainColor } from '../../../Theme/index'
+import { mainColor } from '../../../Theme'
 import * as WeChat from 'react-native-wechat';
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
@@ -301,9 +301,12 @@ export default class LoginView extends Component {
                                           loadColor='rgb(230,230,230)'
                                     //styleDisabled={{fontWeight:'normal'}}
                                           onPress={this._onClickCode.bind(this)}
-                                          style={{ fontWeight: '400', fontSize: 14, color: mainColor }}
+                                          style={{ fontWeight: '400',
+                                              fontSize: 14,
+                                              color: 'black' }}
                                 >
-                                    {this.state.time === 60 || this.state.time === 0 ? '获取验证码' :
+                                    {this.state.time === 60 ||
+                                    this.state.time === 0 ? '获取验证码' :
                                         this.state.time.toString() + '秒'}
                                 </BCButton>
                             </View>

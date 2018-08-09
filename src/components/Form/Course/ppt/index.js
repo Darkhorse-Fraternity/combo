@@ -37,11 +37,14 @@ import {
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { required } from "../../../../request/validation";
+// import { required } from "../../../../request/validation";
 import { FieldArray, Field } from 'redux-form/immutable'
 import { Map } from 'immutable';
 import { connect } from 'react-redux'
 import { showImagePicker } from '../../../../components/ImagePicker/imagePicker'
+import { uploadImages } from '../../../../redux/actions/util'
+import { PopIndicator } from '../../../PopIndicator'
+import Toast from 'react-native-simple-toast'
 
 @connect(
     state => ({}),
@@ -55,7 +58,22 @@ import { showImagePicker } from '../../../../components/ImagePicker/imagePicker'
                 maxWidth: 2000, // photos only
                 maxHeight: 2000, // photos only
             })
-            return response.uri
+
+            const { uri } = response
+
+            if(uri){
+                PopIndicator()
+                const res = await dispatch(uploadImages([uri],
+                    'uploadImages'))
+                PopIndicator(false)
+                const img = res.payload[0]
+                if(img){
+                    return {id:img.id,url:img.attributes.url}
+                }
+
+            }
+
+            // return response.uri
 
             // if (response.uri) {
             //
@@ -87,13 +105,24 @@ export default class ppt extends Component {
 
     renderTipButton = (fields, index) => {
 
+        const {maxIndex} = this.props
         return (
             <StyledReportBtn onPress={async () => {
-                const url = await this.props.picker()
-                url && url.length > 0 &&
-                fields.insert(index, new Map({ img: url }))
-                this.handleViewRef['ppt' + index] &&
-                this.handleViewRef['ppt' + index].root.fadeInRight(800)
+
+                if(fields.length < maxIndex){
+                    let img = await this.props.picker()
+                    if(img && img.id){
+                        img = new Map(img)
+                        fields.insert(index, new Map({ img} ))
+                        this.handleViewRef['ppt' + index] &&
+                        this.handleViewRef['ppt' + index].root.fadeInRight(800)
+                    }
+
+                }else {
+                    Toast.show('已达到最大页面数'+maxIndex)
+                }
+
+
 
             }}>
                 <StyledReportText>
@@ -154,18 +183,20 @@ export default class ppt extends Component {
                                    <StyledTipButton
                                        key={'button'}
                                        onPress={async () => {
-                                           const url = await this.props.picker()
-                                           url && url.length > 0 && url !== props.input.value
-                                           && props.input.onChange(url)
+                                           const img = await this.props.picker()
+                                           img && img.id && img.id !== props.input.value.id
+                                           && props.input.onChange(new Map(img))
                                        }}>
+
                                        <StyledTipButtonText>
-                                           跟换图片
+                                           更换图片
                                        </StyledTipButtonText>
                                    </StyledTipButton>,
                                    <StyledImg
                                        key={'img'}
                                        width={Dimensions.get('window').width - 30}
-                                       source={{ uri: props.input.value }}/>
+                                       source={{ uri: props.input.value.get &&
+                                       props.input.value.get('url') }}/>
                                ]}/>
 
 
@@ -194,7 +225,10 @@ export default class ppt extends Component {
                                                    this.props.navigation.navigate('PPTDescribe', { input: input })
                                                }}>
                                                    <StyledBottomText
-                                                       style={{ color: 'rgb(150,150,150)', margin: 15}}>
+                                                       style={{
+                                                           color: 'rgb(150,150,150)',
+                                                           margin: 15
+                                                       }}>
                                                        {input.value}
                                                    </StyledBottomText>
                                                </StyledBottomTextView>

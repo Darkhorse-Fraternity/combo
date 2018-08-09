@@ -8,7 +8,7 @@ import styled from "styled-components/native";
 import HeaderBtn from "../../../components/Button/HeaderBtn";
 
 
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
 `
@@ -17,6 +17,10 @@ export const StyledTitle = styled.Text`
    font-size: 17px;
    font-weight: 700;
    padding: 15px;
+`
+
+export const StyledList = styled.FlatList`
+  flex:1;
 `
 
 
@@ -36,7 +40,7 @@ export const StyledDes = styled.Text`
 export const StyledEditBtn = styled(HeaderBtn)`
 
   width:60px;
-  margin: 0px 15px;
+  margin: 0px 15px 15px 15px;
 `
 
 

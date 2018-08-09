@@ -6,7 +6,7 @@ import React from 'react'
 const createInput = inputCreator => {
 
     const renderImageSelectView = ({input: {value, ...restInput}, ...rest}) => (
-        <ImageSelect uri={value} {...rest} {...restInput}/>
+        <ImageSelect value={value} {...rest} {...restInput}/>
     )
 
     return inputCreator('ImageSelect', renderImageSelectView, {}, {})

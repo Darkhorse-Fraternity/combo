@@ -72,7 +72,9 @@ export default class Button extends Component {
 
         let children = coalesceNonElementChildren(this.props.children, (children, index) => {
             return (
-                <Text key={index} style={style} allowFontScaling={this.props.allowFontScaling}>
+                <Text key={index}
+                      style={style}
+                      allowFontScaling={this.props.allowFontScaling}>
                     {children}
                 </Text>
             );
@@ -100,7 +102,7 @@ export default class Button extends Component {
 
 const styles = StyleSheet.create({
     text: {
-        color: '#007aff',
+        color: 'black',
         fontSize: 17,
         fontWeight: '500',
         textAlign: 'center',

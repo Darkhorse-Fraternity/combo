@@ -6,7 +6,8 @@
 
 import styled from "styled-components/native";
 import Button from '../../../components/Button'
-import Icon from 'react-native-vector-icons/Ionicons'
+
+import AutoHeightImage from 'react-native-auto-height-image'
 
 export const StyledContent = styled.View`
 `
@@ -97,7 +98,6 @@ export const StyledHeaderTitle = styled.Text`
 `
 
 
-
 export const StyledHeaderInner = styled.View`
     margin-top: 15px;
     flex-direction: row;
@@ -114,15 +114,12 @@ export const StyledNickName = styled.Text`
 `
 
 
-
-
-
 export const StyledSubTitle = styled.Text`
    
     font-size: 17px;
     margin-bottom: 5px;
 `
-export  const StyleKeys = styled.Text`
+export const StyleKeys = styled.Text`
     color: #c1c1c1;
     font-size: 17px;
     margin-bottom: 5px;
@@ -160,4 +157,30 @@ export const StyledHeaderImage = styled.Image`
     border-radius: 5px;
 `
 
+
+export const StyledRow = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`
+
+export const StyledRowInner = styled.View`
+    background-color: white;
+    shadow-opacity: 0.5;
+    shadow-radius:5px;
+    shadow-color: #979797;
+    shadow-offset: 2px 2px; 
+    border-radius: 10px;
+   
+   elevation: 5;
+`
+export const StyledImg = styled(AutoHeightImage)`
+    border-radius: 10px;
+`
+
+export const StyledBottomText = styled.Text`
+  font-size: 15px;
+  color: #c1c1c1;
+  margin-left: 10px;
+`
 

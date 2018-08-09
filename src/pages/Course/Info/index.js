@@ -54,8 +54,8 @@ import {
 } from '../../../request/leanCloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import Toast from 'react-native-simple-toast'
-import {classSearch} from '../../../request/leanCloud'
-import {list,entitys} from '../../../redux/scemes'
+import { classSearch } from '../../../request/leanCloud'
+import { list, entitys } from '../../../redux/scemes'
 
 const hasReadmap = {}
 
@@ -64,7 +64,7 @@ const hasReadmap = {}
         const users = state.normalizr.get(USER)
         const course = state.normalizr.get(COURSE).get(props.courseId)
 
-        if(!props.courseId){
+        if (!props.courseId) {
             return {}
         }
 
@@ -82,14 +82,14 @@ const hasReadmap = {}
     },
     (dispatch, props) => ({
         dataLoad: async () => {
-            if( props.courseId){
+            if (props.courseId) {
                 const params = {
                     include: 'user',
-                    where:{
-                        objectId:props.courseId
+                    where: {
+                        objectId: props.courseId
                     },
                 }
-                await find(COURSE,params,{sceme:list(entitys[COURSE])})
+                await find(COURSE, params, { sceme: list(entitys[COURSE]) })
             }
 
         },
@@ -110,10 +110,10 @@ const hasReadmap = {}
                 req(param, FRIENDEXIST + beFollowedUserId)
             })
         },
-        increaseReadNum: async (num,objectId) => {
+        increaseReadNum: async (num, objectId) => {
 
-            const hasReadmapKey = props.courseId+objectId
-            if (props.courseId && !hasReadmap[hasReadmapKey] &&num !== undefined) {
+            const hasReadmapKey = props.courseId + objectId
+            if (props.courseId && !hasReadmap[hasReadmapKey] && num !== undefined) {
                 const params = {
                     readNum: { "__op": "Increment", "amount": 1 }
                 }
@@ -124,7 +124,7 @@ const hasReadmap = {}
                     readNum: ++num,
                     ...res,
                 }
-                num <1000 && dispatch(addNormalizrEntity(COURSE, entity))
+                num < 1000 && dispatch(addNormalizrEntity(COURSE, entity))
                 hasReadmap[hasReadmapKey] = true
             }
 
@@ -194,10 +194,9 @@ export default class Info extends Component {
 
     componentDidMount() {
 
-        if(this.props.courseId){
+        if (this.props.courseId) {
             this.load()
         }
-
 
 
         // console.log('this.props.friendeExist:', this.props.friendeExist);
@@ -239,6 +238,11 @@ export default class Info extends Component {
         )
     }
 
+
+
+
+
+
     render(): ReactElement<any> {
 
         let {
@@ -254,12 +258,25 @@ export default class Info extends Component {
         course = course && course.toJS()
 
 
+        if (load) {
+            return (
+                <StyledContent>
+                    {load &&
+                    <StyledHeaderContent style={{ justifyContent: 'center' }}>
 
-        if (!load && (!this.props.courseId || course && !course.title) ) {
-            if(!showNoOpen){
+                        <StyledIndicator/>
+
+                    </StyledHeaderContent>}
+                </StyledContent>
+            )
+
+        }
+
+
+        if (!this.props.courseId || !course && !course.title) {
+            if (!showNoOpen) {
                 return null
             }
-
             return (
                 <StyledContent>
 
@@ -267,8 +284,8 @@ export default class Info extends Component {
                         <StyledHeaderTipText>
                             课程还没有开启
                         </StyledHeaderTipText>
-                        {isSelf &&  <StyledReportBtn onPress={() => {
-                            navigation.navigate('CourseRelease',{iCardID})
+                        {isSelf && <StyledReportBtn onPress={() => {
+                            navigation.navigate('CourseRelease', { iCardID })
                         }}>
                             <StyledReportText>
                                 点击开启
@@ -282,34 +299,28 @@ export default class Info extends Component {
         user = user && user.toJS() || {}
 
 
-        const readNum = course.readNum < 1000 ? course.readNum : (course.readNum /1000).toFixed(1) +'k'
+        const readNum = course.readNum < 1000 ? course.readNum : (course.readNum / 1000).toFixed(1) + 'k'
 
         // console.log('course:', course);
         const { avatar, headimgurl, } = user
         const avatarUrl = avatar ? avatar.url : headimgurl
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
-             require('../../../../source/img/my/icon-60.png')
+            require('../../../../source/img/my/icon-60.png')
 
         return (
             <StyledContent>
-                {load &&
-                <StyledHeaderContent style={{ justifyContent: 'center' }}>
-
-                    <StyledIndicator/>
-
-                </StyledHeaderContent>}
-
-
-                {!load && course && course.title && <StyledHeaderContent>
-                    <StyledHeaderCover onPress={()=>{
+                <StyledHeaderContent>
+                    <StyledHeaderCover
+                        disabled={true}
+                        onPress={() => {
                         Toast.show('设计中~')
                     }}>
-                        <StyledHeaderConverTip>
-                            <StyledTriangle/>
-                        </StyledHeaderConverTip>
-                        <StyledHeaderImage
+                        {/*<StyledHeaderConverTip>*/}
+                            {/*<StyledTriangle/>*/}
+                        {/*</StyledHeaderConverTip>*/}
+                        {course.cover && <StyledHeaderImage
                             width={200}
-                            source={{ uri: course.cover.url }}/>
+                            source={{ uri: course.cover.url }}/>}
                     </StyledHeaderCover>
                     <StyledHeaderTitle>
                         {course.title}
@@ -328,16 +339,15 @@ export default class Info extends Component {
                             </StyledReadNum>
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
-                             <Button onPress={() => {
+                            <Button onPress={() => {
                                 this.props.navigation.navigate('Following', { user: user })
-
                             }}>
                                 <StyledAvatar source={avatarSource}/>
                             </Button>
                             {this.__renderFocusOn()}
                         </StyledHeaderInnerRight>
                     </StyledHeaderInner>
-                </StyledHeaderContent>}
+                </StyledHeaderContent>
 
 
             </StyledContent>

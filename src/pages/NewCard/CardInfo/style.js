@@ -9,6 +9,7 @@ import styled from "styled-components/native";
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
+import AutoHeightImage from 'react-native-auto-height-image'
 
 export const StyledContent = styled(LinearGradient)`
     flex: 1;
@@ -19,7 +20,7 @@ export const StyledContent = styled(LinearGradient)`
 
 
 export const StyledRow = styled.View`
-  padding: 15px 0px ;
+  padding: 13px 0px ;
   flex-direction: row;
   align-items: center;
  
@@ -75,7 +76,11 @@ export const StyledCourseView = styled.View`
 `
 
 export const StyledDescirbe = styled.Text`
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 17px;
   color: #979797;
+  margin-bottom: 20px;
+`
+
+export const StyledImg = styled(AutoHeightImage)`
 `

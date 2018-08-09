@@ -25,6 +25,7 @@
     "react-native-clean-form": "^0.5.0",
     "react-native-device-info": "^0.21.5",
     "react-native-dialogs": "^1.0.0",
+    "react-native-fit-image": "^1.5.4",
     "react-native-flip-card": "^3.5.2",
     "react-native-fs": "^2.10.14",
     "react-native-image-picker": "^0.26.10",

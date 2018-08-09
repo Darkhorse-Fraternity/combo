@@ -23,6 +23,8 @@ export function httpHeaders(needSession: bool): Object {
         "Content-Type": "application/json",
         "X-LC-Sign": LeanCloud_APP_SIGN,
         "X-LC-Id": LeanCloud_APP_ID,
+        "X-LC-Prod": __DEV__ ? 1
+            : 1,
         appVersion
     }
 

@@ -17,7 +17,7 @@ import {
     ActivityIndicator,
     Easing,
     Modal,
-    Platform
+    Platform,
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
@@ -31,8 +31,7 @@ import {
     COURSE
 } from '../../../redux/reqKeys'
 import { getUserByID, classSearch } from '../../../request/leanCloud'
-import { req, requestSucceed, DATA } from '../../../redux/actions/req'
-import { entityFromCode } from '../../../redux/scemes'
+import { req, requestSucceed } from '../../../redux/actions/req'
 import { selfUser, iCard } from '../../../request/LCModle'
 import Toast from 'react-native-simple-toast';
 import { add } from '../../../redux/module/leancloud'
@@ -41,7 +40,6 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
 import { user as UserEntity, schemas } from '../../../redux/scemes'
 import Button from '../../../components/Button/index'
-//static displayName = CardInfo
 
 import {
     StyledContent,
@@ -54,7 +52,8 @@ import {
     StyledTitleText,
     StyledCourseView,
     StyledKeysView,
-    StyledDescirbe
+    StyledDescirbe,
+    StyledImg
 } from './style'
 
 import {
@@ -213,7 +212,7 @@ export default class CardInfo extends Component {
 
 
     _renderCourse = (course) => {
-        console.log('course:', course);
+        // console.log('course:', course);
         return (
             <StyledCourseView>
 
@@ -255,6 +254,9 @@ export default class CardInfo extends Component {
         let { course } = this.props
         course = course && course.toJS()
 
+        const imgs = iCard && iCard.imgs
+        console.log('imgs:', iCard.imgs);
+
         return (
             <StyledContent
                 colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
@@ -284,7 +286,9 @@ export default class CardInfo extends Component {
                     }}
                     containStyle={styles.containStyle}
                     style={styles.flip}/>
-                <ScrollView style={[this.props.style, styles.wrap]}>
+                <ScrollView
+                    removeClippedSubviews={true}
+                    style={[this.props.style, styles.wrap]}>
                     <StyledHeaderCover onPress={() => {
                         this.setState({ visible: true })
                     }}>
@@ -356,8 +360,15 @@ export default class CardInfo extends Component {
                         {'\t'}{describe}
                     </StyledDescirbe>}
 
+                    {imgs && imgs.map((item,index)=>{
+                        return (
+                            <StyledImg
+                                width={Dimensions.get('window').width -30}
+                                key={item.img.url + index}
+                                source={{uri:item.img.url}}/>
+                        )
+                    })}
                     <View style={{ height: 200 }}/>
-
                 </ScrollView>
             </StyledContent>
         );
@@ -369,6 +380,7 @@ const styles = StyleSheet.create({
     wrap: {
         flex: 1,
         padding: 15,
+        overflow:'hidden',
     },
     img: {
 

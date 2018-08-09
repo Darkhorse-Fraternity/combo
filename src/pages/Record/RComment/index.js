@@ -135,7 +135,8 @@ import { findByID } from "../../../redux/module/leancloud";
                 let iDoData = state.normalizr.get(IDO).get(props.navigation.state.params.iDoID)
                 iDoData = iDoData && iDoData.toJS()
                 let iDoID = props.navigation.state.params.iDoID
-                if (iDoData && iDoData.commentNew && iDoData.user.objectId === user.objectId) {
+                if (iDoData && iDoData.commentNew &&
+                    iDoData.user === user.objectId) {
 
                     const params = {
                         commentNew: false

@@ -27,6 +27,7 @@ import {
 
 import PPT from './ppt'
 
+import Toast from 'react-native-simple-toast'
 export const FormID = 'CourseForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
@@ -35,18 +36,40 @@ const selector = formValueSelector(FormID) // <-- same as form name
         const title = selector(state, 'title');
         const subtitle = selector(state, 'subtitle');
         const cover = selector(state, 'cover');
-        const config = [title, cover]
-        const { cance } = props
+        const ppt = selector(state, 'ppt');
+        const config = [title, cover,ppt]
+        const { cance,initialValues } = props
         // console.log('imgs:', imgs);
         const isEmpty = value => value === undefined || value === null ||
-            value === '';
+            value === '' || value.length === 0;
 
         return {
             enableSumbmit: config.findIndex(isEmpty) === -1 || cance,
-            initialValues: props.initialValues
+            initialValues: initialValues
         }
     },
-    dispatch => ({})
+    (dispatch,props) => ({
+        onSaveLocal: () => {
+            dispatch((dispatch,getState)=>{
+                const state = getState()
+                const title = selector(state, 'title');
+                const subtitle = selector(state, 'subtitle');
+                const cover = selector(state, 'cover')
+                const ppt = selector(state, 'ppt')
+                const initialValues = { title, subtitle, cover, ppt }
+                // console.log('initialValues:', initialValues);
+
+                // console.log('props:', props.course.get('objectId'));
+                const id = props.course.get('objectId')
+                storage.save({
+                    key: "course"+id,  //注意:请不要在key中使用_下划线符号!
+                    data: initialValues,
+                });
+                Toast.show('保存成功')
+            })
+
+        }
+    })
 )
 @reduxForm({
     form: FormID,
@@ -76,32 +99,41 @@ export default class CourseForm extends Component {
             pristine,
             enableSumbmit,
             cance,
+            onSaveLocal,
             ...rest
         } = this.props
         const { submitting, invalid } = rest
 
-        console.log('cance:', cance);
 
         return (
             <Form
                 behavior={'padding'}
                 keyboardVerticalOffset={65}
             >
-
-
                 <StyledHeader>
                     <StyledTitle>
                         创建课程
                     </StyledTitle>
-                    <StyledHeaderBtn
-                        load={load}
-                        disabled={!enableSumbmit}
-                        hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                        onPress={onSubmit && handleSubmit(onSubmit)}
-                        title={cance ? '取消发布' : '发布'}/>
+
+
+                    <View style={{ flexDirection: 'row' }}>
+                        <StyledHeaderBtn
+                            load={false}
+                            style={{ marginRight: 10 }}
+                            disabled={false}
+                            hitSlop={{ top: 5, left: 50, bottom: 5, right: 10 }}
+                            onPress={onSaveLocal}
+                            title={'保存'}/>
+                        <StyledHeaderBtn
+                            load={load}
+                            disabled={!enableSumbmit}
+                            hitSlop={{ top: 5, left: 10, bottom: 5, right: 50 }}
+                            onPress={onSubmit && handleSubmit(onSubmit)}
+                            title={cance ? '取消发布' : '发布'}/>
+                    </View>
                 </StyledHeader>
                 <StyledContent removeClippedSubviews={true}>
-                    <View style={{overflow:'hidden'}}>
+                    <View style={{ overflow: 'hidden' }}>
                         <StyleImageSelect
                             imageLoad={this.props.imageLoad}
                             handleImage={this.props.handleImage}
@@ -130,8 +162,8 @@ export default class CourseForm extends Component {
                             placeholder='点此输入副标题(选填)'/>
 
                     </View>
-                    <PPT {...this.props}/>
-                    <View style={{ height: 200,overflow:'hidden' }}/>
+                    <PPT {...this.props} maxIndex={20}/>
+                    <View style={{ height: 200, overflow: 'hidden' }}/>
 
 
                 </StyledContent>

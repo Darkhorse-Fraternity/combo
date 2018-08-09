@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
     View,
+    FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -17,7 +18,8 @@ import {
     StyledMain,
     StyledDes,
     StyledHeaderBtn,
-    StyledEditBtn
+    StyledEditBtn,
+    StyledList
 } from './style'
 import { update, add, findByID } from '../../../redux/module/leancloud'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -26,18 +28,21 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { selfUser, Course } from '../../../request/LCModle'
 import Info from '../../Course/Info'
 import ExceptionView, { ExceptionType } from '../../../components/Base/ExceptionView'
-
+import CourseRow from '../../Course/Info/CourseRow'
 
 @connect(
     (state, props) => ({
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
         load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load'),
-        course: state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+        course: state.normalizr.get(COURSE).
+        get(state.normalizr.get(ICARD).
+        get(props.navigation.state.params.iCardID).get('course'))
 
     }),
     (dispatch, props) => ({
         dataLoad: () => {
             const id = props.navigation.state.params.CourseId
+            console.log('id:', id);
             findByID(COURSE, id)
         },
         add: async () => {
@@ -100,10 +105,13 @@ export default class CourseRelease extends Component {
         // const course = this.props.iCard.get('course')
         // const courseId = course && course.get('objectId')
         // console.log('courseId:', courseId);
-        !this.props.course && this.props.dataLoad()
+        // !this.props.course && this.props.dataLoad()
 
     }
-
+    _keyExtractor = (item, index) => {
+        const key = item.id || index;
+        return key + '';
+    }
 
     render(): ReactElement<any> {
 
@@ -113,7 +121,8 @@ export default class CourseRelease extends Component {
         // console.log('iCard:', iCard);
 
 
-        // console.log('courseId:', courseId);
+        let ppt = this.props.course && this.props.course.get('ppt')
+        ppt = ppt && ppt.toJS()
 
 
         return (
@@ -128,7 +137,7 @@ export default class CourseRelease extends Component {
                     onPress={() => this.props.edit(courseId)}
                     title={'编辑'}
                 />}
-                <Info {...this.props} courseId={courseId}/>
+
                 {/*{!courseId && <StyledMain>*/}
                 {/*<StyledDes>*/}
                 {/*还没有课程*/}
@@ -142,11 +151,20 @@ export default class CourseRelease extends Component {
 
                 {!courseId &&
                 <ExceptionView
-                    style={{height:400}}
+                    style={{ height: 400 }}
                     prompt={'还没有课程'}
                     tipBtnText={'添加'}
                     onRefresh={this.props.add}
                     exceptionType={ExceptionType.NoData}/>}
+                <StyledList
+                    data={ppt}
+                    renderItem={(props)=>(<CourseRow {...props}/>)}
+                    ListHeaderComponent={()=>
+                        ( <Info {...this.props} courseId={courseId}/>)}
+                    keyExtractor={this._keyExtractor}
+                    removeClippedSubviews={true}
+                />
+
             </StyledContent>
         );
     }

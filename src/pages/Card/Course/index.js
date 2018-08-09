@@ -38,6 +38,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Toast from 'react-native-simple-toast'
 
 import Info from '../../Course/Info'
+import CourseRowList from '../../Course/Info/CourseRowList'
 
 import {
     classCreatNewOne,
@@ -115,6 +116,7 @@ export default class Course extends Component {
                       isSelf={isSelf}
                       showNoOpen
                       courseId={courseId}/>
+                {courseId && <CourseRowList courseId={courseId}/>}
                 <StyledTitleView>
                     <StyledTitleText>
                         圈子记录

@@ -158,8 +158,8 @@ export default class Detail extends Component {
         const { data } = params
         const userNoNull = this.props.user
 
-        console.log('userNoNull:', userNoNull);
-        console.log('data:', data);
+        // console.log('userNoNull:', userNoNull);
+        // console.log('data:', data);
 
         const param = {
             'where': {
