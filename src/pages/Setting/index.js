@@ -165,9 +165,8 @@ class WBSetting extends Component {
                 {this._renderRow('给个评价', true, false, () => {
                     let url = ''
                     if (Platform.OS === 'ios') {
-                        url = 'http://itunes.apple.com/WebObjects/MZStore.woa/wa/' +
-                            'viewContentsUserReviews?id=APPID' +
-                            '&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8'
+                        const IOS_APP_ID = '1332546993'
+                        url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`
                     } else {
                         url = 'market://details?id=' + DeviceInfo.getBundleId()
                     }
