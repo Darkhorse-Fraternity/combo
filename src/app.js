@@ -6,9 +6,9 @@
 
 
 import React, { Component, } from 'react'
-import { Platform, StatusBar } from 'react-native'
+import { Platform, StatusBar,View } from 'react-native'
 import { Provider } from 'react-redux'
-import { View } from 'react-native';
+
 import store from './redux/store'
 import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
