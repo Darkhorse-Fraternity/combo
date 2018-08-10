@@ -38,7 +38,6 @@ export async function send({
                          params,
                          head,
                          needSession = true,
-                         ...otherParams,
                      }: Object): Promise<any> {
 
     const urlpath = scheme + '://' + host + path;
