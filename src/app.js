@@ -6,9 +6,9 @@
 
 
 import React, { Component, } from 'react'
-import { Platform, StatusBar } from 'react-native'
+import { Platform, StatusBar,View } from 'react-native'
 import { Provider } from 'react-redux'
-import { AppRegistry, View } from 'react-native';
+
 import store from './redux/store'
 import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
@@ -23,7 +23,7 @@ import PushManage from './configure/localNotification'
 
 
 // import App from './components/js/App'
-class App extends Component {
+export default  class App extends Component {
 
 
     componentDidMount() {
@@ -52,4 +52,4 @@ class App extends Component {
 }
 
 // var WhiteBoardRN = require('../example_advanced');
-AppRegistry.registerComponent('Combo', () => App);
+

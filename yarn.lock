@@ -1498,6 +1498,10 @@ balanced-match@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
 
+base-64@^0.1.0:
+  version "0.1.0"
+  resolved "http://registry.npm.taobao.org/base-64/download/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
+
 base64-arraybuffer@^0.1.5:
   version "0.1.5"
   resolved "http://registry.npm.taobao.org/base64-arraybuffer/download/base64-arraybuffer-0.1.5.tgz#73926771923b5a19747ad666aa5cd4bf9c6e9ce8"
@@ -5007,11 +5011,22 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-native-android-image-polyfill@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-android-image-polyfill/download/react-native-android-image-polyfill-1.0.0.tgz#f0b61bac0c6a91b8f8f81233ab1998613adf64ac"
+
 react-native-animatable@^1.3.0:
   version "1.3.0"
   resolved "http://registry.npm.taobao.org/react-native-animatable/download/react-native-animatable-1.3.0.tgz#b5c3940fc758cfd9b2fe54613a457c4b6962b46e"
   dependencies:
     prop-types "^15.5.10"
+
+react-native-auto-height-image@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-auto-height-image/download/react-native-auto-height-image-1.0.0.tgz#24d0ef98fc4c25ef46a7d915b885bc556477cdb9"
+  dependencies:
+    prop-types "^15.5.8"
+    react-native-android-image-polyfill "^1.0.0"
 
 react-native-autogrow-textinput@^5.1.0:
   version "5.1.1"
@@ -5020,12 +5035,6 @@ react-native-autogrow-textinput@^5.1.0:
 react-native-blur@^3.2.2:
   version "3.2.2"
   resolved "http://registry.npm.taobao.org/react-native-blur/download/react-native-blur-3.2.2.tgz#5bfb50638d148982c9560436554ed01d77d6d07d"
-  dependencies:
-    prop-types "^15.5.10"
-
-react-native-button@^2.3.0:
-  version "2.3.0"
-  resolved "http://registry.npm.taobao.org/react-native-button/download/react-native-button-2.3.0.tgz#7d0a90095d415b0edf98a904556a7c4439646568"
   dependencies:
     prop-types "^15.5.10"
 
@@ -5056,17 +5065,13 @@ react-native-debugger-open@^0.3.17:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-default-preference@^1.3.1:
-  version "1.3.1"
-  resolved "http://registry.npm.taobao.org/react-native-default-preference/download/react-native-default-preference-1.3.1.tgz#5eeb415bdc71334e39d7837a0399dee1169a832e"
-
 react-native-device-info@^0.21.5:
   version "0.21.5"
   resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.21.5.tgz#99478a2d68182e012297f2d63f2bd1b788106dee"
 
-react-native-dialogs@^1.0.1:
-  version "1.0.1"
-  resolved "http://registry.npm.taobao.org/react-native-dialogs/download/react-native-dialogs-1.0.1.tgz#0c70939137bbf5955c4d08d5afe610d38ef31df0"
+react-native-dialogs@^1.0.0:
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/react-native-dialogs/download/react-native-dialogs-1.0.2.tgz#d16d68cecbd57f74904fb2d58fd846622d5fec9a"
 
 react-native-dismiss-keyboard@1.0.0:
   version "1.0.0"
@@ -5090,13 +5095,20 @@ react-native-flip-card@^3.5.2:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-fs@^2.10.14:
+  version "2.11.15"
+  resolved "http://registry.npm.taobao.org/react-native-fs/download/react-native-fs-2.11.15.tgz#b80ac78edf124137624697b4864f834c1caf4f43"
+  dependencies:
+    base-64 "^0.1.0"
+    utf8 "^2.1.1"
+
 react-native-image-pan-zoom@^2.1.2:
   version "2.1.3"
   resolved "http://registry.npm.taobao.org/react-native-image-pan-zoom/download/react-native-image-pan-zoom-2.1.3.tgz#1f1847518eb0d10a43fce20ee387a9f273dacd9a"
 
-react-native-image-picker@^0.26.7:
-  version "0.26.7"
-  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.26.7.tgz#ad2ee957f7f6cc01396893ea03d84cb2adb2e376"
+react-native-image-picker@^0.26.10:
+  version "0.26.10"
+  resolved "http://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-0.26.10.tgz#0bb9ab928984948c67aee0b9e64216bee007a9fc"
 
 react-native-image-progress@^0.6.0:
   version "0.6.0"
@@ -5125,9 +5137,27 @@ react-native-keyboard-input@^5.2.3:
     lodash "^4.17.4"
     react-native-keyboard-tracking-view "^5.4.3"
 
+react-native-keyboard-manager@^4.0.13-9:
+  version "4.0.13-9"
+  resolved "http://registry.npm.taobao.org/react-native-keyboard-manager/download/react-native-keyboard-manager-4.0.13-9.tgz#836c30b4f48d79ade23e257639bbed84509f6fdf"
+
 react-native-keyboard-tracking-view@^5.4.3, react-native-keyboard-tracking-view@^5.4.4:
   version "5.4.4"
   resolved "http://registry.npm.taobao.org/react-native-keyboard-tracking-view/download/react-native-keyboard-tracking-view-5.4.4.tgz#2ec99d232bf59a73493288ba8503b29057fa8a06"
+
+react-native-keychain@^3.0.0-rc.3:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-keychain/download/react-native-keychain-3.0.0.tgz#29da1dfa43c2581f76bf9420914fd38a1558cf18"
+
+"react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git":
+  version "0.1.0"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#e05795866e4acfff71bd526e1f8ae7a8f26735ae"
+
+react-native-linear-gradient@^2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/react-native-linear-gradient/download/react-native-linear-gradient-2.4.0.tgz#51d8ea12bb72a59bede9edc87b694b16b64cf435"
+  dependencies:
+    prop-types "^15.5.10"
 
 react-native-md5@^1.0.0:
   version "1.0.0"
@@ -5144,6 +5174,10 @@ react-native-menu@^0.23.0:
 react-native-orientation@^3.1.3:
   version "3.1.3"
   resolved "http://registry.npm.taobao.org/react-native-orientation/download/react-native-orientation-3.1.3.tgz#d45803841fe94b6cce9acbe904fd5ca191a3711e"
+
+react-native-platform-touchable@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/react-native-platform-touchable/download/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
 
 react-native-push-notification@^3.0.2:
   version "3.0.2"
@@ -5222,6 +5256,10 @@ react-native-textinput-effects@^0.4.2:
   version "0.4.2"
   resolved "http://registry.npm.taobao.org/react-native-textinput-effects/download/react-native-textinput-effects-0.4.2.tgz#05336a8ed9e4992397fc5de714692d774eb91b07"
 
+react-native-today-widget@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-today-widget/download/react-native-today-widget-1.0.0.tgz#2547494c497aa7163b3a40a66937879be4b5412c"
+
 react-native-uuid@^1.4.9:
   version "1.4.9"
   resolved "http://registry.npm.taobao.org/react-native-uuid/download/react-native-uuid-1.4.9.tgz#a526742f8fddfe6414500655212ca8d109c40229"
@@ -5250,7 +5288,7 @@ react-native-wechat@^1.9.9:
   dependencies:
     events "1.0.2"
 
-react-native@0.55.4:
+react-native@^0.55.4:
   version "0.55.4"
   resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.55.4.tgz#eecffada3750a928e2ddd07cf11d857ae9751c30"
   dependencies:
@@ -5404,9 +5442,9 @@ react-tween-state@^0.1.5:
     raf "^3.1.0"
     tween-functions "^1.0.1"
 
-react@16.3.1:
-  version "16.3.1"
-  resolved "http://registry.npm.taobao.org/react/download/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
+react@^16.4.1:
+  version "16.4.2"
+  resolved "http://registry.npm.taobao.org/react/download/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -5478,9 +5516,9 @@ redux-api-middleware@^2.2.5:
     babel-runtime "^6.25.0"
     lodash.isplainobject "^4.0.6"
 
-redux-form@^7.3.0:
-  version "7.4.0"
-  resolved "http://registry.npm.taobao.org/redux-form/download/redux-form-7.4.0.tgz#5772f152b808954f0debcf918cb78f055c279717"
+redux-form@^7.4.2:
+  version "7.4.2"
+  resolved "http://registry.npm.taobao.org/redux-form/download/redux-form-7.4.2.tgz#d6061088fb682eb9fc5fb9749bd8b102f03154b0"
   dependencies:
     es6-error "^4.1.1"
     hoist-non-react-statics "^2.5.4"
@@ -5489,6 +5527,7 @@ redux-form@^7.3.0:
     lodash "^4.17.10"
     lodash-es "^4.17.10"
     prop-types "^15.6.1"
+    react-lifecycles-compat "^3.0.4"
 
 redux-thunk@^2.1.0:
   version "2.2.0"
@@ -6522,6 +6561,10 @@ use@^3.1.0:
   resolved "http://registry.npm.taobao.org/use/download/use-3.1.0.tgz#14716bf03fdfefd03040aef58d8b4b85f3a7c544"
   dependencies:
     kind-of "^6.0.2"
+
+utf8@^2.1.1:
+  version "2.1.2"
+  resolved "http://registry.npm.taobao.org/utf8/download/utf8-2.1.2.tgz#1fa0d9270e9be850d9b05027f63519bf46457d96"
 
 util-deprecate@1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"

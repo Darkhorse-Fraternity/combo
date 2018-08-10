@@ -3,5 +3,11 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+
+import { AppRegistry,  } from 'react-native';
+
 console.ignoredYellowBox = ['Warning: isMounted(...)'];
-require('./src/app');
+import {name} from './app.json';
+import App from './src/app'
+
+AppRegistry.registerComponent('Combo', () => App);
