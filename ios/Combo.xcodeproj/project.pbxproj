@@ -113,6 +113,7 @@
 		E16C751D2CF54638AE67ADBF /* libAutoGrowTextInput.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 170D291B78714F1B8CCED218 /* libAutoGrowTextInput.a */; };
 		E362F9F7BDAD4F18B9597759 /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F75574203C4AA595167C53 /* libRNKeychain.a */; };
 		EEB33FF3BCA841669E39B121 /* libReactNativeKeyboardManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7EB1D4DEBF4314A1710F4E /* libReactNativeKeyboardManager.a */; };
+		F0635BC53D8A403CA724598E /* libRNRate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92F6A1F4EE004F3B9976D7FE /* libRNRate.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -227,6 +228,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
+		};
+		CC24C4B1211C462F001DDD7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1B9607B1AA5345EA81BC8C29 /* RNRate.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNRate;
 		};
 		CC3E39A21E260A200019B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -594,6 +602,7 @@
 		16815CB8C8B24DFDB0DBFA28 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		170D291B78714F1B8CCED218 /* libAutoGrowTextInput.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAutoGrowTextInput.a; sourceTree = "<group>"; };
 		1770132A42DF4BA8AA918694 /* libKeyboardTrackingView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libKeyboardTrackingView.a; sourceTree = "<group>"; };
+		1B9607B1AA5345EA81BC8C29 /* RNRate.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRate.xcodeproj; path = "../node_modules/react-native-rate/ios/RNRate.xcodeproj"; sourceTree = "<group>"; };
 		2BE3550CC6BF4B388A60DE49 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		305888BE2E6B442EB4282B45 /* RCTQQAPI.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTQQAPI.xcodeproj; path = "../node_modules/react-native-qq/ios/RCTQQAPI.xcodeproj"; sourceTree = "<group>"; };
@@ -617,6 +626,7 @@
 		858A1DA5B94F48AA98B5A47F /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		8F0676DE5D6F40F48EDFBC07 /* AutoGrowTextInput.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AutoGrowTextInput.xcodeproj; path = "../node_modules/react-native-autogrow-textinput/ios/AutoGrowTextInput.xcodeproj"; sourceTree = "<group>"; };
+		92F6A1F4EE004F3B9976D7FE /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
 		97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNKeychain.xcodeproj; path = "../node_modules/react-native-keychain/RNKeychain.xcodeproj"; sourceTree = "<group>"; };
 		A61AFD2B2D6643398F8C7193 /* KeyboardTrackingView.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = KeyboardTrackingView.xcodeproj; path = "../node_modules/react-native-keyboard-tracking-view/lib/KeyboardTrackingView.xcodeproj"; sourceTree = "<group>"; };
@@ -748,6 +758,7 @@
 				2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */,
 				57E663334A514D32A4AAEB03 /* TodayWidgetExtension.appex in Frameworks */,
 				EEB33FF3BCA841669E39B121 /* libReactNativeKeyboardManager.a in Frameworks */,
+				F0635BC53D8A403CA724598E /* libRNRate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,6 +971,7 @@
 				8F0676DE5D6F40F48EDFBC07 /* AutoGrowTextInput.xcodeproj */,
 				0003EFED60A24CBF85E215A3 /* RNFS.xcodeproj */,
 				5CBE00F774554889ABCA0EA7 /* ReactNativeKeyboardManager.xcodeproj */,
+				1B9607B1AA5345EA81BC8C29 /* RNRate.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1041,6 +1053,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CC24C4AE211C462F001DDD7F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC24C4B2211C462F001DDD7F /* libRNRate.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CC3E399F1E260A200019B85F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1085,6 +1105,7 @@
 				6726C820089B4C888439340C /* libRNFS.a */,
 				E91638B966B244148ADED973 /* TodayWidgetExtension.appex */,
 				CB7EB1D4DEBF4314A1710F4E /* libReactNativeKeyboardManager.a */,
+				92F6A1F4EE004F3B9976D7FE /* libRNRate.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1432,6 +1453,10 @@
 					ProjectRef = 9A3B09F73DA94D9B9C6B0862 /* RNKeychain.xcodeproj */;
 				},
 				{
+					ProductGroup = CC24C4AE211C462F001DDD7F /* Products */;
+					ProjectRef = 1B9607B1AA5345EA81BC8C29 /* RNRate.xcodeproj */;
+				},
+				{
 					ProductGroup = CC4E42B11DF59F2E005783A6 /* Products */;
 					ProjectRef = 0E7269983BAB4CB7AA00ED41 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1560,6 +1585,13 @@
 			fileType = archive.ar;
 			path = libBVLinearGradient.a;
 			remoteRef = CC203A8820FC980300D9206D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC24C4B2211C462F001DDD7F /* libRNRate.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNRate.a;
+			remoteRef = CC24C4B1211C462F001DDD7F /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC3E39A31E260A200019B85F /* libRCTWeChat.a */ = {
@@ -2111,6 +2143,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2130,6 +2163,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
@@ -2296,11 +2330,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
@@ -2360,11 +2396,13 @@
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-today-widget/ios/TodayWidgetExtension",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
@@ -2429,11 +2467,13 @@
 					"$(SRCROOT)/../node_modules/react-native-autogrow-textinput/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
@@ -2494,11 +2534,13 @@
 					"$(SRCROOT)/../node_modules/react-native-autogrow-textinput/ios",
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
