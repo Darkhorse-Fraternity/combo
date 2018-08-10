@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Icon from 'react-native-vector-icons/Ionicons'
 import FlipCard from 'react-native-flip-card'
 

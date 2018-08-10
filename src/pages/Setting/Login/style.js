@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Button from '../../../components/Button'
 import LinearGradient from 'react-native-linear-gradient';

@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Button from '../../../components/Button'
 import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 import Icon from 'react-native-vector-icons/Ionicons'

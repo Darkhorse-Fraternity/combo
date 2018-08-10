@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
+import styled from "styled-components";
 import HeaderBtn from "../../Button/HeaderBtn";
 import AutoHeightImage from 'react-native-auto-height-image'
 import { TextInput,AutoGrowingInput } from '../Cunstom'

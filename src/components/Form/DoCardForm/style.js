@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components/native";
+import styled from "styled-components";
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 import Button from '../../../components/Button/'
 export const Form = styled.View`

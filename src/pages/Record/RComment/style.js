@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Button from '../../../components/Button'
 
 export const StyledContent = styled.View`

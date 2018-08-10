@@ -21,7 +21,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
-// import styled from 'styled-components/native';
+// import styled from 'styled-components';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
 import {
     ICARD,

@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
+import styled from "styled-components";
 import Button from '../../../components/Button'
 
 import AutoHeightImage from 'react-native-auto-height-image'
