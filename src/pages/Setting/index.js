@@ -18,6 +18,7 @@ import {logout} from '../../redux/actions/user'
 import {dataStorage} from '../../redux/actions/util'
 import DeviceInfo from 'react-native-device-info'
 import Button from '../../components/Button'
+import Rate, { AndroidMarket } from 'react-native-rate'
 
 const styles = StyleSheet.create({
     list: {
@@ -164,13 +165,30 @@ class WBSetting extends Component {
                 {/*})}*/}
                 {this._renderRow('给个评价', true, false, () => {
                     let url = ''
+                    const IOS_APP_ID = '1332546993'
                     if (Platform.OS === 'ios') {
-                        const IOS_APP_ID = '1332546993'
+
                         url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`
                     } else {
                         url = 'market://details?id=' + DeviceInfo.getBundleId()
                     }
-                    Linking.openURL(url)
+                    // Linking.openURL(url)
+
+
+                    let options = {
+                        AppleAppID:IOS_APP_ID,
+                        preferredAndroidMarket: AndroidMarket.Other,
+                        OtherAndroidURL:url,
+                        openAppStoreIfInAppFails:true,
+                        fallbackPlatformURL:"https://icard.leanapp.cn/",
+                    }
+                    Rate.rate(options, (success)=>{
+                        if (success) {
+                            console.log('Rate success');
+                            // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
+                            // this.setState({rated:true})
+                        }
+                    })
 
                 })}
                 {/*<View style={styles.line}/>*/}
