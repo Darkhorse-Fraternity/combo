@@ -44,12 +44,10 @@ export default class Calendar extends Component {
 
     componentDidMount() {
         this.move()
-    };
-
-    componentWillMount() {
         this.monthDay = [31, 28 + this.isLeap(this.state.year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    };
 
+    };
+    
 
     isLeap(year) {
         return ((year % 100 === 0) ? (year % 400 === 0 ? 1 : 0) : (year % 4 === 0) ? 1 : 0);
