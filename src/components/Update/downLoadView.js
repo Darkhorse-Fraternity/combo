@@ -57,7 +57,8 @@ class RNUpdate extends Component {
 
     }
 
-    componentWillMount() {
+
+    componentDidMount() {
         this.checkUpdate()
     }
 

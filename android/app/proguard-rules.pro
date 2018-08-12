@@ -77,6 +77,8 @@
    *;
 }
 
+-keep class com.alipay.** { *; }
+
 -dontwarn com.wix.reactnativekeyboardinput.**
 
 -ignorewarnings

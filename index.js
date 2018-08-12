@@ -4,9 +4,14 @@
  * @flow
  */
 
-import { AppRegistry,  } from 'react-native';
+import { AppRegistry, YellowBox } from 'react-native';
 
 console.ignoredYellowBox = ['Warning: isMounted(...)'];
+YellowBox.ignoreWarnings([
+    'Warning: componentWillMount is deprecated',
+    'Warning: componentWillReceiveProps is deprecated',
+]);
+
 import {name} from './app.json';
 import App from './src/app'
 

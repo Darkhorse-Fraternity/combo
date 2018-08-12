@@ -10,7 +10,6 @@ import {
     NetInfo,
     Linking,
     AppState,
-    Platform,
     Alert
 } from 'react-native';
 import pushConfig from '../configure/push/push'

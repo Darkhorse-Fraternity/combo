@@ -161,6 +161,7 @@ android {
 }
 
 dependencies {
+    compile project(':@0x5e/react-native-alipay')
     compile project(':react-native-autogrow-textinput')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-keychain')
