@@ -16,7 +16,7 @@
 #import "../Libraries/LinkingIOS/RCTLinkingManager.h"
 #import "AppearanceConfig.h"
 #import "Orientation.h"
-#import "SplashScreen.h"
+#import "RNSplashScreen.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -43,7 +43,7 @@
 #ifdef DEBUG
   
 #else
-  [SplashScreen show];
+  [RNSplashScreen show];
 #endif
 
   return YES;

@@ -52,7 +52,7 @@ export default class ChatSendForm extends Component {
 
 
     componentDidMount() {
-        KeyboardManager.setEnable(false);
+        Platform.OS === 'ios' && KeyboardManager.setEnable(false);
 
     }
 

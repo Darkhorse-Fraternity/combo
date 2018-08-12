@@ -28,7 +28,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { selfUser, Course } from '../../../request/LCModle'
 import Info from '../../Course/Info'
 import ExceptionView, { ExceptionType } from '../../../components/Base/ExceptionView'
-import CourseRow from '../../Course/Info/CourseRow'
+import CourseRowList from '../../Course/Info/CourseRowList'
 
 @connect(
     (state, props) => ({
@@ -156,14 +156,16 @@ export default class CourseRelease extends Component {
                     tipBtnText={'添加'}
                     onRefresh={this.props.add}
                     exceptionType={ExceptionType.NoData}/>}
-                <StyledList
-                    data={ppt}
-                    renderItem={(props)=>(<CourseRow {...props}/>)}
-                    ListHeaderComponent={()=>
-                        ( <Info {...this.props} courseId={courseId}/>)}
-                    keyExtractor={this._keyExtractor}
-                    removeClippedSubviews={true}
-                />
+                {/*<StyledList*/}
+                    {/*data={ppt}*/}
+                    {/*renderItem={(props)=>(<CourseRow {...props}/>)}*/}
+                    {/*ListHeaderComponent={()=>*/}
+                        {/*( <Info {...this.props} courseId={courseId}/>)}*/}
+                    {/*keyExtractor={this._keyExtractor}*/}
+                    {/*removeClippedSubviews={true}*/}
+                {/*/>*/}
+                <Info {...this.props} courseId={courseId}/>
+                {courseId && <CourseRowList courseId={courseId}/>}
 
             </StyledContent>
         );

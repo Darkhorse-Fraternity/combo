@@ -53,7 +53,7 @@ export default class CourseRow extends Component {
                             margin: 15
                         }}>
                         {text}
-                    </StyledBottomText>:<View style={{height:2}}/>}
+                    </StyledBottomText>:<View style={{height:0}}/>}
                 </StyledRowInner>
 
             </StyledRow>
