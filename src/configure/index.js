@@ -9,7 +9,9 @@ import {
     BackHandler,
     NetInfo,
     Linking,
-    AppState
+    AppState,
+    Platform,
+    Alert
 } from 'react-native';
 import pushConfig from '../configure/push/push'
 // import {dataStorage} from '../redux/actions/util'
@@ -20,7 +22,7 @@ import { epUpdate } from '../components/Update/EPUpdate'
 import {appStateUpdate} from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 import KeyboardManager from 'react-native-keyboard-manager'
-
+import Rate from 'react-native-rate'
 
 @connect(
     state => ({ nav: state.nav, }),
@@ -124,6 +126,31 @@ export default class Configure extends React.Component {
         this.props.dispatch(appStateUpdate(AppState.currentState))
         this._getInitialURL()
         this.keyboardConfig()
+
+        let options = {
+            AppleAppID:"1332546993",
+            preferInApp:true,
+            inAppDelay:5.0,
+            openAppStoreIfInAppFails:false,
+            // preferredAndroidMarket: AndroidMarket.Other,
+        }
+
+        if(Platform.OS === 'ios'){
+            Rate.rate(options,()=>{})
+        }else {
+            //TODO 给Android 做一个评论智能跳出。
+            // Alert.alert(
+            //     '给我们一个好评吧!',
+            //     'Thanks♪(･ω･)ﾉ',
+            //     [{ text: '取消' }, {
+            //         text: '确定', onPress: () => {
+            //             Rate.rate(options,()=>{})
+            //         }
+            //     }]
+            // )
+        }
+
+
         // this.requestCameraPermission()
 
         // NetInfo.isConnected.addEventListener(
