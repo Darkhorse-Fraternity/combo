@@ -15,10 +15,10 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 import { Platform } from 'react-native'
 
-const KeyboardAvoidingView = Platform.OS === 'ios'?styled.KeyboardAvoidingView:
-    styled.View
+// const KeyboardAvoidingView = Platform.OS === 'ios'?styled.KeyboardAvoidingView:
+//     styled.View
 
-export const Form = KeyboardAvoidingView`
+export const Form = styled.View`
     flex: 1;
     background-color: white;
 `

@@ -287,7 +287,7 @@ export default class CardInfo extends Component {
                     containStyle={styles.containStyle}
                     style={styles.flip}/>
                 <ScrollView
-                    removeClippedSubviews={true}
+                    // removeClippedSubviews={true}
                     style={[this.props.style, styles.wrap]}>
                     <StyledHeaderCover onPress={() => {
                         this.setState({ visible: true })
