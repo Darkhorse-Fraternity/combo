@@ -7,7 +7,6 @@
 import React, { Component } from 'react';
 import {
     View,
-    KeyboardAvoidingView,
     Alert,
     Dimensions
 } from 'react-native'
@@ -50,10 +49,10 @@ import Toast from 'react-native-simple-toast'
 
 @connect(
     (state, props) => {
-        // const title = selector(state, 'keys');
+        const keys = selector(state, 'keys');
         // const subtitle = selector(state, 'subtitle');
         const cover = selector(state, 'cover');
-        const config = [cover]
+        const config = [cover,keys]
         // console.log('imgs:', imgs);
         const isEmpty = value => value === undefined || value === null ||
             value === '';
@@ -61,7 +60,7 @@ import Toast from 'react-native-simple-toast'
         const CardState = props.state
 
         return {
-            enableSumbmit: CardState === 0 || config.findIndex(isEmpty) === -1,
+            enableSumbmit: CardState === 1 || config.findIndex(isEmpty) === -1,
             initialValues: props.initialValues
         }
     },
@@ -282,7 +281,7 @@ export default class CardPublishForm extends Component {
                             title={state === 0 ? '发布' : '取消发布'}/>
                     </View>
                 </StyledHeader>
-                <StyledContent removeClippedSubviews={true}>
+                <StyledContent >
                     <StyleImageSelect
                         imageLoad={this.props.imageLoad}
                         handleImage={this.props.handleImage}

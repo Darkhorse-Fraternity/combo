@@ -50,10 +50,10 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
         //...bindActionCreators({},dispatch),
         publish: (data) => {
 
-            if (!data.img) {
-                Toast.show('发布的卡片必须有封面哟!');
-                return;
-            }
+            // if (!data.img) {
+            //     Toast.show('发布的卡片必须有封面哟!');
+            //     return;
+            // }
             // if (!keys) {
             //     Toast.show('发布的卡片必须有关键字哟!');
             //     return;
@@ -268,7 +268,7 @@ export default class Publishing extends Component {
 
                         const iCardModel = iCard.toJS()
                         if (iCardModel.state === 0) {
-                            this.props.publish(iCardModel, this.state.keys)
+                            this.props.publish(iCardModel)
                         } else {
                             // this.__alert(iCard)
                             this.props.unPublish(iCardModel)

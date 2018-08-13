@@ -105,7 +105,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num - 1 }))
                     //自己
-                    selfNum && dispatch(reqChangeData(
+                    selfNum > 0   && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum - 1 }))
 
@@ -117,7 +117,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num + 1 }))
                     //自己
-                    selfNum && dispatch(reqChangeData(
+                    selfNum !== undefined  && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum + 1 }))
 

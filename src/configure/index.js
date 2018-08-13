@@ -136,7 +136,7 @@ export default class Configure extends React.Component {
         }
 
         if(Platform.OS === 'ios'){
-            Rate.rate(options,()=>{})
+           !__DEV__ && Rate.rate(options,()=>{})
         }else {
             //TODO 给Android 做一个评论智能跳出。
             // Alert.alert(
