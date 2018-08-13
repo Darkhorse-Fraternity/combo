@@ -164,7 +164,7 @@ export const StyledRow = styled.View`
   margin-bottom: 20px;
 `
 
-export const StyledRowInner = styled.View`
+export const StyledRowInner = styled(Button)`
     background-color: white;
     shadow-opacity: 0.5;
     shadow-radius:5px;

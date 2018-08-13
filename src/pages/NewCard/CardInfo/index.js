@@ -18,6 +18,7 @@ import {
     Easing,
     Modal,
     Platform,
+    TouchableHighlight
 } from 'react-native'
 import { connect } from 'react-redux'
 // import {bindActionCreators} from 'redux';
@@ -153,7 +154,8 @@ export default class CardInfo extends Component {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.state = {
-            visible: false
+            visible: false,
+            index:0
         }
     }
 
@@ -232,12 +234,12 @@ export default class CardInfo extends Component {
 
         // console.log('iCardUser:', iCardUser);
 
-        const avatarUrl = avatar ? avatar.url :iCardUser.headimgurl
+        const avatarUrl = avatar ? avatar.url : iCardUser.headimgurl
         const avatarSource = avatarUrl ? { uri: avatarUrl } :
-              require('../../../../source/img/my/icon-60.png')
+            require('../../../../source/img/my/icon-60.png')
 
 
-        const cover  = iCard.img ? { uri: iCard.img.url } :
+        const cover = iCard.img ? { uri: iCard.img.url } :
             require('../../../../source/img/my/icon-60.png')
 
 
@@ -255,7 +257,13 @@ export default class CardInfo extends Component {
         course = course && course.toJS()
 
         const imgs = iCard && iCard.imgs
-        console.log('imgs:', iCard.imgs);
+
+        const urlList = imgs && imgs.map(item => {
+            return {
+                url: item.img.url
+            }
+        }) || []
+
 
         return (
             <StyledContent
@@ -263,16 +271,17 @@ export default class CardInfo extends Component {
                 forceInset={{ top: 'never' }}>
                 {iCard.img && <ImagesViewModal
                     visible={this.state.visible}
+                    index={this.state.index}
                     closeCallBack={() => {
-                        this.setState({ visible: false })
+                        this.setState({ visible: false,index:0 })
                     }}
-                    imageUrls={[{ url: iCard.img.url }]}/>}
+                    imageUrls={[{ url: iCard.img.url }, ...urlList]}/>}
                 <FlipButton
                     faceText={'马上\n参与'}
                     backText={'已参与'}
                     load={load}
                     flip={exist}
-                    animation={Platform.OS === 'ios'?'bounceIn':'bounceInRight'}
+                    animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
                     onPress={() => {
                         if (exist && iUseData) {
                             this.props.navigation.navigate('CardDetail', {
@@ -356,16 +365,21 @@ export default class CardInfo extends Component {
                     {course && course.title && this._renderCourse(course)}
 
 
-                    {describe &&<StyledDescirbe>
+                    {describe && <StyledDescirbe>
                         {'\t'}{describe}
                     </StyledDescirbe>}
 
-                    {imgs && imgs.map((item,index)=>{
+                    {imgs && imgs.map((item, index) => {
                         return (
-                            <StyledImg
-                                width={Dimensions.get('window').width -30}
-                                key={item.img.url + index}
-                                source={{uri:item.img.url}}/>
+                            <TouchableHighlight
+                                onPress={()=>[
+                                    this.setState({ visible: true,index:index+1 })
+                                ]}>
+                                <StyledImg
+                                    width={Dimensions.get('window').width - 30}
+                                    key={item.img.url + index}
+                                    source={{ uri: item.img.url }}/>
+                            </TouchableHighlight>
                         )
                     })}
                     <View style={{ height: 200 }}/>
@@ -380,7 +394,7 @@ const styles = StyleSheet.create({
     wrap: {
         flex: 1,
         padding: 15,
-        overflow:'hidden',
+        overflow: 'hidden',
     },
     img: {
 

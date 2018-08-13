@@ -36,13 +36,13 @@ export default class CourseRow extends Component {
     render(): ReactElement<any> {
 
 
-        const { item } = this.props
+        const { item , onPress } = this.props
         const { text, img } = item
         const url = img.url
 
         return (
             <StyledRow>
-                <StyledRowInner>
+                <StyledRowInner onPress={onPress}>
                     <StyledImg
                         key={'img'}
                         width={Dimensions.get('window').width - 30}

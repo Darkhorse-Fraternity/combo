@@ -19,7 +19,7 @@ import {
     COURSE,
 } from '../../../redux/reqKeys'
 import CourseRow from './CourseRow'
-
+import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
@@ -35,7 +35,10 @@ export default class CourseRowList extends Component {
     constructor(props: Object) {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
+        this.state = {
+            visible: false,
+            index:0
+        }
     }
 
     static propTypes = {};
@@ -49,11 +52,31 @@ export default class CourseRowList extends Component {
         ppt = ppt && ppt.toJS()
         console.log('ppt:', ppt);
 
-        return ppt ? ppt.map((item,index)=>{
+        const urlList = ppt && ppt.map(item => {
+            return {
+                url: item.img.url
+            }
+        }) || []
+
+
+        return ppt ? [
+            <ImagesViewModal
+                visible={this.state.visible}
+                index={this.state.index}
+                closeCallBack={() => {
+                    this.setState({ visible: false,index:0 })
+                }}
+                imageUrls={ [...urlList]}/>,
+            ...ppt.map((item,index)=>{
             return (
-                <CourseRow key={index} item ={item} />
+                <CourseRow
+                    onPress={()=>{
+                        this.setState({ visible: true,index:index })
+                    }}
+                    key={index}
+                    item ={item} />
             )
-        }):[];
+        })]:[];
     }
 }
 

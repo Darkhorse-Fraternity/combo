@@ -33,11 +33,13 @@ export default class ImagesViewModals extends Component {
     static propTypes = {
         imageUrls: PropTypes.array.isRequired,
         visible:PropTypes.bool,
-        closeCallBack:PropTypes.func.isRequired
+        closeCallBack:PropTypes.func.isRequired,
+        index:PropTypes.number
     };
     static defaultProps = {
         height: 250,
-        visible:false
+        visible:false,
+        index:0
     };
 
 
@@ -67,7 +69,7 @@ export default class ImagesViewModals extends Component {
 
     render() {
 
-        const { imageUrls ,visible,closeCallBack} = this.props
+        const { imageUrls ,visible,closeCallBack,index} = this.props
 
         // console.log('test:', imageUrls);
         return (
@@ -83,6 +85,7 @@ export default class ImagesViewModals extends Component {
                     )}
                     <ImageViewer
                         imageUrls={imageUrls||[]}
+                        index={index}
                         onCancel={() => {
                             // this.setState({ visible: false })
                             closeCallBack && closeCallBack()
