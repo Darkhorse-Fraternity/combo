@@ -6,6 +6,7 @@
 
 import styled from "styled-components";
 import Button from '../../components/Button'
+import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -13,18 +14,17 @@ export const StyledContent = styled.View`
 `
 
 export const StyledButton = styled(Button)`
-         border-bottom-color:  #c8c8c8;
-        border-bottom-width: ${props => props.theme.hairlineWidth};
-        padding: 20px 15px;
+ 
+        padding: 20px 40px;
         flex-direction: row;     
         justify-content: space-between;
         align-items: center;
 `
 
 export const StyledAvatar = styled.Image`
-    width:60px;
-    height: 60px;
-    border-radius: 30px;
+    width:70px;
+    height: 70px;
+    border-radius: 35px;
     
 `
 
@@ -40,17 +40,42 @@ export const StyledArrow = styled.View`
 
 export const StyledTitle = styled.Text`
     color: #333333;
-    font-size: 14px;
+    font-size: 17px;
+    font-weight: 600;
 `
 
 export const StyledDes = styled.Text`
-    color: #333333;
+    color: #a4a4a4;
     font-size: 14px;
 `
+
+export const StyledCaramerBackView = styled.View`
+    background-color:${props=> props.theme.mainColor};
+    width:30px;
+    height: 30px;
+    border-radius: 15px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    margin-left: -20px;
+`
+
+export const StyledIcon = styled(Icon)`
+
+`
+
 
 export const StyledRow = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
+`
+
+export const StyledHeaderRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
@@ -58,4 +83,19 @@ export const StyledActivityIndicator = styled.ActivityIndicator`
      width: 10px;
     height: 10px;
 
+`
+
+export const StyledInput = styled.TextInput`
+    font-size: 17px;
+    background-color: ${props=>props.theme.textinputbackgroundColor};
+    width: ${props=>props.theme.width - 40};
+    text-align: center;
+    padding: 15px;
+    margin: 10px 0px;
+    border-radius: 5px;
+`
+
+export const StyledHeader = styled.View`
+  align-items: center;
+  justify-content: center;
 `

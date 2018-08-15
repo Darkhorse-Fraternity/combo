@@ -1,7 +1,7 @@
 /* @flow */
 'use strict';
 import React from 'react';
-import {} from 'react-native'
+import { View } from 'react-native'
 import { showImagePicker } from '../../components/ImagePicker/imagePicker'
 import { connect } from 'react-redux'
 import { uploadAvatar } from '../../redux/actions/util'
@@ -18,11 +18,24 @@ import {
     StyledTitle,
     StyledRow,
     StyledDes,
-    StyledActivityIndicator
+    StyledActivityIndicator,
+    StyledIcon,
+    StyledCaramerBackView,
+    StyledHeaderRow,
+    StyledInput,
+    StyledHeader
 } from './style'
 import * as WeChat from 'react-native-wechat';
-
-import {WECHATLOGIN, QQLOGIN} from '../../redux/reqKeys'
+import {updateNickName} from '../../request/leanCloud'
+import {updateUserData} from '../../redux/actions/user'
+import Toast from 'react-native-simple-toast';
+import {req} from '../../redux/actions/req'
+import {
+    WECHATLOGIN,
+    QQLOGIN,
+    UPDATENICKNAME
+} from '../../redux/reqKeys'
+import Button from "../../components/Button/InButton/index";
 
 @connect(
     state => ({
@@ -57,11 +70,28 @@ import {WECHATLOGIN, QQLOGIN} from '../../redux/reqKeys'
         mobilePhoneNumBinding: () => {
 
         },
-        brekeBinding:(key,loadKey)=>{
-            dispatch(breakBinding(key,loadKey))
+        brekeBinding: (key, loadKey) => {
+            dispatch(breakBinding(key, loadKey))
+        },
+        update: (nickname) => {
+
+            dispatch(async (dispatch, getState) => {
+
+                const user = getState().user.data
+                const params = updateNickName(user.objectId, nickname);
+
+                await req(params, UPDATENICKNAME)
+
+
+                Toast.show('修改成功');
+                //修改store
+                dispatch(updateUserData({ nickname }))
+                // props.navigation.goBack()
+
+
+            })
+
         }
-
-
 
     })
 )
@@ -70,9 +100,12 @@ export default class PersonInfo extends React.Component {
 
     constructor(props: Object) {
         super(props);
-        this.state = {isWXAppInstalled:false}
-        WeChat.isWXAppInstalled().then(isWXAppInstalled =>{
-            this.setState({isWXAppInstalled})
+        this.state = {
+            isWXAppInstalled: false ,
+            nickname:props.user.nickname
+        }
+        WeChat.isWXAppInstalled().then(isWXAppInstalled => {
+            this.setState({ isWXAppInstalled })
         })
     }
 
@@ -85,15 +118,40 @@ export default class PersonInfo extends React.Component {
         const source = avatarUrl ? { uri: avatarUrl } : my_head
 
         return (
-            <StyledButton onPress={onPress}>
-                <StyledTitle>修改头像</StyledTitle>
-                <StyledRow>
-                    <StyledAvatar
-                        source={source}
-                    />
-                    <StyledArrow/>
-                </StyledRow>
-            </StyledButton>
+            <StyledHeader>
+                <Button onPress={onPress}>
+                    {/*<StyledTitle>修改头像</StyledTitle>*/}
+                    <StyledHeaderRow>
+                        <StyledAvatar
+                            source={source}
+                        />
+                        <StyledCaramerBackView>
+                            <StyledIcon
+                                color={'white'}
+                                size={15}
+                                name={'camera'}/>
+                        </StyledCaramerBackView>
+                        {/*<StyledArrow/>*/}
+                    </StyledHeaderRow>
+                </Button>
+
+                <StyledInput
+                    ref="nameInput"
+                    placeholder={'请输入昵称'}
+                    onChangeText={(text)=>{
+                        this.setState({nickname:text})
+                    }}
+                    maxLength={30}
+                    blurOnSubmit={true}
+                    onSubmitEditing={()=>{
+                        this.props.update(this.state.nickname)
+                    }}
+                    underlineColorAndroid='transparent'
+                    defaultValue={this.props.user.nickname}
+                    enablesReturnKeyAutomatically={true}
+                    returnKeyType='done'
+                />
+            </StyledHeader>
         );
     }
 
@@ -101,8 +159,7 @@ export default class PersonInfo extends React.Component {
     _renderRow(title: string,
                des: string,
                onPress: Function,
-               load:bool
-    ) {
+               load: bool) {
         return (
             <StyledButton
                 disabled={load}
@@ -112,7 +169,7 @@ export default class PersonInfo extends React.Component {
                     <StyledDes>
                         {des}
                     </StyledDes>
-                    {load? <StyledActivityIndicator/>:<StyledArrow/>}
+                    {load ? <StyledActivityIndicator/> : <View/>}
                 </StyledRow>
             </StyledButton>
         );
@@ -142,15 +199,15 @@ export default class PersonInfo extends React.Component {
         const { authData, mobilePhoneVerified } = user
         const { weixin, qq } = authData || {}
 
-        console.log('authData:', authData);
+        // console.log('authData:', authData);
 
 
         return (
             <StyledContent>
                 {this._renderHeadRow(this.props.picker)}
-                {this._renderRow('昵称', this.props.user.nickname, () => {
-                    this.props.navigation.navigate("NickName");
-                })}
+                {/*{this._renderRow('昵称', this.props.user.nickname, () => {*/}
+                {/*this.props.navigation.navigate("NickName");*/}
+                {/*})}*/}
                 {/*{this._renderRow('手机号码', mobilePhoneVerified ? '已绑定' : '点击绑定', () => {*/}
 
                 {/*//     !!weixin ?this.props.mobilePhoneNumBinding()*/}
@@ -158,16 +215,16 @@ export default class PersonInfo extends React.Component {
                 {/*})}*/}
 
 
-                {this.stateisWXAppInstalled &&this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
-                    !!weixin ?this.props.brekeBinding('weixin',WECHATLOGIN)
-                        :this.props.wechatBinding()
+                {this.stateisWXAppInstalled && this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
+                    !!weixin ? this.props.brekeBinding('weixin', WECHATLOGIN)
+                        : this.props.wechatBinding()
 
-                },this.props.wechatLoad)}
+                }, this.props.wechatLoad)}
 
-                {this._renderRow('QQ', !!qq ? '解除绑定' : '点击绑定', ()=>{
-                    !!qq ?this.props.brekeBinding('qq',QQLOGIN)
-                        :this.props.qqBinding()
-                },this.props.qqLoad)}
+                {this._renderRow('QQ', !!qq ? '解除绑定' : '点击绑定', () => {
+                    !!qq ? this.props.brekeBinding('qq', QQLOGIN)
+                        : this.props.qqBinding()
+                }, this.props.qqLoad)}
 
 
                 {/*{this._renderRow('手机号码修改', this.props.user.nickname, () => {*/}
