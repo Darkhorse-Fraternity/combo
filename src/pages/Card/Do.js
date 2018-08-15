@@ -16,9 +16,9 @@ import {
     findNodeHandle,
     Keyboard,
 } from 'react-native'
-import {BlurView as BlurViewIOS} from 'react-native-blur';
+import {BlurView} from 'react-native-blur';
 
-const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
+// const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
 import {uploadImages} from '../../redux/actions/util'
 import Pop from '../../components/Pop'
 import {connect} from 'react-redux'
@@ -98,9 +98,7 @@ export default class  extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {
-            backgroundView: null,
-            recordText: '',
-            files: []
+            viewRef: null,
         }
     }
 
@@ -140,19 +138,19 @@ export default class  extends Component {
                 onStartShouldSetResponder={() => true}
                 onResponderGrant={Keyboard.dismiss}
                 ref={(e) => {
-                    if (this.state.backgroundView === null && Platform.OS === 'ios') {
-                        this.setState({backgroundView: findNodeHandle(e)})
+                    if (this.state.viewRef === null && Platform.OS === 'ios') {
+                        this.setState({viewRef: findNodeHandle(e)})
                     }
                 }}
                 style={[this.props.style, styles.wrap, {
                     backgroundColor: Platform.OS === 'ios' ?
-                        'transparent' : 'rgba(255,255,255,0.95)'
+                        'transparent' : 'rgba(255,255,255,1)'
                 }]}>
-                {Platform.OS === 'ios' && this.state.backgroundView && (<BlurView
+                {this.state.viewRef && (<BlurView
                     style={[styles.absolute]}
-                    viewRef={this.state.backgroundView}
+                    viewRef={this.state.viewRef}
                     blurType="xlight"
-                    blurAmount={3}
+                    blurAmount={15}
                 />)}
                 <View/>
                 <DoCardForm

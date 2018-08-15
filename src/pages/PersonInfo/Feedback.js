@@ -15,7 +15,7 @@ import {feedbackParam} from '../../request/leanCloud'
 import {connect} from 'react-redux'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import {FEEDBACKPARAM} from '../../redux/reqKeys'
-import {mainColor} from '../../Theme'
+import {mainColor} from '../../Theme/index'
 
 @connect(
     (state, props) => ({
@@ -132,12 +132,14 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        backgroundColor: 'white',
+        backgroundColor: '#f6f7f9',
         height: 168,
         color: '#333333',
-        fontSize: 14,
+        fontSize: 17,
         marginTop: 25,
         textAlignVertical: 'top',
+        borderRadius:5,
+        padding:10,
     },
     textStyle: {
         marginTop: 5,
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
 
     },
     headerTitle: {
-        fontSize: 17,
+        fontSize: 20,
     },
 
 });

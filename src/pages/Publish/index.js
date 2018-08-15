@@ -92,7 +92,8 @@ export default class Publish extends Component {
         const param = {
             'where': {
                 ...selfUser(),
-                state:{"$ne":-1}
+                state:{"$ne":-1},
+                useNum:{"$gt":1}
             }
         }
         return (

@@ -38,6 +38,7 @@ const selector = formValueSelector(FormID) // <-- same as form name
 
 import {StyledContent} from './style'
 import { TextInput } from '../../../components/Form/Cunstom/index'
+import Toast from 'react-native-simple-toast'
 //static displayName = Creat
 
 import HeaderBtn from '../../../components/Button/HeaderBtn'
@@ -197,7 +198,13 @@ export default class Creat extends Component {
         // if (step === 2) {
         //     this.props.add()
         // }
-        this.setState({ optionOpen: true })
+        if(this.props.title && this.props.title.length >0){
+            this.setState({ optionOpen: true })
+        }else {
+            Toast.show('标题不可为空')
+       }
+
+
     }
 
     __backStep = (handle) => {

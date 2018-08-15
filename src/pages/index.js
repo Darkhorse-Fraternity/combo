@@ -1,7 +1,6 @@
 import {Platform} from 'react-native'
 
 
-import Setting from './Setting'
 import Home from './Home'
 import Creat from './NewCard/CardConfig/Creat'
 import NewCard from './NewCard'
@@ -11,11 +10,11 @@ import RecordDetail from './Record/Detail'
 import Publish from './Publish/index'
 import PublishDetail from './Publish/Detail'
 import Serve from './Publish/Serve'
-import LoginView from './Setting/Login/LoginView'
+import LoginView from './PersonInfo/Login/LoginView'
 import PersonCenter from './PersonInfo/PersonCenter'
 import PersonInfo from './PersonInfo'
 import NickName from './PersonInfo/NickName'
-import Feedback from './Setting/Feedback'
+import Feedback from './PersonInfo/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
 import RComment from './Record/RComment'
@@ -31,7 +30,6 @@ import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 
 
 export const otherRoute = {
-    Setting: {screen: Setting},
     CourseChoose:{screen: CourseChoose},
     CourseCreat:{screen: CourseCreat},
     CourseRelease:{screen: CourseRelease},

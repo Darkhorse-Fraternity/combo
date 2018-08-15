@@ -6,7 +6,7 @@
 
 import styled from "styled-components";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Button from '../../../components/Button'
+import Button from '../../../components/Button/index'
 import LinearGradient from 'react-native-linear-gradient';
 
 export const StyledContent = styled(LinearGradient)`

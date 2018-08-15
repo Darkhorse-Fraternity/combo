@@ -9,6 +9,9 @@ export default {
     contentColor: 'white',
     mainColor: '#F3AC41',
     mainLightColor: '#F0C98B',
+    textinputbackgroundColor:'#f6f7f9',
+    disabledColor:'#bfc2c7',
+    sureColor:'#39ba98',
     width:width,
     height:height,
     normalBtn:{

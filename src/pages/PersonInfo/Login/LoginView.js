@@ -40,7 +40,7 @@ import {
     StyledImage,
     SyledImageName
 } from './style'
-import { mainColor } from '../../../Theme'
+import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 

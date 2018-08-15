@@ -30,7 +30,7 @@ export default class SmallDoneBtn extends Component {
                 disabled={disabled}
                 style={[styles.btn,{
                     paddingVertical:this.props.load?5:7,
-                    backgroundColor:disabled?'rgb(150,150,150)':'black'
+                    backgroundColor:disabled?'#bfc2c7':'black'
                 }, this.props.style]}
                 hitSlop={this.props.hitSlop ||
                 {top: 20, left: 50, bottom: 20, right: 50}}

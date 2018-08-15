@@ -9,6 +9,7 @@ import {
     View,
     Image,
     RefreshControl,
+    Platform
 } from 'react-native'
 import Button from '../../../components/Button'
 
@@ -21,7 +22,15 @@ import {
     StyleHeader,
     StyledHeaderTop,
     StyledHeaderName,
-    StyledHeaderSubText
+    StyledHeaderSubText,
+    StyledAvatar,
+    StyledAvatarView,
+    StyledIcon,
+    StyledFollowTextView,
+    StyleFollowTextNum,
+    StyledFuncView,
+    StyledIncome,
+    StyledEntypoIcon
 } from './style'
 import { req, } from '../../../redux/actions/req'
 import {
@@ -30,6 +39,9 @@ import {
 import {
     friendNum,
 } from '../../../request/leanCloud'
+import Rate, { AndroidMarket } from 'react-native-rate'
+import DeviceInfo from 'react-native-device-info'
+import {logout} from '../../../redux/actions/user'
 
 @connect(
     state => ({
@@ -39,13 +51,43 @@ import {
     }),
     dispatch => ({
         loadFriendNum: () => {
-            dispatch((dispatch,getState)=>{
+            dispatch((dispatch, getState) => {
                 const userId = getState().user.data.objectId
                 const param = friendNum(userId)
                 req(param, FRIENDNUM + userId)
             })
-
         },
+        logout: () =>{
+            dispatch(logout());
+        },
+
+        rate:()=>{
+            let url = ''
+            const IOS_APP_ID = '1332546993'
+            if (Platform.OS === 'ios') {
+
+                url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`
+            } else {
+                url = 'market://details?id=' + DeviceInfo.getBundleId()
+            }
+            // Linking.openURL(url)
+
+
+            let options = {
+                AppleAppID:IOS_APP_ID,
+                preferredAndroidMarket: AndroidMarket.Other,
+                OtherAndroidURL:url,
+                openAppStoreIfInAppFails:true,
+                fallbackPlatformURL:"https://icard.leanapp.cn/",
+            }
+            Rate.rate(options, (success)=>{
+                if (success) {
+                    console.log('Rate success');
+                    // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
+                    // this.setState({rated:true})
+                }
+            })
+        }
     })
 )
 
@@ -75,27 +117,74 @@ export default class PersonCenter extends Component {
         this.props.loadFriendNum()
     }
 
-    _renderHeadRow(data: Object, onPress: Function = () => {
-    }) {
+    _renderHeadRow() {
         // let {grade_str,connect_phone} = data;
         // console.log('test111:',data.avatar.url)
-        const name = data.nickname  ||  '陌生人'
-        const tip =  '点击查看或编辑个人资料'
+
+        const { data } = this.props.user
+
+        const name = data.nickname || '陌生人'
+        const { avatar, headimgurl, } = data
+        const avatarUrl = avatar ? avatar.url : headimgurl
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
+            require('../../../../source/img/my/icon-60.png')
+
+
         return (
             <StyleHeader>
-                <StyledHeaderTop onPress={onPress}>
-                        <StyledHeaderName >
-                            -{name}
-                        </StyledHeaderName>
-                        <StyledHeaderSubText >{tip}</StyledHeaderSubText>
+                <StyledHeaderTop onPress={() => {
+                    this.props.navigation.navigate('PersonInfo')
+                }}>
+                    <StyledHeaderName>
+                        {name}
+                    </StyledHeaderName>
+                    <StyledAvatarView>
+                        <StyledAvatar source={avatarSource}/>
+                        <View style={{
+                            marginTop: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center'
+                        }}>
+                            <StyledIcon
+                                color={"#c1c1c1"}
+                                size={13}
+                                name={'edit'}/>
+                            <StyledHeaderSubText>编辑</StyledHeaderSubText>
+                        </View>
+                    </StyledAvatarView>
                 </StyledHeaderTop>
+
+                {this._renderFunction()}
                 {this._renderFollow()}
             </StyleHeader>
         );
     }
+
+
+    _renderFunction = () => {
+        return (
+            <Button onPress={()=>{
+
+            }}>
+                <StyledFuncView>
+
+                    <StyledIncome>
+                        我的收益
+                    </StyledIncome>
+
+                    <StyledEntypoIcon
+                        color={"#c1c1c1"}
+                        size={20}
+                        name={'triangle-right'}
+                    />
+                </StyledFuncView>
+            </Button>
+        )
+    }
+
     _renderFollow = () => {
 
-        const { friendNum,navigation } = this.props
+        const { friendNum, navigation } = this.props
         let followers_count = 0, followees_count = 0
         const friendNumData = friendNum && friendNum.toJS()
 
@@ -105,118 +194,121 @@ export default class PersonCenter extends Component {
             followees_count = friendNumData.data.followees_count
         }
 
+        if (followers_count + followees_count === 0) {
+            return null;
+        }
+
         return (
             <StyleFolllow>
-                <Button
-                    innerView
-                    onPress={()=>{
-                    navigation.navigate('Followee',{userId:this.props.user.data.objectId});
-                }}>
+                {followees_count > 0 && <Button
+                    style={{ alignItems: 'center' }}
+                    onPress={() => {
+                        navigation.navigate('Followee', { userId: this.props.user.data.objectId });
+                    }}>
+
+                    <StyledFollowTextView>
+                        <StyleFollowTextNum>
+                            {followees_count}
+                        </StyleFollowTextNum>
+                    </StyledFollowTextView>
+
                     <StyleFollowText>
-                        关注: {followees_count}
+                        关注
                     </StyleFollowText>
-                </Button>
+                </Button>}
                 <StyleFollowDevide/>
-                <Button innerView onPress={()=>{
-                    navigation.navigate('Follower',{userId:this.props.user.data.objectId});
-                }}>
+                {followers_count > 0 && <Button
+                    style={{ alignItems: 'center' }}
+                    onPress={() => {
+                        navigation.navigate('Follower', { userId: this.props.user.data.objectId });
+                    }}>
+                    <StyledFollowTextView>
+                        <StyleFollowTextNum>
+                            {followers_count}
+                        </StyleFollowTextNum>
+                    </StyledFollowTextView>
                     <StyleFollowText>
-                        被关注：{followers_count}
+                        被关注
                     </StyleFollowText>
-                </Button>
+                </Button>}
             </StyleFolllow>
         )
     }
 
 
-
     __renderLoginRow() {
         const navigation = this.props.navigation
         return (
-            <View>
-                {this._renderRow('圈子管理', styles.group, true, () => {
+            <View style={{marginTop:10}}>
+                {this._renderRow('圈子管理', true, () => {
                     navigation.navigate('Publish');
                 })}
-                {this._renderRow('打卡记录', styles.group, true, () => {
+                {this._renderRow('打卡记录', true, () => {
                     navigation.navigate('Record');
                 })}
-
-                {/*{this._renderRow('我的服务', styles.group, true, () => {*/}
-                {/*navigation.navigate('iServe');*/}
-                {/*})}*/}
 
                 {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
                 {/*navigation.navigate('iCollect');*/}
                 {/*})}*/}
-
-
-                {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
-
+                <View style={{height:25}}/>
+                {/*{this._renderRow('设置', true, () => {*/}
+                    {/*navigation.navigate('Setting');*/}
                 {/*})}*/}
-                {this._renderRow('设置', styles.group, true, () => {
-                    navigation.navigate('Setting');
+
+                {this._renderRow('意见反馈', false, () => {
+                    // NavigationManager.goToPage("Feedback");
+                    navigation.navigate("Feedback");
                 })}
 
+                {this._renderRow('给个评价', false,  this.props.rate)}
+
+
+                {this._renderRow('退出登录', false,this.props.logout)}
+                <View style={{height:25}}/>
             </View>
         )
     }
 
     render() {
-        // let leftCourseTime = this.state.userCenterData.left_course_time || 0;
-        // let courseTimeStr = '剩余课时: '+leftCourseTime+'课时';
-        const isLogin = this.props.user.isLogin
-        const navigation = this.props.navigation
         return (
             <StyledContent>
-                {this._renderHeadRow(this.props.user.data, () => {
-                    isLogin ? navigation.navigate('PersonInfo') : navigation.navigate('RegPhone')
+                {this._renderHeadRow()}
 
-                })}
-
-
-                {isLogin && this.__renderLoginRow()}
+                {this.__renderLoginRow()}
 
             </StyledContent>
         );
     }
 
 
-
-    _renderRow(title: string, style: any, isArraw: bool = false, onPress: Function = () => {
+    _renderRow(title: string, isArraw: bool = false, onPress: Function = () => {
     }, description: any = null) {
         return (
-            <Button onPress={onPress} style={style}>
-                <View style={styles.row}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-                        {/*<Image
+            <Button onPress={onPress} style={[styles.row]}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                    {/*<Image
                          resizeMode='contain'
                          source={source}
                          style={styles.imageNail}
                          />*/}
-                        <Text style={styles.rowText}>
-                            {title}
-                        </Text>
-                    </View>
-                    <View style={styles.row2}>
-                        {description ? <Text style={styles.description}>{description}</Text> : null}
-                        {isArraw ? <View style={styles.arrowView}/> : null}
-                    </View>
+                    <Text style={styles.rowText}>
+                        {title}
+                    </Text>
+                </View>
+                <View style={styles.row2}>
+                    {description ? <Text style={styles.description}>{description}</Text> : null}
+                    {/*{isArraw ? <View style={styles.arrowView}/> : null}*/}
                 </View>
             </Button>
         );
     }
 
 
-
 }
 
 const styles = StyleSheet.create({
 
-    group: {
-        // marginBottom: 7，
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
-    },
+
     head: {
         marginBottom: 7,
         flexDirection: 'row',
@@ -239,7 +331,7 @@ const styles = StyleSheet.create({
     },
     row: {
         paddingHorizontal: 15,
-        paddingVertical: 25,
+        paddingVertical: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -261,8 +353,9 @@ const styles = StyleSheet.create({
     },
     rowText: {
         marginLeft: 10,
-        fontSize: 14,
-        color: '#333333',
+        fontSize: 19,
+        fontWeight:'500',
+        // color: '#333333',
     },
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 2,

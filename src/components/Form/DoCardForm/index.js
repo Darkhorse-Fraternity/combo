@@ -84,7 +84,10 @@ export default class ChatSendForm extends Component {
     __textType = () => {
 
         return (
-            <View style={{marginBottom:10}}>
+            <View style={{
+                borderRadius:5,
+                marginBottom:10,
+                backgroundColor:'#f6f7f9'}}>
                 {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
                 <AutoGrowingInput
                     // placeholderTextColor="rgba(180,180,180,1)"
@@ -98,7 +101,6 @@ export default class ChatSendForm extends Component {
                     clearButtonMode='while-editing'
                     enablesReturnKeyAutomatically={true}
                 />
-                <StyledLine/>
             </View>
         )
     }

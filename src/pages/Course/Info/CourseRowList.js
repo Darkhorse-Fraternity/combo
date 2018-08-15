@@ -50,7 +50,7 @@ export default class CourseRowList extends Component {
         const { course } = this.props
         let ppt = course.get('ppt')
         ppt = ppt && ppt.toJS()
-        console.log('ppt:', ppt);
+        // console.log('ppt:', ppt);
 
         const urlList = ppt && ppt.map(item => {
             return {
@@ -61,6 +61,7 @@ export default class CourseRowList extends Component {
 
         return ppt ? [
             <ImagesViewModal
+                key={'ImagesViewModal'}
                 visible={this.state.visible}
                 index={this.state.index}
                 closeCallBack={() => {
