@@ -58,6 +58,13 @@ export default class CardDetail extends Component {
     };
 
 
+
+    _afterDone = ()=>{
+
+        console.log('_afterDone:', '_afterDone');
+
+    }
+
     __renderRightView = () => {
 
         const { navigation } = this.props;
@@ -120,12 +127,17 @@ export default class CardDetail extends Component {
                     tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
                     // tabBarPosition ='bottom'
                 >
-                    {useNum > 1 && <Course {...this.props} tabLabel='课程'/>}
-                    <Agenda {...this.props} tabLabel={useNum <= 1 ? title : "统计"}/>
+                    {useNum > 1 &&
+                    <Course {...this.props}
+                            tabLabel='课程'/>}
+                    <Agenda {...this.props}
+                            tabLabel={useNum <= 1 ? title : "统计"}/>
                     {/*<Info {...this.props} tabLabel="设置"/>*/}
                 </ScrollableTabView>
 
-                <DoCardButton {...this.props} />
+                <DoCardButton
+                    afterDone={this._afterDone}
+                    {...this.props} />
             </StyledContent>
         );
     }

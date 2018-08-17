@@ -71,7 +71,7 @@ import {
         loadFriendNum: () => {
             const userId = props.navigation.state.params.user.objectId
             const param = friendNum(userId)
-            console.log('test000:', userId);
+            // console.log('test000:', userId);
             req(param, FRIENDNUM + userId)
         },
         loadfriendExist: () => {

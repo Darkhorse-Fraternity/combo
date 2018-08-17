@@ -92,6 +92,11 @@ export default class CardDetail extends Component {
     static defaultProps = {};
 
 
+    componentDidMount() {
+        console.log('this.refs:', this.refs);
+    }
+
+
     _renderRow = (title, des) => {
         return (
             <StyledRow>
@@ -129,7 +134,8 @@ export default class CardDetail extends Component {
         return (
             <StyledInner
                 colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']} >
-                <AgendaScreen {...this.props}/>
+                <AgendaScreen
+                    {...this.props}/>
                 <StyledTitleView>
                     <StyledTitleText>
                         习惯统计
@@ -178,6 +184,7 @@ export default class CardDetail extends Component {
 
         return (
                 <LCList
+                    ref={'list'}
                     ListHeaderComponent={this._renderHeader}
                     reqKey={listKey}
                     style={{ flex: 1 }}

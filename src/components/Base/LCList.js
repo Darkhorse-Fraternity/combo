@@ -27,10 +27,25 @@ import { denormalize } from 'normalizr'
     }),
     (dispatch, props) => {
         const mSearch = props.search || search
+        const {
+            reqKey,
+            sKey,
+            dataMap,
+            callPath,
+            loadData,
+            reqParam
+        } = props
+
+
         return {
             //...bindActionCreators({},dispatch),
-            load: (...args) => dispatch(mSearch(...args)),
-            loadMore: (...args) => dispatch(mSearch(...args)),
+            loadData: (more = false) => dispatch(mSearch(more,
+                reqParam,
+                reqKey, {
+                    sKey,
+                    dataMap
+                },
+                callPath)),
         }
     }
 )
@@ -44,9 +59,8 @@ export default class LCList extends Component {
         reqParam: PropTypes.object.isRequired,
         reqKey: PropTypes.string.isRequired,
         sKey: PropTypes.string,
-        load: PropTypes.func.isRequired,
-        loadMore: PropTypes.func,
-        callPath: PropTypes.string //不为空则表示走leancloud 的云函数
+        callPath: PropTypes.string, //不为空则表示走leancloud 的云函数
+        search: PropTypes.func
     };
 
     static defaultProps = {
@@ -63,8 +77,9 @@ export default class LCList extends Component {
     componentWillReceiveProps(nextProps: Object) {
 
         //只进行值比较
-        if (JSON.stringify(nextProps.reqParam) !== JSON.stringify(this.props.reqParam)) {
-            this.loadData(nextProps.reqParam)
+        if (JSON.stringify(nextProps.reqParam)
+            !== JSON.stringify(this.props.reqParam)) {
+            this.loadData()
         }
 
     }
@@ -77,70 +92,40 @@ export default class LCList extends Component {
     }
 
 
-    loadData: Function
-
     render(): ReactElement<any> {
-        if (!this.props.reqParam) {
-            return (<BaseSectionView
-                {...this.props}
-                loadData={() => {
-                }}
-                renderHeader={this.props.ListHeaderComponent}
-            />)
-        }
 
 
-        const loadStatu = this.props.data.get('loadStatu')
+        const {
+            data,
+            loadData
+        } = this.props
+
+        // if (!reqKey) {
+        //     console.error('ReqListView传入的reqKey 不能为空~');
+        // }
 
 
-        // console.log('test111:', loadStatu);
-        // console.log('this.props.loadStatu:', loadStatu);
+        // if (!reqParam) {
+        //     return (<BaseSectionView
+        //         {...this.props}
+        //         loadData={() => {
+        //         }}
+        //         renderHeader={this.props.ListHeaderComponent}
+        //     />)
+        // }
 
-
-        const listData = this.props.data.get('listData')
-        let listDataKey = !listData?[]:listData.toJS()
-        // listData = listData && listData.toJS()
-        // console.log('listDataKey:', listDataKey);
-
-        const data = !this.props.afterDataMap
-            ? listDataKey
-            : this.props.afterDataMap(listDataKey) || listDataKey
-
-        const key = this.props.reqKey
-        if (!key) {
-            console.error('ReqListView传入的reqKey 不能为空~');
-        }
-
-        //  const sckeyData = { [key]: listDataKey }
-        //  const mySchema =  schemas[key]
-        //  const normalizrData = {[key]:this.props.normalizrData.toJS()}
-        //  const listData = denormalize(sckeyData,mySchema,normalizrData)[key];
-        //  console.log('sckeyData:',sckeyData);
-        //  console.log('mySchema:', mySchema);
-        //  console.log('normalizrData:', normalizrData);
-        // console.log('listData:', listData);
-
-        const reqParam = this.props.reqParam
-        const dataMap = this.props.dataMap
-        const sKey = this.props.sKey //指定存入redux store 的key
-        const loadData = (param) => this.props.load(false, param, key, {
-            sKey,
-            dataMap
-        }, this.props.callPath)
-        const loadMore = () => this.props.loadMore(true, reqParam, key, {
-            sKey,
-            dataMap
-        }, this.props.callPath)
-        this.loadData = loadData
+        const modal = data && data.toJS() || {}
+        const { loadStatu, listData = [] } = modal
+        const afterDataMap = this.props.afterDataMap &&
+            this.props.afterDataMap(listData) || listData
 
 
         return (
             <BaseSectionView
                 {...this.props}
-                renderHeader={this.props.ListHeaderComponent}
-                loadData={() => loadData(reqParam)}
-                loadMore={loadMore}
-                data={data}
+                loadData={this.props.loadData}
+                loadMore={() => this.props.loadData(true)}
+                data={afterDataMap}
                 loadStatu={loadStatu}
                 renderItem={this.__renderItem.bind(this)}
             />

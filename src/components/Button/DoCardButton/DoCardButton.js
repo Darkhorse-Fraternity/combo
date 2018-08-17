@@ -34,7 +34,7 @@ import { connect } from 'react-redux'
     }),
     (dispatch, props) => ({
         doCard: (data) => {
-            dispatch(doCardWithNone(data))
+          return  dispatch(doCardWithNone(data))
         },
 
     })
@@ -61,6 +61,7 @@ export default class DoCardButton extends Component {
     static propTypes = {
         iUse: PropTypes.object.isRequired,
         animation:PropTypes.string,
+        afterDone:PropTypes.func
 
     };
     static defaultProps = {
@@ -98,10 +99,12 @@ export default class DoCardButton extends Component {
                 // animation={}
                 load={load}
                 flip={this.state.statu !== 0}
-                onPress={() => {
+                onPress={async () => {
                     let { iUse } = this.props
                     iUse = iUse && iUse.toJS()
-                    this.props.doCard(iUse)
+                    // await this.props.doCard(iUse)
+                    this.props.afterDone &&  this.props.afterDone()
+
                 }}
                 containStyle={{width:70,height:70,borderRadius:35}}
                 style={{ zIndex: 10,

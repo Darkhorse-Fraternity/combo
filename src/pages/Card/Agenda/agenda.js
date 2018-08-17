@@ -15,7 +15,7 @@ import { classSearch } from '../../../request/leanCloud'
 import { IDO, IDOCALENDAR } from '../../../redux/reqKeys'
 // import {IRECORD, ICARD,IUSE} from '../../../redux/reqKeys'
 import { selfUser, iUse } from '../../../request/LCModle'
-import { req,clear } from '../../../redux/actions/req'
+import { req, clear } from '../../../redux/actions/req'
 
 import Calendar from '../../../components/Calendar'
 import moment from 'moment'
@@ -30,14 +30,15 @@ import { withTheme } from 'styled-components'
 
 @connect(
     state => ({
-        data:state.req.get(IDOCALENDAR)
+        data: state.req.get(IDOCALENDAR)
     }),
     (dispatch, props) => ({
         load: (first, last) => {
             //获取iDo
-            dispatch((dispatch,getState)=>{
+            dispatch((dispatch, getState) => {
 
-                const data = getState().req.get(IDOCALENDAR).get('data').toJS()
+                const state = getState()
+                const data = state.req.get(IDOCALENDAR).get('data').toJS()
 
                 const iUseId = props.navigation.state.params.iUseId
                 const param = {
@@ -51,20 +52,22 @@ import { withTheme } from 'styled-components'
                     }
                 }
                 const params = classSearch(IDO, param)
-                req(params,IDOCALENDAR,{dataMap:datas=>{
+                req(params, IDOCALENDAR, {
+                    dataMap: datas => {
 
-                    datas.results.forEach(item => {
-                        const date = moment(item.createdAt).format("YYYY-MM-DD")
-                        data[date] = item
-                    })
+                        datas.results.forEach(item => {
+                            const date = moment(item.createdAt).format("YYYY-MM-DD")
+                            data[date] = item
+                        })
 
-                    // console.log('first:', first,datas,data);
-                    return data
-                }})
+                        // console.log('first:', first,datas,data);
+                        return data
+                    }
+                })
 
             })
         },
-        clear:()=>dispatch(clear(IDOCALENDAR)),
+        clear: () => dispatch(clear(IDOCALENDAR)),
     })
 )
 
@@ -75,10 +78,20 @@ export default class AgendaScreen extends Component {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.props.clear()
+        this.state ={
+
+        }
     }
 
 
+    componentDidMount() {
+        // this.props.load()
+        this.refresh()
+    }
 
+    refresh = ()=>{
+        this.refs['calendar'] && this.refs['calendar'].move()
+    }
 
     render() {
 
@@ -89,15 +102,17 @@ export default class AgendaScreen extends Component {
 
 
         return (
-                <Calendar date={new Date()} load={load} fetchData={(item) => {
+            <Calendar
+                ref={'calendar'}
+                date={new Date()}
+                load={load}
+                fetchData={(item) => {
                     this.props.navigation.navigate('RComment', {
-                        iDoID: item.objectId })
+                        iDoID: item.objectId
+                    })
                 }} busyDay={data} move={this.props.load}/>
         );
     }
-
-
-
 
 
 }

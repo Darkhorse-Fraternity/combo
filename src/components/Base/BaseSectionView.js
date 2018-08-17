@@ -51,7 +51,6 @@ export default class BaseSectionView extends Component {
         noDataImg: PropTypes.number,
         noDataPrompt: PropTypes.string,
         noDataTips: PropTypes.string,
-        renderHeader: PropTypes.func,
     };
 
     static defaultProps = {
