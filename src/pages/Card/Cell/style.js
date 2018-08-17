@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, Platform } from 'react-native';
-// import { colors } from 'example/src/styles/index.style';
+// import { colors } from 'example/src/styles/index.js.style';
 const colors = {
     black: '#1a1917',
     gray: '#888888',

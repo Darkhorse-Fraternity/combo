@@ -235,25 +235,10 @@ export default class Home extends Component {
 
         let data = this.props.data.toJS().listData
 
-        // data = data.filter(item=> item.statu !== 'del')
-        // if ((statu === 'LIST_NORMAL' || statu === 'LIST_LOAD_NO_MORE') && data.length === 0) {
-        //     return this.__renderNoData()
-        // }
-
-        // let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
-        // stopIUSEexist = !stopIUSEexist ? false : stopIUSEexist.get('count') > 0
-
-
-        // if (stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
-        //     && statu !== 'LIST_LOAD_DATA') {
-        //     data = [...data, -1];
-        // }
 
 
         return (
-
             (
-
                 <FlatList
                     refreshing={false}
                     onRefresh={()=>{

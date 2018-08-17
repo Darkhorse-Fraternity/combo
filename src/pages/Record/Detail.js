@@ -127,11 +127,10 @@ export default class Detail extends Component {
                 <Text style={styles.headerTitle}>{card.title}</Text>
                  <HeaderBtn
                     style={styles.headerBtn}
-                    title={'查看详情'}
+                    title={'加入'}
                     onPress={() => {
-                        navigation.navigate('CardDetail', {
-                            iUseId: iUse.objectId,
-                            iCardId: card.objectId
+                        navigation.navigate('CardInfo', {
+                            iCard: card
                         })
                     }}/>
             </View>
@@ -242,13 +241,15 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 20,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
     },
     headerTitle: {
         fontSize: 25,
     },
     headerBtn: {
-        marginTop: 10,
-        width: 85,
+        width: 65,
     },
     headerBtnText: {
         color: 'white',

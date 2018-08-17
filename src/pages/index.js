@@ -6,13 +6,13 @@ import Creat from './NewCard/CardConfig/Creat'
 import NewCard from './NewCard'
 import Record from './Record'
 import OptionView from './NewCard/CardConfig/OptionView'
-import RecordDetail from './Record/Detail'
 import Publish from './Publish/index'
 import PublishDetail from './Publish/Detail'
 import Serve from './Publish/Serve'
 import LoginView from './PersonInfo/Login/LoginView'
 import PersonCenter from './PersonInfo/PersonCenter'
 import PersonInfo from './PersonInfo'
+import RecordDetail from './Record/Detail'
 import Feedback from './PersonInfo/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
@@ -29,6 +29,7 @@ import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 
 export const otherRoute = {
+    RecordDetail:{screen:RecordDetail},
     CardSetting:{screen:CardSetting},
     CourseChoose:{screen: CourseChoose},
     CourseCreat:{screen: CourseCreat},
@@ -40,7 +41,6 @@ export const otherRoute = {
     NewCard: {screen: NewCard},
     Record: {screen: Record},
     OptionView: {screen: OptionView},
-    RecordDetail: {screen: RecordDetail},
     Publish: {screen: Publish},
     PublishDetail: {screen: PublishDetail},
     Serve: {screen: Serve},

@@ -30,7 +30,8 @@ import {
     StyleHeaderInner,
     StyleHeaderInnerRight,
     StyledAvatar,
-    StyledHeaderTop
+    StyledHeaderTop,
+    StyledHeaderBottom
 } from './style'
 import Icon from 'react-native-vector-icons/Ionicons'
 import CardRow from '../../NewCard/CardRow'
@@ -105,7 +106,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num - 1 }))
                     //自己
-                    selfNum > 0   && dispatch(reqChangeData(
+                    selfNum > 0 && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum - 1 }))
 
@@ -117,7 +118,7 @@ import {
                         FRIENDNUM + beFollowedUserId,
                         { followers_count: num + 1 }))
                     //自己
-                    selfNum !== undefined  && dispatch(reqChangeData(
+                    selfNum !== undefined && dispatch(reqChangeData(
                         FRIENDNUM + userId,
                         { followees_count: selfNum + 1 }))
 
@@ -191,31 +192,34 @@ export default class Following extends Component {
                                 {name}
                             </StyledHeaderName>
                         </StyledHeaderTop>
-                        {this._renderFollow(
-                            data,
-                            followees_count,
-                            followers_count)}
                     </StyleHeaderInner>
-                    {!avatarUrl ? <StyledAvatar source={avatarSource}/> : <ZoomImage
-                        height={80}
-                        style={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: 40,
-                        }} imageUrls={[{ url: avatarUrl }]}/>}
+                    {!avatarUrl ? <StyledAvatar source={avatarSource}/> :
+                        <ZoomImage
+                            height={80}
+                            style={{
+                                width: 80,
+                                height: 80,
+                                borderRadius: 40,
+                            }} imageUrls={[{ url: avatarUrl }]}/>}
 
                 </StyleHeaderInnerRight>
-                {!isSelf && (<HeaderBtn
-                    load={load || this.props.followLoad}
-                    title={isFollow ? "取消关注" : "关注"}
-                    style={{
-                        width: isFollow ? 100 : 80,
-                        marginTop: 20,
-                    }}
-                    hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                    onPress={() => {
-                        this.props.follow(isFollow, followers_count)
-                    }}/>)}
+                <StyledHeaderBottom>
+                    {this._renderFollow(
+                        data,
+                        followees_count,
+                        followers_count)}
+                    {!isSelf && (<HeaderBtn
+                        load={load || this.props.followLoad}
+                        title={isFollow ? "取消关注" : "关注"}
+                        style={{
+                            width: isFollow ? 100 : 80,
+                            marginTop: 20,
+                        }}
+                        hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                        onPress={() => {
+                            this.props.follow(isFollow, followers_count)
+                        }}/>)}
+                </StyledHeaderBottom>
             </StyleHeader>
         );
     }

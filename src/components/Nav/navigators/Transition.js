@@ -22,7 +22,7 @@ export function forRotate(props) {
 
     const index = scene.index;
 
-    // Add [index - 1, index - 0.99] to the interpolated opacity for screen transition.
+    // Add [index.js - 1, index.js - 0.99] to the interpolated opacity for screen transition.
     // This makes the screen's shadow to disappear smoothly.
     const opacity = position.interpolate({
         inputRange: [

@@ -152,7 +152,7 @@ import { selfUser } from '../../../request/LCModle'
                 { label: '仅对教练开放', id: '1' },
                 { label: '对外开放', id: '2' }
             ]
-            
+
             const selectedId = iUse.privacy === 1 && isSelf ?0:iUse.privacy
 
             return Dialog.showPicker('隐私设置', null, {

@@ -52,6 +52,7 @@ export const StyledRowContent = styled(Button)`
 `
 export const StyledInnerView = styled.View`
     flex-direction: row;
+     align-items: center;
 `
 
 export const StyledInnerRight = styled.View`
@@ -76,4 +77,11 @@ export const StyledArrow = styled.View`
   transform: rotate(315deg);
   width: 10px;
   height: 10px;
+`
+
+export const StyledHeaderBottom = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0px;
 `

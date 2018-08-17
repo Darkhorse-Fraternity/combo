@@ -372,12 +372,12 @@ export default class CardInfo extends Component {
                     {imgs && imgs.map((item, index) => {
                         return (
                             <TouchableHighlight
+                                key={item.img.url + index}
                                 onPress={()=>[
                                     this.setState({ visible: true,index:index+1 })
                                 ]}>
                                 <StyledImg
                                     width={Dimensions.get('window').width - 30}
-                                    key={item.img.url + index}
                                     source={{ uri: item.img.url }}/>
                             </TouchableHighlight>
                         )

@@ -54,7 +54,7 @@ const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=2016060
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
         push: () => {
-            //index 为空 则为当前index
+            //index.js 为空 则为当前index
             // dispatch(navigateReplaceIndex('TabView'));
         },
         mRegister: (state) => {
