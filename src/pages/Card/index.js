@@ -131,21 +131,21 @@ export default class Home extends Component {
 
     componentDidMount() {
         this.props.search()
-        this.props.exist()
+        // this.props.exist()
         // console.log('this.refs.list:', this.refs.list.scrollToOffset);
     }
 
 
     __renderItem = ({ item, index }) => {
 
-        if (item === -1) {
-            return <StopCell title='查看已归档的卡片'
-                             des='重新打卡点这里'
-                             onPress={() => {
-                                 this.props.navigation.navigate('Record',
-                                     { statu: 'stop' })
-                             }}/>
-        }
+        // if (item === -1) {
+        //     return <StopCell title='查看已归档的卡片'
+        //                      des='重新打卡点这里'
+        //                      onPress={() => {
+        //                          this.props.navigation.navigate('Record',
+        //                              { statu: 'stop' })
+        //                      }}/>
+        // }
 
         const data = this.props.iUse.get(item).toJS()
 
@@ -240,14 +240,14 @@ export default class Home extends Component {
         //     return this.__renderNoData()
         // }
 
-        let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
-        stopIUSEexist = !stopIUSEexist ? false : stopIUSEexist.get('count') > 0
+        // let stopIUSEexist = this.props.stopIUSEexist && this.props.stopIUSEexist.get('data')
+        // stopIUSEexist = !stopIUSEexist ? false : stopIUSEexist.get('count') > 0
 
 
-        if (stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
-            && statu !== 'LIST_LOAD_DATA') {
-            data = [...data, -1];
-        }
+        // if (stopIUSEexist && statu !== 'LIST_FIRST_JOIN'
+        //     && statu !== 'LIST_LOAD_DATA') {
+        //     data = [...data, -1];
+        // }
 
 
         return (

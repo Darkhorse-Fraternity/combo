@@ -111,7 +111,7 @@ export default class Record extends Component {
         return (
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>
-                    打卡记录
+                    已归档卡片
                 </Text>
             </View>
         )
@@ -166,9 +166,9 @@ export default class Record extends Component {
                 des={`人数:${iCard.useNum}`}
                 img={iCard.img}
                 onPress={() => {
-                    this.props.navigation.navigate('RecordDetail', {
-                        data: item,
-                        card: iCard
+                    this.props.navigation.navigate('CardDetail', {
+                        iUseId: item.objectId,
+                        iCardId: iCard.objectId
                     })
                 }}/>
         )

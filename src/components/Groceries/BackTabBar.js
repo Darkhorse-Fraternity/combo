@@ -16,7 +16,7 @@ import Button from "../Button";
 import theme from '../../Theme'
 import { required } from "../../request/validation";
 
-const backWidth = Dimensions.get('window').width / 4
+const backWidth = Dimensions.get('window').width / 3
 
 export default class BackTabBar extends Component {
     static propTypes = {
@@ -28,6 +28,7 @@ export default class BackTabBar extends Component {
         backgroundColor: PropTypes.string,
         activeTextColor: PropTypes.string,
         inactiveTextColor: PropTypes.string,
+
     };
 
     renderTabOption(name: string, page: number) {
@@ -61,7 +62,8 @@ export default class BackTabBar extends Component {
         const containerWidth = this.props.containerWidth - backWidth * 2;
         const numberOfTabs = this.props.tabs.length;
         const tabWidth = containerWidth / numberOfTabs;
-        const underLineWidth = tabWidth / 3
+        const underLineWidth = 30
+        const moveX = tabWidth * (numberOfTabs - 1) / 2
         const tabUnderlineStyle = {
             position: 'absolute',
             width: underLineWidth,
@@ -70,18 +72,21 @@ export default class BackTabBar extends Component {
             bottom: 5,
         };
 
+
         const translateX = this.props.scrollValue.interpolate({
-            inputRange: [0, 1,],
-            outputRange: [-tabWidth, 0],
+            inputRange: [0, numberOfTabs - 1],
+            outputRange: [-moveX, moveX],
         });
-        // console.log('this.props.onBackPress:', this.props.onBackPress);
+
+        // console.log('this.props.scrollValue:', translateX);
+        // console.log('this.props.onBackPress:',  this.props.scrollValue);
 
         const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
             TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <View style={[styles.tabs, {
                 backgroundColor:
-                this.props.backgroundColor || 'white',marginTop:Platform.OS==='ios'?0:20
+                this.props.backgroundColor || 'white', marginTop: Platform.OS === 'ios' ? 0 : 20
             }, this.props.style,]}>
                 <Button
                     background={background}
@@ -98,7 +103,8 @@ export default class BackTabBar extends Component {
                         source={require('react-navigation/src/views/assets/back-icon.png')}/>
                 </Button>
                 <View style={[styles.tab, styles.contain]}>
-                    {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
+                    {this.props.tabs.map((tab, i) =>
+                        this.renderTabOption(tab, i))}
                     <Animated.View style={[tabUnderlineStyle,
                         {
                             transform: [
@@ -107,7 +113,14 @@ export default class BackTabBar extends Component {
                         },
                     ]}/>
                 </View>
-                <View style={{ width: backWidth }}/>
+                <View style={{ width: backWidth ,
+                    flexDirection:'row',
+                    justifyContent:'flex-end',
+                    paddingRight:0,
+                    alignItems:'center'}}>
+                    {this.props.rightView &&
+                    this.props.rightView()}
+                </View>
             </View>
         );
     }
@@ -120,6 +133,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // paddingBottom: 10,
         flexDirection: 'row',
+
 
     },
     contain: {

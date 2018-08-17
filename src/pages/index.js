@@ -13,7 +13,6 @@ import Serve from './Publish/Serve'
 import LoginView from './PersonInfo/Login/LoginView'
 import PersonCenter from './PersonInfo/PersonCenter'
 import PersonInfo from './PersonInfo'
-import NickName from './PersonInfo/NickName'
 import Feedback from './PersonInfo/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
@@ -27,9 +26,10 @@ import CourseChoose from './Course/Choose'
 import CourseCreat from './Course/Creat'
 import CourseRelease from './Course/Release'
 import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
-
+import CardSetting from './Card/Settings'
 
 export const otherRoute = {
+    CardSetting:{screen:CardSetting},
     CourseChoose:{screen: CourseChoose},
     CourseCreat:{screen: CourseCreat},
     CourseRelease:{screen: CourseRelease},
@@ -45,7 +45,6 @@ export const otherRoute = {
     PublishDetail: {screen: PublishDetail},
     Serve: {screen: Serve},
     PersonInfo: {screen: PersonInfo},
-    NickName: {screen: NickName},
     Feedback: {screen: Feedback},
     Publishing: {screen: Publishing},
     CardInfo: {screen: CardInfo},

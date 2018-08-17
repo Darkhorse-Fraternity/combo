@@ -57,7 +57,7 @@ export default createBottomTabNavigator(
             let labelName;
             if (routeName === 'Home') {
                 iconName = `md-sunny`;
-                labelName = '主页'
+                labelName = 'Now'
             } else if (routeName === 'Settings') {
                 iconName = `ios-happy`;
                 labelName = '我的'
@@ -110,8 +110,10 @@ export default createBottomTabNavigator(
             activeTintColor: '#F3AC41',
             inactiveTintColor: '#cbcbcb',
             showLabel: true,
+
             style: {
-                backgroundColor: "white",
+                backgroundColor: "#f1f6f9",
+                borderTopColor:'white'
             },
             labelStyle: {
                 fontSize: 12,

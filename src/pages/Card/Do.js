@@ -108,14 +108,7 @@ export default class  extends Component {
     static defaultProps = {
         data: {}
     };
-    static navigationOptions = props => {
-        // const {navigation} = props;
-        // const {state} = navigation;
-        // const {params} = state;
-        return {
-            title: '主页',
-        }
-    };
+
 
     // shouldComponentUpdate(nextProps: Object) {
     //     return !immutable.is(this.props, nextProps)

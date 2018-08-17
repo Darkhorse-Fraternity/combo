@@ -17,7 +17,7 @@ import {
     Platform,
     ScrollView
 } from 'react-native'
-
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 let { width } = Dimensions.get('window');
 import DateBoard from './DateBoard'
 import Pop from '../Pop'
@@ -25,6 +25,7 @@ import Pop from '../Pop'
 export default class Calendar extends Component {
     constructor(props: Object) {
         super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.state = {
             year: this.props.date.getFullYear(),
             month: this.props.date.getMonth(),
@@ -51,7 +52,9 @@ export default class Calendar extends Component {
     
 
     isLeap(year) {
-        return ((year % 100 === 0) ? (year % 400 === 0 ? 1 : 0) : (year % 4 === 0) ? 1 : 0);
+        return ((year % 100 === 0) ?
+            (year % 400 === 0 ? 1 : 0) :
+            (year % 4 === 0) ? 1 : 0);
     };
 
     selectDay(d) {

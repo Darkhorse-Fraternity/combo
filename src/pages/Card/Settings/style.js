@@ -6,12 +6,15 @@
 
 import styled from "styled-components";
 import Icon from 'react-native-vector-icons/Ionicons'
+import EntypoIcon from 'react-native-vector-icons/Entypo'
+
 import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 // import LinearGradient from 'react-native-linear-gradient';
 
 export const StyledContent = styled.View`
     flex: 1;
+    background-color: white;
 `
 
 export const StyledTitleView = styled.View`
@@ -32,25 +35,30 @@ export const StyledBottomMenu = styled.View`
 `
 
 export const StyledBottomMenuText = styled.Text`
-  font-size: 15px;
-  margin-top: 10px;
+  font-size: 14px;
+  margin-top: 7.5px;
 `
 
 export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
+  margin: 7.5px 15px;
+  background-color: ${props => props.theme.buttonItem};
   width:${props => props.theme.width>340?props.theme.width/4: 
     props.theme.width/3 };
+  border-radius: 10px;
+  height: 85px;
 `
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
-  width:${props => props.theme.width>340?props.theme.width/4:
-    props.theme.width/3 };
+  flex:1
 `
 
 export const StyledIcon = styled(Icon)`
  
 `
+
+export const StyledEntypoIcon= styled(EntypoIcon)``
 
 export const StyledRow = styled.View`
   padding: 25px 15px 25px 15px;

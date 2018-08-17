@@ -15,15 +15,17 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import {
     StyledContent,
+    StyledIcon
 } from './style'
-
+import ShareView from '../../../components/Share/ShareView'
+import Pop from '../../../components/Pop'
 import DoCardButton from '../../../components/Button/DoCardButton'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import BackTabBar from '../../../components/Groceries/BackTabBar'
 import Agenda from '../Agenda'
-import Info from '../Info'
+import Info from '../Settings'
 import Course from '../Course'
-
+import Button from '../../../components/Button'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
 
@@ -56,20 +58,58 @@ export default class CardDetail extends Component {
     };
 
 
+    __renderRightView = () => {
+
+        const { navigation } = this.props;
+        const { state } = navigation;
+        const { params } = state;
+        const { iCardId, iUseId } = params
+        const iCard = this.props.iCard.toJS()
+        const iUse = this.props.iUse.toJS()
+        return [
+            <Button key={'icon1'} onPress={()=>{
+                Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
+                    animationType: 'slide-up',
+                    wrapStyle: {
+                        justifyContent: 'flex-end',
+                    }
+                })
+            }}>
+                <StyledIcon
+                    size={25}
+                    name={'md-share'}/>
+            </Button>,
+            <Button key={'icon2'} onPress={() => {
+                this.props.navigation.navigate('CardSetting', {
+                    iCardId, iUseId
+                })
+            }}>
+                <StyledIcon
+                    style={{ marginRight: 10 }}
+                    size={25}
+                    name={'md-settings'}/>
+            </Button>,
+        ]
+    }
+
+
     render(): ReactElement<any> {
 
         // const params = this.props.navigation.state.params
         // const {iUse,iCard} = params
 
-        // const { iCard } = this.props
+        const { iCard } = this.props
 
+        const useNum = iCard.get('useNum')
+        const title = iCard.get('title')
 
         return (
-            <StyledContent >
-
+            <StyledContent>
                 <ScrollableTabView
+                    locked={useNum <= 1}
                     renderTabBar={() => (
                         <BackTabBar
+                            rightView={this.__renderRightView}
                             onBackPress={this.props.navigation.goBack}/>
                     )}
                     prerenderingSiblingsNumber={0}
@@ -78,10 +118,11 @@ export default class CardDetail extends Component {
                     tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
                     // tabBarPosition ='bottom'
                 >
-                    <Course {...this.props} tabLabel='课程'/>
-                    <Agenda {...this.props} tabLabel="记录"/>
-                    <Info {...this.props} tabLabel="设置"/>
+                    {useNum > 1 && <Course {...this.props} tabLabel='课程'/>}
+                    <Agenda {...this.props} tabLabel={useNum <= 1 ? title : "统计"}/>
+                    {/*<Info {...this.props} tabLabel="设置"/>*/}
                 </ScrollableTabView>
+
                 <DoCardButton {...this.props} />
             </StyledContent>
         );

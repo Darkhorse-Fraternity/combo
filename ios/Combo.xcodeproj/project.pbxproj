@@ -23,6 +23,7 @@
 		CC09E6B9212056F600327D96 /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD487A820EE14F10017ED35 /* libRNKeychain.a */; };
 		CC09E6BA2120570C00327D96 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC203A8720FC980300D9206D /* libBVLinearGradient.a */; };
 		CC09E6BB2120572C00327D96 /* libReactNativeKeyboardManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1096502116EA490068E5DF /* libReactNativeKeyboardManager.a */; };
+		CC1A8EF3212530E200353D0B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB61A68108700A75B9A /* Info.plist */; };
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC84E930211EE99C00E7D593 /* libRNRate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84E8D3211EE90C00E7D593 /* libRNRate.a */; };
@@ -2009,6 +2010,7 @@
 				CCCE41B52064A0F000F282E3 /* Ionicons.ttf in Resources */,
 				CCCE41B62064A0F000F282E3 /* MaterialIcons.ttf in Resources */,
 				CCCE41B72064A0F000F282E3 /* Octicons.ttf in Resources */,
+				CC1A8EF3212530E200353D0B /* Info.plist in Resources */,
 				CCCE41B82064A0F000F282E3 /* SimpleLineIcons.ttf in Resources */,
 				CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */,
 				CCCE41BA2064A0F000F282E3 /* Zocial.ttf in Resources */,

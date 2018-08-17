@@ -35,7 +35,7 @@ import Button from "../../components/Button";
     (state, props) => ({
         //data:state.req.get()
         iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
-        useExist: state.req.get(IUSEExist),
+        // useExist: state.req.get(IUSEExist),
         load: state.req.get(IUSE).get('load')
     }),
     (dispatch, props) => ({
@@ -117,7 +117,7 @@ export default class PublishDetail extends Component {
     }
 
     componentDidMount() {
-        this.props.exist()
+        // this.props.exist()
     }
 
     __alert = (iCard) => {
@@ -133,23 +133,23 @@ export default class PublishDetail extends Component {
     }
 
     _renderHeader = (iCard) => {
-        const useExist = this.props.useExist.toJS().data
-        const exist = useExist.count >= 1
-        const load = this.props.useExist.get('load')
-        // console.log('useExist:', this.props.useExist.get('load'));
-        const text = exist ? "正在使用" : '立即使用'
+        // const useExist = this.props.useExist.toJS().data
+        // const exist = useExist.count >= 1
+        // const load = this.props.useExist.get('load')
+        // // console.log('useExist:', this.props.useExist.get('load'));
+        // const text = exist ? "正在使用" : '立即使用'
         return (
             <View style={styles.header}>
                 <Text style={styles.title}>{iCard.title}</Text>
                 <View style={styles.headerIn}>
-                    <Text style={styles.useNum}>使用人数： {iCard.useNum || (exist ? 1 : 0)}</Text>
+                    <Text style={styles.useNum}>使用人数： {iCard.useNum || 1}</Text>
                     <HeaderBtn
                         style={styles.headerBtn}
-                        load={this.props.load || load}
-                        disabled={exist}
-                        title={text}
+                        // load={this.props.load || load}
+                        // disabled={exist}
+                        title={'查看'}
                         onPress={() => {
-                            this.props.add(iCard.useNum)
+                            this.props.navigation.navigate('CardInfo',{ iCard: iCard })
                         }}/>
                 </View>
             </View>
@@ -166,9 +166,9 @@ export default class PublishDetail extends Component {
                         {title}
                     </Text>
                 </View>
-                <View style={styles.row2}>
-                    <View style={styles.arrowView}/>
-                </View>
+                {/*<View style={styles.row2}>*/}
+                    {/*<View style={styles.arrowView}/>*/}
+                {/*</View>*/}
             </Button>
         );
     }
@@ -251,8 +251,8 @@ const styles = StyleSheet.create({
         paddingVertical: 30,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        // borderBottomColor: '#e4e4e4',
     },
 
 
@@ -263,8 +263,9 @@ const styles = StyleSheet.create({
 
     rowText: {
         marginLeft: 10,
-        fontSize: 14,
-        color: 'rgb(100,100,100)',
+        fontSize: 17,
+        fontWeight:'500',
+        // color: 'rgb(100,100,100)',
     },
     arrowView: {
         borderBottomWidth: StyleSheet.hairlineWidth * 2,

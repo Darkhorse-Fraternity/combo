@@ -240,12 +240,17 @@ export default class PersonCenter extends Component {
         const navigation = this.props.navigation
         return (
             <View style={{marginTop:10}}>
+
+
+                {this._renderRow('归档卡片', true, () => {
+                    navigation.navigate('Record',{ statu: 'stop' });
+                })}
+
+
                 {this._renderRow('圈子管理', true, () => {
                     navigation.navigate('Publish');
                 })}
-                {this._renderRow('打卡记录', true, () => {
-                    navigation.navigate('Record');
-                })}
+
 
                 {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
                 {/*navigation.navigate('iCollect');*/}
