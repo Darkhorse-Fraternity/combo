@@ -141,16 +141,25 @@ import { selfUser } from '../../../request/LCModle'
                 }]
             )
         },
-        pickPrivacy: async (iUse) =>{
+        pickPrivacy: async (iUse,isSelf) =>{
+
+
+            const items = isSelf ?[
+                { label: '不对外开放', id: '0' },
+                { label: '对外开放', id: '2' }
+            ]:[
+                { label: '不对外开放', id: '0' },
+                { label: '仅对教练开放', id: '1' },
+                { label: '对外开放', id: '2' }
+            ]
+            
+            const selectedId = iUse.privacy === 1 && isSelf ?0:iUse.privacy
+
             return Dialog.showPicker('隐私设置', null, {
                 negativeText: '取消',
                 type: Dialog.listRadio,
-                selectedId: iUse.privacy + "",
-                items: [
-                    { label: '不对外开放', id: '0' },
-                    { label: '仅对教练开放', id: '1' },
-                    { label: '对外开放', id: '2' }
-                ]
+                selectedId: selectedId + "",
+                items: items
             });
         }
     })
@@ -222,7 +231,8 @@ export default class Settings extends Component {
     _renderBottomMenu = (params) => {
 
         const { iCard, iUse } = params
-        const { navigation } = this.props;
+        const { navigation, user } = this.props;
+
         // const pUse = this.props.iUse && this.props.iUse.toJS()
         // iUse = pUse || iUse
 
@@ -258,7 +268,10 @@ export default class Settings extends Component {
 
                  <this._renderItem
                     onPress={async () => {
-                        const { selectedItem } = await this.props.pickPrivacy(iUse)
+                        const userId = user.objectId
+                        const beUserId = iCard.user
+                        const isSelf = userId === beUserId
+                        const { selectedItem } = await this.props.pickPrivacy(iUse,isSelf)
                         if (selectedItem) {
                             const { id } = selectedItem;
                             iUse.privacy !== Number(id) &&

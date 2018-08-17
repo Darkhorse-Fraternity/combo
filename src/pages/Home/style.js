@@ -11,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient';
 export const StyledContent = styled.ScrollView`
     flex: 1;
 `
-export const StyledInnerdContent = styled(LinearGradient)`
+export const StyledInnerdContent = styled.View`
   flex: 1;
+  background-color: white;
 `
