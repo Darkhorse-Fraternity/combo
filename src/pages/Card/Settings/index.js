@@ -57,6 +57,9 @@ import { req } from '../../../redux/actions/req'
 import Dialog from '../../../components/Dialog'
 import { selfUser } from '../../../request/LCModle'
 
+const Archive = IUSE + "archive"
+
+
 @connect(
     (state, props) => ({
         user: state.user.data,
@@ -66,6 +69,7 @@ import { selfUser } from '../../../request/LCModle'
         // iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
         // iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
         iUseLoad: state.req.get(IUSE).get('load'),
+        archive: state.req.get(Archive),
         updatePrivacyLoad: state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
     }),
     (dispatch, props) => ({
@@ -81,7 +85,9 @@ import { selfUser } from '../../../request/LCModle'
                 // cycle: isDone ? data.cycle + 1 : data.cycle,
             }
 
-            const res = await update(id, param, IUSE)
+
+            const lParams = classUpdate(IUSE, id, param)
+            const res = await req(lParams, Archive)
             const entity = {
                 ...param,
                 ...res,
@@ -94,7 +100,8 @@ import { selfUser } from '../../../request/LCModle'
                 statu: 'stop',
                 //cycle,
             }
-            const res = await update(id, param, IUSE)
+            const lParams = classUpdate(IUSE, id, param)
+            const res = await req(lParams, Archive)
             const entity = {
                 ...param,
                 ...res,
@@ -213,9 +220,11 @@ export default class Settings extends Component {
         let text = !reflesh ?
             "卡片归档" :
             "继续打卡"
+        const archiveLoad = this.props.archive && this.props.archive.get('load')
+
         return (
             <this._renderItem
-                load={this.props.iUseLoad}
+                load={archiveLoad}
                 onPress={() => {
                     !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
                 }}
@@ -238,6 +247,8 @@ export default class Settings extends Component {
 
 
         const reflesh = iUse.statu === 'stop'
+
+
 
 
         return (
