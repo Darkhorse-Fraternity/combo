@@ -360,6 +360,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 19,
         fontWeight:'500',
+        color:'black'
         // color: '#333333',
     },
     arrowView: {

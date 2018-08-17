@@ -186,12 +186,9 @@ export default class Settings extends Component {
             size= 30,
             onPress,
             Icon = StyledIcon} = props
-        const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
-            TouchableNativeFeedback.SelectableBackgroundBorderless()
         return (
             <StyledBottomMenuButton
                 disabled={load}
-                background={background}
                 hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
                 onPress={onPress}>
                 {load?<StyledActivityIndicator/>:<Icon size={size} name={name}/>}
@@ -235,6 +232,16 @@ export default class Settings extends Component {
 
         return (
             <StyledBottomMenu>
+
+                <this._renderItem
+                    onPress={() => {
+                        navigation.navigate('OptionView', { iCardId: iCard.objectId })
+                    }}
+                    name={'md-settings'}
+                    title={'卡片配置'}/>
+                { this._renderRresh(reflesh, params)}
+
+
                 {iCard.user === this.props.user.objectId &&
                 iCard.state !== -2
                 && iUse.statu !== 'del' &&
@@ -248,10 +255,8 @@ export default class Settings extends Component {
                     name={'picasa'}
                     title={' 圈子管理'}/>)}
 
-                { this._renderRresh(reflesh, params)}
 
-
-                {iCard.useNum>1 && <this._renderItem
+                 <this._renderItem
                     onPress={async () => {
                         const { selectedItem } = await this.props.pickPrivacy(iUse)
                         if (selectedItem) {
@@ -264,7 +269,7 @@ export default class Settings extends Component {
                     name={iUse.privacy ===
                     Privacy.open ? 'md-unlock' :
                         'md-lock'}
-                    title={'隐私设置'}/>}
+                    title={'隐私设置'}/>
 
                 <this._renderItem
                     onPress={() => {

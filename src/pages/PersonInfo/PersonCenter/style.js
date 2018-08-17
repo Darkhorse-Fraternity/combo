@@ -32,6 +32,7 @@ export const StyledHeaderName = styled.Text`
     font-size: 40px;
     font-weight: 600;
     margin-top: 5px;
+    color:black;
 `
 
 export const StyledAvatar = styled.Image`
@@ -69,7 +70,7 @@ export const StyleFolllow = styled.View`
 `
 export const StyledIncome = styled.Text`
     font-size: 16px;
-     color: #adadad; 
+     color: black; 
 `
 export const StyledEntypoIcon = styled(EntypoIcon)`
 

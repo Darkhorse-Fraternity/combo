@@ -182,14 +182,10 @@ export default class PublishDetail extends Component {
             <ScrollView style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
-
                 {!allow && <Text style={{padding:20,color:'red',fontSize:50}}>
                     该圈子已被系统删除
                 </Text>}
 
-                {allow && this._renderRow('卡片配置', () => {
-                    this.props.navigation.navigate('OptionView', { iCardId: iCard.objectId })
-                })}
                 {/*{this._renderRow(iCard.state === 0 ? "马上发布" : '取消发布', () => {*/}
                 {/*if (iCard.state === 0) {*/}
                 {/*this.props.refresh(iCard)*/}
@@ -197,8 +193,6 @@ export default class PublishDetail extends Component {
                 {/*this.__alert(iCard)*/}
                 {/*}*/}
                 {/*})}*/}
-
-
 
                 {allow && this._renderRow("发布圈子", () => {
                     this.props.navigation.navigate('Publishing',
@@ -210,6 +204,10 @@ export default class PublishDetail extends Component {
                 })}
                 {allow && this._renderRow('查看记录', () => {
                     this.props.navigation.navigate('Serve', { iCard })
+                })}
+
+                {allow && this._renderRow('卡片配置', () => {
+                    this.props.navigation.navigate('OptionView', { iCardId: iCard.objectId })
                 })}
 
                 {this._renderRow('删除圈子', () => {

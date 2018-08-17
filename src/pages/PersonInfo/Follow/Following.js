@@ -188,7 +188,7 @@ export default class Following extends Component {
                     <StyleHeaderInner>
                         <StyledHeaderTop>
                             <StyledHeaderName>
-                                -{name}
+                                {name}
                             </StyledHeaderName>
                         </StyledHeaderTop>
                         {this._renderFollow(

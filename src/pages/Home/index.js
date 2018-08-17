@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         fontSize: 35,
         fontWeight: 'bold',
+        color:'black'
     },
     headViewSubText: {
         marginTop: 10,

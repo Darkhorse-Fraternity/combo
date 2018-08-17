@@ -8,6 +8,7 @@ import styled from "styled-components";
 import Icon from 'react-native-vector-icons/Ionicons'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 
+
 import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 // import LinearGradient from 'react-native-linear-gradient';
@@ -84,7 +85,7 @@ export const StyledRowText = styled.Text`
 export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 19px;
-  font-weight: 500;
+ 
 `
 
 export const StyledRowInner = styled.View`

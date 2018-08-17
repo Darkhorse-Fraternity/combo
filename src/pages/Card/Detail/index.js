@@ -76,6 +76,7 @@ export default class CardDetail extends Component {
                 })
             }}>
                 <StyledIcon
+                    color={'black'}
                     size={25}
                     name={'md-share'}/>
             </Button>,
@@ -85,6 +86,7 @@ export default class CardDetail extends Component {
                 })
             }}>
                 <StyledIcon
+                    color={'black'}
                     style={{ marginRight: 10 }}
                     size={25}
                     name={'md-settings'}/>

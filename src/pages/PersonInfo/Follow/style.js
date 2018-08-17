@@ -49,12 +49,9 @@ export const StyledRowContent = styled(Button)`
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-    border-color: ${props => props.theme.hairlineColor};;
 `
 export const StyledInnerView = styled.View`
     flex-direction: row;
-     align-items: center;
 `
 
 export const StyledInnerRight = styled.View`
