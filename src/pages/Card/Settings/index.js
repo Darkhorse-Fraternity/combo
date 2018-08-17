@@ -40,9 +40,9 @@ import {
 
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import ShareView from '../../../components/Share/ShareView'
-import Pop from '../../../components/Pop'
-
+// import ShareView from '../../../components/Share/ShareView'
+// import Pop from '../../../components/Pop'
+import {popToIndex} from '../../../redux/nav'
 const width = Dimensions.get('window').width
 
 import { update, search } from '../../../redux/module/leancloud'
@@ -143,7 +143,8 @@ const Archive = IUSE + "archive"
                         }
                         dispatch(addNormalizrEntity(IUSE, entity))
                         dispatch(claerByID(IUSE, objectId))
-                        props.navigation.goBack()
+                        // props.navigation.goBack()
+                        popToIndex()
                     }
                 }]
             )

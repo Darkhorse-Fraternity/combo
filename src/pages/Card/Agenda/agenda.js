@@ -4,7 +4,7 @@ import {
     View,
     StyleSheet,
     Dimensions,
-
+    DeviceEventEmitter
 } from 'react-native';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { connect } from 'react-redux'
@@ -85,9 +85,16 @@ export default class AgendaScreen extends Component {
 
 
     componentDidMount() {
-        // this.props.load()
         this.refresh()
+        const key = 'done_' + this.props.iCard.get('objectId')
+        this.subscription =
+            DeviceEventEmitter.addListener(key, this.refresh);
     }
+
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
+
 
     refresh = ()=>{
         this.refs['calendar'] && this.refs['calendar'].move()

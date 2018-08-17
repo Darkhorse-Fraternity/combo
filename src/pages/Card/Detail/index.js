@@ -9,7 +9,8 @@ import {
     View,
     TouchableOpacity,
     StyleSheet,
-    Alert
+    Alert,
+    DeviceEventEmitter
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -28,6 +29,7 @@ import Course from '../Course'
 import Button from '../../../components/Button'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
+
 
 @connect(
     (state, props) => ({
@@ -58,11 +60,8 @@ export default class CardDetail extends Component {
     };
 
 
-
-    _afterDone = ()=>{
-
-        console.log('_afterDone:', '_afterDone');
-
+    _afterDone = (key) => {
+        DeviceEventEmitter.emit(key);
     }
 
     __renderRightView = () => {
@@ -74,7 +73,7 @@ export default class CardDetail extends Component {
         const iCard = this.props.iCard.toJS()
         const iUse = this.props.iUse.toJS()
         return [
-            <Button key={'icon1'} onPress={()=>{
+            <Button key={'icon1'} onPress={() => {
                 Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
                     animationType: 'slide-up',
                     wrapStyle: {
@@ -115,6 +114,7 @@ export default class CardDetail extends Component {
         return (
             <StyledContent>
                 <ScrollableTabView
+                    ref={'ScrollableTabView'}
                     locked={useNum <= 1}
                     renderTabBar={() => (
                         <BackTabBar
@@ -130,13 +130,15 @@ export default class CardDetail extends Component {
                     {useNum > 1 &&
                     <Course {...this.props}
                             tabLabel='课程'/>}
-                    <Agenda {...this.props}
-                            tabLabel={useNum <= 1 ? title : "统计"}/>
+                    <Agenda
+                        ref={'agenda'}
+                        {...this.props}
+                        tabLabel={useNum <= 1 ? title : "统计"}/>
                     {/*<Info {...this.props} tabLabel="设置"/>*/}
                 </ScrollableTabView>
 
                 <DoCardButton
-                    afterDone={this._afterDone}
+                    afterDone={()=>this._afterDone('done_'+ iCard.get('objectId'))}
                     {...this.props} />
             </StyledContent>
         );

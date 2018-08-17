@@ -22,13 +22,13 @@ export function doCardWithNone(data) {
                 {wrapStyle:{justifyContent: 'flex-start'},
                     maskStyle: { backgroundColor: 'transparent',
                     } })
-            return
+            return;
         }
 
         //在这边添加新的判断
 
         // const IUseP = classUpdate(IUSE, id, param)
-       dispatch(creatIDO(data,iCardM))
+       return dispatch(creatIDO(data,iCardM))
 
     }
 

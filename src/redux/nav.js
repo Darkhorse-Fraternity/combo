@@ -25,7 +25,7 @@ export function popToIndex(index = 1) {
 
         if(navIndex >= index){
             const key = navRoutes[index].key
-            console.log('key:', key);
+            // console.log('key:', key);
             dispatch( NavigationActions.back({key}))
         }
     })

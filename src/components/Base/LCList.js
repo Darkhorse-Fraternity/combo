@@ -32,7 +32,6 @@ import { denormalize } from 'normalizr'
             sKey,
             dataMap,
             callPath,
-            loadData,
             reqParam
         } = props
 
@@ -93,13 +92,6 @@ export default class LCList extends Component {
 
 
     render(): ReactElement<any> {
-
-
-        const {
-            data,
-            loadData
-        } = this.props
-
         // if (!reqKey) {
         //     console.error('ReqListView传入的reqKey 不能为空~');
         // }
@@ -114,17 +106,23 @@ export default class LCList extends Component {
         //     />)
         // }
 
+        const {
+            data,
+            loadData
+        } = this.props
+
         const modal = data && data.toJS() || {}
-        const { loadStatu, listData = [] } = modal
+        const { loadStatu, listData } = modal
         const afterDataMap = this.props.afterDataMap &&
             this.props.afterDataMap(listData) || listData
+
 
 
         return (
             <BaseSectionView
                 {...this.props}
-                loadData={this.props.loadData}
-                loadMore={() => this.props.loadData(true)}
+                loadData={loadData}
+                loadMore={() => loadData(true)}
                 data={afterDataMap}
                 loadStatu={loadStatu}
                 renderItem={this.__renderItem.bind(this)}

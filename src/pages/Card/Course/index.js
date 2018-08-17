@@ -10,7 +10,8 @@ import {
     StyleSheet,
     Image,
     Text,
-    Alert
+    Alert,
+    DeviceEventEmitter
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -95,6 +96,21 @@ export default class Course extends Component {
     static defaultProps = {};
 
 
+    componentDidMount() {
+        const key = 'done_' + this.props.iCard.get('objectId')
+        this.subscription =
+            DeviceEventEmitter.addListener(key, this.refresh);
+    }
+
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
+
+    refresh = () => {
+        this.refs['list'].selector.props.loadData()
+    }
+
+
     __renderHeader = () => {
 
 
@@ -145,6 +161,9 @@ export default class Course extends Component {
     }
 
 
+
+
+
     render(): ReactElement<any> {
 
         const iCardId = this.props.iCard.get('objectId')
@@ -160,6 +179,7 @@ export default class Course extends Component {
         }
         return (
             <LCList
+                ref={'list'}
                 ListHeaderComponent={this.__renderHeader}
                 style={[this.props.style, styles.list]}
                 reqKey={listKey}

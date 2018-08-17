@@ -9,7 +9,8 @@ import {
     View,
     TouchableOpacity,
     StyleSheet,
-    Alert
+    Alert,
+    DeviceEventEmitter
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -86,6 +87,7 @@ export default class CardDetail extends Component {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
+
     }
 
     static propTypes = {};
@@ -93,7 +95,17 @@ export default class CardDetail extends Component {
 
 
     componentDidMount() {
-        console.log('this.refs:', this.refs);
+        const key = 'done_' + this.props.iCard.get('objectId')
+        this.subscription =
+            DeviceEventEmitter.addListener(key, this.refresh);
+    }
+
+    componentWillUnmount() {
+        this.subscription.remove();
+    }
+
+    refresh = () => {
+        this.refs['list'].selector.props.loadData()
     }
 
 
@@ -101,9 +113,9 @@ export default class CardDetail extends Component {
         return (
             <StyledRow>
                 <StyledRowText>
-                    {title+':'}
+                    {title + ':'}
                 </StyledRowText>
-                <View style={{width:20}}/>
+                <View style={{ width: 20 }}/>
                 <StyledRowText>
                     {des}
                 </StyledRowText>
@@ -133,7 +145,7 @@ export default class CardDetail extends Component {
 
         return (
             <StyledInner
-                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']} >
+                colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
                 <AgendaScreen
                     {...this.props}/>
                 <StyledTitleView>
@@ -141,7 +153,7 @@ export default class CardDetail extends Component {
                         习惯统计
                     </StyledTitleText>
                 </StyledTitleView>
-                <View style={{height:10}}/>
+                <View style={{ height: 10 }}/>
                 {this._renderRow('已完成周期', (time / iCard.period).toFixed(2) + '轮')}
                 {this._renderRow('总打卡次数', time + '次')}
                 {this._renderRow('加入天数', date + "天")}
@@ -183,19 +195,19 @@ export default class CardDetail extends Component {
         }
 
         return (
-                <LCList
-                    ref={'list'}
-                    ListHeaderComponent={this._renderHeader}
-                    reqKey={listKey}
-                    style={{ flex: 1 }}
-                    sKey={listKey + iUseM.objectId}
-                    renderItem={this.renderRow.bind(this)}
-                    noDataPrompt={'还没有记录'}
-                    //dataMap={(data)=>{
-                    //   return {[OPENHISTORYLIST]:data.list}
-                    //}}
-                    reqParam={param}
-                />
+            <LCList
+                ref={'list'}
+                ListHeaderComponent={this._renderHeader}
+                reqKey={listKey}
+                style={{ flex: 1 }}
+                sKey={listKey + iUseM.objectId}
+                renderItem={this.renderRow.bind(this)}
+                noDataPrompt={'还没有记录'}
+                //dataMap={(data)=>{
+                //   return {[OPENHISTORYLIST]:data.list}
+                //}}
+                reqParam={param}
+            />
         );
     }
 }
@@ -203,7 +215,7 @@ export default class CardDetail extends Component {
 
 const styles = StyleSheet.create({
     row: {
-        backgroundColor:'white',
+        backgroundColor: 'white',
         paddingHorizontal: 18,
         paddingVertical: 2,
         borderBottomWidth: StyleSheet.hairlineWidth,
