@@ -9,6 +9,11 @@ export const defaultHost = !__DEV__ ?
     /*debug*/     'cmwljtyw.api.lncld.net/1.1'
 
 
+export const apiHost = !__DEV__ ?
+    /*release*/   'icard.leanapp.cn' :
+    /*debug*/     'stg-icard.leanapp.cn'
+
+
 let LeanCloud_APP_Session = '';
 
 export function setLeanCloudSession(session: string) {
@@ -23,7 +28,7 @@ export function httpHeaders(needSession: bool): Object {
         "Content-Type": "application/json",
         "X-LC-Sign": LeanCloud_APP_SIGN,
         "X-LC-Id": LeanCloud_APP_ID,
-        "X-LC-Prod": __DEV__ ? 1
+        "X-LC-Prod": __DEV__ ? 0
             : 1,
         appVersion
     }

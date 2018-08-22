@@ -32,7 +32,6 @@ export const StyledHeaderName = styled.Text`
     font-size: 30px;
     font-weight: 600;
     margin-top: 5px;
-    color:black;
 `
 
 export const StyledAvatar = styled.Image`
@@ -60,17 +59,16 @@ export const StyledIcon = styled(Icon)`
 export const StyledFuncView = styled.View`
   flex-direction: row;
   align-items: center;
-  padding: 10px 0px;
+  padding: 0px 0px;
 `
 
 export const StyleFolllow = styled.View`
-    margin-top: 20px;
+    margin-top: 5px;
     flex-direction: row;
     align-content: center; 
 `
 export const StyledIncome = styled.Text`
     font-size: 16px;
-     color: black; 
 `
 export const StyledEntypoIcon = styled(EntypoIcon)`
 
@@ -93,10 +91,13 @@ export const StyleFollowTextNum = styled.Text`
 
 export const StyleFollowText = styled.Text`
     margin-top: 10px;
-    font-size: 14px; 
-    color:  #adadad; 
+    font-size: 17px; 
 `
 export const StyleFollowDevide = styled.View`
     margin: 0px 15px ;
+    background-color: #adadad;
+    width: 2px;
+    margin-top: 8px;
+    height: 25px;
    
 `

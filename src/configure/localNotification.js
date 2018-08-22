@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import {connect} from 'react-redux'
 import {ICARD,IUSE} from '../redux/reqKeys'
+import { iCard } from "../request/LCModle";
 export  function nowNotification() {
 
 
@@ -71,8 +72,9 @@ export async function  dayNotification(data) {
 
 
         const title = item.iCard.title
-        const message = item.iCard.notifyText ||( item.iCard.title +"完成了吗?")
+        const message = item.iCard.notifyText || '快来记录一下吧!'
         const recordDay = item.iCard.recordDay
+        const id = item.iCard.objectId
 
         recordDay.forEach(day => {
 
@@ -101,6 +103,7 @@ export async function  dayNotification(data) {
                 repeatType: 'week',
                 userInfo:{
                     title,
+                    id,
                     alert:message,
                     webUrl:"combo://CardDetail",
                     params:{iUseId: item.objectId,iCardId: item.iCard.objectId},

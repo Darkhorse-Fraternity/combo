@@ -96,6 +96,7 @@ export default class DoCardButton extends Component {
             <FlipButton
                 faceText={`点击${"\n"}打卡`}
                 backText={'已完成'}
+                disabled={this.state.statu !== 0}
                 // animation={}
                 load={load}
                 flip={this.state.statu !== 0}

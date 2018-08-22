@@ -41,7 +41,7 @@ import {
 } from '../../../request/leanCloud'
 import Rate, { AndroidMarket } from 'react-native-rate'
 import DeviceInfo from 'react-native-device-info'
-import {logout} from '../../../redux/actions/user'
+import { logout } from '../../../redux/actions/user'
 
 @connect(
     state => ({
@@ -57,11 +57,11 @@ import {logout} from '../../../redux/actions/user'
                 req(param, FRIENDNUM + userId)
             })
         },
-        logout: () =>{
+        logout: () => {
             dispatch(logout());
         },
 
-        rate:()=>{
+        rate: () => {
             let url = ''
             const IOS_APP_ID = '1332546993'
             if (Platform.OS === 'ios') {
@@ -74,13 +74,13 @@ import {logout} from '../../../redux/actions/user'
 
 
             let options = {
-                AppleAppID:IOS_APP_ID,
+                AppleAppID: IOS_APP_ID,
                 preferredAndroidMarket: AndroidMarket.Other,
-                OtherAndroidURL:url,
-                openAppStoreIfInAppFails:true,
-                fallbackPlatformURL:"https://icard.leanapp.cn/",
+                OtherAndroidURL: url,
+                openAppStoreIfInAppFails: true,
+                fallbackPlatformURL: "https://icard.leanapp.cn/",
             }
-            Rate.rate(options, (success)=>{
+            Rate.rate(options, (success) => {
                 if (success) {
                     console.log('Rate success');
                     // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
@@ -135,9 +135,12 @@ export default class PersonCenter extends Component {
                 <StyledHeaderTop onPress={() => {
                     this.props.navigation.navigate('PersonInfo')
                 }}>
-                    <StyledHeaderName>
-                        {name}
-                    </StyledHeaderName>
+                    <View>
+                        <StyledHeaderName>
+                            {name}
+                        </StyledHeaderName>
+                        {this._renderFollow()}
+                    </View>
                     <StyledAvatarView>
                         <StyledAvatar source={avatarSource}/>
                         <View style={{
@@ -154,8 +157,8 @@ export default class PersonCenter extends Component {
                     </StyledAvatarView>
                 </StyledHeaderTop>
 
-                {this._renderFunction()}
-                {this._renderFollow()}
+                {/*{this._renderFunction()}*/}
+
             </StyleHeader>
         );
     }
@@ -163,8 +166,8 @@ export default class PersonCenter extends Component {
 
     _renderFunction = () => {
         return (
-            <Button onPress={()=>{
-
+            <Button onPress={() => {
+                this.props.navigation.navigate('Earnings')
             }}>
                 <StyledFuncView>
 
@@ -194,9 +197,9 @@ export default class PersonCenter extends Component {
             followees_count = friendNumData.data.followees_count
         }
 
-        if (followers_count + followees_count === 0) {
-            return null;
-        }
+        // if (followers_count + followees_count === 0) {
+        //     return null;
+        // }
 
         return (
             <StyleFolllow>
@@ -206,14 +209,8 @@ export default class PersonCenter extends Component {
                         navigation.navigate('Followee', { userId: this.props.user.data.objectId });
                     }}>
 
-                    <StyledFollowTextView>
-                        <StyleFollowTextNum>
-                            {followees_count}
-                        </StyleFollowTextNum>
-                    </StyledFollowTextView>
-
                     <StyleFollowText>
-                        关注
+                        关注：{followees_count}
                     </StyleFollowText>
                 </Button>}
                 <StyleFollowDevide/>
@@ -222,13 +219,8 @@ export default class PersonCenter extends Component {
                     onPress={() => {
                         navigation.navigate('Follower', { userId: this.props.user.data.objectId });
                     }}>
-                    <StyledFollowTextView>
-                        <StyleFollowTextNum>
-                            {followers_count}
-                        </StyleFollowTextNum>
-                    </StyledFollowTextView>
                     <StyleFollowText>
-                        被关注
+                        被关注： {followers_count}
                     </StyleFollowText>
                 </Button>}
             </StyleFolllow>
@@ -239,11 +231,15 @@ export default class PersonCenter extends Component {
     __renderLoginRow() {
         const navigation = this.props.navigation
         return (
-            <View style={{marginTop:10}}>
+            <View style={{ marginTop: 0 }}>
 
+
+                {this._renderRow('我的收益', true, () => {
+                    navigation.navigate('Earnings')
+                })}
 
                 {this._renderRow('归档卡片', true, () => {
-                    navigation.navigate('Record',{ statu: 'stop' });
+                    navigation.navigate('Record', { statu: 'stop' });
                 })}
 
 
@@ -255,9 +251,9 @@ export default class PersonCenter extends Component {
                 {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
                 {/*navigation.navigate('iCollect');*/}
                 {/*})}*/}
-                <View style={{height:25}}/>
+                <View style={{ height: 25 }}/>
                 {/*{this._renderRow('设置', true, () => {*/}
-                    {/*navigation.navigate('Setting');*/}
+                {/*navigation.navigate('Setting');*/}
                 {/*})}*/}
 
                 {this._renderRow('意见反馈', false, () => {
@@ -265,11 +261,11 @@ export default class PersonCenter extends Component {
                     navigation.navigate("Feedback");
                 })}
 
-                {this._renderRow('给个评价', false,  this.props.rate)}
+                {this._renderRow('给个评价', false, this.props.rate)}
 
 
-                {this._renderRow('退出登录', false,this.props.logout)}
-                <View style={{height:25}}/>
+                {this._renderRow('退出登录', false, this.props.logout)}
+                <View style={{ height: 25 }}/>
             </View>
         )
     }
@@ -359,8 +355,7 @@ const styles = StyleSheet.create({
     rowText: {
         marginLeft: 10,
         fontSize: 19,
-        fontWeight:'500',
-        color:'black'
+        fontWeight: '500',
         // color: '#333333',
     },
     arrowView: {

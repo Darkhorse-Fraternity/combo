@@ -24,9 +24,15 @@ import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import CardRow from './CardRow'
+import {
+    StyledTitleView,
+    StyledTitleText
+} from './style'
+
 
 
 const listKey = ICARD
+
 
 
 @connect(
@@ -89,6 +95,12 @@ export default class Publish extends Component {
                     <Icon name="md-add" size={50}/>
                     <Text style={styles.period}>新建卡片</Text>
                 </Button>
+
+                <StyledTitleView>
+                    <StyledTitleText>
+                        结伴同行
+                    </StyledTitleText>
+                </StyledTitleView>
             </View>
         )
     }

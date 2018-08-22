@@ -8,6 +8,8 @@ export const FRIENDNUM = 'friendNum'
 export const FRIENDEXIST = 'friendExist'
 export const FOLLOWING = 'following'
 export const IDO = 'iDo'
+export const ORDER = 'Order'
+export const ENCH = 'Enchashment'
 export const IDOCALENDAR = 'iDoCalendar'
 export const IUSE = 'iUse'
 export const AUTHCODE = 'authCode'
@@ -27,6 +29,7 @@ export const QQLOGIN = 'QQLogin'
 
 export const registerReqKeys = [
     ICARD,
+    ORDER,
     AUTHCODE,
     IDO,
     IUSE,
@@ -41,7 +44,8 @@ export const registerReqKeys = [
     USER,
     COURSE,
     WECHATLOGIN,
-    QQLOGIN
+    QQLOGIN,
+    ENCH
 //设置初始值
 ]
 
@@ -55,7 +59,9 @@ export const registerListKeys = [
     CARDLIST,
     ICOMMENT,
     USER,
-    COURSE
+    COURSE,
+    ORDER,
+    ENCH
 ]
 
 export const registerNormalizrKeys = registerListKeys

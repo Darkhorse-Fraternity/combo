@@ -424,7 +424,7 @@ export default class OptionDo extends Component {
                         type="period"
                         index={1}/>
 
-                    <View style={{ height: 100 }}/>
+
 
                 </View>)}
 
@@ -453,7 +453,7 @@ export default class OptionDo extends Component {
                 this.state.type === 'record' &&
                 this.__remderRecord()}
 
-
+                <View style={{ height: 300 }}/>
             </ScrollView>
         );
     }

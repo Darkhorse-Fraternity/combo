@@ -2,7 +2,7 @@
 'use strict'
 
 import { methodType, cacheType } from './'
-
+import {apiHost} from '../configure/reqConfigs'
 // import {LeanCloud_APP_ID,LeanCloud_APP_KEY} from '../configure/leancloud'
 
 export function requestSmsCode(mobilePhoneNumber) {
@@ -543,6 +543,29 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
             access_token,
             oauth_consumer_key,
             openid
+        }
+    }
+}
+
+
+/*
+ *  用户支付
+ *  @userId 用户id
+ *  @orderId 订单号
+ *  @money 金额
+ *  @type  0 微信 1 支付宝
+ */
+export function userpay(type,tradeId,amount,detail,description) {
+    return {
+        host: apiHost,
+        path: '/getPrePay/',
+        method: methodType.post,
+        params: {
+            amount,
+            type,
+            detail,
+            tradeId,
+            description,
         }
     }
 }

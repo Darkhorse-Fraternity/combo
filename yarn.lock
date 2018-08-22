@@ -6143,9 +6143,9 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/react-native-platform-touchable/download/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
 
-react-native-push-notification@^3.0.2:
-  version "3.0.2"
-  resolved "http://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-3.0.2.tgz#3fa7d654cfd915436597b0dd5ba8b0f898c4b0f5"
+react-native-push-notification@^3.1.1:
+  version "3.1.1"
+  resolved "http://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-3.1.1.tgz#99ce426e78e95788c298f73750cc4e68db04d7ab"
 
 react-native-qq@^2.0.5:
   version "2.0.5"

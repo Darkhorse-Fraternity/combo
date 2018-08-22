@@ -76,6 +76,12 @@ import { Privacy } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { findByID } from '../../../redux/module/leancloud'
+import PayForm, { FormID } from '../../../components/Form/Pay'
+import { formValueSelector } from 'redux-form/immutable'
+import { pay } from '../../../redux/module/pay'
+import Pop from '../../../components/Pop'
+
+const selector = formValueSelector(FormID) // <-- same as form name
 
 @connect(
     (state, props) => {
@@ -89,7 +95,8 @@ import { findByID } from '../../../redux/module/leancloud'
             useExist: state.req.get(IUSEExist),
             data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
             dataId: state.req.get(IUSEExist).get('data').get('0'),
-            course: state.normalizr.get(COURSE).get(iCard.get('course'))
+            course: state.normalizr.get(COURSE).get(iCard.get('course')),
+            selfUse: state.user.data
         }
     },
     (dispatch, props) => ({
@@ -145,6 +152,35 @@ import { findByID } from '../../../redux/module/leancloud'
                 },
             })
             req(params, IUSEExist, { sceme: schemas[IUSE] })
+        },
+        onSubmit: (money,title) => {
+            dispatch(async (dispatch, getState) => {
+                const state = getState()
+                let radio = selector(state, 'PayRadio')
+                radio = radio && radio.toJS && radio.toJS()
+                if (radio) {
+                    const ItemId = radio.ItemId
+                    const types = {
+                        "alipay": 'alipay_app',
+                        'wechat': 'weixin_app',
+                        'cash': 'cash',
+
+                    }
+                    var Atanisi = Math.floor(Math.random() * 999999);
+                    const tradeId = new Date().getTime() + Atanisi
+
+                    const res = await dispatch(
+                        pay(types[ItemId],
+                            tradeId,
+                            money,
+                            "",
+                            title+'消费'))
+
+                }
+
+
+            })
+
         }
 
     })
@@ -155,7 +191,8 @@ export default class CardInfo extends Component {
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
         this.state = {
             visible: false,
-            index:0
+            index: 0,
+
         }
     }
 
@@ -226,6 +263,8 @@ export default class CardInfo extends Component {
     render(): ReactElement<any> {
 
 
+        const { selfUse, onSubmit } = this.props
+
         const iCard = this.props.iCard.toJS()
         const iCardUser = this.props.user.toJS()
 
@@ -265,15 +304,19 @@ export default class CardInfo extends Component {
         }) || []
 
 
+        const isSelf = selfUse.objectId === iCard.user
+
+
         return (
             <StyledContent
                 colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
                 forceInset={{ top: 'never' }}>
+
                 {iCard.img && <ImagesViewModal
                     visible={this.state.visible}
                     index={this.state.index}
                     closeCallBack={() => {
-                        this.setState({ visible: false,index:0 })
+                        this.setState({ visible: false, index: 0 })
                     }}
                     imageUrls={[{ url: iCard.img.url }, ...urlList]}/>}
                 <FlipButton
@@ -283,15 +326,41 @@ export default class CardInfo extends Component {
                     flip={exist}
                     animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
                     onPress={() => {
-                        if (exist && iUseData) {
-                            this.props.navigation.navigate('CardDetail', {
-                                iUseId: iUseData.objectId,
-                                iCardId: iCard.objectId
-                            })
 
-                        } else {
-                            this.props.use(iCard)
-                        }
+                        Pop.show(<PayForm
+                            onSubmit={() => onSubmit(iCard.price,iCard.title)}
+                            balance={selfUse.amount}
+                            price={iCard.price}/>, {
+                            animationType: 'slide-up',
+                            wrapStyle: {
+                                justifyContent: 'flex-end',
+                            }
+                        })
+
+
+                        // if (exist && iUseData) {
+                        //     this.props.navigation.navigate('CardDetail', {
+                        //         iUseId: iUseData.objectId,
+                        //         iCardId: iCard.objectId
+                        //     })
+                        //
+                        // } else {
+                        //
+                        //     if (iCard.price > 0 && !isSelf) {
+                        //         Pop.show(<PayForm
+                        //             onSubmit={onSubmit}
+                        //             balance={selfUse.amount}
+                        //             price={iCard.price}/>, {
+                        //             animationType: 'slide-up',
+                        //             wrapStyle: {
+                        //                 justifyContent: 'flex-end',
+                        //             }
+                        //         })
+                        //     } else {
+                        //         this.props.use(iCard)
+                        //     }
+                        //
+                        // }
                     }}
                     containStyle={styles.containStyle}
                     style={styles.flip}/>
@@ -356,6 +425,8 @@ export default class CardInfo extends Component {
                         </StyledTitleText>
                     </StyledTitleView>
 
+                    {this.row('加入费用:', iCard.price === 0 ? '免费'
+                        : iCard.price + '元')}
                     {this.row('卡片周期:', iCard.period + '次')}
                     {this.row('记录模式:', iCard.record.join("+") || '无')}
                     {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
@@ -373,8 +444,8 @@ export default class CardInfo extends Component {
                         return (
                             <TouchableHighlight
                                 key={item.img.url + index}
-                                onPress={()=>[
-                                    this.setState({ visible: true,index:index+1 })
+                                onPress={() => [
+                                    this.setState({ visible: true, index: index + 1 })
                                 ]}>
                                 <StyledImg
                                     width={Dimensions.get('window').width - 30}

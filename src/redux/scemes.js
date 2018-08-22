@@ -4,7 +4,9 @@ import {
     USER,
     IUSE,
     COURSE,
-    IDO
+    IDO,
+    ORDER,
+    ENCH
 } from './reqKeys'
 
 import { schema } from 'normalizr';
@@ -25,6 +27,8 @@ const iCard = entity(ICARD, { user, course })
 export const iUse = entity(IUSE, { user, iCard })
 
 export const iDO = entity(IDO, { user, iCard, iUse })
+export const order = entity(ORDER,{user,iCard})
+export const ench = entity(ENCH,{user})
 //
 // const config = {
 //     [IUSE]:{USER,ICARD},
@@ -54,6 +58,8 @@ export const entitys = {
     [COURSE]: course,
     [IDO]: iDO,
     [USER]: user,
+    [ORDER]: order,
+    [ENCH]: ench
 }
 
 const auto = (key) => list(entitys[key] || entity(key))

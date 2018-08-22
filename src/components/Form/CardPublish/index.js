@@ -95,7 +95,8 @@ import Toast from 'react-native-simple-toast'
                 const describe = selector(state, 'describe');
                 const cover = selector(state, 'cover')
                 const imgs = selector(state, 'imgs')
-                const initialValues = { describe, keys, cover, imgs }
+                const price = selector(state, 'price')
+                const initialValues = { describe, keys, cover, imgs,price }
                 // console.log('initialValues:', initialValues);
 
                 // console.log('props:', props.course.get('objectId'));
@@ -318,6 +319,15 @@ export default class CardPublishForm extends Component {
                         placeholderTextColor='rgb(200,200,200)'
                         placeholder='圈子描述'/>
 
+
+                    <StyledDescribe
+                        name='price'
+                        ref='price'
+                        maxLength={10}
+                        keyboardType={'numeric'}
+                        underlineColorAndroid='transparent'
+                        placeholderTextColor='rgb(200,200,200)'
+                        placeholder='加入费用(默认免费),单位元'/>
 
                     <FieldArray
                         key={'imgs'}

@@ -2,7 +2,7 @@ import * as WeChat from 'react-native-wechat';
 // WeChat.registerApp('wx45feb9299ac8334a')
 import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
-import { userpay } from '../../request/API'
+import { userpay } from '../../request/leanCloud'
 import { req } from '../actions/req'
 
 import Toast from 'react-native-simple-toast'
@@ -17,10 +17,11 @@ export function pay(...args) {
     return async dispatch => {
 
         const type = args[0];
-        const res = await  prePayInfo(...args)
         // console.log('paypre res:', res.data);
-        if (type === 0) {
+        if (type === 'weixin_app') {
 
+            const res = await  prePayInfo(...args)
+            console.log('prePayInfo:', res);
             if(!WeChat.isWXAppInstalled()){
                 Toast.show('没有安装微信~！')
                 return;
@@ -43,10 +44,13 @@ export function pay(...args) {
             // console.log('obj:', obj);
 
            return dispatch(wechatPay(obj))
-        } else if (type === 1) {
-           return dispatch(aliPay(res.data.Sign))
-        }
+        } else if (type === 'alipay_app') {
+            const res = await  prePayInfo(...args)
+            console.log('prePayInfo:', res);
+           // return dispatch(aliPay(res.data.Sign))
+        } else {
 
+        }
     }
 
 }

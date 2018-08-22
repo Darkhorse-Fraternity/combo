@@ -19,6 +19,7 @@ import { connect } from 'react-redux'
 
 import CardView from '../Card'
 import Button from '../../components/Button'
+import HeaderBtn from '../../components/Button/HeaderBtn'
 import {
     StyledContent,
     StyledInnerdContent
@@ -95,15 +96,13 @@ export default class Home extends Component {
                 </Text>
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>想改变什么？</Text>
-                    <Button
-                        innerView
+                    <HeaderBtn
+                        style={{padding:15}}
+                        title={'添加'}
                         onPress={() => {
                             this.props.navigation.navigate('NewCard')
                         }}
-                        hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}
-                        style={styles.headerBtn}>
-                        <Text style={styles.headerBtnText}>添加</Text>
-                    </Button>
+                        hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
                 </View>
             </View>
         )
@@ -188,7 +187,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         fontSize: 35,
         fontWeight: 'bold',
-        color:'black'
     },
     headViewSubText: {
         marginTop: 10,

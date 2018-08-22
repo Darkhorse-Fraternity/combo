@@ -76,6 +76,7 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 const id = data.objectId
                 let cover = selector(state, 'cover')
                 const imgs = selector(state, 'imgs')
+                const price = selector(state, 'price')
 
                 storage.save({
                     key: "CardPublish"+id,  //注意:请不要在key中使用_下划线符号!
@@ -83,7 +84,8 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                         keys,
                         describe,
                         cover,
-                        imgs
+                        imgs,
+                        price
                     },
                 });
 
@@ -95,11 +97,12 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 }
 
                 const param = {
+                    price:Number(price),
                     state: data.state === 0 ? 1 : 0,
                     keys: keys.split(','),
                     describe,
                     img:cover,
-                    imgs
+                    imgs,
 
                 }
                 const res = await  update(id, param, ICARD)
@@ -231,6 +234,7 @@ export default class Publishing extends Component {
             keys: keys && keys.toString(),
             describe: iCard.get('describe'),
             imgs: iCard.get('imgs'),
+            price: iCard.get('price'),
             ...this.state.localSave,
         }
 

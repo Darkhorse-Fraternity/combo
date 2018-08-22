@@ -8,11 +8,10 @@ import {
 } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-
+import { Map } from 'immutable';
 
 
 const SelectWrapper = styled.View`
-  flex: 1;
 `
 
 export default  class Radio extends Component {
@@ -25,7 +24,7 @@ export default  class Radio extends Component {
         // }
 
         this.state = {
-            value: value
+            value: value.toJS()
         }
 
         this.onValueChange = this.onValueChange.bind(this)
@@ -47,8 +46,10 @@ export default  class Radio extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.value !== this.state.value) {
-            this.onValueChange(nextProps.value)
+
+
+        if (nextProps.value && nextProps.value !== this.props.value) {
+            this.setState({value:nextProps.value.toJS()})
         }
     }
 
@@ -57,7 +58,7 @@ export default  class Radio extends Component {
         this.setState({
             value: newValue
         }, () => {
-            this.props.onValueChange(newValue)
+            this.props.onValueChange(new Map(newValue))
         })
     }
 
@@ -65,15 +66,17 @@ export default  class Radio extends Component {
     __renderItem = (item) => {
         const {
             keyName,
+            renderItem
         } = this.props
         const key = keyName.length !== 0 ? item[keyName] + '' : item+''
 
-        // console.log('key:',keyName, key,item);
+
+        // console.log('key:',keyName, key,renderItem,item);
         return (
             <TouchableOpacity key={key} onPress={() => {
                 this.onValueChange(item)
             }}>
-                {this.props.renderItem(item, this.state.value)}
+                {renderItem(item, this.state.value)}
             </TouchableOpacity>
         )
 

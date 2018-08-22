@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 5,
         height:35,
-        backgroundColor: 'black',
     },
     title: {
         color: 'white',

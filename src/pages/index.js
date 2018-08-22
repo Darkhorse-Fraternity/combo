@@ -27,8 +27,12 @@ import CourseCreat from './Course/Creat'
 import CourseRelease from './Course/Release'
 import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
+import Earnings from './Order/Earnings'
+import Cash from './Order/Cash'
 
 export const otherRoute = {
+    Earnings:{screen:Earnings},
+    Cash:{screen:Cash},
     RecordDetail:{screen:RecordDetail},
     CardSetting:{screen:CardSetting},
     CourseChoose:{screen: CourseChoose},
