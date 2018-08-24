@@ -166,15 +166,16 @@ const selector = formValueSelector(FormID) // <-- same as form name
                         'cash': 'cash',
 
                     }
-                    var Atanisi = Math.floor(Math.random() * 999999);
-                    const tradeId = new Date().getTime() + Atanisi
+                    const Atanisi = Math.floor(Math.random() * 999999);
+                    const tradeId = new Date().getTime() + Atanisi + ''
 
                     const res = await dispatch(
                         pay(types[ItemId],
                             tradeId,
-                            money,
+                            money * 100,
                             "",
                             title+'消费'))
+                    // console.log('res:', res);
 
                 }
 

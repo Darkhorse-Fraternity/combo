@@ -44,6 +44,7 @@ export async function reqY(params) {
 export async function reqS(params) {
 
     let response = await reqY(params)
+    // console.log('response000:', response);
     if (!params.host && response && !response[RESCODE]) {
         response = { [DATA]: response, [RESCODE]: SUCCODE }
     }
@@ -55,6 +56,7 @@ export async function reqS(params) {
 export async function reqM(params) {
 
     const response = await reqS(params)
+    // console.log('response111:', response);
     if (response && response[RESCODE]) {
         __DEV__ && response[RESCODE] !== SUCCODE && console.log('req message:', response[MSG]);
         response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG)
@@ -107,6 +109,7 @@ export async function req(params: Object, key: string, option: Object = {}) {
             Toast.show(e.message, Toast.LONG)
         }
         if (key) {
+            const dispatch = store.dispatch
             dispatch(requestFailed(key, e.message))
         }
     }

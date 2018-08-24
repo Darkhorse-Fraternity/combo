@@ -30,3 +30,18 @@ export function toQueryString(obj:Object) {
     return encodeURIComponent(key) + '=' + encodeURIComponent(val);
   }).join('&'):'';
 };
+
+
+
+function queryStringToJSON(queryString) {
+    if(queryString.indexOf('?') > -1){
+        queryString = queryString.split('?')[1];
+    }
+    var pairs = queryString.split('&');
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+    return result;
+}

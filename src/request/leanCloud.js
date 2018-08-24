@@ -565,7 +565,7 @@ export function userpay(type,tradeId,amount,detail,description) {
             type,
             detail,
             tradeId,
-            description,
+            description:encodeURI(description, "utf-8"),
         }
     }
 }

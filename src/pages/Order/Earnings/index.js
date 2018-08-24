@@ -22,9 +22,13 @@ import {
     StyledTitleView,
     StyledTitleText,
     StyledRow,
-    StyledRowTitle
+    StyledRowTitle,
+    StyledRowInner,
+    StyledRowDate,
+    StyledRowAmount,
+    StyledRowStatu
 } from './style'
-
+import moment from 'moment'
 import { ORDER } from '../../../redux/reqKeys'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { pointModel } from '../../../request/LCModle'
@@ -67,7 +71,7 @@ export default class Earnings extends Component {
                 </StyledHeaderTitle>
                 <StyledHeaderBottom>
                     <StyledHeaderCash>
-                        ￥{cash.toFixed(1)}
+                        ￥{(cash/100).toFixed(1)}
                     </StyledHeaderCash>
                     <StyledHeaderBtn
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 5 }}
@@ -89,9 +93,23 @@ export default class Earnings extends Component {
         console.log('item:', item);
         return (
             <StyledRow>
-                <StyledRowTitle>
-                    {item.objectId}
-                </StyledRowTitle>
+                <StyledRowInner>
+                    <StyledRowTitle>
+                        申请单号：{item.tradeId}
+                    </StyledRowTitle>
+                    <StyledRowStatu>
+                        {item.description}
+                    </StyledRowStatu>
+
+                </StyledRowInner>
+                <StyledRowInner style={{alignItems:'flex-end'}}>
+                    <StyledRowAmount>
+                        ￥{item.amount/100}
+                    </StyledRowAmount>
+                    <StyledRowDate>
+                        {moment(item.createdAt).format("YYYY-MM-DD")}
+                    </StyledRowDate>
+                </StyledRowInner>
             </StyledRow>
         )
     }

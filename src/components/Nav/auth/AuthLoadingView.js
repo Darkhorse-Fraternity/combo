@@ -25,8 +25,8 @@ import Toast from 'react-native-simple-toast'
                 // screen will be unmounted and thrown away.
                 props.navigation.navigate(user ? 'Tab' : 'Login');
             } catch (e) {
-                console.log('bootstrapAsync error:', e.message);
-                Toast.show(e.message)
+                // console.log('bootstrapAsync error:', e.message);
+                // Toast.show(e.message)
                 props.navigation.navigate('Login');
             }
 

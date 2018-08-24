@@ -182,16 +182,20 @@ function _loginSucceed(response: Object): Object {
     // saveAccount(response.mobilePhoneNumber);
 
     //只保存 sessionToken
-    const { sessionToken, username } = response
+    if(response){
+        const { sessionToken, username } = response
+        Keychain.setGenericPassword(username, sessionToken);
+
+        return loginSucceed(response);
+    }
+
     // storage.save({
     //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
     //     data: sessionToken,
     // });
 
 
-    Keychain.setGenericPassword(username, sessionToken);
 
-    return loginSucceed(response);
 }
 
 export function loginSucceed(data: Object): Object {

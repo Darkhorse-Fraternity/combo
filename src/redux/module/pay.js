@@ -4,10 +4,10 @@ import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
 import { userpay } from '../../request/leanCloud'
 import { req } from '../actions/req'
-
+import {queryStringToJSON} from '../../request/useMeth'
 import Toast from 'react-native-simple-toast'
 //type: 0:wechat 1:alipay
-
+import DeviceInfo from 'react-native-device-info'
 WeChat.registerApp('wx45feb9299ac8334a')
 
 
@@ -20,25 +20,23 @@ export function pay(...args) {
         // console.log('paypre res:', res.data);
         if (type === 'weixin_app') {
 
-            const res = await  prePayInfo(...args)
-            console.log('prePayInfo:', res);
             if(!WeChat.isWXAppInstalled()){
                 Toast.show('没有安装微信~！')
                 return;
             }
-
-            const data = res.data
+            const data = await  prePayInfo(...args)
+            console.log('prePayInfo:', data);
 
 
 
             const obj = {
                 //appid:data.Appid,
-                partnerId: data.Partnerid,//商家向财付通申请的商家ID
-                prepayId:data.Prepayid,//预支付订单ID
-                nonceStr: data.Noncestr,//随机串
-                timeStamp: data.Timestamp,//时间戳
-                package: data.Package,//商家根据财付通文档填写的数据和签名
-                sign: data.Sign,//商家根据微信开放平台文档对数据做的签名
+                partnerId: data.mch_id,//商家向财付通申请的商家ID
+                prepayId:data.prepay_id,//预支付订单ID
+                nonceStr: data.nonce_str,//随机串
+                timeStamp: new Date().getTime(),//时间戳
+                package: DeviceInfo.getBundleId(),//商家根据财付通文档填写的数据和签名
+                sign: data.sign,//商家根据微信开放平台文档对数据做的签名
             }
 
             // console.log('obj:', obj);
@@ -46,8 +44,9 @@ export function pay(...args) {
            return dispatch(wechatPay(obj))
         } else if (type === 'alipay_app') {
             const res = await  prePayInfo(...args)
-            console.log('prePayInfo:', res);
-           // return dispatch(aliPay(res.data.Sign))
+            const data = queryStringToJSON(res.data)
+            console.log('prePayInfo:', data);
+           return dispatch(aliPay(data.sign))
         } else {
 
         }
@@ -60,7 +59,6 @@ export function prePayInfo(...args) {
 
     const params = userpay(...args)
 
-    console.log('userpay:', params);
 
     return req(params)
 }

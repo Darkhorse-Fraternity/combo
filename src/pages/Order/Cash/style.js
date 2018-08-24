@@ -47,7 +47,7 @@ export const StyledHeaderBtn = styled(HeaderBtn)`
 
 
 export const StyledTitleView = styled.View`
-  padding: 15px 15px 5px 0px;
+  padding: 45px 15px 5px 0px;
 `
 
 export const StyledTitleText = styled.Text`
@@ -56,9 +56,40 @@ export const StyledTitleText = styled.Text`
 `
 
 export const StyledRow = styled.View`
+    margin-top: 15px;
+    padding: 15px 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: ${props => props.theme.textinputbackgroundColor};
+`
+export const StyledRowInner = styled.View`
 
 `
 
 export const StyledRowTitle = styled.Text`
-    padding: 15px;
+  font-size: 16px;
+  
+`
+
+export const StyledRowDate = styled.Text`
+    font-size: 15px;
+   margin-top: 10px;
+`
+
+export const StyledRowAmount = styled.Text`
+  font-size: 17px;
+`
+
+export const StyledRowStatu = styled.Text`
+    margin-top: 10px;
+     font-size: 15px;
+`
+
+
+export const StyledDiscrib = styled.Text`
+    margin-bottom: 3px;
+    font-size: 17px;
+    color: #c8c8c8;
+    line-height: 25px;
 `

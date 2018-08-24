@@ -117,7 +117,7 @@ export default class PayForm extends Component {
 
         const myOption = [
             ...option,
-            { ItemId: 'cash', name: `账户余额: ${balance.toFixed(1)}元` }
+            { ItemId: 'cash', name: `账户余额: ${(balance/100).toFixed(1)}元` }
         ]
 
 
