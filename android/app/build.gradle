@@ -88,10 +88,13 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = true
 
+def DEFAULT_GOOGLE_PLAY_SERVICES_VERSION    = "+"
+
 def buildTime() {
     SimpleDateFormat df = new SimpleDateFormat("yyMMddHHmm")
     return Integer.parseInt(df.format(new Date()))
 }
+
 
 repositories {
     maven { url "https://jitpack.io" }
@@ -163,6 +166,8 @@ android {
 }
 
 dependencies {
+    def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : DEFAULT_GOOGLE_PLAY_SERVICES_VERSION
+
     compile project(':react-native-alipay')
     compile project(':react-native-autogrow-textinput')
     compile project(':react-native-linear-gradient')
@@ -178,13 +183,15 @@ dependencies {
     compile project(':react-native-wechat')
     compile project(':react-native-leancloud-push')
     compile project(':react-native-push-notification')
-    compile ('com.google.android.gms:play-services-gcm:10.2.1') { force = true; }
     compile project(':react-native-vector-icons')
     compile project(':react-native-image-picker')
     compile project(':react-native-dialogs')
     compile project(':react-native-device-info')
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:27.0.1"
+    compile "com.android.support:appcompat-v7:27.0.3"
+    compile "com.google.android.gms:play-services-gcm:$googlePlayServicesVersion"
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.facebook.soloader:soloader:0.1.0+'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile "com.facebook.react:react-native:+"  // From node_modules
 }
