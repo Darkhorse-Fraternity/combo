@@ -8,7 +8,7 @@ import {queryStringToJSON} from '../../request/useMeth'
 import Toast from 'react-native-simple-toast'
 //type: 0:wechat 1:alipay
 import DeviceInfo from 'react-native-device-info'
-WeChat.registerApp('wx45feb9299ac8334a')
+WeChat.registerApp('wx637e6f35f8211c6d')
 
 
 export function pay(...args) {
@@ -34,18 +34,17 @@ export function pay(...args) {
                 partnerId: data.mch_id,//商家向财付通申请的商家ID
                 prepayId:data.prepay_id,//预支付订单ID
                 nonceStr: data.nonce_str,//随机串
-                timeStamp: new Date().getTime(),//时间戳
-                package: DeviceInfo.getBundleId(),//商家根据财付通文档填写的数据和签名
+                timeStamp: new Date().getTime()+'',//时间戳
+                package: 'Sign=WXPay',//商家根据财付通文档填写的数据和签名
                 sign: data.sign,//商家根据微信开放平台文档对数据做的签名
             }
 
-            // console.log('obj:', obj);
+            console.log('obj:', obj);
 
            return dispatch(wechatPay(obj))
         } else if (type === 'alipay_app') {
             const res = await  prePayInfo(...args)
             const data = queryStringToJSON(res.data)
-            console.log('prePayInfo:', data);
            return dispatch(aliPay(data.sign))
         } else {
 
@@ -90,7 +89,6 @@ export function wechatPay(obj) {
             } else {
                 Toast.show(e.message)
                 console.log(e);
-                throw e;
             }
             return dispatch(fail())
 

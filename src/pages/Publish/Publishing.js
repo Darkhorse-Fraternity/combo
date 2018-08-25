@@ -34,6 +34,7 @@ import CardPublishForm, { FormID } from '../../components/Form/CardPublish'
 import { formValueSelector } from 'redux-form/immutable'
 
 import { Map } from 'immutable';
+
 const selector = formValueSelector(FormID)
 import { showImagePicker } from '../../components/ImagePicker/imagePicker'
 
@@ -79,7 +80,8 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 const price = selector(state, 'price')
 
                 storage.save({
-                    key: "CardPublish"+id,  //注意:请不要在key中使用_下划线符号!
+                    key: "CardPublish",
+                    id,  //注意:请不要在key中使用_下划线符号!
                     data: {
                         keys,
                         describe,
@@ -97,11 +99,11 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 }
 
                 const param = {
-                    price:Number(price),
+                    price: Number(price),
                     state: data.state === 0 ? 1 : 0,
                     keys: keys.split(','),
                     describe,
-                    img:cover,
+                    img: cover,
                     imgs,
 
                 }
@@ -181,23 +183,28 @@ export default class Publishing extends Component {
         const keys = props.iCard.get('keys')
         this.state = {
             keys: keys && keys.join(","),
-            getSave:false,
+            getSave: false,
         }
 
+        this.load()
 
-        const id = props.navigation.state.params.iCardID
-        storage.load({
-            key: "CardPublish" + id,
-        }).then(localSave=>{
+    }
+
+
+    load = async ()=>{
+        try {
+            const id = this.props.navigation.state.params.iCardID
+
+            const localSave = await storage.load({key: "CardPublish",id})
             this.setState({
-                getSave:true,
+                getSave: true,
                 localSave
             })
-        }).catch(e=>{
+        }catch (e){
             this.setState({
-                getSave:true,
+                getSave: true,
             })
-        })
+        }
 
     }
 
@@ -218,7 +225,7 @@ export default class Publishing extends Component {
 
 
     render(): ReactElement<any> {
-        const { imageLoad, iCard, picker ,load} = this.props
+        const { imageLoad, iCard, picker, load } = this.props
         // const iCard = this.props.iCard
         // const url = iCard.img && iCard.img.url
         const cover = iCard.get('img')
@@ -234,7 +241,7 @@ export default class Publishing extends Component {
             keys: keys && keys.toString(),
             describe: iCard.get('describe'),
             imgs: iCard.get('imgs'),
-            price: iCard.get('price'),
+            price: iCard.get('price') + '',
             ...this.state.localSave,
         }
 

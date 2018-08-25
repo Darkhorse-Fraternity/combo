@@ -4,9 +4,13 @@ import {AsyncStorage} from 'react-native';
 import Storage from 'react-native-storage';
 // import DefaultPreference from 'react-native-default-preference';
 
+
+// AsyncStorage issues:
+// https://github.com/facebook/react-native/issues/12830
+
 const storage = new Storage({
     // maximum capacity, default 1000
-    size: 1000,
+    size: 10000,
 
     // Use AsyncStorage for RN, or window.localStorage for web.
     // If not set, data would be lost after reload.
@@ -27,6 +31,7 @@ const storage = new Storage({
     }
 })
 global.storage = storage;
+
 
 
 

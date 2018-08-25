@@ -67,7 +67,8 @@ const selector = formValueSelector(FormID)
 
                 //修改本地保存
                 storage.save({
-                    key: "course" + id,  //注意:请不要在key中使用_下划线符号!
+                    key: "course" ,
+                    id,  //注意:请不要在key中使用_下划线符号!
                     data: {
                         title,
                         cover,
@@ -173,7 +174,8 @@ export default class CourseCreat extends Component {
 
         const id = props.course.get('objectId')
         storage.load({
-            key: "course" + id,
+            key: "course" ,
+            id,
         }).then(localSave=>{
             this.setState({
                 getSave:true,

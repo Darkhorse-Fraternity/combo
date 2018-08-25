@@ -61,7 +61,8 @@ const selector = formValueSelector(FormID) // <-- same as form name
                 // console.log('props:', props.course.get('objectId'));
                 const id = props.course.get('objectId')
                 storage.save({
-                    key: "course"+id,  //注意:请不要在key中使用_下划线符号!
+                    key: "course",
+                    id,  //注意:请不要在key中使用_下划线符号!
                     data: initialValues,
                 });
                 Toast.show('保存成功')
