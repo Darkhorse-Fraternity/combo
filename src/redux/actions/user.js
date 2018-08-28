@@ -45,7 +45,7 @@ import * as QQAPI from 'react-native-qq';
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c'
 const wechatAppID = 'wx637e6f35f8211c6d'
-WeChat.registerApp('wx637e6f35f8211c6d')
+// WeChat.registerApp('wx637e6f35f8211c6d')
 // import { popToIndex } from '../nav'
 
 //当为异步的时候这么写，返回一个函数
@@ -182,8 +182,8 @@ function _loginSucceed(response: Object): Object {
     // saveAccount(response.mobilePhoneNumber);
 
     //只保存 sessionToken
-    if(response){
-        const { sessionToken, username } = response
+    if (response) {
+        const { sessionToken = '', username = '' } = response
         Keychain.setGenericPassword(username, sessionToken);
 
         return loginSucceed(response);
@@ -193,7 +193,6 @@ function _loginSucceed(response: Object): Object {
     //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
     //     data: sessionToken,
     // });
-
 
 
 }
@@ -319,7 +318,7 @@ export function weChatLogin(Key) {
                     routeName: 'Tab',
                     params: { transition: 'forVertical' }
                 }))
-            }else {
+            } else {
                 Toast.show(JSON.stringify(weConfig))
             }
 
@@ -374,8 +373,8 @@ export function qqLogin(Key) {
             const userInfoParmas = thirdLogin('qq', qqConfig)
             const user = await req(userInfoParmas)
             if (user.sessionToken) {
-                 dispatch(_loginSucceed(user));
-                 dispatch(NavigationActions.navigate({
+                dispatch(_loginSucceed(user));
+                dispatch(NavigationActions.navigate({
                     routeName: 'Tab',
                     params: { transition: 'forVertical' }
                 }))
@@ -386,8 +385,8 @@ export function qqLogin(Key) {
 
             let exData = {}
             if (user.sessionToken && !user.headimgurl) {
-                const { access_token,oauth_consumer_key, openid } = qqConfig
-                const userInfoParams = QQUserInfo(access_token, oauth_consumer_key,openid)
+                const { access_token, oauth_consumer_key, openid } = qqConfig
+                const userInfoParams = QQUserInfo(access_token, oauth_consumer_key, openid)
                 const info = await req(userInfoParams)
                 const userInfo = JSON.parse(info)
                 let { nickname, figureurl_qq_2 } = userInfo

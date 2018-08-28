@@ -11,12 +11,16 @@ import DeviceInfo from 'react-native-device-info'
 WeChat.registerApp('wx637e6f35f8211c6d')
 
 
-export function pay(...args) {
+const getIp = async ()=> {
+    const response = await fetch('https://api.ipify.org');
+    return await response.text();
+}
+
+export function pay(type,tradeId,amount,detail,description) {
 
 
     return async dispatch => {
 
-        const type = args[0];
         // console.log('paypre res:', res.data);
         if (type === 'weixin_app') {
 
@@ -24,28 +28,48 @@ export function pay(...args) {
                 Toast.show('没有安装微信~！')
                 return;
             }
-            const data = await  prePayInfo(...args)
+
+            const ip =  await getIp()
+
+            const data = await  prePayInfo(type,
+                tradeId,
+                amount * 100,
+                detail,
+                description,
+                ip)
             console.log('prePayInfo:', data);
 
-
+            if(data.return_code === '"FAIL"'){
+                Toast.show(data.return_msg)
+                return;
+            }
 
             const obj = {
-                //appid:data.Appid,
-                partnerId: data.mch_id,//商家向财付通申请的商家ID
+                // appid:'wx637e6f35f8211c6d',
+                partnerId: data.partnerid,//商家向财付通申请的商家ID
                 prepayId:data.prepay_id,//预支付订单ID
-                nonceStr: data.nonce_str,//随机串
-                timeStamp: new Date().getTime()+'',//时间戳
-                package: 'Sign=WXPay',//商家根据财付通文档填写的数据和签名
+                nonceStr: data.nonceStr,//随机串
+                timeStamp: data.timeStamp,//时间戳
+                package: data.package,//商家根据财付通文档填写的数据和签名
                 sign: data.sign,//商家根据微信开放平台文档对数据做的签名
+                // key:'combo987654321098765432109876543'
             }
+
+
 
             console.log('obj:', obj);
 
            return dispatch(wechatPay(obj))
         } else if (type === 'alipay_app') {
-            const res = await  prePayInfo(...args)
-            const data = queryStringToJSON(res.data)
-           return dispatch(aliPay(data.sign))
+            const res = await  prePayInfo(
+                type,
+                tradeId,
+                amount,
+                detail,
+                description)
+            // console.log('res:', res);
+            // const data = queryStringToJSON(res.data)
+           return dispatch(aliPay(res.data))
         } else {
 
         }
@@ -58,6 +82,7 @@ export function prePayInfo(...args) {
 
     const params = userpay(...args)
 
+    console.log('params:', params);
 
     return req(params)
 }
@@ -102,7 +127,6 @@ export function wechatPay(obj) {
 export function aliPay(order) {
     return async dispatch => {
         try {
-            console.log('order:', order);
             let response = await Alipay.pay(order);
             console.log('res',response);
             let { resultStatus, result, memo } = response;

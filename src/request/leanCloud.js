@@ -555,7 +555,7 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
  *  @money 金额
  *  @type  0 微信 1 支付宝
  */
-export function userpay(type,tradeId,amount,detail,description) {
+export function userpay(type,tradeId,amount,detail,description,ip) {
     return {
         host: apiHost,
         path: '/getPrePay/',
@@ -566,6 +566,7 @@ export function userpay(type,tradeId,amount,detail,description) {
             detail,
             tradeId,
             description:encodeURI(description, "utf-8"),
+            ip,
         }
     }
 }

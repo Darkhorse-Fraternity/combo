@@ -11,7 +11,7 @@ import {
     StatusBar,
     View
 } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
+
 
 export default class LightStatuBar extends Component {
     constructor(props: Object) {

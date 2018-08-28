@@ -172,7 +172,7 @@ const selector = formValueSelector(FormID) // <-- same as form name
                     const res = await dispatch(
                         pay(types[ItemId],
                             tradeId,
-                            money * 100,
+                            money,
                             "",
                             title+'消费'))
                     // console.log('res:', res);

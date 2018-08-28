@@ -155,7 +155,7 @@ export default class PayForm extends Component {
                     onPress={onSubmit && handleSubmit(onSubmit)}
                 >
                     <StyledPriceText>
-                        立即支付：{price.toFixed(1)}￥
+                        立即支付：￥{price.toFixed(1)}
                     </StyledPriceText>
                 </StyledBuyButton>
             </StyledContent>
