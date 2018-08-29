@@ -37,27 +37,21 @@ export function pay(type,tradeId,amount,detail,description) {
                 detail,
                 description,
                 ip)
-            console.log('prePayInfo:', data);
-
-            if(data.return_code === '"FAIL"'){
-                Toast.show(data.return_msg)
-                return;
-            }
+            // console.log('prePayInfo:', data);
 
             const obj = {
                 // appid:'wx637e6f35f8211c6d',
                 partnerId: data.partnerid,//商家向财付通申请的商家ID
-                prepayId:data.prepay_id,//预支付订单ID
-                nonceStr: data.nonceStr,//随机串
-                timeStamp: data.timeStamp,//时间戳
+                prepayId:data.prepayid,//预支付订单ID
+                nonceStr: data.noncestr,//随机串
+                timeStamp: data.timestamp,//时间戳
                 package: data.package,//商家根据财付通文档填写的数据和签名
                 sign: data.sign,//商家根据微信开放平台文档对数据做的签名
-                // key:'combo987654321098765432109876543'
             }
 
 
 
-            console.log('obj:', obj);
+            // console.log('obj:', obj);
 
            return dispatch(wechatPay(obj))
         } else if (type === 'alipay_app') {

@@ -10,7 +10,7 @@ import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image'
-
+import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 export const StyledContent = styled(LinearGradient)`
     flex: 1;
 `
@@ -68,7 +68,7 @@ export const StyledTitleText = styled.Text`
 export const StyledKeysView = styled.Text`
   color: #c1c1c1;
   font-size: 17px;
-  margin-top: 5px;
+  margin-top: 10px;
 `
 
 export const StyledCourseView = styled.View`
@@ -83,4 +83,8 @@ export const StyledDescirbe = styled.Text`
 `
 
 export const StyledImg = styled(AutoHeightImage)`
+`
+
+export const StyledIcon = styled(BaseIcon)`
+  align-self: center;
 `

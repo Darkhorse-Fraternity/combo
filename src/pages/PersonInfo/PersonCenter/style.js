@@ -32,6 +32,7 @@ export const StyledHeaderName = styled.Text`
     font-size: 30px;
     font-weight: 600;
     margin-top: 5px;
+    max-width: 150px;
 `
 
 export const StyledAvatar = styled.Image`

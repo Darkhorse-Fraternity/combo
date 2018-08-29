@@ -555,7 +555,20 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
  *  @money 金额
  *  @type  0 微信 1 支付宝
  */
+
+function encodeUTF8(str){
+    let temp = "",rs = "";
+    for( let i=0 , len = str.length; i < len; i++ ){
+        temp = str.charCodeAt(i).toString(16);
+        rs  += "&#x"+ new Array(5-temp.length).join("0") + temp;
+    }
+    return rs;
+}
+console.log('encodeUTF8:', encodeUTF8('圈子_早点睡觉😌的加入费用'));
+
 export function userpay(type,tradeId,amount,detail,description,ip) {
+    const des = encodeUTF8(description)
+    console.log('description:', description,des);
     return {
         host: apiHost,
         path: '/getPrePay/',
@@ -565,7 +578,7 @@ export function userpay(type,tradeId,amount,detail,description,ip) {
             type,
             detail,
             tradeId,
-            description:encodeURI(description, "utf-8"),
+            description:'&#x5708;&#x5B50;&#x65E9;&#x70B9;&#x7761;&#x89C9;&#x7684;&#x52A0;&#x5165;&#x8D39;&#x7528;',
             ip,
         }
     }

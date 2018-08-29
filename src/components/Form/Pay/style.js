@@ -16,7 +16,7 @@ export const StyledContent = styled.View`
 `
 
 export const StyledHeaderView = styled.View`
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 15px;
     flex-direction: row;
     justify-content: space-between;
@@ -39,11 +39,9 @@ export const StyledBottomView = styled.View`
 `
 
 export const StyledBuyButton = styled(Button)`
-    align-self: center;
-    width: 80%;
     align-items: center;
-    padding: 15px;
-    margin: 15px 20px;
+    padding: 12px;
+    margin: 20px 30px;
 `
 
 export const StyledPriceText = styled.Text`

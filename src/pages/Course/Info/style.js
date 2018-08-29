@@ -127,10 +127,10 @@ export const StyleKeys = styled.Text`
 
 
 export const StyledReadNum = styled.Text`
-    margin-top: 10px;
     font-size: 13px;
     color: #c1c1c1;
     font-weight: 600;
+    margin-right: 10px;
 `
 
 export const StyledHeaderInnerRight = styled.View`

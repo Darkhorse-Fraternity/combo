@@ -33,14 +33,14 @@ import {
 } from '../../../redux/reqKeys'
 import { getUserByID, classSearch } from '../../../request/leanCloud'
 import { req, requestSucceed } from '../../../redux/actions/req'
-import { selfUser, iCard } from '../../../request/LCModle'
+import { selfUser, iCard, user,pointModel } from '../../../request/LCModle'
 import Toast from 'react-native-simple-toast';
 import { add } from '../../../redux/module/leancloud'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
 import { user as UserEntity, schemas } from '../../../redux/scemes'
-import Button from '../../../components/Button/index'
+import Button from '../../../components/Button'
 
 import {
     StyledContent,
@@ -54,7 +54,8 @@ import {
     StyledCourseView,
     StyledKeysView,
     StyledDescirbe,
-    StyledImg
+    StyledImg,
+    StyledIcon
 } from './style'
 
 import {
@@ -80,6 +81,7 @@ import PayForm, { FormID } from '../../../components/Form/Pay'
 import { formValueSelector } from 'redux-form/immutable'
 import { pay } from '../../../redux/module/pay'
 import Pop from '../../../components/Pop'
+import { ORDER } from '../../../redux/reqKeys'
 
 const selector = formValueSelector(FormID) // <-- same as form name
 
@@ -153,8 +155,11 @@ const selector = formValueSelector(FormID) // <-- same as form name
             })
             req(params, IUSEExist, { sceme: schemas[IUSE] })
         },
-        onSubmit: (money,title) => {
+        onSubmit: (iCardData) => {
             dispatch(async (dispatch, getState) => {
+                const { price, title, objectId, } = iCardData
+                console.log('iCardData:', iCardData);
+                const userId = iCardData.user
                 const state = getState()
                 let radio = selector(state, 'PayRadio')
                 radio = radio && radio.toJS && radio.toJS()
@@ -169,13 +174,27 @@ const selector = formValueSelector(FormID) // <-- same as form name
                     const Atanisi = Math.floor(Math.random() * 999999);
                     const tradeId = new Date().getTime() + Atanisi + ''
 
+                    const description = '圈子_' + title + '的加入费用'
+                    await add({
+                        description,
+                        amount: price,
+                        ...pointModel('beneficiary',userId,'_User'),
+                        payType: types[ItemId],
+                        tradeId: Number(tradeId),
+                        ...selfUser(),
+                        ...iCard(objectId),
+                    }, ORDER)
+
                     const res = await dispatch(
                         pay(types[ItemId],
                             tradeId,
-                            money,
+                            price,
                             "",
-                            title+'消费'))
-                    // console.log('res:', res);
+                            description))
+                    console.log('res:', res);
+                    // 最后通知服务端，付款状态
+
+
 
                 }
 
@@ -329,7 +348,7 @@ export default class CardInfo extends Component {
                     onPress={() => {
 
                         Pop.show(<PayForm
-                            onSubmit={() => onSubmit(iCard.price,iCard.title)}
+                            onSubmit={() => onSubmit(iCard)}
                             balance={selfUse.amount}
                             price={iCard.price}/>, {
                             animationType: 'slide-up',
@@ -397,12 +416,23 @@ export default class CardInfo extends Component {
                             </StyledKeysView>}
 
 
-                            <Button onPress={() => {
-                                !userLoad && this.props.navigation.navigate('CardUse', { iCard: iCard })
-                            }}>
+                            <Button
+                                style={{
+                                    flexDirection: 'row',
+                                    marginTop: 10,
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                                onPress={() => {
+                                    !userLoad && this.props.navigation.navigate('CardUse', { iCard: iCard })
+                                }}>
                                 <StyledReadNum>
                                     参与人数：{iCard.useNum}
                                 </StyledReadNum>
+                                <StyledIcon
+                                    size={15}
+                                    color={'#c1c1c1'}
+                                    name="ios-arrow-forward"/>
                             </Button>
 
                         </StyledHeaderInnerLeft>

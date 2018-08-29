@@ -25,7 +25,7 @@ export function httpHeaders(needSession: bool): Object {
 
     const appVersion = parseFloat(DeviceInfo.getVersion())
     let header = {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=utf-8",
         "X-LC-Sign": LeanCloud_APP_SIGN,
         "X-LC-Id": LeanCloud_APP_ID,
         "X-LC-Prod": __DEV__ ? 0
