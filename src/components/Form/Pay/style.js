@@ -51,6 +51,11 @@ export const StyledPriceText = styled.Text`
  
 `
 
+export const StyledActivityIndicator = styled.ActivityIndicator`
+`
+
+
+
 export const StyleRadio = styled.View`
    padding: 15px 15px;
    justify-content: space-between;

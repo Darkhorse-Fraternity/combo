@@ -348,7 +348,7 @@ export default class CardInfo extends Component {
                     onPress={() => {
 
                         Pop.show(<PayForm
-                            onSubmit={() => onSubmit(iCard)}
+                            onSubmit={ async () => await onSubmit(iCard)}
                             balance={selfUse.amount}
                             price={iCard.price}/>, {
                             animationType: 'slide-up',

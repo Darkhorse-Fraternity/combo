@@ -58,3 +58,6 @@ export const StyledIconText = styled.Text`
 export const StyledIcon = styled(Icon)`
     align-self: center;
 `
+
+export const StyledActivityIndicator = styled.ActivityIndicator`
+`

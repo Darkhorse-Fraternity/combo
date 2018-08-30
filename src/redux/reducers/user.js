@@ -13,7 +13,8 @@ import {
     PASSWORD_CHANGE,
     LOGOUT,
     LOAD_ACCOUNT,
-    UPDATE_USERDATA
+    UPDATE_USERDATA,
+    THIRD_LOAD
 } from '../actions/user'
 import {CHANGEAVATAR} from '../actions/util'
 import {saveUserData} from '../../configure/storage'
@@ -23,6 +24,7 @@ const initialLoginState = {
     accountText: __DEV__ ? "13696981385" : '',
     passwordText: __DEV__ ? "980678" : '',
     data: {},
+    theThirdLoaded:'',
 }
 
 
@@ -68,6 +70,10 @@ export default function userState(state:immutable.Map<string,any> = initialLogin
             state.data = Object.assign({},state.data);
             saveUserData(state.data);
             return Object.assign({},state);
+        case THIRD_LOAD:
+            return Object.assign({}, state, {
+                ...action,
+            });
 
         default:
             return state

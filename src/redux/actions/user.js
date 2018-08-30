@@ -13,7 +13,7 @@ export const LOGIN_FAILED = 'LOGIN_FAILED'
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
-
+export const THIRD_LOAD = 'THIRD_LOAD'
 import {
     requestLogin,
     requestUsersByMobilePhone,
@@ -301,6 +301,7 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
 export function weChatLogin(Key) {
     return async (dispatch, getState) => {
         try {
+            dispatch(thirdLoaded(Key))
             const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
             const { appid, code } = weConfig
 
@@ -321,7 +322,7 @@ export function weChatLogin(Key) {
             } else {
                 Toast.show(JSON.stringify(weConfig))
             }
-
+            dispatch(thirdLoaded(''))
             //获取微信用户信息
 
             let exData = {}
@@ -347,6 +348,7 @@ export function weChatLogin(Key) {
             // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
 
         } catch (e) {
+            dispatch(thirdLoaded(''))
             if (e instanceof WeChat.WechatError) {
                 const errObj = {
                     '-1': '普通错误类型',
@@ -369,6 +371,7 @@ export function weChatLogin(Key) {
 export function qqLogin(Key) {
     return async (dispatch, getState) => {
         try {
+            dispatch(thirdLoaded(Key))
             const qqConfig = await QQAPI.login()
             const userInfoParmas = thirdLogin('qq', qqConfig)
             const user = await req(userInfoParmas)
@@ -379,7 +382,7 @@ export function qqLogin(Key) {
                     params: { transition: 'forVertical' }
                 }))
             }
-
+            dispatch(thirdLoaded(''))
 
             //获取微信用户信息
 
@@ -407,9 +410,17 @@ export function qqLogin(Key) {
 
 
         } catch (e) {
+            dispatch(thirdLoaded(''))
             Toast.show(e.message)
         }
 
+    }
+}
+
+export function thirdLoaded(key) {
+    return {
+        type: THIRD_LOAD,
+        theThirdLoaded: key,
     }
 }
 

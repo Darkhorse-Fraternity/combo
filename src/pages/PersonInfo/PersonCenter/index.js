@@ -213,7 +213,7 @@ export default class PersonCenter extends Component {
                         关注：{followees_count}
                     </StyleFollowText>
                 </Button>}
-                <StyleFollowDevide/>
+                {followers_count > 0 && <StyleFollowDevide/>}
                 {followers_count > 0 && <Button
                     style={{ alignItems: 'center' }}
                     onPress={() => {

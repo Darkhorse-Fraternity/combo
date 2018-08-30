@@ -28,7 +28,8 @@ import {
     RadioPlaceholdText,
     StyledHeaderView,
     StyledHeaderTitle,
-    StyledIconAwesome
+    StyledIconAwesome,
+    StyledActivityIndicator
 } from './style'
 import { Radio } from '../../../components/Form/Select'
 import Pop from '../../../components/Pop'
@@ -120,6 +121,7 @@ export default class PayForm extends Component {
             { ItemId: 'cash', name: `账户余额: ${(balance/100).toFixed(1)}元` }
         ]
 
+        console.log('submitting:', submitting);
 
         const submitDisabled = !enableSumbmit || submitting
             || !!disabled || invalid
@@ -154,9 +156,10 @@ export default class PayForm extends Component {
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
                     onPress={onSubmit && handleSubmit(onSubmit)}
                 >
-                    <StyledPriceText>
+                    {!submitting ? <StyledPriceText>
                         立即支付：￥{price.toFixed(1)}
-                    </StyledPriceText>
+                    </StyledPriceText> :<StyledActivityIndicator color={'white'}/>}
+
                 </StyledBuyButton>
             </StyledContent>
         );

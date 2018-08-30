@@ -86,5 +86,4 @@ export const StyledRowAmount = styled.Text`
 export const StyledRowStatu = styled.Text`
     margin-top: 10px;
      font-size: 15px;
-     width: 100px;
 `

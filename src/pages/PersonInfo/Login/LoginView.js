@@ -38,10 +38,12 @@ import {
     StyledIconText,
     StyledIconItem,
     StyledImage,
-    SyledImageName
+    SyledImageName,
+    StyledActivityIndicator
 } from './style'
 import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
+
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
 
@@ -69,10 +71,10 @@ const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=2016060
             return req(parmas)
         },
         qqLogin: () => {
-            dispatch(qqLogin(WECHATLOGIN))
+            dispatch(qqLogin(QQLOGIN))
         },
         wxLogin: () => {
-            dispatch(weChatLogin(QQLOGIN))
+            dispatch(weChatLogin(WECHATLOGIN))
         }
     })
 )
@@ -88,11 +90,11 @@ export default class LoginView extends Component {
             ymCode: __DEV__ ? '732061' : "", //验证码
             isTap: false,
             showMobile: false,
-            isWXAppInstalled:false,
+            isWXAppInstalled: false,
         };
 
-        WeChat.isWXAppInstalled().then(isWXAppInstalled =>{
-            this.setState({isWXAppInstalled})
+        WeChat.isWXAppInstalled().then(isWXAppInstalled => {
+            this.setState({ isWXAppInstalled })
         })
 
     }
@@ -226,6 +228,7 @@ export default class LoginView extends Component {
                        color,
                        title,
                        name,
+                       load = false,
                        onPress,
                        style = {}) => {
         return (
@@ -238,16 +241,17 @@ export default class LoginView extends Component {
 
             >
                 <StyledIconItem
+                    disabled={load}
                     onPress={onPress}
                     style={style}
                     background={TouchableNativeFeedback.SelectableBackgroundBorderless &&
                     TouchableNativeFeedback.SelectableBackgroundBorderless()}>
                     <StyledIconView
-                        style={{ backgroundColor: color, }}>
-                        <StyledIcon
+                        style={{ backgroundColor: load ? 'transparent' : color, }}>
+                        {load ? <StyledActivityIndicator/> : <StyledIcon
                             color={'white'}
                             name={name}
-                            size={size}/>
+                            size={size}/>}
                     </StyledIconView>
                     <StyledIconText>
                         {title}
@@ -257,15 +261,14 @@ export default class LoginView extends Component {
         )
     }
 
-     render () {
-
-
+    render() {
 
         const codeEnable = checkPhoneNum(this.state.phone) &&
             this.state.time === 60 && !this.state.isTap;
         const reg = /^\d{6}$/;
         const flag = reg.test(this.state.ymCode) && checkPhoneNum(this.state.phone)
         const authLoad = this.props.auth.get('load')
+        const thirdLoaded = this.props.userData.theThirdLoaded
         return (
             <StyledContent
                 colors={['#f1f6f9', '#ffffff']}
@@ -301,9 +304,11 @@ export default class LoginView extends Component {
                                           loadColor='rgb(230,230,230)'
                                     //styleDisabled={{fontWeight:'normal'}}
                                           onPress={this._onClickCode.bind(this)}
-                                          style={{ fontWeight: '400',
+                                          style={{
+                                              fontWeight: '400',
                                               fontSize: 14,
-                                              color: 'black' }}
+                                              color: 'black'
+                                          }}
                                 >
                                     {this.state.time === 60 ||
                                     this.state.time === 0 ? '获取验证码' :
@@ -350,18 +355,21 @@ export default class LoginView extends Component {
                             '#30d77f',
                             '微信登录',
                             'weixin',
+                            thirdLoaded === WECHATLOGIN,
                             this.props.wxLogin,
                         )}
                         {this.renderLoginItem(25,
                             '#37c2fc',
                             'QQ登录',
                             'qq',
+                            thirdLoaded === QQLOGIN,
                             this.props.qqLogin,
                         )}
                         {this.renderLoginItem(35,
                             '#38d5c2',
                             '手机登录',
                             'mobile',
+                            false,
                             () => {
                                 this.setState({
                                     showMobile: !this.state.showMobile

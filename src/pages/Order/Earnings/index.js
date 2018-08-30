@@ -97,7 +97,7 @@ export default class Earnings extends Component {
                     <StyledRowTitle>
                         申请单号：{item.tradeId}
                     </StyledRowTitle>
-                    <StyledRowStatu>
+                    <StyledRowStatu numberOfLines={1}>
                         {item.description}
                     </StyledRowStatu>
 
