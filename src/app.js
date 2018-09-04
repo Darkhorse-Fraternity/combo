@@ -8,16 +8,13 @@
 import React, { Component, } from 'react'
 import { Platform, StatusBar,View } from 'react-native'
 import { Provider } from 'react-redux'
-
 import store from './redux/store'
-import InfoBar from './components/InfoBar'
 import AppWithNavigationState from './components/Nav/navigators/AppNavigator';
 import { ThemeProvider } from 'styled-components'
 import theme from './Theme'
-import LightStatuBar from './Theme/LightStatuBar'
 import SplashScreen from 'react-native-splash-screen'
 import Configure from './configure'
-import PushManage from './configure/localNotification'
+
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
 
@@ -38,12 +35,7 @@ export default  class App extends Component {
             <Provider store={store}>
                 <ThemeProvider theme={theme}>
                     <Configure>
-                        <View style={{ flex: 1 }}>
-                            <PushManage/>
-                            <LightStatuBar/>
                             <AppWithNavigationState/>
-                            <InfoBar/>
-                        </View>
                     </Configure>
                 </ThemeProvider>
             </Provider>

@@ -98,7 +98,7 @@ export default class Publish extends Component {
 
                 <StyledTitleView>
                     <StyledTitleText>
-                        结伴同行
+                        1周热门推荐
                     </StyledTitleText>
                 </StyledTitleView>
             </View>
@@ -118,7 +118,7 @@ export default class Publish extends Component {
                 columnWrapperStyle={{ padding: 5 }}
                 renderItem={this.renderRow.bind(this)}
                 dataMap={(data) => {
-                    return { results: data.result }
+                    return { results: data.result.list }
                 }}
                 reqParam={{}}
             />

@@ -289,6 +289,7 @@ export default class CardInfo extends Component {
         const iCardUser = this.props.user.toJS()
 
 
+
         const avatar = iCardUser.avatar
 
         // console.log('iCardUser:', iCardUser);
@@ -326,6 +327,7 @@ export default class CardInfo extends Component {
 
         const isSelf = selfUse.objectId === iCard.user
 
+        // console.log('iCard.img:', iCard.img);
 
         return (
             <StyledContent
@@ -402,9 +404,7 @@ export default class CardInfo extends Component {
                             {iCard.subtitle && <StyledSubTitle>
                                 {iCard.subtitle}
                             </StyledSubTitle>}
-                            <StyledNickName>
-                                教练: {nickName}
-                            </StyledNickName>
+
 
 
                             {keys && <StyledKeysView>
@@ -431,18 +431,22 @@ export default class CardInfo extends Component {
                                 </StyledReadNum>
                                 <StyledIcon
                                     size={15}
-                                    color={'#c1c1c1'}
                                     name="ios-arrow-forward"/>
                             </Button>
 
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
-                            <Button onPress={() => {
+                            <Button
+                                style={{ alignItems: 'center'}}
+                                onPress={() => {
                                 this.props.navigation.navigate('Following',
                                     { user: iCardUser })
 
                             }}>
                                 <StyledAvatar source={avatarSource}/>
+                                {nickName && <StyledNickName>
+                                    {nickName}
+                                </StyledNickName>}
                             </Button>
                             {/*{this.__renderFocusOn()}*/}
                         </StyledHeaderInnerRight>

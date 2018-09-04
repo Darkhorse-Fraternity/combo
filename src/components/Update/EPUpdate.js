@@ -1,7 +1,7 @@
 import { send } from '../../request/index'
-
+import React from "react"
 //当前测试版本号
-const AppTestVersion = 1
+const AppTestVersion = '1.0.0'
 
 const api_token = 'a3f43472f64ddccbc58c2dcf75438f18'
 
@@ -9,7 +9,10 @@ import DeviceInfo from 'react-native-device-info'
 import { Platform, Linking, Alert } from 'react-native'
 import Toash from 'react-native-simple-toast'
 import { push } from '../../redux/nav'
+import Pop from '../../components/Pop'
 // import {androidUpdate} from './downLoad'
+import UpdateView from './AndroidUpdateView'
+import {appUpdateInfo} from '../../request/leanCloud'
 
 function firUpdate(bundleId, api_token, type) {
     return {
@@ -25,10 +28,9 @@ function firUpdate(bundleId, api_token, type) {
 }
 
 
-
 const checkIos = (str) => str.lastIndexOf('ep') !== -1
 //当为android 时 只有大于或等于指定版本进入测试状态
-const checkAndroid = () => parseFloat(DeviceInfo.getVersion()) >= AppTestVersion
+const checkAndroid = () => compareVersion(DeviceInfo.getVersion(), AppTestVersion)
 
 
 const checkUpdate = (res, callBack) => {
@@ -37,23 +39,25 @@ const checkUpdate = (res, callBack) => {
     //installUrl含有表示返回正确值,
 
     if (res.installUrl) {
-        const version = parseFloat(res.version)
-        const versionShort = parseFloat(res.versionShort)
-        const appVersion = parseFloat(DeviceInfo.getVersion())
-        const buildNumber = parseFloat(DeviceInfo.getBuildNumber())
+        const version = res.version + ''
+        const versionShort = res.versionShort + ''
+        const appVersion = DeviceInfo.getVersion() + ''
+        const buildNumber = DeviceInfo.getBuildNumber() + ''
 
         console.log('version:', version);
         console.log('versionShort:', versionShort);
         console.log('appVersion:', appVersion);
         console.log('buildNumber:', buildNumber);
 
-        if (versionShort > appVersion || versionShort === appVersion && version > buildNumber) {
+
+        if (compareVersion(versionShort, appVersion) >= 0 &&
+            compareVersion(version, buildNumber) > 0) {
             const changelog = `当前版本号:${appVersion},\n编译号:${buildNumber};
-            \n更新版本号:${versionShort},\n更新编译号:${version}`
+            \n新版本号:${versionShort},\n新编译号:${version}`
 
             // console.log('changelog:', changelog)
             Alert.alert(
-                '版本更新~',
+                '有新的版本~',
                 res.changelog || changelog,
                 [{
                     text: '取消', onPress: () => {
@@ -62,61 +66,125 @@ const checkUpdate = (res, callBack) => {
                     text: '确定', onPress: () => {
                         callBack && callBack()
                     },
-                }
-                ]
+                }]
             )
+
+
         }
     }
 
 }
 
 
-const goWebView = (uri) => {
+const goWebView = async (uri) => {
 
-    push('WebView', { uri,title:'新版本更新' })
+    // push('WebView', { uri, title: '新版本更新' })
+    let remoteData = await send(appUpdateInfo()).then(res => res.json())
 
+    console.log('remoteData:', remoteData);
 
 }
-
+goWebView()
 //用于企业端自动更新
 export const epUpdate = async () => {
     const bundleId = DeviceInfo.getBundleId()
-    console.log('checkAndroid():', DeviceInfo.getVersion());
     if (Platform.OS === 'ios' && checkIos(bundleId)) {
         const res = await sendBack(bundleId)
         // console.log('update:', res);
         const callback = () => {
-            try{
+            try {
                 const services = 'itms-services://?action=download-manifest&url='
                 const url = services + res.installUrl
                 Linking.openURL(url);
-            }catch(e){
+            } catch (e) {
                 Toash.show(e.message)
             }
             // goWebView(res.update_url)
             Linking.openURL(res.update_url);
         }
         checkUpdate(res, callback)
-    } else if (Platform.OS === 'android' && checkAndroid()) {
-        const res = await sendBack(bundleId)
-        console.log('update:', res);
-        const callback = () => {
+    } else if (Platform.OS === 'android') {
 
-            Linking.openURL(res.install_url);
-            Linking.openURL(res.update_url);
-            // androidUpdate(res.install_url)
-            // const request = new Request(res.installUrl, {method: 'get'});
-            // fetch(request)
+        //远程接口
+        let remoteData = await send(appUpdateInfo()).then(res => res.json())
 
-            // Linking.openURL('combo://Tab');
-            // goWebView(res.update_url)
+        console.log('remoteData:', remoteData);
+
+        // const remoteData = {
+        //     version:'1.1',
+        //     filename: "combo.apk",
+        //     url: 'http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk',
+        //     desc: ["修复了一些bug", "优化了一些UI问题"]
+        // }
+        const version = '1.1'
+        const appVersion = DeviceInfo.getVersion() + ''
+        if (compareVersion(version, appVersion) > 0) {
+            //本地版本号小于远程版本号 进入远程升级
+            Alert.alert(
+                '有新的版本~',
+                '修复了一些bug',
+                [{
+                    text: '取消', onPress: () => {
+                    },
+                }, {
+                    text: '确定', onPress: () => {
+                        Pop.show(<UpdateView
+                            bannerImage={require('../../../source/img/my/icon-60.png')}
+                            fetchRes={remoteData}/>, { maskClosable: false })
+                    },
+                }
+                ]
+            )
+
+        } else if (compareVersion(version, appVersion) < 0) {
+            //本地版本号大于远程版本号 查询编译号，是否进入测试升级
+            const res = await sendBack(bundleId)
+            // console.log('update:', res);
+            const callback = () => {
+                Linking.openURL(res.install_url);
+                Linking.openURL(res.update_url);
+            }
+            //Android 识别当前测试版本号 来检测更新
+            checkUpdate(res, callback)
         }
-        //Android 识别当前测试版本号 来检测更新
-        checkUpdate(res, callback)
+
     }
 }
 
 function sendBack(bundleId) {
     const params = firUpdate(bundleId, api_token, Platform.OS)
     return send(params).then(res => res.json())
+}
+
+
+/**
+ * @param {string} a
+ * @param {string} b
+ * @return {number}
+ */
+
+const compareVersion = (a, b) => {
+    let aa = a.split('.');
+    let ab = b.split('.');
+    let i = 0;
+    let la = aa.length, lb = ab.length;
+    while (la > lb) {
+        ab.push(0);
+        ++lb;
+    }
+    while (la < lb) {
+        aa.push(0);
+        ++la;
+    }
+    while (i < la && i < lb) {
+        const ai = parseInt(aa[i], 10);
+        const bi = parseInt(ab[i], 10);
+        if (ai > bi) {
+            return 1;
+        } else if (ai < bi) {
+            return -1;
+        }
+        ++i;
+    }
+    return 0;
 }

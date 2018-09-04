@@ -10,7 +10,8 @@ import {
     NetInfo,
     Linking,
     AppState,
-    Alert
+    Alert,
+    View
 } from 'react-native';
 import pushConfig from '../configure/push/push'
 // import {dataStorage} from '../redux/actions/util'
@@ -18,10 +19,14 @@ import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info'
 import { epUpdate } from '../components/Update/EPUpdate'
-import {appStateUpdate} from '../redux/actions/util'
+import { appStateUpdate } from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 import KeyboardManager from 'react-native-keyboard-manager'
 import Rate from 'react-native-rate'
+import PushManage from '../configure/localNotification'
+import LightStatuBar from '../Theme/LightStatuBar'
+import InfoBar from '../components/InfoBar'
+import RNUpdate from "react-native-update-app"
 
 @connect(
     state => ({ nav: state.nav, }),
@@ -64,23 +69,23 @@ export default class Configure extends React.Component {
     static defaultProps = {};
 
 
-    _handleOpenURL = async (event)=>{
+    _handleOpenURL = async (event) => {
         this._handleUrl(event.url)
     }
 
-    _getInitialURL = async ()=>{
+    _getInitialURL = async () => {
         const url = await Linking.getInitialURL()
         this._handleUrl(url)
     }
 
-    _handleUrl = (url)=> {
-        if(url){
+    _handleUrl = (url) => {
+        if (url) {
             const wurl = require('wurl');
-            const key =  wurl(1, url)
+            const key = wurl(1, url)
             const params = wurl('?', url);
-            const hostname =  wurl('hostname', url)
+            const hostname = wurl('hostname', url)
             const protocol = wurl('protocol', url)
-            if(hostname==='combo' && protocol === 'combo'){
+            if (hostname === 'combo' && protocol === 'combo') {
                 console.log('params:', params);
                 this.props.dispatch(NavigationActions.navigate({ routeName: key, params }))
             }
@@ -88,6 +93,7 @@ export default class Configure extends React.Component {
 
 
     }
+
     async requestCameraPermission() {
         try {
             const granted = await PermissionsAndroid.request(
@@ -109,7 +115,7 @@ export default class Configure extends React.Component {
     }
 
 
-    keyboardConfig = ()=>{
+    keyboardConfig = () => {
         if (Platform.OS === 'ios') {
             KeyboardManager.setEnable(true);
             KeyboardManager.setEnableDebugging(false);
@@ -128,16 +134,17 @@ export default class Configure extends React.Component {
         this.keyboardConfig()
 
         let options = {
-            AppleAppID:"1332546993",
-            preferInApp:true,
-            inAppDelay:5.0,
-            openAppStoreIfInAppFails:false,
+            AppleAppID: "1332546993",
+            preferInApp: true,
+            inAppDelay: 5.0,
+            openAppStoreIfInAppFails: false,
             // preferredAndroidMarket: AndroidMarket.Other,
         }
 
-        if(Platform.OS === 'ios'){
-           !__DEV__ && Rate.rate(options,()=>{})
-        }else {
+        if (Platform.OS === 'ios') {
+            !__DEV__ && Rate.rate(options, () => {
+            })
+        } else {
             //TODO 给Android 做一个评论智能跳出。
             // Alert.alert(
             //     '给我们一个好评吧!',
@@ -201,8 +208,41 @@ export default class Configure extends React.Component {
     }
 
 
+    onBeforeStart = async () => {
+        // 在这里可以发请求，用promise返回结果
+        // let res = await toolApi.updateApp()
+        // return res.data
+        /*返回结果 res 如下
+        {
+            "data": {
+                "version":"1.1",
+                "filename":"微信.apk",
+                "url":"http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk",
+                "desc":["更新了一些bug", "修复了一些UI问题"]
+            },
+            "error":{"code":0}
+        }*/
+
+        return {
+
+            "version": "1.1",
+            "filename": "微信.apk",
+            "url": "http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk",
+            "desc": ["更新了一些bug", "修复了一些UI问题"]
+        }
+    }
+
+
     render() {
-        return this.props.children;
+        return (
+            <View style={{ flex: 1 }}>
+                <PushManage/>
+                <LightStatuBar/>
+                {this.props.children}
+                <InfoBar/>
+            </View>
+        )
+
     }
 
 }

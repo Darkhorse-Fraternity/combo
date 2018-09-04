@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.banli17.RNUpdateAppPackage;
 import com.reactlibrary.AlipayPackage;
 import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
@@ -34,7 +35,6 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
-import com.combo.util.update.*;
 
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;

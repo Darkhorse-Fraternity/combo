@@ -571,3 +571,19 @@ export function userpay(type,tradeId,amount,detail,description,ip) {
         }
     }
 }
+
+
+/*
+ * 获取android 升级配置
+ */
+
+
+
+export function appUpdateInfo():Object{
+    return {
+        path : '/call/appUpdateInfo',
+        method :methodType.get,
+        params :{
+        }
+    }
+}

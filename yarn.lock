@@ -6037,9 +6037,9 @@ react-native-debugger-open@^0.3.17:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-device-info@^0.22.3:
-  version "0.22.3"
-  resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.22.3.tgz#25e81f275eda85f181bc3eaf9dadca140e6decf6"
+react-native-device-info@^0.22.5:
+  version "0.22.5"
+  resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-0.22.5.tgz#9b1882cbb030f2926cff77336e7cd2e87edf52bf"
 
 react-native-dialogs@^1.0.0:
   version "1.0.2"
@@ -6067,7 +6067,7 @@ react-native-flip-card@^3.5.2:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-fs@^2.10.14:
+react-native-fs@^2.11.15:
   version "2.11.15"
   resolved "http://registry.npm.taobao.org/react-native-fs/download/react-native-fs-2.11.15.tgz#b80ac78edf124137624697b4864f834c1caf4f43"
   dependencies:
@@ -6219,6 +6219,10 @@ react-native-textinput-effects@^0.4.2:
 react-native-today-widget@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/react-native-today-widget/download/react-native-today-widget-1.0.0.tgz#2547494c497aa7163b3a40a66937879be4b5412c"
+
+react-native-update-app@^1.1.11:
+  version "1.1.11"
+  resolved "http://registry.npm.taobao.org/react-native-update-app/download/react-native-update-app-1.1.11.tgz#cb25494cb425f360ae2cf4216b29d9d0dad3d830"
 
 react-native-uuid@^1.4.9:
   version "1.4.9"

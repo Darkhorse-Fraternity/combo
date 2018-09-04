@@ -13,6 +13,7 @@
 		2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6726C820089B4C888439340C /* libRNFS.a */; };
 		3FA4B16CFC0D4410BA146D10 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BCB14521ACA74A41A4B20948 /* FontAwesome5_Brands.ttf */; };
 		6CAD00D716A847848901DCA7 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 27BAA548624E43BDAE59A28D /* FontAwesome5_Regular.ttf */; };
+		7F33AC579ED94E48B84983A0 /* libRNUpdateApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF171FD312C41BEA3A10D16 /* libRNUpdateApp.a */; };
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
 		CC09E6AF2120566300327D96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC09E6AE2120566300327D96 /* CoreGraphics.framework */; };
 		CC09E6B12120567600327D96 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC09E6B02120567600327D96 /* CFNetwork.framework */; };
@@ -405,6 +406,13 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTAlipay;
 		};
+		CC928F9321377A650065B910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CDAF9E63272B4F9E9D2DA5F6 /* RNUpdateApp.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNUpdateApp;
+		};
 		CC998CD41FA2C1F90040ED73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EE1C6CE95718429DA4D9D756 /* Interactable.xcodeproj */;
@@ -620,6 +628,7 @@
 		27BAA548624E43BDAE59A28D /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		2BE3550CC6BF4B388A60DE49 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
+		2CF171FD312C41BEA3A10D16 /* libRNUpdateApp.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNUpdateApp.a; sourceTree = "<group>"; };
 		305888BE2E6B442EB4282B45 /* RCTQQAPI.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTQQAPI.xcodeproj; path = "../node_modules/react-native-qq/ios/RCTQQAPI.xcodeproj"; sourceTree = "<group>"; };
 		32A4378ECF2B42C89020A537 /* RCTCustomInputController.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCustomInputController.xcodeproj; path = "../node_modules/react-native-keyboard-input/lib/ios/RCTCustomInputController.xcodeproj"; sourceTree = "<group>"; };
 		391D9D7617FC41D286881D39 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
@@ -678,6 +687,7 @@
 		CCFBC8341FEA7A3800DA269C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		CCFBC84C1FEA7B2200DA269C /* AppearanceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppearanceConfig.h; sourceTree = "<group>"; };
 		CCFBC84D1FEA7B2200DA269C /* AppearanceConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearanceConfig.m; sourceTree = "<group>"; };
+		CDAF9E63272B4F9E9D2DA5F6 /* RNUpdateApp.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNUpdateApp.xcodeproj; path = "../node_modules/react-native-update-app/ios/RNUpdateApp.xcodeproj"; sourceTree = "<group>"; };
 		D31AAD173C824FABA33FF086 /* libRCTCustomInputController.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCustomInputController.a; sourceTree = "<group>"; };
 		D4C4198DA343472092E1C09B /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		D5DAA8BED78E47B0BD019EBF /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -787,6 +797,7 @@
 				2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */,
 				CC09E6B8212056D300327D96 /* libRCTAlipay.a in Frameworks */,
 				CC84E930211EE99C00E7D593 /* libRNRate.a in Frameworks */,
+				7F33AC579ED94E48B84983A0 /* libRNUpdateApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1009,6 +1020,7 @@
 				5CBE00F774554889ABCA0EA7 /* ReactNativeKeyboardManager.xcodeproj */,
 				CC84E8CE211EE90B00E7D593 /* RNRate.xcodeproj */,
 				D8C889CBA32B4C8D840288A2 /* RCTAlipay.xcodeproj */,
+				CDAF9E63272B4F9E9D2DA5F6 /* RNUpdateApp.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1135,6 +1147,7 @@
 				CB7EB1D4DEBF4314A1710F4E /* libReactNativeKeyboardManager.a */,
 				92F6A1F4EE004F3B9976D7FE /* libRNRate.a */,
 				D79C0A728E644F5185C19C2E /* libRCTAlipay.a */,
+				2CF171FD312C41BEA3A10D16 /* libRNUpdateApp.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1194,6 +1207,14 @@
 			isa = PBXGroup;
 			children = (
 				CC84EA28211FE42900E7D593 /* libRCTAlipay.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC928F9021377A640065B910 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC928F9421377A650065B910 /* libRNUpdateApp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1507,6 +1528,10 @@
 					ProjectRef = CC84E8CE211EE90B00E7D593 /* RNRate.xcodeproj */;
 				},
 				{
+					ProductGroup = CC928F9021377A640065B910 /* Products */;
+					ProjectRef = CDAF9E63272B4F9E9D2DA5F6 /* RNUpdateApp.xcodeproj */;
+				},
+				{
 					ProductGroup = CC4E42B11DF59F2E005783A6 /* Products */;
 					ProjectRef = 0E7269983BAB4CB7AA00ED41 /* RNVectorIcons.xcodeproj */;
 				},
@@ -1803,6 +1828,13 @@
 			fileType = archive.ar;
 			path = libRCTAlipay.a;
 			remoteRef = CC84EA27211FE42900E7D593 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC928F9421377A650065B910 /* libRNUpdateApp.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNUpdateApp.a;
+			remoteRef = CC928F9321377A650065B910 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC998CD51FA2C1F90040ED73 /* libInteractable.a */ = {
@@ -2207,7 +2239,10 @@
 				INFOPLIST_FILE = ComboTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2226,7 +2261,10 @@
 				INFOPLIST_FILE = ComboTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2392,10 +2430,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 					"$(SRCROOT)/../node_modules/@0x5e/react-native-alipay/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-update-app/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -2454,10 +2496,14 @@
 					"$(SRCROOT)/../node_modules/react-native-keyboard-manager/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 					"$(SRCROOT)/../node_modules/@0x5e/react-native-alipay/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-update-app/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -2524,10 +2570,14 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 					"$(SRCROOT)/../node_modules/@0x5e/react-native-alipay/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-update-app/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -2590,10 +2640,14 @@
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-rate/ios",
 					"$(SRCROOT)/../node_modules/@0x5e/react-native-alipay/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-update-app/ios",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

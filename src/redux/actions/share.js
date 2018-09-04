@@ -42,7 +42,7 @@ export function shareToWechat(type: string, param: object ={}): Function {
             let result = await Method({
                 type: 'news',
                 title: param.title || '金色光芒',
-                webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn/',
+                webpageUrl: param.webpageUrl || 'https://stg-icard.leanapp.cn',
                 description: param.description || '勇敢地成为你自己',
                 mediaTagName: 'email signature',
                 messageAction: undefined,
@@ -85,7 +85,7 @@ export function shareToQQ(type: string, param: object = {}): Function {
                 type: 'news',
                 title: param.title || '金色光芒',
                 description: param.description || '',
-                webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn/',
+                webpageUrl: param.webpageUrl || 'https://stg-icard.leanapp.cn/',
                 imageUrl: param.imageUrl || param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png',
             });
             console.log('share text message to time line successful:', result);

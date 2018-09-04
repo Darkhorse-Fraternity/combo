@@ -80,6 +80,8 @@ export function wechatPay(obj) {
             console.log('wechat res:', res);
             if (res.errCode === 0 && res.type === 'PayReq.Resp') {
                 Toast.show('支付成功')
+
+
                 return dispatch(suc(res))
             }
         } catch (e) {

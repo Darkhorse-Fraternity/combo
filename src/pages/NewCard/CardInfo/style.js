@@ -61,14 +61,12 @@ export const StyledTitleView = styled.View`
 `
 
 export const StyledTitleText = styled.Text`
-  font-size: 15px;
+  font-size: 17px;
   color: #979797;
 `
 
 export const StyledKeysView = styled.Text`
-  color: #c1c1c1;
   font-size: 17px;
-  margin-top: 10px;
 `
 
 export const StyledCourseView = styled.View`

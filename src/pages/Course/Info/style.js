@@ -110,14 +110,14 @@ export const StyledHeaderInnerLeft = styled.View`
 `
 export const StyledNickName = styled.Text`
     font-size: 17px;
-     margin-bottom: 5px;
+     margin: 5px;
 `
 
 
 export const StyledSubTitle = styled.Text`
    
     font-size: 17px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 `
 export const StyleKeys = styled.Text`
     color: #c1c1c1;
@@ -127,9 +127,8 @@ export const StyleKeys = styled.Text`
 
 
 export const StyledReadNum = styled.Text`
-    font-size: 13px;
-    color: #c1c1c1;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 300;
     margin-right: 10px;
 `
 
