@@ -582,8 +582,24 @@ export function userpay(type,tradeId,amount,detail,description,ip) {
 export function appUpdateInfo():Object{
     return {
         path : '/call/appUpdateInfo',
-        method :methodType.get,
+        method :methodType.post,
         params :{
+        }
+    }
+}
+
+/*
+ *  支付的最后一步流程
+ */
+
+
+export function payOrder(payId,tradeId) {
+    return {
+        path : '/call/payOrder',
+        method :methodType.post,
+        params :{
+            payId,
+            tradeId
         }
     }
 }

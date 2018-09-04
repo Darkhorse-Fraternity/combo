@@ -53,19 +53,30 @@ const listKey = ENCH
 
                 try {
                     const state = getState()
+                    const user = state.user.data
                     const amount = Number(selector(state, 'amount'))
-                    const name = selector(state, 'name')
-                    const Atanisi = Math.floor(Math.random() * 999999);
-                    const enchId = new Date().getTime() + Atanisi
-                    const params = {
-                        name,
-                        enchId,
-                        ...selfUser(),
-                        amount
+                    if(user.balance >= amount * 100 && amount >= 10  ){
+                        const name = selector(state, 'name')
+                        const Atanisi = Math.floor(Math.random() * 999999);
+                        const enchId = new Date().getTime() + Atanisi
+                        const params = {
+                            name,
+                            enchId,
+                            ...selfUser(),
+                            amount
+                        }
+                        await add(params, ENCH)
+                        Toast.show('我们已经收到了您的申请,耐心等待哦。')
+                        props.navigation.goBack()
+                    }else {
+                        if(user.balance <= amount * 100){
+                            Toast.show('您的余额不足')
+                        }else if( amount <10){
+                            Toast.show('取现金额需大于10元')
+                        }
+
                     }
-                    await add(params, ENCH)
-                    Toast.show('我们已经收到了您的申请,耐心等待哦。')
-                    props.navigation.goBack()
+
                 } catch (e) {
 
                     Toast.show(e.message)
@@ -137,7 +148,7 @@ export default class Cash extends Component {
                 </StyledRowInner>
                 <StyledRowInner style={{alignItems:'flex-end'}}>
                     <StyledRowAmount>
-                        ￥{item.amount/100}
+                        ￥{item.amount}
                     </StyledRowAmount>
                     <StyledRowStatu>
                         {item.statu===0?'处理中':'已处理'}

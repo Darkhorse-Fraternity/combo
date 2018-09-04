@@ -2,7 +2,7 @@ import * as WeChat from 'react-native-wechat';
 // WeChat.registerApp('wx45feb9299ac8334a')
 import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
-import { userpay } from '../../request/leanCloud'
+import { userpay,payOrder } from '../../request/leanCloud'
 import { req } from '../actions/req'
 import { queryStringToJSON } from '../../request/useMeth'
 import Toast from 'react-native-simple-toast'
@@ -63,7 +63,11 @@ export function pay(type, tradeId, amount, detail, description) {
                 description))
             // console.log('res:', res);
             // const data = queryStringToJSON(res.data)
-            return dispatch(aliPay(res.data))
+            const aliPayRes  = await dispatch(aliPay(res.data))
+            const {trade_no} = aliPayRes
+            const lastRes = await  dispatch(req(payOrder(trade_no,tradeId)))
+
+            return dispatch(suc(aliPayRes))
         } else {
 
         }
@@ -115,7 +119,7 @@ export function aliPay(order) {
     return async dispatch => {
         try {
             let response = await Alipay.pay(order);
-            console.log('res', response);
+            // console.log('res', response);
             let { resultStatus, result, memo } = response;
 
 
@@ -123,10 +127,10 @@ export function aliPay(order) {
 
             if (resultStatus === '9000') {
                 Toast.show('支付成功');
-                let resJson = JSON.parse(result);
+                return JSON.parse(result);
                 // let { code, msg, app_id, out_trade_no, trade_no,
                 //     total_amount, seller_id, charset, timestamp } = resJson;
-                return dispatch(suc(resJson))
+
 
             } else {
                 Toast.show(memo)

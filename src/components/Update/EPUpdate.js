@@ -12,7 +12,7 @@ import { push } from '../../redux/nav'
 import Pop from '../../components/Pop'
 // import {androidUpdate} from './downLoad'
 import UpdateView from './AndroidUpdateView'
-import {appUpdateInfo} from '../../request/leanCloud'
+import { appUpdateInfo } from '../../request/leanCloud'
 
 function firUpdate(bundleId, api_token, type) {
     return {
@@ -79,12 +79,12 @@ const checkUpdate = (res, callBack) => {
 const goWebView = async (uri) => {
 
     // push('WebView', { uri, title: '新版本更新' })
-    let remoteData = await send(appUpdateInfo()).then(res => res.json())
-
-    console.log('remoteData:', remoteData);
+    // let remoteData = await send(appUpdateInfo()).then(res => res.json())
+    //
+    // console.log('remoteData:', remoteData);
 
 }
-goWebView()
+// goWebView()
 //用于企业端自动更新
 export const epUpdate = async () => {
     const bundleId = DeviceInfo.getBundleId()
@@ -107,22 +107,16 @@ export const epUpdate = async () => {
 
         //远程接口
         let remoteData = await send(appUpdateInfo()).then(res => res.json())
+        remoteData = remoteData && remoteData.result || {}
 
-        console.log('remoteData:', remoteData);
-
-        // const remoteData = {
-        //     version:'1.1',
-        //     filename: "combo.apk",
-        //     url: 'http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk',
-        //     desc: ["修复了一些bug", "优化了一些UI问题"]
-        // }
-        const version = '1.1'
+        const { desc, version  } = remoteData
         const appVersion = DeviceInfo.getVersion() + ''
+        console.log('remoteData:', version,appVersion);
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(
                 '有新的版本~',
-                '修复了一些bug',
+                desc.join('\n'),
                 [{
                     text: '取消', onPress: () => {
                     },

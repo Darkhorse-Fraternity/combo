@@ -63,7 +63,7 @@ export default class Earnings extends Component {
 
 
     _renderHeader = () => {
-        const cash = this.props.user.amount
+        const cash = this.props.user.balance
         return (
             <StyledHeader>
                 <StyledHeaderTitle>
@@ -104,7 +104,7 @@ export default class Earnings extends Component {
                 </StyledRowInner>
                 <StyledRowInner style={{alignItems:'flex-end'}}>
                     <StyledRowAmount>
-                        ￥{item.amount/100}
+                        ￥{item.amount}
                     </StyledRowAmount>
                     <StyledRowDate>
                         {moment(item.createdAt).format("YYYY-MM-DD")}
