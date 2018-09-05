@@ -64,7 +64,6 @@ export const StyledFuncView = styled.View`
 `
 
 export const StyleFolllow = styled.View`
-    margin-top: 5px;
     flex-direction: row;
     align-content: center; 
 `

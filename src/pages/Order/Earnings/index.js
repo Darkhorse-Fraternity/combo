@@ -32,14 +32,18 @@ import moment from 'moment'
 import { ORDER } from '../../../redux/reqKeys'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { pointModel } from '../../../request/LCModle'
-
+import {update} from '../../../redux/actions/user'
 const listKey = ORDER
 
 @connect(
     state => ({
         user: state.user.data
     }),
-    dispatch => ({})
+    dispatch => ({
+        updateUserInfo:()=>{
+            dispatch(update())
+        }
+    })
 )
 
 
@@ -61,6 +65,11 @@ export default class Earnings extends Component {
         }
     };
 
+    componentDidMount() {
+        this.props.updateUserInfo()
+    }
+
+
 
     _renderHeader = () => {
         const cash = this.props.user.balance
@@ -71,7 +80,7 @@ export default class Earnings extends Component {
                 </StyledHeaderTitle>
                 <StyledHeaderBottom>
                     <StyledHeaderCash>
-                        ￥{(cash/100).toFixed(1)}
+                        ￥{(cash/100).toFixed(2)}
                     </StyledHeaderCash>
                     <StyledHeaderBtn
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 5 }}
@@ -90,12 +99,12 @@ export default class Earnings extends Component {
     }
 
     renderRow = ({ item, index }: Object) => {
-        console.log('item:', item);
+        // console.log('item:', item);
         return (
             <StyledRow>
                 <StyledRowInner>
                     <StyledRowTitle>
-                        申请单号：{item.tradeId}
+                        订单号：{item.tradeId}
                     </StyledRowTitle>
                     <StyledRowStatu numberOfLines={1}>
                         {item.description}
@@ -104,7 +113,7 @@ export default class Earnings extends Component {
                 </StyledRowInner>
                 <StyledRowInner style={{alignItems:'flex-end'}}>
                     <StyledRowAmount>
-                        ￥{item.amount}
+                        ￥{(item.amount * 0.7).toFixed(2)}
                     </StyledRowAmount>
                     <StyledRowDate>
                         {moment(item.createdAt).format("YYYY-MM-DD")}

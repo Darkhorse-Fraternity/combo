@@ -18,7 +18,7 @@ export const StyleHeader = styled.View`
 `
 
 export const StyledHeaderTop = styled.View`
-    margin-bottom: 25px;
+    margin-bottom: 5px;
 `
 
 export const StyleHeaderInner = styled.View`

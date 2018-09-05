@@ -42,7 +42,7 @@ export function shareToWechat(type: string, param: object ={}): Function {
             let result = await Method({
                 type: 'news',
                 title: param.title || '金色光芒',
-                webpageUrl: param.webpageUrl || 'https://stg-icard.leanapp.cn',
+                webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn',
                 description: param.description || '勇敢地成为你自己',
                 mediaTagName: 'email signature',
                 messageAction: undefined,

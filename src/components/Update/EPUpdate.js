@@ -109,9 +109,9 @@ export const epUpdate = async () => {
         let remoteData = await send(appUpdateInfo()).then(res => res.json())
         remoteData = remoteData && remoteData.result || {}
 
-        const { desc, version  } = remoteData
+        const { desc, version } = remoteData
         const appVersion = DeviceInfo.getVersion() + ''
-        console.log('remoteData:', version,appVersion);
+        console.log('remoteData:', version, appVersion);
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(
@@ -123,8 +123,9 @@ export const epUpdate = async () => {
                 }, {
                     text: '确定', onPress: () => {
                         Pop.show(<UpdateView
-                            bannerImage={require('../../../source/img/my/icon-60.png')}
-                            fetchRes={remoteData}/>, { maskClosable: false })
+                                bannerImage={require('../../../source/img/my/icon-60.png')}
+                                fetchRes={remoteData}/>,
+                            { maskClosable: false })
                     },
                 }
                 ]

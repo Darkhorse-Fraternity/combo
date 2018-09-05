@@ -155,10 +155,10 @@ const selector = formValueSelector(FormID) // <-- same as form name
             })
             req(params, IUSEExist, { sceme: schemas[IUSE] })
         },
-        onSubmit: (iCardData) => {
-            dispatch(async (dispatch, getState) => {
+        onSubmit:  async(iCardData) => {
+          return  dispatch(async (dispatch, getState) => {
                 const { price, title, objectId, } = iCardData
-                console.log('iCardData:', iCardData);
+                // console.log('iCardData:', iCardData);
                 const userId = iCardData.user
                 const state = getState()
                 let radio = selector(state, 'PayRadio')
@@ -191,9 +191,12 @@ const selector = formValueSelector(FormID) // <-- same as form name
                             price,
                             "",
                             description))
-                    console.log('res:', res);
                     // 最后通知服务端，付款状态
+                    if(res.payload.statu === 'suc'){
+                        Pop.hide()
+                    }
 
+                    return res
 
 
                 }
@@ -349,40 +352,39 @@ export default class CardInfo extends Component {
                     animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
                     onPress={() => {
 
-                        Pop.show(<PayForm
-                            onSubmit={ async () => await onSubmit(iCard)}
-                            balance={selfUse.balance}
-                            price={iCard.price}/>, {
-                            animationType: 'slide-up',
-                            wrapStyle: {
-                                justifyContent: 'flex-end',
-                            }
-                        })
-
-
-                        // if (exist && iUseData) {
-                        //     this.props.navigation.navigate('CardDetail', {
-                        //         iUseId: iUseData.objectId,
-                        //         iCardId: iCard.objectId
-                        //     })
-                        //
-                        // } else {
-                        //
-                        //     if (iCard.price > 0 && !isSelf) {
-                        //         Pop.show(<PayForm
-                        //             onSubmit={onSubmit}
-                        //             balance={selfUse.amount}
-                        //             price={iCard.price}/>, {
-                        //             animationType: 'slide-up',
-                        //             wrapStyle: {
-                        //                 justifyContent: 'flex-end',
-                        //             }
-                        //         })
-                        //     } else {
-                        //         this.props.use(iCard)
+                        // Pop.show(<PayForm
+                        //     onSubmit={ async () => await onSubmit(iCard)}
+                        //     balance={selfUse.balance}
+                        //     price={iCard.price}/>, {
+                        //     animationType: 'slide-up',
+                        //     wrapStyle: {
+                        //         justifyContent: 'flex-end',
                         //     }
-                        //
-                        // }
+                        // })
+
+
+                        if (exist && iUseData) {
+                            this.props.navigation.navigate('CardDetail', {
+                                iUseId: iUseData.objectId,
+                                iCardId: iCard.objectId
+                            })
+
+                        } else {
+                            if (iCard.price > 0 && !isSelf) {
+                                Pop.show(<PayForm
+                                    onSubmit={onSubmit}
+                                    balance={selfUse.amount}
+                                    price={iCard.price}/>, {
+                                    animationType: 'slide-up',
+                                    wrapStyle: {
+                                        justifyContent: 'flex-end',
+                                    }
+                                })
+                            } else {
+                                this.props.use(iCard)
+                            }
+
+                        }
                     }}
                     containStyle={styles.containStyle}
                     style={styles.flip}/>

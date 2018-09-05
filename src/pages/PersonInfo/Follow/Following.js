@@ -192,6 +192,21 @@ export default class Following extends Component {
                                 {name}
                             </StyledHeaderName>
                         </StyledHeaderTop>
+                        {this._renderFollow(
+                            data,
+                            followees_count,
+                            followers_count)}
+                        {!isSelf && (<HeaderBtn
+                            load={load || this.props.followLoad}
+                            title={isFollow ? "取消关注" : "关注"}
+                            style={{
+                                width: isFollow ? 100 : 80,
+                                marginTop: 20,
+                            }}
+                            hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
+                            onPress={() => {
+                                this.props.follow(isFollow, followers_count)
+                            }}/>)}
                     </StyleHeaderInner>
                     {!avatarUrl ? <StyledAvatar source={avatarSource}/> :
                         <ZoomImage
@@ -204,21 +219,7 @@ export default class Following extends Component {
 
                 </StyleHeaderInnerRight>
                 <StyledHeaderBottom>
-                    {this._renderFollow(
-                        data,
-                        followees_count,
-                        followers_count)}
-                    {!isSelf && (<HeaderBtn
-                        load={load || this.props.followLoad}
-                        title={isFollow ? "取消关注" : "关注"}
-                        style={{
-                            width: isFollow ? 100 : 80,
-                            marginTop: 20,
-                        }}
-                        hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                        onPress={() => {
-                            this.props.follow(isFollow, followers_count)
-                        }}/>)}
+
                 </StyledHeaderBottom>
             </StyleHeader>
         );

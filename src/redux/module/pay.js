@@ -2,12 +2,13 @@ import * as WeChat from 'react-native-wechat';
 // WeChat.registerApp('wx45feb9299ac8334a')
 import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
-import { userpay,payOrder } from '../../request/leanCloud'
+import { userpay, payOrder } from '../../request/leanCloud'
 import { req } from '../actions/req'
 import { queryStringToJSON } from '../../request/useMeth'
 import Toast from 'react-native-simple-toast'
 //type: 0:wechat 1:alipay
 import DeviceInfo from 'react-native-device-info'
+import { update } from '../actions/user'
 
 WeChat.registerApp('wx637e6f35f8211c6d')
 
@@ -32,11 +33,12 @@ export function pay(type, tradeId, amount, detail, description) {
 
             const ip = await getIp()
 
-            const data = await  req(userpay(type,
+            const data = await  req(userpay(
+                type,
                 tradeId,
                 amount * 100,
                 detail,
-                description,
+                '小改变消费',
                 ip))
 
 
@@ -53,7 +55,17 @@ export function pay(type, tradeId, amount, detail, description) {
 
             // console.log('obj:', obj);
 
-            return dispatch(wechatPay(obj))
+            const wechatRes = await dispatch(wechatPay(obj))
+            const { errCode } = wechatRes
+            if (errCode === 0) {
+                const lastRes = await req(payOrder('', tradeId))
+                Toast.show('支付成功')
+                return dispatch(suc(wechatRes))
+            } else {
+                return dispatch(fail())
+            }
+
+
         } else if (type === 'alipay_app') {
             const res = await req(userpay(
                 type,
@@ -61,15 +73,25 @@ export function pay(type, tradeId, amount, detail, description) {
                 amount,
                 detail,
                 description))
-            // console.log('res:', res);
-            // const data = queryStringToJSON(res.data)
-            const aliPayRes  = await dispatch(aliPay(res.data))
-            const {trade_no} = aliPayRes
-            const lastRes = await  dispatch(req(payOrder(trade_no,tradeId)))
+            const aliPayRes = await dispatch(aliPay(res.data))
+            const { alipay_trade_app_pay_response } = aliPayRes
+            if (alipay_trade_app_pay_response) {
+                const { trade_no } = alipay_trade_app_pay_response
+                const params = payOrder(trade_no, tradeId)
+                Toast.show('支付成功')
+                const lastRes = await req(params)
+                // console.log('lastRes:', lastRes);
+                return dispatch(suc(aliPayRes))
+            } else {
+                return dispatch(fail())
+            }
 
-            return dispatch(suc(aliPayRes))
-        } else {
-
+        } else if (type === 'cash') {
+            const params = payOrder('', tradeId)
+            const lastRes = await req(params)
+            Toast.show('支付成功')
+            dispatch(update())//更新用户数据
+            return dispatch(suc(lastRes))
         }
     }
 
@@ -81,12 +103,12 @@ export function wechatPay(obj) {
         try {
             const res = await WeChat.pay(obj)
             // Toast.show(res)
-            console.log('wechat res:', res);
+            // console.log('wechat res:', res);
             if (res.errCode === 0 && res.type === 'PayReq.Resp') {
-                Toast.show('支付成功')
 
 
-                return dispatch(suc(res))
+                return res;
+
             }
         } catch (e) {
 
@@ -123,10 +145,9 @@ export function aliPay(order) {
             let { resultStatus, result, memo } = response;
 
 
-            console.log('result:', response);
+            // console.log('result:', response);
 
             if (resultStatus === '9000') {
-                Toast.show('支付成功');
                 return JSON.parse(result);
                 // let { code, msg, app_id, out_trade_no, trade_no,
                 //     total_amount, seller_id, charset, timestamp } = resJson;

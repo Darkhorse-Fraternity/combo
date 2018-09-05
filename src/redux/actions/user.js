@@ -141,6 +141,13 @@ export function login(state: Object): Function {
     }
 }
 
+export  function update() {
+    return async dispatch => {
+        const params = usersMe()
+        const res = await req(params)
+        return dispatch(updateUserData(res))
+    }
+}
 
 /**
  * 注册

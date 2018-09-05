@@ -47,12 +47,22 @@ const option = [
 
 
 @connect(
-    state => {
+    (state, props) => {
         let radio = selector(state, 'PayRadio')
 
         radio = radio && radio.toJS && radio.toJS()
+        const {
+            price,
+            balance,
+        } = props
+
+
+        const balanceDisable = radio && radio.ItemId === 'cash' && balance / 100 < price
+
+        // console.log('balanceDisable:', radio,balanceDisable);
+
         return {
-            enableSumbmit: radio && !!radio.ItemId,
+            enableSumbmit: radio && !!radio.ItemId && !balanceDisable,
             // initialValues: props.localSaveEnable && state.util.get(FormID + props.localSaveID),
             // initialValues:{text:"123"},
             initialValues: { PayRadio: option[0] },
@@ -114,18 +124,15 @@ export default class PayForm extends Component {
             enableSumbmit,
             ...rest
         } = this.props
-        const { submitting, invalid } = rest
+        let { submitting, invalid } = rest
 
         const myOption = [
             ...option,
-            { ItemId: 'cash', name: `账户余额: ${(balance/100).toFixed(1)}元` }
+            { ItemId: 'cash', name: `账户余额: ${(balance / 100).toFixed(1)}元` }
         ]
 
-        console.log('submitting:', submitting);
 
-        const submitDisabled = !enableSumbmit || submitting
-            || !!disabled || invalid
-
+        const submitDisabled = !enableSumbmit || !!disabled || invalid
 
         return (
             <StyledContent>
@@ -135,10 +142,10 @@ export default class PayForm extends Component {
                         选择支付方式
                     </StyledHeaderTitle>
                     <Button
-                        hitSlop={{top: 20, left: 20, bottom: 10, right: 20}}
-                        onPress={()=>{
+                        hitSlop={{ top: 20, left: 20, bottom: 10, right: 20 }}
+                        onPress={() => {
                             Pop.hide()
-                    }}>
+                        }}>
                         <StyledIconAwesome
                             size={30}
                             name={'close'}/>
@@ -151,14 +158,15 @@ export default class PayForm extends Component {
                     renderItem={this.__renderRadioItem}/>
                 <StyledBuyButton
                     {...rest}
-                    style={{ backgroundColor: '#1ac305' }}
-                    disabled={submitDisabled}
+                    style={{ backgroundColor: submitDisabled?'#f6f7f9':'#1ac305' }}
+                    disabled={submitDisabled || submitting}
                     hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
                     onPress={onSubmit && handleSubmit(onSubmit)}
                 >
-                    {!submitting ? <StyledPriceText>
+                    {!submitting ? <StyledPriceText
+                        submitDisabled={submitDisabled}>
                         立即支付：￥{price.toFixed(1)}
-                    </StyledPriceText> :<StyledActivityIndicator color={'white'}/>}
+                    </StyledPriceText> : <StyledActivityIndicator color={'white'}/>}
 
                 </StyledBuyButton>
             </StyledContent>

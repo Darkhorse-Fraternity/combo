@@ -45,13 +45,14 @@ export const StyledBuyButton = styled(Button)`
 `
 
 export const StyledPriceText = styled.Text`
-   color: white;
+   color: ${props=>props.submitDisabled?'rgb(200,200,200)':'white'};
    font-size: 20px;
-    font-weight: 500;
+   font-weight: 500;
  
 `
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
+   height: 25px;
 `
 
 
