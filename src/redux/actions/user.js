@@ -310,6 +310,9 @@ export function weChatLogin(Key) {
         try {
             dispatch(thirdLoaded(Key))
             const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
+            if(!weConfig){
+                return dispatch(thirdLoaded(''))
+            }
             const { appid, code } = weConfig
 
             //获取openid
@@ -380,6 +383,9 @@ export function qqLogin(Key) {
         try {
             dispatch(thirdLoaded(Key))
             const qqConfig = await QQAPI.login()
+            if(!qqConfig){
+                return dispatch(thirdLoaded(''))
+            }
             const userInfoParmas = thirdLogin('qq', qqConfig)
             const user = await req(userInfoParmas)
             if (user.sessionToken) {

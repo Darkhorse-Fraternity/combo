@@ -14,17 +14,12 @@ import { Map } from 'immutable';
 const SelectWrapper = styled.View`
 `
 
-export default  class Radio extends Component {
+export default class Radio extends Component {
     constructor(props) {
         super(props)
         let value = props.value
-        // console.log('value:', typeof value,value);
-        // if (typeof defoultValue === 'object' && defoultValue.toJS) {
-        //     defoultValue = defoultValue.toJS()
-        // }
-
         this.state = {
-            value: value.toJS()
+            value: value.toJS ? value.toJS() : value
         }
 
         this.onValueChange = this.onValueChange.bind(this)
@@ -49,7 +44,11 @@ export default  class Radio extends Component {
 
 
         if (nextProps.value && nextProps.value !== this.props.value) {
-            this.setState({value:nextProps.value.toJS()})
+
+            const value = nextProps.value.toJS ?
+                nextProps.value.toJS() : nextProps.value
+
+            this.setState({ value: value })
         }
     }
 
@@ -58,7 +57,9 @@ export default  class Radio extends Component {
         this.setState({
             value: newValue
         }, () => {
-            this.props.onValueChange(new Map(newValue))
+            const value = typeof newValue === 'object' ?
+                new Map(newValue) : newValue
+            this.props.onValueChange(value)
         })
     }
 
@@ -68,7 +69,7 @@ export default  class Radio extends Component {
             keyName,
             renderItem
         } = this.props
-        const key = keyName.length !== 0 ? item[keyName] + '' : item+''
+        const key = keyName.length !== 0 ? item[keyName] + '' : item + ''
 
 
         // console.log('key:',keyName, key,renderItem,item);
