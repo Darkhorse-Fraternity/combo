@@ -180,15 +180,18 @@ export default class Info extends Component {
         let { user, selfUser } = this.props
 
         const isSelf = user && user.get('objectId') === selfUser.objectId
-
-        this.props.course && !this.props.course.get('title')
-        && await this.props.dataLoad()
+        const { course } = this.props
+        const flag =  course && !course.get('title')
+        flag && await this.props.dataLoad()
+        course  && course.get('title') &&
+        this.props.increaseReadNum(course.get('readNum'),
+            this.props.selfUser.objectId)
         if (!isSelf) {
             !this.props.friendeExist && await this.props.loadfriendExist()
         }
-        const { course } = this.props
-        this.props.increaseReadNum(course.get('readNum'),
-            this.props.selfUser.objectId)
+
+
+
 
     }
 

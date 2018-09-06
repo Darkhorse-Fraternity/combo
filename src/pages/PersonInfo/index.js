@@ -215,7 +215,7 @@ export default class PersonInfo extends React.Component {
                 {/*})}*/}
 
 
-                {this.stateisWXAppInstalled && this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
+                {this.state.isWXAppInstalled && this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
                     !!weixin ? this.props.brekeBinding('weixin', WECHATLOGIN)
                         : this.props.wechatBinding()
 
