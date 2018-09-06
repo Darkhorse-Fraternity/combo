@@ -99,6 +99,9 @@ import { findByID } from "../../../redux/module/leancloud";
 
             console.log('res:', res);
 
+            if(!res){
+                return
+            }
 
             const entity = {
                 ...param,
@@ -239,8 +242,14 @@ export default class RComment extends Component {
 
     renderRow({ item }: Object): ReactElement<any> {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
-        const my_head = require('../../../../source/img/my/my_head.png');
-        const source = item.user.avatar ? { uri: item.user.avatar.url } : my_head
+        // const my_head = require('../../../../source/img/my/my_head.png');
+        // const source = item.user.avatar ? { uri: item.user.avatar.url } : my_head
+
+        const avatar = item.user.avatar
+        const avatarUrl = avatar ? avatar.url : item.user.headimgurl
+        const avatarSource = avatarUrl ? { uri: avatarUrl } :
+            require('../../../../source/img/my/icon-60.png')
+
         return (<StyledRow onPress={async () => {
             const { user } = this.props
 
@@ -277,7 +286,7 @@ export default class RComment extends Component {
                 <TouchableOpacity onPress={() => {
                     this.props.navigation.navigate('Following', { user: item.user })
                 }}>
-                    <StyledAvatar source={source}/>
+                    <StyledAvatar source={avatarSource}/>
                 </TouchableOpacity>
             </StyledRowLeft>
             <StyledRowRight>

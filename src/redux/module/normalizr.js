@@ -26,13 +26,16 @@ export const ADD_NORMALIZR = 'ADD_NORMALIZR'
 
 //我们使用的是mergeDeep 有个特点是只会覆盖，当存在array的时候转成了list，就只会添加了。
 export function addNormalizrEntity(key, data) {
+    if(!data){
+        return dispatch=>{};
+    }
     return dispatch => dispatch(addNormalizrEntities(key, { [code]: [data] }))
 }
 
 
 export function addNormalizrEntities(schemeOrkey, data) {
     if (!schemeOrkey || !data) {
-        return
+        return dispatch=>{};
     }
     const scheme = typeof schemeOrkey === 'string' ? schemas[schemeOrkey] : schemeOrkey
     const nData = normalize(data, scheme)

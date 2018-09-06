@@ -171,6 +171,9 @@ export function clear(key: string, rowID: number, loadStatu: string) {
 //用于normalizr 数据化后的处理，find value 对应的index
 export function claerByID(key: string, objID: string) {
     return (dispatch, getState) => {
+        if(!objID){
+            return;
+        }
         const list = getState().list.get(key).get("listData").toJS()
         const rowID = list.indexOf(objID)
         if (rowID > -1) {
@@ -191,6 +194,9 @@ export function add(key, data) {
 
 export function addListNormalizrEntity(key, data): Function {
     return (dispatch) => {
+        if(!data){
+            return;
+        }
         dispatch(addNormalizrEntity(key, data))
         // dispatch(addNormalizrEntities(key,data))
         dispatch(add(key, data.objectId))

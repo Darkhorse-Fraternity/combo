@@ -85,7 +85,21 @@ export default class Configure extends React.Component {
             const params = wurl('?', url);
             const hostname = wurl('hostname', url)
             const protocol = wurl('protocol', url)
-            if (hostname === 'combo' && protocol === 'combo') {
+
+            const conditions = [
+                {hostname:'combo',protocol:'combo'},
+                {hostname:'stg-icard.leanapp.cn',protocol:'https'},
+                {hostname:'icard.leanapp.cn',protocol:'https'},
+                {hostname:'stg-icard.leanapp.cn',protocol:'http'},
+                {hostname:'icard.leanapp.cn',protocol:'http'},
+            ]
+
+            const flag = conditions.findIndex(item => {
+                return item.hostname === hostname && protocol === item.protocol
+            })
+
+            if (flag > 0) {
+                console.log('key:', key);
                 console.log('params:', params);
                 this.props.dispatch(NavigationActions.navigate({ routeName: key, params }))
             }

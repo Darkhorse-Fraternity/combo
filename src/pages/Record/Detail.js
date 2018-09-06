@@ -127,7 +127,7 @@ export default class Detail extends Component {
                 <Text style={styles.headerTitle}>{card.title}</Text>
                  <HeaderBtn
                     style={styles.headerBtn}
-                    title={'加入'}
+                    title={'查看'}
                     onPress={() => {
                         navigation.navigate('CardInfo', {
                             iCard: card
