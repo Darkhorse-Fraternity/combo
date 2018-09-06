@@ -1371,6 +1371,7 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = G54H3R6236;
+						ProvisioningStyle = Automatic;
 						TestTargetID = CCCE41862064A0F000F282E3;
 					};
 					CCA7156C2019C9DA00A25FB9 = {
@@ -1379,7 +1380,7 @@
 					};
 					CCCE41862064A0F000F282E3 = {
 						DevelopmentTeam = G54H3R6236;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -2231,6 +2232,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -2246,6 +2248,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Combo.app/Combo";
 			};
 			name = Debug;
@@ -2254,8 +2257,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				INFOPLIST_FILE = ComboTests/Info.plist;
@@ -2268,6 +2272,7 @@
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Combo.app/Combo";
 			};
 			name = Release;
@@ -2400,7 +2405,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 123;
+				CURRENT_PROJECT_VERSION = 125;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2471,7 +2476,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 123;
+				CURRENT_PROJECT_VERSION = 125;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2536,10 +2541,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 123;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 125;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2598,8 +2603,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "de833b15-4674-4ef9-96e2-c30c4b780de9";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.rn.combo";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2613,8 +2618,8 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 123;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 125;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2668,8 +2673,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "de833b15-4674-4ef9-96e2-c30c4b780de9";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.rn.combo";
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
