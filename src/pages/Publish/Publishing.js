@@ -195,6 +195,7 @@ export default class Publishing extends Component {
         try {
             const id = this.props.navigation.state.params.iCardID
 
+
             const localSave = await storage.load({key: "CardPublish",id})
             this.setState({
                 getSave: true,
@@ -233,6 +234,8 @@ export default class Publishing extends Component {
         keys = keys && keys.toJS()
 
 
+        let price = iCard.get('price')
+        price = price === 0 ?'' :price+''
         const initialValues = {
             cover: new Map({
                 url: cover && cover.get('url'),
@@ -241,7 +244,7 @@ export default class Publishing extends Component {
             keys: keys && keys.toString(),
             describe: iCard.get('describe'),
             imgs: iCard.get('imgs'),
-            price: iCard.get('price') + '',
+            price: price,
             ...this.state.localSave,
         }
 

@@ -102,7 +102,8 @@ import Toast from 'react-native-simple-toast'
                 // console.log('props:', props.course.get('objectId'));
                 const id = props.iCardId
                 storage.save({
-                    key: "CardPublish"+id,  //注意:请不要在key中使用_下划线符号!
+                    key: "CardPublish",
+                    id,  //注意:请不要在key中使用_下划线符号!
                     data: initialValues,
                 });
                 Toast.show('保存成功')
