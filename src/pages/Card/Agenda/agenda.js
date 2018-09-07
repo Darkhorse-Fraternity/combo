@@ -114,7 +114,7 @@ export default class AgendaScreen extends Component {
                 date={new Date()}
                 load={load}
                 fetchData={(item) => {
-                    this.props.navigation.navigate('RComment', {
+                    this.props.navigation.navigate('rcomment', {
                         iDoID: item.objectId
                     })
                 }} busyDay={data} move={this.props.load}/>

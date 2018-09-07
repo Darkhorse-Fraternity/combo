@@ -67,7 +67,7 @@ export default class RecordRow extends Component {
             <StyledChatbtn
                 onPress={() => {
                     this.props.navigation &&
-                    this.props.navigation.navigate('RComment', { iDoID: objectId })
+                    this.props.navigation.navigate('rcomment', { iDoID: objectId })
                 }}>
                 {/*<Image style={{width:20,height:20}} source={icon}/>*/}
 
@@ -111,7 +111,7 @@ export default class RecordRow extends Component {
                 disabled={!this.props.navigation}
                 onPress={() => {
                     this.props.navigation &&
-                    this.props.navigation.navigate('RComment',
+                    this.props.navigation.navigate('rcomment',
                         { iDoID: item.objectId })
                 }}
                 style={this.props.style}>

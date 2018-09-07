@@ -67,7 +67,7 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 // console.log('user:', user);
                 if (!user.nickname || user.nickname.length === 0) {
 
-                    props.navigation.navigate('PersonInfo')
+                    props.navigation.navigate('personInfo')
                     Toast.show('发布卡片前需要先设置昵称~!');
                     return;
                 }

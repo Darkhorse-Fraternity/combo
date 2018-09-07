@@ -234,7 +234,7 @@ export default class Following extends Component {
         return (
             <StyleFolllow>
                 <Button innerView onPress={() => {
-                    navigation.navigate('Followee', { userId: data.objectId });
+                    navigation.navigate('followee', { userId: data.objectId });
                 }}>
                     <StyleFollowText>
                         关注: {followees_count}
@@ -242,7 +242,7 @@ export default class Following extends Component {
                 </Button>
                 <StyleFollowDevide/>
                 <Button innerView onPress={() => {
-                    navigation.navigate('Follower', { userId: data.objectId });
+                    navigation.navigate('follower', { userId: data.objectId });
                 }}>
                     <StyleFollowText>
                         被关注：{followers_count}
@@ -276,7 +276,7 @@ export default class Following extends Component {
                 des={`第${days}天`}
                 img={img}
                 onPress={() => {
-                    this.props.navigation.navigate('RecordDetail', {
+                    this.props.navigation.navigate('recordDetail', {
                         data: item,
                         card: iCard,
                     })

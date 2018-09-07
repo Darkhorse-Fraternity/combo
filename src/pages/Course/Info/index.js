@@ -288,7 +288,7 @@ export default class Info extends Component {
                             课程还没有开启
                         </StyledHeaderTipText>
                         {isSelf && <StyledReportBtn onPress={() => {
-                            navigation.navigate('CourseRelease', { iCardID })
+                            navigation.navigate('courseRelease', { iCardID })
                         }}>
                             <StyledReportText>
                                 点击开启
@@ -343,7 +343,7 @@ export default class Info extends Component {
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
                             <Button onPress={() => {
-                                this.props.navigation.navigate('Following', { user: user })
+                                this.props.navigation.navigate('following', { user: user })
                             }}>
                                 <StyledAvatar source={avatarSource}/>
                             </Button>

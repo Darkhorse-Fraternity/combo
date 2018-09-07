@@ -65,7 +65,7 @@ export default class FollowRow extends Component {
         const name = nickname || '路人甲'
         return (
             <StyledRowContent onPress={() => {
-                navigation.navigate('Following', { user: item })
+                navigation.navigate('following', { user: item })
             }}>
                 <StyledInnerView>
                     <StyledSmallAvatar source={avatarSource}/>

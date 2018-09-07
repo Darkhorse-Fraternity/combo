@@ -70,11 +70,11 @@ import CourseRowList from '../../Course/Info/CourseRowList'
                 ...res
             }
             dispatch(addNormalizrEntity(ICARD, entity))
-            props.navigation.navigate('CourseCreat', { CourseId: course.objectId })
+            props.navigation.navigate('courseCreat', { CourseId: course.objectId })
         },
         edit: (CourseId) => {
 
-            props.navigation.navigate('CourseCreat', { CourseId })
+            props.navigation.navigate('courseCreat', { CourseId })
 
         }
     })

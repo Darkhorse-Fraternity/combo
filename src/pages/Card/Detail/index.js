@@ -87,7 +87,7 @@ export default class CardDetail extends Component {
                     name={'md-share'}/>
             </Button>,
             <Button key={'icon2'} onPress={() => {
-                this.props.navigation.navigate('CardSetting', {
+                this.props.navigation.navigate('cardSetting', {
                     iCardId, iUseId
                 })
             }}>

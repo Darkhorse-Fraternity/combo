@@ -133,7 +133,7 @@ export default class PersonCenter extends Component {
         return (
             <StyleHeader>
                 <StyledHeaderTop onPress={() => {
-                    this.props.navigation.navigate('PersonInfo')
+                    this.props.navigation.navigate('personInfo')
                 }}>
                     <View>
                         <StyledHeaderName>
@@ -167,7 +167,7 @@ export default class PersonCenter extends Component {
     _renderFunction = () => {
         return (
             <Button onPress={() => {
-                this.props.navigation.navigate('Earnings')
+                this.props.navigation.navigate('earnings')
             }}>
                 <StyledFuncView>
 
@@ -206,7 +206,7 @@ export default class PersonCenter extends Component {
                 {followees_count > 0 && <Button
                     style={{ alignItems: 'center' }}
                     onPress={() => {
-                        navigation.navigate('Followee', { userId: this.props.user.data.objectId });
+                        navigation.navigate('followee', { userId: this.props.user.data.objectId });
                     }}>
 
                     <StyleFollowText>
@@ -217,7 +217,7 @@ export default class PersonCenter extends Component {
                 {followers_count > 0 && <Button
                     style={{ alignItems: 'center' }}
                     onPress={() => {
-                        navigation.navigate('Follower', { userId: this.props.user.data.objectId });
+                        navigation.navigate('follower', { userId: this.props.user.data.objectId });
                     }}>
                     <StyleFollowText>
                         被关注： {followers_count}
@@ -235,16 +235,16 @@ export default class PersonCenter extends Component {
 
 
                 {this._renderRow('我的收益', true, () => {
-                    navigation.navigate('Earnings')
+                    navigation.navigate('earnings')
                 })}
 
                 {this._renderRow('归档卡片', true, () => {
-                    navigation.navigate('Record', { statu: 'stop' });
+                    navigation.navigate('record', { statu: 'stop' });
                 })}
 
 
                 {this._renderRow('圈子管理', true, () => {
-                    navigation.navigate('Publish');
+                    navigation.navigate('publish');
                 })}
 
 
@@ -258,7 +258,7 @@ export default class PersonCenter extends Component {
 
                 {this._renderRow('意见反馈', false, () => {
                     // NavigationManager.goToPage("Feedback");
-                    navigation.navigate("Feedback");
+                    navigation.navigate("feedback");
                 })}
 
                 {this._renderRow('给个评价', false, this.props.rate)}

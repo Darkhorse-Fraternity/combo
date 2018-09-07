@@ -15,7 +15,7 @@ export const AppNavigator = createSwitchNavigator({
     // Auth: AuthStack,
     ...route,
     AuthLoading: AuthLoadingScreen,
-    Tab: {screen: Tab,},
+    tab: {screen: Tab,},
     // WebView: {screen: WebView}
 }, {
 

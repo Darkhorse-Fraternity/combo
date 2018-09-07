@@ -100,7 +100,7 @@ export default class Home extends Component {
                         style={{padding:15}}
                         title={'添加'}
                         onPress={() => {
-                            this.props.navigation.navigate('NewCard')
+                            this.props.navigation.navigate('newCard')
                         }}
                         hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
                 </View>

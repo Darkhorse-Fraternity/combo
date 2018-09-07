@@ -165,7 +165,7 @@ export function register(state: Object): Function {
 
             dispatch(_loginSucceed(response));
             dispatch(NavigationActions.navigate({
-                routeName: 'Tab',
+                routeName: 'tab',
                 params: { transition: 'forVertical' }
             }))
         }).catch(e => {
@@ -249,7 +249,7 @@ export function logout(): Function {
             Keychain.resetGenericPassword()
 
             dispatch(logout2());//先退出
-            dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+            dispatch(NavigationActions.navigate({ routeName: 'login' }))
             updatePush(user("null"))
 
 
@@ -326,7 +326,7 @@ export function weChatLogin(Key) {
             if (user.sessionToken) {
                 dispatch(_loginSucceed(user));
                 dispatch(NavigationActions.navigate({
-                    routeName: 'Tab',
+                    routeName: 'tab',
                     params: { transition: 'forVertical' }
                 }))
             } else {
@@ -391,7 +391,7 @@ export function qqLogin(Key) {
             if (user.sessionToken) {
                 dispatch(_loginSucceed(user));
                 dispatch(NavigationActions.navigate({
-                    routeName: 'Tab',
+                    routeName: 'tab',
                     params: { transition: 'forVertical' }
                 }))
             }

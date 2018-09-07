@@ -86,10 +86,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!--<data android:scheme="combo" android:host="combo" />-->
-                <data android:scheme="http" android:host="icard.leanapp.cn/" />
-                <data android:scheme="https" android:host="icard.leanapp.cn/" />
-                <data android:scheme="https" android:host="stg-icard.leanapp.cn//" />
-                <data android:scheme="https" android:host="stg-icard.leanapp.cn/" />
+                <data android:scheme="http" android:host="icard.leanapp.cn" />
+                <data android:scheme="https" android:host="icard.leanapp.cn" />
+                <data android:scheme="https" android:host="stg-icard.leanapp.cn" />
+                <data android:scheme="https" android:host="stg-icard.leanapp.cn" />
             </intent-filter>
 
         </activity>

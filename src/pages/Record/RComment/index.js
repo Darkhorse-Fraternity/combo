@@ -284,7 +284,7 @@ export default class RComment extends Component {
         }}>
             <StyledRowLeft>
                 <TouchableOpacity onPress={() => {
-                    this.props.navigation.navigate('Following', { user: item.user })
+                    this.props.navigation.navigate('following', { user: item.user })
                 }}>
                     <StyledAvatar source={avatarSource}/>
                 </TouchableOpacity>

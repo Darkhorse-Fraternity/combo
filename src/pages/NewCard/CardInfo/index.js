@@ -364,7 +364,7 @@ export default class CardInfo extends Component {
 
 
                         if (exist && iUseData) {
-                            this.props.navigation.navigate('CardDetail', {
+                            this.props.navigation.navigate('cardDetail', {
                                 iUseId: iUseData.objectId,
                                 iCardId: iCard.objectId
                             })
@@ -426,7 +426,7 @@ export default class CardInfo extends Component {
                                     justifyContent: 'center'
                                 }}
                                 onPress={() => {
-                                    !userLoad && this.props.navigation.navigate('CardUse', { iCard: iCard })
+                                    !userLoad && this.props.navigation.navigate('cardUse', { iCard: iCard })
                                 }}>
                                 <StyledReadNum>
                                     参与人数：{iCard.useNum}
@@ -441,7 +441,7 @@ export default class CardInfo extends Component {
                             <Button
                                 style={{ alignItems: 'center'}}
                                 onPress={() => {
-                                this.props.navigation.navigate('Following',
+                                this.props.navigation.navigate('following',
                                     { user: iCardUser })
 
                             }}>

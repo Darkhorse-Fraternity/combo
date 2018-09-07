@@ -168,7 +168,7 @@ export default class Home extends Component {
             }}
             onPress={() => {
                 const iCardM = iCard.toJS()
-                this.props.navigation.navigate('CardDetail', {
+                this.props.navigation.navigate('cardDetail', {
                     iUseId: data.objectId,
                     iCardId: iCardM.objectId
                 })
@@ -215,7 +215,7 @@ export default class Home extends Component {
                 refresh = {refreshLoad}
                 prompt={refreshLoad?'正在加载':'空空如也~'}
                 onRefresh={() => {
-                    this.props.navigation.navigate('NewCard')
+                    this.props.navigation.navigate('newCard')
                 }}/>
         )
     }

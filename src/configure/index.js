@@ -98,10 +98,27 @@ export default class Configure extends React.Component {
                 return item.hostname === hostname && protocol === item.protocol
             })
 
-            if (flag > 0) {
-                console.log('key:', key);
+            if (flag > 0 && key) {
+
+                const keys = {
+                    recorddetail:'recordDetail',
+                    cardsetting:'cardSetting',
+                    coursechoose:'courseChoose',
+                    coursecreat:'courseCreat',
+                    courserelease:'courseRelease',
+                    newcard: 'newCard',
+                    publishdetail: 'publishDetail',
+                    personinfo: 'personInfo',
+                    cardinfo: 'cardInfo',
+                    carddetail: 'cardDetail',
+                    carduse: 'cardUse',
+                    personcenter: 'personCenter',
+                    pptdescribe: 'pptDescribe'
+                }
+                const routeName = keys[key.toLowerCase()] || key.toLowerCase()
+                console.log('routeName:', routeName);
                 console.log('params:', params);
-                this.props.dispatch(NavigationActions.navigate({ routeName: key, params }))
+                this.props.dispatch(NavigationActions.navigate({ routeName, params }))
             }
         }
 
@@ -201,7 +218,7 @@ export default class Configure extends React.Component {
         const { routes, index } = nav
         const { routeName } = routes[index]
         //idnex 前两个分别是登录和tabview
-        if (routeName === 'Tab') {
+        if (routeName === 'tab') {
             const tab = routes[index]
             const tabIndex = tab.index
             const tabNav = tab.routes[tabIndex]

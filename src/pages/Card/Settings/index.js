@@ -269,7 +269,7 @@ export default class Settings extends Component {
                 && iUse.statu !== 'del' &&
                 ( <this._renderItem
                     onPress={() => {
-                        navigation.navigate('PublishDetail',
+                        navigation.navigate('publishDetail',
                             { iCardID: iCard.objectId, data: iCard })
                     }}
                     Icon={StyledEntypoIcon}
@@ -369,7 +369,7 @@ export default class Settings extends Component {
                         title="查看"
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                         onPress={() => {
-                            this.props.navigation.navigate('CardInfo', { iCard: iCard })
+                            this.props.navigation.navigate('cardInfo', { iCard: iCard })
                         }}/>
                 </StyledHeader>
                 {this._renderBottomMenu({ iCard, iUse })}

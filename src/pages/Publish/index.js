@@ -79,7 +79,7 @@ export default class Publish extends Component {
                 des={`人数:${item.useNum}`}
                 img={item.img }
                 onPress={() => {
-                    this.props.navigation.navigate('PublishDetail',
+                    this.props.navigation.navigate('publishDetail',
                         {iCardID: item.objectId, data: item})
                 }}/>
         )

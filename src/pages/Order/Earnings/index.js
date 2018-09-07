@@ -85,7 +85,7 @@ export default class Earnings extends Component {
                     <StyledHeaderBtn
                         hitSlop={{ top: 5, left: 50, bottom: 5, right: 5 }}
                         onPress={() => {
-                            this.props.navigation.navigate('Cash')
+                            this.props.navigation.navigate('cash')
                         }}
                         title={'取现'}/>
                 </StyledHeaderBottom>

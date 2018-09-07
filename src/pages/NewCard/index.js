@@ -77,7 +77,7 @@ export default class Publish extends Component {
                 des={`人数:${item.useNum}`}
                 img={item.img }
                 onPress={() => {
-                    this.props.navigation.navigate('CardInfo', { iCard: item })
+                    this.props.navigation.navigate('cardInfo', { iCard: item })
                 }}/>
         )
 
@@ -89,7 +89,7 @@ export default class Publish extends Component {
                 <Button
                     style={[styles.itemAdd, styles.shadow]}
                     onPress={() => {
-                        this.props.navigation.navigate('Creat')
+                        this.props.navigation.navigate('creat')
                     }}>
 
                     <Icon name="md-add" size={50}/>

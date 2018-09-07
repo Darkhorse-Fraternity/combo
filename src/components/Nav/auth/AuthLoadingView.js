@@ -23,11 +23,11 @@ import Toast from 'react-native-simple-toast'
                 // dispatch(loginSucceed(user))
                 // This will switch to the App screen or auth screen and this loading
                 // screen will be unmounted and thrown away.
-                props.navigation.navigate(user ? 'Tab' : 'Login');
+                props.navigation.navigate(user ? 'tab' : 'login');
             } catch (e) {
                 // console.log('bootstrapAsync error:', e.message);
                 // Toast.show(e.message)
-                props.navigation.navigate('Login');
+                props.navigation.navigate('login');
             }
 
         }

@@ -84,8 +84,8 @@ import Button from "../../components/Button";
             }
             dispatch(addListNormalizrEntity(IUSE, entity))
             dispatch(addNormalizrEntity(ICARD, {
-                objectId:id,
-                useNum:useNum+1
+                objectId: id,
+                useNum: useNum + 1
             }))
             dispatch(reqChangeData(IUSEExist, {
                 results: {
@@ -149,7 +149,7 @@ export default class PublishDetail extends Component {
                         // disabled={exist}
                         title={'查看'}
                         onPress={() => {
-                            this.props.navigation.navigate('CardInfo',{ iCard: iCard })
+                            this.props.navigation.navigate('cardInfo', { iCard: iCard })
                         }}/>
                 </View>
             </View>
@@ -167,13 +167,14 @@ export default class PublishDetail extends Component {
                     </Text>
                 </View>
                 {/*<View style={styles.row2}>*/}
-                    {/*<View style={styles.arrowView}/>*/}
+                {/*<View style={styles.arrowView}/>*/}
                 {/*</View>*/}
             </Button>
         );
     }
 
     render(): ReactElement<any> {
+        const { navigation } = this.props
         const iCard = this.props.iCard.toJS()
 
         //当为-2 时候，则为系统禁止
@@ -182,7 +183,7 @@ export default class PublishDetail extends Component {
             <ScrollView style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
-                {!allow && <Text style={{padding:20,color:'red',fontSize:50}}>
+                {!allow && <Text style={{ padding: 20, color: 'red', fontSize: 50 }}>
                     该圈子已被系统删除
                 </Text>}
 
@@ -195,19 +196,19 @@ export default class PublishDetail extends Component {
                 {/*})}*/}
 
                 {allow && this._renderRow("发布圈子", () => {
-                    this.props.navigation.navigate('Publishing',
-                        { iCardID: this.props.navigation.state.params.iCardID })
+                    navigation.navigate('publishing',
+                        { iCardID: navigation.state.params.iCardID })
                 })}
                 {allow && this._renderRow('发布课程', () => {
-                    this.props.navigation.navigate('CourseRelease',
-                        { iCardID: this.props.navigation.state.params.iCardID })
+                    navigation.navigate('courseRelease',
+                        { iCardID: navigation.state.params.iCardID })
                 })}
                 {allow && this._renderRow('查看记录', () => {
-                    this.props.navigation.navigate('Serve', { iCard })
+                    navigation.navigate('serve', { iCard })
                 })}
 
                 {allow && this._renderRow('卡片配置', () => {
-                    this.props.navigation.navigate('OptionView', { iCardId: iCard.objectId })
+                    navigation.navigate('optionView', { iCardId: iCard.objectId })
                 })}
 
                 {this._renderRow('删除圈子', () => {
@@ -262,7 +263,7 @@ const styles = StyleSheet.create({
     rowText: {
         marginLeft: 10,
         fontSize: 17,
-        fontWeight:'500',
+        fontWeight: '500',
         // color: 'rgb(100,100,100)',
     },
     arrowView: {

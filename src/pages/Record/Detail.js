@@ -129,7 +129,7 @@ export default class Detail extends Component {
                     style={styles.headerBtn}
                     title={'查看'}
                     onPress={() => {
-                        navigation.navigate('CardInfo', {
+                        navigation.navigate('cardInfo', {
                             iCard: card
                         })
                     }}/>

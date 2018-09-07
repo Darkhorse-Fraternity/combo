@@ -31,36 +31,36 @@ import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
 
 export const otherRoute = {
-    Earnings:{screen:Earnings},
-    Cash:{screen:Cash},
-    RecordDetail:{screen:RecordDetail},
-    CardSetting:{screen:CardSetting},
-    CourseChoose:{screen: CourseChoose},
-    CourseCreat:{screen: CourseCreat},
-    CourseRelease:{screen: CourseRelease},
-    Followee:{screen: Followee,path:'combo/:Followee'},
-    Follower:{screen: Follower},
-    Following:{screen: Following},
-    Creat: {screen: Creat,path:'combo/:Creat'},
-    NewCard: {screen: NewCard},
-    Record: {screen: Record},
-    OptionView: {screen: OptionView},
-    Publish: {screen: Publish},
-    PublishDetail: {screen: PublishDetail},
-    Serve: {screen: Serve},
-    PersonInfo: {screen: PersonInfo},
-    Feedback: {screen: Feedback},
-    Publishing: {screen: Publishing},
-    CardInfo: {screen: CardInfo},
-    RComment: {screen: RComment},
-    CardDetail: {screen: CardDetail},
-    CardUse: {screen: CardUse},
-    PersonCenter: {screen: PersonCenter},
-    PPTDescribe: {screen:PPTDescribe}
+    earnings:{screen:Earnings},
+    cash:{screen:Cash},
+    recordDetail:{screen:RecordDetail},
+    cardSetting:{screen:CardSetting},
+    courseChoose:{screen: CourseChoose},
+    courseCreat:{screen: CourseCreat},
+    courseRelease:{screen: CourseRelease},
+    followee:{screen: Followee,path:'combo/:Followee'},
+    follower:{screen: Follower},
+    following:{screen: Following},
+    creat: {screen: Creat,path:'combo/:Creat'},
+    newCard: {screen: NewCard},
+    record: {screen: Record},
+    optionView: {screen: OptionView},
+    publish: {screen: Publish},
+    publishDetail: {screen: PublishDetail},
+    serve: {screen: Serve},
+    personInfo: {screen: PersonInfo},
+    feedback: {screen: Feedback},
+    publishing: {screen: Publishing},
+    cardInfo: {screen: CardInfo},
+    rcomment: {screen: RComment},
+    cardDetail: {screen: CardDetail},
+    cardUse: {screen: CardUse},
+    personCenter: {screen: PersonCenter},
+    pptDescribe: {screen:PPTDescribe}
 }
 
 export const homeRoute = {
-    Home: {screen: Home},
+    home: {screen: Home},
     ...otherRoute
 }
 
@@ -70,25 +70,25 @@ export const settingRoute = {
 
 
 export const route = {
-    Login: {screen: LoginView},
+    login: {screen: LoginView},
 }
 
 
 
 
 export const tabRoute = {
-    Home: {
+    home: {
         screen: Home,
         path: '',
     },
-    PersonCenter: {
+    personCenter: {
         screen: PersonCenter,
         path: '',
     },
 }
 
 export const initialRouteName = {
-    initialRouteName: 'Home',
+    initialRouteName: 'home',
 }
 
 export const tabiCon = {

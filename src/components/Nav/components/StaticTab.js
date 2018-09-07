@@ -27,7 +27,7 @@ import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
 const HomeStack = createStackNavigator({
     ...homeRoute
 }, {
-    initialRouteName: 'Home',
+    initialRouteName: 'home',
     navigationOptions,
     transitionConfig: TransitionConfiguration,
 });
@@ -36,7 +36,7 @@ const HomeStack = createStackNavigator({
 const SettingsStack = createStackNavigator({
     ...settingRoute,
 }, {
-    initialRouteName: 'PersonCenter',
+    initialRouteName: 'personCenter',
     navigationOptions,
     transitionConfig: TransitionConfiguration,
 });

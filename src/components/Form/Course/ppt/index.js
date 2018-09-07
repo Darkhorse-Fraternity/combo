@@ -207,7 +207,7 @@ export default class ppt extends Component {
                                        if (input.value.length === 0) {
                                            return (
                                                <StyledBottomTextView onPress={() => {
-                                                   this.props.navigation.navigate('PPTDescribe', { input: input })
+                                                   this.props.navigation.navigate('pptDescribe', { input: input })
                                                }}>
                                                    <StyledBottomTView>
                                                        <StyledBottomT>
@@ -222,7 +222,7 @@ export default class ppt extends Component {
                                        } else {
                                            return (
                                                <StyledBottomTextView onPress={() => {
-                                                   this.props.navigation.navigate('PPTDescribe', { input: input })
+                                                   this.props.navigation.navigate('pptDescribe', { input: input })
                                                }}>
                                                    <StyledBottomText
                                                        style={{

@@ -152,7 +152,7 @@ export default class Course extends Component {
                 <Header
                     userId={item.user}
                     onPress={(user) => {
-                        this.props.navigation.navigate('Following',
+                        this.props.navigation.navigate('following',
                             { user })
                     }}/>
                 <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
