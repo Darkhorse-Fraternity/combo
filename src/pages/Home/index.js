@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     headViewText: {
-        marginTop: 30,
+        marginTop: 40,
         marginHorizontal: 20,
         fontSize: 35,
         fontWeight: 'bold',

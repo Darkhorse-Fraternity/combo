@@ -130,7 +130,7 @@ export default class Detail extends Component {
                     title={'查看'}
                     onPress={() => {
                         navigation.navigate('cardInfo', {
-                            iCard: card
+                            iCardId: card.objectId
                         })
                     }}/>
             </View>

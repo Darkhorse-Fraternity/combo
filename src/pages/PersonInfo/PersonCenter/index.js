@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     },
     row: {
         paddingHorizontal: 15,
-        paddingVertical: 20,
+        paddingVertical: 15,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     },
     rowText: {
         marginLeft: 10,
-        fontSize: 19,
+        fontSize: 17,
         fontWeight: '500',
         // color: '#333333',
     },

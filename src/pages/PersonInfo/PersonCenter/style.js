@@ -17,7 +17,7 @@ export const StyledContent = styled.ScrollView`
 
 export const StyleHeader = styled.View`
   margin-top: 40px;
-  padding: 25px;
+  padding: 15px 25px;
 `
 
 export const StyledHeaderTop = styled(Button)`

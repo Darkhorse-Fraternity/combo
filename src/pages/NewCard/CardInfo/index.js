@@ -33,7 +33,7 @@ import {
 } from '../../../redux/reqKeys'
 import { getUserByID, classSearch } from '../../../request/leanCloud'
 import { req, requestSucceed } from '../../../redux/actions/req'
-import { selfUser, iCard, user,pointModel } from '../../../request/LCModle'
+import { selfUser, iCard, user, pointModel } from '../../../request/LCModle'
 import Toast from 'react-native-simple-toast';
 import { add } from '../../../redux/module/leancloud'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
@@ -41,6 +41,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
 import { user as UserEntity, schemas } from '../../../redux/scemes'
 import Button from '../../../components/Button'
+import {list,entitys} from '../../../redux/scemes'
 
 import {
     StyledContent,
@@ -76,7 +77,7 @@ import {
 import { Privacy } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { findByID } from '../../../redux/module/leancloud'
+import { findByID,find } from '../../../redux/module/leancloud'
 import PayForm, { FormID } from '../../../components/Form/Pay'
 import { formValueSelector } from 'redux-form/immutable'
 import { pay } from '../../../redux/module/pay'
@@ -87,22 +88,34 @@ const selector = formValueSelector(FormID) // <-- same as form name
 
 @connect(
     (state, props) => {
-        const iCard = state.normalizr.get(ICARD).get(props.navigation.state.params.iCard.objectId)
-
+        const { iCardId } = props.navigation.state.params
+        const iCard = state.normalizr.get(ICARD).get(iCardId)
+        const userId = iCard && iCard.get('user')
+        // console.log('iCardId:', iCardId);
         return {
             //data:state.req.get()
             iCard,
-            user: state.normalizr.get(USER).get(props.navigation.state.params.iCard.user),
+            user: userId && state.normalizr.get(USER).get(userId),
             userLoad: state.req.get(USER).get('load'),
             useExist: state.req.get(IUSEExist),
             data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
             dataId: state.req.get(IUSEExist).get('data').get('0'),
-            course: state.normalizr.get(COURSE).get(iCard.get('course')),
+            course: iCard && state.normalizr.get(COURSE).get(iCard.get('course')),
             selfUse: state.user.data
         }
     },
     (dispatch, props) => ({
         //...bindActionCreators({},dispatch),
+        loadCard: () => {
+            const { iCardId } = props.navigation.state.params
+            find(ICARD, {
+                where:{
+                    objectId:iCardId
+                },
+                limit:1,
+                include:'user,course'
+            },{sceme:list(entitys[ICARD])})
+        },
         loadCourse: (course) => {
             if (course && !course.get('title')) {
                 const id = course.get('objectId')
@@ -155,8 +168,8 @@ const selector = formValueSelector(FormID) // <-- same as form name
             })
             req(params, IUSEExist, { sceme: schemas[IUSE] })
         },
-        onSubmit:  async(iCardData) => {
-          return  dispatch(async (dispatch, getState) => {
+        onSubmit: async (iCardData) => {
+            return dispatch(async (dispatch, getState) => {
                 const { price, title, objectId, } = iCardData
                 // console.log('iCardData:', iCardData);
                 const userId = iCardData.user
@@ -178,7 +191,7 @@ const selector = formValueSelector(FormID) // <-- same as form name
                     await add({
                         description,
                         amount: price,
-                        ...pointModel('beneficiary',userId,'_User'),
+                        ...pointModel('beneficiary', userId, '_User'),
                         payType: types[ItemId],
                         tradeId: Number(tradeId),
                         ...selfUser(),
@@ -192,7 +205,7 @@ const selector = formValueSelector(FormID) // <-- same as form name
                             "",
                             description))
                     // 最后通知服务端，付款状态
-                    if(res.payload.statu === 'suc'){
+                    if (res.payload.statu === 'suc') {
                         Pop.hide()
                     }
 
@@ -230,8 +243,13 @@ export default class CardInfo extends Component {
 
 
     componentDidMount() {
-        this.props.loadUser(this.props.user.toJS())
-        this.props.exist(this.props.navigation.state.params.iCard.objectId)
+        if (!this.props.iCard) {
+            this.props.loadCard()
+        }
+        if (this.props.user) {
+            this.props.loadUser(this.props.user.toJS())
+        }
+        // this.props.exist(this.props.navigation.state.params.iCardId)
         this.props.loadCourse(this.props.course)
     }
 
@@ -286,11 +304,15 @@ export default class CardInfo extends Component {
     render(): ReactElement<any> {
 
 
+        if (!this.props.iCard) {
+            return null
+        }
+
+
         const { selfUse, onSubmit } = this.props
 
         const iCard = this.props.iCard.toJS()
         const iCardUser = this.props.user.toJS()
-
 
 
         const avatar = iCardUser.avatar
@@ -408,7 +430,6 @@ export default class CardInfo extends Component {
                             </StyledSubTitle>}
 
 
-
                             {keys && <StyledKeysView>
                                 {keys.map(key => {
                                     return '#' + key
@@ -439,12 +460,12 @@ export default class CardInfo extends Component {
                         </StyledHeaderInnerLeft>
                         <StyledHeaderInnerRight>
                             <Button
-                                style={{ alignItems: 'center'}}
+                                style={{ alignItems: 'center' }}
                                 onPress={() => {
-                                this.props.navigation.navigate('following',
-                                    { user: iCardUser })
+                                    this.props.navigation.navigate('following',
+                                        { user: iCardUser })
 
-                            }}>
+                                }}>
                                 <StyledAvatar source={avatarSource}/>
                                 {nickName && <StyledNickName>
                                     {nickName}

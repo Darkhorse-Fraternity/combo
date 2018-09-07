@@ -149,7 +149,7 @@ export default class PublishDetail extends Component {
                         // disabled={exist}
                         title={'查看'}
                         onPress={() => {
-                            this.props.navigation.navigate('cardInfo', { iCard: iCard })
+                            this.props.navigation.navigate('cardInfo', { iCardId: iCard.objectId })
                         }}/>
                 </View>
             </View>

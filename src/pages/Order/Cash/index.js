@@ -49,7 +49,7 @@ const listKey = ENCH
     }),
     (dispatch, props) => ({
         onSubmit: () => {
-            dispatch(async (dispatch, getState) => {
+           return dispatch(async (dispatch, getState) => {
 
                 try {
                     const state = getState()
@@ -57,9 +57,11 @@ const listKey = ENCH
                     const amount = Number(selector(state, 'amount'))
                     if(user.balance >= amount * 100 && amount >= 10  ){
                         const name = selector(state, 'name')
+                        const account = selector(state, 'account')
                         const Atanisi = Math.floor(Math.random() * 999999);
                         const enchId = new Date().getTime() + Atanisi
                         const params = {
+                            account,
                             name,
                             enchId,
                             ...selfUser(),
