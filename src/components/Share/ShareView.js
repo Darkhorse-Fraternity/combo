@@ -61,13 +61,15 @@ export default class ShareView extends Component {
 
         const {share,iCard,iUse} = this.props
         const time =  iUse.time
+        const url = iCard.img && iCard.img.url ||
+            'http://file.icourage.cn/976a1b94b98b95a23bb8.jpg'
 
         const shareParams = {
             title: iCard.title,
             webpageUrl: 'https://icard.leanapp.cn/cardInfo?iCardId='+iCard.objectId,
             description: `加入我的卡片，和我结伴同行`,
-            imageUrl: iCard.img.url,
-            thumbImage: iCard.img.url +'?imageView/1/w/100/h/50/q/50' // /1/代表center
+            imageUrl: url,
+            thumbImage: url +'?imageView/1/w/100/h/100/q/50' // /1/代表center
         }
 
         console.log('thumbImage:', shareParams.thumbImage);

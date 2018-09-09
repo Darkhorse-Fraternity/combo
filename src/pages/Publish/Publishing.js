@@ -115,6 +115,7 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                 }
                 dispatch(addNormalizrEntity(ICARD, entity))
 
+                Toast.show('发布成功')
                 props.navigation.goBack()
             })
 
@@ -234,7 +235,9 @@ export default class Publishing extends Component {
         keys = keys && keys.toJS()
 
 
-        let price = iCard.get('price')
+        let price = iCard.get('price') || 0
+
+
         price = price === 0 ?'' :price+''
         const initialValues = {
             cover: new Map({
