@@ -13,16 +13,16 @@
         android:layout_height="80dp"
         android:contentDescription="@string/catalyst_element_inspector"
         android:background="@color/primary_dark"
-        app:srcCompat="@drawable/logo"/>
+        android:src="@drawable/logo"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:text="@string/slogan"
         android:textColor="@color/lauch_text_color"
         android:textSize="14sp"
-        android:textStyle="bold|italic"/>
+        android:textStyle="italic"/>
 </LinearLayout>
