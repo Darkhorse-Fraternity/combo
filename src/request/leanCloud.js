@@ -603,3 +603,13 @@ export function payOrder(payId,tradeId) {
         }
     }
 }
+
+export function courseReadNumAdd(courseId) {
+  return {
+    path : '/call/courseReadNumAdd',
+    method :methodType.post,
+    params :{
+      courseId,
+    }
+  }
+}

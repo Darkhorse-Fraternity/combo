@@ -82,6 +82,7 @@ import * as Animatable from 'react-native-animatable';
                 ...op,
                 record: op.record.toJS(),
                 recordDay: op.recordDay.toJS(),
+                state:0,
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
             }

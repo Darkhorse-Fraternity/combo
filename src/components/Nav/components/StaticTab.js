@@ -60,7 +60,7 @@ export default createBottomTabNavigator(
                 labelName = 'Now'
             } else if (routeName === 'Settings') {
                 iconName = `ios-happy`;
-                labelName = '我的'
+                labelName = '跟多'
             }
             return {
                 // header:null,

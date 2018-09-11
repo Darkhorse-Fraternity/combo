@@ -72,51 +72,62 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
                     return;
                 }
 
-                const keys = selector(state, 'keys');
-                const describe = selector(state, 'describe');
-                const id = data.objectId
-                let cover = selector(state, 'cover')
-                const imgs = selector(state, 'imgs')
-                const price = selector(state, 'price')
 
-                storage.save({
-                    key: "CardPublish",
-                    id,  //注意:请不要在key中使用_下划线符号!
-                    data: {
-                        keys,
+                try{
+
+                    const keys = selector(state, 'keys');
+                    const describe = selector(state, 'describe');
+                    const id = data.objectId
+                    let cover = selector(state, 'cover')
+                    const imgs = selector(state, 'imgs')
+                    const price = selector(state, 'price')
+
+                    storage.save({
+                        key: "CardPublish",
+                        id,  //注意:请不要在key中使用_下划线符号!
+                        data: {
+                            keys,
+                            describe,
+                            cover,
+                            imgs,
+                            price
+                        },
+                    });
+
+
+                    cover = {
+                        "id": cover.get('id'),
+                        "__type": "File",
+                        url: cover.get('url')
+                    }
+
+                    const param = {
+                        price: Number(price),
+                        state: data.state === 0 ? 1 : 0,
+                        keys: keys.split(','),
                         describe,
-                        cover,
+                        img: cover,
                         imgs,
-                        price
-                    },
-                });
+
+                    }
+
+                    const res = await  update(id, param, ICARD)
 
 
-                cover = {
-                    "id": cover.get('id'),
-                    "__type": "File",
-                    url: cover.get('url')
+                    if(res){
+                        const entity = {
+                            ...param,
+                            ...res
+                        }
+                        dispatch(addNormalizrEntity(ICARD, entity))
+
+                        Toast.show('发布成功')
+                        props.navigation.goBack()
+                    }
+                }catch(e) {
+                    Toast.show(e.message)
                 }
 
-                const param = {
-                    price: Number(price),
-                    state: data.state === 0 ? 1 : 0,
-                    keys: keys.split(','),
-                    describe,
-                    img: cover,
-                    imgs,
-
-                }
-                const res = await  update(id, param, ICARD)
-
-                const entity = {
-                    ...param,
-                    ...res
-                }
-                dispatch(addNormalizrEntity(ICARD, entity))
-
-                Toast.show('发布成功')
-                props.navigation.goBack()
             })
 
         },

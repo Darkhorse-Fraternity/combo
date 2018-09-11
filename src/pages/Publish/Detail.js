@@ -211,10 +211,10 @@ export default class PublishDetail extends Component {
                     navigation.navigate('optionView', { iCardId: iCard.objectId })
                 })}
 
-                {this._renderRow('删除圈子', () => {
-                    //伪删除
-                    this.__alert(iCard)
-                })}
+                {/*{this._renderRow('删除圈子', () => {*/}
+                    {/*//伪删除*/}
+                    {/*this.__alert(iCard)*/}
+                {/*})}*/}
             </ScrollView>
         );
     }

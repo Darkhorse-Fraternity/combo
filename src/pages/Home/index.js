@@ -15,7 +15,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { connect } from 'react-redux'
-
+import moment from 'moment'
 
 import CardView from '../Card'
 import Button from '../../components/Button'
@@ -92,13 +92,15 @@ export default class Home extends Component {
                 <Text
                     numberOfLines={1}
                     style={styles.headViewText}>
-                    小改变
+                    斗士
                 </Text>
                 <View style={styles.headViewSub}>
-                    <Text style={styles.headViewSubText}>想改变什么？</Text>
+                    <Text style={styles.headViewSubText}>
+                        我在{' '+moment(new Date()).format("YYYY/MM/DD")+ ' '}这一天
+                        </Text>
                     <HeaderBtn
                         style={{padding:15}}
-                        title={'添加'}
+                        title={'寻找'}
                         onPress={() => {
                             this.props.navigation.navigate('newCard')
                         }}
@@ -179,7 +181,7 @@ const styles = StyleSheet.create({
     headView: {
         // height:180,
 
-        marginBottom: 35,
+        marginBottom: 15,
         marginTop: 20
     },
     headViewText: {

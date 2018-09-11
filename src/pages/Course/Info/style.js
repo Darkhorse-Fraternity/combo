@@ -110,7 +110,7 @@ export const StyledHeaderInnerLeft = styled.View`
 `
 export const StyledNickName = styled.Text`
     font-size: 17px;
-     margin: 5px;
+    margin: 10px 0px;
 `
 
 

@@ -112,6 +112,7 @@ export const epUpdate = async () => {
         const { desc, version } = remoteData
         const appVersion = DeviceInfo.getVersion() + ''
         console.log('remoteData:', version, appVersion);
+      console.log('compareVersion:', compareVersion(version, appVersion));
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(

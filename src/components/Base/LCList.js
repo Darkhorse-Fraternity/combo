@@ -78,7 +78,7 @@ export default class LCList extends Component {
         //只进行值比较
         if (JSON.stringify(nextProps.reqParam)
             !== JSON.stringify(this.props.reqParam)) {
-            this.loadData()
+            this.props.loadData()
         }
 
     }

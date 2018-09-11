@@ -179,7 +179,7 @@ export default class Home extends Component {
                 Alert.alert(
                     '再来一组?',
                     '放弃打卡不会删除卡片',
-                    [{text: '放弃打卡',onPress: () => {
+                    [{text: '卡片归档',onPress: () => {
                         !this.props.refreshLoad && over
                         && this.props.refresh(data)
                     }}, {

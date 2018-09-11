@@ -74,11 +74,19 @@ export const StyledCourseView = styled.View`
 `
 
 export const StyledDescirbe = styled.Text`
-  margin-top: 20px;
-  font-size: 17px;
+  
+  font-size: 15px;
   color: #979797;
-  margin-bottom: 20px;
+  
+ 
 `
+export const StyledDescirbeView = styled.View`
+  padding: 15px 5px;
+  border-radius: 5px;
+  margin: 15px 0px;
+  background-color: ${props => props.theme.textinputbackgroundColor};
+`
+
 
 export const StyledImg = styled(AutoHeightImage)`
 `

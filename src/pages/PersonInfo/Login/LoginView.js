@@ -343,7 +343,7 @@ export default class LoginView extends Component {
                             source={require('../../../../source/img/my/icon-60.png')}
                         />
                         <SyledImageName>
-                            小改变
+                            斗士
                         </SyledImageName>
                     </Animatable.View>
                 }
