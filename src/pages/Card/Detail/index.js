@@ -10,7 +10,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     Alert,
-    DeviceEventEmitter
+    DeviceEventEmitter,
+    Animated
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -44,7 +45,9 @@ export default class CardDetail extends Component {
     constructor(props: Object) {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
+      this.state = {
+        scrollValue:new Animated.Value(0)
+      }
     }
 
     static propTypes = {};
@@ -61,7 +64,7 @@ export default class CardDetail extends Component {
 
 
     _afterDone = (key) => {
-        DeviceEventEmitter.emit(key);
+        // DeviceEventEmitter.emit(key);
     }
 
     __renderRightView = () => {
@@ -116,15 +119,21 @@ export default class CardDetail extends Component {
                 <ScrollableTabView
                     ref={'ScrollableTabView'}
                     locked={useNum <= 1}
+                    onScroll={(x)=>{
+                      const containerWidthAnimatedValue = new Animated.Value(x);
+                      this.setState({ scrollValue:containerWidthAnimatedValue });
+                    }}
                     renderTabBar={() => (
                         <BackTabBar
+                          tabUnderlineWidth={35}
+                          scrollValueWithOutNative={this.state.scrollValue}
                             rightView={this.__renderRightView}
                             onBackPress={this.props.navigation.goBack}/>
                     )}
                     prerenderingSiblingsNumber={0}
-                    tabBarInactiveTextColor={theme.mainColor}
-                    tabBarActiveTextColor={theme.mainColor}
-                    tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
+                    // tabBarInactiveTextColor={theme.mainColor}
+                    // tabBarActiveTextColor={theme.mainColor}
+                    // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
                     // tabBarPosition ='bottom'
                 >
                     {useNum > 1 &&
@@ -138,7 +147,7 @@ export default class CardDetail extends Component {
                 </ScrollableTabView>
 
                 <DoCardButton
-                    afterDone={()=>this._afterDone('done_'+ iCard.get('objectId'))}
+                    afterDone={(res)=>this._afterDone('done_'+ iCard.get('objectId'))}
                     {...this.props} />
             </StyledContent>
         );

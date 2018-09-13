@@ -103,8 +103,8 @@ export default class DoCardButton extends Component {
                 onPress={async () => {
                     let { iUse } = this.props
                     iUse = iUse && iUse.toJS()
-                    await this.props.doCard(iUse)
-                    this.props.afterDone &&  this.props.afterDone()
+                    const res =  await this.props.doCard(iUse)
+                    this.props.afterDone &&  this.props.afterDone(res)
 
                 }}
                 containStyle={{width:70,height:70,borderRadius:35}}

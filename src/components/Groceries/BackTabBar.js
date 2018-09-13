@@ -18,7 +18,7 @@ import { required } from "../../request/validation";
 
 const backWidth = Dimensions.get('window').width / 3
 import HeaderBackImage from '../Nav/components/HeaderBackImage'
-
+import EZTabBar from './EZTabBar'
 
 export default class BackTabBar extends Component {
     static propTypes = {
@@ -103,15 +103,16 @@ export default class BackTabBar extends Component {
                     <HeaderBackImage/>
                 </Button>
                 <View style={[styles.tab, styles.contain]}>
-                    {this.props.tabs.map((tab, i) =>
-                        this.renderTabOption(tab, i))}
-                    <Animated.View style={[tabUnderlineStyle,
-                        {
-                            transform: [
-                                { translateX },
-                            ]
-                        },
-                    ]}/>
+                    {/*{this.props.tabs.map((tab, i) =>*/}
+                        {/*this.renderTabOption(tab, i))}*/}
+                    {/*<Animated.View style={[tabUnderlineStyle,*/}
+                        {/*{*/}
+                            {/*transform: [*/}
+                                {/*{ translateX },*/}
+                            {/*]*/}
+                        {/*},*/}
+                    {/*]}/>*/}
+                    <EZTabBar {...this.props}/>
                 </View>
                 <View style={{ width: backWidth ,
                     flexDirection:'row',

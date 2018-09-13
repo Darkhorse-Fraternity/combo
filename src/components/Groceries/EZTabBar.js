@@ -19,7 +19,7 @@ import { required } from "../../request/validation";
 const backWidth = Dimensions.get('window').width / 3
 
 
-export default class BackTabBar extends Component {
+export default class EZTabBar extends Component {
   static propTypes = {
     goToPage: PropTypes.func,
     activeTab: PropTypes.number,
@@ -28,9 +28,12 @@ export default class BackTabBar extends Component {
     backgroundColor: PropTypes.string,
     activeTextColor: PropTypes.string,
     inactiveTextColor: PropTypes.string,
-
+    tabUnderlineWidth: PropTypes.number,
   };
 
+  static defaultProps = {
+    tabUnderlineWidth : 72
+  }
 
   renderTabOption(name: string, page: number) {
 
@@ -39,18 +42,21 @@ export default class BackTabBar extends Component {
       activeTextColor = '#000000',
       inactiveTextColor = '#979797',
       textStyle = {},
-      tabs
+      tabs,
+      scrollValue,
+      underlineColor,
+      scrollValueWithOutNative,
+      tabUnderlineWidth
     } = this.props
 
 
     const isTabActive = activeTab === page;
     const numberOfTabs = tabs.length;
-    const tabUnderlineWidth = 72
 
     const tabUnderlineStyle = {
       width: tabUnderlineWidth,
       height: 7,
-      backgroundColor: this.props.underlineColor || theme.mainColor,
+      backgroundColor: underlineColor || theme.mainColor,
     };
 
 
@@ -60,21 +66,42 @@ export default class BackTabBar extends Component {
     //   console.log('inputRange:', inputRange);
     // }
 
+    const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
+      TouchableNativeFeedback.SelectableBackgroundBorderless()
 
     const inputRange = []
     const outputRange = []
-    for (let i=0;i<numberOfTabs;i++)
+    const outputRangeColor = []
+    const outputRangefontSize = []
+    for (let i= -1;i<numberOfTabs+1;i++)
     {
       inputRange.push(i)
-      outputRange.push(0)
+      outputRange.push(0.001)
+      outputRangeColor.push(inactiveTextColor)
+      outputRangefontSize.push(15)
     }
-    outputRange.splice(page,1,1)
+    if(isTabActive){
+      outputRange.splice(page+1,1,1)
+      outputRangeColor.splice(page+1,1,activeTextColor)
+      outputRangefontSize.splice(page+1,1,18)
+    }
 
-    const scaleX = this.props.scrollValue.interpolate({
+    const scaleX = scrollValue.interpolate({
       inputRange: inputRange,
       outputRange: outputRange,
     });
 
+    const color = scrollValueWithOutNative.interpolate({
+      inputRange: inputRange,
+      outputRange: outputRangeColor,
+    });
+
+    const fontSize = scrollValueWithOutNative.interpolate({
+      inputRange: inputRange,
+      outputRange: outputRangefontSize,
+    });
+
+    // console.log('outputRangeColor:', outputRangeColor);
 
 
     return <TouchableOpacity
@@ -85,8 +112,8 @@ export default class BackTabBar extends Component {
       onPress={() => this.props.goToPage(page)}>
       <View style={[styles.tab]}>
         <Animated.Text style={[{
-          fontSize: isTabActive ? 18 : 15,
-          color: isTabActive ? activeTextColor : inactiveTextColor
+          fontSize: fontSize,
+          color: color
         }, textStyle]}>
           {name}
         </Animated.Text>
@@ -107,8 +134,6 @@ export default class BackTabBar extends Component {
     // console.log('this.props.scrollValue:', translateX);
 
 
-    const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
-      TouchableNativeFeedback.SelectableBackgroundBorderless()
     return (
       <View style={[styles.tabBar, this.props.style]}>
         {this.props.tabs.map((tab, i) =>

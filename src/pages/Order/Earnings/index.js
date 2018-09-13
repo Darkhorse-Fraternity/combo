@@ -7,6 +7,7 @@
 import React, { Component } from 'react';
 import {
   View,
+  Animated
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -56,7 +57,9 @@ export default class Earnings extends Component {
   constructor(props: Object) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
+    this.state = {
+      scrollValue:new Animated.Value(0)
+    }
   }
 
   static propTypes = {};
@@ -67,6 +70,7 @@ export default class Earnings extends Component {
     // const {params} = state;
     return {
       title: '',
+
     }
   };
 
@@ -135,8 +139,12 @@ export default class Earnings extends Component {
       <StyledContent>
         {this._renderHeader()}
         <ScrollableTabView
+          onScroll={(x)=>{
+            const containerWidthAnimatedValue = new Animated.Value(x);
+            this.setState({ scrollValue:containerWidthAnimatedValue });
+          }}
            renderTabBar={() => (
-             <EZTabBar style={{marginLeft:10}}/>
+             <EZTabBar scrollValueWithOutNative={this.state.scrollValue} style={{marginLeft:10}}/>
            )}
         >
           <EarningRecord tabLabel={'收益记录'}/>
