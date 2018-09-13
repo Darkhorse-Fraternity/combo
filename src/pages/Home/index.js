@@ -24,7 +24,7 @@ import {
     StyledContent,
     StyledInnerdContent
 } from './style'
-
+import { strings } from '../../../locales/i18n';
 
 @connect(
     state => ({
@@ -92,7 +92,7 @@ export default class Home extends Component {
                 <Text
                     numberOfLines={1}
                     style={styles.headViewText}>
-                    斗士
+                  {strings('app.name')}
                 </Text>
                 <View style={styles.headViewSub}>
                     <Text style={styles.headViewSubText}>

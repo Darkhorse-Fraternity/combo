@@ -157,8 +157,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 18,
         paddingVertical: 2,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: '#e4e4e4',
     },
     image: {
         width: '100%',

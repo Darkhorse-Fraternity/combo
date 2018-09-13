@@ -43,7 +43,7 @@ import {
 } from './style'
 import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
-
+import { strings } from '../../../../locales/i18n';
 const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 
 
@@ -343,7 +343,7 @@ export default class LoginView extends Component {
                             source={require('../../../../source/img/my/icon-60.png')}
                         />
                         <SyledImageName>
-                            斗士
+                          {strings('app.name')}
                         </SyledImageName>
                     </Animatable.View>
                 }

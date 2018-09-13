@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "^0.2.4",
+    "react-native-i18n": "^2.0.15",
     "buffer": "^5.0.7",
     "immutable": "^3.8.2",
     "leancloud-storage": "^3.10.0",
@@ -28,7 +29,7 @@
     "react-native-flip-card": "^3.5.2",
     "react-native-fs": "^2.11.15",
     "react-native-image-picker": "^0.26.10",
-    "react-native-image-zoom-viewer": "^2.2.14",
+    "react-native-image-zoom-viewer": "^2.2.18",
     "react-native-interactable": "^0.1.10",
     "react-native-keyboard-input": "^5.2.3",
     "react-native-keyboard-manager": "^4.0.13-9",

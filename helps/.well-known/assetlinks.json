@@ -1,5 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.combo",
-    "sha256_cert_fingerprints": ["96:6B:A3:1A:2C:52:E1:17:B0:E2:68:65:A6:1E:66:FD:C8:32:36:54:BA:D8:EB:86:F2:79:86:60:AA:4E:F2:DC"] }
-}]

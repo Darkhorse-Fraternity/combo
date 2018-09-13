@@ -1,5 +1,4 @@
-import {Platform} from 'react-native'
-
+import { Platform } from 'react-native'
 
 import Home from './Home'
 import Creat from './NewCard/CardConfig/Creat'
@@ -29,105 +28,81 @@ import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
+import { required } from "../request/validation";
 
 export const otherRoute = {
-    earnings:{screen:Earnings},
-    cash:{screen:Cash},
-    recordDetail:{screen:RecordDetail},
-    cardSetting:{screen:CardSetting},
-    courseChoose:{screen: CourseChoose},
-    courseCreat:{screen: CourseCreat},
-    courseRelease:{screen: CourseRelease},
-    followee:{screen: Followee,path:'combo/:Followee'},
-    follower:{screen: Follower},
-    following:{screen: Following},
-    creat: {screen: Creat,path:'combo/:Creat'},
-    newCard: {screen: NewCard},
-    record: {screen: Record},
-    optionView: {screen: OptionView},
-    publish: {screen: Publish},
-    publishDetail: {screen: PublishDetail},
-    serve: {screen: Serve},
-    personInfo: {screen: PersonInfo},
-    feedback: {screen: Feedback},
-    publishing: {screen: Publishing},
-    cardInfo: {screen: CardInfo},
-    rcomment: {screen: RComment},
-    cardDetail: {screen: CardDetail},
-    cardUse: {screen: CardUse},
-    personCenter: {screen: PersonCenter},
-    pptDescribe: {screen:PPTDescribe}
+  earnings: { screen: Earnings },
+  cash: { screen: Cash },
+  recordDetail: { screen: RecordDetail },
+  cardSetting: { screen: CardSetting },
+  courseChoose: { screen: CourseChoose },
+  courseCreat: { screen: CourseCreat },
+  courseRelease: { screen: CourseRelease },
+  followee: { screen: Followee, path: 'combo/:Followee' },
+  follower: { screen: Follower },
+  following: { screen: Following },
+  creat: { screen: Creat, path: 'combo/:Creat' },
+  newCard: { screen: NewCard },
+  record: { screen: Record },
+  optionView: { screen: OptionView },
+  publish: { screen: Publish },
+  publishDetail: { screen: PublishDetail },
+  serve: { screen: Serve },
+  personInfo: { screen: PersonInfo },
+  feedback: { screen: Feedback },
+  publishing: { screen: Publishing },
+  cardInfo: { screen: CardInfo },
+  rcomment: { screen: RComment },
+  cardDetail: { screen: CardDetail },
+  cardUse: { screen: CardUse },
+  personCenter: { screen: PersonCenter },
+  pptDescribe: { screen: PPTDescribe }
 }
 
 export const homeRoute = {
-    home: {screen: Home},
-    ...otherRoute
+  home: { screen: Home },
+  ...otherRoute
 }
 
 export const settingRoute = {
-    ...otherRoute
+  ...otherRoute
 }
 
 
 export const route = {
-    login: {screen: LoginView},
+  login: { screen: LoginView },
 }
-
-
 
 
 export const tabRoute = {
-    home: {
-        screen: Home,
-        path: '',
-    },
-    personCenter: {
-        screen: PersonCenter,
-        path: '',
-    },
+  home: {
+    screen: Home,
+    path: '',
+  },
+  personCenter: {
+    screen: PersonCenter,
+    path: '',
+  },
 }
 
 export const initialRouteName = {
-    initialRouteName: 'home',
+  initialRouteName: 'home',
 }
 
 export const tabiCon = {
-    Home: {
-        label: "Home",
-        color: '#F3AC41',
-        activityColor: '#F0C98B',
-        icon: 'md-sunny'
-    },
-    PersonCenter: {
-        label: "Setting",
-        color: '#F3AC41',
-        activityColor: '#F0C98B',
-        icon: "ios-happy"
-    },
+  Home: {
+    label: "Home",
+    color: '#F3AC41',
+    activityColor: '#F0C98B',
+    icon: 'md-sunny'
+  },
+  PersonCenter: {
+    label: "Setting",
+    color: '#F3AC41',
+    activityColor: '#F0C98B',
+    icon: "ios-happy"
+  },
 
 }
 
 
-export const navigationOptions = {
-    headerStyle:{
-        backgroundColor:'white',
-        shadowColor: 'red',
-        shadowOpacity: 0.1,
-        shadowRadius: 0,
-        shadowOffset: {
-            height: 0,
-        },
-        borderBottomColor:'#F5FCFF',
-        elevation:0,
-        paddingTop: (Platform.OS === "ios"  ||  Platform.Version < 20)  ? 0 : 25,
-        //headerBackTitle:' '
-    },
-    headerTintColor:'black',
-    headerTitleStyle:{
-        color: 'black',
-        alignItems:'center',
-        fontSize:13,
-    },
-    headerBackTitle:null,
-    gesturesEnabled:true,
-}

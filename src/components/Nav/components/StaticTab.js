@@ -14,13 +14,13 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
-
+import { strings } from '../../../../locales/i18n';
 const AniIonicons = Animatable.createAnimatableComponent(Ionicons);
 import {
     homeRoute,
     settingRoute,
-    navigationOptions
 } from '../../../pages'
+import {navigationOptions} from './navigationOptions'
 import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
 
 
@@ -60,7 +60,7 @@ export default createBottomTabNavigator(
                 labelName = 'Now'
             } else if (routeName === 'Settings') {
                 iconName = `ios-happy`;
-                labelName = '跟多'
+                labelName = strings('tabs.more')
             }
             return {
                 // header:null,

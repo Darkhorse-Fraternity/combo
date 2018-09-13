@@ -62,7 +62,6 @@ export default class Header extends Component {
                     source={avatarSource}/>
                 <Text style={styles.name}>
                     {user.nickname || '路人甲'}
-                    完成了任务
                 </Text>
             </Button>
         );

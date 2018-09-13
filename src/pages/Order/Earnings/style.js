@@ -41,7 +41,7 @@ export const StyledHeaderBtn = styled(HeaderBtn)`
 
 
 export const StyledTitleView = styled.View`
-  padding: 15px 15px 5px 0px;
+  padding: 15px 15px 15px 0px;
 `
 
 
@@ -53,7 +53,7 @@ export const StyledTitleText = styled.Text`
 `
 
 export const StyledRow = styled.View`
-   margin-top: 15px;
+   margin-bottom: 15px;
     padding: 15px 15px;
     flex-direction: row;
     justify-content: space-between;

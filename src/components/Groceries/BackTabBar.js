@@ -17,6 +17,8 @@ import theme from '../../Theme'
 import { required } from "../../request/validation";
 
 const backWidth = Dimensions.get('window').width / 3
+import HeaderBackImage from '../Nav/components/HeaderBackImage'
+
 
 export default class BackTabBar extends Component {
     static propTypes = {
@@ -96,11 +98,9 @@ export default class BackTabBar extends Component {
                     }}
                     style={{
                         width: backWidth,
-                        justifyContent: 'center', paddingLeft: 16
+                        justifyContent: 'center',
                     }}>
-                    <Image
-                        style={{ tintColor: 'black' }}
-                        source={require('react-navigation/src/views/assets/back-icon.png')}/>
+                    <HeaderBackImage/>
                 </Button>
                 <View style={[styles.tab, styles.contain]}>
                     {this.props.tabs.map((tab, i) =>

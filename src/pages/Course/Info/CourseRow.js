@@ -50,7 +50,9 @@ export default class CourseRow extends Component {
                     {text ? <StyledBottomText
                         style={{
                             color: 'rgb(150,150,150)',
-                            margin: 15
+                            width:Dimensions.get('window').width - 60,
+                            marginVertical: 15,
+                            marginHorizontal:15,
                         }}>
                         {text}
                     </StyledBottomText>:<View style={{height:0}}/>}

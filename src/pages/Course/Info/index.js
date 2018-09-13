@@ -310,7 +310,7 @@ export default class Info extends Component {
             {/*<StyledHeaderConverTip>*/}
             {/*<StyledTriangle/>*/}
             {/*</StyledHeaderConverTip>*/}
-            {course.cover && <StyledHeaderImage
+            {!!course.cover && <StyledHeaderImage
               width={200}
               source={{ uri: course.cover.url }}/>}
           </StyledHeaderCover>
@@ -319,7 +319,7 @@ export default class Info extends Component {
           </StyledHeaderTitle>
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
-              {course.subtitle && <StyledSubTitle>
+              {!!course.subtitle && <StyledSubTitle>
                 {course.subtitle}
               </StyledSubTitle>}
               <StyledNickName>

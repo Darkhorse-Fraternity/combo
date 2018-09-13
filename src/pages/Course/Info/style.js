@@ -180,6 +180,5 @@ export const StyledImg = styled(AutoHeightImage)`
 export const StyledBottomText = styled.Text`
   font-size: 15px;
   color: #c1c1c1;
-  margin-left: 10px;
 `
 
