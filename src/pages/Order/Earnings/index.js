@@ -136,12 +136,8 @@ export default class Earnings extends Component {
         {this._renderHeader()}
         <ScrollableTabView
            renderTabBar={() => (
-             <EZTabBar tabBarStyle={{paddingLeft:8}}/>
+             <EZTabBar style={{marginLeft:10}}/>
            )}
-          tabBarInactiveTextColor={theme.mainColor}
-          tabBarActiveTextColor={theme.mainColor}
-          tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
-          // tabBarPosition ='bottom'
         >
           <EarningRecord tabLabel={'收益记录'}/>
           <CostRecord tabLabel={'消费记录'}/>
