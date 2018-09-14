@@ -86,13 +86,13 @@ export default class AgendaScreen extends Component {
 
     componentDidMount() {
         this.refresh()
-        const key = 'done_' + this.props.iCard.get('objectId')
-        this.subscription =
-            DeviceEventEmitter.addListener(key, this.refresh);
+        // const key = 'done_' + this.props.iCard.get('objectId')
+        // this.subscription =
+        //     DeviceEventEmitter.addListener(key, this.refresh);
     }
 
     componentWillUnmount() {
-        this.subscription.remove();
+        // this.subscription.remove();
     }
 
 

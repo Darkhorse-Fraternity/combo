@@ -122,23 +122,23 @@ export default class SliderEntry extends Component {
                             {moment(data.doneDate.iso).format("MM/DD")}
                         </Text>
                     </Animatable.View>)}
-                    {!done && over && (<TouchableOpacity
+                    {/*{!done && over && (<TouchableOpacity*/}
 
-                        onPress={onRefresh}
-                        disabled={refreshLoad}
-                        style={styles.overView}>
-                        <View style={styles.refreshView}>
-                            {refreshLoad ?
-                                (<ActivityIndicator size="small" color={"white"}/>) :
-                                (<Icon
-                                    color='white'
-                                    name={'md-refresh'}
-                                    size={25}/>)}
-                            <Text style={styles.overViewText}>
-                                点击再来一组
-                            </Text>
-                        </View>
-                    </TouchableOpacity>)}
+                        {/*onPress={onRefresh}*/}
+                        {/*disabled={refreshLoad}*/}
+                        {/*style={styles.overView}>*/}
+                        {/*<View style={styles.refreshView}>*/}
+                            {/*{refreshLoad ?*/}
+                                {/*(<ActivityIndicator size="small" color={"white"}/>) :*/}
+                                {/*(<Icon*/}
+                                    {/*color='white'*/}
+                                    {/*name={'md-refresh'}*/}
+                                    {/*size={25}/>)}*/}
+                            {/*<Text style={styles.overViewText}>*/}
+                                {/*点击再来一组*/}
+                            {/*</Text>*/}
+                        {/*</View>*/}
+                    {/*</TouchableOpacity>)}*/}
 
                 </TouchableOpacity>
 

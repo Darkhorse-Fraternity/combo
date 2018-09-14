@@ -95,18 +95,18 @@ export default class CardDetail extends Component {
 
 
     componentDidMount() {
-        const key = 'done_' + this.props.iCard.get('objectId')
-        this.subscription =
-            DeviceEventEmitter.addListener(key, this.refresh);
+        // const key = 'done_' + this.props.iCard.get('objectId')
+        // this.subscription =
+        //     DeviceEventEmitter.addListener(key, this.refresh);
     }
 
     componentWillUnmount() {
-        this.subscription.remove();
+        // this.subscription.remove();
     }
 
-    refresh = () => {
-        this.refs['list'].selector.props.loadData()
-    }
+    // refresh = () => {
+    //     this.refs['list'].selector.props.loadData()
+    // }
 
 
     _renderRow = (title, des) => {
