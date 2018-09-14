@@ -33,8 +33,8 @@ import { connect } from 'react-redux'
         load: state.req.get(IDO).get('load'),
     }),
     (dispatch, props) => ({
-        doCard: (data) => {
-          return  dispatch(doCardWithNone(data))
+        doCard: async (data) => {
+          return  await dispatch(doCardWithNone(data))
         },
 
     })

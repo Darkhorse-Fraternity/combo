@@ -22,9 +22,9 @@
                         <constraint firstAttribute="width" constant="164" id="jte-VS-jJ7"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="与命运搏斗" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqK-44-hR0">
-                    <rect key="frame" x="267.5" y="644" width="76.5" height="18"/>
-                    <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小改变，大不同" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqK-44-hR0">
+                    <rect key="frame" x="245" y="644" width="121.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                     <color key="textColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>

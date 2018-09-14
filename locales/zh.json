@@ -1,9 +1,9 @@
 {
   "app": {
-    "name": "斗士"
+    "name": "小改变"
   },
   "tabs":{
-    "more":"跟多"
+    "more":"更多"
   },
   "permission": {
     "write_storage_title": "写取储存权限",

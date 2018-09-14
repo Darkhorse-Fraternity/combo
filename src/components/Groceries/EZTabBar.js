@@ -117,7 +117,7 @@ export default class EZTabBar extends Component {
         }, textStyle]}>
           {name}
         </Animated.Text>
-        { <Animated.View style={[tabUnderlineStyle,
+        {numberOfTabs>1 && <Animated.View style={[tabUnderlineStyle,
           {
             transform: [{ scaleX }]
           },

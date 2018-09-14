@@ -64,7 +64,7 @@ export default class CardDetail extends Component {
 
 
     _afterDone = (key) => {
-        // DeviceEventEmitter.emit(key);
+        DeviceEventEmitter.emit(key);
     }
 
     __renderRightView = () => {

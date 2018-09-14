@@ -28,7 +28,7 @@ export function doCardWithNone(data) {
         //在这边添加新的判断
 
         // const IUseP = classUpdate(IUSE, id, param)
-       return dispatch(creatIDO(data,iCardM))
+       return await dispatch(creatIDO(data,iCardM))
 
     }
 
@@ -80,6 +80,6 @@ function creatIDO(iUseM,iCardM,other) {
             objectId: iUseM.objectId
         }
 
-        dispatch(addNormalizrEntity(IUSE, entity))
+        return await dispatch(addNormalizrEntity(IUSE, entity))
     }
 }

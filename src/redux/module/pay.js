@@ -38,7 +38,7 @@ export function pay(type, tradeId, amount, detail, description) {
                 tradeId,
                 amount * 100,
                 detail,
-                '斗士_消费',
+                '小改变的消费',
                 ip))
 
 
