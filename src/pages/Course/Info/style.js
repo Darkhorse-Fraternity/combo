@@ -110,7 +110,7 @@ export const StyledHeaderInnerLeft = styled.View`
 `
 export const StyledNickName = styled.Text`
     font-size: 17px;
-    margin: 10px 0px;
+    margin: 3px 0px;
 `
 
 
@@ -137,8 +137,9 @@ export const StyledHeaderInnerRight = styled.View`
 `
 
 export const StyledAvatar = styled.Image`
-    width:70px;
-    height:70px;
+   width:70px;
+   height:70px;
+   
    border-radius: 35px;
 `
 
@@ -152,7 +153,6 @@ export const StyledFollowBtnText = styled.Text`
 export const StyledHeaderImage = styled.Image`
     width:250px;
     height: 200px;
-    
     border-radius: 5px;
 `
 

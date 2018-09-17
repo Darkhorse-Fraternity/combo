@@ -10,6 +10,8 @@
 		<string>applinks:www.icard.leanapp.cn</string>
 		<string>applinks:www.stg-icard.leanapp.cn</string>
 		<string>applinks:stg-icard.leanapp.cn</string>
+		<string>applinks:icourage.cn</string>
+		<string>applinks:www.icourage.cn</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
