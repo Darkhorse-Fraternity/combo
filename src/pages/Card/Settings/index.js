@@ -257,7 +257,7 @@ export default class Settings extends Component {
 
                 <this._renderItem
                     onPress={() => {
-                        navigation.navigate('OptionView', { iCardId: iCard.objectId })
+                        navigation.navigate('optionView', { iCardId: iCard.objectId })
                     }}
                     name={'md-settings'}
                     title={'卡片配置'}/>

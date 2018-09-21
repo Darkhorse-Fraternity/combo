@@ -53,8 +53,8 @@ export default class Configure extends React.Component {
     epUpdate()
     pushConfig()
     if (Platform.OS !== 'ios') {
-      // UIManager.setLayoutAnimationEnabledExperimental &&
-      // UIManager.setLayoutAnimationEnabledExperimental(true);
+      UIManager.setLayoutAnimationEnabledExperimental &&
+      UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     if (DeviceInfo.isTablet()) {
       // Orientation.lockToLandscape();
@@ -73,7 +73,6 @@ export default class Configure extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-    console.log('isLogin1:', nextProps.isLogin,this.urlTask);
     if(this.urlTask.length >0 && nextProps.isLogin){
       this.urlTask.forEach(url=> this._handleUrl(url))
       this.urlTask = []

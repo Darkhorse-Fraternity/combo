@@ -86,6 +86,8 @@ import Pop from '../../../components/Pop'
 import { ORDER } from '../../../redux/reqKeys'
 
 const selector = formValueSelector(FormID) // <-- same as form name
+import {daysText} from '../../../configure/enum'
+
 
 @connect(
   (state, props) => {
@@ -265,7 +267,6 @@ export default class CardInfo extends Component {
       <StyledRowText>
         {title}
       </StyledRowText>
-      <View style={{ width: 20 }}/>
       <StyledRowDes>
         {des}
       </StyledRowDes>
@@ -489,11 +490,13 @@ export default class CardInfo extends Component {
 
           {this.row('加入费用:', iCard.price === 0 ? '免费'
             : iCard.price + '元')}
-          {this.row('卡片周期:', iCard.period + '次')}
           {this.row('记录模式:', iCard.record.join("+") || '无')}
           {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
-          {this.row('提醒时间:', iCard.notifyTime)}
-          {this.row('创建时间:', moment(iCard.createdAt).format("YYYY-MM-DD"))}
+          {this.row('打卡日:', daysText(iCard.recordDay))}
+          {this.row('提醒时间:', iCard.notifyTimes?
+            iCard.notifyTimes.join('、'):iCard.notifyTime)}
+          {this.row('卡片周期:', iCard.period + '次')}
+          {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
           {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
           {/*{course && course.title && this._renderCourse(course)}*/}
 

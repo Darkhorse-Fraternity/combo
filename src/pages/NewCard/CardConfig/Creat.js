@@ -68,7 +68,7 @@ import * as Animatable from 'react-native-animatable';
             const op = selector(
                 state,
                 'title',
-                'notifyTime',
+                'notifyTimes',
                 'period',
                 'recordDay',
                 'notifyText',
@@ -82,6 +82,8 @@ import * as Animatable from 'react-native-animatable';
                 ...op,
                 record: op.record.toJS(),
                 recordDay: op.recordDay.toJS(),
+                notifyTimes: op.notifyTimes.toJS(),
+                price:0,
                 state:0,
                 // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
                 ...selfUser(),
@@ -259,7 +261,7 @@ export default class Creat extends Component {
                         //keyboardType={boardType}
                         style={styles.textInputStyle}
                         underlineColorAndroid='transparent'
-                        placeholder='卡片名称'
+                        placeholder='例如跑步、早睡等'
                         clearButtonMode='while-editing'
                         enablesReturnKeyAutomatically={true}
                         //onSubmitEditing={() =>this.focusNextField(ref)}

@@ -10,10 +10,10 @@
 #import <UIKit/UIKit.h>
 @implementation AppearanceConfig
 + (void)appearanceConfig {
-  UIColor *MainColor = [UIColor colorWithRed:243 green:172 blue:65 alpha:1];
+//  UIColor *MainColor = [UIColor colorWithRed:243 green:172 blue:65 alpha:1];
   
 //  UIColor *subColor = [UIColor hx_colorWithHexRGBAString:@"ffffff"];
-  [[UIWindow appearance]setTintColor:MainColor];
+//  [[UIWindow appearance]setTintColor:MainColor];
   
 //  [UIViewController preferredStatusBarStyle:UIStatusBarStyleDefault];
   
@@ -28,12 +28,12 @@
   //    [[UINavigationBar appearance]setBackgroundImage:navgationBg forBarMetrics:UIBarMetricsDefault];
   
   //UITabBar
-  [[UITabBar appearance]setBarTintColor:[UIColor whiteColor] ];
+//  [[UITabBar appearance]setBarTintColor:[UIColor whiteColor] ];
   
   
   //UIButton
 //  [[UIButton appearance]setBackgroundColor:[UIColor redColor]];
-  [[UIButton appearance]setTintColor:MainColor ];
+//  [[UIButton appearance]setTintColor:MainColor ];
 //  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:MainColor];
 //  [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundColor:[UIColor clearColor]];
 //  [[UIButton appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:MainColor];
@@ -49,33 +49,34 @@
   
   
   //UIProgressView
-  [[UIProgressView appearance]setTintColor:MainColor];
+//  [[UIProgressView appearance]setTintColor:MainColor];
+//
+//
+//  //UIPageControl
+//  [[UIPageControl appearance]setCurrentPageIndicatorTintColor:MainColor];
+//  [[UIPageControl appearance]setPageIndicatorTintColor:[UIColor whiteColor]];
+//
+//  //SearchBar
+//  [[UISearchBar appearance]setTintColor:MainColor];
+//
+//  //UISegmentedControl
+//  [[UISegmentedControl appearance]setTintColor:MainColor];
+//  
+//
+//  //UISlider
+//  [[UISlider appearance]setTintColor:MainColor];
+//
+//  //UISwitch
+////  [[UISwitch appearance]setTintColor:[UIColor hx_colorWithHexRGBAString:@"#262324"]];
+//  [[UISwitch appearance]setOnTintColor:MainColor];
+//
+//  //UITabBar
+//  [[UITabBar appearance]setTintColor:MainColor];
+//  //UIToolbar
+//  [[UIToolbar appearance]setTintColor:MainColor];
   
-  
-  //UIPageControl
-  [[UIPageControl appearance]setCurrentPageIndicatorTintColor:MainColor];
-  [[UIPageControl appearance]setPageIndicatorTintColor:[UIColor whiteColor]];
-  
-  //SearchBar
-  [[UISearchBar appearance]setTintColor:MainColor];
-  
-  //UISegmentedControl
-  [[UISegmentedControl appearance]setTintColor:MainColor];
-  
-  
-  //UISlider
-  [[UISlider appearance]setTintColor:MainColor];
-  
-  //UISwitch
-//  [[UISwitch appearance]setTintColor:[UIColor hx_colorWithHexRGBAString:@"#262324"]];
-  [[UISwitch appearance]setOnTintColor:MainColor];
-  
-  //UITabBar
-  [[UITabBar appearance]setTintColor:MainColor];
-  //UIToolbar
-  [[UIToolbar appearance]setTintColor:MainColor];
-  
-  
+  NSString *currentLanguage = [[NSLocale preferredLanguages] firstObject];
+  [[UIDatePicker appearance] setLocale:[[NSLocale alloc]initWithLocaleIdentifier:currentLanguage]];
  
 }
 @end

@@ -235,8 +235,7 @@ export default class LoginView extends Component {
             <Animatable.View
                 useNativeDriver
                 duration={1000}
-                easing="ease-in-out"
-                delay={Math.random() * 500}
+                delay={200+Math.random() * 500}
                 animation="bounceInUp"
 
             >

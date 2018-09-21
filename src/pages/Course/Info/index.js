@@ -221,7 +221,7 @@ export default class Info extends Component {
 
 
     return (
-      <View style={{ height: 45 }}>
+      !isSelf && <View style={{ height: 45 }}>
         {!myLoad && !isSelf && <Button onPress={() => {
           this.props.follow(isFollow)
         }}>
@@ -319,7 +319,8 @@ export default class Info extends Component {
           </StyledHeaderTitle>
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
-              {!!course.subtitle && <StyledSubTitle>
+              {!!course.subtitle &&course.subtitle.length >0 &&
+              <StyledSubTitle>
                 {course.subtitle}
               </StyledSubTitle>}
               <StyledNickName>

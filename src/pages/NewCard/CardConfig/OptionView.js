@@ -61,7 +61,7 @@ const FormID = 'CreatCardForm'
                 const selector = formValueSelector(FormID)
                 const op = selector(
                     state,
-                    'notifyTime',
+                    'notifyTimes',
                     'notifyText',
                     'period',
                     'record',
@@ -72,7 +72,8 @@ const FormID = 'CreatCardForm'
                 const param = {
                     ...op,
                     record: op.record.toJS(),
-                    recordDay: op.recordDay.toJS()
+                    recordDay: op.recordDay.toJS(),
+                    notifyTimes:op.notifyTimes.toJS()
                 }
 
                 const res = await update(id, param, ICARD)

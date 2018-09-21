@@ -178,26 +178,28 @@ export default class ppt extends Component {
                         ref={res => this.handleViewRef['ppt' + index] = res}
                         // animation="fadeInRight"
                     >
-                        <Field name={`${ppt}.img`}
-                               component={props => [
-                                   <StyledTipButton
-                                       key={'button'}
-                                       onPress={async () => {
-                                           const img = await this.props.picker()
-                                           img && img.id && img.id !== props.input.value.id
-                                           && props.input.onChange(new Map(img))
-                                       }}>
+                      <Field name={`${ppt}.img`}
+                             component={props => [
+                               <StyledTipButton
+                                 key={'button'}
+                                 onPress={async () => {
+                                   const img = await this.props.picker()
+                                   img && img.id && img.id !== props.input.value.id
+                                   && props.input.onChange(new Map(img))
+                                 }}>
 
-                                       <StyledTipButtonText>
-                                           更换图片
-                                       </StyledTipButtonText>
-                                   </StyledTipButton>,
-                                   <StyledImg
-                                       key={'img'}
-                                       width={Dimensions.get('window').width - 30}
-                                       source={{ uri: props.input.value.get &&
-                                       props.input.value.get('url') }}/>
-                               ]}/>
+                                 <StyledTipButtonText>
+                                   更换图片
+                                 </StyledTipButtonText>
+                               </StyledTipButton>,
+                               <StyledImg
+                                 key={'img'}
+                                 width={Dimensions.get('window').width - 30}
+                                 source={{
+                                   uri: props.input.value.get &&
+                                   props.input.value.get('url')
+                                 }}/>
+                             ]}/>
 
 
                         <StyledBottom>

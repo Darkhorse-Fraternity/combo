@@ -1,25 +1,51 @@
+//{
+//  "app": {
+//    "name": "Fighter"
+//  },
+//  "tabs": {
+//    "more": "more"
+//  },
+//  "permission": {
+//    "write_storage_title": "My App Storage Permission",
+//    "write_storage_message": "My App needs access to your storage so you can save your photos"
+//  },
+//  "login": {
+//    "welcome": "Welcome  to our localized app!",
+//    "login_button": "Login",
+//    "signup_button": "Sign Up"
+//  },
+//  "user_profile": {
+//    "title": "Your Profile"
+//  },
+//  "save": {
+//    "cance": "cance",
+//    "save_success": "save success",
+//    "save_to_local": "save to the album"
+//  }
+//}
 {
   "app": {
-    "name": "Fighter"
+    "name": "小改变"
   },
-  "tabs": {
-    "more": "more"
+  "tabs":{
+    "more":"更多"
   },
   "permission": {
-    "write_storage_title": "My App Storage Permission",
-    "write_storage_message": "My App needs access to your storage so you can save your photos"
+    "write_storage_title": "写取储存权限",
+    "write_storage_message": "我们的app需要您的存储写权限,用来保存图片"
   },
   "login": {
-    "welcome": "Welcome  to our localized app!",
-    "login_button": "Login",
-    "signup_button": "Sign Up"
+    "welcome": "欢迎  回来!",
+    "login_button": "登录",
+    "signup_button": "注册"
   },
   "user_profile": {
-    "title": "Your Profile"
+    "title": "个人资料"
   },
   "save": {
-    "cance": "cance",
-    "save_success": "save success",
-    "save_to_local": "save to the album"
+    "cance": "取消",
+    "save_success": "保存成功",
+    "save_to_local": "保存到本地相册"
   }
+
 }

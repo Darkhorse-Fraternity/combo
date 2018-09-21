@@ -23,7 +23,6 @@ export const StyledRow = styled.View`
   padding: 13px 0px ;
   flex-direction: row;
   align-items: center;
- 
 
 `
 
@@ -37,7 +36,9 @@ export const StyledRowText = styled.Text`
 export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 17px;
-  fontStyle:italic;
+  fontStyle: italic;
+  margin-right: 60px;
+  margin-left: 20px;
 `
 
 export const StyledRowInner = styled.View`

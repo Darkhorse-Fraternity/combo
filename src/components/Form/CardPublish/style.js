@@ -110,6 +110,7 @@ export const StyledTipButton = styled(Button)`
 export const StyledTipButtonText = styled.Text`
   color: white;
   font-weight: 500;
+
 `
 
 export const StyledReportBtn = styled(Button)`
