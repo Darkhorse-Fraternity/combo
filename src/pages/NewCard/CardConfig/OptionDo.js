@@ -108,8 +108,7 @@ export default class OptionDo extends Component {
         <Button
           disabled={this.props.load}
           onPress={this.props.done}
-          style={[styles.done, styles.shadow,
-          ]}>
+          style={[styles.done, styles.shadow]}>
           {this.props.load ? <ActivityIndicator
               style={{ marginVertical: -3 }}/>
             : <Text>提交</Text>}
@@ -131,7 +130,6 @@ export default class OptionDo extends Component {
           }}
           style={[styles.item, styles.shadow]}>
           <Text
-            style={{}}
             numberOfLines={1}>
             {props.title}
           </Text>
@@ -494,16 +492,16 @@ const styles = StyleSheet.create({
     marginTop: 7.5,
     flexDirection: 'row',
     backgroundColor: 'white',
-    padding: 15,
+    padding: 10,
     alignSelf: 'flex-end',
     marginBottom: 7.5,
     marginLeft: 5,
   },
 
   shadow: {
-    shadowColor: 'black',
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 2, height: 5 },
+    shadowColor: '#979797',
+    shadowOpacity: 0.5,
+    shadowOffset: { width: 2, height: 4 },
     shadowRadius: 5,
     elevation: 3
   },

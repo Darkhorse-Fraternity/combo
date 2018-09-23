@@ -81,16 +81,16 @@ export default class NotifyTimePicker extends Component {
             Toast.show('单个卡片提醒数量不可超过10个哦~')
             return
           }
-          this.setState({ isDateTimePickerVisible: true ,isDelete:false})
+          this.setState({ isDateTimePickerVisible: true, isDelete: false })
           const self = this
           this.onChange = async (time) => {
-            const { options }  = this.props
+            const { options } = this.props
             const position = options.findIndex(item => item === time);
 
             if (position === -1) {
               await fields.insert(fields.length, time)
-              // self.handleViewRef[fields.length] &&
-              // self.handleViewRef[fields.length].bounceIn()
+              self.handleViewRef[fields.length] &&
+              self.handleViewRef[fields.length].bounceIn()
             } else {
               this.timer && clearTimeout(this.timer);
               this.timer = setTimeout(() => {
@@ -100,7 +100,9 @@ export default class NotifyTimePicker extends Component {
 
           }
         }}>
-        <StyledMaterialIcons size={30} name={'alarm-add'}/>
+        <StyledNotifyButtonInner>
+          <StyledMaterialIcons size={30} name={'alarm-add'}/>
+        </StyledNotifyButtonInner>
       </StyledNotifyButton>
       ,
       ...fields.map((item, index) => (
@@ -116,9 +118,9 @@ export default class NotifyTimePicker extends Component {
                    <StyledNotifyButton
                      key={'button'}
                      onPress={async () => {
-                       if(this.state.isDelete){
-                         if(this.props.options.size === 1){
-                           this.setState({isDelete:false})
+                       if (this.state.isDelete) {
+                         if (this.props.options.size === 1) {
+                           this.setState({ isDelete: false })
                          }
                          // await  this.handleViewRef[index].bounceOut()
                          fields.remove(index)
@@ -127,7 +129,7 @@ export default class NotifyTimePicker extends Component {
 
 
                        this.onChange = async (time) => {
-                         const { options }  = this.props
+                         const { options } = this.props
                          const position = options.findIndex(item => item === time);
                          const self = this
                          if (position === -1) {
@@ -146,15 +148,16 @@ export default class NotifyTimePicker extends Component {
                        }
                        this.setState({ isDateTimePickerVisible: true })
                      }}>
+                     {this.state.isDelete && <StyledRound>
+                       <StyledLine/>
+                     </StyledRound>}
                      <StyledNotifyButtonInner>
                        <StyledMaterialIcons
                          size={30}
                          name={'alarm'}/>
-                       { this.state.isDelete && <StyledRound>
-                         <StyledLine/>
-                       </StyledRound>}
+                       <StyledNotifyTime>{props.input.value} </StyledNotifyTime>
                      </StyledNotifyButtonInner>
-                     <StyledNotifyTime>{props.input.value} </StyledNotifyTime>
+
                    </StyledNotifyButton>
                  </Animatable.View>
                )}/>
@@ -204,7 +207,7 @@ export default class NotifyTimePicker extends Component {
           <FieldArray
             key={name}
             name={name}
-            isDelete = {this.state.isDelete}
+            isDelete={this.state.isDelete}
             component={this.renderComponent}/>
         </StyledInner>
         <DateTimePicker
