@@ -53,21 +53,27 @@ function localNotificationSchedule(day,notifyTime,item) {
   const message = item.iCard.notifyText || '快来记录一下吧!'
   const id = item.iCard.objectId
 
+  if(day === 7){
+    day = 0
+  }
+
 
   let momentDate = moment(notifyTime, "HH:mm").days(day)
 
-  const lastMoment = moment(item.doneDate.iso)
-  //如果当天凌晨两点后已经打卡并且没有超过提醒时间，则需要到下周才打卡
-  const flag = lastMoment.isBefore(momentDate) &&
-    lastMoment.isAfter(moment(2, "HH"))
-  //提醒时间已经超过当前时间
-  if (moment().isAfter(momentDate) || flag) {
-    momentDate.add(1, 'weeks')
-  }
+  // const lastMoment = moment(item.doneDate.iso)
+  // //如果当天凌晨两点后已经打卡并且没有超过提醒时间，则需要到下周才打卡
+  // const flag = lastMoment.isBefore(momentDate) &&
+  //   lastMoment.isAfter(moment(2, "HH"))
+  // //提醒时间已经超过当前时间
+  // if (moment().isAfter(momentDate) || flag) {
+  //   momentDate.add(1, 'weeks')
+  // }
   // console.log('localPushDate:',day,notifyTime, momentDate.format('YYYY-MM-DD HH:mm'));
 
   // const date = !flag?notifyTimeHH
   //     :notifyTimeHH.add(1, 'weeks').toDate()
+
+  // console.log('momentDate:', momentDate.format('YYYY-MM-DD HH:mm'));
 
   PushNotification.localNotificationSchedule({
     title,
@@ -185,17 +191,20 @@ export default class PushManage extends Component {
 
     let data = props.data.toJS()
 
+    // console.log('data:', data);
+
     if (!!this.props.iCard && data.loadStatu !== "LIST_LOAD_DATA") {
       const ndata = props.normalizrData.toJS()
       data = data.listData
       const array = data.map(key => {
         const res = ndata[key]
-        const iCard = this.props.iCard.get(res[ICARD]);
+        const iCard = props.iCard.get(res[ICARD]);
+
         res.iCard = iCard && iCard.toJS()
         return res
       })
 
-      // console.log('test:', array);
+
       dayNotification(array)
 
     }

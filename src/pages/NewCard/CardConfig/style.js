@@ -92,6 +92,7 @@ export const StyledNotifyButtonInner = styled.View`
 `
 
 export const StyledMaterialIcons = styled(MaterialIcons)`
+   color:${materialColors.blackSecondary}
 `
 
 export const StyledIonicons = styled(Ionicons)`
@@ -126,4 +127,5 @@ export const StyledInner = styled.View`
 
 export const StyledNotifyTime = styled.Text`
     text-align: center;
+    color:${materialColors.blackSecondary}
 `

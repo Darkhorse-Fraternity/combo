@@ -56,7 +56,6 @@ import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
 import Dialog from '../../../components/Dialog'
 import { selfUser } from '../../../request/LCModle'
-
 const Archive = IUSE + "archive"
 
 
@@ -109,6 +108,7 @@ const Archive = IUSE + "archive"
 
             dispatch(addNormalizrEntity(IUSE, entity))
             dispatch(claerByID(IUSE, id))
+            popToIndex()
         },
         updatePrivacy: async (data, privacy) => {
             const id = data.objectId

@@ -95,6 +95,7 @@ export const StyledRowInner = styled.View`
 
 export const StyledBtn = styled(HeaderBtn)`
    margin-top:15px;
+   width: 60px;
 `
 
 export const StyledArrow = styled.View`

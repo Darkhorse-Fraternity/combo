@@ -99,6 +99,10 @@ import * as Animatable from 'react-native-animatable';
         ...param,
         ...res
       }
+      if(!res || !res.objectId){
+        return
+      }
+
       dispatch(addNormalizrEntity(ICARD, entity))
 
       //返回首页
