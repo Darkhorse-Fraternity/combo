@@ -86,12 +86,11 @@ export default class NotifyTimePicker extends Component {
           this.onChange = async (time) => {
             const { options }  = this.props
             const position = options.findIndex(item => item === time);
-            console.log('position:',  fields.getAll().toJS());
 
             if (position === -1) {
               await fields.insert(fields.length, time)
-              self.handleViewRef[fields.length] &&
-              self.handleViewRef[fields.length].bounceIn()
+              // self.handleViewRef[fields.length] &&
+              // self.handleViewRef[fields.length].bounceIn()
             } else {
               this.timer && clearTimeout(this.timer);
               this.timer = setTimeout(() => {
@@ -150,8 +149,7 @@ export default class NotifyTimePicker extends Component {
                      <StyledNotifyButtonInner>
                        <StyledMaterialIcons
                          size={30}
-                         name={'alarm'}/>,
-
+                         name={'alarm'}/>
                        { this.state.isDelete && <StyledRound>
                          <StyledLine/>
                        </StyledRound>}
