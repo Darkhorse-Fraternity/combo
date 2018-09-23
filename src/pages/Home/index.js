@@ -53,7 +53,7 @@ export default class Home extends Component {
         // console.log('test:', params,localLoad);
         return {
             // gesturesEnabled: false,
-            header: null,
+          header: <View style={{height:20,backgroundColor:'white'}}/>,
 
             //     headerRight: ( <TouchableOpacity
             //         style={styles.headerBtn}
@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
         // height:180,
 
         marginBottom: 15,
-        marginTop: 20
     },
     headViewText: {
         marginTop: 40,

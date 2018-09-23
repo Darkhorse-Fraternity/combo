@@ -13,8 +13,10 @@ import {
     ActivityIndicator
 } from 'react-native'
 import Button from './'
+import theme from '../../Theme'
 
-export default class SmallDoneBtn extends Component {
+
+export default class HeaderBtn extends Component {
     constructor(props: Object) {
         super(props);
         this.state = {};
@@ -30,7 +32,8 @@ export default class SmallDoneBtn extends Component {
                 disabled={disabled}
                 style={[styles.btn,{
                     paddingVertical:this.props.load?5:7,
-                    backgroundColor:disabled?'#bfc2c7':'black'
+                    backgroundColor:disabled?'#bfc2c7':theme.sureColor,
+                    borderRadius:5
                 }, this.props.style]}
                 hitSlop={this.props.hitSlop ||
                 {top: 20, left: 50, bottom: 20, right: 50}}
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 5,
-        height:35,
+        paddingHorizontal:10,
     },
     title: {
         color: 'white',

@@ -28,10 +28,12 @@ import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
-import { required } from "../request/validation";
+import Remind from './PersonInfo/Remind'
+
 
 export const otherRoute = {
   earnings: { screen: Earnings },
+  remind: { screen: Remind },
   cash: { screen: Cash },
   recordDetail: { screen: RecordDetail },
   cardSetting: { screen: CardSetting },

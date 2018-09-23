@@ -44,7 +44,6 @@ export const StyledTitle = styled.Text`
 `
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-    padding: 0px 15px;
 `
 
 export const StyleImageSelect = styled(ImageSelect)``

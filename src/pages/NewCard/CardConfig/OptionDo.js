@@ -25,7 +25,9 @@ import { mainColor } from '../../../Theme/index'
 import {
   StyledTitleView,
   StyledTitleText,
-  StyledSubTitle
+  StyledSubTitle,
+  StyledSubTitleView,
+  StyledItemText
 } from './style'
 
 
@@ -73,7 +75,7 @@ export default class OptionDo extends Component {
 
     if (!this.props.title || this.props.title.length === 0) {
 
-      Toast.show('卡片名称不可为空~')
+      Toast.show('卡片标题不可为空~')
       return;
     }
 
@@ -143,11 +145,13 @@ export default class OptionDo extends Component {
 
     return (
       <Animatable.View animation="fadeInLeft">
-        <View
-          style={[styles.showItem, {
-            backgroundColor: 'white',
-            paddingHorizontal: 10
-          }]}>
+
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            卡片标题
+          </StyledSubTitle>
+        </StyledSubTitleView>
+
           <TextInput
             name='title'
             placeholderTextColor="rgba(180,180,180,1)"
@@ -162,7 +166,6 @@ export default class OptionDo extends Component {
             // clearButtonMode='while-editing'
             enablesReturnKeyAutomatically={true}
           />
-        </View>
       </Animatable.View>
     )
 
@@ -170,23 +173,32 @@ export default class OptionDo extends Component {
   }
 
   __renderperiod = () => {
-    const items = ['5', '6', '7', '8', '9', '10', '11', '12', '13', '14']
+    const items = ['5', '6', '7', '8',
+      '9', '10', '11', '12', '13', '14'];
 
     const __renderRadioItem = (item, selItem) => {
       return (
         <View
           style={[styles.notifyTimeItem,
-            { backgroundColor: selItem === item ? '#31d930' : 'transparent' }]}
+            { backgroundColor: selItem === item ? '#31d930' : 'white',
+              width:60}]}
           key={item}>
-          <Text
-            style={{ color: selItem === item ? 'white' : 'black' }}>{item}</Text>
+          <StyledItemText
+            contain={selItem === item}>
+            {item}组
+          </StyledItemText>
         </View>)
     }
 
     return (
       <Animatable.View animation="fadeInLeft">
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            卡片周期
+          </StyledSubTitle>
+        </StyledSubTitleView>
         <Radio
-          style={[styles.showItem, styles.notifyTimeView]}
+          style={[styles.notifyTimeView]}
           name='period'
           //keyName='ItemId'
           options={items}
@@ -213,15 +225,17 @@ export default class OptionDo extends Component {
 
     return (
       <Animatable.View animation="fadeInLeft">
-        <StyledSubTitle>
-          给自己的激励
-        </StyledSubTitle>
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            给自己的激励
+          </StyledSubTitle>
+        </StyledSubTitleView>
         <View
-          style={[ {
+          style={[{
             backgroundColor: 'white',
             padding: 10,
             borderRadius: 5,
-            marginHorizontal:10
+            marginHorizontal: 10
           }]}>
           <TextInput
             name='notifyText'
@@ -254,9 +268,11 @@ export default class OptionDo extends Component {
       return (
         <View
           style={[styles.notifyTimeItem,
-            { backgroundColor: contain ? '#31d930' : 'transparent' }]}
+            { backgroundColor: contain ? '#31d930' : 'white' }]}
           key={item}>
-          <Text style={{ color: contain ? 'white' : 'black' }}>{item}</Text>
+          <StyledItemText contain={contain}>
+            {item}
+          </StyledItemText>
         </View>)
     }
 
@@ -265,8 +281,14 @@ export default class OptionDo extends Component {
       <Animatable.View animation="fadeInLeft"
                        delay={Math.random() * 300}
       >
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            打卡方式
+          </StyledSubTitle>
+        </StyledSubTitleView>
+
         <Multiple
-          style={[styles.notifyTimeView, styles.showItem]}
+          style={[styles.notifyTimeView]}
           name='record'
           //keyName='ItemId'
           options={items}
@@ -285,9 +307,11 @@ export default class OptionDo extends Component {
       return (
         <View
           style={[styles.notifyTimeItem,
-            { backgroundColor: contain ? '#31d930' : 'transparent' }]}
+            { backgroundColor: contain ? '#31d930' : 'white' }]}
           key={names[item]}>
-          <Text style={{ color: contain ? 'white' : 'black' }}>{names[item - 1]}</Text>
+          <StyledItemText contain={contain}>
+            {names[item - 1]}
+          </StyledItemText>
         </View>)
     }
 
@@ -295,8 +319,13 @@ export default class OptionDo extends Component {
       <Animatable.View animation="fadeInLeft"
                        delay={Math.random() * 300}
       >
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            打卡日
+          </StyledSubTitle>
+        </StyledSubTitleView>
         <Multiple
-          style={[styles.notifyTimeView, styles.showItem,]}
+          style={[styles.notifyTimeView]}
           name='recordDay'
           //keyName='ItemId'
           options={sels}
@@ -378,7 +407,7 @@ export default class OptionDo extends Component {
             </StyledTitleView>
           </Animatable.View>
           {(<this.__renderItem
-            title={"卡片名称:   " + this.props.title}
+            title={"卡片标题:   " + this.props.title}
             type="title"
             index={1}/>)}
 
@@ -408,7 +437,7 @@ export default class OptionDo extends Component {
             type="recordDay"
             index={1}/>
           <this.__renderItem
-            title={"打卡周期:   " + this.props.period + '天'}
+            title={"卡片周期:   " + this.props.period + '天'}
             type="period"
             index={1}/>
 
@@ -480,7 +509,7 @@ const styles = StyleSheet.create({
   },
 
   notifyTimeItem: {
-    width: (width - 20 - 40) / 4,
+    paddingHorizontal:15,
     height: 35,
     backgroundColor: 'white',
     alignItems: 'center',
@@ -490,20 +519,21 @@ const styles = StyleSheet.create({
   },
   notifyTimeView: {
 
-    padding: 10,
+    paddingHorizontal: 10,
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
 
-  showItem: {
-    marginTop: 20,
-  },
 
   textInputTitle: {
     height: 50,
     textAlign: 'left',
     fontSize: 15,
     color: 'black',
+    paddingHorizontal: 10,
+    backgroundColor: 'white',
+    borderRadius:8,
+    marginHorizontal:15,
   },
 
   textInputStyle: {

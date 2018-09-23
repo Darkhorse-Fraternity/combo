@@ -277,6 +277,5 @@ const styles = StyleSheet.create({
     },
     headerBtn: {
         marginTop: 5,
-        width: 85,
     },
 })

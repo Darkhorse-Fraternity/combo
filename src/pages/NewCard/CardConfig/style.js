@@ -31,6 +31,12 @@ export const StyledContent = styled(LinearGradient)`
     flex: 1;
 `
 
+export const StyledItemText = styled.Text`
+  font-weight: ${props=> props.contain?600:500};
+  color:${props=> props.contain?'white':'black'}
+  font-size: 14px;
+`
+
 
 export const StyledSubTitleView = styled.View`
   flex-direction: row;

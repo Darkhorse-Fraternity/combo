@@ -249,7 +249,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
     },
     headerBtn: {
-        width: 65,
     },
     headerBtnText: {
         color: 'white',

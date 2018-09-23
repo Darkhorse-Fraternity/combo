@@ -36,7 +36,6 @@ export const StyledHeaderBottom = styled.View`
 `
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-    padding: 0px 15px;
 `
 
 

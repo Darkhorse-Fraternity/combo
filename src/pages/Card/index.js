@@ -240,7 +240,7 @@ export default class Home extends Component {
         return (
             (
                 <FlatList
-                    refreshing={false}
+                  refreshing={false}
                     onRefresh={()=>{
                         this.props.search()
                     }}

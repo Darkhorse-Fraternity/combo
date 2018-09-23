@@ -13,6 +13,7 @@ export default {
     buttonItem:'#f5f4f2',
     disabledColor:'#bfc2c7',
     sureColor:'#39ba98',
+    headerButtonColor:'#31d930',
     width:width,
     height:height,
     normalBtn:{

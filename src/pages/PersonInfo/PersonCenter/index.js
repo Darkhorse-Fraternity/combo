@@ -122,7 +122,7 @@ export default class PersonCenter extends Component {
     return {
       // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
       gesturesEnabled: false,
-      header: null
+      header: <View style={{height:20,backgroundColor:'white'}}/>
 
     }
   };
@@ -262,6 +262,8 @@ export default class PersonCenter extends Component {
         })}
 
 
+
+
         {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
         {/*navigation.navigate('iCollect');*/}
         {/*})}*/}
@@ -269,6 +271,10 @@ export default class PersonCenter extends Component {
         {/*{this._renderRow('设置', true, () => {*/}
         {/*navigation.navigate('Setting');*/}
         {/*})}*/}
+
+        {this._renderRow('习惯提醒', true, () => {
+          navigation.navigate('remind');
+        })}
 
         {this._renderRow('意见反馈', false, () => {
           // NavigationManager.goToPage("Feedback");
@@ -278,6 +284,7 @@ export default class PersonCenter extends Component {
         {this._renderRow('给个评价', false, this.props.rate)}
 
 
+        <View style={{ height: 25 }}/>
         {this._renderRow('退出登录', false, this.props.logout)}
         <View style={{ height: 25 }}/>
       </View>
