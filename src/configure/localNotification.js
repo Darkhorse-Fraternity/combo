@@ -87,7 +87,7 @@ function localNotificationSchedule(day,notifyTime,item) {
       title,
       id,
       alert: message,
-      webUrl: "combo://CardDetail",
+      webUrl: "combo://cardDetail",
       params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
       //action: "com.avos.UPDATE_STATUS",
       type: 'local'
