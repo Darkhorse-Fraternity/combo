@@ -110,6 +110,14 @@ export default class CardDetail extends Component {
         // const {iUse,iCard} = params
 
         const { iCard } = this.props
+        if(!iCard){
+            return (
+              <StyledContent>
+
+              </StyledContent>
+            )
+        }
+
 
         const useNum = iCard.get('useNum')
         const title = iCard.get('title')

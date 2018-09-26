@@ -104,6 +104,7 @@ export default class Configure extends React.Component {
 
     url = decodeURI(url)
     if (url) {
+
       const wurl = require('wurl');
       const key = wurl(1, url)
       const params = wurl('?', url);
@@ -124,11 +125,12 @@ export default class Configure extends React.Component {
         { hostname: 'icourage.cn', protocol: 'https' },
       ]
 
+      // console.log('testxxx:', hostname,protocol);
       const flag = conditions.findIndex(item => {
         return item.hostname === hostname && protocol === item.protocol
       })
 
-      if (flag > 0 && key) {
+      if (flag >= 0 && key) {
 
         const keys = {
           recorddetail: 'recordDetail',

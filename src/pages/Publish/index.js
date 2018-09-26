@@ -27,6 +27,11 @@ import CardRow from '../NewCard/CardRow'
 const listKey = ICARD
 
 
+import {
+  StyledHeader,
+  StyledHeaderTitle
+} from './style'
+
 @connect(
     state => ({
         data: state.normalizr.get(listKey)
@@ -61,11 +66,11 @@ export default class Publish extends Component {
 
     _renderHeader = () => {
         return (
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>
+            <StyledHeader >
+                <StyledHeaderTitle >
                     圈子管理
-                </Text>
-            </View>
+                </StyledHeaderTitle>
+            </StyledHeader>
         )
     }
 
@@ -146,13 +151,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
 
     },
-    header: {
-        padding: 15,
-        marginBottom:20,
-    },
-    headerTitle: {
-        fontSize: 20,
-    },
+
 
     itemImage: {
         // backgroundColor: 'white',

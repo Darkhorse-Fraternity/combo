@@ -18,6 +18,6 @@ export const daysText = (recordDay) => {
   } else if (days.length === 5 && days[4] === 5) {
     return '工作日'
   } else {
-    return Days.map(day => names[day - 1]).toString()
+    return days.map(day => Days[day - 1]).toString()
   }
 }

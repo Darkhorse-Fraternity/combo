@@ -7,7 +7,8 @@ import {
     LOAD_AVATAR,
     DATA_STORAGE,
     UPLOAD_IMAGES,
-    APP_STATE_UPDATE
+    APP_STATE_UPDATE,
+    LOCAL_REMIND
 } from '../actions/util'
 import * as immutable from 'immutable';
 const initialUtilState = immutable.fromJS({
@@ -16,6 +17,7 @@ const initialUtilState = immutable.fromJS({
     },
     appState:'',
     loadStatu:{},
+    localRemind:{},
 });
 
 export default function drawState(state: immutable.Map<string,any> = initialUtilState, action: Object) {
@@ -35,6 +37,11 @@ export default function drawState(state: immutable.Map<string,any> = initialUtil
         case APP_STATE_UPDATE:{
             return state.set('appState',action.state)
         }
+
+      case LOCAL_REMIND:{
+        return state.mergeDeep({localRemind:action.data});
+      }
+
         default:
             return state
     }

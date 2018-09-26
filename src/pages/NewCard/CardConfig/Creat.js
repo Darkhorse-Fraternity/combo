@@ -89,6 +89,7 @@ import * as Animatable from 'react-native-animatable';
         notifyTimes: op.notifyTimes.toJS(),
         price: 0,
         state: 0,
+        statu: 'start',
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
         ...selfUser(),
       }

@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux'
 import { ICARD, IUSE } from '../redux/reqKeys'
-import { iCard } from "../request/LCModle";
+import { localRemindLoad } from '../redux/actions/util'
+
 
 export function nowNotification() {
 
@@ -47,13 +48,12 @@ export function nowNotification() {
 }
 
 
-
-function localNotificationSchedule(day,notifyTime,item) {
+function localNotificationSchedule(day, notifyTime, item) {
   const title = item.iCard.title
   const message = item.iCard.notifyText || '快来记录一下吧!'
   const id = item.iCard.objectId
 
-  if(day === 7){
+  if (day === 7) {
     day = 0
   }
 
@@ -87,7 +87,7 @@ function localNotificationSchedule(day,notifyTime,item) {
       title,
       id,
       alert: message,
-      webUrl: "combo://cardDetail",
+      webUrl: "combo://combocardDetail",
       params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
       //action: "com.avos.UPDATE_STATUS",
       type: 'local'
@@ -96,10 +96,22 @@ function localNotificationSchedule(day,notifyTime,item) {
   });
 }
 
-export async function dayNotification(data) {
+export async function dayNotification(data, localRemindData) {
 
   // console.log('test:', data);
   PushNotification.cancelAllLocalNotifications()
+
+
+  let all = localRemindData['all']
+
+  //获取是否开启通知的条件。 当all 不存在时候，all 为true 
+
+  if (all === undefined) {
+    all = true
+  }
+  if (!all) {
+    return
+  }
 
   // let res = 0
   //   PushNotification.getApplicationIconBadgeNumber(item=>{
@@ -130,18 +142,18 @@ export async function dayNotification(data) {
     // const id = item.iCard.objectId
 
 
-
     recordDay.forEach(day => {
       notifyTimes.forEach(notifyTime => {
         daysFlag = true
-        localNotificationSchedule(day,notifyTime,item)
+        // console.log('test:', day,notifyTime,item);
+        localNotificationSchedule(day, notifyTime, item)
       })
     })
   })
 
-  if(!daysFlag){
+  if (!daysFlag) {
     PushNotification.localNotificationSchedule({
-      title:'给自己添加一个习惯吧~',
+      title: '给自己添加一个习惯吧~',
       message: "小改变，大不同！", // (required)
       date: moment(21, "HH"), // in 60 secs
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
@@ -156,7 +168,7 @@ export async function dayNotification(data) {
   }
 
   PushNotification.localNotificationSchedule({
-    title:'新的一周开始了~',
+    title: '新的一周开始了~',
     message: "为新的一周设置一些习惯吧！", // (required)
     date: moment(21, "HH").day(7).toDate(), // in 60 secs
     // date: new Date(Date.now() + (1*1000)), // in 60 secs
@@ -174,14 +186,33 @@ export async function dayNotification(data) {
   state => ({
     data: state.list.get(IUSE),
     normalizrData: state.normalizr.get(IUSE),
-    iCard: state.normalizr.get(ICARD)
+    iCard: state.normalizr.get(ICARD),
+    localRemindData: state.util.get('localRemind')
   }),
-  dispatch => ({})
+  dispatch => ({
+
+    load: async () => {
+      const ids = await storage.getIdsForKey('localRemind')
+      const values = await storage.getBatchDataWithIds({
+        key: 'localRemind',
+        ids: ids
+      })
+      const data = {}
+      ids.forEach((id, index) => {
+        data[id] = values[index]
+      })
+
+
+      return dispatch(localRemindLoad(data))
+    }
+
+  })
 )
 
 export default class PushManage extends Component {
   constructor(props: Object) {
     super(props);
+    props.load()
   }
 
   static propTypes = {};
@@ -189,23 +220,30 @@ export default class PushManage extends Component {
 
   componentWillReceiveProps(props) {
 
-    let data = props.data.toJS()
+    let {
+      data,
+      localRemindData,
+      iCard,
+      normalizrData
+    } = props
+    data = data.toJS()
 
     // console.log('data:', data);
 
-    if (!!this.props.iCard && data.loadStatu !== "LIST_LOAD_DATA") {
-      const ndata = props.normalizrData.toJS()
+
+    if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size > 0) {
+      localRemindData = localRemindData.toJS()
+      const ndata = normalizrData.toJS()
       data = data.listData
       const array = data.map(key => {
         const res = ndata[key]
         const iCard = props.iCard.get(res[ICARD]);
-
         res.iCard = iCard && iCard.toJS()
         return res
       })
 
 
-      dayNotification(array)
+      dayNotification(array, localRemindData)
 
     }
   }

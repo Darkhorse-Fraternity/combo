@@ -33,7 +33,7 @@ export const StyledHeader = styled.View`
 
 export const StyledHeaderText = styled.Text`
   font-size: 20px;
-  color:${materialColors.blackTertiary};
+  color:${materialColors.blackPrimary};
 `
 
 export const StyledHerderButton = styled(HeaderBtn)`

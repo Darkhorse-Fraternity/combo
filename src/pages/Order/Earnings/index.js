@@ -39,6 +39,7 @@ import EZTabBar from '../../../components/Groceries/EZTabBar'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import theme from '../../../Theme'
+
 const listKey = ORDER
 
 @connect(
@@ -58,7 +59,7 @@ export default class Earnings extends Component {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
-      scrollValue:new Animated.Value(0)
+      scrollValue: new Animated.Value(0)
     }
   }
 
@@ -98,9 +99,9 @@ export default class Earnings extends Component {
             title={'取现'}/>
         </StyledHeaderBottom>
         {/*<StyledTitleView>*/}
-          {/*<StyledTitleText>*/}
-            {/*收益记录*/}
-          {/*</StyledTitleText>*/}
+        {/*<StyledTitleText>*/}
+        {/*收益记录*/}
+        {/*</StyledTitleText>*/}
         {/*</StyledTitleView>*/}
       </StyledHeader>
     )
@@ -139,13 +140,13 @@ export default class Earnings extends Component {
       <StyledContent>
         {this._renderHeader()}
         <ScrollableTabView
-          onScroll={(x)=>{
+          onScroll={(x) => {
             const containerWidthAnimatedValue = new Animated.Value(x);
-            this.setState({ scrollValue:containerWidthAnimatedValue });
+            this.setState({ scrollValue: containerWidthAnimatedValue });
           }}
-           renderTabBar={() => (
-             <EZTabBar scrollValueWithOutNative={this.state.scrollValue} style={{marginLeft:10}}/>
-           )}
+          renderTabBar={() => (
+            <EZTabBar scrollValueWithOutNative={this.state.scrollValue} style={{ marginLeft: 10 }}/>
+          )}
         >
           <EarningRecord tabLabel={'收益记录'}/>
           <CostRecord tabLabel={'消费记录'}/>

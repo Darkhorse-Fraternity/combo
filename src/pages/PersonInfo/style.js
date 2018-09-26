@@ -99,3 +99,4 @@ export const StyledHeader = styled.View`
   align-items: center;
   justify-content: center;
 `
+
