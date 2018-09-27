@@ -94,17 +94,41 @@ export default class OptionDo extends Component {
         <Button
           onPress={this.__backStep}
           style={[styles.item, styles.shadow]}>
-          <Text>{this.state.option !== 0 ? "保存" : "返回"}</Text>
+          <Text>{"返回"}</Text>
         </Button>
+      </Animatable.View>
+    )
+  }
+
+  __renderSave = () => {
+
+    const { modify } = this.props
+
+    return (
+      <Animatable.View animation="fadeInLeft">
+        <Button
+          disabled={this.props.load}
+          onPress={()=>{
+            if(modify){
+              this.props.done()
+              this.__backStep()
+            }else {
+              this.__backStep()
+            }
+          }}
+          style={[styles.item, styles.shadow]}>
+          {this.props.load ? <ActivityIndicator
+              style={{ marginVertical: -3 }}/>
+            : <Text>保存</Text>}
+        </Button>
+
       </Animatable.View>
     )
   }
 
   __renderDone = () => {
     return (
-      <Animatable.View animation="fadeInRight"
-                       delay={Math.random() * 300}
-      >
+      <Animatable.View animation="fadeInRight">
         <Button
           disabled={this.props.load}
           onPress={this.props.done}
@@ -150,20 +174,20 @@ export default class OptionDo extends Component {
           </StyledSubTitle>
         </StyledSubTitleView>
 
-          <TextInput
-            name='title'
-            placeholderTextColor="rgba(180,180,180,1)"
-            selectionColor={mainColor}
-            returnKeyType='done'
-            autoFocus={true}
-            maxLength={50}
-            //keyboardType={boardType}
-            style={[styles.textInputTitle]}
-            underlineColorAndroid='transparent'
-            placeholder={"例如跑步、早睡等"}
-            // clearButtonMode='while-editing'
-            enablesReturnKeyAutomatically={true}
-          />
+        <TextInput
+          name='title'
+          placeholderTextColor="rgba(180,180,180,1)"
+          selectionColor={mainColor}
+          returnKeyType='done'
+          autoFocus={true}
+          maxLength={50}
+          //keyboardType={boardType}
+          style={[styles.textInputTitle]}
+          underlineColorAndroid='transparent'
+          placeholder={"例如跑步、早睡等"}
+          // clearButtonMode='while-editing'
+          enablesReturnKeyAutomatically={true}
+        />
       </Animatable.View>
     )
 
@@ -178,8 +202,10 @@ export default class OptionDo extends Component {
       return (
         <View
           style={[styles.notifyTimeItem,
-            { backgroundColor: selItem === item ? '#31d930' : 'white',
-              width:60}]}
+            {
+              backgroundColor: selItem === item ? '#31d930' : 'white',
+              width: 60
+            }]}
           key={item}>
           <StyledItemText
             contain={selItem === item}>
@@ -369,6 +395,7 @@ export default class OptionDo extends Component {
 
     const recordDay = this.__renderDayText(this.props.recordDay)
 
+    const { modify } = this.props
 
     return (
       <ScrollView
@@ -382,8 +409,9 @@ export default class OptionDo extends Component {
           width: Dimensions.get('window').width,
           justifyContent: 'space-between'
         }}>
-          {this.__remderBack()}
-          {this.state.option === 0 && this.__renderDone()}
+          {this.state.option === 0 && this.__remderBack()}
+          {this.state.option === 0 && !modify && this.__renderDone()}
+          {this.state.option !== 0 && this.__renderSave()}
         </View>
 
         {/*{this.state.option !== 0 && <Animatable.View animation="fadeIn">*/}
@@ -435,7 +463,7 @@ export default class OptionDo extends Component {
             type="recordDay"
             index={1}/>
           <this.__renderItem
-            title={"卡片周期:   " + this.props.period + '天'}
+            title={"卡片周期:   " + this.props.period + '组'}
             type="period"
             index={1}/>
 
@@ -507,7 +535,7 @@ const styles = StyleSheet.create({
   },
 
   notifyTimeItem: {
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
     height: 35,
     backgroundColor: 'white',
     alignItems: 'center',
@@ -530,8 +558,8 @@ const styles = StyleSheet.create({
     color: 'black',
     paddingHorizontal: 10,
     backgroundColor: 'white',
-    borderRadius:8,
-    marginHorizontal:15,
+    borderRadius: 8,
+    marginHorizontal: 15,
   },
 
   textInputStyle: {

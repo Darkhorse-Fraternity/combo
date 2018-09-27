@@ -89,7 +89,6 @@ import * as Animatable from 'react-native-animatable';
         notifyTimes: op.notifyTimes.toJS(),
         price: 0,
         state: 0,
-        statu: 'start',
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
         ...selfUser(),
       }
@@ -100,7 +99,7 @@ import * as Animatable from 'react-native-animatable';
         ...param,
         ...res
       }
-      if(!res || !res.objectId){
+      if (!res || !res.objectId) {
         return
       }
 
@@ -150,7 +149,8 @@ import * as Animatable from 'react-native-animatable';
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...selfUser(),
-        ...iCard(iCardId)
+        ...iCard(iCardId),
+        statu: 'start',
       }
       const addRes = await add(addParam, IUSE)
       const addEntity = {

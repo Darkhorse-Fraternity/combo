@@ -150,9 +150,8 @@ export default class Remind extends Component {
     return (
       <StyledButton>
         <StyledRowInner>
-          <StyledLine>
-            <StyledRound/>
-          </StyledLine>
+          <StyledLine/>
+          <StyledRound/>
           <StyledTime>
             {item.notifyTime}
           </StyledTime>
@@ -199,6 +198,9 @@ export default class Remind extends Component {
 
       data = data && data.toJS()
 
+
+
+
       data.forEach(item => {
         const iUse = iUseList.get(item).toJS()
         const { statu } = iUse
@@ -211,7 +213,7 @@ export default class Remind extends Component {
           const { notifyTimes } = iCard
           // if(iUse.)
 
-          notifyTimes.forEach(notifyTime => {
+          notifyTimes && notifyTimes.forEach(notifyTime => {
             const newUse = { ...iUse }
             newUse.notifyTime = notifyTime
             newData.push(newUse)
@@ -222,6 +224,7 @@ export default class Remind extends Component {
     }
 
 
+    console.log('newData:', newData);
 
     // .filter(item => item.statu === 'start')
 
@@ -237,7 +240,7 @@ export default class Remind extends Component {
           showsVerticalScrollIndicator={false}
           renderItem={this._renderRow}
           keyExtractor={this._keyExtractor}
-          ListHeaderComponent={()=>this._ListHeaderComponent(id,value,data)}
+          ListHeaderComponent={()=>this._ListHeaderComponent(id,value,newData)}
         />
       </StyledContent>
     );

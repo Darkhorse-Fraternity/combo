@@ -127,6 +127,7 @@ export default class OptionView extends Component {
         return (
             <StyledContent colors={['#f1f6f9', '#ffffff']}>
                 <OptionDo
+                    modify={true}
                     goBack={this.__backStep}
                     done={this.props.refresh}
                     load={this.props.load}/>

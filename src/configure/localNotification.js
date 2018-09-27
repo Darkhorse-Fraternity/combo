@@ -48,140 +48,6 @@ export function nowNotification() {
 }
 
 
-function localNotificationSchedule(day, notifyTime, item) {
-  const title = item.iCard.title
-  const message = item.iCard.notifyText || '快来记录一下吧!'
-  const id = item.iCard.objectId
-
-  if (day === 7) {
-    day = 0
-  }
-
-
-  let momentDate = moment(notifyTime, "HH:mm").days(day)
-
-  // const lastMoment = moment(item.doneDate.iso)
-  // //如果当天凌晨两点后已经打卡并且没有超过提醒时间，则需要到下周才打卡
-  // const flag = lastMoment.isBefore(momentDate) &&
-  //   lastMoment.isAfter(moment(2, "HH"))
-  // //提醒时间已经超过当前时间
-  // if (moment().isAfter(momentDate) || flag) {
-  //   momentDate.add(1, 'weeks')
-  // }
-  // console.log('localPushDate:',day,notifyTime, momentDate.format('YYYY-MM-DD HH:mm'));
-
-  // const date = !flag?notifyTimeHH
-  //     :notifyTimeHH.add(1, 'weeks').toDate()
-
-  // console.log('momentDate:', momentDate.format('YYYY-MM-DD HH:mm'));
-
-  PushNotification.localNotificationSchedule({
-    title,
-    message: message, // (required)
-    date: momentDate.toDate(), // in 60 secs
-    soundName: 'tip.mp3',
-    // date: new Date(Date.now() + (1*1000)), // in 60 secs
-    number: 1,
-    repeatType: 'week',
-    userInfo: {
-      title,
-      id,
-      alert: message,
-      webUrl: "combo://combocardDetail",
-      params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
-      //action: "com.avos.UPDATE_STATUS",
-      type: 'local'
-    },
-    //userInfo: {'type': 'local'},
-  });
-}
-
-export async function dayNotification(data, localRemindData) {
-
-  // console.log('test:', data);
-  PushNotification.cancelAllLocalNotifications()
-
-
-  let all = localRemindData['all']
-
-  //获取是否开启通知的条件。 当all 不存在时候，all 为true 
-
-  if (all === undefined) {
-    all = true
-  }
-  if (!all) {
-    return
-  }
-
-  // let res = 0
-  //   PushNotification.getApplicationIconBadgeNumber(item=>{
-  //       res = item
-  //       console.log('test:', '222');
-  //   })
-
-  //
-  // const time =  moment(20, "HH").day(7).format('YYYY-MM-DD HH:mm:ss');
-  //
-  // console.log('moment:',  moment().toDate());
-  // console.log('Date:',  new Date());
-
-  // const data1 = [{title:'测试',notifyTime:'9:00',doneDate:'2017-08-06 21:33:11'}]
-
-
-  let daysFlag = false
-  data.forEach(item => {
-
-    if (item.statu !== 'start') {
-      return
-    }
-    const recordDay = item.iCard.recordDay
-    const notifyTimes = item.iCard.notifyTimes || [item.iCard.notifyTime]
-
-    // const title = item.iCard.title
-    // const message = item.iCard.notifyText || '快来记录一下吧!'
-    // const id = item.iCard.objectId
-
-
-    recordDay.forEach(day => {
-      notifyTimes.forEach(notifyTime => {
-        daysFlag = true
-        // console.log('test:', day,notifyTime,item);
-        localNotificationSchedule(day, notifyTime, item)
-      })
-    })
-  })
-
-  if (!daysFlag) {
-    PushNotification.localNotificationSchedule({
-      title: '给自己添加一个习惯吧~',
-      message: "小改变，大不同！", // (required)
-      date: moment(21, "HH"), // in 60 secs
-      // date: new Date(Date.now() + (1*1000)), // in 60 secs
-      data: {
-        webUrl: "",
-        action: "com.avos.UPDATE_STATUS",
-      },
-      number: 1,
-      repeatType: 'day',
-      userInfo: { 'type': 'local' },
-    });
-  }
-
-  PushNotification.localNotificationSchedule({
-    title: '新的一周开始了~',
-    message: "为新的一周设置一些习惯吧！", // (required)
-    date: moment(21, "HH").day(7).toDate(), // in 60 secs
-    // date: new Date(Date.now() + (1*1000)), // in 60 secs
-    data: {
-      webUrl: "",
-      action: "com.avos.UPDATE_STATUS",
-    },
-    number: 1,
-    repeatType: 'week',
-    userInfo: { 'type': 'local' },
-  });
-}
-
 @connect(
   state => ({
     data: state.list.get(IUSE),
@@ -213,6 +79,9 @@ export default class PushManage extends Component {
   constructor(props: Object) {
     super(props);
     props.load()
+    // this.state = {
+    //   dayNumber: [0, 0, 0, 0, 0, 0, 0]
+    // }
   }
 
   static propTypes = {};
@@ -243,7 +112,7 @@ export default class PushManage extends Component {
       })
 
 
-      dayNotification(array, localRemindData)
+      this.dayNotification(array, localRemindData)
 
     }
   }
@@ -267,6 +136,176 @@ export default class PushManage extends Component {
   //     }
   // }
 
+
+  dayNotification = async (data, localRemindData) => {
+
+    // console.log('test:', data);
+    PushNotification.cancelAllLocalNotifications()
+
+
+    let all = localRemindData['all']
+
+    //获取是否开启通知的条件。 当all 不存在时候，all 为true
+
+    if (all === undefined) {
+      all = true
+    }
+    if (!all) {
+      return
+    }
+
+    // let res = 0
+    //   PushNotification.getApplicationIconBadgeNumber(item=>{
+    //       res = item
+    //       console.log('test:', '222');
+    //   })
+
+    //
+    // const time =  moment(20, "HH").day(7).format('YYYY-MM-DD HH:mm:ss');
+    //
+    // console.log('moment:',  moment().toDate());
+    // console.log('Date:',  new Date());
+
+    // const data1 = [{title:'测试',notifyTime:'9:00',doneDate:'2017-08-06 21:33:11'}]
+
+    //获取每天需要打卡的数量
+    // const numbers = [0,0,0,0,0,0,0];
+    // data.forEach(item => {
+    //
+    //   if (item.statu !== 'start') {
+    //     return
+    //   }
+    //   const recordDay = item.iCard.recordDay
+    //   recordDay.forEach(day => {
+    //     numbers[day -1] = numbers[day -1] +1
+    //   })
+    // })
+
+
+
+    let daysFlag = false
+    let unDoneCount = 0
+    data.forEach(item => {
+
+      if (item.statu !== 'start') {
+        return
+      }
+      //检查几个已经打卡了
+      const done = moment(2, "HH").isBefore(item.doneDate.iso)
+      !done && unDoneCount++
+
+
+
+
+
+
+      const recordDay = item.iCard.recordDay
+      const notifyTimes = item.iCard.notifyTimes || [item.iCard.notifyTime]
+
+      // const title = item.iCard.title
+      // const message = item.iCard.notifyText || '快来记录一下吧!'
+      // const id = item.iCard.objectId
+
+
+      recordDay.forEach(day => {
+        notifyTimes.forEach(notifyTime => {
+
+          console.log('notifyTime:', notifyTime);
+
+          const id = item.objectId + notifyTime
+          let open = localRemindData[id]
+          if (open || open === undefined) {
+            daysFlag = true
+            // console.log('test:', day,notifyTime,item);
+            this.localNotificationSchedule(day, notifyTime, item)
+          }
+        })
+      })
+    })
+
+    console.log('unDoneCount:', unDoneCount);
+
+    PushNotification.setApplicationIconBadgeNumber(unDoneCount)
+
+    if (!daysFlag) {
+      PushNotification.localNotificationSchedule({
+        title: '给自己添加一个习惯吧~',
+        message: "小改变，大不同！", // (required)
+        date: moment(21, "HH").toDate(), // in 60 secs
+        // date: new Date(Date.now() + (1*1000)), // in 60 secs
+        data: {
+          webUrl: "",
+          action: "com.avos.UPDATE_STATUS",
+        },
+        repeatType: 'day',
+        userInfo: { 'type': 'local' },
+      });
+    }
+
+    PushNotification.localNotificationSchedule({
+      title: '新的一周开始了~',
+      message: "为新的一周设置一些习惯吧！", // (required)
+      date: moment(21, "HH").day(7).toDate(), // in 60 secs
+      // date: new Date(Date.now() + (1*1000)), // in 60 secs
+      data: {
+        webUrl: "",
+        action: "com.avos.UPDATE_STATUS",
+      },
+      repeatType: 'week',
+      userInfo: { 'type': 'local' },
+    });
+  }
+
+
+  localNotificationSchedule = (day, notifyTime, item) => {
+    const title = item.iCard.title
+    const message = item.iCard.notifyText || '快来记录一下吧!'
+    const id = item.iCard.objectId
+
+    // const number = numbers[day-1]
+
+    if (day === 7) {
+      day = 0
+    }
+
+
+    let momentDate = moment(notifyTime, "HH:mm").days(day)
+
+    // const lastMoment = moment(item.doneDate.iso)
+    // //如果当天凌晨两点后已经打卡并且没有超过提醒时间，则需要到下周才打卡
+    // const flag = lastMoment.isBefore(momentDate) &&
+    //   lastMoment.isAfter(moment(2, "HH"))
+    // //提醒时间已经超过当前时间
+    // if (moment().isAfter(momentDate) || flag) {
+    //   momentDate.add(1, 'weeks')
+    // }
+    // console.log('localPushDate:',day,notifyTime, momentDate.format('YYYY-MM-DD HH:mm'));
+
+    // const date = !flag?notifyTimeHH
+    //     :notifyTimeHH.add(1, 'weeks').toDate()
+
+    // console.log('momentDate:', momentDate.format('YYYY-MM-DD HH:mm'));
+
+    PushNotification.localNotificationSchedule({
+      title,
+      message: message, // (required)
+      date: momentDate.toDate(), // in 60 secs
+      soundName: 'tip.mp3',
+      // date: new Date(Date.now() + (1*1000)), // in 60 secs
+      // number: number,
+      repeatType: 'week',
+      userInfo: {
+        title,
+        id,
+        alert: message,
+        webUrl: "combo://combo/cardDetail",
+        params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
+        //action: "com.avos.UPDATE_STATUS",
+        type: 'local'
+      },
+      //userInfo: {'type': 'local'},
+    });
+  }
 
   render(): ReactElement<any> {
     return null

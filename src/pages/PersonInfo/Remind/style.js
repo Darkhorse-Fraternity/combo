@@ -42,7 +42,7 @@ export const StyledSubTitleText = styled.Text`
 export const StyledSwitch = styled.Switch`
 
 `
-export const StyledButton = styled.View`
+export const StyledButton = styled(Button)`
   width: 100%;
   padding: 0px 30px;
   flex-direction: row;
@@ -88,6 +88,8 @@ export const StyledRound = styled.View`
     width: 15px;
     height: 15px;
     border-radius: 7.5px;
+    z-index: 10;
+    position: absolute;
 `
 
 export const StyledIconView = styled.View`
