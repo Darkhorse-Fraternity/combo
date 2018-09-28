@@ -3,7 +3,7 @@ import React from 'react';
 import { ICARD, IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys'
 import Pop from '../../Pop'
 import moment from 'moment'
-import Do from '../../../pages/Card/Do'
+import Do from '../../../pages/Card/Do/Do'
 import { classCreatNewOne } from '../../../request/leanCloud'
 
 import { selfUser, iCard, iUse } from '../../../request/LCModle'
@@ -35,6 +35,16 @@ export function doCardWithNone(data) {
 
   }
 
+}
+
+export function recordDiary(data) {
+  Pop.show(<Do data={data}/>,
+    {
+      wrapStyle: { justifyContent: 'flex-start' },
+      maskStyle: {
+        backgroundColor: 'transparent',
+      }
+    })
 }
 
 

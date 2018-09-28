@@ -2,13 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 import Button from '../../../components/Button/'
+import { TextInput } from '../Cunstom'
+
+
 export const Form = styled.View`
      flex:1;
      padding: 50px 0px;
 `
 
 export const StyledContent = styled.View`
-  padding: 0px 50px;
+  padding: 0px 20px;
 `
 
 export const StyledIndicator = styled.ActivityIndicator`
@@ -52,4 +55,9 @@ export const StyledBackBtn = styled(Button)`
 
 export const StyledBackBtnText = styled.Text`
   font-size: 15px;
+`
+
+export const StyledTextInput = styled(TextInput)`
+  height: 180px;
+  margin: 5px 10px;
 `

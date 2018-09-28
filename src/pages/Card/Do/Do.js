@@ -19,15 +19,15 @@ import {
 import {BlurView} from 'react-native-blur';
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
-import {uploadImages} from '../../redux/actions/util'
-import Pop from '../../components/Pop'
+import {uploadImages} from '../../../redux/actions/util'
+import Pop from '../../../components/Pop/index'
 import {connect} from 'react-redux'
 import Toast from 'react-native-simple-toast'
 
-import {ICARD, IDO, IUSE, IDOULIMAGE} from '../../redux/reqKeys'
-import DoCardForm,{FormID} from '../../components/Form/DoCardForm'
+import {ICARD, IDO, IUSE, IDOULIMAGE} from '../../../redux/reqKeys'
+import DoCardForm,{FormID} from '../../../components/Form/DoCardForm/index'
 //static displayName =
-import {doCard} from '../../components/Button/DoCardButton/DoCard'
+import {doCard} from '../../../components/Button/DoCardButton/DoCard'
 import { formValueSelector } from 'redux-form/immutable'
 
 @connect(

@@ -206,7 +206,11 @@ export default class CardDetail extends Component {
         style={{ flex: 1 }}
         sKey={listKey + iUseM.objectId}
         renderItem={this.renderRow.bind(this)}
-        noDataPrompt={'还没有记录'}
+        noDataPrompt={'写一个日记吧~！'}
+        tipBtnText={'添加日记'}
+        tipTap={()=>{
+          console.log('test:', '1111');
+        }}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         //}}

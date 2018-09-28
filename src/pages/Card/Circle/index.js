@@ -30,22 +30,11 @@ import {
   StyledHeader,
   StyledTitleView,
   StyledTitleText,
-  StyledReportBtn,
-  StyledReportText
 
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import Toast from 'react-native-simple-toast'
 
-import Info from '../../Course/Info'
-import CourseRowList from '../../Course/Info/CourseRowList'
-
-import {
-  classCreatNewOne,
-  existSearch
-} from '../../../request/leanCloud';
-import { req } from '../../../redux/actions/req'
 import { selfUser, iCard } from '../../../request/LCModle'
 
 @connect(
@@ -78,13 +67,13 @@ export default class Circle extends Component {
     // this.subscription.remove();
   }
 
-  refresh = () => {
-    this.refs['list'].selector.props.loadData()
+
+  _tipTap = ()=>{
+
   }
 
 
   __renderHeader = () => {
-
 
     return (
       <StyledHeader>
@@ -95,9 +84,7 @@ export default class Circle extends Component {
         </StyledTitleView>
       </StyledHeader>
 
-
     )
-
 
   }
 
@@ -136,11 +123,14 @@ export default class Circle extends Component {
     return (
       <LCList
         ref={'list'}
+        noDataPrompt={'写一个日记吧~！'}
         ListHeaderComponent={this.__renderHeader}
         style={[this.props.style, styles.list]}
         reqKey={listKey}
         sKey={listKey + iCardId}
         renderItem={this.renderRow.bind(this)}
+        tipBtnText={'添加日记'}
+        tipTap={this._tipTap}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         //}}
@@ -154,12 +144,6 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
   },
-  text: {
-    paddingVertical: 3,
-    // paddingHorizontal: 5,
-    fontSize: 16,
-    color: 'rgb(50,50,50)'
-  },
   row: {
     backgroundColor: 'white',
     paddingHorizontal: 18,
@@ -167,27 +151,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#e4e4e4',
   },
-  image: {
-    width: '100%',
-    height: 200,
-  },
-  top: {
-    marginTop: 15,
-    paddingVertical: 5,
-    paddingHorizontal: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    // backgroundColor:'red'
-  },
-  avatar: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
-  name: {
-    marginLeft: 5,
-    color: '#4e4e4e',
-  },
+
 
 
 })

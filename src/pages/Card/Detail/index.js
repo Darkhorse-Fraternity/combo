@@ -64,9 +64,12 @@ export default class CardDetail extends Component {
   };
 
 
-  _afterDone = (key) => {
-    DeviceEventEmitter.emit(key);
-  }
+  // _afterDone = (key) => {
+  //   DeviceEventEmitter.emit(key);
+  // }
+
+
+
 
   __renderRightView = () => {
 
@@ -123,6 +126,9 @@ export default class CardDetail extends Component {
     const useNum = iCard.get('useNum')
     const title = iCard.get('title')
 
+
+
+
     return (
       <StyledContent>
         <ScrollableTabView
@@ -159,7 +165,7 @@ export default class CardDetail extends Component {
         </ScrollableTabView>
 
         <DoCardButton
-          afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}
+          // afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}
           {...this.props} />
       </StyledContent>
     );
