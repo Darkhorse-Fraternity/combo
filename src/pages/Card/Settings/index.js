@@ -255,14 +255,15 @@ export default class Settings extends Component {
         return (
             <StyledBottomMenu>
 
-                <this._renderItem
+              {iCard.user === this.props.user.objectId &&
+              iCard.state !== -2
+              && iUse.statu !== 'del' &&(<this._renderItem
                     onPress={() => {
                         navigation.navigate('optionView', { iCardId: iCard.objectId })
                     }}
                     name={'md-settings'}
-                    title={'卡片配置'}/>
+                    title={'卡片配置'}/>)}
                 { this._renderRresh(reflesh, params)}
-
 
                 {iCard.user === this.props.user.objectId &&
                 iCard.state !== -2

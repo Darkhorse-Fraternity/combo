@@ -94,8 +94,14 @@ function creatIDO(iUseM, iCardM, other) {
     }
     //添加到列表
     await dispatch(addNormalizrEntity(IDO, iDoEntity))
-    dispatch(add(IDO + iUseM.objectId, res.objectId))
-    dispatch(add(IDO + iCardM.objectId, res.objectId))
+
+
+    //这边只有日记才被记录进去
+    if(iDoParma.recordText|| iDoParma.imgs){
+      dispatch(add(IDO + iUseM.objectId, res.objectId))
+      dispatch(add(IDO + iCardM.objectId, res.objectId))
+    }
+
 
     //添加到req
     const date = moment(iDoEntity.createdAt).format("YYYY-MM-DD")
