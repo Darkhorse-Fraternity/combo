@@ -14,10 +14,9 @@ import {
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import * as Animatable from 'react-native-animatable';
+// import * as Animatable from 'react-native-animatable';
 import { strings } from '../../../../locales/i18n';
 
-const AniIonicons = Animatable.createAnimatableComponent(Ionicons);
 import {
   homeRoute,
   settingRoute,

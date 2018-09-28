@@ -35,7 +35,7 @@ import {
     QQLOGIN,
     UPDATENICKNAME
 } from '../../redux/reqKeys'
-import Button from "../../components/Button/InButton/index";
+import Button from "../../components/Button";
 
 @connect(
     state => ({

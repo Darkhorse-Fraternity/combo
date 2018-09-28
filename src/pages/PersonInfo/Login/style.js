@@ -6,8 +6,10 @@
 
 import styled from "styled-components";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Button from '../../../components/Button/index'
+import Button from '../../../components/Button'
+import HeaderBtn from '../../../components/Button/HeaderBtn'
 import LinearGradient from 'react-native-linear-gradient';
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled(LinearGradient)`
     flex: 1;
@@ -37,10 +39,12 @@ export const ThirdPartyInnerLoginView = styled.View`
     padding: 15px;
 `
 
-export const StyledIconItem = styled(Button)`
+export const StyledIconItem = styled(TouchableBounce)`
   align-items: center;
   width: 100px;
 `
+
+
 
 export const StyledIconView = styled.View`
    align-items: center;
@@ -60,4 +64,21 @@ export const StyledIcon = styled(Icon)`
 `
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
+`
+
+export const StyledCodeButton = styled(Button)`
+
+`
+
+export const StyledCodeButtonText = styled.Text`
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+`
+
+
+export const StyledSignInBtn = styled(HeaderBtn)`
+    background-color: #f1bd49;
+    margin: 30px;
+    padding:10.5px;
 `

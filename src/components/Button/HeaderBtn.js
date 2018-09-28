@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import Button from './'
 import theme from '../../Theme'
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 
 export default class HeaderBtn extends Component {
@@ -27,7 +28,7 @@ export default class HeaderBtn extends Component {
 
         const disabled = this.props.load || this.props.disabled
         return (
-            <Button
+            <TouchableBounce
                 {...this.props}
                 disabled={disabled}
                 style={[styles.btn,{
@@ -45,7 +46,7 @@ export default class HeaderBtn extends Component {
                             {this.props.title}
                         </Text>) :
                     (<ActivityIndicator size="small" color={"white"}/>)}
-            </Button>
+            </TouchableBounce>
         );
     }
 }

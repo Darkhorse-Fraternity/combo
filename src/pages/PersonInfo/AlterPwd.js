@@ -9,7 +9,6 @@ import ReactNative, {
 } from 'react-native'
 import {pixel,navbarHeight,Toast} from '../../util/';
 // import {Actions} from "react-native-router-flux";
-import {BCButton} from '../../components/Base/WBButton'
 import {request} from '../../request'
 // import {pwdRequest} from '../../request/info'
 import {updatePassword} from '../../request/leanCloud'

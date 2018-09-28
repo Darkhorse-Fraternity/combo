@@ -23,7 +23,6 @@ import { ICARD } from '../../redux/reqKeys'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { update } from '../../redux/module/leancloud'
 import { bindActionCreators } from 'redux';
-import BounceBtn from '../../components/Button/BounceBtn'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { PBULImage } from '../../redux/reqKeys'
 import { uploadImages } from '../../redux/actions/util'
