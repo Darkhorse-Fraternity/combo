@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
   btn: {
     // marginBottom: 7，
     borderBottomWidth: StyleSheet.hairlineWidth,
-    backgroundColor: '#F3AC41',
+    backgroundColor: '#fdd83c',
     paddingHorizontal: 15,
     paddingVertical: 20,
     flexDirection: 'row',

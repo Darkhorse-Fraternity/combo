@@ -48,6 +48,7 @@ export const StyledButton = styled(Button)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 `
 
 export const StyledTime = styled.Text`
@@ -103,4 +104,17 @@ export const StyledIconView = styled.View`
 
 export const StyledIcon = styled(Icon)`
     align-self: center;
+`
+
+
+export const StyledDeleteBtn = styled.View`
+   align-items: center;
+   justify-content: center;
+   flex:1
+`
+
+export const StyledDeleteBtnText = styled.Text`
+  color: white;
+  font-size: 19px;
+  font-weight: 600;
 `

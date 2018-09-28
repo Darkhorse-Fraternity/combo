@@ -7,8 +7,8 @@ export default {
     hairlineWidth:StyleSheet.hairlineWidth,
     hairlineColor:'rgb(200,200,200)',
     contentColor: 'white',
-    mainColor: '#F3AC41',
-    mainLightColor: '#F0C98B',
+    mainColor: '#fdd83c',
+    mainLightColor: '#fdd83c',
     textinputbackgroundColor:'#f6f7f9',
     titleBackViewColor:'#f6f7f9',
     buttonItem:'#f5f4f2',
@@ -25,7 +25,7 @@ export default {
     },
     calendar: {
         dotColor:'#51c332',
-        selectedDayBackgroundColor:'#F3AC41',
+        selectedDayBackgroundColor:'#fdd83c',
         todayTextColor:'#51c332',
         agendaTodayColor:'#51c332',
     }

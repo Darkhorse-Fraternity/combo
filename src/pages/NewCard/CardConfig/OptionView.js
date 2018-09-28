@@ -28,7 +28,7 @@ import {
     formValueSelector,
 } from 'redux-form/immutable'
 import OptionDo, { StaticOption } from './OptionDo'
-
+import moment from 'moment'
 //static displayName = OptionView
 
 const FormID = 'CreatCardForm'
@@ -68,12 +68,17 @@ const FormID = 'CreatCardForm'
                     'title',
                     'recordDay')
 
+              const notifyTimes = op.notifyTimes.toJS()
+                .sort((a, b) => moment(a, 'HH:mm')
+                  - moment(b, 'HH:mm'))
+
+
 
                 const param = {
                     ...op,
                     record: op.record.toJS(),
                     recordDay: op.recordDay.toJS(),
-                    notifyTimes:op.notifyTimes.toJS()
+                     notifyTimes
                 }
 
                 const res = await update(id, param, ICARD)

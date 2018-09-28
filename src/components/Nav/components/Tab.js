@@ -51,8 +51,9 @@ class CustomTabView extends Component {
             return (<TouchableOpacity
                     activeOpacity={1}
                     onPress={() => {
-                        refs[tabInfo.label] && refs[tabInfo.label].bounceIn(1000);
                         navigation.navigate(route.routeName)
+                        refs[tabInfo.label] && refs[tabInfo.label].bounceIn(1000);
+
                     }}
                     style={styles.tab}
                     key={route.routeName}

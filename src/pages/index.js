@@ -94,13 +94,13 @@ export const initialRouteName = {
 export const tabiCon = {
   Home: {
     label: "Home",
-    color: '#F3AC41',
+    color: '#F0C98B',
     activityColor: '#F0C98B',
     icon: 'md-sunny'
   },
   PersonCenter: {
     label: "Setting",
-    color: '#F3AC41',
+    color: '#F0C98B',
     activityColor: '#F0C98B',
     icon: "ios-happy"
   },

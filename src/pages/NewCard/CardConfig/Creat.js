@@ -44,7 +44,6 @@ import {
 import { TextInput } from '../../../components/Form/Cunstom/index'
 import Toast from 'react-native-simple-toast'
 //static displayName = Creat
-
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 import BackBtn from '../../../components/Button/BackBtn/index'
 import * as Animatable from 'react-native-animatable';
@@ -78,6 +77,11 @@ import * as Animatable from 'react-native-animatable';
         'notifyText',
         'record')
 
+
+      const notifyTimes = op.notifyTimes.toJS()
+        .sort((a, b) => moment(a, 'HH:mm')
+          - moment(b, 'HH:mm'))
+
       const param = {
         // title,
         // cycle: 0,
@@ -86,7 +90,7 @@ import * as Animatable from 'react-native-animatable';
         ...op,
         record: op.record.toJS(),
         recordDay: op.recordDay.toJS(),
-        notifyTimes: op.notifyTimes.toJS(),
+        notifyTimes,
         price: 0,
         state: 0,
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},

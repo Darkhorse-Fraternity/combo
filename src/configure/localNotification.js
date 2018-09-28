@@ -210,7 +210,7 @@ export default class PushManage extends Component {
       recordDay.forEach(day => {
         notifyTimes.forEach(notifyTime => {
 
-          console.log('notifyTime:', notifyTime);
+          // console.log('notifyTime:', notifyTime);
 
           const id = item.objectId + notifyTime
           let open = localRemindData[id]
@@ -223,7 +223,7 @@ export default class PushManage extends Component {
       })
     })
 
-    console.log('unDoneCount:', unDoneCount);
+    // console.log('unDoneCount:', unDoneCount);
 
     PushNotification.setApplicationIconBadgeNumber(unDoneCount)
 

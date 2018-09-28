@@ -406,6 +406,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         width: 120,
         marginLeft: 25,
-        // backgroundColor:'#F3AC41'
+        // backgroundColor:'#fdd83c'
     },
 })

@@ -1,129 +1,130 @@
 import React from 'react'
 import {
-    View,
-    Button,
-    Text
+  View,
+  Button,
+  Text,
+  InteractionManager,
 } from 'react-native'
-
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 import {
-    createBottomTabNavigator,
-    createStackNavigator,
+  createBottomTabNavigator,
+  createStackNavigator,
 } from 'react-navigation';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import { strings } from '../../../../locales/i18n';
+
 const AniIonicons = Animatable.createAnimatableComponent(Ionicons);
 import {
-    homeRoute,
-    settingRoute,
+  homeRoute,
+  settingRoute,
 } from '../../../pages'
-import {navigationOptions} from './navigationOptions'
-import {TransitionConfiguration} from '../navigators/TransitionConfiguration'
+import { navigationOptions } from './navigationOptions'
+import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
 const HomeStack = createStackNavigator({
-    ...homeRoute
+  ...homeRoute
 }, {
-    initialRouteName: 'home',
-    navigationOptions,
-    transitionConfig: TransitionConfiguration,
+  initialRouteName: 'home',
+  navigationOptions,
+  transitionConfig: TransitionConfiguration,
 });
 
 
 const SettingsStack = createStackNavigator({
-    ...settingRoute,
+  ...settingRoute,
 }, {
-    initialRouteName: 'personCenter',
-    navigationOptions,
-    transitionConfig: TransitionConfiguration,
+  initialRouteName: 'personCenter',
+  navigationOptions,
+  transitionConfig: TransitionConfiguration,
 });
-
-
 
 
 const refs = {}
 export default createBottomTabNavigator(
-    {
-        Home: HomeStack,
-        Settings: SettingsStack,
-    },
-    {
-        navigationOptions: ({ navigation }) => {
-            const { routeName,index } = navigation.state;
-            let iconName;
-            let labelName;
-            if (routeName === 'Home') {
-                iconName = `md-sunny`;
-                labelName = 'Now'
-            } else if (routeName === 'Settings') {
-                iconName = `ios-happy`;
-                labelName = strings('tabs.more')
-            }
-            return {
-                // header:null,
-                tabBarIcon: ({ focused, tintColor }) => {
+  {
+    Home: HomeStack,
+    Settings: SettingsStack,
+  },
+  {
+    navigationOptions: ({ navigation }) => {
+      const { routeName, index } = navigation.state;
+      let iconName;
+      let labelName;
+      if (routeName === 'Home') {
+        iconName = `md-sunny`;
+        labelName = 'Now'
+      } else if (routeName === 'Settings') {
+        iconName = `ios-happy`;
+        labelName = strings('tabs.more')
+      }
+      return {
+        // header:null,
+        tabBarIcon: ({ focused, tintColor }) => {
 
+          // const iterationCount = focused?infinite:1
 
-
-                    // You can return any component that you like here! We usually use an
-                    // icon component from react-native-vector-icons
-                    return <AniIonicons
-                        // delay={1000}
-                        // useNativeDriver={true}
-                        ref={node => refs[routeName] = node}
-                        name={iconName}
-                        size={!!focused ? 25 : 25}
-                        color={tintColor}/>;
-                },
-                tabBarOnPress: ({ navigation, defaultHandler }: args) => {
-
-                    defaultHandler()
-
-
-                    // setTimeout(()=>{
-                    //     const { routeName } = navigation.state;
-                    //     console.log('test:', refs[routeName]);
-                    //     refs1[routeName] && refs1[routeName].bounceIn(1000);
-                    // },1000)
-
-                },
-                tabBarVisible: index === 0,
-                tabBarLabel: labelName
-            }
+          // You can return any component that you like here! We usually use an
+          // icon component from react-native-vector-icons
+          return <Ionicons
+            // delay={1000}
+            // iterationCount={iterationCount}
+            name={iconName}
+            // animation={'bounceIn'}
+            size={!!focused ? 25 : 25}
+            color={tintColor}/>;
         },
-        // tabBarComponent: (option, k) => {
-        //     console.log('test:', option, k);
-        //     const {onTabPress} = option
-        //     console.log('test:', onTabPress);
-        //     return (<View style={{ height: 64,
-        //             flexDirection:'row',
-        //             width: 320, backgroundColor: 'red' }}>
-        //
-        //
-        //         </View>
-        //     )
-        // },
-        tabBarOptions: {
-            activeTintColor: '#F3AC41',
-            inactiveTintColor: '#cbcbcb',
-            showLabel: true,
+        tabBarButtonComponent: TouchableBounce,
+        tabBarOnPress:  ({ navigation, defaultHandler }: args) => {
+          // console.log('test:', '1111');
+          defaultHandler()
+          // // console.log('test:', '222');
+          // const { routeName } = navigation.state;
+          // refs[routeName] && refs[routeName].bounceIn(1000);
+          // InteractionManager.runAfterInteractions(() => {
+          //   defaultHandler()
+          // })
 
-            style: {
-                backgroundColor: "#f1f6f9",
-                borderTopColor:'white'
-            },
-            labelStyle: {
-                fontSize: 12,
-                marginTop:-1,
-                marginBottom:2
-            },
-            tabStyle:{
-                paddingTop:3,
-            }
 
         },
+        tabBarVisible: index === 0,
+        tabBarLabel: labelName
+      }
     },
+    // tabBarComponent: (option, k) => {
+    //     console.log('test:', option, k);
+    //     const {onTabPress} = option
+    //     console.log('test:', onTabPress);
+    //     return (<View style={{ height: 64,
+    //             flexDirection:'row',
+    //             width: 320, backgroundColor: 'red' }}>
+    //
+    //
+    //         </View>
+    //     )
+    // },
+    tabBarOptions: {
+      activeTintColor: '#F3AC41',
+      inactiveTintColor: '#cbcbcb',
+      showLabel: true,
+
+      style: {
+        backgroundColor: "#f1f6f9",
+        borderTopColor: 'white'
+      },
+      labelStyle: {
+        fontSize: 12,
+        marginTop: -1,
+        marginBottom: 2
+      },
+      tabStyle: {
+        paddingTop: 3,
+      }
+
+    },
+  },
 );
