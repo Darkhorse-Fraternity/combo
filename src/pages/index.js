@@ -8,18 +8,18 @@ import OptionView from './NewCard/CardConfig/OptionView'
 import Publish from './Publish/index'
 import PublishDetail from './Publish/Detail'
 import Serve from './Publish/Serve'
-import LoginView from './PersonInfo/Login/LoginView'
-import PersonCenter from './PersonInfo/PersonCenter'
-import PersonInfo from './PersonInfo'
+import LoginView from './More/Login/LoginView'
+import More from './More'
+import Account from './More/Account'
 import RecordDetail from './Record/Detail'
-import Feedback from './PersonInfo/Feedback'
+import Feedback from './More/Feedback/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
 import RComment from './Record/RComment'
 import CardDetail from './Card/Detail'
-import Followee from './PersonInfo/Follow/Followee'
-import Follower from './PersonInfo/Follow/Follower'
-import Following from './PersonInfo/Follow/Following'
+import Followee from './More/Follow/Followee'
+import Follower from './More/Follow/Follower'
+import Following from './More/Follow/Following'
 import CardUse from './NewCard/CardUse'
 import CourseChoose from './Course/Choose'
 import CourseCreat from './Course/Creat'
@@ -28,7 +28,7 @@ import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
-import Remind from './PersonInfo/Remind'
+import Remind from './More/Remind'
 
 
 export const otherRoute = {
@@ -50,14 +50,14 @@ export const otherRoute = {
   publish: { screen: Publish },
   publishDetail: { screen: PublishDetail },
   serve: { screen: Serve },
-  personInfo: { screen: PersonInfo },
+  account: { screen: Account },
   feedback: { screen: Feedback },
   publishing: { screen: Publishing },
   cardInfo: { screen: CardInfo },
   rcomment: { screen: RComment },
   cardDetail: { screen: CardDetail },
   cardUse: { screen: CardUse },
-  personCenter: { screen: PersonCenter },
+  more: { screen: More },
   pptDescribe: { screen: PPTDescribe }
 }
 
@@ -82,7 +82,7 @@ export const tabRoute = {
     path: '',
   },
   personCenter: {
-    screen: PersonCenter,
+    screen: More,
     path: '',
   },
 }

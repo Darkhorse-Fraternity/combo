@@ -37,7 +37,7 @@ const HomeStack = createStackNavigator({
 const SettingsStack = createStackNavigator({
   ...settingRoute,
 }, {
-  initialRouteName: 'personCenter',
+  initialRouteName: 'more',
   navigationOptions,
   transitionConfig: TransitionConfiguration,
 });

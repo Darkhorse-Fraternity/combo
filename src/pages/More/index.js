@@ -11,7 +11,7 @@ import {
   RefreshControl,
   Platform,
 } from 'react-native'
-import Button from '../../../components/Button'
+import Button from '../../components/Button/index'
 
 import { connect } from 'react-redux'
 import {
@@ -32,13 +32,13 @@ import {
   StyledIncome,
   StyledEntypoIcon
 } from './style'
-import { req, } from '../../../redux/actions/req'
+import { req, } from '../../redux/actions/req'
 import {
   FRIENDNUM,
-} from '../../../redux/reqKeys'
+} from '../../redux/reqKeys'
 import {
   friendNum,
-} from '../../../request/leanCloud'
+} from '../../request/leanCloud'
 import Rate, { AndroidMarket } from 'react-native-rate'
 import DeviceInfo from 'react-native-device-info'
 
@@ -88,7 +88,7 @@ import DeviceInfo from 'react-native-device-info'
   })
 )
 
-export default class PersonCenter extends Component {
+export default class More extends Component {
 
 
   constructor(props: Object) {
@@ -124,13 +124,13 @@ export default class PersonCenter extends Component {
     const { avatar, headimgurl, } = data
     const avatarUrl = avatar ? avatar.url : headimgurl
     const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../../source/img/my/icon-60.png')
+      require('../../../source/img/my/icon-60.png')
 
 
     return (
       <StyleHeader>
         <StyledHeaderTop onPress={() => {
-          this.props.navigation.navigate('personInfo')
+          this.props.navigation.navigate('account')
         }}>
           <View>
             <StyledHeaderName>
@@ -233,12 +233,12 @@ export default class PersonCenter extends Component {
       <View style={{ marginTop: 0 }}>
 
 
-        {this._renderRow('我的收益', true, () => {
-          navigation.navigate('earnings')
-        })}
-
         {this._renderRow('归档卡片', true, () => {
           navigation.navigate('record', { statu: 'stop' });
+        })}
+
+        {this._renderRow('习惯提醒', true, () => {
+          navigation.navigate('remind');
         })}
 
 
@@ -247,22 +247,18 @@ export default class PersonCenter extends Component {
         })}
 
 
-
-
         {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
         {/*navigation.navigate('iCollect');*/}
         {/*})}*/}
         <View style={{ height: 25 }}/>
-        {/*{this._renderRow('设置', true, () => {*/}
-        {/*navigation.navigate('Setting');*/}
-        {/*})}*/}
 
-        {this._renderRow('习惯提醒', true, () => {
-          navigation.navigate('remind');
+
+
+        {this._renderRow('我的收益', true, () => {
+          navigation.navigate('earnings')
         })}
 
         {this._renderRow('意见反馈', false, () => {
-          // NavigationManager.goToPage("Feedback");
           navigation.navigate("feedback");
         })}
 
@@ -270,7 +266,6 @@ export default class PersonCenter extends Component {
 
 
         <View style={{ height: 25 }}/>
-        {/*{this._renderRow('退出登录', false, this.props.logout)}*/}
 
       </View>
     )

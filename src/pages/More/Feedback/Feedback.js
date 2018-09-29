@@ -9,13 +9,13 @@ import {
     TouchableOpacity
 } from 'react-native'
 import Toast from 'react-native-simple-toast';
-import {req} from '../../redux/actions/req'
+import {req} from '../../../redux/actions/req'
 
-import {feedbackParam} from '../../request/leanCloud'
+import {feedbackParam} from '../../../request/leanCloud'
 import {connect} from 'react-redux'
-import HeaderBtn from '../../components/Button/HeaderBtn'
-import {FEEDBACKPARAM} from '../../redux/reqKeys'
-import {mainColor} from '../../Theme/index'
+import HeaderBtn from '../../../components/Button/HeaderBtn'
+import {FEEDBACKPARAM} from '../../../redux/reqKeys'
+import {mainColor} from '../../../Theme/index'
 
 @connect(
     (state, props) => ({

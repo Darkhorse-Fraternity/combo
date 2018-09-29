@@ -140,11 +140,9 @@ export default class Configure extends React.Component {
           courserelease: 'courseRelease',
           newcard: 'newCard',
           publishdetail: 'publishDetail',
-          personinfo: 'personInfo',
           cardinfo: 'cardInfo',
           carddetail: 'cardDetail',
           carduse: 'cardUse',
-          personcenter: 'personCenter',
           pptdescribe: 'pptDescribe'
         }
         const routeName = keys[key.toLowerCase()] || key.toLowerCase()

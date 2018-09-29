@@ -13,7 +13,7 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
-import FollowRow from '../../PersonInfo/Follow/FollowRow'
+import FollowRow from '../../More/Follow/FollowRow'
 import { IUSE,USER } from "../../../redux/reqKeys";
 import {iCard} from "../../../request/LCModle";
 

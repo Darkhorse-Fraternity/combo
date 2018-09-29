@@ -23,7 +23,7 @@ import {
     StyleFollowText,
     StyleFollowDevide,
     StyledHeaderName,
-} from '../PersonCenter/style'
+} from '../style'
 
 import {
     StyleHeader,

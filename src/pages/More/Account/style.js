@@ -5,7 +5,7 @@
 'use strict';
 
 import styled from "styled-components";
-import Button from '../../components/Button'
+import Button from '../../../components/Button/index'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
 export const StyledContent = styled.View`

@@ -9,12 +9,12 @@ import ReactNative, {
 } from 'react-native'
 import {pixel,navbarHeight,Toast} from '../../util/';
 // import {Actions} from "react-native-router-flux";
-import {request} from '../../request'
+import {request} from '../../../request/index'
 // import {pwdRequest} from '../../request/info'
-import {updatePassword} from '../../request/leanCloud'
+import {updatePassword} from '../../../request/leanCloud'
 // import NavigationManager from '../Route/NavigationManager'
 import {renderNavSenderButton} from '../../util/viewUtil'
-import {mainColor} from '../../Theme'
+import {mainColor} from '../../../Theme/index'
 import {connect} from 'react-redux'
 import {navigatePop,navigateRefresh} from '../../redux/actions/nav'
  class AlterPwd extends React.Component{

@@ -2,14 +2,14 @@
 'use strict';
 import React from 'react';
 import { View ,Alert} from 'react-native'
-import { showImagePicker } from '../../components/ImagePicker/imagePicker'
+import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
 import { connect } from 'react-redux'
-import { uploadAvatar } from '../../redux/actions/util'
+import { uploadAvatar } from '../../../redux/actions/util'
 import {
   wechatBinding,
   qqBinding,
   breakBinding,
-} from '../../redux/actions/user'
+} from '../../../redux/actions/user'
 import {
   StyledContent,
   StyledButton,
@@ -26,17 +26,17 @@ import {
   StyledHeader
 } from './style'
 import * as WeChat from 'react-native-wechat';
-import { updateNickName } from '../../request/leanCloud'
-import { updateUserData } from '../../redux/actions/user'
+import { updateNickName } from '../../../request/leanCloud'
+import { updateUserData } from '../../../redux/actions/user'
 import Toast from 'react-native-simple-toast';
-import { req } from '../../redux/actions/req'
+import { req } from '../../../redux/actions/req'
 import {
   WECHATLOGIN,
   QQLOGIN,
   UPDATENICKNAME
-} from '../../redux/reqKeys'
-import Button from "../../components/Button";
-import { logout } from '../../redux/actions/user'
+} from '../../../redux/reqKeys'
+import Button from "../../../components/Button/index";
+import { logout } from '../../../redux/actions/user'
 
 @connect(
   state => ({
@@ -113,7 +113,7 @@ import { logout } from '../../redux/actions/user'
   })
 )
 
-export default class PersonInfo extends React.Component {
+export default class Account extends React.Component {
 
   constructor(props: Object) {
     super(props);
@@ -129,7 +129,7 @@ export default class PersonInfo extends React.Component {
 
   _renderHeadRow(onPress: Function = () => {
   }) {
-    const my_head = require('../../../source/img/my/my_head.png');
+    const my_head = require('../../../../source/img/my/my_head.png');
     const { avatar, headimgurl } = this.props.user
     const avatarUrl = avatar ? avatar.url : headimgurl
     const source = avatarUrl ? { uri: avatarUrl } : my_head
