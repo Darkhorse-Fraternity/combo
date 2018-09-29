@@ -10,7 +10,6 @@ import {
   Image,
   RefreshControl,
   Platform,
-  Alert
 } from 'react-native'
 import Button from '../../../components/Button'
 
@@ -42,7 +41,6 @@ import {
 } from '../../../request/leanCloud'
 import Rate, { AndroidMarket } from 'react-native-rate'
 import DeviceInfo from 'react-native-device-info'
-import { logout } from '../../../redux/actions/user'
 
 @connect(
   state => ({
@@ -58,22 +56,7 @@ import { logout } from '../../../redux/actions/user'
         req(param, FRIENDNUM + userId)
       })
     },
-    logout: () => {
 
-      Alert.alert(
-        '确定退出吗?',
-        null,
-        [{
-          text: '取消', onPress: () => {
-          },
-        }, {
-          text: '确定', onPress: () => {
-            dispatch(logout());
-          },
-        }]
-      )
-
-    },
 
     rate: () => {
       let url = ''
@@ -244,7 +227,7 @@ export default class PersonCenter extends Component {
 
   __renderLoginRow() {
     const navigation = this.props.navigation
-    
+
 
     return (
       <View style={{ marginTop: 0 }}>
@@ -287,8 +270,8 @@ export default class PersonCenter extends Component {
 
 
         <View style={{ height: 25 }}/>
-        {this._renderRow('退出登录', false, this.props.logout)}
-        <View style={{ height: 25 }}/>
+        {/*{this._renderRow('退出登录', false, this.props.logout)}*/}
+
       </View>
     )
   }

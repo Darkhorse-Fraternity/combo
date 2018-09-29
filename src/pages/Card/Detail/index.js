@@ -31,7 +31,7 @@ import Circle from '../Circle'
 import Button from '../../../components/Button'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
-
+import { Privacy } from '../../../configure/enum'
 
 @connect(
   (state, props) => ({
@@ -113,7 +113,7 @@ export default class CardDetail extends Component {
     // const params = this.props.navigation.state.params
     // const {iUse,iCard} = params
 
-    const { iCard } = this.props
+    const { iCard,iUse } = this.props
     if (!iCard) {
       return (
         <StyledContent>
@@ -125,8 +125,8 @@ export default class CardDetail extends Component {
 
     const useNum = iCard.get('useNum')
     const title = iCard.get('title')
-
-
+    const privacy = iUse.get('privacy')
+    console.log('privacy:', privacy);
 
 
     return (
@@ -140,6 +140,7 @@ export default class CardDetail extends Component {
           }}
           renderTabBar={() => (
             <BackTabBar
+              title={title}
               tabUnderlineWidth={35}
               scrollValueWithOutNative={this.state.scrollValue}
               rightView={this.__renderRightView}
@@ -154,12 +155,12 @@ export default class CardDetail extends Component {
           {useNum > 1 && this.props.iCard.get('course') &&
           <Course {...this.props}
                   tabLabel='课程'/>}
-          {useNum > 1 &&
+          {useNum > 1 && privacy === Privacy.open &&
           <Circle {...this.props}
                   tabLabel='圈子'/>}
           <Agenda
             {...this.props}
-            tabLabel={useNum <= 1 ? title : "统计"}/>
+            tabLabel= "统计"/>
           {/*<Info {...this.props} tabLabel="设置"/>*/}
         </ScrollableTabView>
 

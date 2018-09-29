@@ -21,7 +21,6 @@ export const navigationOptions = {
   },
   headerTintColor: 'black',
   headerTitleStyle: {
-    color: 'black',
     alignItems: 'center',
     fontSize: 21,
     fontWeight:'400',
