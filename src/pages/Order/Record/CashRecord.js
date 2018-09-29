@@ -52,14 +52,15 @@ export default class CashRecord extends Component {
           <StyledRowTitle>
             申请单号：{item.enchId}
           </StyledRowTitle>
-          <StyledRowDate>
-            日期:{moment(item.createdAt).format("YYYY-MM-DD")}
-          </StyledRowDate>
-        </StyledRowInner>
-        <StyledRowInner style={{alignItems:'flex-end'}}>
           <StyledRowAmount>
             ￥{item.amount}
           </StyledRowAmount>
+        </StyledRowInner>
+        <StyledRowInner style={{marginTop:10}}>
+          <StyledRowDate>
+            日期:{moment(item.createdAt).format("YYYY-MM-DD")}
+          </StyledRowDate>
+
           <StyledRowStatu>
             {item.statu===0?'处理中':'已处理'}
           </StyledRowStatu>

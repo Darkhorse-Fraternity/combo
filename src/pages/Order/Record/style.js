@@ -9,37 +9,32 @@ import styled from "styled-components";
 
 
 export const StyledRow = styled.View`
-   margin-bottom: 15px;
+    margin: 0px 15px 15px 15px;
     padding: 15px 15px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: ${props => props.theme.textinputbackgroundColor};
+    background-color: ${props => props.theme.showItem};
+    border-radius: 5px;
 `
 
 
 export const StyledRowInner = styled.View`
-
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 `
 
 export const StyledRowTitle = styled.Text`
     font-size: 17px;
 `
 
-
-
-
-
 export const StyledRowDate = styled.Text`
     font-size: 15px;
-   margin-top: 10px;
+
 `
 
 export const StyledRowAmount = styled.Text`
-  font-size: 17px;
+  font-size: 19px;
 `
 
 export const StyledRowStatu = styled.Text`
-    margin-top: 10px;
-     font-size: 15px;
+     font-size: 17px;
 `

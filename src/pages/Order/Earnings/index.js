@@ -106,31 +106,31 @@ export default class Earnings extends Component {
       </StyledHeader>
     )
   }
-
-  renderRow = ({ item, index }: Object) => {
-    // console.log('item:', item);
-    return (
-      <StyledRow>
-        <StyledRowInner>
-          <StyledRowTitle>
-            订单号：{item.tradeId}
-          </StyledRowTitle>
-          <StyledRowStatu numberOfLines={1}>
-            {item.description}
-          </StyledRowStatu>
-
-        </StyledRowInner>
-        <StyledRowInner style={{ alignItems: 'flex-end' }}>
-          <StyledRowAmount>
-            ￥{(item.amount * 0.7).toFixed(2)}
-          </StyledRowAmount>
-          <StyledRowDate>
-            {moment(item.createdAt).format("YYYY-MM-DD")}
-          </StyledRowDate>
-        </StyledRowInner>
-      </StyledRow>
-    )
-  }
+  //
+  // renderRow = ({ item, index }: Object) => {
+  //   // console.log('item:', item);
+  //   return (
+  //     <StyledRow>
+  //       <StyledRowInner>
+  //         <StyledRowTitle>
+  //           订单号：{item.tradeId}
+  //         </StyledRowTitle>
+  //         <StyledRowStatu numberOfLines={1}>
+  //           {item.description}
+  //         </StyledRowStatu>
+  //
+  //       </StyledRowInner>
+  //       <StyledRowInner style={{ alignItems: 'flex-end' }}>
+  //         <StyledRowAmount>
+  //           ￥{(item.amount * 0.7).toFixed(2)}
+  //         </StyledRowAmount>
+  //         <StyledRowDate>
+  //           {moment(item.createdAt).format("YYYY-MM-DD")}
+  //         </StyledRowDate>
+  //       </StyledRowInner>
+  //     </StyledRow>
+  //   )
+  // }
 
 
   render(): ReactElement<any> {

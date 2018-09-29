@@ -56,18 +56,19 @@ export default class CostRecord extends Component {
           <StyledRowTitle>
             订单号：{item.tradeId}
           </StyledRowTitle>
-          <StyledRowStatu numberOfLines={1}>
-            {item.description}
-          </StyledRowStatu>
-
-        </StyledRowInner>
-        <StyledRowInner style={{alignItems:'flex-end'}}>
-          <StyledRowAmount>
-            ￥{(item.amount).toFixed(1)}
-          </StyledRowAmount>
           <StyledRowDate>
             {moment(item.createdAt).format("YYYY-MM-DD")}
           </StyledRowDate>
+
+        </StyledRowInner>
+        <StyledRowInner style={{marginTop:10}}>
+          <StyledRowStatu numberOfLines={1}>
+            {item.description}
+          </StyledRowStatu>
+          <StyledRowAmount>
+            ￥{(item.amount).toFixed(1)}
+          </StyledRowAmount>
+
         </StyledRowInner>
       </StyledRow>
     )

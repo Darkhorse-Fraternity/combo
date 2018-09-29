@@ -14,8 +14,9 @@ export const StyledContent = styled.View`
 `
 
 export const StyledButton = styled(Button)`
- 
-        padding: 20px 40px;
+        padding: 0px 15px;
+        margin: 20px;
+        border-radius: 6px;
         flex-direction: row;     
         justify-content: space-between;
         align-items: center;

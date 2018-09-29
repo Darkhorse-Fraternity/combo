@@ -10,8 +10,10 @@ export default {
     mainColor: '#fdd83c',
     mainLightColor: '#fdd83c',
     textinputbackgroundColor:'#f6f7f9',
+
     titleBackViewColor:'#f6f7f9',
-    buttonItem:'#f5f4f2',
+    buttonItem:'#e7eced',
+    showItem:'#f5f8f6',
     disabledColor:'#bfc2c7',
     sureColor:'#39ba98',
     headerButtonColor:'#31d930',
