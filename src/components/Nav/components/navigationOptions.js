@@ -23,7 +23,8 @@ export const navigationOptions = {
   headerTitleStyle: {
     color: 'black',
     alignItems: 'center',
-    fontSize: 13,
+    fontSize: 21,
+    fontWeight:'400',
   },
   // headerBackImage: require('../../source/img/bar/back-icon.png'),
   headerBackImage:(Platform.OS === "ios" && <HeaderBackImage/>),

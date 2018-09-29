@@ -89,30 +89,33 @@ export default class PushManage extends Component {
 
   componentWillReceiveProps(props) {
 
-    let {
-      data,
-      localRemindData,
-      iCard,
-      normalizrData
-    } = props
-    data = data.toJS()
+    if(Platform.OS === 'ios'){
 
-    // console.log('data:', data);
+      let {
+        data,
+        localRemindData,
+        iCard,
+        normalizrData
+      } = props
+      data = data.toJS()
+
+      // console.log('data:', data);
+
+      if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size > 0) {
+        localRemindData = localRemindData.toJS()
+        const ndata = normalizrData.toJS()
+        data = data.listData
+        const array = data.map(key => {
+          const res = ndata[key]
+          const iCard = props.iCard.get(res[ICARD]);
+          res.iCard = iCard && iCard.toJS()
+          return res
+        })
 
 
-    if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size > 0) {
-      localRemindData = localRemindData.toJS()
-      const ndata = normalizrData.toJS()
-      data = data.listData
-      const array = data.map(key => {
-        const res = ndata[key]
-        const iCard = props.iCard.get(res[ICARD]);
-        res.iCard = iCard && iCard.toJS()
-        return res
-      })
+        this.dayNotification(array, localRemindData)
 
-
-      this.dayNotification(array, localRemindData)
+      }
 
     }
   }

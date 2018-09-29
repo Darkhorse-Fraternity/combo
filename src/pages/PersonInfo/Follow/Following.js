@@ -277,8 +277,8 @@ export default class Following extends Component {
                 img={img}
                 onPress={() => {
                     this.props.navigation.navigate('recordDetail', {
-                        data: item,
-                        card: iCard,
+                        iUseId: item.objectId,
+                        iCardId: iCard.objectId,
                     })
                 }}/>
         )

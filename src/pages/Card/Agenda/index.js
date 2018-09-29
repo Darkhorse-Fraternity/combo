@@ -21,15 +21,15 @@ import {
   StyledTitleText,
   StyledRow,
   StyledRowText,
-
+  StyledHeaderBtn,
 } from './style'
 
 import AgendaScreen from './agenda'
 
-import { selfUser, iUse } from '../../../request/LCModle'
+import { user, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
 import { IDO, IUSE } from '../../../redux/reqKeys'
-
+import { recordDiary } from '../../../components/Button/DoCardButton/DoCard'
 const listKey = IDO
 
 import RecordRow from '../../Record/RecordRow'
@@ -78,6 +78,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
     },
+    tipTap: recordDiary
   })
 )
 
@@ -143,6 +144,8 @@ export default class CardDetail extends Component {
     const time = iUse.time
 
 
+    const isSelf = this.props.user.objectId === iUse.user
+
     return (
       <StyledInner
         colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
@@ -159,9 +162,16 @@ export default class CardDetail extends Component {
         {this._renderRow('加入天数', date + "天")}
         {this._renderRow('建立日期', cardCreatedAt)}
         <StyledTitleView>
-          <StyledTitleText>
+          {!isSelf?<StyledTitleText>
             习惯日记
-          </StyledTitleText>
+          </StyledTitleText>:
+            <StyledHeaderBtn
+            // load={false}
+            style={{ marginLeft: 10 }}
+            // disabled={false}
+            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+            onPress={()=>this.props.tipTap(this.props.iUse.toJS())}
+            title={'添加日记'}/>}
         </StyledTitleView>
       </StyledInner>
 
@@ -189,7 +199,7 @@ export default class CardDetail extends Component {
 
     const param = {
       'where': {
-        ...selfUser(),
+        ...user(iUseM.user),
         ...iUse(iUseM.objectId),
         $or: [
           { imgs: { $exists: true } },
@@ -198,6 +208,14 @@ export default class CardDetail extends Component {
       }
     }
 
+
+    const isSelf = this.props.user.objectId === iUse.user
+
+    const config = isSelf?{
+      noDataPrompt:'写一个日记吧~！',
+      tipBtnText:'添加日记',
+      tipTap:()=>this.props.tipTap(this.props.iUse.toJS())
+    }:{}
     return (
       <LCList
         ref={'list'}
@@ -206,15 +224,12 @@ export default class CardDetail extends Component {
         style={{ flex: 1 }}
         sKey={listKey + iUseM.objectId}
         renderItem={this.renderRow.bind(this)}
-        noDataPrompt={'写一个日记吧~！'}
-        tipBtnText={'添加日记'}
-        tipTap={()=>{
-          console.log('test:', '1111');
-        }}
+
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
-        //}}
+        //}
         reqParam={param}
+        {...config}
       />
     );
   }

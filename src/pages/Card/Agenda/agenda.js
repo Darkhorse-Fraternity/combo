@@ -14,7 +14,7 @@ import { classSearch } from '../../../request/leanCloud'
 // import {addListNormalizrEntity} from '../../../redux/actions/list'
 import { IDO, IDOCALENDAR } from '../../../redux/reqKeys'
 // import {IRECORD, ICARD,IUSE} from '../../../redux/reqKeys'
-import { selfUser, iUse } from '../../../request/LCModle'
+import { user, iUse } from '../../../request/LCModle'
 import { req, clear } from '../../../redux/actions/req'
 
 import Calendar from '../../../components/Calendar'
@@ -41,9 +41,10 @@ import { withTheme } from 'styled-components'
                 const data = state.req.get(IDOCALENDAR).get('data').toJS()
 
                 const iUseId = props.navigation.state.params.iUseId
+                const userId  = props.iUse.get('user')
                 const param = {
                     'where': {
-                        ...selfUser(),
+                        ...user(userId),
                         ...iUse(iUseId),
                         "createdAt": {
                             "$gte": { "__type": "Date", "iso": first + "T00:00:00.000Z" },

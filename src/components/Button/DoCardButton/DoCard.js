@@ -3,9 +3,9 @@ import React from 'react';
 import { ICARD, IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys'
 import Pop from '../../Pop'
 import moment from 'moment'
-import Do from '../../../pages/Card/Do/Do'
+import Do from '../../../pages/Card/Do'
+import Diary from '../../../pages/Card/Do/Diary'
 import { classCreatNewOne } from '../../../request/leanCloud'
-
 import { selfUser, iCard, iUse } from '../../../request/LCModle'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { addListNormalizrEntity, add } from '../../../redux/actions/list'
@@ -31,14 +31,14 @@ export function doCardWithNone(data) {
     //在这边添加新的判断
 
     // const IUseP = classUpdate(IUSE, id, param)
-    return await dispatch(creatIDO(data, iCardM))
+    return await dispatch(creatIDO(data, iCardM,{type:0}))
 
   }
 
 }
 
 export function recordDiary(data) {
-  Pop.show(<Do data={data}/>,
+  Pop.show(<Diary data={data}/>,
     {
       wrapStyle: { justifyContent: 'flex-start' },
       maskStyle: {
@@ -103,11 +103,14 @@ function creatIDO(iUseM, iCardM, other) {
     }
 
 
-    //添加到req
-    const date = moment(iDoEntity.createdAt).format("YYYY-MM-DD")
-    dispatch(reqChangeData(IDOCALENDAR, {
-      [date]: iDoEntity
-    }))
+    //添加到req,日历是用这边的
+    if(other.type === 0){
+      const date = moment(iDoEntity.createdAt).format("YYYY-MM-DD")
+      dispatch(reqChangeData(IDOCALENDAR, {
+        [date]: iDoEntity
+      }))
+    }
+
 
 
     const time = iUseM.time + 1

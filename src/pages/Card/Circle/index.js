@@ -21,7 +21,7 @@ import RecordRow from '../../Record/RecordRow'
 import Header from '../../Record/RecordRow/Header'
 import { IDO, REPORT } from '../../../redux/reqKeys'
 import Button from '../../../components/Button'
-
+import { recordDiary } from '../../../components/Button/DoCardButton/DoCard'
 
 const listKey = IDO
 
@@ -30,7 +30,7 @@ import {
   StyledHeader,
   StyledTitleView,
   StyledTitleText,
-
+  StyledHeaderBtn
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -42,7 +42,9 @@ import { selfUser, iCard } from '../../../request/LCModle'
     user: state.user.data,
 
   }),
-  (dispatch, props) => ({})
+  (dispatch, props) => ({
+    tipTap: recordDiary
+  })
 )
 
 
@@ -68,19 +70,20 @@ export default class Circle extends Component {
   }
 
 
-  _tipTap = ()=>{
-
-  }
-
-
   __renderHeader = () => {
 
     return (
       <StyledHeader>
         <StyledTitleView>
-          <StyledTitleText>
-            圈子日记
-          </StyledTitleText>
+          {/*<StyledTitleText>*/}
+            {/*圈子日记*/}
+          {/*</StyledTitleText>*/}
+          <StyledHeaderBtn
+            // load={false}
+            // disabled={false}
+            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+            onPress={()=>this.props.tipTap(this.props.iUse.toJS())}
+            title={'添加日记'}/>
         </StyledTitleView>
       </StyledHeader>
 
@@ -130,7 +133,7 @@ export default class Circle extends Component {
         sKey={listKey + iCardId}
         renderItem={this.renderRow.bind(this)}
         tipBtnText={'添加日记'}
-        tipTap={this._tipTap}
+        tipTap={()=>this.props.tipTap(this.props.iUse.toJS())}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         //}}
@@ -151,7 +154,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#e4e4e4',
   },
-
 
 
 })

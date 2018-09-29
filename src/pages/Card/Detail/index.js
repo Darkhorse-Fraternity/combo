@@ -158,7 +158,6 @@ export default class CardDetail extends Component {
           <Circle {...this.props}
                   tabLabel='圈子'/>}
           <Agenda
-            ref={'agenda'}
             {...this.props}
             tabLabel={useNum <= 1 ? title : "统计"}/>
           {/*<Info {...this.props} tabLabel="设置"/>*/}

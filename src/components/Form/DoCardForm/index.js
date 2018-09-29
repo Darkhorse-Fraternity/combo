@@ -48,7 +48,7 @@ const isEmpty = value => value === undefined || value === null || value === '' |
     }) !== -1
 
     return {
-      enableSumbmit: !hasNone,
+      enableSumbmit: !hasNone || props.type === 1,
       initialValues: { imgs: [] },
       inputText: props.localSaveEnable && text,
     }
@@ -147,7 +147,7 @@ export default class ChatSendForm extends Component {
               {/*}}/>*/}
               <StyledBtn
                 disabled={!enableSumbmit}
-                title="打卡"
+                title="保存"
                 hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
                 onPress={onSubmit && handleSubmit(onSubmit)}/>
             </StyledButtonView>)}

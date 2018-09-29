@@ -43,13 +43,8 @@ import { formValueSelector } from 'redux-form/immutable'
           imgs = imgs && imgs.toJS()
 
 
-          if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
-            Toast.show('需要添加文字记录~')
-            return;
-          }
-
-          if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
-            Toast.show('需要添加图片~')
+          if (recordText.length === 0 || imgs.length === 0) {
+            Toast.show('总要记录些什么吧~')
             return;
           }
 
@@ -68,7 +63,7 @@ import { formValueSelector } from 'redux-form/immutable'
             {
               recordText,
               imgs,
-              type:0,
+              type:1,
             }))
 
           Pop.hide()
@@ -84,15 +79,15 @@ import { formValueSelector } from 'redux-form/immutable'
   })
 )
 
-export default class Doing extends Component {
+export default class Diary extends Component {
   render(): ReactElement<any> {
 
-    const data = this.props.data
-    const iCard = this.props.iCard.get(data[ICARD]).toJS()
-    const record = iCard.record
+    // const data = this.props.data
+    // const iCard = this.props.iCard.get(data[ICARD]).toJS()
+    const record = ['文字', '图片']
 
     return (
-      <Do record={record} {...this.props} type={0} />
+      <Do record={record} {...this.props} type={1}/>
     )
   }
 

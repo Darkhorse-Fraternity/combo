@@ -244,6 +244,8 @@ export default class PersonCenter extends Component {
 
   __renderLoginRow() {
     const navigation = this.props.navigation
+    
+
     return (
       <View style={{ marginTop: 0 }}>
 

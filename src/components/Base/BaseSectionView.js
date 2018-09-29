@@ -58,7 +58,7 @@ export default class BaseSectionView extends Component {
     loadStatu: LIST_FIRST_JOIN,
     needDelay: true,
     // noDataImg: require('../../../source/img/xy_course/xy_course.png'),
-    noDataPrompt: "没有新内容~",
+    noDataPrompt: "空空如也~",
     type: 'list',
     data: []
   };

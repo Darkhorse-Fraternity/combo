@@ -5,8 +5,8 @@
 'use strict';
 
 import styled from "styled-components";
-import LinearGradient from 'react-native-linear-gradient';
 
+import HeaderBtn from '../../../components/Button/HeaderBtn'
 
 export const StyledContent = styled.View`
     flex: 1;
@@ -24,6 +24,8 @@ export const StyledAgendaRow = styled.View`
 
 export const StyledTitleView = styled.View`
   padding: 25px 5px 5px 5px;
+  flex-direction: row;
+  align-items: center;
 `
 
 export const StyledTitleText = styled.Text`
@@ -31,6 +33,11 @@ export const StyledTitleText = styled.Text`
   color: #979797;
   margin-left: 10px;
 `
+
+export const StyledHeaderBtn = styled(HeaderBtn)`
+
+`
+
 
 export const StyledRow = styled.View`
   padding: 15px;

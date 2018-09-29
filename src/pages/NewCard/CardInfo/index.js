@@ -449,7 +449,7 @@ export default class CardInfo extends Component {
                   flexDirection: 'row',
                   marginTop: 10,
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
                 }}
                 onPress={() => {
                   !userLoad && this.props.navigation.navigate('cardUse', { iCard: iCard })
