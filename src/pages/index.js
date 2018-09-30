@@ -19,6 +19,7 @@ import RComment from './Record/RComment'
 import CardDetail from './Card/Detail'
 import Followee from './More/Follow/Followee'
 import Follower from './More/Follow/Follower'
+import Follow from './More/Follow'
 import Following from './More/Follow/Following'
 import CardUse from './NewCard/CardUse'
 import CourseChoose from './Course/Choose'
@@ -42,6 +43,7 @@ export const otherRoute = {
   courseRelease: { screen: CourseRelease },
   followee: { screen: Followee, path: 'combo/:Followee' },
   follower: { screen: Follower },
+  follow: { screen: Follow },
   following: { screen: Following },
   creat: { screen: Creat, path: 'combo/:Creat' },
   newCard: { screen: NewCard },

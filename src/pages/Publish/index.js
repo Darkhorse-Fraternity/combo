@@ -68,7 +68,7 @@ export default class Publish extends Component {
         return (
             <StyledHeader >
                 <StyledHeaderTitle >
-                    圈子管理
+                    多人卡片
                 </StyledHeaderTitle>
             </StyledHeader>
         )

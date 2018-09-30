@@ -9,29 +9,31 @@ import Button from '../../components/Button/index'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
 
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
   
 `
+export const StyledInnerContent = styled.ScrollView`
+  flex: 1;
+`
+
 
 export const StyleHeader = styled.View`
-  margin-top: 20px;
+  margin-top: 40px;
   padding: 15px 25px;
 `
 
 export const StyledHeaderTop = styled(Button)`
     margin-bottom: 15px;
-    justify-content: space-between;
-   flex-flow: row;
+     align-items: center;
     
 `
 
 
 export const StyledHeaderName = styled.Text`
-    font-size: 30px;
-    font-weight: 600;
-    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 300;
     max-width: 150px;
 `
 

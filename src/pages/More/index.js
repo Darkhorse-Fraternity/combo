@@ -30,7 +30,8 @@ import {
   StyleFollowTextNum,
   StyledFuncView,
   StyledIncome,
-  StyledEntypoIcon
+  StyledEntypoIcon,
+  StyledInnerContent
 } from './style'
 import { req, } from '../../redux/actions/req'
 import {
@@ -41,6 +42,7 @@ import {
 } from '../../request/leanCloud'
 import Rate, { AndroidMarket } from 'react-native-rate'
 import DeviceInfo from 'react-native-device-info'
+import Avatar from '../../components/Avatar'
 
 @connect(
   state => ({
@@ -105,7 +107,7 @@ export default class More extends Component {
     return {
       // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
       gesturesEnabled: false,
-      header: <View style={{height:20,backgroundColor:'white'}}/>
+      header: null
 
     }
   };
@@ -121,10 +123,6 @@ export default class More extends Component {
     const { data } = this.props.user
 
     const name = data.nickname || '陌生人'
-    const { avatar, headimgurl, } = data
-    const avatarUrl = avatar ? avatar.url : headimgurl
-    const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../source/img/my/icon-60.png')
 
 
     return (
@@ -132,26 +130,27 @@ export default class More extends Component {
         <StyledHeaderTop onPress={() => {
           this.props.navigation.navigate('account')
         }}>
+          <StyledAvatarView>
+            <Avatar/>
+            {/*<View style={{*/}
+            {/*marginTop: 10,*/}
+            {/*flexDirection: 'row',*/}
+            {/*alignItems: 'center'*/}
+            {/*}}>*/}
+            {/*<StyledIcon*/}
+            {/*color={"#c1c1c1"}*/}
+            {/*size={13}*/}
+            {/*name={'edit'}/>*/}
+            {/*<StyledHeaderSubText>编辑</StyledHeaderSubText>*/}
+            {/*</View>*/}
+          </StyledAvatarView>
           <View>
             <StyledHeaderName>
               {name}
             </StyledHeaderName>
-            {this._renderFollow()}
+            {/*{this._renderFollow()}*/}
           </View>
-          <StyledAvatarView>
-            <StyledAvatar source={avatarSource}/>
-            <View style={{
-              marginTop: 10,
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}>
-              <StyledIcon
-                color={"#c1c1c1"}
-                size={13}
-                name={'edit'}/>
-              <StyledHeaderSubText>编辑</StyledHeaderSubText>
-            </View>
-          </StyledAvatarView>
+
         </StyledHeaderTop>
 
         {/*{this._renderFunction()}*/}
@@ -242,7 +241,7 @@ export default class More extends Component {
         })}
 
 
-        {this._renderRow('圈子管理', true, () => {
+        {this._renderRow('我的多人卡片', true, () => {
           navigation.navigate('publish');
         })}
 
@@ -253,19 +252,25 @@ export default class More extends Component {
         <View style={{ height: 25 }}/>
 
 
-
         {this._renderRow('我的收益', true, () => {
           navigation.navigate('earnings')
         })}
 
-        {this._renderRow('意见反馈', false, () => {
-          navigation.navigate("feedback");
-        })}
 
-        {this._renderRow('给个评价', false, this.props.rate)}
+        {this._renderRow('粉丝查看', false, () => {
+          navigation.navigate("follow",
+            { userId: this.props.user.data.objectId });
+        })}
 
 
         <View style={{ height: 25 }}/>
+
+        {this._renderRow('给作者留言', false, () => {
+          navigation.navigate("feedback");
+        })}
+
+        {this._renderRow('到应用商店评价', false, this.props.rate)}
+        <View style={{ height: 100}}/>
 
       </View>
     )
@@ -274,10 +279,12 @@ export default class More extends Component {
   render() {
     return (
       <StyledContent>
-        {this._renderHeadRow()}
+        <View style={{ height: 20, backgroundColor: 'white' }}/>
+        <StyledInnerContent>
+          {this._renderHeadRow()}
 
-        {this.__renderLoginRow()}
-
+          {this.__renderLoginRow()}
+        </StyledInnerContent>
       </StyledContent>
     );
   }

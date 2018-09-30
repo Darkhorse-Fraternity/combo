@@ -37,6 +37,8 @@ import {
 } from '../../../redux/reqKeys'
 import Button from "../../../components/Button/index";
 import { logout } from '../../../redux/actions/user'
+import Avatar from '../../../components/Avatar'
+
 
 @connect(
   state => ({
@@ -129,19 +131,13 @@ export default class Account extends React.Component {
 
   _renderHeadRow(onPress: Function = () => {
   }) {
-    const my_head = require('../../../../source/img/my/my_head.png');
-    const { avatar, headimgurl } = this.props.user
-    const avatarUrl = avatar ? avatar.url : headimgurl
-    const source = avatarUrl ? { uri: avatarUrl } : my_head
 
     return (
       <StyledHeader>
         <Button onPress={onPress}>
           {/*<StyledTitle>修改头像</StyledTitle>*/}
           <StyledHeaderRow>
-            <StyledAvatar
-              source={source}
-            />
+            <Avatar/>
             <StyledCaramerBackView>
               <StyledIcon
                 color={'white'}

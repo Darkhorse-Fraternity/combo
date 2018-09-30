@@ -157,7 +157,7 @@ const Archive = IUSE + "archive"
                 { label: '对外开放', id: '2' }
             ]:[
                 { label: '不对外开放', id: '0' },
-                { label: '仅对教练开放', id: '1' },
+                { label: '仅对卡片拥有者开放', id: '1' },
                 { label: '对外开放', id: '2' }
             ]
 

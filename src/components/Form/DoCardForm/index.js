@@ -88,13 +88,14 @@ export default class ChatSendForm extends Component {
       <View style={{
         borderRadius: 5,
         marginBottom: 10,
-        backgroundColor: 'white'
+        backgroundColor: '#f6f7f9'
       }}>
         {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
 
         <StyledTextInput
           // placeholderTextColor="rgba(180,180,180,1)"
           // selectionColor={theme.mainColor}
+          style={{backgroundColor: '#f6f7f9'}}
           returnKeyType='next'
           name={'recordText'}
           maxLength={3000}

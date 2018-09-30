@@ -152,7 +152,7 @@ export default class CardDetail extends Component {
           // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
           // tabBarPosition ='bottom'
         >
-          {useNum > 1 && this.props.iCard.get('course') &&
+          {useNum > 1 && iCard.get('course') &&
           <Course {...this.props}
                   tabLabel='课程'/>}
           {useNum > 1 && privacy === Privacy.open &&

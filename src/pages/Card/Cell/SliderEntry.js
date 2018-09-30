@@ -78,7 +78,7 @@ export default class SliderEntry extends Component {
         const uppercaseTitle = title ? (
             <Text
                 style={[styles.title, even ? styles.titleEven : {}]}
-                numberOfLines={2}
+                numberOfLines={1}
             >
                 {title}
                 {/*{ title.toUpperCase() }*/}
@@ -104,7 +104,7 @@ export default class SliderEntry extends Component {
                             {uppercaseTitle}
                             <Text
                                 style={[styles.subtitle, even ? styles.subtitleEven : {}]}
-                                numberOfLines={2}
+                                numberOfLines={1}
                             >
                                 {notifyText||`第${time}次打卡`}
                             </Text>

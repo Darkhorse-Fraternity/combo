@@ -60,4 +60,5 @@ export const StyledBackBtnText = styled.Text`
 export const StyledTextInput = styled(TextInput)`
   height: 180px;
   margin: 5px 10px;
+  text-align-vertical:top;
 `

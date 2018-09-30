@@ -13,10 +13,17 @@ export const StyledContent = styled.ScrollView`
     background-color: white;
 `
 
+export const StyledHeader = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+`
+
 export const StyledTitle = styled.Text`
    font-size: 17px;
    font-weight: 700;
-   padding: 15px;
+   
 `
 
 export const StyledList = styled.FlatList`
@@ -40,7 +47,6 @@ export const StyledDes = styled.Text`
 export const StyledEditBtn = styled(HeaderBtn)`
 
   width:60px;
-  margin: 0px 15px 15px 15px;
 `
 
 

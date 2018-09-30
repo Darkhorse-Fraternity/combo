@@ -195,7 +195,7 @@ export default class PublishDetail extends Component {
                 {/*}*/}
                 {/*})}*/}
 
-                {allow && this._renderRow("发布圈子", () => {
+                {allow && this._renderRow("推荐我的圈子", () => {
                     navigation.navigate('publishing',
                         { iCardID: navigation.state.params.iCardID })
                 })}

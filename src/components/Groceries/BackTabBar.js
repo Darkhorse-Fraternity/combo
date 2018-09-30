@@ -160,7 +160,6 @@ const styles = StyleSheet.create({
   },
   title:{
     alignItems: 'center',
-    fontSize: 21,
-    fontWeight:'400',
+    fontSize: 17,
   }
 });

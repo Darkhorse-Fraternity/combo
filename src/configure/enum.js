@@ -4,6 +4,12 @@ export const Privacy = {
     open: 2
 }
 
+export const CourseStatu = {
+    close:0,
+    open:1,
+
+}
+
 
 export const Days = ['周一','周二','周三','周四','周五','周六','周天'];
 export const daysText = (recordDay) => {

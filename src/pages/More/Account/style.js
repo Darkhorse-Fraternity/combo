@@ -59,6 +59,8 @@ export const StyledCaramerBackView = styled.View`
     justify-content: center;
     margin-top: 50px;
     margin-left: -20px;
+    z-index: 100;
+    elevation: 6;
 `
 
 export const StyledIcon = styled(Icon)`
