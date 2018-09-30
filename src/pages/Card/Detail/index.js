@@ -32,13 +32,41 @@ import Button from '../../../components/Button'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
 import { Privacy } from '../../../configure/enum'
+import { COURSE } from '../../../redux/reqKeys'
+import { list, entitys } from '../../../redux/scemes'
+import { find } from '../../../redux/module/leancloud'
 
 @connect(
-  (state, props) => ({
-    iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
-    iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId)
-  }),
-  (dispatch, props) => ({})
+  (state, props) => {
+    const iCard = state.normalizr.get('iCard').get(props.navigation.state.params.iCardId)
+    // const courseId = iCard.get('course')
+    return {
+      iCard,
+      iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
+      // course:
+      // course: courseId && state.normalizr.get(COURSE).get(courseId)
+    }
+  },
+  (dispatch, props) => ({
+    dataLoad: () => {
+      dispatch(async (dispatch,getState)=>{
+        const state = getState()
+        const iCard = state.normalizr.get('iCard').get(props.navigation.state.params.iCardId)
+        const courseId = iCard.get('course')
+        const course = courseId && state.normalizr.get(COURSE).get(courseId)
+        console.log('course:', course);
+        if (courseId && course.get('statu') === undefined) {
+          const params = {
+            include: 'user',
+            where: {
+              objectId: props.courseId
+            },
+          }
+          await find(COURSE, params, { sceme: list(entitys[COURSE]) })
+        }
+      })
+    },
+  })
 )
 
 
@@ -67,8 +95,6 @@ export default class CardDetail extends Component {
   // _afterDone = (key) => {
   //   DeviceEventEmitter.emit(key);
   // }
-
-
 
 
   __renderRightView = () => {
@@ -108,12 +134,16 @@ export default class CardDetail extends Component {
   }
 
 
+  componentDidMount() {
+    // this.props.dataLoad()
+  }
+
   render(): ReactElement<any> {
 
     // const params = this.props.navigation.state.params
     // const {iUse,iCard} = params
 
-    const { iCard,iUse } = this.props
+    const { iCard, iUse } = this.props
     if (!iCard) {
       return (
         <StyledContent>
@@ -126,7 +156,6 @@ export default class CardDetail extends Component {
     const useNum = iCard.get('useNum')
     const title = iCard.get('title')
     const privacy = iUse.get('privacy')
-    console.log('privacy:', privacy);
 
 
     return (
@@ -152,15 +181,15 @@ export default class CardDetail extends Component {
           // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
           // tabBarPosition ='bottom'
         >
-          {useNum > 1 && iCard.get('course') &&
-          <Course {...this.props}
-                  tabLabel='课程'/>}
+          {/*{course && course.get('statu') === 1 &&*/}
+          {/*<Course {...this.props}*/}
+                  {/*tabLabel='课程'/>}*/}
           {useNum > 1 && privacy === Privacy.open &&
           <Circle {...this.props}
                   tabLabel='圈子'/>}
           <Agenda
             {...this.props}
-            tabLabel= "统计"/>
+            tabLabel="统计"/>
           {/*<Info {...this.props} tabLabel="设置"/>*/}
         </ScrollableTabView>
 

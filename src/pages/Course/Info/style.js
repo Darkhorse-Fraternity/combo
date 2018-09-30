@@ -116,7 +116,7 @@ export const StyledNickName = styled.Text`
 export const StyledSubTitle = styled.Text`
    
     font-size: 17px;
-    margin-bottom: 10px;
+    margin: 10px 0px;
 `
 export const StyleKeys = styled.Text`
     color: #c1c1c1;

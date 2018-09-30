@@ -48,24 +48,23 @@ const selector = formValueSelector(FormID) // <-- same as form name
       ppt: ppt && ppt.toJS()
     }
 
-    const initialValues2 = {
-      title: initialValues.title,
-      subtitle: initialValues.subtitle,
-      cover: initialValues.cover,
-      ppt: initialValues.ppt
-
-    }
-
-
-    const cance = props.statu === CourseStatu.close ? false :
-      JSON.stringify(initialValues2) === JSON.stringify(values)
+    // const initialValues2 = {
+    //   title: initialValues.title,
+    //   subtitle: initialValues.subtitle,
+    //   cover: initialValues.cover,
+    //   ppt: initialValues.ppt
+    //
+    // }
+    //
+    //
+    // const cance = props.statu === CourseStatu.close ? false :
+    //   JSON.stringify(initialValues2) === JSON.stringify(values)
     const isEmpty = value => value === undefined || value === null ||
       value === '' || value.length === 0;
 
     return {
-      enableSumbmit: config.findIndex(isEmpty) === -1 || cance,
+      enableSumbmit: config.findIndex(isEmpty) === -1 ,
       initialValues: initialValues,
-      cance,
     }
   },
   (dispatch, props) => ({

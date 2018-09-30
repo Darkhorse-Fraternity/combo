@@ -6,20 +6,20 @@
 
 import React, { Component } from 'react';
 import {
-    View,
-    FlatList
+  View,
+  FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import {
-    StyledContent,
-    StyledTitle,
-    StyledMain,
-    StyledDes,
-    StyledHeaderBtn,
-    StyledEditBtn,
-    StyledList
+  StyledContent,
+  StyledTitle,
+  StyledMain,
+  StyledDes,
+  StyledHeaderBtn,
+  StyledEditBtn,
+  StyledHeader
 } from './style'
 import { update, add, findByID } from '../../../redux/module/leancloud'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -31,145 +31,146 @@ import ExceptionView, { ExceptionType } from '../../../components/Base/Exception
 import CourseRowList from '../../Course/Info/CourseRowList'
 
 @connect(
-    (state, props) => ({
-        iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
-        load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load'),
-        course: state.normalizr.get(COURSE).
-        get(state.normalizr.get(ICARD).
-        get(props.navigation.state.params.iCardID).get('course'))
+  (state, props) => ({
+    iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
+    load: state.req.get(ICARD).get('load') || state.req.get(COURSE).get('load'),
+    course: state.normalizr.get(COURSE).get(state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID).get('course'))
 
-    }),
-    (dispatch, props) => ({
-        dataLoad: () => {
-            const id = props.navigation.state.params.CourseId
-            console.log('id:', id);
-            findByID(COURSE, id)
-        },
-        add: async () => {
+  }),
+  (dispatch, props) => ({
+    dataLoad: () => {
+      const id = props.navigation.state.params.CourseId
+      console.log('id:', id);
+      findByID(COURSE, id)
+    },
+    add: async () => {
 
-            //创建 Course
-            const courseParam = {
-                ...selfUser(),
-            }
-            const course = await add(courseParam, COURSE)
-            const courseEntity = {
-                ...courseParam,
-                ...course
-            }
-            dispatch(addNormalizrEntity(COURSE, courseEntity))
+      //创建 Course
+      const courseParam = {
+        ...selfUser(),
+      }
+      const course = await add(courseParam, COURSE)
+      const courseEntity = {
+        ...courseParam,
+        ...course
+      }
+      dispatch(addNormalizrEntity(COURSE, courseEntity))
 
-            const id = props.navigation.state.params.iCardID
-            const param = {
-                ...Course(course.objectId),
-            }
-            //
-            const res = await  await update(id, param, ICARD)
-            //
-            const entity = {
-                ...param,
-                ...res
-            }
-            dispatch(addNormalizrEntity(ICARD, entity))
-            props.navigation.navigate('courseCreat', { CourseId: course.objectId })
-        },
-        edit: (CourseId) => {
+      const id = props.navigation.state.params.iCardID
+      const param = {
+        ...Course(course.objectId),
+      }
+      //
+      const res = await  await update(id, param, ICARD)
+      //
+      const entity = {
+        ...param,
+        ...res
+      }
+      dispatch(addNormalizrEntity(ICARD, entity))
+      props.navigation.navigate('courseCreat', { CourseId: course.objectId })
+    },
+    edit: (CourseId) => {
 
-            props.navigation.navigate('courseCreat', { CourseId })
+      props.navigation.navigate('courseCreat', { CourseId })
 
-        }
-    })
+    }
+  })
 )
 
 
 export default class CourseRelease extends Component {
-    constructor(props: Object) {
-        super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+  constructor(props: Object) {
+    super(props);
+    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
+  }
+
+  static propTypes = {};
+  static defaultProps = {};
+  static navigationOptions = props => {
+    // const {navigation} = props;
+    // const {state} = navigation;
+    // const {params} = state;
+    return {
+      title: '',
     }
-
-    static propTypes = {};
-    static defaultProps = {};
-    static navigationOptions = props => {
-        // const {navigation} = props;
-        // const {state} = navigation;
-        // const {params} = state;
-        return {
-            title: '',
-        }
-    };
+  };
 
 
-    componentDidMount() {
-        //判断是否存在 course 如果不存在则直接加载一个
-        // const course = this.props.iCard.get('course')
-        // const courseId = course && course.get('objectId')
-        // console.log('courseId:', courseId);
-        // !this.props.course && this.props.dataLoad()
+  componentDidMount() {
+    //判断是否存在 course 如果不存在则直接加载一个
+    // const course = this.props.iCard.get('course')
+    // const courseId = course && course.get('objectId')
+    // console.log('courseId:', courseId);
+    // !this.props.course && this.props.dataLoad()
 
-    }
-    _keyExtractor = (item, index) => {
-        const key = item.id || index;
-        return key + '';
-    }
+  }
 
-    render(): ReactElement<any> {
+  _keyExtractor = (item, index) => {
+    const key = item.id || index;
+    return key + '';
+  }
 
-
-        const courseId = this.props.iCard.get('course')
-
-        // console.log('iCard:', iCard);
+  render(): ReactElement<any> {
 
 
-        let ppt = this.props.course && this.props.course.get('ppt')
-        ppt = ppt && ppt.toJS()
+    const courseId = this.props.iCard.get('course')
+
+    // console.log('iCard:', iCard);
 
 
-        return (
-            <StyledContent>
-                <StyledTitle>
-                    课程发布
-                </StyledTitle>
+    let ppt = this.props.course && this.props.course.get('ppt')
+    ppt = ppt && ppt.toJS()
 
-                {!!courseId &&
-                <StyledEditBtn
 
-                    onPress={() => this.props.edit(courseId)}
-                    title={'编辑'}
-                />}
+    return (
+      <StyledContent>
+        <StyledHeader>
+          <StyledTitle>
+            课程发布
+          </StyledTitle>
 
-                {/*{!courseId && <StyledMain>*/}
-                {/*<StyledDes>*/}
-                {/*还没有课程*/}
-                {/*</StyledDes>*/}
-                {/*<StyledHeaderBtn*/}
-                {/*load={this.props.load}*/}
-                {/*onPress={this.props.add}*/}
-                {/*title={'添加'}/>*/}
+          {!!courseId &&
+          <StyledEditBtn
 
-                {/*</StyledMain>}*/}
+            onPress={() => this.props.edit(courseId)}
+            title={'编辑'}
+          />}
+        </StyledHeader>
 
-                {!courseId &&
-                <ExceptionView
-                    style={{ height: 400 }}
-                    prompt={'还没有课程'}
-                    tipBtnText={'添加'}
-                    onRefresh={this.props.add}
-                    exceptionType={ExceptionType.NoData}/>}
-                {/*<StyledList*/}
-                    {/*data={ppt}*/}
-                    {/*renderItem={(props)=>(<CourseRow {...props}/>)}*/}
-                    {/*ListHeaderComponent={()=>*/}
-                        {/*( <Info {...this.props} courseId={courseId}/>)}*/}
-                    {/*keyExtractor={this._keyExtractor}*/}
-                    {/*removeClippedSubviews={true}*/}
-                {/*/>*/}
-                <Info {...this.props} courseId={courseId}/>
-                {courseId && <CourseRowList courseId={courseId}/>}
+        {/*{!courseId && <StyledMain>*/}
+        {/*<StyledDes>*/}
+        {/*还没有课程*/}
+        {/*</StyledDes>*/}
+        {/*<StyledHeaderBtn*/}
+        {/*load={this.props.load}*/}
+        {/*onPress={this.props.add}*/}
+        {/*title={'添加'}/>*/}
 
-            </StyledContent>
-        );
-    }
+        {/*</StyledMain>}*/}
+
+        {!courseId &&
+        <ExceptionView
+          style={{ height: 400 }}
+          prompt={'还没有课程'}
+          tipBtnText={'添加'}
+          onRefresh={this.props.add}
+          exceptionType={ExceptionType.NoData}/>}
+        {/*<StyledList*/}
+        {/*data={ppt}*/}
+        {/*renderItem={(props)=>(<CourseRow {...props}/>)}*/}
+        {/*ListHeaderComponent={()=>*/}
+        {/*( <Info {...this.props} courseId={courseId}/>)}*/}
+        {/*keyExtractor={this._keyExtractor}*/}
+        {/*removeClippedSubviews={true}*/}
+        {/*/>*/}
+        <Info {...this.props} courseId={courseId}/>
+        {courseId && <CourseRowList courseId={courseId}/>}
+
+      </StyledContent>
+    );
+  }
 }
 
 

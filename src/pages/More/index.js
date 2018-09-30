@@ -241,7 +241,7 @@ export default class More extends Component {
         })}
 
 
-        {this._renderRow('我的多人卡片', true, () => {
+        {this._renderRow('共享卡片管理', true, () => {
           navigation.navigate('publish');
         })}
 

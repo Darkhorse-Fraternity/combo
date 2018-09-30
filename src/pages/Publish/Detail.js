@@ -195,14 +195,14 @@ export default class PublishDetail extends Component {
                 {/*}*/}
                 {/*})}*/}
 
-                {allow && this._renderRow("推荐我的圈子", () => {
+                {allow && this._renderRow("共享卡片", () => {
                     navigation.navigate('publishing',
                         { iCardID: navigation.state.params.iCardID })
                 })}
-                {allow && this._renderRow('发布课程', () => {
-                    navigation.navigate('courseRelease',
-                        { iCardID: navigation.state.params.iCardID })
-                })}
+                {/*{allow && this._renderRow('发布课程', () => {*/}
+                    {/*navigation.navigate('courseRelease',*/}
+                        {/*{ iCardID: navigation.state.params.iCardID })*/}
+                {/*})}*/}
                 {allow && this._renderRow('查看记录', () => {
                     navigation.navigate('serve', { iCard })
                 })}

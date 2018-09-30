@@ -21,7 +21,8 @@ import {
     StyledHeaderImage,
     StyledHeaderItem,
     StyledActivietyView,
-    StyledActivityIndicator
+    StyledActivityIndicator,
+
 } from './style'
 import { Map } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -36,6 +37,7 @@ import { deleteFile } from '../../../request/leanCloud'
 import { load, req } from "../../../redux/actions/req";
 import Toast from 'react-native-simple-toast'
 import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
+import {CourseStatu} from '../../../configure/enum'
 
 const selector = formValueSelector(FormID)
 
@@ -52,12 +54,18 @@ const selector = formValueSelector(FormID)
             findByID(COURSE, id)
         },
 
-        onSubmit: () => {
+        onSubmit: (cance) => {
             dispatch(async (dispatch, getState) => {
                 const id = props.navigation.state.params.CourseId
                 const state = getState()
 
-                const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+                // const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
+                if(cance){
+                  return await  updateByID(COURSE, id, {
+                    statu:CourseStatu.close
+                  })
+                }
+
 
 
                 const title = selector(state, 'title');
@@ -87,15 +95,15 @@ const selector = formValueSelector(FormID)
                     cover,
                     subtitle,
                     ppt,
+                    statu:CourseStatu.open
                     // statu: course.get('statu') === 0 ? 1 : 0
                 }
 
 
-                updateByID(COURSE, id, params)
-
-
-                Toast.show('发布成功' )
-                props.navigation.goBack()
+              const res = await  updateByID(COURSE, id, params)
+              Toast.show('发布成功' )
+              return res;
+                // props.navigation.goBack()
             })
 
         },
@@ -248,13 +256,14 @@ export default class CourseCreat extends Component {
         }
         // console.log('cover:', cover);
 
+
         return (
             <StyledContent>
                 {course && this.state.getSave ? <CourseForm
                         {...this.props}
                         load={this.props.courseLoad}
                         initialValues={initialValues}
-                        cance={0}
+                        cance={course.get('statu') === CourseStatu.open}
                         imageLoad={coverLoad}
                         handleImage={this.props.handleImage}
                         onSubmit={this.props.onSubmit}/> :
