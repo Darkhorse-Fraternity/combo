@@ -449,7 +449,6 @@ export default class CardInfo extends Component {
                   flexDirection: 'row',
                   marginTop: 10,
                   alignItems: 'center',
-                  justifyContent: 'center',
                 }}
                 onPress={() => {
                   !userLoad && this.props.navigation.navigate('cardUse', { iCard: iCard })
@@ -532,7 +531,7 @@ const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    padding: 15,
+    padding: 25,
     overflow: 'hidden',
   },
   img: {

@@ -27,7 +27,8 @@ import {
   StyledTitleText,
   StyledSubTitle,
   StyledSubTitleView,
-  StyledItemText
+  StyledItemText,
+  StyledLogoImage
 } from './style'
 
 
@@ -397,13 +398,20 @@ export default class OptionDo extends Component {
 
     const { modify } = this.props
 
-    return (
+    return [
+        modify && <StyledLogoImage
+        source={require('../../../../source/img/my/icon-60.png')}
+        key={'logo'}/>,
       <ScrollView
         // onStartShouldSetResponder={() => true}
         // onResponderGrant={() => {
         //     Keyboard.dismiss()
         // }}
+        key={'bc'}
         style={[styles.wrap, this.props.style]}>
+
+
+
         <View style={{
           flexDirection: 'row',
           width: Dimensions.get('window').width,
@@ -497,7 +505,7 @@ export default class OptionDo extends Component {
 
         <View style={{ height: 300 }}/>
       </ScrollView>
-    );
+    ];
   }
 }
 

@@ -100,7 +100,7 @@ export default class Home extends Component {
           </Text>
           <HeaderBtn
             style={{ padding: 15 }}
-            title={'寻找'}
+            title={'添加'}
             onPress={() => {
               this.props.navigation.navigate('newCard')
             }}

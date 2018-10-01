@@ -22,7 +22,7 @@ import {
   settingRoute,
 } from '../../../pages'
 import { navigationOptions } from './navigationOptions'
-import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
+// import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
 const HomeStack = createStackNavigator({
@@ -30,7 +30,7 @@ const HomeStack = createStackNavigator({
 }, {
   initialRouteName: 'home',
   navigationOptions,
-  transitionConfig: TransitionConfiguration,
+  // transitionConfig: TransitionConfiguration,
 });
 
 
@@ -39,7 +39,7 @@ const SettingsStack = createStackNavigator({
 }, {
   initialRouteName: 'more',
   navigationOptions,
-  transitionConfig: TransitionConfiguration,
+  // transitionConfig: TransitionConfiguration,
 });
 
 

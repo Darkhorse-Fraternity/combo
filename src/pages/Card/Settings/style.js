@@ -44,7 +44,7 @@ export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
   margin: 7.5px 15px;
-  background-color: ${props => props.theme.buttonItem};
+  background-color: ${props => props.theme.textinputbackgroundColor};
   width:${props => props.theme.width>340?props.theme.width/4: 
     props.theme.width/3 };
   border-radius: 10px;

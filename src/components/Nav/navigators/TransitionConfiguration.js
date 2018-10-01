@@ -10,8 +10,7 @@ import {
     Easing
 } from 'react-native'
 
-import CardStackStyleInterpolator from
-    'react-navigation/src/views/StackView/StackViewStyleInterpolator';
+// import {HeaderStyleInterpolator} from 'react-navigation';
 import * as Transition from './Transition'
 
 
@@ -32,7 +31,7 @@ export  const TransitionConfiguration = () => ({
         {transition = 'forFadeFromBottomAndroid'}
 
         const StackTransitions = {
-            ...CardStackStyleInterpolator,
+            // ...HeaderStyleInterpolator,
             ...Transition
         }
         return StackTransitions[transition](sceneProps);

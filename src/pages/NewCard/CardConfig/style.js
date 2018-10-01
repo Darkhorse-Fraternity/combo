@@ -129,3 +129,12 @@ export const StyledNotifyTime = styled.Text`
     text-align: center;
     color:${materialColors.blackSecondary}
 `
+
+
+export const StyledLogoImage = styled.Image`
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+`
