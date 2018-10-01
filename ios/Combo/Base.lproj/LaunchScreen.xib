@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,26 +15,26 @@
             <rect key="frame" x="0.0" y="0.0" width="611" height="709"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="ComboLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-7r-pjA">
-                    <rect key="frame" x="223.5" y="506" width="164" height="155"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="155" id="icM-aE-U10"/>
-                        <constraint firstAttribute="width" constant="164" id="jte-VS-jJ7"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小改变，大不同" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqK-44-hR0">
-                    <rect key="frame" x="252" y="644" width="107.5" height="18"/>
+                    <rect key="frame" x="252" y="623" width="107.5" height="18"/>
                     <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                     <color key="textColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="ComboLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-7r-pjA">
+                    <rect key="frame" x="245.5" y="503" width="120" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="icM-aE-U10"/>
+                        <constraint firstAttribute="width" constant="120" id="jte-VS-jJ7"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.99992293119430542" green="1" blue="0.99988037347793579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="MqK-44-hR0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2He-s8-MCV"/>
                 <constraint firstItem="bSU-7r-pjA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="XQ8-m9-Ui4"/>
-                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="229" id="deH-FY-u0g"/>
-                <constraint firstItem="MqK-44-hR0" firstAttribute="top" secondItem="bSU-7r-pjA" secondAttribute="bottom" constant="-17" id="tQb-7K-gUV"/>
+                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="208.5" id="deH-FY-u0g"/>
+                <constraint firstItem="MqK-44-hR0" firstAttribute="top" secondItem="bSU-7r-pjA" secondAttribute="bottom" id="tQb-7K-gUV"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
