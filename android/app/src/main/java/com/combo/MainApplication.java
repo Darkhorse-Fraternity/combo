@@ -26,7 +26,6 @@ import com.facebook.soloader.SoLoader;
 import com.github.yamill.orientation.OrientationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.theweflex.react.WeChatPackage;
 import com.wix.interactable.Interactable;
 import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
