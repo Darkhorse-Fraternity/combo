@@ -2,6 +2,9 @@ import HeaderBackImage from './HeaderBackImage'
 import {
   Platform,
 } from 'react-native'
+import { strings } from '../../../../locales/i18n';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import React from 'react';
 
@@ -29,4 +32,24 @@ export const navigationOptions = {
   headerBackImage:(Platform.OS === "ios" && <HeaderBackImage/>),
   headerBackTitle: null,
   gesturesEnabled: true,
+}
+
+
+export const tabsOptions = {
+  Punch:{
+    iconName:'check-decagram',
+    labelName:'Now',
+    Icon:MaterialCommunityIcons
+
+  },
+  Home:{
+    iconName:'md-sunny',
+    labelName:strings('tabs.home'),
+    Icon:Ionicons
+  },
+  Settings:{
+    iconName:'ios-happy',
+    labelName: strings('tabs.more'),
+    Icon:Ionicons
+  }
 }

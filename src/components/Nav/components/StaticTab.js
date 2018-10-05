@@ -13,26 +13,28 @@ import {
 } from 'react-navigation';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
+
+
+
 // import * as Animatable from 'react-native-animatable';
 import { strings } from '../../../../locales/i18n';
 
 import {
   homeRoute,
   settingRoute,
+  PunchRoute
 } from '../../../pages'
-import { navigationOptions } from './navigationOptions'
+import { navigationOptions, tabsOptions } from './navigationOptions'
 // import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
-const doStack = createStackNavigator({
-  ...settingRoute,
+const PunchStack = createStackNavigator({
+  ...PunchRoute,
 }, {
-  initialRouteName: 'do',
+  initialRouteName: 'punch',
   navigationOptions,
   // transitionConfig: TransitionConfiguration,
 });
-
 
 
 const HomeStack = createStackNavigator({
@@ -53,25 +55,17 @@ const SettingsStack = createStackNavigator({
 });
 
 
-
-
 export default createBottomTabNavigator(
   {
+    Punch: PunchStack,
     Home: HomeStack,
     Settings: SettingsStack,
   },
   {
     navigationOptions: ({ navigation }) => {
       const { routeName, index } = navigation.state;
-      let iconName;
-      let labelName;
-      if (routeName === 'Home') {
-        iconName = `md-sunny`;
-        labelName = 'Now'
-      } else if (routeName === 'Settings') {
-        iconName = `ios-happy`;
-        labelName = strings('tabs.more')
-      }
+      const { iconName, labelName,Icon } = tabsOptions[routeName]
+
       return {
         // header:null,
         tabBarIcon: ({ focused, tintColor }) => {
@@ -80,7 +74,7 @@ export default createBottomTabNavigator(
 
           // You can return any component that you like here! We usually use an
           // icon component from react-native-vector-icons
-          return <Ionicons
+          return <Icon
             // delay={1000}
             // iterationCount={iterationCount}
             name={iconName}
@@ -89,7 +83,7 @@ export default createBottomTabNavigator(
             color={tintColor}/>;
         },
         tabBarButtonComponent: TouchableBounce,
-        tabBarOnPress:  ({ navigation, defaultHandler }: args) => {
+        tabBarOnPress: ({ navigation, defaultHandler }: args) => {
           // console.log('test:', '1111');
           defaultHandler()
           // // console.log('test:', '222');

@@ -30,7 +30,7 @@ import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
 import Remind from './More/Remind'
-
+import Punch from './Punch'
 
 export const otherRoute = {
   earnings: { screen: Earnings },
@@ -60,11 +60,12 @@ export const otherRoute = {
   cardDetail: { screen: CardDetail },
   cardUse: { screen: CardUse },
   more: { screen: More },
-  pptDescribe: { screen: PPTDescribe }
+  pptDescribe: { screen: PPTDescribe },
 }
 
-export const doRoute = {
-
+export const PunchRoute = {
+  punch: {screen: Punch},
+  ...otherRoute
 }
 
 export const homeRoute = {
@@ -83,35 +84,7 @@ export const route = {
 }
 
 
-export const tabRoute = {
-  home: {
-    screen: Home,
-    path: '',
-  },
-  personCenter: {
-    screen: More,
-    path: '',
-  },
-}
 
-export const initialRouteName = {
-  initialRouteName: 'home',
-}
 
-export const tabiCon = {
-  Home: {
-    label: "Home",
-    color: '#F0C98B',
-    activityColor: '#F0C98B',
-    icon: 'md-sunny'
-  },
-  PersonCenter: {
-    label: "Setting",
-    color: '#F0C98B',
-    activityColor: '#F0C98B',
-    icon: "ios-happy"
-  },
-
-}
 
 

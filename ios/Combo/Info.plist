@@ -132,6 +132,7 @@
 	<string>小改变会在上传照片的服务中使用您的相册权限</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>iconfont.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>FontAwesome.ttf</string>
