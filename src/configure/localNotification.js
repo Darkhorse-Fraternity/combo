@@ -191,15 +191,12 @@ export default class PushManage extends Component {
     data.forEach(item => {
 
       if (item.statu !== 'start') {
+        //已经打卡了,就不用提醒了。
         return
       }
       //检查几个已经打卡了
-      const done = moment(2, "HH").isBefore(item.doneDate.iso)
+      const done = moment(1, "HH").isBefore(item.doneDate.iso)
       !done && unDoneCount++
-
-
-
-
 
 
       const recordDay = item.iCard.recordDay
@@ -214,7 +211,6 @@ export default class PushManage extends Component {
         notifyTimes.forEach(notifyTime => {
 
           // console.log('notifyTime:', notifyTime);
-
           const id = item.objectId + notifyTime
           let open = localRemindData[id]
           if (open || open === undefined) {

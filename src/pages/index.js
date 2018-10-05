@@ -63,6 +63,10 @@ export const otherRoute = {
   pptDescribe: { screen: PPTDescribe }
 }
 
+export const doRoute = {
+
+}
+
 export const homeRoute = {
   home: { screen: Home },
   ...otherRoute
@@ -71,6 +75,7 @@ export const homeRoute = {
 export const settingRoute = {
   ...otherRoute
 }
+
 
 
 export const route = {

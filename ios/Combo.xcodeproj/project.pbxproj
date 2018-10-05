@@ -81,6 +81,7 @@
 		CCBA7CB420B6D32B006F00DF /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF7B9431F4BD2380006AD0A /* libLRDRCTSimpleToast.a */; };
 		CCBA7CB520B6D33A006F00DF /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC998CD51FA2C1F90040ED73 /* libInteractable.a */; };
 		CCBDB6622057D9940097762A /* libKeyboardTrackingView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915DC201F234E007DDE65 /* libKeyboardTrackingView.a */; };
+		CCBDC8C7216779170090FF92 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCBDC884216779170090FF92 /* iconfont.ttf */; };
 		CCCE410720649C0800F282E3 /* libRCTQQAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1E4FFC2063B184002254CF /* libRCTQQAPI.a */; };
 		CCCE41892064A0F000F282E3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		CCCE418A2064A0F000F282E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -696,6 +697,7 @@
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCA715A52019C9DA00A25FB9 /* ComboEp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComboEp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBA7C6F20B6D160006F00DF /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
+		CCBDC884216779170090FF92 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		CCCE41C22064A0F000F282E3 /* Combo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Combo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFBC8051FEA79D000DA269C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CCFBC8331FEA7A3700DA269C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -975,6 +977,7 @@
 		75ECA9F6022C47239496F9FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CCBDC884216779170090FF92 /* iconfont.ttf */,
 				391D9D7617FC41D286881D39 /* Entypo.ttf */,
 				4863FC9BBD4846E195B11A28 /* EvilIcons.ttf */,
 				813FEAB873D3467994CE926B /* FontAwesome.ttf */,
@@ -2082,6 +2085,7 @@
 				CCCE41AE2064A0F000F282E3 /* Images.xcassets in Resources */,
 				CCCE41AF2064A0F000F282E3 /* InfoPlist.strings in Resources */,
 				CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */,
+				CCBDC8C7216779170090FF92 /* iconfont.ttf in Resources */,
 				CCCE41B12064A0F000F282E3 /* Entypo.ttf in Resources */,
 				CCCE41B22064A0F000F282E3 /* EvilIcons.ttf in Resources */,
 				CCCE41B32064A0F000F282E3 /* FontAwesome.ttf in Resources */,
@@ -2452,7 +2456,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2525,7 +2529,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2595,7 +2599,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2672,7 +2676,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 145;
+				CURRENT_PROJECT_VERSION = 147;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (

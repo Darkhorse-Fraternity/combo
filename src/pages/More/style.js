@@ -32,7 +32,7 @@ export const StyledHeaderTop = styled(Button)`
 
 
 export const StyledHeaderName = styled.Text`
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 300;
     max-width: 150px;
 `

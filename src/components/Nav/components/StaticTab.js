@@ -25,6 +25,16 @@ import { navigationOptions } from './navigationOptions'
 // import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
+const doStack = createStackNavigator({
+  ...settingRoute,
+}, {
+  initialRouteName: 'do',
+  navigationOptions,
+  // transitionConfig: TransitionConfiguration,
+});
+
+
+
 const HomeStack = createStackNavigator({
   ...homeRoute
 }, {
@@ -43,7 +53,8 @@ const SettingsStack = createStackNavigator({
 });
 
 
-const refs = {}
+
+
 export default createBottomTabNavigator(
   {
     Home: HomeStack,
