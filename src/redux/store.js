@@ -21,7 +21,6 @@ import {
     createNavigationReducer,
     createReactNavigationReduxMiddleware,
 } from 'react-navigation-redux-helpers'
-// import nav from "./reducers/nav";
 
 
 const rootReducer = (state, action) => {

@@ -33,7 +33,7 @@ export default class HeaderBtn extends Component {
                 disabled={disabled}
                 style={[styles.btn,{
                     paddingVertical:this.props.load?5:7,
-                    backgroundColor:disabled?'#bfc2c7':theme.sureColor,
+                    backgroundColor:disabled?theme.disabledColor:theme.sureColor,
                     borderRadius:5
                 }, this.props.style]}
                 hitSlop={this.props.hitSlop ||

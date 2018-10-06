@@ -37,7 +37,7 @@ import StopCell from './Cell/StopCell'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../components/Button'
-import { doCardWithNone } from '../../components/Button/DoCardButton/DoCard'
+import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView'
 import {claerByID} from '../../redux/actions/list'
 

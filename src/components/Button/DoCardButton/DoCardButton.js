@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { doCardWithNone } from '../../Button/DoCardButton/DoCard'
+import { doCardWithNone } from '../../Button/DoCardButton/doCardWithNone'
 import moment from 'moment'
 import {
     ActivityIndicator,

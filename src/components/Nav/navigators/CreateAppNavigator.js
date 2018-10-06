@@ -7,7 +7,6 @@ import { createStackNavigator,createSwitchNavigator} from 'react-navigation';
 import AuthLoadingScreen from '../auth/AuthLoadingView'
 import {
     route,
-
 } from '../../../pages'
 
 

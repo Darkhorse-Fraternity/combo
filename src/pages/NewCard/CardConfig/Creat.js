@@ -113,7 +113,7 @@ import * as Animatable from 'react-native-animatable';
       // dispatch((dispatch, getState) => {
       //
       // })
-      popToIndex()
+      dispatch(popToIndex())
 
       const iCardId = res.objectId
       // //询问是否立即使用。

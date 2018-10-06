@@ -3,49 +3,16 @@ import React from 'react';
 import { ICARD, IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys'
 import Pop from '../../Pop'
 import moment from 'moment'
-import Do from '../../../pages/Card/Do'
-import Diary from '../../../pages/Card/Do/Diary'
+
 import { classCreatNewOne } from '../../../request/leanCloud'
 import { selfUser, iCard, iUse } from '../../../request/LCModle'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import { addListNormalizrEntity, add } from '../../../redux/actions/list'
+import { add } from '../../../redux/actions/list'
 import { req, reqChangeData } from '../../../redux/actions/req'
 import Toast from 'react-native-simple-toast'
 
-export function doCardWithNone(data) {
-  return async (dispatch, getState) => {
-    const state = getState()
-    const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
-    if (iCardM.record.length > 0) {
-      Pop.show(<Do data={data}/>,
-        {
-          wrapStyle: { justifyContent: 'flex-start' },
-          maskStyle: {
-            backgroundColor: 'transparent',
-          }
-        })
-      return;
-    }
 
-    //在这边添加新的判断
-
-    // const IUseP = classUpdate(IUSE, id, param)
-    return await dispatch(creatIDO(data, iCardM,{type:0}))
-
-  }
-
-}
-
-export function recordDiary(data) {
-  Pop.show(<Diary data={data}/>,
-    {
-      wrapStyle: { justifyContent: 'flex-start' },
-      maskStyle: {
-        backgroundColor: 'transparent',
-      }
-    })
-}
 
 
 export function doCard(data, other) {

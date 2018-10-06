@@ -9,8 +9,8 @@ import Pop from '../../../components/Pop/index'
 import { connect } from 'react-redux'
 import Toast from 'react-native-simple-toast'
 
-import { ICARD, IDO, IUSE, IDOULIMAGE } from '../../../redux/reqKeys'
-import DoCardForm, { FormID } from '../../../components/Form/DoCardForm/index'
+import { ICARD, IDO, IDOULIMAGE } from '../../../redux/reqKeys'
+import { FormID } from '../../../components/Form/DoCardForm/index'
 //static displayName =
 import { doCard } from '../../../components/Button/DoCardButton/DoCard'
 import { formValueSelector } from 'redux-form/immutable'

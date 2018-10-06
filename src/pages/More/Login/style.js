@@ -78,7 +78,8 @@ export const StyledCodeButtonText = styled.Text`
 
 
 export const StyledSignInBtn = styled(HeaderBtn)`
-    background-color: #f1bd49;
+    background-color: ${props=>props.disabled?
+      props.theme.disabledColor:props.theme.mainColor};
     margin: 30px;
     padding:10.5px;
 `

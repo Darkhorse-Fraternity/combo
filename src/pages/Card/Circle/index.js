@@ -20,8 +20,7 @@ import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
 import Header from '../../Record/RecordRow/Header'
 import { IDO, REPORT } from '../../../redux/reqKeys'
-import Button from '../../../components/Button'
-import { recordDiary } from '../../../components/Button/DoCardButton/DoCard'
+import { recordDiary } from '../Do/Diary'
 
 const listKey = IDO
 

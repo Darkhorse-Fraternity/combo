@@ -18,8 +18,7 @@ import {
 import { BlurView } from 'react-native-blur';
 
 
-import { ICARD } from '../../../redux/reqKeys'
-import DoCardForm, { FormID } from '../../../components/Form/DoCardForm/index'
+import DoCardForm from '../../../components/Form/DoCardForm/index'
 //static displayName =
 
 export default class Do extends Component {

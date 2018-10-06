@@ -48,7 +48,7 @@ export const tabsOptions = {
     Icon:Ionicons
   },
   Settings:{
-    iconName:'ios-happy',
+    iconName:'ios-more',
     labelName: strings('tabs.more'),
     Icon:Ionicons
   }

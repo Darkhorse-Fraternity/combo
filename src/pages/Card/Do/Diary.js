@@ -93,3 +93,12 @@ export default class Diary extends Component {
 
 }
 
+export function recordDiary(data) {
+  Pop.show(<Diary data={data}/>,
+    {
+      wrapStyle: { justifyContent: 'flex-start' },
+      maskStyle: {
+        backgroundColor: 'transparent',
+      }
+    })
+}

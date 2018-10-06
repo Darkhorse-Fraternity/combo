@@ -29,7 +29,7 @@ import AgendaScreen from './agenda'
 import { user, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
 import { IDO, IUSE } from '../../../redux/reqKeys'
-import { recordDiary } from '../../../components/Button/DoCardButton/DoCard'
+import { recordDiary } from '../Do/Diary'
 const listKey = IDO
 
 import RecordRow from '../../Record/RecordRow'

@@ -156,24 +156,25 @@ export function update() {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function register(state: Object): Function {
+export function  register(state: Object): Function {
 
-  return dispatch => {
+  return async dispatch => {
     const params = requestUsersByMobilePhone(state.phone, state.ymCode,
       state.setPwd);
     dispatch(_loginRequest());
 
-    return req(params).then((response) => {
+    try {
+      const response = await req(params)
 
       dispatch(_loginSucceed(response));
-      dispatch(NavigationActions.navigate({
-        routeName: 'tab',
-        params: { transition: 'forVertical' }
-      }))
-    }).catch(e => {
+      dispatch(NavigationActions.navigate({ routeName: 'tab', }))
+      return response
+    }catch(e) {
       Toast.show(e.message)
       dispatch(_loginFailed());
-    })
+      return e
+    }
+
   }
 }
 
@@ -244,7 +245,6 @@ export function logout(): Function {
 
       // dispatch(navigatePush('TabView'));
       // Router.pop()
-      // popToIndex()
       // clearUserData();
 
       // storage.remove({ key: sessionTokenkey });
