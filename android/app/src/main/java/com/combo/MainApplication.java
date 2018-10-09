@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
-
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
