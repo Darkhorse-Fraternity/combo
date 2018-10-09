@@ -55,7 +55,7 @@ const listKey = ENCH
               ...selfUser(),
               amount
             }
-            await add(params, ENCH)
+            await dispatch(add(params, ENCH))
             Toast.show('我们已经收到了您的申请,耐心等待哦。')
             props.navigation.goBack()
           } else {

@@ -41,9 +41,8 @@ export default function listState(state: immutable.Map<string, any> = initialSta
       return state.setIn([action.key, 'loadStatu'], action.loadStatu);
 
     case LIST_SUCCEED: {
-
       return state.updateIn([action.key], (oldObj) => {
-        const oldData = action.page == 0 ? {} : oldObj.get("listData") || {}
+        const oldData = action.page === 0 ? [] : oldObj.get("listData") || []
         const listData = {
           loadStatu: action.loadStatu,
           page: action.page,

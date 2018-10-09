@@ -43,7 +43,7 @@ function creatIDO(iUseM, iCardM, other) {
     const iDoP = classCreatNewOne(IDO, iDoParma)
 
 
-    const res = await req(iDoP, IDO)
+    const res = await dispatch(req(iDoP, IDO))
 
     // console.log('res:', res);
     if (res.error) {

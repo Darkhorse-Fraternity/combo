@@ -17,52 +17,64 @@ import {list,entitys} from '../../redux/scemes'
 import {listReq} from '../actions/list'
 import {req} from  '../actions/req'
 export function add(params: Object, key: string, option: Object = {}) {
-
-    const lParams = classCreatNewOne(key, params)
-    return req(lParams, key, option)
+    return dispatch => {
+      const lParams = classCreatNewOne(key, params)
+      return dispatch(req(lParams, key, option))
+    }
 }
 
 export function update(objectId: string, params: Object, key: string, option: Object = {}) {
+  return dispatch => {
     const lParams = classUpdate(key, objectId, params)
-    return req(lParams, key, option)
-
+    return dispatch(req(lParams, key, option))
+  }
 }
 
 
 //新构建的全自动更新函数。
-export async function  updateByID(key,id,param,option) {
-    return update(id,param,key,{
+export function  updateByID(key,id,param,option) {
+    return dispatch => {
+      return dispatch(update(id,param,key,{
         dataMap:(data)=>{
-            return {
-                ...param,
-                ...data,
-            }
+          return {
+            ...param,
+            ...data,
+          }
         },
         sceme:entitys[key],
         ...option,
-    })
+      }))
+    }
+
 }
 
 
 export function remove(objectId: string, key: string, option: Object = {}) {
+    return dispatch => {
+      const lParams = classDelete(key, objectId)
+      return dispatch(req(lParams, key, option))
+    }
 
-    const lParams = classDelete(key, objectId)
-    return req(lParams, key, option)
 }
 
 export function find(key: string,params: Object, option: Object = {}) {
-    const lParams = classSearch(key,params)
-    return req(lParams, key, option)
+  return dispatch => {
+    const lParams = classSearch(key, params)
+    return dispatch(req(lParams, key, option))
+  }
 }
 
 export function findByID(key,id,option) {
+  return dispatch => {
     const params = {
-        where:{
-            objectId:id
-        },
-        limit:1,
+      where: {
+        objectId: id
+      },
+      limit: 1,
     }
-    return find(key, params, {sceme:list(entitys[key]),...option})
+    return dispatch(find(key, params,
+      { sceme: list(entitys[key]), ...option }))
+  }
 }
 
 export function search(more: bool,
@@ -91,6 +103,8 @@ export function followList(eeOrEr:'string') {
 }
 
 export function batch(reqs: array,key:string, option: Object = {}) {
+  return dispatch => {
     const params = classBatch(reqs)
-    return req(params,key,option)
+    return dispatch(req(params, key, option))
+  }
 }

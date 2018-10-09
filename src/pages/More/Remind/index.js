@@ -98,7 +98,7 @@ function PrefixInteger(num, length) {
           notifyTimes
         }
 
-        const res = await update(id, param, ICARD)
+        const res = await dispatch(update(id, param, ICARD))
 
         const entity = {
           ...param,
@@ -122,7 +122,7 @@ function PrefixInteger(num, length) {
           notifyTimes
         }
 
-        const res = await update(id, param, ICARD)
+        const res = await dispatch(update(id, param, ICARD))
 
         const entity = {
           ...param,

@@ -73,13 +73,13 @@ import { selfUser, iCard } from '../../../request/LCModle'
             const exParams = existSearch(REPORT, {
               where
             })
-            const res = await req(exParams)
+            const res = await dispatch(req(exParams))
             if (res.count > 0) {
               return Toast.show('已经举报了~!')
             }
 
             const params = classCreatNewOne(REPORT, where)
-            await  req(params)
+            await  dispatch(req(params))
             Toast.show('我们已受理!')
           }
         }]

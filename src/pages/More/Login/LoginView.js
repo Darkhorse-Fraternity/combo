@@ -70,7 +70,7 @@ import Button from '../../../components/Button'
     },
     authCode: (number) => {
       const parmas = requestSmsCode(number)
-      return req(parmas, AUTHCODE)
+      return dispatch(req(parmas, AUTHCODE))
     },
     qqLogin: () => {
       dispatch(qqLogin(QQLOGIN))

@@ -42,9 +42,9 @@ import {
   FOLLOWING,
   FRIENDNUM
 } from '../../../redux/reqKeys'
-import { findByID, find } from '../../../redux/module/leancloud'
+import {  find } from '../../../redux/module/leancloud'
 import Button from '../../../components/Button'
-import { req, reqChangeData } from '../../../redux/actions/req'
+import { req, reqChangeData,get } from '../../../redux/actions/req'
 import { courseReadNumAdd } from '../../../request/leanCloud'
 import {
   friendExist,
@@ -89,7 +89,7 @@ const hasReadmap = {}
             objectId: props.courseId
           },
         }
-        await find(COURSE, params, { sceme: list(entitys[COURSE]) })
+        await dispatch(find(COURSE, params, { sceme: list(entitys[COURSE]) }))
       }
 
     },
@@ -107,14 +107,14 @@ const hasReadmap = {}
         const userId = state.user.data.objectId
 
         const param = friendExist(userId, beFollowedUserId)
-        req(param, FRIENDEXIST + beFollowedUserId)
+        dispatch(req(param, FRIENDEXIST + beFollowedUserId))
       })
     },
     increaseReadNum: async (num, objectId) => {
 
       const hasReadmapKey = props.courseId + objectId
       if (props.courseId && !hasReadmap[hasReadmapKey] && num !== undefined) {
-        await req(courseReadNumAdd(props.courseId))
+        await get(courseReadNumAdd(props.courseId))
         const entity = {
           readNum: ++num,
           objectId,
@@ -138,7 +138,7 @@ const hasReadmap = {}
         // const selfNum = state.req.get(FRIENDNUM + userId).get('data').get('followees_count')
         if (isExist) {
           const param = friendshipDelete(userId, beFollowedUserId)
-          await req(param, FOLLOWING)
+          await dispatch(req(param, FOLLOWING))
           //取消关注，friendeExist 数据变更。
           //friendNum 数据-1
           dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 0 }))
@@ -146,13 +146,13 @@ const hasReadmap = {}
         } else {
 
           const param = friendshipAdd(userId, beFollowedUserId)
-          await req(param, FOLLOWING)
+          await dispatch(req(param, FOLLOWING))
           dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 1 }))
 
         }
 
         const param = friendNum(userId)
-        req(param, FRIENDNUM + userId)
+        dispatch(req(param, FRIENDNUM + userId))
 
       })
     }

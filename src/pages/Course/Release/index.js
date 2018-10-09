@@ -41,7 +41,7 @@ import CourseRowList from '../../Course/Info/CourseRowList'
     dataLoad: () => {
       const id = props.navigation.state.params.CourseId
       console.log('id:', id);
-      findByID(COURSE, id)
+      dispatch(findByID(COURSE, id))
     },
     add: async () => {
 
@@ -61,7 +61,7 @@ import CourseRowList from '../../Course/Info/CourseRowList'
         ...Course(course.objectId),
       }
       //
-      const res = await  await update(id, param, ICARD)
+      const res = await dispatch(update(id, param, ICARD))
       //
       const entity = {
         ...param,

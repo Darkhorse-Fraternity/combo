@@ -72,7 +72,7 @@ import { findByID } from "../../../redux/module/leancloud";
         find: () => {
             const id = props.navigation.state.params.iDoID
             console.log('id:', id);
-            findByID(IDO, id)
+            dispatch(findByID(IDO, id))
 
         },
         send: () => dispatch(async (dispatch, getState) => {
@@ -95,7 +95,7 @@ import { findByID } from "../../../redux/module/leancloud";
             // const res = await add(param, ICOMMENT)
 
 
-            const res = await add(param, ICOMMENT) //
+            const res = await dispatch(add(param, ICOMMENT)) //
 
             console.log('res:', res);
 
@@ -124,7 +124,7 @@ import { findByID } from "../../../redux/module/leancloud";
         }),
         delete: async (item) => {
             const iDoID = props.navigation.state.params.iDoID
-            await remove(item.objectId, ICOMMENT)
+            await dispatch(remove(item.objectId, ICOMMENT))
             dispatch(claerByID(ICOMMENT + iDoID, item.objectId))
         },
         copy: (item) => {
@@ -144,7 +144,7 @@ import { findByID } from "../../../redux/module/leancloud";
                     const params = {
                         commentNew: false
                     }
-                    const res = await update(iDoID, params, IDO)
+                    const res = await dispatch(update(iDoID, params, IDO))
 
                     iDoData = {
                         ...iDoData,

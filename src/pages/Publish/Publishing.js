@@ -110,7 +110,7 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
 
                     }
 
-                    const res = await  update(id, param, ICARD)
+                    const res = await  dispatch(update(id, param, ICARD))
 
 
                     if(res){
@@ -136,7 +136,7 @@ import { showImagePicker } from '../../components/ImagePicker/imagePicker'
             const param = {
                 state: data.state === 0 ? 1 : 0
             }
-            const res = await  update(id, param, ICARD)
+            const res = await  dispatch(update(id, param, ICARD))
 
             const entity = {
                 ...param,

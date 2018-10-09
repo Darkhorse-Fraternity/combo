@@ -72,7 +72,7 @@ import {
             const userId = props.navigation.state.params.user.objectId
             const param = friendNum(userId)
             // console.log('test000:', userId);
-            req(param, FRIENDNUM + userId)
+          dispatch(req(param, FRIENDNUM + userId))
         },
         loadfriendExist: () => {
             dispatch((dispatch, getState) => {
@@ -81,7 +81,7 @@ import {
                 const userId = state.user.data.objectId
 
                 const param = friendExist(userId, beFollowedUserId)
-                req(param, FRIENDEXIST + beFollowedUserId)
+              dispatch(req(param, FRIENDEXIST + beFollowedUserId))
             })
         },
         follow: (isExist, num) => {
@@ -98,7 +98,7 @@ import {
 
                 if (isExist) {
                     const param = friendshipDelete(userId, beFollowedUserId)
-                    req(param, FOLLOWING)
+                     dispatch(req(param, FOLLOWING))
                     //取消关注，friendeExist 数据变更。
                     //friendNum 数据-1
                     dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 0 }))
@@ -112,7 +112,7 @@ import {
 
                 } else {
                     const param = friendshipAdd(userId, beFollowedUserId)
-                    req(param, FOLLOWING)
+                    dispatch(req(param, FOLLOWING))
                     dispatch(reqChangeData(FRIENDEXIST + beFollowedUserId, { count: 1 }))
                     dispatch(reqChangeData(
                         FRIENDNUM + beFollowedUserId,

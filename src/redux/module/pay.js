@@ -33,13 +33,13 @@ export function pay(type, tradeId, amount, detail, description) {
 
             const ip = await getIp()
 
-            const data = await  req(userpay(
+            const data = await  dispatch(req(userpay(
                 type,
                 tradeId,
                 amount * 100,
                 detail,
                 '小改变的消费',
-                ip))
+                ip)))
 
 
             const obj = {
@@ -58,7 +58,7 @@ export function pay(type, tradeId, amount, detail, description) {
             const wechatRes = await dispatch(wechatPay(obj))
             const { errCode } = wechatRes
             if (errCode === 0) {
-                const lastRes = await req(payOrder('', tradeId))
+                await dispatch(req(payOrder('', tradeId)))
                 Toast.show('支付成功')
                 return dispatch(suc(wechatRes))
             } else {
@@ -67,19 +67,19 @@ export function pay(type, tradeId, amount, detail, description) {
 
 
         } else if (type === 'alipay_app') {
-            const res = await req(userpay(
+            const res = await dispatch(req(userpay(
                 type,
                 tradeId,
                 amount,
                 detail,
-                description))
+                description)))
             const aliPayRes = await dispatch(aliPay(res.data))
             const { alipay_trade_app_pay_response } = aliPayRes
             if (alipay_trade_app_pay_response) {
                 const { trade_no } = alipay_trade_app_pay_response
                 const params = payOrder(trade_no, tradeId)
                 Toast.show('支付成功')
-                const lastRes = await req(params)
+                await dispatch(req(params))
                 // console.log('lastRes:', lastRes);
                 return dispatch(suc(aliPayRes))
             } else {
@@ -88,7 +88,7 @@ export function pay(type, tradeId, amount, detail, description) {
 
         } else if (type === 'cash') {
             const params = payOrder('', tradeId)
-            const lastRes = await req(params)
+            const lastRes = await dispatch(req(params))
             Toast.show('支付成功')
             dispatch(update())//更新用户数据
             return dispatch(suc(lastRes))

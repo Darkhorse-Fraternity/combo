@@ -46,7 +46,7 @@ import Button from "../../components/Button";
                 state: -1
             }
 
-            const res = await  await update(id, param, ICARD)
+            const res = await dispatch(update(id, param, ICARD))
 
             const entity = {
                 ...param,
@@ -65,7 +65,7 @@ import Button from "../../components/Button";
                     statu: { "$ne": 'del' },
                 }
             })
-            req(params, IUSEExist)
+            dispatch(req(params, IUSEExist))
         },
         add: async (useNum = 0) => {
             const id = props.navigation.state.params.iCardID

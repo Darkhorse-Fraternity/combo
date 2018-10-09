@@ -88,7 +88,7 @@ const Archive = IUSE + "archive"
 
 
       const lParams = classUpdate(IUSE, id, param)
-      const res = await req(lParams, Archive)
+      const res = await dispatch(req(lParams, Archive))
       const entity = {
         ...param,
         ...res,
@@ -102,7 +102,7 @@ const Archive = IUSE + "archive"
         //cycle,
       }
       const lParams = classUpdate(IUSE, id, param)
-      const res = await req(lParams, Archive)
+      const res = await dispatch(req(lParams, Archive))
       const entity = {
         ...param,
         ...res,
@@ -119,7 +119,7 @@ const Archive = IUSE + "archive"
       }
       // const res = await update(id, param, IUSE)
       const lParams = classUpdate(IUSE, id, param)
-      const res = await req(lParams, 'updatePrivacy')
+      const res = await dispatch(req(lParams, 'updatePrivacy'))
       const entity = {
         ...param,
         ...res,
@@ -138,7 +138,7 @@ const Archive = IUSE + "archive"
             const param = {
               statu: 'del'
             }
-            const res = await update(objectId, param, IUSE)
+            const res = await dispatch(update(objectId, param, IUSE))
             const entity = {
               ...param,
               ...res
@@ -218,7 +218,7 @@ export default class Settings extends Component {
   }
 
   _renderRresh = (reflesh, params) => {
-    const { iCard, iUse } = params
+    const { iUse } = params
     let text = !reflesh ?
       "卡片归档" :
       "继续打卡"

@@ -111,18 +111,18 @@ import {daysText} from '../../../configure/enum'
     //...bindActionCreators({},dispatch),
     loadCard: () => {
       const { iCardId } = props.navigation.state.params
-      find(ICARD, {
+      dispatch(find(ICARD, {
         where: {
           objectId: iCardId
         },
         limit: 1,
         include: 'user,course'
-      }, { sceme: list(entitys[ICARD]) })
+      }, { sceme: list(entitys[ICARD]) }))
     },
     loadCourse: (course) => {
       if (course && !course.get('title')) {
         const id = course.get('objectId')
-        findByID(COURSE, id)
+        dispatch(findByID(COURSE, id))
       }
     },
     loadUser: (iCardUser) => {
@@ -131,7 +131,7 @@ import {daysText} from '../../../configure/enum'
       if (!iCardUser.nickname && iCardUser.objectId) {
 
         const param = getUserByID(iCardUser.objectId)
-        req(param, USER, { sceme: UserEntity })
+        dispatch(req(param, USER, { sceme: UserEntity }))
 
       }
     },
@@ -147,7 +147,7 @@ import {daysText} from '../../../configure/enum'
         ...iCard(card.objectId),
         // include: 'avatar'
       }
-      const res = await add(param, IUSE)
+      const res = await dispatch(add(param, IUSE))
       const entity = {
         ...param,
         ...res
@@ -169,7 +169,7 @@ import {daysText} from '../../../configure/enum'
           statu: { "$ne": 'del' },
         },
       })
-      req(params, IUSEExist, { sceme: schemas[IUSE] })
+      dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }))
     },
     onSubmit: async (iCardData, afterDone) => {
       return dispatch(async (dispatch, getState) => {
@@ -191,7 +191,7 @@ import {daysText} from '../../../configure/enum'
           const tradeId = new Date().getTime() + Atanisi + ''
 
           const description = '圈子_' + title + '的加入费用'
-          await add({
+          await dispatch(add({
             description,
             amount: price,
             ...pointModel('beneficiary', userId, '_User'),
@@ -199,7 +199,7 @@ import {daysText} from '../../../configure/enum'
             tradeId: Number(tradeId),
             ...selfUser(),
             ...iCard(objectId),
-          }, ORDER)
+          }, ORDER))
 
           const res = await dispatch(
             pay(types[ItemId],

@@ -83,7 +83,7 @@ import Avatar from '../../../components/Avatar'
         const user = getState().user.data
         const params = updateNickName(user.objectId, nickname);
 
-        await req(params, UPDATENICKNAME)
+        await dispatch(req(params, UPDATENICKNAME))
 
 
         Toast.show('修改成功');

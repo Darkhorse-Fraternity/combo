@@ -31,7 +31,7 @@ import {
   loadAccount,
 } from '../../configure/storage'
 
-import { req } from './req'
+import { get } from './req'
 import { NavigationActions } from 'react-navigation';
 import { setLeanCloudSession } from '../../configure/reqConfigs'
 // *** Action Types ***
@@ -104,7 +104,7 @@ export function userInfo() {
     if (sessionToken) {
       setLeanCloudSession(sessionToken)
       const params = usersMe()
-      const res = await req(params)
+      const res = await get(params)
       dispatch(_loginSucceed(res));
       return res;
     }else {
@@ -129,7 +129,7 @@ export function login(state: Object): Function {
     dispatch(_loginRequest());
 
 
-    return req(parame).then((response) => {
+    return get(parame).then((response) => {
       if (response.statu) {
         //加入sessionToken
         dispatch(_loginSucceed(response));
@@ -146,7 +146,7 @@ export function login(state: Object): Function {
 export function update() {
   return async dispatch => {
     const params = usersMe()
-    const res = await req(params)
+    const res = await get(params)
     return dispatch(updateUserData(res))
   }
 }
@@ -164,10 +164,11 @@ export function  register(state: Object): Function {
     dispatch(_loginRequest());
 
     try {
-      const response = await req(params)
+      const response = await get(params)
 
       dispatch(_loginSucceed(response));
-      dispatch(NavigationActions.navigate({ routeName: 'tab', }))
+      dispatch(NavigationActions.navigate({
+        routeName: 'tab'}))
       return response
     }catch(e) {
       Toast.show(e.message)
@@ -296,7 +297,7 @@ export function getUserByObjectID(objectID: string, callBack: Function): Functio
   return dispatch => {
     dispatch(_loginRequest());
     const param = getUserByID(objectID);
-    return req(param, (response) => {
+    return get(param, (response) => {
 
       if (response) {
         dispatch(_loginSucceed(response));
@@ -321,12 +322,12 @@ export function weChatLogin(Key) {
 
       //获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code)
-      const weInfo = await req(wechatInfoParam)
+      const weInfo = await get(wechatInfoParam)
       const { access_token, openid } = weInfo
       // console.log('weInfo:', weInfo);
 
       const userInfoParmas = thirdLogin('weixin', weInfo)
-      const user = await req(userInfoParmas)
+      const user = await get(userInfoParmas)
       if (user.sessionToken) {
         dispatch(_loginSucceed(user));
         dispatch(NavigationActions.navigate({
@@ -342,7 +343,7 @@ export function weChatLogin(Key) {
       let exData = {}
       if (user.sessionToken && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid)
-        const userInfo = await req(userInfoParams)
+        const userInfo = await get(userInfoParams)
         let { nickname, headimgurl } = userInfo
 
         nickname = user.nickname || nickname
@@ -351,7 +352,7 @@ export function weChatLogin(Key) {
           headimgurl
         }
         const params = bindingToUser(user.objectId, exData)
-        const res = await req(params)
+        const res = await get(params)
 
         dispatch(updateUserData({
           ...exData,
@@ -391,7 +392,7 @@ export function qqLogin(Key) {
         return dispatch(thirdLoaded(''))
       }
       const userInfoParmas = thirdLogin('qq', qqConfig)
-      const user = await req(userInfoParmas)
+      const user = await get(userInfoParmas)
       if (user.sessionToken) {
         dispatch(_loginSucceed(user));
         dispatch(NavigationActions.navigate({
@@ -407,7 +408,7 @@ export function qqLogin(Key) {
       if (user.sessionToken && !user.headimgurl) {
         const { access_token, oauth_consumer_key, openid } = qqConfig
         const userInfoParams = QQUserInfo(access_token, oauth_consumer_key, openid)
-        const info = await req(userInfoParams)
+        const info = await get(userInfoParams)
         const userInfo = JSON.parse(info)
         let { nickname, figureurl_qq_2 } = userInfo
         nickname = user.nickname || nickname
@@ -417,7 +418,7 @@ export function qqLogin(Key) {
         }
         const params = bindingToUser(user.objectId, exData)
         // console.log('params:', params);
-        const res = await req(params)
+        const res = await get(params)
 
         dispatch(updateUserData({
           ...exData,
@@ -451,7 +452,7 @@ export function wechatBinding(KEY) {
 
       //获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code)
-      const weInfo = await req(wechatInfoParam)
+      const weInfo = await get(wechatInfoParam)
       const { access_token, openid } = weInfo
 
       //获取微信用户信息
@@ -460,7 +461,7 @@ export function wechatBinding(KEY) {
       let exData = {}
       if (openid && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid)
-        const userInfo = await req(userInfoParams)
+        const userInfo = await get(userInfoParams)
         let { nickname, headimgurl } = userInfo
 
         nickname = user.nickname || nickname
@@ -507,7 +508,7 @@ export function qqBinding(KEY) {
 
       if (!user.headimgurl) {
         const params = QQUserInfo(access_token, oauth_consumer_key, openid)
-        const info = await req(params)
+        const info = await get(params)
         const userInfo = JSON.parse(info)
 
         let { nickname, figureurl_2, figureurl_qq_2 } = userInfo
@@ -551,7 +552,7 @@ export function bindingAuthData(key, loadKey, ad, exData) {
     const state = getState()
     const userId = state.user.data.objectId;
     const params = bindingAuthDataToUser(userId, key, ad, exData)
-    const res = await req(params, loadKey)
+    const res = await get(params, loadKey)
 
     const authData = {
       ...state.user.data.authData,

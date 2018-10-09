@@ -53,7 +53,7 @@ import { withTheme } from 'styled-components'
                     }
                 }
                 const params = classSearch(IDO, param)
-                req(params, IDOCALENDAR, {
+                dispatch(req(params, IDOCALENDAR, {
                     dataMap: datas => {
 
                         datas.results.forEach(item => {
@@ -64,7 +64,7 @@ import { withTheme } from 'styled-components'
                         // console.log('first:', first,datas,data);
                         return data
                     }
-                })
+                }))
 
             })
         },

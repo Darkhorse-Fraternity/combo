@@ -98,7 +98,7 @@ import * as Animatable from 'react-native-animatable';
       }
 
 
-      const res = await add(param, ICARD)
+      const res = await dispatch(add(param, ICARD))
       const entity = {
         ...param,
         ...res
@@ -156,7 +156,7 @@ import * as Animatable from 'react-native-animatable';
         ...iCard(iCardId),
         statu: 'start',
       }
-      const addRes = await add(addParam, IUSE)
+      const addRes = await dispatch(add(addParam, IUSE))
       const addEntity = {
         ...addParam,
         ...addRes

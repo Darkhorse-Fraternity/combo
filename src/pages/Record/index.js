@@ -61,7 +61,7 @@ Animatable.initializeRegistryWithDefinitions({ heightZoomIn })
       const param = {
         statu: 'del'
       }
-      const res = await update(objectId, param, IUSE)
+      const res = await dispatch(update(objectId, param, IUSE))
       const entity = {
         ...param,
         ...res

@@ -33,7 +33,7 @@ import {mainColor} from '../../../Theme/index'
                 try {
                     const user = getState().user.data
                     const params = feedbackParam(content, user.mobilePhoneNumber);
-                    await req(params,FEEDBACKPARAM)
+                    await dispatch(req(params,FEEDBACKPARAM))
                     Toast.show('我们收到了您的意见~')
                     props.navigation.goBack()
                 } catch (e) {

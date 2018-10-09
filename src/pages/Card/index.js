@@ -80,7 +80,7 @@ import {claerByID} from '../../redux/actions/list'
                 statu: 'stop',
             }
 
-            const res = await  await update(id, param, IUSE)
+            const res = await  dispatch(update(id, param, IUSE))
 
             const entity = {
                 ...param,
@@ -98,7 +98,7 @@ import {claerByID} from '../../redux/actions/list'
                 limit: 0,
                 count: 1,
             })
-            req(params, 'StopIUSEexist')
+          dispatch(req(params, 'StopIUSEexist'))
         }
 
     })

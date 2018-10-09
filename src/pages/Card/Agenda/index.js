@@ -62,7 +62,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
             const param = {
               statu: 'stop',
             }
-            const res = await update(id, param, IUSE)
+            const res = await dispatch(update(id, param, IUSE))
             const entity = {
               ...param,
               ...res,

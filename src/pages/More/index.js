@@ -55,7 +55,7 @@ import Avatar from '../../components/Avatar'
       dispatch((dispatch, getState) => {
         const userId = getState().user.data.objectId
         const param = friendNum(userId)
-        req(param, FRIENDNUM + userId)
+        dispatch(req(param, FRIENDNUM + userId))
       })
     },
 
@@ -113,7 +113,7 @@ export default class More extends Component {
   };
 
   componentDidMount() {
-    this.props.loadFriendNum()
+    // this.props.loadFriendNum()
   }
 
   _renderHeadRow() {

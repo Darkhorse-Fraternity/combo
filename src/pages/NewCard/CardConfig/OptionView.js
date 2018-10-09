@@ -81,7 +81,7 @@ const FormID = 'CreatCardForm'
                      notifyTimes
                 }
 
-                const res = await update(id, param, ICARD)
+                const res = await dispatch(update(id, param, ICARD))
 
                 const entity = {
                     ...param,

@@ -62,7 +62,7 @@ import { find } from '../../../redux/module/leancloud'
               objectId: props.courseId
             },
           }
-          await find(COURSE, params, { sceme: list(entitys[COURSE]) })
+          await dispatch(find(COURSE, params, { sceme: list(entitys[COURSE]) }))
         }
       })
     },
