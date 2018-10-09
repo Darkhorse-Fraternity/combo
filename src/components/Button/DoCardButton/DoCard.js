@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ICARD, IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys'
-import Pop from '../../Pop'
+
 import moment from 'moment'
 
 import { classCreatNewOne } from '../../../request/leanCloud'
@@ -29,7 +29,7 @@ export function doCard(data, other) {
   }
 }
 
-function creatIDO(iUseM, iCardM, other) {
+export function creatIDO(iUseM, iCardM, other) {
   return async (dispatch) => {
 
 

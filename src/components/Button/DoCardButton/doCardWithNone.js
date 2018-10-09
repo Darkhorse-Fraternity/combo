@@ -1,7 +1,8 @@
-
+import Pop from '../../Pop'
 import Do from '../../../pages/Card/Do'
+import React from 'react'
 import {creatIDO} from './DoCard'
-
+import { ICARD } from '../../../redux/reqKeys'
 export function doCardWithNone(data) {
   return async (dispatch, getState) => {
     const state = getState()

@@ -23,14 +23,6 @@ import {
 } from 'react-navigation-redux-helpers'
 
 
-const rootReducer = (state, action) => {
-    if (action.type === 'LOGOUT') {
-        const {nav} = state
-        state = {nav}
-    }
-    return reducer(state, action)
-}
-
 
 const navReducer = createNavigationReducer(AppNavigator);
 const reducer = combineReducers({
@@ -38,6 +30,16 @@ const reducer = combineReducers({
     nav: navReducer,
     form
 });
+
+
+const rootReducer = (state, action) => {
+  if (action.type === 'LOGOUT') {
+    const {nav} = state
+    state = {nav}
+  }
+  return reducer(state, action)
+}
+
 
 const middleware = createReactNavigationReduxMiddleware(
     "root",
