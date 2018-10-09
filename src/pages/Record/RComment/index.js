@@ -89,7 +89,7 @@ import { findByID } from "../../../redux/module/leancloud";
             const text = selector(state, Name)
             const param = {
                 text,
-                ...selfUser(),
+                ...dispatch(selfUser()),
                 ...iDo(iDoID)
             }
             // const res = await add(param, ICOMMENT)

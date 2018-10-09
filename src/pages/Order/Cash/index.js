@@ -52,7 +52,7 @@ const listKey = ENCH
               account,
               name,
               enchId,
-              ...selfUser(),
+              ...dispatch(selfUser()),
               amount
             }
             await dispatch(add(params, ENCH))

@@ -34,7 +34,7 @@ function creatIDO(iUseM, iCardM, other) {
 
 
     const iDoParma = {
-      ...selfUser(),
+      ...dispatch(selfUser()),
       ...iUse(iUseM.objectId),
       ...iCard(iCardM.objectId),
       ...other

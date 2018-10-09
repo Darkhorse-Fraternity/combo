@@ -61,7 +61,7 @@ import Button from "../../components/Button";
             const params = existSearch(IUSE, {
                 where: {
                     ...iCard(id),
-                    ...selfUser(),
+                    ...dispatch(selfUser()),
                     statu: { "$ne": 'del' },
                 }
             })
@@ -74,10 +74,10 @@ import Button from "../../components/Button";
                 time: 0,
                 // notifyTime:option&&option.notifyTime||"20.00",
                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
-                ...selfUser(),
+                ...dispatch(selfUser()),
                 ...iCard(id)
             }
-            const res = await add(param, IUSE)
+            const res = await dispatch(add(param, IUSE))
             const entity = {
                 ...param,
                 ...res

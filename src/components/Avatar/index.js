@@ -14,7 +14,8 @@ import PropTypes from 'prop-types';
 
 import {
   StyledContent,
-  StyledAvatar
+  StyledAvatar,
+  StyledIndicator
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -37,18 +38,20 @@ export default class Avatar extends Component {
 
   static propTypes = {
     type: PropTypes.string,
-    width: PropTypes.number
+    width: PropTypes.number,
+    load: PropTypes.bool
   };
   static defaultProps = {
     type: 'small',
-    radius:40
+    radius: 40,
+    load: false,
   };
 
 
   render(): ReactElement<any> {
 
 
-    const {radius ,user} = this.props
+    const { radius, user, load } = this.props
     const { avatar, headimgurl, } = user
     const avatarUrl = avatar ? avatar.url : headimgurl
     const avatarSource = avatarUrl ? { uri: avatarUrl } :
@@ -56,9 +59,10 @@ export default class Avatar extends Component {
 
     return (
       <StyledContent radius={radius}>
-        <StyledAvatar
-          radius={radius}
-          source={avatarSource}/>
+        {load ? <StyledIndicator radius={radius}/> :
+          <StyledAvatar
+            radius={radius}
+            source={avatarSource}/>}
       </StyledContent>
     );
   }

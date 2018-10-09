@@ -1,4 +1,3 @@
-import store from '../../redux/store'
 import {NavigationActions} from 'react-navigation';
 import {
     Platform,

@@ -60,7 +60,7 @@ import {claerByID} from '../../redux/actions/list'
 
             dispatch(search(false, {
                 where: {
-                    ...selfUser(),
+                    ...dispatch(selfUser()),
                     statu: 'start'
                 },
                 order: 'doneDate',
@@ -92,7 +92,7 @@ import {claerByID} from '../../redux/actions/list'
         exist: async () => {
             const params = classSearch(IUSE, {
                 where: {
-                    ...selfUser(),
+                  ...dispatch(selfUser()),
                     statu: 'stop',
                 },
                 limit: 0,

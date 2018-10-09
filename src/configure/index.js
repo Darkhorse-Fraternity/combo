@@ -51,7 +51,7 @@ export default class Configure extends React.Component {
 
   config = () => {
     epUpdate()
-    pushConfig()
+    this.props.dispatch(pushConfig())
     if (Platform.OS !== 'ios') {
       UIManager.setLayoutAnimationEnabledExperimental &&
       UIManager.setLayoutAnimationEnabledExperimental(true);

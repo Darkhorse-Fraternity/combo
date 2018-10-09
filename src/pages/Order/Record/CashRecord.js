@@ -70,9 +70,10 @@ export default class CashRecord extends Component {
   }
 
   render(): ReactElement<any> {
+    const {dispatch} = this.props.navigation
     const param = {
       'where': {
-        ...selfUser()
+        ...dispatch(selfUser())
       }
     }
 

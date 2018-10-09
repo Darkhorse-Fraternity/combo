@@ -46,7 +46,7 @@ import Avatar from '../../components/Avatar'
 
 @connect(
   state => ({
-    avatar: state.util.get('loadAvatar').toObject(),
+    loadAvatar: state.util.get('loadAvatar'),
     user: state.user,
     friendNum: state.req.get(FRIENDNUM + state.user.data.objectId),
   }),
@@ -119,8 +119,8 @@ export default class More extends Component {
   _renderHeadRow() {
     // let {grade_str,connect_phone} = data;
     // console.log('test111:',data.avatar.url)
-
-    const { data } = this.props.user
+    const { loadAvatar, user } = this.props
+    const { data } = user
 
     const name = data.nickname || '陌生人'
 
@@ -131,7 +131,7 @@ export default class More extends Component {
           this.props.navigation.navigate('account')
         }}>
           <StyledAvatarView>
-            <Avatar/>
+            <Avatar load={loadAvatar}/>
             {/*<View style={{*/}
             {/*marginTop: 10,*/}
             {/*flexDirection: 'row',*/}
@@ -270,7 +270,7 @@ export default class More extends Component {
         })}
 
         {this._renderRow('到应用商店评价', false, this.props.rate)}
-        <View style={{ height: 100}}/>
+        <View style={{ height: 100 }}/>
 
       </View>
     )

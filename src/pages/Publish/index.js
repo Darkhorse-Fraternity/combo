@@ -37,6 +37,7 @@ import {
   state => ({
     data: state.normalizr.get(listKey)
   }),
+  dispatch => ({})
 )
 
 export default class Publish extends Component {
@@ -95,9 +96,12 @@ export default class Publish extends Component {
   render() {
 
     //state 不为-1的时候
+
+
+    const {dispatch} = this.props.navigation
     const param = {
       'where': {
-        ...selfUser(),
+        ...dispatch(selfUser()),
         $or: [
           { state: 1, },
           { useNum: { "$gt": 1 } }

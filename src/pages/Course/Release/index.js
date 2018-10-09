@@ -47,9 +47,9 @@ import CourseRowList from '../../Course/Info/CourseRowList'
 
       //创建 Course
       const courseParam = {
-        ...selfUser(),
+        ...dispatch(selfUser()),
       }
-      const course = await add(courseParam, COURSE)
+      const course = await dispatch(add(courseParam, COURSE))
       const courseEntity = {
         ...courseParam,
         ...course

@@ -65,7 +65,7 @@ import { selfUser, iCard } from '../../../request/LCModle'
         [{ text: '取消' }, {
           text: '确定', onPress: async () => {
             const where = {
-              ...selfUser(),
+              ...dispatch(selfUser()),
               ...iCard(props.iCard.get('objectId')),
 
             }

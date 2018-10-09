@@ -19,7 +19,7 @@ export const APP_STATE_UPDATE = 'APP_STATE_UPDATE'
 export const LOCAL_REMIND = 'LOCAL_REMIND'
 
 import { bindingFileToUser } from '../../request/leanCloud'
-import { updateUserData } from './user'
+
 import Toast from 'react-native-simple-toast'
 import { uploadFilesByLeanCloud } from '../../request/uploadAVImage'
 
@@ -28,17 +28,17 @@ export function uploadAvatar(uri: string): Function {
     const state = getState()
     const user = state.user.data
     try {
-
+       dispatch(avatarStatu(true))
       let res = await uploadFilesByLeanCloud([uri])
       res = res[0]
       const bindUserParam = bindingFileToUser(user.objectId, res.id, 'avatar');
       await dispatch(req(bindUserParam))
-
-      const avatar = {
+      dispatch(avatarStatu(false))
+      return  {
         objectId: res.id,
         url: res.url(),
       }
-      dispatch(updateUserData({ avatar }))
+      // dispatch(updateUserData({ avatar }))
     } catch (e) {
       console.log('test:', e.message);
       Toast.show(e.message)
@@ -92,5 +92,13 @@ export function localRemindLoad(data) {
   return {
     type:LOCAL_REMIND,
     data
+  }
+}
+
+
+function avatarStatu(statu) {
+  return {
+    type:LOAD_AVATAR,
+    statu
   }
 }

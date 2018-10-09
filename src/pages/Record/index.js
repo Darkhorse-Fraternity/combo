@@ -74,7 +74,7 @@ Animatable.initializeRegistryWithDefinitions({ heightZoomIn })
       //刷新首页的数据
       dispatch(search(false, {
         where: {
-          ...selfUser(),
+          ...dispatch(selfUser()),
           statu: 'start'
         },
         order: 'doneDate'
@@ -112,8 +112,8 @@ export default class Record extends Component {
 
   _renderHeader = () => {
     return (
-      <StyledHeader >
-        <StyledHeaderTitle >
+      <StyledHeader>
+        <StyledHeaderTitle>
           已归档卡片
         </StyledHeaderTitle>
       </StyledHeader>
@@ -179,12 +179,12 @@ export default class Record extends Component {
 
   render() {
 
-
-    const { params } = this.props.navigation.state
+    const { dispatch, state } = this.props.navigation
+    const { params } = state
     const statu = params ? params.statu : { "$ne": 'del' }
     const param = {
       where: {
-        ...selfUser(),
+        ...dispatch(selfUser()),
         statu,
       },
       include: ICARD,

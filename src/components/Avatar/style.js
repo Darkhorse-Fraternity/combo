@@ -23,3 +23,10 @@ export const StyledAvatar = styled.Image`
     height:${props=>props.radius * 2};
     border-radius: ${props=>props.radius};
 `
+
+export const StyledIndicator = styled.ActivityIndicator`
+    align-self: center;
+    width:${props => props.radius * 2};
+    height:${props => props.radius * 2};
+    border-radius: ${props => props.radius};
+`

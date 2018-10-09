@@ -143,7 +143,7 @@ import {daysText} from '../../../configure/enum'
         privacy: Privacy.open,//对外开放
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
-        ...selfUser(),
+        ...dispatch(selfUser()),
         ...iCard(card.objectId),
         // include: 'avatar'
       }
@@ -165,7 +165,7 @@ import {daysText} from '../../../configure/enum'
       const params = classSearch(IUSE, {
         where: {
           ...iCard(id),
-          ...selfUser(),
+          ...dispatch(selfUser()),
           statu: { "$ne": 'del' },
         },
       })
@@ -197,7 +197,7 @@ import {daysText} from '../../../configure/enum'
             ...pointModel('beneficiary', userId, '_User'),
             payType: types[ItemId],
             tradeId: Number(tradeId),
-            ...selfUser(),
+            ...dispatch(selfUser()),
             ...iCard(objectId),
           }, ORDER))
 

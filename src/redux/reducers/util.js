@@ -12,9 +12,7 @@ import {
 } from '../actions/util'
 import * as immutable from 'immutable';
 const initialUtilState = immutable.fromJS({
-    loadAvatar: {
-        statu: "success",
-    },
+    loadAvatar: false,
     appState:'',
     loadStatu:{},
     localRemind:{},
@@ -23,7 +21,7 @@ const initialUtilState = immutable.fromJS({
 export default function drawState(state: immutable.Map<string,any> = initialUtilState, action: Object) {
     switch (action.type) {
         case LOAD_AVATAR: {
-            return state.setIn(['loadAvatar', 'statu'], action.statu);
+            return state.setIn(['loadAvatar'], action.statu);
         }
 
         case DATA_STORAGE: {

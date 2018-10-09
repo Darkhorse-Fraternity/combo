@@ -94,7 +94,7 @@ import * as Animatable from 'react-native-animatable';
         price: 0,
         state: 0,
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-        ...selfUser(),
+          ...dispatch(selfUser()),
       }
 
 
@@ -152,7 +152,7 @@ import * as Animatable from 'react-native-animatable';
         time: 0,
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
-        ...selfUser(),
+        ...dispatch(selfUser()),
         ...iCard(iCardId),
         statu: 'start',
       }

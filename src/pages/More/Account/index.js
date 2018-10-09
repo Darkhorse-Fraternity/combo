@@ -44,7 +44,8 @@ import Avatar from '../../../components/Avatar'
   state => ({
     user: state.user.data,
     wechatLoad: state.req.get(WECHATLOGIN).get('load'),
-    qqLoad: state.req.get(QQLOGIN).get('load')
+    qqLoad: state.req.get(QQLOGIN).get('load'),
+    loadAvatar: state.util.get('loadAvatar'),
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
@@ -59,7 +60,8 @@ import Avatar from '../../../components/Avatar'
         maxHeight: 500, // photos only
       })
       if (response.uri) {
-        dispatch(uploadAvatar(response.uri))
+        const avatar = await dispatch(uploadAvatar(response.uri))
+        return dispatch(updateUserData({avatar}))
       }
       // dispatch(pickerImage())
 
@@ -137,7 +139,7 @@ export default class Account extends React.Component {
         <Button onPress={onPress}>
           {/*<StyledTitle>修改头像</StyledTitle>*/}
           <StyledHeaderRow>
-            <Avatar/>
+            <Avatar load={this.props.loadAvatar}/>
             <StyledCaramerBackView>
               <StyledIcon
                 color={'white'}
