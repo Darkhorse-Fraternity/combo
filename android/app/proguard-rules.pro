@@ -29,5 +29,5 @@
 
 -dontwarn com.wix.reactnativekeyboardinput.**
 
--ignorewarnings
+#-ignorewarnings
 
