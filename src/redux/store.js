@@ -12,7 +12,7 @@ import thunk from 'redux-thunk';
 import * as immutable from 'immutable';
 import { Platform } from 'react-native';
 import * as reducers from './reducers'
-import {AppNavigator} from "../components/Nav/navigators/CreateAppNavigator";
+
 import tracking from './middleware/tracking'
 // import { combineReducers } from 'redux-immutablejs'
 import { reducer as form } from 'redux-form/immutable'
@@ -24,21 +24,10 @@ import {
 
 
 
-const navReducer = createNavigationReducer(AppNavigator);
-const reducer = combineReducers({
-    ...reducers,
-    nav: navReducer,
-    form
-});
 
 
-const rootReducer = (state, action) => {
-  if (action.type === 'LOGOUT') {
-    const {nav} = state
-    state = {nav}
-  }
-  return reducer(state, action)
-}
+
+
 
 
 const middleware = createReactNavigationReduxMiddleware(
@@ -64,12 +53,27 @@ if (__DEV__) {
 }
 
 
+let store
+export function creatStore(route) {
+  if(!store && route){
+    const navReducer = createNavigationReducer(route);
+    const reducer = combineReducers({
+      ...reducers,
+      nav: navReducer,
+      form
+    });
+    const rootReducer = (state, action) => {
+      if (action.type === 'LOGOUT') {
+        const {nav} = state
+        state = {nav}
+      }
+      return reducer(state, action)
+    }
 
-const store = createStore(rootReducer, {}, enhancer);
-if (global.reduxNativeDevTools) {
-    global.reduxNativeDevToolsCompose(store);
+    store = createStore(rootReducer, {}, enhancer);
+    if (global.reduxNativeDevTools) {
+      global.reduxNativeDevToolsCompose(store);
+    }
+  }
+  return store
 }
-// return store;
-// }
-
-export default store

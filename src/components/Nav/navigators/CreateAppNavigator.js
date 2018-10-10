@@ -5,23 +5,22 @@ import WebView from '../../Base/BaseWebView'
 const Web = {WebView: {screen: WebView},}
 import { createStackNavigator,createSwitchNavigator} from 'react-navigation';
 import AuthLoadingScreen from '../auth/AuthLoadingView'
-import {
-    route,
-} from '../../../pages'
 
 
-export const AppNavigator = createSwitchNavigator({
-    // Auth: AuthStack,
-    ...route,
-    AuthLoading: AuthLoadingScreen,
-    tab: {screen: Tab,},
-    // WebView: {screen: WebView}
-}, {
 
-    // mode:'modal',
-    // headerMode: 'none',
-    initialRouteName: 'AuthLoading',
+export const creatAppNavigator = (route)=>{
+    return createSwitchNavigator({
+      // Auth: AuthStack,
+      ...route,
+      AuthLoading: AuthLoadingScreen,
+      tab: {screen: Tab,},
+      // WebView: {screen: WebView}
+    }, {
 
-});
+      // mode:'modal',
+      // headerMode: 'none',
+      initialRouteName: 'AuthLoading',
 
+    });
+}
 

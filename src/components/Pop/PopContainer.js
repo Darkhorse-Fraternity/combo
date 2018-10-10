@@ -11,7 +11,7 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import theme from '../../Theme'
 import { StyleSheet, ViewStyle } from 'react-native';
-import store from '../../redux/store'
+import {creatStore} from '../../redux/store'
 
 const styles = StyleSheet.create({
   wrapStyle: {
@@ -70,7 +70,7 @@ export default class PopupContainer extends React.Component<any> {
         onClose={this.onMaskClose}
         style={{ backgroundColor: 'transparent' }}
       >
-        <Provider store={store}>
+        <Provider store={creatStore()}>
           <ThemeProvider theme={theme}>
             {this.props.children}
           </ThemeProvider>
