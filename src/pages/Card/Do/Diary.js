@@ -34,7 +34,7 @@ import { formValueSelector } from 'redux-form/immutable'
           // const {files, ...otherState} = state
 
           const state = getState()
-          const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
+          // const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
 
           const selector = formValueSelector(FormID)
@@ -43,7 +43,7 @@ import { formValueSelector } from 'redux-form/immutable'
           imgs = imgs && imgs.toJS()
 
 
-          if (recordText.length === 0 || imgs.length === 0) {
+          if (recordText.length === 0 && imgs.length === 0) {
             Toast.show('总要记录些什么吧~')
             return;
           }

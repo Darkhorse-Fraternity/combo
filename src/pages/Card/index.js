@@ -184,8 +184,7 @@ export default class Card extends Component {
           {/*{course && course.get('statu') === 1 &&*/}
           {/*<Course {...this.props}*/}
           {/*tabLabel='课程'/>}*/}
-          {circleState === CircleState.open
-          && privacy === Privacy.open &&
+          {circleState === CircleState.open &&
           <Circle {...this.props}
                   tabLabel='圈子'/>}
           <Statistical

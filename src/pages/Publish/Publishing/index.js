@@ -18,7 +18,7 @@ import {
   Image
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD } from '../../../redux/reqKeys'
+import { ICARD,IUSE } from '../../../redux/reqKeys'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 
@@ -52,7 +52,7 @@ import {CircleState} from '../../../configure/enum'
     iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
     imageLoad: state.req.get(PBULImage).get('load'),
     load: state.req.get(ICARD).get('load'),
-    user: state.user.data
+    // user: state.user.data
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch),
@@ -165,6 +165,17 @@ import {CircleState} from '../../../configure/enum'
       }
       dispatch(addNormalizrEntity(ICARD, entity))
     },
+    updatePrivacy: async (id, privacy) => {
+      const param = {
+        privacy,
+      }
+      const res = await dispatch(update(id,param, IUSE))
+      const entity = {
+        ...param,
+        ...res,
+      }
+      dispatch(addNormalizrEntity(IUSE, entity))
+    },
     picker: async (onChange) => {
       // dispatch(pickerImage())
 
@@ -276,10 +287,12 @@ export default class Publishing extends Component {
               是否开启圈子
             </StyledSubTitleText>
           </StyledRowInner>
-          <StyledSwitch value={circleState === CircleState.open} onValueChange={async (value) => {
+          <StyledSwitch value={circleState === CircleState.open}
+                        onValueChange={() => {
             // await this.props.remind(id, value)
             this.setState({circleState:circleState === 1?0:1})
             this.props.circleState(data.toJS())
+            // this.props.updatePrivacy()
           }}/>
         </StyledSubTitle>
         <StyledSubTitle>
@@ -289,7 +302,8 @@ export default class Publishing extends Component {
               是否允许推荐
             </StyledSubTitleText>
           </StyledRowInner>
-          <StyledSwitch value={shareState === 1} onValueChange={async (value) => {
+          <StyledSwitch value={shareState === 1}
+                        onValueChange={() => {
             // await this.props.remind(id, value)
             this.setState({shareState:shareState === 1?0:1})
             this.props.shareState(data.toJS())

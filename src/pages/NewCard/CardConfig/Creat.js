@@ -44,9 +44,9 @@ import {
 import { TextInput } from '../../../components/Form/Cunstom/index'
 import Toast from 'react-native-simple-toast'
 //static displayName = Creat
-import HeaderBtn from '../../../components/Button/HeaderBtn'
 import BackBtn from '../../../components/Button/BackBtn/index'
 import * as Animatable from 'react-native-animatable';
+import {Privacy} from '../../../configure/enum'
 
 @connect(
   state => ({
@@ -116,38 +116,6 @@ import * as Animatable from 'react-native-animatable';
       dispatch(popToIndex())
 
       const iCardId = res.objectId
-      // //询问是否立即使用。
-      // Alert.alert(
-      //     '你新建了一个卡片，是否立即使用它',
-      //     '您可以立即  使用或者成立圈子',
-      //     [{
-      //         text: '建立圈子', onPress: () => {
-      //             props.navigation.navigate('PublishDetail', {
-      //                 iCardID: iCardId,
-      //                 data: entity
-      //             })
-      //         }
-      //     },
-      //         {
-      //             text: '自己使用', onPress: async () => {
-      //
-      //             const param = {
-      //                 time: 0,
-      //                 // notifyTime:option&&option.notifyTime||"20.00",
-      //                 doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
-      //                 ...selfUser(),
-      //                 ...iCard(iCardId)
-      //             }
-      //             const res = await add(param, IUSE)
-      //             const entity = {
-      //                 ...param,
-      //                 ...res
-      //             }
-      //             dispatch(addListNormalizrEntity(IUSE, entity))
-      //         }
-      //         }
-      //     ]
-      // )
       const addParam = {
         time: 0,
         // notifyTime:option&&option.notifyTime||"20.00",
@@ -155,6 +123,7 @@ import * as Animatable from 'react-native-animatable';
         ...dispatch(selfUser()),
         ...iCard(iCardId),
         statu: 'start',
+        privacy:Privacy.open,
       }
       const addRes = await dispatch(add(addParam, IUSE))
       const addEntity = {
