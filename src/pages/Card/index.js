@@ -103,7 +103,7 @@ import {claerByID} from '../../redux/actions/list'
 
     })
 )
-export default class Home extends Component {
+export default class Habit extends Component {
     constructor(props: Object) {
         super(props);
         this.shouldComponentUpdate = shouldComponentUpdate.bind(this);

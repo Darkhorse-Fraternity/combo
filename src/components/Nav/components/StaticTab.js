@@ -20,16 +20,16 @@ import {
 import { strings } from '../../../../locales/i18n';
 
 import {
-  homeRoute,
+  habitRoute,
   settingRoute,
-  PunchRoute
+  punchRoute
 } from '../../../pages'
 import { navigationOptions, tabsOptions } from './navigationOptions'
 // import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
 const PunchStack = createStackNavigator({
-  ...PunchRoute,
+  ...punchRoute,
 }, {
   initialRouteName: 'punch',
   navigationOptions,
@@ -37,10 +37,10 @@ const PunchStack = createStackNavigator({
 });
 
 
-const HomeStack = createStackNavigator({
-  ...homeRoute
+const HabitStack = createStackNavigator({
+  ...habitRoute
 }, {
-  initialRouteName: 'home',
+  initialRouteName: 'habit',
   navigationOptions,
   // transitionConfig: TransitionConfiguration,
 });
@@ -58,7 +58,7 @@ const SettingsStack = createStackNavigator({
 export default createBottomTabNavigator(
   {
     Punch: PunchStack,
-    Home: HomeStack,
+    Habit: HabitStack,
     Settings: SettingsStack,
   },
   {

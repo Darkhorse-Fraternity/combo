@@ -1,6 +1,6 @@
 import { Platform } from 'react-native'
 
-import Home from './Home'
+import Habit from './Habit'
 import Creat from './NewCard/CardConfig/Creat'
 import NewCard from './NewCard'
 import Record from './Record'
@@ -63,13 +63,13 @@ export const otherRoute = {
   pptDescribe: { screen: PPTDescribe },
 }
 
-export const PunchRoute = {
+export const punchRoute = {
   punch: {screen: Punch},
   ...otherRoute
 }
 
-export const homeRoute = {
-  home: { screen: Home },
+export const habitRoute = {
+  habit: { screen: Habit },
   ...otherRoute
 }
 

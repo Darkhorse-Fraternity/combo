@@ -27,9 +27,7 @@ import {
 import { strings } from '../../../locales/i18n';
 
 @connect(
-  state => ({
-    user: state.user.data
-  }),
+  state => ({}),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
     sayHello: () => {
@@ -37,7 +35,7 @@ import { strings } from '../../../locales/i18n';
     }
   })
 )
-export default class Home extends Component {
+export default class Habit extends Component {
   constructor(props: Object) {
     super(props);
   }
@@ -74,19 +72,10 @@ export default class Home extends Component {
   };
 
 
-  componentWillReceiveProps(nextProps) {
 
-    if (nextProps.isLogin !== this.props.isLogin) {
-      const { navigation } = nextProps;
-      navigation.setParams({ isLogin: nextProps.isLogin })
-      // LayoutAnimation.spring()
-    }
-  }
 
 
   _renderHeader = () => {
-    const user = this.props.user
-    const name = user.nickname || '陌生人'
     return (
       <View style={styles.headView}>
         <Text
@@ -113,8 +102,7 @@ export default class Home extends Component {
   render(): ReactElement<any> {
 
     return (
-      <StyledInnerdContent
-        colors={['#f1f6f9', '#ffffff']}>
+      <StyledInnerdContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
         <View style={{height:20}}/>

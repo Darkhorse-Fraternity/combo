@@ -42,9 +42,9 @@ export const tabsOptions = {
     Icon:MaterialCommunityIcons
 
   },
-  Home:{
+  Habit:{
     iconName:'md-sunny',
-    labelName:strings('tabs.home'),
+    labelName:strings('tabs.habit'),
     Icon:Ionicons
   },
   Settings:{
