@@ -21,10 +21,10 @@ function getActiveRouteName(navigationState) {
 const tracking = ({ getState }) => next => (action) => {
 
 
-    if(__DEV__){return next(action);}
+    // if(__DEV__){return next(action);}
 
     action.type === 'APP_STATE_UPDATE' && appStateTracking(action.state)
-
+    action.type === 'APP_SHARE' && shareTracking(action.tag)
     if (
         action.type !== NavigationActions.NAVIGATE
         && action.type !== NavigationActions.BACK
@@ -131,9 +131,7 @@ const screenTracking = async (sceen) => {
     if (trackingEvents.length === 10) {
         let params = {
             client: client(),
-            session: {
-                id: sessionId()
-            },
+            session: { id: sessionId() },
             trackingEvents
         }
         params = openCollet(params)
@@ -143,4 +141,18 @@ const screenTracking = async (sceen) => {
     }
 }
 
-
+const shareTracking = async (tag) => {
+  let params = {
+    client: client(),
+    session: { id: sessionId() },
+    trackingEvents:[{
+      "event": "share", // 必须为 _page 表示一次页面访问
+      tag,// 页面名称
+      ts: new Date().getTime()
+    }]
+  }
+  params = openCollet(params)
+  // console.log('background:', params);
+  const res = await send(params)
+  // console.log('res1111:', res);
+}

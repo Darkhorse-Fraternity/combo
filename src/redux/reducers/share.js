@@ -9,7 +9,6 @@ const initialState = immutable.fromJS({});
 
 export default function itemState(state: immutable.Map<string,any> = initialState, action: Object) {
     switch (action.type) {
-
         default:
             return state
     }

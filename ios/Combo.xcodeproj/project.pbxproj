@@ -732,7 +732,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-                ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				CC9F95A620BE916800FE5469 /* libSplashScreen.a in Frameworks */,
 				CCBA7CAA20B6D18D006F00DF /* libRNDeviceInfo.a in Frameworks */,
 				CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */,
@@ -1399,7 +1398,6 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 920;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
@@ -2665,7 +2663,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "de833b15-4674-4ef9-96e2-c30c4b780de9";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.rn.combo";
+				PROVISIONING_PROFILE_SPECIFIER = ComboDev;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -2677,7 +2675,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 147;
