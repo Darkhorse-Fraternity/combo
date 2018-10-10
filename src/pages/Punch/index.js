@@ -13,28 +13,47 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
-
-import CardView from '../Habit/list/index'
-import Button from '../../components/Button'
-import HeaderBtn from '../../components/Button/HeaderBtn'
+import { ICARD,  IUSE,IDO } from '../../redux/reqKeys'
+import { search, } from '../../redux/module/leancloud'
+import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
+import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
+import { selfUser } from '../../request/LCModle'
 import {
   StyledContent,
   StyledInnerdContent
 } from './style'
 import { strings } from '../../../locales/i18n';
-
+import Cell from './Cell'
 @connect(
   state => ({
-    user: state.user.data
+    data: state.list.get(IUSE),
+    iUse: state.normalizr.get(IUSE),
+    iCard: state.normalizr.get(ICARD),
+    refreshLoad: state.req.get(IUSE).get("load"),
+    load: state.req.get(IDO).get("load"),
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
-    sayHello: () => {
+    search: () => {
 
-    }
+      //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
+
+      dispatch(search(false, {
+        where: {
+          ...dispatch(selfUser()),
+          statu: 'start'
+        },
+        order: 'doneDate',
+        include: ICARD + ',iCard.user'
+      }, IUSE))
+    },
+    done: (data) => {
+      dispatch(doCardWithNone(data))
+    },
   })
 )
 export default class Punch extends Component {
@@ -59,6 +78,36 @@ export default class Punch extends Component {
     }
   };
 
+  componentDidMount() {
+    this.props.search()
+    // this.props.exist()
+    // console.log('this.refs.list:', this.refs.list.scrollToOffset);
+  }
+
+
+  __renderNoData = (statu) => {
+
+
+    const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
+    return (
+      <ExceptionView
+        style={{ height: Dimensions.get('window').height / 2 }}
+        exceptionType={refreshLoad?
+          ExceptionType.Loading:ExceptionType.NoData}
+        tipBtnText={'添加卡片'}
+        refresh = {refreshLoad}
+        prompt={refreshLoad?'正在加载':'空空如也~'}
+        onRefresh={() => {
+          this.props.navigation.navigate('newCard')
+        }}/>
+    )
+  }
+
+  _keyExtractor = (item, index) => {
+    const key = item.id || index;
+    return key + '';
+  }
+
 
 
 
@@ -71,23 +120,59 @@ export default class Punch extends Component {
           style={styles.headViewText}>
           {strings('app.name')}
         </Text>
-        {/*<View style={styles.headViewSub}>*/}
-          {/*<Text style={styles.headViewSubText}>*/}
-            {/*我在{' ' + moment(new Date()).format("YYYY/MM/DD") + ' '}这一天*/}
-          {/*</Text>*/}
-          {/*<HeaderBtn*/}
-            {/*style={{ padding: 15 }}*/}
-            {/*title={'添加'}*/}
-            {/*onPress={() => {*/}
-              {/*this.props.navigation.navigate('newCard')*/}
-            {/*}}*/}
-            {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
-        {/*</View>*/}
       </View>
     )
   }
 
+  __renderItem = ({ item, index }) => {
+
+    // if (item === -1) {
+    //     return <StopCell title='查看已归档的卡片'
+    //                      des='重新打卡点这里'
+    //                      onPress={() => {
+    //                          this.props.navigation.navigate('Record',
+    //                              { statu: 'stop' })
+    //                      }}/>
+    // }
+
+    const data = this.props.iUse.get(item).toJS()
+
+    // console.log('data:', data);
+    const iCardId = data[ICARD]
+    let iCard = this.props.iCard.get(iCardId)
+    const done = moment(2, "HH").isBefore(data.doneDate.iso)
+    const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
+
+
+    return <Cell
+      over={over}
+      done={done}
+      // refreshLoad={this.props.refreshLoad}
+      // onLongPress={() => {
+      //     !this.props.load &&
+      //     !done &&
+      //     this.props.done(data)
+      //
+      // }}
+      onPress={() => {
+        // const iCardM = iCard.toJS()
+            !this.props.load && !done &&
+            this.props.done(data)
+      }}
+      carouselRef={this._carousel}
+      parallax={true}
+      data={data}
+      iCard={iCard.toJS()}
+      even={false}
+    />;
+  }
+
+
   render(): ReactElement<any> {
+
+    const statu = this.props.data.get('loadStatu')
+
+    let data = this.props.data.toJS().listData
 
     return (
       <StyledInnerdContent
@@ -97,9 +182,24 @@ export default class Punch extends Component {
         <View style={{height:20}}/>
 
         {/*{this._renderHeader()}*/}
-        <CardView
-          header={this._renderHeader}
-          navigation={this.props.navigation}/>
+        <FlatList
+          refreshing={false}
+          onRefresh={()=>{
+            this.props.search()
+          }}
+          style={styles.container}
+          data={data}
+          numColumns={2}
+          columnWrapperStyle={{ padding: 5 }}
+          // removeClippedSubviews={true}
+          // pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          renderItem={this.__renderItem}
+          keyExtractor={this._keyExtractor}
+          ListHeaderComponent={this._renderHeader}
+          ListEmptyComponent={()=>this.__renderNoData(statu)}
+        />
 
         {/*</StyledContent>*/}
       </StyledInnerdContent>

@@ -8,13 +8,10 @@ import {
     Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { ParallaxImage } from 'react-native-snap-carousel';
 import styles from './style';
-import Icon from 'react-native-vector-icons/Ionicons'
-import moment from 'moment'
-import * as Animatable from 'react-native-animatable';
 
-export default class SliderEntry extends Component {
+
+export default class Cell extends Component {
 
     static propTypes = {
         data: PropTypes.object.isRequired,
@@ -26,29 +23,13 @@ export default class SliderEntry extends Component {
     image = () => {
         const {
             iCard: { img },
-            parallax,
-            parallaxProps,
-            even,
-            carouselRef
         } = this.props;
 
         // console.log('test:', this.props);
 
         const source = img ? { uri: img.url } : require('../../../../source/img/my/icon-60.png')
 
-        return 0 ? (
-            <ParallaxImage
-                carouselRef={carouselRef}
-                //dimensions={{width:100,height:100}}
-                source={source}
-                containerStyle={[styles.imageContainer, even ? styles.imageContainerEven : {}]}
-                style={styles.image}
-                parallaxFactor={0.35}
-                showSpinner={true}
-                spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
-                {...parallaxProps}
-            />
-        ) : (
+        return  (
             <Image
                 source={source}
                 defaultSource={ require('../../../../source/img/my/icon-60.png')}
@@ -64,12 +45,7 @@ export default class SliderEntry extends Component {
             even,
             onPress,
             onLongPress,
-            over,
-            done,
             data,
-            load,
-            refreshLoad,
-            onRefresh
         } = this.props;
 
         const { title, notifyText,period } = iCard
@@ -110,36 +86,6 @@ export default class SliderEntry extends Component {
                             </Text>
                         </View>
                     </View>
-                    {done &&
-                    (<Animatable.View
-                        animation="fadeInDown"
-                        style={styles.doneView}>
-                        <Icon
-                            color='green'
-                            name={'md-checkmark'}
-                            size={25}/>
-                        <Text style={styles.doneText}>
-                            {moment(data.doneDate.iso).format("MM/DD")}
-                        </Text>
-                    </Animatable.View>)}
-                    {/*{!done && over && (<TouchableOpacity*/}
-
-                        {/*onPress={onRefresh}*/}
-                        {/*disabled={refreshLoad}*/}
-                        {/*style={styles.overView}>*/}
-                        {/*<View style={styles.refreshView}>*/}
-                            {/*{refreshLoad ?*/}
-                                {/*(<ActivityIndicator size="small" color={"white"}/>) :*/}
-                                {/*(<Icon*/}
-                                    {/*color='white'*/}
-                                    {/*name={'md-refresh'}*/}
-                                    {/*size={25}/>)}*/}
-                            {/*<Text style={styles.overViewText}>*/}
-                                {/*点击再来一组*/}
-                            {/*</Text>*/}
-                        {/*</View>*/}
-                    {/*</TouchableOpacity>)}*/}
-
                 </TouchableOpacity>
 
         );

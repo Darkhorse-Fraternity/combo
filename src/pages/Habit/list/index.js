@@ -26,14 +26,13 @@ import { req } from '../../../redux/actions/req'
 
 import { selfUser, iCard, iUse } from '../../../request/LCModle'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import SliderEntry from '../../Card/Cell/SliderEntry'
+import Cell from '../Cell'
 
 import moment from 'moment'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import Carousel from 'react-native-snap-carousel';
 import { sliderWidth, itemWidth } from '../../Card/Cell/style';
-import StopCell from '../../Card/Cell/StopCell'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../../components/Button/index'
@@ -46,7 +45,7 @@ import {claerByID} from '../../../redux/actions/list'
         data: state.list.get(IUSE),
         iUse: state.normalizr.get(IUSE),
         iCard: state.normalizr.get(ICARD),
-        load: state.req.get(IDO).get("load"),
+
         refreshLoad: state.req.get(IUSE).get("load"),
         stopIUSEexist: state.req.get('StopIUSEexist')
     }),
@@ -71,35 +70,32 @@ import {claerByID} from '../../../redux/actions/list'
             dispatch(doCardWithNone(data))
         },
 
-        refresh: async (data) => {
-
-
-
-            const id = data.objectId
-            const param = {
-                statu: 'stop',
-            }
-
-            const res = await  dispatch(update(id, param, IUSE))
-
-            const entity = {
-                ...param,
-                ...res
-            }
-            dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE,id))
-        },
-        exist: async () => {
-            const params = classSearch(IUSE, {
-                where: {
-                  ...dispatch(selfUser()),
-                    statu: 'stop',
-                },
-                limit: 0,
-                count: 1,
-            })
-          dispatch(req(params, 'StopIUSEexist'))
-        }
+        // refresh: async (data) => {
+        //     const id = data.objectId
+        //     const param = {
+        //         statu: 'stop',
+        //     }
+        //
+        //     const res = await  dispatch(update(id, param, IUSE))
+        //
+        //     const entity = {
+        //         ...param,
+        //         ...res
+        //     }
+        //     dispatch(addNormalizrEntity(IUSE, entity))
+        //     dispatch(claerByID(IUSE,id))
+        // },
+        // exist: async () => {
+        //     const params = classSearch(IUSE, {
+        //         where: {
+        //           ...dispatch(selfUser()),
+        //             statu: 'stop',
+        //         },
+        //         limit: 0,
+        //         count: 1,
+        //     })
+        //   dispatch(req(params, 'StopIUSEexist'))
+        // }
 
     })
 )
@@ -156,10 +152,10 @@ export default class Habit extends Component {
         const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
 
 
-        return <SliderEntry
+        return <Cell
             over={over}
             done={done}
-            refreshLoad={this.props.refreshLoad}
+            // refreshLoad={this.props.refreshLoad}
             // onLongPress={() => {
             //     !this.props.load &&
             //     !done &&
@@ -170,28 +166,8 @@ export default class Habit extends Component {
                 // const iCardM = iCard.toJS()
                 this.props.navigation.navigate('card', {
                     iUseId: data.objectId,
-                    iCardId: iCardM.get('objectId')
+                    iCardId: iCard.get('objectId')
                 })
-            }}
-            onRefresh={() => {
-
-
-                Alert.alert(
-                    '再来一组?',
-                    '放弃打卡不会删除卡片',
-                    [{text: '卡片归档',onPress: () => {
-                        !this.props.refreshLoad && over
-                        && this.props.refresh(data)
-                    }}, {
-                        text: '点击打卡', onPress: () => {
-                            !this.props.load &&
-                            !done &&
-                            this.props.done(data)
-                        }
-                    }]
-                )
-
-
             }}
             carouselRef={this._carousel}
             parallax={true}
