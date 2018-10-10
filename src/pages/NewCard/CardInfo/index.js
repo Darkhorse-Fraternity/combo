@@ -391,7 +391,7 @@ export default class CardInfo extends Component {
 
 
             if (exist && iUseData) {
-              this.props.navigation.navigate('cardDetail', {
+              this.props.navigation.navigate('card', {
                 iUseId: iUseData.objectId,
                 iCardId: iCard.objectId
               })

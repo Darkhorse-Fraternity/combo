@@ -83,7 +83,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 )
 
 
-export default class CardDetail extends Component {
+export default class Agenda extends Component {
   constructor(props: Object) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);

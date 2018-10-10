@@ -1,392 +1,204 @@
 /**
- * Created by lintong on 2017/7/3.
+ * Created by lintong on 2018/3/6.
  * @flow
  */
 'use strict';
 
-import * as immutable from 'immutable';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
-    View,
-    StyleSheet,
-    FlatList,
-    Text,
-    Dimensions,
-    TouchableOpacity,
-    Alert,
-    Image,
-
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  DeviceEventEmitter,
+  Animated
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD, IDO, IUSE } from '../../redux/reqKeys'
-import { search, update, } from '../../redux/module/leancloud'
-import { classSearch } from '../../request/leanCloud'
-import { req } from '../../redux/actions/req'
-
-import { selfUser, iCard, iUse } from '../../request/LCModle'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import SliderEntry from './Cell/SliderEntry'
-
-import moment from 'moment'
-import Icon from 'react-native-vector-icons/Ionicons'
-
-import Carousel from 'react-native-snap-carousel';
-import { sliderWidth, itemWidth } from './Cell/style';
-import StopCell from './Cell/StopCell'
-
+import PropTypes from 'prop-types';
+import {
+  StyledContent,
+  StyledIcon
+} from './style'
+import ShareView from '../../components/Share/ShareView'
+import Pop from '../../components/Pop/index'
+import DoCardButton from '../../components/Button/DoCardButton/index'
+import ScrollableTabView from 'react-native-scrollable-tab-view'
+import BackTabBar from '../../components/Groceries/BackTabBar'
+import Statistical from './Statistical'
+// import Info from './Settings/index'
+// import Course from './Course/index'
+import Circle from './Circle/index'
+import Button from '../../components/Button/index'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import Button from '../../components/Button'
-import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
-import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView'
-import {claerByID} from '../../redux/actions/list'
+import theme from '../../Theme/index'
+import { Privacy, CircleState } from '../../configure/enum'
+import { COURSE } from '../../redux/reqKeys'
+import { list, entitys } from '../../redux/scemes'
+import { find } from '../../redux/module/leancloud'
 
 @connect(
-    state => ({
-        data: state.list.get(IUSE),
-        iUse: state.normalizr.get(IUSE),
-        iCard: state.normalizr.get(ICARD),
-        load: state.req.get(IDO).get("load"),
-        refreshLoad: state.req.get(IUSE).get("load"),
-        stopIUSEexist: state.req.get('StopIUSEexist')
-    }),
-    (dispatch, props) => ({
-        //...bindActionCreators({},dispatch),
-        // logout: () => dispatch(logout()),
-
-        search: () => {
-
-            //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
-
-            dispatch(search(false, {
-                where: {
-                    ...dispatch(selfUser()),
-                    statu: 'start'
-                },
-                order: 'doneDate',
-                include: ICARD + ',iCard.user'
-            }, IUSE))
-        },
-        done: (data) => {
-            dispatch(doCardWithNone(data))
-        },
-
-        refresh: async (data) => {
-
-
-
-            const id = data.objectId
-            const param = {
-                statu: 'stop',
-            }
-
-            const res = await  dispatch(update(id, param, IUSE))
-
-            const entity = {
-                ...param,
-                ...res
-            }
-            dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE,id))
-        },
-        exist: async () => {
-            const params = classSearch(IUSE, {
-                where: {
-                  ...dispatch(selfUser()),
-                    statu: 'stop',
-                },
-                limit: 0,
-                count: 1,
-            })
-          dispatch(req(params, 'StopIUSEexist'))
+  (state, props) => {
+    const iCard = state.normalizr.get('iCard').get(props.navigation.state.params.iCardId)
+    // const courseId = iCard.get('course')
+    return {
+      iCard,
+      iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
+      // course:
+      // course: courseId && state.normalizr.get(COURSE).get(courseId)
+    }
+  },
+  (dispatch, props) => ({
+    dataLoad: () => {
+      dispatch(async (dispatch, getState) => {
+        const state = getState()
+        const iCard = state.normalizr.get('iCard').get(props.navigation.state.params.iCardId)
+        const courseId = iCard.get('course')
+        const course = courseId && state.normalizr.get(COURSE).get(courseId)
+        console.log('course:', course);
+        if (courseId && course.get('statu') === undefined) {
+          const params = {
+            include: 'user',
+            where: {
+              objectId: props.courseId
+            },
+          }
+          await dispatch(find(COURSE, params, { sceme: list(entitys[COURSE]) }))
         }
-
-    })
+      })
+    },
+  })
 )
-export default class Habit extends Component {
-    constructor(props: Object) {
-        super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
+
+export default class Card extends Component {
+  constructor(props: Object) {
+    super(props);
+    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    this.state = {
+      scrollValue: new Animated.Value(0)
     }
+  }
 
-    static propTypes = {};
-    static defaultProps = {};
-
-
-    // shouldComponentUpdate(nextProps: Object) {
-    //     return !immutable.is(this.props, nextProps)
-    // }
-
-    componentWillReceiveProps(nextProps: Objec) {
-        // const size1 = nextProps.data.get('listData').size
-        // const size2 = this.props.data.get('listData').size
-        //
-        // if (size1 > size2 && size2 !== 0) {
-        //     this.refs.list &&
-        //     this.refs.list.scrollToOffset({ x: 0, y: 0, animated: false })
-        // }
+  static propTypes = {};
+  static defaultProps = {};
+  static navigationOptions = props => {
+    const { navigation } = props;
+    const { state } = navigation;
+    const { params } = state;
+    return {
+      // title: params.iCard.title,
+      header: null,
     }
+  };
 
 
-    componentDidMount() {
-        this.props.search()
-        // this.props.exist()
-        // console.log('this.refs.list:', this.refs.list.scrollToOffset);
-    }
+  // _afterDone = (key) => {
+  //   DeviceEventEmitter.emit(key);
+  // }
 
 
-    __renderItem = ({ item, index }) => {
+  __renderRightView = () => {
 
-        // if (item === -1) {
-        //     return <StopCell title='查看已归档的卡片'
-        //                      des='重新打卡点这里'
-        //                      onPress={() => {
-        //                          this.props.navigation.navigate('Record',
-        //                              { statu: 'stop' })
-        //                      }}/>
-        // }
-
-        const data = this.props.iUse.get(item).toJS()
-
-        // console.log('data:', data);
-        const iCardId = data[ICARD]
-        let iCard = this.props.iCard.get(iCardId)
-        const done = moment(2, "HH").isBefore(data.doneDate.iso)
-        const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
-
-
-        return <SliderEntry
-            over={over}
-            done={done}
-            refreshLoad={this.props.refreshLoad}
-            onLongPress={() => {
-                !this.props.load &&
-                !done &&
-                this.props.done(data)
-
-            }}
-            onPress={() => {
-                const iCardM = iCard.toJS()
-                this.props.navigation.navigate('cardDetail', {
-                    iUseId: data.objectId,
-                    iCardId: iCardM.objectId
-                })
-            }}
-            onRefresh={() => {
+    const { navigation } = this.props;
+    const { state } = navigation;
+    const { params } = state;
+    const { iCardId, iUseId } = params
+    const iCard = this.props.iCard.toJS()
+    const iUse = this.props.iUse.toJS()
+    return [
+      <Button key={'icon1'} onPress={() => {
+        Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
+          animationType: 'slide-up',
+          wrapStyle: {
+            justifyContent: 'flex-end',
+          }
+        })
+      }}>
+        <StyledIcon
+          color={'black'}
+          size={25}
+          name={'md-share'}/>
+      </Button>,
+      <Button key={'icon2'} onPress={() => {
+        this.props.navigation.navigate('cardSetting', {
+          iCardId, iUseId
+        })
+      }}>
+        <StyledIcon
+          color={'black'}
+          style={{ marginRight: 10 }}
+          size={25}
+          name={'md-settings'}/>
+      </Button>,
+    ]
+  }
 
 
-                Alert.alert(
-                    '再来一组?',
-                    '放弃打卡不会删除卡片',
-                    [{text: '卡片归档',onPress: () => {
-                        !this.props.refreshLoad && over
-                        && this.props.refresh(data)
-                    }}, {
-                        text: '点击打卡', onPress: () => {
-                            !this.props.load &&
-                            !done &&
-                            this.props.done(data)
-                        }
-                    }]
-                )
+  componentDidMount() {
+    // this.props.dataLoad()
+  }
 
+  render(): ReactElement<any> {
 
-            }}
-            carouselRef={this._carousel}
-            parallax={true}
-            data={data}
-            iCard={iCard.toJS()}
-            even={false}
-        />;
+    // const params = this.props.navigation.state.params
+    // const {iUse,iCard} = params
+
+    const { iCard, iUse } = this.props
+    if (!iCard) {
+      return (
+        <StyledContent>
+
+        </StyledContent>
+      )
     }
 
 
-    __renderNoData = (statu) => {
+    const useNum = iCard.get('useNum')
+    const title = iCard.get('title')
+    const privacy = iUse.get('privacy')
+    const circleState = iCard.get('circleState')
 
+    return (
+      <StyledContent>
+        <ScrollableTabView
+          ref={'ScrollableTabView'}
+          locked={useNum <= 1}
+          onScroll={(x) => {
+            const containerWidthAnimatedValue = new Animated.Value(x);
+            this.setState({ scrollValue: containerWidthAnimatedValue });
+          }}
+          renderTabBar={() => (
+            <BackTabBar
+              title={title}
+              tabUnderlineWidth={35}
+              scrollValueWithOutNative={this.state.scrollValue}
+              rightView={this.__renderRightView}
+              onBackPress={this.props.navigation.goBack}/>
+          )}
+          prerenderingSiblingsNumber={0}
+          // tabBarInactiveTextColor={theme.mainColor}
+          // tabBarActiveTextColor={theme.mainColor}
+          // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
+          // tabBarPosition ='bottom'
+        >
+          {/*{course && course.get('statu') === 1 &&*/}
+          {/*<Course {...this.props}*/}
+          {/*tabLabel='课程'/>}*/}
+          {circleState === CircleState.open
+          && privacy === Privacy.open &&
+          <Circle {...this.props}
+                  tabLabel='圈子'/>}
+          <Statistical
+            {...this.props}
+            tabLabel="统计"/>
+          {/*<Info {...this.props} tabLabel="设置"/>*/}
+        </ScrollableTabView>
 
-        const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
-        return (
-            <ExceptionView
-                style={{ height: Dimensions.get('window').height / 2 }}
-                exceptionType={refreshLoad?
-                    ExceptionType.Loading:ExceptionType.NoData}
-                tipBtnText={'添加卡片'}
-                refresh = {refreshLoad}
-                prompt={refreshLoad?'正在加载':'空空如也~'}
-                onRefresh={() => {
-                    this.props.navigation.navigate('newCard')
-                }}/>
-        )
-    }
-
-    _keyExtractor = (item, index) => {
-        const key = item.id || index;
-        return key + '';
-    }
-
-
-    render(): ReactElement<any> {
-
-        // const navigation = this.props.navigation
-        // console.log('test:',typeof View())
-
-        const statu = this.props.data.get('loadStatu')
-
-        let data = this.props.data.toJS().listData
-
-
-
-        return (
-            (
-                <FlatList
-                  refreshing={false}
-                    onRefresh={()=>{
-                        this.props.search()
-                    }}
-                    style={styles.container}
-                    data={data}
-                    numColumns={2}
-                    columnWrapperStyle={{ padding: 5 }}
-                    // removeClippedSubviews={true}
-                    // pagingEnabled={true}
-                    showsHorizontalScrollIndicator={false}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={this.__renderItem}
-                    keyExtractor={this._keyExtractor}
-                    ListHeaderComponent={this.props.header}
-                    ListEmptyComponent={()=>this.__renderNoData(statu)}
-                />
-            )
-        )
-
-
-        // return (
-        //
-        //     <Carousel
-        //         ref={(c) => {
-        //             this._carousel = c;
-        //         }}
-        //         data={data}
-        //         renderItem={this.__renderItem}
-        //         sliderWidth={sliderWidth}
-        //         itemWidth={itemWidth}
-        //         removeClippedSubviews={false}
-        //         // layout='stack'
-        //         // loop={true}
-        //         containerCustomStyle={styles.slider}
-        //         contentContainerCustomStyle={styles.sliderContentContainer}
-        //     />
-        // );
-    }
+        <DoCardButton
+          // afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}
+          {...this.props} />
+      </StyledContent>
+    );
+  }
 }
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        overflow:'hidden',
-        // alignItems: 'center',
-        // backgroundColor: '#F5FCFF',
-    },
-    slider: {
-        // overflow: 'visible' // for custom animations
-    },
-    sliderContentContainer: {
-        paddingVertical: 0 // for custom animation
-    },
-
-    bc: {
-        position: 'absolute',
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height - 44,
-    },
-    header: {
-        marginTop: 30,
-        flexDirection: 'row',
-        width: width,
-        justifyContent: 'space-between',
-        paddingHorizontal: 15,
-    },
-    list: {},
-    item: {
-        padding: 10,
-    },
-    card: {
-        marginTop: 10,
-        paddingTop: 50,
-        width: width - 50,
-        height: width - 50,
-        backgroundColor: "#F0C98B",
-        // borderRadius: 12,
-
-        justifyContent: 'space-between',
-        // elevation:10,
-    },
-    title: {
-        fontSize: 17,
-        marginTop: 10,
-        textAlign: 'center',
-    },
-    headerBtn: {
-        padding: 20,
-        paddingHorizontal: 15,
-    },
-    num: {
-        fontSize: 100,
-        color: 'white',
-        textAlign: 'center',
-    },
-    notifyText: {
-        color: 'white',
-        fontSize: 30,
-        textAlign: 'center',
-    },
-
-    done: {
-        fontSize: 35,
-        marginBottom: 20,
-        color: 'white',
-        alignSelf: 'center',
-        textAlign: 'center'
-    },
-    toper: {
-        width: width - 50,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    footer: {
-        width: width - 50,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        padding: 10,
-        paddingHorizontal: 50,
-        marginBottom: 30,
-    },
-
-    setting: {
-        height: 25,
-        width: 25,
-        backgroundColor: 'rgba(200,200,200,0.5)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 10,
-        padding: 5,
-    },
-    quotation: {
-        alignSelf: 'center',
-        width: 82,
-        height: 50,
-        position: 'absolute',
-        zIndex: 10,
-    },
-    settingView: {
-        flexDirection: 'row',
-        alignSelf: 'center',
-        justifyContent: 'space-between',
-        padding: 10
-    },
-
-})

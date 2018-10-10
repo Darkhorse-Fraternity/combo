@@ -297,8 +297,8 @@ export default class PushManage extends Component {
         title,
         id,
         alert: message,
-        webUrl: "combo://combo/cardDetail",
-        params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
+        // webUrl: "combo://combo/card",
+        // params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
         //action: "com.avos.UPDATE_STATUS",
         type: 'local'
       },

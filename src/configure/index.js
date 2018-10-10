@@ -141,7 +141,6 @@ export default class Configure extends React.Component {
           newcard: 'newCard',
           publishdetail: 'publishDetail',
           cardinfo: 'cardInfo',
-          carddetail: 'cardDetail',
           carduse: 'cardUse',
           pptdescribe: 'pptDescribe'
         }

@@ -16,7 +16,7 @@ import Feedback from './More/Feedback/Feedback'
 import Publishing from './Publish/Publishing'
 import CardInfo from './NewCard/CardInfo'
 import RComment from './Record/RComment'
-import CardDetail from './Card/Detail'
+import Card from './Card'
 import Followee from './More/Follow/Followee'
 import Follower from './More/Follow/Follower'
 import Follow from './More/Follow'
@@ -57,7 +57,7 @@ export const otherRoute = {
   publishing: { screen: Publishing },
   cardInfo: { screen: CardInfo },
   rcomment: { screen: RComment },
-  cardDetail: { screen: CardDetail },
+  card: { screen: Card },
   cardUse: { screen: CardUse },
   more: { screen: More },
   pptDescribe: { screen: PPTDescribe },

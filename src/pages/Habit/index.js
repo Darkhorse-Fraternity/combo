@@ -17,11 +17,9 @@ import {
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import CardView from '../Card'
-import Button from '../../components/Button'
+import CardView from './list'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import {
-  StyledContent,
   StyledInnerdContent
 } from './style'
 import { strings } from '../../../locales/i18n';
@@ -30,9 +28,7 @@ import { strings } from '../../../locales/i18n';
   state => ({}),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
-    sayHello: () => {
 
-    }
   })
 )
 export default class Habit extends Component {
@@ -78,14 +74,10 @@ export default class Habit extends Component {
   _renderHeader = () => {
     return (
       <View style={styles.headView}>
-        <Text
-          numberOfLines={1}
-          style={styles.headViewText}>
-          {strings('app.name')}
-        </Text>
+
         <View style={styles.headViewSub}>
-          <Text style={styles.headViewSubText}>
-            我在{' ' + moment(new Date()).format("YYYY/MM/DD") + ' '}这一天
+          <Text style={styles.headViewText}>
+            日常习惯
           </Text>
           <HeaderBtn
             style={{ padding: 15 }}
@@ -169,12 +161,10 @@ const styles = StyleSheet.create({
   headView: {
     // height:180,
 
-    marginBottom: 15,
+    marginVertical: 30,
   },
   headViewText: {
-    marginTop: 40,
-    marginHorizontal: 20,
-    fontSize: 35,
+    fontSize: 21,
     fontWeight: 'bold',
   },
   headViewSubText: {

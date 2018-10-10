@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
-import Agenda from '../Card/Agenda'
+import Agenda from '../Card/Statistical'
 
 
 import {

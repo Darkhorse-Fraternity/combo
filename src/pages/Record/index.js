@@ -169,7 +169,7 @@ export default class Record extends Component {
         des={`人数:${iCard.useNum}`}
         img={iCard.img}
         onPress={() => {
-          this.props.navigation.navigate('cardDetail', {
+          this.props.navigation.navigate('card', {
             iUseId: item.objectId,
             iCardId: iCard.objectId
           })

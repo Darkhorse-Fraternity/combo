@@ -17,7 +17,7 @@ import {
 import { connect } from 'react-redux'
 import moment from 'moment'
 
-import CardView from '../Card'
+import CardView from '../Habit/list/index'
 import Button from '../../components/Button'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import {
@@ -71,18 +71,18 @@ export default class Punch extends Component {
           style={styles.headViewText}>
           {strings('app.name')}
         </Text>
-        <View style={styles.headViewSub}>
-          <Text style={styles.headViewSubText}>
-            我在{' ' + moment(new Date()).format("YYYY/MM/DD") + ' '}这一天
-          </Text>
-          <HeaderBtn
-            style={{ padding: 15 }}
-            title={'添加'}
-            onPress={() => {
-              this.props.navigation.navigate('newCard')
-            }}
-            hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
-        </View>
+        {/*<View style={styles.headViewSub}>*/}
+          {/*<Text style={styles.headViewSubText}>*/}
+            {/*我在{' ' + moment(new Date()).format("YYYY/MM/DD") + ' '}这一天*/}
+          {/*</Text>*/}
+          {/*<HeaderBtn*/}
+            {/*style={{ padding: 15 }}*/}
+            {/*title={'添加'}*/}
+            {/*onPress={() => {*/}
+              {/*this.props.navigation.navigate('newCard')*/}
+            {/*}}*/}
+            {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
+        {/*</View>*/}
       </View>
     )
   }
