@@ -370,9 +370,9 @@ export default class OptionDo extends Component {
     } else if (days.length === 7) {
       return "每天"
     } else if (days.length === 2 && days[0] === 6) {
-      return '休息日'
+      return '周六与周日'
     } else if (days.length === 5 && days[4] === 5) {
-      return '工作日'
+      return '周一至周五'
     } else {
       const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
       return days.map(day => names[day - 1]).toString()
@@ -386,7 +386,7 @@ export default class OptionDo extends Component {
     // console.log('test:', this.props.record);
     let { record, notifyTimes } = this.props
     record = (record.length === 0 || record.size === 0)
-      ? '无' : record.join('+')
+      ? '无要求' : record.join('+')
 
     // console.log('record:', notifyTimes);
     notifyTimes = notifyTimes.size === 0 ? '无' :
@@ -454,10 +454,7 @@ export default class OptionDo extends Component {
           </Animatable.View>
 
 
-          <this.__renderItem
-            title={"记录方式:   " + record}
-            type="record"
-            index={1}/>
+
           <this.__renderItem
             title={"提醒时间:   " + notifyTimes}
             type="notifyTimes"
@@ -469,6 +466,10 @@ export default class OptionDo extends Component {
           <this.__renderItem
             title={"提醒日:   " + recordDay}
             type="recordDay"
+            index={1}/>
+          <this.__renderItem
+            title={"打卡要求:   " + record}
+            type="record"
             index={1}/>
           <this.__renderItem
             title={"卡片周期:   " + this.props.period + '组'}

@@ -31,7 +31,7 @@ import Circle from '../Circle'
 import Button from '../../../components/Button'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../../Theme'
-import { Privacy } from '../../../configure/enum'
+import { Privacy,CircleState } from '../../../configure/enum'
 import { COURSE } from '../../../redux/reqKeys'
 import { list, entitys } from '../../../redux/scemes'
 import { find } from '../../../redux/module/leancloud'
@@ -156,7 +156,7 @@ export default class CardDetail extends Component {
     const useNum = iCard.get('useNum')
     const title = iCard.get('title')
     const privacy = iUse.get('privacy')
-
+    const circleState = iCard.get('circleState')
 
     return (
       <StyledContent>
@@ -184,7 +184,8 @@ export default class CardDetail extends Component {
           {/*{course && course.get('statu') === 1 &&*/}
           {/*<Course {...this.props}*/}
                   {/*tabLabel='课程'/>}*/}
-          {useNum > 1 && privacy === Privacy.open &&
+          {circleState === CircleState.open
+          && privacy === Privacy.open &&
           <Circle {...this.props}
                   tabLabel='圈子'/>}
           <Agenda

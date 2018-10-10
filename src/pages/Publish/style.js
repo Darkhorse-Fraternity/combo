@@ -20,3 +20,5 @@ export const StyledHeaderTitle = styled.Text`
    font-size: 20px;
    font-weight: 500;
 `
+
+

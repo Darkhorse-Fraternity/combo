@@ -52,7 +52,7 @@ import { IUSE } from '../../../redux/reqKeys'
 import { claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
-import { Privacy } from '../../../configure/enum'
+import { Privacy, CircleState } from '../../../configure/enum'
 import { classUpdate } from '../../../request/leanCloud'
 import { req } from '../../../redux/actions/req'
 import Dialog from '../../../components/Dialog'
@@ -278,7 +278,8 @@ export default class Settings extends Component {
           title={' 圈子管理'}/>)}
 
 
-        <this._renderItem
+        {iCard.circleState === CircleState.open
+        &&<this._renderItem
           onPress={async () => {
             const userId = user.objectId
             const beUserId = iCard.user
@@ -294,7 +295,7 @@ export default class Settings extends Component {
           name={iUse.privacy ===
           Privacy.open ? 'md-unlock' :
             'md-lock'}
-          title={'隐私设置'}/>
+          title={'隐私设置'}/>}
 
         <this._renderItem
           onPress={() => {

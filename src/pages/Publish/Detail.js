@@ -195,7 +195,7 @@ export default class PublishDetail extends Component {
                 {/*}*/}
                 {/*})}*/}
 
-                {allow && this._renderRow("共享卡片", () => {
+                {allow && this._renderRow("圈子设置", () => {
                     navigation.navigate('publishing',
                         { iCardID: navigation.state.params.iCardID })
                 })}
@@ -203,7 +203,7 @@ export default class PublishDetail extends Component {
                     {/*navigation.navigate('courseRelease',*/}
                         {/*{ iCardID: navigation.state.params.iCardID })*/}
                 {/*})}*/}
-                {allow && this._renderRow('查看记录', () => {
+                {allow && this._renderRow('圈子记录', () => {
                     navigation.navigate('serve', { iCard })
                 })}
 

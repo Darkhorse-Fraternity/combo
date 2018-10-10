@@ -13,7 +13,6 @@ import React, { Component } from 'react';
 // const prefix = Platform.OS === 'android' ? 'combo://combo/' : 'combo://';
 
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
-
 let App
 @connect(
   state => ({

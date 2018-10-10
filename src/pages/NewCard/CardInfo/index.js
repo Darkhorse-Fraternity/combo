@@ -75,7 +75,7 @@ import {
 
 } from '../../Course/Info/style'
 
-import { Privacy } from '../../../configure/enum'
+import { Privacy,CircleState } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { findByID, find } from '../../../redux/module/leancloud'
@@ -86,7 +86,7 @@ import Pop from '../../../components/Pop'
 import { ORDER } from '../../../redux/reqKeys'
 
 const selector = formValueSelector(FormID) // <-- same as form name
-import {daysText} from '../../../configure/enum'
+import { daysText } from '../../../configure/enum'
 
 
 @connect(
@@ -140,7 +140,9 @@ import {daysText} from '../../../configure/enum'
       const param = {
         // cycle: 0,
         time: 0,
-        privacy: Privacy.open,//对外开放
+        privacy:
+          card.circleState ===
+        CircleState.open ? Privacy.open:Privacy.close,//对外开放
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...dispatch(selfUser()),
@@ -489,12 +491,14 @@ export default class CardInfo extends Component {
 
           {this.row('加入费用:', iCard.price === 0 ? '免费'
             : iCard.price + '元')}
-          {this.row('记录模式:', iCard.record.join("+") || '无')}
+          {this.row('是否开启圈子:', iCard.circleState !== CircleState.open
+            ? '关闭' : '开启')}
+          {this.row('提醒时间:', iCard.notifyTimes ?
+            iCard.notifyTimes.join('、') : iCard.notifyTime)}
           {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
           {this.row('打卡日:', daysText(iCard.recordDay))}
-          {this.row('提醒时间:', iCard.notifyTimes?
-            iCard.notifyTimes.join('、'):iCard.notifyTime)}
           {this.row('卡片周期:', iCard.period + '次')}
+          {this.row('打卡要求:', iCard.record.join("+") || '无')}
           {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
           {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
           {/*{course && course.title && this._renderCourse(course)}*/}

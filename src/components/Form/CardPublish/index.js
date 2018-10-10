@@ -57,10 +57,10 @@ import Toast from 'react-native-simple-toast'
         const isEmpty = value => value === undefined || value === null ||
             value === '';
 
-        const CardState = props.state
+        // const CardState = props.state
 
         return {
-            enableSumbmit: CardState === 1 || config.findIndex(isEmpty) === -1,
+            enableSumbmit:  config.findIndex(isEmpty) === -1,
             initialValues: props.initialValues
         }
     },
@@ -265,7 +265,7 @@ export default class CardPublishForm extends Component {
 
                 <StyledHeader>
                     <StyledTitle>
-                        {title}
+                        卡片介绍
                     </StyledTitle>
                     <View style={{ flexDirection: 'row' }}>
                         <StyledHeaderBtn
@@ -276,11 +276,11 @@ export default class CardPublishForm extends Component {
                             onPress={onSaveLocal}
                             title={'保存'}/>
                         <StyledHeaderBtn
-                            load={load}
+                            load={false}
                             disabled={!enableSumbmit}
                             hitSlop={{ top: 5, left: 5, bottom: 5, right: 50 }}
                             onPress={onSubmit && handleSubmit(onSubmit)}
-                            title={state === 0 ? '发布' : '取消发布'}/>
+                            title={'发布'}/>
                     </View>
                 </StyledHeader>
                 <StyledContent >
@@ -309,7 +309,7 @@ export default class CardPublishForm extends Component {
                         style={{ fontSize: 15 }}
                         underlineColorAndroid='transparent'
                         placeholderTextColor='rgb(200,200,200)'
-                        placeholder='点此输入关键字,多个之间以 ","相隔离'/>
+                        placeholder='所属主题,多个之间以 ","相隔离'/>
 
 
                     <StyledDescribe
