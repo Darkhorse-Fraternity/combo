@@ -5,16 +5,16 @@ import {
   ActivityIndicator,
   Platform
 } from 'react-native'
-import { creatAppNavigator } from './CreateAppNavigator'
 import {
   reduxifyNavigator,
 } from 'react-navigation-redux-helpers'
 import React, { Component } from 'react';
+
 // const prefix = Platform.OS === 'android' ? 'combo://combo/' : 'combo://';
 
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
-
+let App
 @connect(
   state => ({
     state: state.nav,
@@ -22,9 +22,8 @@ import React, { Component } from 'react';
 )
 export default class ReduxApp extends Component {
   render(): ReactElement<any> {
-    const { state, dispatch, route } = this.props
-    const AppNavigator = creatAppNavigator(route)
-    const App = reduxifyNavigator(AppNavigator, "root");
+    const { state, dispatch ,appNavigator} = this.props
+     App = !App ? reduxifyNavigator(appNavigator, "root"):App;
     return (
       <App {...{state,dispatch}}/>
     );

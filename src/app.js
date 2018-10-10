@@ -36,7 +36,7 @@ export default class App extends Component {
       <Provider store={creatStore(AppNavigator)}>
         <ThemeProvider theme={theme}>
           <Configure>
-            <ReduxApp route={route} />
+            <ReduxApp appNavigator={AppNavigator} />
           </Configure>
         </ThemeProvider>
       </Provider>
