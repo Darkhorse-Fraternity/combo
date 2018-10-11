@@ -17,17 +17,22 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { ICARD,  IUSE,IDO } from '../../redux/reqKeys'
+import { ICARD, IUSE, IDO } from '../../redux/reqKeys'
 import { search, } from '../../redux/module/leancloud'
 import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import { selfUser } from '../../request/LCModle'
 import {
   StyledContent,
-  StyledInnerdContent
+  StyledIcon,
+  StyledCard,
+  StyledCardTitle
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Cell from './Cell'
+import Item from './Item'
+
+
 @connect(
   state => ({
     data: state.list.get(IUSE),
@@ -72,8 +77,8 @@ export default class Punch extends Component {
     // console.log('test:', params,localLoad);
     return {
       // gesturesEnabled: false,
-      header: null
-
+      // header: null
+      title:strings('app.name')
 
     }
   };
@@ -88,15 +93,15 @@ export default class Punch extends Component {
   __renderNoData = (statu) => {
 
 
-    const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
+    const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
     return (
       <ExceptionView
         style={{ height: Dimensions.get('window').height / 2 }}
-        exceptionType={refreshLoad?
-          ExceptionType.Loading:ExceptionType.NoData}
+        exceptionType={refreshLoad ?
+          ExceptionType.Loading : ExceptionType.NoData}
         tipBtnText={'添加卡片'}
-        refresh = {refreshLoad}
-        prompt={refreshLoad?'正在加载':'空空如也~'}
+        refresh={refreshLoad}
+        prompt={refreshLoad ? '正在加载' : '空空如也~'}
         onRefresh={() => {
           this.props.navigation.navigate('newCard')
         }}/>
@@ -107,9 +112,6 @@ export default class Punch extends Component {
     const key = item.id || index;
     return key + '';
   }
-
-
-
 
 
   _renderHeader = () => {
@@ -141,29 +143,16 @@ export default class Punch extends Component {
     const iCardId = data[ICARD]
     let iCard = this.props.iCard.get(iCardId)
     const done = moment(2, "HH").isBefore(data.doneDate.iso)
-    const over = data.time !== 0 && data.time % Number(iCard.get("period")) === 0
 
 
-    return <Cell
-      over={over}
+    return <Item
       done={done}
-      // refreshLoad={this.props.refreshLoad}
-      // onLongPress={() => {
-      //     !this.props.load &&
-      //     !done &&
-      //     this.props.done(data)
-      //
-      // }}
+      title={iCard.get('title')}
       onPress={() => {
         // const iCardM = iCard.toJS()
-            !this.props.load && !done &&
-            this.props.done(data)
+        !this.props.load && !done &&
+        this.props.done(data)
       }}
-      carouselRef={this._carousel}
-      parallax={true}
-      data={data}
-      iCard={iCard.toJS()}
-      even={false}
     />;
   }
 
@@ -175,34 +164,30 @@ export default class Punch extends Component {
     let data = this.props.data.toJS().listData
 
     return (
-      <StyledInnerdContent
-        colors={['#f1f6f9', '#ffffff']}>
+      <StyledContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
-        <View style={{height:20}}/>
 
         {/*{this._renderHeader()}*/}
         <FlatList
           refreshing={false}
-          onRefresh={()=>{
+          onRefresh={() => {
             this.props.search()
           }}
-          style={styles.container}
           data={data}
-          numColumns={2}
-          columnWrapperStyle={{ padding: 5 }}
+          numColumns={3}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
-          ListHeaderComponent={this._renderHeader}
-          ListEmptyComponent={()=>this.__renderNoData(statu)}
+          // ListHeaderComponent={this._renderHeader}
+          ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 
-        {/*</StyledContent>*/}
-      </StyledInnerdContent>
+
+      </StyledContent>
     );
   }
 }
@@ -213,7 +198,6 @@ const height = Dimensions.get('window').height
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
 
   header: {

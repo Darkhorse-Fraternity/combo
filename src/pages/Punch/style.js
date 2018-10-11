@@ -8,9 +8,10 @@ import styled from "styled-components";
 
 
 export const StyledContent = styled.ScrollView`
-    flex: 1;
+     flex: 1;
+     background-color: white;
+     padding: 15px 14px;
 `
-export const StyledInnerdContent = styled.View`
-  flex: 1;
-  background-color: white;
-`
+
+
+

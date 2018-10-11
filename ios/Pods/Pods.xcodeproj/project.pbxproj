@@ -19,7 +19,6 @@
 		682344B6653CD3102606B863797F032B /* Pods-Combo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-frameworks.sh"; sourceTree = "<group>"; };
 		757089CAE6997BDDB7C70C5E58A436AE /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		84659FD50B76E42F172142CF5E5444D1 /* Pods-Combo-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Combo-resources.sh"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		ABE10783623506254120FBA427040C46 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,7 +74,6 @@
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
-				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				0F8D2E47FE03D3B91B51069F7C273AF4 /* Frameworks */,
 				C6FF86527080A6ABFC16B69A3DC0DFFB /* Pods */,
 				5A3AE22D5F3F8E0DBD39EA32AF8215A5 /* Products */,
