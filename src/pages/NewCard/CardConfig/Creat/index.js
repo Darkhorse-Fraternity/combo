@@ -14,24 +14,24 @@ import {
   Dimensions,
   TouchableOpacity,
   Text,
-  Alert
+  Alert,
+  ScrollView,
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD, IUSE } from '../../../redux/reqKeys'
-import { add } from '../../../redux/module/leancloud'
-import { bindActionCreators } from 'redux';
-import { addListNormalizrEntity } from '../../../redux/actions/list'
-import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import { selfUser, iCard } from '../../../request/LCModle'
+import { ICARD, IUSE } from '../../../../redux/reqKeys'
+import { add } from '../../../../redux/module/leancloud'
+import { addListNormalizrEntity } from '../../../../redux/actions/list'
+import { addNormalizrEntity } from '../../../../redux/module/normalizr'
+import { selfUser, iCard } from '../../../../request/LCModle'
 import moment from 'moment'
-import OptionDo, { StaticOption } from './OptionDo'
-import Button from '../../../components/Button/index'
-import { mainColor } from '../../../Theme/index'
+import OptionDo, { StaticOption } from '../OptionDo'
+import Button from '../../../../components/Button'
+import { mainColor } from '../../../../Theme/index'
 import {
   reduxForm,
   formValueSelector,
 } from 'redux-form/immutable'
-import { popToIndex } from '../../../redux/nav'
+import { popToIndex } from '../../../../redux/nav'
 
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
@@ -39,14 +39,20 @@ const selector = formValueSelector(FormID) // <-- same as form name
 import {
   StyledContent,
   StyledSubTitleView,
-  StyledSubTitle
+  StyledSubTitle,
+  StyledInnerView
 } from './style'
-import { TextInput } from '../../../components/Form/Cunstom/index'
+import { TextInput } from '../../../../components/Form/Cunstom/index'
 import Toast from 'react-native-simple-toast'
 //static displayName = Creat
-import BackBtn from '../../../components/Button/BackBtn/index'
+import BackBtn from '../../../../components/Button/BackBtn/index'
 import * as Animatable from 'react-native-animatable';
-import {Privacy} from '../../../configure/enum'
+import { Privacy } from '../../../../configure/enum'
+import Cell from './Cell'
+import ColorCell from './Cell/ColorCell'
+import colors from '../../../../../source/colors'
+import { Field } from 'redux-form/immutable'
+import { Map } from 'immutable';
 
 @connect(
   state => ({
@@ -94,7 +100,7 @@ import {Privacy} from '../../../configure/enum'
         price: 0,
         state: 0,
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-          ...dispatch(selfUser()),
+        ...dispatch(selfUser()),
       }
 
 
@@ -123,7 +129,7 @@ import {Privacy} from '../../../configure/enum'
         ...dispatch(selfUser()),
         ...iCard(iCardId),
         statu: 'start',
-        privacy:Privacy.open,
+        privacy: Privacy.open,
       }
       const addRes = await dispatch(add(addParam, IUSE))
       const addEntity = {
@@ -236,7 +242,7 @@ export default class Creat extends Component {
         >
           <StyledSubTitleView>
             <StyledSubTitle>
-              卡片标题
+              卡片标题：
             </StyledSubTitle>
           </StyledSubTitleView>
           <TextInput
@@ -255,49 +261,89 @@ export default class Creat extends Component {
             // onChangeText={(text) => this.setState({title: text})}
           />
         </Animatable.View>
-        {/*<View style={styles.line}/>*/}
-        {/*<Button*/}
-        {/*disabled={this.props.title.length === 0}*/}
-        {/*onPress={this.__nextStep}*/}
-        {/*style={[styles.sureBtn, {*/}
-        {/*backgroundColor:*/}
-        {/*this.props.title.length === 0 ?*/}
-        {/*"rgb(200,200,200)" : "black"*/}
-        {/*}]}>*/}
-        {/*<Text style={styles.sureBtnText}>下一步</Text>*/}
-        {/*</Button>*/}
-
       </View>
     )
   }
 
 
-  // __doneView = () => {
-  //
-  //     return (
-  //         <View style={{ marginTop: 60 }}>
-  //             <BackBtn onBackPress={this.__backStep}/>
-  //             <Text style={styles.doneTitle}>{this.props.title}</Text>
-  //             {/*<Button*/}
-  //             {/*onPress={this.__backStep}*/}
-  //             {/*style={[styles.sureBtn]}>*/}
-  //             {/*<Text style={styles.sureBtnText}>上一步</Text>*/}
-  //             {/*</Button>*/}
-  //             <Button
-  //                 onPress={this.__doOption}
-  //                 style={[styles.sureBtn]}>
-  //                 <Text style={styles.sureBtnText}>更多配置</Text>
-  //             </Button>
-  //             <HeaderBtn
-  //                 hitSlop={
-  //                     { top: 0, left: 20, bottom: 20, right: 20 }}
-  //                 style={styles.sureBtn}
-  //                 load={this.props.load}
-  //                 title={'完成'}
-  //                 onPress={this.__nextStep}/>
-  //         </View>
-  //     )
-  // }
+  __renderIconAndColor = () => {
+
+    const data = [{
+      name: 'cactus',
+      size: 30,
+    }, {
+      name: 'mangosteen',
+      size: 30,
+    }, {
+      name: 'watermelon',
+      size: 30,
+    }]
+
+    const ColorData = [colors['RED']['A100'], colors['RED']['A400']]
+
+    return (
+      <Animatable.View animation="fadeInLeft"
+                       delay={Math.random() * 300}
+      >
+
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            挑选图标与颜色：
+          </StyledSubTitle>
+        </StyledSubTitleView>
+
+
+        <ScrollView
+          key={'icon'}
+          contentContainerStyle={{
+            width: 500,
+            flexWrap: 'wrap',
+          }}
+          showsHorizontalScrollIndicator={false}
+          horizontal>
+          {data.map(item =>
+            (<Cell
+                  key={item.name}
+                  onPress={(props) => {
+                    const { input } = props
+                    const { value, onChange } = input
+                    onChange(new Map({
+                      name: item.name,
+                      color: value.get('color')
+                    }))
+                  }}
+                  data={item}/>))}
+        </ScrollView>
+        <ScrollView
+          key={'color'}
+          contentContainerStyle={{
+            width: 500,
+            flexWrap: 'wrap',
+          }}
+          showsHorizontalScrollIndicator={false}
+          horizontal>
+          {ColorData.map(item =>
+            <Field
+              key={item}
+              name={`iconAndColor`}
+              component={props =>
+                <ColorCell
+                  select={props.input.value.get('color') === item}
+                  onPress={() => {
+                    const { input } = props
+                    const { value, onChange } = input
+                    onChange(new Map({
+                      name: value.get('name'),
+                      color: item
+                    }))
+                  }}
+                  key={item}
+                  color={item}/>}/>)}
+        </ScrollView>
+
+      </Animatable.View>
+    )
+  }
 
 
   render(): ReactElement<any> {
@@ -305,8 +351,10 @@ export default class Creat extends Component {
       <StyledContent
         colors={['#f1f6f9', '#ffffff']}
         style={[this.props.style, styles.wrap]}>
-
-        {!this.state.optionOpen && this.__renderName()}
+        <StyledInnerView>
+          {!this.state.optionOpen && this.__renderName()}
+          {!this.state.optionOpen && this.__renderIconAndColor()}
+        </StyledInnerView>
         {/*{(this.state.step === 1 || this.state.step === 2)*/}
         {/*&& !this.state.optionOpen && this.__doneView()}*/}
         {this.state.optionOpen &&

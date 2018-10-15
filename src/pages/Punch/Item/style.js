@@ -5,6 +5,12 @@
 'use strict';
 
 import styled from "styled-components";
+import FlipCard from 'react-native-flip-card'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+export const StyledFlipCard = styled(FlipCard)`
+    border-width: 0;
+`
 
 
 export const StyledCard = styled.View`
@@ -13,7 +19,7 @@ export const StyledCard = styled.View`
    background-color: ${props=>props.backgroundColor};
    width: ${props=>props.width};
    border-radius: 6px;
-   padding: 20px 10px;
+   padding: 30px 10px 15px 10px;
    margin: 6px;
 `
 
@@ -22,7 +28,7 @@ export const StyledCardTitleView = styled.View`
    justify-content: center;
    align-items: center;
    height:17px;
-   margin-top: 15px;
+   margin-top: 20px;
 `
 
 export const StyledCardTitle = styled.Text`
@@ -31,3 +37,5 @@ export const StyledCardTitle = styled.Text`
    text-align: center;
   
 `
+
+export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``

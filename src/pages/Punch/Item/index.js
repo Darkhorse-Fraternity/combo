@@ -16,17 +16,18 @@ import SvgUri from 'react-native-svg-uri';
 
 
 import {
+  StyledFlipCard,
   StyledCard,
   StyledCardTitle,
-  StyledCardTitleView
+  StyledCardTitleView,
+  StyledMaterialCommunityIcons
 } from './style'
 
 const width = Dimensions.get('window').width
-const itemWidth = (width-64)/3
-const iconWidth = itemWidth/2
+const itemWidth = (width - 64) / 3
+const iconWidth = itemWidth / 2
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { required } from "../../../request/validation";
 
 
 @connect(
@@ -42,33 +43,69 @@ export default class PunchItem extends Component {
   }
 
   static propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
+    done:PropTypes.bool
   };
-  static defaultProps = {};
+  static defaultProps = {
+    done:false
+  };
 
   render(): ReactElement<any> {
 
-    const { title } = this.props
+    const { title,done } = this.props
 
     return (
-      <StyledCard
-        width={itemWidth}
-        backgroundColor='#afd2ef'>
-        <SvgUri
-          width={iconWidth}
-          height={iconWidth}
-          source={require('../../../../source/svg/柠檬.svg')}
-        />
-        <StyledCardTitleView>
-          <StyledCardTitle
-            adjustsFontSizeToFit={true}
-            minimumFontScale={0.7}
-            textAlignVertical={'center'}
-            numberOfLines={1}>
-            {title}
-          </StyledCardTitle>
-        </StyledCardTitleView>
-      </StyledCard>
+      <StyledFlipCard
+        useNativeDriver={true}
+        friction={50}
+        perspective={360}
+        flipHorizontal={true}
+        flipVertical={false}
+        flip={done}
+      >
+        <StyledCard
+
+          width={itemWidth}
+          backgroundColor='#afd2ef'>
+          <View style={{height:iconWidth}}>
+            <SvgUri
+              width={iconWidth}
+              height={iconWidth}
+              source={require('../../../../source/svg/柠檬.svg')}
+            />
+          </View>
+          <StyledCardTitleView>
+            <StyledCardTitle
+              adjustsFontSizeToFit={true}
+              minimumFontScale={0.7}
+              textAlignVertical={'center'}
+              numberOfLines={1}>
+              {title}
+            </StyledCardTitle>
+          </StyledCardTitleView>
+        </StyledCard>
+        <StyledCard
+
+          width={itemWidth}
+          backgroundColor='#afd2ef'>
+          <View style={{height:iconWidth}}>
+            <StyledMaterialCommunityIcons
+              color={'white'}
+              size={50}
+              name={'check-decagram'}/>
+          </View>
+          <StyledCardTitleView>
+            <StyledCardTitle
+              style={{color:'white',fontWeight:'600'}}
+              adjustsFontSizeToFit={true}
+              minimumFontScale={0.7}
+              textAlignVertical={'center'}
+              numberOfLines={1}>
+              打卡成功
+            </StyledCardTitle>
+          </StyledCardTitleView>
+        </StyledCard>
+      </StyledFlipCard>
     );
   }
 }

@@ -38,6 +38,11 @@ export const StaticOption = {
   notifyText: '',
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
+  iconAndColor:{
+    name:'mangosteen',
+    color:'#e53935',
+  },
+
 }
 
 import {
@@ -46,7 +51,13 @@ import {
 import Button from '../../../components/Button/index'
 import NotifyTimePicker from './NotifyTimePicker'
 
-@formValues('title', 'notifyTimes', 'notifyText', 'period', 'record', 'recordDay')
+@formValues('title',
+  'notifyTimes',
+  'notifyText',
+  'period',
+  'record',
+  'recordDay',
+  'iconAndColor')
 
 export default class OptionDo extends Component {
   constructor(props: Object) {
