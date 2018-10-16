@@ -519,7 +519,7 @@ export default class CardInfo extends Component {
                   this.setState({ visible: true, index: index + 1 })
                 ]}>
                 <StyledImg
-                  width={Dimensions.get('window').width - 30}
+                  width={Dimensions.get('window').width - 50}
                   source={{ uri: item.img.url }}/>
               </TouchableHighlight>
             )

@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   headViewText: {
     marginHorizontal: 10,
-    fontSize: 35,
+    fontSize: 25,
     fontWeight: 'bold',
   },
   headViewSubText: {
