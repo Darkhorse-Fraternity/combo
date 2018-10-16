@@ -78,7 +78,7 @@ export default class IconAndColor extends Component {
               style={{ position: 'absolute' }}
               width={30}
               height={30}
-              source={svgs[iconAndColor.get('name')]}
+              svgXmlData={svgs[iconAndColor.get('name')]}
             />
           </StyledCell>}
         </StyledSubTitleView>

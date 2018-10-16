@@ -15,7 +15,6 @@ import PropTypes from 'prop-types';
 import {
   StyledColorCell,
 } from './style'
-import SvgUri from 'react-native-svg-uri';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 @connect(

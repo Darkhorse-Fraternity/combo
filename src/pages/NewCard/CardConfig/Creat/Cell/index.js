@@ -49,7 +49,7 @@ export default class IconCell extends Component {
           style={{ position: 'absolute' }}
           width={size}
           height={size}
-          source={svgs[name]}
+          svgXmlData={svgs[name]}
         />
         <Field
           name={`iconAndColor`}

@@ -78,7 +78,7 @@ export default class PunchItem extends Component {
               <SvgUri
                 width={iconWidth}
                 height={iconWidth}
-                source={svgs[name]}
+                svgXmlData={svgs[name]}
               />
             </View>
             <StyledCardTitleView>

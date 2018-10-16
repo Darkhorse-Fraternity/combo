@@ -48,18 +48,9 @@ import Toast from 'react-native-simple-toast'
 import BackBtn from '../../../../components/Button/BackBtn/index'
 import * as Animatable from 'react-native-animatable';
 import { Privacy } from '../../../../configure/enum'
-import Cell from './Cell'
-import ColorCell from './Cell/ColorCell'
-import colors from '../../../../../source/colors'
-import { Field } from 'redux-form/immutable'
-import { Map } from 'immutable';
+
 import IconAndColor from './IconAndColor'
-// import PunItem from '../../../Punch/Item'
-import {
-  StyledCell,
-} from './Cell/style'
-import SvgUri from 'react-native-svg-uri';
-import svgs from '../../../../../source/svgs'
+
 @connect(
   state => ({
     //data:state.req.get()
