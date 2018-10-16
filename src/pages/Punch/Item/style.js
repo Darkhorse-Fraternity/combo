@@ -7,11 +7,16 @@
 import styled from "styled-components";
 import FlipCard from 'react-native-flip-card'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+
+
+export const StyledButton = styled(TouchableBounce)`
+
+`
 
 export const StyledFlipCard = styled(FlipCard)`
     border-width: 0;
 `
-
 
 export const StyledCard = styled.View`
    align-items: center;

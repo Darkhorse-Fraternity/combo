@@ -20,7 +20,8 @@ import {
   StyledCard,
   StyledCardTitle,
   StyledCardTitleView,
-  StyledMaterialCommunityIcons
+  StyledMaterialCommunityIcons,
+  StyledButton
 } from './style'
 
 const width = Dimensions.get('window').width
@@ -44,72 +45,75 @@ export default class PunchItem extends Component {
 
   static propTypes = {
     title: PropTypes.string,
-    done:PropTypes.bool,
-    name:PropTypes.string,
+    done: PropTypes.bool,
+    name: PropTypes.string,
     color: PropTypes.string,
   };
   static defaultProps = {
-    done:false,
-    name:'mangosteen',
-    color:'#afd2ef'
+    done: false,
+    name: 'mangosteen',
+    color: '#afd2ef'
   };
 
   render(): ReactElement<any> {
 
-    const { title,done , style ,name,color} = this.props
+    const { title, done, style, name, color, onPress } = this.props
 
     return (
-      <StyledFlipCard
-        style={style}
-        useNativeDriver={true}
-        friction={50}
-        perspective={360}
-        flipHorizontal={true}
-        flipVertical={false}
-        flip={done}
-      >
-        <StyledCard
-          width={itemWidth}
-          backgroundColor={color}>
-          <View style={{height:iconWidth}}>
-            <SvgUri
-              width={iconWidth}
-              height={iconWidth}
-              source={svgs[name]}
-            />
-          </View>
-          <StyledCardTitleView>
-            <StyledCardTitle
-              adjustsFontSizeToFit={true}
-              minimumFontScale={0.7}
-              textAlignVertical={'center'}
-              numberOfLines={1}>
-              {title}
-            </StyledCardTitle>
-          </StyledCardTitleView>
-        </StyledCard>
-        <StyledCard
+      <StyledButton onPress={onPress}>
+        <StyledFlipCard
+          style={style}
+          useNativeDriver={true}
+          friction={50}
+          perspective={360}
+          flipHorizontal={true}
+          flipVertical={false}
+          flip={done}
+          clickable={false}
+        >
+          <StyledCard
+            width={itemWidth}
+            backgroundColor={color}>
+            <View style={{ height: iconWidth }}>
+              <SvgUri
+                width={iconWidth}
+                height={iconWidth}
+                source={svgs[name]}
+              />
+            </View>
+            <StyledCardTitleView>
+              <StyledCardTitle
+                adjustsFontSizeToFit={true}
+                minimumFontScale={0.7}
+                textAlignVertical={'center'}
+                numberOfLines={1}>
+                {title}
+              </StyledCardTitle>
+            </StyledCardTitleView>
+          </StyledCard>
+          <StyledCard
 
-          width={itemWidth}
-          backgroundColor={color}>
-          <View style={{height:iconWidth}}>
-            <StyledMaterialCommunityIcons
-              color={'white'}
-              size={50}
-              name={'check-decagram'}/>
-          </View>
-          <StyledCardTitleView>
-            <StyledCardTitle
-              style={{color:'white',fontWeight:'600'}}
-              adjustsFontSizeToFit={true}
-              minimumFontScale={0.7}
-              textAlignVertical={'center'}
-              numberOfLines={1}>
-              打卡成功
-            </StyledCardTitle>
-          </StyledCardTitleView>
-        </StyledCard>
-      </StyledFlipCard>
+            width={itemWidth}
+            backgroundColor={color}>
+            <View style={{ height: iconWidth }}>
+              <StyledMaterialCommunityIcons
+                color={'white'}
+                size={50}
+                name={'check-decagram'}/>
+            </View>
+            <StyledCardTitleView>
+              <StyledCardTitle
+                style={{ color: 'white', fontWeight: '600' }}
+                adjustsFontSizeToFit={true}
+                minimumFontScale={0.7}
+                textAlignVertical={'center'}
+                numberOfLines={1}>
+                打卡成功
+              </StyledCardTitle>
+            </StyledCardTitleView>
+          </StyledCard>
+        </StyledFlipCard>
+      </StyledButton>
     );
   }
 }

@@ -152,6 +152,7 @@ export default class Punch extends Component {
       title={iCard.get('title')}
       onPress={() => {
         // const iCardM = iCard.toJS()
+        console.log('test:', '1111');
         !this.props.load && !done &&
         this.props.done(data)
       }}
@@ -171,21 +172,21 @@ export default class Punch extends Component {
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
 
-        {this._renderHeader()}
         <FlatList
-          refreshing={false}
-          onRefresh={() => {
-            this.props.search()
-          }}
+          // refreshing={false}
+          // onRefresh={() => {
+          //   this.props.search()
+          // }}
           data={data}
           numColumns={3}
+          style={{flex:1}}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
-          // ListHeaderComponent={this._renderHeader}
+          ListHeaderComponent={this._renderHeader}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 
