@@ -76,8 +76,8 @@ export default class Punch extends Component {
     // console.log('test:', params,localLoad);
     return {
       // gesturesEnabled: false,
-      // header: null
-      title:strings('app.name')
+      header: null
+      // title:strings('app.name')
 
     }
   };
@@ -165,12 +165,13 @@ export default class Punch extends Component {
 
     let data = this.props.data.toJS().listData
 
-    return (
-      <StyledContent>
+    return [
+      <View key={'1'} style={{height:20,backgroundColor:'white'}}/>,
+      <StyledContent key={'2'}>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
 
-        {/*{this._renderHeader()}*/}
+        {this._renderHeader()}
         <FlatList
           refreshing={false}
           onRefresh={() => {
@@ -190,7 +191,7 @@ export default class Punch extends Component {
 
 
       </StyledContent>
-    );
+    ];
   }
 }
 
@@ -243,12 +244,10 @@ const styles = StyleSheet.create({
   },
   headView: {
     // height:180,
-
-    marginBottom: 15,
+    marginBottom: 25,
   },
   headViewText: {
-    marginTop: 40,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     fontSize: 35,
     fontWeight: 'bold',
   },

@@ -99,7 +99,7 @@ export default class Publish extends Component {
 
         <StyledHeader>
           <StyledHeaderText>
-            「 种一棵树最好的时间是十年前,其次是现在. 」
+            「 种一棵树最好的时间是十年前，其次是现在。 」
           </StyledHeaderText>
           <StyledHerderButton
             style={styles.headerBtn}

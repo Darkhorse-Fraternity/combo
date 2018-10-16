@@ -21,6 +21,10 @@ export const StyledCard = styled.View`
    border-radius: 6px;
    padding: 30px 10px 15px 10px;
    margin: 6px;
+    shadow-opacity: 0.6;
+    shadow-radius:3px;
+    shadow-color: ${props => props.backgroundColor};
+    shadow-offset: 2px 2px; 
 `
 
 

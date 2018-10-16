@@ -13,22 +13,47 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
+  FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
-import moment from 'moment'
+import { ICARD, IUSE } from '../../redux/reqKeys'
+import { search, } from '../../redux/module/leancloud'
 
-import CardView from './list'
-import HeaderBtn from '../../components/Button/HeaderBtn'
+import { selfUser,  } from '../../request/LCModle'
+import Cell from './Cell'
+
 import {
   StyledInnerdContent
 } from './style'
 import { strings } from '../../../locales/i18n';
+import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
+import HeaderBtn from '../../components/Button/HeaderBtn'
+import moment from 'moment'
 
 @connect(
-  state => ({}),
+  state => ({
+    data: state.list.get(IUSE),
+    iUse: state.normalizr.get(IUSE),
+    iCard: state.normalizr.get(ICARD),
+
+    refreshLoad: state.req.get(IUSE).get("load"),
+    stopIUSEexist: state.req.get('StopIUSEexist')
+  }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
+    search: () => {
 
+      //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
+
+      dispatch(search(false, {
+        where: {
+          ...dispatch(selfUser()),
+          statu: 'start'
+        },
+        order: 'doneDate',
+        include: ICARD + ',iCard.user'
+      }, IUSE))
+    },
   })
 )
 export default class Habit extends Component {
@@ -67,15 +92,73 @@ export default class Habit extends Component {
     }
   };
 
+  __renderNoData = (statu) => {
 
 
+    const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
+    return (
+      <ExceptionView
+        style={{ height: Dimensions.get('window').height / 2 }}
+        exceptionType={refreshLoad?
+          ExceptionType.Loading:ExceptionType.NoData}
+        tipBtnText={'添加卡片'}
+        refresh = {refreshLoad}
+        prompt={refreshLoad?'正在加载':'空空如也~'}
+        onRefresh={() => {
+          this.props.navigation.navigate('newCard')
+        }}/>
+    )
+  }
+
+  __renderItem = ({ item, index }) => {
+
+    // if (item === -1) {
+    //     return <StopCell title='查看已归档的卡片'
+    //                      des='重新打卡点这里'
+    //                      onPress={() => {
+    //                          this.props.navigation.navigate('Record',
+    //                              { statu: 'stop' })
+    //                      }}/>
+    // }
+
+    const data = this.props.iUse.get(item).toJS()
+
+    // console.log('data:', data);
+    const iCardId = data[ICARD]
+    let iCard = this.props.iCard.get(iCardId)
+
+
+    return <Cell
+      // refreshLoad={this.props.refreshLoad}
+      // onLongPress={() => {
+      //     !this.props.load &&
+      //     !done &&
+      //     this.props.done(data)
+      //
+      // }}
+      onPress={() => {
+        this.props.navigation.navigate('card', {
+          iUseId: data.objectId,
+          iCardId: iCard.get('objectId')
+        })
+      }}
+      data={data}
+      iCard={iCard.toJS()}
+    />;
+  }
+
+
+
+  _keyExtractor = (item, index) => {
+    const key = item.id || index;
+    return key + '';
+  }
 
 
   _renderHeader = () => {
     return (
       <View style={styles.headView}>
 
-        <View style={styles.headViewSub}>
           <Text style={styles.headViewText}>
             日常习惯
           </Text>
@@ -86,12 +169,15 @@ export default class Habit extends Component {
               this.props.navigation.navigate('newCard')
             }}
             hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
-        </View>
       </View>
     )
   }
 
   render(): ReactElement<any> {
+
+    const statu = this.props.data.get('loadStatu')
+
+    let data = this.props.data.toJS().listData
 
     return (
       <StyledInnerdContent>
@@ -100,11 +186,24 @@ export default class Habit extends Component {
         <View style={{height:20}}/>
 
         {/*{this._renderHeader()}*/}
-        <CardView
-          header={this._renderHeader}
-          navigation={this.props.navigation}/>
 
-        {/*</StyledContent>*/}
+        <FlatList
+          refreshing={false}
+          onRefresh={()=>{
+            this.props.search()
+          }}
+          style={styles.container}
+          data={data}
+          // removeClippedSubviews={true}
+          // pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          renderItem={this.__renderItem}
+          keyExtractor={this._keyExtractor}
+           ListHeaderComponent={this._renderHeader}
+          ListEmptyComponent={()=>this.__renderNoData(statu)}
+        />
+
       </StyledInnerdContent>
     );
   }
@@ -117,6 +216,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    overflow:'hidden',
   },
 
   header: {
@@ -160,8 +260,12 @@ const styles = StyleSheet.create({
   },
   headView: {
     // height:180,
-
-    marginVertical: 30,
+    marginTop:44,
+    marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    alignItems: 'center',
   },
   headViewText: {
     fontSize: 21,
@@ -172,13 +276,7 @@ const styles = StyleSheet.create({
     // marginHorizontal: 20,
     fontSize: 14,
   },
-  headViewSub: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    alignItems: 'center',
-    // backgroundColor: "red"
-  },
+
   headerBtn: {
     backgroundColor: 'black',
     paddingVertical: 5,

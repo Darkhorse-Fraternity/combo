@@ -26,26 +26,14 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { update, search } from '../../redux/module/leancloud'
 import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
-import Button from '../../components/Button'
-import * as Animatable from 'react-native-animatable';
-import { sliderWidth } from "../Card/Cell/style";
-import CardRow from '../NewCard/CardRow'
+
+import CardRow from '../Habit/Cell'
 import {
   StyledHeader,
   StyledHeaderTitle
 } from './style'
 
-const heightZoomIn = {
-  from: {
-    height: 100,
-    translateX: 500,
-  },
-  to: {
-    height: 0,
-    translateX: 500,
-  },
-}
-Animatable.initializeRegistryWithDefinitions({ heightZoomIn })
+
 @connect(
   state => ({
     data: state.list.get(IRECORD),
@@ -121,27 +109,7 @@ export default class Record extends Component {
   }
 
 
-  __delete = (index, objectId) => {
-    const self = this
-    Alert.alert(
-      '确定删除?',
-      '删除后不可恢复~！',
-      [{ text: '取消' }, {
-        text: '确定', onPress: async () => {
-          const last = self.props.data.get('listData').size - 1 === index
-          const itemView = this.rows[index]
-          ///因为view 是根据key 复用的，所以最后需要还原，否则会出错
 
-          await itemView.fadeOutLeft(500)
-          const endState = await itemView.heightZoomIn(500)
-          endState.finished && self.props.delete(objectId, () => {
-            !last && itemView.bounce(1)
-          })
-        }
-      }]
-    )
-  }
-  rows = []
 
   renderRow({ item, index }: Object) {
     // md-refresh
@@ -165,9 +133,8 @@ export default class Record extends Component {
 
 
       <CardRow
-        title={iCard.title}
-        des={`人数:${iCard.useNum}`}
-        img={iCard.img}
+        data={item}
+        iCard={iCard}
         onPress={() => {
           this.props.navigation.navigate('card', {
             iUseId: item.objectId,
@@ -195,8 +162,6 @@ export default class Record extends Component {
         style={[this.props.style, styles.list]}
         reqKey={IUSE}
         sKey={IRECORD}
-        numColumns={2}
-        columnWrapperStyle={{ padding: 10 }}
         renderItem={this.renderRow.bind(this)}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}

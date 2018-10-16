@@ -273,7 +273,7 @@ export default class Following extends Component {
         return (
             <CardRow
                 title={iCard.title}
-                des={`第${days}天`}
+                des={`已打卡${days}次`}
                 img={img}
                 onPress={() => {
                     this.props.navigation.navigate('recordDetail', {
