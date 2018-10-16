@@ -220,7 +220,7 @@ export default class Settings extends Component {
   _renderRresh = (reflesh, params) => {
     const { iUse } = params
     let text = !reflesh ?
-      "卡片归档" :
+      "习惯归档" :
       "继续打卡"
     const archiveLoad = this.props.archive && this.props.archive.get('load')
 

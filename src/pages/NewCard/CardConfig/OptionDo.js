@@ -30,7 +30,7 @@ import {
   StyledItemText,
   StyledLogoImage
 } from './style'
-
+import IconAndColor from './Creat/IconAndColor'
 
 export const StaticOption = {
   notifyTimes: [],
@@ -38,9 +38,9 @@ export const StaticOption = {
   notifyText: '',
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
-  iconAndColor:{
-    name:'mangosteen',
-    color:'#e53935',
+  iconAndColor: {
+    name: 'mangosteen',
+    color: '#e53935',
   },
 
 }
@@ -87,7 +87,7 @@ export default class OptionDo extends Component {
 
     if (!this.props.title || this.props.title.length === 0) {
 
-      Toast.show('卡片标题不可为空~')
+      Toast.show('习惯标题不可为空~')
       return;
     }
 
@@ -120,11 +120,11 @@ export default class OptionDo extends Component {
       <Animatable.View animation="fadeInLeft">
         <Button
           disabled={this.props.load}
-          onPress={()=>{
-            if(modify){
+          onPress={() => {
+            if (modify) {
               this.props.done()
               this.__backStep()
-            }else {
+            } else {
               this.__backStep()
             }
           }}
@@ -182,7 +182,7 @@ export default class OptionDo extends Component {
 
         <StyledSubTitleView>
           <StyledSubTitle>
-            卡片标题
+            习惯标题
           </StyledSubTitle>
         </StyledSubTitleView>
 
@@ -257,7 +257,6 @@ export default class OptionDo extends Component {
   }
 
   __remderNotifyText = () => {
-
 
     return (
       <Animatable.View animation="fadeInLeft">
@@ -390,6 +389,22 @@ export default class OptionDo extends Component {
     }
   }
 
+
+  __renderIconAndColor = () => {
+
+
+
+    const {iconAndColor} = this.props
+    return (
+      <Animatable.View animation="fadeInLeft"
+                       delay={Math.random() * 300}
+      >
+        <IconAndColor iconAndColor={iconAndColor}/>
+      </Animatable.View>
+    )
+  }
+
+
   render(): ReactElement<any> {
     const revise = this.props.revise
     const notifyText = this.props.notifyText && this.props.notifyText.length > 0
@@ -410,7 +425,7 @@ export default class OptionDo extends Component {
     const { modify } = this.props
 
     return [
-        modify && <StyledLogoImage
+      modify && <StyledLogoImage
         source={require('../../../../source/img/my/icon-60.png')}
         key={'logo'}/>,
       <ScrollView
@@ -420,7 +435,6 @@ export default class OptionDo extends Component {
         // }}
         key={'bc'}
         style={[styles.wrap, this.props.style]}>
-
 
 
         <View style={{
@@ -451,10 +465,14 @@ export default class OptionDo extends Component {
               </StyledTitleText>
             </StyledTitleView>
           </Animatable.View>
-          {(<this.__renderItem
-            title={"卡片标题:   " + this.props.title}
+          <this.__renderItem
+            title={"习惯标题:   " + this.props.title}
             type="title"
-            index={1}/>)}
+            index={1}/>
+          <this.__renderItem
+            title={"卡片图标与颜色"}
+            type="iconAndColor"
+            index={1}/>
 
           <Animatable.View animation="fadeIn">
             <StyledTitleView>
@@ -463,7 +481,6 @@ export default class OptionDo extends Component {
               </StyledTitleText>
             </StyledTitleView>
           </Animatable.View>
-
 
 
           <this.__renderItem
@@ -496,6 +513,11 @@ export default class OptionDo extends Component {
         this.__renderTitle()}
 
         {this.state.option === 1 &&
+        this.state.type === 'iconAndColor' &&
+        this.__renderIconAndColor()}
+
+
+        {this.state.option === 1 &&
         this.state.type === 'notifyTimes' &&
         this.__renderNotifyTime()}
 
@@ -525,7 +547,7 @@ const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    paddingTop: 80,
+    paddingTop: 0,
   },
   item: {
     marginTop: 7.5,

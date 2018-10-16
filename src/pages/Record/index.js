@@ -196,7 +196,7 @@ export default class Record extends Component {
         reqKey={IUSE}
         sKey={IRECORD}
         numColumns={2}
-        columnWrapperStyle={{ padding: 5 }}
+        columnWrapperStyle={{ padding: 10 }}
         renderItem={this.renderRow.bind(this)}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}

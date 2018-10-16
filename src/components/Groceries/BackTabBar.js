@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderBottomColor: 'transparent',
+
   },
   title:{
     alignItems: 'center',

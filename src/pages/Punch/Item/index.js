@@ -26,7 +26,7 @@ import {
 const width = Dimensions.get('window').width
 const itemWidth = (width - 64) / 3
 const iconWidth = itemWidth / 2
-
+import svgs from '../../../../source/svgs'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
@@ -44,18 +44,23 @@ export default class PunchItem extends Component {
 
   static propTypes = {
     title: PropTypes.string,
-    done:PropTypes.bool
+    done:PropTypes.bool,
+    name:PropTypes.string,
+    color: PropTypes.string,
   };
   static defaultProps = {
-    done:false
+    done:false,
+    name:'mangosteen',
+    color:'#afd2ef'
   };
 
   render(): ReactElement<any> {
 
-    const { title,done } = this.props
+    const { title,done , style ,name,color} = this.props
 
     return (
       <StyledFlipCard
+        style={style}
         useNativeDriver={true}
         friction={50}
         perspective={360}
@@ -64,14 +69,13 @@ export default class PunchItem extends Component {
         flip={done}
       >
         <StyledCard
-
           width={itemWidth}
-          backgroundColor='#afd2ef'>
+          backgroundColor={color}>
           <View style={{height:iconWidth}}>
             <SvgUri
               width={iconWidth}
               height={iconWidth}
-              source={require('../../../../source/svg/柠檬.svg')}
+              source={svgs[name]}
             />
           </View>
           <StyledCardTitleView>
@@ -87,7 +91,7 @@ export default class PunchItem extends Component {
         <StyledCard
 
           width={itemWidth}
-          backgroundColor='#afd2ef'>
+          backgroundColor={color}>
           <View style={{height:iconWidth}}>
             <StyledMaterialCommunityIcons
               color={'white'}

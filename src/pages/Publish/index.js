@@ -83,7 +83,7 @@ export default class Publish extends Component {
     return (
       <CardRow
         title={item.title}
-        des={`人数:${item.useNum}`}
+        des={`${item.notifyText}`}
         img={item.img}
         onPress={() => {
           this.props.navigation.navigate('publishDetail',
@@ -114,7 +114,7 @@ export default class Publish extends Component {
         style={[this.props.style, styles.list]}
         reqKey={listKey}
         numColumns={2}
-        columnWrapperStyle={{ padding: 5 }}
+        columnWrapperStyle={{ padding: 10 }}
         renderItem={this.renderRow.bind(this)}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}

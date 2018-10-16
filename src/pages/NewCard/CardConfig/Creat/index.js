@@ -53,13 +53,20 @@ import ColorCell from './Cell/ColorCell'
 import colors from '../../../../../source/colors'
 import { Field } from 'redux-form/immutable'
 import { Map } from 'immutable';
-
+import IconAndColor from './IconAndColor'
+// import PunItem from '../../../Punch/Item'
+import {
+  StyledCell,
+} from './Cell/style'
+import SvgUri from 'react-native-svg-uri';
+import svgs from '../../../../../source/svgs'
 @connect(
   state => ({
     //data:state.req.get()
     title: selector(state, 'title'),
     initialValues: StaticOption,
-    load: state.req.get(ICARD).get('load')
+    load: state.req.get(ICARD).get('load'),
+    iconAndColor: selector(state, 'iconAndColor'),
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch),
@@ -81,7 +88,9 @@ import { Map } from 'immutable';
         'period',
         'recordDay',
         'notifyText',
-        'record')
+        'record',
+        'iconAndColor'
+      )
 
 
       const notifyTimes = op.notifyTimes.toJS()
@@ -96,6 +105,7 @@ import { Map } from 'immutable';
         ...op,
         record: op.record.toJS(),
         recordDay: op.recordDay.toJS(),
+        iconAndColor:op.iconAndColor.toJS(),
         notifyTimes,
         price: 0,
         state: 0,
@@ -215,19 +225,19 @@ export default class Creat extends Component {
 
   __renderName = () => {
     return (
-      <View style={{ marginTop: 90 }}>
+      <View style={{ marginTop: 10 }}>
         <View style={{
           flexDirection: 'row',
           width: Dimensions.get('window').width,
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <Animatable.View animation="fadeInLeft"
+          <View animation="fadeInLeft"
                            delay={Math.random() * 300}
           >
             <BackBtn onBackPress={this.__backStep}/>
-          </Animatable.View>
-          <Animatable.View animation="fadeInRight"
+          </View>
+          <View animation="fadeInRight"
                            delay={Math.random() * 300}
           >
             <Button
@@ -235,14 +245,14 @@ export default class Creat extends Component {
               style={[styles.done, styles.shadow]}>
               <Text>下一步</Text>
             </Button>
-          </Animatable.View>
+          </View>
         </View>
-        <Animatable.View animation="fadeInLeft"
+        <View animation="fadeInLeft"
                          delay={Math.random() * 300}
         >
           <StyledSubTitleView>
             <StyledSubTitle>
-              卡片标题：
+              习惯标题：
             </StyledSubTitle>
           </StyledSubTitleView>
           <TextInput
@@ -260,109 +270,49 @@ export default class Creat extends Component {
             //onSubmitEditing={() =>this.focusNextField(ref)}
             // onChangeText={(text) => this.setState({title: text})}
           />
-        </Animatable.View>
+        </View>
       </View>
     )
   }
 
 
-  __renderIconAndColor = () => {
-
-    const data = [{
-      name: 'cactus',
-      size: 30,
-    }, {
-      name: 'mangosteen',
-      size: 30,
-    }, {
-      name: 'watermelon',
-      size: 30,
-    }]
-
-    const ColorData = [colors['RED']['A100'], colors['RED']['A400']]
+  __renderIconAndColor = (iconAndColor) => {
 
     return (
-      <Animatable.View animation="fadeInLeft"
-                       delay={Math.random() * 300}
-      >
-
-        <StyledSubTitleView>
-          <StyledSubTitle>
-            挑选图标与颜色：
-          </StyledSubTitle>
-        </StyledSubTitleView>
-
-
-        <ScrollView
-          key={'icon'}
-          contentContainerStyle={{
-            width: 500,
-            flexWrap: 'wrap',
-          }}
-          showsHorizontalScrollIndicator={false}
-          horizontal>
-          {data.map(item =>
-            (<Cell
-                  key={item.name}
-                  onPress={(props) => {
-                    const { input } = props
-                    const { value, onChange } = input
-                    onChange(new Map({
-                      name: item.name,
-                      color: value.get('color')
-                    }))
-                  }}
-                  data={item}/>))}
-        </ScrollView>
-        <ScrollView
-          key={'color'}
-          contentContainerStyle={{
-            width: 500,
-            flexWrap: 'wrap',
-          }}
-          showsHorizontalScrollIndicator={false}
-          horizontal>
-          {ColorData.map(item =>
-            <Field
-              key={item}
-              name={`iconAndColor`}
-              component={props =>
-                <ColorCell
-                  select={props.input.value.get('color') === item}
-                  onPress={() => {
-                    const { input } = props
-                    const { value, onChange } = input
-                    onChange(new Map({
-                      name: value.get('name'),
-                      color: item
-                    }))
-                  }}
-                  key={item}
-                  color={item}/>}/>)}
-        </ScrollView>
-
-      </Animatable.View>
+      <IconAndColor iconAndColor={iconAndColor}/>
     )
   }
 
 
   render(): ReactElement<any> {
+    const { title, iconAndColor } = this.props
     return (
       <StyledContent
         colors={['#f1f6f9', '#ffffff']}
         style={[this.props.style, styles.wrap]}>
+
+
         <StyledInnerView>
+          {/*{!this.state.optionOpen && <Animatable.View*/}
+            {/*animation="bounceInDown" >*/}
+            {/*<PunItem*/}
+              {/*name={iconAndColor && iconAndColor.get('name')}*/}
+              {/*color={iconAndColor && iconAndColor.get('color')}*/}
+              {/*style={{ alignSelf: 'center', marginTop: 50 }}*/}
+              {/*title={title || '标题'} done={false}/>*/}
+          {/*</Animatable.View>}*/}
           {!this.state.optionOpen && this.__renderName()}
-          {!this.state.optionOpen && this.__renderIconAndColor()}
+          {!this.state.optionOpen && this.__renderIconAndColor(iconAndColor)}
+          {this.state.optionOpen &&
+          (<OptionDo goBack={() => {
+            this.props.navigation.goBack()
+          }}
+                     done={this.props.add}
+                     load={this.props.load}/>)}
         </StyledInnerView>
         {/*{(this.state.step === 1 || this.state.step === 2)*/}
         {/*&& !this.state.optionOpen && this.__doneView()}*/}
-        {this.state.optionOpen &&
-        (<OptionDo goBack={() => {
-          this.props.navigation.goBack()
-        }}
-                   done={this.props.add}
-                   load={this.props.load}/>)}
+
       </StyledContent>
     );
   }
@@ -392,7 +342,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
     paddingHorizontal: 10,
-    backgroundColor: 'white',
     borderRadius: 8,
     marginHorizontal: 15,
   },

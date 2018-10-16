@@ -66,7 +66,9 @@ const FormID = 'CreatCardForm'
                     'period',
                     'record',
                     'title',
-                    'recordDay')
+                    'recordDay',
+                    'iconAndColor',
+                )
 
               const notifyTimes = op.notifyTimes.toJS()
                 .sort((a, b) => moment(a, 'HH:mm')
@@ -78,7 +80,8 @@ const FormID = 'CreatCardForm'
                     ...op,
                     record: op.record.toJS(),
                     recordDay: op.recordDay.toJS(),
-                     notifyTimes
+                    iconAndColor: op.iconAndColor.toJS(),
+                    notifyTimes
                 }
 
                 const res = await dispatch(update(id, param, ICARD))

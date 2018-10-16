@@ -325,7 +325,7 @@ export default class LoginView extends Component {
             </View>
 
             <StyledSignInBtn
-              disabled={!flag}
+              disabled={!flag || this.props.userData.loaded}
               load={this.props.userData.loaded}
               onPress={this._goRegist.bind(this)}
               title={'登 录'}

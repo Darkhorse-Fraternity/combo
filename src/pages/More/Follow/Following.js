@@ -22,7 +22,6 @@ import {
     StyleFolllow,
     StyleFollowText,
     StyleFollowDevide,
-    StyledHeaderName,
 } from '../style'
 
 import {
@@ -31,7 +30,8 @@ import {
     StyleHeaderInnerRight,
     StyledAvatar,
     StyledHeaderTop,
-    StyledHeaderBottom
+    StyledHeaderBottom,
+    StyledHeaderName
 } from './style'
 import Icon from 'react-native-vector-icons/Ionicons'
 import CardRow from '../../NewCard/CardRow'
@@ -307,7 +307,7 @@ export default class Following extends Component {
                 reqKey={IUSE}
                 sKey={FOLLOWRECORD + user.objectId}
                 numColumns={2}
-                columnWrapperStyle={{ padding: 5 }}
+                columnWrapperStyle={{ padding: 10 }}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}

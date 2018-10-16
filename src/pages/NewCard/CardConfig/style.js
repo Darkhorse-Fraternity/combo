@@ -32,6 +32,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledContent = styled(LinearGradient)`
     flex: 1;
+    padding: 80px 0px;
 `
 
 export const StyledInnerView = styled.ScrollView`

@@ -15,7 +15,7 @@ export const StyledContent = styled.View`
 `
 
 export const StyledTitleView = styled.View`
-  padding: 15px 15px 15px 15px;
+  padding: 15px 10px ;
 `
 
 export const StyledTitleText = styled.Text`
@@ -26,7 +26,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledHeader = styled.View`
   border-radius: 15px;
-  margin: 15px;
+  margin: 15px 10px;
   padding: 15px 10px;
 `
 

@@ -232,7 +232,7 @@ export default class More extends Component {
       <View style={{ marginTop: 0 }}>
 
 
-        {this._renderRow('归档卡片', true, () => {
+        {this._renderRow('归档习惯', true, () => {
           navigation.navigate('record', { statu: 'stop' });
         })}
 

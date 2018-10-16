@@ -58,7 +58,7 @@ export default class IconCell extends Component {
             return (
               <StyledCellBtn
                 activeOpacity={1}
-                select={value.get('name') === name}
+                select={value && value.get('name') === name}
                 onPress={(() => onPress(props))}/>)
           }
           }/>

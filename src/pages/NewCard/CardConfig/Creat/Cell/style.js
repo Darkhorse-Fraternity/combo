@@ -9,7 +9,7 @@ import TouchableBounce from 'react-native/Libraries/Components/Touchable/Touchab
 
 export const StyledCell = styled.View`
     margin: 10px;
-    background-color: ${props => props.theme.textinputbackgroundColor};
+    background-color: ${props => props.backgroundColor || props.theme.textinputbackgroundColor};
     border-radius: 5px;
     width: 60px;
     height: 60px;

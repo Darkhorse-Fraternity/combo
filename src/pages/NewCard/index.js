@@ -75,7 +75,7 @@ export default class Publish extends Component {
     return (
       <CardRow
         title={item.title}
-        des={`人数:${item.useNum}`}
+        des={item.notifyText||'和我一起养成好习惯!'}
         img={item.img}
         onPress={() => {
           this.props.navigation.navigate('cardInfo', { iCardId: item.objectId })
@@ -111,7 +111,7 @@ export default class Publish extends Component {
 
         <StyledTitleView>
           <StyledTitleText>
-            热门习惯推荐
+            热门推荐
           </StyledTitleText>
         </StyledTitleView>
       </View>
@@ -128,7 +128,7 @@ export default class Publish extends Component {
         sKey={CARDLIST}  //在list 中的位置
         callPath={CARDLIST} //表示走云函数,并告知云函数的路径
         numColumns={2}
-        columnWrapperStyle={{ padding: 5 }}
+        columnWrapperStyle={{ padding: 10 }}
         renderItem={this.renderRow.bind(this)}
         dataMap={(data) => {
           return { results: data.result }

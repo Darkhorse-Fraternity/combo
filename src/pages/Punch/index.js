@@ -29,7 +29,6 @@ import {
   StyledCardTitle
 } from './style'
 import { strings } from '../../../locales/i18n';
-import Cell from './Cell'
 import Item from './Item'
 
 
@@ -143,9 +142,12 @@ export default class Punch extends Component {
     const iCardId = data[ICARD]
     let iCard = this.props.iCard.get(iCardId)
     const done = moment(2, "HH").isBefore(data.doneDate.iso)
-
+    let iconAndColor = iCard.get('iconAndColor')
+    iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
 
     return <Item
+      name={iconAndColor.name}
+      color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
       onPress={() => {

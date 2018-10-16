@@ -223,7 +223,7 @@ export default class Habit extends Component {
                     style={styles.container}
                     data={data}
                     numColumns={2}
-                    columnWrapperStyle={{ padding: 5 }}
+                    columnWrapperStyle={{ padding: 10 }}
                     // removeClippedSubviews={true}
                     // pagingEnabled={true}
                     showsHorizontalScrollIndicator={false}

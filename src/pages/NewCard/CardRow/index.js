@@ -5,68 +5,79 @@
 'use strict';
 
 import React, { Component } from 'react';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import {
-    View,
+  View,
+  Image
 } from 'react-native'
 import PropTypes from 'prop-types';
 
-
-import {
-    StyledContent,
-    StyledImage,
-    StyledInnerView,
-    StyledTitle,
-    StyledDes
+import styles, {
+  StyledContent,
+  StyledImage,
+  StyledInnerView,
+  StyledTitle,
+  StyledDes
 } from './style'
+
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
 export default class CardRow extends Component {
-    constructor(props: Object) {
-        super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+  constructor(props: Object) {
+    super(props);
+    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
-    }
+  }
 
-    static propTypes = {
-        onPress: PropTypes.func,
-        img: PropTypes.object,
-        title: PropTypes.string,
-        des: PropTypes.string,
-    };
-    static defaultProps = {};
-
-
-    render(): ReactElement<any> {
+  static propTypes = {
+    onPress: PropTypes.func,
+    img: PropTypes.object,
+    title: PropTypes.string,
+    des: PropTypes.string,
+  };
+  static defaultProps = {};
 
 
-        const {
-            title,
-            onPress,
-            img,
-            des
-        } = this.props
-
-        const source = img ? { uri: img.url } :
-            require('../../../../source/img/my/icon-60.png')
+  render(): ReactElement<any> {
 
 
-        return (
-            <StyledContent onPress={onPress}>
-                <StyledImage
-                    source={source}/>
-                <StyledInnerView>
-                    <StyledTitle numberOfLines={2}>
-                        {title}
-                    </StyledTitle>
-                    <StyledDes>
-                        {des}
-                    </StyledDes>
-                </StyledInnerView>
-            </StyledContent>
-        );
-    }
+    const {
+      title,
+      onPress,
+      img,
+      des
+    } = this.props
+
+    const source = img ? { uri: img.url } :
+      require('../../../../source/img/my/icon-60.png')
+
+
+    return (
+      <StyledContent onPress={onPress}>
+        <View style={styles.shadow}>
+          <View
+            style={styles.imageContainer}>
+            <StyledImage
+              source={source}
+              defaultSource={require('../../../../source/img/my/icon-60.png')}
+              style={styles.image}
+            />
+            <View style={styles.radiusMask}/>
+          </View>
+          <StyledInnerView style={styles.textContainer}>
+            <StyledTitle numberOfLines={1}>
+              {title}
+            </StyledTitle>
+            <StyledDes numberOfLines={1}>
+              {des}
+            </StyledDes>
+          </StyledInnerView>
+        </View>
+      </StyledContent>
+    );
+  }
 }
 
 

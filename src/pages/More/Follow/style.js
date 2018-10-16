@@ -87,3 +87,11 @@ export const StyledHeaderBottom = styled.View`
     align-items: center;
     padding: 15px 0px;
 `
+
+
+export const StyledHeaderName = styled.Text`
+    font-size: 21px;
+    font-weight: 500;
+    max-width: 150px;
+    
+`

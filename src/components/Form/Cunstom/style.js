@@ -24,6 +24,6 @@ export const StyleAutoGrowingTextInput = styled(AutoGrowingTextInput)`
 
 export const StyleTextInput = styled.TextInput`
     font-size: 17px;
-    background: white;
+    background: ${props => props.theme.textinputbackgroundColor};
     height:50px;
 `
