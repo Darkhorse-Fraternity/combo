@@ -155,12 +155,10 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     title: {
-        color: 'black',
         fontSize: 15,
         fontWeight: 'bold'
     },
     body: {
-        color: 'black',
         fontSize: 13,
         marginTop:Platform.OS === 'ios'?5:2,
     }

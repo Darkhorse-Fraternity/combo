@@ -41,6 +41,7 @@ export default class DateBoard extends React.Component {
         date: PropTypes.string,
         busyDay: PropTypes.object,
         fetchData: PropTypes.func,
+        color:PropTypes.string
     };
 
     constructor(props) {
@@ -110,7 +111,7 @@ export default class DateBoard extends React.Component {
                     }}
                                       key={i}
                                       style={styles.dateBox}>
-                        <View style={[styles.selected, { backgroundColor: theme.mainLightColor }]}>
+                        <View style={[styles.selected, { backgroundColor:this.props.color || theme.mainLightColor }]}>
                             <Text style={[styles.dateText, {
                                 color: 'white',
                                 fontWeight: 'bold'

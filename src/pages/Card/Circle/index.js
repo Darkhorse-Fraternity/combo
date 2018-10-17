@@ -80,6 +80,7 @@ export default class Circle extends Component {
           <StyledHeaderBtn
             // load={false}
             // disabled={false}
+            backgroundColor={this.props.color}
             hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
             onPress={()=>this.props.tipTap(this.props.iUse.toJS())}
             title={'添加日记'}/>

@@ -167,7 +167,7 @@ export default class Agenda extends Component {
           </StyledTitleText>:
             <StyledHeaderBtn
             // load={false}
-            style={{ marginLeft: 10 }}
+            backgroundColor={this.props.color}
             // disabled={false}
             hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
             onPress={()=>this.props.tipTap(this.props.iUse.toJS())}

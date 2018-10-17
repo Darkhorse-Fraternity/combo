@@ -25,7 +25,6 @@ export const StyledTitleView = styled.View`
 
 export const StyledTitleText = styled.Text`
   font-size: 17px;
-  color: black;
 `
 
 export const StyledBottomMenu = styled.View`

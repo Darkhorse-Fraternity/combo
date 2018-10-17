@@ -35,7 +35,8 @@ export const StyledTitleText = styled.Text`
 `
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-
+  margin-left: 10px;
+  background-color: ${props=>props.backgroundColor||props.theme.sureColor};
 `
 
 

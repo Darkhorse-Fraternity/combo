@@ -177,6 +177,7 @@ export default class Calendar extends Component {
     renderDateBorad = (month) => {
         return (
             <DateBoard
+              color={this.props.color}
                 key={month}
                 year={this.state.year}
                 month={month}

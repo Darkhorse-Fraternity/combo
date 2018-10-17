@@ -116,7 +116,7 @@ export default class Card extends Component {
       }}>
         <StyledIcon
           color={'black'}
-          size={25}
+          size={23}
           name={'md-share'}/>
       </Button>,
       <Button key={'icon2'} onPress={() => {
@@ -127,7 +127,7 @@ export default class Card extends Component {
         <StyledIcon
           color={'black'}
           style={{ marginRight: 10 }}
-          size={25}
+          size={23}
           name={'md-settings'}/>
       </Button>,
     ]
@@ -146,14 +146,15 @@ export default class Card extends Component {
     const { iCard, iUse } = this.props
     if (!iCard) {
       return (
-        <StyledContent>
-
-        </StyledContent>
+        <StyledContent/>
       )
     }
 
 
     const useNum = iCard.get('useNum')
+    let iconAndColor = iCard.get('iconAndColor')
+    iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
+    const color = iconAndColor.color || ''
     const title = iCard.get('title')
     const privacy = iUse.get('privacy')
     const circleState = iCard.get('circleState')
@@ -169,6 +170,7 @@ export default class Card extends Component {
           }}
           renderTabBar={() => (
             <BackTabBar
+              underlineColor={color}
               title={title}
               tabUnderlineWidth={35}
               scrollValueWithOutNative={this.state.scrollValue}
@@ -185,17 +187,20 @@ export default class Card extends Component {
           {/*<Course {...this.props}*/}
           {/*tabLabel='课程'/>}*/}
           {circleState === CircleState.open &&
-          <Circle {...this.props}
-                  tabLabel='圈子'/>}
+          <Circle
+            color={color}
+            {...this.props}
+            tabLabel='圈子'/>}
           <Statistical
+            color={color}
             {...this.props}
             tabLabel="统计"/>
           {/*<Info {...this.props} tabLabel="设置"/>*/}
         </ScrollableTabView>
 
         {/*<DoCardButton*/}
-          {/*// afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}*/}
-          {/*{...this.props} />*/}
+        {/*// afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}*/}
+        {/*{...this.props} />*/}
       </StyledContent>
     );
   }

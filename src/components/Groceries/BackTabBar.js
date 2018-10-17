@@ -161,6 +161,6 @@ const styles = StyleSheet.create({
   },
   title:{
     alignItems: 'center',
-    fontSize: 17,
+    fontSize: 19,
   }
 });

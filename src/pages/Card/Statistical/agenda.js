@@ -111,6 +111,7 @@ export default class AgendaScreen extends Component {
 
         return (
             <Calendar
+                color={this.props.color}
                 ref={'calendar'}
                 date={new Date()}
                 load={load}
