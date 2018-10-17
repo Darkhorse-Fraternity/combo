@@ -39,8 +39,31 @@ const data = [{
   size: 30,
 }]
 
-const ColorData = [colors['RED']['A100'], colors['RED']['A400']]
 
+const colorNames = ['DELTAORANGE','RED',
+  'PINK','PURPLE','INDIGO','LIGHTBLUE','CYAN','TEAL','LIGHTGREEN',
+  'LIME','YELLOW','AMBER','ORANGE','DEEPORANGE','BROWN','BLUEGREY']
+const colorType = ['100','200','300','400','500']
+
+let ColorData = []
+
+colorNames.forEach((name)=>{
+  colorType.forEach((type)=>{
+    ColorData.push(colors[name][type])
+  })
+
+})
+
+const  shuffle = function(self) {
+  let m = self.length, i;
+  while (m) {
+    i = (Math.random() * m--) >>> 0;
+    [self[m], self[i]] = [self[i], self[m]]
+  }
+  return self;
+}
+ColorData = shuffle(ColorData)
+ColorData.push('#7e7e7e')
 
 @connect(
   state => ({}),
@@ -108,7 +131,7 @@ export default class IconAndColor extends Component {
         <ScrollView
           key={'color'}
           contentContainerStyle={{
-            width: 500,
+            width: 2200,
             flexWrap: 'wrap',
           }}
           showsHorizontalScrollIndicator={false}

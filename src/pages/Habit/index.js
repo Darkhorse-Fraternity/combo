@@ -202,7 +202,7 @@ export default class Habit extends Component {
           showsVerticalScrollIndicator={false}
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
-           ListHeaderComponent={this._renderHeader}
+          ListHeaderComponent={this._renderHeader}
           ListEmptyComponent={()=>this.__renderNoData(statu)}
         />
 

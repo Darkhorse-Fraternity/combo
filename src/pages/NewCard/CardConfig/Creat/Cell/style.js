@@ -31,7 +31,7 @@ export const StyledCellBtn = styled.TouchableOpacity`
 export const StyledColorCell = styled.TouchableOpacity`
     width: 30px;
     height: 30px;
-    margin: 25px;
+    margin: 15px 25px;
     background-color: ${props => props.color};
     border-radius: 20px;
     border-color: ${props=>props.select?'black':props.color};

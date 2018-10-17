@@ -188,7 +188,7 @@ export default class Card extends Component {
           {/*tabLabel='课程'/>}*/}
           {circleState === CircleState.open &&
           <Circle
-            color={color}
+             color={color}
             {...this.props}
             tabLabel='圈子'/>}
           <Statistical
