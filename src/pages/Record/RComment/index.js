@@ -242,8 +242,6 @@ export default class RComment extends Component {
 
     renderRow({ item }: Object): ReactElement<any> {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
-        // const my_head = require('../../../../source/img/my/my_head.png');
-        // const source = item.user.avatar ? { uri: item.user.avatar.url } : my_head
 
         const avatar = item.user.avatar
         const avatarUrl = avatar ? avatar.url : item.user.headimgurl

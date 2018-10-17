@@ -196,7 +196,7 @@ export default class Habit extends Component {
           }}
           style={styles.container}
           data={data}
-          // removeClippedSubviews={true}
+          removeClippedSubviews={true}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

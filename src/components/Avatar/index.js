@@ -55,7 +55,7 @@ export default class Avatar extends Component {
     const { avatar, headimgurl, } = user
     const avatarUrl = avatar ? avatar.url : headimgurl
     const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../source/img/my/icon-60.png')
+      require('../../../source/img/my/my_head.png')
 
     return (
       <StyledContent radius={radius}>

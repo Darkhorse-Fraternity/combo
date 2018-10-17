@@ -19,6 +19,7 @@ export const StyledInput = styled(TextInput)`
     border-bottom-color: black ;
     margin: 20px 0px;
     font-size: 17px;
+    background-color: white;
 `
 
 export const StyledHeaderTop = styled.View`

@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     backgroundColor: 'white',
+    overflow:'hidden',
   },
 
   text: {

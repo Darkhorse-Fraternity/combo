@@ -30,7 +30,6 @@ import LCList from '../../../components/Base/LCList';
 const listKey = ENCH
 @connect(
   state => ({}),
-  dispatch => ({})
 )
 
 
@@ -70,7 +69,7 @@ export default class CashRecord extends Component {
   }
 
   render(): ReactElement<any> {
-    const {dispatch} = this.props.navigation
+    const {dispatch} = this.props
     const param = {
       'where': {
         ...dispatch(selfUser())

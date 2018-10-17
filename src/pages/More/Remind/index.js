@@ -14,7 +14,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import { ICARD, IUSE } from '../../../redux/reqKeys'
-
+import SvgUri from 'react-native-svg-uri';
+import svgs from '../../../../source/svgs'
 
 import {
   StyledContent,
@@ -182,7 +183,10 @@ export default class Remind extends Component {
             开启习惯提醒
           </StyledSubTitleText>
         </StyledRowInner>
-        <StyledSwitch value={value} onValueChange={async (value) => {
+        <StyledSwitch
+          trackColor={{false: '#39ba98', true: '#39ba98'}}
+          value={value}
+          onValueChange={async (value) => {
           await this.props.remind(id, value)
         }}/>
       </StyledSubTitle>,
@@ -196,6 +200,7 @@ export default class Remind extends Component {
   _renderSwipeOutDeleteBtn = () => {
     return (
       <StyledDeleteBtn>
+        <StyledIcon size={30} color={'red'} name={'delete'}/>
         <StyledDeleteBtnText>
           删除
         </StyledDeleteBtnText>
@@ -231,19 +236,22 @@ export default class Remind extends Component {
     if (value === undefined) {
       value = true
     }
+    const {  iconAndColor,title ,recordDay} = iCard
+    const { color, name } = iconAndColor || {name:'mangosteen',color:'#b0d2ee'}
 
     return (
       <Swipeout
         autoClose={true}
+        backgroundColor='white'
         right={[{
           type: 'delete',
           onPress: () => {
             this._deleteRow(item)
           },
           component: this._renderSwipeOutDeleteBtn(),
-          backgroundColor: 'red'
+          backgroundColor: '#f6f7f9'
         }]}
-        backgroundColor={'red'}>
+        >
         <StyledButton
           activeOpacity={1}
           onPress={() => {
@@ -259,19 +267,25 @@ export default class Remind extends Component {
             <StyledTime>
               {notifyTime}
             </StyledTime>
-            <StyledIconView>
-              <StyledIcon size={30} name={'alarm'}/>
+            <StyledIconView color={'#f6f7f9'}>
+              <SvgUri
+                width={25}
+                height={25}
+                svgXmlData={svgs[name]}
+              />
             </StyledIconView>
             <StyledRowDis>
-              <StyledName>
-                {iCard.title}
+              <StyledName numberOfLines={2}>
+                {title}
               </StyledName>
               <StyledDays>
-                {daysText(iCard.recordDay)}
+                {daysText(recordDay)}
               </StyledDays>
             </StyledRowDis>
           </StyledRowInner>
-          <StyledSwitch onValueChange={(value) => {
+          <StyledSwitch
+            trackColor={{false: color, true: color}}
+            onValueChange={(value) => {
             this.props.remind(id, value)
           }} value={value}/>
 

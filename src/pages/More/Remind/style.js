@@ -72,7 +72,8 @@ export const StyledRowInner = styled.View`
 `
 
 export const StyledRowDis = styled.View`
-
+    margin-left: 5px;
+    max-width: 100px;
 `
 
 export const StyledLine = styled.View`
@@ -94,12 +95,14 @@ export const StyledRound = styled.View`
 `
 
 export const StyledIconView = styled.View`
-    background-color: ${props => props.theme.titleBackViewColor};
+    background-color: ${props => props.color};
     padding: 10px;
     width: 50px;
     height: 50px;
     border-radius: 15px;
     margin:0px 5px 0px 15px;
+    align-items: center;
+    justify-content: center;
 `
 
 export const StyledIcon = styled(Icon)`
@@ -114,7 +117,8 @@ export const StyledDeleteBtn = styled.View`
 `
 
 export const StyledDeleteBtnText = styled.Text`
-  color: white;
-  font-size: 19px;
-  font-weight: 600;
+  color: red;
+  margin: 3px;
+  font-size: 13px;
+  font-weight: 300;
 `
