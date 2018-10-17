@@ -7,7 +7,7 @@
 import styled from "styled-components";
 
 
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled.View`
      flex: 1;
      background-color: white;
      padding: 44px 14px;

@@ -21,7 +21,7 @@ import {
 } from './style'
 import ShareView from '../../components/Share/ShareView'
 import Pop from '../../components/Pop/index'
-import DoCardButton from '../../components/Button/DoCardButton/index'
+// import DoCardButton from '../../components/Button/DoCardButton/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import BackTabBar from '../../components/Groceries/BackTabBar'
 import Statistical from './Statistical'
@@ -193,9 +193,9 @@ export default class Card extends Component {
           {/*<Info {...this.props} tabLabel="设置"/>*/}
         </ScrollableTabView>
 
-        <DoCardButton
-          // afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}
-          {...this.props} />
+        {/*<DoCardButton*/}
+          {/*// afterDone={(res) => this._afterDone('done_' + iCard.get('objectId'))}*/}
+          {/*{...this.props} />*/}
       </StyledContent>
     );
   }

@@ -50,7 +50,7 @@ import moment from 'moment'
           ...dispatch(selfUser()),
           statu: 'start'
         },
-        order: 'doneDate',
+        order: '-time',
         include: ICARD + ',iCard.user'
       }, IUSE))
     },
@@ -158,7 +158,6 @@ export default class Habit extends Component {
   _renderHeader = () => {
     return (
       <View style={styles.headView}>
-
           <Text style={styles.headViewText}>
             日常习惯
           </Text>
@@ -178,6 +177,9 @@ export default class Habit extends Component {
     const statu = this.props.data.get('loadStatu')
 
     let data = this.props.data.toJS().listData
+
+    // data = data.sort((a,b)=> a.time - b.time)
+
 
     return (
       <StyledInnerdContent>

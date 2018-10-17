@@ -29,7 +29,7 @@ const itemWidth = (width - 64) / 3
 const iconWidth = itemWidth / 2
 import svgs from '../../../../source/svgs'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-
+import { debounce } from 'lodash'; // 4.0.8
 
 @connect(
   state => ({}),
@@ -40,7 +40,9 @@ export default class PunchItem extends Component {
   constructor(props: Object) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
+    this.state = {
+      flip: props.done
+    }
   }
 
   static propTypes = {
@@ -55,12 +57,34 @@ export default class PunchItem extends Component {
     color: '#afd2ef'
   };
 
+
+  componentWillReceiveProps(nextProps) {
+    //TODO： 这边这样设置会有反复哦，所以这边就先避免了
+    if(nextProps.done !== this.state.flip){
+       debounce(()=>{
+         this.setState({ flip: nextProps.done })
+      }, 1000, { leading: false, trailing: false })()
+
+    }
+  }
+
+
   render(): ReactElement<any> {
 
     const { title, done, style, name, color, onPress } = this.props
+    const { flip } = this.state
 
+    const self = this
     return (
-      <StyledButton onPress={onPress}>
+      <StyledButton
+        // disabled={flip}
+        onPress={() => {
+          if(!flip){
+            onPress && onPress(()=>{
+              self.setState({ flip: !flip })
+            })
+          }
+        }}>
         <StyledFlipCard
           style={style}
           useNativeDriver={true}
@@ -68,7 +92,7 @@ export default class PunchItem extends Component {
           perspective={360}
           flipHorizontal={true}
           flipVertical={false}
-          flip={done}
+          flip={flip}
           clickable={false}
         >
           <StyledCard
