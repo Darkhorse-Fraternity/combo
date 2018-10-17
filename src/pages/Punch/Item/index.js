@@ -53,7 +53,7 @@ export default class PunchItem extends Component {
   };
   static defaultProps = {
     done: false,
-    name: 'mangosteen',
+    name: 'sun',
     color: '#afd2ef'
   };
 

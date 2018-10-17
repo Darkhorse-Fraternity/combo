@@ -45,7 +45,7 @@ export default class Cell extends Component {
           <SvgUri
             width={40}
             height={40}
-            svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'mangosteen']}
+            svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'sun']}
           />
         </StyledIconBG>
         <StyledInner>

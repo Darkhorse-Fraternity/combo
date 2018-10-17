@@ -237,7 +237,7 @@ export default class Remind extends Component {
       value = true
     }
     const {  iconAndColor,title ,recordDay} = iCard
-    const { color, name } = iconAndColor || {name:'mangosteen',color:'#b0d2ee'}
+    const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
 
     return (
       <Swipeout

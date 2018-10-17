@@ -170,7 +170,7 @@ export default class Calendar extends Component {
     }
 
     componentWillUnmount() {
-        this.timer && clearTimeout(this.timer2)
+        this.timer && clearTimeout(this.timer)
     }
 
 

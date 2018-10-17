@@ -17,7 +17,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
-
+import {icons,colors} from './Creat/IconAndColorData'
 import { AutoGrowingInput, TextInput } from '../../../components/Form/Cunstom/index'
 import { Radio, Multiple } from '../../../components/Form/Select/index'
 import Toast from 'react-native-simple-toast'
@@ -39,8 +39,8 @@ export const StaticOption = {
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
-    name: 'mangosteen',
-    color: '#e53935',
+    name: 'sun',
+    color: colors[0],
   },
 
 }

@@ -51,7 +51,7 @@ import Item from './Item'
           ...dispatch(selfUser()),
           statu: 'start'
         },
-        order: 'doneDate',
+        order: '-time',
         include: ICARD + ',iCard.user'
       }, IUSE))
     },
@@ -170,19 +170,19 @@ export default class Punch extends Component {
     let data = this.props.data.toJS().listData
 
     return [
-      <View key={'1'} style={{height:20,backgroundColor:'white'}}/>,
+      <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
       <StyledContent key={'2'}>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
 
         <FlatList
-          // refreshing={false}
-          // onRefresh={() => {
-          //   this.props.search()
-          // }}
+          refreshing={false}
+          onRefresh={() => {
+            this.props.search()
+          }}
           data={data}
           numColumns={3}
-          style={{flex:1}}
+          style={{ flex: 1 }}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
