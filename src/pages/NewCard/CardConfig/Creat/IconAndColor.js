@@ -130,9 +130,11 @@ export default class IconAndColor extends Component {
         </ScrollView>
         <ScrollView
           key={'color'}
+          // removeClippedSubviews={true}
           contentContainerStyle={{
             width: 2200,
             flexWrap: 'wrap',
+            overflow: 'hidden'
           }}
           showsHorizontalScrollIndicator={false}
           horizontal>

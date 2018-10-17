@@ -8,7 +8,7 @@ import styled from "styled-components";
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledCell = styled.View`
-    margin: 10px;
+    margin: 10px 5px 10px 15px;
     background-color: ${props => props.backgroundColor || props.theme.textinputbackgroundColor};
     border-radius: 5px;
     width: 60px;
@@ -31,7 +31,7 @@ export const StyledCellBtn = styled.TouchableOpacity`
 export const StyledColorCell = styled.TouchableOpacity`
     width: 30px;
     height: 30px;
-    margin: 15px 25px;
+    margin: 15px 20px 15px 30px;
     background-color: ${props => props.color};
     border-radius: 20px;
     border-color: ${props=>props.select?'black':props.color};
