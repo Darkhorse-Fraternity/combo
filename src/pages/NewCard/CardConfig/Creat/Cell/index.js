@@ -22,6 +22,9 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import svgs from '../../../../../../source/svgs'
 import { Field } from 'redux-form/immutable'
 
+
+
+
 @connect(
   state => ({}),
   dispatch => ({})
@@ -31,7 +34,7 @@ import { Field } from 'redux-form/immutable'
 export default class IconCell extends Component {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 
@@ -39,10 +42,20 @@ export default class IconCell extends Component {
   static propTypes = {};
   static defaultProps = {};
 
+  componentDidMount() {
+    console.log('test:', '??22');
+  }
+
+
+  shouldComponentUpdate() {
+    return false
+  }
+
   render(): ReactElement<any> {
 
     const { data, onPress } = this.props
     const { size, name } = data
+    console.log('test:', '2222');
     return (
       <StyledCell>
         <SvgUri

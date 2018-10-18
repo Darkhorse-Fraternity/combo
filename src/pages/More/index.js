@@ -240,10 +240,13 @@ export default class More extends Component {
           navigation.navigate('remind');
         })}
 
-
-        {this._renderRow('共享卡片管理', true, () => {
-          navigation.navigate('publish');
+        {this._renderRow('我的收益', true, () => {
+          navigation.navigate('earnings')
         })}
+
+        {/*{this._renderRow('共享卡片管理', true, () => {*/}
+          {/*navigation.navigate('publish');*/}
+        {/*})}*/}
 
 
         {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
@@ -252,9 +255,7 @@ export default class More extends Component {
         <View style={{ height: 25 }}/>
 
 
-        {this._renderRow('我的收益', true, () => {
-          navigation.navigate('earnings')
-        })}
+
 
 
         {this._renderRow('粉丝查看', false, () => {
@@ -263,7 +264,7 @@ export default class More extends Component {
         })}
 
 
-        <View style={{ height: 25 }}/>
+        {/*<View style={{ height: 25 }}/>*/}
 
         {this._renderRow('给作者留言', false, () => {
           navigation.navigate("feedback");

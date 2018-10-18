@@ -57,7 +57,7 @@ import IconAndColor from './IconAndColor'
     title: selector(state, 'title'),
     initialValues: StaticOption,
     load: state.req.get(ICARD).get('load'),
-    iconAndColor: selector(state, 'iconAndColor'),
+
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch),
@@ -267,16 +267,10 @@ export default class Creat extends Component {
   }
 
 
-  __renderIconAndColor = (iconAndColor) => {
-
-    return (
-      <IconAndColor iconAndColor={iconAndColor}/>
-    )
-  }
 
 
   render(): ReactElement<any> {
-    const { title, iconAndColor } = this.props
+    const { title } = this.props
     return (
       <StyledContent
         colors={['#f1f6f9', '#ffffff']}
@@ -293,7 +287,7 @@ export default class Creat extends Component {
               {/*title={title || '标题'} done={false}/>*/}
           {/*</Animatable.View>}*/}
           {!this.state.optionOpen && this.__renderName()}
-          {!this.state.optionOpen && this.__renderIconAndColor(iconAndColor)}
+          {!this.state.optionOpen && <IconAndColor/>}
           {this.state.optionOpen &&
           (<OptionDo goBack={() => {
             this.props.navigation.goBack()

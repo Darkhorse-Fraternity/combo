@@ -26,15 +26,27 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 export default class IconCell extends Component {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 
   static propTypes = {};
   static defaultProps = {};
 
+
+  componentDidMount() {
+    console.log('test:', '??11');
+  }
+
+
+  shouldComponentUpdate(nextProps) {
+    return false
+  }
+
   render(): ReactElement<any> {
 
+    console.log('test:', '1111');
+    
     const { color, onPress, select } = this.props
     return (<StyledColorCell
       select={select}

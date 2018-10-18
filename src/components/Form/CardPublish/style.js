@@ -55,14 +55,16 @@ export const StyledHearderTitle = styled(TextInput)`
     border-bottom-color: #c1c1c1 ;
     margin: 15px;
     font-size: 30px;
+    background-color: white;
 `
 
-export const StyledDescribe = styled(AutoGrowingInput)`
+export const StyledDescribe = styled(TextInput)`
     border-bottom-width: ${props => props.theme.hairlineWidth };
     border-bottom-color: #c1c1c1 ;
     margin: 15px;
     padding:0px 0px 10px 0px;
     font-size: 17px;
+    background-color: white;
 `
 
 export const StyledItem = styled.View`

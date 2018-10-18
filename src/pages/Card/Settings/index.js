@@ -269,13 +269,13 @@ export default class Settings extends Component {
         && iUse.statu !== 'del' &&
         ( <this._renderItem
           onPress={() => {
-            navigation.navigate('publishDetail',
-              { iCardID: iCard.objectId, data: iCard })
+            navigation.navigate('publishing',
+              { iCardID: iCard.objectId })
           }}
           Icon={StyledEntypoIcon}
           size={28}
           name={'picasa'}
-          title={' 圈子管理'}/>)}
+          title={' 圈子设置'}/>)}
 
 
         {iCard.circleState === CircleState.open

@@ -7,7 +7,9 @@
 import React, { Component } from 'react';
 import {
   View,
-  ScrollView
+  ScrollView,
+  InteractionManager,
+  FlatList
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -30,8 +32,16 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { Map } from 'immutable';
 import {icons,colors} from './IconAndColorData'
 
+import {
+  formValueSelector,
+} from 'redux-form/immutable'
+export const FormID = 'CreatCardForm'
+const selector = formValueSelector(FormID) // <-- same as form name
+
 @connect(
-  state => ({}),
+  state => ({
+    iconAndColor: selector(state, 'iconAndColor'),
+  }),
   dispatch => ({})
 )
 
@@ -47,13 +57,14 @@ export default class IconAndColor extends Component {
 
 
   componentDidMount() {
-    this.timer =  setTimeout(()=>{
-      this.setState({show:true})
-    },10)
+    InteractionManager.runAfterInteractions(async () => {
+      // ...耗时较长的同步的任务...
+      // this.setState({show:true})
+    });
+
   }
 
   componentWillUnmount() {
-    this.timer && clearTimeout(this.timer)
   }
 
   static propTypes = {};
@@ -63,19 +74,21 @@ export default class IconAndColor extends Component {
   render(): ReactElement<any> {
 
 
-    if(this.state.show === false ){
-      return <View/>
-    }
 
+    const {show} = this.state
 
     const { iconAndColor } = this.props
 
     return (
-      <View delay={1000} animation='fadeIn'>
+      <View >
         <StyledSubTitleView>
           <StyledSubTitle>
             挑选图标与颜色：
           </StyledSubTitle>
+
+
+
+
           {iconAndColor &&
           <StyledCell
             backgroundColor={iconAndColor.get('color')}
@@ -90,7 +103,23 @@ export default class IconAndColor extends Component {
         </StyledSubTitleView>
 
 
-        <ScrollView
+        {/*<FlatList*/}
+          {/*data={icons}*/}
+          {/*horizontal*/}
+          {/*// removeClippedSubviews={true}*/}
+          {/*// pagingEnabled={true}*/}
+          {/*showsHorizontalScrollIndicator={false}*/}
+          {/*showsVerticalScrollIndicator={false}*/}
+          {/*renderItem={()=>(*/}
+            {/**/}
+          {/*)}*/}
+          {/*keyExtractor={this._keyExtractor}*/}
+          {/*ListHeaderComponent={this._renderHeader}*/}
+          {/*ListEmptyComponent={() => this.__renderNoData(statu)}*/}
+        {/*/>*/}
+
+
+        {show && <ScrollView
           key={'icon'}
           removeClippedSubviews={true}
           contentContainerStyle={{
@@ -111,8 +140,8 @@ export default class IconAndColor extends Component {
                 }))
               }}
               data={item}/>))}
-        </ScrollView>
-        <ScrollView
+        </ScrollView>}
+        {show && <ScrollView
           key={'color'}
            removeClippedSubviews={true}
           contentContainerStyle={{
@@ -139,7 +168,7 @@ export default class IconAndColor extends Component {
                   }}
                   key={item}
                   color={item}/>}/>)}
-        </ScrollView>
+        </ScrollView>}
       </View>
     );
   }
