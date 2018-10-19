@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
   },
   headView: {
     // height:180,
+    marginTop:44,
     marginBottom: 25,
   },
   headViewText: {

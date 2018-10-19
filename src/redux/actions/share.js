@@ -87,6 +87,7 @@ export function shareToQQ(type: string, param: object = {}): Function {
         webpageUrl: param.webpageUrl || 'https://stg-icard.leanapp.cn/',
         imageUrl: param.imageUrl || param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png',
       });
+      // let result = {}
       console.log('share text message to time line successful:', result);
       return dispatch(shareLast(type,result))
     } catch (e) {

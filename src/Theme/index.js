@@ -17,6 +17,7 @@ export default {
     disabledColor:'#bfc2c7',
     sureColor:'#39ba98',
     headerButtonColor:'#31d930',
+    lightBlue:'#afd2ef',
     width:width,
     height:height,
     normalBtn:{

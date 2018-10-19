@@ -50,7 +50,8 @@ colorNames.forEach((name) => {
 
 
 const colors = shuffle(ColorData)
-colors.push('#7e7e7e')
+colors.unshift('#afd2ef')
+
 
 const colorsCutThree = []
 

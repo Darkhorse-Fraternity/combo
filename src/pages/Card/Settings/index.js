@@ -48,7 +48,7 @@ const width = Dimensions.get('window').width
 
 import { update, search } from '../../../redux/module/leancloud'
 
-import { IUSE } from '../../../redux/reqKeys'
+import { IUSE, IRECORD } from '../../../redux/reqKeys'
 import { claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
@@ -94,6 +94,9 @@ const Archive = IUSE + "archive"
         ...res,
       }
       dispatch(addListNormalizrEntity(IUSE, entity))
+      dispatch(claerByID(IRECORD, id))
+      await dispatch(popToIndex())
+      props.navigation.navigate('Punch')
     },
     stop: async (data) => {
       const id = data.objectId
@@ -145,6 +148,7 @@ const Archive = IUSE + "archive"
             }
             dispatch(addNormalizrEntity(IUSE, entity))
             dispatch(claerByID(IUSE, objectId))
+            dispatch(claerByID(IRECORD, objectId))
             // props.navigation.goBack()
             dispatch(popToIndex())
           }

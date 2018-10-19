@@ -38,7 +38,8 @@ import {
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import * as immutable from 'immutable';
+import * as Animatable from 'react-native-animatable';
+const AnimatableFlatList  = Animatable.createAnimatableComponent(FlatList)
 
 @connect(
   state => ({
@@ -60,11 +61,11 @@ export default class IconAndColor extends Component {
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       iconShow: true,
-      colorShow:false,
+      colorShow:true,
     }
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ colorShow: true })
-    });
+    // InteractionManager.runAfterInteractions(() => {
+    //   this.setState({ colorShow: true })
+    // });
   }
 
 
@@ -114,8 +115,8 @@ export default class IconAndColor extends Component {
             style={{ marginLeft: 0 }}>
             <SvgUri
               style={{ position: 'absolute' }}
-              width={45}
-              height={45}
+              width={35}
+              height={35}
               svgXmlData={svgs[icon]}
             />
           </StyledCell>}
@@ -124,6 +125,9 @@ export default class IconAndColor extends Component {
 
         {iconShow && <FlatList
           data={iconsCutThree}
+          delay={1000}
+          useNativeDriver
+          animation="fadeIn"
           horizontal
           removeClippedSubviews={true}
           // pagingEnabled={true}
@@ -153,6 +157,9 @@ export default class IconAndColor extends Component {
 
 
         {colorShow && <FlatList
+          useNativeDriver
+          delay={1100}
+          animation="fadeInUp"
           data={colorsCutThree}
           horizontal
           removeClippedSubviews={true}
