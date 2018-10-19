@@ -31,6 +31,7 @@ import svgs from '../../../../source/svgs'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { debounce } from 'lodash'; // 4.0.8
 
+
 @connect(
   state => ({}),
   dispatch => ({})

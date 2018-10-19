@@ -24,6 +24,11 @@ export const StyledCellBtn = styled.View`
     
 `
 
+export const StyledCellImage = styled.Image`
+   width: ${props => props.size};
+   height: ${props => props.size};
+`
+
 
 
 

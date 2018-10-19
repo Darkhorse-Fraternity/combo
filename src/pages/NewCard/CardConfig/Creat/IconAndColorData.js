@@ -1,5 +1,6 @@
-import svgs from '../../../../../source/svgs'
+import svgs from '../../../../../source/icons'
 import colorsData from '../../../../../source/colors'
+
 
 const shuffle = function(self) {
   let m = self.length, i;

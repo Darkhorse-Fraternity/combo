@@ -28,7 +28,6 @@ import ColorCell from './Cell/ColorCell'
 import { change } from 'redux-form/immutable'
 import svgs from '../../../../../source/svgs'
 // import colors from '../../../../../source/colors'
-import { Map } from 'immutable';
 import { colorsCutThree, iconsCutThree } from './IconAndColorData'
 
 import {

@@ -16,11 +16,12 @@ import SvgUri from 'react-native-svg-uri';
 import {
   StyledCell,
   StyledCellBtn,
-  StyledSvgUri
+  StyledSvgUri,
+  StyledCellImage
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import svgs from '../../../../../../source/svgs'
+import svgs from '../../../../../../source/icons'
 import { Field } from 'redux-form/immutable'
 
 
@@ -80,11 +81,13 @@ export default class IconCell extends Component {
         onPress={onPress}>
 
         <StyledCellBtn pointerEvents="none">
-          {iconShow && <SvgUri
+          {iconShow && <StyledCellImage
+            size={size}
+            source={svgs[name]}
             // style={{ position: 'absolute' }}
-            width={size}
-            height={size}
-            svgXmlData={svgs[name]}
+            // width={size}
+            // height={size}
+            // svgXmlData={svgs[name]}
           />}
         </StyledCellBtn>
       </StyledCell>
