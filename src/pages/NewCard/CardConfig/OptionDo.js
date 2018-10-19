@@ -38,11 +38,8 @@ export const StaticOption = {
   notifyText: '',
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
-  iconAndColor: {
-    name: 'sun',
-    color: colors[0],
-  },
-
+  icon:'sun',
+  color:colors[0],
 }
 
 import {
@@ -57,7 +54,9 @@ import NotifyTimePicker from './NotifyTimePicker'
   'period',
   'record',
   'recordDay',
-  'iconAndColor')
+  'icon',
+  'color',
+  )
 
 export default class OptionDo extends Component {
   constructor(props: Object) {
@@ -394,12 +393,11 @@ export default class OptionDo extends Component {
 
 
 
-    const {iconAndColor} = this.props
     return (
       <Animatable.View animation="fadeInLeft"
                        delay={Math.random() * 300}
       >
-        <IconAndColor iconAndColor={iconAndColor}/>
+        <IconAndColor/>
       </Animatable.View>
     )
   }

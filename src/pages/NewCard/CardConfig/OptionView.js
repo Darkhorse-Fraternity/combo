@@ -67,7 +67,8 @@ const FormID = 'CreatCardForm'
                     'record',
                     'title',
                     'recordDay',
-                    'iconAndColor',
+                    'icon',
+                    'color',
                 )
 
               const notifyTimes = op.notifyTimes.toJS()
@@ -80,7 +81,10 @@ const FormID = 'CreatCardForm'
                     ...op,
                     record: op.record.toJS(),
                     recordDay: op.recordDay.toJS(),
-                    iconAndColor: op.iconAndColor.toJS(),
+                    iconAndColor: {
+                      name:op.icon,
+                      color:op.color
+                    },
                     notifyTimes
                 }
 

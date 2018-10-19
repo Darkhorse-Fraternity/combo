@@ -7,22 +7,21 @@
 import styled from "styled-components";
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-export const StyledCell = styled.View`
+export const StyledCell = styled.TouchableOpacity`
     margin: 10px 5px 10px 15px;
     background-color: ${props => props.backgroundColor || props.theme.textinputbackgroundColor};
     border-radius: 5px;
     width: 60px;
     height: 60px;
     align-items: center;
-    justify-content: center;
-`
-
-export const StyledCellBtn = styled.TouchableOpacity`
-    width: 60px;
-    height: 60px;  
+    justify-content: center; 
     border-color: ${props=>props.select?'black':'white'};
     border-width: 2px; 
-    border-radius: 5px; 
+`
+
+export const StyledCellBtn = styled.View`
+
+    
 `
 
 

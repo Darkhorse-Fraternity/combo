@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
   View,
   ScrollView,
@@ -25,24 +25,32 @@ import {
 import SvgUri from 'react-native-svg-uri';
 import Cell from './Cell'
 import ColorCell from './Cell/ColorCell'
-import { Field } from 'redux-form/immutable'
+import { change } from 'redux-form/immutable'
 import svgs from '../../../../../source/svgs'
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 // import colors from '../../../../../source/colors'
 import { Map } from 'immutable';
-import {icons,colors} from './IconAndColorData'
+import { colorsCutThree, iconsCutThree } from './IconAndColorData'
 
 import {
   formValueSelector,
 } from 'redux-form/immutable'
+
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import * as immutable from 'immutable';
 
 @connect(
   state => ({
-    iconAndColor: selector(state, 'iconAndColor'),
+    // iconAndColor: selector(state, 'iconAndColor'),
+    icon: selector(state, 'icon'),
+    color: selector(state, 'color'),
   }),
-  dispatch => ({})
+  dispatch => ({
+    onChange: (field, value) => {
+      dispatch(change('CreatCardForm', field, value))
+    }
+  })
 )
 
 
@@ -51,18 +59,28 @@ export default class IconAndColor extends Component {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
-      show:false,
+      iconShow: true,
+      colorShow:false,
     }
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ colorShow: true })
+    });
   }
 
 
   componentDidMount() {
-    InteractionManager.runAfterInteractions(async () => {
-      // ...耗时较长的同步的任务...
-      // this.setState({show:true})
-    });
+    // InteractionManager.runAfterInteractions(async () => {
+    //   // ...耗时较长的同步的任务...
+    //   this.setState({ iconShow: true })
+    // });
 
   }
+
+  //
+  // shouldComponentUpdate() {
+  //   return false
+  // }
+
 
   componentWillUnmount() {
   }
@@ -71,104 +89,96 @@ export default class IconAndColor extends Component {
   static defaultProps = {};
 
 
+  _keyExtractor = (item, index) => {
+    const key = item[0].name || index;
+    return key + '';
+  }
+
   render(): ReactElement<any> {
 
 
+    const { iconShow, colorShow } = this.state
 
-    const {show} = this.state
-
-    const { iconAndColor } = this.props
+    const { icon, color, onChange } = this.props
 
     return (
-      <View >
+      <View>
         <StyledSubTitleView>
           <StyledSubTitle>
             挑选图标与颜色：
           </StyledSubTitle>
 
-
-
-
-          {iconAndColor &&
+          {icon && color &&
           <StyledCell
-            backgroundColor={iconAndColor.get('color')}
+            backgroundColor={color}
             style={{ marginLeft: 0 }}>
             <SvgUri
               style={{ position: 'absolute' }}
               width={45}
               height={45}
-              svgXmlData={svgs[iconAndColor.get('name')]}
+              svgXmlData={svgs[icon]}
             />
           </StyledCell>}
         </StyledSubTitleView>
 
 
-        {/*<FlatList*/}
-          {/*data={icons}*/}
-          {/*horizontal*/}
-          {/*// removeClippedSubviews={true}*/}
-          {/*// pagingEnabled={true}*/}
-          {/*showsHorizontalScrollIndicator={false}*/}
-          {/*showsVerticalScrollIndicator={false}*/}
-          {/*renderItem={()=>(*/}
-            {/**/}
-          {/*)}*/}
-          {/*keyExtractor={this._keyExtractor}*/}
-          {/*ListHeaderComponent={this._renderHeader}*/}
-          {/*ListEmptyComponent={() => this.__renderNoData(statu)}*/}
-        {/*/>*/}
-
-
-        {show && <ScrollView
-          key={'icon'}
+        {iconShow && <FlatList
+          data={iconsCutThree}
+          horizontal
           removeClippedSubviews={true}
-          contentContainerStyle={{
-            width: 1100,
-            flexWrap: 'wrap',
-          }}
+          // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
-          horizontal>
-          {icons.map(item =>
-            (<Cell
-              key={item.name}
-              onPress={(props) => {
-                const { input } = props
-                const { value, onChange } = input
-                onChange(new Map({
-                  name: item.name,
-                  color: value.get('color')
-                }))
-              }}
-              data={item}/>))}
-        </ScrollView>}
-        {show && <ScrollView
-          key={'color'}
-           removeClippedSubviews={true}
-          contentContainerStyle={{
-            width: 2200,
-            flexWrap: 'wrap',
-            overflow: 'hidden'
-          }}
-          showsHorizontalScrollIndicator={false}
-          horizontal>
-          {colors.map(item =>
-            <Field
-              key={item}
-              name={`iconAndColor`}
-              component={props =>
-                <ColorCell
-                  select={props.input.value && props.input.value.get('color') === item}
-                  onPress={() => {
-                    const { input } = props
-                    const { value, onChange } = input
-                    onChange(new Map({
-                      name: value.get('name'),
-                      color: item
-                    }))
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }: data) => (
+            <View key ={item[0].name+'11'}>
+
+              {item.map(it => (
+                <Cell
+                  select={icon === it.name}
+                  key={it.name}
+                  onPress={(ot) => {
+                    console.log('ot:', it.name);
+                    onChange('icon', it.name)
                   }}
-                  key={item}
-                  color={item}/>}/>)}
-        </ScrollView>}
+                  data={it}/>
+              ))}
+            </View>
+          )}
+          keyExtractor={(item, index)=>{
+            return item[0].name
+          }}
+          ListHeaderComponent={this._renderHeader}
+          ListEmptyComponent={() => this.__renderNoData(statu)}
+        />}
+
+
+        {colorShow && <FlatList
+          data={colorsCutThree}
+          horizontal
+          removeClippedSubviews={true}
+          // pagingEnabled={true}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }: data) => (
+            <View>
+
+              {item.map(it => (
+                <ColorCell
+                  select={color === it}
+                  onPress={(ot) => {
+                    onChange('color', ot)
+                  }}
+                  key={it}
+                  color={it}/>))
+              }
+            </View>
+          )}
+          keyExtractor={(item, index)=>{
+            return item[0]
+          }}
+          ListHeaderComponent={this._renderHeader}
+          ListEmptyComponent={() => this.__renderNoData(statu)}
+        />}
       </View>
     );
   }

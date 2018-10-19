@@ -80,7 +80,8 @@ import IconAndColor from './IconAndColor'
         'recordDay',
         'notifyText',
         'record',
-        'iconAndColor'
+        'icon',
+        'color',
       )
 
 
@@ -96,7 +97,10 @@ import IconAndColor from './IconAndColor'
         ...op,
         record: op.record.toJS(),
         recordDay: op.recordDay.toJS(),
-        iconAndColor:op.iconAndColor.toJS(),
+        iconAndColor: {
+          name: op.icon,
+          color: op.color,
+        },
         notifyTimes,
         price: 0,
         state: 0,
@@ -224,12 +228,12 @@ export default class Creat extends Component {
           alignItems: 'center'
         }}>
           <View animation="fadeInLeft"
-                           delay={Math.random() * 300}
+                delay={Math.random() * 300}
           >
             <BackBtn onBackPress={this.__backStep}/>
           </View>
           <View animation="fadeInRight"
-                           delay={Math.random() * 300}
+                delay={Math.random() * 300}
           >
             <Button
               onPress={this.__nextStep}
@@ -239,7 +243,7 @@ export default class Creat extends Component {
           </View>
         </View>
         <View animation="fadeInLeft"
-                         delay={Math.random() * 300}
+              delay={Math.random() * 300}
         >
           <StyledSubTitleView>
             <StyledSubTitle>
@@ -267,8 +271,6 @@ export default class Creat extends Component {
   }
 
 
-
-
   render(): ReactElement<any> {
     const { title } = this.props
     return (
@@ -279,12 +281,12 @@ export default class Creat extends Component {
 
         <StyledInnerView>
           {/*{!this.state.optionOpen && <Animatable.View*/}
-            {/*animation="bounceInDown" >*/}
-            {/*<PunItem*/}
-              {/*name={iconAndColor && iconAndColor.get('name')}*/}
-              {/*color={iconAndColor && iconAndColor.get('color')}*/}
-              {/*style={{ alignSelf: 'center', marginTop: 50 }}*/}
-              {/*title={title || '标题'} done={false}/>*/}
+          {/*animation="bounceInDown" >*/}
+          {/*<PunItem*/}
+          {/*name={iconAndColor && iconAndColor.get('name')}*/}
+          {/*color={iconAndColor && iconAndColor.get('color')}*/}
+          {/*style={{ alignSelf: 'center', marginTop: 50 }}*/}
+          {/*title={title || '标题'} done={false}/>*/}
           {/*</Animatable.View>}*/}
           {!this.state.optionOpen && this.__renderName()}
           {!this.state.optionOpen && <IconAndColor/>}

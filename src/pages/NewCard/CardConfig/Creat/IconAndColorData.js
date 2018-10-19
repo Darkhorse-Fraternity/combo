@@ -10,11 +10,29 @@ const shuffle = function(self) {
   return self;
 }
 
-export const icons = shuffle(Object.keys(svgs).map(name=>{return {
-  name,
-  size:30
-}}))
+const key = 'sun'
+const svgkeys = shuffle(Object.keys(svgs))
+for (let i = 0; i < svgkeys.length; i++) {
+  if (svgkeys[i] === key) {
+    svgkeys.splice(i, 1);
+    break;
+  }
+}
+svgkeys.unshift(key);
 
+
+const icons = svgkeys.map(name => {
+  return {
+    name,
+    size: 30
+  }
+})
+
+const iconsCutThree = []
+
+for (let i = 0, len = icons.length; i < len; i += 3) {
+  iconsCutThree.push(icons.slice(i, i + 3));
+}
 
 
 const colorNames = ['DELTAORANGE', 'RED',
@@ -28,10 +46,22 @@ colorNames.forEach((name) => {
   colorType.forEach((type) => {
     ColorData.push(colorsData[name][type])
   })
-
 })
 
 
-export const colors  = shuffle(ColorData)
+const colors = shuffle(ColorData)
 colors.push('#7e7e7e')
 
+const colorsCutThree = []
+
+for (let i = 0, len = icons.length; i < len; i += 3) {
+  colorsCutThree.push(colors.slice(i, i + 3));
+}
+
+
+export {
+  icons,
+  iconsCutThree,
+  colors,
+  colorsCutThree
+}

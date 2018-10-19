@@ -38,7 +38,7 @@ import { update, } from '../../../redux/module/leancloud'
 import { claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import moment from 'moment'
-
+import 'moment/locale/zh-cn'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
@@ -142,7 +142,8 @@ export default class Agenda extends Component {
     const date = ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)).toFixed(1);
 
     const time = iUse.time
-
+    moment.locale('zh-cn')
+    const fromNow = moment(iUse.doneDate).fromNow()
 
     const isSelf = this.props.user.objectId === iUse.user
 
@@ -159,6 +160,7 @@ export default class Agenda extends Component {
         <View style={{ height: 10 }}/>
         {this._renderRow('已完成周期', (time / iCard.period).toFixed(2) + '轮')}
         {this._renderRow('总打卡次数', time + '次')}
+        {this._renderRow('上次打卡', fromNow)}
         {this._renderRow('加入天数', date + "天")}
         {this._renderRow('建立日期', cardCreatedAt)}
         <StyledTitleView>

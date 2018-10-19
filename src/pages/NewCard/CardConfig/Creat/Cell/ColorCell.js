@@ -10,12 +10,14 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
 import {
   StyledColorCell,
 } from './style'
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+
+
 
 @connect(
   state => ({}),
@@ -35,23 +37,22 @@ export default class IconCell extends Component {
 
 
   componentDidMount() {
-    console.log('test:', '??11');
-  }
 
+  }
 
   shouldComponentUpdate(nextProps) {
-    return false
+    return nextProps.select !== this.props.select
   }
 
-  render(): ReactElement<any> {
 
-    console.log('test:', '1111');
-    
+  render(): ReactElement<any> {
+    // console.log('color:', i++);
+
     const { color, onPress, select } = this.props
     return (<StyledColorCell
       select={select}
       activeOpacity={1}
-      onPress={onPress}
+      onPress={()=>onPress(color)}
       color={color}/>);
   }
 }
