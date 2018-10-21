@@ -1,4 +1,5 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">Eja0vMGPjbKeYRWGs3vrrzzdZcXAHyYUc6tiQ</string>
     <string name="app_name">小改变</string>
     <string name="slogan">小改变，大不同</string>
 </resources>

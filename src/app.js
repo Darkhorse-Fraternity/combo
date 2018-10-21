@@ -15,6 +15,7 @@ import theme from './Theme'
 import SplashScreen from 'react-native-splash-screen'
 import Configure from './configure'
 import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigator";
+import codePush from "react-native-code-push";
 import {route} from './pages'
 const AppNavigator = creatAppNavigator(route)
 // import  SafeAreaView  from 'react-native-safe-area-view'
@@ -22,6 +23,7 @@ const AppNavigator = creatAppNavigator(route)
 
 
 // import App from './components/js/App'
+@codePush
 export default class App extends Component {
 
 

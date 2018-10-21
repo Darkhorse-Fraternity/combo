@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
+
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.banli17.RNUpdateAppPackage;
@@ -44,6 +46,12 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     private Intent mIntent;
     public int count = 0;
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+        @Override
+        protected String getJSBundleFile() {
+            return CodePush.getJSBundleFile();
+        }
+
         @Override
         public boolean getUseDeveloperSupport() {
             return BuildConfig.DEBUG;
@@ -58,7 +66,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new SvgPackage(),
+                    new CodePush(getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+                    new SvgPackage(),
                     new RNI18nPackage(),
                     new AlipayPackage(),
                     new AutoGrowTextInputPackage(),

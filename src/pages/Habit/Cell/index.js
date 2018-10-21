@@ -17,7 +17,6 @@ import {
   StyledTime,
   StyledIconImage
 } from './style';
-// import SvgUri from 'react-native-svg-uri';
 import svgs from '../../../../source/icons'
 
 export default class Cell extends Component {
