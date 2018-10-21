@@ -22,6 +22,10 @@ export const StyledInner = styled.View`
 
 
 
+export const StyledIconImage = styled.Image`
+  width: ${props => props.size};
+   height: ${props => props.size};
+`
 
 export const StyledTitle = styled.Text`
     color: #1a1917;

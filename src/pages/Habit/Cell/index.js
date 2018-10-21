@@ -14,10 +14,11 @@ import {
   StyledTitle,
   StyledIconBG,
   StyledInner,
-  StyledTime
+  StyledTime,
+  StyledIconImage
 } from './style';
-import SvgUri from 'react-native-svg-uri';
-import svgs from '../../../../source/svgs'
+// import SvgUri from 'react-native-svg-uri';
+import svgs from '../../../../source/icons'
 
 export default class Cell extends Component {
 
@@ -42,11 +43,15 @@ export default class Cell extends Component {
         onPress={onPress}
       >
         <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
-          <SvgUri
-            width={40}
-            height={40}
-            svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'sun']}
+          <StyledIconImage
+            size={40}
+            source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
           />
+          {/*<SvgUri*/}
+            {/*width={40}*/}
+            {/*height={40}*/}
+            {/*svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'sun']}*/}
+          {/*/>*/}
         </StyledIconBG>
         <StyledInner>
           <StyledTitle>

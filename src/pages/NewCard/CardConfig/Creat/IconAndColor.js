@@ -21,12 +21,12 @@ import {
 } from './style'
 import {
   StyledCell,
+  StyledCellImage
 } from './Cell/style'
-import SvgUri from 'react-native-svg-uri';
 import Cell from './Cell'
 import ColorCell from './Cell/ColorCell'
 import { change } from 'redux-form/immutable'
-import svgs from '../../../../../source/svgs'
+import svgs from '../../../../../source/icons'
 // import colors from '../../../../../source/colors'
 import { colorsCutThree, iconsCutThree } from './IconAndColorData'
 
@@ -112,11 +112,11 @@ export default class IconAndColor extends Component {
           <StyledCell
             backgroundColor={color}
             style={{ marginLeft: 0 }}>
-            <SvgUri
-              style={{ position: 'absolute' }}
-              width={35}
+            <StyledCellImage
+              // style={{ position: 'absolute' }}
+              size={35}
               height={35}
-              svgXmlData={svgs[icon]}
+              source={svgs[icon]}
             />
           </StyledCell>}
         </StyledSubTitleView>

@@ -14,8 +14,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
 import { ICARD, IUSE } from '../../../redux/reqKeys'
-import SvgUri from 'react-native-svg-uri';
-import svgs from '../../../../source/svgs'
+import svgs from '../../../../source/icons'
 
 import {
   StyledContent,
@@ -35,7 +34,8 @@ import {
   StyledRowInner,
   StyledRowDis,
   StyledDeleteBtn,
-  StyledDeleteBtnText
+  StyledDeleteBtnText,
+  StyledIconImage
 } from './style'
 import moment from 'moment'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -268,11 +268,10 @@ export default class Remind extends Component {
               {notifyTime}
             </StyledTime>
             <StyledIconView color={'#f6f7f9'}>
-              <SvgUri
-                width={25}
-                height={25}
-                svgXmlData={svgs[name]}
-              />
+              <StyledIconImage
+                size={25}
+                source={svgs[name]}
+               />
             </StyledIconView>
             <StyledRowDis>
               <StyledName numberOfLines={2}>

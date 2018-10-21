@@ -105,6 +105,11 @@ export const StyledIconView = styled.View`
     justify-content: center;
 `
 
+export const StyledIconImage = styled.Image`
+  width: ${props => props.size};
+   height: ${props => props.size};
+`
+
 export const StyledIcon = styled(Icon)`
     align-self: center;
 `

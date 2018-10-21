@@ -1,9 +1,3 @@
-// import cactus from './svg/cactus.svg'
-// import mangosteen from './svg/mangosteen.svg'
-// import watermelon from './svg/watermelon.svg'
-
-// console.log('cactus:', cactus);
-
 export default {
   apple: require('./icons/apple.png'),
   watermelon: require('./icons/watermelon.png'),

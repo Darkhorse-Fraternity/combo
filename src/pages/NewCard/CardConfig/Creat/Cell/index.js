@@ -12,7 +12,6 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-import SvgUri from 'react-native-svg-uri';
 import {
   StyledCell,
   StyledCellBtn,

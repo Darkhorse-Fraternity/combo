@@ -12,7 +12,9 @@ console.ignoredYellowBox = ['Warning: isMounted(...)','Module RCTAlipay requires
 //     'Warning: componentWillReceiveProps is deprecated',
 // ]);
 
+// import svgs from './source/icons'
 import {name} from './app.json';
 import App from './src/app'
+import { required } from "./src/request/validation";
 
 AppRegistry.registerComponent('Combo', () => App);

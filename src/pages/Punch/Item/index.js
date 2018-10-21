@@ -12,7 +12,6 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import SvgUri from 'react-native-svg-uri';
 
 
 import {
@@ -21,13 +20,14 @@ import {
   StyledCardTitle,
   StyledCardTitleView,
   StyledMaterialCommunityIcons,
-  StyledButton
+  StyledButton,
+  StyledIconImage
 } from './style'
 
 const width = Dimensions.get('window').width
 const itemWidth = (width - 64) / 3
 const iconWidth = itemWidth / 2
-import svgs from '../../../../source/svgs'
+import svgs from '../../../../source/icons'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { debounce } from 'lodash'; // 4.0.8
 
@@ -100,11 +100,15 @@ export default class PunchItem extends Component {
             width={itemWidth}
             backgroundColor={color}>
             <View style={{ height: iconWidth }}>
-              <SvgUri
-                width={iconWidth}
-                height={iconWidth}
-                svgXmlData={svgs[name]}
+              <StyledIconImage
+                size = {iconWidth}
+                source={svgs[name]}
               />
+              {/*<SvgUri*/}
+                {/*width={iconWidth}*/}
+                {/*height={iconWidth}*/}
+                {/*svgXmlData={svgs[name]}*/}
+              {/*/>*/}
             </View>
             <StyledCardTitleView>
               <StyledCardTitle
