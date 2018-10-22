@@ -61,7 +61,7 @@ export default class CardRow extends Component {
             style={styles.imageContainer}>
             <StyledImage
               source={source}
-              defaultSource={require('../../../../source/img/my/icon-60.png')}
+              // defaultSource={require('../../../../source/img/my/icon-60.png')}
               style={styles.image}
             />
             <View style={styles.radiusMask}/>

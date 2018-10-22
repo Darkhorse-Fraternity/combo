@@ -17,19 +17,23 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD, IUSEExist, IUSE } from '../../redux/reqKeys'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { update, add } from '../../redux/module/leancloud'
+import { ICARD, IUSEExist, IUSE } from '../../../redux/reqKeys'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import { update, add } from '../../../redux/module/leancloud'
 import { bindActionCreators } from 'redux';
-import HeaderBtn from '../../components/Button/HeaderBtn'
-import { existSearch } from '../../request/leanCloud'
-import { selfUser, iCard } from '../../request/LCModle'
-import { req, reqChangeData } from '../../redux/actions/req'
-import { addListNormalizrEntity, claerByID } from '../../redux/actions/list'
+
+import { existSearch } from '../../../request/leanCloud'
+import { selfUser, iCard } from '../../../request/LCModle'
+import { req, reqChangeData } from '../../../redux/actions/req'
+import { addListNormalizrEntity, claerByID } from '../../../redux/actions/list'
+import {
+  StyledContent,
+  StyledHeaderBtn
+}from './style'
 
 
 import moment from 'moment'
-import Button from "../../components/Button";
+import Button from "../../../components/Button/index";
 //static displayName = PublishDetail
 @connect(
     (state, props) => ({
@@ -138,13 +142,14 @@ export default class PublishDetail extends Component {
         // const load = this.props.useExist.get('load')
         // // console.log('useExist:', this.props.useExist.get('load'));
         // const text = exist ? "正在使用" : '立即使用'
+       // console.log('iCard:', iCard);
         return (
             <View style={styles.header}>
                 <Text style={styles.title}>{iCard.title}</Text>
                 <View style={styles.headerIn}>
                     <Text style={styles.useNum}>使用人数： {iCard.useNum || 1}</Text>
-                    <HeaderBtn
-                        style={styles.headerBtn}
+                    <StyledHeaderBtn
+                        backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
                         // load={this.props.load || load}
                         // disabled={exist}
                         title={'查看'}
@@ -180,7 +185,7 @@ export default class PublishDetail extends Component {
         //当为-2 时候，则为系统禁止
         const allow = iCard.state !== -2
         return (
-            <ScrollView style={[this.props.style, styles.wrap]}>
+            <StyledContent style={[this.props.style, styles.wrap]}>
                 {this._renderHeader(iCard)}
 
                 {!allow && <Text style={{ padding: 20, color: 'red', fontSize: 50 }}>
@@ -215,7 +220,7 @@ export default class PublishDetail extends Component {
                     {/*//伪删除*/}
                     {/*this.__alert(iCard)*/}
                 {/*})}*/}
-            </ScrollView>
+            </StyledContent>
         );
     }
 }
@@ -274,8 +279,5 @@ const styles = StyleSheet.create({
         marginRight: 5,
         width: 10,
         height: 10,
-    },
-    headerBtn: {
-        marginTop: 5,
     },
 })

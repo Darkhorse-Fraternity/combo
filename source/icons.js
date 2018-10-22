@@ -37,6 +37,6 @@ export default {
   christ: require('./icons/christ.png'),
   dogBowl: require('./icons/dogBowl.png'),
   potted: require('./icons/potted.png'),
-  basketball: require('./icons/apple.png'),
+  basketball: require('./icons/basketball.png'),
 }
 

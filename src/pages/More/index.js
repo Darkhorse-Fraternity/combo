@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
   rowText: {
     marginLeft: 10,
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: '500',
     // color: '#333333',
   },
   arrowView: {

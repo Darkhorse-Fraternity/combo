@@ -13,6 +13,27 @@ import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 // import LinearGradient from 'react-native-linear-gradient';
 
+// var hexToRgb = function(hex) {
+//   var color = [], rgb = [];
+//
+//   hex = hex.replace(/#/,"");
+//
+//   if (hex.length == 3) { // 处理 "#abc" 成 "#aabbcc"
+//     var tmp = [];
+//     for (var i = 0; i < 3; i++) {
+//       tmp.push(hex.charAt(i) + hex.charAt(i));
+//     }
+//     hex = tmp.join("");
+//   }
+//
+//   for (var i = 0; i < 3; i++) {
+//     color[i] = "0x" + hex.substr(i * 2, 2);
+//     rgb.push(parseInt(Number(color[i])));
+//   }
+//   return "rgba(" + rgb.join(",") +",0.2"+ ")";
+// };
+
+
 export const StyledContent = styled.View`
     flex: 1;
     background-color: white;
@@ -43,7 +64,7 @@ export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
   margin: 7.5px 15px;
-  background-color: ${props => props.theme.textinputbackgroundColor};
+  background-color: ${props => props.theme.textinputbackgroundColor };
   width:${props => props.theme.width>340?props.theme.width/4: 
     props.theme.width/3 };
   border-radius: 10px;
@@ -95,6 +116,8 @@ export const StyledRowInner = styled.View`
 export const StyledBtn = styled(HeaderBtn)`
    margin-top:15px;
    width: 60px;
+   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
+
 `
 
 export const StyledArrow = styled.View`

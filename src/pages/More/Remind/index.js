@@ -271,6 +271,7 @@ export default class Remind extends Component {
               <StyledIconImage
                 size={25}
                 source={svgs[name]}
+                resizeMode={'contain'}
                />
             </StyledIconView>
             <StyledRowDis>

@@ -103,6 +103,7 @@ export default class PunchItem extends Component {
               <StyledIconImage
                 size = {iconWidth}
                 source={svgs[name]}
+                resizeMode={'contain'}
               />
               {/*<SvgUri*/}
                 {/*width={iconWidth}*/}

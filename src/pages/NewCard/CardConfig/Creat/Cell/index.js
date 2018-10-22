@@ -35,13 +35,13 @@ export default class IconCell extends Component {
     super(props);
     // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
-      iconShow: false
+      iconShow: true
     }
 
-    InteractionManager.runAfterInteractions(async () => {
-      // ...耗时较长的同步的任务...
-      this.setState({ iconShow: true })
-    });
+    // InteractionManager.runAfterInteractions(async () => {
+    //   // ...耗时较长的同步的任务...
+    //   this.setState({ iconShow: true })
+    // });
     // this.timer = setTimeout(() =>
     //   this.setState({ iconShow: true }),
     //   2000);
@@ -83,6 +83,7 @@ export default class IconCell extends Component {
           {iconShow && <StyledCellImage
             size={size}
             source={svgs[name]}
+            resizeMode={'contain'}
             // style={{ position: 'absolute' }}
             // width={size}
             // height={size}

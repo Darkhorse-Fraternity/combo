@@ -372,6 +372,7 @@ export default class Settings extends Component {
           </StyledRowDes>
           <StyledBtn
             title="查看"
+            backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
             onPress={() => {
               this.props.navigation.navigate('cardInfo', { iCardId: iCard.objectId })
