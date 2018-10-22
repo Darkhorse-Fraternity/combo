@@ -22,10 +22,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="ComboLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-7r-pjA">
-                    <rect key="frame" x="245.5" y="503" width="120" height="120"/>
+                    <rect key="frame" x="275.5" y="558" width="60" height="60"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="120" id="icM-aE-U10"/>
-                        <constraint firstAttribute="width" constant="120" id="jte-VS-jJ7"/>
+                        <constraint firstAttribute="height" constant="60" id="icM-aE-U10"/>
+                        <constraint firstAttribute="width" constant="60" id="jte-VS-jJ7"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -33,8 +33,8 @@
             <constraints>
                 <constraint firstItem="MqK-44-hR0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2He-s8-MCV"/>
                 <constraint firstItem="bSU-7r-pjA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="XQ8-m9-Ui4"/>
-                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="208.5" id="deH-FY-u0g"/>
-                <constraint firstItem="MqK-44-hR0" firstAttribute="top" secondItem="bSU-7r-pjA" secondAttribute="bottom" id="tQb-7K-gUV"/>
+                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="233.5" id="deH-FY-u0g"/>
+                <constraint firstItem="MqK-44-hR0" firstAttribute="top" secondItem="bSU-7r-pjA" secondAttribute="bottom" constant="5" id="tQb-7K-gUV"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

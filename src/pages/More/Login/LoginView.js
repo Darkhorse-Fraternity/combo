@@ -343,7 +343,7 @@ export default class LoginView extends Component {
             {/*</View>*/}
           </Animatable.View> :
           <Animatable.View
-            animation="slideInUp"
+            animation="fadeIn"
           >
             <StyledImage
               source={require('../../../../source/img/my/icon-60.png')}

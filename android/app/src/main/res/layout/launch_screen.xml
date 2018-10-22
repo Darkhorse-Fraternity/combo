@@ -9,10 +9,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:contentDescription="@string/catalyst_element_inspector"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@color/primary_dark"
+        android:contentDescription="@string/catalyst_element_inspector"
         android:src="@drawable/logo"/>
 
     <TextView

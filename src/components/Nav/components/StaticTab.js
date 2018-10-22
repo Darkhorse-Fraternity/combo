@@ -64,7 +64,7 @@ export default createBottomTabNavigator(
   {
     navigationOptions: ({ navigation }) => {
       const { routeName, index } = navigation.state;
-      const { iconName, labelName,Icon } = tabsOptions[routeName]
+      const { iconName, labelName,Icon,size } = tabsOptions[routeName]
 
       return {
         // header:null,
@@ -79,7 +79,7 @@ export default createBottomTabNavigator(
             // iterationCount={iterationCount}
             name={iconName}
             // animation={'bounceIn'}
-            size={!!focused ? 25 : 25}
+            size={!!focused ? size : size}
             color={tintColor}/>;
         },
         tabBarButtonComponent: TouchableBounce,

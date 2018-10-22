@@ -35,6 +35,7 @@
 		CC09E6B9212056F600327D96 /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD487A820EE14F10017ED35 /* libRNKeychain.a */; };
 		CC09E6BA2120570C00327D96 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC203A8720FC980300D9206D /* libBVLinearGradient.a */; };
 		CC09E6BB2120572C00327D96 /* libReactNativeKeyboardManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1096502116EA490068E5DF /* libReactNativeKeyboardManager.a */; };
+		CC688B04217CB4E5006A413F /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC688B03217CB4E5006A413F /* iconfont.ttf */; };
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC84E930211EE99C00E7D593 /* libRNRate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC84E8D3211EE90C00E7D593 /* libRNRate.a */; };
@@ -80,7 +81,6 @@
 		CCBA7CB420B6D32B006F00DF /* libLRDRCTSimpleToast.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF7B9431F4BD2380006AD0A /* libLRDRCTSimpleToast.a */; };
 		CCBA7CB520B6D33A006F00DF /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC998CD51FA2C1F90040ED73 /* libInteractable.a */; };
 		CCBDB6622057D9940097762A /* libKeyboardTrackingView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915DC201F234E007DDE65 /* libKeyboardTrackingView.a */; };
-		CCBDC8C7216779170090FF92 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCBDC884216779170090FF92 /* iconfont.ttf */; };
 		CCCE410720649C0800F282E3 /* libRCTQQAPI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1E4FFC2063B184002254CF /* libRCTQQAPI.a */; };
 		CCCE41892064A0F000F282E3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		CCCE418A2064A0F000F282E3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -722,6 +722,7 @@
 		CC3E39B11E26234D0019B85F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		CC3E39B31E2624580019B85F /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = "../node_modules/react-native-qq/ios/RCTQQAPI/TencentOpenAPI.framework"; sourceTree = "<group>"; };
 		CC4548E71E03FBAC00A6CE93 /* Combo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Combo.entitlements; path = Combo/Combo.entitlements; sourceTree = "<group>"; };
+		CC688B03217CB4E5006A413F /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		CC72BAAA2003461500ED0D9A /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 		CC84E8CE211EE90B00E7D593 /* RNRate.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNRate.xcodeproj; path = "../node_modules/react-native-rate/ios/RNRate.xcodeproj"; sourceTree = "<group>"; };
@@ -730,7 +731,6 @@
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCA715A52019C9DA00A25FB9 /* ComboEp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComboEp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCBA7C6F20B6D160006F00DF /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
-		CCBDC884216779170090FF92 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		CCCE41C22064A0F000F282E3 /* Combo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Combo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFBC8051FEA79D000DA269C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CCFBC8331FEA7A3700DA269C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -1013,7 +1013,7 @@
 		75ECA9F6022C47239496F9FF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CCBDC884216779170090FF92 /* iconfont.ttf */,
+				CC688B03217CB4E5006A413F /* iconfont.ttf */,
 				98CF67D2E586418AA05A8641 /* AntDesign.ttf */,
 				D19A2EDE567241D28B757A47 /* Entypo.ttf */,
 				4350DC90853A4A1E8BAC6825 /* EvilIcons.ttf */,
@@ -2179,12 +2179,12 @@
 				CCCE41AE2064A0F000F282E3 /* Images.xcassets in Resources */,
 				CCCE41AF2064A0F000F282E3 /* InfoPlist.strings in Resources */,
 				CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */,
-				CCBDC8C7216779170090FF92 /* iconfont.ttf in Resources */,
 				CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */,
 				3BA1EFFC1D7B4BC3BC4C6743 /* AntDesign.ttf in Resources */,
 				4773A3CBF6F34A11926A42DF /* Entypo.ttf in Resources */,
 				E48988D1B6634C21A40B4133 /* EvilIcons.ttf in Resources */,
 				750D52FA5FC54A0EAA33E46E /* Feather.ttf in Resources */,
+				CC688B04217CB4E5006A413F /* iconfont.ttf in Resources */,
 				36BB97B1B48E499CAE28F874 /* FontAwesome.ttf in Resources */,
 				E8F4721084174D66B36F38BF /* FontAwesome5_Brands.ttf in Resources */,
 				7B7E247BC3BF43ACBB6E92E7 /* FontAwesome5_Regular.ttf in Resources */,

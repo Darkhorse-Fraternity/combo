@@ -153,8 +153,9 @@ const styles = StyleSheet.create({
         height: 50
     },
     text: {
-        fontSize: 20,
-        color: 'rgb(200,200,200)',
+        marginTop:10,
+        fontSize: 17,
+        color: '#9e9e9e',
         alignSelf: 'center',
     },
     otherTips: {

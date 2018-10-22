@@ -5,6 +5,8 @@ import {
 import { strings } from '../../../../locales/i18n';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Iconfont from '../../../../source/font/Iconfont'
+
 
 import React from 'react';
 
@@ -39,17 +41,20 @@ export const tabsOptions = {
   Punch:{
     iconName:'check-decagram',
     labelName:'Now',
+    size:25,
     Icon:MaterialCommunityIcons
 
   },
   Habit:{
-    iconName:'md-sunny',
+    iconName:'sun',
     labelName:strings('tabs.habit'),
-    Icon:Ionicons
+    size:30,
+    Icon:Iconfont
   },
   Settings:{
-    iconName:'ios-more',
+    iconName:'more',
     labelName: strings('tabs.more'),
-    Icon:Ionicons
+    size:22,
+    Icon:Iconfont
   }
 }

@@ -17,14 +17,13 @@ export const StyledContent = styled(LinearGradient)`
 `
 
 export const StyledImage = styled.Image`
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     margin-top: ${props=> props.theme.height/6};
     align-self: center;
 `
 export const SyledImageName = styled.Text`
     font-size: 25px;
-    margin-top: -10px;
     align-self: center;
 `
 

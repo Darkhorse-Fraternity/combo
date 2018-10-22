@@ -43,6 +43,6 @@ export const StyledActivityIndicator = styled.ActivityIndicator`
 `
 
 export const StyledImage = styled.Image`
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
 `
