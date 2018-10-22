@@ -33,9 +33,8 @@ import {
     StyledHeaderBottom,
     StyledHeaderName
 } from './style'
-import Icon from 'react-native-vector-icons/Ionicons'
-import CardRow from '../../NewCard/CardRow'
-
+// import CardRow from '../../NewCard/CardRow'
+import Cell from '../../Habit/Cell'
 
 import { user as userModel } from '../../../request/LCModle'
 
@@ -263,18 +262,14 @@ export default class Following extends Component {
             return <View/>
         }
         const days = item.time
-        const cycle = parseInt(item.time / iCard.period)
-
         const { img } = iCard
-        const source = img ? { uri: img.url } :
-            require('../../../../source/img/my/icon-60.png')
 
 
         return (
-            <CardRow
-                title={iCard.title}
-                des={`已打卡${days}次`}
-                img={img}
+            <Cell
+              iCard={iCard}
+                data={item}
+                // img={img}
                 onPress={() => {
                     this.props.navigation.navigate('recordDetail', {
                         iUseId: item.objectId,
@@ -306,8 +301,8 @@ export default class Following extends Component {
                 style={{ flex: 1 }}
                 reqKey={IUSE}
                 sKey={FOLLOWRECORD + user.objectId}
-                numColumns={2}
-                columnWrapperStyle={{ padding: 10 }}
+                // numColumns={2}
+                // columnWrapperStyle={{ padding: 10 }}
                 renderItem={this.renderRow.bind(this)}
                 //dataMap={(data)=>{
                 //   return {[OPENHISTORYLIST]:data.list}
