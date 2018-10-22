@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         borderWidth: StyleSheet.hairlineWidth,
         borderColor: "rgb(200,200,200)",
+        borderRadius:10,
     },
     add: {
         fontSize: 60,
@@ -191,6 +192,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: "white",
         marginLeft: 15,
+      borderRadius:10,
     },
     delete:{
         backgroundColor:'rgba(0,0,0,0.5)',

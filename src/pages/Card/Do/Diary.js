@@ -82,12 +82,15 @@ import { formValueSelector } from 'redux-form/immutable'
 export default class Diary extends Component {
   render(): ReactElement<any> {
 
-    // const data = this.props.data
-    // const iCard = this.props.iCard.get(data[ICARD]).toJS()
+    const data = this.props.data
+
+    // console.log('ICARD:', data[ICARD]);
+    const iCard = this.props.iCard.get(data[ICARD])
+
     const record = ['文字', '图片']
 
     return (
-      <Do record={record} {...this.props} type={1}/>
+      <Do record={record} {...this.props} iCard={iCard} type={1}/>
     )
   }
 

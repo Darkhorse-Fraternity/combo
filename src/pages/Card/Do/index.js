@@ -88,11 +88,11 @@ export default class Doing extends Component {
   render(): ReactElement<any> {
 
     const data = this.props.data
-    const iCard = this.props.iCard.get(data[ICARD]).toJS()
+    const iCard = this.props.iCard.get(data[ICARD])
     const record = iCard.record
 
     return (
-      <Do record={record} {...this.props} type={0} />
+      <Do record={record} {...this.props} iCard={iCard} type={0} />
     )
   }
 

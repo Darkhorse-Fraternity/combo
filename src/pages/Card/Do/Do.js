@@ -44,11 +44,13 @@ export default class Do extends Component {
 
   render(): ReactElement<any> {
 
-    const { record, load ,done, type} = this.props
-
+    const { record, load, done, type, iCard } = this.props
+    // const iconAndColor = iCard.get('iconAndColor')
+    // const color = iconAndColor && iconAndColor.get('color')
+    const color = '#51c332'
 
     return (
-      <ScrollView
+      <View
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}
         ref={(e) => {
@@ -68,11 +70,12 @@ export default class Do extends Component {
         />)}
         <View/>
         <DoCardForm
-          type = {type}
+          color={color}
+          type={type}
           load={load}
           record={record}
           onSubmit={done}/>
-      </ScrollView>
+      </View>
     );
   }
 }

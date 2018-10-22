@@ -216,6 +216,7 @@ export default class RComment extends Component {
     keyboardAccessoryViewContent() {
         const iDoID = this.props.navigation.state.params.iDoID
         const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
+
         return (
             <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
                 {/*<View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/>*/}

@@ -13,25 +13,33 @@ import {
   StyledBackBtn,
   StyledBackBtnText,
   StyledContent,
-  StyledTextInput
+  StyledTextInput,
+  StyledHeader,
+  StyledIcon
 } from './style'
 
-import { View } from 'react-native'
+import {
+  View,
+  Platform
+} from 'react-native'
 import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { formValueSelector } from 'redux-form/immutable'
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
 import theme from '../../../Theme'
+import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-input';
 
 export const FormID = 'DoCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 import { dataStorage } from '../../../redux/actions/util'
 import Pop from '../../Pop'
-
+import KeyboardManager from 'react-native-keyboard-manager'
 
 const isEmpty = value => value === undefined || value === null || value === '' || value.length === 0;
+const TrackInteractive = true;
+
 
 @connect(
   (state, props) => {
@@ -67,7 +75,14 @@ const isEmpty = value => value === undefined || value === null || value === '' |
 
 @immutableRenderDecorator
 
-export default class ChatSendForm extends Component {
+export default class DoCardForm extends Component {
+
+  constructor(props: Object) {
+    super(props);
+    this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
+    this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
+  }
+
 
   static propTypes = {
     record: PropTypes.array
@@ -77,43 +92,67 @@ export default class ChatSendForm extends Component {
   };
 
 
+  componentDidMount() {
+    Platform.OS === 'ios' && KeyboardManager.setEnable(false);
+
+  }
+
   componentWillUnmount() {
-    this.props.localSaveEnable && this.props.localSave(this.props.inputText)
+    Platform.OS === 'ios' && KeyboardManager.setEnable(true);
+    KeyboardUtils.dismiss()
+    // this.props.localSaveEnable && this.props.localSave(this.props.inputText)
   }
 
 
   __textType = () => {
 
     return (
-      <View style={{
-        borderRadius: 5,
-        marginBottom: 10,
-        backgroundColor: '#f6f7f9'
-      }}>
-        {/*<Text style={{fontSize: 15, marginTop:10}}>一句话日记</Text>*/}
-
-        <StyledTextInput
-          // placeholderTextColor="rgba(180,180,180,1)"
-          // selectionColor={theme.mainColor}
-          style={{backgroundColor: '#f6f7f9'}}
-          returnKeyType='next'
-          name={'recordText'}
-          maxLength={3000}
-          placeholder={"文字记录"}
-          multiline={true}
-          //keyboardType={boardType}
-          underlineColorAndroid='transparent'
-          clearButtonMode='while-editing'
-          enablesReturnKeyAutomatically={true}
-        />
-      </View>
+      <StyledTextInput
+        // placeholderTextColor="rgba(180,180,180,1)"
+        // selectionColor={theme.mainColor}
+        ref={(r) => {
+          this.textInputRef = r;
+        }}
+        style={{ backgroundColor: 'transparent' }}
+        returnKeyType='next'
+        name={'recordText'}
+        maxLength={3000}
+        placeholder={"想写点什么？"}
+        multiline={true}
+        //keyboardType={boardType}
+        underlineColorAndroid='transparent'
+        clearButtonMode='while-editing'
+        enablesReturnKeyAutomatically={true}
+      />
     )
+  }
+
+
+  keyboardAccessoryViewContent() {
+
+    return (
+      <View style={{paddingHorizontal:20,marginBottom:-30}}>
+        <ImageSelectView name={'imgs'} maxImage={1}/>
+      </View>
+    );
+  }
+
+  onKeyboardResigned() {
   }
 
 
   render() {
     // pristine 是否是初始化
-    const { handleSubmit, onSubmit, load, disabled, pristine, enableSumbmit, ...rest } = this.props
+    const {
+      handleSubmit,
+      onSubmit,
+      load,
+      disabled,
+      pristine,
+      color,
+      enableSumbmit,
+      ...rest
+    } = this.props
     const { submitting, invalid } = rest
     const record = this.props.record
 
@@ -121,37 +160,48 @@ export default class ChatSendForm extends Component {
 
     return (
       <Form>
-        <StyledBackBtn onPress={() => {
-          Pop.hide()
-        }}>
-          <StyledBackBtnText>返回</StyledBackBtnText>
-        </StyledBackBtn>
-
-        <StyledContent>
-          {record.includes('图片') && (<ImageSelectView
-            name={'imgs'}
-            maxImage={1}/>)}
-
-          {record.includes('文字') && this.__textType()}
+        <StyledHeader>
+          <StyledBtn
+            hitSlop={{ top: 5, left: 50, bottom: 5, right: 20 }}
+            onPress={() => {
+              Pop.hide()
+            }}>
+            <StyledIcon name={'close'} size={20}/>
+            {/*<StyledBackBtnText>返回</StyledBackBtnText>*/}
+          </StyledBtn>
 
 
           {load ?
-            (<StyledIndicatorView>
-              <StyledIndicator size="large"/>
-            </StyledIndicatorView>) :
-            (<StyledButtonView>
-              {/*<StyledBtn*/}
-              {/*title="取消"*/}
-              {/*hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}*/}
-              {/*onPress={() => {*/}
-              {/*Pop.hide()*/}
-              {/*}}/>*/}
-              <StyledBtn
+            <StyledIndicator color={color}/> :
+            <StyledBtn
+              disabled={!enableSumbmit}
+              hitSlop={{ top: 5, left: 20, bottom: 5, right: 50 }}
+              onPress={onSubmit && handleSubmit(onSubmit)}>
+              <StyledBackBtnText
                 disabled={!enableSumbmit}
-                title="保存"
-                hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-                onPress={onSubmit && handleSubmit(onSubmit)}/>
-            </StyledButtonView>)}
+                color={color}>
+                发布
+              </StyledBackBtnText>
+            </StyledBtn>
+          }
+        </StyledHeader>
+        <StyledContent>
+          {this.__textType()}
+
+
+          {/*{record.includes('图片') && (<ImageSelectView*/}
+          {/*name={'imgs'}*/}
+          {/*maxImage={1}/>)}*/}
+
+          {<KeyboardAccessoryView
+            renderContent={this.keyboardAccessoryViewContent}
+            trackInteractive={TrackInteractive}
+            kbInputRef={this.textInputRef}
+            onKeyboardResigned={this.onKeyboardResigned}
+            revealKeyboardInteractive
+          />}
+
+
         </StyledContent>
       </Form>
     )
