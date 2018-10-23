@@ -52,6 +52,9 @@ export const StyledSubTitle = styled.Text`
 `
 
 
+export const StyledInnerScrollView = styled.ScrollView`
+  padding: 20px 0px;
+`
 
 export const StyledInnerView = styled.View`
   flex:1;

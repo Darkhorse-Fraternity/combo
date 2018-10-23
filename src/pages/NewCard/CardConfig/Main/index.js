@@ -102,7 +102,7 @@ export default class OptionDo extends PureComponent {
   __renderTitle = () => {
 
     return (
-      <Animatable.View animation="fadeInLeft">
+      <Animatable.View animation="fadeInUp">
 
         <StyledSubTitleView>
           <StyledSubTitle>
@@ -148,7 +148,7 @@ export default class OptionDo extends PureComponent {
     }
 
     return (
-      <Animatable.View animation="fadeInLeft">
+      <Animatable.View animation="fadeInUp">
         <StyledSubTitleView>
           <StyledSubTitle>
             卡片周期
@@ -167,7 +167,7 @@ export default class OptionDo extends PureComponent {
   __renderNotifyTime = () => {
 
     return (
-      <Animatable.View animation="fadeInLeft"
+      <Animatable.View animation="fadeInUp"
       >
         <NotifyTimePicker
           name='notifyTimes'
@@ -180,7 +180,7 @@ export default class OptionDo extends PureComponent {
   __remderNotifyText = () => {
 
     return (
-      <Animatable.View animation="fadeInLeft">
+      <Animatable.View animation="fadeInUp">
         <StyledSubTitleView>
           <StyledSubTitle>
             给自己的激励
@@ -233,7 +233,7 @@ export default class OptionDo extends PureComponent {
 
 
     return (
-      <Animatable.View animation="fadeInLeft"
+      <Animatable.View animation="fadeInUp"
                        delay={Math.random() * 300}
       >
         <StyledSubTitleView>
@@ -270,7 +270,7 @@ export default class OptionDo extends PureComponent {
     }
 
     return (
-      <Animatable.View animation="fadeInLeft"
+      <Animatable.View animation="fadeInUp"
                        delay={Math.random() * 300}
       >
         <StyledSubTitleView>
@@ -314,7 +314,7 @@ export default class OptionDo extends PureComponent {
 
 
     return (
-      <Animatable.View animation="fadeInLeft"
+      <Animatable.View animation="fadeInUp"
                        delay={Math.random() * 300}
       >
         <IconAndColor/>
@@ -352,26 +352,6 @@ export default class OptionDo extends PureComponent {
       <ScrollView
         key={'bc'}
         style={[styles.wrap, this.props.style]}>
-
-
-        {/*<View style={{*/}
-          {/*flexDirection: 'row',*/}
-          {/*width: Dimensions.get('window').width,*/}
-          {/*justifyContent: 'space-between'*/}
-        {/*}}>*/}
-          {/*{this.state.option === 0 && this.__remderBack()}*/}
-          {/*{this.state.option === 0 && !modify && this.__renderDone()}*/}
-          {/*{this.state.option !== 0 && this.__renderSave()}*/}
-        {/*</View>*/}
-
-        {/*{this.state.option !== 0 && <Animatable.View animation="fadeIn">*/}
-        {/*<StyledTitleView>*/}
-        {/*<StyledTitleText>*/}
-        {/*返回自动保存*/}
-        {/*</StyledTitleText>*/}
-        {/*</StyledTitleView>*/}
-        {/*</Animatable.View>}*/}
-
 
         {this.props.step === 0  && (<View style={{flex:1}}>
 

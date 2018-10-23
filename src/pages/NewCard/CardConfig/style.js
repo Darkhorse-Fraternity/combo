@@ -18,7 +18,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 //     flex: 1;
 //     background-color: white;
 // `
+
+import { SafeAreaView } from 'react-navigation';
 import { materialColors } from 'react-native-typography'
+
+export const StyledContent = styled(SafeAreaView)`
+    background-color: white;
+    flex:1
+`
 
 export const StyledTitleView = styled.View`
   padding: 20px 5px 5px 5px;
@@ -30,10 +37,7 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `
 
-export const StyledContent = styled.View`
-    flex: 1;
-    padding: 80px 0px;
-`
+
 
 export const StyledInnerView = styled.ScrollView`
 

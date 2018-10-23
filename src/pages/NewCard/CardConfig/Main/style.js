@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { materialColors } from 'react-native-typography'
 
 export const StyledTitleView = styled.View`
-  padding: 20px 5px 5px 5px;
+  padding: 20px 5px 5px 10px;
 `
 
 export const StyledTitleText = styled.Text`

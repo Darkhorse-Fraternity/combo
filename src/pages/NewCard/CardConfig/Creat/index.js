@@ -6,7 +6,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -45,7 +45,8 @@ import {
   StyledHeader,
   StyledTitle,
   StyledHeaderInner,
-  StyledHeaderBtn
+  StyledHeaderBtn,
+  StyledInnerScrollView
 } from './style'
 import { TextInput } from '../../../../components/Form/Cunstom/index'
 import Toast from 'react-native-simple-toast'
@@ -161,7 +162,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
 // @formValues('title')
 
 
-export default class Creat extends Component {
+export default class Creat extends PureComponent {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -186,29 +187,19 @@ export default class Creat extends Component {
     }
   };
 
-  shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
-  }
+  // shouldComponentUpdate(nextProps: Object, nextState: Object) {
+  //   return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
+  // }
 
 
   __nextStep = () => {
 
-
-    // const step = this.state.step + 1
-    // this.setState({ step })
-    // if (step === 2) {
-    //     this.props.add()
-    // }
     const step = this.state.step
-
     if (this.props.title && this.props.title.length > 0) {
-
       this.setState({ step: step + 1 })
     } else {
       Toast.show('标题不可为空')
     }
-
-
   }
 
   __backStep = () => {
@@ -224,50 +215,28 @@ export default class Creat extends Component {
 
   __renderName = () => {
     return (
+
       <View>
-        {/*<View style={{*/}
-        {/*flexDirection: 'row',*/}
-        {/*width: Dimensions.get('window').width,*/}
-        {/*justifyContent: 'space-between',*/}
-        {/*alignItems: 'center'*/}
-        {/*}}>*/}
-        {/*<View animation="fadeInLeft"*/}
-        {/*delay={Math.random() * 300}*/}
-        {/*>*/}
-        {/*<BackBtn onBackPress={this.__backStep}/>*/}
-        {/*</View>*/}
-        {/*<View animation="fadeInRight"*/}
-        {/*delay={Math.random() * 300}*/}
-        {/*>*/}
-        {/*<Button*/}
-        {/*onPress={this.__nextStep}*/}
-        {/*style={[styles.done, styles.shadow]}>*/}
-        {/*<Text>下一步</Text>*/}
-        {/*</Button>*/}
-        {/*</View>*/}
-        {/*</View>*/}
-        <View>
-          <StyledSubTitleView>
-            <StyledSubTitle>
-              习惯标题：
-            </StyledSubTitle>
-          </StyledSubTitleView>
-          <TextInput
-            name='title'
-            placeholderTextColor="rgba(180,180,180,1)"
-            // selectionColor={mainColor}
-            returnKeyType='next'
-            maxLength={50}
-            //keyboardType={boardType}
-            style={styles.textInputStyle}
-            underlineColorAndroid='transparent'
-            placeholder='例如跑步、早睡等'
-            clearButtonMode='while-editing'
-            enablesReturnKeyAutomatically={true}
-            //onSubmitEditing={() =>this.focusNextField(ref)}
-            // onChangeText={(text) => this.setState({title: text})}
-          />
-        </View>
+        <StyledSubTitleView>
+          <StyledSubTitle>
+            习惯标题：
+          </StyledSubTitle>
+        </StyledSubTitleView>
+        <TextInput
+          name='title'
+          placeholderTextColor="rgba(180,180,180,1)"
+          // selectionColor={mainColor}
+          returnKeyType='next'
+          maxLength={50}
+          //keyboardType={boardType}
+          style={styles.textInputStyle}
+          underlineColorAndroid='transparent'
+          placeholder='例如跑步、早睡等'
+          clearButtonMode='while-editing'
+          enablesReturnKeyAutomatically={true}
+          //onSubmitEditing={() =>this.focusNextField(ref)}
+          // onChangeText={(text) => this.setState({title: text})}
+        />
       </View>
     )
   }
@@ -298,10 +267,10 @@ export default class Creat extends Component {
               // disabled={false}
               // backgroundColor={color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
-              onPress={()=>{
-                if(step === 0){
+              onPress={() => {
+                if (step === 0) {
                   this.__nextStep()
-                }else {
+                } else {
                   this.props.add()
                 }
 
@@ -310,12 +279,15 @@ export default class Creat extends Component {
           </StyledHeaderInner>
         </StyledHeader>
 
+        {this.state.step === 0 && <StyledInnerScrollView>
+          {this.__renderName()}
+          <IconAndColor/>
+        </StyledInnerScrollView>}
 
         <StyledInnerView>
 
 
-          {this.state.step === 0 && this.__renderName()}
-          {this.state.step === 0 && <IconAndColor/>}
+
           {this.state.step >= 1 &&
           (<Main
             step={this.state.step - 1}
@@ -331,20 +303,7 @@ const styles = StyleSheet.create({
   wrap: {
     flex: 1,
   },
-  row: {
-    // borderBottomWidth: StyleSheet.hairlineWidth,
-    // borderBottomColor: mainColor,
-    // marginHorizontal: 30,
-    paddingHorizontal: 50,
-    // paddingVertical:20,
-  },
-  downRow: {
-    marginHorizontal: 30,
-    height: 90,
-    padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   textInputStyle: {
     height: 50,
     textAlign: 'left',
@@ -354,73 +313,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 15,
   },
-  sureBtn: {
-    marginLeft: 20,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 100,
-    paddingVertical: 10,
-    marginTop: 20,
-  },
-  sureBtn1: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 100,
-    paddingVertical: 10,
-    marginTop: 20,
-  },
-  sureBtnText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 15,
-  },
-  ctrlView: {
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    paddingHorizontal: 50,
-    paddingTop: 20,
-  },
-  doneBtn: {
-    // width: 50,
-    // height: 50,
-    marginTop: 20,
-    // borderRadius: 25,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  doneCtrlView: {
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    paddingHorizontal: 50,
-    paddingTop: 10,
-  },
-  doneTitle: {
-    marginTop: 35,
-    paddingHorizontal: 55,
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  line: {
-    width: '100%',
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: 'rgb(0,0,0)'
-  },
-  done: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 15,
-    alignSelf: 'flex-end',
-    marginVertical: 5,
-    marginLeft: 5,
-  },
 
-  shadow: {
-    shadowColor: 'black',
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 2, height: 5 },
-    shadowRadius: 5,
-    elevation: 3
-  },
 })
