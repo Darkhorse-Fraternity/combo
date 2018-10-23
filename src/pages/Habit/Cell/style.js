@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet, Dimensions, Platform } from 'react-native';
 import styled from "styled-components";
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import Button from '../../../components/Button'
@@ -17,7 +17,7 @@ export const StyledContent = styled(Button)`
 `
 
 export const StyledInner = styled.View`
-    margin: 5px 15px;
+    margin: ${Platform.OS === 'ios'?5:3 }px 15px;
 `
 
 
@@ -28,20 +28,18 @@ export const StyledIconImage = styled.Image`
 `
 
 export const StyledTitle = styled.Text`
-    color: #1a1917;
     font-size: 13px;
     font-weight: bold;
     letter-spacing: 0.5px;
 `
 
 export const StyledTime = styled.Text`
-    margin-top: 5px;
-    color: #1a1917;
+    margin-top: ${Platform.OS === 'ios'?5:2 };
     font-size: 12px;
 `
 
 export const StyledDes = styled.Text`
-    margin-top: 5px;
+    margin-top: ${Platform.OS === 'ios'?5:2 };
     color: #888888;
     font-size: 11px;
     font-style: italic;
