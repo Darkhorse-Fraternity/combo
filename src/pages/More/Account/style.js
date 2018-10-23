@@ -40,7 +40,6 @@ export const StyledArrow = styled.View`
 `
 
 export const StyledTitle = styled.Text`
-    color: #333333;
     font-size: 17px;
     font-weight: 500;
 `

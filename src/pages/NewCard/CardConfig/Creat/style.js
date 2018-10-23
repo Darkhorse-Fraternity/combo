@@ -14,7 +14,7 @@ export const StyledContent = styled(SafeAreaView)`
 `
 
 export const StyledHeader = styled.View`
-  padding: 40px 20px 0px 20px;
+  padding: 50px 20px 10px 20px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -53,12 +53,12 @@ export const StyledSubTitle = styled.Text`
 
 
 export const StyledInnerScrollView = styled.ScrollView`
-  padding: 20px 0px;
+  padding: 10px 0px;
 `
 
 export const StyledInnerView = styled.View`
   flex:1;
-  padding: 20px 0px;
+  padding: 10px 0px;
 `
 
 

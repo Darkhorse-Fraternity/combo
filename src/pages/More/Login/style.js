@@ -17,8 +17,8 @@ export const StyledContent = styled(LinearGradient)`
 `
 
 export const StyledImage = styled.Image`
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     margin-top: ${props=> props.theme.height/6};
     align-self: center;
 `
