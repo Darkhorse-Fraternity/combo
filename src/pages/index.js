@@ -4,7 +4,7 @@ import Habit from './Habit'
 import Creat from './NewCard/CardConfig/Creat'
 import NewCard from './NewCard'
 import Record from './Record'
-import OptionView from './NewCard/CardConfig/OptionView'
+import CardConfig from './NewCard/CardConfig'
 import Publish from './Publish/index'
 import PublishDetail from './Publish/Detail'
 import Serve from './Publish/Serve'
@@ -48,7 +48,7 @@ export const otherRoute = {
   creat: { screen: Creat, path: 'combo/:Creat' },
   newCard: { screen: NewCard },
   record: { screen: Record },
-  optionView: { screen: OptionView },
+  cardConfig: { screen: CardConfig },
   publish: { screen: Publish },
   publishDetail: { screen: PublishDetail },
   serve: { screen: Serve },

@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, { Component } from 'react';
+import React, { Component,PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -17,20 +17,21 @@ import {
   ActivityIndicator
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
-import {icons,colors} from './Creat/IconAndColorData'
-import { AutoGrowingInput, TextInput } from '../../../components/Form/Cunstom/index'
-import { Radio, Multiple } from '../../../components/Form/Select/index'
+import {icons,colors} from '../Creat/IconAndColorData'
+import { TextInput } from '../../../../components/Form/Cunstom/index'
+import { Radio, Multiple } from '../../../../components/Form/Select/index'
 import Toast from 'react-native-simple-toast'
-import { mainColor } from '../../../Theme/index'
+import { mainColor } from '../../../../Theme/index'
 import {
   StyledTitleView,
   StyledTitleText,
   StyledSubTitle,
   StyledSubTitleView,
   StyledItemText,
-  StyledLogoImage
+  StyledLogoImage,
+  StyledItemView
 } from './style'
-import IconAndColor from './Creat/IconAndColor'
+import IconAndColor from '../Creat/IconAndColor'
 
 export const StaticOption = {
   notifyTimes: [],
@@ -45,8 +46,8 @@ export const StaticOption = {
 import {
   formValues,
 } from 'redux-form/immutable'
-import Button from '../../../components/Button/index'
-import NotifyTimePicker from './NotifyTimePicker'
+import Button from '../../../../components/Button/index'
+import NotifyTimePicker from '../NotifyTimePicker'
 
 @formValues('title',
   'notifyTimes',
@@ -58,101 +59,24 @@ import NotifyTimePicker from './NotifyTimePicker'
   'color',
   )
 
-export default class OptionDo extends Component {
+export default class OptionDo extends PureComponent {
   constructor(props: Object) {
     super(props);
 
     this.state = {
-      option: 0,
-      type: 'notifyTime'
+      type: 'menu'
     }
   }
 
   static propTypes = {
-    goBack: PropTypes.func.isRequired,
-    done: PropTypes.func.isRequired,
-    load: PropTypes.bool
+    step: PropTypes.number,
+    nextStep: PropTypes.func.isRequired,
   };
   static defaultProps = {
-    load: false
   };
 
 
-  shouldComponentUpdate(nextProps: Object, nextState: Object) {
-    return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
-  }
 
-  __backStep = () => {
-
-    if (!this.props.title || this.props.title.length === 0) {
-
-      Toast.show('习惯标题不可为空~')
-      return;
-    }
-
-    if (this.state.option !== 0) {
-      this.setState({ option: 0 })
-    } else {
-      this.props.goBack && this.props.goBack()
-    }
-  }
-
-  __remderBack = () => {
-    return (
-      <Animatable.View animation="fadeInLeft"
-                       delay={Math.random() * 300}
-      >
-        <Button
-          onPress={this.__backStep}
-          style={[styles.item, styles.shadow]}>
-          <Text>{"返回"}</Text>
-        </Button>
-      </Animatable.View>
-    )
-  }
-
-  __renderSave = () => {
-
-    const { modify } = this.props
-
-    return (
-      <Animatable.View animation="fadeInLeft">
-        <Button
-          disabled={this.props.load}
-          onPress={() => {
-            if (modify) {
-              this.props.done()
-              this.__backStep()
-            } else {
-              this.__backStep()
-            }
-          }}
-          style={[styles.item, styles.shadow]}>
-          {this.props.load ? <ActivityIndicator
-              style={{ marginVertical: -3 }}/>
-            : <Text>保存</Text>}
-        </Button>
-
-      </Animatable.View>
-    )
-  }
-
-  __renderDone = () => {
-    return (
-      <Animatable.View animation="fadeInRight">
-        <Button
-          disabled={this.props.load}
-          onPress={this.props.done}
-          style={[styles.done, styles.shadow]}>
-          {this.props.load ? <ActivityIndicator
-              style={{ marginVertical: -3 }}/>
-            : <Text>提交</Text>}
-        </Button>
-
-      </Animatable.View>
-    )
-
-  }
 
   __renderItem = (props) => {
     return (
@@ -161,7 +85,8 @@ export default class OptionDo extends Component {
       >
         <Button
           onPress={() => {
-            this.setState({ option: props.index, type: props.type })
+            this.setState({ type: props.type })
+            this.props.nextStep()
           }}
           style={[styles.item, styles.shadow]}>
           <Text
@@ -211,18 +136,15 @@ export default class OptionDo extends Component {
 
     const __renderRadioItem = (item, selItem) => {
       return (
-        <View
-          style={[styles.notifyTimeItem,
-            {
-              backgroundColor: selItem === item ? '#31d930' : 'white',
-              width: 60
-            }]}
+        <StyledItemView
+          contain={selItem === item}
+          style={{width: 60 }}
           key={item}>
           <StyledItemText
             contain={selItem === item}>
             {item}组
           </StyledItemText>
-        </View>)
+        </StyledItemView>)
     }
 
     return (
@@ -266,10 +188,10 @@ export default class OptionDo extends Component {
         </StyledSubTitleView>
         <View
           style={[{
-            backgroundColor: 'white',
-            padding: 10,
+            backgroundColor: '#f6f7f9',
+            padding: 5,
             borderRadius: 5,
-            marginHorizontal: 10
+            marginHorizontal: 15
           }]}>
           <TextInput
             name='notifyText'
@@ -300,14 +222,13 @@ export default class OptionDo extends Component {
 
     const __renderRadioItem = (item, contain) => {
       return (
-        <View
-          style={[styles.notifyTimeItem,
-            { backgroundColor: contain ? '#31d930' : 'white' }]}
+        <StyledItemView
+          contain={contain}
           key={item}>
           <StyledItemText contain={contain}>
             {item}
           </StyledItemText>
-        </View>)
+        </StyledItemView>)
     }
 
 
@@ -339,14 +260,13 @@ export default class OptionDo extends Component {
 
     const __renderRadioItem = (item, contain) => {
       return (
-        <View
-          style={[styles.notifyTimeItem,
-            { backgroundColor: contain ? '#31d930' : 'white' }]}
+        <StyledItemView
+          contain={contain}
           key={names[item]}>
           <StyledItemText contain={contain}>
             {names[item - 1]}
           </StyledItemText>
-        </View>)
+        </StyledItemView>)
     }
 
     return (
@@ -422,28 +342,27 @@ export default class OptionDo extends Component {
 
     const { modify } = this.props
 
-    return [
-      modify && <StyledLogoImage
-        source={require('../../../../source/img/my/icon-60.png')}
-        key={'logo'}/>,
+
+    console.log('this.state.option:', this.state.option);
+
+    return (
+      // modify && <StyledLogoImage
+      //   source={require('../../../../source/img/my/icon-60.png')}
+      //   key={'logo'}/>,
       <ScrollView
-        // onStartShouldSetResponder={() => true}
-        // onResponderGrant={() => {
-        //     Keyboard.dismiss()
-        // }}
         key={'bc'}
         style={[styles.wrap, this.props.style]}>
 
 
-        <View style={{
-          flexDirection: 'row',
-          width: Dimensions.get('window').width,
-          justifyContent: 'space-between'
-        }}>
-          {this.state.option === 0 && this.__remderBack()}
-          {this.state.option === 0 && !modify && this.__renderDone()}
-          {this.state.option !== 0 && this.__renderSave()}
-        </View>
+        {/*<View style={{*/}
+          {/*flexDirection: 'row',*/}
+          {/*width: Dimensions.get('window').width,*/}
+          {/*justifyContent: 'space-between'*/}
+        {/*}}>*/}
+          {/*{this.state.option === 0 && this.__remderBack()}*/}
+          {/*{this.state.option === 0 && !modify && this.__renderDone()}*/}
+          {/*{this.state.option !== 0 && this.__renderSave()}*/}
+        {/*</View>*/}
 
         {/*{this.state.option !== 0 && <Animatable.View animation="fadeIn">*/}
         {/*<StyledTitleView>*/}
@@ -454,7 +373,7 @@ export default class OptionDo extends Component {
         {/*</Animatable.View>}*/}
 
 
-        {this.state.option === 0 && (<View>
+        {this.props.step === 0  && (<View style={{flex:1}}>
 
           <Animatable.View animation="fadeIn">
             <StyledTitleView>
@@ -466,11 +385,11 @@ export default class OptionDo extends Component {
           <this.__renderItem
             title={"习惯标题:   " + this.props.title}
             type="title"
-            index={1}/>
+          />
           <this.__renderItem
             title={"卡片图标与颜色"}
             type="iconAndColor"
-            index={1}/>
+          />
 
           <Animatable.View animation="fadeIn">
             <StyledTitleView>
@@ -484,68 +403,65 @@ export default class OptionDo extends Component {
           <this.__renderItem
             title={"提醒时间:   " + notifyTimes}
             type="notifyTimes"
-            index={1}/>
+            />
           <this.__renderItem
             title={"我的激励:   " + notifyText}
             type="notifyText"
-            index={1}/>
+            />
           <this.__renderItem
             title={"提醒日:   " + recordDay}
             type="recordDay"
-            index={1}/>
+            />
           <this.__renderItem
             title={"打卡要求:   " + record}
             type="record"
-            index={1}/>
+            />
           <this.__renderItem
             title={"卡片周期:   " + this.props.period + '组'}
             type="period"
-            index={1}/>
-
+           />
 
         </View>)}
 
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'title' &&
         this.__renderTitle()}
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'iconAndColor' &&
         this.__renderIconAndColor()}
 
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'notifyTimes' &&
         this.__renderNotifyTime()}
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'period' &&
         this.__renderperiod()}
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'notifyText' &&
         this.__remderNotifyText()}
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'recordDay' &&
         this.__renderRecordDay()}
 
-        {this.state.option === 1 &&
+        {this.props.step === 1 &&
         this.state.type === 'record' &&
         this.__remderRecord()}
 
-        <View style={{ height: 300 }}/>
+        <View style={{ height: 100 }}/>
       </ScrollView>
-    ];
+    );
   }
 }
 
-const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    paddingTop: 0,
   },
   item: {
     marginTop: 7.5,
@@ -574,15 +490,6 @@ const styles = StyleSheet.create({
     elevation: 3
   },
 
-  notifyTimeItem: {
-    paddingHorizontal: 15,
-    height: 35,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    borderRadius: 8,
-  },
   notifyTimeView: {
 
     paddingHorizontal: 10,
@@ -597,7 +504,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'black',
     paddingHorizontal: 10,
-    backgroundColor: 'white',
     borderRadius: 8,
     marginHorizontal: 15,
   },
@@ -605,15 +511,11 @@ const styles = StyleSheet.create({
   textInputStyle: {
     // width:200,
     // marginLeft: 0,
+    backgroundColor:'transparent',
     height: 168,
     fontSize: 17,
     textAlignVertical: 'top',
 
 
   },
-  line: {
-    backgroundColor: 'rgb(150,150,150)',
-    height: StyleSheet.hairlineWidth,
-    margin: 5,
-  }
 })

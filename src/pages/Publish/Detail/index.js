@@ -213,7 +213,7 @@ export default class PublishDetail extends Component {
                 })}
 
                 {allow && this._renderRow('卡片配置', () => {
-                    navigation.navigate('optionView', { iCardId: iCard.objectId })
+                    navigation.navigate('cardConfig', { iCardId: iCard.objectId })
                 })}
 
                 {/*{this._renderRow('删除圈子', () => {*/}

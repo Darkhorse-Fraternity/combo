@@ -113,6 +113,7 @@ export default class IconAndColor extends Component {
             backgroundColor={color}
             style={{ marginLeft: 0 }}>
             <StyledCellImage
+              resizeMode={'contain'}
               // style={{ position: 'absolute' }}
               size={35}
               height={35}

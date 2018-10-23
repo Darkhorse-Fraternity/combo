@@ -27,7 +27,7 @@ import {
     reduxForm,
     formValueSelector,
 } from 'redux-form/immutable'
-import OptionDo, { StaticOption } from './OptionDo'
+import Main, { StaticOption } from './Main'
 import moment from 'moment'
 //static displayName = OptionView
 
@@ -112,7 +112,7 @@ const FormID = 'CreatCardForm'
 })
 
 
-export default class OptionView extends Component {
+export default class CardConfig extends Component {
     constructor(props: Object) {
         super(props);
     }
@@ -138,9 +138,9 @@ export default class OptionView extends Component {
     render(): ReactElement<any> {
         return (
             <StyledContent colors={['#f1f6f9', '#ffffff']}>
-                <OptionDo
+                <Main
                     modify={true}
-                    goBack={this.__backStep}
+                    // goBack={this.__backStep}
                     done={this.props.refresh}
                     load={this.props.load}/>
             </StyledContent>

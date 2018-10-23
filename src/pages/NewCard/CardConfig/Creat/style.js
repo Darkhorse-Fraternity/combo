@@ -5,15 +5,43 @@
 'use strict';
 
 import styled from "styled-components";
+import { SafeAreaView } from 'react-navigation';
+import HeaderBtn from '../../../../components/Button/HeaderBtn';
 
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled(SafeAreaView)`
     background-color: white;
     flex:1
 `
+
+export const StyledHeader = styled.View`
+  padding: 40px 20px 0px 20px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`
+
+export const StyledTitle = styled.Text`
+  font-weight: 500;
+  font-size: 21px;
+`
+
+export const StyledHeaderInner = styled.View`
+  flex-direction: row;
+`
+
+
+
+export const StyledHeaderBtn = styled(HeaderBtn)`
+   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
+   margin-left: 10px;
+   width: 70px;
+`
+
+
+
 export const StyledSubTitleView = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 20px;
   padding: 15px 0px 5px 0px;
 `
 
@@ -23,8 +51,11 @@ export const StyledSubTitle = styled.Text`
   padding: 5px ;
 `
 
+
+
 export const StyledInnerView = styled.View`
-  padding: 80px 0px;
+  flex:1;
+  padding: 20px 0px;
 `
 
 

@@ -32,7 +32,7 @@ export const StyledCellImage = styled.Image`
 
 
 
-export const StyledColorCell = styled.TouchableOpacity`
+export const StyledColorCell = styled(TouchableBounce)`
     width: 30px;
     height: 30px;
     margin: 15px 20px 15px 30px;

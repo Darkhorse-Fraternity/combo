@@ -10,8 +10,6 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient';
-import Button from "../../../components/Button/";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 // export const StyledContent = styled.View`
@@ -39,10 +37,21 @@ export const StyledInnerView = styled.ScrollView`
 
 `
 
+
+export const StyledItemView = styled.View`
+    padding: 0px 15px;
+    height: 35px;
+    background-color: ${props => props.contain?'#31d930':props.theme.textinputbackgroundColor};
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    border-radius: 8px;
+`
+
 export const StyledItemText = styled.Text`
-  font-weight: ${props => props.contain ? 600 : Platform.OS === 'ios' ? 500 : 400};
-  color:${props => props.contain ? 'white' :
-  Platform.OS === 'ios' ? 'black' : materialColors.blackTertiary}
+  font-weight: ${props=> props.contain?600:400};
+  color:${props=> props.contain?'white':
+  Platform.OS==='ios'?'black':materialColors.blackTertiary}
   
   font-size: 14px;
 `
@@ -90,7 +99,7 @@ export const StyledNotifyButton = styled(TouchableOpacity)`
 export const StyledNotifyButtonInner = styled.View`
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.textinputbackgroundColor};
+  background-color: white;
   border-radius: 10px;
   width: 60px;
   height: 60px;

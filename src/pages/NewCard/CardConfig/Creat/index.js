@@ -2,6 +2,7 @@
  * Created by lintong on 2017/7/11.
  * @flow
  */
+
 'use strict';
 
 import * as immutable from 'immutable';
@@ -24,7 +25,7 @@ import { addListNormalizrEntity } from '../../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../../redux/module/normalizr'
 import { selfUser, iCard } from '../../../../request/LCModle'
 import moment from 'moment'
-import OptionDo, { StaticOption } from '../OptionDo'
+import Main, { StaticOption } from '../Main'
 import Button from '../../../../components/Button'
 import { mainColor } from '../../../../Theme/index'
 import {
@@ -40,7 +41,11 @@ import {
   StyledContent,
   StyledSubTitleView,
   StyledSubTitle,
-  StyledInnerView
+  StyledInnerView,
+  StyledHeader,
+  StyledTitle,
+  StyledHeaderInner,
+  StyledHeaderBtn
 } from './style'
 import { TextInput } from '../../../../components/Form/Cunstom/index'
 import Toast from 'react-native-simple-toast'
@@ -50,6 +55,7 @@ import * as Animatable from 'react-native-animatable';
 import { Privacy } from '../../../../configure/enum'
 
 import IconAndColor from './IconAndColor'
+import { StyledArrowView } from "../../../Record/RecordRow/style";
 
 @connect(
   state => ({
@@ -57,7 +63,7 @@ import IconAndColor from './IconAndColor'
     title: selector(state, 'title'),
     initialValues: StaticOption,
     load: state.req.get(ICARD).get('load'),
-
+    color: selector(state, 'color')
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch),
@@ -160,7 +166,6 @@ export default class Creat extends Component {
     super(props);
     this.state = {
       step: 0,
-      optionOpen: false,
     }
   }
 
@@ -194,8 +199,11 @@ export default class Creat extends Component {
     // if (step === 2) {
     //     this.props.add()
     // }
+    const step = this.state.step
+
     if (this.props.title && this.props.title.length > 0) {
-      this.setState({ optionOpen: true })
+
+      this.setState({ step: step + 1 })
     } else {
       Toast.show('标题不可为空')
     }
@@ -203,48 +211,42 @@ export default class Creat extends Component {
 
   }
 
-  __backStep = (handle) => {
+  __backStep = () => {
 
-    const step = this.state.step - 1
-    this.setState({ step })
-    if (step === -1) {
-      // this.props.navigation.goBack()
-      handle()
+    const step = this.state.step
+    if (step === 0) {
+      this.props.navigation.goBack()
+    } else {
+      this.setState({ step: step - 1 })
     }
-  }
-
-  __doOption = () => {
-    this.setState({ optionOpen: true })
   }
 
 
   __renderName = () => {
     return (
-      <View style={{ marginTop: 10 }}>
-        <View style={{
-          flexDirection: 'row',
-          width: Dimensions.get('window').width,
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <View animation="fadeInLeft"
-                delay={Math.random() * 300}
-          >
-            <BackBtn onBackPress={this.__backStep}/>
-          </View>
-          <View animation="fadeInRight"
-                delay={Math.random() * 300}
-          >
-            <Button
-              onPress={this.__nextStep}
-              style={[styles.done, styles.shadow]}>
-              <Text>下一步</Text>
-            </Button>
-          </View>
-        </View>
-        <View animation="fadeInLeft"
-              delay={Math.random() * 300}
-        >
+      <View>
+        {/*<View style={{*/}
+        {/*flexDirection: 'row',*/}
+        {/*width: Dimensions.get('window').width,*/}
+        {/*justifyContent: 'space-between',*/}
+        {/*alignItems: 'center'*/}
+        {/*}}>*/}
+        {/*<View animation="fadeInLeft"*/}
+        {/*delay={Math.random() * 300}*/}
+        {/*>*/}
+        {/*<BackBtn onBackPress={this.__backStep}/>*/}
+        {/*</View>*/}
+        {/*<View animation="fadeInRight"*/}
+        {/*delay={Math.random() * 300}*/}
+        {/*>*/}
+        {/*<Button*/}
+        {/*onPress={this.__nextStep}*/}
+        {/*style={[styles.done, styles.shadow]}>*/}
+        {/*<Text>下一步</Text>*/}
+        {/*</Button>*/}
+        {/*</View>*/}
+        {/*</View>*/}
+        <View>
           <StyledSubTitleView>
             <StyledSubTitle>
               习惯标题：
@@ -272,34 +274,54 @@ export default class Creat extends Component {
 
 
   render(): ReactElement<any> {
-    const { title } = this.props
+    const { title, color } = this.props
+    const { step } = this.state
     return (
       <StyledContent
-        colors={['#f1f6f9', '#ffffff']}
+        // colors={['#f1f6f9', '#ffffff']}
         style={[this.props.style, styles.wrap]}>
+
+        <StyledHeader>
+          <StyledTitle>
+            新建习惯
+          </StyledTitle>
+          <StyledHeaderInner>
+            <StyledHeaderBtn
+              // load={false}
+              // disabled={false}
+              backgroundColor={'#bfc2c7'}
+              hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
+              onPress={this.__backStep}
+              title={step === 0 ? '取消' : '返回'}/>
+            <StyledHeaderBtn
+              // load={false}
+              // disabled={false}
+              // backgroundColor={color}
+              hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
+              onPress={()=>{
+                if(step === 0){
+                  this.__nextStep()
+                }else {
+                  this.props.add()
+                }
+
+              }}
+              title={step === 0 ? '下一步' : '提交'}/>
+          </StyledHeaderInner>
+        </StyledHeader>
 
 
         <StyledInnerView>
-          {/*{!this.state.optionOpen && <Animatable.View*/}
-          {/*animation="bounceInDown" >*/}
-          {/*<PunItem*/}
-          {/*name={iconAndColor && iconAndColor.get('name')}*/}
-          {/*color={iconAndColor && iconAndColor.get('color')}*/}
-          {/*style={{ alignSelf: 'center', marginTop: 50 }}*/}
-          {/*title={title || '标题'} done={false}/>*/}
-          {/*</Animatable.View>}*/}
-          {!this.state.optionOpen && this.__renderName()}
-          {!this.state.optionOpen && <IconAndColor/>}
-          {this.state.optionOpen &&
-          (<OptionDo goBack={() => {
-            this.props.navigation.goBack()
-          }}
-                     done={this.props.add}
-                     load={this.props.load}/>)}
-        </StyledInnerView>
-        {/*{(this.state.step === 1 || this.state.step === 2)*/}
-        {/*&& !this.state.optionOpen && this.__doneView()}*/}
 
+
+          {this.state.step === 0 && this.__renderName()}
+          {this.state.step === 0 && <IconAndColor/>}
+          {this.state.step >= 1 &&
+          (<Main
+            step={this.state.step - 1}
+            nextStep={this.__nextStep}
+          />)}
+        </StyledInnerView>
       </StyledContent>
     );
   }

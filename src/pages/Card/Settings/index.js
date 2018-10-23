@@ -262,7 +262,7 @@ export default class Settings extends Component {
         iCard.state !== -2
         && iUse.statu !== 'del' && (<this._renderItem
           onPress={() => {
-            navigation.navigate('optionView', { iCardId: iCard.objectId })
+            navigation.navigate('cardConfig', { iCardId: iCard.objectId })
           }}
           name={'md-settings'}
           title={'卡片配置'}/>)}

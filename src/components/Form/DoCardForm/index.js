@@ -117,6 +117,7 @@ export default class DoCardForm extends Component {
         returnKeyType='next'
         name={'recordText'}
         maxLength={3000}
+        autoFocus
         placeholder={"想写点什么？"}
         multiline={true}
         //keyboardType={boardType}
