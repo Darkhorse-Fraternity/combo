@@ -111,7 +111,9 @@ export default class DateBoard extends React.Component {
                     }}
                                       key={i}
                                       style={styles.dateBox}>
-                        <View style={[styles.selected, { backgroundColor:this.props.color || theme.mainLightColor }]}>
+                        <View style={[styles.selected,
+                          { backgroundColor:this.props.color
+                          || theme.mainLightColor,   borderRadius: 17, }]}>
                             <Text style={[styles.dateText, {
                                 color: 'white',
                                 fontWeight: 'bold'
@@ -198,7 +200,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: 34,
         height: 34,
-        borderRadius: 17,
     },
     addBtn: {
         width: width,
