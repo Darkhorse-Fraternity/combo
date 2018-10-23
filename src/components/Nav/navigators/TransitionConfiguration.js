@@ -13,7 +13,7 @@ import {
 // import {HeaderStyleInterpolator} from 'react-navigation';
 import * as Transition from './Transition'
 
-
+import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator'
 //https://github.com/react-community/react-navigation/issues/85  穿透共享元素讨论
 
 export  const TransitionConfiguration = () => ({
@@ -31,7 +31,7 @@ export  const TransitionConfiguration = () => ({
         {transition = 'forFadeFromBottomAndroid'}
 
         const StackTransitions = {
-            // ...HeaderStyleInterpolator,
+            ...StackViewStyleInterpolator,
             ...Transition
         }
         return StackTransitions[transition](sceneProps);

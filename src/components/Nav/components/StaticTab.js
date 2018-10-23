@@ -25,7 +25,7 @@ import {
   punchRoute
 } from '../../../pages'
 import { navigationOptions, tabsOptions } from './navigationOptions'
-// import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
+import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
 
 
 const PunchStack = createStackNavigator({
@@ -33,7 +33,7 @@ const PunchStack = createStackNavigator({
 }, {
   initialRouteName: 'punch',
   navigationOptions,
-  // transitionConfig: TransitionConfiguration,
+  transitionConfig: TransitionConfiguration,
 });
 
 
@@ -42,7 +42,7 @@ const HabitStack = createStackNavigator({
 }, {
   initialRouteName: 'habit',
   navigationOptions,
-  // transitionConfig: TransitionConfiguration,
+  transitionConfig: TransitionConfiguration,
 });
 
 
@@ -51,7 +51,7 @@ const SettingsStack = createStackNavigator({
 }, {
   initialRouteName: 'more',
   navigationOptions,
-  // transitionConfig: TransitionConfiguration,
+  transitionConfig: TransitionConfiguration,
 });
 
 
