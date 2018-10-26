@@ -44,7 +44,7 @@ export const StyledCardTitle = styled.Text`
    font-size: 15px;
    font-style: italic;
    text-align: center;
-  
+   width: 80px;
 `
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``

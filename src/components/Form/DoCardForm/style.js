@@ -10,8 +10,15 @@ import { SafeAreaView } from 'react-navigation';
 
 export const Form = styled(SafeAreaView)`
      flex:1;
-     padding: 10px 0px;
+     padding: 10px 0px 0px 10px;
 `
+
+
+// export const Form = styled.KeyboardAvoidingView`
+//      flex:1;
+//      padding: 0px 0px;
+// `
+
 
 export const StyledHeader = styled.View`
   flex-direction: row;
@@ -20,7 +27,7 @@ export const StyledHeader = styled.View`
   padding: 0px 20px 30px 20px;
 `
 
-export const StyledContent = styled.View`
+export const StyledContent = styled.KeyboardAvoidingView`
   flex:1;
   padding: 0px 20px;
 `

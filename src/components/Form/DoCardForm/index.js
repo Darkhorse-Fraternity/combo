@@ -20,7 +20,8 @@ import {
 
 import {
   View,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native'
 import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
@@ -132,7 +133,7 @@ export default class DoCardForm extends Component {
   keyboardAccessoryViewContent() {
 
     return (
-      <View style={{paddingHorizontal:20,marginBottom:0}}>
+      <View style={{paddingHorizontal:0,marginBottom:10}}>
         <ImageSelectView name={'imgs'} maxImage={1}/>
       </View>
     );
@@ -160,8 +161,8 @@ export default class DoCardForm extends Component {
     // console.log('submitting222:', load);
 
     return (
-      <Form>
-        <StyledHeader>
+      <Form >
+        <StyledHeader >
           <StyledBtn
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 20 }}
             onPress={() => {
@@ -186,7 +187,7 @@ export default class DoCardForm extends Component {
             </StyledBtn>
           }
         </StyledHeader>
-        <StyledContent>
+        <StyledContent behavior="padding" enabled>
           {this.__textType()}
 
 
@@ -194,14 +195,16 @@ export default class DoCardForm extends Component {
           {/*name={'imgs'}*/}
           {/*maxImage={1}/>)}*/}
 
-          {<KeyboardAccessoryView
-            renderContent={this.keyboardAccessoryViewContent}
-            trackInteractive={TrackInteractive}
-            kbInputRef={this.textInputRef}
-            onKeyboardResigned={this.onKeyboardResigned}
-            revealKeyboardInteractive
-          />}
-
+          {/*{Platform.OS==='ios'?<KeyboardAccessoryView*/}
+            {/*renderContent={this.keyboardAccessoryViewContent}*/}
+            {/*trackInteractive={TrackInteractive}*/}
+            {/*kbInputRef={this.textInputRef}*/}
+            {/*onKeyboardResigned={this.onKeyboardResigned}*/}
+            {/*revealKeyboardInteractive*/}
+          {/*/>:*/}
+              {/*this.keyboardAccessoryViewContent()*/}
+          {/*}*/}
+          {this.keyboardAccessoryViewContent()}
 
         </StyledContent>
       </Form>
