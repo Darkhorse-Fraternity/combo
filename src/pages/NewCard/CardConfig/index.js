@@ -108,8 +108,9 @@ import {
         //         [entity.objectId]: entity
         //     }
         // }))
-        dispatch(addNormalizrEntity(ICARD, entity))
         Toast.show('修改配置成功~!')
+        return dispatch(addNormalizrEntity(ICARD, entity))
+        // Toast.show('修改配置成功~!')
       }
     })
   })
@@ -168,7 +169,7 @@ export default class CardConfig extends PureComponent {
 
         <StyledHeader>
           <StyledTitle>
-            习惯配置
+            习惯设置
           </StyledTitle>
           <StyledHeaderInner>
             <StyledHeaderBtn
@@ -183,11 +184,12 @@ export default class CardConfig extends PureComponent {
               // disabled={false}
               backgroundColor={this.props.color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
-              onPress={() => {
+              onPress={async () => {
                 if (step === 0) {
                   this.__nextStep()
                 } else {
-                  this.props.refresh()
+                  await this.props.refresh()
+                  this.setState({step:0})
                 }
 
               }}
