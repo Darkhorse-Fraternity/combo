@@ -8,7 +8,8 @@ import React, { Component } from 'react';
 import {
   View,
   FlatList,
-  InteractionManager
+  InteractionManager,
+  Platform
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -45,7 +46,7 @@ import Toast from 'react-native-simple-toast'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 import Swipeout from 'react-native-swipeout'
-
+import {shadeBlend} from '../../../../helps/util'
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
 export const daysText = (recordDay) => {
@@ -175,6 +176,14 @@ export default class Remind extends Component {
   _ListHeaderComponent = (id, value, data) => {
 
 
+    const propsColor = Platform.OS === 'ios'?{
+      trackColor:{false: '#39ba98', true: '#39ba98'},
+    }:{
+      thumbColor:value?'#39ba98':'#f6f7f9',
+      // trackColor:{true: '#f6f7f9'},
+    }
+
+
     return [
       <StyledSubTitle key={'subTitle'}>
         <StyledRowInner>
@@ -184,7 +193,7 @@ export default class Remind extends Component {
           </StyledSubTitleText>
         </StyledRowInner>
         <StyledSwitch
-          trackColor={{false: '#39ba98', true: '#39ba98'}}
+          {...propsColor}
           value={value}
           onValueChange={async (value) => {
           await this.props.remind(id, value)
@@ -238,6 +247,12 @@ export default class Remind extends Component {
     }
     const {  iconAndColor,title ,recordDay} = iCard
     const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
+    const propsColor = Platform.OS === 'ios'?{
+      trackColor:{false: color, true: color},
+    }:{
+      thumbColor:value?color:'#f6f7f9',
+      trackColor:{true: shadeBlend(0.75,color)},
+    }
 
     return (
       <Swipeout
@@ -284,7 +299,7 @@ export default class Remind extends Component {
             </StyledRowDis>
           </StyledRowInner>
           <StyledSwitch
-            trackColor={{false: color, true: color}}
+            {...propsColor}
             onValueChange={(value) => {
             this.props.remind(id, value)
           }} value={value}/>

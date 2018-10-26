@@ -15,10 +15,11 @@ import {
   Dimensions,
   TextInput,
   ActivityIndicator,
-  Image
+  Image,
+  Platform
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD,IUSE } from '../../../redux/reqKeys'
+import { ICARD, IUSE } from '../../../redux/reqKeys'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 
@@ -44,7 +45,8 @@ import {
 
 const selector = formValueSelector(FormID)
 import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
-import {CircleState} from '../../../configure/enum'
+import { CircleState } from '../../../configure/enum'
+import {shadeBlend} from '../../../../helps/util'
 
 @connect(
   (state, props) => ({
@@ -152,7 +154,7 @@ import {CircleState} from '../../../configure/enum'
       }
       dispatch(addNormalizrEntity(ICARD, entity))
     },
-    circleState:async (data) => {
+    circleState: async (data) => {
       const id = data.objectId
       const param = {
         circleState: data.circleState === 0 ? 1 : 0
@@ -169,7 +171,7 @@ import {CircleState} from '../../../configure/enum'
       const param = {
         privacy,
       }
-      const res = await dispatch(update(id,param, IUSE))
+      const res = await dispatch(update(id, param, IUSE))
       const entity = {
         ...param,
         ...res,
@@ -273,7 +275,15 @@ export default class Publishing extends Component {
 
   }
 
-  _ListHeaderComponent = (data) => {
+  _ListHeaderComponent = (data, color) => {
+
+    const propsColor =(value)=> Platform.OS === 'ios' ? {
+      trackColor: { false: color, true: color },
+    } : {
+      thumbColor: value ? color : '#f6f7f9',
+      trackColor: { true: shadeBlend(0.75, color) },
+    }
+
     const { circleState, shareState } = this.state
     return (
       <StyledHeader>
@@ -282,32 +292,36 @@ export default class Publishing extends Component {
         </StyledTitle>
         <StyledSubTitle>
           <StyledRowInner>
-            <StyledEntypoIcon size={30} name={'picasa'}/>
+            <StyledEntypoIcon size={25} name={'picasa'}/>
             <StyledSubTitleText>
               是否开启圈子
             </StyledSubTitleText>
           </StyledRowInner>
-          <StyledSwitch value={circleState === CircleState.open}
-                        onValueChange={() => {
-            // await this.props.remind(id, value)
-            this.setState({circleState:circleState === 1?0:1})
-            this.props.circleState(data.toJS())
-            // this.props.updatePrivacy()
-          }}/>
+          <StyledSwitch
+            value={circleState === CircleState.open}
+            {...propsColor(circleState === CircleState.open)}
+            onValueChange={() => {
+              // await this.props.remind(id, value)
+              this.setState({ circleState: circleState === 1 ? 0 : 1 })
+              this.props.circleState(data.toJS())
+              // this.props.updatePrivacy()
+            }}/>
         </StyledSubTitle>
         <StyledSubTitle>
           <StyledRowInner>
-            <StyledIcon size={30} name={'share'}/>
+            <StyledIcon size={25} name={'share'}/>
             <StyledSubTitleText>
               是否允许推荐
             </StyledSubTitleText>
           </StyledRowInner>
-          <StyledSwitch value={shareState === 1}
-                        onValueChange={() => {
-            // await this.props.remind(id, value)
-            this.setState({shareState:shareState === 1?0:1})
-            this.props.shareState(data.toJS())
-          }}/>
+          <StyledSwitch
+            {...propsColor(shareState === 1)}
+            value={shareState === 1}
+            onValueChange={() => {
+              // await this.props.remind(id, value)
+              this.setState({ shareState: shareState === 1 ? 0 : 1 })
+              this.props.shareState(data.toJS())
+            }}/>
         </StyledSubTitle>
       </StyledHeader>
     )
@@ -323,7 +337,8 @@ export default class Publishing extends Component {
 
 
     let price = iCard.get('price') || 0
-
+    const iconAndColor = iCard.get('iconAndColor')
+    const { color } = iconAndColor ? iconAndColor.toJS() : { name: 'sun', color: '#b0d2ee' }
 
     price = price === 0 ? '' : price + ''
     const initialValues = {
@@ -342,12 +357,13 @@ export default class Publishing extends Component {
 
     return (
       <StyledContent style={[this.props.style]}>
-        {this._ListHeaderComponent(iCard)}
+        {this._ListHeaderComponent(iCard, color)}
 
 
         {this.state.getSave &&
         this.state.shareState === CircleState.open && <CardPublishForm
           load={load}
+          color={color}
           maxIndex={5}
           iCardId={this.props.navigation.state.params.iCardID}
           initialValues={initialValues}
@@ -359,7 +375,7 @@ export default class Publishing extends Component {
 
             // const iCardModel = iCard.toJS()
             // if (iCardModel.state === 0) {
-              this.props.publish(iCardModel)
+            this.props.publish(iCardModel)
             // } else {
             //   // this.__alert(iCard)
             //   this.props.unPublish(iCardModel)

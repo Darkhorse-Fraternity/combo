@@ -17,7 +17,7 @@ export const StyledHeader = styled.View`
   padding: 10px 20px 30px 20px;
 `
 
-export const StyledContent = styled.View`
+export const StyledContent = styled.ScrollView`
   flex:1;
   padding: 0px 20px;
 `

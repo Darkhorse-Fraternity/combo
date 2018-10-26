@@ -57,7 +57,8 @@ import {
 
     return {
       initialValues: propsOption,
-      load: state.req.get('iCard').get('load')
+      load: state.req.get('iCard').get('load'),
+      color:iCard.iconAndColor?iCard.iconAndColor.color:'#39ba98'
     }
   },
   (dispatch, props) => ({
@@ -180,7 +181,7 @@ export default class CardConfig extends PureComponent {
             <StyledHeaderBtn
               // load={false}
               // disabled={false}
-              // backgroundColor={color}
+              backgroundColor={this.props.color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
               onPress={() => {
                 if (step === 0) {

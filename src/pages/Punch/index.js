@@ -150,11 +150,11 @@ export default class Punch extends Component {
       color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
-      onPress={(done) => {
+      onPress={(doIt) => {
         // const iCardM = iCard.toJS()
 
         //如果没有强制打卡类型，则直接翻转
-        iCard.get('record').size === 0 && done()
+        iCard.get('record').size === 0 && doIt()
 
         !this.props.load && !done &&
         this.props.done(data)

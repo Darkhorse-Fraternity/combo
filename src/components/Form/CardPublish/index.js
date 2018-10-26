@@ -251,6 +251,7 @@ export default class CardPublishForm extends Component {
             state,
             title,
             onSaveLocal,
+            color,
             ...rest
         } = this.props
         const { submitting, invalid } = rest
@@ -270,13 +271,14 @@ export default class CardPublishForm extends Component {
                     <View style={{ flexDirection: 'row' }}>
                         <StyledHeaderBtn
                             load={false}
-                            style={{ marginRight: 10 }}
+                            style={{ marginRight: 10,backgroundColor:color }}
                             disabled={false}
                             hitSlop={{ top: 5, left: 50, bottom: 5, right: 5 }}
                             onPress={onSaveLocal}
                             title={'保存'}/>
                         <StyledHeaderBtn
                             load={false}
+                            style={{backgroundColor:color}}
                             disabled={!enableSumbmit}
                             hitSlop={{ top: 5, left: 5, bottom: 5, right: 50 }}
                             onPress={onSubmit && handleSubmit(onSubmit)}
