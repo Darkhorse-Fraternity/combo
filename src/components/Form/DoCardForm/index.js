@@ -132,7 +132,7 @@ export default class DoCardForm extends Component {
   keyboardAccessoryViewContent() {
 
     return (
-      <View style={{paddingHorizontal:20,marginBottom:-30}}>
+      <View style={{paddingHorizontal:20,marginBottom:0}}>
         <ImageSelectView name={'imgs'} maxImage={1}/>
       </View>
     );

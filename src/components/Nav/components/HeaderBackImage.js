@@ -35,10 +35,10 @@ export default class HeaderBackImage extends Component {
 }
 const styles = StyleSheet.create({
   image: {
-    height: 28,
-    width: 28,
+    height: 24,
+    width: 24,
     marginLeft: 15,
     marginRight: 12,
-    marginVertical: 12,
+    marginVertical: 14,
   },
 })

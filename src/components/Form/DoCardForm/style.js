@@ -4,20 +4,23 @@ import HeaderBtn from '../../../components/Button/HeaderBtn'
 import Button from '../../../components/Button/'
 import { TextInput } from '../Cunstom'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { SafeAreaView } from 'react-navigation';
 
-export const Form = styled.View`
+
+
+export const Form = styled(SafeAreaView)`
      flex:1;
-     padding: 50px 0px;
+     padding: 10px 0px;
 `
 
 export const StyledHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px 30px 20px;
+  padding: 0px 20px 30px 20px;
 `
 
-export const StyledContent = styled.ScrollView`
+export const StyledContent = styled.View`
   flex:1;
   padding: 0px 20px;
 `
