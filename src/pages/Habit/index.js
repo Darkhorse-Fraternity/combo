@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Component,PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   ScrollView,
@@ -13,22 +13,33 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native'
 import { connect } from 'react-redux'
-import { ICARD, IUSE } from '../../redux/reqKeys'
-import { search, } from '../../redux/module/leancloud'
 
-import { selfUser,  } from '../../request/LCModle'
+import { selfUser, } from '../../request/LCModle'
 import Cell from './Cell'
 
 import {
-  StyledInnerdContent
+  StyledInnerdContent,
+  StyledIcon,
+  StyledDeleteBtn,
+  StyledDeleteBtnText
 } from './style'
 import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import moment from 'moment'
+import Swipeout from 'react-native-swipeout'
+import { update, search } from '../../redux/module/leancloud'
+
+import { IUSE, IRECORD ,ICARD} from '../../redux/reqKeys'
+import { claerByID } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { classUpdate } from '../../request/leanCloud'
+import { req } from '../../redux/actions/req'
+const Archive = IUSE + "archive"
 
 @connect(
   state => ({
@@ -54,11 +65,55 @@ import moment from 'moment'
         include: ICARD + ',iCard.user'
       }, IUSE))
     },
+    stop: async (data) => {
+      const id = data.objectId
+      const param = {
+        statu: 'stop',
+        //cycle,
+      }
+      const lParams = classUpdate(IUSE, id, param)
+      const res = await dispatch(req(lParams, Archive))
+      const entity = {
+        ...param,
+        ...res,
+      }
+
+      dispatch(addNormalizrEntity(IUSE, entity))
+      dispatch(claerByID(IUSE, id))
+    },
+    delete: async (objectId) => {
+      // await remove(objectId,IUSE)
+      // 做伪删除
+
+      Alert.alert(
+        '确定删除?',
+        '删除后不可恢复~！',
+        [{ text: '取消' }, {
+          text: '确定', onPress: async () => {
+            const param = {
+              statu: 'del'
+            }
+            const res = await dispatch(update(objectId, param, IUSE))
+            const entity = {
+              ...param,
+              ...res
+            }
+            dispatch(addNormalizrEntity(IUSE, entity))
+            dispatch(claerByID(IUSE, objectId))
+            dispatch(claerByID(IRECORD, objectId))
+          }
+        }]
+      )
+    },
+
   })
 )
-export default class Habit extends Component {
+export default class Habit extends PureComponent {
   constructor(props: Object) {
     super(props);
+    this.state={
+      openIndex:-1,
+    }
   }
 
   static propTypes = {};
@@ -95,18 +150,30 @@ export default class Habit extends Component {
   __renderNoData = (statu) => {
 
 
-    const  refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
+    const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
     return (
       <ExceptionView
         style={{ height: Dimensions.get('window').height / 2 }}
-        exceptionType={refreshLoad?
-          ExceptionType.Loading:ExceptionType.NoData}
+        exceptionType={refreshLoad ?
+          ExceptionType.Loading : ExceptionType.NoData}
         tipBtnText={'添加卡片'}
-        refresh = {refreshLoad}
-        prompt={refreshLoad?'正在加载':'空空如也~'}
+        refresh={refreshLoad}
+        prompt={refreshLoad ? '正在加载' : '空空如也~'}
         onRefresh={() => {
           this.props.navigation.navigate('newCard')
         }}/>
+    )
+  }
+
+
+  _renderSwipeOutDeleteBtn = (title,color,name) => {
+    return (
+      <StyledDeleteBtn>
+        <StyledIcon size={30} color={color} name={name}/>
+        <StyledDeleteBtnText color={color}>
+          {title}
+        </StyledDeleteBtnText>
+      </StyledDeleteBtn>
     )
   }
 
@@ -128,25 +195,62 @@ export default class Habit extends Component {
     let iCard = this.props.iCard.get(iCardId)
 
 
-    return <Cell
-      // refreshLoad={this.props.refreshLoad}
-      // onLongPress={() => {
-      //     !this.props.load &&
-      //     !done &&
-      //     this.props.done(data)
-      //
-      // }}
-      onPress={() => {
-        this.props.navigation.navigate('card', {
-          iUseId: data.objectId,
-          iCardId: iCard.get('objectId')
-        })
-      }}
-      data={data}
-      iCard={iCard.toJS()}
-    />;
+    return (
+      <Swipeout
+        backgroundColor='white'
+        close={this.state.openIndex !== index}
+        onOpen={()=>{
+          this.setState({openIndex:index})
+        }}
+        right={[{
+          type: 'secondary',
+          onPress: () => {
+            this.props.navigation.navigate('cardSetting',
+              {iCardId,iUseId:item})
+            this.setState({openIndex:-1})
+            // this._deleteRow(item)
+          },
+          component: this._renderSwipeOutDeleteBtn('更多','#388e3c','more-vert'),
+          backgroundColor: '#e0f2f1'
+        },{
+          type: 'delete',
+          onPress: () => {
+            // this._deleteRow(item)
+            this.props.delete(item)
+            this.setState({openIndex:-1})
+          },
+          component: this._renderSwipeOutDeleteBtn('删除','#f44336','delete'),
+          backgroundColor: '#ffebee'
+        },{
+          type: 'primary',
+          onPress: () => {
+            // this._deleteRow(item)
+            this.props.stop(data)
+            this.setState({openIndex:-1})
+          },
+          component: this._renderSwipeOutDeleteBtn('归档','#009afb','archive'),
+          backgroundColor: '#e3f2fd'
+        }]}
+      >
+        <Cell
+          // refreshLoad={this.props.refreshLoad}
+          // onLongPress={() => {
+          //     !this.props.load &&
+          //     !done &&
+          //     this.props.done(data)
+          //
+          // }}
+          onPress={() => {
+            this.props.navigation.navigate('card', {
+              iUseId: data.objectId,
+              iCardId: iCard.get('objectId')
+            })
+          }}
+          data={data}
+          iCard={iCard.toJS()}
+        />
+      </Swipeout>);
   }
-
 
 
   _keyExtractor = (item, index) => {
@@ -158,16 +262,16 @@ export default class Habit extends Component {
   _renderHeader = () => {
     return (
       <View style={styles.headView}>
-          <Text style={styles.headViewText}>
-            日常习惯
-          </Text>
-          <HeaderBtn
-            style={{ padding: 15 }}
-            title={'添加'}
-            onPress={() => {
-              this.props.navigation.navigate('newCard')
-            }}
-            hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
+        <Text style={styles.headViewText}>
+          日常习惯
+        </Text>
+        <HeaderBtn
+          style={{ padding: 15 }}
+          title={'添加'}
+          onPress={() => {
+            this.props.navigation.navigate('newCard')
+          }}
+          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
       </View>
     )
   }
@@ -185,13 +289,13 @@ export default class Habit extends Component {
       <StyledInnerdContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
-        <View style={{height:20}}/>
+        <View style={{ height: 20 }}/>
 
         {/*{this._renderHeader()}*/}
 
         <FlatList
           refreshing={false}
-          onRefresh={()=>{
+          onRefresh={() => {
             this.props.search()
           }}
           style={styles.container}
@@ -203,7 +307,7 @@ export default class Habit extends Component {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListEmptyComponent={()=>this.__renderNoData(statu)}
+          ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 
       </StyledInnerdContent>
@@ -218,7 +322,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    overflow:'hidden',
+    overflow: 'hidden',
   },
 
   header: {
@@ -262,7 +366,7 @@ const styles = StyleSheet.create({
   },
   headView: {
     // height:180,
-    marginTop:44,
+    marginTop: 44,
     marginBottom: 24,
     flexDirection: 'row',
     justifyContent: 'space-between',

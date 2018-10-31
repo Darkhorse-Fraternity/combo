@@ -147,6 +147,7 @@ export default class Remind extends Component {
       isDateTimePickerVisible: false,
       time: "00:00",
       selectItem: null,
+      openIndex: -1,
     }
 
   }
@@ -256,12 +257,16 @@ export default class Remind extends Component {
 
     return (
       <Swipeout
-        autoClose={true}
         backgroundColor='white'
+        close={this.state.openIndex !== index}
+        onOpen={()=>{
+          this.setState({openIndex:index})
+        }}
         right={[{
           type: 'delete',
           onPress: () => {
             this._deleteRow(item)
+            this.setState({openIndex:-1})
           },
           component: this._renderSwipeOutDeleteBtn(),
           backgroundColor: '#f6f7f9'

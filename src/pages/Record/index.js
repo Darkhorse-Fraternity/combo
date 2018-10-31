@@ -12,9 +12,9 @@ import {
   View,
   StyleSheet,
   Text,
-  Alert,
   Image,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native'
 
 import { connect } from 'react-redux'
@@ -22,16 +22,26 @@ import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import { IRECORD, ICARD, IUSE } from '../../redux/reqKeys'
 import { selfUser } from '../../request/LCModle'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { update, search } from '../../redux/module/leancloud'
-import { claerByID } from '../../redux/actions/list'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { update } from '../../redux/module/leancloud'
 
 import CardRow from '../Habit/Cell'
 import {
   StyledHeader,
-  StyledHeaderTitle
+  StyledHeaderTitle,
+  StyledIcon,
+  StyledDeleteBtn,
+  StyledDeleteBtnText
 } from './style'
+
+import Swipeout from 'react-native-swipeout'
+
+import { claerByID } from '../../redux/actions/list'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import { addListNormalizrEntity } from '../../redux/actions/list'
+import { classUpdate } from '../../request/leanCloud'
+import { req } from '../../redux/actions/req'
+
+const Archive = IUSE + "archive"
 
 
 @connect(
@@ -41,34 +51,50 @@ import {
     user: state.user.data
   }),
   dispatch => ({
+    refresh: async (data) => {
+      const id = data.objectId
+      // const card = props.navigation.state.params.iCard
 
-    delete: async (objectId, callBack) => {
-      // await remove(objectId,IUSE)
-      // 做伪删除
+      // const isDone = data.time % card.period === 0
 
       const param = {
-        statu: 'del'
+        // time: isDone ? 0 : data.time,
+        statu: 'start',
+        // cycle: isDone ? data.cycle + 1 : data.cycle,
       }
-      const res = await dispatch(update(objectId, param, IUSE))
+
+
+      const lParams = classUpdate(IUSE, id, param)
+      const res = await dispatch(req(lParams, Archive))
       const entity = {
         ...param,
-        ...res
+        ...res,
       }
-      dispatch(addNormalizrEntity(IUSE, entity))
-
-      dispatch(claerByID(IRECORD, objectId))
-      callBack && callBack()
-
-      //刷新首页的数据
-      dispatch(search(false, {
-        where: {
-          ...dispatch(selfUser()),
-          statu: 'start'
-        },
-        order: 'doneDate'
-
-
-      }, IUSE))
+      dispatch(addListNormalizrEntity(IUSE, entity))
+      dispatch(claerByID(IRECORD, id))
+    },
+    delete: async (objectId) => {
+      // await remove(objectId,IUSE)
+      // 做伪删除
+      Alert.alert(
+        '确定删除?',
+        '删除后不可恢复~！',
+        [{ text: '取消' }, {
+          text: '确定', onPress: async () => {
+            const param = {
+              statu: 'del'
+            }
+            const res = await dispatch(update(objectId, param, IUSE))
+            const entity = {
+              ...param,
+              ...res
+            }
+            dispatch(addNormalizrEntity(IUSE, entity))
+            dispatch(claerByID(IUSE, objectId))
+            dispatch(claerByID(IRECORD, objectId))
+          }
+        }]
+      )
     },
   })
 )
@@ -77,6 +103,7 @@ export default class Record extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
+      openIndex:-1,
       scrollEnabled: true
     }
   }
@@ -108,10 +135,19 @@ export default class Record extends Component {
     )
   }
 
+  _renderSwipeOutDeleteBtn = (title,color,name) => {
+    return (
+      <StyledDeleteBtn>
+        <StyledIcon size={30} color={color} name={name}/>
+        <StyledDeleteBtnText color={color}>
+          {title}
+        </StyledDeleteBtnText>
+      </StyledDeleteBtn>
+    )
+  }
 
 
-
-  renderRow({ item, index }: Object) {
+  renderRow = ({ item, index }: Object)=> {
     // md-refresh
 
     const iCardId = item[ICARD]
@@ -130,17 +166,53 @@ export default class Record extends Component {
 
 
     return (
+      <Swipeout
+        backgroundColor='white'
+        close={this.state.openIndex !== index}
+        onOpen={() => {
+          this.setState({ openIndex: index })
+        }}
+        right={[{
+          type: 'secondary',
+          onPress: () => {
+            this.props.navigation.navigate('cardSetting',
+              { iCardId, iUseId: item.objectId })
+            this.setState({ openIndex: -1 })
+            // this._deleteRow(item)
+          },
+          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
+          backgroundColor: '#e0f2f1'
+        }, {
+          type: 'delete',
+          onPress: () => {
+            // this._deleteRow(item)
+            this.props.delete(item.objectId)
+            this.setState({ openIndex: -1 })
+          },
+          component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
+          backgroundColor: '#ffebee'
+        }, {
+          type: 'primary',
+          onPress: () => {
+            // this._deleteRow(item)
+            this.props.refresh(item)
+            this.setState({ openIndex: -1 })
+          },
+          component: this._renderSwipeOutDeleteBtn('恢复', '#009afb', 'refresh'),
+          backgroundColor: '#e3f2fd'
+        }]}
+      >
 
-
-      <CardRow
-        data={item}
-        iCard={iCard}
-        onPress={() => {
-          this.props.navigation.navigate('card', {
-            iUseId: item.objectId,
-            iCardId: iCard.objectId
-          })
-        }}/>
+        <CardRow
+          data={item}
+          iCard={iCard}
+          onPress={() => {
+            this.props.navigation.navigate('card', {
+              iUseId: item.objectId,
+              iCardId: iCard.objectId
+            })
+          }}/>
+      </Swipeout>
     )
   }
 
@@ -182,7 +254,7 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     backgroundColor: 'white',
-    overflow:'hidden',
+    overflow: 'hidden',
   },
 
   text: {

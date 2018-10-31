@@ -42,6 +42,7 @@ import { user } from '../../request/LCModle'
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
+import moment from 'moment'
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c'
 const wechatAppID = 'wx637e6f35f8211c6d'
@@ -104,18 +105,32 @@ export function userInfo() {
     if (sessionToken) {
       setLeanCloudSession(sessionToken)
       const params = usersMe()
-      try{
+      try {
         const res = await get(params)
         dispatch(_loginSucceed(res));
         return res;
-      }catch (e){
+      } catch (e) {
         dispatch(_loginFailed());
       }
-    }else {
+    } else {
       dispatch(_loginFailed());
     }
 
 
+  }
+}
+
+//预设示例
+function  _addSample(user) {
+  return  dispatch => {
+    // 改在服务端做算了
+    // console.log('user:', user);
+    // //当createdAt 小于一分钟的时候预设示例
+    // const { createdAt } = user
+    // const isBefore = moment(createdAt).add(30, 's').isBefore(new Date())
+    // if(isBefore){
+    //
+    // }
   }
 }
 
@@ -129,14 +144,16 @@ export function login(state: Object): Function {
 
   const parame = requestLogin(state.phone, state.ymCode);
 
-  return dispatch => {
+  return  dispatch => {
     dispatch(_loginRequest());
 
 
-    return get(parame).then((response) => {
+    return get(parame).then(async (response) => {
       if (response.statu) {
         //加入sessionToken
-        dispatch(_loginSucceed(response));
+        await dispatch(_loginSucceed(response));
+
+        await dispatch(_addSample(response))
 
         dispatch(navigatePop());
       } else {
@@ -160,7 +177,7 @@ export function update() {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function  register(state: Object): Function {
+export function register(state: Object): Function {
 
   return async dispatch => {
     const params = requestUsersByMobilePhone(state.phone, state.ymCode,
@@ -169,12 +186,13 @@ export function  register(state: Object): Function {
 
     try {
       const response = await get(params)
-
+      await dispatch(_addSample(response))
       dispatch(_loginSucceed(response));
       dispatch(NavigationActions.navigate({
-        routeName: 'tab'}))
+        routeName: 'tab'
+      }))
       return response
-    }catch(e) {
+    } catch (e) {
       Toast.show(e.message)
       dispatch(_loginFailed());
       return e
@@ -212,6 +230,9 @@ function _loginSucceed(response: Object): Object {
 
 }
 
+
+
+
 export function loginSucceed(data: Object): Object {
   //保存登录信息。
   setLeanCloudSession(data.sessionToken);
@@ -219,6 +240,7 @@ export function loginSucceed(data: Object): Object {
 
   // console.log('data:', data);
   updatePush(user(data.objectId))
+
   return {
     type: LOGIN_SUCCEED,
     loaded: false,

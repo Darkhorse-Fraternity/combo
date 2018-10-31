@@ -6,7 +6,7 @@ import { strings } from '../../../../locales/i18n';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Iconfont from '../../../../source/font/Iconfont'
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import React from 'react';
 
@@ -55,6 +55,6 @@ export const tabsOptions = {
     iconName:'more',
     labelName: strings('tabs.more'),
     size:22,
-    Icon:Iconfont
+    Icon:MaterialIcons
   }
 }
