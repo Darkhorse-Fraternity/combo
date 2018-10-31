@@ -169,6 +169,6 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CodePushDeploymentKey</key>
-	<string>dYiyEr21MfAgpoPlHI9ZvVqA6tncHJ-doats7</string>
+	<string>$(CODEPUSH_KEY)</string>
 </dict>
 </plist>

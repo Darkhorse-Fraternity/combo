@@ -82,6 +82,8 @@ apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
  * Upload all the APKs to the Play Store and people will download
  * the correct one based on the CPU architecture of their device.
  */
+//https://facebook.github.io/react-native/docs/signed-apk-android.html#conten
+//如果Play Store 有提供支持的话
 def enableSeparateBuildPerCPUArchitecture = false
 
 /**
@@ -134,9 +136,21 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
+            buildConfigField "String", "CODEPUSH_KEY", '""'
             manifestPlaceholders = [isDebug:true]
         }
+        releaseStaging {
+            buildConfigField "String", "CODEPUSH_KEY", '"Eja0vMGPjbKeYRWGs3vrrzzdZcXAHyYUc6tiQ"'
+            manifestPlaceholders = [isDebug:false]
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+            //指定匹配失败匹配其他变体
+            matchingFallbacks = ['debug', 'qa', 'release'] // 添加这段代码
+        }
         release {
+            buildConfigField "String", "CODEPUSH_KEY", '"6mfF4pYKvC4SNi77z9xKD7JStu8MSkjD5aYsX"'
             manifestPlaceholders = [isDebug:false]
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"

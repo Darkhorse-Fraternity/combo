@@ -104,9 +104,13 @@ export function userInfo() {
     if (sessionToken) {
       setLeanCloudSession(sessionToken)
       const params = usersMe()
-      const res = await get(params)
-      dispatch(_loginSucceed(res));
-      return res;
+      try{
+        const res = await get(params)
+        dispatch(_loginSucceed(res));
+        return res;
+      }catch (e){
+        dispatch(_loginFailed());
+      }
     }else {
       dispatch(_loginFailed());
     }

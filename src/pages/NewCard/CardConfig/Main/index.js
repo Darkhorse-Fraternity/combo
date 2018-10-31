@@ -393,7 +393,7 @@ export default class OptionDo extends PureComponent {
             type="recordDay"
             />
           <this.__renderItem
-            title={"打卡要求:   " + record}
+            title={"日记要求:   " + record}
             type="record"
             />
           <this.__renderItem

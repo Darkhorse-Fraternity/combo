@@ -83,7 +83,8 @@ export default class Punch extends Component {
   };
 
   componentDidMount() {
-    this.props.search()
+    const loadStatu =  this.props.data.get('loadStatu')
+    loadStatu === 'LIST_FIRST_JOIN' &&  this.props.search()
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
   }

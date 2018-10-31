@@ -46,7 +46,7 @@
     "react-native-push-notification": "^3.1.1",
     "react-native-qq": "^2.0.5",
     "react-native-rate": "^1.1.2",
-    "react-native-scrollable-tab-view": "^0.8.0",
+    "react-native-scrollable-tab-view": "^0.9.0",
     "react-native-simple-toast": "0.0.8",
     "react-native-snap-carousel": "^3.7.2",
     "react-native-splash-screen": "^3.1.1",

@@ -33,6 +33,12 @@ const DEFAULT_OPTIONS = {
     storageOptions: { // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
                       //**  skipBackup: true, // ios only - image will NOT be backed up to icloud
         path: 'images' // ios only - will save image at /Documents/images rather than the root
+    },
+    permissionDenied:{
+      title: '没有权限',
+      text: '我们需要权限来打开您的照相机或者照片库',
+      reTryTitle: '去打开',
+      okTitle: '我确定',
     }
 }
 

@@ -55,7 +55,7 @@ import Toast from 'react-native-simple-toast'
         const config = [cover,keys]
         // console.log('imgs:', imgs);
         const isEmpty = value => value === undefined || value === null ||
-            value === '';
+            value === '' || value.size === 0;
 
         // const CardState = props.state
 
@@ -278,7 +278,7 @@ export default class CardPublishForm extends Component {
                             title={'保存'}/>
                         <StyledHeaderBtn
                             load={false}
-                            style={{backgroundColor:color}}
+                            style={enableSumbmit && {backgroundColor:color}}
                             disabled={!enableSumbmit}
                             hitSlop={{ top: 5, left: 5, bottom: 5, right: 50 }}
                             onPress={onSubmit && handleSubmit(onSubmit)}

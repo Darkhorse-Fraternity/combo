@@ -424,6 +424,7 @@ export default class CardInfo extends Component {
             this.setState({ visible: true })
           }}>
             <StyledHeaderImage
+              resizeMode={iCard.img?'cover':'center'}
               source={cover}/>
           </StyledHeaderCover>
 
@@ -498,7 +499,7 @@ export default class CardInfo extends Component {
           {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
           {this.row('打卡日:', daysText(iCard.recordDay))}
           {this.row('卡片周期:', iCard.period + '次')}
-          {this.row('打卡要求:', iCard.record.join("+") || '无')}
+          {this.row('日记要求:', iCard.record.join("+") || '无')}
           {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
           {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
           {/*{course && course.title && this._renderCourse(course)}*/}

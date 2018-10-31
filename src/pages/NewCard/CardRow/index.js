@@ -19,7 +19,7 @@ import styles, {
   StyledTitle,
   StyledDes
 } from './style'
-
+import icons from '../../../../source/icons'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
@@ -50,6 +50,10 @@ export default class CardRow extends Component {
       des
     } = this.props
 
+
+    // const {  iconAndColor,title ,recordDay} = iCard
+    // const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
+
     const source = img ? { uri: img.url } :
       require('../../../../source/img/my/icon-60.png')
 
@@ -62,7 +66,7 @@ export default class CardRow extends Component {
             <StyledImage
               source={source}
               // defaultSource={require('../../../../source/img/my/icon-60.png')}
-              style={styles.image}
+              style={[styles.image,!img && styles.imageDefault]}
             />
             <View style={styles.radiusMask}/>
           </View>

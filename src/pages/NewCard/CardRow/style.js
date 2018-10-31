@@ -8,7 +8,10 @@ import styled from "styled-components";
 // import Button from '../../../components/Button'
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  Platform } from 'react-native';
 
 
 const colors = {
@@ -42,6 +45,7 @@ export const StyledContent = styled(TouchableBounce)`
 export const StyledImage = styled.Image`
     width: 100%;
     border-radius: ${IS_IOS ? entryBorderRadius : 0}px;
+    
 `
 
 export const StyledInnerView = styled.View`
@@ -87,14 +91,20 @@ export default StyleSheet.create({
     marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
     backgroundColor: 'white',
     borderTopLeftRadius: entryBorderRadius,
-    borderTopRightRadius: entryBorderRadius
-  },
+    borderTopRightRadius: entryBorderRadius,
+},
 
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    // resizeMode: 'cover',
     borderTopLeftRadius: entryBorderRadius,
     borderTopRightRadius: entryBorderRadius
+  },
+  imageDefault:{
+    width: slideWidth/2,
+    height:slideWidth/2,
+    top:slideHeight/5,
+    left:slideWidth/4.5,
   },
   // image's border radius is buggy on iOS; let's hack it!
   radiusMask: {

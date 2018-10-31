@@ -27,6 +27,36 @@ const AppNavigator = creatAppNavigator(route)
 export default class App extends Component {
 
 
+
+
+  // https://github.com/Microsoft/react-native-code-push/blob/master/docs/api-js.md
+  codePushStatusDidChange(status) {
+    switch(status) {
+      case codePush.SyncStatus.CHECKING_FOR_UPDATE:
+        console.log("Checking for updates.");
+        break;
+      case codePush.SyncStatus.DOWNLOADING_PACKAGE:
+        console.log("Downloading package.");
+        break;
+      case codePush.SyncStatus.INSTALLING_UPDATE:
+        console.log("Installing update.");
+        break;
+      case codePush.SyncStatus.UP_TO_DATE:
+        console.log("Up-to-date.");
+        break;
+      case codePush.SyncStatus.UPDATE_INSTALLED:
+        console.log("Update installed.");
+        break;
+    }
+  }
+
+  codePushDownloadDidProgress(progress) {
+    console.log(progress.receivedBytes + " of " + progress.totalBytes + " received.");
+  }
+
+
+
+
   componentDidMount() {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
