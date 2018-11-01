@@ -185,10 +185,10 @@ export default class CardConfig extends PureComponent {
               backgroundColor={this.props.color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
               onPress={async () => {
+                await this.props.refresh()
                 if (step === 0) {
-                  this.__nextStep()
+                  this.props.navigation.goBack()
                 } else {
-                  await this.props.refresh()
                   this.setState({step:0})
                 }
 

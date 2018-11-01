@@ -95,8 +95,10 @@ const Archive = IUSE + "archive"
       }
       dispatch(addListNormalizrEntity(IUSE, entity))
       dispatch(claerByID(IRECORD, id))
-      await dispatch(popToIndex())
-      props.navigation.navigate('Punch')
+      props.navigation.goBack()
+      // props.navigation.goBack()
+      // await dispatch(popToIndex())
+      // props.navigation.navigate('habit')
     },
     stop: async (data) => {
       const id = data.objectId

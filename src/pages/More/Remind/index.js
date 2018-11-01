@@ -273,6 +273,7 @@ export default class Remind extends Component {
         }]}
         >
         <StyledButton
+          hitSlop={{right:-100}}
           activeOpacity={1}
           onPress={() => {
             this.setState({
