@@ -46,7 +46,7 @@ import Item from './Item'
 
       //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
 
-      dispatch(search(false, {
+     return dispatch(search(false, {
         where: {
           ...dispatch(selfUser()),
           statu: 'start'
@@ -56,7 +56,7 @@ import Item from './Item'
       }, IUSE))
     },
     done: (data) => {
-      dispatch(doCardWithNone(data))
+      return dispatch(doCardWithNone(data))
     },
   })
 )
@@ -142,23 +142,25 @@ export default class Punch extends Component {
     // console.log('data:', data);
     const iCardId = data[ICARD]
     let iCard = this.props.iCard.get(iCardId)
-    const done = moment(2, "HH").isBefore(data.doneDate.iso)
+    const done = moment(0, "HH").isBefore(data.doneDate.iso)
     let iconAndColor = iCard.get('iconAndColor')
     iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
-
     return <Item
       name={iconAndColor.name}
       color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
-      onPress={(doIt) => {
+      onPress={ async(doIt) => {
         // const iCardM = iCard.toJS()
 
         //如果没有强制打卡类型，则直接翻转
         iCard.get('record').size === 0 && doIt()
 
-        !this.props.load && !done &&
-        this.props.done(data)
+        if(!this.props.load && !done){
+          await this.props.done(data)
+
+        }
+
       }}
     />;
   }

@@ -356,12 +356,12 @@ export default class Settings extends Component {
     // const iCardUserData = iCardUser && iCardUser.toJS()
 
 
-    const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
-    const over = iUse.time % Number(iCard.period) === 0
+    // const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
+    // const over = iUse.time % Number(iCard.period) === 0
 
     const { img } = iCard
-    const source = img ? { uri: img.url }
-      : require('../../../../source/img/my/icon-60.png')
+    // const source = img ? { uri: img.url }
+    //   : require('../../../../source/img/my/icon-60.png')
 
     return (
       <StyledContent

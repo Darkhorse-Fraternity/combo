@@ -32,6 +32,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { debounce } from 'lodash'; // 4.0.8
 
 
+
 @connect(
   state => ({}),
   dispatch => ({})
@@ -59,14 +60,23 @@ export default class PunchItem extends Component {
   };
 
 
+  flipDo= ()=>{
+    if (this.props.done !== this.state.flip) {
+      console.log('title2:', this.props.title);
+      console.log('flip2:', this.props.done);
+      this.setState({ flip: this.props.done })
+    }
+  }
+
+  debounceFlip =  debounce(this.flipDo, 1000, { leading: false, trailing: true })
+
   componentWillReceiveProps(nextProps) {
     //TODO： 这边这样设置会有反复哦，所以这边就先避免了
-    if(nextProps.done !== this.state.flip){
-       debounce(()=>{
-         this.setState({ flip: nextProps.done })
-      }, 1000, { leading: false, trailing: false })()
 
-    }
+    // const debounceFlip = debounceFlipConfig(nextProps,this.state)
+
+    this.debounceFlip()
+
   }
 
 
@@ -80,8 +90,8 @@ export default class PunchItem extends Component {
       <StyledButton
         // disabled={flip}
         onPress={() => {
-          if(!flip){
-            onPress && onPress(()=>{
+          if (!flip) {
+            onPress && onPress(() => {
               self.setState({ flip: !flip })
             })
           }
@@ -101,14 +111,14 @@ export default class PunchItem extends Component {
             backgroundColor={color}>
             <View style={{ height: iconWidth }}>
               <StyledIconImage
-                size = {iconWidth}
+                size={iconWidth}
                 source={svgs[name]}
                 resizeMode={'contain'}
               />
               {/*<SvgUri*/}
-                {/*width={iconWidth}*/}
-                {/*height={iconWidth}*/}
-                {/*svgXmlData={svgs[name]}*/}
+              {/*width={iconWidth}*/}
+              {/*height={iconWidth}*/}
+              {/*svgXmlData={svgs[name]}*/}
               {/*/>*/}
             </View>
             <StyledCardTitleView>
