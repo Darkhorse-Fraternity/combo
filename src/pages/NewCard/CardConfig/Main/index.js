@@ -379,7 +379,10 @@ export default class OptionDo extends PureComponent {
             </StyledTitleView>
           </Animatable.View>
 
-
+          <this.__renderItem
+            title={"提醒日:   " + recordDay}
+            type="recordDay"
+          />
           <this.__renderItem
             title={"提醒时间:   " + notifyTimes}
             type="notifyTimes"
@@ -387,10 +390,6 @@ export default class OptionDo extends PureComponent {
           <this.__renderItem
             title={"我的激励:   " + notifyText}
             type="notifyText"
-            />
-          <this.__renderItem
-            title={"提醒日:   " + recordDay}
-            type="recordDay"
             />
           <this.__renderItem
             title={"日记要求:   " + record}

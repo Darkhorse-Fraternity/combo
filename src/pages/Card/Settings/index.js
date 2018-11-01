@@ -95,7 +95,7 @@ const Archive = IUSE + "archive"
       }
       dispatch(addListNormalizrEntity(IUSE, entity))
       dispatch(claerByID(IRECORD, id))
-      props.navigation.goBack()
+      // props.navigation.goBack()
       // props.navigation.goBack()
       // await dispatch(popToIndex())
       // props.navigation.navigate('habit')
