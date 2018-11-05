@@ -273,14 +273,22 @@ export default class Remind extends Component {
         }]}
         >
         <StyledButton
-          hitSlop={{right:-100}}
+           hitSlop={{top: 0, right: -100, bottom: 0, left: 0}}
           activeOpacity={1}
           onPress={() => {
-            this.setState({
-              isDateTimePickerVisible: true,
-              time: notifyTime,
-              selectItem: item,
-            })
+
+            const { selfUser } = this.props
+            if (iCard.user === selfUser.objectId) {
+              this.setState({
+                isDateTimePickerVisible: true,
+                time: notifyTime,
+                selectItem: item,
+              })
+            } else {
+              Toast.show('追随他人习惯,只有自己的卡片有权限修改哦~!')
+            }
+
+
           }}>
           <StyledRowInner>
             <StyledLine/>

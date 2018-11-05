@@ -125,9 +125,9 @@ export default class IconAndColor extends Component {
 
         {iconShow && <FlatList
           data={iconsCutThree}
-          delay={1000}
-          useNativeDriver
-          animation="fadeIn"
+          // delay={1000}
+          // useNativeDriver
+          // animation="fadeIn"
           horizontal
           removeClippedSubviews={true}
           // pagingEnabled={true}

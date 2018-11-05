@@ -68,7 +68,6 @@ export default class Do extends Component {
           blurType="xlight"
           blurAmount={15}
         />)}
-        <View/>
         <DoCardForm
           color={color}
           type={type}

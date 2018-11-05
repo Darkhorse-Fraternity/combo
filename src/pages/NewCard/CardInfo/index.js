@@ -495,7 +495,7 @@ export default class CardInfo extends Component {
           {this.row('是否开启圈子:', iCard.circleState !== CircleState.open
             ? '关闭' : '开启')}
           {this.row('提醒时间:', iCard.notifyTimes ?
-            iCard.notifyTimes.join('、') : iCard.notifyTime)}
+            iCard.notifyTimes.join('、') : '无')}
           {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
           {this.row('打卡日:', daysText(iCard.recordDay))}
           {this.row('卡片周期:', iCard.period + '次')}
