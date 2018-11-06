@@ -10,6 +10,7 @@ import { connect } from 'react-redux'
 import { ICARD, IUSE } from '../redux/reqKeys'
 import { localRemindLoad } from '../redux/actions/util'
 import RNCalendarEvents from 'react-native-calendar-events';
+import Toast from 'react-native-simple-toast'
 
 export function nowNotification() {
 
@@ -312,11 +313,49 @@ export default class PushManage extends Component {
   }
 
 
-  calendarEvents = async ()=>{
+  calendarEvents = async (data, localRemindData)=>{
+
+
+    let all = localRemindData['all']
+
+    //获取是否开启通知的条件。 当all 不存在时候，all 为true
+
+    if (all === undefined) {
+      all = true
+    }
+    if (!all) {
+      return
+    }
+
     const statu = await  RNCalendarEvents.authorizationStatus()
-    console.log('statu:', statu);
-    const statu2  = await RNCalendarEvents.authorizeEventStore()
-    console.log('statu2:',statu2);
+    let statu2 = ''
+    if(statu !== 'authorized'){
+       statu2  = await RNCalendarEvents.authorizeEventStore()
+    }
+    if(statu2 === 'denied'){
+      return Toast.show('没有日历权限,我们将无法提醒您按时打卡~')
+    }
+
+    const event =  await  RNCalendarEvents.findEventById('3')
+    console.log('events3:', event);
+    // if(event){
+    //   console.log('save');
+    //   try {
+    //     const res =  await  RNCalendarEvents.saveEvent('Title of event', {
+    //       id:event.id,
+    //       startDate: '2018-11-06T16:26:00.000Z',
+    //       endDate: '2019-08-19T19:26:00.000Z',
+    //       alarms: [{
+    //         date: '2018-11-6T16:27:00.000Z'
+    //       }]
+    //     })
+    //     console.log('res:', res);
+    //   }catch (e){
+    //     console.log('e:', e.message);
+    //
+    //   }
+    // }
+
   }
 
   render(): ReactElement<any> {
