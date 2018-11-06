@@ -99,7 +99,7 @@ export default class PushManage extends Component {
     data = data.toJS()
 
     // console.log('data:', data);
-    
+
     if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size >= 0) {
       localRemindData = localRemindData.toJS()
       const ndata = normalizrData.toJS()

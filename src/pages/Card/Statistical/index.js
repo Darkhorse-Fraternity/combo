@@ -143,7 +143,7 @@ export default class Agenda extends Component {
 
     const time = iUse.time
     moment.locale('zh-cn')
-    const fromNow = moment(iUse.doneDate.iso).fromNow(true)
+    const fromNow = moment(iUse.doneDate.iso).fromNow()
 
     const isSelf = this.props.user.objectId === iUse.user
 
