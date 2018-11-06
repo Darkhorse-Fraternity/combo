@@ -14,7 +14,8 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  Alert
+  Alert,
+  Platform
 } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -284,12 +285,12 @@ export default class Habit extends PureComponent {
 
     // data = data.sort((a,b)=> a.time - b.time)
 
-
+``
     return (
       <StyledInnerdContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
-        <View style={{ height: 20 }}/>
+        {Platform.OS === 'ios' && <View style={{ height: 20 }}/>}
 
         {/*{this._renderHeader()}*/}
 

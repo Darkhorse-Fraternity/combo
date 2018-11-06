@@ -1,7 +1,7 @@
 package com.combo;
-
 import android.os.Bundle;
 
+import com.calendarevents.CalendarEventsPackage;
 import com.combo.util.LightStatusBarUtil;
 import com.facebook.react.ReactActivity;
 
@@ -31,6 +31,11 @@ public class MainActivity extends ReactActivity {
 //        initView();
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        CalendarEventsPackage.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 //    private void initView() {
 //        mPopupWindowView = getLayoutInflater().inflate(R.layout.launch_screen, null, false);
 //        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(

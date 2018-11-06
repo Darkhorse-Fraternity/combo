@@ -13,7 +13,8 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Platform
 } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
@@ -200,7 +201,7 @@ export default class Punch extends Component {
     let data = this.props.data.toJS().listData
 
     return [
-      <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
+      Platform.OS === 'ios' && <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
       <StyledContent key={'2'}>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}

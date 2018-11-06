@@ -117,7 +117,7 @@ export default class DoCardForm extends Component {
         style={{ backgroundColor: 'transparent' }}
         returnKeyType='next'
         name={'recordText'}
-        maxLength={3000}
+        maxLength={50000}
         autoFocus
         placeholder={"想写点什么？"}
         multiline={true}
@@ -133,7 +133,7 @@ export default class DoCardForm extends Component {
   keyboardAccessoryViewContent() {
 
     return (
-      <View style={{paddingHorizontal:0,marginBottom:10}}>
+      <View style={{ paddingHorizontal: 0, marginBottom:10 ,marginTop: Platform.OS === 'ios'?0: 20 }}>
         <ImageSelectView name={'imgs'} maxImage={1}/>
       </View>
     );
@@ -161,8 +161,8 @@ export default class DoCardForm extends Component {
     // console.log('submitting222:', load);
 
     return (
-      <Form >
-        <StyledHeader >
+      <Form>
+        <StyledHeader>
           <StyledBtn
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 20 }}
             onPress={() => {
@@ -196,13 +196,13 @@ export default class DoCardForm extends Component {
           {/*maxImage={1}/>)}*/}
 
           {/*{Platform.OS==='ios'?<KeyboardAccessoryView*/}
-            {/*renderContent={this.keyboardAccessoryViewContent}*/}
-            {/*trackInteractive={TrackInteractive}*/}
-            {/*kbInputRef={this.textInputRef}*/}
-            {/*onKeyboardResigned={this.onKeyboardResigned}*/}
-            {/*revealKeyboardInteractive*/}
+          {/*renderContent={this.keyboardAccessoryViewContent}*/}
+          {/*trackInteractive={TrackInteractive}*/}
+          {/*kbInputRef={this.textInputRef}*/}
+          {/*onKeyboardResigned={this.onKeyboardResigned}*/}
+          {/*revealKeyboardInteractive*/}
           {/*/>:*/}
-              {/*this.keyboardAccessoryViewContent()*/}
+          {/*this.keyboardAccessoryViewContent()*/}
           {/*}*/}
           {this.keyboardAccessoryViewContent()}
 

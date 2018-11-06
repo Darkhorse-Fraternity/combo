@@ -80,13 +80,13 @@ export default class Do extends Component {
 }
 
 const height = Dimensions.get('window').height
-const sHeight = Platform.OS === 'ios' ? height: height + 25
+const sHeight = Platform.OS === 'ios' ? height: height
 
 const styles = StyleSheet.create({
   wrap: {
     width: Dimensions.get('window').width,
     height: sHeight,
-    marginTop:Platform.OS === 'ios'?0:20
+    // marginTop:Platform.OS === 'ios'?0:20
   },
   absolute: {
     ...StyleSheet.absoluteFillObject,

@@ -181,6 +181,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-calendar-events')
     compile project(':react-native-modal-translucent')
     compile project(':react-native-code-push')
     compile project(':react-native-svg')
