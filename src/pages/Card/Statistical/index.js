@@ -143,7 +143,7 @@ export default class Agenda extends Component {
 
     const time = iUse.time
     moment.locale('zh-cn')
-    const fromNow = moment(iUse.doneDate).fromNow()
+    const fromNow = moment(iUse.doneDate.iso).fromNow(true)
 
     const isSelf = this.props.user.objectId === iUse.user
 
@@ -160,7 +160,7 @@ export default class Agenda extends Component {
         <View style={{ height: 10 }}/>
         {this._renderRow('已完成周期', (time / iCard.period).toFixed(2) + '轮')}
         {this._renderRow('总打卡次数', time + '次')}
-        {this._renderRow('上次打卡', fromNow)}
+        {this._renderRow('上次打卡', fromNow+'前')}
         {this._renderRow('加入天数', date + "天")}
         {this._renderRow('建立日期', cardCreatedAt)}
         <StyledTitleView>

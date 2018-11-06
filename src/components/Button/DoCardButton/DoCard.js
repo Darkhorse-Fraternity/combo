@@ -79,14 +79,15 @@ export function creatIDO(iUseM, iCardM, other) {
     }
 
 
-
     const time = iUseM.time + 1
     const param = {
-      doneDate: { "__type": "Date", "iso": new Date().toISOString() },
+      doneDate: { "__type": "Date", "iso": moment().toISOString() },
       time: time,
       //cycle,
       statu: time % iUseM.period === 0 ? "stop" : "start"
     }
+
+    // await update(IUSE, iUseM.objectId, param)
     const entity = {
       ...param,
       objectId: iUseM.objectId

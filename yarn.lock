@@ -6109,6 +6109,10 @@ react-native-modal-datetime-picker@^6.0.0:
     prop-types "^15.6.1"
     react-native-modal "^6.2.0"
 
+react-native-modal-translucent@^1.1.6:
+  version "1.1.6"
+  resolved "http://registry.npm.taobao.org/react-native-modal-translucent/download/react-native-modal-translucent-1.1.6.tgz#faa72d8c1c8b902cc9252476036dadba93aa120c"
+
 react-native-modal@^6.2.0, react-native-modal@^6.5.0:
   version "6.5.0"
   resolved "http://registry.npm.taobao.org/react-native-modal/download/react-native-modal-6.5.0.tgz#46220b2289a41597d344c1db17454611b426a758"

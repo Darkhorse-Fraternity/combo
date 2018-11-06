@@ -22,7 +22,7 @@ import { epUpdate } from '../components/Update/EPUpdate'
 import { appStateUpdate } from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 import KeyboardManager from 'react-native-keyboard-manager'
-import Rate from 'react-native-rate'
+
 import PushManage from '../configure/localNotification'
 import LightStatuBar from '../Theme/LightStatuBar'
 import InfoBar from '../components/InfoBar'
@@ -193,30 +193,25 @@ export default class Configure extends React.Component {
     this.props.dispatch(appStateUpdate(AppState.currentState))
     this._getInitialURL()
     this.keyboardConfig()
-
-    let options = {
-      AppleAppID: "1332546993",
-      preferInApp: true,
-      inAppDelay: 5.0,
-      openAppStoreIfInAppFails: false,
-      // preferredAndroidMarket: AndroidMarket.Other,
-    }
-
-    if (Platform.OS === 'ios') {
-      !__DEV__ && Rate.rate(options, () => {
-      })
-    } else {
-      //TODO 给Android 做一个评论智能跳出。
-      // Alert.alert(
-      //     '给我们一个好评吧!',
-      //     'Thanks♪(･ω･)ﾉ',
-      //     [{ text: '取消' }, {
-      //         text: '确定', onPress: () => {
-      //             Rate.rate(options,()=>{})
-      //         }
-      //     }]
-      // )
-    }
+    // if (Platform.OS === 'ios') {
+    //   !__DEV__ && Rate.rate({
+    //     AppleAppID: "1332546993",
+    //     preferInApp: true,
+    //     inAppDelay: 5.0,
+    //     openAppStoreIfInAppFails: false,
+    //   }, () => {})
+    // } else {
+    //   //TODO 给Android 做一个评论智能跳出。
+    //   // Alert.alert(
+    //   //     '给我们一个好评吧!',
+    //   //     'Thanks♪(･ω･)ﾉ',
+    //   //     [{ text: '取消' }, {
+    //   //         text: '确定', onPress: () => {
+    //   //             Rate.rate(options,()=>{})
+    //   //         }
+    //   //     }]
+    //   // )
+    // }
 
 
     // this.requestCameraPermission()

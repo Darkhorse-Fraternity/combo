@@ -30,7 +30,9 @@ import {
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Item from './Item'
+import Rate from 'react-native-rate'
 
+let hasTryRate = false
 
 @connect(
   state => ({
@@ -46,7 +48,7 @@ import Item from './Item'
 
       //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
 
-     return dispatch(search(false, {
+      return dispatch(search(false, {
         where: {
           ...dispatch(selfUser()),
           statu: 'start'
@@ -56,6 +58,31 @@ import Item from './Item'
       }, IUSE))
     },
     done: (data) => {
+
+      //评价
+      if (!hasTryRate && !__DEV__) {
+        hasTryRate = true
+        if (Platform.OS === 'ios') {
+          Rate.rate({
+            AppleAppID: "1332546993",
+            preferInApp: true,
+            inAppDelay: 5.0,
+            openAppStoreIfInAppFails: false,
+          }, () => {
+          })
+        } else {
+          //TODO 给Android 做一个评论智能跳出。
+          // Alert.alert(
+          //     '给我们一个好评吧!',
+          //     'Thanks♪(･ω･)ﾉ',
+          //     [{ text: '取消' }, {
+          //         text: '确定', onPress: () => {
+          //             Rate.rate(options,()=>{})
+          //         }
+          //     }]
+          // )
+        }
+      }
       return dispatch(doCardWithNone(data))
     },
   })
@@ -83,8 +110,8 @@ export default class Punch extends Component {
   };
 
   componentDidMount() {
-    const loadStatu =  this.props.data.get('loadStatu')
-    loadStatu === 'LIST_FIRST_JOIN' &&  this.props.search()
+    const loadStatu = this.props.data.get('loadStatu')
+    loadStatu === 'LIST_FIRST_JOIN' && this.props.search()
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
   }
@@ -150,13 +177,13 @@ export default class Punch extends Component {
       color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
-      onPress={ async(doIt) => {
+      onPress={async (doIt) => {
         // const iCardM = iCard.toJS()
 
         //如果没有强制打卡类型，则直接翻转
         iCard.get('record').size === 0 && doIt()
 
-        if(!this.props.load && !done){
+        if (!this.props.load && !done) {
           await this.props.done(data)
 
         }
@@ -251,7 +278,7 @@ const styles = StyleSheet.create({
   },
   headView: {
     // height:180,
-    marginTop:44,
+    marginTop: 44,
     marginBottom: 25,
   },
   headViewText: {

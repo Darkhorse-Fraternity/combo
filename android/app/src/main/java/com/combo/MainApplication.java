@@ -13,6 +13,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import me.listenzz.modal.TranslucentModalReactPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.horcrux.svg.SvgPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -66,6 +67,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new TranslucentModalReactPackage(),
                     new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
                     new SvgPackage(),
                     new RNI18nPackage(),
