@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { ICARD, IUSE } from '../redux/reqKeys'
 import { localRemindLoad } from '../redux/actions/util'
-
+import RNCalendarEvents from 'react-native-calendar-events';
 
 export function nowNotification() {
 
@@ -87,37 +87,40 @@ export default class PushManage extends Component {
   static propTypes = {};
   static defaultProps = {};
 
-  componentWillReceiveProps(props) {
-
-    if(Platform.OS === 'ios'){
-
-      let {
-        data,
-        localRemindData,
-        iCard,
-        normalizrData
-      } = props
-      data = data.toJS()
-
-      // console.log('data:', data);
-
-      if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size > 0) {
-        localRemindData = localRemindData.toJS()
-        const ndata = normalizrData.toJS()
-        data = data.listData
-        const array = data.map(key => {
-          const res = ndata[key]
-          const iCard = props.iCard.get(res[ICARD]);
-          res.iCard = iCard && iCard.toJS()
-          return res
-        })
+  async componentWillReceiveProps(props) {
 
 
+    let {
+      data,
+      localRemindData,
+      iCard,
+      normalizrData
+    } = props
+    data = data.toJS()
+
+    // console.log('data:', data);
+    
+    if (!!iCard && data.loadStatu !== "LIST_LOAD_DATA" && localRemindData.size >= 0) {
+      localRemindData = localRemindData.toJS()
+      const ndata = normalizrData.toJS()
+      data = data.listData
+      const array = data.map(key => {
+        const res = ndata[key]
+        const iCard = props.iCard.get(res[ICARD]);
+        res.iCard = iCard && iCard.toJS()
+        return res
+      })
+
+
+      if (Platform.OS === 'ios') {
         this.dayNotification(array, localRemindData)
-
+      } else {
+        this.calendarEvents(array,localRemindData)
       }
 
+
     }
+
   }
 
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -138,6 +141,9 @@ export default class PushManage extends Component {
   //
   //     }
   // }
+
+
+
 
 
   dayNotification = async (data, localRemindData) => {
@@ -183,7 +189,6 @@ export default class PushManage extends Component {
     //     numbers[day -1] = numbers[day -1] +1
     //   })
     // })
-
 
 
     let daysFlag = false
@@ -304,6 +309,14 @@ export default class PushManage extends Component {
       },
       //userInfo: {'type': 'local'},
     });
+  }
+
+
+  calendarEvents = async ()=>{
+    const statu = await  RNCalendarEvents.authorizationStatus()
+    console.log('statu:', statu);
+    const statu2  = await RNCalendarEvents.authorizeEventStore()
+    console.log('statu2:',statu2);
   }
 
   render(): ReactElement<any> {

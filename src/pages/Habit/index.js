@@ -281,11 +281,11 @@ export default class Habit extends PureComponent {
 
     const statu = this.props.data.get('loadStatu')
 
-    let data = this.props.data.toJS().listData
-
+    let data = this.props.data.get('listData')
+    data = data && data.toJS()
     // data = data.sort((a,b)=> a.time - b.time)
 
-``
+
     return (
       <StyledInnerdContent>
         {/*<StyledContent*/}
