@@ -116,7 +116,7 @@ export default class PushManage extends Component {
       if (Platform.OS === 'ios') {
         this.dayNotification(array, localRemindData)
       } else {
-        this.calendarEvents(array,localRemindData)
+        this.calendarEvents(array, localRemindData)
       }
 
 
@@ -142,9 +142,6 @@ export default class PushManage extends Component {
   //
   //     }
   // }
-
-
-
 
 
   dayNotification = async (data, localRemindData) => {
@@ -313,7 +310,7 @@ export default class PushManage extends Component {
   }
 
 
-  calendarEvents = async (data, localRemindData)=>{
+  calendarEvents = async (data, localRemindData) => {
 
 
     let all = localRemindData['all']
@@ -329,32 +326,47 @@ export default class PushManage extends Component {
 
     const statu = await  RNCalendarEvents.authorizationStatus()
     let statu2 = ''
-    if(statu !== 'authorized'){
-       statu2  = await RNCalendarEvents.authorizeEventStore()
+    if (statu !== 'authorized') {
+      statu2 = await RNCalendarEvents.authorizeEventStore()
     }
-    if(statu2 === 'denied'){
+    if (statu2 === 'denied') {
       return Toast.show('没有日历权限,我们将无法提醒您按时打卡~')
     }
 
-    const event =  await  RNCalendarEvents.findEventById('3')
-    console.log('events3:', event);
-    // if(event){
-    //   console.log('save');
-    //   try {
-    //     const res =  await  RNCalendarEvents.saveEvent('Title of event', {
-    //       id:event.id,
-    //       startDate: '2018-11-06T16:26:00.000Z',
-    //       endDate: '2019-08-19T19:26:00.000Z',
-    //       alarms: [{
-    //         date: '2018-11-6T16:27:00.000Z'
-    //       }]
-    //     })
-    //     console.log('res:', res);
-    //   }catch (e){
-    //     console.log('e:', e.message);
-    //
-    //   }
-    // }
+    const id = '5'
+    const event = await  RNCalendarEvents.findEventById(id)
+    console.log('event:', event);
+    let idConfig = {}
+    if (!!event) {
+      idConfig = { id: event.id }
+    }else {
+      //从本地记录中移除id
+    }
+
+    try {
+      const newId = await  RNCalendarEvents.saveEvent(
+        '早点睡觉-小改变',
+        {
+          ...idConfig,
+          startDate: new Date().toISOString(),
+          description: '来自小改变的提醒',
+          recurrenceRule: {
+            frequency: 'dayly'
+          },
+          url: 'combo://combo',
+          location: '来自小改变的提醒',
+          alarms: [{ date: 0 }]
+        })
+      console.log('newId:', newId);
+      //添加进本地记录
+
+    } catch (e) {
+      console.log('e:', e.message);
+
+    }
+
+    const eventNew = await  RNCalendarEvents.findEventById(id)
+    console.log('eventNew:', eventNew);
 
   }
 

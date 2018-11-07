@@ -8,7 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@0x5e/react-native-alipay": "^0.2.4",
+    "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git",
     "buffer": "^5.0.7",
     "immutable": "^3.8.2",
     "leancloud-storage": "^3.10.0",

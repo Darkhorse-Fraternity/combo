@@ -40,7 +40,7 @@ export const navigationOptions = {
 export const tabsOptions = {
   Punch:{
     iconName:'check-decagram',
-    labelName:'Now',
+    labelName:strings('tabs.clockIn'),
     size:25,
     Icon:MaterialCommunityIcons
 
