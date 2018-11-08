@@ -23,7 +23,7 @@ import { appStateUpdate } from '../redux/actions/util'
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 import KeyboardManager from 'react-native-keyboard-manager'
 
-import PushManage from '../configure/localNotification'
+import LocalNotification from '../configure/localNotification'
 import LightStatuBar from '../Theme/LightStatuBar'
 import InfoBar from '../components/InfoBar'
 import RNUpdate from "react-native-update-app"
@@ -292,7 +292,7 @@ export default class Configure extends React.Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <PushManage/>
+        <LocalNotification/>
         <LightStatuBar/>
         {this.props.children}
         <InfoBar/>

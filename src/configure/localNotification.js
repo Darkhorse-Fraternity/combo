@@ -12,6 +12,9 @@ import { localRemindLoad } from '../redux/actions/util'
 import RNCalendarEvents from 'react-native-calendar-events';
 import Toast from 'react-native-simple-toast'
 
+import { debounce } from 'lodash'; // 4.0.8
+
+
 export function nowNotification() {
 
 
@@ -76,7 +79,7 @@ export function nowNotification() {
   })
 )
 
-export default class PushManage extends Component {
+export default class LocalNotification extends Component {
   constructor(props: Object) {
     super(props);
     props.load()
@@ -88,8 +91,15 @@ export default class PushManage extends Component {
   static propTypes = {};
   static defaultProps = {};
 
-  async componentWillReceiveProps(props) {
+  componentWillReceiveProps(props) {
 
+    this.debounceRemind(props)
+
+  }
+
+
+
+  remind = (props) => {
 
     let {
       data,
@@ -112,17 +122,14 @@ export default class PushManage extends Component {
         return res
       })
 
-
       if (Platform.OS === 'ios') {
         this.dayNotification(array, localRemindData)
       } else {
         this.calendarEvents(array, localRemindData)
       }
-
-
     }
-
   }
+  debounceRemind =  debounce(this.remind, 1000, { leading: false, trailing: true })
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //
@@ -322,6 +329,8 @@ export default class PushManage extends Component {
     }
 
 
+
+
     const statu = await  RNCalendarEvents.authorizationStatus()
     let statu2 = ''
     if (statu !== 'authorized') {
@@ -352,8 +361,6 @@ export default class PushManage extends Component {
     try {
 
 
-
-
       data.forEach(async item => {
         const { iCard } = item
         const { title, describe, notifyTimes, recordDay } = iCard
@@ -371,7 +378,9 @@ export default class PushManage extends Component {
             return (startDate.hours() - moment(notify, "HH:mm").hours()) * 60 +
               startDate.minutes() - moment(notify, "HH:mm").minutes()
 
-          }).map(minutes => {return {date:minutes}})
+          }).map(minutes => {
+            return { date: minutes }
+          })
           alarms.push(...notifyMonets)
         }
 
