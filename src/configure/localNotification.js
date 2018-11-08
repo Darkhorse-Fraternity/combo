@@ -98,7 +98,6 @@ export default class LocalNotification extends Component {
   }
 
 
-
   remind = (props) => {
 
     let {
@@ -129,7 +128,7 @@ export default class LocalNotification extends Component {
       }
     }
   }
-  debounceRemind =  debounce(this.remind, 1000, { leading: false, trailing: true })
+  debounceRemind = debounce(this.remind, 1000, { leading: false, trailing: true })
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //
@@ -329,8 +328,6 @@ export default class LocalNotification extends Component {
     }
 
 
-
-
     const statu = await  RNCalendarEvents.authorizationStatus()
     let statu2 = ''
     if (statu !== 'authorized') {
@@ -345,7 +342,7 @@ export default class LocalNotification extends Component {
 
     let objEvents = {}
     events.forEach(item => {
-      if (item.location === '#来自小改变的提醒#') {
+      if (item.location.indexOf('来自小改变的提醒') !== -1) {
         objEvents[item.id] = item
       }
     })
@@ -353,8 +350,8 @@ export default class LocalNotification extends Component {
     ids.forEach(id => {
       RNCalendarEvents.removeEvent(id)
     })
-
     if (!all) {
+
       return
     }
 
@@ -362,31 +359,49 @@ export default class LocalNotification extends Component {
 
 
       data.forEach(async item => {
-        const { iCard } = item
+        const { iCard,objectId} = item
         const { title, describe, notifyTimes, recordDay } = iCard
         if (notifyTimes === undefined || notifyTimes.length === 0) {
           return
         }
+
+
+
         const notifyTime = notifyTimes[notifyTimes.length - 1]
         const startDate = moment(notifyTime, "HH:mm")
-        const alarms = [{ date: 0 }]
+
+        //控制单个开个
+        let open = localRemindData[objectId + notifyTime]
+        const alarms = (open || open === undefined)?[{ date: 0 }]:[]
         notifyTimes.pop()
         //提醒时间,需要计算和最后一次提醒的分钟差别,即与startDate的相差分钟数
         if (notifyTimes.length > 0) {
           const notifyMonets = notifyTimes.map(notify => {
 
-            return (startDate.hours() - moment(notify, "HH:mm").hours()) * 60 +
-              startDate.minutes() - moment(notify, "HH:mm").minutes()
+            const remindId = objectId + notify
+            let open = localRemindData[remindId]
+            if (open || open === undefined) {
+              // console.log('test:', day,notifyTime,item);
+              return (startDate.hours() - moment(notify, "HH:mm").hours()) * 60 +
+                startDate.minutes() - moment(notify, "HH:mm").minutes()
+            }
+
+
 
           }).map(minutes => {
-            return { date: minutes }
-          })
+            if(minutes){
+              return { date: minutes }
+            }
+          }).filter(item=> item !== undefined)
           alarms.push(...notifyMonets)
+          console.log('alarms:', alarms);
         }
+
+
 
         //换算一周内提醒哪一天
         let day = recordDay.sort();
-        const recurrenceRule = { frequency: 'daily' }
+        const recurrenceRule = { frequency: 'daily', duration: 'PT1M' }
         if (day.length < 7) {
           recurrenceRule.frequency = 'weekly'
           recurrenceRule.byday = day.map(num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1]).toString()
@@ -401,6 +416,7 @@ export default class LocalNotification extends Component {
             description: describe,
             recurrenceRule: recurrenceRule,
             url: 'combo://combo',
+            // location: '#来自小改变的提醒-'+objectId+'#',
             location: '#来自小改变的提醒#',
             alarms: alarms
           })
