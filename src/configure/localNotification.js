@@ -320,9 +320,7 @@ export default class PushManage extends Component {
     if (all === undefined) {
       all = true
     }
-    if (!all) {
-      return
-    }
+
 
     const statu = await  RNCalendarEvents.authorizationStatus()
     let statu2 = ''
@@ -334,21 +332,27 @@ export default class PushManage extends Component {
     }
 
     const events = await  RNCalendarEvents.fetchAllEvents(new Date().toISOString(),
-      moment().add(1, 'weeks'))
+      moment().add(1, 'weeks').toISOString())
+
+    let objEvents = {}
+    events.forEach(item => {
+      if (item.location === '#来自小改变的提醒#') {
+        objEvents[item.id] = item
+      }
+    })
+    const ids = Object.keys(objEvents)
+    ids.forEach(id => {
+      RNCalendarEvents.removeEvent(id)
+    })
+
+    if (!all) {
+      return
+    }
 
     try {
 
 
-      let objEvents = {}
-      events.forEach(item => {
-        if (item.location === '#来自小改变的提醒#') {
-          objEvents[item.id] = item
-        }
-      })
-      const ids = Object.keys(objEvents)
-      ids.forEach(id => {
-        RNCalendarEvents.removeEvent(id)
-      })
+
 
       data.forEach(async item => {
         const { iCard } = item
