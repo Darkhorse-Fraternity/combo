@@ -22,7 +22,7 @@
     "react-native-auto-height-image": "^1.0.0",
     "react-native-autogrow-textinput": "^5.1.0",
     "react-native-blur": "^3.2.2",
-    "react-native-calendar-events": "^1.6.3",
+    "react-native-calendar-events": "git+https://github.com/Darkhorse-Fraternity/react-native-calendar-events.git",
     "react-native-clean-form": "^0.5.0",
     "react-native-code-push": "^5.4.2",
     "react-native-device-info": "^0.24.0",

@@ -203,7 +203,7 @@ export default class PushManage extends Component {
 
 
       const recordDay = item.iCard.recordDay
-      const notifyTimes = item.iCard.notifyTimes || [item.iCard.notifyTime]
+      const notifyTimes = item.iCard.notifyTimes || []
 
       // const title = item.iCard.title
       // const message = item.iCard.notifyText || '快来记录一下吧!'
@@ -333,31 +333,67 @@ export default class PushManage extends Component {
       return Toast.show('没有日历权限,我们将无法提醒您按时打卡~')
     }
 
-    const id = '5'
-    const event = await  RNCalendarEvents.findEventById(id)
-    console.log('event:', event);
-    let idConfig = {}
-    if (!!event) {
-      idConfig = { id: event.id }
-    }else {
-      //从本地记录中移除id
-    }
+    const events = await  RNCalendarEvents.fetchAllEvents(new Date().toISOString(),
+      moment().add(1, 'weeks'))
 
     try {
-      const newId = await  RNCalendarEvents.saveEvent(
-        '早点睡觉-小改变',
-        {
-          ...idConfig,
-          startDate: new Date().toISOString(),
-          description: '来自小改变的提醒',
-          recurrenceRule: {
-            frequency: 'dayly'
-          },
-          url: 'combo://combo',
-          location: '来自小改变的提醒',
-          alarms: [{ date: 0 }]
-        })
-      console.log('newId:', newId);
+
+
+      let objEvents = {}
+      events.forEach(item => {
+        if (item.location === '#来自小改变的提醒#') {
+          objEvents[item.id] = item
+        }
+      })
+      const ids = Object.keys(objEvents)
+      ids.forEach(id => {
+        RNCalendarEvents.removeEvent(id)
+      })
+
+      data.forEach(async item => {
+        const { iCard } = item
+        const { title, describe, notifyTimes, recordDay } = iCard
+        if (notifyTimes === undefined || notifyTimes.length === 0) {
+          return
+        }
+        const notifyTime = notifyTimes[notifyTimes.length - 1]
+        const startDate = moment(notifyTime, "HH:mm")
+        const alarms = [{ date: 0 }]
+        notifyTimes.pop()
+        //提醒时间,需要计算和最后一次提醒的分钟差别,即与startDate的相差分钟数
+        if (notifyTimes.length > 0) {
+          const notifyMonets = notifyTimes.map(notify => {
+
+            return (startDate.hours() - moment(notify, "HH:mm").hours()) * 60 +
+              startDate.minutes() - moment(notify, "HH:mm").minutes()
+
+          }).map(minutes => {return {date:minutes}})
+          alarms.push(...notifyMonets)
+        }
+
+        //换算一周内提醒哪一天
+        let day = recordDay.sort();
+        const recurrenceRule = { frequency: 'daily' }
+        if (day.length < 7) {
+          recurrenceRule.frequency = 'weekly'
+          recurrenceRule.byday = day.map(num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1]).toString()
+        }
+
+
+        await  RNCalendarEvents.saveEvent(
+          title,
+          {
+            // ...idConfig,
+            startDate: startDate.toISOString(),
+            description: describe,
+            recurrenceRule: recurrenceRule,
+            url: 'combo://combo',
+            location: '#来自小改变的提醒#',
+            alarms: alarms
+          })
+      })
+
+
       //添加进本地记录
 
     } catch (e) {
@@ -365,8 +401,6 @@ export default class PushManage extends Component {
 
     }
 
-    const eventNew = await  RNCalendarEvents.findEventById(id)
-    console.log('eventNew:', eventNew);
 
   }
 
