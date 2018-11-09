@@ -351,7 +351,6 @@ export default class LocalNotification extends Component {
       RNCalendarEvents.removeEvent(id)
     })
     if (!all) {
-
       return
     }
 
@@ -402,7 +401,7 @@ export default class LocalNotification extends Component {
         //换算一周内提醒哪一天
         let day = recordDay.sort();
         //PT1M 是指持续1分钟，PT1S 是指持续1S 在魅族手机上 PT1S 会导致没有循环。
-        
+
         const recurrenceRule = { frequency: 'daily', duration: 'PT1M' }
         if (day.length < 7) {
           recurrenceRule.frequency = 'weekly'

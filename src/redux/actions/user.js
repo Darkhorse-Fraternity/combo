@@ -579,17 +579,19 @@ export function bindingAuthData(key, loadKey, ad, exData) {
     const userId = state.user.data.objectId;
     const params = bindingAuthDataToUser(userId, key, ad, exData)
     const res = await get(params, loadKey)
+    if(res.objectId){
+      const authData = {
+        ...state.user.data.authData,
+        ...params.params.authData,
 
-    const authData = {
-      ...state.user.data.authData,
-      ...params.params.authData,
+      }
+      const entity = {
+        authData,
+        ...exData,
+        ...res
+      }
+      dispatch(updateUserData(entity))
+    }
 
-    }
-    const entity = {
-      authData,
-      ...exData,
-      ...res
-    }
-    dispatch(updateUserData(entity))
   }
 }
