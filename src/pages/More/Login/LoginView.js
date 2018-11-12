@@ -88,8 +88,8 @@ export default class LoginView extends Component {
     this.state = {
       time: 60,
       codeName: '',
-      phone: __DEV__ ? '15759248269' : "", //号码
-      ymCode: __DEV__ ? '234447' : "", //验证码
+      phone: __DEV__ ? '13588833404' : "", //号码
+      ymCode: __DEV__ ? '924007' : "", //验证码
       isTap: false,
       showMobile: false,
       isWXAppInstalled: false,

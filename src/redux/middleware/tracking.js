@@ -146,13 +146,18 @@ const shareTracking = async (tag) => {
     client: client(),
     session: { id: sessionId() },
     events: [{
-      "event": "share", // 必须为 _page 表示一次页面访问
+      event: "share", // 必须为 _page 表示一次页面访问
       tag,// 页面名称
       ts: new Date().getTime()
+    },{
+      event: "_session.close", //必须为 _session.close 表示一次使用结束
+      duration: 10000 // 使用时长，单位毫秒
     }]
   }
+
   params = openCollet(params)
   // console.log('background:', params);
+  console.log('params:',params );
   let res = await send(params)
   // res = await  res.json()
   // console.log('res1111:', res);

@@ -259,7 +259,7 @@ export default class Creat extends PureComponent {
               onPress={this.__backStep}
               title={step === 0 ? '取消' : '返回'}/>
             <StyledHeaderBtn
-              // load={false}
+              load={this.props.load}
               // disabled={false}
               // backgroundColor={color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}

@@ -11,7 +11,7 @@ import {
     View
 } from 'react-native'
 import theme from '../../../Theme'
-
+import { debounce } from 'lodash'; // 4.0.8
 
 
 import {
@@ -125,17 +125,21 @@ export default class FlipButton extends Component {
 
     }
 
+  debouncedOnPress = () => {
+    this.props.onPress && this.props.onPress();
+  }
 
+  onPress = debounce(this.debouncedOnPress, 300, { leading: true, trailing: false });
 
     render() {
         // console.log('test:', this.state.statu !== 0 || this.props.load);
         const {
             style ,
-            onPress,
             disabled,
             load,
             animation
         } = this.props
+
 
 
 
@@ -148,7 +152,7 @@ export default class FlipButton extends Component {
                 style={style}
                 activeOpacity={1}
                 disabled={disabled || load}
-                onPress={onPress}>
+                onPress={this.onPress}>
                 {load && this.__renderActivety()}
                 {!load && this.__renderCard()}
             </AniStyledContent>
