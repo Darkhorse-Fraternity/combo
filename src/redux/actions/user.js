@@ -12,6 +12,7 @@ export const LOGIN_SUCCEED = 'LOGIN_SUCCEED'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT'
 export const LOGOUT = 'LOGOUT'
+export const LOGIN_LOAD = 'LOGIN_LOAD'
 export const UPDATE_USERDATA = 'UPDATE_USERDATA'
 export const THIRD_LOAD = 'THIRD_LOAD'
 import {
@@ -24,7 +25,9 @@ import {
   wechatUserInfo,
   QQUserInfo,
   thirdLogin,
-  bindingToUser
+  bindingToUser,
+  classBatch,
+  classCreatNewOne
 } from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
 import {
@@ -32,6 +35,7 @@ import {
 } from '../../configure/storage'
 
 import { get } from './req'
+import { batch } from '../module/leancloud'
 import { NavigationActions } from 'react-navigation';
 import { setLeanCloudSession } from '../../configure/reqConfigs'
 // *** Action Types ***
@@ -101,7 +105,6 @@ export function userInfo() {
     const sessionToken = credentials.password;
     // const sessionToken = await storage.load({ key: sessionTokenkey, })
 
-
     if (sessionToken) {
       setLeanCloudSession(sessionToken)
       const params = usersMe()
@@ -120,17 +123,93 @@ export function userInfo() {
   }
 }
 
+
+const iCardSample = (objectId) => [{
+  title: '示例：早睡',
+  period: '7',
+  record: [],
+  recordDay: [1, 2, 3, 4, 5, 6, 7],
+  iconAndColor: {
+    name: 'sleepBoy',
+    color: '#cddc39',
+  },
+  notifyText: '早睡早起身体好!',
+  notifyTimes: ['22:00'],
+  price: 0,
+  state: 0,
+  // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+  user: {
+    __type: "Pointer",
+    className: "_User",
+    objectId: objectId
+  }
+}, {
+  title: '示例：记单词',
+  period: '7',
+  record: [],
+  recordDay: [1, 2, 3, 4, 5, 6, 7],
+  iconAndColor: {
+    name: 'homework',
+    color: '#dce775',
+  },
+  notifyText: '坚持鸭!',
+  notifyTimes: ['20:00'],
+  price: 0,
+  state: 0,
+  // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+  user: {
+    __type: "Pointer",
+    className: "_User",
+    objectId: objectId
+  }
+}]
+
+const iUseSample = (objectId, iCardId) => {
+  return {
+    time: 0,
+    // notifyTime:option&&option.notifyTime||"20.00",
+    doneDate: { "__type": "Date", "iso": moment('2017-03-20').toISOString() },
+    user: {
+      __type: "Pointer",
+      className: "_User",
+      objectId: objectId
+    },
+    iCard: {
+      __type: "Pointer",
+      className: "iCard",
+      objectId: iCardId
+    },
+    statu: 'start',
+    privacy: 2,
+  }
+}
+
 //预设示例
-function  _addSample(user) {
-  return  dispatch => {
-    // 改在服务端做算了
-    // console.log('user:', user);
-    // //当createdAt 小于一分钟的时候预设示例
-    // const { createdAt } = user
-    // const isBefore = moment(createdAt).add(30, 's').isBefore(new Date())
-    // if(isBefore){
-    //
-    // }
+function _addSample(user) {
+  return async dispatch => {
+    const { createdAt, updatedAt, objectId } = user
+    const createdAtTime = (new Date(createdAt)).getTime()
+    const updatedAtTime = (new Date(updatedAt)).getTime()
+    if (updatedAtTime - createdAtTime < 10000) {
+      //生成一个icard
+      dispatch(loginLoad(true))
+      const iCards = iCardSample(objectId)
+      const iCardsReq = iCards.map(item => classCreatNewOne('iCard', item))
+      const iCardsBatch = classBatch(iCardsReq)
+      const iCardsRes = await get(iCardsBatch)
+      const iUseReq = iCardsRes.map(item => {
+        if (item.success) {
+          const iUseParam = iUseSample(objectId, item.success.objectId)
+          return classCreatNewOne('iUse', iUseParam)
+        }
+      })
+      //添加圈子示例
+      const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc')
+      iUseReq.push(classCreatNewOne('iUse', iUseParam))
+      const iUseBatch = classBatch(iUseReq)
+      await get(iUseBatch)
+      dispatch(loginLoad(false))
+    }
   }
 }
 
@@ -144,16 +223,15 @@ export function login(state: Object): Function {
 
   const parame = requestLogin(state.phone, state.ymCode);
 
-  return  dispatch => {
+  return dispatch => {
     dispatch(_loginRequest());
 
 
     return get(parame).then(async (response) => {
       if (response.statu) {
         //加入sessionToken
-        await dispatch(_loginSucceed(response));
+        await dispatch((response));
 
-        await dispatch(_addSample(response))
 
         dispatch(navigatePop());
       } else {
@@ -186,16 +264,14 @@ export function register(state: Object): Function {
 
     try {
       const response = await get(params)
-      await dispatch(_addSample(response))
-      dispatch(_loginSucceed(response));
+      await dispatch(_loginSucceed(response));
       dispatch(NavigationActions.navigate({
         routeName: 'tab'
       }))
       return response
     } catch (e) {
       Toast.show(e.message)
-      dispatch(_loginFailed());
-      return e
+      return dispatch(_loginFailed());
     }
 
   }
@@ -215,12 +291,18 @@ function _loginSucceed(response: Object): Object {
   // saveAccount(response.mobilePhoneNumber);
 
   //只保存 sessionToken
-  if (response) {
-    const { sessionToken = '', username = '' } = response
-    Keychain.setGenericPassword(username, sessionToken);
+  return async dispatch => {
+    if (response) {
+      const { sessionToken = '', username = '' } = response
+      Keychain.setGenericPassword(username, sessionToken);
+      const res = await  dispatch(loginSucceed(response));
 
-    return loginSucceed(response);
+      await dispatch(_addSample(response))
+
+      return res
+    }
   }
+
 
   // storage.save({
   //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
@@ -229,8 +311,6 @@ function _loginSucceed(response: Object): Object {
 
 
 }
-
-
 
 
 export function loginSucceed(data: Object): Object {
@@ -247,6 +327,13 @@ export function loginSucceed(data: Object): Object {
     data: data,
   }
 
+}
+
+export function loginLoad(loaded) {
+  return {
+    type: LOGIN_LOAD,
+    loaded,
+  }
 }
 
 export function _loginFailed(response: Object): Object {
@@ -355,7 +442,7 @@ export function weChatLogin(Key) {
       const userInfoParmas = thirdLogin('weixin', weInfo)
       const user = await get(userInfoParmas)
       if (user.sessionToken) {
-        dispatch(_loginSucceed(user));
+        await dispatch(_loginSucceed(user));
         dispatch(NavigationActions.navigate({
           routeName: 'tab',
           params: { transition: 'forVertical' }
@@ -420,7 +507,7 @@ export function qqLogin(Key) {
       const userInfoParmas = thirdLogin('qq', qqConfig)
       const user = await get(userInfoParmas)
       if (user.sessionToken) {
-        dispatch(_loginSucceed(user));
+        await  dispatch(_loginSucceed(user));
         dispatch(NavigationActions.navigate({
           routeName: 'tab',
           params: { transition: 'forVertical' }
@@ -579,7 +666,7 @@ export function bindingAuthData(key, loadKey, ad, exData) {
     const userId = state.user.data.objectId;
     const params = bindingAuthDataToUser(userId, key, ad, exData)
     const res = await get(params, loadKey)
-    if(res.objectId){
+    if (res.objectId) {
       const authData = {
         ...state.user.data.authData,
         ...params.params.authData,

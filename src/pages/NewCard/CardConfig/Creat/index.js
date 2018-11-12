@@ -77,6 +77,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
       //新建卡片
 
 
+      //WARNING:首次登陆的时候也有用到icard 记得修改
       const state = getState()
       // const title = selector(state, 'title')
       const op = selector(
@@ -90,18 +91,13 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
         'icon',
         'color',
       )
-
-
       const notifyTimes = op.notifyTimes.toJS()
         .sort((a, b) => moment(a, 'HH:mm')
           - moment(b, 'HH:mm'))
 
       const param = {
-        // title,
-        // cycle: 0,
-        // time: 0,
-        // notifyTime:option&&option.notifyTime||"20.00",
-        ...op,
+        title:op.title,
+        period:op.period,
         record: op.record.toJS(),
         recordDay: op.recordDay.toJS(),
         iconAndColor: {
@@ -137,7 +133,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
       const addParam = {
         time: 0,
         // notifyTime:option&&option.notifyTime||"20.00",
-        doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
+        doneDate: { "__type": "Date", "iso": moment('2017-03-20').toISOString() },
         ...dispatch(selfUser()),
         ...iCard(iCardId),
         statu: 'start',

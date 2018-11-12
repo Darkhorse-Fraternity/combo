@@ -86,7 +86,8 @@ import {
 
 
         const param = {
-          ...op,
+          title:op.title,
+          period:op.period,
           record: op.record.toJS(),
           recordDay: op.recordDay.toJS(),
           iconAndColor: {

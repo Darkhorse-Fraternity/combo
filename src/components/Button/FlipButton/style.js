@@ -8,7 +8,6 @@ import styled from "styled-components";
 import Icon from 'react-native-vector-icons/Ionicons'
 import FlipCard from 'react-native-flip-card'
 
-
 export const StyledContent = styled.TouchableOpacity`
 
 `

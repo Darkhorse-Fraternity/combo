@@ -123,7 +123,9 @@ export async function get(params) {
   const response = await reqM(params)
   if (response && response[RESCODE] === SUCCODE) {
     return response[DATA]
-  } else {
+  } if(response && response[RESCODE] && response[RESCODE] !== SUCCODE){
+    throw new Error(JSON.stringify(response));
+  }else {
     return response
   }
 }
