@@ -14,7 +14,15 @@ export const StyledContent = styled.ScrollView`
 `
 
 export const StyledHeader = styled.View`
-  
+    margin: 10px 15px;
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 5px;
+    shadow-opacity: 0.5;
+    shadow-radius:10px;
+    shadow-color: #979797;
+    shadow-offset: 2px 4px;      
+    elevation: 10;
 `
 
 
@@ -32,5 +40,5 @@ export const StyledTitleText = styled.Text`
 `
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
+   background-color: green;
 `
