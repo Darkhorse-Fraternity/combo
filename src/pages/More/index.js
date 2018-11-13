@@ -270,7 +270,7 @@ export default class More extends Component {
           navigation.navigate("feedback");
         })}
 
-        {this._renderRow('到应用商店评价', false, this.props.rate)}
+        {this._renderRow('好评鼓励', false, this.props.rate)}
         <View style={{ height: 100 }}/>
 
       </View>

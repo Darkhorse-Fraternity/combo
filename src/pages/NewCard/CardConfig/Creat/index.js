@@ -64,6 +64,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
     title: selector(state, 'title'),
     initialValues: StaticOption,
     load: state.req.get(ICARD).get('load'),
+    iUseLoad: state.req.get(IUSE).get('load'),
     color: selector(state, 'color')
   }),
   (dispatch, props) => ({
@@ -127,7 +128,6 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
       // dispatch((dispatch, getState) => {
       //
       // })
-      dispatch(popToIndex())
 
       const iCardId = res.objectId
       const addParam = {
@@ -145,7 +145,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
         ...addRes
       }
       dispatch(addListNormalizrEntity(IUSE, addEntity))
-
+      dispatch(popToIndex())
     }),
   })
 )
@@ -259,7 +259,7 @@ export default class Creat extends PureComponent {
               onPress={this.__backStep}
               title={step === 0 ? '取消' : '返回'}/>
             <StyledHeaderBtn
-              load={this.props.load}
+              load={this.props.load || this.props.iUseLoad}
               // disabled={false}
               // backgroundColor={color}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}

@@ -24,7 +24,7 @@ export const StyledCard = styled.View`
    background-color: ${props=>props.backgroundColor};
    width: ${props=>props.width};
    border-radius: 6px;
-   padding: 30px 10px 15px 10px;
+   padding: 20px 10px 20px 10px;
    margin: 6px;
     shadow-opacity: 0.6;
     shadow-radius:3px;
@@ -36,15 +36,23 @@ export const StyledCard = styled.View`
 export const StyledCardTitleView = styled.View`
    justify-content: center;
    align-items: center;
-   height:17px;
-   margin-top: 20px;
+   margin-top: 10px;
+   height:40px;
 `
 
 export const StyledCardTitle = styled.Text`
    font-size: 15px;
+   text-align: center;
+   width: 80px;
+`
+
+export const StyledCardDis = styled.Text`
+   font-size: 12px;
    font-style: italic;
    text-align: center;
    width: 80px;
+   margin-top: 3px;
+   color: #646464;
 `
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``

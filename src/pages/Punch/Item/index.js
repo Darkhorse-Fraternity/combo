@@ -21,7 +21,8 @@ import {
   StyledCardTitleView,
   StyledMaterialCommunityIcons,
   StyledButton,
-  StyledIconImage
+  StyledIconImage,
+  StyledCardDis
 } from './style'
 
 const width = Dimensions.get('window').width
@@ -30,7 +31,6 @@ const iconWidth = itemWidth / 2
 import svgs from '../../../../source/icons'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { debounce } from 'lodash'; // 4.0.8
-
 
 
 @connect(
@@ -60,7 +60,7 @@ export default class PunchItem extends Component {
   };
 
 
-  flipDo= ()=>{
+  flipDo = () => {
     if (this.props.done !== this.state.flip) {
       console.log('title2:', this.props.title);
       console.log('flip2:', this.props.done);
@@ -68,7 +68,7 @@ export default class PunchItem extends Component {
     }
   }
 
-  debounceFlip =  debounce(this.flipDo, 1000, { leading: false, trailing: true })
+  debounceFlip = debounce(this.flipDo, 1000, { leading: false, trailing: true })
 
   componentWillReceiveProps(nextProps) {
     //TODO： 这边这样设置会有反复哦，所以这边就先避免了
@@ -82,7 +82,7 @@ export default class PunchItem extends Component {
 
   render(): ReactElement<any> {
 
-    const { title, done, style, name, color, onPress } = this.props
+    const { title, done, style, name, color, onPress, time } = this.props
     const { flip } = this.state
 
     const self = this
@@ -109,47 +109,54 @@ export default class PunchItem extends Component {
           <StyledCard
             width={itemWidth}
             backgroundColor={color}>
-            <View style={{ height: iconWidth }}>
+            <View style={{ height: iconWidth, justifyContent: 'center' }}>
               <StyledIconImage
                 size={iconWidth}
                 source={svgs[name]}
                 resizeMode={'contain'}
               />
-              {/*<SvgUri*/}
-              {/*width={iconWidth}*/}
-              {/*height={iconWidth}*/}
-              {/*svgXmlData={svgs[name]}*/}
-              {/*/>*/}
             </View>
             <StyledCardTitleView>
-              <StyledCardTitle
-                adjustsFontSizeToFit={true}
-                minimumFontScale={0.7}
-                textAlignVertical={'center'}
-                numberOfLines={1}>
-                {title}
-              </StyledCardTitle>
+              <View style={{ height: 25, justifyContent: 'center'}}>
+                <StyledCardTitle
+                  adjustsFontSizeToFit={true}
+                  minimumFontScale={0.7}
+                  textAlignVertical={'center'}
+                  numberOfLines={1}>
+                  {title}
+                </StyledCardTitle>
+              </View>
+              <StyledCardDis>
+                第{time}次
+              </StyledCardDis>
             </StyledCardTitleView>
           </StyledCard>
           <StyledCard
 
             width={itemWidth}
             backgroundColor={color}>
-            <View style={{ height: iconWidth }}>
+            <View style={{ height: iconWidth, justifyContent: 'center', }}>
               <StyledMaterialCommunityIcons
                 color={'white'}
-                size={50}
+                size={40}
                 name={'check-decagram'}/>
             </View>
             <StyledCardTitleView>
-              <StyledCardTitle
-                style={{ color: 'white', fontWeight: '600' }}
-                adjustsFontSizeToFit={true}
-                minimumFontScale={0.7}
-                textAlignVertical={'center'}
-                numberOfLines={1}>
+              <View style={{ height: 25, justifyContent: 'center', }}>
+                <StyledCardTitle
+                  style={{ color: 'white', fontWeight: '600' }}
+                  adjustsFontSizeToFit={true}
+                  minimumFontScale={0.7}
+                  textAlignVertical={'center'}
+                  numberOfLines={1}>
+                  {title}
+                </StyledCardTitle>
+              </View>
+              <StyledCardDis
+                style={{ color: 'white' }}
+              >
                 打卡成功
-              </StyledCardTitle>
+              </StyledCardDis>
             </StyledCardTitleView>
           </StyledCard>
         </StyledFlipCard>

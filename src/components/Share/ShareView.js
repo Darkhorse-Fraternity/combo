@@ -6,6 +6,7 @@
 
 import * as immutable from 'immutable';
 import React, { Component, PropTypes } from 'react';
+import { SafeAreaView } from 'react-navigation';
 import {
     View,
     Text,
@@ -75,7 +76,7 @@ export default class ShareView extends Component {
         console.log('thumbImage:', shareParams.thumbImage);
 
         return (
-            <View style={{ backgroundColor: 'white', alignItems: 'center' }}>
+            <SafeAreaView style={{ backgroundColor: 'white', alignItems: 'center' }}>
 
                 <View style={styles.top}>
                     <Button
@@ -114,7 +115,7 @@ export default class ShareView extends Component {
                         })}
                     </View>
                 </View>
-            </View>
+            </SafeAreaView>
         )
     }
 }

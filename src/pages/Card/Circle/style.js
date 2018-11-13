@@ -7,6 +7,7 @@
 import styled from "styled-components";
 // import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
+import Button from '../../../components/Button'
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
@@ -15,7 +16,7 @@ export const StyledContent = styled.ScrollView`
 
 export const StyledHeader = styled.View`
     margin: 10px 15px;
-    padding: 10px 15px;
+    padding: 7px 15px;
     background-color: white;
     border-radius: 5px;
     shadow-opacity: 0.5;
@@ -23,6 +24,8 @@ export const StyledHeader = styled.View`
     shadow-color: #979797;
     shadow-offset: 2px 4px;      
     elevation: 10;
+    flex-direction: row;
+    flex-wrap: wrap;
 `
 
 
@@ -39,6 +42,19 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `
 
-export const StyledHeaderBtn = styled(HeaderBtn)`
-   background-color: green;
+export const StyledHeaderButton = styled(Button)`
+   border-radius: 10px;
+   padding: 5px;
+   margin: 5px;
+   align-items: center;
+`
+
+export const StyledHeaderImage = styled.Image`
+   width: 30px;
+   height: 30px;
+`
+
+export const StyledHeaderText = styled.Text`
+  margin-top: 8px;
+  font-size: 12px;
 `

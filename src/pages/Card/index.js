@@ -19,8 +19,7 @@ import {
   StyledContent,
   StyledIcon
 } from './style'
-import ShareView from '../../components/Share/ShareView'
-import Pop from '../../components/Pop/index'
+
 // import DoCardButton from '../../components/Button/DoCardButton/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import BackTabBar from '../../components/Groceries/BackTabBar'
@@ -103,22 +102,7 @@ export default class Card extends Component {
     const { state } = navigation;
     const { params } = state;
     const { iCardId, iUseId } = params
-    const iCard = this.props.iCard.toJS()
-    const iUse = this.props.iUse.toJS()
     return [
-      <Button key={'icon1'} onPress={() => {
-        Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
-          animationType: 'slide-up',
-          wrapStyle: {
-            justifyContent: 'flex-end',
-          }
-        })
-      }}>
-        <StyledIcon
-          color={'black'}
-          size={23}
-          name={'md-share'}/>
-      </Button>,
       <Button key={'icon2'} onPress={() => {
         this.props.navigation.navigate('cardSetting', {
           iCardId, iUseId

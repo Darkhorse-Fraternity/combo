@@ -2,6 +2,7 @@
  * Created by lintong on 2018/7/12.
  * @flow
  */
+
 'use strict';
 
 import React, { Component } from 'react';
@@ -21,6 +22,8 @@ import RecordRow from '../../Record/RecordRow'
 import Header from '../../Record/RecordRow/Header'
 import { IDO, REPORT } from '../../../redux/reqKeys'
 import { recordDiary } from '../Do/Diary'
+import ShareView from '../../../components/Share/ShareView'
+import Pop from '../../../components/Pop'
 
 const listKey = IDO
 
@@ -29,12 +32,15 @@ import {
   StyledHeader,
   StyledTitleView,
   StyledTitleText,
-  StyledHeaderBtn
+  StyledHeaderButton,
+  StyledHeaderImage,
+  StyledHeaderText
 } from './style'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 import { selfUser, iCard } from '../../../request/LCModle'
+import { required } from "../../../request/validation";
 
 @connect(
   (state, props) => ({
@@ -70,21 +76,38 @@ export default class Circle extends Component {
 
 
   __renderHeader = () => {
-
+    const iCard = this.props.iCard.toJS()
+    const iUse = this.props.iUse.toJS()
     return (
       <StyledHeader>
-        <StyledTitleView>
-          {/*<StyledTitleText>*/}
-            {/*圈子日记*/}
-          {/*</StyledTitleText>*/}
-          <StyledHeaderBtn
-            // load={false}
-            // disabled={false}
-            backgroundColor={this.props.color}
-            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-            onPress={()=>this.props.tipTap(this.props.iUse.toJS())}
-            title={'添加日记'}/>
-        </StyledTitleView>
+        {/*<StyledTitleText>*/}
+        {/*圈子日记*/}
+        {/*</StyledTitleText>*/}
+        <StyledHeaderButton
+          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+          onPress={() => this.props.tipTap(this.props.iUse.toJS())}
+        >
+          <StyledHeaderImage source={require('../../../../source/img/circle/write.png')}/>
+          <StyledHeaderText>
+            添加日记
+          </StyledHeaderText>
+        </StyledHeaderButton>
+        <StyledHeaderButton
+          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+          onPress={() => {
+            Pop.show(<ShareView iCard={iCard} iUse={iUse}/>, {
+              animationType: 'slide-up',
+              wrapStyle: {
+                justifyContent: 'flex-end',
+              }
+            })
+          }}
+        >
+          <StyledHeaderImage source={require('../../../../source/img/circle/invitation.png')}/>
+          <StyledHeaderText>
+           邀请好友
+          </StyledHeaderText>
+        </StyledHeaderButton>
       </StyledHeader>
 
     )
@@ -133,7 +156,7 @@ export default class Circle extends Component {
         sKey={listKey + iCardId}
         renderItem={this.renderRow.bind(this)}
         tipBtnText={'添加日记'}
-        tipTap={()=>this.props.tipTap(this.props.iUse.toJS())}
+        tipTap={() => this.props.tipTap(this.props.iUse.toJS())}
         //dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         //}}

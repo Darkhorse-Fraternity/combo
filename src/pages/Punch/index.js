@@ -173,11 +173,13 @@ export default class Punch extends Component {
     const done = moment(0, "HH").isBefore(data.doneDate.iso)
     let iconAndColor = iCard.get('iconAndColor')
     iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
+
     return <Item
       name={iconAndColor.name}
       color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
+      time={data.time+1}
       onPress={async (doIt) => {
         // const iCardM = iCard.toJS()
 
