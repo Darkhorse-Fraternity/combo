@@ -22,7 +22,8 @@ import {
   StyledMaterialCommunityIcons,
   StyledButton,
   StyledIconImage,
-  StyledCardDis
+  StyledCardDis,
+  StyledInner
 } from './style'
 
 const width = Dimensions.get('window').width
@@ -82,19 +83,20 @@ export default class PunchItem extends Component {
 
   render(): ReactElement<any> {
 
-    const { title, done, style, name, color, onPress, time } = this.props
+    const { title, done,onLongPress, style, name, color, onPress, time } = this.props
     const { flip } = this.state
 
     const self = this
     return (
       <StyledButton
         // disabled={flip}
+        onLongPress={onLongPress}
         onPress={() => {
-          if (!flip) {
-            onPress && onPress(() => {
+          // if (!flip) {
+            onPress && onPress(flip,() => {
               self.setState({ flip: !flip })
             })
-          }
+          // }
         }}>
         <StyledFlipCard
           style={style}
@@ -109,15 +111,18 @@ export default class PunchItem extends Component {
           <StyledCard
             width={itemWidth}
             backgroundColor={color}>
-            <View style={{ height: iconWidth, justifyContent: 'center' }}>
+            <StyledCardDis>
+              {time}次
+            </StyledCardDis>
+            <StyledInner height={iconWidth}>
               <StyledIconImage
                 size={iconWidth}
                 source={svgs[name]}
                 resizeMode={'contain'}
               />
-            </View>
+            </StyledInner>
             <StyledCardTitleView>
-              <View style={{ height: 25, justifyContent: 'center'}}>
+              <StyledInner height={25}>
                 <StyledCardTitle
                   adjustsFontSizeToFit={true}
                   minimumFontScale={0.7}
@@ -125,24 +130,26 @@ export default class PunchItem extends Component {
                   numberOfLines={1}>
                   {title}
                 </StyledCardTitle>
-              </View>
-              <StyledCardDis>
-                第{time}次
-              </StyledCardDis>
+              </StyledInner>
             </StyledCardTitleView>
           </StyledCard>
           <StyledCard
 
             width={itemWidth}
             backgroundColor={color}>
-            <View style={{ height: iconWidth, justifyContent: 'center', }}>
+            <StyledCardDis
+              style={{ color: 'white',fontWeight: '600' }}
+            >
+              +1
+            </StyledCardDis>
+            <StyledInner height={iconWidth}>
               <StyledMaterialCommunityIcons
                 color={'white'}
-                size={40}
+                size={50}
                 name={'check-decagram'}/>
-            </View>
+            </StyledInner>
             <StyledCardTitleView>
-              <View style={{ height: 25, justifyContent: 'center', }}>
+              <StyledInner height={25}>
                 <StyledCardTitle
                   style={{ color: 'white', fontWeight: '600' }}
                   adjustsFontSizeToFit={true}
@@ -151,12 +158,8 @@ export default class PunchItem extends Component {
                   numberOfLines={1}>
                   {title}
                 </StyledCardTitle>
-              </View>
-              <StyledCardDis
-                style={{ color: 'white' }}
-              >
-                打卡成功
-              </StyledCardDis>
+              </StyledInner>
+
             </StyledCardTitleView>
           </StyledCard>
         </StyledFlipCard>

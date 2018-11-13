@@ -73,7 +73,7 @@ export default class ShareView extends Component {
             thumbImage: url +'?imageView/1/w/100/h/100/q/50' // /1/代表center
         }
 
-        console.log('thumbImage:', shareParams.thumbImage);
+        // console.log('thumbImage:', shareParams.thumbImage);
 
         return (
             <SafeAreaView style={{ backgroundColor: 'white', alignItems: 'center' }}>

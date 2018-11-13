@@ -114,6 +114,7 @@ export default class BackTabBar extends Component {
           {/*]}/>*/}
           {numberOfTabs > 1 ? <EZTabBar {...this.props}/> :
             <Text
+              adjustsFontSizeToFit={true}
               numberOfLines={1}
               style={styles.title}>
               {this.props.title}

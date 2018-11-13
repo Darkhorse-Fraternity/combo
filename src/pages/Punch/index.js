@@ -179,17 +179,28 @@ export default class Punch extends Component {
       color={iconAndColor.color}
       done={done}
       title={iCard.get('title')}
-      time={data.time+1}
-      onPress={async (doIt) => {
+      time={data.time}
+      // onLongPress={()=>{ O
+      //
+      // }}
+      onPress={async (flip,doIt) => {
         // const iCardM = iCard.toJS()
 
         //如果没有强制打卡类型，则直接翻转
-        iCard.get('record').size === 0 && doIt()
+        if(!flip){
+          iCard.get('record').size === 0 && doIt()
 
-        if (!this.props.load && !done) {
-          await this.props.done(data)
+          if (!this.props.load && !done) {
+            await this.props.done(data)
 
+          }
+        }else {
+          this.props.navigation.navigate('card', {
+            iUseId: item,
+            iCardId: iCardId
+          })
         }
+
 
       }}
     />;

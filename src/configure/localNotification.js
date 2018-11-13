@@ -167,45 +167,17 @@ export default class LocalNotification extends Component {
       return
     }
 
-    // let res = 0
-    //   PushNotification.getApplicationIconBadgeNumber(item=>{
-    //       res = item
-    //       console.log('test:', '222');
-    //   })
-
-    //
-    // const time =  moment(20, "HH").day(7).format('YYYY-MM-DD HH:mm:ss');
-    //
-    // console.log('moment:',  moment().toDate());
-    // console.log('Date:',  new Date());
-
-    // const data1 = [{title:'测试',notifyTime:'9:00',doneDate:'2017-08-06 21:33:11'}]
-
-    //获取每天需要打卡的数量
-    // const numbers = [0,0,0,0,0,0,0];
-    // data.forEach(item => {
-    //
-    //   if (item.statu !== 'start') {
-    //     return
-    //   }
-    //   const recordDay = item.iCard.recordDay
-    //   recordDay.forEach(day => {
-    //     numbers[day -1] = numbers[day -1] +1
-    //   })
-    // })
-
 
     let daysFlag = false
-    let unDoneCount = 0
     data.forEach(item => {
 
       if (item.statu !== 'start') {
-        //已经打卡了,就不用提醒了。
+        //已经删除了,就不用提醒了。
         return
       }
       //检查几个已经打卡了
-      const done = moment(1, "HH").isBefore(item.doneDate.iso)
-      !done && unDoneCount++
+      // const done = moment(1, "HH").isBefore(item.doneDate.iso)
+      // !done && unDoneCount++
 
 
       const recordDay = item.iCard.recordDay
@@ -358,6 +330,10 @@ export default class LocalNotification extends Component {
 
 
       data.forEach(async item => {
+        if (item.statu !== 'start') {
+          //已经删除了或归档,就不用提醒了。
+          return
+        }
         const { iCard,objectId} = item
         const { title, describe, notifyTimes, recordDay } = iCard
         if (notifyTimes === undefined || notifyTimes.length === 0) {
