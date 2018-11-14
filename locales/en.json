@@ -25,29 +25,29 @@
 //}
 {
   "app": {
-    "name": "小改变"
+    "name": "iBetter"
   },
   "tabs":{
-    "clockIn":"打卡",
-    "habit":"日常习惯",
-    "more":"更多"
+    "clockIn":"clockIn",
+    "habit":"habit",
+    "more":"more"
   },
   "permission": {
-    "write_storage_title": "写取储存权限",
-    "write_storage_message": "我们的app需要您的存储写权限,用来保存图片"
+    "write_storage_title": "Store permissions",
+    "write_storage_message": "Our app needs your storage write permission to save pictures"
   },
   "login": {
-    "welcome": "欢迎  回来!",
-    "login_button": "登录",
-    "signup_button": "注册"
+    "welcome": "Welcome back!",
+    "login_button": "Sign In",
+    "signup_button": "sign up"
   },
   "user_profile": {
-    "title": "个人资料"
+    "title": "User profile"
   },
   "save": {
-    "cance": "取消",
-    "save_success": "保存成功",
-    "save_to_local": "保存到本地相册"
+    "cance": "cance",
+    "save_success": "save Success",
+    "save_to_local": "Save To Local"
   }
 
 }

@@ -169,6 +169,7 @@ export default class LocalNotification extends Component {
 
 
     let daysFlag = false
+    let unDoneCount = 0
     data.forEach(item => {
 
       if (item.statu !== 'start') {
@@ -176,8 +177,8 @@ export default class LocalNotification extends Component {
         return
       }
       //检查几个已经打卡了
-      // const done = moment(1, "HH").isBefore(item.doneDate.iso)
-      // !done && unDoneCount++
+      const done = moment(1, "HH").isBefore(item.doneDate.iso)
+      !done && unDoneCount++
 
 
       const recordDay = item.iCard.recordDay
