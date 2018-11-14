@@ -82,9 +82,9 @@ const Archive = IUSE + "archive"
       }
 
       dispatch(addNormalizrEntity(IUSE, entity))
-      await handleView && handleView.fadeOutLeft(1000)
+       handleView &&  await handleView.fadeOutLeft(1000)
       await dispatch(claerByID(IUSE, id))
-      await handleView && handleView.fadeIn(300)
+       handleView &&  await handleView.fadeIn(300)
       return res
     },
     delete: async (objectId,handleView) => {
@@ -105,10 +105,10 @@ const Archive = IUSE + "archive"
               ...res
             }
             dispatch(addNormalizrEntity(IUSE, entity))
-            await handleView && handleView.fadeOutLeft(1000)
+             handleView && await handleView.fadeOutLeft(1000)
             await dispatch(claerByID(IUSE, objectId))
             await dispatch(claerByID(IRECORD, objectId))
-            await handleView && handleView.fadeIn(300)
+             handleView && await handleView.fadeIn(300)
             return res;
           }
         }]

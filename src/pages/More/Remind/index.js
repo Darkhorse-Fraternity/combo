@@ -133,9 +133,9 @@ function PrefixInteger(num, length) {
           ...res
         }
 
-        await handleView && handleView.fadeOutLeft(1000)
+         handleView && await handleView.fadeOutLeft(1000)
         await  dispatch(addNormalizrEntity(ICARD, entity))
-        await handleView && handleView.fadeIn(300)
+         handleView && await handleView.fadeIn(300)
 
         return res;
         // Toast.show('修改配置成功~!')
