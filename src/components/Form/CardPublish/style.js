@@ -65,6 +65,13 @@ export const StyledHearderTitle = styled(TextInput)`
     background-color: white;
 `
 
+
+export const StyledDecbibeMore = styled(TextInput)`
+    font-size: 15px;
+    height: 100px;
+   
+`
+
 export const StyledDescribe = styled(TextInput)`
     border-bottom-width: ${props => props.theme.hairlineWidth };
     border-bottom-color: #c1c1c1 ;

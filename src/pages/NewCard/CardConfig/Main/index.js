@@ -200,7 +200,7 @@ export default class OptionDo extends PureComponent {
             selectionColor={mainColor}
             returnKeyType='done'
             autoFocus={true}
-            maxLength={100}
+            maxLength={300}
             //keyboardType={boardType}
             style={styles.textInputStyle}
             multiline={true}

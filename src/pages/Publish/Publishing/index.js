@@ -157,7 +157,10 @@ import {shadeBlend} from '../../../../helps/util'
     circleState: async (data) => {
       const id = data.objectId
       const param = {
-        circleState: data.circleState === 0 ? 1 : 0
+        circleState: data.circleState === CircleState.close ?
+          CircleState.open : CircleState.close,
+        state:data.circleState === CircleState.close ?
+          CircleState.open : CircleState.close,
       }
       const res = await  dispatch(update(id, param, ICARD))
 
@@ -307,22 +310,22 @@ export default class Publishing extends Component {
               // this.props.updatePrivacy()
             }}/>
         </StyledSubTitle>
-        <StyledSubTitle>
-          <StyledRowInner>
-            <StyledIcon size={25} name={'share'}/>
-            <StyledSubTitleText>
-              是否允许推荐
-            </StyledSubTitleText>
-          </StyledRowInner>
-          <StyledSwitch
-            {...propsColor(shareState === 1)}
-            value={shareState === 1}
-            onValueChange={() => {
-              // await this.props.remind(id, value)
-              this.setState({ shareState: shareState === 1 ? 0 : 1 })
-              this.props.shareState(data.toJS())
-            }}/>
-        </StyledSubTitle>
+        {/*<StyledSubTitle>*/}
+          {/*<StyledRowInner>*/}
+            {/*<StyledIcon size={25} name={'share'}/>*/}
+            {/*<StyledSubTitleText>*/}
+              {/*是否允许推荐*/}
+            {/*</StyledSubTitleText>*/}
+          {/*</StyledRowInner>*/}
+          {/*<StyledSwitch*/}
+            {/*{...propsColor(shareState === 1)}*/}
+            {/*value={shareState === 1}*/}
+            {/*onValueChange={() => {*/}
+              {/*// await this.props.remind(id, value)*/}
+              {/*this.setState({ shareState: shareState === 1 ? 0 : 1 })*/}
+              {/*this.props.shareState(data.toJS())*/}
+            {/*}}/>*/}
+        {/*</StyledSubTitle>*/}
       </StyledHeader>
     )
   }
@@ -361,7 +364,7 @@ export default class Publishing extends Component {
 
 
         {this.state.getSave &&
-        this.state.shareState === CircleState.open && <CardPublishForm
+        this.state.circleState === CircleState.open && <CardPublishForm
           load={load}
           color={color}
           maxIndex={5}
