@@ -173,14 +173,14 @@ export default class CardConfig extends PureComponent {
             习惯设置
           </StyledTitle>
           <StyledHeaderInner>
-            <StyledHeaderBtn
+             <StyledHeaderBtn
               // load={false}
               // disabled={false}
               backgroundColor={'#bfc2c7'}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
               onPress={this.__backStep}
               title={step === 0 ? '取消' : '返回'}/>
-            <StyledHeaderBtn
+            {step>=1 && <StyledHeaderBtn
               // load={false}
               // disabled={false}
               backgroundColor={this.props.color}
@@ -194,7 +194,7 @@ export default class CardConfig extends PureComponent {
                 }
 
               }}
-              title={'提交'}/>
+              title={'保存'}/>}
           </StyledHeaderInner>
         </StyledHeader>
 

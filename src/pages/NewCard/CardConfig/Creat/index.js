@@ -239,8 +239,9 @@ export default class Creat extends PureComponent {
 
 
   render(): ReactElement<any> {
-    const { title, color } = this.props
+    // const { title, color } = this.props
     const { step } = this.state
+    console.log('step:', step);
     return (
       <StyledContent
         // colors={['#f1f6f9', '#ffffff']}
@@ -254,11 +255,11 @@ export default class Creat extends PureComponent {
             <StyledHeaderBtn
               // load={false}
               // disabled={false}
-              backgroundColor={'#bfc2c7'}
+              backgroundColor={step<2?'#bfc2c7':null}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
               onPress={this.__backStep}
-              title={step === 0 ? '取消' : '返回'}/>
-            <StyledHeaderBtn
+              title={step<2?'取消':'返回'}/>
+            {step<2 && <StyledHeaderBtn
               load={this.props.load || this.props.iUseLoad}
               // disabled={false}
               // backgroundColor={color}
@@ -271,7 +272,7 @@ export default class Creat extends PureComponent {
                 }
 
               }}
-              title={step === 0 ? '下一步' : '提交'}/>
+              title={step === 0 ? '下一步' : '提交'}/>}
           </StyledHeaderInner>
         </StyledHeader>
 

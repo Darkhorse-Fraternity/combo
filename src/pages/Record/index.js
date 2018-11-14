@@ -40,6 +40,7 @@ import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { addListNormalizrEntity } from '../../redux/actions/list'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
+import * as Animatable from 'react-native-animatable';
 
 const Archive = IUSE + "archive"
 
@@ -51,7 +52,7 @@ const Archive = IUSE + "archive"
     user: state.user.data,
   }),
   dispatch => ({
-    refresh: async (data) => {
+    refresh: async (data, handleView) => {
       const id = data.objectId
       // const card = props.navigation.state.params.iCard
 
@@ -70,10 +71,12 @@ const Archive = IUSE + "archive"
         ...param,
         ...res,
       }
+      await handleView && handleView.fadeOutLeft(1000)
       dispatch(addListNormalizrEntity(IUSE, entity))
-      dispatch(claerByID(IRECORD, id))
+      await dispatch(claerByID(IRECORD, id))
+      await handleView && handleView.fadeIn(300)
     },
-    delete: async (objectId) => {
+    delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
       // 做伪删除
       Alert.alert(
@@ -89,9 +92,12 @@ const Archive = IUSE + "archive"
               ...param,
               ...res
             }
+            await handleView && handleView.fadeOutLeft(1000)
             dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE, objectId))
-            dispatch(claerByID(IRECORD, objectId))
+            await dispatch(claerByID(IUSE, objectId))
+            await dispatch(claerByID(IRECORD, objectId))
+            await handleView && handleView.fadeIn(300)
+            return res;
           }
         }]
       )
@@ -103,7 +109,7 @@ export default class Record extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
-      openIndex:-1,
+      openIndex: -1,
       scrollEnabled: true
     }
   }
@@ -135,7 +141,7 @@ export default class Record extends Component {
     )
   }
 
-  _renderSwipeOutDeleteBtn = (title,color,name) => {
+  _renderSwipeOutDeleteBtn = (title, color, name) => {
     return (
       <StyledDeleteBtn>
         <StyledIcon size={30} color={color} name={name}/>
@@ -146,10 +152,10 @@ export default class Record extends Component {
     )
   }
 
-
-  renderRow = ({ item, index }: Object)=> {
+  handleViewRef = {}
+  renderRow = ({ item, index }: Object) => {
     // md-refresh
-
+    const self = this
     const iCardId = item[ICARD]
     const card = this.props.iCard.get(iCardId)
     const iCard = card && card.toJS()
@@ -166,62 +172,69 @@ export default class Record extends Component {
     const isSelf = user === this.props.user.objectId
 
     return (
-      <Swipeout
-        backgroundColor='white'
-        close={this.state.openIndex !== index}
-        onOpen={() => {
-          this.setState({ openIndex: index })
-        }}
-        right={[isSelf?{
-          type: 'secondary',
-          onPress: () => {
-            this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
-            this.setState({ openIndex: -1 })
-            // this._deleteRow(item)
-          },
-          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'settings'),
-          backgroundColor: '#e0f2f1'
-        }:{
-          type: 'secondary',
-          onPress: () => {
-            this.props.navigation.navigate('cardSetting',
-              { iCardId, iUseId: item.objectId })
-            this.setState({ openIndex: -1 })
-            // this._deleteRow(item)
-          },
-          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
-          backgroundColor: '#e0f2f1'
-        }, {
-          type: 'delete',
-          onPress: () => {
-            // this._deleteRow(item)
-            this.props.delete(item.objectId)
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
-          backgroundColor: '#ffebee'
-        }, {
-          type: 'primary',
-          onPress: () => {
-            // this._deleteRow(item)
-            this.props.refresh(item)
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('恢复', '#009afb', 'refresh'),
-          backgroundColor: '#e3f2fd'
-        }]}
-      >
+      <Animatable.View
+        useNativeDriver
+        ref={res => this.handleViewRef['habit' + index] = res}>
+        <Swipeout
+          backgroundColor='white'
+          close={this.state.openIndex !== index}
+          onOpen={() => {
+            this.setState({ openIndex: index })
+          }}
+          right={[isSelf ? {
+            type: 'secondary',
+            onPress: () => {
+              this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
+              this.setState({ openIndex: -1 })
+              // this._deleteRow(item)
+            },
+            component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
+            backgroundColor: '#e0f2f1'
+          } : {
+            type: 'secondary',
+            onPress: () => {
+              this.props.navigation.navigate('cardSetting',
+                { iCardId, iUseId: item.objectId })
+              this.setState({ openIndex: -1 })
+              // this._deleteRow(item)
+            },
+            component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
+            backgroundColor: '#e0f2f1'
+          }, {
+            type: 'delete',
+            onPress: () => {
+              // this._deleteRow(item)
+              const handleView = self.handleViewRef['habit' + index]
+              this.props.delete(item.objectId, handleView)
 
-        <CardRow
-          data={item}
-          iCard={iCard}
-          onPress={() => {
-            this.props.navigation.navigate('card', {
-              iUseId: item.objectId,
-              iCardId: iCard.objectId
-            })
-          }}/>
-      </Swipeout>
+              this.setState({ openIndex: -1 })
+            },
+            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
+            backgroundColor: '#ffebee'
+          }, {
+            type: 'primary',
+            onPress: () => {
+              // this._deleteRow(item)
+              const handleView = self.handleViewRef['habit' + index]
+              this.props.refresh(item, handleView)
+              this.setState({ openIndex: -1 })
+            },
+            component: this._renderSwipeOutDeleteBtn('恢复', '#009afb', 'refresh'),
+            backgroundColor: '#e3f2fd'
+          }]}
+        >
+
+          <CardRow
+            data={item}
+            iCard={iCard}
+            onPress={() => {
+              this.props.navigation.navigate('card', {
+                iUseId: item.objectId,
+                iCardId: iCard.objectId
+              })
+            }}/>
+        </Swipeout>
+      </Animatable.View>
     )
   }
 

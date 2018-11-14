@@ -46,7 +46,9 @@ import Toast from 'react-native-simple-toast'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 import Swipeout from 'react-native-swipeout'
-import {shadeBlend} from '../../../../helps/util'
+import { shadeBlend } from '../../../../helps/util'
+import * as Animatable from 'react-native-animatable';
+
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
 export const daysText = (recordDay) => {
@@ -110,7 +112,7 @@ function PrefixInteger(num, length) {
         // Toast.show('修改配置成功~!')
       }
     }),
-    deleteRow: async (notifyTime, iCard) => dispatch(async (dispatch, getState) => {
+    deleteRow: async (notifyTime, iCard, handleView) => dispatch(async (dispatch, getState) => {
       {
         const id = iCard.objectId
 
@@ -130,7 +132,12 @@ function PrefixInteger(num, length) {
           ...param,
           ...res
         }
-        return dispatch(addNormalizrEntity(ICARD, entity))
+
+        await handleView && handleView.fadeOutLeft(1000)
+        await  dispatch(addNormalizrEntity(ICARD, entity))
+        await handleView && handleView.fadeIn(300)
+
+        return res;
         // Toast.show('修改配置成功~!')
       }
     }),
@@ -177,10 +184,10 @@ export default class Remind extends Component {
   _ListHeaderComponent = (id, value, data) => {
 
 
-    const propsColor = Platform.OS === 'ios'?{
-      trackColor:{false: '#39ba98', true: '#39ba98'},
-    }:{
-      thumbColor:value?'#39ba98':'#f6f7f9',
+    const propsColor = Platform.OS === 'ios' ? {
+      trackColor: { false: '#39ba98', true: '#39ba98' },
+    } : {
+      thumbColor: value ? '#39ba98' : '#f6f7f9',
       // trackColor:{true: '#f6f7f9'},
     }
 
@@ -197,8 +204,8 @@ export default class Remind extends Component {
           {...propsColor}
           value={value}
           onValueChange={async (value) => {
-          await this.props.remind(id, value)
-        }}/>
+            await this.props.remind(id, value)
+          }}/>
       </StyledSubTitle>,
       data.length > 0 && <StyledLine key={'line'} style={{ height: 15, marginLeft: 35 }}/>
     ]
@@ -219,22 +226,24 @@ export default class Remind extends Component {
   }
 
 
-  _deleteRow = async (item) => {
-    const { iCard,notifyTime } = item
+  _deleteRow = async (item,index) => {
+    const handleView = this.handleViewRef['habit' + index]
+    const { iCard, notifyTime } = item
     const { selfUser, deleteRow } = this.props
 
     if (iCard.user === selfUser.objectId) {
-      await deleteRow(notifyTime, iCard)
+      await deleteRow(notifyTime, iCard, handleView)
     } else {
       Toast.show('共享卡片,只有卡片拥有有权限删除哦~!')
     }
 
   }
 
+  handleViewRef = {}
   _renderRow = ({ item, index }) => {
 
     // console.log('test:', item);
-    const { iCard ,notifyTime ,objectId} = item
+    const { iCard, notifyTime, objectId } = item
 
     const { localRemindData } = this.props
     // const value =  await  storage.load({
@@ -246,80 +255,84 @@ export default class Remind extends Component {
     if (value === undefined) {
       value = true
     }
-    const {  iconAndColor,title ,recordDay} = iCard
-    const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
-    const propsColor = Platform.OS === 'ios'?{
-      trackColor:{false: color, true: color},
-    }:{
-      thumbColor:value?color:'#f6f7f9',
-      trackColor:{true: shadeBlend(0.75,color)},
+    const { iconAndColor, title, recordDay } = iCard
+    const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' }
+    const propsColor = Platform.OS === 'ios' ? {
+      trackColor: { false: color, true: color },
+    } : {
+      thumbColor: value ? color : '#f6f7f9',
+      trackColor: { true: shadeBlend(0.75, color) },
     }
 
     return (
-      <Swipeout
-        backgroundColor='white'
-        close={this.state.openIndex !== index}
-        onOpen={()=>{
-          this.setState({openIndex:index})
-        }}
-        right={[{
-          type: 'delete',
-          onPress: () => {
-            this._deleteRow(item)
-            this.setState({openIndex:-1})
-          },
-          component: this._renderSwipeOutDeleteBtn(),
-          backgroundColor: '#f6f7f9'
-        }]}
+      <Animatable.View
+        useNativeDriver
+        ref={res => this.handleViewRef['habit' + index] = res}>
+        <Swipeout
+          backgroundColor='white'
+          close={this.state.openIndex !== index}
+          onOpen={() => {
+            this.setState({ openIndex: index })
+          }}
+          right={[{
+            type: 'delete',
+            onPress: () => {
+              this._deleteRow(item,index)
+              this.setState({ openIndex: -1 })
+            },
+            component: this._renderSwipeOutDeleteBtn(),
+            backgroundColor: '#f6f7f9'
+          }]}
         >
-        <StyledButton
-           hitSlop={{top: 0, right: -100, bottom: 0, left: 0}}
-          activeOpacity={1}
-          onPress={() => {
+          <StyledButton
+            hitSlop={{ top: 0, right: -100, bottom: 0, left: 0 }}
+            activeOpacity={1}
+            onPress={() => {
 
-            const { selfUser } = this.props
-            if (iCard.user === selfUser.objectId) {
-              this.setState({
-                isDateTimePickerVisible: true,
-                time: notifyTime,
-                selectItem: item,
-              })
-            } else {
-              Toast.show('追随他人习惯,只有自己的卡片有权限修改哦~!')
-            }
+              const { selfUser } = this.props
+              if (iCard.user === selfUser.objectId) {
+                this.setState({
+                  isDateTimePickerVisible: true,
+                  time: notifyTime,
+                  selectItem: item,
+                })
+              } else {
+                Toast.show('追随他人习惯,只有自己的卡片有权限修改哦~!')
+              }
 
 
-          }}>
-          <StyledRowInner>
-            <StyledLine/>
-            <StyledRound/>
-            <StyledTime>
-              {notifyTime}
-            </StyledTime>
-            <StyledIconView color={'#f6f7f9'}>
-              <StyledIconImage
-                size={25}
-                source={svgs[name]}
-                resizeMode={'contain'}
-               />
-            </StyledIconView>
-            <StyledRowDis>
-              <StyledName numberOfLines={2}>
-                {title}
-              </StyledName>
-              <StyledDays>
-                {daysText(recordDay)}
-              </StyledDays>
-            </StyledRowDis>
-          </StyledRowInner>
-          <StyledSwitch
-            {...propsColor}
-            onValueChange={(value) => {
-            this.props.remind(id, value)
-          }} value={value}/>
+            }}>
+            <StyledRowInner>
+              <StyledLine/>
+              <StyledRound/>
+              <StyledTime>
+                {notifyTime}
+              </StyledTime>
+              <StyledIconView color={'#f6f7f9'}>
+                <StyledIconImage
+                  size={25}
+                  source={svgs[name]}
+                  resizeMode={'contain'}
+                />
+              </StyledIconView>
+              <StyledRowDis>
+                <StyledName numberOfLines={2}>
+                  {title}
+                </StyledName>
+                <StyledDays>
+                  {daysText(recordDay)}
+                </StyledDays>
+              </StyledRowDis>
+            </StyledRowInner>
+            <StyledSwitch
+              {...propsColor}
+              onValueChange={(value) => {
+                this.props.remind(id, value)
+              }} value={value}/>
 
-        </StyledButton>
-      </Swipeout>
+          </StyledButton>
+        </Swipeout>
+      </Animatable.View>
     )
 
   }

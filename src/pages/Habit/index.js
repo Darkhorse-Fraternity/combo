@@ -40,6 +40,7 @@ import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
+import * as Animatable from 'react-native-animatable';
 
 const Archive = IUSE + "archive"
 
@@ -67,7 +68,7 @@ const Archive = IUSE + "archive"
         include: ICARD + ',iCard.user'
       }, IUSE))
     },
-    stop: async (data) => {
+    stop: async (data, handleView) => {
       const id = data.objectId
       const param = {
         statu: 'stop',
@@ -81,9 +82,12 @@ const Archive = IUSE + "archive"
       }
 
       dispatch(addNormalizrEntity(IUSE, entity))
-      dispatch(claerByID(IUSE, id))
+      await handleView && handleView.fadeOutLeft(1000)
+      await dispatch(claerByID(IUSE, id))
+      await handleView && handleView.fadeIn(300)
+      return res
     },
-    delete: async (objectId) => {
+    delete: async (objectId,handleView) => {
       // await remove(objectId,IUSE)
       // 做伪删除
 
@@ -101,8 +105,11 @@ const Archive = IUSE + "archive"
               ...res
             }
             dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE, objectId))
-            dispatch(claerByID(IRECORD, objectId))
+            await handleView && handleView.fadeOutLeft(1000)
+            await dispatch(claerByID(IUSE, objectId))
+            await dispatch(claerByID(IRECORD, objectId))
+            await handleView && handleView.fadeIn(300)
+            return res;
           }
         }]
       )
@@ -179,8 +186,11 @@ export default class Habit extends PureComponent {
     )
   }
 
+
+  handleViewRef = {}
   __renderItem = ({ item, index }) => {
 
+    const self = this
     // if (item === -1) {
     //     return <StopCell title='查看已归档的卡片'
     //                      des='重新打卡点这里'
@@ -198,65 +208,74 @@ export default class Habit extends PureComponent {
     const isSelf = iCard.get('user') === this.props.user.objectId
 
     return (
-      <Swipeout
-        backgroundColor='white'
-        close={this.state.openIndex !== index}
-        onOpen={() => {
-          this.setState({ openIndex: index })
-        }}
-        right={[isSelf ? {
-          type: 'secondary',
-          onPress: () => {
-            this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
-          backgroundColor: '#e0f2f1'
-        } : {
-          type: 'secondary',
-          onPress: () => {
-            this.props.navigation.navigate('cardSetting',
-              { iCardId, iUseId: item })
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
-          backgroundColor: '#e0f2f1'
-        }, {
-          type: 'delete',
-          onPress: () => {
-            this.props.delete(item)
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
-          backgroundColor: '#ffebee'
-        }, {
-          type: 'primary',
-          onPress: () => {
-            this.props.stop(data)
-            this.setState({ openIndex: -1 })
-          },
-          component: this._renderSwipeOutDeleteBtn('归档', '#009afb', 'archive'),
-          backgroundColor: '#e3f2fd'
-        }]}
-      >
-        <Cell
-          // refreshLoad={this.props.refreshLoad}
-          // onLongPress={() => {
-          //     !this.props.load &&
-          //     !done &&
-          //     this.props.done(data)
-          //
-          // }}
-          onPress={() => {
-            this.props.navigation.navigate('card', {
-              iUseId: data.objectId,
-              iCardId: iCard.get('objectId')
-            })
+      <Animatable.View
+        useNativeDriver
+        ref={res => this.handleViewRef['habit' + index] = res}>
+        <Swipeout
+          backgroundColor='white'
+          close={this.state.openIndex !== index}
+          onOpen={() => {
+            this.setState({ openIndex: index })
           }}
-          data={data}
-          iCard={iCard.toJS()}
-        />
-      </Swipeout>);
+          right={[isSelf ? {
+            type: 'secondary',
+            onPress: () => {
+              this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
+              this.setState({ openIndex: -1 })
+            },
+            component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
+            backgroundColor: '#e0f2f1'
+          } : {
+            type: 'secondary',
+            onPress: () => {
+              this.props.navigation.navigate('cardSetting',
+                { iCardId, iUseId: item })
+              this.setState({ openIndex: -1 })
+            },
+            component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
+            backgroundColor: '#e0f2f1'
+          }, {
+            type: 'delete',
+            onPress: () => {
+              this.setState({ openIndex: -1 })
+              const handleView = self.handleViewRef['habit' + index]
+              this.props.delete(item, handleView)
+
+            },
+            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
+            backgroundColor: '#ffebee'
+          }, {
+            type: 'primary',
+            onPress: async () => {
+              this.setState({ openIndex: -1 })
+              const handleView = self.handleViewRef['habit' + index]
+              await this.props.stop(data, handleView)
+              // await self.handleViewRef['habit' + index].fadeOutLeft(800)
+              // handleView && self.handleViewRef['habit' + index].fadeInUp(800)
+            },
+            component: this._renderSwipeOutDeleteBtn('归档', '#009afb', 'archive'),
+            backgroundColor: '#e3f2fd'
+          }]}
+        >
+          <Cell
+            // refreshLoad={this.props.refreshLoad}
+            // onLongPress={() => {
+            //     !this.props.load &&
+            //     !done &&
+            //     this.props.done(data)
+            //
+            // }}
+            onPress={() => {
+              this.props.navigation.navigate('card', {
+                iUseId: data.objectId,
+                iCardId: iCard.get('objectId')
+              })
+            }}
+            data={data}
+            iCard={iCard.toJS()}
+          />
+        </Swipeout>
+      </Animatable.View>);
   }
 
 
@@ -303,6 +322,7 @@ export default class Habit extends PureComponent {
         <FlatList
           refreshing={false}
           onRefresh={() => {
+            this.setState({ openIndex: -1 })
             this.props.search()
           }}
           style={styles.container}

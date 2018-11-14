@@ -145,7 +145,6 @@ export default class ppt extends Component {
         return [
             ...fields.map((ppt, index) => (
                 <StyledItem
-
                     animation="fadeIn"
                     key={'ppt' + index}>
                     {this.renderTipButton(fields, index)}
