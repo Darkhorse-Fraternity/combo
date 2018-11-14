@@ -33,7 +33,8 @@ import {
     StyledTipButtonText,
     StyledReportBtn,
     StyledReportText,
-    StyledIcon
+    StyledIcon,
+    StyledTitleDis
 } from './style'
 import { FieldArray, Field } from 'redux-form/immutable'
 import Button from '../../Button'
@@ -304,6 +305,10 @@ export default class CardPublishForm extends Component {
                     {/*placeholderTextColor='rgb(100,100,100)'*/}
                     {/*placeholder='点此输入标题'/>*/}
 
+
+                    <StyledTitleDis>
+                        所属主题
+                    </StyledTitleDis>
                     <StyledHearderTitle
                         name='keys'
                         ref='keys'
@@ -311,18 +316,23 @@ export default class CardPublishForm extends Component {
                         style={{ fontSize: 15 }}
                         underlineColorAndroid='transparent'
                         placeholderTextColor='rgb(200,200,200)'
-                        placeholder='所属主题,多个之间以 ","相隔离'/>
+                        placeholder='多个之间以 ","相隔离'/>
 
 
+                    <StyledTitleDis>
+                        圈子描述
+                    </StyledTitleDis>
                     <StyledDescribe
                         name='describe'
                         ref='describe'
                         maxLength={500}
                         underlineColorAndroid='transparent'
                         placeholderTextColor='rgb(200,200,200)'
-                        placeholder='圈子描述'/>
+                        placeholder='介绍你的圈子,吸引更多人加入'/>
 
-
+                    <StyledTitleDis>
+                        加入费用(单位元)
+                    </StyledTitleDis>
                     <StyledDescribe
                         name='price'
                         ref='price'
@@ -330,7 +340,7 @@ export default class CardPublishForm extends Component {
                         keyboardType={'numeric'}
                         underlineColorAndroid='transparent'
                         placeholderTextColor='rgb(200,200,200)'
-                        placeholder='加入费用(默认免费),单位元'/>
+                        placeholder='默认免费'/>
 
                     <FieldArray
                         key={'imgs'}

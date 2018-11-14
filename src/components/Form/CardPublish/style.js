@@ -49,11 +49,18 @@ export const StyledHeaderBtn = styled(HeaderBtn)`
 export const StyleImageSelect = styled(ImageSelect)``
 
 
+
+export const StyledTitleDis = styled.Text`
+  margin: 20px 15px 0px 15px;
+  font-size: 13px;
+  color: #2e2e2e;
+`
+
 export const StyledHearderTitle = styled(TextInput)`
-    height: 45px;
+    height: 40px;
     border-bottom-width: ${props => props.theme.hairlineWidth };
     border-bottom-color: #c1c1c1 ;
-    margin: 15px;
+    margin: 5px 15px;
     font-size: 30px;
     background-color: white;
 `
@@ -61,9 +68,9 @@ export const StyledHearderTitle = styled(TextInput)`
 export const StyledDescribe = styled(TextInput)`
     border-bottom-width: ${props => props.theme.hairlineWidth };
     border-bottom-color: #c1c1c1 ;
-    margin: 15px;
-    padding:0px 0px 10px 0px;
-    font-size: 17px;
+    margin: 5px 15px;
+    font-size: 15px;
+    height: 40px;
     background-color: white;
 `
 
