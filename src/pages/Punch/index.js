@@ -185,11 +185,9 @@ export default class Punch extends Component {
       // }}
       onPress={async (flip,doIt) => {
         // const iCardM = iCard.toJS()
-
         //如果没有强制打卡类型，则直接翻转
         if(!flip){
           iCard.get('record').size === 0 && doIt()
-
           if (!this.props.load && !done) {
             await this.props.done(data)
 
@@ -236,8 +234,6 @@ export default class Punch extends Component {
           ListHeaderComponent={this._renderHeader}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
-
-
       </StyledContent>
     ];
   }
@@ -247,51 +243,7 @@ export default class Punch extends Component {
 const width = Dimensions.get('window').width
 const height = Dimensions.get('window').height
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
-  header: {
-    marginTop: 30,
-    flexDirection: 'row',
-    width: width,
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-  },
-
-  // headerBtn: {
-  //     padding: 20,
-  //     paddingHorizontal: 15,
-  // },
-  main: {
-    flex: 1,
-  },
-  loginBg: {
-    width: width,
-    height: height - 64,
-    alignItems: 'center'
-
-  },
-  login: {
-    width: width - 100,
-    height: 300,
-    marginTop: 100,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 12,
-    shadowColor: "#000000",
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    shadowOffset: {
-      height: 1,
-      width: 0.3,
-    },
-    justifyContent: 'space-between',
-    borderTopColor: '#EE7A8D',
-    borderTopWidth: 4,
-  },
   headView: {
-    // height:180,
     marginTop: 44,
     marginBottom: 25,
   },
@@ -300,30 +252,4 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
   },
-  headViewSubText: {
-    marginTop: 10,
-    // marginHorizontal: 20,
-    fontSize: 14,
-  },
-  headViewSub: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    alignItems: 'center',
-    // backgroundColor: "red"
-  },
-  headerBtn: {
-    backgroundColor: 'black',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginTop: 10,
-  },
-  headerBtnText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-
-  }
-
-
 })

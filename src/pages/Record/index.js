@@ -48,7 +48,7 @@ const Archive = IUSE + "archive"
   state => ({
     data: state.list.get(IRECORD),
     iCard: state.normalizr.get(ICARD),
-    user: state.user.data
+    user: state.user.data,
   }),
   dispatch => ({
     refresh: async (data) => {
@@ -159,11 +159,11 @@ export default class Record extends Component {
       console.log('iCardId:', iCardId, iCard);
       return <View/>
     }
-    const days = item.time
+    // const days = item.time
     // const reflesh = item.time === iCard.period || item.statu === 'stop'
     // const cycle = parseInt(item.time / iCard.period)
-    const { img } = iCard
-
+    const { user } = iCard
+    const isSelf = user === this.props.user.objectId
 
     return (
       <Swipeout
@@ -172,7 +172,16 @@ export default class Record extends Component {
         onOpen={() => {
           this.setState({ openIndex: index })
         }}
-        right={[{
+        right={[isSelf?{
+          type: 'secondary',
+          onPress: () => {
+            this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
+            this.setState({ openIndex: -1 })
+            // this._deleteRow(item)
+          },
+          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'settings'),
+          backgroundColor: '#e0f2f1'
+        }:{
           type: 'secondary',
           onPress: () => {
             this.props.navigation.navigate('cardSetting',

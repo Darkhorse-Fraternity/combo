@@ -340,10 +340,10 @@ export default class OptionDo extends PureComponent {
 
     const recordDay = this.__renderDayText(this.props.recordDay)
 
-    const { modify } = this.props
+    // const { modify } = this.props
 
 
-    console.log('this.state.option:', this.state.option);
+    // console.log('this.state.option:', this.state.option);
 
     return (
       // modify && <StyledLogoImage

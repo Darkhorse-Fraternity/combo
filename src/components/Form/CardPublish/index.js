@@ -268,7 +268,7 @@ export default class CardPublishForm extends Component {
 
         <StyledHeader>
           <StyledTitle>
-            卡片介绍
+            圈子介绍
           </StyledTitle>
           <View style={{ flexDirection: 'row' }}>
             <StyledHeaderBtn

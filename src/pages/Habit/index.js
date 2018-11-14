@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component,PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   ScrollView,
@@ -35,11 +35,12 @@ import moment from 'moment'
 import Swipeout from 'react-native-swipeout'
 import { update, search } from '../../redux/module/leancloud'
 
-import { IUSE, IRECORD ,ICARD} from '../../redux/reqKeys'
+import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys'
 import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
+
 const Archive = IUSE + "archive"
 
 @connect(
@@ -47,9 +48,9 @@ const Archive = IUSE + "archive"
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
-
     refreshLoad: state.req.get(IUSE).get("load"),
-    stopIUSEexist: state.req.get('StopIUSEexist')
+    stopIUSEexist: state.req.get('StopIUSEexist'),
+    user: state.user.data
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
@@ -112,8 +113,8 @@ const Archive = IUSE + "archive"
 export default class Habit extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.state={
-      openIndex:-1,
+    this.state = {
+      openIndex: -1,
     }
   }
 
@@ -167,7 +168,7 @@ export default class Habit extends PureComponent {
   }
 
 
-  _renderSwipeOutDeleteBtn = (title,color,name) => {
+  _renderSwipeOutDeleteBtn = (title, color, name) => {
     return (
       <StyledDeleteBtn>
         <StyledIcon size={30} color={color} name={name}/>
@@ -194,42 +195,47 @@ export default class Habit extends PureComponent {
     // console.log('data:', data);
     const iCardId = data[ICARD]
     let iCard = this.props.iCard.get(iCardId)
-
+    const isSelf = iCard.get('user') === this.props.user.objectId
 
     return (
       <Swipeout
         backgroundColor='white'
         close={this.state.openIndex !== index}
-        onOpen={()=>{
-          this.setState({openIndex:index})
+        onOpen={() => {
+          this.setState({ openIndex: index })
         }}
-        right={[{
+        right={[isSelf ? {
+          type: 'secondary',
+          onPress: () => {
+            this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
+            this.setState({ openIndex: -1 })
+          },
+          component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
+          backgroundColor: '#e0f2f1'
+        } : {
           type: 'secondary',
           onPress: () => {
             this.props.navigation.navigate('cardSetting',
-              {iCardId,iUseId:item})
-            this.setState({openIndex:-1})
-            // this._deleteRow(item)
+              { iCardId, iUseId: item })
+            this.setState({ openIndex: -1 })
           },
-          component: this._renderSwipeOutDeleteBtn('更多','#388e3c','more-vert'),
+          component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
           backgroundColor: '#e0f2f1'
-        },{
+        }, {
           type: 'delete',
           onPress: () => {
-            // this._deleteRow(item)
             this.props.delete(item)
-            this.setState({openIndex:-1})
+            this.setState({ openIndex: -1 })
           },
-          component: this._renderSwipeOutDeleteBtn('删除','#f44336','delete'),
+          component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
           backgroundColor: '#ffebee'
-        },{
+        }, {
           type: 'primary',
           onPress: () => {
-            // this._deleteRow(item)
             this.props.stop(data)
-            this.setState({openIndex:-1})
+            this.setState({ openIndex: -1 })
           },
-          component: this._renderSwipeOutDeleteBtn('归档','#009afb','archive'),
+          component: this._renderSwipeOutDeleteBtn('归档', '#009afb', 'archive'),
           backgroundColor: '#e3f2fd'
         }]}
       >
@@ -318,53 +324,12 @@ export default class Habit extends PureComponent {
 
 
 const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
     overflow: 'hidden',
   },
 
-  header: {
-    marginTop: 30,
-    flexDirection: 'row',
-    width: width,
-    justifyContent: 'space-between',
-    paddingHorizontal: 15,
-  },
-
-  // headerBtn: {
-  //     padding: 20,
-  //     paddingHorizontal: 15,
-  // },
-  main: {
-    flex: 1,
-  },
-  loginBg: {
-    width: width,
-    height: height - 64,
-    alignItems: 'center'
-
-  },
-  login: {
-    width: width - 100,
-    height: 300,
-    marginTop: 100,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 12,
-    shadowColor: "#000000",
-    shadowOpacity: 0.3,
-    shadowRadius: 1,
-    shadowOffset: {
-      height: 1,
-      width: 0.3,
-    },
-    justifyContent: 'space-between',
-    borderTopColor: '#EE7A8D',
-    borderTopWidth: 4,
-  },
   headView: {
     // height:180,
     marginTop: 44,
@@ -383,19 +348,5 @@ const styles = StyleSheet.create({
     // marginHorizontal: 20,
     fontSize: 14,
   },
-
-  headerBtn: {
-    backgroundColor: 'black',
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-    marginTop: 10,
-  },
-  headerBtnText: {
-    color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
-
-  }
-
 
 })

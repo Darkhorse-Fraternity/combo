@@ -63,8 +63,8 @@ export default class PunchItem extends Component {
 
   flipDo = () => {
     if (this.props.done !== this.state.flip) {
-      console.log('title2:', this.props.title);
-      console.log('flip2:', this.props.done);
+      // console.log('title2:', this.props.title);
+      // console.log('flip2:', this.props.done);
       this.setState({ flip: this.props.done })
     }
   }
