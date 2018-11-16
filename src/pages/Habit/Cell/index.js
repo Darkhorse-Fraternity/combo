@@ -65,7 +65,6 @@ export default class Cell extends Component {
           </StyledDes>
         </StyledInner>
 
-
       </StyledContent>
 
     );

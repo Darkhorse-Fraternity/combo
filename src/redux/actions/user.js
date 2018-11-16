@@ -47,6 +47,7 @@ import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
 import moment from 'moment'
+import DeviceInfo from 'react-native-device-info'
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c'
 const wechatAppID = 'wx637e6f35f8211c6d'
@@ -99,6 +100,10 @@ const sessionTokenkey = 'sessionToken'
 export function userInfo() {
 
   return async dispatch => {
+
+    const uuid =  DeviceInfo.getUniqueID()
+    console.log('uuid:', uuid);
+
 
     dispatch(_loginRequest());
     const credentials = await Keychain.getGenericPassword();

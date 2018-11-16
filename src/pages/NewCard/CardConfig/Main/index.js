@@ -5,7 +5,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, { Component,PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -17,7 +17,7 @@ import {
   ActivityIndicator
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
-import {icons,colors} from '../Creat/IconAndColorData'
+import { icons, colors } from '../Creat/IconAndColorData'
 import { TextInput } from '../../../../components/Form/Cunstom/index'
 import { Radio, Multiple } from '../../../../components/Form/Select/index'
 import Toast from 'react-native-simple-toast'
@@ -28,10 +28,19 @@ import {
   StyledSubTitle,
   StyledSubTitleView,
   StyledItemText,
-  StyledLogoImage,
-  StyledItemView
+  StyledItemView,
+  StyledTopButton,
+  StyledIconBG,
+  StyledIconImage,
+  StyledTitle,
+  StyledCellButton,
+  StyledCellTitle,
+  StyledCellDiscrib,
+  StyledCellInner,
+  StyledArrow
 } from './style'
 import IconAndColor from '../Creat/IconAndColor'
+import svgs from '../../../../../source/icons'
 
 export const StaticOption = {
   notifyTimes: [],
@@ -39,8 +48,8 @@ export const StaticOption = {
   notifyText: '',
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
-  icon:'sun',
-  color:colors[0],
+  icon: 'sun',
+  color: colors[0],
 }
 
 import {
@@ -57,7 +66,7 @@ import NotifyTimePicker from '../NotifyTimePicker'
   'recordDay',
   'icon',
   'color',
-  )
+)
 
 export default class OptionDo extends PureComponent {
   constructor(props: Object) {
@@ -72,28 +81,30 @@ export default class OptionDo extends PureComponent {
     step: PropTypes.number,
     nextStep: PropTypes.func.isRequired,
   };
-  static defaultProps = {
-  };
-
-
+  static defaultProps = {};
 
 
   __renderItem = (props) => {
     return (
-      <Animatable.View animation="fadeInLeft"
-                       delay={Math.random() * 300}
+      <Animatable.View animation="fadeInUp"
+                       delay={props.index * 100}
       >
-        <Button
+        <StyledCellButton
           onPress={() => {
             this.setState({ type: props.type })
             this.props.nextStep()
-          }}
-          style={[styles.item, styles.shadow]}>
-          <Text
-            numberOfLines={1}>
-            {props.title}
-          </Text>
-        </Button>
+          }}>
+          <StyledCellInner>
+            <StyledCellTitle
+              numberOfLines={1}>
+              {props.title}
+            </StyledCellTitle>
+            <StyledCellDiscrib>
+              {props.discrib}
+            </StyledCellDiscrib>
+          </StyledCellInner>
+          <StyledArrow/>
+        </StyledCellButton>
       </Animatable.View>
     )
   }
@@ -101,8 +112,8 @@ export default class OptionDo extends PureComponent {
 
   __renderTitle = () => {
 
-    return (
-      <Animatable.View animation="fadeInUp">
+    return [
+      <Animatable.View key={'title'} animation="fadeInUp">
 
         <StyledSubTitleView>
           <StyledSubTitle>
@@ -124,8 +135,14 @@ export default class OptionDo extends PureComponent {
           // clearButtonMode='while-editing'
           enablesReturnKeyAutomatically={true}
         />
+      </Animatable.View>,
+      <Animatable.View key={'IconAndColor'}
+                       animation="fadeInUp"
+                       delay={1000}>
+        <IconAndColor/>
       </Animatable.View>
-    )
+
+    ]
 
 
   }
@@ -138,7 +155,7 @@ export default class OptionDo extends PureComponent {
       return (
         <StyledItemView
           contain={selItem === item}
-          style={{width: 60 }}
+          style={{ width: 60 }}
           key={item}>
           <StyledItemText
             contain={selItem === item}>
@@ -234,7 +251,7 @@ export default class OptionDo extends PureComponent {
 
     return (
       <Animatable.View animation="fadeInUp"
-                       delay={Math.random() * 300}
+                       delay={300 + Math.random() * 300}
       >
         <StyledSubTitleView>
           <StyledSubTitle>
@@ -275,7 +292,7 @@ export default class OptionDo extends PureComponent {
       >
         <StyledSubTitleView>
           <StyledSubTitle>
-            打卡日
+            提醒日
           </StyledSubTitle>
         </StyledSubTitleView>
         <Multiple
@@ -309,22 +326,8 @@ export default class OptionDo extends PureComponent {
   }
 
 
-  __renderIconAndColor = () => {
-
-
-
-    return (
-      <Animatable.View animation="fadeInUp"
-                       delay={Math.random() * 300}
-      >
-        <IconAndColor/>
-      </Animatable.View>
-    )
-  }
-
-
   render(): ReactElement<any> {
-    const revise = this.props.revise
+    const { iconAndColor, title } = this.props
     const notifyText = this.props.notifyText && this.props.notifyText.length > 0
       ? this.props.notifyText : '无'
     // console.log('test:', this.props.record);
@@ -351,54 +354,60 @@ export default class OptionDo extends PureComponent {
       //   key={'logo'}/>,
       <ScrollView
         key={'bc'}
-        style={[styles.wrap, this.props.style]}>
+        style={[styles.wrap]}>
 
-        {this.props.step === 0  && (<View style={{flex:1}}>
+        {this.props.step === 0 && (<View style={{ flex: 1 }}>
 
-          <Animatable.View animation="fadeIn">
-            <StyledTitleView>
-              <StyledTitleText>
-                必填项
-              </StyledTitleText>
-            </StyledTitleView>
-          </Animatable.View>
-          <this.__renderItem
-            title={"习惯标题:   " + this.props.title}
-            type="title"
-          />
-          <this.__renderItem
-            title={"卡片图标与颜色"}
-            type="iconAndColor"
-          />
 
-          <Animatable.View animation="fadeIn">
-            <StyledTitleView>
-              <StyledTitleText>
-                选填项
-              </StyledTitleText>
-            </StyledTitleView>
+          <Animatable.View animation="fadeInUp">
+            <StyledTopButton onPress={() => {
+
+              this.setState({ type: 'title' })
+              this.props.nextStep()
+            }}>
+              <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
+                <StyledIconImage
+                  size={40}
+                  source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
+                />
+              </StyledIconBG>
+              <StyledTitle>
+                {title}
+              </StyledTitle>
+            </StyledTopButton>
           </Animatable.View>
 
+
           <this.__renderItem
-            title={"提醒日:   " + recordDay}
+            index={1}
+            title={"提醒日"}
+            discrib={recordDay}
             type="recordDay"
           />
           <this.__renderItem
-            title={"提醒时间:   " + notifyTimes}
+            index={2}
+            title={"提醒时间"}
+            discrib={notifyTimes}
             type="notifyTimes"
-            />
+          />
           <this.__renderItem
-            title={"我的激励:   " + notifyText}
+            index={3}
+            title={"我的激励"}
+            discrib={notifyText}
             type="notifyText"
-            />
+          />
           <this.__renderItem
-            title={"日记要求:   " + record}
+            index={4}
+            title={"日记要求"}
+            discrib={record}
             type="record"
-            />
+          />
           <this.__renderItem
-            title={"卡片周期:   " + this.props.period + '组'}
+            index={5}
+            title={"卡片周期"}
+            discrib={this.props.period + '组'}
             type="period"
-           />
+          />
 
         </View>)}
 
@@ -406,10 +415,6 @@ export default class OptionDo extends PureComponent {
         {this.props.step === 1 &&
         this.state.type === 'title' &&
         this.__renderTitle()}
-
-        {this.props.step === 1 &&
-        this.state.type === 'iconAndColor' &&
-        this.__renderIconAndColor()}
 
 
         {this.props.step === 1 &&
@@ -442,32 +447,8 @@ const styles = StyleSheet.create({
   wrap: {
     flex: 1,
   },
-  item: {
-    marginTop: 7.5,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 15,
-    alignSelf: 'flex-start',
-    marginBottom: 7.,
-    marginRight: 55,
-  },
-  done: {
-    marginTop: 7.5,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    padding: 10,
-    alignSelf: 'flex-end',
-    marginBottom: 7.5,
-    marginLeft: 5,
-  },
 
-  shadow: {
-    shadowColor: '#979797',
-    shadowOpacity: 0.5,
-    shadowOffset: { width: 2, height: 4 },
-    shadowRadius: 5,
-    elevation: 3
-  },
+
 
   notifyTimeView: {
 
@@ -490,7 +471,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     // width:200,
     // marginLeft: 0,
-    backgroundColor:'transparent',
+    backgroundColor: 'transparent',
     height: 168,
     fontSize: 17,
     textAlignVertical: 'top',

@@ -3,6 +3,7 @@
  * @flow
  */
 
+
 'use strict';
 
 import styled from "styled-components";
@@ -12,11 +13,13 @@ import {
 } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Button from '../../../../components/Button'
 // export const StyledContent = styled.View`
 //     flex: 1;
 //     background-color: white;
 // `
 import { materialColors } from 'react-native-typography'
+// import { Button } from "../../../../../source/font/Iconfont";
 
 export const StyledTitleView = styled.View`
   padding: 20px 5px 5px 10px;
@@ -33,9 +36,6 @@ export const StyledContent = styled.View`
     padding: 80px 0px;
 `
 
-export const StyledInnerView = styled.ScrollView`
-
-`
 
 
 export const StyledItemView = styled.View`
@@ -88,67 +88,70 @@ export const StyledShowDelete = styled.Text`
 
 //NotifyTimerPicker
 
-export const StyledNotifyButton = styled(TouchableOpacity)`
-    margin: 2px 5px 0px 0px;
-    width: 75px;
-   height: 75px;
+
+
+
+export const StyledTopButton = styled(Button)`
     align-items: center;
-  justify-content: center;
+    padding: 10px;
+    margin-top: 20px;
 `
 
-export const StyledNotifyButtonInner = styled.View`
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  border-radius: 10px;
-  width: 60px;
-  height: 60px;
+export const StyledIconBG = styled.View`
+   height:62px;
+   width: 62px;
+   background-color: ${props => props.color};
+   align-items: center;
+   justify-content: center; 
+   border-radius: 5px;  
+    shadow-opacity: 0.6;
+    shadow-radius:3px;
+    shadow-color: ${props => props.color};
+    shadow-offset: 2px 2px; 
 `
 
-export const StyledMaterialIcons = styled(MaterialIcons)`
-   color:${materialColors.blackSecondary}
+export const StyledIconImage = styled.Image`
+  width: ${props => props.size};
+   height: ${props => props.size};
 `
 
-export const StyledIonicons = styled(Ionicons)`
-
+export const StyledTitle = styled.Text`
+    margin-top: 5px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
 `
 
-export const StyledRound = styled.View`
-  align-items: center;
-  justify-content: center;
-  background-color: orangered;
-  width: 15px;
-  height: 15px;
-  border-radius: 7.5px;
-  margin-left: 47.5px;
-  z-index: 100;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-`
-export const StyledLine = styled.View`
-  width: 8px;
-  height: 3px;
-  background-color: white;
-`
-
-export const StyledInner = styled.View`
-     flex-direction: row;
-     align-items: center;
-     flex-wrap: wrap;
-     padding: 0px 10px ;
-`
-
-export const StyledNotifyTime = styled.Text`
-    text-align: center;
-    color:${materialColors.blackSecondary}
+export const StyledCellButton = styled(Button)`
+    margin: 7.5px;
+    padding: 15px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 `
 
 
-export const StyledLogoImage = styled.Image`
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  top: 50px;
-  right: 10px;
+export const StyledCellInner = styled.View`
+
+`
+
+export const StyledCellTitle = styled.Text`
+     font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+`
+
+export const StyledCellDiscrib = styled.Text`
+    margin-top: ${Platform.OS === 'ios'?5:2 };
+    color: #888888;
+    font-size: 15px;
+    font-style: italic;
+`
+
+export const StyledArrow = styled.View`
+  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
+  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-color: #8c8c85;
+  transform: rotate(315deg);
+  width: 10px;
+  height: 10px;
 `
