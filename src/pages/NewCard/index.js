@@ -23,7 +23,7 @@ import Button from '../../components/Button'
 import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
-import CardRow from './CardRow'
+import CardCell from './CardCell'
 import {
   StyledTitleView,
   StyledTitleText,
@@ -70,13 +70,15 @@ export default class Publish extends Component {
   renderRow({ item, index }: Object) {
 
     // console.log('test:', item);
-
+    const {iconAndColor,title,img} = item
+    const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' }
 
     return (
-      <CardRow
-        title={item.title}
-        des={item.notifyText||'和我一起养成好习惯!'}
-        img={item.img}
+      <CardCell
+        title={title}
+        name={name}
+        color={color}
+        img={img}
         onPress={() => {
           this.props.navigation.navigate('cardInfo', { iCardId: item.objectId })
         }}/>
@@ -87,16 +89,6 @@ export default class Publish extends Component {
   _listHeaderComponet = () => {
     return (
       <View>
-        {/*<Button*/}
-        {/*style={[styles.itemAdd, styles.shadow]}*/}
-        {/*onPress={() => {*/}
-        {/*this.props.navigation.navigate('creat')*/}
-        {/*}}>*/}
-
-        {/*<Icon name="md-add" size={50}/>*/}
-        {/*<Text style={styles.period}>新建卡片</Text>*/}
-        {/*</Button>*/}
-
         <StyledHeader>
           <StyledHeaderText>
             「 种一棵树最好的时间是十年前，其次是现在。 」
@@ -111,7 +103,7 @@ export default class Publish extends Component {
 
         <StyledTitleView>
           <StyledTitleText>
-            热门推荐
+            圈子推荐
           </StyledTitleText>
         </StyledTitleView>
       </View>
@@ -127,7 +119,7 @@ export default class Publish extends Component {
         reqKey={listKey} //在normalizr 中的位置
         sKey={CARDLIST}  //在list 中的位置
         callPath={CARDLIST} //表示走云函数,并告知云函数的路径
-        numColumns={2}
+        numColumns={4}
         columnWrapperStyle={{ padding: 10 }}
         renderItem={this.renderRow.bind(this)}
         dataMap={(data) => {

@@ -51,7 +51,7 @@ export default class BaseSectionView extends Component {
     noDataImg: PropTypes.number,
     noDataPrompt: PropTypes.string,
     noDataTips: PropTypes.string,
-    tipTap:PropTypes.func
+    tipTap: PropTypes.func
   };
 
   static defaultProps = {
@@ -60,7 +60,8 @@ export default class BaseSectionView extends Component {
     // noDataImg: require('../../../source/img/xy_course/xy_course.png'),
     noDataPrompt: "空空如也~",
     type: 'list',
-    data: []
+    data: [],
+    sections: [],
   };
 
 
@@ -135,19 +136,21 @@ export default class BaseSectionView extends Component {
 
     // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
 
-    const hasData = this.props.data.length > 0
+    const { loadStatu, data, sections } = this.props
+
+    const hasData = sections.length > 0 || data.length > 0
 
     // console.log('data:',this.props.data, hasData);
 
 
-    if (this.props.loadStatu === LIST_LOAD_MORE) {
+    if (loadStatu === LIST_LOAD_MORE) {
       return (
         <View style={styles.footer}>
           <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
                              animating={true}/>
         </View>
       );
-    } else if (hasData && this.props.loadStatu === LIST_LOAD_NO_MORE &&
+    } else if (hasData && loadStatu === LIST_LOAD_NO_MORE &&
       this.state.shouldShowloadMore) {
 
       return (
@@ -171,47 +174,36 @@ export default class BaseSectionView extends Component {
 
   render() {
     // const refreshable = this.props.refreshable && this.props.loadData;
-    const type = this.props.type
-    // const TableView = type == 'section' ? SectionList : FlatList
-    let TableView = FlatList
-    const data = this.props.data
-    if (type !== 'list') {
-      TableView = SectionList
-    }
 
-    // if (!this.props.ListHeaderComponent &&
-    //     this.joinTime < 2 &&
-    //     this.props.loadStatu !== LIST_LOAD_NO_MORE &&
-    //     this.props.loadStatu !== LIST_NORMAL
-    // ) {
-    //     return (
-    //         <ExceptionView
-    //             renderHeader={this.props.ListHeaderComponent}
-    //             exceptionType={ExceptionType.Loading}
-    //             image={this.props.noDataImg}
-    //             style={[styles.list, this.props.style]}
-    //         />
-    //     );
-    // }  else if (this.props.loadStatu === LIST_LOAD_ERROR &&
-    //     this.props.data.length === 0) {
-    //     //TODO:先不加，其他状态量判断太麻烦。
-    // }
+    const {
+      sections,
+      data,
+      loadStatu,
+      tipTap,
+      noDataImg,
+      noDataPrompt,
+      tipBtnText,
+      style,
+      ...otherProps
+    }= this.props
+    const TableView = sections.length>0 ? SectionList : FlatList
 
-    // console.log('this.joinTime:', this.joinTime ,this.props.loadStatu);
+    console.log('data:', data);
 
-
-    const refreshing = this.props.loadStatu === LIST_LOAD_DATA
-      && data.length > 0 && this.openRefreshing
+    const exceptionViewRefreshing = loadStatu === LIST_LOAD_DATA
+    const refreshing = loadStatu === LIST_LOAD_DATA
+      && this.openRefreshing && (sections.length > 0 || data.length > 0)
 
     // console.log('refreshing:', refreshing);
-    const exceptionViewRefreshing =
-      this.props.loadStatu === LIST_LOAD_DATA
+
 
     return (
       <TableView
+        {...otherProps}
+        data={data}
+        sections={sections}
         refreshing={refreshing}
         onScroll={this.onScroll.bind(this)}
-        sections={this.props.data}
         onRefresh={() => {
           this.openRefreshing = true;
           this._handleRefresh()
@@ -224,22 +216,21 @@ export default class BaseSectionView extends Component {
           <ExceptionView
             styles={styles.exceptionViewStyle}
             refresh={exceptionViewRefreshing}
-            tipBtnText={this.props.tipBtnText}
+            tipBtnText={tipBtnText}
             exceptionType={
               exceptionViewRefreshing ? ExceptionType.Loading :
                 ExceptionType.NoData}
-            image={this.props.noDataImg}
+            image={noDataImg}
             prompt={exceptionViewRefreshing ?
               '正在加载~' :
-              this.props.noDataPrompt}
+              noDataPrompt}
             // otherTips={this.renderNoDataTips()}
-            onRefresh={this.props.tipTap?this.props.tipTap:this._handleRefresh}
+            onRefresh={tipTap ? tipTap : this._handleRefresh}
             {...this.props}
           />
 
         )}
-        {...this.props}
-        style={[styles.list, this.props.style]}
+        style={[styles.list,style]}
         onEndReachedThreshold={Platform.OS === 'ios' ? 0.1 : 0.1}
       />
     );
@@ -254,16 +245,6 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
     backgroundColor: 'white',
-  },
-
-  otherTips: {
-    marginTop: 27,
-    marginLeft: 43,
-    marginRight: 43,
-    fontSize: 13,
-    color: '#9e9e9e',
-    lineHeight: 26,
-    textAlign: 'center'
   },
 
   footer: {
