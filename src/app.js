@@ -20,7 +20,7 @@ import {route} from './pages'
 const AppNavigator = creatAppNavigator(route)
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
-
+import Toast from 'react-native-simple-toast'
 
 // import App from './components/js/App'
 @codePush
@@ -61,6 +61,7 @@ export default class App extends Component {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
+    Toast.show('stagin')
   }
 
   render() {

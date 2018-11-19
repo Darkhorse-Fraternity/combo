@@ -120,7 +120,7 @@ export default class Publish extends Component {
         sKey={CARDLIST}  //在list 中的位置
         callPath={CARDLIST} //表示走云函数,并告知云函数的路径
         numColumns={4}
-        columnWrapperStyle={{ padding: 10 }}
+        columnWrapperStyle={{ padding: 5 }}
         renderItem={this.renderRow.bind(this)}
         dataMap={(data) => {
           return { results: data.result }

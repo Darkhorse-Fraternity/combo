@@ -16,7 +16,6 @@ import com.facebook.react.ReactApplication;
 import com.calendarevents.CalendarEventsPackage;
 import me.listenzz.modal.TranslucentModalReactPackage;
 import com.microsoft.codepush.react.CodePush;
-import com.horcrux.svg.SvgPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.banli17.RNUpdateAppPackage;
 import com.reactlibrary.AlipayPackage;

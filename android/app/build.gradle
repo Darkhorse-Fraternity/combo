@@ -184,7 +184,6 @@ dependencies {
     compile project(':react-native-calendar-events')
     compile project(':react-native-modal-translucent')
     compile project(':react-native-code-push')
-    compile project(':react-native-svg')
     implementation project(':react-native-i18n')
     implementation project(':react-native-update-app')
     def googlePlayServicesVersion = project.hasProperty('googlePlayServicesVersion') ? project.googlePlayServicesVersion : DEFAULT_GOOGLE_PLAY_SERVICES_VERSION

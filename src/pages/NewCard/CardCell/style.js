@@ -28,7 +28,7 @@ const colors = {
 const IS_IOS = Platform.OS === 'ios';
 const { width } = Dimensions.get('window');
 
-const slideWidth = width/4;
+const slideWidth = (width -10)/4;
 const slideHeight = slideWidth;
 
 const entryBorderRadius = 8;
