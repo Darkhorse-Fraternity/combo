@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
     View,
@@ -49,7 +49,7 @@ import { denormalize } from 'normalizr'
     }
 )
 
-export default class LCList extends Component {
+export default class LCList extends PureComponent {
     constructor(props: Object) {
         super(props);
     }
@@ -65,13 +65,10 @@ export default class LCList extends Component {
     static defaultProps = {
         data: immutable.fromJS({
             listData: [],
-            //loadStatu: 'LIST_NORMAL',
         }),
     };
 
-    shouldComponentUpdate(nextProps: Object) {
-        return !immutable.is(this.props, nextProps)
-    }
+
 
     componentWillReceiveProps(nextProps: Object) {
 

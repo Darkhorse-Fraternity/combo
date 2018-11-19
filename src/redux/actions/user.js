@@ -195,7 +195,8 @@ function _addSample(user) {
     const { createdAt, updatedAt, objectId } = user
     const createdAtTime = (new Date(createdAt)).getTime()
     const updatedAtTime = (new Date(updatedAt)).getTime()
-    if (updatedAtTime - createdAtTime < 10000) {
+    console.log('time:', updatedAtTime,createdAtTime);
+    if (updatedAtTime - createdAtTime < 5000) {
       //生成一个icard
       dispatch(loginLoad(true))
       const iCards = iCardSample(objectId)
@@ -268,12 +269,13 @@ export function register(state: Object): Function {
     dispatch(_loginRequest());
 
     try {
-      const response = await get(params)
-      await dispatch(_loginSucceed(response));
+      const user = await get(params)
+      await dispatch(_loginSucceed(user));
+      await dispatch(_addSample(user))
       dispatch(NavigationActions.navigate({
         routeName: 'tab'
       }))
-      return response
+      return user
     } catch (e) {
       Toast.show(e.message)
       return dispatch(_loginFailed());
@@ -300,11 +302,10 @@ function _loginSucceed(response: Object): Object {
     if (response) {
       const { sessionToken = '', username = '' } = response
       Keychain.setGenericPassword(username, sessionToken);
-      const res = await  dispatch(loginSucceed(response));
+      return  dispatch(loginSucceed(response));
 
-      await dispatch(_addSample(response))
 
-      return res
+
     }
   }
 
@@ -448,6 +449,7 @@ export function weChatLogin(Key) {
       const user = await get(userInfoParmas)
       if (user.sessionToken) {
         await dispatch(_loginSucceed(user));
+        await dispatch(_addSample(user))
         dispatch(NavigationActions.navigate({
           routeName: 'tab',
           params: { transition: 'forVertical' }
@@ -513,6 +515,7 @@ export function qqLogin(Key) {
       const user = await get(userInfoParmas)
       if (user.sessionToken) {
         await  dispatch(_loginSucceed(user));
+        await dispatch(_addSample(user))
         dispatch(NavigationActions.navigate({
           routeName: 'tab',
           params: { transition: 'forVertical' }
