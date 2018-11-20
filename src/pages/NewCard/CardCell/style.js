@@ -44,17 +44,15 @@ export const StyledContent = styled(TouchableBounce)`
 
 
 export const StyledImageBack = styled.View`
-  padding: 10px;
   background-color: ${props => props.color};
   border-radius: 10px;
-
+  padding: 10px;
 `
 
 export const StyledImage = styled.Image`
     width: 30px;
     height: 30px;
-    border-radius: ${IS_IOS ? entryBorderRadius : 0}px;
-    
+   
 `
 
 export const StyledInnerView = styled.View`
@@ -71,10 +69,10 @@ export const StyledDes = styled.Text`
 export const StyledTitle = styled.Text`
     color: #1a1917;
     font-size: 11px;
-    font-weight: bold;
     letter-spacing: 0.5px;
-    margin-top: 5px;
+    margin-top: 3px;
     max-width: 100px;
+    line-height: 14px;
 `
 
 

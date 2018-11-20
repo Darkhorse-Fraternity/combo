@@ -4,6 +4,10 @@ import DeviceInfo from 'react-native-device-info'
 import { Platform } from 'react-native'
 import { openCollet } from '../../request/leanCloud'
 import { send } from '../../request'
+import { NativeModules } from 'react-native';
+
+const { RNAppUtil } = NativeModules;
+
 
 function getActiveRouteName(navigationState) {
   if (!navigationState) {
@@ -42,11 +46,11 @@ const tracking = ({ getState }) => next => (action) => {
 export default tracking;
 
 
-const client = () => {
+const client =  async () => {
   const uniqueId = DeviceInfo.getUniqueID();
   const platform = Platform.OS === 'ios' ? 'iOS' : 'Android'
   const app_version = DeviceInfo.getVersion()
-  const app_channel = Platform.OS === 'ios' ? 'appStore' : ''
+  const app_channel = Platform.OS === 'ios' ? 'appStore' : await RNAppUtil.getAppMetadataBy("TD_CHANNEL_ID")
   const os_version = DeviceInfo.getSystemVersion();
   const device_brand = DeviceInfo.getBrand();
   const device_model = DeviceInfo.getModel();

@@ -11,8 +11,8 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+// import Ionicons from 'react-native-vector-icons/Ionicons'
 import Button from '../../../../components/Button'
 // export const StyledContent = styled.View`
 //     flex: 1;
@@ -21,9 +21,7 @@ import Button from '../../../../components/Button'
 import { materialColors } from 'react-native-typography'
 // import { Button } from "../../../../../source/font/Iconfont";
 
-export const StyledTitleView = styled.View`
-  padding: 20px 5px 5px 10px;
-`
+
 
 export const StyledTitleText = styled.Text`
   font-size: 15px;
@@ -115,8 +113,21 @@ export const StyledIconImage = styled.Image`
    height: ${props => props.size};
 `
 
+export const StyledTitleView = styled.View`
+  align-items: center;
+  flex-direction: row;
+   margin-top: 5px;
+  
+`
+
+export const StyledIcon = styled(FontAwesome)`
+    align-self: center;
+    margin-left: 5px;
+    
+`
+
 export const StyledTitle = styled.Text`
-    margin-top: 5px;
+   
     font-size: 15px;
     letter-spacing: 0.5px;
 `

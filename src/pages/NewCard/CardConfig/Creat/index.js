@@ -97,8 +97,8 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
           - moment(b, 'HH:mm'))
 
       const param = {
-        title:op.title,
-        period:op.period,
+        title: op.title,
+        period: op.period,
         record: op.record.toJS(),
         recordDay: op.recordDay.toJS(),
         iconAndColor: {
@@ -167,10 +167,12 @@ export default class Creat extends PureComponent {
   }
 
   static propTypes = {
-    title: PropTypes.string
+    title: PropTypes.string,
+    type: PropTypes.string,
   };
   static defaultProps = {
-    title: ''
+    title: '',
+    type: 'custom'
   };
   static navigationOptions = props => {
     // const {navigation} = props;
@@ -201,7 +203,7 @@ export default class Creat extends PureComponent {
   __backStep = () => {
 
     const step = this.state.step
-    if (step === 0) {
+    if (step < 2) {
       this.props.navigation.goBack()
     } else {
       this.setState({ step: step - 1 })
@@ -255,11 +257,11 @@ export default class Creat extends PureComponent {
             <StyledHeaderBtn
               // load={false}
               // disabled={false}
-              backgroundColor={step<2?'#bfc2c7':null}
+              backgroundColor={step < 2 ? '#bfc2c7' : null}
               hitSlop={{ top: 15, left: 10, bottom: 15, right: 10 }}
               onPress={this.__backStep}
-              title={step<2?'取消':'返回'}/>
-            {step<2 && <StyledHeaderBtn
+              title={step < 2 ? '取消' : '返回'}/>
+            {step < 2 && <StyledHeaderBtn
               load={this.props.load || this.props.iUseLoad}
               // disabled={false}
               // backgroundColor={color}
@@ -282,7 +284,6 @@ export default class Creat extends PureComponent {
         </StyledInnerScrollView>}
 
         <StyledInnerView>
-
 
 
           {this.state.step >= 1 &&

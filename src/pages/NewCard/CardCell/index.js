@@ -55,8 +55,8 @@ export default class CardCell extends Component {
     // const {  iconAndColor,title ,recordDay} = iCard
     // const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
 
-    const source = img ? { uri: img.url } :
-      require('../../../../source/img/my/icon-60.png')
+    // const source = img ? { uri: img.url } :
+    //   require('../../../../source/img/my/icon-60.png')
 
 
     return (

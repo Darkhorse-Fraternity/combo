@@ -195,7 +195,7 @@ function _addSample(user) {
     const { createdAt, updatedAt, objectId } = user
     const createdAtTime = (new Date(createdAt)).getTime()
     const updatedAtTime = (new Date(updatedAt)).getTime()
-    console.log('time:', updatedAtTime,createdAtTime);
+    // console.log('time:', updatedAtTime,createdAtTime);
     if (updatedAtTime - createdAtTime < 5000) {
       //生成一个icard
       dispatch(loginLoad(true))
@@ -214,7 +214,7 @@ function _addSample(user) {
       iUseReq.push(classCreatNewOne('iUse', iUseParam))
       const iUseBatch = classBatch(iUseReq)
       await get(iUseBatch)
-      dispatch(loginLoad(false))
+     return  dispatch(loginLoad(false))
     }
   }
 }

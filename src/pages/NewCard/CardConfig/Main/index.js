@@ -23,7 +23,6 @@ import { Radio, Multiple } from '../../../../components/Form/Select/index'
 import Toast from 'react-native-simple-toast'
 import { mainColor } from '../../../../Theme/index'
 import {
-  StyledTitleView,
   StyledTitleText,
   StyledSubTitle,
   StyledSubTitleView,
@@ -37,7 +36,9 @@ import {
   StyledCellTitle,
   StyledCellDiscrib,
   StyledCellInner,
-  StyledArrow
+  StyledArrow,
+  StyledTitleView,
+  StyledIcon
 } from './style'
 import IconAndColor from '../Creat/IconAndColor'
 import svgs from '../../../../../source/icons'
@@ -126,7 +127,7 @@ export default class OptionDo extends PureComponent {
           placeholderTextColor="rgba(180,180,180,1)"
           selectionColor={mainColor}
           returnKeyType='done'
-          autoFocus={true}
+          autoFocus={false}
           maxLength={50}
           //keyboardType={boardType}
           style={[styles.textInputTitle]}
@@ -138,7 +139,7 @@ export default class OptionDo extends PureComponent {
       </Animatable.View>,
       <Animatable.View key={'IconAndColor'}
                        animation="fadeInUp"
-                       delay={1000}>
+                       delay={500}>
         <IconAndColor/>
       </Animatable.View>
 
@@ -168,7 +169,7 @@ export default class OptionDo extends PureComponent {
       <Animatable.View animation="fadeInUp">
         <StyledSubTitleView>
           <StyledSubTitle>
-            卡片周期
+            习惯周期
           </StyledSubTitle>
         </StyledSubTitleView>
         <Radio
@@ -355,7 +356,7 @@ export default class OptionDo extends PureComponent {
       <ScrollView
         key={'bc'}
         style={[styles.wrap]}>
-
+t
         {this.props.step === 0 && (<View style={{ flex: 1 }}>
 
 
@@ -371,9 +372,12 @@ export default class OptionDo extends PureComponent {
                   source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
                 />
               </StyledIconBG>
-              <StyledTitle>
-                {title}
-              </StyledTitle>
+              <StyledTitleView>
+                <StyledTitle>
+                  {title}
+                </StyledTitle>
+                <StyledIcon size={15} name={'edit'}/>
+              </StyledTitleView>
             </StyledTopButton>
           </Animatable.View>
 
@@ -404,7 +408,7 @@ export default class OptionDo extends PureComponent {
           />
           <this.__renderItem
             index={5}
-            title={"卡片周期"}
+            title={"习惯周期"}
             discrib={this.props.period + '组'}
             type="period"
           />
@@ -447,7 +451,6 @@ const styles = StyleSheet.create({
   wrap: {
     flex: 1,
   },
-
 
 
   notifyTimeView: {

@@ -7,22 +7,16 @@ import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-import com.oblador.vectoricons.VectorIconsPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
 import com.avos.avoscloud.AVOSCloud;
+import com.banli17.RNUpdateAppPackage;
+import com.calendarevents.CalendarEventsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
+import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
-import com.calendarevents.CalendarEventsPackage;
-import me.listenzz.modal.TranslucentModalReactPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
-import com.banli17.RNUpdateAppPackage;
-import com.reactlibrary.AlipayPackage;
-import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.oblador.keychain.KeychainPackage;
-import com.rnfs.RNFSPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -30,7 +24,13 @@ import com.facebook.soloader.SoLoader;
 import com.github.yamill.orientation.OrientationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.microsoft.codepush.react.CodePush;
+import com.oblador.keychain.KeychainPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.reactlibrary.AlipayPackage;
+import com.rnfs.RNFSPackage;
 import com.theweflex.react.WeChatPackage;
+import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
 import com.wix.interactable.Interactable;
 import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
@@ -39,9 +39,9 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
-
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
+import me.listenzz.modal.TranslucentModalReactPackage;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
     private Intent mIntent;
@@ -67,10 +67,10 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new CalendarEventsPackage(),
-            new TranslucentModalReactPackage(),
+                    new RNAppUtilPackage(),
+                    new CalendarEventsPackage(),
+                    new TranslucentModalReactPackage(),
                     new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
-                    new SvgPackage(),
                     new RNI18nPackage(),
                     new AlipayPackage(),
                     new AutoGrowTextInputPackage(),
