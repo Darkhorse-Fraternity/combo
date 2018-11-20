@@ -69,6 +69,7 @@
 		CCA715932019C9DA00A25FB9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCFBC8061FEA79D000DA269C /* InfoPlist.strings */; };
 		CCA715942019C9DA00A25FB9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		CCA7159D2019C9DA00A25FB9 /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
+		CCB9FFCD21A40303005BD7C5 /* RNAppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = CCB9FFCB21A40303005BD7C5 /* RNAppUtil.m */; };
 		CCBA7CAA20B6D18D006F00DF /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBA7CA520B6D160006F00DF /* libRNDeviceInfo.a */; };
 		CCBA7CAB20B6D1A3006F00DF /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBA7CA520B6D160006F00DF /* libRNDeviceInfo.a */; };
 		CCBA7CAE20B6D2E0006F00DF /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4E42A41DF59F1F005783A6 /* libRNImagePicker.a */; };
@@ -714,6 +715,8 @@
 		CC9F956B20BE914700FE5469 /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		CCA664661DFFFFC400BD9511 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCA715A52019C9DA00A25FB9 /* ComboEp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComboEp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCB9FFCB21A40303005BD7C5 /* RNAppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNAppUtil.m; sourceTree = "<group>"; };
+		CCB9FFCC21A40303005BD7C5 /* RNAppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNAppUtil.h; sourceTree = "<group>"; };
 		CCBA7C6F20B6D160006F00DF /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		CCCE41C22064A0F000F282E3 /* Combo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Combo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCFBC8051FEA79D000DA269C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -945,6 +948,7 @@
 		13B07FAE1A68108700A75B9A /* Combo */ = {
 			isa = PBXGroup;
 			children = (
+				CCB9FFCA21A402AA005BD7C5 /* Util */,
 				CCFBC84B1FEA7B2200DA269C /* Config */,
 				CC01F7A51FD6826F00A18EFD /* Source */,
 				CC4548E71E03FBAC00A6CE93 /* Combo.entitlements */,
@@ -1294,6 +1298,16 @@
 				CCA6646E1DFFFFC400BD9511 /* libRCTCameraRoll.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CCB9FFCA21A402AA005BD7C5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				CCB9FFCC21A40303005BD7C5 /* RNAppUtil.h */,
+				CCB9FFCB21A40303005BD7C5 /* RNAppUtil.m */,
+			);
+			name = Util;
+			path = Combo/Util;
 			sourceTree = "<group>";
 		};
 		CCBA7C7020B6D160006F00DF /* Products */ = {
@@ -2281,6 +2295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCB9FFCD21A40303005BD7C5 /* RNAppUtil.m in Sources */,
 				CCCE41892064A0F000F282E3 /* AppDelegate.m in Sources */,
 				CCCE418A2064A0F000F282E3 /* main.m in Sources */,
 				CCCE418B2064A0F000F282E3 /* AppearanceConfig.m in Sources */,

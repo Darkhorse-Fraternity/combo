@@ -50,7 +50,8 @@ const client =  async () => {
   const uniqueId = DeviceInfo.getUniqueID();
   const platform = Platform.OS === 'ios' ? 'iOS' : 'Android'
   const app_version = DeviceInfo.getVersion()
-  const app_channel = Platform.OS === 'ios' ? 'appStore' : await RNAppUtil.getAppMetadataBy("TD_CHANNEL_ID")
+  const app_channel = Platform.OS === 'ios' ? 'appStore' :
+    await RNAppUtil.getAppMetadataBy("TD_CHANNEL_ID")
   const os_version = DeviceInfo.getSystemVersion();
   const device_brand = DeviceInfo.getBrand();
   const device_model = DeviceInfo.getModel();
