@@ -23,6 +23,11 @@
     "cance": "取消",
     "save_success": "保存成功",
     "save_to_local": "保存到本地相册"
+  },
+  "error": {
+    "Unexpected_error_occurred": "意想不到的错误发生",
+    "We_will_need_to_restart_the_app":"我们需要重新启动应用程序",
+    "Restart":"重新启动"
   }
 
 }

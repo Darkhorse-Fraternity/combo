@@ -17,6 +17,8 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
+import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -67,6 +69,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new ReactNativeRestartPackage(),
+            new ReactNativeExceptionHandlerPackage(),
                     new RNAppUtilPackage(),
                     new CalendarEventsPackage(),
                     new TranslucentModalReactPackage(),

@@ -28,6 +28,13 @@ import LightStatuBar from '../Theme/LightStatuBar'
 import InfoBar from '../components/InfoBar'
 import RNUpdate from "react-native-update-app"
 
+//
+import exceptionHandler from './exceptionHandler'
+
+
+
+
+
 @connect(
   state => ({
     nav: state.nav,

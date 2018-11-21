@@ -48,6 +48,11 @@
     "cance": "cance",
     "save_success": "save Success",
     "save_to_local": "Save To Local"
+  },
+  "error": {
+    "Unexpected_error_occurred": "Unexpected error occurred",
+    "We_will_need_to_restart_the_app":"We will need to restart the app",
+    "Restart":"Restart"
   }
 
 }
