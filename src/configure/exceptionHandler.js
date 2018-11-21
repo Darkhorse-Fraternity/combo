@@ -5,6 +5,8 @@ import {
 import {Alert} from 'react-native';
 import RNRestart from 'react-native-restart';
 import { strings } from '../../locales/i18n';
+import { openCollet } from '../request/leanCloud'
+import { send } from '../request'
 const allowInDevMode = false
 
 
@@ -13,11 +15,8 @@ const allowInDevMode = false
 const errorHandler = (e, isFatal) => {
   if (isFatal) {
     //发送错误信息给服务器
-
     const  errorString = `${e.name} ${e.message}`
-
-    console.log('errorString:', errorString);
-
+    uploadErrorString('js',errorString)
     Alert.alert(
       strings('error.Unexpected_error_occurred'),
       strings('error.We_will_need_to_restart_the_app'),
@@ -44,11 +43,33 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 
 setNativeExceptionHandler((errorString) => {
   //发送错误信息给服务器
-  console.log('nativeExceptionHandler:', errorString);
+
+  uploadErrorString('native',errorString)
   //You can do something like call an api to report to dev team here
   // When you call setNativeExceptionHandler, react-native-exception-handler sets a
   // Native Exception Handler popup which supports restart on error in case of android.
   // In case of iOS, it is not possible to restart the app programmatically, so we just show an error popup and close the app.
   // To customize the popup screen take a look at CUSTOMIZATION section.
-
 });
+
+const uploadErrorString = async (from,errorString)=>{
+  console.log('nativeExceptionHandler:',from, errorString);
+  // let params = {
+  //   client: client(),
+  //   session: { id: sessionId() },
+  //   events: [{
+  //     event:from+ "error", // 必须为 _page 表示一次页面访问
+  //     tag:errorString,// 页面名称
+  //     ts: new Date().getTime()
+  //   },{
+  //     event: "_session.close", //必须为 _session.close 表示一次使用结束
+  //     duration: 10000 // 使用时长，单位毫秒
+  //   }]
+  // }
+  //
+  // params = openCollet(params)
+  // // console.log('background:', params);
+  // console.log('params:',params );
+  // let res = await send(params)
+  // console.log('uploadErrorString:', res);
+}
