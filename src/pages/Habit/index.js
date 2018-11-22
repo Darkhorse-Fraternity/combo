@@ -234,11 +234,13 @@ export default class Habit extends PureComponent {
           } : {
             type: 'secondary',
             onPress: () => {
-              this.props.navigation.navigate('cardSetting',
-                { iCardId, iUseId: item })
+              // this.props.navigation.navigate('cardSetting',
+              //   { iCardId, iUseId: item })
+              this.props.navigation.navigate('cardInfo',
+                { iCardId })
               // this.setState({ openIndex: -1 })
             },
-            component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
+            component: this._renderSwipeOutDeleteBtn('查看', '#388e3c', 'info-outline'),
             backgroundColor: '#e0f2f1'
           }, {
             type: 'delete',

@@ -20,11 +20,14 @@ import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
 import RecordRow from '../../Record/RecordRow'
 import Header from '../../Record/RecordRow/Header'
-import { IDO, REPORT } from '../../../redux/reqKeys'
+import { IDO, IUSE } from '../../../redux/reqKeys'
 import { recordDiary } from '../Do/Diary'
 import ShareView from '../../../components/Share/ShareView'
 import Pop from '../../../components/Pop'
-
+import Dialog from '../../../components/Dialog'
+import { classUpdate } from '../../../request/leanCloud'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import { req } from '../../../redux/actions/req'
 const listKey = IDO
 
 
@@ -48,7 +51,42 @@ import { required } from "../../../request/validation";
 
   }),
   (dispatch, props) => ({
-    tipTap: recordDiary
+    tipTap: recordDiary,
+    updatePrivacy: async (data, privacy) => {
+      const id = data.objectId
+      const param = {
+        privacy,
+      }
+      // const res = await update(id, param, IUSE)
+      const lParams = classUpdate(IUSE, id, param)
+      const res = await dispatch(req(lParams, 'updatePrivacy'))
+      const entity = {
+        ...param,
+        ...res,
+      }
+      dispatch(addNormalizrEntity(IUSE, entity))
+    },
+    pickPrivacy: async (iUse, isSelf) => {
+
+
+      const items = isSelf ? [
+        { label: '不对外开放', id: '0' },
+        { label: '对外开放', id: '2' }
+      ] : [
+        { label: '不对外开放', id: '0' },
+        { label: '仅对卡片拥有者开放', id: '1' },
+        { label: '对外开放', id: '2' }
+      ]
+
+      const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy
+
+      return Dialog.showPicker('隐私设置', null, {
+        negativeText: '取消',
+        type: Dialog.listRadio,
+        selectedId: selectedId + "",
+        items: items
+      });
+    }
   })
 )
 
@@ -78,6 +116,7 @@ export default class Circle extends Component {
   __renderHeader = () => {
     const iCard = this.props.iCard.toJS()
     const iUse = this.props.iUse.toJS()
+    const { user } = this.props
     return (
       <StyledHeader>
         {/*<StyledTitleText>*/}
@@ -92,6 +131,31 @@ export default class Circle extends Component {
             添加日记
           </StyledHeaderText>
         </StyledHeaderButton>
+
+        <StyledHeaderButton
+          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+          onPress={async () => {
+            const userId = user.objectId
+            const beUserId = iCard.user
+            const isSelf = userId === beUserId
+            const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf)
+            if (selectedItem) {
+              const { id } = selectedItem;
+              iUse.privacy !== Number(id) &&
+              this.props.updatePrivacy(iUse, Number(id))
+            }
+          }}
+        >
+          <StyledHeaderImage source={
+            iUse.privacy ===
+            Privacy.open ?
+              require('../../../../source/img/circle/privacy_open.png') :
+              require('../../../../source/img/circle/privacy_close.png')}/>
+          <StyledHeaderText>
+            隐私设置
+          </StyledHeaderText>
+        </StyledHeaderButton>
+
         <StyledHeaderButton
           hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
           onPress={() => {
@@ -105,9 +169,10 @@ export default class Circle extends Component {
         >
           <StyledHeaderImage source={require('../../../../source/img/circle/invitation.png')}/>
           <StyledHeaderText>
-           邀请好友
+            邀请好友
           </StyledHeaderText>
         </StyledHeaderButton>
+
       </StyledHeader>
 
     )

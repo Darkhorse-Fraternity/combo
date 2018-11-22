@@ -28,6 +28,7 @@ import moment from 'moment'
 import Main, { StaticOption } from '../Main'
 import Button from '../../../../components/Button'
 import { mainColor } from '../../../../Theme/index'
+
 import {
   reduxForm,
   formValueSelector,
@@ -147,6 +148,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
       dispatch(addListNormalizrEntity(IUSE, addEntity))
       dispatch(popToIndex())
     }),
+
   })
 )
 
@@ -162,17 +164,19 @@ export default class Creat extends PureComponent {
   constructor(props: Object) {
     super(props);
     this.state = {
-      step: 0,
+      step: props.step ,
     }
   }
 
   static propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
+    step: PropTypes.number,
   };
   static defaultProps = {
     title: '',
-    type: 'custom'
+    type: 'custom',
+    step: 0,
   };
   static navigationOptions = props => {
     // const {navigation} = props;

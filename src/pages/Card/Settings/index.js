@@ -284,24 +284,24 @@ export default class Settings extends Component {
           title={' 圈子设置'}/>)}
 
 
-        {iCard.circleState === CircleState.open
-        &&<this._renderItem
-          onPress={async () => {
-            const userId = user.objectId
-            const beUserId = iCard.user
-            const isSelf = userId === beUserId
-            const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf)
-            if (selectedItem) {
-              const { id } = selectedItem;
-              iUse.privacy !== Number(id) &&
-              this.props.updatePrivacy(iUse, Number(id))
-            }
-          }}
-          load={this.props.updatePrivacyLoad}
-          name={iUse.privacy ===
-          Privacy.open ? 'md-unlock' :
-            'md-lock'}
-          title={'隐私设置'}/>}
+        {/*{iCard.circleState === CircleState.open*/}
+        {/*&&<this._renderItem*/}
+          {/*onPress={async () => {*/}
+            {/*const userId = user.objectId*/}
+            {/*const beUserId = iCard.user*/}
+            {/*const isSelf = userId === beUserId*/}
+            {/*const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf)*/}
+            {/*if (selectedItem) {*/}
+              {/*const { id } = selectedItem;*/}
+              {/*iUse.privacy !== Number(id) &&*/}
+              {/*this.props.updatePrivacy(iUse, Number(id))*/}
+            {/*}*/}
+          {/*}}*/}
+          {/*load={this.props.updatePrivacyLoad}*/}
+          {/*name={iUse.privacy ===*/}
+          {/*Privacy.open ? 'md-unlock' :*/}
+            {/*'md-lock'}*/}
+          {/*title={'隐私设置'}/>}*/}
 
         <this._renderItem
           onPress={() => {
