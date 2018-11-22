@@ -10,6 +10,7 @@ import {
   Image,
   RefreshControl,
   Platform,
+  Linking
 } from 'react-native'
 import Button from '../../components/Button/index'
 
@@ -271,8 +272,19 @@ export default class More extends Component {
         })}
 
         {this._renderRow('好评鼓励', false, this.props.rate)}
-        <View style={{ height: 100 }}/>
 
+        <View style={{ height: 25 }}/>
+
+        {this._renderRow('小改变的微博', false, ()=>{
+          Linking.canOpenURL('sinaweibo://').then(supported => { // weixin://  alipay://
+            if (supported) {
+              Linking.openURL('sinaweibo://userinfo?uid=6861885697');
+            } else {
+              navigation.navigate("web",{url:'https://weibo.com/u/6861885697',title:'小改变的微博'});
+            }
+          });
+        })}
+        <View style={{ height: 100 }}/>
       </View>
     )
   }

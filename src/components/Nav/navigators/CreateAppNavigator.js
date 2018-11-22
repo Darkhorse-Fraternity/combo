@@ -1,8 +1,6 @@
 import React from 'react';
 import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/StaticTab'
-import WebView from '../../Base/BaseWebView'
-const Web = {WebView: {screen: WebView},}
 import { createStackNavigator,createSwitchNavigator} from 'react-navigation';
 import AuthLoadingScreen from '../auth/AuthLoadingView'
 

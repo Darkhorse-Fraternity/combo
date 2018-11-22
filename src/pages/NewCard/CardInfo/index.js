@@ -42,7 +42,7 @@ import moment from 'moment'
 import { user as UserEntity, schemas } from '../../../redux/scemes'
 import Button from '../../../components/Button'
 import { list, entitys } from '../../../redux/scemes'
-
+import svgs from '../../../../source/icons'
 import {
   StyledContent,
   StyledRow,
@@ -57,7 +57,8 @@ import {
   StyledDescirbe,
   StyledImg,
   StyledIcon,
-  StyledDescirbeView
+  StyledDescirbeView,
+
 } from './style'
 
 import {
@@ -72,10 +73,11 @@ import {
   StyledReadNum,
   StyledAvatar,
   StyledFollowBtnText,
-
+  StyledHeaderIcon,
+  StyledHedaderIconBack
 } from '../../Course/Info/style'
 
-import { Privacy,CircleState } from '../../../configure/enum'
+import { Privacy, CircleState } from '../../../configure/enum'
 import FlipButton from '../../../components/Button/FlipButton'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { findByID, find } from '../../../redux/module/leancloud'
@@ -142,7 +144,7 @@ import { daysText } from '../../../configure/enum'
         time: 0,
         privacy:
           card.circleState ===
-        CircleState.open ? Privacy.open:Privacy.close,//对外开放
+          CircleState.open ? Privacy.open : Privacy.close,//对外开放
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...dispatch(selfUser()),
@@ -329,15 +331,14 @@ export default class CardInfo extends Component {
       require('../../../../source/img/my/icon-60.png')
 
 
-    const cover = iCard.img ? { uri: iCard.img.url } :
-      require('../../../../source/img/my/icon-60.png')
+    const cover = iCard.img ? { uri: iCard.img.url } : null
 
 
     const exist = this.props.useExist.get('data').size >= 1
     const load = this.props.useExist.get('load')
     const nickName = iCardUser.nickname
     const keys = iCard.keys
-    const { describe } = iCard
+    const { describe, iconAndColor } = iCard
     const iUseData = this.props.data && this.props.data.toJS()
 
     const userLoad = this.props.userLoad
@@ -354,6 +355,7 @@ export default class CardInfo extends Component {
       }
     }) || []
 
+    // console.log('iconAndColor:', iconAndColor);
 
     const isSelf = selfUse.objectId === iCard.user
 
@@ -420,13 +422,17 @@ export default class CardInfo extends Component {
         <ScrollView
           // removeClippedSubviews={true}
           style={[this.props.style, styles.wrap]}>
-          <StyledHeaderCover onPress={() => {
-            this.setState({ visible: true })
-          }}>
-            <StyledHeaderImage
-              resizeMode={iCard.img?'cover':'center'}
-              source={cover}/>
-          </StyledHeaderCover>
+          {cover ? <StyledHeaderCover onPress={() => {
+              this.setState({ visible: true })
+            }}>
+              <StyledHeaderImage
+                resizeMode={iCard.img ? 'cover' : 'center'}
+                source={cover}/>
+            </StyledHeaderCover> :
+            <StyledHedaderIconBack color={iconAndColor.color}>
+              <StyledHeaderIcon source={svgs[iconAndColor.name]}/>
+            </StyledHedaderIconBack>
+          }
 
           <StyledHeaderTitle style={{ marginTop: 50 }}>
             {iCard.title}

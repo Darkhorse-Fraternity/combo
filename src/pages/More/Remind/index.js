@@ -269,16 +269,22 @@ export default class Remind extends Component {
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <Swipeout
+          rowID={index}
+          autoClose={true}
           backgroundColor='white'
           close={this.state.openIndex !== index}
           onOpen={() => {
             this.setState({ openIndex: index })
           }}
+          onClose={(sectionId,rowId)=>{
+            rowId === this.state.openIndex &&
+            this.setState({openIndex:-1 })
+          }}
           right={[{
             type: 'delete',
             onPress: () => {
               this._deleteRow(item,index)
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn(),
             backgroundColor: '#f6f7f9'
@@ -428,6 +434,7 @@ export default class Remind extends Component {
       <StyledContent>
         {this._renderHeader()}
         <FlatList
+          scrollEnabled={this.state.openIndex === -1}
           data={newData}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

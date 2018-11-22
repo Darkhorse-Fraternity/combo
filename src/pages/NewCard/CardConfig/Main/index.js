@@ -356,7 +356,7 @@ export default class OptionDo extends PureComponent {
       <ScrollView
         key={'bc'}
         style={[styles.wrap]}>
-t
+
         {this.props.step === 0 && (<View style={{ flex: 1 }}>
 
 

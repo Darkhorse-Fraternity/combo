@@ -31,8 +31,11 @@ import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
 import Remind from './More/Remind'
 import Punch from './Punch'
+import WebView from '../components/Base/BaseWebView'
+
 
 export const otherRoute = {
+  web:{screen:WebView},
   earnings: { screen: Earnings },
   remind: { screen: Remind },
   cash: { screen: Cash },

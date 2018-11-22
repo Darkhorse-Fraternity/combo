@@ -78,7 +78,7 @@ const appStateTracking = async (state) => {
     stateTime = new Date().getTime()
 
     let params = {
-      client: client(),
+      client: await client(),
       session: {
         id: sessionId()
       }
@@ -99,7 +99,7 @@ const appStateTracking = async (state) => {
     trackingEvents.splice(0, trackingEvents.length);
 
     let params = {
-      client: client(),
+      client: await client(),
       session: {
         id: sessionId()
       },
@@ -135,7 +135,7 @@ const screenTracking = async (sceen) => {
   screenStartTime = sceenEndTime
   if (trackingEvents.length === 10) {
     let params = {
-      client: client(),
+      client: await client(),
       session: { id: sessionId() },
       events: trackingEvents
     }
@@ -148,7 +148,7 @@ const screenTracking = async (sceen) => {
 
 const shareTracking = async (tag) => {
   let params = {
-    client: client(),
+    client: await client(),
     session: { id: sessionId() },
     events: [{
       event: "share", // 必须为 _page 表示一次页面访问

@@ -212,16 +212,22 @@ export default class Habit extends PureComponent {
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <Swipeout
+          rowID={index}
+          autoClose={true}
           backgroundColor='white'
           close={this.state.openIndex !== index}
           onOpen={() => {
             this.setState({ openIndex: index })
           }}
+          onClose={(sectionId,rowId)=>{
+            rowId === this.state.openIndex &&
+            this.setState({openIndex:-1 })
+          }}
           right={[isSelf ? {
             type: 'secondary',
             onPress: () => {
               this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
             backgroundColor: '#e0f2f1'
@@ -230,14 +236,14 @@ export default class Habit extends PureComponent {
             onPress: () => {
               this.props.navigation.navigate('cardSetting',
                 { iCardId, iUseId: item })
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
             backgroundColor: '#e0f2f1'
           }, {
             type: 'delete',
             onPress: () => {
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
               const handleView = self.handleViewRef['habit' + index]
               this.props.delete(item, handleView)
 
@@ -247,7 +253,7 @@ export default class Habit extends PureComponent {
           }, {
             type: 'primary',
             onPress: async () => {
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
               const handleView = self.handleViewRef['habit' + index]
               await this.props.stop(data, handleView)
               // await self.handleViewRef['habit' + index].fadeOutLeft(800)
@@ -310,7 +316,6 @@ export default class Habit extends PureComponent {
     data = data && data.toJS()
     // data = data.sort((a,b)=> a.time - b.time)
 
-
     return (
       <StyledInnerdContent>
         {/*<StyledContent*/}
@@ -320,6 +325,7 @@ export default class Habit extends PureComponent {
         {/*{this._renderHeader()}*/}
 
         <FlatList
+          scrollEnabled={this.state.openIndex === -1}
           refreshing={false}
           onRefresh={() => {
             this.setState({ openIndex: -1 })

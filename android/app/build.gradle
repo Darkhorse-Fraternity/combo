@@ -199,7 +199,6 @@ dependencies {
     implementation project(':react-native-vector-icons')
     implementation project(":reactnativekeyboardinput")
     implementation project(':react-native-orientation')
-    implementation project(':react-native-interactable')
     implementation project(':react-native-blur')
     implementation project(':react-native-wechat')
     implementation project(':react-native-leancloud-push')

@@ -33,7 +33,6 @@ import com.reactlibrary.AlipayPackage;
 import com.rnfs.RNFSPackage;
 import com.theweflex.react.WeChatPackage;
 import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
-import com.wix.interactable.Interactable;
 import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -85,7 +84,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                     new QQPackage(),
                     new KeyboardInputPackage(MainApplication.this), // (this = Android application object)
                     new OrientationPackage(),
-                    new Interactable(),
                     new BlurViewPackage(),
                     new WeChatPackage(),
                     new LeanCloudPushPackage(),

@@ -155,6 +155,18 @@ export const StyledHeaderImage = styled.Image`
     border-radius: 5px;
 `
 
+export const StyledHedaderIconBack = styled.View`
+  padding: 10px;
+  background-color:  ${props=>props.color};
+  border-radius: 10px;
+  align-self: center;
+`
+
+export const StyledHeaderIcon = styled.Image`
+    width: 30px;
+    height: 30px;
+`
+
 
 export const StyledRow = styled.View`
   align-items: center;

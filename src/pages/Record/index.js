@@ -176,16 +176,22 @@ export default class Record extends Component {
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <Swipeout
+          rowID={index}
+          autoClose={true}
           backgroundColor='white'
           close={this.state.openIndex !== index}
           onOpen={() => {
             this.setState({ openIndex: index })
           }}
+          onClose={(sectionId,rowId)=>{
+            rowId === this.state.openIndex &&
+            this.setState({openIndex:-1 })
+          }}
           right={[isSelf ? {
             type: 'secondary',
             onPress: () => {
               this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
               // this._deleteRow(item)
             },
             component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
@@ -195,7 +201,7 @@ export default class Record extends Component {
             onPress: () => {
               this.props.navigation.navigate('cardSetting',
                 { iCardId, iUseId: item.objectId })
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
               // this._deleteRow(item)
             },
             component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vert'),
@@ -207,7 +213,7 @@ export default class Record extends Component {
               const handleView = self.handleViewRef['habit' + index]
               this.props.delete(item.objectId, handleView)
 
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
             backgroundColor: '#ffebee'
@@ -217,7 +223,7 @@ export default class Record extends Component {
               // this._deleteRow(item)
               const handleView = self.handleViewRef['habit' + index]
               this.props.refresh(item, handleView)
-              this.setState({ openIndex: -1 })
+              // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('恢复', '#009afb', 'refresh'),
             backgroundColor: '#e3f2fd'
@@ -252,6 +258,7 @@ export default class Record extends Component {
     }
     return (
       <LCList
+        scrollEnabled={this.state.openIndex === -1}
         ListHeaderComponent={this._renderHeader}
         style={[this.props.style, styles.list]}
         reqKey={IUSE}
