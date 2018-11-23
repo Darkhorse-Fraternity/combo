@@ -17,7 +17,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import {
   StyledContent,
-  StyledIcon
+  StyledIcon,
+  StyledEntypoIcon
 } from './style'
 
 // import DoCardButton from '../../components/Button/DoCardButton/index'
@@ -31,9 +32,11 @@ import Button from '../../components/Button/index'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../Theme/index'
 import { Privacy, CircleState } from '../../configure/enum'
-import { COURSE } from '../../redux/reqKeys'
+import { COURSE,ICARD } from '../../redux/reqKeys'
 import { list, entitys } from '../../redux/scemes'
-import { find } from '../../redux/module/leancloud'
+import { find,update } from '../../redux/module/leancloud'
+import { addNormalizrEntity } from '../../redux/module/normalizr'
+import  Toast from 'react-native-simple-toast'
 
 @connect(
   (state, props) => {
@@ -42,11 +45,31 @@ import { find } from '../../redux/module/leancloud'
     return {
       iCard,
       iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
+      user: state.user.data
       // course:
       // course: courseId && state.normalizr.get(COURSE).get(courseId)
     }
   },
   (dispatch, props) => ({
+
+    setCircleState: async(iCard)=>{
+      const data = iCard.toJS()
+      const id = data.objectId
+      const param = {
+        circleState: data.circleState === CircleState.close ?
+          CircleState.open : CircleState.close,
+        state:data.circleState === CircleState.close ?
+          CircleState.open : CircleState.close,
+      }
+      const res = await  dispatch(update(id, param, ICARD))
+
+      const entity = {
+        ...param,
+        ...res
+      }
+      dispatch(addNormalizrEntity(ICARD, entity))
+      Toast.show(data.circleState === CircleState.close?'多人模式':'单人模式')
+    },
     dataLoad: () => {
       dispatch(async (dispatch, getState) => {
         const state = getState()
@@ -98,11 +121,22 @@ export default class Card extends Component {
 
   __renderRightView = () => {
 
-    const { navigation } = this.props;
+    const { navigation,iCard,user } = this.props;
     const { state } = navigation;
     const { params } = state;
     const { iCardId, iUseId } = params
+
+    const isSelf = iCard.get('user') === user.objectId
     return [
+      isSelf && <Button key={'icon1'} onPress={() => {
+        this.props.setCircleState(iCard)
+      }}>
+        <StyledEntypoIcon
+          color={'black'}
+          style={{ marginRight: 5 }}
+          size={21}
+          name={'picasa'}/>
+      </Button>,
       <Button key={'icon2'} onPress={() => {
         this.props.navigation.navigate('cardSetting', {
           iCardId, iUseId

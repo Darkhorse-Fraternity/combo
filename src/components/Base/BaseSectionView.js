@@ -188,7 +188,7 @@ export default class BaseSectionView extends Component {
     }= this.props
     const TableView = sections.length>0 ? SectionList : FlatList
 
-    console.log('data:', data);
+    // console.log('data:', data);
 
     const exceptionViewRefreshing = loadStatu === LIST_LOAD_DATA
     const refreshing = loadStatu === LIST_LOAD_DATA
