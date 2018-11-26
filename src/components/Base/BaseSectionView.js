@@ -196,6 +196,7 @@ export default class BaseSectionView extends Component {
 
     // console.log('refreshing:', refreshing);
 
+    console.log('sections:', sections);
 
     return (
       <TableView

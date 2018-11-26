@@ -31,7 +31,7 @@ import {
   StyledHerderButton,
   StyledHeaderText
 } from './style'
-
+import CardTemplate from './CardTemplate'
 
 const listKey = ICARD
 
@@ -101,6 +101,14 @@ export default class Publish extends Component {
             }}/>
         </StyledHeader>
 
+
+        <StyledTitleView>
+          <StyledTitleText>
+            习惯模板
+          </StyledTitleText>
+        </StyledTitleView>
+
+        <CardTemplate />
         <StyledTitleView>
           <StyledTitleText>
             圈子推荐
