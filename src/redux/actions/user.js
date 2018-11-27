@@ -101,8 +101,7 @@ export function userInfo() {
 
   return async dispatch => {
 
-    const uuid =  DeviceInfo.getUniqueID()
-    console.log('uuid:', uuid);
+    // const uuid =  DeviceInfo.getUniqueID()
 
 
     dispatch(_loginRequest());

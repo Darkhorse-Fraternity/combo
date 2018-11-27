@@ -267,15 +267,15 @@ export default class More extends Component {
 
         {/*<View style={{ height: 25 }}/>*/}
 
-        {this._renderRow('给作者留言', false, () => {
-          navigation.navigate("feedback");
-        })}
+        {/*{this._renderRow('给作者留言', false, () => {*/}
+          {/*navigation.navigate("feedback");*/}
+        {/*})}*/}
 
         {this._renderRow('好评鼓励', false, this.props.rate)}
 
-        <View style={{ height: 25 }}/>
+        {/*<View style={{ height: 25 }}/>*/}
 
-        {this._renderRow('小改变的微博', false, ()=>{
+        {this._renderRow('我们的微博', false, ()=>{
           Linking.canOpenURL('sinaweibo://').then(supported => { // weixin://  alipay://
             if (supported) {
               Linking.openURL('sinaweibo://userinfo?uid=6861885697');

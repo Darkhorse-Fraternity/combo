@@ -25,6 +25,7 @@ import * as immutable from 'immutable';
 import LCList from '../../components/Base/LCList';
 import CardCell from './CardCell'
 import {
+  StyledContent,
   StyledTitleView,
   StyledTitleText,
   StyledHeader,
@@ -103,13 +104,13 @@ export default class Publish extends Component {
         </StyledHeader>
 
 
-        {Object.keys(habits).map((name)=>[
+        {Object.keys(habits).map((name) => [
           <StyledTitleView key={name}>
             <StyledTitleText>
               {name}
             </StyledTitleText>
           </StyledTitleView>,
-          <CardTemplate key={'template '+name} data={habits[name]} onPress={(habit) => {
+          <CardTemplate key={'template ' + name} data={habits[name]} onPress={(habit) => {
             this.props.navigation.navigate('creat', { habit: habit })
           }}/>
         ])}
@@ -126,20 +127,22 @@ export default class Publish extends Component {
   render() {
 
     return (
-      <LCList
-        ListHeaderComponent={this._listHeaderComponet}
-        style={[this.props.style, styles.list]}
-        reqKey={listKey} //在normalizr 中的位置
-        sKey={CARDLIST}  //在list 中的位置
-        callPath={CARDLIST} //表示走云函数,并告知云函数的路径
-        numColumns={4}
-        columnWrapperStyle={{ padding: 0 }}
-        renderItem={this.renderRow.bind(this)}
-        dataMap={(data) => {
-          return { results: data.result }
-        }}
-        reqParam={{}}
-      />
+      <StyledContent forceInset={{ top: 'never' }}>
+        <LCList
+          ListHeaderComponent={this._listHeaderComponet}
+          style={[this.props.style, styles.list]}
+          reqKey={listKey} //在normalizr 中的位置
+          sKey={CARDLIST}  //在list 中的位置
+          callPath={CARDLIST} //表示走云函数,并告知云函数的路径
+          numColumns={4}
+          columnWrapperStyle={{ padding: 0 }}
+          renderItem={this.renderRow.bind(this)}
+          dataMap={(data) => {
+            return { results: data.result }
+          }}
+          reqParam={{}}
+        />
+      </StyledContent>
     );
   }
 }

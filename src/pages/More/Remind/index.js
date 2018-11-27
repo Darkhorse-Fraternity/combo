@@ -431,7 +431,7 @@ export default class Remind extends Component {
     // .sort(item => item.iCard.notifyTime)
 
     return (
-      <StyledContent>
+      <StyledContent forceInset={{ top: 'never' }}>
         {this._renderHeader()}
         <FlatList
           scrollEnabled={this.state.openIndex === -1}

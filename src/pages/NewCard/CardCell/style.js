@@ -51,7 +51,7 @@ export const StyledImageBack = styled.View`
 export const StyledImage = styled.Image`
     width: 30px;
     height: 30px;
-   
+    
 `
 
 export const StyledInnerView = styled.View`

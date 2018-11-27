@@ -334,7 +334,7 @@ export default class OptionDo extends PureComponent {
     // console.log('test:', this.props.record);
     let { record, notifyTimes } = this.props
     record = (record.length === 0 || record.size === 0)
-      ? '无要求' : record.join('+')
+      ? '默认点击' : record.join('+')
 
     // console.log('record:', notifyTimes);
     notifyTimes = notifyTimes.size === 0 ? '无' :
@@ -400,7 +400,7 @@ export default class OptionDo extends PureComponent {
           />
           <this.__renderItem
             index={4}
-            title={"日记要求"}
+            title={"打卡要求"}
             discrib={record}
             type="record"
           />

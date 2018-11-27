@@ -5,7 +5,7 @@ export default {
   music: require('./icons/music.png'),
   star: require('./icons/star.png'),
   star2: require('./icons/star2.png'),
-  phone: require('./icons/phone.png'),
+  // phone: require('./icons/phone.png'),
   smile: require('./icons/smile.png'),
   camera: require('./icons/camera.png'),
   homework: require('./icons/homework.png'),
@@ -38,5 +38,9 @@ export default {
   dogBowl: require('./icons/dogBowl.png'),
   potted: require('./icons/potted.png'),
   basketball: require('./icons/basketball.png'),
+  riding:require('./icons/riding.png'),
+  guitar:require('./icons/guitar.png'),
+  reading:require('./icons/reading.png'),
+  studing:require('./icons/studing.png')
 }
 

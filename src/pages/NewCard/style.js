@@ -8,8 +8,9 @@
 import styled from "styled-components";
 import HeaderBtn from "../../components/Button/HeaderBtn";
 import { materialColors } from 'react-native-typography'
+import { SafeAreaView } from 'react-navigation';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(SafeAreaView)`
     flex: 1;
     background-color: white;
 `

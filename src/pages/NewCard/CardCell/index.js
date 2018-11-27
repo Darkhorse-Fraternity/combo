@@ -62,7 +62,7 @@ export default class CardCell extends Component {
     return (
       <StyledContent onPress={onPress}>
         <StyledImageBack color={color}>
-          <StyledImage source={icons[name]}/>
+          <StyledImage resizeMode={'contain'} source={icons[name]}/>
         </StyledImageBack>
         <StyledTitle numberOfLines={1}>
           {title}
