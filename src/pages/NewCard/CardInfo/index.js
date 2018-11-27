@@ -143,6 +143,7 @@ import { daysText } from '../../../configure/enum'
         // cycle: 0,
         time: 0,
         privacy: Privacy.open ,//对外开放
+        statu:'start',
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...dispatch(selfUser()),
