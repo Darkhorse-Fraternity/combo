@@ -69,9 +69,9 @@ export const health = [
 
 
 const lean1 = {
-  title: '写作',
+  title: '学习',
   color:'#f1f8e9',
-  icon:'takeAShower',
+  icon:'studing',
 }
 
 
