@@ -27,7 +27,8 @@ import {
   reduxForm,
   formValueSelector,
 } from 'redux-form/immutable'
-import Main, { StaticOption } from './Main'
+import Main from './Main'
+import {defaultHabit} from '../../../configure/habit'
 import moment from 'moment'
 //static displayName = OptionView
 
@@ -50,8 +51,10 @@ import {
 
     // const data = props.navigation.state.params.opData
     const propsOption = {
-      ...StaticOption,
-      ...iCard
+      ...defaultHabit,
+      ...iCard,
+      icon:iCard.iconAndColor.name,
+      color:iCard.iconAndColor.color
     }
 
 

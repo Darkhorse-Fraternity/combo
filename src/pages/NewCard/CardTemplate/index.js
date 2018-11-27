@@ -36,21 +36,21 @@ export default class CardTemplate extends PureComponent {
   static defaultProps = {};
 
 
-  __renderRow = (rows,rIndex)=>{
+  __renderRow = (rows)=>{
 
 
 
 
       return (
         <StyledRow>
-          {rows.map(({title,name,color},index)=>(
+          {rows.map((item,index)=>(
             <CardCell
-              key={rIndex+'cell'+index}
-              title={title}
-              name={name}
-              color={color}
+              key={'cell'+index}
+              title={item.title}
+              name={item.icon}
+              color={item.color}
               onPress={() => {
-
+                  this.props.onPress && this.props.onPress(item)
               }}/>
           ))}
 
@@ -64,15 +64,16 @@ export default class CardTemplate extends PureComponent {
     const obj = {
       title:'测试',
       name:'sun',
-      color:'green',
+      color:'#cfd8dc',
     }
 
+    const habits = this.props.data
     const rows = [obj,obj,obj,obj]
+
 
     return (
       <StyledContent>
-        {this.__renderRow(rows,0)}
-
+        {this.__renderRow(habits)}
       </StyledContent>
     );
   }

@@ -328,7 +328,7 @@ export default class OptionDo extends PureComponent {
 
 
   render(): ReactElement<any> {
-    const { iconAndColor, title } = this.props
+    const { icon,color, title } = this.props
     const notifyText = this.props.notifyText && this.props.notifyText.length > 0
       ? this.props.notifyText : '无'
     // console.log('test:', this.props.record);
@@ -358,18 +358,16 @@ export default class OptionDo extends PureComponent {
         style={[styles.wrap]}>
 
         {this.props.step === 0 && (<View style={{ flex: 1 }}>
-
-
           <Animatable.View animation="fadeInUp">
             <StyledTopButton onPress={() => {
 
               this.setState({ type: 'title' })
               this.props.nextStep()
             }}>
-              <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
+              <StyledIconBG color={color || '#afd2ef'}>
                 <StyledIconImage
                   size={40}
-                  source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
+                  source={svgs[icon || 'sun']}
                 />
               </StyledIconBG>
               <StyledTitleView>

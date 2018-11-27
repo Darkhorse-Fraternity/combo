@@ -7,9 +7,9 @@
 import styled from "styled-components";
 
 export const StyledContent = styled.View`
-    flex: 1;
 `
 
 export const StyledRow = styled.View`
     flex-direction: row;
+    flex-wrap: wrap;
 `

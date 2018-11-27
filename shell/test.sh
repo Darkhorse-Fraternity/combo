@@ -8,7 +8,7 @@ curl -X POST \
             "user":{
                     "__type": "Pointer",
                     "className": "_User",
-                    "objectId": "59a5029644d9040058136049"
+                    "objectId": "595df22a1b69e64c8de8f549"
             }
         },
         "deviceProfile": "dev",

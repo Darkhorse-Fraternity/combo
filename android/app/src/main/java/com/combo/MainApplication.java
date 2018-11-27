@@ -10,15 +10,15 @@ import android.util.Log;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.aakashns.reactnativedialogs.ReactNativeDialogsPackage;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.PushService;
 import com.banli17.RNUpdateAppPackage;
 import com.calendarevents.CalendarEventsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
-import com.avishayil.rnrestart.ReactNativeRestartPackage;
-import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -26,6 +26,7 @@ import com.facebook.soloader.SoLoader;
 import com.github.yamill.orientation.OrientationPackage;
 import com.imagepicker.ImagePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.masteratul.exceptionhandler.ReactNativeExceptionHandlerPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.oblador.keychain.KeychainPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -68,8 +69,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new ReactNativeRestartPackage(),
-            new ReactNativeExceptionHandlerPackage(),
+                    new ReactNativeRestartPackage(),
+                    new ReactNativeExceptionHandlerPackage(),
                     new RNAppUtilPackage(),
                     new CalendarEventsPackage(),
                     new TranslucentModalReactPackage(),
@@ -103,6 +104,8 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         // 初始化参数依次为 this, AppId, AppKey
+        String packageName = this.getPackageName();
+        PushService.setDefaultChannelId(this, packageName + "android.push");
         AVOSCloud.initialize(this, "cmwLjTYWoYfN4jCgPR49rsi6-gzGzoHsz",
                 "S6wxWnhQfL9rBLo2ngEctK0u");
 

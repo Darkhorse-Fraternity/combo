@@ -32,6 +32,7 @@ import {
   StyledHeaderText
 } from './style'
 import CardTemplate from './CardTemplate'
+import { habits } from '../../configure/habit'
 
 const listKey = ICARD
 
@@ -70,7 +71,7 @@ export default class Publish extends Component {
   renderRow({ item, index }: Object) {
 
     // console.log('test:', item);
-    const {iconAndColor,title,img} = item
+    const { iconAndColor, title, img } = item
     const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' }
 
     return (
@@ -102,13 +103,17 @@ export default class Publish extends Component {
         </StyledHeader>
 
 
-        <StyledTitleView>
-          <StyledTitleText>
-            习惯模板
-          </StyledTitleText>
-        </StyledTitleView>
+        {Object.keys(habits).map((name)=>[
+          <StyledTitleView key={name}>
+            <StyledTitleText>
+              {name}
+            </StyledTitleText>
+          </StyledTitleView>,
+          <CardTemplate key={'template '+name} data={habits[name]} onPress={(habit) => {
+            this.props.navigation.navigate('creat', { habit: habit })
+          }}/>
+        ])}
 
-        <CardTemplate />
         <StyledTitleView>
           <StyledTitleText>
             圈子推荐
@@ -128,7 +133,7 @@ export default class Publish extends Component {
         sKey={CARDLIST}  //在list 中的位置
         callPath={CARDLIST} //表示走云函数,并告知云函数的路径
         numColumns={4}
-        columnWrapperStyle={{ padding: 5 }}
+        columnWrapperStyle={{ padding: 0 }}
         renderItem={this.renderRow.bind(this)}
         dataMap={(data) => {
           return { results: data.result }

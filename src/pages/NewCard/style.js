@@ -15,7 +15,7 @@ export const StyledContent = styled.View`
 `
 
 export const StyledTitleView = styled.View`
-  padding: 15px 10px ;
+  padding: 20px 10px 5px 10px;
 `
 
 export const StyledTitleText = styled.Text`

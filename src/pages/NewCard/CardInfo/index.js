@@ -142,9 +142,7 @@ import { daysText } from '../../../configure/enum'
       const param = {
         // cycle: 0,
         time: 0,
-        privacy:
-          card.circleState ===
-          CircleState.open ? Privacy.open : Privacy.close,//对外开放
+        privacy: Privacy.open ,//对外开放
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...dispatch(selfUser()),

@@ -25,7 +25,8 @@ import { addListNormalizrEntity } from '../../../../redux/actions/list'
 import { addNormalizrEntity } from '../../../../redux/module/normalizr'
 import { selfUser, iCard } from '../../../../request/LCModle'
 import moment from 'moment'
-import Main, { StaticOption } from '../Main'
+import Main from '../Main'
+import { defaultHabit } from '../../../../configure/habit'
 import Button from '../../../../components/Button'
 import { mainColor } from '../../../../Theme/index'
 
@@ -60,10 +61,10 @@ import IconAndColor from './IconAndColor'
 import { StyledArrowView } from "../../../Record/RecordRow/style";
 
 @connect(
-  state => ({
+  (state, props) => ({
     //data:state.req.get()
     title: selector(state, 'title'),
-    initialValues: StaticOption,
+    initialValues: props.navigation.state.params ? props.navigation.state.params.habit : defaultHabit,
     load: state.req.get(ICARD).get('load'),
     iUseLoad: state.req.get(IUSE).get('load'),
     color: selector(state, 'color')
@@ -163,20 +164,19 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
 export default class Creat extends PureComponent {
   constructor(props: Object) {
     super(props);
+    console.log('props.initialValues:', props.initialValues);
     this.state = {
-      step: props.step ,
+      step:  props.initialValues.get("title")?1:0,
     }
   }
 
   static propTypes = {
     title: PropTypes.string,
     type: PropTypes.string,
-    step: PropTypes.number,
   };
   static defaultProps = {
     title: '',
     type: 'custom',
-    step: 0,
   };
   static navigationOptions = props => {
     // const {navigation} = props;
@@ -193,6 +193,11 @@ export default class Creat extends PureComponent {
   //   return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
   // }
 
+  componentWillReceiveProps(props) {
+    // if(this.state.step <1){
+    //   this.setState({ step: props.title?1:0 })
+    // }
+  }
 
   __nextStep = () => {
 

@@ -36,10 +36,9 @@ const entryBorderRadius = 8;
 
 export const StyledContent = styled(TouchableBounce)`
     width: ${slideWidth};
-    height: ${slideHeight};
     padding: 0px;
-    padding-bottom: 8px;
     align-items: center;
+    margin-top: 15px;
 `
 
 
