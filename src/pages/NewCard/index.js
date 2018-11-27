@@ -97,7 +97,7 @@ export default class Publish extends Component {
           </StyledHeaderText>
           <StyledHerderButton
             style={styles.headerBtn}
-            title={'新建习惯卡片'}
+            title={'自建习惯卡片'}
             onPress={() => {
               this.props.navigation.navigate('creat')
             }}/>

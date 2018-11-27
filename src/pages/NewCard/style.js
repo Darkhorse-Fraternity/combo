@@ -16,7 +16,7 @@ export const StyledContent = styled(SafeAreaView)`
 `
 
 export const StyledTitleView = styled.View`
-  padding: 20px 10px 5px 10px;
+  padding: 25px 10px 0px 10px;
 `
 
 export const StyledTitleText = styled.Text`
@@ -27,7 +27,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledHeader = styled.View`
   border-radius: 15px;
-  margin: 15px 10px;
+  margin: 15px 10px 0px 10px;
   padding: 15px 10px;
 `
 
