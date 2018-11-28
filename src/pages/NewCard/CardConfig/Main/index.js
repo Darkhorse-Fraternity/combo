@@ -360,12 +360,12 @@ export default class OptionDo extends PureComponent {
         {this.props.step === 0 && (<View style={{ flex: 1 }}>
           <Animatable.View animation="fadeInUp">
             <StyledTopButton onPress={() => {
-
               this.setState({ type: 'title' })
               this.props.nextStep()
             }}>
               <StyledIconBG color={color || '#afd2ef'}>
                 <StyledIconImage
+                  resizeMode={'contain'}
                   size={40}
                   source={svgs[icon || 'sun']}
                 />

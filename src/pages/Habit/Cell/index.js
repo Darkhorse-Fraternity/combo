@@ -44,6 +44,7 @@ export default class Cell extends Component {
         <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
           <StyledIconImage
             size={40}
+            resizeMode={'contain'}
             source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
           />
           {/*<SvgUri*/}

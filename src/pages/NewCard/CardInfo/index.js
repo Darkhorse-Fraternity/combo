@@ -419,7 +419,7 @@ export default class CardInfo extends Component {
                 source={cover}/>
             </StyledHeaderCover> :
             <StyledHedaderIconBack color={iconAndColor.color}>
-              <StyledHeaderIcon source={svgs[iconAndColor.name]}/>
+              <StyledHeaderIcon resizeMode={'contain'} source={svgs[iconAndColor.name]}/>
             </StyledHedaderIconBack>
           }
 
