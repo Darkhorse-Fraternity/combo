@@ -23,10 +23,10 @@ import {
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Toast from 'react-native-simple-toast'
 import { strings } from '../../../locales/i18n';
-import {requestExternalStoragePermission} from '../../../helps/permission'
-import {saveToCameraRoll} from '../../../helps/saveToCameraRoll'
-
-
+import { requestExternalStoragePermission } from '../../../helps/permission'
+import { saveToCameraRoll } from '../../../helps/saveToCameraRoll'
+import { SafeAreaView } from 'react-navigation';
+import Button from '../../components/Button'
 export default class ImagesViewModals extends Component {
   constructor(props: Object) {
     super(props);
@@ -57,9 +57,9 @@ export default class ImagesViewModals extends Component {
 
 
     return (
-      <View style={styles.header}>
-        <TouchableOpacity
-          style={{ width: 100, height: 70 }}
+        <Button
+          hitSlop={{ top: 15, left: 15, bottom: 15, right: 15 }}
+          style={styles.header}
           onPress={() => {
             // this.setState({ visible: false })
             const closeCallBack = this.props.closeCallBack
@@ -68,14 +68,10 @@ export default class ImagesViewModals extends Component {
           <Image
             source={require('../../../source/img/visitor/visitor_delete.png')}
             style={styles.close}/>
-        </TouchableOpacity>
-      </View>
+        </Button>
     )
 
   }
-
-
-
 
 
   render() {
@@ -94,29 +90,29 @@ export default class ImagesViewModals extends Component {
         {Platform.OS !== 'ios' && (
           <StatusBar backgroundColor='black'/>
         )}
-        <ImageViewer
-          imageUrls={imageUrls || []}
-          index={index}
-          onCancel={() => {
-            // this.setState({ visible: false })
-            closeCallBack && closeCallBack()
-          }}
-          menuContext={{
-            saveToLocal: strings('save.save_to_local'),
-            cancel: strings('save.cance'),
-          }}
-          {...this.props}
-          onSave={async (url) => {
-            saveToCameraRoll(url)
-          }}
-          //saveToLocalByLongPress={()=>{}}
-          renderHeader={this.__renderHeader}
-          failImageSource={{
-            url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460",
-            width: Dimensions.get("window").width,
-            height: Dimensions.get("window").width
-          }}
-        />
+          <ImageViewer
+            imageUrls={imageUrls || []}
+            index={index}
+            onCancel={() => {
+              // this.setState({ visible: false })
+              closeCallBack && closeCallBack()
+            }}
+            menuContext={{
+              saveToLocal: strings('save.save_to_local'),
+              cancel: strings('save.cance'),
+            }}
+            {...this.props}
+            onSave={async (url) => {
+              saveToCameraRoll(url)
+            }}
+            //saveToLocalByLongPress={()=>{}}
+            renderHeader={this.__renderHeader}
+            failImageSource={{
+              url: "https://avatars2.githubusercontent.com/u/7970947?v=3&s=460",
+              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").width
+            }}
+          />
       </Modal>
     );
   }
@@ -134,6 +130,7 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
     zIndex: 10,
+    paddingTop:20
   },
   pageStyle: {
     alignItems: 'center',
