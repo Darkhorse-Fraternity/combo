@@ -11,7 +11,7 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import HeaderBtn from '../../../components/Button/HeaderBtn'
-
+import Avatar from '../../../components/Avatar/Avatar2'
 
 import {
     StyledRowContent,
@@ -56,19 +56,17 @@ export default class FollowRow extends Component {
     render(): ReactElement<any> {
 
         const { data, navigation } = this.props
-        const { item, index } = data
-        const { avatar, headimgurl, nickname } = item
+        const { item } = data
+        const { nickname } = item
 
-        const avatarUrl = avatar ? avatar.url : headimgurl
-        const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
+
         const name = nickname || '路人甲'
         return (
             <StyledRowContent onPress={() => {
                 navigation.navigate('following', { user: item })
             }}>
                 <StyledInnerView>
-                    <StyledSmallAvatar source={avatarSource}/>
+                    <Avatar user={item}/>
                     <StyledInnerRight>
                         <StyledName>
                             {name}

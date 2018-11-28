@@ -189,7 +189,17 @@ const sport3 = {
   notifyText: '别停下,run!',
 }
 
+
+
 const sport4 = {
+  title: '瑜伽',
+  icon: 'yoga',
+  color: '#f9fbe7',
+  notifyTimes: ["20:00"],
+  notifyText: '你今天真漂亮!',
+}
+
+const sport5 = {
   title: '羽毛球',
   color: '#f9fbe7',
   icon:'badminton',
@@ -197,13 +207,7 @@ const sport4 = {
   notifyText: '跳跃吧!',
 }
 
-const sport5 = {
-  title: '瑜伽',
-  icon: 'yoga',
-  color: '#f9fbe7',
-  notifyTimes: ["20:00"],
-  notifyText: '你今天真漂亮!',
-}
+
 
 const sport6 = {
   title: '乒乓球',
@@ -214,6 +218,15 @@ const sport6 = {
 }
 
 const sport7 = {
+  title: '篮球',
+  icon:'basketball',
+  color: '#f9fbe7',
+  notifyTimes: ["20:00"],
+  notifyText: '呼朋唤友一起去!',
+}
+
+
+const sport8 = {
   title: '爬山',
   color: '#f9fbe7',
   icon:'mount',
@@ -222,13 +235,7 @@ const sport7 = {
   notifyText: '去看那美景!',
 }
 
-const sport8 = {
-  title: '篮球',
-  icon:'basketball',
-  color: '#f9fbe7',
-  notifyTimes: ["20:00"],
-  notifyText: '呼朋唤友一起去!',
-}
+
 
 export const sport = [
   sport1,
@@ -243,12 +250,15 @@ export const sport = [
 
 
 const feeling1 = {
-  title: '宠物照看',
+  title: '关心Ta',
   color:'#fffde7',
-  icon:'dogBowl',
+  icon:'love',
   notifyTimes: ["20:00"],
-  notifyText: '铲屎官,快来!',
+  notifyText: '我很好,你呢？',
 }
+
+
+
 
 const feeling2 = {
   title: '联系Ta',
@@ -272,13 +282,15 @@ const feeling4 = {
   notifyTimes: ["08:00"],
   notifyText: '笑对人生!',
 }
+
 const feeling5 = {
-  title: '关心Ta',
+  title: '宠物照看',
   color:'#fffde7',
-  icon:'love',
+  icon:'dogBowl',
   notifyTimes: ["20:00"],
-  notifyText: '我很好,你呢？',
+  notifyText: '铲屎官,快来!',
 }
+
 
 const feeling6 = {
   title: '放松',
@@ -331,4 +343,3 @@ export const habits = {
 }
 
 
-console.log('habits:', habits);

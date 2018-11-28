@@ -5,7 +5,7 @@
 'use strict';
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -28,6 +28,7 @@ import {
   StyledContent,
   StyledTitleView,
   StyledTitleText,
+  StyledTop,
   StyledHeader,
   StyledHerderButton,
   StyledHeaderText
@@ -45,7 +46,7 @@ const listKey = ICARD
   (dispatch, props) => ({})
 )
 
-export default class Publish extends Component {
+export default class Publish extends PureComponent {
   constructor(props: Object) {
     super(props);
   }
@@ -62,9 +63,9 @@ export default class Publish extends Component {
     }
   };
 
-  shouldComponentUpdate(nextProps: Object) {
-    return !immutable.is(this.props, nextProps)
-  }
+  // shouldComponentUpdate(nextProps: Object) {
+  //   return !immutable.is(this.props, nextProps)
+  // }
 
   componentDidMount() {
   }
@@ -89,39 +90,47 @@ export default class Publish extends Component {
   }
 
   _listHeaderComponet = () => {
+
+    const habitTemplate = Object.keys(habits).map((name) => [
+      <StyledTitleView key={name}>
+        <StyledTitleText>
+          {name}
+        </StyledTitleText>
+      </StyledTitleView>,
+      <CardTemplate key={'template ' + name} data={habits[name]} onPress={(habit) => {
+        this.props.navigation.navigate('creat', { habit: habit })
+      }}/>
+    ])
+    const habitView = []
+    habitTemplate.forEach(item => {
+      item.forEach(cell => {
+        habitView.push(cell)
+      })
+    })
     return (
-      <View>
-        <StyledHeader>
-          <StyledHeaderText>
-            「 种一棵树最好的时间是十年前，其次是现在。 」
-          </StyledHeaderText>
+      <StyledTop removeClippedSubviews={true}>
+        <StyledHeaderText>
+          「 种一棵树最好的时间是十年前，其次是现在。 」
+        </StyledHeaderText>
+        <View style={{paddingHorizontal:20}}>
           <StyledHerderButton
             style={styles.headerBtn}
             title={'自建习惯卡片'}
             onPress={() => {
               this.props.navigation.navigate('creat')
             }}/>
-        </StyledHeader>
+        </View>
 
+        {habitView}
 
-        {Object.keys(habits).map((name) => [
-          <StyledTitleView key={name}>
-            <StyledTitleText>
-              {name}
-            </StyledTitleText>
-          </StyledTitleView>,
-          <CardTemplate key={'template ' + name} data={habits[name]} onPress={(habit) => {
-            this.props.navigation.navigate('creat', { habit: habit })
-          }}/>
-        ])}
-
-        <StyledTitleView>
+        <StyledTitleView key={'bottom'}>
           <StyledTitleText>
             圈子推荐
           </StyledTitleText>
         </StyledTitleView>
-      </View>
+      </StyledTop>
     )
+
   }
 
   render() {
@@ -149,9 +158,9 @@ export default class Publish extends Component {
 
 const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
-  wrap: {
+  list: {
     flex: 1,
-    // backgroundColor: '#F5FCFF'
+    overflow: 'hidden',
   },
 
   itemAdd: {
@@ -186,10 +195,6 @@ const styles = StyleSheet.create({
     // elevation: 10,
   },
 
-
-  list: {
-    flex: 1,
-  },
 
   period: {
     marginTop: 5,

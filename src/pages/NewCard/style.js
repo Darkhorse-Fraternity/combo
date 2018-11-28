@@ -17,6 +17,7 @@ export const StyledContent = styled(SafeAreaView)`
 
 export const StyledTitleView = styled.View`
   padding: 25px 10px 0px 10px;
+  overflow: hidden;
 `
 
 export const StyledTitleText = styled.Text`
@@ -25,19 +26,28 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `
 
+
+export const StyledTop = styled.ScrollView`
+`
+
 export const StyledHeader = styled.View`
-  border-radius: 15px;
   margin: 15px 10px 0px 10px;
   padding: 15px 10px;
+  overflow: visible;
 `
+
 
 
 export const StyledHeaderText = styled.Text`
   font-size: 20px;
   color:${materialColors.blackPrimary};
+  overflow: visible;
+  padding: 20px 15px;
 `
 
 export const StyledHerderButton = styled(HeaderBtn)`
   padding:11px 5px;
-  margin-top: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: visible;
 `

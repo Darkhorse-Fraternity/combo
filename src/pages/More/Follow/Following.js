@@ -56,6 +56,8 @@ import {
     FRIENDEXIST,
     FOLLOWING
 } from '../../../redux/reqKeys'
+import Avatar from '../../../components/Avatar/Avatar2'
+
 
 @connect(
     (state, props) => ({
@@ -159,8 +161,7 @@ export default class Following extends Component {
         const name = data.nickname || '路人甲'
         const avatar = data.avatar
         const avatarUrl = avatar ? avatar.url : data.headimgurl
-        const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
+
         const isSelf = this.props.user.objectId === data.objectId
 
         const { friendNum } = this.props
@@ -207,7 +208,7 @@ export default class Following extends Component {
                                 this.props.follow(isFollow, followers_count)
                             }}/>)}
                     </StyleHeaderInner>
-                    {!avatarUrl ? <StyledAvatar source={avatarSource}/> :
+                    {!avatarUrl ? <Avatar user={data}/> :
                         <ZoomImage
                             height={80}
                             style={{

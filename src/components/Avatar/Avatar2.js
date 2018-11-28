@@ -10,26 +10,22 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import AV from 'leancloud-storage';
-
 import {
-  StyledContent,
+  StyledContent2,
   StyledAvatar,
   StyledIndicator
 } from './style'
-
 import {add_Leancloud_Thumbnail_Suffix} from '../../../helps/util'
-
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
 //?imageView/1/w/10/h/10/q/100/format/png
 
-@connect(
-  state => ({
-    user: state.user.data,
-  }),
-  dispatch => ({})
-)
+// @connect(
+//   state => ({
+//     // user: state.user.data,
+//   }),
+//   dispatch => ({})
+// )
 
 
 export default class Avatar extends PureComponent {
@@ -41,16 +37,18 @@ export default class Avatar extends PureComponent {
   static propTypes = {
     type: PropTypes.string,
     radius: PropTypes.number,
-    load: PropTypes.bool
+    load: PropTypes.bool,
+
   };
   static defaultProps = {
     type: 'small',
-    radius: 40,
+    radius: 30,
     load: false,
   };
 
 
   render(): ReactElement<any> {
+
 
     const { radius, user, load } = this.props
 
@@ -61,15 +59,14 @@ export default class Avatar extends PureComponent {
       require('../../../source/img/my/my_head.png')
 
 
-    console.log('avatarUrl:', avatarUrl);
 
     return (
-      <StyledContent radius={radius}>
+      <StyledContent2 radius={radius}>
         {load ? <StyledIndicator radius={radius}/> :
           <StyledAvatar
             radius={radius}
             source={avatarSource}/>}
-      </StyledContent>
+      </StyledContent2>
     );
   }
 }

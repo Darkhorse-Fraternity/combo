@@ -57,7 +57,7 @@ const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
 //static displayName = RComment
 import Toast from 'react-native-simple-toast'
-
+import Avatar from '../../../components/Avatar/Avatar2'
 const Name = 'text'
 
 import { findByID } from "../../../redux/module/leancloud";
@@ -243,12 +243,6 @@ export default class RComment extends Component {
 
     renderRow({ item }: Object): ReactElement<any> {
         const date = moment(item.createdAt).format("MM/DD HH:mm")
-
-        const avatar = item.user.avatar
-        const avatarUrl = avatar ? avatar.url : item.user.headimgurl
-        const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
-
         return (<StyledRow onPress={async () => {
             const { user } = this.props
 
@@ -285,7 +279,7 @@ export default class RComment extends Component {
                 <TouchableOpacity onPress={() => {
                     this.props.navigation.navigate('following', { user: item.user })
                 }}>
-                    <StyledAvatar source={avatarSource}/>
+                    <Avatar radius={15} user={item.user}/>
                 </TouchableOpacity>
             </StyledRowLeft>
             <StyledRowRight>

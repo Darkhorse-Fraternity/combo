@@ -4,6 +4,7 @@ import {
   Button,
   Text,
   InteractionManager,
+  Platform
 } from 'react-native'
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
@@ -112,7 +113,8 @@ export default createBottomTabNavigator(
     //     )
     // },
     tabBarOptions: {
-      activeTintColor: '#1a1917',
+      activeTintColor: Platform.OS === 'ios'?
+        'rgba(0,0,0,0.85)':'rgba(0,0,0,0.75)',
       inactiveTintColor: '#cbcbcb',
       showLabel: true,
 
@@ -121,12 +123,11 @@ export default createBottomTabNavigator(
         borderTopColor: 'white'
       },
       labelStyle: {
-        fontSize: 12,
-        marginTop: -1,
-        marginBottom: 2
+        fontSize: 11,
+
       },
       tabStyle: {
-        paddingTop: 3,
+        paddingVertical: 3,
       }
 
     },

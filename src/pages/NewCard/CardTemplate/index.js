@@ -13,7 +13,6 @@ import PropTypes from 'prop-types';
 import CardCell from '../CardCell'
 
 import {
-  StyledContent,
   StyledRow
 } from './style'
 
@@ -36,46 +35,23 @@ export default class CardTemplate extends PureComponent {
   static defaultProps = {};
 
 
-  __renderRow = (rows)=>{
-
-
-
-
-      return (
-        <StyledRow>
-          {rows.map((item,index)=>(
-            <CardCell
-              key={'cell'+index}
-              title={item.title}
-              name={item.icon}
-              color={item.color}
-              onPress={() => {
-                  this.props.onPress && this.props.onPress(item)
-              }}/>
-          ))}
-
-        </StyledRow>
-      )
-  }
 
 
   render(): ReactElement<any> {
 
-    const obj = {
-      title:'测试',
-      name:'sun',
-      color:'#cfd8dc',
-    }
 
-    const habits = this.props.data
-    const rows = [obj,obj,obj,obj]
-
-
-    return (
-      <StyledContent>
-        {this.__renderRow(habits)}
-      </StyledContent>
-    );
+    return (<StyledRow>
+      {this.props.data.map((item, index) => (
+        <CardCell
+          key={'cell' + index}
+          title={item.title}
+          name={item.icon}
+          color={item.color}
+          onPress={() => {
+            this.props.onPress && this.props.onPress(item)
+          }}/>
+      ))}
+    </StyledRow>)
   }
 }
 

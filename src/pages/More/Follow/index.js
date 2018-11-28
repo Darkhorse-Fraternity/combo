@@ -56,7 +56,7 @@ export default class Follow extends Component {
 
 
     return (
-      <StyledContent>
+      <StyledContent >
         <ScrollableTabView
           ref={'ScrollableTabView'}
            onScroll={(x) => {

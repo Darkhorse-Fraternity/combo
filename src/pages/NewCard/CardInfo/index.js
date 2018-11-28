@@ -89,7 +89,7 @@ import { ORDER } from '../../../redux/reqKeys'
 
 const selector = formValueSelector(FormID) // <-- same as form name
 import { daysText } from '../../../configure/enum'
-
+import Avatar from '../../../components/Avatar/Avatar2'
 
 @connect(
   (state, props) => {
@@ -320,16 +320,6 @@ export default class CardInfo extends Component {
     const iCard = this.props.iCard.toJS()
     const iCardUser = this.props.user.toJS()
 
-
-    const avatar = iCardUser.avatar
-
-    // console.log('iCardUser:', iCardUser);
-
-    const avatarUrl = avatar ? avatar.url : iCardUser.headimgurl
-    const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../../source/img/my/icon-60.png')
-
-
     const cover = iCard.img ? { uri: iCard.img.url } : null
 
 
@@ -343,8 +333,8 @@ export default class CardInfo extends Component {
     const userLoad = this.props.userLoad
 
 
-    let { course } = this.props
-    course = course && course.toJS()
+    // let { course } = this.props
+    // course = course && course.toJS()
 
     const imgs = iCard && iCard.imgs
 
@@ -478,7 +468,7 @@ export default class CardInfo extends Component {
                     { user: iCardUser })
 
                 }}>
-                <StyledAvatar source={avatarSource}/>
+                <Avatar user={iCardUser}/>
                 {nickName && <StyledNickName>
                   {nickName}
                 </StyledNickName>}

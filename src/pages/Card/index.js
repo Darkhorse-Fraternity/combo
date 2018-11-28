@@ -56,9 +56,9 @@ import  Toast from 'react-native-simple-toast'
       const data = iCard.toJS()
       const id = data.objectId
       const param = {
-        circleState: data.circleState === CircleState.close ?
+        circleState: data.state === CircleState.close ?
           CircleState.open : CircleState.close,
-        state:data.circleState === CircleState.close ?
+        state:data.state === CircleState.close ?
           CircleState.open : CircleState.close,
       }
       const res = await  dispatch(update(id, param, ICARD))
@@ -68,7 +68,7 @@ import  Toast from 'react-native-simple-toast'
         ...res
       }
       dispatch(addNormalizrEntity(ICARD, entity))
-      Toast.show(data.circleState === CircleState.close?'多人模式':'单人模式')
+      Toast.show(data.state === CircleState.close?'多人模式':'单人模式')
     },
     dataLoad: () => {
       dispatch(async (dispatch, getState) => {
@@ -175,7 +175,7 @@ export default class Card extends Component {
     const color = iconAndColor.color || ''
     const title = iCard.get('title')
     const privacy = iUse.get('privacy')
-    const circleState = iCard.get('circleState')
+    const state = iCard.get('state')
 
     return (
       <StyledContent>
@@ -204,7 +204,7 @@ export default class Card extends Component {
           {/*{course && course.get('statu') === 1 &&*/}
           {/*<Course {...this.props}*/}
           {/*tabLabel='课程'/>}*/}
-          {circleState === CircleState.open &&
+          {state === CircleState.open &&
           <Circle
              color={color}
             {...this.props}

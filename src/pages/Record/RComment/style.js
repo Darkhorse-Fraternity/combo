@@ -22,7 +22,7 @@ export const StyledRow = styled(Button)`
 `
 
 export const StyledRowLeft = styled.View`
-
+  margin-right: 15px;
 `
 export const StyledAvatar = styled.Image`
     width: 40px;

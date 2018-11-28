@@ -13,7 +13,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-
+import Avatar from '../../../components/Avatar/Avatar2'
 
 import {
 } from './style'
@@ -48,18 +48,12 @@ export default class Header extends Component {
         let { onPress, user } = this.props
         user = user && user.toJS() || {}
 
-        const { avatar, headimgurl } = user
-        const avatarUrl = avatar ? avatar.url : headimgurl
-        const avatarSource = avatarUrl ? { uri: avatarUrl } :
-            require('../../../../source/img/my/icon-60.png')
-
+        //缩略图
         return (
             <Button
                 onPress={()=>onPress && onPress(user)}
                 style={styles.top}>
-                <Image
-                    style={styles.avatar}
-                    source={avatarSource}/>
+                <Avatar radius={10} user={user}/>
                 <Text style={styles.name}>
                     {user.nickname || '路人甲'}
                 </Text>
@@ -82,6 +76,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
+        backgroundColor:'rgba(0,0,0,0.3)'
     },
     name: {
         marginLeft: 5,

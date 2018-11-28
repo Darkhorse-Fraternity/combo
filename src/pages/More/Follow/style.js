@@ -15,7 +15,7 @@ export const StyledContent = styled(SafeAreaView)`
 `
 export const StyleHeader = styled.View`
   margin-top: 10px;
-  padding: 15px;
+  padding: 15px 25px;
 
 `
 
@@ -38,6 +38,7 @@ export const StyledAvatar = styled.Image`
   width: 80px;
   height: 80px;
   border-radius: 40px;
+  background-color: lightgray;
 `
 export const StyledSmallAvatar = styled.Image`
   width: 60px;

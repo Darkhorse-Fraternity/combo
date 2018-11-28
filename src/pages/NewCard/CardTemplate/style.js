@@ -6,10 +6,10 @@
 
 import styled from "styled-components";
 
-export const StyledContent = styled.View`
-`
+
 
 export const StyledRow = styled.View`
     flex-direction: row;
     flex-wrap: wrap;
+    overflow: hidden;
 `
