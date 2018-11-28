@@ -167,7 +167,7 @@ export const lean = [
 
 const sport1 = {
   title: '骑行',
-  color: '#dce775',
+  color: '#d4e157',
   icon:'riding',
   notifyTimes: ["20:00"],
   notifyText: '你是追风少年~',
@@ -175,7 +175,7 @@ const sport1 = {
 
 const sport2 = {
   title: '游泳',
-  color: '#dce775',
+  color: '#d4e157',
   icon:"swimming",
   notifyTimes: ["20:00"],
   notifyText: '生命在于运动!',
@@ -184,7 +184,7 @@ const sport2 = {
 const sport3 = {
   title: '跑步',
   icon: 'run',
-  color: '#dce775',
+  color: '#d4e157',
   notifyTimes: ["20:00"],
   notifyText: '别停下,run!',
 }
@@ -194,14 +194,14 @@ const sport3 = {
 const sport4 = {
   title: '瑜伽',
   icon: 'yoga',
-  color: '#dce775',
+  color: '#d4e157',
   notifyTimes: ["20:00"],
   notifyText: '你今天真漂亮!',
 }
 
 const sport5 = {
   title: '羽毛球',
-  color: '#dce775',
+  color: '#d4e157',
   icon:'badminton',
   notifyTimes: ["20:00"],
   notifyText: '跳跃吧!',
@@ -211,7 +211,7 @@ const sport5 = {
 
 const sport6 = {
   title: '乒乓球',
-  color: '#dce775',
+  color: '#d4e157',
   icon:'tennis',
   notifyTimes: ["20:00"],
   notifyText: '动起来!',
@@ -220,7 +220,7 @@ const sport6 = {
 const sport7 = {
   title: '篮球',
   icon:'basketball',
-  color: '#dce775',
+  color: '#d4e157',
   notifyTimes: ["20:00"],
   notifyText: '呼朋唤友一起去!',
 }
@@ -228,7 +228,7 @@ const sport7 = {
 
 const sport8 = {
   title: '爬山',
-  color: '#dce775',
+  color: '#d4e157',
   icon:'mount',
   recordDay: [6,7],
   notifyTimes: ["20:00"],

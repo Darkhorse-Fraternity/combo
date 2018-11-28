@@ -135,7 +135,7 @@ const iCardSample = (objectId) => [{
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
     name: 'sleepBoy',
-    color: '#cddc39',
+    color: '#ba68c8',
   },
   notifyText: '早睡早起身体好!',
   notifyTimes: ['22:00'],
@@ -154,7 +154,7 @@ const iCardSample = (objectId) => [{
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
     name: 'homework',
-    color: '#dce775',
+    color: '#e57373',
   },
   notifyText: '坚持鸭!',
   notifyTimes: ['20:00'],
