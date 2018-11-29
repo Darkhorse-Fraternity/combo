@@ -46,7 +46,6 @@ export default class CardCell extends Component {
     const {
       title,
       onPress,
-      img,
       name,
       color,
     } = this.props
