@@ -1690,7 +1690,7 @@ buffer-from@^1.0.0:
   version "1.1.1"
   resolved "http://registry.npm.taobao.org/buffer-from/download/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
 
-buffer@^5.0.7, buffer@^5.0.8:
+buffer@^5.0.8:
   version "5.2.1"
   resolved "http://registry.npm.taobao.org/buffer/download/buffer-5.2.1.tgz#dd57fa0f109ac59c602479044dca7b8b3d0b71d6"
   dependencies:
@@ -5099,6 +5099,16 @@ react-native-dialogs@^1.0.0:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/react-native-dialogs/download/react-native-dialogs-1.0.2.tgz#d16d68cecbd57f74904fb2d58fd846622d5fec9a"
 
+react-native-drawer-layout-polyfill@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-drawer-layout-polyfill/download/react-native-drawer-layout-polyfill-2.0.0.tgz#03d6658ae1e52db64ecee05e7642d17af1c37ec1"
+  dependencies:
+    react-native-drawer-layout "2.0.0"
+
+react-native-drawer-layout@2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npm.taobao.org/react-native-drawer-layout/download/react-native-drawer-layout-2.0.0.tgz#8ce1e4027bd3f3a09045afdb46080e18346be232"
+
 react-native-exception-handler@^2.10.2:
   version "2.10.2"
   resolved "http://registry.npm.taobao.org/react-native-exception-handler/download/react-native-exception-handler-2.10.2.tgz#c500f7713fd30e79f44b03b223cf9ea90facae89"
@@ -5165,7 +5175,7 @@ react-native-keychain@^3.0.0:
 
 "react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git":
   version "0.1.0"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#e05795866e4acfff71bd526e1f8ae7a8f26735ae"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#a5ff32458d92f8990a3765e803808e5b6c26429c"
 
 react-native-linear-gradient@^2.4.0:
   version "2.5.2"

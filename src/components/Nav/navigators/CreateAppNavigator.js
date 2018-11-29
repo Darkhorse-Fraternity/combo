@@ -1,13 +1,16 @@
 import React from 'react';
 import {TransitionConfiguration} from './TransitionConfiguration'
 import Tab from '../components/StaticTab'
-import { createStackNavigator,createSwitchNavigator} from 'react-navigation';
+import {
+  createSwitchNavigator,
+  createAppContainer
+} from 'react-navigation';
 import AuthLoadingScreen from '../auth/AuthLoadingView'
 
 
 
 export const creatAppNavigator = (route)=>{
-    return createSwitchNavigator({
+    const SwitchNavigator =  createSwitchNavigator({
       // Auth: AuthStack,
       ...route,
       AuthLoading: AuthLoadingScreen,
@@ -20,5 +23,8 @@ export const creatAppNavigator = (route)=>{
       initialRouteName: 'AuthLoading',
 
     });
+
+    return createAppContainer(SwitchNavigator)
 }
+
 

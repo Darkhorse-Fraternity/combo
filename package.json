@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git",
-    "buffer": "^5.0.7",
     "immutable": "^3.8.2",
     "leancloud-storage": "^3.10.0",
     "moment": "^2.19.2",

@@ -10,7 +10,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 import React from 'react';
 
-export const navigationOptions = {
+export const defaultNavigationOptions = {
   headerStyle: {
     backgroundColor: 'white',
     shadowColor: 'red',
@@ -40,20 +40,17 @@ export const navigationOptions = {
 export const tabsOptions = {
   Punch:{
     iconName:'check-decagram',
-    labelName:strings('tabs.clockIn'),
     size:25,
     Icon:MaterialCommunityIcons
 
   },
   Habit:{
     iconName:'sun',
-    labelName:strings('tabs.habit'),
     size:30,
     Icon:Iconfont
   },
   Settings:{
     iconName:'more',
-    labelName: strings('tabs.more'),
     size:22,
     Icon:MaterialIcons
   }

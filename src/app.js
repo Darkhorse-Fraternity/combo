@@ -18,6 +18,11 @@ import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigato
 import codePush from "react-native-code-push";
 import {route} from './pages'
 const AppNavigator = creatAppNavigator(route)
+import { useScreens } from 'react-native-screens';
+useScreens();
+
+
+
 // import  SafeAreaView  from 'react-native-safe-area-view'
 //启动初始配置
 // import Toast from 'react-native-simple-toast'

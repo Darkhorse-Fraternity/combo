@@ -7,7 +7,6 @@ import {
   Platform
 } from 'react-native'
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-
 import {
   createBottomTabNavigator,
   createStackNavigator,
@@ -25,16 +24,26 @@ import {
   settingRoute,
   punchRoute
 } from '../../../pages'
-import { navigationOptions, tabsOptions } from './navigationOptions'
+import { defaultNavigationOptions, tabsOptions } from './navigationOptions'
 import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
+
+//默认背景色
+const cardStyle = {backgroundColor: 'white'}
+const stackDefoultConfig = {
+  defaultNavigationOptions,
+  transitionConfig: TransitionConfiguration,
+  cardStyle
+}
 
 
 const PunchStack = createStackNavigator({
   ...punchRoute,
 }, {
   initialRouteName: 'punch',
-  navigationOptions,
-  transitionConfig: TransitionConfiguration,
+  navigationOptions: {
+    labelName:strings('tabs.clockIn'),
+  },
+  ...stackDefoultConfig
 });
 
 
@@ -42,8 +51,10 @@ const HabitStack = createStackNavigator({
   ...habitRoute
 }, {
   initialRouteName: 'habit',
-  navigationOptions,
-  transitionConfig: TransitionConfiguration,
+  navigationOptions: {
+    labelName:strings('tabs.habit'),
+  },
+  ...stackDefoultConfig
 });
 
 
@@ -51,8 +62,10 @@ const SettingsStack = createStackNavigator({
   ...settingRoute,
 }, {
   initialRouteName: 'more',
-  navigationOptions,
-  transitionConfig: TransitionConfiguration,
+  navigationOptions: {
+    labelName:strings('tabs.more'),
+  },
+  ...stackDefoultConfig
 });
 
 
@@ -63,9 +76,9 @@ export default createBottomTabNavigator(
     Settings: SettingsStack,
   },
   {
-    navigationOptions: ({ navigation }) => {
+    defaultNavigationOptions: ({ navigation }) => {
       const { routeName, index } = navigation.state;
-      const { iconName, labelName,Icon,size } = tabsOptions[routeName]
+      const { iconName,Icon,size } = tabsOptions[routeName]
 
       return {
         // header:null,
@@ -97,7 +110,7 @@ export default createBottomTabNavigator(
 
         },
         tabBarVisible: index === 0,
-        tabBarLabel: labelName
+        // tabBarLabel: labelName
       }
     },
     // tabBarComponent: (option, k) => {
@@ -114,8 +127,8 @@ export default createBottomTabNavigator(
     // },
     tabBarOptions: {
       activeTintColor: Platform.OS === 'ios'?
-        'rgba(0,0,0,0.85)':'rgba(0,0,0,0.75)',
-      inactiveTintColor: '#cbcbcb',
+        'rgba(0,0,0,0.85)':'rgba(0,0,0,0.65)',
+      inactiveTintColor: 'rgba(0,0,0,0.2)',
       showLabel: true,
 
       style: {

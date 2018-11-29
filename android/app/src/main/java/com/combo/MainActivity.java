@@ -1,15 +1,30 @@
 package com.combo;
+
 import android.os.Bundle;
 
 import com.calendarevents.CalendarEventsPackage;
 import com.combo.util.LightStatusBarUtil;
-import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactFragmentActivity;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 
 import org.devio.rn.splashscreen.SplashScreen;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends ReactFragmentActivity {
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(null);
+        if (!BuildConfig.DEBUG) {
+            SplashScreen.show(this, true);
+        }
+//        super.onCreate(savedInstanceState);
+        LightStatusBarUtil.MIUISetStatusBarLightMode(this, true);
+
+//        initView();
+    }
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
@@ -21,15 +36,16 @@ public class MainActivity extends ReactActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        if(!BuildConfig.DEBUG){
-            SplashScreen.show(this,true);
-        }
-        super.onCreate(savedInstanceState);
-        LightStatusBarUtil.MIUISetStatusBarLightMode(this, true);
-
-//        initView();
+    protected ReactActivityDelegate createReactActivityDelegate() {
+        return new ReactActivityDelegate(this, getMainComponentName()) {
+            @Override
+            protected ReactRootView createRootView() {
+                return new RNGestureHandlerEnabledRootView(MainActivity.this);
+            }
+        };
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
