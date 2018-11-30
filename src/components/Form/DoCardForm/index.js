@@ -83,7 +83,7 @@ export default class DoCardForm extends Component {
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
     this.state={
-      
+
     }
   }
 
