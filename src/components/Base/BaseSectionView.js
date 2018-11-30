@@ -9,15 +9,15 @@ import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
-  SectionList,
   InteractionManager,
   RefreshControl,
   ActivityIndicator,
   Text,
   Platform,
-  FlatList,
+
   Dimensions
 } from 'react-native'
+import { SectionList, FlatList, } from 'react-navigation'
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -185,8 +185,8 @@ export default class BaseSectionView extends Component {
       tipBtnText,
       style,
       ...otherProps
-    }= this.props
-    const TableView = sections.length>0 ? SectionList : FlatList
+    } = this.props
+    const TableView = sections.length > 0 ? SectionList : FlatList
 
     // console.log('data:', data);
 
@@ -231,7 +231,7 @@ export default class BaseSectionView extends Component {
           />
 
         )}
-        style={[styles.list,style]}
+        style={[styles.list, style]}
         onEndReachedThreshold={Platform.OS === 'ios' ? 0.1 : 0.1}
       />
     );

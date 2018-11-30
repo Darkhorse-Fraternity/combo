@@ -7,10 +7,10 @@
 import React, { Component } from 'react';
 import {
   View,
-  FlatList,
   InteractionManager,
   Platform
 } from 'react-native'
+import {  FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 

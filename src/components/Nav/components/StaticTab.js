@@ -129,7 +129,7 @@ export default createBottomTabNavigator(
       activeTintColor: Platform.OS === 'ios'?
         'rgba(0,0,0,0.85)':'rgba(0,0,0,0.65)',
       inactiveTintColor: 'rgba(0,0,0,0.2)',
-      showLabel: true,
+      showLabel: false,
 
       style: {
         backgroundColor: "#f1f6f9",

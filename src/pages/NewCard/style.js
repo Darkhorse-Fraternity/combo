@@ -8,7 +8,7 @@
 import styled from "styled-components";
 import HeaderBtn from "../../components/Button/HeaderBtn";
 import { materialColors } from 'react-native-typography'
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView, ScrollView } from 'react-navigation';
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -27,7 +27,7 @@ export const StyledTitleText = styled.Text`
 `
 
 
-export const StyledTop = styled.ScrollView`
+export const StyledTop = styled(ScrollView)`
 `
 
 export const StyledHeader = styled.View`

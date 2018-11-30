@@ -13,9 +13,9 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  FlatList,
   Platform
 } from 'react-native'
+import {  FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { ICARD, IUSE, IDO } from '../../redux/reqKeys'

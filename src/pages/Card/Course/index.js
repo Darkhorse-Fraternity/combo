@@ -12,8 +12,9 @@ import {
   Text,
   Alert,
   DeviceEventEmitter,
-  FlatList
+
 } from 'react-native'
+import {  FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 

@@ -46,7 +46,7 @@ export const tabsOptions = {
   },
   Habit:{
     iconName:'sun',
-    size:30,
+    size:32,
     Icon:Iconfont
   },
   Settings:{

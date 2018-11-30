@@ -9,8 +9,8 @@ import {
   View,
   ScrollView,
   InteractionManager,
-  FlatList
 } from 'react-native'
+import {  FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
@@ -37,8 +37,6 @@ import {
 export const FormID = 'CreatCardForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import * as Animatable from 'react-native-animatable';
-const AnimatableFlatList  = Animatable.createAnimatableComponent(FlatList)
 
 @connect(
   state => ({

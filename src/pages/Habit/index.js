@@ -7,18 +7,16 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  ScrollView,
   View,
   StyleSheet,
   Dimensions,
   Text,
   TouchableOpacity,
-  FlatList,
   Alert,
   Platform
 } from 'react-native'
 import { connect } from 'react-redux'
-
+import {  FlatList, } from 'react-navigation'
 import { selfUser, } from '../../request/LCModle'
 import Cell from './Cell'
 

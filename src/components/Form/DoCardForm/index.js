@@ -82,6 +82,9 @@ export default class DoCardForm extends Component {
     super(props);
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
+    this.state={
+      
+    }
   }
 
 
@@ -111,9 +114,9 @@ export default class DoCardForm extends Component {
       <StyledTextInput
         // placeholderTextColor="rgba(180,180,180,1)"
         // selectionColor={theme.mainColor}
-        ref={(r) => {
-          this.textInputRef = r;
-        }}
+        // ref={(r) => {
+        //   this.textInputRef = r;
+        // }}
         style={{ backgroundColor: 'transparent' }}
         returnKeyType='next'
         name={'recordText'}
