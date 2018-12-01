@@ -14,10 +14,10 @@ import {
   ActivityIndicator,
   Text,
   Platform,
-
-  Dimensions
+  Dimensions,
+  FlatList as FlatListAndroid
 } from 'react-native'
-import { SectionList, FlatList, } from 'react-navigation'
+import { SectionList, FlatList as FlatListIOS,  } from 'react-navigation'
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -186,6 +186,7 @@ export default class BaseSectionView extends Component {
       style,
       ...otherProps
     } = this.props
+    const FlatList = Platform.os === 'ios'? FlatListIOS : FlatListAndroid
     const TableView = sections.length > 0 ? SectionList : FlatList
 
     // console.log('data:', data);

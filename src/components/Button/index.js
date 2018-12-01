@@ -28,11 +28,7 @@ const withPreventDoubleClick = (WrappedComponent) => {
     return PreventDoubleClick;
 }
 
-const ButtonIOS = (props) => {
-    return <TouchableOpacity {...props}>
-        {props.children}
-    </TouchableOpacity>;
-};
+
 
 const ButtonAndroid = (props) => {
     return <TouchableNativeFeedback
@@ -48,7 +44,7 @@ const ButtonAndroid = (props) => {
 };
 
 
-const button = Platform.OS === 'ios' ? ButtonIOS : ButtonAndroid;
+const button = Platform.OS === 'ios' ? TouchableOpacity : ButtonAndroid;
 
 
 module.exports = withPreventDoubleClick(button);

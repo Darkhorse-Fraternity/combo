@@ -2,7 +2,7 @@
           package="com.combo"
           xmlns:tools="http://schemas.android.com/tools"
           android:versionCode="1"
-          android:versionName="1.1.0">
+          android:versionName="1.2.0">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -89,7 +89,7 @@
                 <!--<data android:scheme="combo" android:host="combo" />-->
                 <data android:scheme="http"  android:host="icard.leanapp.cn" />
                 <data android:scheme="https" android:host="icard.leanapp.cn" />
-                <data android:scheme="https" android:host="stg-icard.leanapp.cn" />
+                <data android:scheme="http" android:host="stg-icard.leanapp.cn" />
                 <data android:scheme="https" android:host="stg-icard.leanapp.cn" />
                 <data android:scheme="http"  android:host="icourage.cn" />
                 <data android:scheme="https" android:host="icourage.cn" />
