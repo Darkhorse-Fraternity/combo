@@ -69,6 +69,7 @@ export const StyledFuncView = styled.View`
 export const StyleFolllow = styled.View`
     flex-direction: row;
     align-content: center; 
+    justify-content: space-between;
 `
 export const StyledIncome = styled.Text`
     font-size: 16px;
@@ -94,8 +95,11 @@ export const StyleFollowTextNum = styled.Text`
 
 export const StyleFollowText = styled.Text`
     margin-top: 10px;
-    font-size: 17px; 
+    font-size: 23px; 
+    font-weight: 500;
 `
+
+
 export const StyleFollowDevide = styled.View`
     margin: 0px 15px ;
     background-color: #adadad;

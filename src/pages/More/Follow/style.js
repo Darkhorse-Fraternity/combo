@@ -24,8 +24,12 @@ export const StyledHeaderTop = styled.View`
 `
 
 export const StyleHeaderInner = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+`
+export const StyleHeaderInnerLeft = styled.View`
+  justify-content: space-between;
 
-  
 `
 export const StyleHeaderInnerRight = styled.View`
    flex-direction: row;
@@ -83,10 +87,8 @@ export const StyledArrow = styled.View`
 `
 
 export const StyledHeaderBottom = styled.View`
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0px;
+    flex-direction: column-reverse;
+   padding: 25px 0px;
 `
 
 
@@ -94,11 +96,20 @@ export const StyledHeaderName = styled.Text`
     font-size: 21px;
     font-weight: 500;
     max-width: 150px;
-    
 `
 
 export const StyledZoomImage = styled(ZoomImage)`
-    width: 80px;
-    height: 80px;
-    border-radius: 40px;
+    width: 90px;
+    height: 90px;
+    
+`
+
+export const StyleFollowTipText = styled.Text`
+    margin-top: 1px;
+    font-size: 13px; 
+    color: #646464;
+`
+
+export const StyledBottomTitle = styled.Text`
+
 `
