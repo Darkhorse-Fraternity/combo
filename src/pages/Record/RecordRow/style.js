@@ -13,6 +13,7 @@ export const StyledImage = styled.Image`
     height: ${props =>props.theme.width * 0.7};
     border-radius: 10px;
     margin: 15px 0px 0px 0px; 
+    background-color: lightgray;
 `
 
 export const StyledZoomImage = styled(ZoomImage)`
@@ -20,6 +21,7 @@ export const StyledZoomImage = styled(ZoomImage)`
     height: ${props =>props.theme.width * 0.7};
     border-radius: 10px;
     margin: 15px 0px 0px 0px;
+    background-color: #c8c8c8;
 `
 
 export const StyledBottom = styled.View`
