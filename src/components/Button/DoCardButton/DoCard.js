@@ -70,30 +70,33 @@ export function creatIDO(iUseM, iCardM, other) {
     }
 
 
-    //添加到req,日历是用这边的
+    //type === 0 表示是打卡 1表示是日记
     if(other.type === 0){
       const date = moment(iDoEntity.createdAt).format("YYYY-MM-DD")
       dispatch(reqChangeData(IDOCALENDAR, {
         [date]: iDoEntity
       }))
+
+
+      const time = iUseM.time + 1
+      const param = {
+        doneDate: { "__type": "Date", "iso": moment().toISOString() },
+        time: time,
+        //cycle,
+        statu: time % iUseM.period === 0 ? "stop" : "start"
+      }
+
+      // await update(IUSE, iUseM.objectId, param)
+      const entity = {
+        ...param,
+        objectId: iUseM.objectId
+      }
+
+      await dispatch(addNormalizrEntity(IUSE, entity))
     }
 
 
-    const time = iUseM.time + 1
-    const param = {
-      doneDate: { "__type": "Date", "iso": moment().toISOString() },
-      time: time,
-      //cycle,
-      statu: time % iUseM.period === 0 ? "stop" : "start"
-    }
 
-    // await update(IUSE, iUseM.objectId, param)
-    const entity = {
-      ...param,
-      objectId: iUseM.objectId
-    }
-
-    await dispatch(addNormalizrEntity(IUSE, entity))
 
     return iDoEntity
   }

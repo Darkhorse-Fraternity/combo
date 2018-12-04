@@ -16,7 +16,6 @@ import { connect } from 'react-redux'
 import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
-import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 import { Privacy } from '../../../configure/enum'
 import {
     StyleFolllow,
@@ -31,7 +30,8 @@ import {
     StyledAvatar,
     StyledHeaderTop,
     StyledHeaderBottom,
-    StyledHeaderName
+    StyledHeaderName,
+    StyledZoomImage
 } from './style'
 // import CardRow from '../../NewCard/CardRow'
 import Cell from '../../Habit/Cell'
@@ -209,13 +209,9 @@ export default class Following extends Component {
                             }}/>)}
                     </StyleHeaderInner>
                     {!avatarUrl ? <Avatar user={data}/> :
-                        <ZoomImage
+                        <StyledZoomImage
                             height={80}
-                            style={{
-                                width: 80,
-                                height: 80,
-                                borderRadius: 40,
-                            }} imageUrls={[{ url: avatarUrl }]}/>}
+                            imageUrls={[{ url: avatarUrl }]}/>}
 
                 </StyleHeaderInnerRight>
                 <StyledHeaderBottom>

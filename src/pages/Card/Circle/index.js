@@ -28,6 +28,7 @@ import Dialog from '../../../components/Dialog'
 import { classUpdate } from '../../../request/leanCloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { req } from '../../../redux/actions/req'
+
 const listKey = IDO
 
 
@@ -197,9 +198,11 @@ export default class Circle extends Component {
   render(): ReactElement<any> {
 
     const iCardId = this.props.iCard.get('objectId')
-
+    const iUseId = this.props.iUse.get('objectId')
     const privacy = this.props.iCard.get('user') === this.props.user.objectId ?
       Privacy.openToCoach : Privacy.open
+    // const privacy = this.props.iUse.get('privacy')
+    // console.log('privacy:', privacy);
     const param = {
       'where': {
         ...iCard(iCardId),
@@ -207,9 +210,21 @@ export default class Circle extends Component {
           { imgs: { $exists: true } },
           { recordText: { $exists: true } }
         ],
+        // "iUse": {
+        //   "$select": {
+        //     "query": {
+        //       "className": "iUse",
+        //       "where": {
+        //         privacy:2
+        //       }
+        //     },
+        //     "key": "iUse"
+        //   },
+
+        // },
+
       },
       include: 'user',
-      privacy: { "$gte": privacy },//为0的时候只有自己可以查看
     }
     return (
       <LCList

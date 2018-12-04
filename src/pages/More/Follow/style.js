@@ -7,7 +7,7 @@
 import styled from "styled-components";
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
-
+import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -95,4 +95,10 @@ export const StyledHeaderName = styled.Text`
     font-weight: 500;
     max-width: 150px;
     
+`
+
+export const StyledZoomImage = styled(ZoomImage)`
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
 `

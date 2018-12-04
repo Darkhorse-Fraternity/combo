@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Button from '../../../components/Button'
+import { SafeAreaView } from 'react-navigation';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(SafeAreaView)`
     flex: 1;
-    background-color: ${props => props.theme.contentColor};
     justify-content: space-between;
 `
 

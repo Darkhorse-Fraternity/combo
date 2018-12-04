@@ -18,7 +18,6 @@ import {
 import { connect } from 'react-redux'
 import moment from 'moment'
 import PropTypes from 'prop-types';
-import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 
 
 import {

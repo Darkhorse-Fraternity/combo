@@ -256,7 +256,7 @@ export default class OptionDo extends PureComponent {
       >
         <StyledSubTitleView>
           <StyledSubTitle>
-            打卡方式
+            打卡完成要求
           </StyledSubTitle>
         </StyledSubTitleView>
 
