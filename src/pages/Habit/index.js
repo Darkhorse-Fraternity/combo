@@ -16,7 +16,7 @@ import {
   Platform
 } from 'react-native'
 import { connect } from 'react-redux'
-import {  FlatList, } from 'react-navigation'
+import { FlatList, } from 'react-navigation'
 import { selfUser, } from '../../request/LCModle'
 import Cell from './Cell'
 
@@ -30,7 +30,7 @@ import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import moment from 'moment'
-import Swipeout from 'react-native-swipeout'
+import AppleStyleSwipeableRow from './AppleStyleSwipeableRow'
 import { update, search } from '../../redux/module/leancloud'
 
 import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys'
@@ -80,12 +80,12 @@ const Archive = IUSE + "archive"
       }
 
       dispatch(addNormalizrEntity(IUSE, entity))
-       handleView &&  await handleView.fadeOutLeft(1000)
+      handleView && await handleView.fadeOutLeft(1000)
       await dispatch(claerByID(IUSE, id))
-       handleView &&  await handleView.fadeIn(300)
+      handleView && await handleView.fadeIn(300)
       return res
     },
-    delete: async (objectId,handleView) => {
+    delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
       // 做伪删除
 
@@ -103,10 +103,10 @@ const Archive = IUSE + "archive"
               ...res
             }
             dispatch(addNormalizrEntity(IUSE, entity))
-             handleView && await handleView.fadeOutLeft(1000)
+            handleView && await handleView.fadeOutLeft(1000)
             await dispatch(claerByID(IUSE, objectId))
             await dispatch(claerByID(IRECORD, objectId))
-             handleView && await handleView.fadeIn(300)
+            handleView && await handleView.fadeIn(300)
             return res;
           }
         }]
@@ -186,6 +186,7 @@ export default class Habit extends PureComponent {
 
 
   handleViewRef = {}
+  swipeRefs = {}
   __renderItem = ({ item, index }) => {
 
     const self = this
@@ -209,17 +210,28 @@ export default class Habit extends PureComponent {
       <Animatable.View
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
-        <Swipeout
-          rowID={index}
-          autoClose={true}
+        <AppleStyleSwipeableRow
+          // rowID={index}
+          // autoClose={true}
+          ref={ref => {
+            this.swipeRefs['swipe'+ index] = ref
+          }}
           backgroundColor='white'
-          close={this.state.openIndex !== index}
-          onOpen={() => {
+          // close={this.state.openIndex !== index}
+          onSwipeableWillOpen={() => {
+            const openIndex = this.state.openIndex
+            if(openIndex !== -1){
+              const swipeRef = this.swipeRefs['swipe'+openIndex]
+              swipeRef && swipeRef.close()
+            }
             this.setState({ openIndex: index })
           }}
-          onClose={(sectionId,rowId)=>{
-            rowId === this.state.openIndex &&
-            this.setState({openIndex:-1 })
+          onSwipeableWillClose={() => {
+            // rowId === this.state.openIndex &&
+            if(index === this.state.openIndex) {
+              this.setState({ openIndex: -1 })
+            }
+
           }}
           right={[isSelf ? {
             type: 'secondary',
@@ -280,7 +292,7 @@ export default class Habit extends PureComponent {
             data={data}
             iCard={iCard.toJS()}
           />
-        </Swipeout>
+        </AppleStyleSwipeableRow>
       </Animatable.View>);
   }
 

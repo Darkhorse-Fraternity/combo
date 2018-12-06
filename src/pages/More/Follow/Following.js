@@ -200,7 +200,7 @@ export default class Following extends Component {
           </StyleHeaderInnerLeft>
           <StyleHeaderInnerRight>
             <View
-              style={{ borderBottomLeftRadius: 20, borderTopRightRadius: 20, overflow: 'hidden' }}>
+              style={{ borderBottomLeftRadius: 25, borderTopRightRadius: 25, overflow: 'hidden' }}>
               {!avatarUrl ? <Avatar radius={45} style={{ borderRadius: 0 }} user={data}/> :
                 <StyledZoomImage
                   imageUrls={[{ url: avatarUrl }]}/>
@@ -216,6 +216,8 @@ export default class Following extends Component {
               width: isFollow ? 90 : 90,
               alignSelf:'flex-end',
               borderRadius:0,
+              height:30,
+              alignItems:'center'
             }}
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
             onPress={() => {

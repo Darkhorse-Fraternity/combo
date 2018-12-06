@@ -33,14 +33,13 @@ import {
   StyledDeleteBtnText
 } from './style'
 
-import Swipeout from 'react-native-swipeout'
-
 import { claerByID } from '../../redux/actions/list'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { addListNormalizrEntity } from '../../redux/actions/list'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
 import * as Animatable from 'react-native-animatable';
+import AppleStyleSwipeableRow from '../Habit/AppleStyleSwipeableRow'
 
 const Archive = IUSE + "archive"
 
@@ -153,6 +152,7 @@ export default class Record extends Component {
   }
 
   handleViewRef = {}
+  swipeRefs = {}
   renderRow = ({ item, index }: Object) => {
     // md-refresh
     const self = this
@@ -175,17 +175,26 @@ export default class Record extends Component {
       <Animatable.View
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
-        <Swipeout
-          rowID={index}
-          autoClose={true}
+        <AppleStyleSwipeableRow
+          ref={ref => {
+            this.swipeRefs['swipe'+ index] = ref
+          }}
           backgroundColor='white'
           close={this.state.openIndex !== index}
-          onOpen={() => {
+          onSwipeableWillOpen={() => {
+            const openIndex = this.state.openIndex
+            if(openIndex !== -1){
+              const swipeRef = this.swipeRefs['swipe'+openIndex]
+              swipeRef && swipeRef.close()
+            }
             this.setState({ openIndex: index })
           }}
-          onClose={(sectionId,rowId)=>{
-            rowId === this.state.openIndex &&
-            this.setState({openIndex:-1 })
+          onSwipeableWillClose={() => {
+            // rowId === this.state.openIndex &&
+            if(index === this.state.openIndex) {
+              this.setState({ openIndex: -1 })
+            }
+
           }}
           right={[isSelf ? {
             type: 'secondary',
@@ -239,7 +248,7 @@ export default class Record extends Component {
                 iCardId: iCard.objectId
               })
             }}/>
-        </Swipeout>
+        </AppleStyleSwipeableRow>
       </Animatable.View>
     )
   }

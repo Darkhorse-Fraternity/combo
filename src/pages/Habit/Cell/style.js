@@ -3,12 +3,9 @@ import styled from "styled-components";
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import Button from '../../../components/Button'
 // import { colors } from 'example/src/styles/index.js.style';
-const colors = {
-  black: '#1a1917',
-  gray: '#888888',
-  background1: '#B721FF',
-  background2: '#21D4FD'
-};
+// import {
+//   RectButton,
+// } from 'react-native-gesture-handler';
 
 
 export const StyledContent = styled(Button)`

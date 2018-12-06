@@ -323,9 +323,10 @@ export default class RComment extends Component {
 
     return (
       <StyledContent forceInset={{ top: 'never' }}>
+        {this._renderHeader()}
         <LCList
           keyboardDismissMode='interactive'
-          ListHeaderComponent={this._renderHeader}
+          // ListHeaderComponent={this._renderHeader}
           style={[styles.list]}
           reqKey={ICOMMENT}
           sKey={ICOMMENT + iDoID}

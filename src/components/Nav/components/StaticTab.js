@@ -132,7 +132,7 @@ export default createBottomTabNavigator(
       showLabel: false,
 
       style: {
-        backgroundColor: "#f1f6f9",
+        backgroundColor: "#fdfbfb",
         borderTopColor: 'white'
       },
       labelStyle: {

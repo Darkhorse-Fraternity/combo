@@ -7,10 +7,14 @@
 import styled from "styled-components";
 import Button from '../../../components/Button/index'
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import { SafeAreaView } from 'react-navigation';
 
+
+export const StyledSafeAreaView = styled(SafeAreaView)`
+    flex:1;
+`
 export const StyledContent = styled.View`
     flex: 1;
-    background-color: white;
 `
 
 export const StyledButton = styled(Button)`
@@ -102,3 +106,13 @@ export const StyledHeader = styled.View`
   justify-content: center;
 `
 
+export const StyledAppInfo = styled.View`
+  width: 100%;
+  align-items: center;
+  padding: 15px;
+
+`
+export const StyledAppVersionText = styled.Text`
+   color: #a4a4a4;
+   font-size: 15px;
+`

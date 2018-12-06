@@ -15,7 +15,7 @@ export const StyledContent = styled(SafeAreaView)`
 `
 export const StyleHeader = styled.View`
   margin-top: 10px;
-  padding: 15px 25px;
+  padding: 15px 20px;
 
 `
 

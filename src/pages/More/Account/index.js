@@ -1,7 +1,13 @@
 /* @flow */
 'use strict';
 import React from 'react';
-import { View ,Alert} from 'react-native'
+import {
+  View,
+  Alert,
+  TouchableOpacity,
+  NativeModules,
+  Platform
+} from 'react-native'
 import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
 import { connect } from 'react-redux'
 import { uploadAvatar } from '../../../redux/actions/util'
@@ -23,7 +29,10 @@ import {
   StyledCaramerBackView,
   StyledHeaderRow,
   StyledInput,
-  StyledHeader
+  StyledHeader,
+  StyledAppInfo,
+  StyledAppVersionText,
+  StyledSafeAreaView
 } from './style'
 import * as WeChat from 'react-native-wechat';
 import { updateNickName } from '../../../request/leanCloud'
@@ -38,7 +47,9 @@ import {
 import Button from "../../../components/Button/index";
 import { logout } from '../../../redux/actions/user'
 import Avatar from '../../../components/Avatar'
+import DeviceInfo from 'react-native-device-info'
 
+const { RNAppUtil } = NativeModules;
 
 @connect(
   state => ({
@@ -61,7 +72,7 @@ import Avatar from '../../../components/Avatar'
       })
       if (response.uri) {
         const avatar = await dispatch(uploadAvatar(response.uri))
-        return dispatch(updateUserData({avatar}))
+        return dispatch(updateUserData({ avatar }))
       }
       // dispatch(pickerImage())
 
@@ -123,7 +134,8 @@ export default class Account extends React.Component {
     super(props);
     this.state = {
       isWXAppInstalled: false,
-      nickname: props.user.nickname
+      nickname: props.user.nickname,
+      appInfoShow:false
     }
     WeChat.isWXAppInstalled().then(isWXAppInstalled => {
       this.setState({ isWXAppInstalled })
@@ -207,6 +219,50 @@ export default class Account extends React.Component {
     );
   }
 
+   app_channel = async ()=> {
+    return Platform.OS === 'ios' ? 'appStore' :
+    await RNAppUtil.getAppMetadataBy("TD_CHANNEL_ID")
+  }
+
+
+
+  _renderAppInfo = () => {
+    return (
+      <StyledAppInfo>
+        <TouchableOpacity
+          onLongPress={async ()=>{
+            if(!this.channel){
+              this.channel = await this.app_channel()
+            }
+            this.setState({appInfoShow:!this.state.appInfoShow})
+          }}
+          activeOpacity={1}
+        >
+          <StyledAppVersionText>
+            {!this.state.appInfoShow ?
+              `APP VERSION: ${DeviceInfo.getVersion()}`:
+              `用于截屏反馈BUG\n`+
+              `UserID: ${this.props.user.objectId}\n`+
+              `app_channel: ${this.channel}\n`+
+              `App version: ${DeviceInfo.getVersion()}\n`+
+              `App Build: ${DeviceInfo.getBuildNumber()}\n`+
+              `Brand: ${DeviceInfo.getBrand()}\n`+
+              `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n`+
+              `DeviceId: ${DeviceInfo.getDeviceId()}\n`+
+              `FreeDiskStorage: ${DeviceInfo.getDeviceId()}\n`+
+              `Model: ${DeviceInfo.getModel()}\n`+
+              `SystemVersion: ${DeviceInfo.getSystemVersion()}\n`+
+              `APILevel: ${DeviceInfo.getAPILevel()}`
+
+
+              }
+          </StyledAppVersionText>
+        </TouchableOpacity>
+      </StyledAppInfo>
+
+    )
+  }
+
 
   render() {
 
@@ -218,38 +274,40 @@ export default class Account extends React.Component {
 
 
     return (
-      <StyledContent>
-        {this._renderHeadRow(this.props.picker)}
-        {/*{this._renderRow('昵称', this.props.user.nickname, () => {*/}
-        {/*this.props.navigation.navigate("NickName");*/}
-        {/*})}*/}
-        {/*{this._renderRow('手机号码', mobilePhoneVerified ? '已绑定' : '点击绑定', () => {*/}
+      <StyledSafeAreaView forceInset={{ top: 'never' }}>
+        <StyledContent>
+          {this._renderHeadRow(this.props.picker)}
+          {/*{this._renderRow('昵称', this.props.user.nickname, () => {*/}
+          {/*this.props.navigation.navigate("NickName");*/}
+          {/*})}*/}
+          {/*{this._renderRow('手机号码', mobilePhoneVerified ? '已绑定' : '点击绑定', () => {*/}
 
-        {/*//     !!weixin ?this.props.mobilePhoneNumBinding()*/}
-        {/*//         :this.props.mobilePhoneNumBinding()*/}
-        {/*})}*/}
-
-
-        {this.state.isWXAppInstalled && this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
-          !!weixin ? this.props.brekeBinding('weixin', WECHATLOGIN)
-            : this.props.wechatBinding()
-
-        }, this.props.wechatLoad)}
-
-        {this._renderRow('QQ', !!qq ? '解除绑定' : '点击绑定', () => {
-          !!qq ? this.props.brekeBinding('qq', QQLOGIN)
-            : this.props.qqBinding()
-        }, this.props.qqLoad)}
+          {/*//     !!weixin ?this.props.mobilePhoneNumBinding()*/}
+          {/*//         :this.props.mobilePhoneNumBinding()*/}
+          {/*})}*/}
 
 
-        {this._renderRow('退出登录', '', () => {
-          this.props.logout()
-        }, false)}
+          {this.state.isWXAppInstalled && this._renderRow('微信', !!weixin ? '解除绑定' : '点击绑定', () => {
+            !!weixin ? this.props.brekeBinding('weixin', WECHATLOGIN)
+              : this.props.wechatBinding()
 
+          }, this.props.wechatLoad)}
+
+          {this._renderRow('QQ', !!qq ? '解除绑定' : '点击绑定', () => {
+            !!qq ? this.props.brekeBinding('qq', QQLOGIN)
+              : this.props.qqBinding()
+          }, this.props.qqLoad)}
+
+
+          {this._renderRow('退出登录', '', () => {
+            this.props.logout()
+          }, false)}
+        </StyledContent>
+        {this._renderAppInfo()}
         {/*{this._renderRow('手机号码修改', this.props.user.nickname, () => {*/}
         {/*this.props.navigation.navigate("NickName");*/}
         {/*})}*/}
-      </StyledContent>
+      </StyledSafeAreaView>
     );
   }
 }
