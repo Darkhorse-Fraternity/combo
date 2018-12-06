@@ -53,7 +53,7 @@ export default class Header extends Component {
             <Button
                 onPress={()=>onPress && onPress(user)}
                 style={styles.top}>
-                <Avatar radius={10} user={user}/>
+                <Avatar radius={20} user={user}/>
                 <Text style={styles.name}>
                     {user.nickname || '路人甲'}
                 </Text>
@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
         backgroundColor:'rgba(0,0,0,0.3)'
     },
     name: {
-        marginLeft: 5,
-        color: '#4e4e4e',
+        marginLeft: 10,
+
     },
 
 

@@ -24,6 +24,7 @@ import {
 } from '../style'
 
 import {
+  StyledContent,
   StyleHeader,
   StyleHeaderInner,
   StyleHeaderInnerLeft,
@@ -214,10 +215,10 @@ export default class Following extends Component {
             title={isFollow ? "取消关注" : "关注"}
             style={{
               width: isFollow ? 90 : 90,
-              alignSelf:'flex-end',
-              borderRadius:0,
-              height:30,
-              alignItems:'center'
+              alignSelf: 'flex-end',
+              borderRadius: 0,
+              height: 30,
+              alignItems: 'center'
             }}
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
             onPress={() => {
@@ -239,7 +240,7 @@ export default class Following extends Component {
 
     return (
       <StyleFolllow>
-        <Button  innerView onPress={() => {
+        <Button innerView onPress={() => {
           navigation.navigate('followee', { userId: data.objectId });
         }}>
           <StyleFollowText>
@@ -249,7 +250,7 @@ export default class Following extends Component {
             关注
           </StyleFollowTipText>
         </Button>
-        <Button style={{marginLeft:50}} innerView onPress={() => {
+        <Button style={{ marginLeft: 50 }} innerView onPress={() => {
           navigation.navigate('follower', { userId: data.objectId });
         }}>
           <StyleFollowText>
@@ -273,10 +274,6 @@ export default class Following extends Component {
       console.log('iCardId:', iCardId, iCard);
       return <View/>
     }
-    const days = item.time
-    const { img } = iCard
-
-
     return (
       <Cell
         iCard={iCard}
@@ -308,36 +305,22 @@ export default class Following extends Component {
     }
 
     return (
-      <LCList
-        ListHeaderComponent={() => this._renderHeader(user)}
-        style={{ flex: 1 }}
-        reqKey={IUSE}
-        sKey={FOLLOWRECORD + user.objectId}
-        // numColumns={2}
-        // columnWrapperStyle={{ padding: 10 }}
-        renderItem={this.renderRow.bind(this)}
-        //dataMap={(data)=>{
-        //   return {[OPENHISTORYLIST]:data.list}
-        //}}
-        reqParam={param}
-      />
+      <StyledContent forceInset={{ top: 'never' }}>
+        <LCList
+          ListHeaderComponent={() => this._renderHeader(user)}
+          style={{ flex: 1 }}
+          reqKey={IUSE}
+          sKey={FOLLOWRECORD + user.objectId}
+          // numColumns={2}
+          // columnWrapperStyle={{ padding: 10 }}
+          renderItem={this.renderRow.bind(this)}
+          //dataMap={(data)=>{
+          //   return {[OPENHISTORYLIST]:data.list}
+          //}}
+          reqParam={param}
+        />
+      </StyledContent>
     );
   }
 }
 
-const width = Dimensions.get('window').width
-const styles = StyleSheet.create({
-  row: {
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-  },
-  subRow: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  des: {
-    marginLeft: 15
-  },
-
-
-})

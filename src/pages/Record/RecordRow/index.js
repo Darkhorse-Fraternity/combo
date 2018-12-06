@@ -70,15 +70,12 @@ export default class RecordRow extends Component {
                     this.props.navigation.navigate('rcomment', { iDoID: objectId })
                 }}>
                 {/*<Image style={{width:20,height:20}} source={icon}/>*/}
-
-
                 {commentNew && user === this.props.user.objectId
                 && (<StyledNewTip/>)}
                 {commentNum > 0 &&
                 (<StyledChatBtnText
                     numberOfLines={1}>
-
-                    {item.commentNum}
+                  {item.commentNum}
                 </StyledChatBtnText>)}
                 <StyledArrowView/>
                 {/*<Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text>*/}

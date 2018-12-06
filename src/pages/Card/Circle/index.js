@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { Privacy } from '../../../configure/enum'
-import RecordRow from '../../Record/RecordRow'
+import RecordRow from './Row'
 import Header from '../../Record/RecordRow/Header'
 import { IDO, IUSE } from '../../../redux/reqKeys'
 import { recordDiary } from '../Do/Diary'
@@ -189,7 +189,7 @@ export default class Circle extends Component {
             this.props.navigation.navigate('following',
               { user })
           }}/>
-        <RecordRow style={styles.row} item={item} navigation={this.props.navigation}/>
+          <RecordRow  item={item} navigation={this.props.navigation}/>
       </View>
     )
   }
@@ -249,13 +249,6 @@ export default class Circle extends Component {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-  },
-  row: {
-    backgroundColor: 'white',
-    paddingHorizontal: 18,
-    paddingVertical: 2,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#e4e4e4',
   },
 
 

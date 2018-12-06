@@ -16,16 +16,12 @@ export const StyledContent = styled.ScrollView`
 
 export const StyledHeader = styled.View`
     margin: 10px 15px;
-    padding: 7px 15px;
+    padding: 15px 15px;
     background-color: white;
-    border-radius: 5px;
-    shadow-opacity: 0.5;
-    shadow-radius:10px;
-    shadow-color: #979797;
-    shadow-offset: 2px 4px;      
-    elevation: 10;
     flex-direction: row;
     flex-wrap: wrap;
+    border-bottom-width: ${props => props.theme.hairlineWidth};
+    border-bottom-color: #e4e4e4;
 `
 
 
@@ -44,7 +40,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledHeaderButton = styled(Button)`
    border-radius: 10px;
-   padding: 5px;
+   padding: 5px 10px;
    margin: 5px;
    align-items: center;
 `

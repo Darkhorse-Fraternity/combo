@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import Button from '../../../components/Button'
-import ZoomImage from '../../../components/ZoomImage/ZoomImage'
+import Button from '../../../../components/Button'
+import ZoomImage from '../../../../components/ZoomImage/ZoomImage'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 
-export const StyledButton = styled.TouchableOpacity`
-
+export const StyledButton = styled(Button)`
+    padding: 0px 0px;
 `
 
 export const StyledImage = styled.Image`
     width: 100%;
-    height: ${props =>props.theme.width * 0.7};
+    height: ${props =>props.theme.width * 0.4};
     border-radius: 10px;
     margin: 15px 0px 0px 0px; 
     background-color: #fdfbfb;
@@ -18,10 +18,14 @@ export const StyledImage = styled.Image`
 
 export const StyledZoomImage = styled(ZoomImage)`
     width: 100%;
-    height: ${props =>props.theme.width * 0.7};
+    height: ${props =>props.theme.width * 0.4};
     border-radius: 10px;
     margin: 15px 0px 0px 0px;
     background-color: #fdfbfb;
+`
+
+export const StyledMain = styled.View`
+    padding: 0px 60px;
 `
 
 export const StyledBottom = styled.View`
@@ -47,7 +51,7 @@ export const StyledNewTip = styled.View`
 `
 
 export const StyledDateText = styled.Text`
-    
+    margin-left: 60px;
     font-size: 13px;
     color: #646464;
 `
@@ -55,7 +59,7 @@ export const StyledDateText = styled.Text`
 export const StyledRecordText = styled.Text`
    color: #323232;
    font-size: 15px;
-   margin: 10px 0px 0px 0px; 
+   margin: 15px 0px 10px 0px; 
 `
 
 export const StyledIcon = styled(Icon)`
@@ -79,5 +83,5 @@ export const StyledArrowView = styled.View`
   transform: rotate(315deg);
   width: 10px;
   height: 10px;
-  margin-left: 5px;
+  margin-right: 35px;
 `

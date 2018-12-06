@@ -243,13 +243,12 @@ export default class Account extends React.Component {
               `APP VERSION: ${DeviceInfo.getVersion()}`:
               `用于截屏反馈BUG\n`+
               `UserID: ${this.props.user.objectId}\n`+
-              `app_channel: ${this.channel}\n`+
+              `App Channel: ${this.channel}\n`+
               `App version: ${DeviceInfo.getVersion()}\n`+
               `App Build: ${DeviceInfo.getBuildNumber()}\n`+
               `Brand: ${DeviceInfo.getBrand()}\n`+
               `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n`+
-              `DeviceId: ${DeviceInfo.getDeviceId()}\n`+
-              `FreeDiskStorage: ${DeviceInfo.getDeviceId()}\n`+
+              `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n`+
               `Model: ${DeviceInfo.getModel()}\n`+
               `SystemVersion: ${DeviceInfo.getSystemVersion()}\n`+
               `APILevel: ${DeviceInfo.getAPILevel()}`

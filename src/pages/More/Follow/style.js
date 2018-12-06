@@ -11,7 +11,6 @@ import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
-    background-color: white;
 `
 export const StyleHeader = styled.View`
   margin-top: 10px;
