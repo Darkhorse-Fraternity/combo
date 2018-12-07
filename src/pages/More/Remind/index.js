@@ -16,6 +16,8 @@ import PropTypes from 'prop-types';
 
 import { ICARD, IUSE } from '../../../redux/reqKeys'
 import svgs from '../../../../source/icons'
+import AppleStyleSwipeableRow from './AppleStyleSwipeableRow'
+
 
 import {
   StyledContent,
@@ -45,7 +47,6 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
-import Swipeout from 'react-native-swipeout'
 import { shadeBlend } from '../../../../helps/util'
 import * as Animatable from 'react-native-animatable';
 
@@ -240,6 +241,7 @@ export default class Remind extends Component {
   }
 
   handleViewRef = {}
+  swipeRefs = {}
   _renderRow = ({ item, index }) => {
 
     // console.log('test:', item);
@@ -268,17 +270,30 @@ export default class Remind extends Component {
       <Animatable.View
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
-        <Swipeout
-          rowID={index}
-          autoClose={true}
+        <AppleStyleSwipeableRow
+
+          ref={ref => {
+            this.swipeRefs['swipe'+ index] = ref
+          }}
           backgroundColor='white'
-          close={this.state.openIndex !== index}
-          onOpen={() => {
+          onSwipeableWillOpen={() => {
+            const openIndex = this.state.openIndex
+            if(index === openIndex) {
+              return
+            }
+            if(openIndex !== -1){
+              const swipeRef = this.swipeRefs['swipe'+openIndex]
+              swipeRef && swipeRef.close()
+            }
             this.setState({ openIndex: index })
           }}
-          onClose={(sectionId,rowId)=>{
-            rowId === this.state.openIndex &&
-            this.setState({openIndex:-1 })
+          onSwipeableWillClose={() => {
+            // rowId === this.state.openIndex &&
+            console.log('test:', '111');
+            if(index === this.state.openIndex) {
+              this.setState({ openIndex: -1 })
+            }
+
           }}
           right={[{
             type: 'delete',
@@ -337,7 +352,8 @@ export default class Remind extends Component {
               }} value={value}/>
 
           </StyledButton>
-        </Swipeout>
+        </AppleStyleSwipeableRow
+>
       </Animatable.View>
     )
 

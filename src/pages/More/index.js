@@ -270,7 +270,7 @@ export default class More extends Component {
 
         {/*<View style={{ height: 25 }}/>*/}
 
-        {this._renderRow('我们的微博', false, ()=>{
+        {this._renderRow('微博反馈', false, ()=>{
           Linking.canOpenURL('sinaweibo://').then(supported => { // weixin://  alipay://
             if (supported) {
               Linking.openURL('sinaweibo://userinfo?uid=6861885697');

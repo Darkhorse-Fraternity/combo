@@ -30,7 +30,7 @@ export const StyledAvatar = styled.Image`
     width:${props=>props.radius * 2};
     height:${props=>props.radius * 2};
     border-radius: ${props=>props.radius};
-    background-color: #eeeeee;
+    background-color: #fdfbfb;
 `
 
 export const StyledIndicator = styled.ActivityIndicator`

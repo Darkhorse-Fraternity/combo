@@ -24,7 +24,11 @@ import {
   StyledInnerdContent,
   StyledIcon,
   StyledDeleteBtn,
-  StyledDeleteBtnText
+  StyledDeleteBtnText,
+  StyledAdd,
+  StyledIonicons,
+  StyledHeader,
+  StyledHeaderTitle
 } from './style'
 import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
@@ -220,6 +224,9 @@ export default class Habit extends PureComponent {
           // close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
             const openIndex = this.state.openIndex
+            if(index === openIndex) {
+              return
+            }
             if(openIndex !== -1){
               const swipeRef = this.swipeRefs['swipe'+openIndex]
               swipeRef && swipeRef.close()
@@ -305,18 +312,28 @@ export default class Habit extends PureComponent {
 
   _renderHeader = () => {
     return (
-      <View style={styles.headView}>
-        <Text style={styles.headViewText}>
+      <StyledHeader >
+        <StyledHeaderTitle>
           日常习惯
-        </Text>
-        <HeaderBtn
-          style={{ padding: 15 }}
-          title={'添加'}
+        </StyledHeaderTitle>
+        {/*<HeaderBtn*/}
+          {/*style={{ padding: 15 }}*/}
+          {/*title={'添加'}*/}
+          {/*onPress={() => {*/}
+            {/*this.props.navigation.navigate('newCard')*/}
+          {/*}}*/}
+          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
+        <StyledAdd
           onPress={() => {
             this.props.navigation.navigate('newCard')
           }}
-          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
-      </View>
+          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
+          <StyledIonicons
+            // color={'#39ba98'}
+            size={25}
+            name={'ios-add-circle-outline'}/>
+        </StyledAdd>
+      </StyledHeader>
     )
   }
 
@@ -361,30 +378,9 @@ export default class Habit extends PureComponent {
 }
 
 
-const width = Dimensions.get('window').width
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     overflow: 'hidden',
   },
-
-  headView: {
-    // height:180,
-    marginTop: 44,
-    marginBottom: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
-    alignItems: 'center',
-  },
-  headViewText: {
-    fontSize: 21,
-    fontWeight: 'bold',
-  },
-  headViewSubText: {
-    marginTop: 10,
-    // marginHorizontal: 20,
-    fontSize: 14,
-  },
-
 })

@@ -183,6 +183,9 @@ export default class Record extends Component {
           close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
             const openIndex = this.state.openIndex
+            if(index === openIndex) {
+              return
+            }
             if(openIndex !== -1){
               const swipeRef = this.swipeRefs['swipe'+openIndex]
               swipeRef && swipeRef.close()

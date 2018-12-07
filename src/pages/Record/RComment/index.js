@@ -326,7 +326,7 @@ export default class RComment extends Component {
         {this._renderHeader()}
         <LCList
           keyboardDismissMode='interactive'
-          // ListHeaderComponent={this._renderHeader}
+           // ListHeaderComponent={this._renderHeader}
           style={[styles.list]}
           reqKey={ICOMMENT}
           sKey={ICOMMENT + iDoID}
@@ -349,17 +349,17 @@ export default class RComment extends Component {
 
 const styles = StyleSheet.create({
   blurContainer: {
-    ...Platform.select({
-      ios: {
-        flex: 1,
-      },
-    }),
-    backgroundColor: 'white',
-    borderTopColor: 'rgb(200,200,200)',
-    borderTopWidth: StyleSheet.hairlineWidth,
+    // ...Platform.select({
+    //   ios: {
+    //     flex: 1,
+    //   },
+    // }),
+    // backgroundColor: 'white',
+    // borderTopColor: 'rgb(200,200,200)',
+    // borderTopWidth: StyleSheet.hairlineWidth,
   },
   list: {
     // marginBottom: 50
-    flex: 1
+    // flex: 1
   }
 })
