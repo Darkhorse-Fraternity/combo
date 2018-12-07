@@ -14,7 +14,7 @@ export const StyledContent = styled.ScrollView`
     background-color: white;
 `
 export const StyledHeader = styled.View`
-    padding: 15px 15px 0px 15px;
+    padding: 15px 20px 0px 20px;
 `
 
 

@@ -5,7 +5,7 @@
 'use strict';
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -17,12 +17,16 @@ import { connect } from 'react-redux'
 import * as immutable from 'immutable';
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
-import Agenda from '../Card/Statistical'
+import Statistical from '../Card/Statistical'
 
 
 import {
   StyledContent,
-  StyledHeaderBtn
+  StyledHeaderBtn,
+  StyledAdd,
+  StyledIonicons,
+  StyledHeader,
+  StyledHeaderTitle
 } from './style'
 
 
@@ -34,7 +38,7 @@ import {
   (dispatch, props) => ({})
 )
 
-export default class Detail extends Component {
+export default class Detail extends PureComponent {
   constructor(props: Object) {
     super(props);
   }
@@ -44,29 +48,45 @@ export default class Detail extends Component {
   static defaultProps = {};
 
 
-  shouldComponentUpdate(nextProps: Object) {
-    return !immutable.is(this.props, nextProps)
-  }
 
-  componentDidMount() {
-    const { navigation, iCard } = this.props;
-    const { setParams } = navigation;
-
-    setParams({ title: iCard.get('title') })
-  }
 
 
   static navigationOptions = props => {
-    const { navigation } = props;
+    return {
+
+    }
+  };
+
+  _
+  _renderHeader = () => {
+    const { navigation,iCard} = this.props;
     const { state } = navigation;
     const { params } = state;
-    // console.log('iCard:', iCard,iCard.get('title'));
-    return {
-      title: params && params.title,
-      headerRight: (
+    const iconAndColor = iCard.get('iconAndColor')
+    const { color } = iconAndColor ? iconAndColor.toJS() : { name: 'sun', color: '#fcd22f' }
+
+    return (
+      <StyledHeader>
+
+        <StyledHeaderTitle >
+          {iCard.get('title')}
+        </StyledHeaderTitle>
+        {/*<StyledAdd*/}
+          {/*onPress={() => {*/}
+            {/*this.props.navigation.navigate('cardInfo', {*/}
+              {/*iCardId: params.iCardId,*/}
+            {/*})*/}
+          {/*}}*/}
+          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>*/}
+
+          {/*<StyledIonicons*/}
+            {/*// color={color}*/}
+            {/*size={25}*/}
+            {/*name={'ios-add-circle-outline'}/>*/}
+        {/*</StyledAdd>*/}
         <StyledHeaderBtn
           // load={false}
-          style={{ marginRight: 10 }}
+          style={{ backgroundColor: color }}
           // disabled={false}
           hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
           onPress={()=>{
@@ -75,71 +95,29 @@ export default class Detail extends Component {
             })
           }}
           title={'加入'}/>
-      ),
-    }
-  };
 
-
-  // _renderHeader = () => {
-  //   const { navigation, iCard } = this.props;
-  //   const { state } = navigation;
-  //   const { params } = state;
-  //
-  //   const { iCardId } = params
-  //
-  //   console.log('iCard:', iCard);
-  //
-  //
-  //   return (
-  //     <View style={styles.header}>
-  //       <Text style={styles.headerTitle}>{iCard.get('title')}</Text>
-  //       <HeaderBtn
-  //         style={styles.headerBtn}
-  //         title={'查看'}
-  //         onPress={() => {
-  //           navigation.navigate('cardInfo', {
-  //             iCardId,
-  //           })
-  //         }}/>
-  //     </View>
-  //   )
-  // }
+      </StyledHeader>
+    )
+  }
 
 
   render() {
-
-
+    const { navigation,iCard} = this.props;
+    const { state } = navigation;
+    const { params } = state;
+    const iconAndColor = iCard.get('iconAndColor')
+    const { color } = iconAndColor ? iconAndColor.toJS() : { name: 'sun', color: '#fcd22f' }
     return (
-      <StyledContent>
-        {/*{this._renderHeader()}*/}
-        <Agenda {...this.props}/>
+      <StyledContent forceInset={{ top: 'never' }}>
+        {this._renderHeader()}
+        <Statistical color={color} {...this.props}/>
       </StyledContent>
     )
-
 
   }
 }
 
-const styles = StyleSheet.create({
 
-  header: {
-    paddingHorizontal: 15,
-    paddingVertical: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 25,
-  },
-  headerBtn: {},
-  headerBtnText: {
-    color: 'white',
-    fontSize: 13,
-    fontWeight: 'bold',
-
-  }
-})
 
 
 

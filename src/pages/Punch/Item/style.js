@@ -25,7 +25,8 @@ export const StyledCard = styled.View`
    height: ${props => props.width * 1.4};
    border-radius: 6px;
    padding: 10px 5px ;
-   margin: 6px;
+   marginRight: 10px;
+   margin-bottom: 10px;
     shadow-opacity: 0.6;
     shadow-radius:3px;
     shadow-color: ${props => props.backgroundColor};

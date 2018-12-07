@@ -57,7 +57,8 @@ export function nowNotification() {
     data: state.list.get(IUSE),
     normalizrData: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
-    localRemindData: state.util.get('localRemind')
+    localRemindData: state.util.get('localRemind'),
+    user:state.user.data
   }),
   dispatch => ({
 
@@ -205,13 +206,13 @@ export default class LocalNotification extends Component {
     })
 
     // console.log('unDoneCount:', unDoneCount);
-
+    const name = (this.props.user.nickname + ',') ||''
     PushNotification.setApplicationIconBadgeNumber(unDoneCount)
 
     if (!daysFlag) {
       PushNotification.localNotificationSchedule({
         title: '给自己添加一个习惯吧~',
-        message: "小改变，大不同！", // (required)
+        message:name+ "小改变，大不同！", // (required)
         date: moment(21, "HH").toDate(), // in 60 secs
         // date: new Date(Date.now() + (1*1000)), // in 60 secs
         data: {
@@ -225,7 +226,7 @@ export default class LocalNotification extends Component {
 
     PushNotification.localNotificationSchedule({
       title: '新的一周开始了~',
-      message: "为新的一周设置一些习惯吧！", // (required)
+      message:name + "为新的一周设置一些习惯吧！", // (required)
       date: moment(21, "HH").day(7).toDate(), // in 60 secs
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
       data: {
@@ -239,8 +240,9 @@ export default class LocalNotification extends Component {
 
 
   localNotificationSchedule = (day, notifyTime, item) => {
-    const title = item.iCard.title
-    const message = item.iCard.notifyText || '快来记录一下吧!'
+    const name = (this.props.user.nickname + ',') ||''
+    const title = item.iCard.title + '的时间到了'
+    const message = name + (item.iCard.notifyText || '锲而不舍，金石可镂!')
     const id = item.iCard.objectId
 
     // const number = numbers[day-1]
@@ -385,13 +387,13 @@ export default class LocalNotification extends Component {
           recurrenceRule.byday = day.map(num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1]).toString()
         }
 
-
+        const name = (this.props.user.nickname + ',') ||''
         await  RNCalendarEvents.saveEvent(
           title,
           {
             // ...idConfig,
             startDate: startDate.toISOString(),
-            description: describe,
+            description: name + describe,
             recurrenceRule: recurrenceRule,
             url: 'combo://combo',
             // location: '#来自小改变的提醒-'+objectId+'#',

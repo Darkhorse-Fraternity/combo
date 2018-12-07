@@ -27,7 +27,7 @@ import {
 } from './style'
 
 const width = Dimensions.get('window').width
-const itemWidth = (width - 64) / 3
+const itemWidth = (width - 60) / 3
 const iconWidth = itemWidth / 2
 import svgs from '../../../../source/icons'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';

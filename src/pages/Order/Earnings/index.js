@@ -145,7 +145,7 @@ export default class Earnings extends Component {
             this.setState({ scrollValue: containerWidthAnimatedValue });
           }}
           renderTabBar={() => (
-            <EZTabBar scrollValueWithOutNative={this.state.scrollValue} style={{ marginLeft: 10 }}/>
+            <EZTabBar scrollValueWithOutNative={this.state.scrollValue} style={{ marginLeft: 0 }}/>
           )}
         >
           <EarningRecord tabLabel={'收益记录'}/>

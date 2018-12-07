@@ -87,11 +87,11 @@ export  default  class BG extends Component {
                 <Btn
                     useNativeDriver
                     iterationCount="infinite"
-                    duration={40000}
+                    duration={20000}
                     easing="ease-in-out"
                     animation="cloudMoveLeft"
-                    style={styles.sunny}>
-                    <Icon name="md-sunny" size={100} color="#f4be36"/>
+                    style={styles.cloud,{marginTop:70}}>
+                    <Icon name="md-cloud" size={100} color="rgb(230,245,240)"/>
                 </Btn>
                 <Btn
                     delay={5000}

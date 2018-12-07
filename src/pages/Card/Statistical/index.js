@@ -83,7 +83,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 )
 
 
-export default class Agenda extends Component {
+export default class Statistical extends Component {
   constructor(props: Object) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
@@ -185,7 +185,7 @@ export default class Agenda extends Component {
     // const img = item.imgs && item.imgs[0] || null
 
     return (
-      <RecordRow style={[styles.row, { paddingVertical: 10 }]}
+      <RecordRow style={styles.row}
                  item={item}
                  navigation={this.props.navigation}/>
     )
@@ -241,7 +241,7 @@ export default class Agenda extends Component {
 const styles = StyleSheet.create({
   row: {
     backgroundColor: 'white',
-    paddingHorizontal: 18,
+    paddingHorizontal: 20,
     paddingVertical: 2,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#e4e4e4',

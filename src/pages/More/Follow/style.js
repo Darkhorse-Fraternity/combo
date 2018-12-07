@@ -13,7 +13,6 @@ export const StyledContent = styled(SafeAreaView)`
     flex: 1;
 `
 export const StyleHeader = styled.View`
-  margin-top: 10px;
   padding: 15px 20px;
 
 `
@@ -54,7 +53,7 @@ export const StyledRowContent = styled(Button)`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 15px;
+    padding: 10px 20px;
 `
 export const StyledInnerView = styled.View`
     flex-direction: row;

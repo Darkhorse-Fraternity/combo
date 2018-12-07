@@ -16,7 +16,7 @@ export const StyledContent = styled(SafeAreaView)`
 `
 
 export const StyledHeader = styled.View`
-    padding: 15px 15px 0px 15px;
+    padding: 15px 20px 0px 20px;
 `
 
 export const StyledHeaderTitle = styled.Text`
@@ -30,8 +30,8 @@ export const StyledSubTitle = styled.View`
     align-items: center;
     background-color: ${props => props.theme.titleBackViewColor};
     border-radius: 10px;
-    padding: 10px 15px;
-    margin: 30px 15px 0px 15px;
+    padding: 10px 20px;
+    margin: 30px 20px 0px 20px;
 `
 
 export const StyledSubTitleText = styled.Text`

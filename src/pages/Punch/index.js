@@ -25,9 +25,8 @@ import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionVie
 import { selfUser } from '../../request/LCModle'
 import {
   StyledContent,
-  StyledIcon,
-  StyledCard,
-  StyledCardTitle
+  StyledHeader,
+  StyledHeaderTitle
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Item from './Item'
@@ -144,26 +143,15 @@ export default class Punch extends Component {
 
   _renderHeader = () => {
     return (
-      <View style={styles.headView}>
-        <Text
-          numberOfLines={1}
-          style={styles.headViewText}>
+      <StyledHeader >
+        <StyledHeaderTitle>
           {strings('app.name')}
-        </Text>
-      </View>
+        </StyledHeaderTitle>
+      </StyledHeader>
     )
   }
 
   __renderItem = ({ item, index }) => {
-
-    // if (item === -1) {
-    //     return <StopCell title='查看已归档的卡片'
-    //                      des='重新打卡点这里'
-    //                      onPress={() => {
-    //                          this.props.navigation.navigate('Record',
-    //                              { statu: 'stop' })
-    //                      }}/>
-    // }
 
     const data = this.props.iUse.get(item).toJS()
 
@@ -240,16 +228,4 @@ export default class Punch extends Component {
 }
 
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
-const styles = StyleSheet.create({
-  headView: {
-    marginTop: 44,
-    marginBottom: 25,
-  },
-  headViewText: {
-    marginHorizontal: 10,
-    fontSize: 25,
-    fontWeight: 'bold',
-  },
-})
+

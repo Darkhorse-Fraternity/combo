@@ -23,7 +23,7 @@ export const StyledAgendaRow = styled.View`
 `
 
 export const StyledTitleView = styled.View`
-  padding: 25px 5px 5px 5px;
+  padding: 25px 20px 5px 20px;
   flex-direction: row;
   align-items: center;
 `
@@ -31,17 +31,15 @@ export const StyledTitleView = styled.View`
 export const StyledTitleText = styled.Text`
   font-size: 15px;
   color: #979797;
-  margin-left: 10px;
 `
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-  margin-left: 10px;
   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
 `
 
 
 export const StyledRow = styled.View`
-  padding: 15px;
+  padding: 15px 20px;
   flex-direction: row;
   
 `

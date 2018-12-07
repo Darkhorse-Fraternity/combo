@@ -29,9 +29,7 @@ export const StyledMain = styled.View`
 `
 
 export const StyledBottom = styled.View`
-    margin-top: 5px;
-    margin-bottom: 5px;
-    padding: 0px 0px;
+    padding: 5px 10px;
 `
 
 export const StyledDateView = styled.View`

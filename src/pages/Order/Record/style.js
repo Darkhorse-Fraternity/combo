@@ -9,7 +9,7 @@ import styled from "styled-components";
 
 
 export const StyledRow = styled.View`
-    margin: 0px 15px 15px 15px;
+    margin: 0px 20px 15px 20px;
     padding: 15px 15px;
     background-color: ${props => props.theme.showItem};
     border-radius: 5px;
