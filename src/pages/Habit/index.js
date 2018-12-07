@@ -34,7 +34,7 @@ import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import moment from 'moment'
-import AppleStyleSwipeableRow from './AppleStyleSwipeableRow'
+import AppleStyleSwipeableRow from '../../components/Swipeable'
 import { update, search } from '../../redux/module/leancloud'
 
 import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys'

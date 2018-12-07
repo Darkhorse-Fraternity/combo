@@ -6,25 +6,25 @@ import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 export default class AppleStyleSwipeableRow extends Component {
-  renderLeftActions = (progress, dragX) => {
-    const trans = dragX.interpolate({
-      inputRange: [0, 50, 100, 101],
-      outputRange: [-20, 0, 0, 1],
-    });
-    return (
-      <RectButton style={styles.leftAction} onPress={this.close}>
-        <Animated.Text
-          style={[
-            styles.actionText,
-            {
-              transform: [{ translateX: trans }],
-            },
-          ]}>
-          Archive
-        </Animated.Text>
-      </RectButton>
-    );
-  };
+  // renderLeftActions = (progress, dragX) => {
+  //   const trans = dragX.interpolate({
+  //     inputRange: [0, 50, 100, 101],
+  //     outputRange: [-20, 0, 0, 1],
+  //   });
+  //   return (
+  //     <RectButton style={styles.leftAction} onPress={this.close}>
+  //       <Animated.Text
+  //         style={[
+  //           styles.actionText,
+  //           {
+  //             transform: [{ translateX: trans }],
+  //           },
+  //         ]}>
+  //         Archive
+  //       </Animated.Text>
+  //     </RectButton>
+  //   );
+  // };
   renderRightAction = (component, color, onPress ,x, progress,index) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
@@ -45,7 +45,7 @@ export default class AppleStyleSwipeableRow extends Component {
       </Animated.View>
     );
   };
-  renderRightActions = (progress, data) => (
+  renderRightActions = (progress,dragX, data) => (
     <View style={{ width: data.length * 64, flexDirection: 'row' }}>
       {data.map((item, index) => {
         const { backgroundColor, component, onPress } = item
@@ -90,7 +90,7 @@ export default class AppleStyleSwipeableRow extends Component {
         leftThreshold={leftThreshold}
         rightThreshold={rightThreshold || 10}
         renderLeftActions={renderLeftActions}
-        renderRightActions={(progress) => this.renderRightActions(progress, right)}
+        renderRightActions={(progress,dragX) => this.renderRightActions(progress,dragX, right)}
         {...otherProps}
       >
         {children}
@@ -100,33 +100,9 @@ export default class AppleStyleSwipeableRow extends Component {
 }
 
 const styles = StyleSheet.create({
-  rectButton: {
-    flex: 1,
-    height: 80,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    justifyContent: 'space-between',
-    flexDirection: 'column',
-    backgroundColor: 'white',
-  },
-  separator: {
-    backgroundColor: 'rgb(200, 199, 204)',
-    height: StyleSheet.hairlineWidth,
-  },
-  fromText: {
-    fontWeight: 'bold',
-    backgroundColor: 'transparent',
-  },
-  messageText: {
-    color: '#999',
-    backgroundColor: 'transparent',
-  },
-  dateText: {
-    backgroundColor: 'transparent',
-    position: 'absolute',
-    right: 20,
-    top: 10,
-    color: '#999',
-    fontWeight: 'bold',
-  },
+
+
+
+
+
 });

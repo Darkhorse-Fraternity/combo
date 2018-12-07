@@ -16,7 +16,7 @@ import PropTypes from 'prop-types';
 
 import { ICARD, IUSE } from '../../../redux/reqKeys'
 import svgs from '../../../../source/icons'
-import AppleStyleSwipeableRow from './AppleStyleSwipeableRow'
+import AppleStyleSwipeableRow from '../../../components/Swipeable'
 
 
 import {
@@ -271,7 +271,6 @@ export default class Remind extends Component {
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <AppleStyleSwipeableRow
-
           ref={ref => {
             this.swipeRefs['swipe'+ index] = ref
           }}

@@ -39,7 +39,7 @@ import { addListNormalizrEntity } from '../../redux/actions/list'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
 import * as Animatable from 'react-native-animatable';
-import AppleStyleSwipeableRow from '../Habit/AppleStyleSwipeableRow'
+import AppleStyleSwipeableRow from '../../components/Swipeable'
 
 const Archive = IUSE + "archive"
 
