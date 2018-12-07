@@ -194,11 +194,11 @@ export default class BaseWebView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fbfbfb',
+    backgroundColor: 'white',
   },
   webView: {
     flex: 1,
-    backgroundColor: '#fbfbfb',
+    backgroundColor: 'white',
     marginTop: navbarHeight,
   },
   buttonContainer: {

@@ -207,7 +207,7 @@ export default class Calendar extends Component {
       )
     } else {
       return (
-        <ViewPagerAndroid style={{ height: 280, width: width - 10, }}
+        <ViewPagerAndroid style={{ height: 280, width: width  }}
                           initialPage={1}
                           onPageSelected={event => this.myScroll(event)}
                           ref="trueViewPager">
