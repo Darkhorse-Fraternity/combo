@@ -62,7 +62,7 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
             console.log(listKey, data, '数据为空');
             return dispatch(_listFailed(listKey));
           }
-          const loadStatu = response[DATA][DATA].length < pageSize ?
+          const loadStatu = (response[DATA][DATA]|| data).length < pageSize ?
             LIST_LOAD_NO_MORE : LIST_NORMAL
           dispatch(_listSucceed(data, page, listKey,loadStatu));
         } else {

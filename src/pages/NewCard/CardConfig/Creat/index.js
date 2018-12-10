@@ -164,7 +164,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
 export default class Creat extends PureComponent {
   constructor(props: Object) {
     super(props);
-    console.log('props.initialValues:', props.initialValues);
+    // console.log('props.initialValues:', props.initialValues);
     this.state = {
       step:  props.initialValues.get("title")?1:0,
     }

@@ -13,9 +13,10 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  Platform
+  Platform,
+  SectionList
 } from 'react-native'
-import {  FlatList, } from 'react-navigation'
+import { FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { ICARD, IUSE, IDO } from '../../redux/reqKeys'
@@ -26,11 +27,14 @@ import { selfUser } from '../../request/LCModle'
 import {
   StyledContent,
   StyledHeader,
-  StyledHeaderTitle
+  StyledHeaderTitle,
+  StyledSectionHeader,
+  StyledSectionHeaderTitle
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Item from './Item'
 import Rate from 'react-native-rate'
+import _ from 'lodash'
 
 let hasTryRate = false
 
@@ -143,7 +147,7 @@ export default class Punch extends Component {
 
   _renderHeader = () => {
     return (
-      <StyledHeader >
+      <StyledHeader>
         <StyledHeaderTitle>
           {strings('app.name')}
         </StyledHeaderTitle>
@@ -151,45 +155,67 @@ export default class Punch extends Component {
     )
   }
 
-  __renderItem = ({ item, index }) => {
+  _renderSectionHeader = (info) => {
+    if (info.section.title.length === 0) return <View style={{ height: 30 }}/>
+    return (
+      <StyledSectionHeader>
+        <StyledSectionHeaderTitle numberOfLines={1}>
+          {info.section.title}
+        </StyledSectionHeaderTitle>
+      </StyledSectionHeader>
 
-    const data = this.props.iUse.get(item).toJS()
+    )
 
-    // console.log('data:', data);
-    const iCardId = data[ICARD]
-    let iCard = this.props.iCard.get(iCardId)
-    const done = moment(0, "HH").isBefore(data.doneDate.iso)
-    let iconAndColor = iCard.get('iconAndColor')
-    iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
+  }
 
-    return <Item
-      name={iconAndColor.name}
-      color={iconAndColor.color}
-      done={done}
-      title={iCard.get('title')}
-      time={data.time}
-      // onLongPress={()=>{ O
-      //
-      // }}
-      onPress={async (flip,doIt) => {
-        // const iCardM = iCard.toJS()
-        //如果没有强制打卡类型，则直接翻转
-        if(!flip){
-          iCard.get('record').size === 0 && doIt()
-          if (!this.props.load && !done) {
-            await this.props.done(data)
+  __renderItem = (data) => {
 
+    // return (<View/>)
+
+
+    const views = data.item.map((item, index) => {
+      const data = item
+
+      // console.log('data:', data);
+      const iCardId = data[ICARD]
+      let iCard = this.props.iCard.get(iCardId)
+      const done = moment(0, "HH").isBefore(data.doneDate.iso)
+      let iconAndColor = iCard.get('iconAndColor')
+      iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
+      return (<Item
+        key={index+iCard.get('title')}
+        name={iconAndColor.name}
+        color={iconAndColor.color}
+        done={done}
+        title={data.unSatisfyDiscrib ||iCard.get('title')}
+        discrib={data.time+'次'}
+        onPress={async (flip, doIt) => {
+          // const iCardM = iCard.toJS()
+          //如果没有强制打卡类型，则直接翻转
+          if (!flip && data.satisfy) {
+            iCard.get('record').size === 0 && doIt()
+            if (!this.props.load && !done) {
+              await this.props.done(data)
+
+            }
+          } else {
+            this.props.navigation.navigate('card', {
+              iUseId: item.objectId,
+              iCardId: iCardId
+            })
           }
-        }else {
-          this.props.navigation.navigate('card', {
-            iUseId: item,
-            iCardId: iCardId
-          })
-        }
 
 
-      }}
-    />;
+        }}
+      />)
+    })
+
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        {views}
+      </View>
+    )
+
   }
 
 
@@ -199,20 +225,48 @@ export default class Punch extends Component {
 
     let data = this.props.data.toJS().listData
 
+
+    //按条件分类
+
+    const satisfy = []
+    const unSatisfy = []
+    for (let i = 0, j = data.length; i < j; i++) {
+      const mData = this.props.iUse.get(data[i]).toJS()
+      const iCard = this.props.iCard.get(mData.iCard).toJS()
+      const { recordDay } = iCard
+      const week = new Date().getDay() === 0 ? 7 : new Date().getDay()
+
+      console.log('week:', recordDay, week);
+
+      if(recordDay.indexOf(week) !== -1){
+        satisfy.push(mData)
+        mData.satisfy = true
+      }else {
+        mData.satisfy = false
+        mData.unSatisfyDiscrib ='明天'
+        unSatisfy.push(mData)
+      }
+    }
+    const sections = [{ title: unSatisfy.length > 0 ? "允许打卡" : '', data: _.chunk(satisfy, 3) }]
+    unSatisfy.length > 0 && sections.push({ title: "未到时间", data: _.chunk(unSatisfy, 3) })
+
+    // data = data && data.reverse()
     return [
       Platform.OS === 'ios' && <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
       <StyledContent key={'2'}>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
 
-        <FlatList
+        <SectionList
           refreshing={false}
           onRefresh={() => {
             this.props.search()
           }}
-          data={data}
+          // data={data}
+          sections={sections}
           numColumns={3}
           style={{ flex: 1 }}
+          renderSectionHeader={this._renderSectionHeader}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}

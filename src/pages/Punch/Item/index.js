@@ -83,7 +83,7 @@ export default class PunchItem extends Component {
 
   render(): ReactElement<any> {
 
-    const { title, done,onLongPress, style, name, color, onPress, time } = this.props
+    const { title, done,onLongPress, style, name, color, onPress, discrib } = this.props
     const { flip } = this.state
 
     const self = this
@@ -112,7 +112,7 @@ export default class PunchItem extends Component {
             width={itemWidth}
             backgroundColor={color}>
             <StyledCardDis>
-              {time}次
+              {discrib}
             </StyledCardDis>
             <StyledInner height={iconWidth}>
               <StyledIconImage
