@@ -46,9 +46,6 @@ export async function send({
   const body = httpHeader["Content-Type"] === "application/x-www-form-urlencoded"
     ? toQueryString(params) :
     JSON.stringify(params)
-
-  console.log('body:', body);
-
   const request
     = method === 'GET' ? new Request(addParams(urlpath, params), {
     method: method,

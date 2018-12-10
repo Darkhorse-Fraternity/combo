@@ -16,7 +16,7 @@ import { connect } from 'react-redux'
 import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
-import { Privacy } from '../../../configure/enum'
+import { Privacy ,CircleState} from '../../../configure/enum'
 import {
   StyleFolllow,
   StyleFollowText,
@@ -314,9 +314,10 @@ export default class Following extends Component {
           // numColumns={2}
           // columnWrapperStyle={{ padding: 10 }}
           renderItem={this.renderRow.bind(this)}
-          //dataMap={(data)=>{
-          //   return {[OPENHISTORYLIST]:data.list}
-          //}}
+          dataMap={(data)=>{
+            const results = data.results.filter(item => item.iCard.state >= CircleState.open)
+            return {results}
+          }}
           reqParam={param}
         />
       </StyledContent>

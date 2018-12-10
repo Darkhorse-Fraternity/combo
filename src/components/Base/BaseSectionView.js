@@ -189,7 +189,7 @@ export default class BaseSectionView extends Component {
     const FlatList = Platform.os === 'ios'? FlatListIOS : FlatListAndroid
     const TableView = sections.length > 0 ? SectionList : FlatList
 
-    console.log('loadStatu:', loadStatu);
+    // console.log('loadStatu:', loadStatu);
 
     const exceptionViewRefreshing = loadStatu === LIST_LOAD_DATA
     const refreshing = loadStatu === LIST_LOAD_DATA

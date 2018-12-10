@@ -198,7 +198,7 @@ export default class Circle extends Component {
   render(): ReactElement<any> {
 
     const iCardId = this.props.iCard.get('objectId')
-    const iUseId = this.props.iUse.get('objectId')
+    const privacyIUSE = this.props.iUse.get('privacy')
     const privacy = this.props.iCard.get('user') === this.props.user.objectId ?
       Privacy.openToCoach : Privacy.open
     // const privacy = this.props.iUse.get('privacy')
@@ -220,6 +220,7 @@ export default class Circle extends Component {
         // },
       },
       include: 'user,iUse',
+      privacyIUSE //用于更换数据时候重新拉取，没有实际params 意义。
     }
     return (
       <LCList
@@ -232,9 +233,10 @@ export default class Circle extends Component {
         renderItem={this.renderRow.bind(this)}
         tipBtnText={'添加日记'}
         tipTap={() => this.props.tipTap(this.props.iUse.toJS())}
-        //dataMap={(data)=>{
-        //   return {[OPENHISTORYLIST]:data.list}
-        //}}
+        dataMap={(data)=>{
+          const results = data.results.filter(item => item.iUse.privacy >= privacy)
+           return {results}
+        }}
         reqParam={param}
       />
     );

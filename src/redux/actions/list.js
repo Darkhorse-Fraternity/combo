@@ -62,7 +62,9 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
             console.log(listKey, data, '数据为空');
             return dispatch(_listFailed(listKey));
           }
-          dispatch(_listSucceed(data, page, listKey));
+          const loadStatu = response[DATA][DATA].length < pageSize ?
+            LIST_LOAD_NO_MORE : LIST_NORMAL
+          dispatch(_listSucceed(data, page, listKey,loadStatu));
         } else {
           return dispatch(_listFailed(listKey, response[MSG]))
         }
@@ -113,10 +115,10 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
  * @return {[type]}             [description]
  */
 
-function _listSucceed(data: Object, page: number = 0, key: string): Object {
+function _listSucceed(data: Object, page: number = 0, key: string,loadStatu:string): Object {
 
-  const loadStatu = data.length < pageSize ?
-    LIST_LOAD_NO_MORE : LIST_NORMAL
+  // const loadStatu = data.length < pageSize ?
+  //   LIST_LOAD_NO_MORE : LIST_NORMAL
 
   return {
     type: LIST_SUCCEED,
