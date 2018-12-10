@@ -207,17 +207,17 @@ export default class Calendar extends Component {
       )
     } else {
       return (
-        <ViewPagerAndroid style={{ height: 280, width: width  }}
+        <ViewPagerAndroid style={{ height: 250, width: width  }}
                           initialPage={1}
                           onPageSelected={event => this.myScroll(event)}
                           ref="trueViewPager">
-          <View style={{ paddingHorizontal: 10 }}>
+          <View>
             {this.renderDateBorad(pageMonth[0])}
           </View>
-          <View style={{ paddingHorizontal: 10 }}>
+          <View >
             {this.renderDateBorad(pageMonth[1])}
           </View>
-          <View style={{ paddingHorizontal: 10 }}>
+          <View >
             {this.renderDateBorad(pageMonth[2])}
           </View>
         </ViewPagerAndroid>

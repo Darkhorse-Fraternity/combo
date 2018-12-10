@@ -18,7 +18,7 @@ export const StyledContent = styled(SafeAreaView)`
 
 
 export const StyledHeader = styled.View`
-    padding: 15px 20px 30px 20px;
+    padding: 15px 20px 20px 20px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

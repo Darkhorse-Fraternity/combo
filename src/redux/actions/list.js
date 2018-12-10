@@ -23,7 +23,7 @@ export const LIST_ADD = 'LIST_ADD'
 import Toast from 'react-native-simple-toast';
 import { schemas } from '../scemes'
 
-const pageSize = 20;
+const pageSize = 40;
 import { addNormalizrEntity } from '../module/normalizr'
 /**
  * 保证加载的时候，同个请求不窜行。

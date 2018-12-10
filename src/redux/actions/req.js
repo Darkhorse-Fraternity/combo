@@ -47,6 +47,7 @@ export async function reqS(params) {
   if (!params.host && response && !response[RESCODE]) {
     response = { [DATA]: response, [RESCODE]: SUCCODE }
   }
+  console.log('response:', response);
   return response
 
 }

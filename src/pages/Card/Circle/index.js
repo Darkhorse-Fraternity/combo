@@ -189,7 +189,7 @@ export default class Circle extends Component {
             this.props.navigation.navigate('following',
               { user })
           }}/>
-          <RecordRow  item={item} navigation={this.props.navigation}/>
+        <RecordRow item={item} navigation={this.props.navigation}/>
       </View>
     )
   }
@@ -211,20 +211,15 @@ export default class Circle extends Component {
           { recordText: { $exists: true } }
         ],
         // "iUse": {
-        //   "$select": {
-        //     "query": {
-        //       "className": "iUse",
-        //       "where": {
-        //         privacy:2
-        //       }
-        //     },
-        //     "key": "iUse"
-        //   },
-
+        //   "$inQuery":
+        //     {
+        //       // "where": { "privacy": {'$gte':privacy} },
+        //       "where": { "objectId": '5c086d90fb4ffe0069140ef3',"privacy": {'$gte':privacy} },
+        //       "className": "iUse"
+        //     }
         // },
-
       },
-      include: 'user',
+      include: 'user,iUse',
     }
     return (
       <LCList

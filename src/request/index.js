@@ -47,6 +47,8 @@ export async function send({
     ? toQueryString(params) :
     JSON.stringify(params)
 
+  console.log('body:', body);
+
   const request
     = method === 'GET' ? new Request(addParams(urlpath, params), {
     method: method,
