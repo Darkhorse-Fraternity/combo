@@ -112,7 +112,7 @@ import {
         //         [entity.objectId]: entity
         //     }
         // }))
-        Toast.show('修改配置成功~!')
+        Toast.show('修改成功~!')
         return dispatch(addNormalizrEntity(ICARD, entity))
         // Toast.show('修改配置成功~!')
       }

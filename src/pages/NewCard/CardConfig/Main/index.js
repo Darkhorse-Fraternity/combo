@@ -293,7 +293,7 @@ export default class OptionDo extends PureComponent {
       >
         <StyledSubTitleView>
           <StyledSubTitle>
-            提醒日
+            打卡时间限制
           </StyledSubTitle>
         </StyledSubTitleView>
         <Multiple
@@ -382,7 +382,7 @@ export default class OptionDo extends PureComponent {
 
           <this.__renderItem
             index={1}
-            title={"提醒日"}
+            title={"时间限制"}
             discrib={recordDay}
             type="recordDay"
           />

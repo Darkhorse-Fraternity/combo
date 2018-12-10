@@ -183,12 +183,12 @@ export default class Punch extends Component {
       let iconAndColor = iCard.get('iconAndColor')
       iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
       return (<Item
-        key={index+iCard.get('title')}
+        key={index + iCard.get('title')}
         name={iconAndColor.name}
         color={iconAndColor.color}
         done={done}
-        title={data.unSatisfyDiscrib ||iCard.get('title')}
-        discrib={data.time+'次'}
+        title={iCard.get('title')}
+        discrib={data.unSatisfyDiscrib || data.time + '次'}
         onPress={async (flip, doIt) => {
           // const iCardM = iCard.toJS()
           //如果没有强制打卡类型，则直接翻转
@@ -233,22 +233,42 @@ export default class Punch extends Component {
     for (let i = 0, j = data.length; i < j; i++) {
       const mData = this.props.iUse.get(data[i]).toJS()
       const iCard = this.props.iCard.get(mData.iCard).toJS()
-      const { recordDay } = iCard
       const week = new Date().getDay() === 0 ? 7 : new Date().getDay()
-
-      console.log('week:', recordDay, week);
-
-      if(recordDay.indexOf(week) !== -1){
-        satisfy.push(mData)
+      const recordDay = iCard.recordDay.sort((a, b) => a - b > 0)
+      if (recordDay.indexOf(week) !== -1) {
         mData.satisfy = true
-      }else {
+        satisfy.push(mData)
+      } else {
+        let unSatisfyDiscrib = '一周后'
+        //算出正向上满足条件的下一天
+        let unSatisfyRecordDay = recordDay.filter(a => a -week > 0)
+        const nextDoDay = unSatisfyRecordDay[0]
+        //相差几天
+        let days = nextDoDay - week
+        if(unSatisfyRecordDay.length === 0){
+          //如果一周内没有大于当天的打卡要求，则必然在下周的第一个要求中
+          days = recordDay[0] + 7 - week
+        }
+
+
+        if(days <4){
+          unSatisfyDiscrib = ['明天','后天','大后天'][days-1]
+        }else {
+          unSatisfyDiscrib = ['周一','周二','周三','周四','周五','周六','周天'][nextDoDay-1]
+        }
+        console.log('days:', days);
+        //算出离今天最近的下一次打卡时间
+        // console.log('week:', recordDay, week);
+
+
         mData.satisfy = false
-        mData.unSatisfyDiscrib ='明天'
+        // const fromNow = moment().to(moment().add(2, 'days'))
+        mData.unSatisfyDiscrib = unSatisfyDiscrib
         unSatisfy.push(mData)
       }
     }
-    const sections = [{ title: unSatisfy.length > 0 ? "允许打卡" : '', data: _.chunk(satisfy, 3) }]
-    unSatisfy.length > 0 && sections.push({ title: "未到时间", data: _.chunk(unSatisfy, 3) })
+    const sections = [{ title: unSatisfy.length > 0 ? "打卡中" : '', data: _.chunk(satisfy, 3) }]
+    unSatisfy.length > 0 && sections.push({ title: "未到时", data: _.chunk(unSatisfy, 3) })
 
     // data = data && data.reverse()
     return [

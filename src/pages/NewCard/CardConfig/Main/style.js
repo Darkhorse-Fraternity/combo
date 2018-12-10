@@ -47,7 +47,7 @@ export const StyledItemView = styled.View`
 `
 
 export const StyledItemText = styled.Text`
-  font-weight: ${props=> props.contain?600:400};
+  font-weight: ${props=> props.contain?500:400};
   color:${props=> props.contain?'white':
   Platform.OS==='ios'?'black':materialColors.blackTertiary}
   
