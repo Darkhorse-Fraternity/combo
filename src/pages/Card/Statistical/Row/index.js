@@ -127,12 +127,12 @@ export default class RecordRow extends Component {
           (<StyledRecordText numberOfLines={3}>
             {item.recordText}
           </StyledRecordText>)}
-          {img && !showImage && (<StyledImage
+          {img  && (<StyledImage
             // easingFunc={Easing.bounce}
             source={{ uri: img }}/>)}
-          {img && showImage && (<StyledZoomImage
-            height={width * 0.7}
-            imageUrls={[{ url: img }]}/>)}
+          {/*{img && showImage && (<StyledZoomImage*/}
+            {/*height={width * 0.7}*/}
+            {/*imageUrls={[{ url: img }]}/>)}*/}
         </StyledMain>
         {/*<StyledBottom>*/}
           {/*<StyledDateView>*/}

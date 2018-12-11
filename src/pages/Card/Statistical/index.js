@@ -166,11 +166,9 @@ export default class Statistical extends Component {
         {this._renderRow('建立日期', cardCreatedAt)}
         <StyledTitleView>
           <StyledTitleText>
-            日记列表
+            习惯日记
           </StyledTitleText>
-          {!isSelf ? <StyledTitleText>
-              习惯日记
-            </StyledTitleText> :
+          {isSelf  &&
             <StyledHeaderBtn
               // load={false}
               backgroundColor={this.props.color}
@@ -216,6 +214,7 @@ export default class Statistical extends Component {
           { imgs: { $exists: true } },
           { recordText: { $exists: true } }
         ],
+        state:{$ne:-1}
       }
     }
 

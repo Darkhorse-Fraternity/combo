@@ -111,7 +111,7 @@ export default class Publish extends Component {
     return (
       <LCList
         ListHeaderComponent={this._renderHeader}
-        style={[this.props.style, styles.list]}
+        style={[this.props.style]}
         reqKey={listKey}
         numColumns={2}
         columnWrapperStyle={{ padding: 10 }}
@@ -125,52 +125,7 @@ export default class Publish extends Component {
   }
 }
 
-const width = Dimensions.get('window').width
-const styles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-  },
-  item: {
-    width: width / 2 - 15,
-    marginHorizontal: 5,
-    borderRadius: 10,
-    backgroundColor: "#f9f9f9",
-    // elevation: 10,
-  },
-  list: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 19,
-    fontWeight: '600',
-    lineHeight: 30,
-  },
-  time: {
-    marginTop: 30,
-    fontSize: 15,
-    // textAlign:'right',
-    alignSelf: 'flex-end',
-    color: 'rgb(150,150,150)',
 
-
-  },
-  period: {
-    marginTop: 5,
-
-  },
-
-
-  itemImage: {
-    // backgroundColor: 'white',
-    width: '100%',
-    height: 250,
-    borderRadius: 10,
-  },
-  row: {
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-  },
-})
 
 
 

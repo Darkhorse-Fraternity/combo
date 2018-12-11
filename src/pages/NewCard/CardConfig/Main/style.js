@@ -116,7 +116,7 @@ export const StyledIconImage = styled.Image`
 export const StyledTitleView = styled.View`
   align-items: center;
   flex-direction: row;
-   margin-top: 5px;
+   margin-top: 10px;
   
 `
 

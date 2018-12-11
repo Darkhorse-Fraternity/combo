@@ -51,8 +51,7 @@ export const StyledTitleText = styled.Text`
 export const StyledBottomMenu = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding: 20px;
 `
 
 export const StyledBottomMenuText = styled.Text`
@@ -63,10 +62,10 @@ export const StyledBottomMenuText = styled.Text`
 export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
-  margin: 7.5px 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
   background-color: ${props => props.theme.textinputbackgroundColor };
-  width:${props => props.theme.width>340?props.theme.width/4: 
-    props.theme.width/3 };
+  width:${props => (props.theme.width -85)/3 };
   border-radius: 10px;
   height: 85px;
 `
@@ -105,7 +104,7 @@ export const StyledRowText = styled.Text`
 export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 19px;
- 
+  font-weight: bold;
 `
 
 export const StyledRowInner = styled.View`
@@ -134,5 +133,5 @@ export const StyeldDoneView = styled.View`
 `
 
 export const StyledHeader = styled.View`
-  padding:15px;
+  padding:20px;
 `

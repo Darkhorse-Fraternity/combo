@@ -208,9 +208,7 @@ export default class PublishDetail extends Component {
                     {/*navigation.navigate('courseRelease',*/}
                         {/*{ iCardID: navigation.state.params.iCardID })*/}
                 {/*})}*/}
-                {allow && this._renderRow('圈子记录', () => {
-                    navigation.navigate('serve', { iCard })
-                })}
+
 
                 {allow && this._renderRow('卡片配置', () => {
                     navigation.navigate('cardConfig', { iCardId: iCard.objectId })

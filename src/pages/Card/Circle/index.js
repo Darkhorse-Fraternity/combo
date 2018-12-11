@@ -210,6 +210,7 @@ export default class Circle extends Component {
           { imgs: { $exists: true } },
           { recordText: { $exists: true } }
         ],
+        state:{$ne:-1} //-1 为已删除
         // "iUse": {
         //   "$inQuery":
         //     {

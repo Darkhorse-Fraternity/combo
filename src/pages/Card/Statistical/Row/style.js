@@ -10,24 +10,24 @@ export const StyledButton = styled(Button)`
 `
 
 export const StyledImage = styled.Image`
-    width: 100%;
     height: ${props =>(props.theme.width -140) * 0.8};
     border-radius: 10px;
-    margin: 20px 0px 0px 0px; 
+    margin: 20px 20px 0px 0px; 
     background-color: #fdfbfb;
+   
     
 `
 
 export const StyledZoomImage = styled(ZoomImage)`
     width: 100%;
-    height: ${props =>(props.theme.width -140) * 0.8};
+    height: ${props =>(props.theme.width -160) * 0.8};
     border-radius: 10px;
     margin: 20px 0px 0px 0px;
     background-color: #fdfbfb;
 `
 
 export const StyledMain = styled.View`
-    padding: 0px 10px 0px 10px;
+    padding: 0px 0px 0px 20px;
     flex: 1;
 `
 
@@ -60,7 +60,6 @@ export const StyledDateText = styled.Text`
 export const StyledRecordText = styled.Text`
    color: #323232;
    font-size: 17px;
-   margin-top: 1px;
    line-height: 25px;
 `
 

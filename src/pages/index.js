@@ -5,9 +5,6 @@ import Creat from './NewCard/CardConfig/Creat'
 import NewCard from './NewCard'
 import Record from './Record'
 import CardConfig from './NewCard/CardConfig'
-import Publish from './Publish/index'
-import PublishDetail from './Publish/Detail'
-import Serve from './Publish/Serve'
 import LoginView from './More/Login/LoginView'
 import More from './More'
 import Account from './More/Account'
@@ -52,9 +49,6 @@ export const otherRoute = {
   newCard: { screen: NewCard },
   record: { screen: Record },
   cardConfig: { screen: CardConfig },
-  publish: { screen: Publish },
-  publishDetail: { screen: PublishDetail },
-  serve: { screen: Serve },
   account: { screen: Account },
   feedback: { screen: Feedback },
   publishing: { screen: Publishing },

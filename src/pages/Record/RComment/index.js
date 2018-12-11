@@ -211,7 +211,7 @@ export default class RComment extends Component {
     iDoData = iDoData && iDoData.toJS()
     return (
       <StyledHeader>
-        {iDoData && <RecordRow item={iDoData} showChat={false} showImage={true}/>}
+        {iDoData && <RecordRow item={iDoData}/>}
       </StyledHeader>
     )
   }

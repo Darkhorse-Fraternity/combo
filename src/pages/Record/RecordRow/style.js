@@ -17,11 +17,18 @@ export const StyledImage = styled.Image`
 `
 
 export const StyledZoomImage = styled(ZoomImage)`
-    width: 100%;
-    height: ${props =>props.theme.width * 0.7};
+    height: ${props =>(props.theme.width-80) * 0.7};
     border-radius: 10px;
-    margin: 15px 0px 0px 0px;
+    margin: 15px 45px ;
     background-color: #fdfbfb;
+`
+
+
+export const StyledTop = styled.View`
+    padding: 0px 0px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 `
 
 export const StyledBottom = styled.View`
@@ -47,15 +54,14 @@ export const StyledNewTip = styled.View`
 `
 
 export const StyledDateText = styled.Text`
-    
-    font-size: 13px;
-    color: #646464;
+    font-size: 18px;
+    color: #969697;
 `
 
 export const StyledRecordText = styled.Text`
-   color: #323232;
-   font-size: 15px;
-   margin: 10px 0px 0px 0px; 
+  
+   font-size: 19px;
+   margin: 20px 0px 0px 0px; 
 `
 
 export const StyledIcon = styled(Icon)`
