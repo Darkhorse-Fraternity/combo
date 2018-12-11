@@ -242,12 +242,13 @@ export default class Punch extends Component {
         let unSatisfyDiscrib = '一周后'
         //算出正向上满足条件的下一天
         let unSatisfyRecordDay = recordDay.filter(a => a -week > 0)
-        const nextDoDay = unSatisfyRecordDay[0]
+        let nextDoDay = unSatisfyRecordDay[0]
         //相差几天
         let days = nextDoDay - week
         if(unSatisfyRecordDay.length === 0){
           //如果一周内没有大于当天的打卡要求，则必然在下周的第一个要求中
-          days = recordDay[0] + 7 - week
+          nextDoDay = recordDay[0]
+          days = nextDoDay + 7 - week
         }
 
 
