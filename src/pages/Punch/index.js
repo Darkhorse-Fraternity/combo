@@ -257,7 +257,6 @@ export default class Punch extends Component {
         }else {
           unSatisfyDiscrib = ['周一','周二','周三','周四','周五','周六','周天'][nextDoDay-1]
         }
-        console.log('days:', days);
         //算出离今天最近的下一次打卡时间
         // console.log('week:', recordDay, week);
 
@@ -295,6 +294,7 @@ export default class Punch extends Component {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
+          ListFooterComponent={<View style={{height:120}}/>}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
       </StyledContent>

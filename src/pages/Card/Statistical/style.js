@@ -26,6 +26,7 @@ export const StyledTitleView = styled.View`
   padding: 25px 20px 5px 20px;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 `
 
 export const StyledTitleText = styled.Text`

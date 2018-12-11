@@ -30,9 +30,10 @@ import { user, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
 import { IDO, IUSE } from '../../../redux/reqKeys'
 import { recordDiary } from '../Do/Diary'
+
 const listKey = IDO
 
-import RecordRow from '../../Record/RecordRow'
+import RecordRow from './Row'
 
 import { update, } from '../../../redux/module/leancloud'
 import { claerByID } from '../../../redux/actions/list'
@@ -164,16 +165,19 @@ export default class Statistical extends Component {
         {this._renderRow('加入天数', date + "天")}
         {this._renderRow('建立日期', cardCreatedAt)}
         <StyledTitleView>
-          {!isSelf?<StyledTitleText>
-            习惯日记
-          </StyledTitleText>:
+          <StyledTitleText>
+            日记列表
+          </StyledTitleText>
+          {!isSelf ? <StyledTitleText>
+              习惯日记
+            </StyledTitleText> :
             <StyledHeaderBtn
-            // load={false}
-            backgroundColor={this.props.color}
-            // disabled={false}
-            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-            onPress={()=>this.props.tipTap(this.props.iUse.toJS())}
-            title={'添加日记'}/>}
+              // load={false}
+              backgroundColor={this.props.color}
+              // disabled={false}
+              hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+              onPress={() => this.props.tipTap(this.props.iUse.toJS())}
+              title={'添加'}/>}
         </StyledTitleView>
       </StyledInner>
 
@@ -185,9 +189,14 @@ export default class Statistical extends Component {
     // const img = item.imgs && item.imgs[0] || null
 
     return (
-      <RecordRow style={styles.row}
-                 item={item}
-                 navigation={this.props.navigation}/>
+      <RecordRow
+        item={item}
+        color={this.props.color}
+        onPress={()=>{
+          this.props.navigation &&
+          this.props.navigation.navigate('rcomment',
+            { iDoID: item.objectId })
+        }}/>
     )
   }
 
@@ -213,11 +222,11 @@ export default class Statistical extends Component {
 
     const isSelf = this.props.user.objectId === iUse.user
 
-    const config = isSelf?{
-      noDataPrompt:'写一个日记吧~！',
-      tipBtnText:'添加日记',
-      tipTap:()=>this.props.tipTap(this.props.iUse.toJS())
-    }:{}
+    const config = isSelf ? {
+      noDataPrompt: '写一个日记吧~！',
+      tipBtnText: '添加日记',
+      tipTap: () => this.props.tipTap(this.props.iUse.toJS())
+    } : {}
     return (
       <LCList
         ref={'list'}
@@ -238,12 +247,3 @@ export default class Statistical extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  row: {
-    backgroundColor: 'white',
-    paddingHorizontal: 20,
-    paddingVertical: 2,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#e4e4e4',
-  },
-})

@@ -1,7 +1,7 @@
 import I18n from 'react-native-i18n';
 
 // Import all locales
-import en from './en.json';
+import en from './zh.json';
 import zh from './zh.json';
 // const en = zh
 // Should the app fallback to English if user locale doesn't exists

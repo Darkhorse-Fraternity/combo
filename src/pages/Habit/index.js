@@ -316,23 +316,23 @@ export default class Habit extends PureComponent {
         <StyledHeaderTitle>
           日常习惯
         </StyledHeaderTitle>
-        {/*<HeaderBtn*/}
-          {/*style={{ padding: 15 }}*/}
-          {/*title={'添加'}*/}
-          {/*onPress={() => {*/}
-            {/*this.props.navigation.navigate('newCard')*/}
-          {/*}}*/}
-          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
-        <StyledAdd
+        <HeaderBtn
+          style={{ padding: 15 }}
+          title={'添加'}
           onPress={() => {
             this.props.navigation.navigate('newCard')
           }}
-          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
-          <StyledIonicons
-            // color={'#39ba98'}
-            size={25}
-            name={'ios-add-circle-outline'}/>
-        </StyledAdd>
+          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
+        {/*<StyledAdd*/}
+          {/*onPress={() => {*/}
+            {/*this.props.navigation.navigate('newCard')*/}
+          {/*}}*/}
+          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>*/}
+          {/*<StyledIonicons*/}
+            {/*// color={'#39ba98'}*/}
+            {/*size={25}*/}
+            {/*name={'ios-add-circle-outline'}/>*/}
+        {/*</StyledAdd>*/}
       </StyledHeader>
     )
   }
@@ -369,6 +369,7 @@ export default class Habit extends PureComponent {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
+          ListFooterComponent={<View style={{height:100}}/>}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 
