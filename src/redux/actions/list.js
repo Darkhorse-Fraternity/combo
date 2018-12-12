@@ -175,7 +175,13 @@ export function claerByID(key: string, objID: string) {
     if (!objID) {
       return;
     }
-    const list = getState().list.get(key).get("listData").toJS()
+    const state = getState()
+    let list = state.list.get(key)
+    list = list && list.get("listData")
+    list = list && list.toJS()
+    if(!list){
+      return
+    }
     const rowID = list.indexOf(objID)
     if (rowID > -1) {
       // const loadStatu = list.length <= 1 ? LIST_NO_DATA : LIST_NORMAL

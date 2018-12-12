@@ -83,7 +83,7 @@ import { findByID } from "../../../redux/module/leancloud";
   (dispatch, props) => ({
     find: () => {
       const id = props.navigation.state.params.iDoID
-      console.log('id:', id);
+      // console.log('id:', id);
       dispatch(findByID(IDO, id))
 
     },
@@ -109,7 +109,7 @@ import { findByID } from "../../../redux/module/leancloud";
 
       const res = await dispatch(add(param, ICOMMENT)) //
 
-      console.log('res:', res);
+      // console.log('res:', res);
 
       if (!res) {
         return
@@ -143,8 +143,8 @@ import { findByID } from "../../../redux/module/leancloud";
             const iDoID = props.navigation.state.params.iDoID
             const iUseId = props.navigation.state.params.iUseId
             const iCardId = props.navigation.state.params.iCardId
-            console.log('iCardId:', iCardId);
-            const param = { state: 0 }
+            // console.log('iCardId:', iCardId);
+            const param = { state: -1 }
             const res = await dispatch(updateByID(IDO, iDoID, param))
             const entity = {
               ...param,
@@ -154,9 +154,11 @@ import { findByID } from "../../../redux/module/leancloud";
             await dispatch(claerByID( IDO+iUseId, iDoID))
             await dispatch(claerByID( IDO+iCardId, iDoID))
 
+
             dispatch((dispatch,getState)=>{
               const state = getState()
               const iDoMap = state.normalizr.get(IDO).get(iDoID)
+              // console.log('iDoMap:', iDoMap);
               const date = moment(iDoMap.get('createdAt')).format("YYYY-MM-DD")
               dispatch(reqChangeData(IDOCALENDAR, {
                 [date]: null
@@ -227,11 +229,11 @@ export default class RComment extends PureComponent {
   static defaultProps = {};
   static navigationOptions = props => {
     const params = props.navigation.state.params
-    const { iDoLoad ,iDoDelete } = params
+    const { iDoLoad ,iDoDelete,isSelf } = params
     return {
       title: '',
       headerRight: (
-        <Button
+        isSelf && <Button
           disabled={iDoLoad}
           background={TouchableNativeFeedback.SelectableBackgroundBorderless &&
           TouchableNativeFeedback.SelectableBackgroundBorderless()}
@@ -247,8 +249,9 @@ export default class RComment extends PureComponent {
   };
 
   componentDidMount() {
-    const { iDoLoad, iDoDelete, iDoData } = this.props
-    this.props.navigation.setParams({ iDoDelete, iDoLoad })
+    const { iDoLoad, iDoDelete, iDoData, user } = this.props
+    const isSelf = user.objectId === iDoData.get('user')
+    this.props.navigation.setParams({ iDoDelete, iDoLoad,isSelf })
     if (!iDoData) {
       this.props.find()
     } else {

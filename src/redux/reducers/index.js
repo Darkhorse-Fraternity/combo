@@ -7,6 +7,7 @@ import list from './list'
 import share from './share'
 import req from './req'
 import normalizr from '../module/normalizr'
+
 export {
     normalizr,
     req,

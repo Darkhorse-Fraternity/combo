@@ -39,7 +39,7 @@ import CourseRowList from '../../Course/Info/CourseRowList'
   (dispatch, props) => ({
     dataLoad: () => {
       const id = props.navigation.state.params.CourseId
-      console.log('id:', id);
+      // console.log('id:', id);
       dispatch(findByID(COURSE, id))
     },
     add: async () => {
