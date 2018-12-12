@@ -208,6 +208,7 @@ export default class OptionDo extends PureComponent {
           style={[{
             backgroundColor: '#f6f7f9',
             padding: 5,
+            paddingHorizontal:10,
             borderRadius: 5,
             marginHorizontal: 15
           }]}>
@@ -378,20 +379,20 @@ export default class OptionDo extends PureComponent {
               </StyledTitleView>
             </StyledTopButton>
           </Animatable.View>
-
-
           <this.__renderItem
             index={1}
-            title={"时间限制"}
-            discrib={recordDay}
-            type="recordDay"
-          />
-          <this.__renderItem
-            index={2}
             title={"提醒时间"}
             discrib={notifyTimes}
             type="notifyTimes"
           />
+
+          <this.__renderItem
+            index={2}
+            title={"时间限制"}
+            discrib={recordDay}
+            type="recordDay"
+          />
+
           <this.__renderItem
             index={3}
             title={"我的激励"}

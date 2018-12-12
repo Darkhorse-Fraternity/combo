@@ -55,7 +55,7 @@ export const StyledNewTip = styled.View`
 
 export const StyledDateText = styled.Text`
     font-size: 18px;
-    color: #969697;
+    color: #646464;
 `
 
 export const StyledRecordText = styled.Text`

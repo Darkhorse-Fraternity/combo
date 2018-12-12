@@ -7,7 +7,7 @@
 'use strict';
 
 import * as immutable from 'immutable';
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -18,7 +18,10 @@ import {
   Clipboard,
   Keyboard,
   TouchableOpacity,
-  InteractionManager
+  InteractionManager,
+  Alert,
+  TouchableNativeFeedback,
+  ActivityIndicator
 } from 'react-native'
 import { connect } from 'react-redux'
 import RecordRow from '../RecordRow'
@@ -29,12 +32,15 @@ import LCList from '../../../components/Base/LCList'
 import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-input';
 
 import {
-  ICOMMENT, IDO
+  ICOMMENT,
+  IDO,
+  IDOCALENDAR
 } from '../../../redux/reqKeys'
-import { add, remove, update } from '../../../redux/module/leancloud'
+import { add, remove, update, updateByID } from '../../../redux/module/leancloud'
 import { selfUser, iDo } from '../../../request/LCModle'
 import { add as listAdd, claerByID } from '../../../redux/actions/list'
 import { addNormalizrEntity, } from '../../../redux/module/normalizr'
+import {reqChangeData} from '../../../redux/actions/req'
 import ChatSendForm, { FormID } from '../../../components/Form/ChatSendForm'
 import {
   StyledHeader,
@@ -46,13 +52,15 @@ import {
   StyledNickText,
   StyledContentText,
   StyledDate,
+  StyledIcon
 } from './style'
 import moment from 'moment'
 import { formValueSelector } from 'redux-form/immutable'
 import { reset } from 'redux-form'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import Dialog from '../../../components/Dialog'
-
+import { RectButton } from 'react-native-gesture-handler';
+import Button from '../../../components/Button'
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
@@ -69,7 +77,8 @@ import { findByID } from "../../../redux/module/leancloud";
   (state, props) => ({
     //data:state.req.get()
     user: state.user.data,
-    iDoData: state.normalizr.get(IDO).get(props.navigation.state.params.iDoID)
+    iDoData: state.normalizr.get(IDO).get(props.navigation.state.params.iDoID),
+    iDoLoad: state.req.get(IDO).get('load')
   }),
   (dispatch, props) => ({
     find: () => {
@@ -125,6 +134,41 @@ import { findByID } from "../../../redux/module/leancloud";
 
       dispatch(reset(FormID))
     }),
+    iDoDelete: () => {
+      Alert.alert(
+        '删除日记?',
+        '删除后不可恢复',
+        [{ text: '取消' }, {
+          text: '确定', onPress: async () => {
+            const iDoID = props.navigation.state.params.iDoID
+            const iUseId = props.navigation.state.params.iUseId
+            const iCardId = props.navigation.state.params.iCardId
+            console.log('iCardId:', iCardId);
+            const param = { state: 0 }
+            const res = await dispatch(updateByID(IDO, iDoID, param))
+            const entity = {
+              ...param,
+              ...res,
+            }
+            dispatch(addNormalizrEntity(IDO, entity))
+            await dispatch(claerByID( IDO+iUseId, iDoID))
+            await dispatch(claerByID( IDO+iCardId, iDoID))
+
+            dispatch((dispatch,getState)=>{
+              const state = getState()
+              const iDoMap = state.normalizr.get(IDO).get(iDoID)
+              const date = moment(iDoMap.get('createdAt')).format("YYYY-MM-DD")
+              dispatch(reqChangeData(IDOCALENDAR, {
+                [date]: null
+              }))
+            })
+
+            props.navigation.goBack()
+          }
+        }]
+      )
+
+    },
     delete: async (item) => {
       const iDoID = props.navigation.state.params.iDoID
       await dispatch(remove(item.objectId, ICOMMENT))
@@ -165,9 +209,8 @@ import { findByID } from "../../../redux/module/leancloud";
   })
 )
 
-@immutableRenderDecorator
 
-export default class RComment extends Component {
+export default class RComment extends PureComponent {
   constructor(props: Object) {
     super(props);
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
@@ -175,7 +218,7 @@ export default class RComment extends Component {
 
     this.state = {
       text: '',
-      showIn:true,
+      showIn: true,
     };
 
   }
@@ -183,16 +226,30 @@ export default class RComment extends Component {
   static propTypes = {};
   static defaultProps = {};
   static navigationOptions = props => {
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
+    const params = props.navigation.state.params
+    const { iDoLoad ,iDoDelete } = params
     return {
-      // title: '主页',
+      title: '',
+      headerRight: (
+        <Button
+          disabled={iDoLoad}
+          background={TouchableNativeFeedback.SelectableBackgroundBorderless &&
+          TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          onPress={iDoDelete}
+          style={{ paddingHorizontal: 15 }}>
+          {iDoLoad?<ActivityIndicator/>:<StyledIcon
+            size={25}
+            color={'black'}
+            name={'delete'}/>}
+        </Button>
+      ),
     }
   };
 
   componentDidMount() {
-    if (!this.props.iDoData) {
+    const { iDoLoad, iDoDelete, iDoData } = this.props
+    this.props.navigation.setParams({ iDoDelete, iDoLoad })
+    if (!iDoData) {
       this.props.find()
     } else {
       this.props.refresh()
@@ -200,6 +257,12 @@ export default class RComment extends Component {
     // InteractionManager.runAfterInteractions(async () => {
     //     this.setState({showIn:true})
     // })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.iDoLoad !== this.props.iDoLoad) {
+      this.props.navigation.setParams({ iDoLoad: nextProps.iDoLoad })
+    }
   }
 
   componentWillUnmount() {
@@ -326,7 +389,7 @@ export default class RComment extends Component {
         {this._renderHeader()}
         <LCList
           keyboardDismissMode='interactive'
-           // ListHeaderComponent={this._renderHeader}
+          // ListHeaderComponent={this._renderHeader}
           style={[styles.list]}
           reqKey={ICOMMENT}
           sKey={ICOMMENT + iDoID}

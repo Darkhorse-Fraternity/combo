@@ -100,18 +100,47 @@ export default class RecordRow extends Component {
     )
   }
 
+
+  CNDateString(date) {
+    let cn = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    let s = [];
+    let YY = date.getFullYear().toString();
+    for (let i = 0; i < YY.length; i++)
+      if (cn[YY.charAt(i)])
+        s.push(cn[YY.charAt(i)]);
+      else
+        s.push(YY.charAt(i));
+    s.push("年");
+    let MM = date.getMonth();
+    if (MM < 10)
+      s.push(cn[MM]);
+    else if (MM < 20)
+      s.push("十" );
+    s.push("月");
+    let DD = date.getDate();
+    if (DD < 10)
+      s.push(cn[DD]);
+    else if (DD < 20)
+      s.push("十" );
+    else
+      s.push("二十" );
+    s.push("日");
+    return s.join('');
+  }
+
+
   render(): ReactElement<any> {
-    const { item, showImage } = this.props
+    const { item } = this.props
     if (!item) return null
     const img = item.imgs && item.imgs[0] || null
-    const date = moment(item.createdAt).format("llll")
+    const date = moment(item.createdAt).format(" dddd")
     return (
-      <View style={this.props.style}>
+      <View>
         <StyledTop>
           <StyledDateText>
-            {date}
+            {this.CNDateString(new Date(item.createdAt))+date}
           </StyledDateText>
-          {this._renderDone()}
+          {/*{this._renderDone()}*/}
         </StyledTop>
         {!!item.recordText && <StyledRecordText>
           {item.recordText}
@@ -119,16 +148,6 @@ export default class RecordRow extends Component {
 
         {img && <StyledZoomImage
           imageUrls={[{ url: img }]}/>}
-        {/*<StyledBottom >*/}
-        {/*<StyledDateView >*/}
-        {/*<StyledDateText >*/}
-        {/*{date}*/}
-        {/*</StyledDateText>*/}
-        {/*{this.props.showChat ?*/}
-        {/*this._renderChatBtn(item) :*/}
-        {/*this._renderDone()}*/}
-        {/*</StyledDateView>*/}
-        {/*</StyledBottom>*/}
       </View>
     );
   }

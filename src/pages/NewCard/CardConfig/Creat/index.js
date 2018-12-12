@@ -108,6 +108,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
           color: op.color,
         },
         notifyTimes,
+        notifyText:op.notifyText,
         price: 0,
         state: 0,
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},

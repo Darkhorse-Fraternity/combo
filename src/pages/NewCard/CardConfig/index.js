@@ -97,6 +97,7 @@ import {
             name: op.icon,
             color: op.color
           },
+          notifyText:op.notifyText,
           notifyTimes
         }
 

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Feather'
+
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -50,4 +52,9 @@ export const StyledContentText = styled.Text`
 export const StyledDate = styled.Text`
   margin: 0px 0px 10px 0px;
   color: #9ea1a1;
+`
+
+
+export const StyledIcon = styled(Icon)`
+  
 `

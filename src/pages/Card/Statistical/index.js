@@ -128,7 +128,7 @@ export default class Statistical extends Component {
 
   _renderHeader = () => {
 
-    const { navigation } = this.props;
+    // const { navigation } = this.props;
     // const { state } = navigation;
     // const { params } = state;
     // const { iCard, iUse } = params
@@ -152,7 +152,16 @@ export default class Statistical extends Component {
       <StyledInner
         colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
         <AgendaScreen
-          {...this.props}/>
+          {...this.props}
+          onPress={(item) => {
+            this.props.navigation.navigate('rcomment',
+              {
+                iDoID: item.objectId,
+                iUseId: this.props.iUse.get('objectId'),
+                iCardId: this.props.iCard.get('objectId')
+              })
+          }}
+        />
         <StyledTitleView>
           <StyledTitleText>
             习惯统计
@@ -168,14 +177,14 @@ export default class Statistical extends Component {
           <StyledTitleText>
             习惯日记
           </StyledTitleText>
-          {isSelf  &&
-            <StyledHeaderBtn
-              // load={false}
-              backgroundColor={this.props.color}
-              // disabled={false}
-              hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-              onPress={() => this.props.tipTap(this.props.iUse.toJS())}
-              title={'添加'}/>}
+          {isSelf &&
+          <StyledHeaderBtn
+            // load={false}
+            backgroundColor={this.props.color}
+            // disabled={false}
+            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+            onPress={() => this.props.tipTap(this.props.iUse.toJS())}
+            title={'添加'}/>}
         </StyledTitleView>
       </StyledInner>
 
@@ -190,10 +199,13 @@ export default class Statistical extends Component {
       <RecordRow
         item={item}
         color={this.props.color}
-        onPress={()=>{
-          this.props.navigation &&
+        onPress={() => {
           this.props.navigation.navigate('rcomment',
-            { iDoID: item.objectId })
+            {
+              iDoID: item.objectId,
+              iUseId: this.props.iUse.get('objectId'),
+              iCardId: this.props.iCard.get('objectId')
+            })
         }}/>
     )
   }
@@ -214,7 +226,7 @@ export default class Statistical extends Component {
           { imgs: { $exists: true } },
           { recordText: { $exists: true } }
         ],
-        state:{$ne:-1}
+        state: { $ne: -1 }
       }
     }
 

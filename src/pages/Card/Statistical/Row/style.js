@@ -89,16 +89,18 @@ export const StyledArrowView = styled.View`
 
 
 export const StyledDateView = styled.View`
-    background-color: ${props => props.color};
+    background-color: white;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
     width: 60px;
     height: 60px;
+    border-width: 1px;
+    border-color: ${props => props.color};
 `
 
 export const StyledDateTextBig = styled.Text`
-    color: white;
+    color: ${props => props.color};
     font-size: 20px;
     font-weight: bold;
     
@@ -106,7 +108,7 @@ export const StyledDateTextBig = styled.Text`
 
 export const StyledDateTextSmall = styled.Text`
     margin-top: 1px;
-    color: white;
+    color: ${props => props.color};
     font-size: 12px;
     font-weight: bold;
 `
