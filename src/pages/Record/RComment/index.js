@@ -34,7 +34,8 @@ import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-inpu
 import {
   ICOMMENT,
   IDO,
-  IDOCALENDAR
+  IDOCALENDAR,
+  IUSE
 } from '../../../redux/reqKeys'
 import { add, remove, update, updateByID } from '../../../redux/module/leancloud'
 import { selfUser, iDo } from '../../../request/LCModle'
@@ -151,18 +152,47 @@ import { findByID } from "../../../redux/module/leancloud";
               ...res,
             }
             dispatch(addNormalizrEntity(IDO, entity))
-            await dispatch(claerByID( IDO+iUseId, iDoID))
-            await dispatch(claerByID( IDO+iCardId, iDoID))
+            iUseId && await dispatch(claerByID( IDO+iUseId, iDoID))
+            iCardId && await dispatch(claerByID( IDO+iCardId, iDoID))
 
 
             dispatch((dispatch,getState)=>{
               const state = getState()
               const iDoMap = state.normalizr.get(IDO).get(iDoID)
               // console.log('iDoMap:', iDoMap);
-              const date = moment(iDoMap.get('createdAt')).format("YYYY-MM-DD")
+              const createdAt = iDoMap.get('createdAt')
+              const date = moment(createdAt).format("YYYY-MM-DD")
               dispatch(reqChangeData(IDOCALENDAR, {
                 [date]: null
               }))
+
+
+              if(iDoMap.get('type') === 1){
+                return
+              }
+
+              //TODO 如果卡片是今天，那么就将今天的iUSE.doneDate 改到昨天
+              if(!iUseId){
+                return
+              }
+
+              const iUse = state.normalizr.get(IUSE).get(iUseId)
+              const paramiUSE = { time:iUse.get('time') -1 }
+              const before = moment(0, "HH")
+              const after = moment(24, "HH")
+
+              const momentIn = moment(createdAt).isBetween(before, after)
+              if(momentIn){
+                paramiUSE.doneDate = { "__type": "Date", "iso":
+                  moment(createdAt).subtract(1, 'day').toISOString() }
+              }
+              const entityiUse = {
+                ...paramiUSE,
+                objectId:iUse.get('objectId')
+              }
+              dispatch(addNormalizrEntity(IUSE, entityiUse))
+
+
             })
 
             props.navigation.goBack()

@@ -4,13 +4,12 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
   Alert,
-  DeviceEventEmitter
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -28,18 +27,20 @@ import AgendaScreen from './agenda'
 
 import { user, iUse } from '../../../request/LCModle'
 import LCList from '../../../components/Base/LCList';
-import { IDO, IUSE } from '../../../redux/reqKeys'
+import { IDO, IUSE,IDOCALENDAR } from '../../../redux/reqKeys'
 import { recordDiary } from '../Do/Diary'
+import { updateByID } from '../../../redux/module/leancloud'
+import { reqChangeData } from '../../../redux/actions/req'
+import { addNormalizrEntity } from '../../../redux/module/normalizr'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
 
 const listKey = IDO
 
 import RecordRow from './Row'
 
-import { update, } from '../../../redux/module/leancloud'
-import { claerByID } from '../../../redux/actions/list'
-import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import moment from 'moment'
-import 'moment/locale/zh-cn'
+
+
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
@@ -47,47 +48,80 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 @connect(
   state => ({ user: state.user.data }),
   (dispatch, props) => ({
-    stop: () => {
-      Alert.alert(
-        '放弃当前打卡?',
-        '',
-        [{ text: '取消' },
+    iDoDelete: async (item) => {
+
+
+      const isDiary = (item.imgs && item.imgs.length > 0) ||
+        (item.recordText && item.recordText.length > 0)
+      if (isDiary) {
+        props.navigation.navigate('rcomment',
           {
-            text: '确定', onPress: async () => {
+            iDoID: item.objectId,
+            iUseId: props.iUse.get('objectId'),
+            iCardId: props.iCard.get('objectId')
+          })
+      } else {
+        //取消打卡
+        console.log('item:', item);
 
-            const { navigation } = props;
-            const { state } = navigation;
-            const { params } = state;
-            const data = params.iUse
-            const id = data.objectId
-            const param = {
-              statu: 'stop',
-            }
-            const res = await dispatch(update(id, param, IUSE))
-            const entity = {
-              ...param,
-              ...res,
-            }
+        const iDoID = item.objectId
+        const param = { state: -1 }
+        const res = await dispatch(updateByID(IDO, iDoID, param))
+        const entity = {
+          ...param,
+          ...res,
+        }
+        dispatch(addNormalizrEntity(IDO, entity))
+        const date = moment(item.createdAt).format("YYYY-MM-DD")
+        dispatch(reqChangeData(IDOCALENDAR, {
+          [date]: null
+        }))
 
-            dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE, id))
-            props.navigation.goBack()
+        if(item.type === 1){
+          return
+        }
+        // 打卡次数也需要修改。
+        const iUse = props.iUse.toJS()
+        const paramiUSE = { time:iUse.time -1 }
+        const before = moment(0, "HH")
+        const after = moment(24, "HH")
 
-          }
-          }]
-      )
+        const momentIn = moment(item.createdAt).isBetween(before, after)
+        console.log('momentIn:', momentIn);
+        if(momentIn){
+          paramiUSE.doneDate = { "__type": "Date", "iso":
+            moment(item.createdAt).subtract(1, 'day').toISOString() }
+        }
+        const entityiUse = {
+          ...paramiUSE,
+          objectId:item.iUse.objectId
+        }
+        dispatch(addNormalizrEntity(IUSE, entityiUse))
+      }
 
 
+      // Alert.alert(
+      //   '确定取消打卡?',
+      //   isDiary? '' : '',
+      //   [{
+      //     text: '取消',onPress: async () => {
+      //
+      //     }
+      //   }, {
+      //     text: '确定', onPress: async () => {
+      //
+      //     }
+      //   }]
+      // )
     },
     tipTap: recordDiary
   })
 )
 
 
-export default class Statistical extends Component {
+export default class Statistical extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
 
   }
@@ -154,12 +188,14 @@ export default class Statistical extends Component {
         <AgendaScreen
           {...this.props}
           onPress={(item) => {
-            this.props.navigation.navigate('rcomment',
-              {
-                iDoID: item.objectId,
-                iUseId: this.props.iUse.get('objectId'),
-                iCardId: this.props.iCard.get('objectId')
-              })
+
+            this.props.iDoDelete(item)
+            // this.props.navigation.navigate('rcomment',
+            //   {
+            //     iDoID: item.objectId,
+            //     iUseId: this.props.iUse.get('objectId'),
+            //     iCardId: this.props.iCard.get('objectId')
+            //   })
           }}
         />
         <StyledTitleView>
