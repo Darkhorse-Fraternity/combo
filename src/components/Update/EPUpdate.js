@@ -116,7 +116,7 @@ export const epUpdate = async () => {
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(
-                '有新的版本~',
+                `可以升级到${version}了~`,
                 desc.join('\n'),
                 [{
                     text: '取消', onPress: () => {
