@@ -235,74 +235,73 @@ export default class Statistical extends PureComponent {
         </StyledTitleView>
       </StyledInner>
 
-  )
+    )
   }
 
-  renderRow({item, index}: Object) {
+  renderRow({ item, index }: Object) {
 
     // const img = item.imgs && item.imgs[0] || null
 
     return (
-    <RecordRow
-    item={item}
-    color={this.props.color}
-    onPress={() => {
-      this.props.navigation.navigate('rcomment',
-        {
-          iDoID: item.objectId,
-          iUseId: this.props.iUse.get('objectId'),
-          iCardId: this.props.iCard.get('objectId')
-        })
-    }}/>
+      <RecordRow
+        item={item}
+        color={this.props.color}
+        onPress={() => {
+          this.props.navigation.navigate('rcomment',
+            {
+              iDoID: item.objectId,
+              iUseId: this.props.iUse.get('objectId'),
+              iCardId: this.props.iCard.get('objectId')
+            })
+        }}/>
     )
   }
 
-  render(): ReactElement
-    <any> {
+  render(): ReactElement<any> {
 
-      const {navigation} = this.props;
-      const {state} = navigation;
-      // const { params } = state;
-      // const iCard = this.props.iCard.toJS()
-      const iUseM = this.props.iUse.toJS()
+    const { navigation } = this.props;
+    const { state } = navigation;
+    // const { params } = state;
+    // const iCard = this.props.iCard.toJS()
+    const iUseM = this.props.iUse.toJS()
 
-      const param = {
+    const param = {
       'where': {
-      ...user(iUseM.user),
-      ...iUse(iUseM.objectId),
-      $or: [
-    {imgs: {$exists: true}},
-    {recordText: {$exists: true}}
-      ],
-      state: {$ne: -1}
+        ...user(iUseM.user),
+        ...iUse(iUseM.objectId),
+        $or: [
+          { imgs: { $exists: true } },
+          { recordText: { $exists: true } }
+        ],
+        state: { $ne: -1 }
+      }
     }
-    }
 
 
-      const isSelf = this.props.user.objectId === iUse.user
+    const isSelf = this.props.user.objectId === iUse.user
 
-      const config = isSelf ? {
+    const config = isSelf ? {
       noDataPrompt: '写一个日记吧~！',
       tipBtnText: '添加日记',
       tipTap: () => this.props.tipTap(this.props.iUse.toJS())
     } : {}
-      return (
+    return (
       <LCList
-      ref={'list'}
-      ListHeaderComponent={this._renderHeader}
-      reqKey={listKey}
-      style={{ flex: 1 }}
-      sKey={listKey + iUseM.objectId}
-      renderItem={this.renderRow.bind(this)}
+        ref={'list'}
+        ListHeaderComponent={this._renderHeader}
+        reqKey={listKey}
+        style={{ flex: 1 }}
+        sKey={listKey + iUseM.objectId}
+        renderItem={this.renderRow.bind(this)}
 
-      //dataMap={(data)=>{
-      //   return {[OPENHISTORYLIST]:data.list}
-      //}
-      reqParam={param}
-      {...config}
+        //dataMap={(data)=>{
+        //   return {[OPENHISTORYLIST]:data.list}
+        //}
+        reqParam={param}
+        {...config}
       />
-      );
-    }
-    }
+    );
+  }
+}
 
 

@@ -10,9 +10,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { add } from '../../../redux/actions/list'
 import { req, reqChangeData } from '../../../redux/actions/req'
 import Toast from 'react-native-simple-toast'
-
-
-
+import { Privacy } from '../../../configure/enum'
 
 
 export function doCard(data, other) {
@@ -64,14 +62,15 @@ export function creatIDO(iUseM, iCardM, other) {
 
 
     //这边只有日记才被记录进去
-    if(iDoParma.recordText|| iDoParma.imgs){
+    if (iDoParma.recordText || iDoParma.imgs) {
       dispatch(add(IDO + iUseM.objectId, res.objectId))
+      iUseM.privacy === Privacy.open &&
       dispatch(add(IDO + iCardM.objectId, res.objectId))
     }
 
 
     //type === 0 表示是打卡 1表示是日记
-    if(other.type === 0){
+    if (other.type === 0) {
       const date = moment(iDoEntity.createdAt).format("YYYY-MM-DD")
       dispatch(reqChangeData(IDOCALENDAR, {
         [date]: iDoEntity
@@ -94,8 +93,6 @@ export function creatIDO(iUseM, iCardM, other) {
 
       await dispatch(addNormalizrEntity(IUSE, entity))
     }
-
-
 
 
     return iDoEntity

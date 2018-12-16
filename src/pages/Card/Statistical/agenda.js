@@ -50,7 +50,8 @@ import { withTheme } from 'styled-components'
               "$gte": { "__type": "Date", "iso": first + "T00:00:00.000Z" },
               "$lte": { "__type": "Date", "iso": last + "T00:00:00.000Z" },
             },
-            state: { $ne: -1 }
+            state: { $ne: -1 },
+            type: 0
           }
         }
         const params = classSearch(IDO, param)
