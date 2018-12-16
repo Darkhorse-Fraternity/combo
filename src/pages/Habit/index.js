@@ -218,24 +218,24 @@ export default class Habit extends PureComponent {
           // rowID={index}
           // autoClose={true}
           ref={ref => {
-            this.swipeRefs['swipe'+ index] = ref
+            this.swipeRefs['swipe' + index] = ref
           }}
           backgroundColor='white'
           // close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
             const openIndex = this.state.openIndex
-            if(index === openIndex) {
+            if (index === openIndex) {
               return
             }
-            if(openIndex !== -1){
-              const swipeRef = this.swipeRefs['swipe'+openIndex]
+            if (openIndex !== -1) {
+              const swipeRef = this.swipeRefs['swipe' + openIndex]
               swipeRef && swipeRef.close()
             }
             this.setState({ openIndex: index })
           }}
           onSwipeableWillClose={() => {
             // rowId === this.state.openIndex &&
-            if(index === this.state.openIndex) {
+            if (index === this.state.openIndex) {
               this.setState({ openIndex: -1 })
             }
 
@@ -312,7 +312,7 @@ export default class Habit extends PureComponent {
 
   _renderHeader = () => {
     return (
-      <StyledHeader >
+      <StyledHeader>
         <StyledHeaderTitle>
           日常习惯
         </StyledHeaderTitle>
@@ -324,14 +324,14 @@ export default class Habit extends PureComponent {
           }}
           hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
         {/*<StyledAdd*/}
-          {/*onPress={() => {*/}
-            {/*this.props.navigation.navigate('newCard')*/}
-          {/*}}*/}
-          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>*/}
-          {/*<StyledIonicons*/}
-            {/*// color={'#39ba98'}*/}
-            {/*size={25}*/}
-            {/*name={'ios-add-circle-outline'}/>*/}
+        {/*onPress={() => {*/}
+        {/*this.props.navigation.navigate('newCard')*/}
+        {/*}}*/}
+        {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>*/}
+        {/*<StyledIonicons*/}
+        {/*// color={'#39ba98'}*/}
+        {/*size={25}*/}
+        {/*name={'ios-add-circle-outline'}/>*/}
         {/*</StyledAdd>*/}
       </StyledHeader>
     )
@@ -349,7 +349,7 @@ export default class Habit extends PureComponent {
       <StyledInnerdContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
-        {Platform.OS === 'ios' && <View style={{ height: 20 }}/>}
+        <View style={{ height: 20 }}/>
 
         {/*{this._renderHeader()}*/}
 
@@ -369,7 +369,7 @@ export default class Habit extends PureComponent {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={<View style={{height:100}}/>}
+          ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 

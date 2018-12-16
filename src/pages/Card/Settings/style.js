@@ -52,6 +52,7 @@ export const StyledBottomMenu = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 20px;
+  justify-content: space-between;
 `
 
 export const StyledBottomMenuText = styled.Text`
@@ -62,7 +63,6 @@ export const StyledBottomMenuText = styled.Text`
 export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
-  margin-right: 15px;
   margin-bottom: 15px;
   background-color: ${props => props.theme.textinputbackgroundColor };
   width:${props => (props.theme.width -85)/3 };

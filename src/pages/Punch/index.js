@@ -230,49 +230,54 @@ export default class Punch extends Component {
 
     const satisfy = []
     const unSatisfy = []
-    for (let i = 0, j = data.length; i < j; i++) {
-      const mData = this.props.iUse.get(data[i]).toJS()
-      const iCard = this.props.iCard.get(mData.iCard).toJS()
-      const week = new Date().getDay() === 0 ? 7 : new Date().getDay()
-      const recordDay = iCard.recordDay.sort((a, b) => a - b > 0)
-      if (recordDay.indexOf(week) !== -1) {
-        mData.satisfy = true
-        satisfy.push(mData)
-      } else {
-        let unSatisfyDiscrib = '一周后'
-        //算出正向上满足条件的下一天
-        let unSatisfyRecordDay = recordDay.filter(a => a -week > 0)
-        let nextDoDay = unSatisfyRecordDay[0]
-        //相差几天
-        let days = nextDoDay - week
-        if(unSatisfyRecordDay.length === 0){
-          //如果一周内没有大于当天的打卡要求，则必然在下周的第一个要求中
-          nextDoDay = recordDay[0]
-          days = nextDoDay + 7 - week
+    const sections = []
+    if(data.length >0) {
+      for (let i = 0, j = data.length; i < j; i++) {
+        const mData = this.props.iUse.get(data[i]).toJS()
+        const iCard = this.props.iCard.get(mData.iCard).toJS()
+        const week = new Date().getDay() === 0 ? 7 : new Date().getDay()
+        const recordDay = iCard.recordDay.sort((a, b) => a - b > 0)
+        if (recordDay.indexOf(week) !== -1) {
+          mData.satisfy = true
+          satisfy.push(mData)
+        } else {
+          let unSatisfyDiscrib = '一周后'
+          //算出正向上满足条件的下一天
+          let unSatisfyRecordDay = recordDay.filter(a => a -week > 0)
+          let nextDoDay = unSatisfyRecordDay[0]
+          //相差几天
+          let days = nextDoDay - week
+          if(unSatisfyRecordDay.length === 0){
+            //如果一周内没有大于当天的打卡要求，则必然在下周的第一个要求中
+            nextDoDay = recordDay[0]
+            days = nextDoDay + 7 - week
+          }
+
+
+          if(days <4){
+            unSatisfyDiscrib = ['明天','后天','大后天'][days-1]
+          }else {
+            unSatisfyDiscrib = ['周一','周二','周三','周四','周五','周六','周天'][nextDoDay-1]
+          }
+          //算出离今天最近的下一次打卡时间
+          // console.log('week:', recordDay, week);
+
+
+          mData.satisfy = false
+          // const fromNow = moment().to(moment().add(2, 'days'))
+          mData.unSatisfyDiscrib = unSatisfyDiscrib
+          unSatisfy.push(mData)
         }
-
-
-        if(days <4){
-          unSatisfyDiscrib = ['明天','后天','大后天'][days-1]
-        }else {
-          unSatisfyDiscrib = ['周一','周二','周三','周四','周五','周六','周天'][nextDoDay-1]
-        }
-        //算出离今天最近的下一次打卡时间
-        // console.log('week:', recordDay, week);
-
-
-        mData.satisfy = false
-        // const fromNow = moment().to(moment().add(2, 'days'))
-        mData.unSatisfyDiscrib = unSatisfyDiscrib
-        unSatisfy.push(mData)
       }
+      satisfy.length > 0 && sections.push({ title: unSatisfy.length > 0 ? "进行中" : '',
+        data: _.chunk(satisfy, 3) })
+      unSatisfy.length > 0 && sections.push({ title: "等待中", data: _.chunk(unSatisfy, 3) })
     }
-    const sections = [{ title: unSatisfy.length > 0 ? "打卡中" : '', data: _.chunk(satisfy, 3) }]
-    unSatisfy.length > 0 && sections.push({ title: "未到时", data: _.chunk(unSatisfy, 3) })
+
 
     // data = data && data.reverse()
     return [
-      Platform.OS === 'ios' && <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
+      <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
       <StyledContent key={'2'}>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
@@ -294,7 +299,7 @@ export default class Punch extends Component {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={<View style={{height:120}}/>}
+          ListFooterComponent={data.length>0 && <View style={{height:120}}/>}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
       </StyledContent>
