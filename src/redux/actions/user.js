@@ -263,7 +263,9 @@ export function update() {
 export function register(state: Object): Function {
 
   return async dispatch => {
-    const params = requestUsersByMobilePhone(state.phone, state.ymCode,
+    const params = requestUsersByMobilePhone(
+      state.phone,
+      state.ymCode,
       state.setPwd);
     dispatch(_loginRequest());
 

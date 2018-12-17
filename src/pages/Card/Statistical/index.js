@@ -46,9 +46,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 @connect(
   state => ({ user: state.user.data }),
   (dispatch, props) => ({
-    iDoDelete: async (item) => {
-
-
+    iDoDelete: async (item,user) => {
       const isDiary = (item.imgs && item.imgs.length > 0) ||
         (item.recordText && item.recordText.length > 0)
       if (isDiary) {
@@ -58,7 +56,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
             iUseId: props.iUse.get('objectId'),
             iCardId: props.iCard.get('objectId')
           })
-      } else {
+      } else if(user.objectId === item.user.objectId){
         //取消打卡
         // console.log('item:', item);
 
@@ -109,21 +107,6 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
       }
-
-
-      // Alert.alert(
-      //   '确定取消打卡?',
-      //   isDiary? '' : '',
-      //   [{
-      //     text: '取消',onPress: async () => {
-      //
-      //     }
-      //   }, {
-      //     text: '确定', onPress: async () => {
-      //
-      //     }
-      //   }]
-      // )
     },
     tipTap: recordDiary
   })
@@ -200,7 +183,7 @@ export default class Statistical extends PureComponent {
           {...this.props}
           onPress={(item) => {
 
-            this.props.iDoDelete(item)
+            this.props.iDoDelete(item,this.props.user)
             // this.props.navigation.navigate('rcomment',
             //   {
             //     iDoID: item.objectId,

@@ -5052,6 +5052,10 @@ react-native-gesture-handler@^1.0.0, react-native-gesture-handler@^1.0.10:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-google-analytics-bridge@^6.1.2:
+  version "6.1.2"
+  resolved "http://registry.npm.taobao.org/react-native-google-analytics-bridge/download/react-native-google-analytics-bridge-6.1.2.tgz#1b901d7c06209f88baf4980d5be2ca8150c8df66"
+
 react-native-i18n@^2.0.15:
   version "2.0.15"
   resolved "http://registry.npm.taobao.org/react-native-i18n/download/react-native-i18n-2.0.15.tgz#09b5a9836116fa7dbd0054c46e2d1014c1ef3c65"

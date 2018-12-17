@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   dateBox: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: (width - 24) / 7,
+    width: (width - 24 -1) / 7,
     height: 40,
   },
   dateText: {

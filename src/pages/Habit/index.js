@@ -382,6 +382,6 @@ export default class Habit extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    overflow: 'hidden',
+    // overflow: 'hidden', 会影响ListEmptyComponent
   },
 })

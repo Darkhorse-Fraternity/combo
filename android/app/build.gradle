@@ -181,6 +181,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-google-analytics-bridge')
     compile project(':react-native-screens')
     compile project(':react-native-gesture-handler')
     compile project(':react-native-restart')
