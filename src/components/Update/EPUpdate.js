@@ -1,7 +1,7 @@
 import { send } from '../../request/index'
 import React from "react"
 //当前测试版本号
-const AppTestVersion = '1.0.0'
+const AppTestVersion = '1..0'
 
 const api_token = 'a3f43472f64ddccbc58c2dcf75438f18'
 

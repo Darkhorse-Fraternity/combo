@@ -64,7 +64,7 @@ export  default  class BG extends Component {
     render(): ReactElement<any> {
         return (
             <View style={[this.props.style,styles.bc]}>
-
+                <View style={{height:20}}/>
                 <Btn
                     useNativeDriver
                     iterationCount="infinite"
@@ -90,7 +90,7 @@ export  default  class BG extends Component {
                     duration={20000}
                     easing="ease-in-out"
                     animation="cloudMoveLeft"
-                    style={styles.cloud,{marginTop:70}}>
+                    style={[styles.cloud,{marginTop:70}]}>
                     <Icon name="md-cloud" size={100} color="rgb(230,245,240)"/>
                 </Btn>
                 <Btn

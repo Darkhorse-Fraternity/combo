@@ -256,13 +256,13 @@ export default class LoginView extends Component {
           <StyledIconView
             style={{ backgroundColor: load ? 'transparent' : color, }}>
             {load ? <StyledActivityIndicator/> : <StyledIcon
-              color={'white'}
+              color={'#233238'}
               name={name}
               size={size}/>}
           </StyledIconView>
-          <StyledIconText>
-            {title}
-          </StyledIconText>
+          {/*<StyledIconText>*/}
+            {/*{title}*/}
+          {/*</StyledIconText>*/}
         </StyledIconItem>
       </Animatable.View>
     )
@@ -289,14 +289,18 @@ export default class LoginView extends Component {
           >
 
             <View style={styles.top}>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{ flexDirection: 'row',backgroundColor:'#f0f0f0',
+                width:Dimensions.get('window').width-40,
+                paddingHorizontal:20 }}>
                 {this._renderRowMain('手机号:', '请填入手机号',
                   (text) => this.setState({ phone: text }), 'numeric',
                   true, 11, "1", this.state.phone
                 )}
               </View>
-              <View style={styles.line}/>
-              <View style={{ flexDirection: 'row' }}>
+              <View style={{height:10}}/>
+              <View style={{ flexDirection: 'row',backgroundColor:'#f0f0f0',
+                width:Dimensions.get('window').width-40,
+                paddingHorizontal:20 }}>
                 {this._renderRowMain('验证码:', '请输入验证码',
                   (text) => {
                     this.setState({ ymCode: text })
@@ -355,24 +359,24 @@ export default class LoginView extends Component {
         }
         <ThirdPartyLoginView>
           <View/>
-          <ThirdPartyInnerLoginView>
+          <ThirdPartyInnerLoginView isWXAppInstalled={this.state.isWXAppInstalled}>
 
             {this.state.isWXAppInstalled && this.renderLoginItem(25,
-              '#30d77f',
+              '#f0f0f0',
               '微信登录',
               'weixin',
               thirdLoaded === WECHATLOGIN,
               this.props.wxLogin,
             )}
             {this.renderLoginItem(25,
-              '#37c2fc',
+              '#f0f0f0',
               'QQ登录',
               'qq',
               thirdLoaded === QQLOGIN,
               this.props.qqLogin,
             )}
             {this.renderLoginItem(35,
-              '#38d5c2',
+              '#f0f0f0',
               '手机登录',
               'mobile',
               false,
@@ -397,8 +401,7 @@ const styles = StyleSheet.create({
     // width: Dimensions.get('window').width,
     height: 50,
     //marginTop: 10,
-    backgroundColor: 'white',
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     flexDirection: 'row',
     alignItems: 'center',
     // marginHorizontal: 15,
@@ -406,14 +409,13 @@ const styles = StyleSheet.create({
   buttonContainerStyle: {
     //marginRight: 15,
     height: 40,
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     alignSelf: 'center',
-    backgroundColor: 'white',
     justifyContent: 'center',
   },
   textStyle: {
     // flex: ,
-    width: 65,
+    width: 55,
     fontSize: 14,
     color: '#333333',
   },
@@ -463,8 +465,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   top: {
-    backgroundColor: 'white',
-    marginTop: 100,
+    marginTop: 150,
+    alignItems:'center'
   },
   line: {
     height: StyleSheet.hairlineWidth,
