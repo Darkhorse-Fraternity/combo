@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PureComponent } from 'react';
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
@@ -24,19 +24,33 @@ const createInputCreator = ReduxFormFieldComponent => (name, renderFunction, Pro
   const Component = render(renderFunction)
   Component.displayName = name
 
-  const FieldWrapper = props => {
-    const { name, ...rest } = props
+  class FieldWrapper extends PureComponent{
+    static propTypes = {
+      name:PropTypes.string.isRequired
+    };
+    static defaultProps = {};
+    render(): ReactElement<any> {
+      const { name, ...rest } = this.props
 
-    return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
+      return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
+    }
   }
 
-  FieldWrapper.displayName = 'FieldWrapper'
-  FieldWrapper.propTypes = Object.assign({
-    name: PropTypes.string.isRequired
-  }, PropTypesOverrides)
-  FieldWrapper.defaultProps = Object.assign({}, defaultProps)
+  // const FieldWrapper = props => {
+  //   const { name, ...rest } = props
+  //
+  //   return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
+  // }
+
+  // FieldWrapper.displayName = 'FieldWrapper'
+  // FieldWrapper.propTypes = Object.assign({
+  //   name: PropTypes.string.isRequired
+  // }, PropTypesOverrides)
+  // FieldWrapper.defaultProps = Object.assign({}, defaultProps)
 
   return FieldWrapper
 }
+
+
 
 export default createInputCreator
