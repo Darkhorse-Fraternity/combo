@@ -116,15 +116,20 @@ export default class More extends Component {
     // let {grade_str,connect_phone} = data;
     // console.log('test111:',data.avatar.url)
     const { loadAvatar, user } = this.props
-    const { data } = user
+    const { data, isTourist } = user
 
-    const name = data.nickname || '陌生人'
+    const name = isTourist ? '点击登录' : data.nickname || '匿名'
 
 
     return (
       <StyleHeader>
         <StyledHeaderTop onPress={() => {
-          this.props.navigation.navigate('account')
+          if (isTourist) {
+            this.props.navigation.navigate('login')
+          } else {
+            this.props.navigation.navigate('account')
+          }
+
         }}>
           <StyledAvatarView>
             <Avatar load={loadAvatar}/>
@@ -221,8 +226,8 @@ export default class More extends Component {
 
 
   __renderLoginRow() {
-    const navigation = this.props.navigation
-
+    const { navigation, user } = this.props
+    const { isTourist } = user
 
     return (
       <View style={{ marginTop: 0 }}>
@@ -236,12 +241,12 @@ export default class More extends Component {
           navigation.navigate('remind');
         })}
 
-        {this._renderRow('我的收益', true, () => {
+        {!isTourist && this._renderRow('我的收益', true, () => {
           navigation.navigate('earnings')
         })}
 
         {/*{this._renderRow('共享卡片管理', true, () => {*/}
-          {/*navigation.navigate('publish');*/}
+        {/*navigation.navigate('publish');*/}
         {/*})}*/}
 
 
@@ -251,10 +256,7 @@ export default class More extends Component {
         <View style={{ height: 25 }}/>
 
 
-
-
-
-        {this._renderRow('粉丝查看', false, () => {
+        {!isTourist && this._renderRow('粉丝查看', false, () => {
           navigation.navigate("follow",
             { userId: this.props.user.data.objectId });
         })}
@@ -263,19 +265,22 @@ export default class More extends Component {
         {/*<View style={{ height: 25 }}/>*/}
 
         {/*{this._renderRow('给作者留言', false, () => {*/}
-          {/*navigation.navigate("feedback");*/}
+        {/*navigation.navigate("feedback");*/}
         {/*})}*/}
 
         {this._renderRow('好评鼓励', false, this.props.rate)}
 
         {/*<View style={{ height: 25 }}/>*/}
 
-        {this._renderRow('微博反馈', false, ()=>{
+        {this._renderRow('微博反馈', false, () => {
           Linking.canOpenURL('sinaweibo://').then(supported => { // weixin://  alipay://
             if (supported) {
               Linking.openURL('sinaweibo://userinfo?uid=6861885697');
             } else {
-              navigation.navigate("web",{url:'https://weibo.com/u/6861885697',title:'小改变的微博'});
+              navigation.navigate("web", {
+                url: 'https://weibo.com/u/6861885697',
+                title: '小改变的微博'
+              });
             }
           });
         })}

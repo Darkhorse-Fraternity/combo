@@ -16,8 +16,8 @@ import SplashScreen from 'react-native-splash-screen'
 import Configure from './configure'
 import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigator";
 import codePush from "react-native-code-push";
-import {route} from './pages'
-const AppNavigator = creatAppNavigator(route)
+// import {route} from './pages'
+const AppNavigator = creatAppNavigator()
 import { useScreens } from 'react-native-screens';
 useScreens();
 

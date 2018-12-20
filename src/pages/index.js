@@ -22,7 +22,7 @@ import CardUse from './NewCard/CardUse'
 import CourseChoose from './Course/Choose'
 import CourseCreat from './Course/Creat'
 import CourseRelease from './Course/Release'
-import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
+// import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
 import Cash from './Order/Cash'
@@ -57,7 +57,8 @@ export const otherRoute = {
   card: { screen: Card },
   cardUse: { screen: CardUse },
   more: { screen: More },
-  pptDescribe: { screen: PPTDescribe },
+  login: { screen: LoginView },
+  // pptDescribe: { screen: PPTDescribe },
 }
 
 export const punchRoute = {
@@ -77,7 +78,7 @@ export const settingRoute = {
 
 
 export const route = {
-  login: { screen: LoginView },
+  // login: { screen: LoginView },
 }
 
 

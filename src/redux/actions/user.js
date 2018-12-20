@@ -27,19 +27,20 @@ import {
   thirdLogin,
   bindingToUser,
   classBatch,
-  classCreatNewOne
+  classCreatNewOne,
+  userExsitJudge
 } from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
 import {
   loadAccount,
 } from '../../configure/storage'
 
-import { get } from './req'
+import { get, req } from './req'
 import { batch } from '../module/leancloud'
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { setLeanCloudSession } from '../../configure/reqConfigs'
 // *** Action Types ***
-
+import { Platform } from 'react-native'
 import Toast from 'react-native-simple-toast';
 import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
@@ -47,7 +48,8 @@ import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
 import moment from 'moment'
-// import DeviceInfo from 'react-native-device-info'
+import DeviceInfo from 'react-native-device-info'
+import md5 from "react-native-md5";
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c'
 const wechatAppID = 'wx637e6f35f8211c6d'
@@ -117,13 +119,41 @@ export function userInfo() {
         dispatch(_loginSucceed(res));
         return res;
       } catch (e) {
-        dispatch(_loginFailed());
+        return dispatch(anonymousUser());
       }
     } else {
-      dispatch(_loginFailed());
+      return dispatch(anonymousUser());
     }
 
 
+  }
+}
+
+
+const anonymousUser = () => {
+  return async dispatch => {
+    try {
+      let uniqueId = DeviceInfo.getUniqueID();
+      uniqueId = Platform.OS === 'ios' && md5.hex_md5(uniqueId).substring(8, 24)
+      const anonymousConfig = { id: uniqueId }
+      const userInfoParmas = thirdLogin('anonymous', anonymousConfig)
+      const user = await get(userInfoParmas)
+      await dispatch(_loginSucceed(user));
+      await dispatch(_addSample(user))
+      //
+      // dispatch(NavigationActions.navigate({
+      //   routeName: 'tab'
+      // }))
+      return user
+      // console.log('user:', user);
+    } catch (e) {
+      // Toast.show(e.message)
+      console.log('anonymousUser error:', e.message);
+      const userInfoParmas = thirdLogin('anonymous', anonymousConfig)
+      dispatch(_loginFailed());
+      return await get(userInfoParmas)
+
+    }
   }
 }
 
@@ -135,7 +165,7 @@ const iCardSample = (objectId) => [{
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
     name: 'sleepBoy',
-    color: '#ba68c8',
+    color: '#F08200',
   },
   notifyText: '早睡早起身体好!',
   notifyTimes: ['22:00'],
@@ -154,7 +184,7 @@ const iCardSample = (objectId) => [{
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
     name: 'homework',
-    color: '#e57373',
+    color: '#FF9F2E',
   },
   notifyText: '坚持鸭!',
   notifyTimes: ['20:00'],
@@ -213,7 +243,7 @@ function _addSample(user) {
       iUseReq.push(classCreatNewOne('iUse', iUseParam))
       const iUseBatch = classBatch(iUseReq)
       await get(iUseBatch)
-     return  dispatch(loginLoad(false))
+      return dispatch(loginLoad(false))
     }
   }
 }
@@ -263,6 +293,16 @@ export function update() {
 export function register(state: Object): Function {
 
   return async dispatch => {
+
+    const userExsit =  await getUserExsitJudge('phoneNumber', state.phone)
+    console.log('userExsit:', userExsit);
+    if(userExsit === false){
+      //将匿名用户转化
+      // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
+        // requestMobilePhoneVerify
+      return;
+    }
+
     const params = requestUsersByMobilePhone(
       state.phone,
       state.ymCode,
@@ -273,9 +313,10 @@ export function register(state: Object): Function {
       const user = await get(params)
       await dispatch(_loginSucceed(user));
       await dispatch(_addSample(user))
-      dispatch(NavigationActions.navigate({
-        routeName: 'tab'
-      }))
+      // dispatch(NavigationActions.navigate({
+      //   routeName: 'punch'
+      // }))
+      dispatch(StackActions.pop())
       return user
     } catch (e) {
       Toast.show(e.message)
@@ -303,8 +344,7 @@ function _loginSucceed(response: Object): Object {
     if (response) {
       const { sessionToken = '', username = '' } = response
       Keychain.setGenericPassword(username, sessionToken);
-      return  dispatch(loginSucceed(response));
-
+      return dispatch(loginSucceed(response));
 
 
     }
@@ -332,6 +372,7 @@ export function loginSucceed(data: Object): Object {
     type: LOGIN_SUCCEED,
     loaded: false,
     data: data,
+    isTourist: data.authData && !!data.authData.anonymous
   }
 
 }
@@ -372,14 +413,16 @@ export function logout(): Function {
       Keychain.resetGenericPassword()
 
       dispatch(logout2());//先退出
-      dispatch(NavigationActions.navigate({ routeName: 'login' }))
+      // dispatch(NavigationActions.navigate({ routeName: 'login' }))
       updatePush(user("null"))
 
+      // await dispatch(anonymousUser())
 
-      return loadAccount(ret => {
-        //加载本地数据。
-        dispatch(_loadAccount(ret));
-      });
+      dispatch(NavigationActions.navigate({ routeName: 'AuthLoading' }))
+      // return loadAccount(ret => {
+      //   //加载本地数据。
+      //   dispatch(_loadAccount(ret));
+      // });
 
 
       // } else {
@@ -413,21 +456,21 @@ export function updateUserData(data: Object) {
 }
 
 
-export function getUserByObjectID(objectID: string, callBack: Function): Function {
-  return dispatch => {
-    dispatch(_loginRequest());
-    const param = getUserByID(objectID);
-    return get(param, (response) => {
-
-      if (response) {
-        dispatch(_loginSucceed(response));
-      } else {
-        dispatch(_loginFailed(response));
-      }
-      callBack(response);
-    });
-  }
-}
+// export function getUserByObjectID(objectID: string, callBack: Function): Function {
+//   return dispatch => {
+//     dispatch(_loginRequest());
+//     const param = getUserByID(objectID);
+//     return get(param, (response) => {
+//
+//       if (response) {
+//         dispatch(_loginSucceed(response));
+//       } else {
+//         dispatch(_loginFailed(response));
+//       }
+//       callBack(response);
+//     });
+//   }
+// }
 
 
 export function weChatLogin(Key) {
@@ -451,10 +494,11 @@ export function weChatLogin(Key) {
       if (user.sessionToken) {
         await dispatch(_loginSucceed(user));
         await dispatch(_addSample(user))
-        dispatch(NavigationActions.navigate({
-          routeName: 'tab',
-          params: { transition: 'forVertical' }
-        }))
+        // dispatch(NavigationActions.navigate({
+        //   routeName: 'tab',
+        //   params: { transition: 'forVertical' }
+        // }))
+        dispatch(StackActions.pop())
       } else {
         Toast.show(JSON.stringify(weConfig))
       }
@@ -517,10 +561,11 @@ export function qqLogin(Key) {
       if (user.sessionToken) {
         await  dispatch(_loginSucceed(user));
         await dispatch(_addSample(user))
-        dispatch(NavigationActions.navigate({
-          routeName: 'tab',
-          params: { transition: 'forVertical' }
-        }))
+        // dispatch(NavigationActions.navigate({
+        //   routeName: 'tab',
+        //   params: { transition: 'forVertical' }
+        // }))
+        dispatch(StackActions.pop())
       }
       dispatch(thirdLoaded(''))
 
@@ -690,4 +735,13 @@ export function bindingAuthData(key, loadKey, ad, exData) {
     }
 
   }
+}
+
+
+//判断user 是否存在
+
+async function  getUserExsitJudge(type, id) {
+    const params = userExsitJudge(type, id);
+    const res =  await  get(params)
+    return res.result.userExsit
 }

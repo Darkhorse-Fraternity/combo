@@ -145,7 +145,7 @@ export default class CardPublishForm extends Component {
             img = new Map(img)
             fields.insert(index, new Map({ img }))
             this.handleViewRef['ppt' + index] &&
-            this.handleViewRef['ppt' + index].root.fadeInRight(800)
+            this.handleViewRef['ppt' + index].fadeInRight(800)
           }
 
         } else {
@@ -188,10 +188,10 @@ export default class CardPublishForm extends Component {
                   [{ text: '取消' }, {
                     text: '确定', onPress: async () => {
                       self.handleViewRef['ppt' + index] &&
-                      await self.handleViewRef['ppt' + index].root.fadeOutLeft(800)
+                      await self.handleViewRef['ppt' + index].fadeOutLeft(800)
                       await fields.remove(index)
 
-                      self.handleViewRef['ppt' + index] && self.handleViewRef['ppt' + index].root.fadeInUp(800)
+                      self.handleViewRef['ppt' + index] && self.handleViewRef['ppt' + index].fadeInUp(800)
                     }
                   }]
                 )

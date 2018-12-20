@@ -45,6 +45,7 @@ let hasTryRate = false
     iCard: state.normalizr.get(ICARD),
     refreshLoad: state.req.get(IUSE).get("load"),
     load: state.req.get(IDO).get("load"),
+    user: state.user.data
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
@@ -118,6 +119,13 @@ export default class Punch extends Component {
     loadStatu === 'LIST_FIRST_JOIN' && this.props.search()
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.user.objectId &&
+      nextProps.user.objectId !== this.props.user.objectId){
+      this.props.search()
+    }
   }
 
 

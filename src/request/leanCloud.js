@@ -588,6 +588,18 @@ export function appUpdateInfo():Object{
     }
 }
 
+
+export function userExsitJudge(type,id) :Object{
+  return {
+    path : '/call/userExsitJudge',
+    method :methodType.post,
+    params :{
+      type,
+      id
+    }
+  }
+}
+
 /*
  *  支付的最后一步流程
  */

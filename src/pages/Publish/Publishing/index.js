@@ -376,7 +376,7 @@ export default class Publishing extends Component {
           handleImage={picker}
           onSubmit={() => {
 
-            // const iCardModel = iCard.toJS()
+            const iCardModel = iCard.toJS()
             // if (iCardModel.state === 0) {
             this.props.publish(iCardModel)
             // } else {

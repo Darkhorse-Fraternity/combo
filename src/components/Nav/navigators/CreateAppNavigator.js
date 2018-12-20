@@ -9,10 +9,10 @@ import AuthLoadingScreen from '../auth/AuthLoadingView'
 
 
 
-export const creatAppNavigator = (route)=>{
+export const creatAppNavigator = ()=>{
     const SwitchNavigator =  createSwitchNavigator({
       // Auth: AuthStack,
-      ...route,
+      // ...route,
       AuthLoading: AuthLoadingScreen,
       tab: {screen: Tab,},
       // WebView: {screen: WebView}

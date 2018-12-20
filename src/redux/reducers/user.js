@@ -23,6 +23,7 @@ import { saveUserData } from '../../configure/storage'
 const initialLoginState = {
   loaded: false,
   isLogin: false,
+  isTourist:true,
   accountText: __DEV__ ? "13696981385" : '',
   passwordText: __DEV__ ? "980678" : '',
   data: {},

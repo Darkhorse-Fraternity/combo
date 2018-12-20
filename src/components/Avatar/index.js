@@ -61,7 +61,7 @@ export default class Avatar extends PureComponent {
       require('../../../source/img/my/my_head.png')
 
 
-    console.log('avatarUrl:', avatarUrl);
+    // console.log('avatarUrl:', avatarUrl);
 
     return (
       <StyledContent radius={radius}>

@@ -29,6 +29,7 @@ export const DATA = 'results'
 
 export async function reqY(params) {
   const response = await send(params)
+  // console.log('response:', response);
   const contentType = response.headers.get("content-type")
   const jsonTypes = ['application/json', 'text/plain']
   const isJSON = jsonTypes.some(type => contentType.includes(type))

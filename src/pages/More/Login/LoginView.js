@@ -13,6 +13,7 @@ import {
   Platform,
   Keyboard,
   TouchableNativeFeedback,
+  Image
 } from 'react-native'
 import BG from '../../../components/BG/BG'
 import Toast from 'react-native-simple-toast';
@@ -42,6 +43,7 @@ import {
   StyledCodeButton,
   StyledCodeButtonText,
   StyledSignInBtn,
+  StyledImageBottom
 } from './style'
 import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
@@ -91,7 +93,7 @@ export default class LoginView extends Component {
       phone: __DEV__ ? '13588833404' : "", //号码
       ymCode: __DEV__ ? '924007' : "", //验证码
       isTap: false,
-      showMobile: false,
+      showMobile: true,
       isWXAppInstalled: false,
     };
 
@@ -115,7 +117,7 @@ export default class LoginView extends Component {
     // const {state} = navigation;
     // const {params} = state;
     return {
-      title: '登录',
+      title: '',
       // headerStyle: {
       //     backgroundColor: '#f5fcff',
       //     shadowColor: '#F5FCFF',
@@ -242,10 +244,10 @@ export default class LoginView extends Component {
     return (
       <Animatable.View
         useNativeDriver
-        duration={1000}
-        delay={200 + Math.random() * 500}
-        animation="bounceInUp"
-
+        // duration={1000}
+        // delay={200 + Math.random() * 500}
+        // animation="bounceInUp"
+        animation="fadeIn"
       >
         <StyledIconItem
           disabled={load}
@@ -278,14 +280,14 @@ export default class LoginView extends Component {
     const thirdLoaded = this.props.userData.theThirdLoaded
     return (
       <StyledContent
-        colors={['#f1f6f9', '#ffffff']}
+        colors={['white', '#f7f9fe']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
         {!this.props.userData.isLogin && (<BG/>)}
 
 
         {this.state.showMobile ? <Animatable.View
-            animation="fadeIn"
+            // animation="fadeIn"
           >
 
             <View style={styles.top}>
@@ -358,7 +360,6 @@ export default class LoginView extends Component {
           </Animatable.View>
         }
         <ThirdPartyLoginView>
-          <View/>
           <ThirdPartyInnerLoginView isWXAppInstalled={this.state.isWXAppInstalled}>
 
             {this.state.isWXAppInstalled && this.renderLoginItem(25,
@@ -375,20 +376,21 @@ export default class LoginView extends Component {
               thirdLoaded === QQLOGIN,
               this.props.qqLogin,
             )}
-            {this.renderLoginItem(35,
-              '#f0f0f0',
-              '手机登录',
-              'mobile',
-              false,
-              () => {
-                this.setState({
-                  showMobile: !this.state.showMobile
-                })
-              },
-            )}
+            {/*{this.renderLoginItem(35,*/}
+              {/*'#f0f0f0',*/}
+              {/*'手机登录',*/}
+              {/*'mobile',*/}
+              {/*false,*/}
+              {/*() => {*/}
+                {/*this.setState({*/}
+                  {/*showMobile: !this.state.showMobile*/}
+                {/*})*/}
+              {/*},*/}
+            {/*)}*/}
 
           </ThirdPartyInnerLoginView>
         </ThirdPartyLoginView>
+        <StyledImageBottom source={require('../../../../source/img/loginBottom.png')}/>
       </StyledContent>
     );
   }
@@ -465,7 +467,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   top: {
-    marginTop: 150,
+    marginTop: 30,
     alignItems:'center'
   },
   line: {

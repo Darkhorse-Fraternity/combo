@@ -11,16 +11,22 @@ import HeaderBtn from '../../../components/Button/HeaderBtn'
 import LinearGradient from 'react-native-linear-gradient';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(LinearGradient)`
     flex: 1;
 `
 
 export const StyledImage = styled.Image`
     width: 100px;
     height: 100px;
-    margin-top: ${props=> props.theme.height/6};
+    margin-top: ${props=> 20};
     align-self: center;
 `
+
+export const StyledImageBottom = styled.Image`
+  width: 100%;
+  height: 300px;
+`
+
 export const SyledImageName = styled.Text`
     font-size: 20px;
     align-self: center;
@@ -33,8 +39,8 @@ export const ThirdPartyLoginView = styled.View`
 `
 export const ThirdPartyInnerLoginView = styled.View`
     flex-direction: row;
-    margin: 100px 0px;
-    padding: 0px ${props => props.isWXAppInstalled?40:80}px;
+    margin: 20px 0px;
+    padding: 0px ${props => props.isWXAppInstalled?80:props.theme.width/2}px;
     width: 100%;
     justify-content: space-between;
 `
