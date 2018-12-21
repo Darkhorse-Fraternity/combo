@@ -28,7 +28,9 @@ import {
   bindingToUser,
   classBatch,
   classCreatNewOne,
-  userExsitJudge
+  userExsitJudge,
+  getUpdateMeByParam,
+  verifySmsCode
 } from '../../request/leanCloud';
 import { leancloud_installationId } from '../../configure/push/push'
 import {
@@ -277,6 +279,16 @@ export function login(state: Object): Function {
   }
 }
 
+
+export function updateMeByParam(param) {
+  return async (dispatch, getState) => {
+    const user = getState().user.data
+    const params = getUpdateMeByParam(user.objectId, param)
+    await get(params)
+    return dispatch(updateUserData(param))
+  }
+}
+
 export function update() {
   return async dispatch => {
     const params = usersMe()
@@ -284,6 +296,13 @@ export function update() {
     return dispatch(updateUserData(res))
   }
 }
+
+//校验手机号
+export function mobilePhoneVerify(mobilePhoneNumber, code) {
+  const params = verifySmsCode(mobilePhoneNumber, code)
+  return get(params)
+}
+
 
 /**
  * 注册
@@ -294,22 +313,46 @@ export function register(state: Object): Function {
 
   return async dispatch => {
 
-    const userExsit =  await getUserExsitJudge('phoneNumber', state.phone)
-    console.log('userExsit:', userExsit);
-    if(userExsit === false){
-      //将匿名用户转化
-      // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
-        // requestMobilePhoneVerify
-      return;
-    }
-
-    const params = requestUsersByMobilePhone(
-      state.phone,
-      state.ymCode,
-      state.setPwd);
-    dispatch(_loginRequest());
-
     try {
+      dispatch(_loginRequest());
+
+
+      const userExsit = await getUserExsitJudge('phoneNumber', state.phone)
+      console.log('userExsit:', userExsit);
+      if (userExsit === false) {
+        //将匿名用户转化
+        // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
+        // requestMobilePhoneVerify
+        //第一步设置用户手机号。
+        //
+        //第二步校验号码
+        const mobilePhoneVerifyRes = await mobilePhoneVerify(state.phone, state.ymCode)
+
+
+        console.log('mobilePhoneVerifyRes:', mobilePhoneVerifyRes);
+        //第三步如果错误清除手机号，成功则清除匿名标记,并标记已登录
+
+
+        if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
+          await dispatch(updateMeByParam({
+            mobilePhoneNumber: state.phone,
+            'authData.anonymous':{"__op":"Delete"}
+          }))
+          dispatch(StackActions.pop())
+        }
+
+        // await dispatch(updateMeByParam({mobilePhoneNumber:{"__op":"Delete"}}))
+
+        //微信直接清除匿名标记，并标记已登录。
+        return dispatch(_loginFailed());
+
+      }
+      //已存在则直接登录
+
+      const params = requestUsersByMobilePhone(
+        state.phone,
+        state.ymCode,
+        state.setPwd);
       const user = await get(params)
       await dispatch(_loginSucceed(user));
       await dispatch(_addSample(user))
@@ -452,6 +495,7 @@ export function updateUserData(data: Object) {
   return {
     type: UPDATE_USERDATA,
     data: data,
+    isTourist: data.authData && !!data.authData.anonymous
   }
 }
 
@@ -476,6 +520,7 @@ export function updateUserData(data: Object) {
 export function weChatLogin(Key) {
   return async (dispatch, getState) => {
     try {
+
       dispatch(thirdLoaded(Key))
       const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
       if (!weConfig) {
@@ -489,21 +534,37 @@ export function weChatLogin(Key) {
       const { access_token, openid } = weInfo
       // console.log('weInfo:', weInfo);
 
-      const userInfoParmas = thirdLogin('weixin', weInfo)
-      const user = await get(userInfoParmas)
-      if (user.sessionToken) {
-        await dispatch(_loginSucceed(user));
-        await dispatch(_addSample(user))
-        // dispatch(NavigationActions.navigate({
-        //   routeName: 'tab',
-        //   params: { transition: 'forVertical' }
-        // }))
+      const userExsit = await getUserExsitJudge('weixin',openid)
+      let user = getState().user.data
+      if (userExsit === false) {
+          //如果不存在，则直接更换匿名用户
+          await dispatch(updateMeByParam({
+            authData:{
+              anonymous:{"__op":"Delete"},
+              weixin:weInfo
+            },
+          }))
         dispatch(StackActions.pop())
-      } else {
-        Toast.show(JSON.stringify(weConfig))
+      }else {
+        //如果存在，则直接登录老账号
+        const userInfoParmas = thirdLogin('weixin', weInfo)
+         user = await get(userInfoParmas)
+        if (user.sessionToken) {
+          await dispatch(_loginSucceed(user));
+          await dispatch(_addSample(user))
+          // dispatch(NavigationActions.navigate({
+          //   routeName: 'tab',
+          //   params: { transition: 'forVertical' }
+          // }))
+          dispatch(StackActions.pop())
+        } else {
+          Toast.show(JSON.stringify(weConfig))
+        }
       }
+
       dispatch(thirdLoaded(''))
       //获取微信用户信息
+
 
       let exData = {}
       if (user.sessionToken && !user.headimgurl) {
@@ -524,7 +585,6 @@ export function weChatLogin(Key) {
           ...res
         }))
       }
-
       // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
 
     } catch (e) {
@@ -556,17 +616,32 @@ export function qqLogin(Key) {
       if (!qqConfig) {
         return dispatch(thirdLoaded(''))
       }
-      const userInfoParmas = thirdLogin('qq', qqConfig)
-      const user = await get(userInfoParmas)
-      if (user.sessionToken) {
-        await  dispatch(_loginSucceed(user));
-        await dispatch(_addSample(user))
-        // dispatch(NavigationActions.navigate({
-        //   routeName: 'tab',
-        //   params: { transition: 'forVertical' }
-        // }))
+
+      const userExsit = await getUserExsitJudge('qq',qqConfig.openid)
+      let user = getState().user.data
+      if (userExsit === false) {
+        //如果不存在，则直接更换匿名用户
+        await dispatch(updateMeByParam({
+          authData:{
+            anonymous:{"__op":"Delete"},
+            weixin:qqConfig
+          },
+        }))
         dispatch(StackActions.pop())
+      }else {
+        const userInfoParmas = thirdLogin('qq', qqConfig)
+        user = await get(userInfoParmas)
+        if (user.sessionToken) {
+          await  dispatch(_loginSucceed(user));
+          await dispatch(_addSample(user))
+          // dispatch(NavigationActions.navigate({
+          //   routeName: 'tab',
+          //   params: { transition: 'forVertical' }
+          // }))
+          dispatch(StackActions.pop())
+        }
       }
+      
       dispatch(thirdLoaded(''))
 
       //获取微信用户信息
@@ -740,8 +815,8 @@ export function bindingAuthData(key, loadKey, ad, exData) {
 
 //判断user 是否存在
 
-async function  getUserExsitJudge(type, id) {
-    const params = userExsitJudge(type, id);
-    const res =  await  get(params)
-    return res.result.userExsit
+async function getUserExsitJudge(type, id) {
+  const params = userExsitJudge(type, id);
+  const res = await  get(params)
+  return res.result.userExsit
 }

@@ -283,7 +283,7 @@ export default class LoginView extends Component {
         colors={['white', '#f7f9fe']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
-        {!this.props.userData.isLogin && (<BG/>)}
+        {/*{!this.props.userData.isLogin && (<BG/>)}*/}
 
 
         {this.state.showMobile ? <Animatable.View

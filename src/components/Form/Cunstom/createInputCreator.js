@@ -31,23 +31,9 @@ const createInputCreator = ReduxFormFieldComponent => (name, renderFunction, Pro
     static defaultProps = {};
     render(): ReactElement<any> {
       const { name, ...rest } = this.props
-
       return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
     }
   }
-
-  // const FieldWrapper = props => {
-  //   const { name, ...rest } = props
-  //
-  //   return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
-  // }
-
-  // FieldWrapper.displayName = 'FieldWrapper'
-  // FieldWrapper.propTypes = Object.assign({
-  //   name: PropTypes.string.isRequired
-  // }, PropTypesOverrides)
-  // FieldWrapper.defaultProps = Object.assign({}, defaultProps)
-
   return FieldWrapper
 }
 
