@@ -22,16 +22,16 @@ import { IUSE, ICARD} from '../../../redux/reqKeys'
 
       try {
         const user = await dispatch(userInfo())
-        if (user) {
-          await dispatch(search(false, {
-            where: {
-              ...dispatch(selfUser()),
-              statu: 'start'
-            },
-            order: '-time',
-            include: ICARD + ',iCard.user'
-          }, IUSE))
-        }
+        // if (user) {
+        //   await dispatch(search(false, {
+        //     where: {
+        //       ...dispatch(selfUser()),
+        //       statu: 'start'
+        //     },
+        //     order: '-time',
+        //     include: ICARD + ',iCard.user'
+        //   }, IUSE))
+        // }
         // const user = await loadUserData();
         // dispatch(loginSucceed(user))
         // This will switch to the App screen or auth screen and this loading

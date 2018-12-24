@@ -35,6 +35,7 @@ export const StyledHeaderName = styled.Text`
     font-size: 17px;
     font-weight: 300;
     max-width: 150px;
+    margin-top: 5px;
     
 `
 

@@ -136,8 +136,8 @@ const anonymousUser = () => {
   return async dispatch => {
     try {
       let uniqueId = DeviceInfo.getUniqueID();
-      if(Platform.OS === 'ios'){
-        uniqueId =  md5.hex_md5(uniqueId).substring(8, 24)
+      if (Platform.OS === 'ios') {
+        uniqueId = md5.hex_md5(uniqueId).substring(8, 24)
       }
       const anonymousConfig = { id: uniqueId }
       const userInfoParmas = thirdLogin('anonymous', anonymousConfig)
@@ -282,9 +282,6 @@ export function login(state: Object): Function {
 }
 
 
-
-
-
 /**
  * 注册
  * @param  {[type]} state:Object [description]
@@ -317,7 +314,9 @@ export function register(state: Object): Function {
         if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
           await dispatch(updateMeByParam({
             mobilePhoneNumber: state.phone,
-            'authData.anonymous':{"__op":"Delete"}
+            authData: {
+              anonymous: { "__op": "Delete" },
+            }
           }))
           dispatch(StackActions.pop())
         }
@@ -349,7 +348,6 @@ export function register(state: Object): Function {
 
   }
 }
-
 
 
 //校验手机号
@@ -549,21 +547,21 @@ export function weChatLogin(Key) {
       const { access_token, openid } = weInfo
       // console.log('weInfo:', weInfo);
 
-      const userExsit = await getUserExsitJudge('weixin',openid)
+      const userExsit = await getUserExsitJudge('weixin', openid)
       let user = getState().user.data
       if (userExsit === false) {
-          //如果不存在，则直接更换匿名用户
-          await dispatch(updateMeByParam({
-            authData:{
-              anonymous:{"__op":"Delete"},
-              weixin:weInfo
-            },
-          }))
+        //如果不存在，则直接更换匿名用户
+        await dispatch(updateMeByParam({
+          authData: {
+            anonymous: { "__op": "Delete" },
+            weixin: weInfo
+          },
+        }))
         dispatch(StackActions.pop())
-      }else {
+      } else {
         //如果存在，则直接登录老账号
         const userInfoParmas = thirdLogin('weixin', weInfo)
-         user = await get(userInfoParmas)
+        user = await get(userInfoParmas)
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
           await dispatch(_addSample(user))
@@ -632,18 +630,18 @@ export function qqLogin(Key) {
         return dispatch(thirdLoaded(''))
       }
 
-      const userExsit = await getUserExsitJudge('qq',qqConfig.openid)
+      const userExsit = await getUserExsitJudge('qq', qqConfig.openid)
       let user = getState().user.data
       if (userExsit === false) {
         //如果不存在，则直接更换匿名用户
         await dispatch(updateMeByParam({
-          authData:{
-            anonymous:{"__op":"Delete"},
-            qq:qqConfig
+          authData: {
+            anonymous: { "__op": "Delete" },
+            qq: qqConfig
           },
         }))
         dispatch(StackActions.pop())
-      }else {
+      } else {
         const userInfoParmas = thirdLogin('qq', qqConfig)
         user = await get(userInfoParmas)
         if (user.sessionToken) {

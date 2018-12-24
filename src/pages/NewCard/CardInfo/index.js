@@ -106,7 +106,8 @@ import Avatar from '../../../components/Avatar/Avatar2'
       data: state.normalizr.get(IUSE).get(state.req.get(IUSEExist).get('data').get('0')),
       dataId: state.req.get(IUSEExist).get('data').get('0'),
       course: iCard && state.normalizr.get(COURSE).get(iCard.get('course')),
-      selfUse: state.user.data
+      selfUse: state.user.data,
+      isTourist: state.user.isTourist
     }
   },
   (dispatch, props) => ({
@@ -380,7 +381,6 @@ export default class CardInfo extends Component {
             //     }
             // })
 
-
             if (exist && iUseData) {
               this.props.navigation.navigate('card', {
                 iUseId: iUseData.objectId,
@@ -388,6 +388,12 @@ export default class CardInfo extends Component {
               })
 
             } else {
+              if(this.props.isTourist){
+                this.props.navigation.navigate('login')
+                return Toast.show('加入圈子必须先登录哦~!')
+              }
+
+
               if (iCard.price > 0 && !isSelf) {
                 Pop.show(<PayForm
                   onSubmit={() => onSubmit(iCard, () => {
