@@ -136,7 +136,9 @@ const anonymousUser = () => {
   return async dispatch => {
     try {
       let uniqueId = DeviceInfo.getUniqueID();
-      uniqueId = Platform.OS === 'ios' && md5.hex_md5(uniqueId).substring(8, 24)
+      if(Platform.OS === 'ios'){
+        uniqueId =  md5.hex_md5(uniqueId).substring(8, 24)
+      }
       const anonymousConfig = { id: uniqueId }
       const userInfoParmas = thirdLogin('anonymous', anonymousConfig)
       const user = await get(userInfoParmas)
@@ -186,7 +188,7 @@ const iCardSample = (objectId) => [{
   recordDay: [1, 2, 3, 4, 5, 6, 7],
   iconAndColor: {
     name: 'homework',
-    color: '#FF9F2E',
+    color: '#FFC076',
   },
   notifyText: '坚持鸭!',
   notifyTimes: ['20:00'],
@@ -280,28 +282,7 @@ export function login(state: Object): Function {
 }
 
 
-export function updateMeByParam(param) {
-  return async (dispatch, getState) => {
-    const user = getState().user.data
-    const params = getUpdateMeByParam(user.objectId, param)
-    await get(params)
-    return dispatch(updateUserData(param))
-  }
-}
 
-export function update() {
-  return async dispatch => {
-    const params = usersMe()
-    const res = await get(params)
-    return dispatch(updateUserData(res))
-  }
-}
-
-//校验手机号
-export function mobilePhoneVerify(mobilePhoneNumber, code) {
-  const params = verifySmsCode(mobilePhoneNumber, code)
-  return get(params)
-}
 
 
 /**
@@ -370,6 +351,14 @@ export function register(state: Object): Function {
 }
 
 
+
+//校验手机号
+export function mobilePhoneVerify(mobilePhoneNumber, code) {
+  const params = verifySmsCode(mobilePhoneNumber, code)
+  return get(params)
+}
+
+
 function _loginRequest(): Object {
   return {
     type: LOGIN_REQUEST,
@@ -388,8 +377,6 @@ function _loginSucceed(response: Object): Object {
       const { sessionToken = '', username = '' } = response
       Keychain.setGenericPassword(username, sessionToken);
       return dispatch(loginSucceed(response));
-
-
     }
   }
 
@@ -415,7 +402,9 @@ export function loginSucceed(data: Object): Object {
     type: LOGIN_SUCCEED,
     loaded: false,
     data: data,
-    isTourist: data.authData && !!data.authData.anonymous
+    // isTourist: !!(data.authData &&
+    //   data.authData.anonymous &&
+    //   data.authData.anonymous.id)
   }
 
 }
@@ -492,10 +481,36 @@ function logout2() {
 }
 
 export function updateUserData(data: Object) {
+
+  // if(data.authData){
+  //   return {
+  //     type: UPDATE_USERDATA,
+  //     data: data,
+  //     isTourist: !!(data.authData.anonymous
+  //       && data.authData.anonymous.id)
+  //   }
+  // }
   return {
     type: UPDATE_USERDATA,
     data: data,
-    isTourist: data.authData && !!data.authData.anonymous
+  }
+}
+
+
+export function updateMeByParam(param) {
+  return async (dispatch, getState) => {
+    const user = getState().user.data
+    const params = getUpdateMeByParam(user.objectId, param)
+    await get(params)
+    return dispatch(updateUserData(param))
+  }
+}
+
+export function update() {
+  return async dispatch => {
+    const params = usersMe()
+    const res = await get(params)
+    return dispatch(updateUserData(res))
   }
 }
 
@@ -624,7 +639,7 @@ export function qqLogin(Key) {
         await dispatch(updateMeByParam({
           authData:{
             anonymous:{"__op":"Delete"},
-            weixin:qqConfig
+            qq:qqConfig
           },
         }))
         dispatch(StackActions.pop())
@@ -641,7 +656,7 @@ export function qqLogin(Key) {
           dispatch(StackActions.pop())
         }
       }
-      
+
       dispatch(thirdLoaded(''))
 
       //获取微信用户信息

@@ -24,7 +24,7 @@ export const StyledImage = styled.Image`
 
 export const StyledImageBottom = styled.Image`
   width: 100%;
-  height: 300px;
+  height: ${props => props.theme.height * 0.3};
 `
 
 export const SyledImageName = styled.Text`

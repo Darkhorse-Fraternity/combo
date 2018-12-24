@@ -56,14 +56,27 @@ export default function userState(state: immutable.Map<string, any> = initialLog
       return Object.assign({}, state, {
         ...action,
         isLogin: true,
+        isTourist:!!(action.data.authData &&
+          action.data.authData.anonymous &&
+          action.data.authData.anonymous.id)
       });
 
 
     case UPDATE_USERDATA: {
 
       state.data = Object.assign({}, state.data, action.data)
-      saveUserData(state.data);
-      return Object.assign({}, state);
+      if(action.data.authData){
+        return Object.assign({}, state,{
+          isTourist:!!(
+            action.data.authData.anonymous &&
+            action.data.authData.anonymous.id)
+        });
+      }else {
+        return Object.assign({}, state);
+      }
+
+      // saveUserData(state.data);
+
     }
     case CHANGEAVATAR:
 
@@ -71,7 +84,7 @@ export default function userState(state: immutable.Map<string, any> = initialLog
 
       state.data.avatar = Object.assign({}, avatar, action.avatar);
       state.data = Object.assign({}, state.data);
-      saveUserData(state.data);
+      // saveUserData(state.data);
       return Object.assign({}, state);
     case THIRD_LOAD:
       return Object.assign({}, state, {

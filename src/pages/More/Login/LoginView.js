@@ -243,6 +243,7 @@ export default class LoginView extends Component {
                      style = {}) => {
     return (
       <Animatable.View
+        style={{zIndex:100}}
         useNativeDriver
         // duration={1000}
         // delay={200 + Math.random() * 500}
@@ -280,7 +281,7 @@ export default class LoginView extends Component {
     const thirdLoaded = this.props.userData.theThirdLoaded
     return (
       <StyledContent
-        colors={['white', '#f7f9fe']}
+        colors={['white', '#f7f8fe','white']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
         {/*{!this.props.userData.isLogin && (<BG/>)}*/}
