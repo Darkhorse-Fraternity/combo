@@ -43,7 +43,8 @@ import {
   StyledCodeButton,
   StyledCodeButtonText,
   StyledSignInBtn,
-  StyledImageBottom
+  StyledImageBottom,
+  ThirdPartyLoginViewInner
 } from './style'
 import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
@@ -357,10 +358,13 @@ export default class LoginView extends Component {
             />
             <SyledImageName>
               {strings('app.name')}
-            </SyledImageName>
+            </SyledImageName>a
           </Animatable.View>
         }
-        <ThirdPartyLoginView>
+        <ThirdPartyLoginView  >
+          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe','#fafbfe','#fbfcfe']}/>
+          <ThirdPartyLoginViewInner colors={['white','#fcfdfe','#fafbfe','#f8f9fb']}/>
+          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe','#fafbfe','#fafbfd']}/>
           <ThirdPartyInnerLoginView isWXAppInstalled={this.state.isWXAppInstalled}>
 
             {this.state.isWXAppInstalled && this.renderLoginItem(25,
