@@ -69,7 +69,6 @@ const TrackInteractive = true;
 import Toast from 'react-native-simple-toast'
 import Avatar from '../../../components/Avatar/Avatar2'
 import * as Animatable from 'react-native-animatable';
-
 const Name = 'text'
 
 import { findByID } from "../../../redux/module/leancloud";
@@ -247,7 +246,6 @@ export default class RComment extends PureComponent {
     super(props);
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
-
     this.state = {
       text: '',
       showIn: true,
@@ -419,10 +417,10 @@ export default class RComment extends PureComponent {
 
     return (
       <StyledContent forceInset={{ top: 'never' }}>
-        {this._renderHeader()}
+        {Platform.OS ==='ios'&& this._renderHeader()}
         <LCList
           keyboardDismissMode='interactive'
-          // ListHeaderComponent={this._renderHeader}
+          ListHeaderComponent={Platform.OS !=='ios'&& this._renderHeader}
           style={[styles.list]}
           reqKey={ICOMMENT}
           sKey={ICOMMENT + iDoID}
