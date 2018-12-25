@@ -55,6 +55,10 @@ export const StyledItemText = styled.Text`
 `
 
 
+export const StyledSubView = styled.View`
+  padding: 20px 0px;
+`
+
 export const StyledSubTitleView = styled.View`
   flex-direction: row;
   align-items: center;
@@ -63,8 +67,8 @@ export const StyledSubTitleView = styled.View`
 
 export const StyledSubTitle = styled.Text`
   font-size: 15px;
-  margin: 30px 0px 10px 0px;
-  padding: 5px 15px;
+  margin: 10px 0px 10px 0px;
+  padding: 5px 20px;
 `
 
 export const StyledControl = styled(TouchableOpacity)`
@@ -134,7 +138,7 @@ export const StyledTitle = styled.Text`
 
 export const StyledCellButton = styled(Button)`
     margin: 7.5px;
-    padding: 15px;
+    padding: 15px 20px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;

@@ -24,6 +24,7 @@ import Toast from 'react-native-simple-toast'
 import { mainColor } from '../../../../Theme/index'
 import {
   StyledTitleText,
+  StyledSubView,
   StyledSubTitle,
   StyledSubTitleView,
   StyledItemText,
@@ -156,7 +157,7 @@ export default class OptionDo extends PureComponent {
       return (
         <StyledItemView
           contain={selItem === item}
-          style={{ width: 60 }}
+          style={{ width: 75 }}
           key={item}>
           <StyledItemText
             contain={selItem === item}>
@@ -208,9 +209,9 @@ export default class OptionDo extends PureComponent {
           style={[{
             backgroundColor: '#f6f7f9',
             padding: 5,
-            paddingHorizontal:10,
+            paddingHorizontal: 10,
             borderRadius: 5,
-            marginHorizontal: 15
+            marginHorizontal: 20
           }]}>
           <TextInput
             name='notifyText'
@@ -252,22 +253,24 @@ export default class OptionDo extends PureComponent {
 
 
     return (
-      <Animatable.View animation="fadeInUp"
-                       delay={300 + Math.random() * 300}
-      >
-        <StyledSubTitleView>
-          <StyledSubTitle>
-            打卡完成要求
-          </StyledSubTitle>
-        </StyledSubTitleView>
+      <StyledSubView>
+        <Animatable.View animation="fadeInUp"
+                         delay={300 + Math.random() * 300}
+        >
+          <StyledSubTitleView>
+            <StyledSubTitle>
+              打卡完成要求
+            </StyledSubTitle>
+          </StyledSubTitleView>
 
-        <Multiple
-          style={[styles.notifyTimeView]}
-          name='record'
-          //keyName='ItemId'
-          options={items}
-          renderItem={__renderRadioItem}/>
-      </Animatable.View>
+          <Multiple
+            style={[styles.notifyTimeView]}
+            name='record'
+            //keyName='ItemId'
+            options={items}
+            renderItem={__renderRadioItem}/>
+        </Animatable.View>
+      </StyledSubView>
     )
 
   }
@@ -289,21 +292,32 @@ export default class OptionDo extends PureComponent {
     }
 
     return (
-      <Animatable.View animation="fadeInUp"
-                       delay={Math.random() * 300}
-      >
-        <StyledSubTitleView>
-          <StyledSubTitle>
-            打卡时间限制
-          </StyledSubTitle>
-        </StyledSubTitleView>
-        <Multiple
-          style={[styles.notifyTimeView]}
-          name='recordDay'
-          //keyName='ItemId'
-          options={sels}
-          renderItem={__renderRadioItem}/>
-      </Animatable.View>
+      <StyledSubView>
+        <Animatable.View animation="fadeInUp"
+                         delay={100}
+        >
+          <StyledSubTitleView>
+            <StyledSubTitle>
+              打卡日限制
+            </StyledSubTitle>
+          </StyledSubTitleView>
+          <Multiple
+            style={[styles.notifyTimeView]}
+            name='recordDay'
+            //keyName='ItemId'
+            options={sels}
+            renderItem={__renderRadioItem}/>
+        </Animatable.View>
+        <Animatable.View animation="fadeInUp"
+                         delay={300}
+        >
+          <StyledSubTitleView>
+            <StyledSubTitle>
+              时间段限制
+            </StyledSubTitle>
+          </StyledSubTitleView>
+        </Animatable.View>
+      </StyledSubView>
     )
   }
 
@@ -329,7 +343,7 @@ export default class OptionDo extends PureComponent {
 
 
   render(): ReactElement<any> {
-    const { icon,color, title } = this.props
+    const { icon, color, title } = this.props
     const notifyText = this.props.notifyText && this.props.notifyText.length > 0
       ? this.props.notifyText : '无'
     // console.log('test:', this.props.record);
@@ -454,7 +468,7 @@ const styles = StyleSheet.create({
 
   notifyTimeView: {
 
-    paddingHorizontal: 10,
+    paddingHorizontal: 13,
     flexDirection: 'row',
     flexWrap: 'wrap'
   },

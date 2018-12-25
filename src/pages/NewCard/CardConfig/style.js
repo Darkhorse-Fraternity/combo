@@ -61,7 +61,7 @@ export const StyledSubTitleView = styled.View`
 export const StyledSubTitle = styled.Text`
   font-size: 15px;
   margin: 30px 0px 10px 0px;
-  padding: 5px 15px;
+  padding: 5px 20px;
 `
 
 export const StyledControl = styled(TouchableOpacity)`
