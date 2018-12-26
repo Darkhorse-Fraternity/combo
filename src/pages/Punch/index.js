@@ -245,9 +245,27 @@ export default class Punch extends Component {
         const iCard = this.props.iCard.get(mData.iCard).toJS()
         const week = new Date().getDay() === 0 ? 7 : new Date().getDay()
         const recordDay = iCard.recordDay.sort((a, b) => a - b > 0)
+
         if (recordDay.indexOf(week) !== -1) {
-          mData.satisfy = true
-          satisfy.push(mData)
+          const limitTimes = iCard.limitTimes || ['00:00',"24:00"]
+          const before = moment( limitTimes[0], "HH")
+          const after = moment(limitTimes[1], "HH")
+          const now = moment(new Date())
+          const momentIn = moment(now).isBetween(before, after)
+          if(momentIn){
+            mData.satisfy = true
+            satisfy.push(mData)
+          }else {
+            mData.satisfy = false
+            if(now.isBefore(before)){
+              mData.unSatisfyDiscrib = limitTimes[0]
+            }else if(now.isAfter(after)){
+              mData.unSatisfyDiscrib = limitTimes[1]+'前'
+            }
+
+            unSatisfy.push(mData)
+          }
+
         } else {
           let unSatisfyDiscrib = '一周后'
           //算出正向上满足条件的下一天

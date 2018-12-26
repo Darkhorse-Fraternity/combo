@@ -16,7 +16,7 @@ export const FormID = 'ChatSendForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 import {dataStorage} from '../../../redux/actions/util'
-import KeyboardManager from 'react-native-keyboard-manager'
+// import KeyboardManager from 'react-native-keyboard-manager'
 
 
 @connect(

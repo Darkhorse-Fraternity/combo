@@ -93,6 +93,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
         'record',
         'icon',
         'color',
+        'limitTimes'
       )
       const notifyTimes = op.notifyTimes.toJS()
         .sort((a, b) => moment(a, 'HH:mm')
@@ -109,6 +110,7 @@ import { StyledArrowView } from "../../../Record/RecordRow/style";
         },
         notifyTimes,
         notifyText:op.notifyText,
+        limitTimes:op.limitTimes,
         price: 0,
         state: 0,
         // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},

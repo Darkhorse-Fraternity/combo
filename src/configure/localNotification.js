@@ -58,7 +58,7 @@ export function nowNotification() {
     normalizrData: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
     localRemindData: state.util.get('localRemind'),
-    user:state.user.data
+    user: state.user.data
   }),
   dispatch => ({
 
@@ -206,13 +206,13 @@ export default class LocalNotification extends Component {
     })
 
     // console.log('unDoneCount:', unDoneCount);
-    const name = (this.props.user.nickname + ',') ||''
+    const name = (this.props.user.nickname + ',') || ''
     PushNotification.setApplicationIconBadgeNumber(unDoneCount)
 
     if (!daysFlag) {
       PushNotification.localNotificationSchedule({
         title: '给自己添加一个习惯吧~',
-        message:name+ "小改变，大不同！", // (required)
+        message: name + "小改变，大不同！", // (required)
         date: moment(21, "HH").toDate(), // in 60 secs
         // date: new Date(Date.now() + (1*1000)), // in 60 secs
         data: {
@@ -226,7 +226,7 @@ export default class LocalNotification extends Component {
 
     PushNotification.localNotificationSchedule({
       title: '新的一周开始了~',
-      message:name + "为新的一周设置一些习惯吧！", // (required)
+      message: name + "为新的一周设置一些习惯吧！", // (required)
       date: moment(21, "HH").day(7).toDate(), // in 60 secs
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
       data: {
@@ -240,9 +240,10 @@ export default class LocalNotification extends Component {
 
 
   localNotificationSchedule = (day, notifyTime, item) => {
-    const name = (this.props.user.nickname + ',') ||''
+    const nickname = this.props.user.nickname
+    const name = nickname ? nickname + ',' : ''
     const title = item.iCard.title + '的时间到了'
-    const message = name + (item.iCard.notifyText || '锲而不舍，金石可镂!')
+    const message = name + (item.iCard.notifyText || '锲而不舍,金石可镂!')
     const id = item.iCard.objectId
 
     // const number = numbers[day-1]
@@ -337,12 +338,11 @@ export default class LocalNotification extends Component {
           //已经删除了或归档,就不用提醒了。
           return
         }
-        const { iCard,objectId} = item
+        const { iCard, objectId } = item
         const { title, describe, notifyTimes, recordDay } = iCard
         if (notifyTimes === undefined || notifyTimes.length === 0) {
           return
         }
-
 
 
         const notifyTime = notifyTimes[notifyTimes.length - 1]
@@ -350,7 +350,7 @@ export default class LocalNotification extends Component {
 
         //控制单个开个
         let open = localRemindData[objectId + notifyTime]
-        const alarms = (open || open === undefined)?[{ date: 0 }]:[]
+        const alarms = (open || open === undefined) ? [{ date: 0 }] : []
         notifyTimes.pop()
         //提醒时间,需要计算和最后一次提醒的分钟差别,即与startDate的相差分钟数
         if (notifyTimes.length > 0) {
@@ -365,16 +365,14 @@ export default class LocalNotification extends Component {
             }
 
 
-
           }).map(minutes => {
-            if(minutes){
+            if (minutes) {
               return { date: minutes }
             }
-          }).filter(item=> item !== undefined)
+          }).filter(item => item !== undefined)
           alarms.push(...notifyMonets)
           console.log('alarms:', alarms);
         }
-
 
 
         //换算一周内提醒哪一天
@@ -387,7 +385,7 @@ export default class LocalNotification extends Component {
           recurrenceRule.byday = day.map(num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1]).toString()
         }
 
-        const name = (this.props.user.nickname + ',') ||''
+        const name = (this.props.user.nickname + ',') || ''
         await  RNCalendarEvents.saveEvent(
           title,
           {

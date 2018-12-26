@@ -24,7 +24,7 @@ import { materialColors } from 'react-native-typography'
 
 export const StyledContent = styled(SafeAreaView)`
     background-color: white;
-    flex:1
+    flex:1;
 `
 
 export const StyledTitleView = styled.View`
@@ -146,4 +146,11 @@ export const StyledLogoImage = styled.Image`
   position: absolute;
   top: 50px;
   right: 10px;
+`
+
+export const StyledLimitTimeContent = styled.View`
+  padding: 0px 20px;
+  margin-top: -10px;
+  flex-direction: row;
+  align-items: center;
 `

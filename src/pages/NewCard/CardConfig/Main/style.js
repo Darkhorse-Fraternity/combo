@@ -67,7 +67,7 @@ export const StyledSubTitleView = styled.View`
 
 export const StyledSubTitle = styled.Text`
   font-size: 15px;
-  margin: 10px 0px 10px 0px;
+  margin: 15px 0px 10px 0px;
   padding: 5px 20px;
 `
 

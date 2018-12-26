@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -47,10 +47,9 @@ function PrefixInteger(num, length) {
 )
 
 
-export default class NotifyTimePicker extends Component {
+export default class NotifyTimePicker extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       isDateTimePickerVisible: false,
       isDelete: false,

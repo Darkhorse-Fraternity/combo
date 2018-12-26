@@ -81,6 +81,7 @@ import {
           'recordDay',
           'icon',
           'color',
+          'limitTimes'
         )
 
         const notifyTimes = op.notifyTimes.toJS()
@@ -97,6 +98,7 @@ import {
             name: op.icon,
             color: op.color
           },
+          limitTimes:op.limitTimes,
           notifyText:op.notifyText,
           notifyTimes
         }

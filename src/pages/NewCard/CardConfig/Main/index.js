@@ -43,21 +43,14 @@ import {
 } from './style'
 import IconAndColor from '../Creat/IconAndColor'
 import svgs from '../../../../../source/icons'
+import LimitTimePicker from '../LimitTimePicker'
 
-export const StaticOption = {
-  notifyTimes: [],
-  period: '7',
-  notifyText: '',
-  record: [],
-  recordDay: [1, 2, 3, 4, 5, 6, 7],
-  icon: 'sun',
-  color: colors[0],
-}
+
+
 
 import {
   formValues,
 } from 'redux-form/immutable'
-import Button from '../../../../components/Button/index'
 import NotifyTimePicker from '../NotifyTimePicker'
 
 @formValues('title',
@@ -68,6 +61,7 @@ import NotifyTimePicker from '../NotifyTimePicker'
   'recordDay',
   'icon',
   'color',
+  'limitTimes'
 )
 
 export default class OptionDo extends PureComponent {
@@ -316,6 +310,9 @@ export default class OptionDo extends PureComponent {
               时间段限制
             </StyledSubTitle>
           </StyledSubTitleView>
+          <LimitTimePicker name={'limitTimes'}/>
+
+
         </Animatable.View>
       </StyledSubView>
     )
@@ -358,7 +355,9 @@ export default class OptionDo extends PureComponent {
     // console.log('notifyTimes:', notifyTimes);
 
     const recordDay = this.__renderDayText(this.props.recordDay)
-
+    let limitTimes = this.props.limitTimes
+    limitTimes = limitTimes && limitTimes.toJS().join('~') || ''
+    limitTimes = limitTimes === '00:00~24:00' ?'':'，'+limitTimes
     // const { modify } = this.props
 
 
@@ -403,7 +402,7 @@ export default class OptionDo extends PureComponent {
           <this.__renderItem
             index={2}
             title={"时间限制"}
-            discrib={recordDay}
+            discrib={recordDay+limitTimes}
             type="recordDay"
           />
 

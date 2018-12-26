@@ -3,6 +3,7 @@ export const defaultHabit = {
   notifyText: '',
   record: [],
   recordDay: [1, 2, 3, 4, 5, 6, 7],
+  limitTimes:['00:00',"24:00"],
   icon: 'sun',
   color: '#afd2ef',
   period: '7',
