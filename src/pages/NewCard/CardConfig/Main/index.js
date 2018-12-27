@@ -311,8 +311,6 @@ export default class OptionDo extends PureComponent {
             </StyledSubTitle>
           </StyledSubTitleView>
           <LimitTimePicker name={'limitTimes'}/>
-
-
         </Animatable.View>
       </StyledSubView>
     )

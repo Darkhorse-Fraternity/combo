@@ -36,11 +36,22 @@ import { IUSE, ICARD} from '../../../redux/reqKeys'
         // dispatch(loginSucceed(user))
         // This will switch to the App screen or auth screen and this loading
         // screen will be unmounted and thrown away.
-        props.navigation.navigate(user ? 'tab' : 'login');
+        if(user.sessionToken){
+          // await dispatch(search(false, {
+          //   where: {
+          //     ...dispatch(selfUser()),
+          //     statu: 'start'
+          //   },
+          //   order: '-time',
+          //   include: ICARD + ',iCard.user'
+          // }, IUSE))
+          props.navigation.navigate('tab');
+        }
+        // props.navigation.navigate(user ? 'tab' : 'login');
       } catch (e) {
         // console.log('bootstrapAsync error:', e.message);
         // Toast.show(e.message)
-        props.navigation.navigate('login');
+        // props.navigation.navigate('login');
       }
 
     }

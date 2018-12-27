@@ -108,24 +108,34 @@ export function userInfo() {
     // const uuid =  DeviceInfo.getUniqueID()
 
 
-    dispatch(_loginRequest());
-    const credentials = await Keychain.getGenericPassword();
-    const sessionToken = credentials.password;
-    // const sessionToken = await storage.load({ key: sessionTokenkey, })
-
-    if (sessionToken) {
-      setLeanCloudSession(sessionToken)
-      const params = usersMe()
-      try {
-        const res = await get(params)
-        dispatch(_loginSucceed(res));
-        return res;
-      } catch (e) {
+    try{
+      dispatch(_loginRequest());
+      const credentials = await Keychain.getGenericPassword();
+      const userString = credentials.password;
+      // const sessionToken = await storage.load({ key: sessionTokenkey, })
+      const user = JSON.parse(userString)
+      const sessionToken = user.sessionToken
+      if (sessionToken) {
+        const sessionToken = user.sessionToken
+        // setLeanCloudSession(sessionToken)
+        // const params = usersMe()
+        dispatch(loginSucceed(user));
+        return user
+        // try {
+        //   const res = await get(params)
+        //   console.log('res:', res);
+        //   dispatch(_loginSucceed(res));
+        //   return res;
+        // } catch (e) {
+        //   return dispatch(anonymousUser());
+        // }
+      } else {
         return dispatch(anonymousUser());
       }
-    } else {
+    }catch (e){
       return dispatch(anonymousUser());
     }
+
 
 
   }
@@ -173,7 +183,7 @@ const iCardSample = (objectId) => [{
   },
   notifyText: '早睡早起身体好!',
   notifyTimes: ['22:00'],
-  limitTimes:['08:00',"24:00"],
+  limitTimes: ['08:00', "24:00"],
   price: 0,
   state: 0,
   // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
@@ -193,7 +203,7 @@ const iCardSample = (objectId) => [{
   },
   notifyText: '坚持鸭!',
   notifyTimes: ['20:00'],
-  limitTimes:['00:00',"24:00"],
+  limitTimes: ['00:00', "24:00"],
   price: 0,
   state: 0,
   // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
@@ -375,7 +385,8 @@ function _loginSucceed(response: Object): Object {
   return async dispatch => {
     if (response) {
       const { sessionToken = '', username = '' } = response
-      Keychain.setGenericPassword(username, sessionToken);
+      const userString = JSON.stringify(response)
+      Keychain.setGenericPassword(username, userString);
       return dispatch(loginSucceed(response));
     }
   }

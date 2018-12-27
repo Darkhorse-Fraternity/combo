@@ -262,7 +262,6 @@ export default class Punch extends Component {
             }else if(now.isAfter(after)){
               mData.unSatisfyDiscrib = limitTimes[1]+'前'
             }
-
             unSatisfy.push(mData)
           }
 

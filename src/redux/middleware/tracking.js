@@ -43,7 +43,7 @@ const tracking = ({ getState }) => next => (action) => {
   return result;
 };
 
-export default tracking;
+// export default tracking;
 
 
 const client =  async () => {
