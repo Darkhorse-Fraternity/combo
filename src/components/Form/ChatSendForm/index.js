@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import {reduxForm} from 'redux-form/immutable'
 import {AutoGrowingChatInput} from '../Cunstom'
 import PropTypes from 'prop-types';
@@ -8,7 +8,6 @@ import CleanBtn from '../../../components/Button/CleanBtn'
 
 import {connect} from 'react-redux'
 import { Platform} from 'react-native'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin';
 import {formValueSelector} from 'redux-form/immutable'
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 
@@ -16,7 +15,7 @@ export const FormID = 'ChatSendForm'
 const selector = formValueSelector(FormID) // <-- same as form name
 
 import {dataStorage} from '../../../redux/actions/util'
-// import KeyboardManager from 'react-native-keyboard-manager'
+import KeyboardManager from 'react-native-keyboard-manager'
 
 
 @connect(
@@ -41,9 +40,15 @@ import {dataStorage} from '../../../redux/actions/util'
     form: FormID,
 })
 
-@immutableRenderDecorator
 
-export default class ChatSendForm extends Component {
+
+export default class ChatSendForm extends PureComponent {
+
+  constructor(props: Object) {
+    super(props);
+    Platform.OS === 'ios' && KeyboardManager.setEnable(false);
+  }
+
 
     static propTypes = {
         name: PropTypes.string.isRequired,
@@ -51,10 +56,7 @@ export default class ChatSendForm extends Component {
     static defaultProps = {};
 
 
-    componentDidMount() {
-        Platform.OS === 'ios' && KeyboardManager.setEnable(false);
-
-    }
+    componentDidMount() {}
 
     componentWillUnmount() {
         Platform.OS === 'ios' && KeyboardManager.setEnable(true);

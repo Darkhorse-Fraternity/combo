@@ -129,7 +129,7 @@ export default class Circle extends Component {
         >
           <StyledHeaderImage source={require('../../../../source/img/circle/write.png')}/>
           <StyledHeaderText>
-            添加日记
+            记录
           </StyledHeaderText>
         </StyledHeaderButton>
 
@@ -153,7 +153,7 @@ export default class Circle extends Component {
               require('../../../../source/img/circle/privacy_open.png') :
               require('../../../../source/img/circle/privacy_close.png')}/>
           <StyledHeaderText>
-            隐私设置
+            隐私
           </StyledHeaderText>
         </StyledHeaderButton>
 
@@ -170,7 +170,7 @@ export default class Circle extends Component {
         >
           <StyledHeaderImage source={require('../../../../source/img/circle/invitation.png')}/>
           <StyledHeaderText>
-            邀请好友
+            邀请
           </StyledHeaderText>
         </StyledHeaderButton>
 

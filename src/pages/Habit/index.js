@@ -28,7 +28,8 @@ import {
   StyledAdd,
   StyledIonicons,
   StyledHeader,
-  StyledHeaderTitle
+  StyledHeaderTitle,
+  StyledAntDesign
 } from './style'
 import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
@@ -169,7 +170,7 @@ export default class Habit extends PureComponent {
           ExceptionType.Loading : ExceptionType.NoData}
         tipBtnText={'添加卡片'}
         refresh={refreshLoad}
-        prompt={refreshLoad ? '正在加载' : '空空如也~'}
+        // prompt={refreshLoad ? '正在加载' : ''}
         onRefresh={() => {
           this.props.navigation.navigate('newCard')
         }}/>
@@ -177,10 +178,10 @@ export default class Habit extends PureComponent {
   }
 
 
-  _renderSwipeOutDeleteBtn = (title, color, name) => {
+  _renderSwipeOutDeleteBtn = (title, color, name,CMP = StyledIcon) => {
     return (
       <StyledDeleteBtn>
-        <StyledIcon size={30} color={color} name={name}/>
+        <CMP size={25} color={color} name={name}/>
         <StyledDeleteBtnText color={color}>
           {title}
         </StyledDeleteBtnText>
@@ -247,7 +248,7 @@ export default class Habit extends PureComponent {
               // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
-            backgroundColor: '#e0f2f1'
+            backgroundColor: '#fdfbfb'
           } : {
             type: 'secondary',
             onPress: () => {
@@ -257,8 +258,8 @@ export default class Habit extends PureComponent {
                 { iCardId })
               // this.setState({ openIndex: -1 })
             },
-            component: this._renderSwipeOutDeleteBtn('查看', '#388e3c', 'info-outline'),
-            backgroundColor: '#e0f2f1'
+            component: this._renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
+            backgroundColor: '#fdfbfb'
           }, {
             type: 'delete',
             onPress: () => {
@@ -267,8 +268,8 @@ export default class Habit extends PureComponent {
               this.props.delete(item, handleView)
 
             },
-            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete'),
-            backgroundColor: '#ffebee'
+            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete',StyledAntDesign),
+            backgroundColor: '#fdfbfb'
           }, {
             type: 'primary',
             onPress: async () => {
@@ -279,7 +280,7 @@ export default class Habit extends PureComponent {
               // handleView && self.handleViewRef['habit' + index].fadeInUp(800)
             },
             component: this._renderSwipeOutDeleteBtn('归档', '#009afb', 'archive'),
-            backgroundColor: '#e3f2fd'
+            backgroundColor: '#fdfbfb'
           }]}
         >
           <Cell
@@ -316,13 +317,13 @@ export default class Habit extends PureComponent {
         <StyledHeaderTitle>
           日常习惯
         </StyledHeaderTitle>
-        <HeaderBtn
-          style={{ padding: 15 }}
-          title={'添加'}
-          onPress={() => {
-            this.props.navigation.navigate('newCard')
-          }}
-          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>
+        {/*<HeaderBtn*/}
+          {/*style={{ padding: 15 }}*/}
+          {/*title={'添加'}*/}
+          {/*onPress={() => {*/}
+            {/*this.props.navigation.navigate('newCard')*/}
+          {/*}}*/}
+          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
         {/*<StyledAdd*/}
         {/*onPress={() => {*/}
         {/*this.props.navigation.navigate('newCard')*/}

@@ -38,7 +38,8 @@ import {
   StyledRowDis,
   StyledDeleteBtn,
   StyledDeleteBtnText,
-  StyledIconImage
+  StyledIconImage,
+  StyledAntDesign
 } from './style'
 import moment from 'moment'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -218,7 +219,7 @@ export default class Remind extends Component {
   _renderSwipeOutDeleteBtn = () => {
     return (
       <StyledDeleteBtn>
-        <StyledIcon size={30} color={'red'} name={'delete'}/>
+        <StyledAntDesign size={25} color={'red'} name={'delete'}/>
         <StyledDeleteBtnText>
           删除
         </StyledDeleteBtnText>

@@ -58,7 +58,7 @@ export default class BaseSectionView extends Component {
     loadStatu: LIST_FIRST_JOIN,
     needDelay: true,
     // noDataImg: require('../../../source/img/xy_course/xy_course.png'),
-    noDataPrompt: "空空如也~",
+    noDataPrompt: "",
     type: 'list',
     data: [],
     sections: [],
@@ -224,7 +224,7 @@ export default class BaseSectionView extends Component {
                 ExceptionType.NoData}
             image={noDataImg}
             prompt={exceptionViewRefreshing ?
-              '正在加载~' :
+              '' :
               noDataPrompt}
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap ? tipTap : this._handleRefresh}

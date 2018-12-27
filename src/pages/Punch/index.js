@@ -29,7 +29,9 @@ import {
   StyledHeader,
   StyledHeaderTitle,
   StyledSectionHeader,
-  StyledSectionHeaderTitle
+  StyledSectionHeaderTitle,
+  StyledAdd,
+  StyledIonicons
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Item from './Item'
@@ -140,7 +142,7 @@ export default class Punch extends Component {
           ExceptionType.Loading : ExceptionType.NoData}
         tipBtnText={'添加卡片'}
         refresh={refreshLoad}
-        prompt={refreshLoad ? '正在加载' : '空空如也~'}
+        // prompt={refreshLoad ? '正在加载' : '空空如也~'}
         onRefresh={() => {
           this.props.navigation.navigate('newCard')
         }}/>
@@ -159,6 +161,16 @@ export default class Punch extends Component {
         <StyledHeaderTitle>
           {strings('app.name')}
         </StyledHeaderTitle>
+        <StyledAdd
+          onPress={() => {
+            this.props.navigation.navigate('newCard')
+          }}
+          hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
+          <StyledIonicons
+            // color={'#39ba98'}
+            size={25}
+            name={'plus-circle'}/>
+        </StyledAdd>
       </StyledHeader>
     )
   }

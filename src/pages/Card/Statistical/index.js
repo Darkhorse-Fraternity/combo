@@ -21,6 +21,8 @@ import {
   StyledRow,
   StyledRowText,
   StyledHeaderBtn,
+  StyledAdd,
+  StyledIonicons
 } from './style'
 
 import AgendaScreen from './agenda'
@@ -46,7 +48,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 @connect(
   state => ({ user: state.user.data }),
   (dispatch, props) => ({
-    iDoDelete: async (item,user) => {
+    iDoDelete: async (item, user) => {
       const isDiary = (item.imgs && item.imgs.length > 0) ||
         (item.recordText && item.recordText.length > 0)
       if (isDiary) {
@@ -56,7 +58,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
             iUseId: props.iUse.get('objectId'),
             iCardId: props.iCard.get('objectId')
           })
-      } else if(user.objectId === item.user.objectId){
+      } else if (user.objectId === item.user.objectId) {
         //取消打卡
         // console.log('item:', item);
 
@@ -183,7 +185,7 @@ export default class Statistical extends PureComponent {
           {...this.props}
           onPress={(item) => {
 
-            this.props.iDoDelete(item,this.props.user)
+            this.props.iDoDelete(item, this.props.user)
             // this.props.navigation.navigate('rcomment',
             //   {
             //     iDoID: item.objectId,
@@ -208,13 +210,17 @@ export default class Statistical extends PureComponent {
             习惯日记
           </StyledTitleText>
           {isSelf &&
-          <StyledHeaderBtn
-            // load={false}
-            backgroundColor={this.props.color}
-            // disabled={false}
-            hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-            onPress={() => this.props.tipTap(this.props.iUse.toJS())}
-            title={'添加'}/>}
+            <StyledAdd
+            onPress={() => {
+            this.props.navigation.navigate('newCard')
+          }}
+            hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
+            <StyledIonicons
+            color={this.props.color}
+            size={25}
+            name={'plus-circle'}/>
+            </StyledAdd>
+          }
         </StyledTitleView>
       </StyledInner>
 

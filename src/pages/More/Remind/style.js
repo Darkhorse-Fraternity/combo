@@ -7,6 +7,7 @@
 
 import styled from "styled-components";
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
 
@@ -30,7 +31,7 @@ export const StyledSubTitle = styled.View`
     align-items: center;
     background-color: ${props => props.theme.titleBackViewColor};
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 10px 8px;
     margin: 30px 20px 0px 20px;
 `
 
@@ -111,6 +112,10 @@ export const StyledIconImage = styled.Image`
 `
 
 export const StyledIcon = styled(Icon)`
+    align-self: center;
+`
+
+export const StyledAntDesign = styled(AntDesign)`
     align-self: center;
 `
 

@@ -4,7 +4,7 @@ import {
 } from 'react-native'
 import { strings } from '../../../../locales/i18n';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Feather from 'react-native-vector-icons/Feather';
 import Iconfont from '../../../../source/font/Iconfont'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
@@ -39,19 +39,19 @@ export const defaultNavigationOptions = {
 
 export const tabsOptions = {
   Punch:{
-    iconName:'check-decagram',
+    iconName:'check',
     size:25,
-    Icon:MaterialCommunityIcons
+    Icon:Feather
 
   },
   Habit:{
     iconName:'sun',
-    size:32,
-    Icon:Iconfont
+    size:25,
+    Icon:Feather
   },
   Settings:{
-    iconName:'more',
-    size:22,
-    Icon:MaterialIcons
+    iconName:'more-vertical',
+    size:25,
+    Icon:Feather
   }
 }

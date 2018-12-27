@@ -5,7 +5,8 @@
 'use strict';
 
 import styled from "styled-components";
-
+import Feather from 'react-native-vector-icons/Feather'
+import {BorderlessButton} from 'react-native-gesture-handler'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 
 export const StyledContent = styled.View`
@@ -53,3 +54,10 @@ export const StyledRowText = styled.Text`
   fontStyle:italic;
 `
 
+export const StyledAdd = styled(BorderlessButton)`
+    padding: 10px;
+`
+
+export const StyledIonicons = styled(Feather)`
+    align-self: center;
+`
