@@ -212,7 +212,7 @@ export default class Statistical extends PureComponent {
           {isSelf &&
             <StyledAdd
             onPress={() => {
-            this.props.navigation.navigate('newCard')
+              this.props.tipTap(this.props.iUse.toJS())
           }}
             hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>
             <StyledIonicons
@@ -267,11 +267,11 @@ export default class Statistical extends PureComponent {
     }
 
 
-    const isSelf = this.props.user.objectId === iUse.user
+    const isSelf = this.props.user.objectId === iUseM.user
 
     const config = isSelf ? {
       noDataPrompt: '写一个日记吧~！',
-      tipBtnText: '添加记录',
+      tipBtnText: '添加日记',
       tipTap: () => this.props.tipTap(this.props.iUse.toJS())
     } : {}
     return (
