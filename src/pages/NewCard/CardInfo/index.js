@@ -349,6 +349,11 @@ export default class CardInfo extends Component {
 
     const isSelf = selfUse.objectId === iCard.user
 
+
+    let limitTimes = iCard.limitTimes
+    limitTimes = limitTimes && limitTimes.join('~') || ''
+    limitTimes = limitTimes === '00:00~24:00' ?'':'，'+limitTimes
+    const limitTime = daysText(iCard.recordDay) + limitTimes
     // console.log('iCard.img:', iCard.img);
 
     return (
@@ -498,7 +503,7 @@ export default class CardInfo extends Component {
           {this.row('提醒时间:', iCard.notifyTimes ?
             iCard.notifyTimes.join('、') : '无')}
           {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
-          {this.row('打卡日:', daysText(iCard.recordDay))}
+          {this.row('打卡时间:', limitTime)}
           {this.row('习惯周期:', iCard.period + '次')}
           {this.row('打卡要求:', iCard.record.join("+") || '默认点击')}
           {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}

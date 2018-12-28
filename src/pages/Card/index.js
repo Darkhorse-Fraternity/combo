@@ -18,7 +18,7 @@ import PropTypes from 'prop-types';
 import {
   StyledContent,
   StyledIcon,
-  StyledEntypoIcon
+  StyledIconSet
 } from './style'
 
 // import DoCardButton from '../../components/Button/DoCardButton/index'
@@ -131,10 +131,9 @@ export default class Card extends Component {
       isSelf && <Button key={'icon1'} onPress={() => {
         this.props.setCircleState(iCard)
       }}>
-        <StyledEntypoIcon
-          color={'black'}
-          style={{ marginRight: 5 }}
-          size={21}
+        <StyledIconSet
+          style={{ marginRight: 0,marginTop:3 }}
+          size={27}
           name={'picasa'}/>
       </Button>,
       <Button key={'icon2'} onPress={() => {
@@ -145,8 +144,8 @@ export default class Card extends Component {
         <StyledIcon
           color={'black'}
           style={{ marginRight: 10 }}
-          size={23}
-          name={'md-settings'}/>
+          size={25}
+          name={'settings'}/>
       </Button>,
     ]
   }

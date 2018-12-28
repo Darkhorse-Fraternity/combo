@@ -233,7 +233,7 @@ export default class Circle extends Component {
         reqKey={listKey}
         sKey={listKey + iCardId}
         renderItem={this.renderRow.bind(this)}
-        tipBtnText={'添加日记'}
+        tipBtnText={'添加记录'}
         tipTap={() => this.props.tipTap(this.props.iUse.toJS())}
         dataMap={(data)=>{
           const results = data.results.filter(item => item.iUse.privacy >= privacy)
