@@ -12,6 +12,7 @@ export const defaultHabit = {
 const health1 = {
   title: '早起',
   notifyTimes: ['06:00'],
+  limitTimes: ['05:00', "10:00"],
   notifyText: '愿你鹏程万里，前途无量!',
   recordDay: [1, 2, 3, 4, 5],
   color:'#a5d6a7',
@@ -22,6 +23,7 @@ const health2 = {
   icon:'knife',
   color:'#a5d6a7',
   notifyTimes: ['08:00'],
+  limitTimes: ['05:00', "10:00"],
   notifyText: '美好的一天从早餐开始!',
 }
 
