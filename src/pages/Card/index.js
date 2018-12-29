@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
-  DeviceEventEmitter,
-  Animated
+  Animated,
+  Dimensions
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -111,7 +111,7 @@ export default class Card extends Component {
     const { params } = state;
 
     return {
-    //   title:params && params.title,
+      //   title:params && params.title,
       header: null,
       // headerRight:params.renderRightView && params.renderRightView()
     }
@@ -184,7 +184,7 @@ export default class Card extends Component {
     const state = iCard.get('state')
 
     return (
-      <StyledContent >
+      <StyledContent>
         <NavBar
           onBackPress={this.props.navigation.goBack}
           rightView={this.__renderRightView}
@@ -193,18 +193,22 @@ export default class Card extends Component {
           ref={'ScrollableTabView'}
           locked={state !== CircleState.open}
           onScroll={(x) => {
-            const containerWidthAnimatedValue = new Animated.Value(x);
-            this.setState({ scrollValue: containerWidthAnimatedValue });
+            // if(state === CircleState.open){
+              x = x <= 0 ? 0 : x
+              x = x >= 1 ? 1 : x
+              const containerWidthAnimatedValue = new Animated.Value(x);
+              this.setState({ scrollValue: containerWidthAnimatedValue });
+            // }
           }}
           renderTabBar={(...props) => (
-              <TitleTabBar
-                {...props}
-                underlineColor={color}
-                title={title}
-                tabUnderlineWidth={35}
-                scrollValueWithOutNative={this.state.scrollValue}
-                // rightView={this.__renderRightView}
-               />
+            <TitleTabBar
+              {...props}
+              underlineColor={color}
+              title={title}
+              tabUnderlineWidth={35}
+              scrollValueWithOutNative={this.state.scrollValue}
+              // rightView={this.__renderRightView}
+            />
           )}
           prerenderingSiblingsNumber={0}
           // tabBarInactiveTextColor={theme.mainColor}

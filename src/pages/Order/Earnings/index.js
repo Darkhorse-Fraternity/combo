@@ -141,6 +141,8 @@ export default class Earnings extends Component {
         {this._renderHeader()}
         <ScrollableTabView
           onScroll={(x) => {
+            x = x <= 0 ? 0 : x
+            x = x >= 2 ? 2 : x
             const containerWidthAnimatedValue = new Animated.Value(x);
             this.setState({ scrollValue: containerWidthAnimatedValue });
           }}

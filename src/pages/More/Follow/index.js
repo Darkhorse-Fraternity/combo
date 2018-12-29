@@ -60,6 +60,8 @@ export default class Follow extends Component {
         <ScrollableTabView
           ref={'ScrollableTabView'}
            onScroll={(x) => {
+             x = x <= 0 ? 0 : x
+             x = x >= 1 ? 1 : x
              const containerWidthAnimatedValue = new Animated.Value(x);
              this.setState({ scrollValue: containerWidthAnimatedValue });
            }}
