@@ -64,12 +64,12 @@ export default class TitleTabBar extends Component {
     //   outputRange: outputRange,
     // });
 
-    const color = scrollValueWithOutNative.interpolate({
+    const color = numberOfTabs === 1? activeTextColor:scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
       outputRange: outputRangeColor,
     });
 
-    const fontSize = scrollValueWithOutNative.interpolate({
+    const fontSize = numberOfTabs === 1? 21 : scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
       outputRange: outputRangefontSize,
     });
