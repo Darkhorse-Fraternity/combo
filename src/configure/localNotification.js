@@ -318,30 +318,55 @@ export default class LocalNotification extends Component {
 
     let objEvents = {}
     events.forEach(item => {
-      if (item.location.indexOf('来自小改变的提醒') !== -1) {
+      if (item.description.indexOf('来自小改变的提醒') !== -1) {
         objEvents[item.id] = item
       }
     })
+
     const ids = Object.keys(objEvents)
-    ids.forEach(id => {
-      RNCalendarEvents.removeEvent(id)
-    })
+
     if (!all) {
+      ids && ids.forEach(id => {
+        RNCalendarEvents.removeEvent(id)
+      })
       return
+    } else {
+      //老版本数据清除
+      ids && ids.forEach(id => {
+        if (objEvents[id].location.indexOf('来自小改变的提醒') !== -1) {
+          RNCalendarEvents.removeEvent(id)
+        }
+      })
     }
 
     try {
 
 
       data.forEach(async item => {
-        if (item.statu !== 'start') {
-          //已经删除了或归档,就不用提醒了。
-          return
-        }
+        let calendaId
+        ids && ids.forEach(id => {
+          if (objEvents[id].description.indexOf(item.objectId) !== -1) {
+            calendaId = id
+          }
+        })
         const { iCard, objectId } = item
-        const { title, describe, notifyTimes, recordDay } = iCard
-        if (notifyTimes === undefined || notifyTimes.length === 0) {
+        const { title, notifyText, notifyTimes, recordDay } = iCard
+
+        if (item.statu !== 'start' ||
+          notifyTimes === undefined
+          || notifyTimes.length === 0) {
+          //已经删除了或归档,就不用提醒了。
+          //删除calendar 数据
+          if(calendaId) {
+            RNCalendarEvents.removeEvent(id)
+            delete objEvents[id]
+          }
           return
+        } else {
+            if (calendaId) {
+              //已存在：则只需要修改
+              delete objEvents[id]
+            }
         }
 
 
@@ -371,7 +396,15 @@ export default class LocalNotification extends Component {
             }
           }).filter(item => item !== undefined)
           alarms.push(...notifyMonets)
-          console.log('alarms:', alarms);
+          // console.log('alarms:', alarms);
+        }
+
+        if (alarms.length === 0) {
+          if(calendaId) {
+            RNCalendarEvents.removeEvent(id)
+            delete objEvents[id]
+          }
+          return
         }
 
 
@@ -385,21 +418,27 @@ export default class LocalNotification extends Component {
           recurrenceRule.byday = day.map(num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1]).toString()
         }
 
-        const name = (this.props.user.nickname + ',') || ''
+        const { nickname } = this.props.user
+        const name = nickname ? nickname + ',' : ''
+        let idConfig = calendaId ? { id: calendaId } : {}
         await  RNCalendarEvents.saveEvent(
           title,
           {
-            // ...idConfig,
+            ...idConfig,
             startDate: startDate.toISOString(),
-            description: name + describe,
+            description: `来自小改变的提醒(${item.objectId})`,
             recurrenceRule: recurrenceRule,
             url: 'combo://combo',
             // location: '#来自小改变的提醒-'+objectId+'#',
-            location: '#来自小改变的提醒#',
+            location: name + notifyText,
             alarms: alarms
           })
       })
-
+      //将剩余的本地已被移的event 移除
+      const ids = Object.keys(objEvents)
+      ids && ids.forEach(id => {
+        RNCalendarEvents.removeEvent(id)
+      })
 
       //添加进本地记录
 

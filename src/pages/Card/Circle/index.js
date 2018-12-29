@@ -124,6 +124,7 @@ export default class Circle extends Component {
         {/*圈子日记*/}
         {/*</StyledTitleText>*/}
         <StyledHeaderButton
+          style={{marginLeft:0}}
           hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
           onPress={() => this.props.tipTap(this.props.iUse.toJS())}
         >

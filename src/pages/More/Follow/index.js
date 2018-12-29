@@ -18,7 +18,7 @@ import {
   StyledContent,
 } from './style'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
-import BackTabBar from '../../../components/Groceries/BackTabBar'
+import TitleTabBar from '../../../components/Groceries/TitleTabBar'
 
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Followee from './Followee'
@@ -47,7 +47,7 @@ export default class Follow extends Component {
     // const {state} = navigation;
     // const {params} = state;
     return {
-      header:null,
+      // header:null,
     }
   };
 
@@ -64,10 +64,10 @@ export default class Follow extends Component {
              this.setState({ scrollValue: containerWidthAnimatedValue });
            }}
           renderTabBar={() => (
-            <BackTabBar
+            <TitleTabBar
               tabUnderlineWidth={35}
               scrollValueWithOutNative={this.state.scrollValue}
-              onBackPress={this.props.navigation.goBack}/>
+            />
           )}
           // tabBarInactiveTextColor={theme.mainColor}
           // tabBarActiveTextColor={theme.mainColor}

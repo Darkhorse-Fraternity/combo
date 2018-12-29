@@ -21,7 +21,7 @@ export const StyledHeader = styled.View`
 `
 
 export const StyledHeaderTitle = styled.Text`
-   font-size: 20px;
+   font-size: 21px;
    font-weight: 500;
 `
 

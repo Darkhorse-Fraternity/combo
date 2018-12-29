@@ -14,7 +14,8 @@ import {
   ScrollView,
   Dimensions,
   Keyboard,
-  ActivityIndicator
+  ActivityIndicator,
+  BackHandler
 } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 import { icons, colors } from '../Creat/IconAndColorData'

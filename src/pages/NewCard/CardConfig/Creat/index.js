@@ -171,6 +171,9 @@ export default class Creat extends PureComponent {
     this.state = {
       step:  props.initialValues.get("title")?1:0,
     }
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.__backStep)
+    );
   }
 
   static propTypes = {
@@ -202,6 +205,19 @@ export default class Creat extends PureComponent {
     // }
   }
 
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.__backStep)
+    );
+  }
+
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
+  }
+
   __nextStep = () => {
 
     const step = this.state.step
@@ -220,6 +236,7 @@ export default class Creat extends PureComponent {
     } else {
       this.setState({ step: step - 1 })
     }
+    return true
   }
 
 

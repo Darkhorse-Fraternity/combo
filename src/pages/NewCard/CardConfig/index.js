@@ -15,7 +15,8 @@ import {
   TouchableOpacity,
   Dimensions,
   TextInput,
-  Keyboard
+  Keyboard,
+  BackHandler
 } from 'react-native'
 import { connect } from 'react-redux'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
@@ -134,6 +135,9 @@ export default class CardConfig extends PureComponent {
     this.state = {
       step: 0
     }
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.__backStep)
+    );
   }
 
   static propTypes = {};
@@ -149,6 +153,9 @@ export default class CardConfig extends PureComponent {
   //     return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
   // }
 
+
+
+
   __backStep = () => {
 
     const step = this.state.step
@@ -157,6 +164,7 @@ export default class CardConfig extends PureComponent {
     } else {
       this.setState({ step: step - 1 })
     }
+    return true
   }
 
 
@@ -166,6 +174,21 @@ export default class CardConfig extends PureComponent {
     const step = this.state.step
     step === 0 && this.setState({ step: step + 1 })
 
+  }
+
+
+
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.__backStep)
+    );
+  }
+
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
   }
 
 

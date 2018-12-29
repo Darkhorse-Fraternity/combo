@@ -24,7 +24,9 @@ import {
 // import DoCardButton from '../../components/Button/DoCardButton/index'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import BackTabBar from '../../components/Groceries/BackTabBar'
+import TitleTabBar from '../../components/Groceries/TitleTabBar'
 import Statistical from './Statistical'
+import NavBar from '../../components/Nav/bar/NavBar'
 // import Info from './Settings/index'
 // import Course from './Course/index'
 import Circle from './Circle/index'
@@ -32,11 +34,11 @@ import Button from '../../components/Button/index'
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import theme from '../../Theme/index'
 import { Privacy, CircleState } from '../../configure/enum'
-import { COURSE,ICARD } from '../../redux/reqKeys'
+import { COURSE, ICARD } from '../../redux/reqKeys'
 import { list, entitys } from '../../redux/scemes'
-import { find,update } from '../../redux/module/leancloud'
+import { find, update } from '../../redux/module/leancloud'
 import { addNormalizrEntity } from '../../redux/module/normalizr'
-import  Toast from 'react-native-simple-toast'
+import Toast from 'react-native-simple-toast'
 
 @connect(
   (state, props) => {
@@ -52,13 +54,13 @@ import  Toast from 'react-native-simple-toast'
   },
   (dispatch, props) => ({
 
-    setCircleState: async(iCard)=>{
+    setCircleState: async (iCard) => {
       const data = iCard.toJS()
       const id = data.objectId
       const param = {
         circleState: data.state === CircleState.close ?
           CircleState.open : CircleState.close,
-        state:data.state === CircleState.close ?
+        state: data.state === CircleState.close ?
           CircleState.open : CircleState.close,
       }
       const res = await  dispatch(update(id, param, ICARD))
@@ -68,7 +70,7 @@ import  Toast from 'react-native-simple-toast'
         ...res
       }
       dispatch(addNormalizrEntity(ICARD, entity))
-      Toast.show(data.state === CircleState.close?'多人模式':'单人模式')
+      Toast.show(data.state === CircleState.close ? '多人模式' : '单人模式')
     },
     dataLoad: () => {
       dispatch(async (dispatch, getState) => {
@@ -107,9 +109,11 @@ export default class Card extends Component {
     const { navigation } = props;
     const { state } = navigation;
     const { params } = state;
+
     return {
-      // title: params.iCard.title,
+    //   title:params && params.title,
       header: null,
+      // headerRight:params.renderRightView && params.renderRightView()
     }
   };
 
@@ -121,7 +125,7 @@ export default class Card extends Component {
 
   __renderRightView = () => {
 
-    const { navigation,iCard,user } = this.props;
+    const { navigation, iCard, user } = this.props;
     const { state } = navigation;
     const { params } = state;
     const { iCardId, iUseId } = params
@@ -132,8 +136,8 @@ export default class Card extends Component {
         this.props.setCircleState(iCard)
       }}>
         <StyledIconSet
-          style={{ marginRight: 0,marginTop:3 }}
-          size={27}
+          style={{ marginRight: 0, marginTop: 5 }}
+          size={28}
           name={'picasa'}/>
       </Button>,
       <Button key={'icon2'} onPress={() => {
@@ -152,7 +156,10 @@ export default class Card extends Component {
 
 
   componentDidMount() {
-    // this.props.dataLoad()
+    // const { iCard, iUse } = this.props
+    // const state = iCard.get('state')
+    // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
+    //   title: iCard.get('title') })
   }
 
   render(): ReactElement<any> {
@@ -173,26 +180,31 @@ export default class Card extends Component {
     iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
     const color = iconAndColor.color || ''
     const title = iCard.get('title')
-    const privacy = iUse.get('privacy')
+    // const privacy = iUse.get('privacy')
     const state = iCard.get('state')
 
     return (
-      <StyledContent>
+      <StyledContent >
+        <NavBar
+          onBackPress={this.props.navigation.goBack}
+          rightView={this.__renderRightView}
+        />
         <ScrollableTabView
           ref={'ScrollableTabView'}
-          locked={useNum <= 1}
+          locked={state !== CircleState.open}
           onScroll={(x) => {
             const containerWidthAnimatedValue = new Animated.Value(x);
             this.setState({ scrollValue: containerWidthAnimatedValue });
           }}
-          renderTabBar={() => (
-            <BackTabBar
-              underlineColor={color}
-              title={title}
-              tabUnderlineWidth={35}
-              scrollValueWithOutNative={this.state.scrollValue}
-              rightView={this.__renderRightView}
-              onBackPress={this.props.navigation.goBack}/>
+          renderTabBar={(...props) => (
+              <TitleTabBar
+                {...props}
+                underlineColor={color}
+                title={title}
+                tabUnderlineWidth={35}
+                scrollValueWithOutNative={this.state.scrollValue}
+                // rightView={this.__renderRightView}
+               />
           )}
           prerenderingSiblingsNumber={0}
           // tabBarInactiveTextColor={theme.mainColor}
@@ -205,13 +217,13 @@ export default class Card extends Component {
           {/*tabLabel='课程'/>}*/}
           {state === CircleState.open &&
           <Circle
-             color={color}
+            color={color}
             {...this.props}
             tabLabel='圈子'/>}
           <Statistical
             color={color}
             {...this.props}
-            tabLabel="统计"/>
+            tabLabel={state === CircleState.open ? "统计" : title}/>
           {/*<Info {...this.props} tabLabel="设置"/>*/}
         </ScrollableTabView>
 

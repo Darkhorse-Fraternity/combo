@@ -15,7 +15,7 @@ export const StyledContent = styled.ScrollView`
 `
 
 export const StyledHeader = styled.View`
-    padding: 15px 25px ;
+    padding: 0px 10px 10px 10px ;
     background-color: white;
     flex-direction: row;
     flex-wrap: wrap;
