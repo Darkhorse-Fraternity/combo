@@ -66,12 +66,13 @@ export default class Earnings extends Component {
   static propTypes = {};
   static defaultProps = {};
   static navigationOptions = props => {
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
+    const {navigation} = props;
+    const {state} = navigation;
+    const {params} = state;
+    const { gesturesEnabled } = params || {gesturesEnabled: true}
     return {
       title: '',
-
+      gesturesEnabled:gesturesEnabled
     }
   };
 
@@ -145,6 +146,9 @@ export default class Earnings extends Component {
             x = x >= 2 ? 2 : x
             const containerWidthAnimatedValue = new Animated.Value(x);
             this.setState({ scrollValue: containerWidthAnimatedValue });
+          }}
+          onChangeTab={({i}) =>{
+            this.props.navigation.setParams({gesturesEnabled:i === 0})
           }}
           renderTabBar={() => (
             <EZTabBar

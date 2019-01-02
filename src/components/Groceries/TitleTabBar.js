@@ -53,23 +53,21 @@ export default class TitleTabBar extends Component {
       outputRangeColor.push(inactiveTextColor)
       outputRangefontSize.push(15)
     }
-    if (isTabActive) {
       outputRange.splice(page + 1, 1, 1)
       outputRangeColor.splice(page + 1, 1, activeTextColor)
       outputRangefontSize.splice(page + 1, 1, 21)
-    }
 
     // const scaleX = scrollValue.interpolate({
     //   inputRange: inputRange,
     //   outputRange: outputRange,
     // });
 
-    const color = numberOfTabs === 1? activeTextColor:scrollValueWithOutNative.interpolate({
+    const color = scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
       outputRange: outputRangeColor,
     });
 
-    const fontSize = numberOfTabs === 1? 21 : scrollValueWithOutNative.interpolate({
+    const fontSize =  scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
       outputRange: outputRangefontSize,
     });

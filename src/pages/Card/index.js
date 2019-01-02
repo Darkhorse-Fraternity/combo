@@ -111,9 +111,11 @@ export default class Card extends Component {
     const { state } = navigation;
     const { params } = state;
 
+    const { gesturesEnabled  } = params || {gesturesEnabled: true}
     return {
       //   title:params && params.title,
       header: null,
+      gesturesEnabled:gesturesEnabled
       // headerRight:params.renderRightView && params.renderRightView()
     }
   };
@@ -176,7 +178,7 @@ export default class Card extends Component {
     }
 
 
-    const useNum = iCard.get('useNum')
+    // const useNum = iCard.get('useNum')
     let iconAndColor = iCard.get('iconAndColor')
     iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
     const color = iconAndColor.color || ''
@@ -193,6 +195,9 @@ export default class Card extends Component {
         <ScrollableTabView
           ref={'ScrollableTabView'}
           locked={state !== CircleState.open}
+          onChangeTab={({i}) =>{
+            this.props.navigation.setParams({gesturesEnabled:i === 0})
+          }}
           onScroll={(x) => {
             // if(state === CircleState.open){
               x = x <= 0 ? 0 : x

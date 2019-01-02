@@ -80,11 +80,9 @@ export default class EZTabBar extends Component {
       outputRangeColor.push(inactiveTextColor)
       outputRangefontSize.push(15)
     }
-    if(isTabActive){
       outputRange.splice(page+1,1,1)
       outputRangeColor.splice(page+1,1,activeTextColor)
       outputRangefontSize.splice(page+1,1,18)
-    }
 
     const scaleX = scrollValue.interpolate({
       inputRange: inputRange,
