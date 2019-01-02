@@ -8,8 +8,11 @@ import styled from "styled-components";
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Feather from 'react-native-vector-icons/Feather'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import {BorderlessButton} from 'react-native-gesture-handler'
 import { SafeAreaView } from 'react-navigation';
+import {Platform} from 'react-native'
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -41,6 +44,10 @@ export const StyledAdd = styled(BorderlessButton)`
 export const StyledIonicons = styled(Ionicons)`
  `
 
+export const StyledAntDesign = styled(AntDesign)`
+
+`
+
 export const StyledHeaderBtn = styled(HeaderBtn)`
 
 `
@@ -49,7 +56,7 @@ export const StyledHeaderButtonText = styled.Text`
 `
 
 
-export const StyledIcon = styled(Icon)`
+export const StyledIcon = styled(Feather)`
     align-self: center;
 `
 
@@ -62,7 +69,7 @@ export const StyledDeleteBtn = styled.View`
 
 export const StyledDeleteBtnText = styled.Text`
   color: ${props=>props.color};
-  margin: 3px;
+  margin: ${props=>Platform.OS === 'ios'? 5:3}px;
   font-size: 13px;
   font-weight: 300;
 `
