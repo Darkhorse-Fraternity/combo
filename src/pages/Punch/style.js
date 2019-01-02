@@ -8,9 +8,9 @@ import styled from "styled-components";
 import { SafeAreaView } from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather'
 import {BorderlessButton} from 'react-native-gesture-handler'
+import { Platform } from 'react-native'
 
-
-export const StyledContent = styled.View`
+export const StyledContent = styled(SafeAreaView)`
      flex: 1;
      padding: 0px 20px;
 `
@@ -18,7 +18,7 @@ export const StyledContent = styled.View`
 
 
 export const StyledHeader = styled.View`
-    padding: 44px 0px 5px 0px;
+    padding: ${Platform.OS === 'ios'?44:64}px 0px 5px 0px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;  

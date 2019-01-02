@@ -29,10 +29,11 @@ import Cash from './Order/Cash'
 import Remind from './More/Remind'
 import Punch from './Punch'
 import WebView from '../components/Base/BaseWebView'
-
+import Flag from './Flag'
 
 export const otherRoute = {
-  web:{screen:WebView},
+  web: { screen: WebView },
+
   earnings: { screen: Earnings },
   remind: { screen: Remind },
   cash: { screen: Cash },
@@ -62,7 +63,7 @@ export const otherRoute = {
 }
 
 export const punchRoute = {
-  punch: {screen: Punch},
+  punch: { screen: Punch },
   ...otherRoute
 }
 
@@ -71,10 +72,14 @@ export const habitRoute = {
   ...otherRoute
 }
 
-export const settingRoute = {
+export const flagRoute = {
+  flag: { screen: Flag },
   ...otherRoute
 }
 
+export const settingRoute = {
+  ...otherRoute
+}
 
 
 export const route = {

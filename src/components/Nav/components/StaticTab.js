@@ -22,7 +22,8 @@ import { strings } from '../../../../locales/i18n';
 import {
   habitRoute,
   settingRoute,
-  punchRoute
+  punchRoute,
+  flagRoute
 } from '../../../pages'
 import { defaultNavigationOptions, tabsOptions } from './navigationOptions'
 import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
@@ -58,6 +59,16 @@ const HabitStack = createStackNavigator({
 });
 
 
+const FlagStack = createStackNavigator({
+  ...flagRoute,
+}, {
+  initialRouteName: 'flag',
+  navigationOptions: {
+    labelName:strings('tabs.flag'),
+  },
+  ...stackDefoultConfig
+});
+
 const SettingsStack = createStackNavigator({
   ...settingRoute,
 }, {
@@ -73,6 +84,7 @@ export default createBottomTabNavigator(
   {
     Punch: PunchStack,
     Habit: HabitStack,
+    Flag: FlagStack,
     Settings: SettingsStack,
   },
   {

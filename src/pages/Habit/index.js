@@ -317,23 +317,6 @@ export default class Habit extends PureComponent {
         <StyledHeaderTitle>
           日常习惯
         </StyledHeaderTitle>
-        {/*<HeaderBtn*/}
-          {/*style={{ padding: 15 }}*/}
-          {/*title={'添加'}*/}
-          {/*onPress={() => {*/}
-            {/*this.props.navigation.navigate('newCard')*/}
-          {/*}}*/}
-          {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}/>*/}
-        {/*<StyledAdd*/}
-        {/*onPress={() => {*/}
-        {/*this.props.navigation.navigate('newCard')*/}
-        {/*}}*/}
-        {/*hitSlop={{ top: 20, left: 20, bottom: 20, right: 20 }}>*/}
-        {/*<StyledIonicons*/}
-        {/*// color={'#39ba98'}*/}
-        {/*size={25}*/}
-        {/*name={'ios-add-circle-outline'}/>*/}
-        {/*</StyledAdd>*/}
       </StyledHeader>
     )
   }
@@ -350,7 +333,6 @@ export default class Habit extends PureComponent {
       <StyledInnerdContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
-        <View style={{ height: 20 }}/>
 
         {/*{this._renderHeader()}*/}
 

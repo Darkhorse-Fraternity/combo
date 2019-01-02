@@ -8,10 +8,11 @@ import styled from "styled-components";
 import Button from '../../components/Button/index'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import EntypoIcon from 'react-native-vector-icons/Entypo'
+import { SafeAreaView } from 'react-navigation';
+import { Platform } from 'react-native'
 
-export const StyledContent = styled.View`
+export const StyledContent = styled(SafeAreaView)`
     flex: 1;
-    background-color: white;
   
 `
 export const StyledInnerContent = styled.ScrollView`
@@ -20,7 +21,7 @@ export const StyledInnerContent = styled.ScrollView`
 
 
 export const StyleHeader = styled.View`
-  margin-top: 40px;
+  margin-top: ${Platform.OS === 'ios'?44:64}px;
   padding: 15px 25px;
 `
 

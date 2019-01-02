@@ -292,7 +292,6 @@ export default class More extends Component {
   render() {
     return (
       <StyledContent>
-        <View style={{ height: 20, backgroundColor: 'white' }}/>
         <StyledInnerContent>
           {this._renderHeadRow()}
 

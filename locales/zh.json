@@ -5,6 +5,7 @@
   "tabs":{
     "clockIn":"打卡",
     "habit":"日常习惯",
+    "flag":"副本",
     "more":"更多"
   },
   "permission": {

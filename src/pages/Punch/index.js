@@ -313,9 +313,8 @@ export default class Punch extends Component {
 
 
     // data = data && data.reverse()
-    return [
-      <View key={'1'} style={{ height: 20, backgroundColor: 'white' }}/>,
-      <StyledContent key={'2'}>
+    return (
+      <StyledContent>
         {/*<StyledContent*/}
         {/*style={this.props.style}>*/}
 
@@ -340,7 +339,7 @@ export default class Punch extends Component {
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
       </StyledContent>
-    ];
+    );
   }
 }
 

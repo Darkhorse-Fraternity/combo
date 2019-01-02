@@ -30,6 +30,7 @@
   "tabs":{
     "clockIn":"clockIn",
     "habit":"habit",
+    "flag":"flag",
     "more":"more"
   },
   "permission": {

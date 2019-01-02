@@ -49,6 +49,11 @@ export const tabsOptions = {
     size:25,
     Icon:Feather
   },
+  Flag:{
+    iconName:'flag',
+    size:25,
+    Icon:Feather
+  },
   Settings:{
     iconName:'more-vertical',
     size:25,

@@ -10,13 +10,14 @@ import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {BorderlessButton} from 'react-native-gesture-handler'
 import {Platform} from 'react-native'
+import { SafeAreaView } from 'react-navigation';
 
 export const StyledContent = styled.ScrollView`
     flex: 1;
 `
 
 export const StyledHeader = styled.View`
-    padding: 44px 20px 24px 20px;
+    padding: ${Platform.OS === 'ios'?44:64}px 20px 24px 20px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -26,9 +27,8 @@ export const StyledHeaderTitle = styled.Text`
   font-weight: 500;
 `
 
-export const StyledInnerdContent = styled.View`
+export const StyledInnerdContent = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
 `
 
 
