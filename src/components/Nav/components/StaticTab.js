@@ -84,7 +84,7 @@ export default createBottomTabNavigator(
   {
     Punch: PunchStack,
     Habit: HabitStack,
-    Flag: FlagStack,
+    // Flag: FlagStack,
     Settings: SettingsStack,
   },
   {
