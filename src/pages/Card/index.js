@@ -11,7 +11,8 @@ import {
   StyleSheet,
   Alert,
   Animated,
-  Dimensions
+  Dimensions,
+  Platform
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -136,7 +137,7 @@ export default class Card extends Component {
         this.props.setCircleState(iCard)
       }}>
         <StyledIconSet
-          style={{ marginRight: 0, marginTop: 5 }}
+          style={{ marginRight: 0, marginTop: Platform.OS === 'ios'?5:2 }}
           size={28}
           name={'picasa'}/>
       </Button>,

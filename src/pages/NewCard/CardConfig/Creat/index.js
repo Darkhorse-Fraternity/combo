@@ -17,6 +17,7 @@ import {
   Text,
   Alert,
   ScrollView,
+  BackHandler
 } from 'react-native'
 import { connect } from 'react-redux'
 import { ICARD, IUSE } from '../../../../redux/reqKeys'

@@ -309,6 +309,7 @@ export default class Settings extends Component {
           load={this.props.iUseLoad}
           name={'md-trash'}
           title={'删除卡片'}/>
+        <View style={{width:(Dimensions.get('window').width-85)/3}}/>
 
       </StyledBottomMenu>
     )
