@@ -430,7 +430,7 @@ export default class LocalNotification extends Component {
             recurrenceRule: recurrenceRule,
             url: 'combo://combo',
             // location: '#来自小改变的提醒-'+objectId+'#',
-            location: name + notifyText,
+            location: name + (notifyText||'锲而不舍,金石可镂!'),
             alarms: alarms
           })
       })

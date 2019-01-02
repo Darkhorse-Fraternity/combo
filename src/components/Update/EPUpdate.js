@@ -89,20 +89,21 @@ const goWebView = async (uri) => {
 export const epUpdate = async () => {
     const bundleId = DeviceInfo.getBundleId()
     if (Platform.OS === 'ios' && checkIos(bundleId)) {
-        const res = await sendBack(bundleId)
-        // console.log('update:', res);
-        const callback = () => {
-            try {
-                const services = 'itms-services://?action=download-manifest&url='
-                const url = services + res.installUrl
-                Linking.openURL(url);
-            } catch (e) {
-                Toash.show(e.message)
-            }
-            // goWebView(res.update_url)
-            Linking.openURL(res.update_url);
-        }
-        checkUpdate(res, callback)
+        //企业版
+        // const res = await sendBack(bundleId)
+        // // console.log('update:', res);
+        // const callback = () => {
+        //     try {
+        //         const services = 'itms-services://?action=download-manifest&url='
+        //         const url = services + res.installUrl
+        //         Linking.openURL(url);
+        //     } catch (e) {
+        //         Toash.show(e.message)
+        //     }
+        //     // goWebView(res.update_url)
+        //     Linking.openURL(res.update_url);
+        // }
+        // checkUpdate(res, callback)
     } else if (Platform.OS === 'android') {
 
         //远程接口
@@ -112,7 +113,7 @@ export const epUpdate = async () => {
         const { desc, version } = remoteData
         const appVersion = DeviceInfo.getVersion() + ''
         console.log('remoteData:', version, appVersion);
-      console.log('compareVersion:', compareVersion(version, appVersion));
+        console.log('compareVersion:', compareVersion(version, appVersion));
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(
