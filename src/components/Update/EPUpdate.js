@@ -7,7 +7,7 @@ const api_token = 'a3f43472f64ddccbc58c2dcf75438f18'
 
 import DeviceInfo from 'react-native-device-info'
 import { Platform, Linking, Alert } from 'react-native'
-import Toash from 'react-native-simple-toast'
+import Toast from 'react-native-simple-toast'
 import { push } from '../../redux/nav'
 import Pop from '../../components/Pop'
 // import {androidUpdate} from './downLoad'
@@ -106,15 +106,15 @@ export const epUpdate = async () => {
         // checkUpdate(res, callback)
     } else if (Platform.OS === 'android') {
 
-        return
         //远程接口
+        Toast.show('???')
         let remoteData = await send(appUpdateInfo()).then(res => res.json())
         remoteData = remoteData && remoteData.result || {}
 
         const { desc, version } = remoteData
         const appVersion = DeviceInfo.getVersion() + ''
-        console.log('remoteData:', version, appVersion);
-        console.log('compareVersion:', compareVersion(version, appVersion));
+        // console.log('remoteData:', version, appVersion);
+        // console.log('compareVersion:', compareVersion(version, appVersion));
         if (compareVersion(version, appVersion) > 0) {
             //本地版本号小于远程版本号 进入远程升级
             Alert.alert(
@@ -136,7 +136,9 @@ export const epUpdate = async () => {
 
         } else if (compareVersion(version, appVersion) < 0) {
             //本地版本号大于远程版本号 查询编译号，是否进入测试升级
+          Toast.show('!!!')
             const res = await sendBack(bundleId)
+          Toast.show('000')
             // console.log('update:', res);
             const callback = () => {
                 Linking.openURL(res.install_url);

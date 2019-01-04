@@ -132,11 +132,9 @@ export function userInfo() {
         //   return dispatch(anonymousUser());
         // }
       } else {
-        Toast.show('3333')
         return dispatch(anonymousUser());
       }
     }catch (e){
-      Toast.show('4444')
       return dispatch(anonymousUser());
     }
 
