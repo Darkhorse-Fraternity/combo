@@ -16,7 +16,10 @@ import PropTypes from 'prop-types';
 import {
   StyledContent,
   StyledHeader,
-  StyledHeaderTitle
+  StyledHeaderTitle,
+  StyledItem,
+  StyledItemImage,
+  StyledItemText
 } from './style'
 
 
@@ -47,7 +50,7 @@ export default class Flag extends PureComponent {
     return (
       <StyledHeader>
         <StyledHeaderTitle>
-          副本挑战
+          副本任务
         </StyledHeaderTitle>
       </StyledHeader>
     )
@@ -60,9 +63,25 @@ export default class Flag extends PureComponent {
   }
 
 
+  __renderItem = ({ item, index }) => {
+    return (
+      <StyledItem onPress={()=>{
+        this.props.navigation.navigate('flagDetail')
+      }}>
+        <StyledItemImage source={item.img}/>
+        <StyledItemText>
+          {item.title}
+        </StyledItemText>
+      </StyledItem>
+    )
+  }
+
+
   render(): ReactElement<any> {
 
-    const data = []
+    const data = [{img:require('../../../source/img/flag/flag_up.jpeg'),
+      title:'早起副本'
+    }]
 
     return (
       <StyledContent>

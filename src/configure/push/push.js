@@ -30,12 +30,17 @@ export default function pushConfig() {
         // (required) Called when a remote or local notification is opened or received
         onNotification: function (notification) {
           console.log('NOTIFICATION:', notification);
-          if(notification.foreground && !notification.data.silent){
-            // Toast.show(notification.message)
-            dispatch(dataStorage('notify',{show:true,notification}))
-          }else {
-            doReceiveNotify(notification)
+          if(notification){
+            if(notification.data &&
+              notification.foreground &&
+              !notification.data.silent){
+              // Toast.show(notification.message)
+              dispatch(dataStorage('notify',{show:true,notification}))
+            }else {
+              doReceiveNotify(notification)
+            }
           }
+
         },
 
         // ANDROID ONLY: GCM Sender ID (optional - not required for local notifications, but is need to receive remote push notifications)
@@ -80,10 +85,12 @@ export default function pushConfig() {
           const foreground = res.foreground === '1'
           const notification = {'data': data, 'foreground': foreground}
           console.log("数据", res)
-          if (!notification.data.silent && notification.foreground) {
-            dispatch(dataStorage('notify', {show: true, notification}))
-          } else {
-            doReceiveNotify(notification)
+          if(data){
+            if (!data.silent && foreground) {
+              dispatch(dataStorage('notify', {show: true, notification}))
+            } else {
+              doReceiveNotify(notification)
+            }
           }
         });
         DeviceEventEmitter.addListener(LeanCloudPushNative.ON_ERROR, (res) => {

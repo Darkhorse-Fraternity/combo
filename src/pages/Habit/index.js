@@ -170,7 +170,7 @@ export default class Habit extends PureComponent {
           ExceptionType.Loading : ExceptionType.NoData}
         tipBtnText={'添加卡片'}
         refresh={refreshLoad}
-        // prompt={refreshLoad ? '正在加载' : ''}
+        prompt={refreshLoad ? '正在加载' : '暂无数据'}
         onRefresh={() => {
           this.props.navigation.navigate('newCard')
         }}/>

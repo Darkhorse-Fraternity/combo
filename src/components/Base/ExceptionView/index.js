@@ -42,6 +42,7 @@ export default class ExceptionView extends Component {
   };
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
+    prompt: '暂无数据'
   };
 
   constructor(props: Object) {

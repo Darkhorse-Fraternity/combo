@@ -1,5 +1,4 @@
-
-export const USER  ='user'
+export const USER = 'user'
 export const ICARD = 'iCard'
 export const IDONE = 'iDone'
 export const IRECORD = 'iRecord'
@@ -26,42 +25,45 @@ export const REPORT = 'Report'
 export const COURSE = 'Course'
 export const WECHATLOGIN = 'WeChatLogin'
 export const QQLOGIN = 'QQLogin'
+export const FLAG = 'Flag'
 
 export const registerReqKeys = [
-    ICARD,
-    ORDER,
-    AUTHCODE,
-    IDO,
-    IUSE,
-    SCENELIST,
-    IDOULIMAGE,
-    PBULImage,
-    IUSEExist,
-    UPDATENICKNAME,
-    FEEDBACKPARAM,
-    IDOCALENDAR,
-    FOLLOWING,
-    USER,
-    COURSE,
-    WECHATLOGIN,
-    QQLOGIN,
-    ENCH
+  ICARD,
+  ORDER,
+  AUTHCODE,
+  IDO,
+  IUSE,
+  SCENELIST,
+  IDOULIMAGE,
+  PBULImage,
+  IUSEExist,
+  UPDATENICKNAME,
+  FEEDBACKPARAM,
+  IDOCALENDAR,
+  FOLLOWING,
+  USER,
+  COURSE,
+  WECHATLOGIN,
+  QQLOGIN,
+  ENCH,
+  FLAG
 //设置初始值
 ]
 
 
 export const registerListKeys = [
-    IDONE,
-    IRECORD,
-    IDO,
-    IUSE,
-    ICARD,
-    CARDLIST,
-    ICOMMENT,
-    USER,
-    COURSE,
-    ORDER,
-    ENCH
+  IDONE,
+  IRECORD,
+  IDO,
+  IUSE,
+  ICARD,
+  CARDLIST,
+  ICOMMENT,
+  USER,
+  COURSE,
+  ORDER,
+  ENCH,
+  FLAG
 ]
 
 export const registerNormalizrKeys = registerListKeys

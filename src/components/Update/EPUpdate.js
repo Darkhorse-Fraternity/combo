@@ -106,6 +106,7 @@ export const epUpdate = async () => {
         // checkUpdate(res, callback)
     } else if (Platform.OS === 'android') {
 
+        return
         //远程接口
         let remoteData = await send(appUpdateInfo()).then(res => res.json())
         remoteData = remoteData && remoteData.result || {}

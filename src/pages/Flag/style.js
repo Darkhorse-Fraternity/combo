@@ -7,6 +7,7 @@
 import styled from "styled-components";
 import { SafeAreaView } from 'react-navigation';
 import { Platform } from 'react-native'
+import Button from '../../components/Button'
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -20,5 +21,25 @@ export const StyledHeader = styled.View`
 `
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
+  font-weight: 500;
+`
+
+
+export const StyledItem = styled(Button)`
+ padding: 20px ;
+`
+
+export const StyledItemImage = styled.Image`
+  width: ${props => props.theme.width - 40};
+  height: 250px;
+  border-radius: 20px;
+  align-self: center;
+`
+
+export const StyledItemText = styled.Text`
+  position: absolute;
+  bottom: 50px;
+  left: 40px;
+  font-size: 20px;
   font-weight: 500;
 `

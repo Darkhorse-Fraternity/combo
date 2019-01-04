@@ -30,10 +30,9 @@ import Remind from './More/Remind'
 import Punch from './Punch'
 import WebView from '../components/Base/BaseWebView'
 import Flag from './Flag'
-
+import FlagDetail from './Flag/Detail'
 export const otherRoute = {
   web: { screen: WebView },
-
   earnings: { screen: Earnings },
   remind: { screen: Remind },
   cash: { screen: Cash },
@@ -59,6 +58,7 @@ export const otherRoute = {
   cardUse: { screen: CardUse },
   more: { screen: More },
   login: { screen: LoginView },
+  flagDetail:{screen: FlagDetail }
   // pptDescribe: { screen: PPTDescribe },
 }
 

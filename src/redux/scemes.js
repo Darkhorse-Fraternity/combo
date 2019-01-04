@@ -6,7 +6,8 @@ import {
     COURSE,
     IDO,
     ORDER,
-    ENCH
+    ENCH,
+    FLAG
 } from './reqKeys'
 
 import { schema } from 'normalizr';
@@ -29,6 +30,7 @@ export const iUse = entity(IUSE, { user, iCard })
 export const iDO = entity(IDO, { user, iCard, iUse })
 export const order = entity(ORDER,{user,iCard})
 export const ench = entity(ENCH,{user})
+
 //
 // const config = {
 //     [IUSE]:{USER,ICARD},
