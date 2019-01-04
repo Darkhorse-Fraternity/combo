@@ -5,11 +5,12 @@
 'use strict';
 
 import styled from "styled-components";
+import { Platform } from 'react-native'
 
 export const StyledContent = styled.View`
     background-color: white;
-    border-radius: ${props=>props.radius};
-    border-width: 1px;
+    border-radius: ${props => props.radius};
+    border-width: ${Platform.OS === 'ios' ? 1 : 2}px;
     border-color: white;
     shadow-opacity: 1;
     shadow-radius: 5px;
@@ -21,15 +22,15 @@ export const StyledContent = styled.View`
 
 export const StyledContent2 = styled.View`
     background-color: white;
-    border-radius: ${props=>props.radius};
+    border-radius: ${props => props.radius};
     border-width: 1px;
     border-color: white;
 `
 
 export const StyledAvatar = styled.Image`
-    width:${props=>props.radius * 2};
-    height:${props=>props.radius * 2};
-    border-radius: ${props=>props.radius};
+    width:${props => props.radius * 2};
+    height:${props => props.radius * 2};
+    border-radius: ${props => props.radius};
     background-color: #fdfbfb;
 `
 
