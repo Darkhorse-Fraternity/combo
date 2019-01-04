@@ -30,9 +30,8 @@ export default function pushConfig() {
         // (required) Called when a remote or local notification is opened or received
         onNotification: function (notification) {
           console.log('NOTIFICATION:', notification);
-          if(notification){
-            if(notification.data &&
-              notification.foreground &&
+          if(notification && notification.data){
+            if(notification.foreground &&
               !notification.data.silent){
               // Toast.show(notification.message)
               dispatch(dataStorage('notify',{show:true,notification}))
