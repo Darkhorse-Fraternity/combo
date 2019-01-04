@@ -314,9 +314,6 @@ export default class LocalNotification extends Component {
     }
 
 
-
-
-
     try {
       const events = await  RNCalendarEvents.fetchAllEvents(new Date().toISOString(),
         moment().add(1, 'weeks').toISOString())
@@ -355,21 +352,15 @@ export default class LocalNotification extends Component {
         const { iCard, objectId } = item
         const { title, notifyText, notifyTimes, recordDay } = iCard
 
-        if (item.statu !== 'start' ||
-          notifyTimes === undefined
-          || notifyTimes.length === 0) {
-          //已经删除了或归档,就不用提醒了。
-          //删除calendar 数据
-          if(calendaId) {
-            RNCalendarEvents.removeEvent(calendaId)
-            delete objEvents[calendaId]
+        if (calendaId) {
+          delete objEvents[calendaId]
+          if (item.statu !== 'start' ||
+            notifyTimes === undefined
+            || notifyTimes.length === 0) {
+            //已经删除了或归档,就不用提醒了。
+            //删除calendar 数据
+            return  RNCalendarEvents.removeEvent(calendaId)
           }
-          return
-        } else {
-            if (calendaId) {
-              //已存在：则只需要修改
-              delete objEvents[calendaId]
-            }
         }
 
 
@@ -403,7 +394,7 @@ export default class LocalNotification extends Component {
         }
 
         if (alarms.length === 0) {
-          if(calendaId) {
+          if (calendaId) {
             RNCalendarEvents.removeEvent(id)
             delete objEvents[id]
           }
@@ -434,7 +425,7 @@ export default class LocalNotification extends Component {
             recurrenceRule: recurrenceRule,
             url: 'combo://combo',
             // location: '#来自小改变的提醒-'+objectId+'#',
-            location: name + (notifyText||'锲而不舍,金石可镂!'),
+            location: name + (notifyText || '锲而不舍,金石可镂!'),
             alarms: alarms
           })
       })
