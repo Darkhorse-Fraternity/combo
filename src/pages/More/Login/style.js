@@ -6,6 +6,7 @@
 
 import styled from "styled-components";
 import Icon from 'react-native-vector-icons/FontAwesome'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import Button from '../../../components/Button'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 import LinearGradient from 'react-native-linear-gradient';
@@ -16,9 +17,9 @@ export const StyledContent = styled.View`
 `
 
 export const StyledImage = styled.Image`
-    width: 100px;
-    height: 100px;
-    margin-top: ${props=> 20};
+    width: 140px;
+    height: 140px;
+    margin-top: ${props=> 50};
     align-self: center;
 `
 
@@ -74,6 +75,10 @@ export const StyledIcon = styled(Icon)`
     align-self: center;
 `
 
+export const StyledEvilIcons = styled(EvilIcons)`
+    align-self: center;
+`
+
 export const StyledActivityIndicator = styled.ActivityIndicator`
 `
 
@@ -96,4 +101,22 @@ export const StyledSignInBtn = styled(HeaderBtn)`
     border-radius: 20px;
     width: 200px;
     align-self: center;
+`
+
+export const StyledBtn = styled(Button)`
+   margin-right: 15px;
+`
+
+export const StyledBottomView = styled.View`
+  margin: 40px;
+`
+
+export const StyledMoreBtn = styled(Button)`
+  align-self: center;
+  margin: 10px ;
+`
+
+export const StyledMoreBtnText = styled.Text`
+   font-size: 15px;
+   font-weight: 300;
 `

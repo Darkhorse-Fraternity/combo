@@ -47,7 +47,7 @@ export default class HeaderBtn extends Component {
         {!this.props.load ? (
             <Text
               numberOfLines={1}
-              style={styles.title}>
+              style={[styles.title,this.props.titleStyle]}>
               {this.props.title}
             </Text>) :
           (<ActivityIndicator size="small" color={"white"}/>)}

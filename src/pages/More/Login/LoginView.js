@@ -44,13 +44,19 @@ import {
   StyledCodeButtonText,
   StyledSignInBtn,
   StyledImageBottom,
-  ThirdPartyLoginViewInner
+  ThirdPartyLoginViewInner,
+  StyledEvilIcons,
+  StyledBtn,
+  StyledBottomView,
+  StyledMoreBtn,
+  StyledMoreBtnText
 } from './style'
 import { mainColor } from '../../../Theme/index'
 import * as WeChat from 'react-native-wechat';
 import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 import Button from '../../../components/Button'
+import BackBtn from "../../../components/Button/BackBtn/index";
 
 @connect(
   state => ({
@@ -96,6 +102,7 @@ export default class LoginView extends Component {
       isTap: false,
       showMobile: true,
       isWXAppInstalled: false,
+      isRenderMore: false,
     };
 
     WeChat.isWXAppInstalled().then(isWXAppInstalled => {
@@ -119,6 +126,14 @@ export default class LoginView extends Component {
     // const {params} = state;
     return {
       title: '',
+      headerLeft: null,
+      headerRight: (<StyledBtn
+        hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
+        onPress={() => {
+          props.navigation.goBack()
+        }}>
+        <StyledEvilIcons size={30} name={'close'}/>
+      </StyledBtn>),
       // headerStyle: {
       //     backgroundColor: '#f5fcff',
       //     shadowColor: '#F5FCFF',
@@ -244,7 +259,7 @@ export default class LoginView extends Component {
                      style = {}) => {
     return (
       <Animatable.View
-        style={{zIndex:100}}
+        style={{ zIndex: 100 }}
         useNativeDriver
         // duration={1000}
         // delay={200 + Math.random() * 500}
@@ -265,14 +280,48 @@ export default class LoginView extends Component {
               size={size}/>}
           </StyledIconView>
           {/*<StyledIconText>*/}
-            {/*{title}*/}
+          {/*{title}*/}
           {/*</StyledIconText>*/}
         </StyledIconItem>
       </Animatable.View>
     )
   }
 
-  render() {
+
+  _renderWechat = () => {
+    return (<StyledContent style={{ justifyContent: 'space-between' }}>
+
+      <Animatable.View
+        animation="fadeIn"
+      >
+        <StyledImage
+          source={require('../../../../source/img/my/icon-60.png')}
+        />
+        <SyledImageName>
+          {strings('app.name')}
+        </SyledImageName>
+      </Animatable.View>
+      <StyledBottomView>
+        <StyledSignInBtn
+          style={{ width: 300 }}
+          titleStyle={{ color: 'black', fontWeight: '300', fontSize: 15 }}
+          load={this.props.userData.loaded}
+          onPress={this.props.wxLogin}
+          title={'微信登录'}
+        />
+        <StyledMoreBtn onPress={() => {
+          this.setState({ isRenderMore: true })
+        }}>
+          <StyledMoreBtnText>
+            更多登录方式
+          </StyledMoreBtnText>
+        </StyledMoreBtn>
+      </StyledBottomView>
+
+    </StyledContent>)
+  }
+
+  _renderMore = () => {
 
     const codeEnable = checkPhoneNum(this.state.phone) &&
       this.state.time === 60 && !this.state.isTap;
@@ -282,89 +331,72 @@ export default class LoginView extends Component {
     const thirdLoaded = this.props.userData.theThirdLoaded
     return (
       <StyledContent
-        colors={['white', '#f7f8fe','white']}
+        colors={['white', '#f7f8fe', 'white']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
         {/*{!this.props.userData.isLogin && (<BG/>)}*/}
 
 
-        {this.state.showMobile ? <Animatable.View
-            // animation="fadeIn"
-          >
+        <Animatable.View
+           // animation="fadeIn"
+        >
 
-            <View style={styles.top}>
-              <View style={{ flexDirection: 'row',backgroundColor:'#f0f0f0',
-                width:Dimensions.get('window').width-40,
-                paddingHorizontal:20 }}>
-                {this._renderRowMain('手机号:', '请填入手机号',
-                  (text) => this.setState({ phone: text }), 'numeric',
-                  true, 11, "1", this.state.phone
-                )}
-              </View>
-              <View style={{height:10}}/>
-              <View style={{ flexDirection: 'row',backgroundColor:'#f0f0f0',
-                width:Dimensions.get('window').width-40,
-                paddingHorizontal:20 }}>
-                {this._renderRowMain('验证码:', '请输入验证码',
-                  (text) => {
-                    this.setState({ ymCode: text })
-                  },
-                  'numeric'
-                  , false, 6, "2", this.state.ymCode
-                )}
-                <View style={styles.valLine}/>
-                <StyledCodeButton
-                  disabled={!codeEnable || authLoad}
-                  // load={authLoad}
-                  loadColor='rgb(230,230,230)'
-                  //styleDisabled={{fontWeight:'normal'}}
-                  onPress={this._onClickCode.bind(this)}
-                  style={styles.buttonContainerStyle}
-                >
-                  {authLoad ? <StyledActivityIndicator/> : <StyledCodeButtonText>
-
-                    {this.state.time === 60 ||
-                    this.state.time === 0 ? '获取验证码' :
-                      this.state.time.toString() + '秒'}
-                  </StyledCodeButtonText>}
-                </StyledCodeButton>
-              </View>
-              <View style={styles.line}/>
+          <View style={styles.top}>
+            <View style={{
+              flexDirection: 'row', backgroundColor: '#f0f0f0',
+              width: Dimensions.get('window').width - 40,
+              paddingHorizontal: 20
+            }}>
+              {this._renderRowMain('手机号:', '请填入手机号',
+                (text) => this.setState({ phone: text }), 'numeric',
+                true, 11, "1", this.state.phone
+              )}
             </View>
+            <View style={{ height: 10 }}/>
+            <View style={{
+              flexDirection: 'row', backgroundColor: '#f0f0f0',
+              width: Dimensions.get('window').width - 40,
+              paddingHorizontal: 20
+            }}>
+              {this._renderRowMain('验证码:', '请输入验证码',
+                (text) => {
+                  this.setState({ ymCode: text })
+                },
+                'numeric'
+                , false, 6, "2", this.state.ymCode
+              )}
+              <View style={styles.valLine}/>
+              <StyledCodeButton
+                disabled={!codeEnable || authLoad}
+                // load={authLoad}
+                loadColor='rgb(230,230,230)'
+                //styleDisabled={{fontWeight:'normal'}}
+                onPress={this._onClickCode.bind(this)}
+                style={styles.buttonContainerStyle}
+              >
+                {authLoad ? <StyledActivityIndicator/> : <StyledCodeButtonText>
 
-            <StyledSignInBtn
-              disabled={!flag || this.props.userData.loaded}
-              load={this.props.userData.loaded}
-              onPress={this._goRegist.bind(this)}
-              title={'登 录'}
-            />
+                  {this.state.time === 60 ||
+                  this.state.time === 0 ? '获取验证码' :
+                    this.state.time.toString() + '秒'}
+                </StyledCodeButtonText>}
+              </StyledCodeButton>
+            </View>
+            <View style={styles.line}/>
+          </View>
 
-
-
-            {/*<View style={styles.bottom}>*/}
-            {/*<Text style={styles.protocolPre}>点击开始,即表示已阅读并同意</Text>*/}
-            {/*<Button*/}
-            {/*onPress={this._gowebView}*/}
-            {/*style={styles.protocolSuf}>*/}
-            {/*《diff使用条款》*/}
-            {/*</Button>*/}
-            {/*</View>*/}
-          </Animatable.View> :
-          <Animatable.View
-            animation="fadeIn"
-          >
-            <StyledImage
-              source={require('../../../../source/img/my/icon-60.png')}
-            />
-            <SyledImageName>
-              {strings('app.name')}
-            </SyledImageName>a
-          </Animatable.View>
-        }
-        <ThirdPartyLoginView  >
-          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe','#fafbfe','#fbfcfe']}/>
-          <ThirdPartyLoginViewInner colors={['white','#fcfdfe','#fafbfe','#f8f9fb']}/>
-          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe','#fafbfe','#fafbfd']}/>
+          <StyledSignInBtn
+            titleStyle={{ color: 'black', fontWeight: '300' }}
+            disabled={!flag || this.props.userData.loaded}
+            load={this.props.userData.loaded}
+            onPress={this._goRegist.bind(this)}
+            title={'登 录'}
+          />
+        </Animatable.View>
+        <ThirdPartyLoginView>
+          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe', '#fafbfe', '#fbfcfe']}/>
+          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe', '#fafbfe', '#f8f9fb']}/>
+          <ThirdPartyLoginViewInner colors={['white', '#fcfdfe', '#fafbfe', '#fafbfd']}/>
           <ThirdPartyInnerLoginView isWXAppInstalled={this.state.isWXAppInstalled}>
 
             {this.state.isWXAppInstalled && this.renderLoginItem(25,
@@ -382,15 +414,15 @@ export default class LoginView extends Component {
               this.props.qqLogin,
             )}
             {/*{this.renderLoginItem(35,*/}
-              {/*'#f0f0f0',*/}
-              {/*'手机登录',*/}
-              {/*'mobile',*/}
-              {/*false,*/}
-              {/*() => {*/}
-                {/*this.setState({*/}
-                  {/*showMobile: !this.state.showMobile*/}
-                {/*})*/}
-              {/*},*/}
+            {/*'#f0f0f0',*/}
+            {/*'手机登录',*/}
+            {/*'mobile',*/}
+            {/*false,*/}
+            {/*() => {*/}
+            {/*this.setState({*/}
+            {/*showMobile: !this.state.showMobile*/}
+            {/*})*/}
+            {/*},*/}
             {/*)}*/}
 
           </ThirdPartyInnerLoginView>
@@ -398,6 +430,16 @@ export default class LoginView extends Component {
         <StyledImageBottom source={require('../../../../source/img/loginBottom.png')}/>
       </StyledContent>
     );
+  }
+
+  render() {
+    if (this.state.isRenderMore || !this.state.isWXAppInstalled) {
+      return this._renderMore()
+    } else {
+      return this._renderWechat()
+    }
+
+
   }
 }
 
@@ -473,7 +515,7 @@ const styles = StyleSheet.create({
   },
   top: {
     marginTop: 30,
-    alignItems:'center'
+    alignItems: 'center'
   },
   line: {
     height: StyleSheet.hairlineWidth,

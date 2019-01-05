@@ -42,7 +42,7 @@ export const StyledSectionHeaderTitle = styled.Text`
 
 
 export const StyledAdd = styled(BorderlessButton)`
-    padding: 10px;
+    
 `
 
 export const StyledIonicons = styled(Feather)`
