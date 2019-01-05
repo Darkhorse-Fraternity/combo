@@ -29,5 +29,9 @@
 
 -dontwarn com.wix.reactnativekeyboardinput.**
 
+
+keep public class com.dylanvann.fastimage.* {*;}
+-keep public class com.dylanvann.fastimage.** {*;}
+
 -ignorewarnings
 
