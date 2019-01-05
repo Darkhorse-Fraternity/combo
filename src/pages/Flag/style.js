@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { SafeAreaView } from 'react-navigation';
 import { Platform } from 'react-native'
 import Button from '../../components/Button'
+import FastImage from 'react-native-fast-image'
+
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -29,7 +31,7 @@ export const StyledItem = styled(Button)`
  padding: 20px ;
 `
 
-export const StyledItemImage = styled.Image`
+export const StyledItemImage = styled(FastImage)`
   width: ${props => props.theme.width - 40};
   height: 250px;
   border-radius: 20px;

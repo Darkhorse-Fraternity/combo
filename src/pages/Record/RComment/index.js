@@ -48,7 +48,6 @@ import {
   StyledContent,
   StyledRow,
   StyledRowLeft,
-  StyledAvatar,
   StyledRowRight,
   StyledNickText,
   StyledContentText,

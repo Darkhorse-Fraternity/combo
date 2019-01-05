@@ -10,7 +10,7 @@ export function shadeBlend(p,c0,c1) {
 }
 
 
-export function add_Leancloud_Thumbnail_Suffix(url,width,height,q=100,format ='jgp') {
+export function add_Leancloud_Thumbnail_Suffix(url,width,height,q=100,format ='jpg') {
   const wurl = require('wurl');
   const hostname = wurl('hostname', url)
   return  hostname !== 'file.icourage.cn'?url:

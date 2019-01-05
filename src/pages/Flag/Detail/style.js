@@ -6,7 +6,7 @@
 
 import styled from "styled-components";
 import { SafeAreaView } from 'react-navigation';
-
+import FastImage from 'react-native-fast-image'
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
     flex: 1;
@@ -28,7 +28,7 @@ export const StyledHeaderTitle = styled.Text`
 `
 
 
-export const StyledCover = styled.Image`
+export const StyledCover = styled(FastImage)`
   width: ${props => props.theme.width - 60};
   height: 320px;
   border-radius: 20px;

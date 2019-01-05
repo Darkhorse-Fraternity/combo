@@ -107,7 +107,7 @@ export const epUpdate = async () => {
     } else if (Platform.OS === 'android') {
 
         //远程接口
-        Toast.show('???')
+        Toast.show('111')
         let remoteData = await send(appUpdateInfo()).then(res => res.json())
         remoteData = remoteData && remoteData.result || {}
 
@@ -136,9 +136,9 @@ export const epUpdate = async () => {
 
         } else if (compareVersion(version, appVersion) < 0) {
             //本地版本号大于远程版本号 查询编译号，是否进入测试升级
-          Toast.show('!!!')
+          Toast.show('222')
             const res = await sendBack(bundleId)
-          Toast.show('000')
+          Toast.show('333')
             // console.log('update:', res);
             const callback = () => {
                 Linking.openURL(res.install_url);

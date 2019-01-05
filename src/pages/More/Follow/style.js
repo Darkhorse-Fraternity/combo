@@ -8,6 +8,8 @@ import styled from "styled-components";
 import Button from '../../../components/Button'
 import { SafeAreaView } from 'react-navigation';
 import ZoomImage from '../../../components/ZoomImage/ZoomImage'
+import FastImage from 'react-native-fast-image'
+
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
@@ -36,13 +38,13 @@ export const StyleHeaderInnerRight = styled.View`
 
 `
 
-export const StyledAvatar = styled.Image`
+export const StyledAvatar = styled(FastImage)`
   width: 80px;
   height: 80px;
   border-radius: 40px;
   background-color: lightgray;
 `
-export const StyledSmallAvatar = styled.Image`
+export const StyledSmallAvatar = styled(FastImage)`
   width: 60px;
   height: 60px;
   border-radius: 30px;

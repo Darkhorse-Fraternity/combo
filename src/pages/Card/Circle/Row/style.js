@@ -2,13 +2,13 @@ import styled from "styled-components";
 import Button from '../../../../components/Button'
 import ZoomImage from '../../../../components/ZoomImage/ZoomImage'
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import FastImage from 'react-native-fast-image'
 
 export const StyledButton = styled(Button)`
     padding: 0px 0px;
 `
 
-export const StyledImage = styled.Image`
+export const StyledImage = styled(FastImage)`
     width: 100%;
     height: ${props =>(props.theme.width -140) * 0.8};
     border-radius: 10px;

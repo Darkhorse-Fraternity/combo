@@ -6,6 +6,8 @@
 
 import styled from "styled-components";
 import { Platform } from 'react-native'
+import FastImage from 'react-native-fast-image'
+
 
 export const StyledContent = styled.View`
     background-color: white;
@@ -27,7 +29,7 @@ export const StyledContent2 = styled.View`
     border-color: white;
 `
 
-export const StyledAvatar = styled.Image`
+export const StyledAvatar = styled(FastImage)`
     width:${props => props.radius * 2};
     height:${props => props.radius * 2};
     border-radius: ${props => props.radius};

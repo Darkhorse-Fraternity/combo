@@ -109,7 +109,6 @@ export function userInfo() {
 
 
     try{
-      Toast.show('1111')
       dispatch(_loginRequest());
       const credentials = await Keychain.getGenericPassword();
       const userString = credentials.password;
@@ -121,7 +120,6 @@ export function userInfo() {
         // setLeanCloudSession(sessionToken)
         // const params = usersMe()
         dispatch(loginSucceed(user));
-        Toast.show('2222')
         return user
         // try {
         //   const res = await get(params)
