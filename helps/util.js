@@ -1,3 +1,6 @@
+  import { AsyncStorage } from 'react-native';
+
+
 export function shadeBlend(p,c0,c1) {
   let n=p<0?p*-1:p,u=Math.round,w=parseInt;
   if(c0.length>7){
@@ -16,3 +19,21 @@ export function add_Leancloud_Thumbnail_Suffix(url,width,height,q=100,format ='j
   return  hostname !== 'file.icourage.cn'?url:
     `${url}?imageView/1/w/${width}/h/${height}/q/${q}/format/${format}`
 }
+
+
+const key = 'firstInstaller'
+let isFirstInstaller = true
+let isLoadFirstInstaller = false
+export async function firstInstaller() {
+  if(!isLoadFirstInstaller){
+    isLoadFirstInstaller = true;
+    const res  =  await AsyncStorage.getItem(key) ;
+    if(res === null){
+      await AsyncStorage.setItem(key,'1');
+    }else {
+      isFirstInstaller = false
+    }
+  }
+  return isFirstInstaller
+}
+

@@ -7,13 +7,15 @@ import {
   View,
 } from 'react-native';
 // import { loadUserData } from '../../../configure/storage'
-import { loginSucceed } from '../../../redux/actions/user'
+// import { loginSucceed } from '../../../redux/actions/user'
 import { userInfo } from '../../../redux/actions/user'
 import { connect } from 'react-redux'
-import Toast from 'react-native-simple-toast'
-import { search } from '../../../redux/module/leancloud'
-import { selfUser } from '../../../request/LCModle'
-import { IUSE, ICARD } from '../../../redux/reqKeys'
+// import Toast from 'react-native-simple-toast'
+// import { search } from '../../../redux/module/leancloud'
+// import { selfUser } from '../../../request/LCModle'
+// import { IUSE, ICARD } from '../../../redux/reqKeys'
+import {firstInstaller} from '../../../../helps/util'
+
 
 @connect(
   state => ({}),
@@ -45,14 +47,13 @@ import { IUSE, ICARD } from '../../../redux/reqKeys'
           //   order: '-time',
           //   include: ICARD + ',iCard.user'
           // }, IUSE))\
-          dispatch((dispatch, getState) => {
+          dispatch( async (dispatch, getState) => {
             const state = getState()
             const { user } = state
-            const { createdAt, updatedAt} = user.data
-            const createdAtTime = (new Date(createdAt)).getTime()
-            const updatedAtTime = (new Date(updatedAt)).getTime()
-            console.log('test:', (updatedAtTime - createdAtTime));
-            if (user.isTourist && (updatedAtTime - createdAtTime < 600000)) {
+
+            const isFirstInstaller = await firstInstaller()
+            console.log('isFirstInstaller:', isFirstInstaller);
+            if (user.isTourist && isFirstInstaller) {
               props.navigation.navigate('login', { transition: 'forVertical' });
             } else {
               props.navigation.navigate('tab');
