@@ -59,11 +59,6 @@ export default class Avatar extends PureComponent {
       require('../../../source/img/my/my_head.png')
 
 
-    if(user.nickname === '后来'){
-      console.log('avatar:', avatar,avatarSource);
-    }
-
-
     return (
       <StyledContent2 radius={radius}>
         {load ? <StyledIndicator radius={radius}/> :

@@ -111,19 +111,20 @@ export default class RecordRow extends Component {
       else
         s.push(YY.charAt(i));
     s.push("年");
-    let MM = date.getMonth();
-    if (MM < 10)
+    let MM = date.getMonth()+1;
+    if (MM < 10){
       s.push(cn[MM]);
-    else if (MM < 20)
-      s.push("十" );
+    } else if (MM < 20){
+      s.push("十" + cn[MM% 10] );
+    }
     s.push("月");
     let DD = date.getDate();
     if (DD < 10)
       s.push(cn[DD]);
     else if (DD < 20)
-      s.push("十" );
+      s.push("十" + cn[DD% 10]);
     else
-      s.push("二十" );
+      s.push("二十"+ cn[DD% 10] );
     s.push("日");
     return s.join('');
   }

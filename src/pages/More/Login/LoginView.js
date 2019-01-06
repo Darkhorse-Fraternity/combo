@@ -289,6 +289,8 @@ export default class LoginView extends Component {
 
 
   _renderWechat = () => {
+
+    const thirdLoaded = this.props.userData.theThirdLoaded
     return (<StyledContent style={{ justifyContent: 'space-between' }}>
 
       <Animatable.View
@@ -305,7 +307,7 @@ export default class LoginView extends Component {
         <StyledSignInBtn
           style={{ width: 300 }}
           titleStyle={{ color: 'black', fontWeight: '300', fontSize: 15 }}
-          load={this.props.userData.loaded}
+          load={thirdLoaded === WECHATLOGIN}
           onPress={this.props.wxLogin}
           title={'微信登录'}
         />

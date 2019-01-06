@@ -56,7 +56,7 @@ export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``
 
 
 export const StyledIconImage = styled.Image`
-  width: ${props => props.size};
+    width: ${props => props.size};
    height: ${props => props.size};
 `
 
