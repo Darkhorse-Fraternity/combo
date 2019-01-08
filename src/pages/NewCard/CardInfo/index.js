@@ -480,7 +480,7 @@ export default class CardInfo extends Component {
 
                 }}>
                 <Avatar user={iCardUser}/>
-                {nickName && <StyledNickName>
+                {nickName && <StyledNickName numberOfLines={3}>
                   {nickName}
                 </StyledNickName>}
               </Button>
