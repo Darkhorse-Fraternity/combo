@@ -72,7 +72,7 @@ export default class Follower extends Component {
           reqKey={listKey}
           sKey={"Follower_" + params.userId}
           renderItem={(data) => (<FollowRow user={data.item} onPress={() => {
-            this.props.navigation.navigate('following', { user: data.item })
+            this.props.navigation.navigate('following', { userId: data.item.objectId })
           }}/>)}
           noDataPrompt={'还没有人关注~'}
           search={followList('er')}

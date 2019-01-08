@@ -16,7 +16,12 @@ import {
 import { connect } from 'react-redux'
 import Button from '../../../components/Button'
 import PropTypes from 'prop-types';
-import { FOLLOWRECORD, ICARD, IUSE } from '../../../redux/reqKeys'
+import {
+  FOLLOWRECORD,
+  ICARD,
+  IUSE,
+  USER
+} from '../../../redux/reqKeys'
 import { Privacy ,CircleState} from '../../../configure/enum'
 import {
   StyleFolllow,
@@ -66,23 +71,24 @@ import Avatar from '../../../components/Avatar/Avatar2'
 
 @connect(
   (state, props) => ({
-    data: state.list.get(FOLLOWRECORD + props.navigation.state.params.user.objectId),
+    data: state.list.get(FOLLOWRECORD + props.navigation.state.params.userId),
     iCard: state.normalizr.get(ICARD),
-    user: state.user.data,
-    friendNum: state.req.get(FRIENDNUM + props.navigation.state.params.user.objectId),
-    friendeExist: state.req.get(FRIENDEXIST + props.navigation.state.params.user.objectId),
+    selfUser: state.user.data,
+    user:state.normalizr.get(USER).get(props.navigation.state.params.userId),
+    friendNum: state.req.get(FRIENDNUM + props.navigation.state.params.userId),
+    friendeExist: state.req.get(FRIENDEXIST + props.navigation.state.params.userId),
     followLoad: state.req.get(FOLLOWING).get('load')
   }),
   (dispatch, props) => ({
     loadFriendNum: () => {
-      const userId = props.navigation.state.params.user.objectId
+      const userId = props.navigation.state.params.userId
       const param = friendNum(userId)
       // console.log('test000:', userId);
       dispatch(req(param, FRIENDNUM + userId))
     },
     loadfriendExist: () => {
       dispatch((dispatch, getState) => {
-        const beFollowedUserId = props.navigation.state.params.user.objectId
+        const beFollowedUserId = props.navigation.state.params.userId
         const state = getState()
         const userId = state.user.data.objectId
 
@@ -92,7 +98,7 @@ import Avatar from '../../../components/Avatar/Avatar2'
     },
     follow: (isExist, num) => {
       dispatch((dispatch, getState) => {
-        const beFollowedUserId = props.navigation.state.params.user.objectId
+        const beFollowedUserId = props.navigation.state.params.userId
         const state = getState()
         const userId = state.user.data.objectId
 
@@ -158,12 +164,19 @@ export default class Following extends PureComponent {
     this.props.loadfriendExist()
   }
 
-  _renderHeader(data: Object) {
+  _renderHeader = ()=> {
+
+    if(!this.props.user){
+      return null
+    }
+
+    const data  = this.props.user.toJS()
+
     const name = data.nickname || '路人甲'
     const avatar = data.avatar
     const avatarUrl = avatar ? avatar.url : data.headimgurl
 
-    const isSelf = this.props.user.objectId === data.objectId
+    const isSelf = this.props.selfUser.objectId === data.objectId
 
     const { friendNum } = this.props
     const friendeExist = this.props.friendeExist && this.props.friendeExist.toJS()
@@ -288,13 +301,15 @@ export default class Following extends PureComponent {
 
   render(): ReactElement<any> {
     const { navigation } = this.props;
+
     const { state } = navigation;
     const { params } = state;
-    const { user } = params
+    const { userId } = params
+
 
     const param = {
       where: {
-        ...userModel(user.objectId),
+        ...userModel(userId),
         statu: { "$ne": 'del' },
         privacy: Privacy.open
       },
@@ -304,10 +319,10 @@ export default class Following extends PureComponent {
     return (
       <StyledContent forceInset={{ top: 'never' }}>
         <LCList
-          ListHeaderComponent={() => this._renderHeader(user)}
+          ListHeaderComponent={this._renderHeader}
           style={{ flex: 1 }}
           reqKey={IUSE}
-          sKey={FOLLOWRECORD + user.objectId}
+          sKey={FOLLOWRECORD + userId}
           // numColumns={2}
           // columnWrapperStyle={{ padding: 10 }}
           renderItem={this.renderRow.bind(this)}

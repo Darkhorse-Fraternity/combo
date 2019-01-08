@@ -10,7 +10,6 @@ import EntypoIcon from 'react-native-vector-icons/Entypo'
 // import Button from '../../../components/Button'
 export const StyledContent = styled.ScrollView`
     flex: 1;
-    background-color: white;
 `
 export const StyledTitle = styled.Text`
    font-size: 21px;

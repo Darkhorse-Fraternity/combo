@@ -382,7 +382,7 @@ export default class RComment extends PureComponent {
     }}>
       <StyledRowLeft>
         <TouchableOpacity onPress={() => {
-          this.props.navigation.navigate('following', { user: item.user })
+          this.props.navigation.navigate('following', { userId: item.user.objectId })
         }}>
           <Avatar radius={15} user={item.user}/>
         </TouchableOpacity>

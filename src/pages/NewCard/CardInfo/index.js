@@ -434,16 +434,16 @@ export default class CardInfo extends Component {
             </StyledHedaderIconBack>
           }
 
-          <StyledHeaderTitle style={{ marginTop: 50 }}>
-            {iCard.title}
-          </StyledHeaderTitle>
+
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
               {iCard.subtitle && <StyledSubTitle>
                 {iCard.subtitle}
               </StyledSubTitle>}
 
-
+              <StyledHeaderTitle >
+                {iCard.title}
+              </StyledHeaderTitle>
               {keys && <StyledKeysView>
                 {keys.map(key => {
                   return '#' + key
@@ -453,22 +453,22 @@ export default class CardInfo extends Component {
               </StyledKeysView>}
 
 
-              <Button
-                style={{
-                  flexDirection: 'row',
-                  marginTop: 10,
-                  alignItems: 'center',
-                }}
-                onPress={() => {
-                  !userLoad && this.props.navigation.navigate('cardUse', { iCard: iCard })
-                }}>
-                <StyledReadNum>
-                  参与人数：{iCard.useNum}
-                </StyledReadNum>
-                <StyledIcon
-                  size={15}
-                  name="ios-arrow-forward"/>
-              </Button>
+              {/*<Button*/}
+                {/*style={{*/}
+                  {/*flexDirection: 'row',*/}
+                  {/*marginTop: 10,*/}
+                  {/*alignItems: 'center',*/}
+                {/*}}*/}
+                {/*onPress={() => {*/}
+                  {/*!userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })*/}
+                {/*}}>*/}
+                {/*<StyledReadNum>*/}
+                  {/*参与人数：{iCard.useNum}*/}
+                {/*</StyledReadNum>*/}
+                {/*<StyledIcon*/}
+                  {/*size={15}*/}
+                  {/*name="ios-arrow-forward"/>*/}
+              {/*</Button>*/}
 
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
@@ -476,7 +476,7 @@ export default class CardInfo extends Component {
                 style={{ alignItems: 'center' }}
                 onPress={() => {
                   this.props.navigation.navigate('following',
-                    { user: iCardUser })
+                    { userId: iCardUser.objectId })
 
                 }}>
                 <Avatar user={iCardUser}/>
@@ -507,6 +507,17 @@ export default class CardInfo extends Component {
           {this.row('习惯周期:', iCard.period + '次')}
           {this.row('打卡要求:', iCard.record.join("+") || '默认点击')}
           {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
+          <Button
+            onPress={()=>{
+              !userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })
+            }}
+            style={{justifyContent:'space-between' , alignItems: 'center' ,flexDirection:'row'}}>
+            {this.row('参与人数:', iCard.useNum)}
+            <StyledIcon
+              size={15}
+              style={{ marginTop: 5}}
+              name="ios-arrow-forward"/>
+          </Button>
           {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
           {/*{course && course.title && this._renderCourse(course)}*/}
 

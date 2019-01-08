@@ -333,7 +333,7 @@ export default class Info extends Component {
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
               <Button onPress={() => {
-                this.props.navigation.navigate('following', { user: user })
+                this.props.navigation.navigate('following', { userId: user.objectId })
               }}>
                 <StyledAvatar source={avatarSource}/>
               </Button>

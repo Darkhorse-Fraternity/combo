@@ -111,6 +111,7 @@ export default class LCList extends PureComponent {
         const modal = data && data.toJS() || {}
         const { loadStatu, listData } = modal
 
+
         const afterDataMap = this.props.afterDataMap &&
             this.props.afterDataMap(listData) || listData
 

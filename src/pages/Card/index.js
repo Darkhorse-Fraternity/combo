@@ -152,7 +152,7 @@ export default class Card extends Component {
           color={'black'}
           style={{ marginRight: 10 }}
           size={25}
-          name={'settings'}/>
+          name={'more-horizontal'}/>
       </Button>,
     ]
   }

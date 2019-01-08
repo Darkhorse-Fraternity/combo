@@ -20,7 +20,6 @@ import { Platform } from 'react-native'
 
 export const Form = styled.View`
     flex: 1;
-    background-color: white;
 `
 
 export  const StyledContent = styled.ScrollView`

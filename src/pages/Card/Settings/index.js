@@ -269,18 +269,18 @@ export default class Settings extends Component {
           title={'卡片配置'}/>)}
         {this._renderRresh(reflesh, params)}
 
-        {iCard.user === this.props.user.objectId &&
-        iCard.state !== -2
-        && iUse.statu !== 'del' &&
-        ( <this._renderItem
-          onPress={() => {
-            navigation.navigate('publishing',
-              { iCardID: iCard.objectId })
-          }}
-          Icon={StyledEntypoIcon}
-          size={28}
-          name={'picasa'}
-          title={' 圈子设置'}/>)}
+        {/*{iCard.user === this.props.user.objectId &&*/}
+        {/*iCard.state !== -2*/}
+        {/*&& iUse.statu !== 'del' &&*/}
+        {/*( <this._renderItem*/}
+          {/*onPress={() => {*/}
+            {/*navigation.navigate('publishing',*/}
+              {/*{ iCardID: iCard.objectId })*/}
+          {/*}}*/}
+          {/*Icon={StyledEntypoIcon}*/}
+          {/*size={28}*/}
+          {/*name={'picasa'}*/}
+          {/*title={' 圈子设置'}/>)}*/}
 
 
         {/*{iCard.circleState === CircleState.open*/}

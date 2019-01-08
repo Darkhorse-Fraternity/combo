@@ -6,7 +6,7 @@
 
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     View,
 } from 'react-native'
@@ -21,23 +21,20 @@ import {
     StyledContent,
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 const listKey = IUSE
 
 @connect(
     state => ({
-        users:state.normalizr.get('user')
+        users:state.normalizr.get(USER)
     }),
     dispatch => ({})
 )
 
 
-export default class CardUse extends Component {
+export default class CardUse extends PureComponent {
     constructor(props: Object) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
     }
 
     static propTypes = {};
@@ -56,7 +53,7 @@ export default class CardUse extends Component {
         const user = this.props.users.get(data.item.user).toJS()
         return (
             <FollowRow user={user} onPress={()=>{
-              this.props.navigation.navigate('following', { user: user })
+              this.props.navigation.navigate('following', {userId: data.item.user })
             }}/>
         )
     }
@@ -65,11 +62,11 @@ export default class CardUse extends Component {
 
         const {params} = this.props.navigation.state;
 
-        const pCard = params && params.iCard
-        if(!pCard){return null}
+        const iCardId = params && params.iCardId
+        if(!iCardId){return null}
         const param = {
             where: {
-                ...iCard(pCard.objectId),
+                ...iCard(iCardId),
                 statu: { "$ne": 'del' },
 
             },
@@ -84,7 +81,7 @@ export default class CardUse extends Component {
                 <LCList
                     style={{ flex: 1 }}
                     reqKey={listKey}
-                    sKey={"CardUse"+ pCard.objectId}
+                    sKey={"CardUse"+ iCardId}
                     renderItem={this._renderItem}
                     noDataPrompt={'还没有人关注~'}
                     //search={followList('ee')}

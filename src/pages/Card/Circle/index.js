@@ -134,6 +134,7 @@ export default class Circle extends Component {
           </StyledHeaderText>
         </StyledHeaderButton>
 
+
         <StyledHeaderButton
           hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
           onPress={async () => {
@@ -158,6 +159,19 @@ export default class Circle extends Component {
           </StyledHeaderText>
         </StyledHeaderButton>
 
+
+        <StyledHeaderButton
+          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+          onPress={() => {
+            this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })
+          }}
+        >
+          <StyledHeaderImage  source={require('../../../../source/img/circle/member.png')}/>
+          <StyledHeaderText>
+            成员
+          </StyledHeaderText>
+        </StyledHeaderButton>
+
         <StyledHeaderButton
           hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
           onPress={() => {
@@ -175,6 +189,18 @@ export default class Circle extends Component {
           </StyledHeaderText>
         </StyledHeaderButton>
 
+        {iCard.user === this.props.user.objectId && <StyledHeaderButton
+          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+          onPress={() => {
+            this.props.navigation.navigate('publishing', { iCardID: iCard.objectId })
+          }}
+        >
+          <StyledHeaderImage source={require('../../../../source/img/circle/settings.png')}/>
+          <StyledHeaderText>
+            设置
+          </StyledHeaderText>
+        </StyledHeaderButton>}
+
       </StyledHeader>
 
     )
@@ -188,7 +214,7 @@ export default class Circle extends Component {
           userId={item.user}
           onPress={(user) => {
             this.props.navigation.navigate('following',
-              { user })
+              { userId: user.objectId})
           }}/>
         <RecordRow item={item} navigation={this.props.navigation}/>
       </View>

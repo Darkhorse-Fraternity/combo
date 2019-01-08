@@ -360,9 +360,7 @@ export default class Publishing extends Component {
 
     return (
       <StyledContent style={[this.props.style]}>
-        {this._ListHeaderComponent(iCard, color)}
-
-
+        {/*{this._ListHeaderComponent(iCard, color)}*/}
         {this.state.getSave &&
         this.state.circleState === CircleState.open && <CardPublishForm
           load={load}

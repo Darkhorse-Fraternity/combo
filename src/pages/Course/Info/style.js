@@ -102,6 +102,7 @@ export const StyledHeaderInner = styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 50px;
 `
 
 export const StyledHeaderInnerLeft = styled.View`
@@ -132,7 +133,7 @@ export const StyledReadNum = styled.Text`
 `
 
 export const StyledHeaderInnerRight = styled.View`
-    align-items: center;
+    align-items: flex-end;
 `
 
 export const StyledAvatar = styled.Image`
