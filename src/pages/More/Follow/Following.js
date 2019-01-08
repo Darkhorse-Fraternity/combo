@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -137,11 +137,9 @@ import Avatar from '../../../components/Avatar/Avatar2'
 )
 
 
-export default class Following extends Component {
+export default class Following extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
   }
 
   static propTypes = {};
@@ -161,8 +159,6 @@ export default class Following extends Component {
   }
 
   _renderHeader(data: Object) {
-    // let {grade_str,connect_phone} = data;
-    // console.log('test111:',data.avatar.url)
     const name = data.nickname || '路人甲'
     const avatar = data.avatar
     const avatarUrl = avatar ? avatar.url : data.headimgurl

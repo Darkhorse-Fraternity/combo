@@ -5,8 +5,7 @@
 'use strict';
 
 import styled from "styled-components";
-
-export const StyledContent = styled.View`
+import { SafeAreaView } from 'react-navigation';
+export const StyledContent = styled(SafeAreaView)`
     flex: 1;
-    background-color: white;
 `

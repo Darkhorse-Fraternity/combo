@@ -68,7 +68,9 @@ export default class Follow extends Component {
                     style={{flex:1}}
                     reqKey={listKey}
                     sKey={"followee_" + params.userId}
-                    renderItem={(data)=>(<FollowRow data={data} navigation={navigation}/>)}
+                    renderItem={(data)=>(<FollowRow user={data.item}  onPress={() => {
+                      this.props.navigation.navigate('following', { user: data.item })
+                    }}/>)}
                     noDataPrompt={'还没有人关注~'}
                     search={followList('ee')}
                     dataMap={(data) => {

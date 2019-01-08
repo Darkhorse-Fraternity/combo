@@ -53,12 +53,11 @@ export default class CardUse extends Component {
 
 
     _renderItem = (data)=>{
-        const nData = {
-            index:data.index,
-            item:this.props.users.get(data.item.user).toJS()
-        }
+        const user = this.props.users.get(data.item.user).toJS()
         return (
-            <FollowRow data={nData} navigation={this.props.navigation}/>
+            <FollowRow user={user} onPress={()=>{
+              this.props.navigation.navigate('following', { user: user })
+            }}/>
         )
     }
 
@@ -81,7 +80,7 @@ export default class CardUse extends Component {
 
 
         return (
-            <StyledContent>
+            <StyledContent forceInset={{ top: 'never' }}>
                 <LCList
                     style={{ flex: 1 }}
                     reqKey={listKey}

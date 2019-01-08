@@ -2,6 +2,7 @@
  * Created by lintong on 9/21/16.
  * @flow
  */
+
 'use strict';
 
 
@@ -18,7 +19,9 @@ import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigato
 import codePush from "react-native-code-push";
 // import {route} from './pages'
 const AppNavigator = creatAppNavigator()
+require('../helps/AnimatableRegist')
 import { useScreens } from 'react-native-screens';
+import { required } from "./request/validation";
 useScreens();
 
 

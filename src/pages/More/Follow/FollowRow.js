@@ -4,13 +4,11 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     View,
 } from 'react-native'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import HeaderBtn from '../../../components/Button/HeaderBtn'
 import Avatar from '../../../components/Avatar/Avatar2'
 
 import {
@@ -23,56 +21,39 @@ import {
     StyledDiscrib
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import moment from 'moment'
 
-@connect(
-    state => ({}),
-    dispatch => ({})
-)
 
-
-export default class FollowRow extends Component {
+export default class FollowRow extends PureComponent {
     constructor(props: Object) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
     }
 
     static propTypes = {
-        data: PropTypes.object.isRequired
+      user: PropTypes.object.isRequired
     };
     static defaultProps = {};
-    static navigationOptions = props => {
-        // const {navigation} = props;
-        // const {state} = navigation;
-        // const {params} = state;
-        return {
-            title: '',
-        }
-    };
+
 
 
     render(): ReactElement<any> {
 
-        const { data, navigation } = this.props
-        const { item } = data
-        const { nickname } = item
+        const { user, onPress } = this.props
+        const { nickname,createdAt } = user
 
 
         const name = nickname || '路人甲'
         return (
-            <StyledRowContent onPress={() => {
-                navigation.navigate('following', { user: item })
-            }}>
+            <StyledRowContent onPress={onPress}>
                 <StyledInnerView>
-                    <Avatar user={item}/>
+                    <Avatar user={user}/>
                     <StyledInnerRight>
                         <StyledName>
                             {name}
                         </StyledName>
                         <StyledDiscrib>
-                            加入时间:{moment(item.createdAt).format("YYYY-MM-DD")}
+                            加入时间:{moment(createdAt).format("YYYY-MM-DD")}
                         </StyledDiscrib>
                     </StyledInnerRight>
                 </StyledInnerView>

@@ -52,7 +52,7 @@ import {firstInstaller} from '../../../../helps/util'
             const { user } = state
 
             const isFirstInstaller = await firstInstaller()
-            console.log('isFirstInstaller:', isFirstInstaller);
+            // console.log('isFirstInstaller:', isFirstInstaller);
             if (user.isTourist && isFirstInstaller) {
               props.navigation.navigate('login', { transition: 'forVertical' });
             } else {

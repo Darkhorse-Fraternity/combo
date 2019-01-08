@@ -22,7 +22,7 @@ import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
-const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
+// const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN'
 // export const LIST_NO_DATA = 'LIST_NO_DATA'
@@ -119,11 +119,13 @@ export default class BaseSectionView extends Component {
       return;
     }
 
+    console.log('test:', '1111');
 
     // console.log('distanceFromEnd:', info.distanceFromEnd);
     // console.log('loadStatu:', this.props.loadStatu);
     if (this.state.shouldShowloadMore
     ) {
+      console.log('test:', '222');
       this.props.loadMore && this.props.loadMore();
     }
 

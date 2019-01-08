@@ -64,7 +64,7 @@ let hasTryRate = false
         include: ICARD + ',iCard.user'
       }, IUSE))
     },
-    done: (data) => {
+    done: async (data) => {
 
       //评价
       if (!hasTryRate && !__DEV__) {
@@ -79,15 +79,40 @@ let hasTryRate = false
           })
         } else {
           //TODO 给Android 做一个评论智能跳出。
-          // Alert.alert(
-          //     '给我们一个好评吧!',
-          //     'Thanks♪(･ω･)ﾉ',
-          //     [{ text: '取消' }, {
-          //         text: '确定', onPress: () => {
-          //             Rate.rate(options,()=>{})
-          //         }
-          //     }]
-          // )
+          //做出时间判断。取消的话，就20天一次提醒，确定的话，就2月一次提醒
+          //提取这一次提醒时间，
+          const key = 'AndroidRateTime'
+          const time = await AsyncStorage.getItem(key);
+
+
+          //如果time 不存在或者当前时间大于time 则提醒
+          if (!time) {
+
+          }
+          Alert.alert(
+            '给我们一个好评吧!',
+            'Thanks♪(･ω･)ﾉ',
+            [{
+              text: '取消', onPress: async () => {
+                //存一个20天后提醒的时间
+                await AsyncStorage.setItem(key, '1');
+              }
+            }, {
+              text: '确定', onPress: () => {
+                const options = {
+                  preferInApp: true,
+                }
+                Rate.rate(options, async (success) => {
+                  if (success) {
+                    //存一个两月后提醒的时间
+                    await AsyncStorage.setItem(key, '1');
+                  } else {
+                    //存一个20天后提醒的时间
+                    await AsyncStorage.setItem(key, '1');
+                  }
+                })
+              }
+            }])
         }
       }
       return dispatch(doCardWithNone(data))
@@ -124,8 +149,8 @@ export default class Punch extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.user.objectId &&
-      nextProps.user.objectId !== this.props.user.objectId){
+    if (nextProps.user.objectId &&
+      nextProps.user.objectId !== this.props.user.objectId) {
       this.props.search()
     }
   }
@@ -251,7 +276,7 @@ export default class Punch extends Component {
     const satisfy = []
     const unSatisfy = []
     const sections = []
-    if(data.length >0) {
+    if (data.length > 0) {
       for (let i = 0, j = data.length; i < j; i++) {
         const mData = this.props.iUse.get(data[i]).toJS()
         const iCard = this.props.iCard.get(mData.iCard).toJS()
@@ -259,20 +284,20 @@ export default class Punch extends Component {
         const recordDay = iCard.recordDay.sort((a, b) => a - b > 0)
 
         if (recordDay.indexOf(week) !== -1) {
-          const limitTimes = iCard.limitTimes || ['00:00',"24:00"]
-          const before = moment( limitTimes[0], "HH")
+          const limitTimes = iCard.limitTimes || ['00:00', "24:00"]
+          const before = moment(limitTimes[0], "HH")
           const after = moment(limitTimes[1], "HH")
           const now = moment(new Date())
           const momentIn = moment(now).isBetween(before, after)
-          if(momentIn){
+          if (momentIn) {
             mData.satisfy = true
             satisfy.push(mData)
-          }else {
+          } else {
             mData.satisfy = false
-            if(now.isBefore(before)){
+            if (now.isBefore(before)) {
               mData.unSatisfyDiscrib = limitTimes[0]
-            }else if(now.isAfter(after)){
-              mData.unSatisfyDiscrib = limitTimes[1]+'前'
+            } else if (now.isAfter(after)) {
+              mData.unSatisfyDiscrib = limitTimes[1] + '前'
             }
             unSatisfy.push(mData)
           }
@@ -280,21 +305,21 @@ export default class Punch extends Component {
         } else {
           let unSatisfyDiscrib = '一周后'
           //算出正向上满足条件的下一天
-          let unSatisfyRecordDay = recordDay.filter(a => a -week > 0)
+          let unSatisfyRecordDay = recordDay.filter(a => a - week > 0)
           let nextDoDay = unSatisfyRecordDay[0]
           //相差几天
           let days = nextDoDay - week
-          if(unSatisfyRecordDay.length === 0){
+          if (unSatisfyRecordDay.length === 0) {
             //如果一周内没有大于当天的打卡要求，则必然在下周的第一个要求中
             nextDoDay = recordDay[0]
             days = nextDoDay + 7 - week
           }
 
 
-          if(days <4){
-            unSatisfyDiscrib = ['明天','后天','大后天'][days-1]
-          }else {
-            unSatisfyDiscrib = ['周一','周二','周三','周四','周五','周六','周天'][nextDoDay-1]
+          if (days < 4) {
+            unSatisfyDiscrib = ['明天', '后天', '大后天'][days - 1]
+          } else {
+            unSatisfyDiscrib = ['周一', '周二', '周三', '周四', '周五', '周六', '周天'][nextDoDay - 1]
           }
           //算出离今天最近的下一次打卡时间
           // console.log('week:', recordDay, week);
@@ -306,8 +331,10 @@ export default class Punch extends Component {
           unSatisfy.push(mData)
         }
       }
-      satisfy.length > 0 && sections.push({ title: unSatisfy.length > 0 ? "进行中" : '',
-        data: _.chunk(satisfy, 3) })
+      satisfy.length > 0 && sections.push({
+        title: unSatisfy.length > 0 ? "进行中" : '',
+        data: _.chunk(satisfy, 3)
+      })
       unSatisfy.length > 0 && sections.push({ title: "等待中", data: _.chunk(unSatisfy, 3) })
     }
 
@@ -335,7 +362,7 @@ export default class Punch extends Component {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={data.length>0 && <View style={{height:120}}/>}
+          ListFooterComponent={data.length > 0 && <View style={{ height: 120 }}/>}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
       </StyledContent>

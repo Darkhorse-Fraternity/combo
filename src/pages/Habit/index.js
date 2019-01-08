@@ -44,6 +44,7 @@ import { addNormalizrEntity } from '../../redux/module/normalizr'
 import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
 import * as Animatable from 'react-native-animatable';
+import AnimationRow from '../../components/AnimationRow'
 
 const Archive = IUSE + "archive"
 
@@ -77,18 +78,19 @@ const Archive = IUSE + "archive"
         statu: 'stop',
         //cycle,
       }
-      const lParams = classUpdate(IUSE, id, param)
-      const res = await dispatch(req(lParams, Archive))
-      const entity = {
-        ...param,
-        ...res,
-      }
-
-      dispatch(addNormalizrEntity(IUSE, entity))
-      handleView && await handleView.fadeOutLeft(1000)
-      await dispatch(claerByID(IUSE, id))
-      handleView && await handleView.fadeIn(300)
-      return res
+      // const lParams = classUpdate(IUSE, id, param)
+      // const res = await dispatch(req(lParams, Archive))
+      // const entity = {
+      //   ...param,
+      //   ...res,
+      // }
+      //
+      // dispatch(addNormalizrEntity(IUSE, entity))
+      handleView && await handleView.remove()
+      // await dispatch(claerByID(IUSE, id))
+      // handleView && await handleView.reset()
+      // handleView && await handleView.fadeIn(100)
+      // return res
     },
     delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
@@ -212,9 +214,10 @@ export default class Habit extends PureComponent {
     const isSelf = iCard.get('user') === this.props.user.objectId
 
     return (
-      <Animatable.View
+      <AnimationRow
         useNativeDriver
-        ref={res => this.handleViewRef['habit' + index] = res}>
+        ref={res => this.handleViewRef['habit' + index] = res}
+      >
         <AppleStyleSwipeableRow
           // rowID={index}
           // autoClose={true}
@@ -301,7 +304,7 @@ export default class Habit extends PureComponent {
             iCard={iCard.toJS()}
           />
         </AppleStyleSwipeableRow>
-      </Animatable.View>);
+      </AnimationRow>);
   }
 
 
