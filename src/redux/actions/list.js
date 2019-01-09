@@ -64,6 +64,9 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
           }
           const loadStatu = (response[DATA][DATA]|| data).length < pageSize ?
             LIST_LOAD_NO_MORE : LIST_NORMAL
+
+
+          console.log('response[DATA][DATA]|| data).length:', (response[DATA][DATA]|| data).length);
           dispatch(_listSucceed(data, page, listKey,loadStatu));
         } else {
           return dispatch(_listFailed(listKey, response[MSG]))

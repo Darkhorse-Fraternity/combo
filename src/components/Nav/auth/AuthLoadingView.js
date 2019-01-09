@@ -10,10 +10,10 @@ import {
 // import { loginSucceed } from '../../../redux/actions/user'
 import { userInfo } from '../../../redux/actions/user'
 import { connect } from 'react-redux'
-// import Toast from 'react-native-simple-toast'
-// import { search } from '../../../redux/module/leancloud'
-// import { selfUser } from '../../../request/LCModle'
-// import { IUSE, ICARD } from '../../../redux/reqKeys'
+import Toast from 'react-native-simple-toast'
+import { search } from '../../../redux/module/leancloud'
+import { selfUser } from '../../../request/LCModle'
+import { IUSE, ICARD } from '../../../redux/reqKeys'
 import {firstInstaller} from '../../../../helps/util'
 
 
@@ -39,14 +39,16 @@ import {firstInstaller} from '../../../../helps/util'
         // This will switch to the App screen or auth screen and this loading
         // screen will be unmounted and thrown away.
         if (user.sessionToken) {
-          // await dispatch(search(false, {
-          //   where: {
-          //     ...dispatch(selfUser()),
-          //     statu: 'start'
-          //   },
-          //   order: '-time',
-          //   include: ICARD + ',iCard.user'
-          // }, IUSE))\
+          Toast.show('111')
+          await dispatch(search(false, {
+            where: {
+              ...dispatch(selfUser()),
+              statu: 'start'
+            },
+            order: '-time',
+            include: ICARD + ',iCard.user'
+          }, IUSE))
+          Toast.show('222')
           dispatch( async (dispatch, getState) => {
             const state = getState()
             const { user } = state
@@ -64,7 +66,7 @@ import {firstInstaller} from '../../../../helps/util'
         }
         // props.navigation.navigate(user ? 'tab' : 'login');
       } catch (e) {
-        // console.log('bootstrapAsync error:', e.message);
+        console.log('bootstrapAsync error:', e.message);
         // Toast.show(e.message)
         // props.navigation.navigate('login');
       }

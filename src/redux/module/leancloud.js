@@ -80,12 +80,14 @@ export function findByID(key,id,option) {
 export function search(more: bool,
                        params: Object,
                        key: string,
-                       option: Object,
+                       option: Object = {},
                        callPath:string ,
                        pageSize: number = 40) {
 
     return (dispatch, getState) => {
-        const page = !more ? 0 : getState().list.getIn([key, 'page']) + 1;
+      const listKey = option.sKey || key
+        const page = !more ? 0 : getState().list.getIn([listKey, 'page']) + 1;
+        console.log('page:', page);
         const lParams = limitSearch(key, page, pageSize, params,callPath)
         return dispatch(listReq(key, lParams, more, option))
     }
