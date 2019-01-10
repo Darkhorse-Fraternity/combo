@@ -68,15 +68,16 @@ export default class BaseSectionView extends Component {
   onScroll(e: Object) {
     let nativeEvent = e.nativeEvent;
     const shouldShowloadMore = nativeEvent.contentOffset.y >
-      nativeEvent.layoutMeasurement.height -50;
+      nativeEvent.layoutMeasurement.height -100;
 
 
 
+    // TODO 这样写会导致，已有数据时候，直接往下拉，会有一瞬间renderFooter，似乎是转化时间有问题
     this.state.shouldShowloadMore !== shouldShowloadMore &&
     this.setState({ shouldShowloadMore })
     // console.log('test:', shouldShowloadMore);
-    console.log('nativeEvent:', nativeEvent);
-    console.log('shouldShowloadMore:', shouldShowloadMore);
+    // console.log('nativeEvent:', nativeEvent);
+    // console.log('shouldShowloadMore:', shouldShowloadMore);
     this.props.onScroll && this.props.onScroll(arguments);
   }
 
@@ -165,7 +166,7 @@ export default class BaseSectionView extends Component {
 
 
 
-    return null;
+    return <View style={{height:50}}/>;
   }
 
 
