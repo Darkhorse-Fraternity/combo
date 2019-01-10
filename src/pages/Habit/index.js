@@ -78,19 +78,19 @@ const Archive = IUSE + "archive"
         statu: 'stop',
         //cycle,
       }
-      // const lParams = classUpdate(IUSE, id, param)
-      // const res = await dispatch(req(lParams, Archive))
-      // const entity = {
-      //   ...param,
-      //   ...res,
-      // }
-      //
-      // dispatch(addNormalizrEntity(IUSE, entity))
+      const lParams = classUpdate(IUSE, id, param)
+      const res = await dispatch(req(lParams, Archive))
+      const entity = {
+        ...param,
+        ...res,
+      }
+
+      dispatch(addNormalizrEntity(IUSE, entity))
       handleView && await handleView.remove()
-      // await dispatch(claerByID(IUSE, id))
-      // handleView && await handleView.reset()
+      await dispatch(claerByID(IUSE, id))
+      handleView && await handleView.reset()
       // handleView && await handleView.fadeIn(100)
-      // return res
+      return res
     },
     delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
@@ -110,10 +110,10 @@ const Archive = IUSE + "archive"
               ...res
             }
             dispatch(addNormalizrEntity(IUSE, entity))
-            handleView && await handleView.fadeOutLeft(1000)
+            handleView && await handleView.remove()
             await dispatch(claerByID(IUSE, objectId))
             await dispatch(claerByID(IRECORD, objectId))
-            handleView && await handleView.fadeIn(300)
+            handleView && await handleView.reset()
             return res;
           }
         }]
@@ -309,7 +309,7 @@ export default class Habit extends PureComponent {
 
 
   _keyExtractor = (item, index) => {
-    const key = item.id || index;
+    const key = item || index;
     return key + '';
   }
 

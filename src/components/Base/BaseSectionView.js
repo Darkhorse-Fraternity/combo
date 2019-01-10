@@ -171,7 +171,9 @@ export default class BaseSectionView extends Component {
 
 
   _keyExtractor = (item, index) => {
-    const key = item.id || index;
+     const id =  typeof item === 'object' ? item.objectId : item
+
+    const key =  id || index;
     return key + '';
   }
 

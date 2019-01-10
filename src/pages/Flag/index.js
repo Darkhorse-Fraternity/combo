@@ -58,7 +58,7 @@ export default class Flag extends PureComponent {
 
 
   _keyExtractor = (item, index) => {
-    const key = item.id || index;
+    const key = item.objectId || index;
     return key + '';
   }
 

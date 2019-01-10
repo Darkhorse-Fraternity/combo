@@ -106,10 +106,7 @@ export default class CourseRelease extends Component {
 
   }
 
-  _keyExtractor = (item, index) => {
-    const key = item.id || index;
-    return key + '';
-  }
+
 
   render(): ReactElement<any> {
 

@@ -360,7 +360,7 @@ export default class Remind extends Component {
   }
 
   _keyExtractor = (item, index) => {
-    const key = item.id || index;
+    const key = item.objectId || index;
     return key + '';
   }
 

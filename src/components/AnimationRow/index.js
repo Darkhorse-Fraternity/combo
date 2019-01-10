@@ -12,7 +12,7 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
-const ANIMATION_DURATION = 500;
+const ANIMATION_DURATION = 1000;
 
 // import {
 //   StyledContent,
@@ -28,6 +28,7 @@ export default class AnimationRow extends PureComponent {
       height: 0,
     }
     this._animated = new Animated.Value(1);
+    this._swiperAnimated = new Animated.Value(0);
   }
 
   // static propTypes = {};
@@ -37,6 +38,7 @@ export default class AnimationRow extends PureComponent {
   componentDidMount() {
     //
   }
+
   //
   //Animated.timing(this._animated, {
   //   toValue: 1,
@@ -44,26 +46,48 @@ export default class AnimationRow extends PureComponent {
   // }).start();
 
 
+  remove = () => {
 
-  remove = ()=>{
-    Animated.timing(this._animated, {
-      toValue: 0,
-      duration: ANIMATION_DURATION,
-    }).start(({finished})=>{
-      console.log('finished:', finished);
-    });
+    return new Promise((resolve) => {
+      Animated.sequence([
+        Animated.timing(       // Uses easing functions
+          this._swiperAnimated, // The value to drive
+          {
+            toValue: 1,        // Target
+            duration: ANIMATION_DURATION ,    // Configuration
+          },
+        ),
+        Animated.timing(this._animated, {
+          toValue: 0,
+          duration: ANIMATION_DURATION / 2,
+        })
+      ]).start(({ finished }) => {
+        resolve(finished)
+      })
+    })
+
   }
 
-  reset = ()=>{
-    Animated.timing(this._animated, {
-      toValue: 1,
-      duration: 1,
-    }).start();
+  reset = () => {
+    new Promise((resolve) => {
+      Animated.parallel([
+        Animated.timing(this._animated, {
+          toValue: 1,
+          duration: 0,
+        }),
+        Animated.timing(this._swiperAnimated, {
+          toValue: 0,
+          duration:0,
+        })
+      ]).start(({ finished }) => {
+        resolve(finished)
+      })
+    })
   }
 
 
   _onLayout = (event) => {
-    const { width, height } = event.nativeEvent.layout;
+    const {  height } = event.nativeEvent.layout;
     if (this.state.height === 0) {
       this.setState({ height })
     }
@@ -72,9 +96,8 @@ export default class AnimationRow extends PureComponent {
 
   render(): ReactElement<any> {
     const { children, ...other } = this.props
-    const {  height } = this.state
+    const { height } = this.state
 
-    console.log('height:', height);
     const rowStyles = height === 0 ? [] : [
 
       {
@@ -83,10 +106,21 @@ export default class AnimationRow extends PureComponent {
           outputRange: [0, height],
           extrapolate: 'clamp',
         }),
-        overflow:'hidden'
+        transform: [{
+          translateX: this._swiperAnimated.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0, -100],
+          })
+        }],
+        overflow: 'hidden'
       },
-      { opacity: this._animated },
-  ];
+      {
+        opacity: this._swiperAnimated.interpolate({
+          inputRange: [0, 1],
+          outputRange: [1, 0],
+        })
+      },
+    ];
 
     return (
 
