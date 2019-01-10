@@ -42,6 +42,8 @@ import { classUpdate } from '../../request/leanCloud'
 import { req } from '../../redux/actions/req'
 import * as Animatable from 'react-native-animatable';
 import AppleStyleSwipeableRow from '../../components/Swipeable'
+import AnimationRow from '../../components/AnimationRow'
+
 
 const Archive = IUSE + "archive"
 
@@ -72,10 +74,10 @@ const Archive = IUSE + "archive"
         ...param,
         ...res,
       }
-      handleView && await handleView.fadeOutLeft(1000)
+      handleView && await handleView.remove()
       dispatch(addListNormalizrEntity(IUSE, entity))
       await dispatch(claerByID(IRECORD, id))
-      handleView && await handleView.fadeIn(300)
+      handleView && await handleView.reset()
     },
     delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
@@ -93,11 +95,11 @@ const Archive = IUSE + "archive"
               ...param,
               ...res
             }
-            handleView && await handleView.fadeOutLeft(1000)
+            handleView && await handleView.remove()
             dispatch(addNormalizrEntity(IUSE, entity))
             await dispatch(claerByID(IUSE, objectId))
             await dispatch(claerByID(IRECORD, objectId))
-            handleView && await handleView.fadeIn(300)
+            handleView && await handleView.reset()
             return res;
           }
         }]
@@ -174,7 +176,7 @@ export default class Record extends Component {
     const isSelf = user === this.props.user.objectId
 
     return (
-      <Animatable.View
+      <AnimationRow
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <AppleStyleSwipeableRow
@@ -213,12 +215,12 @@ export default class Record extends Component {
           } : {
             type: 'secondary',
             onPress: () => {
-              this.props.navigation.navigate('cardSetting',
-                { iCardId, iUseId: item.objectId })
+              this.props.navigation.navigate('cardInfo',
+                { iCardId })
               // this.setState({ openIndex: -1 })
               // this._deleteRow(item)
             },
-            component: this._renderSwipeOutDeleteBtn('更多', '#388e3c', 'more-vertical'),
+            component: this._renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
             backgroundColor: '#fdfbfb'
           }, {
             type: 'delete',
@@ -254,7 +256,7 @@ export default class Record extends Component {
               })
             }}/>
         </AppleStyleSwipeableRow>
-      </Animatable.View>
+      </AnimationRow>
     )
   }
 
@@ -289,88 +291,12 @@ export default class Record extends Component {
   }
 }
 
-const width = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-
-  },
   list: {
     flex: 1,
-    backgroundColor: 'white',
     overflow: 'hidden',
-  },
-
-  text: {
-    marginLeft: 5,
-    fontSize: 16,
-    color: 'rgb(150,150,150)'
-  },
-  subText: {
-    // marginTop: 10,
-    fontSize: 14,
-    fontWeight: '500',
-    color: 'rgb(200,200,200)'
-  },
-  date: {
-    fontSize: 14,
-    color: 'rgb(100,100,100)'
-  },
-
-  subRow: {
-    flexDirection: 'row',
-    // backgroundColor:'red',
-    // alignItems: 'center'
-  },
-  des: {
-    // marginLeft: 10
-
-  },
-  card: {
-    // marginTop:10,
-    // margin: 5,
-    backgroundColor: "#f9f9f9",
-    // backgroundColor:'red',
-    // borderRadius: 5,
-    width: width / 2 - 15,
-    marginHorizontal: 5,
-    borderRadius: 10,
-
-  },
-  row: {
-    // backgroundColor: 'white',
-    paddingHorizontal: 10,
-    paddingVertical: 30,
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'space-between',
-
-  },
-
-  img: {
-    width: '100%',
-    height: 250,
-    borderRadius: 10,
-  },
-  arrowView: {
-    borderBottomWidth: StyleSheet.hairlineWidth * 2,
-    borderRightWidth: StyleSheet.hairlineWidth * 2,
-    borderColor: '#8c8c85',
-    transform: [{ rotate: '315deg' }],
-    marginRight: 5,
-    width: 10,
-    height: 10,
-  },
-  rightView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rowText: {
-    fontSize: 13,
-    marginRight: 5
   }
-
 })
 
 

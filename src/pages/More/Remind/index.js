@@ -50,7 +50,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { update } from '../../../redux/module/leancloud'
 import { shadeBlend } from '../../../../helps/util'
 import * as Animatable from 'react-native-animatable';
-
+import AnimationRow from '../../../components/AnimationRow'
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
 export const daysText = (recordDay) => {
@@ -135,9 +135,9 @@ function PrefixInteger(num, length) {
           ...res
         }
 
-         handleView && await handleView.fadeOutLeft(1000)
+         handleView && await handleView.remove()
         await  dispatch(addNormalizrEntity(ICARD, entity))
-         handleView && await handleView.fadeIn(300)
+         handleView && await handleView.reset()
 
         return res;
         // Toast.show('修改配置成功~!')
@@ -268,7 +268,7 @@ export default class Remind extends Component {
     }
 
     return (
-      <Animatable.View
+      <AnimationRow
         useNativeDriver
         ref={res => this.handleViewRef['habit' + index] = res}>
         <AppleStyleSwipeableRow
@@ -354,13 +354,13 @@ export default class Remind extends Component {
           </StyledButton>
         </AppleStyleSwipeableRow
 >
-      </Animatable.View>
+      </AnimationRow>
     )
 
   }
 
   _keyExtractor = (item, index) => {
-    const key = item.objectId || index;
+    const key = item.objectId + item.notifyTime || index;
     return key + '';
   }
 
