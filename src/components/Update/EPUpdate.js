@@ -14,7 +14,9 @@ import {
 } from 'react-native'
 import Toast from 'react-native-simple-toast'
 
-const setTimeoutDelay = (delayInMilliseconds) => new Promise((resolve) => setTimeout(resolve,delayInMilliseconds));
+const setTimeoutDelay = (delayInMilliseconds) => new Promise((resolve) => {
+  const timer = setTimeout(()=>resolve(timer),delayInMilliseconds)
+});
 const interactionManagerDelay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 import { push } from '../../redux/nav'
 import Pop from '../../components/Pop'
@@ -117,8 +119,7 @@ export const epUpdate = async () => {
     //远程接口
 
     const timeId = await setTimeoutDelay(10000)
-    console.log('timeId:', timeId);
-    clearTimeout(timeId)
+    timeId && clearTimeout(timeId)
     await interactionManagerDelay()
 
     let remoteData = await send(appUpdateInfo()).then(res => res.json())

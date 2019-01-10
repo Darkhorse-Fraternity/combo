@@ -39,16 +39,16 @@ import {firstInstaller} from '../../../../helps/util'
         // This will switch to the App screen or auth screen and this loading
         // screen will be unmounted and thrown away.
         if (user.sessionToken) {
-          Toast.show('111')
-          await dispatch(search(false, {
-            where: {
-              ...dispatch(selfUser()),
-              statu: 'start'
-            },
-            order: '-time',
-            include: ICARD + ',iCard.user'
-          }, IUSE))
-          Toast.show('222')
+          // Toast.show('111')
+          // await dispatch(search(false, {
+          //   where: {
+          //     ...dispatch(selfUser()),
+          //     statu: 'start'
+          //   },
+          //   order: '-time',
+          //   include: ICARD + ',iCard.user'
+          // }, IUSE))
+          // Toast.show('222')
           dispatch( async (dispatch, getState) => {
             const state = getState()
             const { user } = state

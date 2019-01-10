@@ -67,12 +67,16 @@ export default class BaseSectionView extends Component {
 
   onScroll(e: Object) {
     let nativeEvent = e.nativeEvent;
-    const shouldShowloadMore = nativeEvent.contentSize.height >
-      nativeEvent.layoutMeasurement.height;
+    const shouldShowloadMore = nativeEvent.contentOffset.y >
+      nativeEvent.layoutMeasurement.height -50;
+
+
 
     this.state.shouldShowloadMore !== shouldShowloadMore &&
     this.setState({ shouldShowloadMore })
     // console.log('test:', shouldShowloadMore);
+    console.log('nativeEvent:', nativeEvent);
+    console.log('shouldShowloadMore:', shouldShowloadMore);
     this.props.onScroll && this.props.onScroll(arguments);
   }
 
@@ -119,13 +123,11 @@ export default class BaseSectionView extends Component {
       return;
     }
 
-    console.log('test:', '1111');
 
     // console.log('distanceFromEnd:', info.distanceFromEnd);
     // console.log('loadStatu:', this.props.loadStatu);
     if (this.state.shouldShowloadMore
     ) {
-      console.log('test:', '222');
       this.props.loadMore && this.props.loadMore();
     }
 
@@ -140,29 +142,30 @@ export default class BaseSectionView extends Component {
 
     const { loadStatu, data, sections } = this.props
 
-    const hasData = sections.length > 0 || data.length > 0
+    // const hasData = sections.length > 0 || data.length > 0
 
     // console.log('data:',this.props.data, hasData);
 
-
-    if (loadStatu === LIST_LOAD_MORE) {
-      return (
-        <View style={styles.footer}>
-          <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
-                             animating={true}/>
-        </View>
-      );
-    } else if (hasData && loadStatu === LIST_LOAD_NO_MORE &&
-      this.state.shouldShowloadMore) {
-
-      return (
-        <View style={styles.footer}>
-          <Text style={{ color: 'rgb(150,150,150)' }}>没有更多了</Text>
-        </View>
-      );
-    } else {
-      return null;
+    if(this.state.shouldShowloadMore){
+      if (loadStatu === LIST_LOAD_NO_MORE ) {
+        return (
+          <View style={styles.footer}>
+            <Text style={{ color: 'rgb(150,150,150)' }}>没有更多了</Text>
+          </View>
+        );
+      }else {
+        return (
+          <View style={styles.footer}>
+            <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
+                               animating={true}/>
+          </View>
+        )
+      }
     }
+
+
+
+    return null;
   }
 
 

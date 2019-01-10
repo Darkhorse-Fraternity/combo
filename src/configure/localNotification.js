@@ -354,13 +354,19 @@ export default class LocalNotification extends Component {
 
         if (calendaId) {
           delete objEvents[calendaId]
-          if (item.statu !== 'start' ||
-            notifyTimes === undefined
-            || notifyTimes.length === 0) {
-            //已经删除了或归档,就不用提醒了。
-            //删除calendar 数据
+        }
+        // console.log('item:', item);
+        if (item.statu !== 'start' ||
+          notifyTimes === undefined
+          || notifyTimes.length === 0) {
+          //已经删除了或归档,就不用提醒了。
+          //删除calendar 数据
+          if(calendaId){
             return  RNCalendarEvents.removeEvent(calendaId)
+          }else {
+            return
           }
+
         }
 
 
