@@ -17,7 +17,7 @@ import {
   Dimensions,
   FlatList as FlatListAndroid
 } from 'react-native'
-import { SectionList, FlatList as FlatListIOS,  } from 'react-navigation'
+import { SectionList, FlatList as FlatListIOS, } from 'react-navigation'
 import ExceptionView, { ExceptionType } from './ExceptionView';
 import { is } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
@@ -66,11 +66,15 @@ export default class BaseSectionView extends Component {
 
 
   onScroll(e: Object) {
-    let nativeEvent = e.nativeEvent;
-    const shouldShowloadMore = nativeEvent.contentOffset.y >
-      nativeEvent.layoutMeasurement.height -100;
+    const nativeEvent = e.nativeEvent;
+    const { contentSize, contentOffset, layoutMeasurement } = nativeEvent
+    const layoutMeasurementHeight = layoutMeasurement.height
+
+    const shouldShowloadMore = contentSize.height > layoutMeasurementHeight
+      || contentOffset.y > layoutMeasurementHeight - 100;
 
 
+    // console.log('nativeEvent:', nativeEvent);
 
     // TODO 这样写会导致，已有数据时候，直接往下拉，会有一瞬间renderFooter，似乎是转化时间有问题
     this.state.shouldShowloadMore !== shouldShowloadMore &&
@@ -143,37 +147,40 @@ export default class BaseSectionView extends Component {
 
     const { loadStatu, data, sections } = this.props
 
-    // const hasData = sections.length > 0 || data.length > 0
+    const hasData = sections.length > 0 || data.length > 0
 
     // console.log('data:',this.props.data, hasData);
 
-    if(this.state.shouldShowloadMore){
-      if (loadStatu === LIST_LOAD_NO_MORE ) {
+
+    if (this.state.shouldShowloadMore && hasData) {
+      if (loadStatu === LIST_LOAD_NO_MORE) {
         return (
           <View style={styles.footer}>
             <Text style={{ color: 'rgb(150,150,150)' }}>没有更多了</Text>
           </View>
         );
-      }else {
-        return (
-          <View style={styles.footer}>
-            <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
-                               animating={true}/>
-          </View>
-        )
+      } else {
+        if (loadStatu === LIST_LOAD_MORE || loadStatu === LIST_NORMAL) {
+          return (
+            <View style={styles.footer}>
+              <ActivityIndicator style={{ marginTop: 8, marginBottom: 8 }} size='small'
+                                 animating={true}/>
+            </View>
+          )
+        }
+
       }
     }
 
 
-
-    return <View style={{height:50}}/>;
+    return <View style={{ height: 50 }}/>;
   }
 
 
   _keyExtractor = (item, index) => {
-     const id =  typeof item === 'object' ? item.objectId : item
+    const id = typeof item === 'object' ? item.objectId : item
 
-    const key =  id || index;
+    const key = id || index;
     return key + '';
   }
 
@@ -194,7 +201,7 @@ export default class BaseSectionView extends Component {
       style,
       ...otherProps
     } = this.props
-    const FlatList = Platform.os === 'ios'? FlatListIOS : FlatListAndroid
+    const FlatList = Platform.os === 'ios' ? FlatListIOS : FlatListAndroid
     const TableView = sections.length > 0 ? SectionList : FlatList
 
     // console.log('loadStatu:', loadStatu);
