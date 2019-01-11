@@ -15,7 +15,7 @@ import { search } from '../../../redux/module/leancloud'
 import { selfUser } from '../../../request/LCModle'
 import { IUSE, ICARD } from '../../../redux/reqKeys'
 import {firstInstaller} from '../../../../helps/util'
-
+import Indicators from '../../../components/Indicators'
 
 @connect(
   state => ({}),
@@ -89,7 +89,8 @@ export default class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size={'large'}/>
+        <Indicators size={'large'}/>
+        {/*<ActivityIndicator size={'large'}/>*/}
         {/*<StatusBar barStyle="default" />*/}
       </View>
     );

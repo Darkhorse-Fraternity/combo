@@ -31,8 +31,8 @@ export default class RNUpdate extends Component {
         updateBtnHeight: 38,
         updateBtnText: "立即更新",
         theme: 1,
-        bannerWidth: 250,
-        bannerHeight: 120,
+        bannerWidth: 60,
+        bannerHeight: 60,
         bannerResizeMode: 'contain',
         successTips: "", // 包下载成功的提示
         errorTips: "", // 下载发生错误的提示
@@ -251,7 +251,7 @@ export default class RNUpdate extends Component {
                     style={{
                         width: bannerWidth,
                         height: bannerHeight,
-                        resizeMode: bannerResizeMode
+                        // resizeMode: bannerResizeMode
                     }}
                     source={bannerImage}>
                 </Image>
@@ -299,6 +299,7 @@ const styles = StyleSheet.create({
         borderRadius:5,
         alignItems: "center",
         justifyContent: 'center',
+        marginTop:10,
     },
 
 })

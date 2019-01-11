@@ -19,7 +19,7 @@ export const StyledContent = styled.View`
     shadow-color: #979797;
     shadow-offset: 0px 0px;   
     elevation: 5;
-    margin:5px
+    margin:5px;
 `
 
 export const StyledContent2 = styled.View`

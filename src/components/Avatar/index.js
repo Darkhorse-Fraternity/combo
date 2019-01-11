@@ -58,10 +58,19 @@ export default class Avatar extends PureComponent {
     let avatarUrl = (avatar ? avatar.url : headimgurl)
     avatarUrl = !avatarUrl ?avatarUrl:add_Leancloud_Thumbnail_Suffix(avatarUrl,radius*3,radius*3)
     const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../source/img/my/my_head.png')
+      require('../../../source/img/my/icon-60.png')
 
 
     // console.log('avatarUrl:', avatarUrl);
+
+    if(!avatarUrl){
+      return (
+        <StyledAvatar
+          style={{margin:5}}
+          radius={radius *0.75}
+          source={avatarSource}/>
+      )
+    }
 
     return (
       <StyledContent radius={radius}>

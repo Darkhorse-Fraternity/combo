@@ -14,7 +14,9 @@ import {
   Text,
   TouchableOpacity,
   Platform,
-  SectionList
+  SectionList,
+  AsyncStorage,
+  Alert
 } from 'react-native'
 import { FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -24,6 +26,7 @@ import { search, } from '../../redux/module/leancloud'
 import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import { selfUser } from '../../request/LCModle'
+import DeviceInfo from 'react-native-device-info'
 import {
   StyledContent,
   StyledHeader,
@@ -35,7 +38,7 @@ import {
 } from './style'
 import { strings } from '../../../locales/i18n';
 import Item from './Item'
-import Rate from 'react-native-rate'
+import Rate, { AndroidMarket } from 'react-native-rate'
 import _ from 'lodash'
 
 let hasTryRate = false
@@ -84,35 +87,43 @@ let hasTryRate = false
           const key = 'AndroidRateTime'
           const time = await AsyncStorage.getItem(key);
 
-
           //如果time 不存在或者当前时间大于time 则提醒
-          if (!time) {
-
-          }
-          Alert.alert(
-            '给我们一个好评吧!',
-            'Thanks♪(･ω･)ﾉ',
-            [{
-              text: '取消', onPress: async () => {
-                //存一个20天后提醒的时间
-                await AsyncStorage.setItem(key, '1');
-              }
-            }, {
-              text: '确定', onPress: () => {
-                const options = {
-                  preferInApp: true,
+          if (!time || moment().isAfter(moment(time))) {
+            Alert.alert(
+              '给我们一个好评吧!',
+              'Thanks♪(･ω･)ﾉ',
+              [{
+                text: '取消', onPress: async () => {
+                  //存一个20天后提醒的时间
+                  const nextTime = moment().add(3, 'weeks').toISOString()
+                  await AsyncStorage.setItem(key, nextTime);
                 }
-                Rate.rate(options, async (success) => {
-                  if (success) {
-                    //存一个两月后提醒的时间
-                    await AsyncStorage.setItem(key, '1');
-                  } else {
-                    //存一个20天后提醒的时间
-                    await AsyncStorage.setItem(key, '1');
+              }, {
+                text: '确定', onPress: () => {
+
+                  const url = 'market://details?id=' + DeviceInfo.getBundleId()
+                  // Linking.openURL(url)
+                  const options = {
+                    preferredAndroidMarket: AndroidMarket.Other,
+                    OtherAndroidURL: url,
+                    fallbackPlatformURL: "https://icard.leanapp.cn/",
                   }
-                })
-              }
-            }])
+
+                  Rate.rate(options, async (success) => {
+                    if (success) {
+                      //存一个两月后提醒的时间
+                      const nextTime = moment().add(9, 'weeks').toISOString()
+                      await AsyncStorage.setItem(key, nextTime);
+                    } else {
+                      //存一个20天后提醒的时间
+                      const nextTime = moment().add(3, 'weeks').toISOString()
+                      await AsyncStorage.setItem(key, nextTime);
+                    }
+                  })
+                }
+              }])
+          }
+
         }
       }
       return dispatch(doCardWithNone(data))

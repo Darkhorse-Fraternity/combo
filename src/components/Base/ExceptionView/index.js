@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-
+import Indicators from '../../Indicators'
 import {
   StyledContent,
   StyledReportBtn,
@@ -116,7 +116,7 @@ export default class ExceptionView extends Component {
     switch (type) {
       case ExceptionType.Loading:
         return (
-          <StyledActivityIndicator color="#9e9e9e" size="large"/>
+          <Indicators  size="large"/>
         );
       case ExceptionType.NoData:
       case ExceptionType.NetError:

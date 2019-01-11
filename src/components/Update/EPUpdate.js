@@ -118,14 +118,15 @@ export const epUpdate = async () => {
 
     //远程接口
 
+
     const timeId = await setTimeoutDelay(10000)
     timeId && clearTimeout(timeId)
-    await interactionManagerDelay()
-
+    // await interactionManagerDelay()
     let remoteData = await send(appUpdateInfo()).then(res => res.json())
     remoteData = remoteData && remoteData.result || {}
 
     const { desc, version } = remoteData
+    // console.log('version:', version);
     const appVersion = DeviceInfo.getVersion() + ''
     // console.log('remoteData:', version, appVersion);
     // console.log('compareVersion:', compareVersion(version, appVersion));

@@ -70,18 +70,9 @@ export default class AnimationRow extends PureComponent {
 
   reset = () => {
     new Promise((resolve) => {
-      Animated.parallel([
-        Animated.timing(this._animated, {
-          toValue: 1,
-          duration: 0,
-        }),
-        Animated.timing(this._swiperAnimated, {
-          toValue: 0,
-          duration:0,
-        })
-      ]).start(({ finished }) => {
-        resolve(finished)
-      })
+      this._animated.setValue(1)
+      this._swiperAnimated.setValue(0)
+      resolve()
     })
   }
 

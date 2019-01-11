@@ -16,7 +16,7 @@ export const StyledContent = styled.View`
     
 `
 export const StyledReportBtn = styled(Button)`
-    margin: 25px 0px;
+    margin: 15px 0px;
     padding: 10px 15px;
     background-color: white;
     border-radius: 5px;

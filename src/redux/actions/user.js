@@ -308,7 +308,7 @@ export function register(state: Object): Function {
 
 
       const userExsit = await getUserExsitJudge('phoneNumber', state.phone)
-      console.log('userExsit:', userExsit);
+      // console.log('userExsit:', userExsit);
       if (userExsit === false) {
         //将匿名用户转化
         // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
