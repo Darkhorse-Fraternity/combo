@@ -26,6 +26,7 @@ export const COURSE = 'Course'
 export const WECHATLOGIN = 'WeChatLogin'
 export const QQLOGIN = 'QQLogin'
 export const FLAG = 'Flag'
+export const FLAGRECORD = 'FlagRecord'
 
 export const registerReqKeys = [
   ICARD,
@@ -46,7 +47,8 @@ export const registerReqKeys = [
   WECHATLOGIN,
   QQLOGIN,
   ENCH,
-  FLAG
+  FLAG,
+  FLAGRECORD
 //设置初始值
 ]
 
@@ -63,7 +65,8 @@ export const registerListKeys = [
   COURSE,
   ORDER,
   ENCH,
-  FLAG
+  FLAG,
+  FLAGRECORD
 ]
 
 export const registerNormalizrKeys = registerListKeys

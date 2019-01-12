@@ -28,7 +28,7 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledItem = styled(Button)`
- padding: 20px ;
+ padding: 0px 20px 20px 20px ;
 `
 
 export const StyledItemImage = styled(FastImage)`
@@ -36,6 +36,7 @@ export const StyledItemImage = styled(FastImage)`
   height: 250px;
   border-radius: 20px;
   align-self: center;
+  background-color: #fdfbfb;
 `
 
 export const StyledItemText = styled.Text`

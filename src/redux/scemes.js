@@ -1,13 +1,14 @@
 import {
-    registerListKeys,
-    ICARD,
-    USER,
-    IUSE,
-    COURSE,
-    IDO,
-    ORDER,
-    ENCH,
-    FLAG
+  registerListKeys,
+  ICARD,
+  USER,
+  IUSE,
+  COURSE,
+  IDO,
+  ORDER,
+  ENCH,
+  FLAG,
+  FLAGRECORD
 } from './reqKeys'
 
 import { schema } from 'normalizr';
@@ -28,9 +29,10 @@ const iCard = entity(ICARD, { user, course })
 export const iUse = entity(IUSE, { user, iCard })
 
 export const iDO = entity(IDO, { user, iCard, iUse })
-export const order = entity(ORDER,{user,iCard})
-export const ench = entity(ENCH,{user})
-
+export const order = entity(ORDER, { user, iCard })
+export const ench = entity(ENCH, { user })
+export const flag = entity(FLAG, { iCard })
+export const flagRecord = entity(FLAGRECORD, { flag, iCard })
 //
 // const config = {
 //     [IUSE]:{USER,ICARD},
@@ -55,28 +57,30 @@ export const ench = entity(ENCH,{user})
 // }
 
 export const entitys = {
-    [ICARD]: iCard,
-    [IUSE]: iUse,
-    [COURSE]: course,
-    [IDO]: iDO,
-    [USER]: user,
-    [ORDER]: order,
-    [ENCH]: ench
+  [ICARD]: iCard,
+  [IUSE]: iUse,
+  [COURSE]: course,
+  [IDO]: iDO,
+  [USER]: user,
+  [ORDER]: order,
+  [ENCH]: ench,
+  [FLAG]: flag,
+  [FLAGRECORD]: flagRecord,
 }
 
 const auto = (key) => list(entitys[key] || entity(key))
 
 function autoKeys(keys) {
-    const schemas = {}
-    keys.forEach(key => {
-        schemas[key] = auto(key)
-    })
-    return schemas
+  const schemas = {}
+  keys.forEach(key => {
+    schemas[key] = auto(key)
+  })
+  return schemas
 }
 
 //请求识别的key对应的sceme
 export const schemas = {
-    ...autoKeys(registerListKeys),
+  ...autoKeys(registerListKeys),
 }
 
 

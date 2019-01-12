@@ -10,13 +10,29 @@ import tracker from './googleAnalytics'
 const allowInDevMode = false
 import DeviceInfo from 'react-native-device-info'
 import { Platform } from 'react-native'
+
+
+
+
+
+const DeviceBugInfo = async ()=>{
+
+  return `Brand: ${DeviceInfo.getBrand()}\n`+
+    `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n`+
+    `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n`+
+    `Model: ${DeviceInfo.getModel()}\n`+
+    `SystemVersion: ${DeviceInfo.getSystemVersion()}\n`+
+    `APILevel: ${DeviceInfo.getAPILevel()}`
+
+}
+
 //=================================================
 // ADVANCED use case:
 const errorHandler = (e, isFatal) => {
   if (isFatal) {
     //发送错误信息给服务器
     const errorString = `${e.name} ${e.message}`
-    uploadErrorString('js', errorString,isFatal)
+    uploadErrorString('js\n', errorString + '\n'+ DeviceBugInfo(),isFatal)
     Alert.alert(
       strings('error.Unexpected_error_occurred'),
       strings('error.We_will_need_to_restart_the_app'),
@@ -44,7 +60,7 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 setNativeExceptionHandler((errorString) => {
   //发送错误信息给服务器
 
-  uploadErrorString('native', errorString,true)
+  uploadErrorString('native\n', errorString+ '\n'+ DeviceBugInfo(),true)
   //You can do something like call an api to report to dev team here
   // When you call setNativeExceptionHandler, react-native-exception-handler sets a
   // Native Exception Handler popup which supports restart on error in case of android.

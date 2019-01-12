@@ -14,6 +14,14 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import FlipButton from '../../../components/Button/FlipButton'
+import {
+  FLAG,
+  ICARD,
+  FLAGRECORD
+} from '../../../redux/reqKeys'
+import moment from 'moment'
+import { selfUser, iCard,Flag } from '../../../request/LCModle'
+import { add } from '../../../redux/module/leancloud'
 
 import {
   StyledSafeAreaView,
@@ -28,15 +36,40 @@ import {
 
 
 @connect(
-  state => ({}),
-  dispatch => ({})
+  (state, props) => ({
+    iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardId),
+    flag: state.normalizr.get(FLAG).get(props.navigation.state.params.flagId),
+  }),
+  dispatch => ({
+    join: async (icardId, flagId) => {
+      const param = {
+        // notifyTime:option&&option.notifyTime||"20.00",
+        joinDate: { "__type": "Date", "iso": moment().toISOString() },
+        ...dispatch(selfUser()),
+        ...iCard(icardId),
+        ...Flag(flagId),
+        // include: 'avatar'
+      }
+      const res = await dispatch(add(param, FLAGRECORD))
+      const entity = {
+        ...param,
+        ...res
+      }
+
+
+      return null
+    }
+  })
 )
 
 
 export default class FlagDetail extends PureComponent {
   constructor(props: Object) {
     super(props);
-
+    this.state = {
+      load: false,
+      flip: false
+    }
   }
 
   static propTypes = {};
@@ -50,10 +83,11 @@ export default class FlagDetail extends PureComponent {
     }
   };
   _renderHeader = () => {
+    const flag = this.props.flag
     return (
       <StyledHeader>
         <StyledHeaderTitle>
-          早起副本
+          {flag.get('title')}
         </StyledHeaderTitle>
       </StyledHeader>
     )
@@ -61,35 +95,46 @@ export default class FlagDetail extends PureComponent {
 
 
   _renderTaskDes = () => {
+    const { iCard } = this.props
+    const limitTimes = iCard.get("limitTimes")
     return (
       <StyledFlagView>
         <StyledTitle>
           副本任务
         </StyledTitle>
         <StyledDiscrib>
-          每天5:00-7:00内点击首页 活动卡片-早起 完成打卡
+          {`每天 ${limitTimes.get(0)} - ${limitTimes.get(1)} 内点击首页 副本卡片-早起 完成打卡`}
         </StyledDiscrib>
       </StyledFlagView>
     )
   }
   _renderTaskDesMore = () => {
+
+    const iCard = this.props.iCard.toJS()
+    const flag = this.props.flag.toJS()
+    const { limitTimes } = iCard
+    const {
+      cost,
+      startDate = moment('00:00', 'HH:mm'),
+      endDate = moment('00:00', 'HH:mm')
+    } = flag
     return (
       <StyledFlagView>
         <StyledTitle>
           具体要求
         </StyledTitle>
         <StyledDiscrib>
-          活动时间：1月4日 - 1月4日
+          活动时间：{moment(startDate).format('MM月DD日')} - {moment(endDate).format('MM月DD日')}
         </StyledDiscrib>
         <StyledDiscrib>
           打卡时段：
-          <Text style={{ color: '#f5943f' }}> 5:00 - 7:00 (北京时间)</Text>
+          <Text style={{ color: '#f5943f' }}>{limitTimes[0]} - {limitTimes[1]} (北京时间)</Text>
         </StyledDiscrib>
         <StyledDiscrib>
-          押金： <Text style={{ color: '#f5943f' }}>5元 </Text>
+          押金： <Text style={{ color: '#f5943f' }}>{cost}元 </Text>
         </StyledDiscrib>
         <StyledDiscrib>
-          报名截止：1月3日 23:59
+          报名截止：{moment(startDate).subtract(1, 'seconds').format('MM月DD日 h:mm')}
         </StyledDiscrib>
       </StyledFlagView>
     )
@@ -144,8 +189,13 @@ export default class FlagDetail extends PureComponent {
 
   render(): ReactElement<any> {
 
+    // const { iCard, flag } = this.props
+
+    const {iCardId, flagId}  =   this.props.navigation.state.params
+
+
     return (
-      <StyledSafeAreaView>
+      <StyledSafeAreaView forceInset={{ top: 'never' }}>
         <StyledContent>
           {this._renderHeader()}
           <StyledCover source={require('../../../../source/img/flag/flag_up.jpeg')}/>
@@ -159,11 +209,13 @@ export default class FlagDetail extends PureComponent {
         <FlipButton
           faceText={'马上\n参与'}
           backText={'已参与'}
-          load={false}
-          flip={false}
-          animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
+          load={this.state.load}
+          flip={this.state.flip}
+          // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
           onPress={() => {
-
+            this.setState({ load: true })
+            this.props.join(iCardId, flagId)
+            this.setState({ load: false, flip: true })
           }}
           containStyle={styles.containStyle}
           style={styles.flip}/>

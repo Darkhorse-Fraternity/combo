@@ -12,6 +12,7 @@ import {
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 
+import { FLAG,ICARD  } from '../../redux/reqKeys'
 
 import {
   StyledContent,
@@ -21,6 +22,8 @@ import {
   StyledItemImage,
   StyledItemText
 } from './style'
+import LCList from '../../components/Base/LCList';
+
 
 
 @connect(
@@ -64,13 +67,14 @@ export default class Flag extends PureComponent {
 
 
   __renderItem = ({ item, index }) => {
+    const {title,objectId,iCard} = item
     return (
       <StyledItem onPress={()=>{
-        this.props.navigation.navigate('flagDetail')
+        this.props.navigation.navigate('flagDetail',{flagId:objectId,iCardId:iCard})
       }}>
-        <StyledItemImage source={item.img}/>
+        <StyledItemImage source={{uri:item.cover.url}}/>
         <StyledItemText>
-          {item.title}
+          {title}
         </StyledItemText>
       </StyledItem>
     )
@@ -79,27 +83,31 @@ export default class Flag extends PureComponent {
 
   render(): ReactElement<any> {
 
-    const data = [{img:require('../../../source/img/flag/flag_up.jpeg'),
-      title:'早起副本'
-    }]
+    // const data = [{img:require('../../../source/img/flag/flag_up.jpeg'),
+    //   title:'早起副本'
+    // }]
+
+    const param = {
+      where: {
+        state:1,
+      },
+      include: ICARD,
+    }
 
     return (
       <StyledContent>
-        <FlatList
-          refreshing={false}
-          onRefresh={() => {
-
-          }}
+        <LCList
           style={{flex:1}}
-          data={data}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
+          reqKey={FLAG}
+          //dataMap={(data)=>{
+          //   return {[OPENHISTORYLIST]:data.list}
+          //}}
+          reqParam={param}
           renderItem={this.__renderItem}
-          keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
+          // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
         />
       </StyledContent>
     );

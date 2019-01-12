@@ -37,6 +37,9 @@ export function iDo(id) {
 
 
 export function Course(id) {
-  return pointModel('course', id)
+  return pointModel('Course', id)
 }
 
+export function Flag(id) {
+  return pointModel('Flag', id)
+}

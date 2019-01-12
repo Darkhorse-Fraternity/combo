@@ -90,7 +90,7 @@ export default class CardUse extends PureComponent {
 
     return (
       <StyledContent forceInset={{ top: 'never' }}>
-        {this._renderHeader}
+        {this._renderHeader()}
         <LCList
           // ListHeaderComponent={this._renderHeader}
           style={{ flex: 1 }}
