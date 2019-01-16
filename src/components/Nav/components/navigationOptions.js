@@ -1,6 +1,7 @@
 import HeaderBackImage from './HeaderBackImage'
 import {
   Platform,
+  StatusBar
 } from 'react-native'
 import { strings } from '../../../../locales/i18n';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -21,7 +22,7 @@ export const defaultNavigationOptions = {
     },
     borderBottomColor: '#F5FCFF',
     elevation: 0,
-    paddingTop: (Platform.OS === "ios" || Platform.Version < 20) ? 0 : 25,
+    marginTop: (Platform.OS === "ios" || Platform.Version < 20) ? 0 : StatusBar.currentHeight  ,
     //headerBackTitle:' '
   },
   headerTintColor: 'black',

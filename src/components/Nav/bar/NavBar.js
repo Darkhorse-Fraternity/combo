@@ -9,7 +9,8 @@ import {
   Image,
   TouchableOpacity,
   TouchableNativeFeedback,
-  Platform
+  Platform,
+  StatusBar
 } from 'react-native';
 
 import Button from "../../../components/Button";
@@ -33,7 +34,7 @@ export default class BackTabBar extends Component {
     return (
       <View style={[styles.tabs, {
         backgroundColor:
-        this.props.backgroundColor || 'white', marginTop: Platform.OS === 'ios' ? 0 : 20
+        this.props.backgroundColor || 'white', marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
       }, this.props.style,]}>
         <Button
           background={background}
