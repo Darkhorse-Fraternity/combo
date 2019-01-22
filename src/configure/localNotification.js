@@ -3,7 +3,7 @@ import {
   Platform
 } from 'react-native'
 import moment from 'moment'
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux'
@@ -80,7 +80,7 @@ export function nowNotification() {
   })
 )
 
-export default class LocalNotification extends Component {
+export default class LocalNotification extends PureComponent {
   constructor(props: Object) {
     super(props);
     props.load()
@@ -94,6 +94,8 @@ export default class LocalNotification extends Component {
 
   componentWillReceiveProps(props) {
 
+
+    //TODO 应该做一个检索  只有当检索值不同时才进入更新
     this.debounceRemind(props)
 
   }

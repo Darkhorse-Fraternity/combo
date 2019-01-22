@@ -22,12 +22,13 @@ import {
 } from '../../../redux/reqKeys'
 import moment from 'moment'
 import { selfUser, iCard, Flag } from '../../../request/LCModle'
-import { add, find,updateByID } from '../../../redux/module/leancloud'
+import { add, find, update } from '../../../redux/module/leancloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import PayForm, { FormID } from '../../../components/Form/Pay'
 import { formValueSelector } from 'redux-form/immutable'
 import { ORDER } from '../../../redux/reqKeys'
 import { pay } from '../../../redux/module/pay'
+
 const selector = formValueSelector(FormID) // <-- same as form name
 import {
   StyledSafeAreaView,
@@ -53,100 +54,127 @@ import { list, entitys } from '../../../redux/scemes'
     join: async (icardId, flagId, title, amount) => {
 
       //缴费。
-      // let radio = selector(state, 'PayRadio')
-      // radio = radio && radio.toJS && radio.toJS()
-      //
-      // if(!radio){return}
-      //
-      // const ItemId = radio.ItemId
-      // const types = {
-      //   "alipay": 'alipay_app',
-      //   'wechat': 'weixin_app',
-      //   'cash': 'cash',
-      // }
-      //
-      // const Atanisi = Math.floor(Math.random() * 999999);
-      // const tradeId = new Date().getTime() + Atanisi + ''
-      // const description = title + '的加入费用'
+      let radio = selector(state, 'PayRadio')
+      radio = radio && radio.toJS && radio.toJS()
+
+      if(!radio){return}
+
+      const ItemId = radio.ItemId
+      const types = {
+        "alipay": 'alipay_app',
+        'wechat': 'weixin_app',
+        'cash': 'cash',
+      }
+
+      const Atanisi = Math.floor(Math.random() * 999999);
+      const tradeId = new Date().getTime() + Atanisi + ''
+      const description = "副本_"+title + '的加入费用'
       // //添加订单
-      // await dispatch(add({
-      //   description,
-      //   amount,
-      //   // ...pointModel('beneficiary', userId, '_User'),
-      //   payType: types[ItemId],
-      //   tradeId: Number(tradeId),
-      //   ...dispatch(selfUser()),
-      //   ...iCard(objectId),
-      // }, ORDER))
-      //
-      // //添加支付
-      // const payRes = await dispatch(
-      //   pay(types[ItemId],
-      //     tradeId,
-      //     price,
-      //     "",
-      //     description))
-      //
-      // Pop.hide()
-      // if(payRes.payload.statu !== 'suc' ){
-      //   return
-      // }
+      await dispatch(add({
+        description,
+        amount,
+        // ...pointModel('beneficiary', userId, '_User'),
+        payType: types[ItemId],
+        tradeId: Number(tradeId),
+        ...dispatch(selfUser()),
+        ...iCard(objectId),
+      }, ORDER))
+
+      //添加支付
+      const payRes = await dispatch(
+        pay(types[ItemId],
+          tradeId,
+          price,
+          "",
+          description))
+
+      Pop.hide()
+      if(payRes.payload.statu !== 'suc' ){
+        return
+      }
       //添加卡片iUse。
       //如果为空则添加卡片。如果在已归档中则修改卡片。
       //在iUse中做一个记录。以便在UI中做保护，在iDo中做给予截断并作出flagRecord done完成记录
 
-      const iUseRef = await dispatch(find(IUSE,{
+      const iUseRef = await dispatch(find(IUSE, {
         where: {
           ...dispatch(selfUser()),
           ...iCard(icardId),
-          statu:{ "$ne": 'del'}
-      }}))
+          statu: { "$ne": 'del' }
+        }
+      }))
       const iUseModal = iUseRef.results[0]
 
-      if(iUseModal){
+      if (iUseModal &&  (iUseModal.Flag &&
+          iUseModal.Flag.objectId !== flagId
+          || iUseModal.state !== 'start' )) {
         //进行update。
-        dispatch(updateByID(IUSE,iUseModal.objectId,{
+        const iUseRes = await dispatch(update(iUseModal.objectId, {
           ...Flag(flagId),
-          statu:'start'
-        }))
+          statu: 'start'
+        }, IUSE))
 
-      }else {
-        //创建一个、
-       const addParam = {
-         ...dispatch(selfUser()),
-         ...iCard(icardId),
-         ...Flag(flagId),
-         privacy: 2,
-         time: 0,
-         statu:'start',
-         doneDate: { "__type": "Date", "iso": moment('2017-03-20').toISOString() },
-       }
-       const addRes =  dispatch(add(addParam,IUSE))
-        const addEntity = {
-          ...addParam,
-          ...addRes
+
+        const iUseEntity = {
+          ...iUseRes,
+          ...iUseModal,
+          Flag: {
+            objectId: flagId,
+          },
         }
-        dispatch(addListNormalizrEntity(IUSE, addEntity))
+
+        dispatch(addListNormalizrEntity(IUSE, iUseEntity))
+      } else {
+        //创建一个、
+        dispatch(async (dispatch, getState) => {
+          const state = getState()
+          const addParam = {
+            ...dispatch(selfUser()),
+            ...iCard(icardId),
+            ...Flag(flagId),
+            privacy: 2,
+            time: 0,
+            statu: 'start',
+            doneDate: { "__type": "Date", "iso": moment('2017-03-20').toISOString() },
+          }
+          const addRes = await  dispatch(add(addParam, IUSE))
+          const addEntity = {
+            ...addParam,
+            ...addRes,
+            user: {
+              objectId: state.user.data.objectId
+            },
+            iCard: {
+              objectId: icardId,
+            },
+            Flag: {
+              objectId: flagId,
+            },
+          }
+          dispatch(addListNormalizrEntity(IUSE, addEntity))
+        })
+
       }
 
 
-
       //添加记录。
-      // const param = {
-      //   // notifyTime:option&&option.notifyTime||"20.00",
-      //   joinDate: { "__type": "Date", "iso": moment().toISOString() },
-      //   ...dispatch(selfUser()),
-      //   ...iCard(icardId),
-      //   ...Flag(flagId),
-      //   // include: 'avatar'
-      // }
-      // const res = await dispatch(add(param, FLAGRECORD))
-      // const entity = {
-      //   ...param,
-      //   ...res
-      // }
-      //
-      // return dispatch(addNormalizrEntity(FLAGRECORD, entity))
+      const param = {
+        // notifyTime:option&&option.notifyTime||"20.00",
+        joinDate: { "__type": "Date", "iso": moment().toISOString() },
+        ...dispatch(selfUser()),
+        ...iCard(icardId),
+        ...Flag(flagId),
+        title:description,
+        amount:amount
+        // include: 'avatar'
+      }
+      const res = await dispatch(add(param, FLAGRECORD))
+      const entity = {
+        ...param,
+        ...res
+      }
+
+      return dispatch(addNormalizrEntity(FLAGRECORD, entity))
     },
     exist: async (icardId, flagId) => {
       const params = {
@@ -299,7 +327,7 @@ export default class FlagDetail extends PureComponent {
     // const { iCard, flag } = this.props
 
     const { iCardId, flagId } = this.props.navigation.state.params
-    const { selfUse, join, flag } = this.props
+    const { selfUse, join, flag ,iCard} = this.props
     const title = flag.get('title')
     const cost = flag.get('cost')
 
@@ -324,11 +352,11 @@ export default class FlagDetail extends PureComponent {
           onPress={async () => {
             Pop.show(<PayForm
               onSubmit={async () => {
-                try{
+                try {
                   this.setState({ load: true })
-                  await join(iCardId, flagId, title, cost)
+                  await join(iCardId, flagId, iCard.get('title'), cost)
                   this.setState({ load: false, flip: true })
-                }catch (e){
+                } catch (e) {
                   this.setState({ load: false })
                 }
 

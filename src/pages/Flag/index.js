@@ -11,6 +11,8 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import moment from 'moment'
+
 
 import { FLAG,ICARD  } from '../../redux/reqKeys'
 
@@ -90,6 +92,8 @@ export default class Flag extends PureComponent {
     const param = {
       where: {
         state:1,
+        endDate:{"$gt":{"__type":"Date","iso":moment().toISOString()}},
+        settled:false,
       },
       include: ICARD,
     }

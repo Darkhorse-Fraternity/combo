@@ -21,7 +21,7 @@ import {
 import { FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { ICARD, IUSE, IDO } from '../../redux/reqKeys'
+import { ICARD, IUSE, IDO, FLAG } from '../../redux/reqKeys'
 import { search, } from '../../redux/module/leancloud'
 import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
@@ -48,6 +48,7 @@ let hasTryRate = false
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
+    Flag: state.normalizr.get(FLAG),
     refreshLoad: state.req.get(IUSE).get("load"),
     load: state.req.get(IDO).get("load"),
     user: state.user.data
@@ -64,7 +65,7 @@ let hasTryRate = false
           statu: 'start'
         },
         order: '-time',
-        include: ICARD + ',iCard.user'
+        include: FLAG + "," + ICARD + ',iCard.user'
       }, IUSE))
     },
     done: async (data) => {
@@ -231,7 +232,16 @@ export default class Punch extends Component {
 
     const views = data.item.map((item, index) => {
       const data = item
+      const flag = this.props.Flag.get(item.Flag)
+      let showFB = false
+      if (flag) {
+        const flagEndDate = flag.get('endDate') ? moment(flag.get('endDate').get('iso'))
+          : moment('24:00', 'HH:mm')
+        showFB = moment().isBefore(flagEndDate)
+        // console.log('endDate:', flag.get('endDate'));
+      }
 
+      // console.log('flag:', flag);
       // console.log('data:', data);
       const iCardId = data[ICARD]
       let iCard = this.props.iCard.get(iCardId)
@@ -239,6 +249,7 @@ export default class Punch extends Component {
       let iconAndColor = iCard.get('iconAndColor')
       iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
       return (<Item
+        showFB={showFB}
         key={index + iCard.get('title')}
         name={iconAndColor.name}
         color={iconAndColor.color}

@@ -31,6 +31,7 @@ export const StyledCard = styled.View`
     shadow-radius:3px;
     shadow-color: ${props => props.backgroundColor};
     shadow-offset: 2px 2px; 
+   overflow: hidden;
 `
 
 
@@ -64,4 +65,28 @@ export const StyledInner = styled.View`
   align-items: center;
   justify-content: center;
   height: ${props => props.height};
+`
+
+
+export const StyledTop = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  
+`
+
+export const StyledFB = styled.View`
+  background-color: #ff1744;
+  align-items: center;
+  padding: 3px 15px;
+  margin-left: -20px;
+ transform: rotate(315deg);
+ margin-top: -8px;
+ height:20px;
+
+  
+`
+
+export const StyledFBText = styled.Text`
+  color: white;
+  font-weight:500;
 `

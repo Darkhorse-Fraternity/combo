@@ -95,6 +95,7 @@ export const StyledHeaderTitle = styled.Text`
     font-size: 30px;
     font-weight: 700;
     margin-top: 15px;
+    max-width: 200px;
 `
 
 

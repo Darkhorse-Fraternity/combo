@@ -5,7 +5,7 @@
 
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Dimensions
@@ -23,14 +23,16 @@ import {
   StyledButton,
   StyledIconImage,
   StyledCardDis,
-  StyledInner
+  StyledInner,
+  StyledFB,
+  StyledFBText,
+  StyledTop
 } from './style'
 
 const width = Dimensions.get('window').width
 const itemWidth = (width - 60) / 3
 const iconWidth = itemWidth / 2
 import svgs from '../../../../source/icons'
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { debounce } from 'lodash'; // 4.0.8
 
 
@@ -39,10 +41,9 @@ import { debounce } from 'lodash'; // 4.0.8
   dispatch => ({})
 )
 
-export default class PunchItem extends Component {
+export default class PunchItem extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       flip: props.done
     }
@@ -53,11 +54,13 @@ export default class PunchItem extends Component {
     done: PropTypes.bool,
     name: PropTypes.string,
     color: PropTypes.string,
+    showFB: PropTypes.bool,
   };
   static defaultProps = {
     done: false,
     name: 'sun',
-    color: '#afd2ef'
+    color: '#afd2ef',
+    showFB: false,
   };
 
 
@@ -83,7 +86,17 @@ export default class PunchItem extends Component {
 
   render(): ReactElement<any> {
 
-    const { title, done,onLongPress, style, name, color, onPress, discrib } = this.props
+    const {
+      title,
+      done,
+      onLongPress,
+      style,
+      name,
+      color,
+      onPress,
+      discrib,
+      showFB
+    } = this.props
     const { flip } = this.state
 
     const self = this
@@ -93,9 +106,9 @@ export default class PunchItem extends Component {
         onLongPress={onLongPress}
         onPress={() => {
           // if (!flip) {
-            onPress && onPress(flip,() => {
-              self.setState({ flip: !flip })
-            })
+          onPress && onPress(flip, () => {
+            self.setState({ flip: !flip })
+          })
           // }
         }}>
         <StyledFlipCard
@@ -111,9 +124,16 @@ export default class PunchItem extends Component {
           <StyledCard
             width={itemWidth}
             backgroundColor={color}>
-            <StyledCardDis>
-              {discrib}
-            </StyledCardDis>
+            <StyledTop>
+              {showFB? <StyledFB>
+                <StyledFBText color={color}>
+                  副本
+                </StyledFBText>
+              </StyledFB>:<View/>}
+              <StyledCardDis>
+                {discrib}
+              </StyledCardDis>
+            </StyledTop>
             <StyledInner height={iconWidth}>
               <StyledIconImage
                 size={iconWidth}
@@ -134,11 +154,10 @@ export default class PunchItem extends Component {
             </StyledCardTitleView>
           </StyledCard>
           <StyledCard
-
             width={itemWidth}
             backgroundColor={color}>
             <StyledCardDis
-              style={{ color: 'white',fontWeight: '600' }}
+              style={{ color: 'white', fontWeight: '600' }}
             >
               +1
             </StyledCardDis>

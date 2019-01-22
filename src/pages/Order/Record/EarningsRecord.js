@@ -77,7 +77,7 @@ export default class EarningsRecord extends Component {
     const param = {
       'where': {
         ...pointModel('beneficiary', user.objectId),
-        statu:'1'
+        // statu:'1'
       },
       include: 'iCard',
     }
