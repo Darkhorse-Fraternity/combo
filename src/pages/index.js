@@ -22,6 +22,7 @@ import CardUse from './NewCard/CardUse'
 import CourseChoose from './Course/Choose'
 import CourseCreat from './Course/Creat'
 import CourseRelease from './Course/Release'
+import FlagRecord from './Flag/Record'
 // import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings'
 import Earnings from './Order/Earnings'
@@ -31,8 +32,11 @@ import Punch from './Punch'
 import WebView from '../components/Base/BaseWebView'
 import Flag from './Flag'
 import FlagDetail from './Flag/Detail'
+import FRDetail from './Flag/FRDetail'
+
 export const otherRoute = {
   web: { screen: WebView },
+  FlagRecord:{screen:FlagRecord},
   earnings: { screen: Earnings },
   remind: { screen: Remind },
   cash: { screen: Cash },
@@ -58,7 +62,9 @@ export const otherRoute = {
   cardUse: { screen: CardUse },
   more: { screen: More },
   login: { screen: LoginView },
-  flagDetail:{screen: FlagDetail }
+  flagDetail:{screen: FlagDetail },
+  FRDetail:{screen: FRDetail}
+
   // pptDescribe: { screen: PPTDescribe },
 }
 

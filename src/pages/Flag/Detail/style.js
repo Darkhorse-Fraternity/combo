@@ -7,6 +7,8 @@
 import styled from "styled-components";
 import { SafeAreaView } from 'react-navigation';
 import FastImage from 'react-native-fast-image'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import Button from '../../../components/Button'
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
     flex: 1;
@@ -53,4 +55,16 @@ export const StyledDiscrib = styled.Text`
   font-size: 17px;
   fontStyle:italic;
   line-height: 25px;
+`
+
+export const StyledBtn = styled(Button)`
+   margin-right: 15px;
+`
+
+export const StyledEvilIcons = styled(EvilIcons)`
+    align-self: center;
+`
+
+export const StyledHeaderBtnText = styled.Text`
+
 `

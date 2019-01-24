@@ -38,7 +38,9 @@ import {
   StyledCover,
   StyledFlagView,
   StyledTitle,
-  StyledDiscrib
+  StyledDiscrib,
+  StyledBtn,
+  StyledHeaderBtnText
 } from './style'
 import Pop from '../../../components/Pop'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
@@ -51,13 +53,15 @@ import { list, entitys } from '../../../redux/scemes'
     selfUse: state.user.data,
   }),
   dispatch => ({
-    join: async (icardId, flagId, title, amount,endDate) => {
+    join: async (icardId, flagId, title, amount, endDate) => {
 
       //缴费。
       let radio = selector(state, 'PayRadio')
       radio = radio && radio.toJS && radio.toJS()
 
-      if(!radio){return}
+      if (!radio) {
+        return
+      }
 
       const ItemId = radio.ItemId
       const types = {
@@ -68,7 +72,7 @@ import { list, entitys } from '../../../redux/scemes'
 
       const Atanisi = Math.floor(Math.random() * 999999);
       const tradeId = new Date().getTime() + Atanisi + ''
-      const description = "副本_"+title + '的加入费用'
+      const description = "副本_" + title + '的加入费用'
       // //添加订单
       await dispatch(add({
         description,
@@ -89,7 +93,7 @@ import { list, entitys } from '../../../redux/scemes'
           description))
 
       Pop.hide()
-      if(payRes.payload.statu !== 'suc' ){
+      if (payRes.payload.statu !== 'suc') {
         return
       }
       //添加卡片iUse。
@@ -105,7 +109,7 @@ import { list, entitys } from '../../../redux/scemes'
       }))
       const iUseModal = iUseRef.results[0]
 
-      if (iUseModal && iUseModal.state === 'stop' ) {
+      if (iUseModal && iUseModal.state === 'stop') {
         //进行update。
         const iUseRes = await dispatch(update(iUseModal.objectId, {
           statu: 'start'
@@ -153,9 +157,9 @@ import { list, entitys } from '../../../redux/scemes'
         ...dispatch(selfUser()),
         ...iCard(icardId),
         ...Flag(flagId),
-        title:description,
-        amount:amount,
-        endDate:endDate
+        title: description,
+        amount: amount,
+        endDate: endDate
         // include: 'avatar'
       }
       const res = await dispatch(add(param, FLAGRECORD))
@@ -197,7 +201,16 @@ export default class FlagDetail extends PureComponent {
     // const {params} = state;
     return {
       title: '',
-
+      headerRight: (<StyledBtn
+        hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
+        onPress={() => {
+          props.navigation.navigate('FlagRecord',
+            {iCardId:props.navigation.state.params.iCardId})
+        }}>
+        <StyledHeaderBtnText>
+          副本记录
+        </StyledHeaderBtnText>
+      </StyledBtn>),
     }
   };
 
@@ -241,7 +254,7 @@ export default class FlagDetail extends PureComponent {
     const { limitTimes } = iCard
     const {
       cost,
-      startDate ,
+      startDate,
       endDate
     } = flag
     return (
@@ -318,12 +331,12 @@ export default class FlagDetail extends PureComponent {
     // const { iCard, flag } = this.props
 
     const { iCardId, flagId } = this.props.navigation.state.params
-    const { selfUse, join, flag ,iCard} = this.props
+    const { selfUse, join, flag, iCard } = this.props
     const title = flag.get('title')
     const cost = flag.get('cost')
     const endDate = flag.get('endDate').toJS()
 
-    console.log('endDate:', endDate);
+    // console.log('endDate:', endDate);
     const overdue = moment().isAfter(moment(endDate.iso))
 
     return (
@@ -341,13 +354,13 @@ export default class FlagDetail extends PureComponent {
         <FlipButton
           disabled={this.state.flip || overdue}
           faceText={'马上\n参与'}
-          backText={overdue?'已过期':'已参与'}
+          backText={overdue ? '已过期' : '已参与'}
           load={this.state.load}
           flip={this.state.flip}
           // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
           onPress={async () => {
             //如果时间超过报名时间，则这边拒绝掉。
-            if(moment().isAfter(moment(endDate.iso))){
+            if (moment().isAfter(moment(endDate.iso))) {
               return
             }
 
@@ -355,7 +368,7 @@ export default class FlagDetail extends PureComponent {
               onSubmit={async () => {
                 try {
                   this.setState({ load: true })
-                  await join(iCardId, flagId, iCard.get('title'), cost,endDate)
+                  await join(iCardId, flagId, iCard.get('title'), cost, endDate)
                   this.setState({ load: false, flip: true })
                 } catch (e) {
                   this.setState({ load: false })
