@@ -81,7 +81,7 @@ export default class CostRecord extends Component {
     const param = {
       'where': {
         ...pointModel('user', user.objectId),
-        // statu:'1'
+        statu:'1'
       },
       include: 'iCard',
     }

@@ -94,6 +94,7 @@ import { list, entitys } from '../../../redux/scemes'
             description))
 
         Pop.hide()
+        console.log('payRes:', payRes);
         if (payRes.payload.statu !== 'suc') {
           return
         }
@@ -123,7 +124,7 @@ import { list, entitys } from '../../../redux/scemes'
           }
 
           dispatch(addListNormalizrEntity(IUSE, iUseEntity))
-        } else {
+        } else if(!iUseModal) {
           //创建一个、
           dispatch(async (dispatch, getState) => {
             const state = getState()
@@ -371,8 +372,8 @@ export default class FlagDetail extends PureComponent {
               onSubmit={async () => {
                 try {
                   this.setState({ load: true })
-                  await join(iCardId, flagId, iCard.get('title'), cost, endDate)
-                  this.setState({ load: false, flip: true })
+                  const res =  await join(iCardId, flagId, iCard.get('title'), cost, endDate)
+                  this.setState({ load: false, flip: !!res })
                 } catch (e) {
                   console.log('e:', e.message);
                   this.setState({ load: false })
