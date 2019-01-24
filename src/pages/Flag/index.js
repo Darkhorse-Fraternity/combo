@@ -92,7 +92,8 @@ export default class Flag extends PureComponent {
     const param = {
       where: {
         state:1,
-        endDate:{"$gt":{"__type":"Date","iso":moment().toISOString()}},
+        startDate:{"$gte":{"__type":"Date","iso":moment('00:00', 'HH:mm').add(1, 'day').toISOString()}},
+        // endDate:{"$lte":{"__type":"Date","iso":moment('24:00', 'HH:mm').add(1, 'day').toISOString()}},
         settled:false,
       },
       include: ICARD,

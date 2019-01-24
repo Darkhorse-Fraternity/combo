@@ -43,3 +43,7 @@ export function Course(id) {
 export function Flag(id) {
   return pointModel('Flag', id)
 }
+
+export function FlagRecord(id) {
+  return pointModel('FlagRecord', id)
+}

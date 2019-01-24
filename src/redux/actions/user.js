@@ -384,9 +384,10 @@ function _loginSucceed(response: Object): Object {
   //只保存 sessionToken
   return async dispatch => {
     if (response) {
-      const { sessionToken = '', username = '' } = response
-      const userString = JSON.stringify(response)
-      Keychain.setGenericPassword(username, userString);
+      // const { sessionToken = '', username = '' } = response
+      // const userString = JSON.stringify(response)
+      // Keychain.setGenericPassword(username, userString);
+      updateLocation(response)
       return dispatch(loginSucceed(response));
     }
   }
@@ -521,8 +522,15 @@ export function update() {
   return async dispatch => {
     const params = usersMe()
     const res = await get(params)
+    updateLocation(res)
     return dispatch(updateUserData(res))
   }
+}
+
+function updateLocation(user) {
+  const { sessionToken = '', username = '' } = user
+  const userString = JSON.stringify(user)
+  Keychain.setGenericPassword(username, userString);
 }
 
 

@@ -27,13 +27,13 @@ export const course = entity(COURSE, { user })
 
 const iCard = entity(ICARD, { user, course })
 export const flag = entity(FLAG, { iCard })
-export const iUse = entity(IUSE, { user, iCard, Flag:flag })
+export const iUse = entity(IUSE, { user, iCard })
 
 export const iDO = entity(IDO, { user, iCard, iUse })
 export const order = entity(ORDER, { user, iCard })
 export const ench = entity(ENCH, { user })
 
-export const flagRecord = entity(FLAGRECORD, { flag, iCard })
+export const flagRecord = entity(FLAGRECORD, { Flag:flag, iCard })
 //
 // const config = {
 //     [IUSE]:{USER,ICARD},

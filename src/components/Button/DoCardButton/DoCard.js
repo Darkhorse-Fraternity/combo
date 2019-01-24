@@ -5,7 +5,7 @@ import { ICARD, IDO, IUSE, IDOCALENDAR, FLAG } from '../../../redux/reqKeys'
 import moment from 'moment'
 
 import { classCreatNewOne } from '../../../request/leanCloud'
-import { selfUser, iCard, iUse,Flag } from '../../../request/LCModle'
+import { selfUser, iCard, iUse,Flag,FlagRecord } from '../../../request/LCModle'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import { add } from '../../../redux/actions/list'
 import { req, reqChangeData } from '../../../redux/actions/req'
@@ -33,8 +33,8 @@ export function creatIDO(iUseM, iCardM, other) {
 
     //TODO 查询是否需要上传副本信息
 
-    const FlagModal = iUseM.Flag && {
-      ...Flag(iUseM.Flag)
+    const FlagRecordModal = iUseM.fr && {
+      ...FlagRecord(iUseM.fr)
     }
 
     const iDoParma = {
@@ -42,7 +42,7 @@ export function creatIDO(iUseM, iCardM, other) {
       ...iUse(iUseM.objectId),
       ...iCard(iCardM.objectId),
       ...other,
-      ...FlagModal,
+      ...FlagRecordModal,
     }
 
     const iDoP = classCreatNewOne(IDO, iDoParma)

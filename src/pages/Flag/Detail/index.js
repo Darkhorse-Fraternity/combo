@@ -51,7 +51,7 @@ import { list, entitys } from '../../../redux/scemes'
     selfUse: state.user.data,
   }),
   dispatch => ({
-    join: async (icardId, flagId, title, amount) => {
+    join: async (icardId, flagId, title, amount,endDate) => {
 
       //缴费。
       let radio = selector(state, 'PayRadio')
@@ -105,12 +105,9 @@ import { list, entitys } from '../../../redux/scemes'
       }))
       const iUseModal = iUseRef.results[0]
 
-      if (iUseModal &&  (iUseModal.Flag &&
-          iUseModal.Flag.objectId !== flagId
-          || iUseModal.state !== 'start' )) {
+      if (iUseModal && iUseModal.state === 'stop' ) {
         //进行update。
         const iUseRes = await dispatch(update(iUseModal.objectId, {
-          ...Flag(flagId),
           statu: 'start'
         }, IUSE))
 
@@ -118,9 +115,6 @@ import { list, entitys } from '../../../redux/scemes'
         const iUseEntity = {
           ...iUseRes,
           ...iUseModal,
-          Flag: {
-            objectId: flagId,
-          },
         }
 
         dispatch(addListNormalizrEntity(IUSE, iUseEntity))
@@ -131,7 +125,6 @@ import { list, entitys } from '../../../redux/scemes'
           const addParam = {
             ...dispatch(selfUser()),
             ...iCard(icardId),
-            ...Flag(flagId),
             privacy: 2,
             time: 0,
             statu: 'start',
@@ -147,9 +140,6 @@ import { list, entitys } from '../../../redux/scemes'
             iCard: {
               objectId: icardId,
             },
-            Flag: {
-              objectId: flagId,
-            },
           }
           dispatch(addListNormalizrEntity(IUSE, addEntity))
         })
@@ -160,12 +150,12 @@ import { list, entitys } from '../../../redux/scemes'
       //添加记录。
       const param = {
         // notifyTime:option&&option.notifyTime||"20.00",
-        joinDate: { "__type": "Date", "iso": moment().toISOString() },
         ...dispatch(selfUser()),
         ...iCard(icardId),
         ...Flag(flagId),
         title:description,
-        amount:amount
+        amount:amount,
+        endDate:endDate
         // include: 'avatar'
       }
       const res = await dispatch(add(param, FLAGRECORD))
@@ -207,6 +197,7 @@ export default class FlagDetail extends PureComponent {
     // const {params} = state;
     return {
       title: '',
+
     }
   };
 
@@ -250,8 +241,8 @@ export default class FlagDetail extends PureComponent {
     const { limitTimes } = iCard
     const {
       cost,
-      startDate = moment('00:00', 'HH:mm'),
-      endDate = moment('00:00', 'HH:mm')
+      startDate ,
+      endDate
     } = flag
     return (
       <StyledFlagView>
@@ -259,7 +250,7 @@ export default class FlagDetail extends PureComponent {
           具体要求
         </StyledTitle>
         <StyledDiscrib>
-          活动时间：{moment(startDate).format('MM月DD日')} - {moment(endDate).format('MM月DD日')}
+          活动时间：{moment(startDate.iso).format('MM月DD日')} - {moment(startDate.iso).format('MM月DD日')}
         </StyledDiscrib>
         <StyledDiscrib>
           打卡时段：
@@ -269,7 +260,7 @@ export default class FlagDetail extends PureComponent {
           押金： <Text style={{ color: '#f5943f' }}>{cost}元 </Text>
         </StyledDiscrib>
         <StyledDiscrib>
-          报名截止：{moment(startDate).subtract(1, 'seconds').format('MM月DD日 h:mm')}
+          报名截止：{moment(startDate.iso).subtract(1, 'seconds').format('MM月DD日 h:mm')}
         </StyledDiscrib>
       </StyledFlagView>
     )
@@ -330,6 +321,10 @@ export default class FlagDetail extends PureComponent {
     const { selfUse, join, flag ,iCard} = this.props
     const title = flag.get('title')
     const cost = flag.get('cost')
+    const endDate = flag.get('endDate').toJS()
+
+    console.log('endDate:', endDate);
+    const overdue = moment().isAfter(moment(endDate.iso))
 
     return (
       <StyledSafeAreaView forceInset={{ top: 'never' }}>
@@ -344,17 +339,23 @@ export default class FlagDetail extends PureComponent {
           <View style={{ height: 100 }}/>
         </StyledContent>
         <FlipButton
+          disabled={this.state.flip || overdue}
           faceText={'马上\n参与'}
-          backText={'已参与'}
+          backText={overdue?'已过期':'已参与'}
           load={this.state.load}
           flip={this.state.flip}
           // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
           onPress={async () => {
+            //如果时间超过报名时间，则这边拒绝掉。
+            if(moment().isAfter(moment(endDate.iso))){
+              return
+            }
+
             Pop.show(<PayForm
               onSubmit={async () => {
                 try {
                   this.setState({ load: true })
-                  await join(iCardId, flagId, iCard.get('title'), cost)
+                  await join(iCardId, flagId, iCard.get('title'), cost,endDate)
                   this.setState({ load: false, flip: true })
                 } catch (e) {
                   this.setState({ load: false })

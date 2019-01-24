@@ -33,7 +33,8 @@ const withPreventDoubleClick = (WrappedComponent) => {
 const ButtonAndroid = (props) => {
     return <TouchableNativeFeedback
         delayPressIn={0}
-        background={TouchableNativeFeedback.SelectableBackground()} // eslint-disable-line new-cap
+        background={TouchableNativeFeedback.SelectableBackground &&
+        TouchableNativeFeedback.SelectableBackground()} // eslint-disable-line new-cap
         {...props}
     >
         {props.children && props.children.length > 1 || props.style ? (

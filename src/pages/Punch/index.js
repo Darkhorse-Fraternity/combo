@@ -21,7 +21,7 @@ import {
 import { FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { ICARD, IUSE, IDO, FLAG } from '../../redux/reqKeys'
+import { ICARD, IUSE, IDO, FLAG,FLAGRECORD } from '../../redux/reqKeys'
 import { search, } from '../../redux/module/leancloud'
 import { doCardWithNone } from '../../components/Button/DoCardButton/doCardWithNone'
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
@@ -49,16 +49,27 @@ let hasTryRate = false
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
     Flag: state.normalizr.get(FLAG),
+    flagRecord:state.normalizr.get(FLAGRECORD),
     refreshLoad: state.req.get(IUSE).get("load"),
     load: state.req.get(IDO).get("load"),
     user: state.user.data
   }),
   (dispatch, props) => ({
     //...bindActionCreators({},dispatch)
+
+    fbSearch: () => {
+      return dispatch(search(false, {
+        where: {
+          ...dispatch(selfUser()),
+          doneDate: {"$exists":false},
+          endDate: {"$gte":{"__type":"Date","iso":moment("24:00",'HH:mm').toISOString()}}
+        },
+        include: FLAG
+      }, FLAGRECORD))
+    },
     search: () => {
 
       //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
-
       return dispatch(search(false, {
         where: {
           ...dispatch(selfUser()),
@@ -134,6 +145,9 @@ let hasTryRate = false
 export default class Punch extends Component {
   constructor(props: Object) {
     super(props);
+    this.state = {
+      frMap:{}
+    }
   }
 
   static propTypes = {};
@@ -154,6 +168,7 @@ export default class Punch extends Component {
   };
 
   componentDidMount() {
+    this.props.fbSearch()
     const loadStatu = this.props.data.get('loadStatu')
     loadStatu === 'LIST_FIRST_JOIN' && this.props.search()
     // this.props.exist()
@@ -164,6 +179,15 @@ export default class Punch extends Component {
     if (nextProps.user.objectId &&
       nextProps.user.objectId !== this.props.user.objectId) {
       this.props.search()
+    }
+    if(this.props.flagRecord !== nextProps.flagRecord){
+      const flagRecordModal = nextProps.flagRecord.toJS()
+      const frValue = Object.values(flagRecordModal)
+      const frMap = {}
+      frValue && frValue.forEach(item => {
+        frMap[item.iCard] = item
+      })
+      this.setState({frMap})
     }
   }
 
@@ -230,21 +254,29 @@ export default class Punch extends Component {
     // return (<View/>)
 
 
+
+    // const
     const views = data.item.map((item, index) => {
       const data = item
-      const flag = this.props.Flag.get(item.Flag)
-      let showFB = false
-      if (flag) {
-        const flagEndDate = flag.get('endDate') ? moment(flag.get('endDate').get('iso'))
-          : moment('24:00', 'HH:mm')
-        showFB = moment().isBefore(flagEndDate)
-        // console.log('endDate:', flag.get('endDate'));
-      }
+      // const flag = this.props.Flag.get(item.Flag)
+
+      // if (flag) {
+      //   const flagEndDate = flag.get('endDate') ? moment(flag.get('endDate').get('iso'))
+      //     : moment('24:00', 'HH:mm')
+      //   showFB = moment().isBefore(flagEndDate)
+      //   // console.log('endDate:', flag.get('endDate'));
+      // }
 
       // console.log('flag:', flag);
       // console.log('data:', data);
       const iCardId = data[ICARD]
       let iCard = this.props.iCard.get(iCardId)
+      let showFB = !!this.state.frMap[iCardId]
+      if(showFB){
+        //TODO,这边感觉有点不安全。
+        data.fr = this.state.frMap[iCardId].objectId
+      }
+
       const done = moment(0, "HH").isBefore(data.doneDate.iso)
       let iconAndColor = iCard.get('iconAndColor')
       iconAndColor = iconAndColor ? iconAndColor.toJS() : {}
