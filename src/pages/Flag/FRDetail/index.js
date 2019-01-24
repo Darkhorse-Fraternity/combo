@@ -81,7 +81,7 @@ export default class FRDetail extends PureComponent {
           </StyledCellName>
         </StyledInner>
         <StyledCellDiscrib>
-          {doneDate?moment(doneDate.iso).format("YYYY-MM-DD HH:mm"):'未完成'}
+          {doneDate?moment(doneDate.iso).format("MM-DD HH:mm"):'未完成'}
         </StyledCellDiscrib>
       </StyledItem>
     )
