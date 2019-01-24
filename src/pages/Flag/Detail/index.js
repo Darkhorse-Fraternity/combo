@@ -380,7 +380,7 @@ export default class FlagDetail extends PureComponent {
                 }
 
               }}
-              balance={selfUse.amount || 0}
+              balance={selfUse.balance || 0}
               price={cost}/>, {
               animationType: 'slide-up',
               wrapStyle: {

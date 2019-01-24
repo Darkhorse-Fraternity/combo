@@ -404,7 +404,7 @@ export default class CardInfo extends Component {
                   onSubmit={() => onSubmit(iCard, () => {
                     this.props.use(iCard)
                   })}
-                  balance={selfUse.amount || 0}
+                  balance={selfUse.balance || 0}
                   price={iCard.price}/>, {
                   animationType: 'slide-up',
                   wrapStyle: {
