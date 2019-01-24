@@ -94,7 +94,7 @@ export default class FlagRecord extends PureComponent {
     const param = {
       where: {
         ...iCard(this.props.navigation.state.params.iCardId),
-        // settled:true
+        settled:true
       },
       // order: 'doneDate',
       // include: 'user',
