@@ -169,7 +169,7 @@ export default class More extends Component {
         <StyledFuncView>
 
           <StyledIncome>
-            我的收益
+            我的钱包
           </StyledIncome>
 
           <StyledEntypoIcon
@@ -241,7 +241,7 @@ export default class More extends Component {
           navigation.navigate('remind');
         })}
 
-        {!isTourist && this._renderRow('我的收益', true, () => {
+        {!isTourist && this._renderRow('我的钱包', true, () => {
           navigation.navigate('earnings')
         })}
 

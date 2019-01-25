@@ -48,7 +48,6 @@ let hasTryRate = false
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
-    Flag: state.normalizr.get(FLAG),
     flagRecord:state.normalizr.get(FLAGRECORD),
     refreshLoad: state.req.get(IUSE).get("load"),
     load: state.req.get(IDO).get("load"),
@@ -62,7 +61,7 @@ let hasTryRate = false
         where: {
           ...dispatch(selfUser()),
           doneDate: {"$exists":false},
-          endDate: {"$gte":{"__type":"Date","iso":moment("24:00",'HH:mm').toISOString()}}
+          endDate: {"$gte":{"__type":"Date","iso":moment().toISOString()}}
         },
         include: FLAG
       }, FLAGRECORD))
@@ -272,9 +271,17 @@ export default class Punch extends Component {
       const iCardId = data[ICARD]
       let iCard = this.props.iCard.get(iCardId)
       let showFB = !!this.state.frMap[iCardId]
+
       if(showFB){
         //TODO,这边感觉有点不安全。
-        data.fr = this.state.frMap[iCardId].objectId
+        const fr = this.state.frMap[iCardId]
+        const {objectId ,startDate, endDate} = fr
+        const before = moment(startDate.iso)
+        const after = moment(endDate.iso)
+        const momentIn = moment().isBetween(before, after)
+        if(momentIn) {
+          data.fr = objectId
+        }
       }
 
       const done = moment(0, "HH").isBefore(data.doneDate.iso)

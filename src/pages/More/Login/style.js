@@ -17,8 +17,8 @@ export const StyledContent = styled.View`
 `
 
 export const StyledImage = styled.Image`
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     margin-top: ${props=> 50};
     align-self: center;
 `
@@ -29,6 +29,7 @@ export const StyledImageBottom = styled.Image`
 `
 
 export const SyledImageName = styled.Text`
+    margin-top: 10px;
     font-size: 20px;
     align-self: center;
 `

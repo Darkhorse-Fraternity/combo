@@ -84,7 +84,7 @@ export function shareToQQ(type: string, param: object = {}): Function {
         type: 'news',
         title: param.title || '金色光芒',
         description: param.description || '',
-        webpageUrl: param.webpageUrl || 'https://stg-icard.leanapp.cn/',
+        webpageUrl: param.webpageUrl || 'https://icard.leanapp.cn/',
         imageUrl: param.imageUrl || param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png',
       });
       // let result = {}

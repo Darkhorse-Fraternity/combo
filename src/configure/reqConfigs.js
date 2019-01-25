@@ -11,7 +11,8 @@ export const defaultHost = !__DEV__ ?
 
 export const apiHost = !__DEV__ ?
     /*release*/   'icard.leanapp.cn' :
-    /*debug*/     'stg-icard.leanapp.cn'
+    // /*debug*/     'stg-icard.leanapp.cn'
+  /*debug*/     'icard.leanapp.cn'
 
 
 let LeanCloud_APP_Session = '';

@@ -53,7 +53,9 @@ import { list, entitys } from '../../../redux/scemes'
     selfUse: state.user.data,
   }),
   dispatch => ({
-    join: (icardId, flagId, title, amount, endDate) => {
+    join: (icardId, flagId, title, flag) => {
+      const { cost, endDate ,startDate} = flag
+      const amount = cost
       return dispatch(async (dispatch, getState) => {
         const state = getState()
         //缴费。
@@ -94,7 +96,6 @@ import { list, entitys } from '../../../redux/scemes'
             description))
 
         Pop.hide()
-        console.log('payRes:', payRes);
         if (payRes.payload.statu !== 'suc') {
           return
         }
@@ -124,7 +125,7 @@ import { list, entitys } from '../../../redux/scemes'
           }
 
           dispatch(addListNormalizrEntity(IUSE, iUseEntity))
-        } else if(!iUseModal) {
+        } else if (!iUseModal) {
           //创建一个、
           dispatch(async (dispatch, getState) => {
             const state = getState()
@@ -161,7 +162,8 @@ import { list, entitys } from '../../../redux/scemes'
           ...Flag(flagId),
           title: description,
           amount: amount,
-          endDate: endDate
+          endDate: endDate,
+          startDate: startDate,
           // include: 'avatar'
         }
         const res = await dispatch(add(param, FLAGRECORD))
@@ -293,7 +295,7 @@ export default class FlagDetail extends PureComponent {
           为了用户更好的完成副本任务，本副本需要交纳押金
         </StyledDiscrib>
         <StyledDiscrib>
-          奖金结算：活动结束后,次日由平台审核并发送至【我的收益】
+          奖金结算：活动结束后,次日由平台审核并发送至【我的钱包】
         </StyledDiscrib>
         <StyledDiscrib>
           挑战失败：未能在规定时间内完成打卡的"赖床专业户"，
@@ -336,7 +338,7 @@ export default class FlagDetail extends PureComponent {
 
     const { iCardId, flagId } = this.props.navigation.state.params
     const { selfUse, join, flag, iCard } = this.props
-    const title = flag.get('title')
+    const flagModel = flag.toJS()
     const cost = flag.get('cost')
     const endDate = flag.get('endDate').toJS()
 
@@ -372,7 +374,7 @@ export default class FlagDetail extends PureComponent {
               onSubmit={async () => {
                 try {
                   this.setState({ load: true })
-                  const res =  await join(iCardId, flagId, iCard.get('title'), cost, endDate)
+                  const res = await join(iCardId, flagId, iCard.get('title'), flagModel)
                   this.setState({ load: false, flip: !!res })
                 } catch (e) {
                   console.log('e:', e.message);
