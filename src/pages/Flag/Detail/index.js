@@ -95,10 +95,10 @@ import { list, entitys } from '../../../redux/scemes'
             "",
             description))
 
-        Pop.hide()
         if (payRes.payload.statu !== 'suc') {
           return
         }
+        Pop.hide()
         //添加卡片iUse。
         //如果为空则添加卡片。如果在已归档中则修改卡片。
         //在iUse中做一个记录。以便在UI中做保护，在iDo中做给予截断并作出flagRecord done完成记录

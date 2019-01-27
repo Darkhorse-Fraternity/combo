@@ -23,12 +23,21 @@ export function pay(type, tradeId, amount, detail, description) {
 
   return async dispatch => {
 
+
+
+    // if(__DEV__){
+    //   await dispatch(req(payOrder('', tradeId)))
+    //   Toast.show('支付成功')
+    //   return dispatch(suc({}))
+    // }
+
+
     // console.log('paypre res:', res.data);
     if (type === 'weixin_app') {
 
       if (!WeChat.isWXAppInstalled()) {
         Toast.show('没有安装微信~！')
-        return;
+        return  dispatch(fail());
       }
 
       const ip = await getIp()
@@ -55,10 +64,13 @@ export function pay(type, tradeId, amount, detail, description) {
 
       // console.log('obj:', obj);
 
-      const wechatRes = await dispatch(wechatPay(obj))
+      const wechatRes = await WeChat.pay(obj)
+      Toast.show(JSON.stringify(wechatRes))
+      // console.log('wechatRes:', wechatRes);
       const { errCode } = wechatRes
       if (errCode === 0) {
-        await dispatch(req(payOrder('', tradeId)))
+        console.log('tradeId:', tradeId);
+        // await dispatch(req(payOrder('', tradeId)))
         Toast.show('支付成功')
         return dispatch(suc(wechatRes))
       } else {
@@ -77,8 +89,9 @@ export function pay(type, tradeId, amount, detail, description) {
       const { alipay_trade_app_pay_response } = aliPayRes
       if (alipay_trade_app_pay_response) {
         const { trade_no } = alipay_trade_app_pay_response
-        const params = payOrder(trade_no, tradeId)
-        await dispatch(req(params))
+        console.log('tradeId:', tradeId);
+        // const params = payOrder(trade_no, tradeId)
+        // await dispatch(req(params))
         Toast.show('支付成功')
         // console.log('lastRes:', lastRes);
         return dispatch(suc(aliPayRes))
@@ -99,17 +112,12 @@ export function pay(type, tradeId, amount, detail, description) {
 
 
 export function wechatPay(obj) {
-  return async dispatch => {
+  return  dispatch => {
     try {
-      const res = await WeChat.pay(obj)
+      return  WeChat.pay(obj)
       // Toast.show(res)
-      // console.log('wechat res:', res);
-      if (res.errCode === 0 && res.type === 'PayReq.Resp') {
+      // console.log('wechat res:', res);\
 
-
-        return res;
-
-      }
     } catch (e) {
 
       if (e instanceof WeChat.WechatError) {
@@ -143,10 +151,6 @@ export function aliPay(order) {
       let response = await Alipay.pay(order);
       // console.log('res', response);
       let { resultStatus, result, memo } = response;
-
-
-      // console.log('result:', response);
-
       if (resultStatus === '9000') {
         return JSON.parse(result);
         // let { code, msg, app_id, out_trade_no, trade_no,
