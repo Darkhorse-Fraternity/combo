@@ -11,7 +11,7 @@ import { ICARD, IUSE } from '../redux/reqKeys'
 import { localRemindLoad } from '../redux/actions/util'
 import RNCalendarEvents from 'react-native-calendar-events';
 import Toast from 'react-native-simple-toast'
-
+import * as immutable from 'immutable';
 import { debounce } from 'lodash'; // 4.0.8
 
 
@@ -92,11 +92,13 @@ export default class LocalNotification extends PureComponent {
   static propTypes = {};
   static defaultProps = {};
 
-  componentWillReceiveProps(props) {
-
+  componentWillReceiveProps(nextProps) {
 
     //TODO 应该做一个检索  只有当检索值不同时才进入更新
-    this.debounceRemind(props)
+    // if(!immutable.is(this.props, nextProps)){
+    this.debounceRemind(nextProps)
+    // }
+
 
   }
 
@@ -124,6 +126,7 @@ export default class LocalNotification extends PureComponent {
         return res
       })
 
+
       if (Platform.OS === 'ios') {
         this.dayNotification(array, localRemindData)
       } else {
@@ -131,7 +134,7 @@ export default class LocalNotification extends PureComponent {
       }
     }
   }
-  debounceRemind = debounce(this.remind, 1000, { leading: false, trailing: true })
+  debounceRemind = debounce(this.remind, 5000, { leading: false, trailing: true })
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //
@@ -294,6 +297,8 @@ export default class LocalNotification extends PureComponent {
   }
 
 
+  calendarSaved = {}
+
   calendarEvents = async (data, localRemindData) => {
 
 
@@ -351,8 +356,11 @@ export default class LocalNotification extends PureComponent {
             calendaId = id
           }
         })
+
+
         const { iCard, objectId } = item
         const { title, notifyText, notifyTimes, recordDay } = iCard
+
 
         if (calendaId) {
           delete objEvents[calendaId]
@@ -363,9 +371,9 @@ export default class LocalNotification extends PureComponent {
           || notifyTimes.length === 0) {
           //已经删除了或归档,就不用提醒了。
           //删除calendar 数据
-          if(calendaId){
-            return  RNCalendarEvents.removeEvent(calendaId)
-          }else {
+          if (calendaId) {
+            return RNCalendarEvents.removeEvent(calendaId)
+          } else {
             return
           }
 
@@ -424,18 +432,26 @@ export default class LocalNotification extends PureComponent {
         const name = nickname ? nickname + ',' : ''
         let idConfig = calendaId ? { id: calendaId } : {}
         // console.log('test:', title,idConfig);
-        await  RNCalendarEvents.saveEvent(
-          title,
-          {
-            ...idConfig,
-            startDate: startDate.toISOString(),
-            description: `来自小改变的提醒(${item.objectId})`,
-            recurrenceRule: recurrenceRule,
-            url: 'combo://combo',
-            // location: '#来自小改变的提醒-'+objectId+'#',
-            location: name + (notifyText || '锲而不舍,金石可镂!'),
-            alarms: alarms
-          })
+        const eventBody = {
+          ...idConfig,
+          startDate: startDate.toISOString(),
+          description: `来自小改变的提醒(${item.objectId})`,
+          recurrenceRule: recurrenceRule,
+          url: 'combo://combo',
+          // location: '#来自小改变的提醒-'+objectId+'#',
+          location: name + (notifyText || '锲而不舍,金石可镂!'),
+          alarms: alarms
+        }
+        if (calendaId) {
+          if (this.calendarSaved[calendaId]
+            && JSON.stringify(eventBody) === this.calendarSaved[calendaId]) {
+              return
+          } else {
+            this.calendarSaved[calendaId] = JSON.stringify(eventBody)
+          }
+        }
+
+        await  RNCalendarEvents.saveEvent(title, eventBody)
       })
       //将剩余的本地已被移的event 移除
       const ids2 = Object.keys(objEvents)

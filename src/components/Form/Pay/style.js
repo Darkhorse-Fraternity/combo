@@ -12,7 +12,8 @@ import IconAwesome from 'react-native-vector-icons/EvilIcons'
 
 export const StyledContent = styled.View`
     background-color: white;
-    
+    margin-bottom: -50px;
+    padding-bottom: 50px;
 `
 
 export const StyledHeaderView = styled.View`

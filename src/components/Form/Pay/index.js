@@ -134,6 +134,10 @@ export default class PayForm extends Component {
 
         const submitDisabled = !enableSumbmit || !!disabled || invalid
 
+
+
+
+
         return (
             <StyledContent>
                 <StyledHeaderView>

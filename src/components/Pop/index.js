@@ -49,7 +49,7 @@ export default {
     },
     hide() {
         if (popupInstance) {
-            Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
+            // Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
             popupInstance.hide();
             mContent = null;
         }
