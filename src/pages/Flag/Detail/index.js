@@ -87,6 +87,7 @@ import { list, entitys } from '../../../redux/scemes'
           ...iCard(icardId),
         }, ORDER))
 
+        // Pop.hide()
         //添加支付
         const payRes = await dispatch(
           pay(types[ItemId],

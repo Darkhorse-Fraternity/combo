@@ -136,7 +136,7 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
             buildConfigField "String", "CODEPUSH_KEY", '""'
             manifestPlaceholders = [isDebug:true]
         }

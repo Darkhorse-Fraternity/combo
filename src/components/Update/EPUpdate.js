@@ -119,7 +119,7 @@ export const epUpdate = async () => {
     //远程接口
 
 
-    const timeId = await setTimeoutDelay(10000)
+    const timeId = await setTimeoutDelay(5000)
     timeId && clearTimeout(timeId)
     // await interactionManagerDelay()
     let remoteData = await send(appUpdateInfo()).then(res => res.json())

@@ -22,7 +22,10 @@ const AppNavigator = creatAppNavigator()
 require('../helps/AnimatableRegist')
 import { useScreens } from 'react-native-screens';
 import { required } from "./request/validation";
-useScreens();
+if(Platform.OS === 'ios'){
+  useScreens();
+}
+
 
 
 

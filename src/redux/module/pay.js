@@ -37,7 +37,7 @@ export function pay(type, tradeId, amount, detail, description) {
 
       if (!WeChat.isWXAppInstalled()) {
         Toast.show('没有安装微信~！')
-        return  dispatch(fail());
+        return dispatch(fail());
       }
 
       const ip = await getIp()
@@ -64,17 +64,27 @@ export function pay(type, tradeId, amount, detail, description) {
 
       // console.log('obj:', obj);
 
-      const wechatRes = await WeChat.pay(obj)
-      Toast.show(JSON.stringify(wechatRes))
-      // console.log('wechatRes:', wechatRes);
-      const { errCode } = wechatRes
-      if (errCode === 0) {
-        console.log('tradeId:', tradeId);
+      try {
+        await WeChat.pay(obj)
+        // console.log('wechatRes:', wechatRes);
+
         // await dispatch(req(payOrder('', tradeId)))
         Toast.show('支付成功')
-        return dispatch(suc(wechatRes))
-      } else {
-        return dispatch(fail())
+        return dispatch(suc({}))
+
+      } catch (e) {
+        if (e instanceof WeChat.WechatError) {
+          const errObj = {
+            '-1': '普通错误类型',
+            '-2': '分享取消',
+            '-3': '发送失败',
+            '-4': '授权失败',
+            '-5': '微信不支持',
+          }
+          Toast.show(errObj[e.code + ""])
+        } else {
+          Toast.show(e.message)
+        }
       }
 
 
@@ -112,9 +122,9 @@ export function pay(type, tradeId, amount, detail, description) {
 
 
 export function wechatPay(obj) {
-  return  dispatch => {
+  return dispatch => {
     try {
-      return  WeChat.pay(obj)
+      return WeChat.pay(obj)
       // Toast.show(res)
       // console.log('wechat res:', res);\
 
