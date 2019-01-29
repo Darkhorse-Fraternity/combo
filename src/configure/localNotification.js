@@ -134,7 +134,7 @@ export default class LocalNotification extends PureComponent {
       }
     }
   }
-  debounceRemind = debounce(this.remind, 5000, { leading: false, trailing: true })
+  debounceRemind = debounce(this.remind, 3000, { leading: false, trailing: true })
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //
@@ -411,8 +411,8 @@ export default class LocalNotification extends PureComponent {
 
         if (alarms.length === 0) {
           if (calendaId) {
-            RNCalendarEvents.removeEvent(id)
-            delete objEvents[id]
+            RNCalendarEvents.removeEvent(calendaId)
+            delete objEvents[calendaId]
           }
           return
         }

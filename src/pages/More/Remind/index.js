@@ -17,6 +17,8 @@ import PropTypes from 'prop-types';
 import { ICARD, IUSE } from '../../../redux/reqKeys'
 import svgs from '../../../../source/icons'
 import AppleStyleSwipeableRow from '../../../components/Swipeable'
+const interactionManagerDelay = () => new Promise((resolve) =>
+  InteractionManager.runAfterInteractions(resolve));
 
 
 import {
@@ -365,10 +367,11 @@ export default class Remind extends Component {
   }
 
 
-  _handleDatePicked = (date) => {
+  _handleDatePicked = async (date) => {
     this.setState({ isDateTimePickerVisible: false })
 
-    InteractionManager.runAfterInteractions(async () => {
+    // await interactionManagerDelay()
+    // InteractionManager.runAfterInteractions( () => {
       // ...耗时较长的同步的任务...
       const hours = PrefixInteger(date.getHours(), 2)
       const minutes = PrefixInteger(date.getMinutes(), 2)
@@ -376,18 +379,17 @@ export default class Remind extends Component {
       const { selectItem } = this.state
       const { selfUser, refresh } = this.props
       const { iCard, notifyTime } = selectItem
-
       if (iCard.user === selfUser.objectId) {
         const index = iCard.notifyTimes.indexOf(notifyTime);
         if (index > -1) {
           iCard.notifyTimes.splice(index, 1);
         }
         const notifyTimes = [time, ...iCard.notifyTimes]
-        await refresh(notifyTimes, iCard)
+        refresh(notifyTimes, iCard)
       } else {
         Toast.show('共享卡片,只有卡片拥有有权限修改哦~!')
       }
-    });
+    // });
 
 
     // this.onChange(time)
