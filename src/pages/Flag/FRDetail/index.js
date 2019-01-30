@@ -67,7 +67,7 @@ export default class FRDetail extends PureComponent {
 
   __renderItem = ({ item, index }) => {
     const { user, doneDate } = item
-    console.log('user:', user);
+    // console.log('user:', user);
     return (
       <StyledItem onPress={() => {
       }}>

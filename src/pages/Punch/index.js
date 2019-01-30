@@ -186,6 +186,7 @@ export default class Punch extends Component {
       frValue && frValue.forEach(item => {
         frMap[item.iCard] = item
       })
+
       this.setState({frMap})
     }
   }

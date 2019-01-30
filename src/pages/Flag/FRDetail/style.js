@@ -40,6 +40,7 @@ export const StyledCellName = styled.Text`
     font-weight: 500;
     letter-spacing: 0.5px;
     margin-left: 10px;
+    max-width: 150px;
 `
 
 export const StyledCellDiscrib = styled.Text`
