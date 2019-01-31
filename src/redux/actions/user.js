@@ -554,7 +554,6 @@ function updateLocation(user) {
 export function weChatLogin(Key) {
   return async (dispatch, getState) => {
     try {
-
       dispatch(thirdLoaded(Key))
       const weConfig = await WeChat.sendAuthRequest("snsapi_userinfo")
       if (!weConfig) {
@@ -567,6 +566,7 @@ export function weChatLogin(Key) {
       const weInfo = await get(wechatInfoParam)
       const { access_token, openid } = weInfo
       // console.log('weInfo:', weInfo);
+
 
       const userExsit = await getUserExsitJudge('weixin', openid)
       let user = getState().user.data
