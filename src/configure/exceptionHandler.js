@@ -15,7 +15,7 @@ import { Platform } from 'react-native'
 
 
 
-const DeviceBugInfo = async ()=>{
+const DeviceBugInfo =  ()=>{
 
   return `Brand: ${DeviceInfo.getBrand()}\n`+
     `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n`+
@@ -32,7 +32,7 @@ const errorHandler = (e, isFatal) => {
   if (isFatal) {
     //发送错误信息给服务器
     const errorString = `${e.name} ${e.message}`
-    uploadErrorString('js\n', errorString + '\n'+ DeviceBugInfo(),isFatal)
+    uploadErrorString('js\n'+DeviceBugInfo()+'\n', errorString,isFatal)
     Alert.alert(
       strings('error.Unexpected_error_occurred'),
       strings('error.We_will_need_to_restart_the_app'),
@@ -60,7 +60,7 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 setNativeExceptionHandler((errorString) => {
   //发送错误信息给服务器
 
-  uploadErrorString('native\n', errorString+ '\n'+ DeviceBugInfo(),true)
+  uploadErrorString('native\n'+DeviceBugInfo()+'\n', errorString,true)
   //You can do something like call an api to report to dev team here
   // When you call setNativeExceptionHandler, react-native-exception-handler sets a
   // Native Exception Handler popup which supports restart on error in case of android.

@@ -76,7 +76,7 @@ export function pay(type, tradeId, amount, detail, description) {
         if (e instanceof WeChat.WechatError) {
           const errObj = {
             '-1': '普通错误类型',
-            '-2': '分享取消',
+            '-2': '取消支付',
             '-3': '发送失败',
             '-4': '授权失败',
             '-5': '微信不支持',
