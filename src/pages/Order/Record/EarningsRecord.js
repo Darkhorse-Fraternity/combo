@@ -47,6 +47,7 @@ export default class EarningsRecord extends Component {
 
   renderRow = ({ item, index }: Object) => {
     // console.log('item:', item);
+    //TODO:这边amount 要再加一个字段，将受益和消费分开。
     return (
       <StyledRow>
         <StyledRowInner>
@@ -62,7 +63,7 @@ export default class EarningsRecord extends Component {
             {item.description}
           </StyledRowStatu>
           <StyledRowAmount>
-            ￥{(item.amount * 0.7).toFixed(2)}
+            ￥{(item.amount * (item.beneficiary?0.7:1)).toFixed(2)}
           </StyledRowAmount>
         </StyledRowInner>
       </StyledRow>

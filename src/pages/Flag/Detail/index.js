@@ -43,6 +43,7 @@ import {
   StyledHeaderBtnText
 } from './style'
 import Pop from '../../../components/Pop'
+import Toast from 'react-native-simple-toast'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
 import { list, entitys } from '../../../redux/scemes'
 
@@ -51,9 +52,11 @@ import { list, entitys } from '../../../redux/scemes'
     iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardId),
     flag: state.normalizr.get(FLAG).get(props.navigation.state.params.flagId),
     selfUse: state.user.data,
+    isTourist:state.user.isTourist
   }),
-  dispatch => ({
+  (dispatch, props) => ({
     join: (icardId, flagId, title, flag) => {
+
       const { cost, endDate ,startDate} = flag
       const amount = cost
       return dispatch(async (dispatch, getState) => {
@@ -73,6 +76,10 @@ import { list, entitys } from '../../../redux/scemes'
           'cash': 'cash',
         }
 
+        //TODO 当amount 为0 时候不进入消费
+        // if(amount > 0){
+        //
+        // }
         const Atanisi = Math.floor(Math.random() * 999999);
         const tradeId = new Date().getTime() + Atanisi + ''
         const description = "副本_" + title + '的加入费用'
@@ -338,7 +345,7 @@ export default class FlagDetail extends PureComponent {
     // const { iCard, flag } = this.props
 
     const { iCardId, flagId } = this.props.navigation.state.params
-    const { selfUse, join, flag, iCard } = this.props
+    const { selfUse, join, flag, iCard ,isTourist} = this.props
     const flagModel = flag.toJS()
     const cost = flag.get('cost')
     const endDate = flag.get('endDate').toJS()
@@ -367,9 +374,15 @@ export default class FlagDetail extends PureComponent {
           // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
           onPress={async () => {
             //如果时间超过报名时间，则这边拒绝掉。
+
             if (moment().isAfter(moment(endDate.iso))) {
               return
             }
+            if(isTourist){
+              Toast.show('参加副本需要先登录~!')
+             return  this.props.navigation.navigate('login', { transition: 'forVertical' });
+            }
+
 
             Pop.show(<PayForm
               onSubmit={async () => {
