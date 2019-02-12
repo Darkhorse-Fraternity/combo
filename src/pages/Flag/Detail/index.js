@@ -2,6 +2,7 @@
  * Created by lintong on 2019/1/2.
  * @flow
  */
+
 'use strict';
 
 import React, { PureComponent } from 'react';
@@ -25,11 +26,8 @@ import { selfUser, iCard, Flag } from '../../../request/LCModle'
 import { add, find, update } from '../../../redux/module/leancloud'
 import { addNormalizrEntity } from '../../../redux/module/normalizr'
 import PayForm, { FormID } from '../../../components/Form/Pay'
-import { formValueSelector } from 'redux-form/immutable'
-import { ORDER } from '../../../redux/reqKeys'
-import { pay } from '../../../redux/module/pay'
+import { easyPay } from '../../../redux/module/pay'
 
-const selector = formValueSelector(FormID) // <-- same as form name
 import {
   StyledSafeAreaView,
   StyledContent,
@@ -46,142 +44,48 @@ import Pop from '../../../components/Pop'
 import Toast from 'react-native-simple-toast'
 import { addListNormalizrEntity } from '../../../redux/actions/list'
 import { list, entitys } from '../../../redux/scemes'
+import { fbJoin } from "../../../request/LCCloudFuncs";
+import { req } from '../../../redux/actions/req'
 
 @connect(
   (state, props) => ({
     iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardId),
     flag: state.normalizr.get(FLAG).get(props.navigation.state.params.flagId),
     selfUse: state.user.data,
-    isTourist:state.user.isTourist
+    isTourist: state.user.isTourist
   }),
   (dispatch, props) => ({
-    join: (icardId, flagId, title, flag) => {
-
-      const { cost, endDate ,startDate} = flag
-      const amount = cost
-      return dispatch(async (dispatch, getState) => {
-        const state = getState()
-        //缴费。
-
-        let radio = selector(state, 'PayRadio')
-        radio = radio && radio.toJS && radio.toJS()
-
-        if (!radio) {
-          return
-        }
-        const ItemId = radio.ItemId
-        const types = {
-          "alipay": 'alipay_app',
-          'wechat': 'weixin_app',
-          'cash': 'cash',
-        }
-
-        //TODO 当amount 为0 时候不进入消费
-        // if(amount > 0){
-        //
-        // }
-        const Atanisi = Math.floor(Math.random() * 999999);
-        const tradeId = new Date().getTime() + Atanisi + ''
-        const description = "副本_" + title + '的加入费用'
-        // //添加订单
-        await dispatch(add({
-          description,
-          amount,
-          // ...pointModel('beneficiary', userId, '_User'),
-          payType: types[ItemId],
-          tradeId: Number(tradeId),
-          ...dispatch(selfUser()),
-          ...iCard(icardId),
-        }, ORDER))
-
-        // Pop.hide()
-        //添加支付
-        const payRes = await dispatch(
-          pay(types[ItemId],
-            tradeId,
-            amount,
-            "",
-            description))
-
-        if (payRes.payload.statu !== 'suc') {
-          return
-        }
-        Pop.hide()
-        //添加卡片iUse。
-        //如果为空则添加卡片。如果在已归档中则修改卡片。
-        //在iUse中做一个记录。以便在UI中做保护，在iDo中做给予截断并作出flagRecord done完成记录
-
-        const iUseRef = await dispatch(find(IUSE, {
-          where: {
-            ...dispatch(selfUser()),
-            ...iCard(icardId),
-            statu: { "$ne": 'del' }
-          }
-        }))
-        const iUseModal = iUseRef.results[0]
-
-        if (iUseModal && iUseModal.state === 'stop') {
-          //进行update。
-          const iUseRes = await dispatch(update(iUseModal.objectId, {
-            statu: 'start'
-          }, IUSE))
 
 
-          const iUseEntity = {
-            ...iUseRes,
-            ...iUseModal,
-          }
+    pay: (description, amount) => {
+      return dispatch(easyPay(amount, description, "fb",))
+    },
 
-          dispatch(addListNormalizrEntity(IUSE, iUseEntity))
-        } else if (!iUseModal) {
-          //创建一个、
-          dispatch(async (dispatch, getState) => {
-            const state = getState()
-            const addParam = {
-              ...dispatch(selfUser()),
-              ...iCard(icardId),
-              privacy: 2,
-              time: 0,
-              statu: 'start',
-              doneDate: { "__type": "Date", "iso": moment('2017-03-20').toISOString() },
-            }
-            const addRes = await  dispatch(add(addParam, IUSE))
-            const addEntity = {
-              ...addParam,
-              ...addRes,
-              user: {
-                objectId: state.user.data.objectId
-              },
-              iCard: {
-                objectId: icardId,
-              },
-            }
-            dispatch(addListNormalizrEntity(IUSE, addEntity))
-          })
+    join: async (icardId, flagId, description, flag) => {
 
-        }
+      const { cost, endDate, startDate } = flag
+      //缴费。
 
-
-        //添加记录。
-        const param = {
-          // notifyTime:option&&option.notifyTime||"20.00",
-          ...dispatch(selfUser()),
-          ...iCard(icardId),
-          ...Flag(flagId),
-          title: description,
-          amount: amount,
-          endDate: endDate,
-          startDate: startDate,
-          // include: 'avatar'
-        }
-        const res = await dispatch(add(param, FLAGRECORD))
-        const entity = {
-          ...param,
-          ...res
-        }
-
-        return dispatch(addNormalizrEntity(FLAGRECORD, entity))
-      })
+      //添加记录。会返回一个iUse
+      const param = {
+        // notifyTime:option&&option.notifyTime||"20.00",
+        ...dispatch(selfUser()),
+        ...iCard(icardId),
+        ...Flag(flagId),
+        title: description,
+        amount: cost,
+        endDate: endDate,
+        startDate: startDate,
+        // include: 'avatar'
+      }
+      const entity = {
+        ...param,
+      }
+      const fbParam = fbJoin(param)
+      const fbRes = await dispatch(req(fbParam))
+      fbRes.result.iUse && dispatch(addListNormalizrEntity(IUSE, fbRes.result.iUse))
+      dispatch(addNormalizrEntity(FLAGRECORD, entity))
+      return fbRes
 
     },
     exist: async (icardId, flagId) => {
@@ -340,14 +244,66 @@ export default class FlagDetail extends PureComponent {
   }
 
 
+  __payAndJoin = async () => {
+
+    const { iCardId, flagId } = this.props.navigation.state.params
+    const { selfUse, join, flag, iCard, isTourist, pay } = this.props
+    const flagModel = flag.toJS()
+    const cost = flag.get('cost')
+    const endDate = flag.get('endDate').toJS()
+
+    // console.log('endDate:', endDate);
+
+    if (moment().isAfter(moment(endDate.iso))) {
+      return
+    }
+    if (isTourist) {
+      Toast.show('参加副本需要先登录~!')
+      return this.props.navigation.navigate('login', { transition: 'forVertical' });
+    }
+    const title = iCard.get('title')
+    const description = "副本_" + title + '的加入费用'
+    if (cost > 0 && false) {
+      Pop.show(<PayForm
+        onSubmit={async () => {
+          try {
+            this.setState({ load: true })
+            const payRes = await pay(description, cost)
+            payRes.payload.statu === 'suc' && Pop.hide()
+            const res = payRes.payload.statu === 'suc' &&
+              await join(iCardId, flagId, description, flagModel)
+            this.setState({ load: false, flip: !!res })
+          } catch (e) {
+            console.log('e:', e.message);
+            this.setState({ load: false })
+          }
+
+        }}
+        balance={selfUse.balance || 0}
+        price={cost}/>, {
+        animationType: 'slide-up',
+        wrapStyle: {
+          justifyContent: 'flex-end',
+        }
+      })
+    } else {
+      try {
+        this.setState({ load: true })
+        const res = await join(iCardId, flagId, description, flagModel)
+        this.setState({ load: false, flip: !!res })
+      } catch (e) {
+        console.log('e:', e.message);
+        this.setState({ load: false })
+      }
+    }
+
+
+  }
+
   render(): ReactElement<any> {
 
     // const { iCard, flag } = this.props
-
-    const { iCardId, flagId } = this.props.navigation.state.params
-    const { selfUse, join, flag, iCard ,isTourist} = this.props
-    const flagModel = flag.toJS()
-    const cost = flag.get('cost')
+    const { flag, } = this.props
     const endDate = flag.get('endDate').toJS()
 
     // console.log('endDate:', endDate);
@@ -372,38 +328,7 @@ export default class FlagDetail extends PureComponent {
           load={this.state.load}
           flip={this.state.flip}
           // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
-          onPress={async () => {
-            //如果时间超过报名时间，则这边拒绝掉。
-
-            if (moment().isAfter(moment(endDate.iso))) {
-              return
-            }
-            if(isTourist){
-              Toast.show('参加副本需要先登录~!')
-             return  this.props.navigation.navigate('login', { transition: 'forVertical' });
-            }
-
-
-            Pop.show(<PayForm
-              onSubmit={async () => {
-                try {
-                  this.setState({ load: true })
-                  const res = await join(iCardId, flagId, iCard.get('title'), flagModel)
-                  this.setState({ load: false, flip: !!res })
-                } catch (e) {
-                  console.log('e:', e.message);
-                  this.setState({ load: false })
-                }
-
-              }}
-              balance={selfUse.balance || 0}
-              price={cost}/>, {
-              animationType: 'slide-up',
-              wrapStyle: {
-                justifyContent: 'flex-end',
-              }
-            })
-          }}
+          onPress={this.__payAndJoin}
           containStyle={styles.containStyle}
           style={styles.flip}/>
       </StyledSafeAreaView>

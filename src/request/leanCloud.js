@@ -569,7 +569,7 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
  *  @type  0 微信 1 支付宝
  */
 
-export function userpay(type, tradeId, amount, detail, description, ip) {
+export function userpay(type, amount, detail, description, ip,uid,bid) {
   return {
     host: apiHost,
     path: '/getPrePay/',
@@ -578,9 +578,10 @@ export function userpay(type, tradeId, amount, detail, description, ip) {
       amount,
       type,
       detail,
-      tradeId,
       description,
       ip,
+      uid,
+      bid
     }
   }
 }

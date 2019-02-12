@@ -63,7 +63,7 @@ export default class EarningsRecord extends Component {
             {item.description}
           </StyledRowStatu>
           <StyledRowAmount>
-            ￥{(item.amount * (item.beneficiary?0.7:1)).toFixed(2)}
+            ￥{item.benefit}
           </StyledRowAmount>
         </StyledRowInner>
       </StyledRow>

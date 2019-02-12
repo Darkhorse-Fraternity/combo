@@ -12,13 +12,53 @@ import { update } from '../actions/user'
 
 WeChat.registerApp('wx637e6f35f8211c6d')
 
+import { formValueSelector } from 'redux-form/immutable'
+const FormID = 'PayForm'
+const selector = formValueSelector(FormID) // <-- same as form name
+
 
 const getIp = async () => {
   const response = await fetch('https://api.ipify.org');
   return await response.text();
 }
 
-export function pay(type, tradeId, amount, detail, description) {
+
+/*
+  bid：受益人
+ */
+
+export function easyPay(amount,description,detail,bid) {
+  return dispatch => {
+    return dispatch(async (dispatch, getState) => {
+      const state = getState()
+      const userId = state.user.data.objectId
+      //缴费。
+
+      let radio = selector(state, 'PayRadio')
+      radio = radio && radio.toJS && radio.toJS()
+
+      if (!radio) {
+        return
+      }
+      const ItemId = radio.ItemId
+      const types = {
+        "alipay": 'alipay_app',
+        'wechat': 'weixin_app',
+        'cash': 'cash',
+      }
+      return dispatch(
+        pay(types[ItemId],
+          amount,
+          detail,
+          description,
+          userId,
+          bid
+        ))
+    })
+  }
+}
+
+export function pay(type,  amount, detail, description,uid,bid) {
 
 
   return async dispatch => {
@@ -44,11 +84,14 @@ export function pay(type, tradeId, amount, detail, description) {
 
       const data = await  dispatch(req(userpay(
         type,
-        tradeId,
+        // tradeId,
         amount * 100,
         detail,
         '小改变的消费',
-        ip)))
+        ip,
+        uid,
+        bid,
+      )))
 
 
       const obj = {
@@ -91,15 +134,18 @@ export function pay(type, tradeId, amount, detail, description) {
     } else if (type === 'alipay_app') {
       const res = await dispatch(req(userpay(
         type,
-        tradeId,
+        // tradeId,
         amount,
         detail,
-        description)))
+        description,
+        uid,
+        bid,
+      )))
       const aliPayRes = await dispatch(aliPay(res.data))
       const { alipay_trade_app_pay_response } = aliPayRes
       if (alipay_trade_app_pay_response) {
         const { trade_no } = alipay_trade_app_pay_response
-        console.log('tradeId:', tradeId);
+        console.log('trade_no:', trade_no);
         // const params = payOrder(trade_no, tradeId)
         // await dispatch(req(params))
         Toast.show('支付成功')
@@ -110,8 +156,17 @@ export function pay(type, tradeId, amount, detail, description) {
       }
 
     } else if (type === 'cash') {
-      const params = payOrder('', tradeId)
-      const lastRes = await dispatch(req(params))
+      // const params = payOrder('', tradeId)
+      // const lastRes = await dispatch(req(params))
+      const lastRes = await dispatch(req(userpay(
+        type,
+        // tradeId,
+        amount,
+        detail,
+        description,
+        uid,
+        bid,
+      )))
       dispatch(update())//更新用户数据
       Toast.show('支付成功')
       return dispatch(suc(lastRes))
@@ -134,7 +189,7 @@ export function wechatPay(obj) {
         // console.error(e.stack);
         const errObj = {
           '-1': '普通错误类型',
-          '-2': '支付取消',
+          '-2': '取消',
           '-3': '发送失败',
           '-4': '授权失败',
           '-5': '微信不支持',

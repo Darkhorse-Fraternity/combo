@@ -143,8 +143,8 @@ import Avatar from '../../../components/Avatar/Avatar2'
       const param = {
         // cycle: 0,
         time: 0,
-        privacy: Privacy.open ,//对外开放
-        statu:'start',
+        privacy: Privacy.open,//对外开放
+        statu: 'start',
         // notifyTime:option&&option.notifyTime||"20.00",
         doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
         ...dispatch(selfUser()),
@@ -192,25 +192,27 @@ import Avatar from '../../../components/Avatar/Avatar2'
 
           }
           const Atanisi = Math.floor(Math.random() * 999999);
-          const tradeId = new Date().getTime() + Atanisi + ''
+          // const tradeId = new Date().getTime() + Atanisi + ''
 
           const description = '圈子_' + title + '的加入费用'
-          await dispatch(add({
-            description,
-            amount: price,
-            ...pointModel('beneficiary', userId, '_User'),
-            payType: types[ItemId],
-            tradeId: Number(tradeId),
-            ...dispatch(selfUser()),
-            ...iCard(objectId),
-          }, ORDER))
+          // await dispatch(add({
+          //   description,
+          //   amount: price,
+          //   ...pointModel('beneficiary', userId, '_User'),
+          //   payType: types[ItemId],
+          //   tradeId: Number(tradeId),
+          //   ...dispatch(selfUser()),
+          //   ...iCard(objectId),
+          // }, ORDER))
 
           const res = await dispatch(
             pay(types[ItemId],
-              tradeId,
               price,
-              "",
-              description))
+              "joinCard",
+              description,
+              userId,
+              userId,
+            ))
           // 最后通知服务端，付款状态
           if (res.payload.statu === 'suc') {
             Pop.hide()
@@ -352,7 +354,7 @@ export default class CardInfo extends Component {
 
     let limitTimes = iCard.limitTimes
     limitTimes = limitTimes && limitTimes.join('~') || ''
-    limitTimes = limitTimes === '00:00~24:00' ?'':'，'+limitTimes
+    limitTimes = limitTimes === '00:00~24:00' ? '' : '，' + limitTimes
     const limitTime = daysText(iCard.recordDay) + limitTimes
     // console.log('iCard.img:', iCard.img);
 
@@ -393,7 +395,7 @@ export default class CardInfo extends Component {
               })
 
             } else {
-              if(this.props.isTourist){
+              if (this.props.isTourist) {
                 this.props.navigation.navigate('login')
                 return Toast.show('加入圈子必须先登录哦~!')
               }
@@ -441,7 +443,7 @@ export default class CardInfo extends Component {
                 {iCard.subtitle}
               </StyledSubTitle>}
 
-              <StyledHeaderTitle >
+              <StyledHeaderTitle>
                 {iCard.title}
               </StyledHeaderTitle>
               {keys && <StyledKeysView>
@@ -454,20 +456,20 @@ export default class CardInfo extends Component {
 
 
               {/*<Button*/}
-                {/*style={{*/}
-                  {/*flexDirection: 'row',*/}
-                  {/*marginTop: 10,*/}
-                  {/*alignItems: 'center',*/}
-                {/*}}*/}
-                {/*onPress={() => {*/}
-                  {/*!userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })*/}
-                {/*}}>*/}
-                {/*<StyledReadNum>*/}
-                  {/*参与人数：{iCard.useNum}*/}
-                {/*</StyledReadNum>*/}
-                {/*<StyledIcon*/}
-                  {/*size={15}*/}
-                  {/*name="ios-arrow-forward"/>*/}
+              {/*style={{*/}
+              {/*flexDirection: 'row',*/}
+              {/*marginTop: 10,*/}
+              {/*alignItems: 'center',*/}
+              {/*}}*/}
+              {/*onPress={() => {*/}
+              {/*!userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })*/}
+              {/*}}>*/}
+              {/*<StyledReadNum>*/}
+              {/*参与人数：{iCard.useNum}*/}
+              {/*</StyledReadNum>*/}
+              {/*<StyledIcon*/}
+              {/*size={15}*/}
+              {/*name="ios-arrow-forward"/>*/}
               {/*</Button>*/}
 
             </StyledHeaderInnerLeft>
@@ -508,14 +510,14 @@ export default class CardInfo extends Component {
           {this.row('打卡要求:', iCard.record.join("+") || '默认点击')}
           {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
           <Button
-            onPress={()=>{
+            onPress={() => {
               !userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })
             }}
-            style={{justifyContent:'space-between' , alignItems: 'center' ,flexDirection:'row'}}>
+            style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
             {this.row('参与人数:', iCard.useNum)}
             <StyledIcon
               size={15}
-              style={{ marginTop: 5}}
+              style={{ marginTop: 5 }}
               name="ios-arrow-forward"/>
           </Button>
           {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
