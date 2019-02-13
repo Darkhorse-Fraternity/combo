@@ -83,7 +83,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { findByID, find } from '../../../redux/module/leancloud'
 import PayForm, { FormID } from '../../../components/Form/Pay'
 import { formValueSelector } from 'redux-form/immutable'
-import { pay } from '../../../redux/module/pay'
+import { easyPay } from '../../../redux/module/pay'
 import Pop from '../../../components/Pop'
 import { ORDER } from '../../../redux/reqKeys'
 
@@ -175,58 +175,14 @@ import Avatar from '../../../components/Avatar/Avatar2'
       })
       dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }))
     },
-    onSubmit: async (iCardData, afterDone) => {
-      return dispatch(async (dispatch, getState) => {
-        const { price, title, objectId, } = iCardData
-        // console.log('iCardData:', iCardData);
-        const userId = iCardData.user
-        const state = getState()
-        let radio = selector(state, 'PayRadio')
-        radio = radio && radio.toJS && radio.toJS()
-        if (radio) {
-          const ItemId = radio.ItemId
-          const types = {
-            "alipay": 'alipay_app',
-            'wechat': 'weixin_app',
-            'cash': 'cash',
-
-          }
-          const Atanisi = Math.floor(Math.random() * 999999);
-          // const tradeId = new Date().getTime() + Atanisi + ''
-
-          const description = '圈子_' + title + '的加入费用'
-          // await dispatch(add({
-          //   description,
-          //   amount: price,
-          //   ...pointModel('beneficiary', userId, '_User'),
-          //   payType: types[ItemId],
-          //   tradeId: Number(tradeId),
-          //   ...dispatch(selfUser()),
-          //   ...iCard(objectId),
-          // }, ORDER))
-
-          const res = await dispatch(
-            pay(types[ItemId],
-              price,
-              "joinCard",
-              description,
-              userId,
-              userId,
-            ))
-          // 最后通知服务端，付款状态
-          if (res.payload.statu === 'suc') {
-            Pop.hide()
-            afterDone && afterDone()
-          }
-
-          return res
-
-
-        }
-
-
-      })
-
+    joinPay: async (price, title, bid) => {
+      const description = '圈子_' + title + '的加入费用'
+      return dispatch(
+        easyPay(price,
+          description,
+          "joinCard",
+          bid,
+        ))
     }
 
   })
@@ -318,7 +274,7 @@ export default class CardInfo extends Component {
     }
 
 
-    const { selfUse, onSubmit } = this.props
+    const { selfUse, joinPay } = this.props
 
     const iCard = this.props.iCard.toJS()
     const iCardUser = this.props.user.toJS()
@@ -377,17 +333,6 @@ export default class CardInfo extends Component {
           flip={exist}
           animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
           onPress={() => {
-
-            // Pop.show(<PayForm
-            //     onSubmit={ async () => await onSubmit(iCard)}
-            //     balance={selfUse.balance}
-            //     price={iCard.price}/>, {
-            //     animationType: 'slide-up',
-            //     wrapStyle: {
-            //         justifyContent: 'flex-end',
-            //     }
-            // })
-
             if (exist && iUseData) {
               this.props.navigation.navigate('card', {
                 iUseId: iUseData.objectId,
@@ -403,9 +348,13 @@ export default class CardInfo extends Component {
 
               if (iCard.price > 0 && !isSelf) {
                 Pop.show(<PayForm
-                  onSubmit={() => onSubmit(iCard, () => {
-                    this.props.use(iCard)
-                  })}
+                  onSubmit={async () => {
+                    const { price, title, user } = iCard
+
+                    const res = await joinPay(price, title, user)
+                    res.payload.statu === 'suc' && Pop.hide()
+                    res.payload.statu === 'suc' && this.props.use(iCard)
+                  }}
                   balance={selfUse.balance || 0}
                   price={iCard.price}/>, {
                   animationType: 'slide-up',
