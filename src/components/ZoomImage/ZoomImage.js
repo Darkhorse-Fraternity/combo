@@ -52,7 +52,8 @@ export default class ZoomImage extends Component {
               this.setState({ visible: true })
             }}
           >
-            {imageUrls && <FastImage source={{ uri: imageUrls[0].url }} style={style}/>}
+            {imageUrls && <FastImage source={{ uri: imageUrls[0].url }}
+                                     style={[{backgroundColor:'#fdfbfb'},style]}/>}
           </TouchableOpacity>
 
       </View>

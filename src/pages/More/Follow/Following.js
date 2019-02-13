@@ -80,15 +80,15 @@ import Avatar from '../../../components/Avatar/Avatar2'
     followLoad: state.req.get(FOLLOWING).get('load')
   }),
   (dispatch, props) => ({
-    loadFriendNum: () => {
-      const userId = props.navigation.state.params.userId
+    loadFriendNum: (userId) => {
+      // const userId = props.navigation.state.params.userId
       const param = friendNum(userId)
       // console.log('test000:', userId);
       dispatch(req(param, FRIENDNUM + userId))
     },
-    loadfriendExist: () => {
+    loadfriendExist: (beFollowedUserId) => {
       dispatch((dispatch, getState) => {
-        const beFollowedUserId = props.navigation.state.params.userId
+        // const beFollowedUserId = props.navigation.state.params.userId
         const state = getState()
         const userId = state.user.data.objectId
 
@@ -160,9 +160,18 @@ export default class Following extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadFriendNum()
-    this.props.loadfriendExist()
+    this.props.loadFriendNum(this.props.navigation.state.params.userId)
+    this.props.loadfriendExist(this.props.navigation.state.params.userId)
   }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.navigation.state.params.userId !== nextProps.navigation.state.params.userId){
+      this.props.loadFriendNum(nextProps.navigation.state.params.userId)
+      this.props.loadfriendExist(nextProps.navigation.state.params.userId)
+    }
+  }
+
+
 
   _renderHeader = ()=> {
 
@@ -195,6 +204,8 @@ export default class Following extends PureComponent {
       followers_count = friendNumData.data.followers_count
       followees_count = friendNumData.data.followees_count
     }
+
+
 
 
     return (
