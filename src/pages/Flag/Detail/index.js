@@ -55,8 +55,6 @@ import { req } from '../../../redux/actions/req'
     isTourist: state.user.isTourist
   }),
   (dispatch, props) => ({
-
-
     pay: (description, amount) => {
       return dispatch(easyPay(amount, description, "fb",))
     },
