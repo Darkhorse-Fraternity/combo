@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -34,7 +34,8 @@ import {
   StyledActivityIndicator,
   StyledBtn,
   StyledHeader,
-  StyledEntypoIcon
+  StyledEntypoIcon,
+  StyledBtnTitle
 } from './style'
 
 
@@ -70,7 +71,7 @@ const Archive = IUSE + "archive"
     // iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
     iUseLoad: state.req.get(IUSE).get('load'),
     archive: state.req.get(Archive),
-    updatePrivacyLoad: state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
+    // updatePrivacyLoad: state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
   }),
   (dispatch, props) => ({
     refresh: async (data) => {
@@ -116,20 +117,6 @@ const Archive = IUSE + "archive"
       dispatch(claerByID(IUSE, id))
       dispatch(popToIndex())
     },
-    updatePrivacy: async (data, privacy) => {
-      const id = data.objectId
-      const param = {
-        privacy,
-      }
-      // const res = await update(id, param, IUSE)
-      const lParams = classUpdate(IUSE, id, param)
-      const res = await dispatch(req(lParams, 'updatePrivacy'))
-      const entity = {
-        ...param,
-        ...res,
-      }
-      dispatch(addNormalizrEntity(IUSE, entity))
-    },
     delete: async (objectId) => {
       // await remove(objectId,IUSE)
       // 做伪删除
@@ -156,35 +143,13 @@ const Archive = IUSE + "archive"
         }]
       )
     },
-    pickPrivacy: async (iUse, isSelf) => {
-
-
-      const items = isSelf ? [
-        { label: '不对外开放', id: '0' },
-        { label: '对外开放', id: '2' }
-      ] : [
-        { label: '不对外开放', id: '0' },
-        { label: '仅对卡片拥有者开放', id: '1' },
-        { label: '对外开放', id: '2' }
-      ]
-
-      const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy
-
-      return Dialog.showPicker('隐私设置', null, {
-        negativeText: '取消',
-        type: Dialog.listRadio,
-        selectedId: selectedId + "",
-        items: items
-      });
-    }
   })
 )
 
 
-export default class Settings extends Component {
+export default class Settings extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 
@@ -192,11 +157,37 @@ export default class Settings extends Component {
   static defaultProps = {};
 
 
-  _renderDoneView = (done, over) => {
-    return (
-      <StyeldDoneView/>
-    )
-  }
+  // _renderDoneView = (done, over) => {
+  //   return (
+  //     <StyeldDoneView/>
+  //   )
+  // }
+
+  static navigationOptions = props => {
+    // const {navigation} = props;
+    // const {state} = navigation;
+    // const {params} = state;
+    const iCardId = props.navigation.state.params.iCardId
+    return {
+      title: '',
+      headerRight: ( <StyledBtn
+          // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
+          hitSlop={{ top: 5, left: 20, bottom: 5, right: 20 }}
+          onPress={() => {
+            props.navigation.navigate('cardInfo', { iCardId })
+          }}>
+          <StyledBtnTitle>
+            查看
+          </StyledBtnTitle>
+        </StyledBtn>
+      ),
+      // headerStyle: {
+      //     backgroundColor: '#f5fcff',
+      //     shadowColor: '#F5FCFF',
+      //     borderBottomColor: '#F5FCFF',
+      // },
+    }
+  };
 
 
   _renderItem = (props) => {
@@ -222,8 +213,8 @@ export default class Settings extends Component {
     )
   }
 
-  _renderRresh = (reflesh, params) => {
-    const { iUse } = params
+  _renderRresh = (reflesh, iUse) => {
+
     let text = !reflesh ?
       "习惯归档" :
       "继续打卡"
@@ -244,9 +235,10 @@ export default class Settings extends Component {
 
   }
 
-  _renderBottomMenu = (params) => {
+  _renderBottomMenu = () => {
 
-    const { iCard, iUse } = params
+    const iCard = this.props.iCard.toJS()
+    const iUse = this.props.iUse.toJS()
     const { navigation, user } = this.props;
 
     // const pUse = this.props.iUse && this.props.iUse.toJS()
@@ -259,7 +251,7 @@ export default class Settings extends Component {
     return (
       <StyledBottomMenu>
 
-        {iCard.user === this.props.user.objectId &&
+        {iCard.user === user.objectId &&
         iCard.state !== -2
         && iUse.statu !== 'del' && (<this._renderItem
           onPress={() => {
@@ -267,40 +259,7 @@ export default class Settings extends Component {
           }}
           name={'md-settings'}
           title={'卡片配置'}/>)}
-        {this._renderRresh(reflesh, params)}
-
-        {/*{iCard.user === this.props.user.objectId &&*/}
-        {/*iCard.state !== -2*/}
-        {/*&& iUse.statu !== 'del' &&*/}
-        {/*( <this._renderItem*/}
-          {/*onPress={() => {*/}
-            {/*navigation.navigate('publishing',*/}
-              {/*{ iCardID: iCard.objectId })*/}
-          {/*}}*/}
-          {/*Icon={StyledEntypoIcon}*/}
-          {/*size={28}*/}
-          {/*name={'picasa'}*/}
-          {/*title={' 圈子设置'}/>)}*/}
-
-
-        {/*{iCard.circleState === CircleState.open*/}
-        {/*&&<this._renderItem*/}
-          {/*onPress={async () => {*/}
-            {/*const userId = user.objectId*/}
-            {/*const beUserId = iCard.user*/}
-            {/*const isSelf = userId === beUserId*/}
-            {/*const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf)*/}
-            {/*if (selectedItem) {*/}
-              {/*const { id } = selectedItem;*/}
-              {/*iUse.privacy !== Number(id) &&*/}
-              {/*this.props.updatePrivacy(iUse, Number(id))*/}
-            {/*}*/}
-          {/*}}*/}
-          {/*load={this.props.updatePrivacyLoad}*/}
-          {/*name={iUse.privacy ===*/}
-          {/*Privacy.open ? 'md-unlock' :*/}
-            {/*'md-lock'}*/}
-          {/*title={'隐私设置'}/>}*/}
+        {this._renderRresh(reflesh, iUse)}
 
         <this._renderItem
           onPress={() => {
@@ -309,7 +268,7 @@ export default class Settings extends Component {
           load={this.props.iUseLoad}
           name={'md-trash'}
           title={'删除卡片'}/>
-        <View style={{width:(Dimensions.get('window').width-85)/3}}/>
+        <View style={{ width: (Dimensions.get('window').width - 85) / 3 }}/>
 
       </StyledBottomMenu>
     )
@@ -347,40 +306,17 @@ export default class Settings extends Component {
 
   render(): ReactElement<any> {
 
-    const { navigation, iCardUser, user } = this.props;
-    // const { state } = navigation;
-    // const { params } = state;
-
-    const iCard = this.props.iCard.toJS()
-    const iUse = this.props.iUse.toJS()
-    // const { iCard, iUse } = params
-
-    // const iCardUserData = iCardUser && iCardUser.toJS()
-
-
-    // const done = moment(2, "HH").isBefore(iUse.doneDate.iso)
-    // const over = iUse.time % Number(iCard.period) === 0
-
-    const { img } = iCard
-    // const source = img ? { uri: img.url }
-    //   : require('../../../../source/img/my/icon-60.png')
 
     return (
       <StyledContent
         colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
         <StyledHeader>
           <StyledRowDes>
-            {iCard.title}
+            {this.props.iCard.get("title")}
           </StyledRowDes>
-          <StyledBtn
-            title="查看"
-            backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
-            hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
-            onPress={() => {
-              this.props.navigation.navigate('cardInfo', { iCardId: iCard.objectId })
-            }}/>
+
         </StyledHeader>
-        {this._renderBottomMenu({ iCard, iUse })}
+        {this._renderBottomMenu()}
       </StyledContent>
     );
   }

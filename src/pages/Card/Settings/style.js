@@ -112,10 +112,11 @@ export const StyledRowInner = styled.View`
   align-items: center;
 `
 
-export const StyledBtn = styled(HeaderBtn)`
-   margin-top:15px;
-   width: 60px;
-   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
+export const StyledBtn = styled(Button)`
+  padding: 10px 20px;
+`
+export const StyledBtnTitle = styled.Text`
+  font-size: 15px;
 
 `
 
@@ -133,5 +134,5 @@ export const StyeldDoneView = styled.View`
 `
 
 export const StyledHeader = styled.View`
-  padding:20px;
+  padding:20px 20px 10px 20px;
 `

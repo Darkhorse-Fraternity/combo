@@ -14,7 +14,7 @@ import {
   Image,
 } from 'react-native'
 import ImagesViewModal from './ImagesViewModal'
-
+import FastImage from 'react-native-fast-image'
 
 export default class ZoomImage extends Component {
   constructor(props: Object) {
@@ -52,7 +52,7 @@ export default class ZoomImage extends Component {
               this.setState({ visible: true })
             }}
           >
-            {imageUrls && <Image source={{ uri: imageUrls[0].url }} style={style}/>}
+            {imageUrls && <FastImage source={{ uri: imageUrls[0].url }} style={style}/>}
           </TouchableOpacity>
 
       </View>

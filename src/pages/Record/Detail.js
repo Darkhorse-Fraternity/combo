@@ -18,7 +18,7 @@ import * as immutable from 'immutable';
 
 import HeaderBtn from '../../components/Button/HeaderBtn'
 import Statistical from '../Card/Statistical'
-
+import NavBar from '../../components/Nav/bar/NavBar'
 
 import {
   StyledContent,
@@ -52,18 +52,57 @@ export default class Detail extends PureComponent {
 
 
   static navigationOptions = props => {
-    return {
+    const iCardId = props.navigation.state.params.iCardId
 
+    return {
+      header: null,
+      // headerRight: ( <StyledHeaderBtn
+      //     // load={false}
+      //     // style={{ backgroundColor: color }}
+      //     // disabled={false}
+      //     hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+      //     onPress={()=>{
+      //       props.navigation.navigate('cardInfo', {
+      //         iCardId
+      //       })
+      //     }}
+      //     title={'加入'}/>
+      // ),
     }
   };
 
-  _
-  _renderHeader = () => {
+
+  __renderRightView = () => {
+
     const { navigation,iCard} = this.props;
     const { state } = navigation;
     const { params } = state;
     const iconAndColor = iCard.get('iconAndColor')
-    const { color } = iconAndColor ? iconAndColor.toJS() : { name: 'sun', color: '#fcd22f' }
+    const { color } = iconAndColor ? iconAndColor.toJS()
+      : { name: 'sun', color: '#fcd22f' }
+
+    return (
+      <StyledHeaderBtn
+        // load={false}
+         style={{ backgroundColor: color,marginRight:20}}
+        // disabled={false}
+        hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
+        onPress={()=>{
+          navigation.navigate('cardInfo', {
+            iCardId:params.iCardId
+          })
+        }}
+        title={'加入'}/>
+    )
+  }
+  _
+  _renderHeader = () => {
+    const { navigation,iCard} = this.props;
+    // const { state } = navigation;
+    // const { params } = state;
+    const iconAndColor = iCard.get('iconAndColor')
+    const { color } = iconAndColor ? iconAndColor.toJS()
+      : { name: 'sun', color: '#fcd22f' }
 
     return (
       <StyledHeader>
@@ -84,17 +123,17 @@ export default class Detail extends PureComponent {
             {/*size={25}*/}
             {/*name={'ios-add-circle-outline'}/>*/}
         {/*</StyledAdd>*/}
-        <StyledHeaderBtn
-          // load={false}
-          style={{ backgroundColor: color }}
-          // disabled={false}
-          hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-          onPress={()=>{
-            navigation.navigate('cardInfo', {
-              iCardId:params.iCardId,
-            })
-          }}
-          title={'加入'}/>
+        {/*<StyledHeaderBtn*/}
+          {/*// load={false}*/}
+          {/*style={{ backgroundColor: color }}*/}
+          {/*// disabled={false}*/}
+          {/*hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}*/}
+          {/*onPress={()=>{*/}
+            {/*navigation.navigate('cardInfo', {*/}
+              {/*iCardId:params.iCardId,*/}
+            {/*})*/}
+          {/*}}*/}
+          {/*title={'加入'}/>*/}
 
       </StyledHeader>
     )
@@ -108,7 +147,11 @@ export default class Detail extends PureComponent {
     const iconAndColor = iCard.get('iconAndColor')
     const { color } = iconAndColor ? iconAndColor.toJS() : { name: 'sun', color: '#fcd22f' }
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
+      <StyledContent >
+        <NavBar
+          onBackPress={this.props.navigation.goBack}
+          rightView={this.__renderRightView}
+        />
         {this._renderHeader()}
         <Statistical color={color} {...this.props}/>
       </StyledContent>
