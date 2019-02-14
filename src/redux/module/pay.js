@@ -138,6 +138,7 @@ export function pay(type,  amount, detail, description,uid,bid) {
         amount,
         detail,
         description,
+        '',
         uid,
         bid,
       )))
@@ -158,15 +159,19 @@ export function pay(type,  amount, detail, description,uid,bid) {
     } else if (type === 'cash') {
       // const params = payOrder('', tradeId)
       // const lastRes = await dispatch(req(params))
-      const lastRes = await dispatch(req(userpay(
+
+
+      const cashParams = userpay(
         type,
         // tradeId,
         amount,
         detail,
         description,
+        '',
         uid,
         bid,
-      )))
+      )
+      const lastRes = await dispatch(req(cashParams))
       dispatch(update())//更新用户数据
       Toast.show('支付成功')
       return dispatch(suc(lastRes))

@@ -68,6 +68,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledKeysView = styled.Text`
   font-size: 17px;
+  margin-top: 5px;
 `
 
 export const StyledCourseView = styled.View`

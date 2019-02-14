@@ -431,9 +431,9 @@ export default class CardInfo extends Component {
 
                 }}>
                 <Avatar user={iCardUser}/>
-                {nickName && <StyledNickName numberOfLines={3}>
+                <StyledNickName numberOfLines={3}>
                   {nickName}
-                </StyledNickName>}
+                </StyledNickName>
               </Button>
               {/*{this.__renderFocusOn()}*/}
             </StyledHeaderInnerRight>

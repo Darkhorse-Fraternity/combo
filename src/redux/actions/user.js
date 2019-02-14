@@ -850,7 +850,11 @@ export function bindingAuthData(key, loadKey, ad, exData) {
 //判断user 是否存在
 
 async function getUserExsitJudge(type, id) {
-  const params = userExsitJudge(type, id);
-  const res = await  get(params)
-  return res.result.userExsit
+  if(id){
+    const params = userExsitJudge(type, id);
+    const res = await  get(params)
+    return res.result.userExsit
+  }else {
+    throw new Error('没有检索到用户!');
+  }
 }

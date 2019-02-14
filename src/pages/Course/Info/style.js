@@ -113,6 +113,7 @@ export const StyledNickName = styled.Text`
     font-size: 17px;
     margin: 3px 0px;
     max-width: 120px;
+    min-height: 30px;
 `
 
 
