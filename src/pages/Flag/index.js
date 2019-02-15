@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment'
 
 
-import { FLAG,ICARD  } from '../../redux/reqKeys'
+import { FLAG,ICARD ,FBLIST } from '../../redux/reqKeys'
 
 import {
   StyledContent,
@@ -105,10 +105,15 @@ export default class Flag extends PureComponent {
           style={{flex:1}}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
+          sKey={FBLIST}  //在list 中的位置
+          callPath={FBLIST} //表示走云函数,并告知云函数的路径
           reqKey={FLAG}
           //dataMap={(data)=>{
           //   return {[OPENHISTORYLIST]:data.list}
           //}}
+          dataMap={(data) => {
+            return { results: data.result }
+          }}
           reqParam={param}
           renderItem={this.__renderItem}
           ListHeaderComponent={this._renderHeader}

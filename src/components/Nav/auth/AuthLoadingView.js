@@ -5,6 +5,7 @@ import {
   StatusBar,
   StyleSheet,
   View,
+  NetInfo
 } from 'react-native';
 // import { loadUserData } from '../../../configure/storage'
 // import { loginSucceed } from '../../../redux/actions/user'
@@ -14,8 +15,10 @@ import Toast from 'react-native-simple-toast'
 import { search } from '../../../redux/module/leancloud'
 import { selfUser } from '../../../request/LCModle'
 import { IUSE, ICARD } from '../../../redux/reqKeys'
-import {firstInstaller} from '../../../../helps/util'
+import { firstInstaller } from '../../../../helps/util'
 import Indicators from '../../../components/Indicators'
+
+
 
 @connect(
   state => ({}),
@@ -23,6 +26,8 @@ import Indicators from '../../../components/Indicators'
     bootstrapAsync: async () => {
 
       try {
+
+        
         const user = await dispatch(userInfo())
         // if (user) {
         //   await dispatch(search(false, {
@@ -49,7 +54,7 @@ import Indicators from '../../../components/Indicators'
           //   include: ICARD + ',iCard.user'
           // }, IUSE))
           // Toast.show('222')
-          dispatch( async (dispatch, getState) => {
+          dispatch(async (dispatch, getState) => {
             const state = getState()
             const { user } = state
 
@@ -78,8 +83,30 @@ import Indicators from '../../../components/Indicators'
 export default class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.props.bootstrapAsync();
+  }
 
+  handleFirstConnectivityChange = (isConnected)=> {
+    console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
+    if(isConnected){
+      this.props.bootstrapAsync();
+    }
+  }
+
+
+  componentDidMount() {
+    NetInfo.isConnected.addEventListener(
+      'connectionChange',
+      this.handleFirstConnectivityChange
+    );
+  }
+
+
+  componentWillUnmount() {
+    console.log('test:', '2222');
+    NetInfo.isConnected.removeEventListener(
+      'connectionChange',
+      this.handleFirstConnectivityChange
+    );
   }
 
   // Fetch the token from storage then navigate to our appropriate place

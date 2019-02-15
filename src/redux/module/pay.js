@@ -85,9 +85,9 @@ export function pay(type,  amount, detail, description,uid,bid) {
       const data = await  dispatch(req(userpay(
         type,
         // tradeId,
-        amount * 100,
+        amount,
         detail,
-        '小改变的消费',
+        description,
         ip,
         uid,
         bid,

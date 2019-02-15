@@ -170,7 +170,7 @@ export default class Habit extends PureComponent {
         style={{ height: Dimensions.get('window').height / 2 }}
         exceptionType={refreshLoad ?
           ExceptionType.Loading : ExceptionType.NoData}
-        tipBtnText={'添加卡片'}
+        tipBtnText={'添加卡片111'}
         refresh={refreshLoad}
         prompt={refreshLoad ? '正在加载' : '暂无数据'}
         onRefresh={() => {

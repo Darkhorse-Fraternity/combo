@@ -3,6 +3,7 @@
 // import DeviceInfo from 'react-native-device-info'
 import DeviceInfo from 'react-native-device-info'
 import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from './leancloud'
+import {appChannel} from '../../helps/util'
 
 export const defaultHost = !__DEV__ ?
   /*release*/   'cmwljtyw.api.lncld.net/1.1' :
@@ -22,16 +23,21 @@ export function setLeanCloudSession(session: string) {
 }
 
 
-export function httpHeaders(needSession: bool): Object {
+
+
+
+export  function httpHeaders(needSession: bool): Object {
 
   const appVersion = parseFloat(DeviceInfo.getVersion())
+
   let header = {
     "Content-Type": "application/json; charset=utf-8",
     "X-LC-Sign": LeanCloud_APP_SIGN,
     "X-LC-Id": LeanCloud_APP_ID,
     "X-LC-Prod": __DEV__ ? 1
       : 1,
-    appVersion
+    appVersion,
+    appChannel
   }
 
   if (needSession) {

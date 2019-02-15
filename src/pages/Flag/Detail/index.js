@@ -261,7 +261,7 @@ export default class FlagDetail extends PureComponent {
     }
     const title = iCard.get('title')
     const description = "副本_" + title + '的加入费用'
-    if (cost > 0 && false) {
+    if (cost > 0) {
       Pop.show(<PayForm
         onSubmit={async () => {
           try {

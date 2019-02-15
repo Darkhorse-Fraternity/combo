@@ -9,6 +9,7 @@ import {
   View,
   ScrollView,
   InteractionManager,
+  Platform
 } from 'react-native'
 import {  FlatList, } from 'react-navigation'
 import { connect } from 'react-redux'
@@ -127,7 +128,7 @@ export default class IconAndColor extends Component {
           // useNativeDriver
           // animation="fadeIn"
           horizontal
-          removeClippedSubviews={true}
+          removeClippedSubviews={Platform.OS !== 'ios'}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
@@ -160,7 +161,7 @@ export default class IconAndColor extends Component {
           animation="fadeInUp"
           data={colorsCutThree}
           horizontal
-          removeClippedSubviews={true}
+          removeClippedSubviews={Platform.OS !== 'ios'}
           // pagingEnabled={true}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
