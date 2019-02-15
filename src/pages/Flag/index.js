@@ -88,6 +88,7 @@ export default class Flag extends PureComponent {
     // const data = [{img:require('../../../source/img/flag/flag_up.jpeg'),
     //   title:'早起副本'
     // }]
+   
 
     const param = {
       where: {

@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "postinstall": "rndebugger-open",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git",
@@ -77,6 +78,7 @@
     "wurl": "^2.5.3"
   },
   "devDependencies": {
+    "eslint": "^4.11.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",

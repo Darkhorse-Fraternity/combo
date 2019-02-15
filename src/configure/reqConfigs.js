@@ -28,7 +28,7 @@ export function setLeanCloudSession(session: string) {
 
 export  function httpHeaders(needSession: bool): Object {
 
-  const appVersion = parseFloat(DeviceInfo.getVersion())
+  const appVersion = DeviceInfo.getVersion()
 
   let header = {
     "Content-Type": "application/json; charset=utf-8",

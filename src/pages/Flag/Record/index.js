@@ -66,7 +66,7 @@ export default class FlagRecord extends PureComponent {
 
 
   __renderItem = ({ item, index }) => {
-    const { totalBonus, startDate, cost,objectId } = item
+    const { totalBonus, startDate, cost,objectId, joinNum } = item
     return (
       <StyledItem onPress={() => {
         this.props.navigation.navigate('FRDetail',{flagId:objectId})
@@ -78,7 +78,7 @@ export default class FlagRecord extends PureComponent {
             第{moment(startDate.iso).format("YYYYMMDD")}期
           </StyledCellTitle>
           <StyledCellDiscrib>
-            参与人数:{Math.floor(totalBonus/cost)}{cost>0 &&`,总奖金:${totalBonus.toFixed(2)}元`}
+            参与人数:{joinNum}{cost>0 &&`,总奖金:${totalBonus.toFixed(2)}元`}
           </StyledCellDiscrib>
         </StyledCellInner>
         <StyledArrow/>
