@@ -5,7 +5,8 @@ import {
   StatusBar,
   StyleSheet,
   View,
-  NetInfo
+  NetInfo,
+  Platform
 } from 'react-native';
 // import { loadUserData } from '../../../configure/storage'
 // import { loginSucceed } from '../../../redux/actions/user'
@@ -17,7 +18,6 @@ import { selfUser } from '../../../request/LCModle'
 import { IUSE, ICARD } from '../../../redux/reqKeys'
 import { firstInstaller } from '../../../../helps/util'
 import Indicators from '../../../components/Indicators'
-
 
 
 @connect(
@@ -92,21 +92,32 @@ export default class AuthLoadingScreen extends React.Component {
     }
   }
 
+  listener = false
+  async componentDidMount() {
 
-  componentDidMount() {
-    NetInfo.isConnected.addEventListener(
-      'connectionChange',
-      this.handleFirstConnectivityChange
-    );
+    const isConnected = await NetInfo.isConnected.fetch()
+
+    if(!isConnected){
+      console.log('111');
+      this.listener = true;
+      NetInfo.isConnected.addEventListener(
+        'connectionChange',
+        this.handleFirstConnectivityChange
+      );
+    }else{
+      this.props.bootstrapAsync();
+    }
+    
   }
 
 
   componentWillUnmount() {
-    console.log('test:', '2222');
-    NetInfo.isConnected.removeEventListener(
-      'connectionChange',
-      this.handleFirstConnectivityChange
-    );
+    if(this.listener){
+      NetInfo.isConnected.removeEventListener(
+        'connectionChange',
+        this.handleFirstConnectivityChange
+      );
+    }
   }
 
   // Fetch the token from storage then navigate to our appropriate place

@@ -45,4 +45,5 @@ export const StyledItemText = styled.Text`
   left: 40px;
   font-size: 20px;
   font-weight: 500;
+  color: ${props => props.color};
 `

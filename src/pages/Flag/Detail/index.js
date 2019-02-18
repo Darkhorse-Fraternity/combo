@@ -150,16 +150,16 @@ export default class FlagDetail extends PureComponent {
 
 
   _renderTaskDes = () => {
-    const { iCard } = this.props
-    const limitTimes = iCard.get("limitTimes")
+    const iCard = this.props.iCard.toJS()
+    const { limitTimes } = iCard
     return (
       <StyledFlagView>
         <StyledTitle>
           副本任务
         </StyledTitle>
-        <StyledDiscrib>
-          {`每天 ${limitTimes.get(0)} - ${limitTimes.get(1)} 内点击首页 副本卡片-早起 完成打卡`}
-        </StyledDiscrib>
+        {limitTimes && <StyledDiscrib>
+          {`每天 ${limitTimes[0]} - ${limitTimes[1]} 内点击首页 副本卡片-早起 完成打卡`}
+        </StyledDiscrib>}
       </StyledFlagView>
     )
   }
@@ -183,7 +183,10 @@ export default class FlagDetail extends PureComponent {
         </StyledDiscrib>
         <StyledDiscrib>
           打卡时段：
-          <Text style={{ color: '#f5943f' }}>{limitTimes[0]} - {limitTimes[1]} (北京时间)</Text>
+          {limitTimes && 
+            <Text style={{ color: '#f5943f' }}>
+             {limitTimes[0]} - {limitTimes[1]} (北京时间)
+            </Text>}
         </StyledDiscrib>
         <StyledDiscrib>
           押金： <Text style={{ color: '#f5943f' }}>{cost}元 </Text>

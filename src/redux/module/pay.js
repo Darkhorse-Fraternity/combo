@@ -93,6 +93,10 @@ export function pay(type,  amount, detail, description,uid,bid) {
         bid,
       )))
 
+      if(!data){
+        Toast.show('预支付失败!')
+        return dispatch(fail())
+      }
 
       const obj = {
         // appid:'wx637e6f35f8211c6d',
@@ -142,7 +146,15 @@ export function pay(type,  amount, detail, description,uid,bid) {
         uid,
         bid,
       )))
+
+      if(!res){
+        Toast.show('预支付失败!')
+        return dispatch(fail())
+      }
+
       const aliPayRes = await dispatch(aliPay(res.data))
+     
+
       const { alipay_trade_app_pay_response } = aliPayRes
       if (alipay_trade_app_pay_response) {
         const { trade_no } = alipay_trade_app_pay_response
@@ -172,9 +184,15 @@ export function pay(type,  amount, detail, description,uid,bid) {
         bid,
       )
       const lastRes = await dispatch(req(cashParams))
-      dispatch(update())//更新用户数据
-      Toast.show('支付成功')
-      return dispatch(suc(lastRes))
+      if(lastRes){
+        dispatch(update())//更新用户数据
+        Toast.show('支付成功')
+        return dispatch(suc(lastRes))
+      }else{
+        Toast.show('预支付失败!')
+        return dispatch(fail())
+      }
+      
     }
   }
 

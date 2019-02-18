@@ -34,8 +34,8 @@ const errorHandler = (e, isFatal) => {
     const errorString = `${e.name} ${e.message}`
     uploadErrorString('js\n'+DeviceBugInfo()+'\n', errorString,isFatal)
     Alert.alert(
-      strings('error.Unexpected_error_occurred'),
-      strings('error.We_will_need_to_restart_the_app'),
+      e.name,
+      e.message,
       [{
         text: strings('error.Restart'),
         onPress: () => {
