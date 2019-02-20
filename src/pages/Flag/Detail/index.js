@@ -216,7 +216,7 @@ export default class FlagDetail extends PureComponent {
         return (
           <StyledDiscrib>
             补签卡：<Text style={{ color: '#f5943f' }}>
-              {rewardConfig && rewardConfig.get('number')}张
+              {rewardConfig && rewardConfig.get('redo')}张
             </Text>
           </StyledDiscrib>
         )

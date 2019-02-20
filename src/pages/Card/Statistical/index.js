@@ -173,7 +173,7 @@ export default class Statistical extends PureComponent {
     const date = ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)).toFixed(1);
 
     const time = iUse.time
-    moment.locale('zh-cn')
+    // moment.locale('zh-cn')
     const fromNow = moment(iUse.doneDate.iso).fromNow()
 
     const isSelf = this.props.user.objectId === iUse.user

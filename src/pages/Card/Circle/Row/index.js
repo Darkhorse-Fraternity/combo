@@ -104,7 +104,7 @@ export default class RecordRow extends Component {
     if (!item) return null
     const img = item.imgs && item.imgs[0] || null
     // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
-    moment.locale('zh-cn')
+    // moment.locale('zh-cn')
     const fromNow = moment(item.createdAt).fromNow()
     return (
       <StyledButton

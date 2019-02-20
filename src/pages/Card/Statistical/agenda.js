@@ -57,13 +57,14 @@ import { withTheme } from 'styled-components'
         const params = classSearch(IDO, param)
         dispatch(req(params, IDOCALENDAR, {
           dataMap: datas => {
-
+            console.log(datas);
+            
             datas.results.forEach(item => {
               const date = moment(item.createdAt).format("YYYY-MM-DD")
               data[date] = item
             })
 
-            // console.log('first:', first,datas,data);
+            //  console.log('first:', first,datas,data);
             return data
           }
         }))
@@ -106,7 +107,7 @@ export default class AgendaScreen extends Component {
     const { onPress, data } = this.props
 
     const busyDay = data.get('data').toJS()
-    // console.log('data:', data);
+    // console.log('busyDay:', busyDay);
     const load = data.get('load')
 
 
