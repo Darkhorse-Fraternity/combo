@@ -119,7 +119,9 @@ export function userInfo() {
         const sessionToken = user.sessionToken
         // setLeanCloudSession(sessionToken)
         // const params = usersMe()
-        dispatch(loginSucceed(user));
+        await dispatch(loginSucceed(user));
+        //更新用户数据
+        dispatch(update())
         return user
         // try {
         //   const res = await get(params)

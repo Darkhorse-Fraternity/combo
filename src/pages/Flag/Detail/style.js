@@ -31,8 +31,8 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledCover = styled(FastImage)`
-  width: ${props => props.theme.width - 60};
-  height: 320px;
+  width: ${props => props.theme.width - 40};
+  height: 250px;
   border-radius: 20px;
   align-self: center;
   margin-bottom: 20px;

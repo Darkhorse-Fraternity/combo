@@ -25,7 +25,6 @@ import {
   StyledItemText
 } from './style'
 import LCList from '../../components/Base/LCList';
-import { logger } from 'handlebars';
 
 
 
@@ -72,16 +71,13 @@ export default class Flag extends PureComponent {
   __renderItem = ({ item, index }) => {
     const {title,objectId,iCard, titleConfig} = item
     const { color } = titleConfig;
-    console.log("titleConfig",titleConfig);
     
-    
-
     return (
       <StyledItem onPress={()=>{
         this.props.navigation.navigate('flagDetail',{flagId:objectId,iCardId:iCard})
       }}>
         <StyledItemImage source={{uri:item.cover.url}}/>
-        <StyledItemText color>
+        <StyledItemText color={color}>
           {title}
         </StyledItemText>
       </StyledItem>

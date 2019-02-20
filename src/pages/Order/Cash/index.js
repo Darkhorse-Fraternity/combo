@@ -26,6 +26,7 @@ import { formValueSelector } from 'redux-form/immutable'
 import { add } from '../../../redux/module/leancloud'
 import { selfUser } from "../../../request/LCModle";
 import Toast from 'react-native-simple-toast'
+import {updateUserData} from '../../../redux/actions/user';
 
 const selector = formValueSelector(FormID)
 
@@ -55,9 +56,19 @@ const listKey = ENCH
               ...dispatch(selfUser()),
               amount
             }
-            await dispatch(add(params, ENCH))
-            Toast.show('我们已经收到了您的申请,耐心等待哦。')
-            props.navigation.goBack()
+            const res = await dispatch(add(params, ENCH))
+            // 修改本地用户数据
+
+            // console.log(res);
+            
+
+            if(res){
+              Toast.show('我们已经收到了您的申请,耐心等待哦。')
+              // dispatch(updateUserData({
+              //   balance: user.balance - amount * 100
+              // }))
+              props.navigation.goBack()
+            }
           } else {
             if (user.balance <= amount * 100) {
               Toast.show('您的余额不足')
