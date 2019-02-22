@@ -59,10 +59,11 @@ export default class Calendar extends Component {
   };
 
   selectDay(d) {
-    this.setState({
-      date: d
-    })
+    // this.setState({
+    //   date: d
+    // })
     // this.fetchData()
+    this.props.selectDay(d);
   };
 
 
@@ -183,7 +184,7 @@ export default class Calendar extends Component {
         year={this.state.year}
         month={month}
         date={this.state.date}
-        selectDay={this.selectDay.bind(this)}
+        selectDay={this.props.selectDay}
         isLeap={this.isLeap}
         fetchData={this.props.fetchData}
         busyDay={this.props.busyDay}/>

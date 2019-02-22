@@ -3,7 +3,7 @@ import Do from '../../../pages/Card/Do'
 import React from 'react'
 import {creatIDO} from './DoCard'
 import { ICARD } from '../../../redux/reqKeys'
-export function doCardWithNone(data) {
+export function doCardWithNone(data,type = 0) {
   return async (dispatch, getState) => {
     const state = getState()
     const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
@@ -22,7 +22,7 @@ export function doCardWithNone(data) {
     //在这边添加新的判断
 
     // const IUseP = classUpdate(IUSE, id, param)
-    return await dispatch(creatIDO(data, iCardM,{type:0}))
+    return await dispatch(creatIDO(data, iCardM,{type}))
 
   }
 

@@ -401,7 +401,7 @@ export default class Punch extends Component {
     }
 
 
-    // data = data && data.reverse()
+   
     return (
       <StyledContent>
         {/*<StyledContent*/}

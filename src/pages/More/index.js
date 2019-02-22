@@ -1,5 +1,5 @@
 /* @flow */
-'use strict';
+
 
 import React, { Component } from 'react';
 import {
@@ -11,10 +11,12 @@ import {
   RefreshControl,
   Platform,
   Linking
-} from 'react-native'
-import Button from '../../components/Button/index'
+} from 'react-native';
+import { connect } from 'react-redux';
+import Rate, { AndroidMarket } from 'react-native-rate';
+import DeviceInfo from 'react-native-device-info';
+import Button from '../../components/Button/index';
 
-import { connect } from 'react-redux'
 import {
   StyledContent,
   StyleFolllow,
@@ -28,17 +30,16 @@ import {
   StyledIncome,
   StyledEntypoIcon,
   StyledInnerContent
-} from './style'
-import { req, } from '../../redux/actions/req'
+} from './style';
+import { req, } from '../../redux/actions/req';
 import {
   FRIENDNUM,
-} from '../../redux/reqKeys'
+} from '../../redux/reqKeys';
 import {
   friendNum,
-} from '../../request/leanCloud'
-import Rate, { AndroidMarket } from 'react-native-rate'
-import DeviceInfo from 'react-native-device-info'
-import Avatar from '../../components/Avatar'
+} from '../../request/leanCloud';
+import Avatar from '../../components/Avatar';
+import { updateNickName } from '../../request/leanCloud';
 
 @connect(
   state => ({
@@ -49,149 +50,95 @@ import Avatar from '../../components/Avatar'
   dispatch => ({
     loadFriendNum: () => {
       dispatch((dispatch, getState) => {
-        const userId = getState().user.data.objectId
-        const param = friendNum(userId)
-        dispatch(req(param, FRIENDNUM + userId))
-      })
+        const userId = getState().user.data.objectId;
+        const param = friendNum(userId);
+        dispatch(req(param, FRIENDNUM + userId));
+      });
     },
 
 
     rate: () => {
-      let url = ''
-      const IOS_APP_ID = '1332546993'
+      let url = '';
+      const IOS_APP_ID = '1332546993';
       if (Platform.OS === 'ios') {
-
-        url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`
+        url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`;
       } else {
-        url = 'market://details?id=' + DeviceInfo.getBundleId()
+        url = `market://details?id=${DeviceInfo.getBundleId()}`;
       }
       // Linking.openURL(url)
 
 
-      let options = {
+      const options = {
         AppleAppID: IOS_APP_ID,
         preferredAndroidMarket: AndroidMarket.Other,
         OtherAndroidURL: url,
         openAppStoreIfInAppFails: true,
-        fallbackPlatformURL: "https://icard.leanapp.cn/",
-      }
+        fallbackPlatformURL: 'https://icard.leanapp.cn/',
+      };
       Rate.rate(options, (success) => {
         if (success) {
           console.log('Rate success');
           // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
           // this.setState({rated:true})
         }
-      })
+      });
     }
   })
 )
 
 export default class More extends Component {
-
-
   constructor(props: Object) {
     super(props);
-
   }
 
-  static navigationOptions = props => {
+  static navigationOptions = (props) => {
     const { navigation } = props;
     const { state } = navigation;
     const { params } = state;
-    const isLogin = params ? params.isLogin : false
+    const isLogin = params ? params.isLogin : false;
     // console.log('test:', params,localLoad);
     return {
       // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
       gesturesEnabled: false,
       header: null
 
-    }
+    };
   };
 
   componentDidMount() {
     // this.props.loadFriendNum()
   }
 
-  _renderHeadRow() {
-    // let {grade_str,connect_phone} = data;
-    // console.log('test111:',data.avatar.url)
-    const { loadAvatar, user } = this.props
-    const { data, isTourist } = user
 
-    const name = isTourist ? '点击登录' : data.nickname || '匿名'
+  _renderFunction = () => (
+    <Button onPress={() => {
+      this.props.navigation.navigate('earnings');
+    }}
+    >
+      <StyledFuncView>
 
-
-    return (
-      <StyleHeader>
-        <StyledHeaderTop onPress={() => {
-          if (isTourist) {
-            this.props.navigation.navigate('login',{ transition: 'forVertical' })
-          } else {
-            this.props.navigation.navigate('account')
-          }
-
-        }}>
-          <StyledAvatarView>
-            <Avatar load={loadAvatar}/>
-            {/*<View style={{*/}
-            {/*marginTop: 10,*/}
-            {/*flexDirection: 'row',*/}
-            {/*alignItems: 'center'*/}
-            {/*}}>*/}
-            {/*<StyledIcon*/}
-            {/*color={"#c1c1c1"}*/}
-            {/*size={13}*/}
-            {/*name={'edit'}/>*/}
-            {/*<StyledHeaderSubText>编辑</StyledHeaderSubText>*/}
-            {/*</View>*/}
-          </StyledAvatarView>
-          <View>
-            <StyledHeaderName>
-              {name}
-            </StyledHeaderName>
-            {/*{this._renderFollow()}*/}
-          </View>
-
-        </StyledHeaderTop>
-
-        {/*{this._renderFunction()}*/}
-
-      </StyleHeader>
-    );
-  }
-
-
-  _renderFunction = () => {
-    return (
-      <Button onPress={() => {
-        this.props.navigation.navigate('earnings')
-      }}>
-        <StyledFuncView>
-
-          <StyledIncome>
+        <StyledIncome>
             我的钱包
-          </StyledIncome>
+        </StyledIncome>
 
-          <StyledEntypoIcon
-            color={"#c1c1c1"}
-            size={20}
-            name={'triangle-right'}
-          />
-        </StyledFuncView>
-      </Button>
-    )
-  }
+        <StyledEntypoIcon
+          color="#c1c1c1"
+          size={20}
+          name="triangle-right"
+        />
+      </StyledFuncView>
+    </Button>
+  )
 
   _renderFollow = () => {
-
-    const { friendNum, navigation } = this.props
-    let followers_count = 0, followees_count = 0
-    const friendNumData = friendNum && friendNum.toJS()
+    const { friendNum, navigation } = this.props;
+    let followers_count = 0; let
+      followees_count = 0;
+    const friendNumData = friendNum && friendNum.toJS();
 
     if (friendNumData && friendNumData.data) {
-
-      followers_count = friendNumData.data.followers_count
-      followees_count = friendNumData.data.followees_count
+      followers_count = friendNumData.data.followers_count;
+      followees_count = friendNumData.data.followees_count;
     }
 
     // if (followers_count + followees_count === 0) {
@@ -200,93 +147,166 @@ export default class More extends Component {
 
     return (
       <StyleFolllow>
-        {followees_count > 0 && <Button
+        {followees_count > 0 && (
+        <Button
           style={{ alignItems: 'center' }}
           onPress={() => {
             navigation.navigate('followee', { userId: this.props.user.data.objectId });
-          }}>
+          }}
+        >
 
           <StyleFollowText>
-            关注：{followees_count}
+            关注：
+            {followees_count}
           </StyleFollowText>
-        </Button>}
-        {followers_count > 0 && <StyleFollowDevide/>}
-        {followers_count > 0 && <Button
+        </Button>
+        )}
+        {followers_count > 0 && <StyleFollowDevide />}
+        {followers_count > 0 && (
+        <Button
           style={{ alignItems: 'center' }}
           onPress={() => {
             navigation.navigate('follower', { userId: this.props.user.data.objectId });
-          }}>
+          }}
+        >
           <StyleFollowText>
-            被关注： {followers_count}
+            被关注：
+            {' '}
+            {followers_count}
           </StyleFollowText>
-        </Button>}
+        </Button>
+        )}
       </StyleFolllow>
-    )
+    );
+  }
+
+  _renderHeadRow() {
+    // let {grade_str,connect_phone} = data;
+    // console.log('test111:',data.avatar.url)
+    const { loadAvatar, user } = this.props;
+    const { data, isTourist } = user;
+
+    const name = isTourist ? '点击登录' : data.nickname || '匿名';
+
+
+    return (
+      <StyleHeader>
+        <StyledHeaderTop onPress={() => {
+          if (isTourist) {
+            this.props.navigation.navigate('login', { transition: 'forVertical' });
+          } else {
+            this.props.navigation.navigate('account');
+          }
+        }}
+        >
+          <StyledAvatarView>
+            <Avatar load={loadAvatar} />
+            {/* <View style={{ */}
+            {/* marginTop: 10, */}
+            {/* flexDirection: 'row', */}
+            {/* alignItems: 'center' */}
+            {/* }}> */}
+            {/* <StyledIcon */}
+            {/* color={"#c1c1c1"} */}
+            {/* size={13} */}
+            {/* name={'edit'}/> */}
+            {/* <StyledHeaderSubText>编辑</StyledHeaderSubText> */}
+            {/* </View> */}
+          </StyledAvatarView>
+          <View>
+            <StyledHeaderName>
+              {name}
+            </StyledHeaderName>
+            {/* {this._renderFollow()} */}
+          </View>
+
+        </StyledHeaderTop>
+
+        {/* {this._renderFunction()} */}
+
+      </StyleHeader>
+    );
   }
 
 
   __renderLoginRow() {
-    const { navigation, user } = this.props
-    const { isTourist } = user
+    const { navigation, user, rate } = this.props;
+    const { isTourist } = user;
 
+    let rows = [
+
+      this.renderRow('归档习惯', true, () => {
+        navigation.navigate('record', { statu: 'stop' });
+      }),
+
+      this.renderRow('习惯提醒', true, () => {
+        navigation.navigate('remind');
+      }),
+
+      this.renderRow('我的道具', true, () => {
+        navigation.navigate('tool');
+      }),
+
+
+      !isTourist && this.renderRow('我的钱包', true, () => {
+        navigation.navigate('earnings');
+      }),
+
+      !isTourist && this.renderRow('粉丝查看', false, () => {
+        navigation.navigate('follow',
+          { userId: user.data.objectId });
+      }),
+
+      this.renderRow('好评鼓励', false, rate),
+
+      this.renderRow('微博反馈', false, () => {
+        Linking.canOpenURL('sinaweibo://').then((supported) => { // weixin://  alipay://
+          if (supported) {
+            Linking.openURL('sinaweibo://userinfo?uid=6861885697');
+          } else {
+            navigation.navigate('web', {
+              url: 'https://weibo.com/u/6861885697',
+              title: '小改变的微博'
+            });
+          }
+        });
+      }),
+      <View key="height" styles={{ height: 100 }} />
+    ];
+
+    rows = rows.filter(item => !!item);
+
+    const count = rows.length + 1;
+    let up = 0;
+    for (let index = 3; index < count; index += 3) {
+      rows.splice(index + up, 0, <View key={`index${index}`} style={{ height: 20, }} />);
+      up += 1;
+    }
+
+    return rows;
+  }
+
+
+  renderRow(title: string, isArraw: bool = false, onPress: Function = () => {
+  }, description: any = null) {
     return (
-      <View style={{ marginTop: 0 }}>
-
-
-        {this._renderRow('归档习惯', true, () => {
-          navigation.navigate('record', { statu: 'stop' });
-        })}
-
-        {this._renderRow('习惯提醒', true, () => {
-          navigation.navigate('remind');
-        })}
-
-        {!isTourist && this._renderRow('我的钱包', true, () => {
-          navigation.navigate('earnings')
-        })}
-
-        {/*{this._renderRow('共享卡片管理', true, () => {*/}
-        {/*navigation.navigate('publish');*/}
-        {/*})}*/}
-
-
-        {/*{this._renderRow('我的收藏', styles.group, true, () => {*/}
-        {/*navigation.navigate('iCollect');*/}
-        {/*})}*/}
-        <View style={{ height: 25 }}/>
-
-
-        {!isTourist && this._renderRow('粉丝查看', false, () => {
-          navigation.navigate("follow",
-            { userId: this.props.user.data.objectId });
-        })}
-
-
-        {/*<View style={{ height: 25 }}/>*/}
-
-        {/*{this._renderRow('给作者留言', false, () => {*/}
-        {/*navigation.navigate("feedback");*/}
-        {/*})}*/}
-
-        {this._renderRow('好评鼓励', false, this.props.rate)}
-
-        {/*<View style={{ height: 25 }}/>*/}
-
-        {this._renderRow('微博反馈', false, () => {
-          Linking.canOpenURL('sinaweibo://').then(supported => { // weixin://  alipay://
-            if (supported) {
-              Linking.openURL('sinaweibo://userinfo?uid=6861885697');
-            } else {
-              navigation.navigate("web", {
-                url: 'https://weibo.com/u/6861885697',
-                title: '小改变的微博'
-              });
-            }
-          });
-        })}
-        <View style={{ height: 100 }}/>
-      </View>
-    )
+      <Button key={title} onPress={onPress} style={[styles.row]}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+          {/* <Image
+                         resizeMode='contain'
+                         source={source}
+                         style={styles.imageNail}
+                         /> */}
+          <Text style={styles.rowText}>
+            {title}
+          </Text>
+        </View>
+        <View style={styles.row2}>
+          {description ? <Text style={styles.description}>{description}</Text> : null}
+          {/* {isArraw ? <View style={styles.arrowView}/> : null} */}
+        </View>
+      </Button>
+    );
   }
 
   render() {
@@ -300,31 +320,6 @@ export default class More extends Component {
       </StyledContent>
     );
   }
-
-
-  _renderRow(title: string, isArraw: bool = false, onPress: Function = () => {
-  }, description: any = null) {
-    return (
-      <Button onPress={onPress} style={[styles.row]}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
-          {/*<Image
-                         resizeMode='contain'
-                         source={source}
-                         style={styles.imageNail}
-                         />*/}
-          <Text style={styles.rowText}>
-            {title}
-          </Text>
-        </View>
-        <View style={styles.row2}>
-          {description ? <Text style={styles.description}>{description}</Text> : null}
-          {/*{isArraw ? <View style={styles.arrowView}/> : null}*/}
-        </View>
-      </Button>
-    );
-  }
-
-
 }
 
 const styles = StyleSheet.create({
@@ -413,6 +408,3 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
-
-
-

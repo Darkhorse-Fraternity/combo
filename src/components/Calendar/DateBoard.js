@@ -106,7 +106,7 @@ export default class DateBoard extends React.Component {
           <Button
             background={background}
             onPress={() => {
-              this.props.selectDay(now)
+              // this.props.selectDay(now)
               this.props.fetchData && this.props.fetchData(busyDay[now])
             }}
             key={i}
@@ -128,7 +128,7 @@ export default class DateBoard extends React.Component {
           <Button
             background={background}
             onPress={() => {
-              this.props.selectDay(now)
+              // this.props.selectDay(now)
               busyDay[now] &&
               this.props.fetchData && this.props.fetchData(busyDay[now])
             }}

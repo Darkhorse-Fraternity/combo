@@ -2,34 +2,33 @@
  * Created by lintong on 2018/4/8.
  * @flow
  */
-'use strict';
 
-import styled from "styled-components";
-import Button from '../../components/Button/index'
-import Icon from 'react-native-vector-icons/FontAwesome5'
-import EntypoIcon from 'react-native-vector-icons/Entypo'
+
+import styled from 'styled-components';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { SafeAreaView } from 'react-navigation';
-import { Platform } from 'react-native'
+import { Platform } from 'react-native';
+import Button from '../../components/Button/index';
 
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
-  
-`
+`;
 export const StyledInnerContent = styled.ScrollView`
   flex: 1;
-`
+`;
 
 
 export const StyleHeader = styled.View`
-  margin-top: ${Platform.OS === 'ios'?44:64}px;
+  margin-top: ${Platform.OS === 'ios' ? 44 : 64}px;
   padding: 15px 25px;
-`
+`;
 
 export const StyledHeaderTop = styled(Button)`
     margin-bottom: 15px;
      align-items: center;
     
-`
+`;
 
 
 export const StyledHeaderName = styled.Text`
@@ -38,47 +37,47 @@ export const StyledHeaderName = styled.Text`
     max-width: 150px;
     margin-top: 5px;
     
-`
+`;
 
 export const StyledAvatar = styled.Image`
     width:70px;
     height:70px;
    border-radius: 35px;
-`
+`;
 export const StyledAvatarView = styled.View`
     align-items: center;
     justify-content: center;
-`
+`;
 
 
 export const StyledHeaderSubText = styled.Text`
     font-size: 14px;
     color: #c1c1c1;
     margin-left: 2px;
-`
+`;
 
 
 export const StyledIcon = styled(Icon)`
     align-self: center;
-`
+`;
 
 export const StyledFuncView = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 0px 0px;
-`
+`;
 
 export const StyleFolllow = styled.View`
     flex-direction: row;
     align-content: center; 
     justify-content: space-between;
-`
+`;
 export const StyledIncome = styled.Text`
     font-size: 16px;
-`
+`;
 export const StyledEntypoIcon = styled(EntypoIcon)`
 
-`
+`;
 
 export const StyledFollowTextView = styled.View`
    width: 60px;
@@ -88,18 +87,18 @@ export const StyledFollowTextView = styled.View`
    border-width: ${props => props.theme.hairlineWidth * 2};
    align-items: center;
   justify-content: center;
-`
+`;
 
 export const StyleFollowTextNum = styled.Text`
     font-size: 20px; 
     font-weight: 600;
-`
+`;
 
 export const StyleFollowText = styled.Text`
     margin-top: 10px;
     font-size: 23px; 
     font-weight: 500;
-`
+`;
 
 
 export const StyleFollowDevide = styled.View`
@@ -109,4 +108,4 @@ export const StyleFollowDevide = styled.View`
     margin-top: 8px;
     height: 25px;
    
-`
+`;

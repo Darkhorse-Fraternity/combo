@@ -51,13 +51,13 @@ import { withTheme } from 'styled-components'
               "$lte": { "__type": "Date", "iso": last + "T00:00:00.000Z" },
             },
             state: { $ne: -1 },
-            type: 0
+            type: { $ne: 1 }, //0为打卡,1为日记,2为补打卡
           }
         }
         const params = classSearch(IDO, param)
         dispatch(req(params, IDOCALENDAR, {
           dataMap: datas => {
-            console.log(datas);
+            // console.log(datas);
             
             datas.results.forEach(item => {
               const date = moment(item.createdAt).format("YYYY-MM-DD")
@@ -104,7 +104,7 @@ export default class AgendaScreen extends Component {
 
   render() {
 
-    const { onPress, data } = this.props
+    const { onPress, data, selectDay } = this.props
 
     const busyDay = data.get('data').toJS()
     // console.log('busyDay:', busyDay);
@@ -118,6 +118,7 @@ export default class AgendaScreen extends Component {
         date={new Date()}
         load={load}
         fetchData={onPress}
+        selectDay={selectDay}
         busyDay={busyDay}
         move={this.props.load}/>
     );

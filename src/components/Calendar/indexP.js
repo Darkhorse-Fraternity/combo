@@ -54,10 +54,11 @@ export default class Calendar extends Component {
     };
 
     selectDay = (d) => {
-        this.setState({
-            date: d
-        })
+        // this.setState({
+        //     date: d
+        // })
         // this.fetchData()
+        this.props.selectDay()
     };
 
 
@@ -190,15 +191,15 @@ export default class Calendar extends Component {
                             showsHorizontalScrollIndicator={false} pagingEnabled={true}>
                     <DateBoard year={this.state.year} month={this.state.month - 1}
                                date={this.state.date}
-                               selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
+                               selectDay={this.props.selectDay} isLeap={this.isLeap}
                                fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     <DateBoard year={this.state.year} month={this.state.month}
                                date={this.state.date}
-                               selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
+                               selectDay={this.props.selectDay} isLeap={this.isLeap}
                                fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
                     <DateBoard year={this.state.year} month={this.state.month + 1}
                                date={this.state.date}
-                               selectDay={this.selectDay.bind(this)} isLeap={this.isLeap}
+                               selectDay={this.props.selectDay} isLeap={this.isLeap}
                                fetchData={this.props.fetchData} busyDay={this.props.busyDay}/>
 
                 </ScrollView>
