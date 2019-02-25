@@ -7,25 +7,23 @@ import {
   DeviceEventEmitter
 } from 'react-native';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 
-import { classSearch } from '../../../request/leanCloud'
+import moment from 'moment';
+import { withTheme } from 'styled-components';
+import { classSearch } from '../../../request/leanCloud';
 // import {addListNormalizrEntity} from '../../../redux/actions/list'
-import { IDO, IDOCALENDAR } from '../../../redux/reqKeys'
+import { IDO, IDOCALENDAR } from '../../../redux/reqKeys';
 // import {IRECORD, ICARD,IUSE} from '../../../redux/reqKeys'
-import { user, iUse } from '../../../request/LCModle'
-import { req, clear } from '../../../redux/actions/req'
+import { user, iUse } from '../../../request/LCModle';
+import { req, clear } from '../../../redux/actions/req';
 
-import Calendar from '../../../components/Calendar'
-import moment from 'moment'
+import Calendar from '../../../components/Calendar';
 
 import {
   StyledAgendaRow
-} from './style'
-
-
-import { withTheme } from 'styled-components'
+} from './style';
 
 
 @connect(
@@ -34,42 +32,40 @@ import { withTheme } from 'styled-components'
   }),
   (dispatch, props) => ({
     load: (first, last) => {
-      //获取iDo
+      // 获取iDo
       dispatch((dispatch, getState) => {
+        const state = getState();
+        const data = state.req.get(IDOCALENDAR).get('data').toJS();
 
-        const state = getState()
-        const data = state.req.get(IDOCALENDAR).get('data').toJS()
-
-        const iUseId = props.navigation.state.params.iUseId
-        const userId = props.iUse.get('user')
+        const { iUseId } = props.navigation.state.params;
+        const userId = props.iUse.get('user');
         const param = {
-          'where': {
+          where: {
             ...user(userId),
             ...iUse(iUseId),
-            "createdAt": {
-              "$gte": { "__type": "Date", "iso": first + "T00:00:00.000Z" },
-              "$lte": { "__type": "Date", "iso": last + "T00:00:00.000Z" },
+            createdAt: {
+              $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+              $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
             },
             state: { $ne: -1 },
-            type: { $ne: 1 }, //0为打卡,1为日记,2为补打卡
+            type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
           }
-        }
-        const params = classSearch(IDO, param)
+        };
+        const params = classSearch(IDO, param);
         dispatch(req(params, IDOCALENDAR, {
-          dataMap: datas => {
+          dataMap: (datas) => {
             // console.log(datas);
-            
-            datas.results.forEach(item => {
-              const date = moment(item.createdAt).format("YYYY-MM-DD")
-              data[date] = item
-            })
+
+            datas.results.forEach((item) => {
+              const date = moment(item.createdAt).format('YYYY-MM-DD');
+              data[date] = item;
+            });
 
             //  console.log('first:', first,datas,data);
-            return data
+            return data;
           }
-        }))
-
-      })
+        }));
+      });
     },
     clear: () => dispatch(clear(IDOCALENDAR)),
   })
@@ -81,13 +77,13 @@ export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-    this.props.clear()
-    this.state = {}
+    this.props.clear();
+    this.state = {};
   }
 
 
   componentDidMount() {
-    this.refresh()
+    this.refresh();
     // const key = 'done_' + this.props.iCard.get('objectId')
     // this.subscription =
     //     DeviceEventEmitter.addListener(key, this.refresh);
@@ -99,32 +95,28 @@ export default class AgendaScreen extends Component {
 
 
   refresh = () => {
-    this.refs['calendar'] && this.refs['calendar'].move()
+    this.refs.calendar && this.refs.calendar.move();
   }
 
   render() {
+    const { onPress, data, selectDay } = this.props;
 
-    const { onPress, data, selectDay } = this.props
-
-    const busyDay = data.get('data').toJS()
+    const busyDay = data.get('data').toJS();
     // console.log('busyDay:', busyDay);
-    const load = data.get('load')
+    const load = data.get('load');
 
 
     return (
       <Calendar
         color={this.props.color}
-        ref={'calendar'}
+        ref="calendar"
         date={new Date()}
         load={load}
         fetchData={onPress}
         selectDay={selectDay}
         busyDay={busyDay}
-        move={this.props.load}/>
+        move={this.props.load}
+      />
     );
   }
-
-
 }
-
-

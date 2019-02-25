@@ -2,7 +2,7 @@
  * Created by lintong on 2017/11/20.
  * @flow
  */
-'use strict';
+
 
 import * as immutable from 'immutable';
 import React, { Component } from 'react';
@@ -19,10 +19,12 @@ import {
   Modal,
   Platform,
   TouchableHighlight
-} from 'react-native'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components';
+import Toast from 'react-native-simple-toast';
+import moment from 'moment';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
 import {
   ICARD,
@@ -34,15 +36,13 @@ import {
 import { getUserByID, classSearch } from '../../../request/leanCloud'
 import { req, requestSucceed } from '../../../redux/actions/req'
 import { selfUser, iCard, user, pointModel } from '../../../request/LCModle'
-import Toast from 'react-native-simple-toast';
-import { add } from '../../../redux/module/leancloud'
-import { addListNormalizrEntity } from '../../../redux/actions/list'
-import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import moment from 'moment'
-import { user as UserEntity, schemas } from '../../../redux/scemes'
-import Button from '../../../components/Button'
-import { list, entitys } from '../../../redux/scemes'
-import svgs from '../../../../source/icons'
+import { add } from '../../../redux/module/leancloud';
+import { addListNormalizrEntity } from '../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { user as UserEntity, schemas } from '../../../redux/scemes';
+import Button from '../../../components/Button';
+import { list, entitys } from '../../../redux/scemes';
+import svgs from '../../../../source/icons';
 import {
   StyledContent,
   StyledRow,
@@ -59,7 +59,7 @@ import {
   StyledIcon,
   StyledDescirbeView,
 
-} from './style'
+} from './style';
 
 import {
   StyledHeaderCover,
@@ -75,30 +75,30 @@ import {
   StyledFollowBtnText,
   StyledHeaderIcon,
   StyledHedaderIconBack
-} from '../../Course/Info/style'
+} from '../../Course/Info/style';
 
-import { Privacy, CircleState } from '../../../configure/enum'
-import FlipButton from '../../../components/Button/FlipButton'
+import { Privacy, CircleState } from '../../../configure/enum';
+import FlipButton from '../../../components/Button/FlipButton';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import { findByID, find } from '../../../redux/module/leancloud'
-import PayForm, { FormID } from '../../../components/Form/Pay'
-import { formValueSelector } from 'redux-form/immutable'
-import { easyPay } from '../../../redux/module/pay'
-import Pop from '../../../components/Pop'
-import { ORDER } from '../../../redux/reqKeys'
+import { findByID, find } from '../../../redux/module/leancloud';
+import PayForm, { FormID } from '../../../components/Form/Pay';
+import { formValueSelector } from 'redux-form/immutable';
+import { easyPay } from '../../../redux/module/pay';
+import Pop from '../../../components/Pop';
+import { ORDER } from '../../../redux/reqKeys'; // <-- same as form name
+import { daysText } from '../../../configure/enum';
+import Avatar from '../../../components/Avatar/Avatar2';
 
-const selector = formValueSelector(FormID) // <-- same as form name
-import { daysText } from '../../../configure/enum'
-import Avatar from '../../../components/Avatar/Avatar2'
+const selector = formValueSelector(FormID);
 
 @connect(
   (state, props) => {
-    const { iCardId } = props.navigation.state.params
-    const iCard = state.normalizr.get(ICARD).get(iCardId)
-    const userId = iCard && iCard.get('user')
+    const { iCardId } = props.navigation.state.params;
+    const iCard = state.normalizr.get(ICARD).get(iCardId);
+    const userId = iCard && iCard.get('user');
     // console.log('iCardId:', iCardId);
     return {
-      //data:state.req.get()
+      // data:state.req.get()
       iCard,
       user: userId && state.normalizr.get(USER).get(userId),
       userLoad: state.req.get(USER).get('load'),
@@ -108,81 +108,76 @@ import Avatar from '../../../components/Avatar/Avatar2'
       course: iCard && state.normalizr.get(COURSE).get(iCard.get('course')),
       selfUse: state.user.data,
       isTourist: state.user.isTourist
-    }
+    };
   },
   (dispatch, props) => ({
-    //...bindActionCreators({},dispatch),
+    // ...bindActionCreators({},dispatch),
     loadCard: () => {
-      const { iCardId } = props.navigation.state.params
+      const { iCardId } = props.navigation.state.params;
       dispatch(find(ICARD, {
         where: {
           objectId: iCardId
         },
         limit: 1,
         include: 'user,course'
-      }, { sceme: list(entitys[ICARD]) }))
+      }, { sceme: list(entitys[ICARD]) }));
     },
     loadCourse: (course) => {
       if (course && !course.get('title')) {
-        const id = course.get('objectId')
-        dispatch(findByID(COURSE, id))
+        const id = course.get('objectId');
+        dispatch(findByID(COURSE, id));
       }
     },
     loadUser: (iCardUser) => {
-
-
       if (!iCardUser.nickname && iCardUser.objectId) {
-
-        const param = getUserByID(iCardUser.objectId)
-        dispatch(req(param, USER, { sceme: UserEntity }))
-
+        const param = getUserByID(iCardUser.objectId);
+        dispatch(req(param, USER, { sceme: UserEntity }));
       }
     },
     use: async (card) => {
-
       const param = {
         // cycle: 0,
         time: 0,
-        privacy: Privacy.open,//对外开放
+        privacy: Privacy.open, // 对外开放
         statu: 'start',
         // notifyTime:option&&option.notifyTime||"20.00",
-        doneDate: { "__type": "Date", "iso": moment('2017-03-20') },
+        doneDate: { __type: 'Date', iso: moment('2017-03-20') },
         ...dispatch(selfUser()),
         ...iCard(card.objectId),
         // include: 'avatar'
-      }
-      const res = await dispatch(add(param, IUSE))
+      };
+      const res = await dispatch(add(param, IUSE));
       const entity = {
         ...param,
         ...res
-      }
-      dispatch(addListNormalizrEntity(IUSE, entity))
+      };
+      dispatch(addListNormalizrEntity(IUSE, entity));
       dispatch(addNormalizrEntity(ICARD, {
         ...card,
         useNum: card.useNum + 1,
-      }))
-      dispatch(requestSucceed(IUSEExist, [res.objectId]))
+      }));
+      dispatch(requestSucceed(IUSEExist, [res.objectId]));
       // props.navigation.goBack()
-      Toast.show('你接受了一个卡片' + card.title)
+      Toast.show(`你接受了一个卡片${card.title}`);
     },
     exist: async (id) => {
       const params = classSearch(IUSE, {
         where: {
           ...iCard(id),
           ...dispatch(selfUser()),
-          statu: { "$ne": 'del' },
+          statu: { $ne: 'del' },
         },
-      })
-      dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }))
+      });
+      dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }));
     },
     joinPay: async (price, title, bid) => {
-      const description = '圈子_' + title + '的加入费用'
+      const description = `圈子_${title}的加入费用`;
       return dispatch(
         easyPay(price,
           description,
-          "joinCard",
-          bid,
-        ))
+          'joinCard',
+          bid,)
+      );
     }
 
   })
@@ -195,28 +190,29 @@ export default class CardInfo extends Component {
       visible: false,
       index: 0,
 
-    }
+    };
   }
 
   static propTypes = {};
+
   static defaultProps = {};
-  static navigationOptions = props => {
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    return {}
-  };
+
+  static navigationOptions = // const {navigation} = props;
+                             // const {state} = navigation;
+                             // const {params} = state;
+                             props => ({})
+  ;
 
 
   componentDidMount() {
     if (!this.props.iCard) {
-      this.props.loadCard()
+      this.props.loadCard();
     }
     if (this.props.user) {
-      this.props.loadUser(this.props.user.toJS())
+      this.props.loadUser(this.props.user.toJS());
     }
-    this.props.exist(this.props.navigation.state.params.iCardId)
-    this.props.loadCourse(this.props.course)
+    this.props.exist(this.props.navigation.state.params.iCardId);
+    this.props.loadCourse(this.props.course);
   }
 
   // shouldComponentUpdate(nextProps: Object) {
@@ -248,7 +244,7 @@ export default class CardInfo extends Component {
           <StyledRowDes>
             {des}
           </StyledRowDes>
-          <StyledArrow/>
+          <StyledArrow />
         </StyledRowInner>
       </StyledRow>
     </Button>
@@ -256,79 +252,75 @@ export default class CardInfo extends Component {
   )
 
 
-  _renderCourse = (course) => {
-    // console.log('course:', course);
-    return (
-      <StyledCourseView>
-
-      </StyledCourseView>
+  _renderCourse = // console.log('course:', course);
+                  course => (
+      <StyledCourseView />
     )
 
-  }
 
   render(): ReactElement<any> {
-
-
     if (!this.props.iCard) {
-      return null
+      return null;
     }
 
 
-    const { selfUse, joinPay } = this.props
+    const { selfUse, joinPay } = this.props;
 
-    const iCard = this.props.iCard.toJS()
-    const iCardUser = this.props.user.toJS()
+    const iCard = this.props.iCard.toJS();
+    const iCardUser = this.props.user.toJS();
 
-    const cover = iCard.img ? { uri: iCard.img.url } : null
+    const cover = iCard.img ? { uri: iCard.img.url } : null;
 
 
-    const exist = this.props.useExist.get('data').size >= 1
-    const load = this.props.useExist.get('load')
-    const nickName = iCardUser.nickname
-    const keys = iCard.keys
-    const { describe, iconAndColor } = iCard
-    const iUseData = this.props.data && this.props.data.toJS()
+    const exist = this.props.useExist.get('data').size >= 1;
+    const load = this.props.useExist.get('load');
+    const nickName = iCardUser.nickname;
+    const { keys } = iCard;
+    const { describe, iconAndColor } = iCard;
+    const iUseData = this.props.data && this.props.data.toJS();
 
-    const userLoad = this.props.userLoad
+    const { userLoad } = this.props;
 
 
     // let { course } = this.props
     // course = course && course.toJS()
 
-    const imgs = iCard && iCard.imgs
+    const imgs = iCard && iCard.imgs;
 
-    const urlList = imgs && imgs.map(item => {
-      return {
-        url: item.img.url
-      }
-    }) || []
+    const urlList = imgs && imgs.map(item => ({
+      url: item.img.url
+    })) || [];
 
     // console.log('iconAndColor:', iconAndColor);
 
-    const isSelf = selfUse.objectId === iCard.user
+    const isSelf = selfUse.objectId === iCard.user;
 
 
-    let limitTimes = iCard.limitTimes
-    limitTimes = limitTimes && limitTimes.join('~') || ''
-    limitTimes = limitTimes === '00:00~24:00' ? '' : '，' + limitTimes
-    const limitTime = daysText(iCard.recordDay) + limitTimes
+    let { limitTimes } = iCard;
+    limitTimes = limitTimes && limitTimes.join('~') || '';
+    limitTimes = limitTimes === '00:00~24:00' ? '' : `，${limitTimes}`;
+    const limitTime = daysText(iCard.recordDay) + limitTimes;
     // console.log('iCard.img:', iCard.img);
 
     return (
       <StyledContent
         colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
-        forceInset={{ top: 'never' }}>
+        forceInset={{ top: 'never' }}
+      >
 
-        {iCard.img && <ImagesViewModal
+        {iCard.img && (
+        <ImagesViewModal
           visible={this.state.visible}
           index={this.state.index}
           closeCallBack={() => {
-            this.setState({ visible: false, index: 0 })
-          }}
-          imageUrls={[{ url: iCard.img.url }, ...urlList]}/>}
+    this.setState({ visible: false, index: 0 });
+  }}
+          imageUrls={[{ url: iCard.img.url }, ...urlList]}
+/>
+        )}
         <FlipButton
           faceText={'马上\n参与'}
-          backText={'已参与'}
+          backText="已参与"
           load={load}
           flip={exist}
           animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
@@ -337,89 +329,98 @@ export default class CardInfo extends Component {
               this.props.navigation.navigate('card', {
                 iUseId: iUseData.objectId,
                 iCardId: iCard.objectId
-              })
-
+              });
             } else {
               if (this.props.isTourist) {
-                this.props.navigation.navigate('login')
-                return Toast.show('加入圈子必须先登录哦~!')
+                this.props.navigation.navigate('login');
+                return Toast.show('加入圈子必须先登录哦~!');
               }
 
 
               if (iCard.price > 0 && !isSelf) {
                 Pop.show(<PayForm
                   onSubmit={async () => {
-                    const { price, title, user } = iCard
+                    const { price, title, user } = iCard;
 
-                    const res = await joinPay(price, title, user)
-                    res.payload.statu === 'suc' && Pop.hide()
-                    res.payload.statu === 'suc' && this.props.use(iCard)
+                    const res = await joinPay(price, title, user);
+                    res.payload.statu === 'suc' && Pop.hide();
+                    res.payload.statu === 'suc' && this.props.use(iCard);
                   }}
                   balance={selfUse.balance || 0}
-                  price={iCard.price}/>, {
+                  price={iCard.price}
+                />, {
                   animationType: 'slide-up',
                   wrapStyle: {
                     justifyContent: 'flex-end',
                   }
-                })
+                });
               } else {
-                this.props.use(iCard)
+                this.props.use(iCard);
               }
-
             }
           }}
           containStyle={styles.containStyle}
-          style={styles.flip}/>
+          style={styles.flip}
+        />
         <ScrollView
           // removeClippedSubviews={true}
-          style={[this.props.style, styles.wrap]}>
-          {cover ? <StyledHeaderCover onPress={() => {
-              this.setState({ visible: true })
-            }}>
+          style={[this.props.style, styles.wrap]}
+        >
+          {cover ? (
+            <StyledHeaderCover onPress={() => {
+              this.setState({ visible: true });
+            }}
+            >
               <StyledHeaderImage
-                resizeMode={iCard.img ? 'cover' : 'center'}
-                source={cover}/>
-            </StyledHeaderCover> :
-            <StyledHedaderIconBack color={iconAndColor.color}>
-              <StyledHeaderIcon resizeMode={'contain'} source={svgs[iconAndColor.name]}/>
-            </StyledHedaderIconBack>
+    resizeMode={iCard.img ? 'cover' : 'center'}
+    source={cover}
+              />
+                        </StyledHeaderCover>
+          )
+            : (
+              <StyledHedaderIconBack color={iconAndColor.color}>
+  <StyledHeaderIcon resizeMode="contain" source={svgs[iconAndColor.name]} />
+</StyledHedaderIconBack>
+            )
           }
 
 
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
-              {iCard.subtitle && <StyledSubTitle>
+              {iCard.subtitle && (
+              <StyledSubTitle>
                 {iCard.subtitle}
-              </StyledSubTitle>}
+                            </StyledSubTitle>
+              )}
 
               <StyledHeaderTitle>
                 {iCard.title}
               </StyledHeaderTitle>
-              {keys && <StyledKeysView>
-                {keys.map(key => {
-                  return '#' + key
-                }).join(' ')}
+              {keys && (
+              <StyledKeysView>
+                {keys.map(key => `#${  key}`).join(' ')}
 
 
-              </StyledKeysView>}
+                            </StyledKeysView>
+              )}
 
 
-              {/*<Button*/}
-              {/*style={{*/}
-              {/*flexDirection: 'row',*/}
-              {/*marginTop: 10,*/}
-              {/*alignItems: 'center',*/}
-              {/*}}*/}
-              {/*onPress={() => {*/}
-              {/*!userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })*/}
-              {/*}}>*/}
-              {/*<StyledReadNum>*/}
-              {/*参与人数：{iCard.useNum}*/}
-              {/*</StyledReadNum>*/}
-              {/*<StyledIcon*/}
-              {/*size={15}*/}
-              {/*name="ios-arrow-forward"/>*/}
-              {/*</Button>*/}
+              {/* <Button */}
+              {/* style={{ */}
+              {/* flexDirection: 'row', */}
+              {/* marginTop: 10, */}
+              {/* alignItems: 'center', */}
+              {/* }} */}
+              {/* onPress={() => { */}
+              {/*! userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId }) */}
+              {/* }}> */}
+              {/* <StyledReadNum> */}
+              {/* 参与人数：{iCard.useNum} */}
+              {/* </StyledReadNum> */}
+              {/* <StyledIcon */}
+              {/* size={15} */}
+              {/* name="ios-arrow-forward"/> */}
+              {/* </Button> */}
 
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
@@ -427,19 +428,19 @@ export default class CardInfo extends Component {
                 style={{ alignItems: 'center' }}
                 onPress={() => {
                   this.props.navigation.navigate('following',
-                    { userId: iCardUser.objectId })
-
-                }}>
-                <Avatar user={iCardUser}/>
+                    { userId: iCardUser.objectId });
+                }}
+              >
+                <Avatar user={iCardUser} />
                 <StyledNickName numberOfLines={3}>
                   {nickName}
                 </StyledNickName>
               </Button>
-              {/*{this.__renderFocusOn()}*/}
+              {/* {this.__renderFocusOn()} */}
             </StyledHeaderInnerRight>
           </StyledHeaderInner>
 
-          <View style={{ height: 50 }}/>
+          <View style={{ height: 50 }} />
 
           <StyledTitleView>
             <StyledTitleText>
@@ -448,59 +449,63 @@ export default class CardInfo extends Component {
           </StyledTitleView>
 
           {this.row('加入费用:', iCard.price === 0 ? '免费'
-            : iCard.price + '元')}
+            : `${iCard.price}元`)}
           {this.row('是否开启圈子:', iCard.circleState !== CircleState.open
             ? '关闭' : '开启')}
-          {this.row('提醒时间:', iCard.notifyTimes ?
-            iCard.notifyTimes.join('、') : '无')}
-          {/*{this.row('关键字:', iCard.keys.join("+"))}*/}
+          {this.row('提醒时间:', iCard.notifyTimes.length > 0
+            ? iCard.notifyTimes.join('、') : '无')}
+          {/* {this.row('关键字:', iCard.keys.join("+"))} */}
           {this.row('打卡时间:', limitTime)}
-          {this.row('习惯周期:', iCard.period + '次')}
-          {this.row('打卡要求:', iCard.record.join("+") || '默认点击')}
-          {this.row('创建时间:', moment(iCard.createdAt).format("MMM YYYY"))}
+          {this.row('习惯周期:', `${iCard.period}次`)}
+          {this.row('打卡要求:', iCard.record.join('+') || '默认点击')}
+          {this.row('创建时间:', moment(iCard.createdAt).format('MMM YYYY'))}
           <Button
             onPress={() => {
-              !userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId })
+              !userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId });
             }}
-            style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
+            style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}
+          >
             {this.row('参与人数:', iCard.useNum)}
             <StyledIcon
               size={15}
               style={{ marginTop: 5 }}
-              name="ios-arrow-forward"/>
+              name="ios-arrow-forward"
+            />
           </Button>
-          {/*{this.rowTouch('使用人数:', iCard.useNum + '人', () => [])}*/}
-          {/*{course && course.title && this._renderCourse(course)}*/}
+          {/* {this.rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
+          {/* {course && course.title && this._renderCourse(course)} */}
 
 
-          {describe &&
+          {describe
+          && (
           <StyledDescirbeView>
-            <StyledDescirbe>
+  <StyledDescirbe>
               {describe}
             </StyledDescirbe>
-          </StyledDescirbeView>}
+</StyledDescirbeView>
+          )}
 
-          {imgs && imgs.map((item, index) => {
-            return (
-              <TouchableHighlight
-                key={item.img.url + index}
-                onPress={() => [
+          {imgs && imgs.map((item, index) => (
+            <TouchableHighlight
+              key={item.img.url + index}
+              onPress={() => [
                   this.setState({ visible: true, index: index + 1 })
-                ]}>
-                <StyledImg
+                ]}
+            >
+              <StyledImg
                   width={Dimensions.get('window').width - 50}
-                  source={{ uri: item.img.url }}/>
-              </TouchableHighlight>
-            )
-          })}
-          <View style={{ height: 200 }}/>
+                  source={{ uri: item.img.url }}
+                />
+            </TouchableHighlight>
+          ))}
+          <View style={{ height: 200 }} />
         </ScrollView>
       </StyledContent>
     );
   }
 }
 
-const width = Dimensions.get('window').width
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
@@ -572,4 +577,4 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 35,
   }
-})
+});

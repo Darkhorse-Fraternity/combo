@@ -29,7 +29,7 @@ import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
 
 //
-import exceptionHandler from './exceptionHandler';
+// import exceptionHandler from './exceptionHandler';
 
 
 @connect(

@@ -2,7 +2,7 @@
  * Created by lintong on 2017/8/30.
  * @flow
  */
-'use strict';
+
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,24 +14,25 @@ import {
   Dimensions,
   findNodeHandle,
   Keyboard,
-} from 'react-native'
+} from 'react-native';
 import { BlurView } from 'react-native-blur';
 
 
-import DoCardForm from '../../../components/Form/DoCardForm/index'
-//static displayName =
+import DoCardForm from '../../../components/Form/DoCardForm/index';
+// static displayName =
 
 export default class Do extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
       viewRef: null,
-    }
+    };
   }
 
   static propTypes = {
     data: PropTypes.object,
   };
+
   static defaultProps = {
     data: {}
   };
@@ -43,11 +44,12 @@ export default class Do extends Component {
 
 
   render(): ReactElement<any> {
-
-    const { record, load, done, type, iCard } = this.props
+    const {
+      record, load, done, type, iCard
+    } = this.props;
     // const iconAndColor = iCard.get('iconAndColor')
     // const color = iconAndColor && iconAndColor.get('color')
-    const color = '#51c332'
+    const color = '#51c332';
 
     return (
       <View
@@ -55,32 +57,36 @@ export default class Do extends Component {
         onResponderGrant={Keyboard.dismiss}
         ref={(e) => {
           if (this.state.viewRef === null && Platform.OS === 'ios') {
-            this.setState({ viewRef: findNodeHandle(e) })
+            this.setState({ viewRef: findNodeHandle(e) });
           }
         }}
         style={[this.props.style, styles.wrap, {
-          backgroundColor: Platform.OS === 'ios' ?
-            'transparent' : 'rgba(255,255,255,1)'
-        }]}>
-        {this.state.viewRef && (<BlurView
+          backgroundColor: Platform.OS === 'ios'
+            ? 'transparent' : 'rgba(255,255,255,1)'
+        }]}
+      >
+        {this.state.viewRef && (
+        <BlurView
           style={[styles.absolute]}
           viewRef={this.state.viewRef}
           blurType="xlight"
           blurAmount={15}
-        />)}
+        />
+        )}
         <DoCardForm
           color={color}
           type={type}
           load={load}
           record={record}
-          onSubmit={done}/>
+          onSubmit={done}
+        />
       </View>
     );
   }
 }
 
-const height = Dimensions.get('window').height
-const sHeight = Platform.OS === 'ios' ? height: height
+const { height } = Dimensions.get('window');
+const sHeight = Platform.OS === 'ios' ? height : height;
 
 const styles = StyleSheet.create({
   wrap: {
@@ -112,4 +118,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: 80,
   }
-})
+});
