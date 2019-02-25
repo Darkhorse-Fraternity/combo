@@ -21,7 +21,7 @@ import { Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
 import { IDO, IUSE } from '../../../redux/reqKeys';
-import { recordDiary } from '../Do/Diary';
+import { recordDiary } from '../../../components/DoCard/Do/Diary';
 import ShareView from '../../../components/Share/ShareView';
 import Pop from '../../../components/Pop';
 import Dialog from '../../../components/Dialog';

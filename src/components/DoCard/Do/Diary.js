@@ -8,12 +8,14 @@ import Do from './Do';
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
 import { uploadImages } from '../../../redux/actions/util';
-import Pop from '../../../components/Pop/index';
+import Pop from '../../Pop/index';
 
-import { ICARD, IDO, IDOULIMAGE } from '../../../redux/reqKeys';
-import { FormID } from '../../../components/Form/DoCardForm/index';
+import {
+  ICARD, IDO, IUSE, IDOULIMAGE
+} from '../../../redux/reqKeys';
+import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
-import { doCard } from '../../../components/Button/DoCardButton/DoCard';
+import { doCard } from '../DoCard';
 
 @connect(
   state => ({
@@ -28,11 +30,11 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
       // 先判断是否有图片，如果有则 先上传图片。
       dispatch(async (dispatch, getState) => {
         try {
-          const { data } = props;
+          const { iUse } = props;
           // const {files, ...otherState} = state
 
           const state = getState();
-          const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS();
+          // const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
 
 
           const selector = formValueSelector(FormID);
@@ -41,13 +43,8 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
           imgs = imgs && imgs.toJS();
 
 
-          if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
-            Toast.show('需要添加文字记录~');
-            return;
-          }
-
-          if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
-            Toast.show('需要添加图片~');
+          if (recordText.length === 0 && imgs.length === 0) {
+            Toast.show('总要记录些什么吧~');
             return;
           }
 
@@ -62,11 +59,11 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
           }
 
 
-          await dispatch(doCard(data,
+          await dispatch(doCard(iUse,
             {
               recordText,
               imgs,
-              type: 0,
+              type: 1,
             }));
 
           Pop.hide();
@@ -78,14 +75,27 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
   })
 )
 
-export default class Doing extends Component {
+export default class Diary extends Component {
   render(): ReactElement<any> {
-    const { data, type = 0 } = this.props;
-    const iCard = this.props.iCard.get(data[ICARD]);
-    const { record } = iCard;
+    const { iUse } = this.props;
+
+    // console.log('ICARD:', data[ICARD]);
+    const iCard = this.props.iCard.get(iUse[ICARD]);
+
+    const record = ['文字', '图片'];
 
     return (
-      <Do record={record} {...this.props} iCard={iCard} type={type} />
+      <Do record={record} {...this.props} iCard={iCard} type={1} />
     );
   }
+}
+
+export function recordDiary(iUse) {
+  Pop.show(<Diary iUse={iUse} />,
+    {
+      wrapStyle: { justifyContent: 'flex-start' },
+      maskStyle: {
+        backgroundColor: 'transparent',
+      }
+    });
 }

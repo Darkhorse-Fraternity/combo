@@ -32,11 +32,11 @@ import AgendaScreen from './agenda';
 import { user, iUse } from '../../../request/LCModle';
 import LCList from '../../../components/Base/LCList';
 import { IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys';
-import { recordDiary } from '../Do/Diary';
+import { recordDiary } from '../../../components/DoCard/Do/Diary';
 import { updateByID } from '../../../redux/module/leancloud';
 import { reqChangeData } from '../../../redux/actions/req';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { doCardWithNone } from '../../../components/Button/DoCardButton/doCardWithNone';
+import doCardWithNone from '../../../components/DoCard/doCardWithNone';
 import { updateMeByParam } from '../../../redux/actions/user';
 
 import RecordRow from './Row';

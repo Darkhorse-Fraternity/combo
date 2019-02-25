@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  ScrollView,
+  // ScrollView,
   StyleSheet,
   Platform,
   Dimensions,
@@ -18,7 +18,7 @@ import {
 import { BlurView } from 'react-native-blur';
 
 
-import DoCardForm from '../../../components/Form/DoCardForm/index';
+import DoCardForm from '../../Form/DoCardForm/index';
 // static displayName =
 
 export default class Do extends Component {
@@ -29,13 +29,9 @@ export default class Do extends Component {
     };
   }
 
-  static propTypes = {
-    data: PropTypes.object,
-  };
+  static propTypes = {};
 
-  static defaultProps = {
-    data: {}
-  };
+  static defaultProps = {};
 
 
   // shouldComponentUpdate(nextProps: Object) {

@@ -8,14 +8,12 @@ import Do from './Do';
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
 import { uploadImages } from '../../../redux/actions/util';
-import Pop from '../../../components/Pop/index';
+import Pop from '../../Pop/index';
 
-import {
-  ICARD, IDO, IUSE, IDOULIMAGE
-} from '../../../redux/reqKeys';
-import DoCardForm, { FormID } from '../../../components/Form/DoCardForm/index';
+import { ICARD, IDO, IDOULIMAGE } from '../../../redux/reqKeys';
+import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
-import { doCard } from '../../../components/Button/DoCardButton/DoCard';
+import { doCard } from '../DoCard';
 
 @connect(
   state => ({
@@ -34,7 +32,7 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
           // const {files, ...otherState} = state
 
           const state = getState();
-          // const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
+          const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS();
 
 
           const selector = formValueSelector(FormID);
@@ -43,8 +41,13 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
           imgs = imgs && imgs.toJS();
 
 
-          if (recordText.length === 0 && imgs.length === 0) {
-            Toast.show('总要记录些什么吧~');
+          if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
+            Toast.show('需要添加文字记录~');
+            return;
+          }
+
+          if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
+            Toast.show('需要添加图片~');
             return;
           }
 
@@ -63,7 +66,7 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
             {
               recordText,
               imgs,
-              type: 1,
+              type: 0,
             }));
 
           Pop.hide();
@@ -75,27 +78,14 @@ import { doCard } from '../../../components/Button/DoCardButton/DoCard';
   })
 )
 
-export default class Diary extends Component {
+export default class Doing extends Component {
   render(): ReactElement<any> {
-    const { data } = this.props;
-
-    // console.log('ICARD:', data[ICARD]);
+    const { data, type = 0 } = this.props;
     const iCard = this.props.iCard.get(data[ICARD]);
-
-    const record = ['文字', '图片'];
+    const { record } = iCard;
 
     return (
-      <Do record={record} {...this.props} iCard={iCard} type={1} />
+      <Do record={record} {...this.props} iCard={iCard} type={type} />
     );
   }
-}
-
-export function recordDiary(data) {
-  Pop.show(<Diary data={data} />,
-    {
-      wrapStyle: { justifyContent: 'flex-start' },
-      maskStyle: {
-        backgroundColor: 'transparent',
-      }
-    });
 }

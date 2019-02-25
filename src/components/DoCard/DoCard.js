@@ -4,17 +4,17 @@ import moment from 'moment';
 import Toast from 'react-native-simple-toast';
 import {
   ICARD, IDO, IUSE, IDOCALENDAR, FLAG
-} from '../../../redux/reqKeys';
+} from '../../redux/reqKeys';
 
 
-import { classCreatNewOne } from '../../../request/leanCloud';
+import { classCreatNewOne } from '../../request/leanCloud';
 import {
   selfUser, iCard, iUse, Flag, FlagRecord
-} from '../../../request/LCModle';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { add } from '../../../redux/actions/list';
-import { req, reqChangeData } from '../../../redux/actions/req';
-import { Privacy } from '../../../configure/enum';
+} from '../../request/LCModle';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+import { add } from '../../redux/actions/list';
+import { req, reqChangeData } from '../../redux/actions/req';
+import { Privacy } from '../../configure/enum';
 
 
 export function doCard(iUseM, other) {
