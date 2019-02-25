@@ -15,7 +15,7 @@ import {
 } from '../../../redux/reqKeys';
 import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
-import { doCard } from '../DoCard';
+import creatIDO from '../doCard';
 
 @connect(
   state => ({
@@ -34,7 +34,7 @@ import { doCard } from '../DoCard';
           // const {files, ...otherState} = state
 
           const state = getState();
-          // const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS()
+          const iCardM = state.normalizr.get(ICARD).get(iUse[ICARD]).toJS();
 
 
           const selector = formValueSelector(FormID);
@@ -59,7 +59,7 @@ import { doCard } from '../DoCard';
           }
 
 
-          await dispatch(doCard(iUse,
+          await dispatch(creatIDO(iUse, iCardM,
             {
               recordText,
               imgs,

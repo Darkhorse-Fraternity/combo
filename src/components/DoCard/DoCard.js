@@ -2,10 +2,11 @@ import React from 'react';
 
 import moment from 'moment';
 import Toast from 'react-native-simple-toast';
+import { formValueSelector } from 'redux-form/immutable';
 import {
-  ICARD, IDO, IUSE, IDOCALENDAR, FLAG
+  IDO, IUSE, IDOCALENDAR, IDOULIMAGE
 } from '../../redux/reqKeys';
-
+import Pop from '../Pop';
 
 import { classCreatNewOne } from '../../request/leanCloud';
 import {
@@ -15,22 +16,54 @@ import { addNormalizrEntity } from '../../redux/module/normalizr';
 import { add } from '../../redux/actions/list';
 import { req, reqChangeData } from '../../redux/actions/req';
 import { Privacy } from '../../configure/enum';
+import { FormID } from '../Form/DoCardForm/index';
+import { uploadImages } from '../../redux/actions/util';
 
-
-export function doCard(iUseM, other) {
+export async function doPre(iUseM, iCardM, other) {
   return async (dispatch, getState) => {
-    const state = getState();
-    const iCardM = state.normalizr.get(ICARD).get(iUseM[ICARD]).toJS();
+    try {
+      const state = getState();
+      const selector = formValueSelector(FormID);
+      const recordText = selector(state, 'recordText') || '';
+      let imgs = selector(state, 'imgs');
+      imgs = imgs && imgs.toJS();
 
 
-    // 在这边添加新的判断
+      if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
+        Toast.show('需要添加文字记录~');
+        return;
+      }
 
-    // const IUseP = classUpdate(IUSE, id, param)
-    dispatch(creatIDO(iUseM, iCardM, other));
+      if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
+        Toast.show('需要添加图片~');
+        return;
+      }
+
+
+      if (imgs.length !== 0) {
+        const urls = imgs.map(file => file.uri);
+        const res = await dispatch(uploadImages(urls, IDOULIMAGE));
+        if (!res.payload) {
+          return;
+        }
+        imgs = res.payload.map(img => img.attributes.url);
+      }
+      await dispatch(creatIDO(iUseM, iCardM,
+        {
+          recordText,
+          imgs,
+          type: 0,
+        }));
+
+      Pop.hide();
+    } catch (e) {
+      console.log('test:', e.message);
+    }
   };
 }
 
-export function creatIDO(iUseM, iCardM, other) {
+
+export default function creatIDO(iUseM, iCardM, other) {
   return async (dispatch) => {
     // TODO 查询是否需要上传副本信息
 

@@ -41,7 +41,7 @@ export default class Do extends Component {
 
   render(): ReactElement<any> {
     const {
-      record, load, done, type, iCard
+      record, load, done, type
     } = this.props;
     // const iconAndColor = iCard.get('iconAndColor')
     // const color = iconAndColor && iconAndColor.get('color')

@@ -13,7 +13,7 @@ import Pop from '../../Pop/index';
 import { ICARD, IDO, IDOULIMAGE } from '../../../redux/reqKeys';
 import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
-import { doCard } from '../DoCard';
+import creatIDO from '../doCard';
 
 @connect(
   state => ({
@@ -28,11 +28,11 @@ import { doCard } from '../DoCard';
       // 先判断是否有图片，如果有则 先上传图片。
       dispatch(async (dispatch, getState) => {
         try {
-          const { data } = props;
+          const { iUse } = props;
           // const {files, ...otherState} = state
 
           const state = getState();
-          const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS();
+          const iCardM = state.normalizr.get(ICARD).get(iUse[ICARD]).toJS();
 
 
           const selector = formValueSelector(FormID);
@@ -62,7 +62,7 @@ import { doCard } from '../DoCard';
           }
 
 
-          await dispatch(doCard(data,
+          await dispatch(creatIDO(iUse, iCardM,
             {
               recordText,
               imgs,
@@ -80,12 +80,12 @@ import { doCard } from '../DoCard';
 
 export default class Doing extends Component {
   render(): ReactElement<any> {
-    const { data, type = 0 } = this.props;
-    const iCard = this.props.iCard.get(data[ICARD]);
+    const { iUse, type = 0, iCard } = this.props;
+    // const iCard = this.props.iCard.get(iUse[ICARD]);
     const { record } = iCard;
 
     return (
-      <Do record={record} {...this.props} iCard={iCard} type={type} />
+      <Do record={record} {...this.props} type={type} />
     );
   }
 }
