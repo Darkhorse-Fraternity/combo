@@ -17,16 +17,16 @@ import { req, reqChangeData } from '../../../redux/actions/req';
 import { Privacy } from '../../../configure/enum';
 
 
-export function doCard(data, other) {
+export function doCard(iUseM, other) {
   return async (dispatch, getState) => {
     const state = getState();
-    const iCardM = state.normalizr.get(ICARD).get(data[ICARD]).toJS();
+    const iCardM = state.normalizr.get(ICARD).get(iUseM[ICARD]).toJS();
 
 
     // 在这边添加新的判断
 
     // const IUseP = classUpdate(IUSE, id, param)
-    dispatch(creatIDO(data, iCardM, other));
+    dispatch(creatIDO(iUseM, iCardM, other));
   };
 }
 

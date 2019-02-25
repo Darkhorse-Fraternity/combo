@@ -115,30 +115,36 @@ const listKey = IDO;
       dispatch(async (dispatch, getState) => {
         // 补打卡
         // 判断卡片是否在活动中,判断是否有补签卡片
-        const state = getState();
-        const activityMoment = moment(iCard.activityEndDate) || moment('2016');
-        const isAfter = moment().isAfter(activityMoment);
-        const { toolConfig } = state.user.data;
-        const { redo } = toolConfig;
-        if (isAfter && redo > 0) {
-          // 先获取那一天这个时候的moment
-          const before = moment(item);
-          before.set('hours', moment().hours());
-          before.set('minutes', moment().minutes());
-          const doneDate = before.toDate();
-          // 以当天时间做打卡,并做特殊标记type=2。
-          dispatch(doCardWithNone(iUse, 2));
-          // 扣去一个补签卡
-          toolConfig.redo = redo - 1;
-          dispatch(updateMeByParam({
-            toolConfig
-          }));
-        } else if (!isAfter) {
-          // 卡片正在活动期间不允许不打卡。
-          SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');
-        } else if (redo <= 0) {
-          // 补签卡数量不够去挑战一些活动吧。
-          SimpleToast.show('亲,补签卡数量不够去挑战一些活动吧~!');
+        try {
+          const state = getState();
+          const activityMoment = moment(iCard.activityEndDate) || moment('2016-01-01');
+          const isAfter = moment().isAfter(activityMoment);
+          console.log('activityMoment', activityMoment.toISOString());
+
+          const { toolConfig } = state.user.data;
+          const { redo } = toolConfig;
+          if (isAfter && redo > 0) {
+            // 先获取那一天这个时候的moment
+            const before = moment(item);
+            before.set('hours', moment().hours());
+            before.set('minutes', moment().minutes());
+            const doneDate = before.toDate();
+            // 以当天时间做打卡,并做特殊标记type=2。
+            await dispatch(doCardWithNone(iUse, 2));
+            // 扣去一个补签卡
+            toolConfig.redo = redo - 1;
+            dispatch(updateMeByParam({
+              toolConfig
+            }));
+          } else if (!isAfter) {
+            // 卡片正在活动期间不允许不打卡。
+            SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');
+          } else if (redo <= 0) {
+            // 补签卡数量不够去挑战一些活动吧。
+            SimpleToast.show('亲,补签卡数量不够去挑战一些活动吧~!');
+          }
+        } catch (e) {
+          SimpleToast.show(e.messege);
         }
       });
     }
@@ -241,18 +247,18 @@ export default class Statistical extends PureComponent {
             && (
             <StyledAdd
               onPress={() => {
-    this.props.tipTap(this.props.iUse.toJS());
-  }}
+                this.props.tipTap(this.props.iUse.toJS());
+              }}
               hitSlop={{
-    top: 20, left: 20, bottom: 20, right: 20
-  }}
+                top: 20, left: 20, bottom: 20, right: 20
+              }}
             >
               <StyledIonicons
-    color={this.props.color}
-    size={25}
-    name="plus-circle"
-  />
-                        </StyledAdd>
+                color={this.props.color}
+                size={25}
+                name="plus-circle"
+              />
+            </StyledAdd>
             )
           }
         </StyledTitleView>
