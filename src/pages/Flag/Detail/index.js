@@ -129,7 +129,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-    </StyledBtn>),
+                  </StyledBtn>),
   })
   ;
 
@@ -289,7 +289,7 @@ export default class FlagDetail extends PureComponent {
           奖金结算：活动结束后,次日由平台审核并发送至【我的钱包】
       </StyledDiscrib>
       <StyledDiscrib>
-          挑战失败：未能在规定时间内完成打卡的用户，
+          挑战失败：未能在规定时间内完成打卡的用户
           押金将扣除，一半用来奖励完成任务的用户，一半作为监督人的管理和用于服务器的维护。
       </StyledDiscrib>
     </StyledFlagView>

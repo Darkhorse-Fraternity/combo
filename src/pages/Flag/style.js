@@ -28,14 +28,12 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledItem = styled(Button)`
-    padding: 0px 20px 20px 20px ;
+    margin: 20px 20px 20px 20px ;
     shadow-opacity: 0.7;
     shadow-radius: 5px;
     shadow-color: #979797;
     shadow-offset: 0px 3px;   
-    elevation: 5;
-    margin:5px;
-    background-color: #fdfbfb;
+    
 `;
 
 export const StyledItemImage = styled(FastImage)`
@@ -44,13 +42,15 @@ export const StyledItemImage = styled(FastImage)`
   border-radius: 20px;
   align-self: center;
   background-color: #fdfbfb;
+  elevation: 5;
 `;
 
 export const StyledItemText = styled.Text`
   position: absolute;
-  bottom: 50px;
-  left: 40px;
+  bottom: 30px;
+  left: 20px;
   font-size: 20px;
   font-weight: 500;
   color: ${props => props.color};
+  elevation: 6;
 `;
