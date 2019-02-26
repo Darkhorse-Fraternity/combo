@@ -123,25 +123,21 @@ export default function creatIDO(iUseM, iCardM, other) {
       dispatch(reqChangeData(IDOCALENDAR, {
         [date]: iDoEntity
       }));
-
-
       const time = iUseM.time + 1;
-      const param = {
-        doneDate: { __type: 'Date', iso: moment().toISOString() },
-        time,
-        // cycle,
-        statu: time % iUseM.period === 0 ? 'stop' : 'start'
-      };
+      let param = {};
 
-      // await update(IUSE, iUseM.objectId, param)
-      const entity = {
-        ...param,
-        objectId: iUseM.objectId
-      };
 
-      await dispatch(addNormalizrEntity(IUSE, entity));
-
-      if (other.type === 2) {
+      if (other.type === 0) {
+        param = {
+          doneDate: { __type: 'Date', iso: moment().toISOString() },
+          time,
+          // cycle,
+          // statu: time % iUseM.period === 0 ? 'stop' : 'start'
+        };
+      } else if (other.type === 2) {
+        param = {
+          time,
+        };
         dispatch(updateUserData({
           toolConfig: {
             ...user.toolConfig,
@@ -149,6 +145,13 @@ export default function creatIDO(iUseM, iCardM, other) {
           }
         }));
       }
+      // await update(IUSE, iUseM.objectId, param)
+      const entity = {
+        ...param,
+        objectId: iUseM.objectId
+      };
+
+      await dispatch(addNormalizrEntity(IUSE, entity));
     }
 
 

@@ -257,6 +257,7 @@ export default class Circle extends Component {
         // },
       },
       include: 'user,iUse',
+      order: '-doneDate,-createdAt',
       privacyIUSE // 用于更换数据时候重新拉取，没有实际params 意义。
     };
     return (
