@@ -64,6 +64,7 @@ import creatIDO from '../doCard';
               recordText,
               imgs,
               type: 1,
+              doneDate: new Date()
             }));
 
           Pop.hide();

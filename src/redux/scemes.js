@@ -1,3 +1,4 @@
+import { schema } from 'normalizr';
 import {
   registerListKeys,
   ICARD,
@@ -11,29 +12,28 @@ import {
   FLAGRECORD
 } from './reqKeys'
 
-import { schema } from 'normalizr';
 
-export const code = 'results'
+export const code = 'results';
 
 
 export const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
-export const list = (item) => new schema.Object({ [code]: new schema.Array(item) })
-export const entityFromCode = key => new schema.Object({ [code]: entity(key) })
+export const list = item => new schema.Object({ [code]: new schema.Array(item) });
+export const entityFromCode = key => new schema.Object({ [code]: entity(key) });
 
 
-export const user = entity(USER)
-export const course = entity(COURSE, { user })
+export const user = entity(USER);
+export const course = entity(COURSE, { user });
 
 
-const iCard = entity(ICARD, { user, course })
-export const flag = entity(FLAG, { iCard })
-export const iUse = entity(IUSE, { user, iCard })
+const iCard = entity(ICARD, { user, course });
+export const flag = entity(FLAG, { iCard });
+export const iUse = entity(IUSE, { user, iCard });
 
-export const iDO = entity(IDO, { user, iCard, iUse })
-export const order = entity(ORDER, { user, iCard })
-export const ench = entity(ENCH, { user })
+export const iDO = entity(IDO, { user, iCard, iUse });
+export const order = entity(ORDER, { user, iCard });
+export const ench = entity(ENCH, { user });
 
-export const flagRecord = entity(FLAGRECORD, { Flag:flag, iCard })
+export const flagRecord = entity(FLAGRECORD, { Flag: flag, iCard });
 //
 // const config = {
 //     [IUSE]:{USER,ICARD},
@@ -67,23 +67,23 @@ export const entitys = {
   [ENCH]: ench,
   [FLAG]: flag,
   [FLAGRECORD]: flagRecord,
-}
+};
 
-const auto = (key) => list(entitys[key] || entity(key))
+const auto = key => list(entitys[key] || entity(key));
 
 function autoKeys(keys) {
-  const schemas = {}
-  keys.forEach(key => {
-    schemas[key] = auto(key)
-  })
-  return schemas
+  const schemas = {};
+  keys.forEach((key) => {
+    schemas[key] = auto(key);
+  });
+  return schemas;
 }
 
-//请求识别的key对应的sceme
+// 请求识别的key对应的sceme
 export const schemas = {
   ...autoKeys(registerListKeys),
-}
+};
 
 
-//从normalizr 数据库中取得、存入对应值的key
-export const listDefouteKey = {}
+// 从normalizr 数据库中取得、存入对应值的key
+export const listDefouteKey = {};

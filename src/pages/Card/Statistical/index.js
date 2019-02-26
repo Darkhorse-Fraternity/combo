@@ -69,6 +69,8 @@ const listKey = IDO;
             {
               text: '确定',
               onPress: async () => {
+                const { createdAt, type, doneDate } = item;
+                const time = doneDate ? doneDate.iso : createdAt;
                 const iDoID = item.objectId;
                 const param = { state: -1 };
                 const res = await dispatch(updateByID(IDO, iDoID, param));
@@ -77,12 +79,13 @@ const listKey = IDO;
                   ...res,
                 };
                 dispatch(addNormalizrEntity(IDO, entity));
-                const date = moment(item.createdAt).format('YYYY-MM-DD');
+                const date = moment(time).format('YYYY-MM-DD');
                 dispatch(reqChangeData(IDOCALENDAR, {
                   [date]: null
                 }));
 
-                if (item.type === 1) {
+                // type === 1 为日记，不记录打卡次数
+                if (type === 1) {
                   return;
                 }
                 // 打卡次数也需要修改。
@@ -91,13 +94,13 @@ const listKey = IDO;
                 const before = moment(0, 'HH');
                 const after = moment(24, 'HH');
 
-                const momentIn = moment(item.createdAt).isBetween(before, after);
+                const momentIn = moment(time).isBetween(before, after);
                 // console.log('momentIn:', momentIn);
                 if (momentIn) {
                   paramiUSE.doneDate = {
                     __type: 'Date',
                     iso:
-                    moment(item.createdAt).subtract(1, 'day').toISOString()
+                    moment(time).subtract(1, 'day').toISOString()
                   };
                 }
                 const entityiUse = {
@@ -116,26 +119,47 @@ const listKey = IDO;
         // 补打卡
         // 判断卡片是否在活动中,判断是否有补签卡片
         try {
+          // 只有自己可以补打卡
           const state = getState();
-          const activityMoment = moment(iCard.activityEndDate) || moment('2016-01-01');
+          const user = state.user.data;
+          const { toolConfig, objectId } = user;
+          if (objectId !== iUse.user) {
+            return;
+          }
+
+          // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
+          const before = moment(item);
+          if (moment().isBefore(before)) {
+            return SimpleToast.show('只能给今日之前打卡~!');
+          }
+
+          // 如果是今天则正常打卡
+          
+
+          const { activityEndDate } = iCard;
+          before.set('hours', moment().hours());
+          before.set('minutes', moment().minutes());
+
+          const activityMoment = activityEndDate ? moment(activityEndDate)
+            : moment('2016-01-01');
           const isAfter = moment().isAfter(activityMoment);
           console.log('activityMoment', activityMoment.toISOString());
 
-          const { toolConfig } = state.user.data;
+
           const { redo } = toolConfig;
           if (isAfter && redo > 0) {
             // 先获取那一天这个时候的moment
-            const before = moment(item);
-            before.set('hours', moment().hours());
-            before.set('minutes', moment().minutes());
+
             const doneDate = before.toDate();
             // 以当天时间做打卡,并做特殊标记type=2。
-            await dispatch(doCardWithNone(iUse, 2));
+
+            // 提示将消耗一张补签劵
+            await dispatch(doCardWithNone(iUse, 2, doneDate));
             // 扣去一个补签卡
-            toolConfig.redo = redo - 1;
-            dispatch(updateMeByParam({
-              toolConfig
-            }));
+            // toolConfig.redo = redo - 1;
+            // dispatch(updateMeByParam({
+            //   toolConfig
+            // }));
           } else if (!isAfter) {
             // 卡片正在活动期间不允许不打卡。
             SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');

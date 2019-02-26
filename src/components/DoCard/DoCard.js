@@ -16,56 +16,59 @@ import { addNormalizrEntity } from '../../redux/module/normalizr';
 import { add } from '../../redux/actions/list';
 import { req, reqChangeData } from '../../redux/actions/req';
 import { Privacy } from '../../configure/enum';
-import { FormID } from '../Form/DoCardForm/index';
-import { uploadImages } from '../../redux/actions/util';
+import { updateUserData } from '../../redux/actions/user';
+// import { FormID } from '../Form/DoCardForm/index';
+// import { uploadImages } from '../../redux/actions/util';
 
-export async function doPre(iUseM, iCardM, other) {
-  return async (dispatch, getState) => {
-    try {
-      const state = getState();
-      const selector = formValueSelector(FormID);
-      const recordText = selector(state, 'recordText') || '';
-      let imgs = selector(state, 'imgs');
-      imgs = imgs && imgs.toJS();
-
-
-      if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
-        Toast.show('需要添加文字记录~');
-        return;
-      }
-
-      if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
-        Toast.show('需要添加图片~');
-        return;
-      }
+// export async function doPre(iUseM, iCardM, other) {
+//   return async (dispatch, getState) => {
+//     try {
+//       const state = getState();
+//       const selector = formValueSelector(FormID);
+//       const recordText = selector(state, 'recordText') || '';
+//       let imgs = selector(state, 'imgs');
+//       imgs = imgs && imgs.toJS();
 
 
-      if (imgs.length !== 0) {
-        const urls = imgs.map(file => file.uri);
-        const res = await dispatch(uploadImages(urls, IDOULIMAGE));
-        if (!res.payload) {
-          return;
-        }
-        imgs = res.payload.map(img => img.attributes.url);
-      }
-      await dispatch(creatIDO(iUseM, iCardM,
-        {
-          recordText,
-          imgs,
-          type: 0,
-        }));
+//       if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
+//         Toast.show('需要添加文字记录~');
+//         return;
+//       }
 
-      Pop.hide();
-    } catch (e) {
-      console.log('test:', e.message);
-    }
-  };
-}
+//       if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
+//         Toast.show('需要添加图片~');
+//         return;
+//       }
+
+
+//       if (imgs.length !== 0) {
+//         const urls = imgs.map(file => file.uri);
+//         const res = await dispatch(uploadImages(urls, IDOULIMAGE));
+//         if (!res.payload) {
+//           return;
+//         }
+//         imgs = res.payload.map(img => img.attributes.url);
+//       }
+//       await dispatch(creatIDO(iUseM, iCardM,
+//         {
+//           recordText,
+//           imgs,
+//           type: 0,
+//         }));
+
+//       Pop.hide();
+//     } catch (e) {
+//       console.log('test:', e.message);
+//     }
+//   };
+// }
 
 
 export default function creatIDO(iUseM, iCardM, other) {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     // TODO 查询是否需要上传副本信息
+    const state = getState();
+    const user = state.user.data;
 
     const FlagRecordModal = iUseM.fr && {
       ...FlagRecord(iUseM.fr)
@@ -76,6 +79,7 @@ export default function creatIDO(iUseM, iCardM, other) {
       ...iUse(iUseM.objectId),
       ...iCard(iCardM.objectId),
       ...other,
+      doneDate: { __type: 'Date', iso: other.doneDate.toISOString() },
       ...FlagRecordModal,
     };
 
@@ -94,6 +98,7 @@ export default function creatIDO(iUseM, iCardM, other) {
     const iDoEntity = {
       ...iDoParma,
       ...res,
+      doneDate: other.doneDate,
       updatedAt: res.createdAt,
       commentNew: false,
       commentNum: 0
@@ -111,8 +116,10 @@ export default function creatIDO(iUseM, iCardM, other) {
 
 
     // type === 0 表示是打卡 1表示是日记
-    if (other.type === 0) {
-      const date = moment(iDoEntity.createdAt).format('YYYY-MM-DD');
+    if (other.type === 0 || other.type === 2) {
+      const { createdAt, doneDate } = iDoEntity;
+      const date = moment(doneDate || createdAt).format('YYYY-MM-DD');
+      // 添加到日历
       dispatch(reqChangeData(IDOCALENDAR, {
         [date]: iDoEntity
       }));
@@ -133,6 +140,15 @@ export default function creatIDO(iUseM, iCardM, other) {
       };
 
       await dispatch(addNormalizrEntity(IUSE, entity));
+
+      if (other.type === 2) {
+        dispatch(updateUserData({
+          toolConfig: {
+            ...user.toolConfig,
+            redo: user.toolConfig.redo - 1,
+          }
+        }));
+      }
     }
 
 

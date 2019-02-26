@@ -43,10 +43,19 @@ import {
           where: {
             ...user(userId),
             ...iUse(iUseId),
-            createdAt: {
-              $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
-              $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
+            $or: [{
+              doneDate: {
+                $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
+              },
+            }, {
+              createdAt: {
+                $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
+              },
             },
+
+            ],
             state: { $ne: -1 },
             type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
           }
@@ -54,10 +63,12 @@ import {
         const params = classSearch(IDO, param);
         dispatch(req(params, IDOCALENDAR, {
           dataMap: (datas) => {
-            // console.log(datas);
+            console.log(datas);
 
             datas.results.forEach((item) => {
-              const date = moment(item.createdAt).format('YYYY-MM-DD');
+              const { createdAt, doneDate } = item;
+              const time = doneDate ? doneDate.iso : createdAt;
+              const date = moment(time).format('YYYY-MM-DD');
               data[date] = item;
             });
 

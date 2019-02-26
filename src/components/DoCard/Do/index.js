@@ -24,7 +24,7 @@ import creatIDO from '../doCard';
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
-    done: () => {
+    done: (type = 0, doneDate = new Date()) => {
       // 先判断是否有图片，如果有则 先上传图片。
       dispatch(async (dispatch, getState) => {
         try {
@@ -66,7 +66,8 @@ import creatIDO from '../doCard';
             {
               recordText,
               imgs,
-              type: 0,
+              type,
+              doneDate,
             }));
 
           Pop.hide();
@@ -80,12 +81,26 @@ import creatIDO from '../doCard';
 
 export default class Doing extends Component {
   render(): ReactElement<any> {
-    const { iUse, type = 0, iCard } = this.props;
+    const {
+      type = 0,
+      iCard,
+      done,
+      doneDate,
+      otherProps
+    } = this.props;
     // const iCard = this.props.iCard.get(iUse[ICARD]);
     const { record } = iCard;
+    // record 强制类型需要
 
     return (
-      <Do record={record} {...this.props} type={type} />
+      <Do
+        record={record}
+        done={() => {
+          done(type, doneDate);
+        }}
+        type={type}
+        {...otherProps}
+      />
     );
   }
 }
