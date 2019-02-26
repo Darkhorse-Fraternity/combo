@@ -154,7 +154,7 @@ const listKey = IDO;
           const activityMoment = activityEndDate ? moment(activityEndDate)
             : moment('2016-01-01');
           const isAfter = moment().isAfter(activityMoment);
-          console.log('activityMoment', activityMoment.toISOString());
+          // console.log('activityMoment', activityMoment.toISOString());
 
 
           const { redo } = toolConfig;

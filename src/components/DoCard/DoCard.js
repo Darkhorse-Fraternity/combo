@@ -98,13 +98,12 @@ export default function creatIDO(iUseM, iCardM, other) {
     const iDoEntity = {
       ...iDoParma,
       ...res,
-      doneDate: other.doneDate,
       updatedAt: res.createdAt,
       commentNew: false,
       commentNum: 0
     };
     // 添加到列表
-    await dispatch(addNormalizrEntity(IDO, iDoEntity));
+    dispatch(addNormalizrEntity(IDO, iDoEntity));
 
 
     // 这边只有日记才被记录进去
@@ -151,7 +150,7 @@ export default function creatIDO(iUseM, iCardM, other) {
         objectId: iUseM.objectId
       };
 
-      await dispatch(addNormalizrEntity(IUSE, entity));
+      dispatch(addNormalizrEntity(IUSE, entity));
     }
 
 

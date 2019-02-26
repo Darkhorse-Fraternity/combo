@@ -28,13 +28,14 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledItem = styled(Button)`
- padding: 0px 20px 20px 20px ;
- shadow-opacity: 0.5;
+    padding: 0px 20px 20px 20px ;
+    shadow-opacity: 0.7;
     shadow-radius: 5px;
     shadow-color: #979797;
-    shadow-offset: 0px 5px;   
+    shadow-offset: 0px 3px;   
     elevation: 5;
     margin:5px;
+    background-color: #fdfbfb;
 `;
 
 export const StyledItemImage = styled(FastImage)`

@@ -63,8 +63,6 @@ import {
         const params = classSearch(IDO, param);
         dispatch(req(params, IDOCALENDAR, {
           dataMap: (datas) => {
-            console.log(datas);
-
             datas.results.forEach((item) => {
               const { createdAt, doneDate } = item;
               const time = doneDate ? doneDate.iso : createdAt;

@@ -47,6 +47,7 @@ export default class Do extends Component {
     // const color = iconAndColor && iconAndColor.get('color')
     const color = '#51c332';
 
+
     return (
       <View
         onStartShouldSetResponder={() => true}

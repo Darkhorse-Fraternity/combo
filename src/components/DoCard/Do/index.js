@@ -86,7 +86,8 @@ export default class Doing extends Component {
       iCard,
       done,
       doneDate,
-      otherProps
+      load,
+      ...otherProps
     } = this.props;
     // const iCard = this.props.iCard.get(iUse[ICARD]);
     const { record } = iCard;
@@ -98,6 +99,7 @@ export default class Doing extends Component {
         done={() => {
           done(type, doneDate);
         }}
+        load={load}
         type={type}
         {...otherProps}
       />

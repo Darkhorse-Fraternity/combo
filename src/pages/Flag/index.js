@@ -67,7 +67,10 @@ export default class Flag extends PureComponent {
 
   __renderItem = ({ item, index }) => {
     const {
-      title, objectId, iCard, titleConfig
+      title,
+      objectId,
+      iCard,
+      titleConfig
     } = item;
     const { color } = titleConfig;
 

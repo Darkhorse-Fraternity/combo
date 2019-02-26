@@ -2,10 +2,10 @@
  * Created by lintong on 10/19/16.
  * @flow
  */
-'use strict';
 
 
-import { registerListKeys } from '../reqKeys'
+import * as immutable from 'immutable';
+import { registerListKeys } from '../reqKeys';
 
 import {
   LIST_START,
@@ -14,8 +14,7 @@ import {
   LIST_SELECT,
   LIST_DELETE,
   LIST_ADD,
-} from '../actions/list'
-import * as immutable from 'immutable';
+} from '../actions/list';
 
 
 const registerKeys = (keys = []) => {
@@ -23,33 +22,32 @@ const registerKeys = (keys = []) => {
     loadStatu: 'LIST_FIRST_JOIN',
     page: 0,
     listData: [],
-  }
-  const newKyes = {}
+  };
+  const newKyes = {};
   keys.forEach((key) => {
-    newKyes[key] = data
-  })
-  return newKyes
-}
+    newKyes[key] = data;
+  });
+  return newKyes;
+};
 
 const initialState = immutable.fromJS({ ...registerKeys(registerListKeys) });
 
 export default function listState(state: immutable.Map<string, any> = initialState, action: Object) {
   switch (action.type) {
-
     case LIST_FAILED:
     case LIST_START:
       return state.setIn([action.key, 'loadStatu'], action.loadStatu);
 
     case LIST_SUCCEED: {
       return state.updateIn([action.key], (oldObj) => {
-        const oldData = action.page === 0 ? [] : oldObj.get("listData") || []
+        const oldData = action.page === 0 ? [] : oldObj.get('listData') || [];
         const listData = {
           loadStatu: action.loadStatu,
           page: action.page,
-          listData: [...oldData, ...action.data],//做排序去重
-        }
-        return immutable.fromJS(listData)
-      })
+          listData: [...oldData, ...action.data], // 做排序去重
+        };
+        return immutable.fromJS(listData);
+      });
     }
 
     case LIST_SELECT:
@@ -58,35 +56,30 @@ export default function listState(state: immutable.Map<string, any> = initialSta
       // state.deleteIn([action.key,'listData'])
       // console.log(action.key, action.rowID);
       // console.log('test:', state);
-      return state.deleteIn([action.key, 'listData', action.rowID]).setIn([action.key, "loadStatu"], action.loadStatu)
+      return state.deleteIn([action.key, 'listData', action.rowID]).setIn([action.key, 'loadStatu'], action.loadStatu);
     }
     case LIST_ADD: {
-
       if (state.getIn([action.key])) {
         return state.updateIn([action.key], (oldObj) => {
-          const oldData = oldObj.get("listData") || {}
+          const oldData = oldObj.get('listData') || {};
           const listData = {
             loadStatu: action.loadStatu,
-            page: oldObj.get("page"),
-            listData: [...new Set([action.data, ...oldData])],//做排序去重
-          }
-          return immutable.fromJS(listData)
-        })
-      } else {
-        return state.mergeDeep({
-          [action.key]: {
-            page: 0,
-            loadStatu: action.loadStatu,
-            listData: [action.data]
-          }
+            page: oldObj.get('page'),
+            listData: [...new Set([action.data, ...oldData])], // 做排序去重
+          };
+          return immutable.fromJS(listData);
         });
       }
-
-
+      return state.mergeDeep({
+        [action.key]: {
+          page: 0,
+          loadStatu: action.loadStatu,
+          listData: [action.data]
+        }
+      });
     }
 
     default:
       return state;
   }
 }
-
