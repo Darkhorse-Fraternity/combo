@@ -28,7 +28,7 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledItem = styled(Button)`
-    margin: 20px 20px 20px 20px ;
+    margin: 10px 20px 10px 20px ;
     shadow-opacity: 0.7;
     shadow-radius: 5px;
     shadow-color: #979797;
