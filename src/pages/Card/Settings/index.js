@@ -2,7 +2,7 @@
  * Created by lintong on 2018/4/13.
  * @flow
  */
-'use strict';
+
 
 import React, { PureComponent } from 'react';
 import {
@@ -14,12 +14,13 @@ import {
   TouchableNativeFeedback,
   Image,
   Alert
-} from 'react-native'
-import { connect } from 'react-redux'
-import moment from 'moment'
+} from 'react-native';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 
 
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import {
   StyledContent,
   StyledBottomMenu,
@@ -36,29 +37,28 @@ import {
   StyledHeader,
   StyledEntypoIcon,
   StyledBtnTitle
-} from './style'
+} from './style';
 
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 // import ShareView from '../../../components/Share/ShareView'
 // import Pop from '../../../components/Pop'
-import { popToIndex } from '../../../redux/nav'
+import { popToIndex } from '../../../redux/nav';
 
-const width = Dimensions.get('window').width
+import { update, search } from '../../../redux/module/leancloud';
 
-import { update, search } from '../../../redux/module/leancloud'
+import { IUSE, IRECORD } from '../../../redux/reqKeys';
+import { claerByID } from '../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { addListNormalizrEntity } from '../../../redux/actions/list';
+import { Privacy, CircleState } from '../../../configure/enum';
+import { classUpdate } from '../../../request/leanCloud';
+import { req } from '../../../redux/actions/req';
+import Dialog from '../../../components/Dialog';
+import { selfUser } from '../../../request/LCModle';
 
-import { IUSE, IRECORD } from '../../../redux/reqKeys'
-import { claerByID } from '../../../redux/actions/list'
-import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import { addListNormalizrEntity } from '../../../redux/actions/list'
-import { Privacy, CircleState } from '../../../configure/enum'
-import { classUpdate } from '../../../request/leanCloud'
-import { req } from '../../../redux/actions/req'
-import Dialog from '../../../components/Dialog'
-import { selfUser } from '../../../request/LCModle'
+// const { width } = Dimensions.get('window');
 
-const Archive = IUSE + "archive"
+const Archive = `${IUSE}archive`;
 
 
 @connect(
@@ -75,8 +75,8 @@ const Archive = IUSE + "archive"
   }),
   (dispatch, props) => ({
     refresh: async (data) => {
-      const id = data.objectId
-      const card = props.navigation.state.params.iCard
+      const id = data.objectId;
+      const card = props.navigation.state.params.iCard;
 
       // const isDone = data.time % card.period === 0
 
@@ -84,38 +84,38 @@ const Archive = IUSE + "archive"
         // time: isDone ? 0 : data.time,
         statu: 'start',
         // cycle: isDone ? data.cycle + 1 : data.cycle,
-      }
+      };
 
 
-      const lParams = classUpdate(IUSE, id, param)
-      const res = await dispatch(req(lParams, Archive))
+      const lParams = classUpdate(IUSE, id, param);
+      const res = await dispatch(req(lParams, Archive));
       const entity = {
         ...param,
         ...res,
-      }
-      dispatch(addListNormalizrEntity(IUSE, entity))
-      dispatch(claerByID(IRECORD, id))
+      };
+      dispatch(addListNormalizrEntity(IUSE, entity));
+      dispatch(claerByID(IRECORD, id));
       // props.navigation.goBack()
       // props.navigation.goBack()
       // await dispatch(popToIndex())
       // props.navigation.navigate('habit')
     },
     stop: async (data) => {
-      const id = data.objectId
+      const id = data.objectId;
       const param = {
         statu: 'stop',
-        //cycle,
-      }
-      const lParams = classUpdate(IUSE, id, param)
-      const res = await dispatch(req(lParams, Archive))
+        // cycle,
+      };
+      const lParams = classUpdate(IUSE, id, param);
+      const res = await dispatch(req(lParams, Archive));
       const entity = {
         ...param,
         ...res,
-      }
+      };
 
-      dispatch(addNormalizrEntity(IUSE, entity))
-      dispatch(claerByID(IUSE, id))
-      dispatch(popToIndex())
+      dispatch(addNormalizrEntity(IUSE, entity));
+      dispatch(claerByID(IUSE, id));
+      dispatch(popToIndex());
     },
     delete: async (objectId) => {
       // await remove(objectId,IUSE)
@@ -125,23 +125,24 @@ const Archive = IUSE + "archive"
         '确定删除?',
         '删除后不可恢复~！',
         [{ text: '取消' }, {
-          text: '确定', onPress: async () => {
+          text: '确定',
+          onPress: async () => {
             const param = {
               statu: 'del'
-            }
-            const res = await dispatch(update(objectId, param, IUSE))
+            };
+            const res = await dispatch(update(objectId, param, IUSE));
             const entity = {
               ...param,
               ...res
-            }
-            dispatch(addNormalizrEntity(IUSE, entity))
-            dispatch(claerByID(IUSE, objectId))
-            dispatch(claerByID(IRECORD, objectId))
+            };
+            dispatch(addNormalizrEntity(IUSE, entity));
+            dispatch(claerByID(IUSE, objectId));
+            dispatch(claerByID(IRECORD, objectId));
             // props.navigation.goBack()
-            dispatch(popToIndex())
+            dispatch(popToIndex());
           }
         }]
-      )
+      );
     },
   })
 )
@@ -150,10 +151,10 @@ const Archive = IUSE + "archive"
 export default class Settings extends PureComponent {
   constructor(props: Object) {
     super(props);
-
   }
 
   static propTypes = {};
+
   static defaultProps = {};
 
 
@@ -163,35 +164,37 @@ export default class Settings extends PureComponent {
   //   )
   // }
 
-  static navigationOptions = props => {
+  static navigationOptions = (props) => {
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    const iCardId = props.navigation.state.params.iCardId
+    const { iCardId } = props.navigation.state.params;
     return {
       title: '',
-      headerRight: ( <StyledBtn
+      headerRight: (<StyledBtn
           // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
-          hitSlop={{ top: 5, left: 20, bottom: 5, right: 20 }}
-          onPress={() => {
-            props.navigation.navigate('cardInfo', { iCardId })
-          }}>
-          <StyledBtnTitle>
+        hitSlop={{
+          top: 5, left: 20, bottom: 5, right: 20
+        }}
+        onPress={() => {
+          props.navigation.navigate('cardInfo', { iCardId });
+        }}
+      >
+        <StyledBtnTitle>
             查看
-          </StyledBtnTitle>
-        </StyledBtn>
+        </StyledBtnTitle>
+                    </StyledBtn>
       ),
       // headerStyle: {
       //     backgroundColor: '#f5fcff',
       //     shadowColor: '#F5FCFF',
       //     borderBottomColor: '#F5FCFF',
       // },
-    }
+    };
   };
 
 
   _renderItem = (props) => {
-
     const {
       title,
       name,
@@ -199,80 +202,83 @@ export default class Settings extends PureComponent {
       size = 30,
       onPress,
       Icon = StyledIcon
-    } = props
+    } = props;
     return (
       <StyledBottomMenuButton
         disabled={load}
-        hitSlop={{ top: 10, left: 20, bottom: 10, right: 10 }}
-        onPress={onPress}>
-        {load ? <StyledActivityIndicator/> : <Icon size={size} name={name}/>}
+        hitSlop={{
+          top: 10, left: 20, bottom: 10, right: 10
+        }}
+        onPress={onPress}
+      >
+        {load ? <StyledActivityIndicator /> : <Icon size={size} name={name} />}
         <StyledBottomMenuText>
           {title}
         </StyledBottomMenuText>
       </StyledBottomMenuButton>
-    )
+    );
   }
 
   _renderRresh = (reflesh, iUse) => {
-
-    let text = !reflesh ?
-      "习惯归档" :
-      "继续打卡"
-    const archiveLoad = this.props.archive && this.props.archive.get('load')
+    const text = !reflesh
+      ? '习惯归档'
+      : '继续打卡';
+    const archiveLoad = this.props.archive && this.props.archive.get('load');
 
     return (
       <this._renderItem
         load={archiveLoad}
         onPress={() => {
-          !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse)
+          !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse);
         }}
         Icon={!reflesh ? StyledEntypoIcon : StyledIcon}
-        name={!reflesh ?
-          'archive' : 'md-refresh'}
-        title={text}/>
-    )
-
-
+        name={!reflesh
+          ? 'archive' : 'md-refresh'}
+        title={text}
+      />
+    );
   }
 
   _renderBottomMenu = () => {
-
-    const iCard = this.props.iCard.toJS()
-    const iUse = this.props.iUse.toJS()
+    const iCard = this.props.iCard.toJS();
+    const iUse = this.props.iUse.toJS();
     const { navigation, user } = this.props;
 
     // const pUse = this.props.iUse && this.props.iUse.toJS()
     // iUse = pUse || iUse
 
 
-    const reflesh = iUse.statu === 'stop'
+    const reflesh = iUse.statu === 'stop';
 
 
     return (
       <StyledBottomMenu>
 
-        {iCard.user === user.objectId &&
-        iCard.state !== -2
-        && iUse.statu !== 'del' && (<this._renderItem
+        {iCard.user === user.objectId
+        && iCard.state !== -2
+        && iUse.statu !== 'del' && (
+        <this._renderItem
           onPress={() => {
-            navigation.navigate('cardConfig', { iCardId: iCard.objectId })
+            navigation.navigate('cardConfig', { iCardId: iCard.objectId });
           }}
-          name={'md-settings'}
-          title={'卡片配置'}/>)}
+          name="md-settings"
+          title="卡片配置"
+        />
+        )}
         {this._renderRresh(reflesh, iUse)}
 
         <this._renderItem
           onPress={() => {
-            this.props.delete(iUse.objectId)
+            this.props.delete(iUse.objectId);
           }}
           load={this.props.iUseLoad}
-          name={'md-trash'}
-          title={'删除卡片'}/>
-        <View style={{ width: (Dimensions.get('window').width - 85) / 3 }}/>
+          name="md-trash"
+          title="删除卡片"
+        />
+        <View style={{ width: (Dimensions.get('window').width - 85) / 3 }} />
 
       </StyledBottomMenu>
-    )
-
+    );
   }
 
 
@@ -290,29 +296,28 @@ export default class Settings extends PureComponent {
   rowTouch = (title, des, onPress) => (
     <StyledRowTouch onPress={onPress}>
 
-      {/*<StyledRowText>*/}
-      {/*{title}*/}
-      {/*</StyledRowText>*/}
+      {/* <StyledRowText> */}
+      {/* {title} */}
+      {/* </StyledRowText> */}
       <StyledRowDes>
         {des}
       </StyledRowDes>
-      {/*<StyledRowInner>*/}
+      {/* <StyledRowInner> */}
 
-      {/*<StyledArrow/>*/}
-      {/*</StyledRowInner>*/}
+      {/* <StyledArrow/> */}
+      {/* </StyledRowInner> */}
     </StyledRowTouch>
 
   )
 
   render(): ReactElement<any> {
-
-
     return (
       <StyledContent
-        colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+        colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
+      >
         <StyledHeader>
           <StyledRowDes>
-            {this.props.iCard.get("title")}
+            {this.props.iCard.get('title')}
           </StyledRowDes>
 
         </StyledHeader>
@@ -321,5 +326,3 @@ export default class Settings extends PureComponent {
     );
   }
 }
-
-

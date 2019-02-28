@@ -61,9 +61,9 @@ const listKey = ENCH;
 
           if (res) {
             Toast.show('我们已经收到了您的申请,耐心等待哦。');
-            // dispatch(updateUserData({
-            //   balance: user.balance - amount * 100
-            // }))
+            dispatch(updateUserData({
+              balance: user.balance - amount * 100
+            }));
             props.navigation.goBack();
           }
         } else if (user.balance <= amount * 100) {

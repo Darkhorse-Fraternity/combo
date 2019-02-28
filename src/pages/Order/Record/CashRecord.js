@@ -49,7 +49,7 @@ export default class CashRecord extends Component {
     let statu = '处理中';
     if (item.statu === 1) {
       statu = '已处理';
-    } else if (item.statu === 2) {
+    } else if (item.statu === -1) {
       statu = '已退回';
     }
 
