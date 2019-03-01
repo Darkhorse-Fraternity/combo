@@ -39,6 +39,8 @@ import {
 
         const { iUseId } = props.navigation.state.params;
         const userId = props.iUse.get('user');
+        console.log('last', last);
+
         const param = {
           where: {
             ...user(userId),
@@ -46,12 +48,12 @@ import {
             $or: [{
               doneDate: {
                 $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
-                $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
               },
             }, {
               createdAt: {
                 $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
-                $lte: { __type: 'Date', iso: `${last}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
               },
             },
 
@@ -63,6 +65,8 @@ import {
         const params = classSearch(IDO, param);
         dispatch(req(params, IDOCALENDAR, {
           dataMap: (datas) => {
+            console.log('datas', datas);
+
             datas.results.forEach((item) => {
               const { createdAt, doneDate } = item;
               const time = doneDate ? doneDate.iso : createdAt;

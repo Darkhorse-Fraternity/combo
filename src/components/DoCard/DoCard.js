@@ -117,7 +117,8 @@ export default function creatIDO(iUseM, iCardM, other) {
     // type === 0 表示是打卡 1表示是日记
     if (other.type === 0 || other.type === 2) {
       const { createdAt, doneDate } = iDoEntity;
-      const date = moment(doneDate || createdAt).format('YYYY-MM-DD');
+      const dtime = doneDate ? doneDate.iso : createdAt;
+      const date = moment(dtime).format('YYYY-MM-DD');
       // 添加到日历
       dispatch(reqChangeData(IDOCALENDAR, {
         [date]: iDoEntity

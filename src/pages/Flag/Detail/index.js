@@ -129,7 +129,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-                  </StyledBtn>),
+    </StyledBtn>),
   })
   ;
 
@@ -245,7 +245,7 @@ export default class FlagDetail extends PureComponent {
     const reward = flag.get('reward');
     const rewardConfig = flag.get('rewardConfig');
     const rewardView = () => {
-      if (reward == 'money') {
+      if (reward === 'money') {
         return (
           <StyledDiscrib>
             奖金：
