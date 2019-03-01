@@ -2,7 +2,7 @@
  * Created by lintong on 2018/10/15.
  * @flow
  */
-'use strict';
+
 
 import React, { Component, PureComponent } from 'react';
 import {
@@ -10,34 +10,34 @@ import {
   ScrollView,
   InteractionManager,
   Platform
-} from 'react-native'
-import {  FlatList, } from 'react-navigation'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { FlatList, } from 'react-navigation';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
+import { change } from 'redux-form/immutable';
+import {
+  formValueSelector,
+} from 'redux-form/immutable'; // <-- same as form name
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import {
   StyledSubTitleView,
   StyledSubTitle
-} from './style'
+} from './style';
 import {
   StyledCell,
   StyledCellImage
-} from './Cell/style'
-import Cell from './Cell'
-import ColorCell from './Cell/ColorCell'
-import { change } from 'redux-form/immutable'
-import svgs from '../../../../../source/icons'
+} from './Cell/style';
+import Cell from './Cell';
+import ColorCell from './Cell/ColorCell';
+import svgs from '../../../../../source/icons';
 // import colors from '../../../../../source/colors'
-import { colorsCutThree, iconsCutThree } from './IconAndColorData'
+import { colorsCutThree, iconsCutThree } from './IconAndColorData';
 
-import {
-  formValueSelector,
-} from 'redux-form/immutable'
 
-export const FormID = 'CreatCardForm'
-const selector = formValueSelector(FormID) // <-- same as form name
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+export const FormID = 'CreatCardForm';
+const selector = formValueSelector(FormID);
 
 @connect(
   state => ({
@@ -47,7 +47,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
   }),
   dispatch => ({
     onChange: (field, value) => {
-      dispatch(change('CreatCardForm', field, value))
+      dispatch(change('CreatCardForm', field, value));
     }
   })
 )
@@ -59,8 +59,8 @@ export default class IconAndColor extends Component {
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       iconShow: true,
-      colorShow:true,
-    }
+      colorShow: true,
+    };
     // InteractionManager.runAfterInteractions(() => {
     //   this.setState({ colorShow: true })
     // });
@@ -85,20 +85,19 @@ export default class IconAndColor extends Component {
   }
 
   static propTypes = {};
+
   static defaultProps = {};
 
 
   _keyExtractor = (item, index) => {
     const key = item[0].name || index;
-    return key + '';
+    return `${key}`;
   }
 
   render(): ReactElement<any> {
+    const { iconShow, colorShow } = this.state;
 
-
-    const { iconShow, colorShow } = this.state
-
-    const { icon, color, onChange } = this.props
+    const { icon, color, onChange } = this.props;
 
     return (
       <View>
@@ -107,22 +106,26 @@ export default class IconAndColor extends Component {
             挑选图标与颜色：
           </StyledSubTitle>
 
-          {icon && color &&
+          {icon && color
+          && (
           <StyledCell
             backgroundColor={color}
-            style={{ marginLeft: 0 }}>
+            style={{ marginLeft: 0 }}
+          >
             <StyledCellImage
-              resizeMode={'contain'}
+              resizeMode="contain"
               // style={{ position: 'absolute' }}
               size={35}
               height={35}
               source={svgs[icon]}
             />
-          </StyledCell>}
+          </StyledCell>
+          )}
         </StyledSubTitleView>
 
 
-        {iconShow && <FlatList
+        {iconShow && (
+        <FlatList
           data={iconsCutThree}
           // delay={1000}
           // useNativeDriver
@@ -133,7 +136,7 @@ export default class IconAndColor extends Component {
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }: data) => (
-            <View key ={item[0].name+'11'}>
+            <View key={`${item[0].name}11`}>
 
               {item.map(it => (
                 <Cell
@@ -141,21 +144,22 @@ export default class IconAndColor extends Component {
                   key={it.name}
                   onPress={(ot) => {
                     console.log('ot:', it.name);
-                    onChange('icon', it.name)
+                    onChange && onChange('icon', it.name);
                   }}
-                  data={it}/>
+                  data={it}
+                />
               ))}
             </View>
           )}
-          keyExtractor={(item, index)=>{
-            return item[0].name
-          }}
+          keyExtractor={(item, index) => item[0].name}
           ListHeaderComponent={this._renderHeader}
           ListEmptyComponent={() => this.__renderNoData(statu)}
-        />}
+        />
+        )}
 
 
-        {colorShow && <FlatList
+        {colorShow && (
+        <FlatList
           useNativeDriver
           delay={1100}
           animation="fadeInUp"
@@ -172,22 +176,21 @@ export default class IconAndColor extends Component {
                 <ColorCell
                   select={color === it}
                   onPress={(ot) => {
-                    onChange('color', ot)
+                    onChange('color', ot);
                   }}
                   key={it}
-                  color={it}/>))
+                  color={it}
+                />
+              ))
               }
             </View>
           )}
-          keyExtractor={(item, index)=>{
-            return item[0]
-          }}
+          keyExtractor={(item, index) => item[0]}
           ListHeaderComponent={this._renderHeader}
           ListEmptyComponent={() => this.__renderNoData(statu)}
-        />}
+        />
+        )}
       </View>
     );
   }
 }
-
-

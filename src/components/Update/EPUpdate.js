@@ -1,58 +1,56 @@
-import { send } from '../../request/index'
-import React from "react"
-//当前测试版本号
-const AppTestVersion = '1..0'
+import React from 'react';
 
-const api_token = 'a3f43472f64ddccbc58c2dcf75438f18'
-
-import DeviceInfo from 'react-native-device-info'
+import DeviceInfo from 'react-native-device-info';
 import {
   InteractionManager,
   Platform,
   Linking,
   Alert
-} from 'react-native'
-import Toast from 'react-native-simple-toast'
-
-const setTimeoutDelay = (delayInMilliseconds) => new Promise((resolve) => {
-  const timer = setTimeout(()=>resolve(timer),delayInMilliseconds)
-});
-const interactionManagerDelay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
-import { push } from '../../redux/nav'
-import Pop from '../../components/Pop'
+} from 'react-native';
+import Toast from 'react-native-simple-toast';
+import { send } from '../../request/index';
+import { push } from '../../redux/nav';
+import Pop from '../Pop';
 // import {androidUpdate} from './downLoad'
-import UpdateView from './AndroidUpdateView'
-import { appUpdateInfo } from '../../request/leanCloud'
+import UpdateView from './AndroidUpdateView';
+import { appUpdateInfo } from '../../request/leanCloud';
+// 当前测试版本号
+const AppTestVersion = '1..0';
+
+const api_token = 'a3f43472f64ddccbc58c2dcf75438f18';
+
+const setTimeoutDelay = delayInMilliseconds => new Promise((resolve) => {
+  const timer = setTimeout(() => resolve(timer), delayInMilliseconds);
+});
+const interactionManagerDelay = () => new Promise(resolve => InteractionManager.runAfterInteractions(resolve));
 
 function firUpdate(bundleId, api_token, type) {
   return {
     scheme: 'http',
     host: 'api.fir.im/',
-    path: 'apps/latest/' + bundleId,
+    path: `apps/latest/${bundleId}`,
     method: 'GET',
     params: {
       api_token,
       type
     }
-  }
+  };
 }
 
 
-const checkIos = (str) => str.lastIndexOf('ep') !== -1
-//当为android 时 只有大于或等于指定版本进入测试状态
-const checkAndroid = () => compareVersion(DeviceInfo.getVersion(), AppTestVersion)
+const checkIos = str => str.lastIndexOf('ep') !== -1;
+// 当为android 时 只有大于或等于指定版本进入测试状态
+const checkAndroid = () => compareVersion(DeviceInfo.getVersion(), AppTestVersion);
 
 
 const checkUpdate = (res, callBack) => {
-
-
-  //installUrl含有表示返回正确值,
+  // installUrl含有表示返回正确值,
 
   if (res.installUrl) {
-    const version = res.version + ''
-    const versionShort = res.versionShort + ''
-    const appVersion = DeviceInfo.getVersion() + ''
-    const buildNumber = DeviceInfo.getBuildNumber() + ''
+    const version = `${res.version}`;
+    const versionShort = `${res.versionShort}`;
+    const appVersion = `${DeviceInfo.getVersion()}`;
+    const buildNumber = `${DeviceInfo.getBuildNumber()}`;
 
     console.log('version:', version);
     console.log('versionShort:', versionShort);
@@ -60,30 +58,29 @@ const checkUpdate = (res, callBack) => {
     console.log('buildNumber:', buildNumber);
 
 
-    if (compareVersion(versionShort, appVersion) >= 0 &&
-      compareVersion(version, buildNumber) > 0) {
+    if (compareVersion(versionShort, appVersion) >= 0
+      && compareVersion(version, buildNumber) > 0) {
       const changelog = `当前版本号:${appVersion},\n编译号:${buildNumber};
-            \n新版本号:${versionShort},\n新编译号:${version}`
+            \n新版本号:${versionShort},\n新编译号:${version}`;
 
       // console.log('changelog:', changelog)
       Alert.alert(
         '有新的版本~',
         res.changelog || changelog,
         [{
-          text: '取消', onPress: () => {
+          text: '取消',
+          onPress: () => {
           },
         }, {
-          text: '确定', onPress: () => {
-            callBack && callBack()
+          text: '确定',
+          onPress: () => {
+            callBack && callBack();
           },
         }]
-      )
-
-
+      );
     }
   }
-
-}
+};
 
 
 const goWebView = async (uri) => {
@@ -93,13 +90,13 @@ const goWebView = async (uri) => {
   //
   // console.log('remoteData:', remoteData);
 
-}
+};
 // goWebView()
-//用于企业端自动更新
+// 用于企业端自动更新
 export const epUpdate = async () => {
-  const bundleId = DeviceInfo.getBundleId()
+  const bundleId = DeviceInfo.getBundleId();
   if (Platform.OS === 'ios' && checkIos(bundleId)) {
-    //企业版
+    // 企业版
     // const res = await sendBack(bundleId)
     // // console.log('update:', res);
     // const callback = () => {
@@ -115,58 +112,58 @@ export const epUpdate = async () => {
     // }
     // checkUpdate(res, callback)
   } else if (Platform.OS === 'android') {
+    // 远程接口
 
-    //远程接口
 
-
-    const timeId = await setTimeoutDelay(5000)
-    timeId && clearTimeout(timeId)
+    const timeId = await setTimeoutDelay(5000);
+    timeId && clearTimeout(timeId);
     // await interactionManagerDelay()
-    let remoteData = await send(appUpdateInfo()).then(res => res.json())
-    remoteData = remoteData && remoteData.result || {}
+    let remoteData = await send(appUpdateInfo()).then(res => res.json());
+    remoteData = remoteData && remoteData.result || {};
 
-    const { desc, version } = remoteData
+    const { desc, version } = remoteData;
     // console.log('version:', version);
-    const appVersion = DeviceInfo.getVersion() + ''
+    const appVersion = `${DeviceInfo.getVersion()}`;
     // console.log('remoteData:', version, appVersion);
     // console.log('compareVersion:', compareVersion(version, appVersion));
     if (compareVersion(version, appVersion) > 0) {
-      //本地版本号小于远程版本号 进入远程升级
+      // 本地版本号小于远程版本号 进入远程升级
       Alert.alert(
         `可以升级到${version}了~`,
         desc.join('\n'),
         [{
-          text: '取消', onPress: () => {
+          text: '取消',
+          onPress: () => {
           },
         }, {
-          text: '确定', onPress: () => {
+          text: '确定',
+          onPress: () => {
             Pop.show(<UpdateView
-                bannerImage={require('../../../source/img/my/icon-60.png')}
-                fetchRes={remoteData}/>,
-              { maskClosable: false })
+              bannerImage={require('../../../source/img/my/icon-60.png')}
+              fetchRes={remoteData}
+            />,
+            { maskClosable: false });
           },
         }
         ]
-      )
-
+      );
     } else if (compareVersion(version, appVersion) < 0) {
-      //本地版本号大于远程版本号 查询编译号，是否进入测试升级
-      const res = await sendBack(bundleId)
+      // 本地版本号大于远程版本号 查询编译号，是否进入测试升级
+      const res = await sendBack(bundleId);
       // console.log('update:', res);
       const callback = () => {
         Linking.openURL(res.install_url);
         Linking.openURL(res.update_url);
-      }
-      //Android 识别当前测试版本号 来检测更新
-      checkUpdate(res, callback)
+      };
+      // Android 识别当前测试版本号 来检测更新
+      checkUpdate(res, callback);
     }
-
   }
-}
+};
 
 function sendBack(bundleId) {
-  const params = firUpdate(bundleId, api_token, Platform.OS)
-  return send(params).then(res => res.json())
+  const params = firUpdate(bundleId, api_token, Platform.OS);
+  return send(params).then(res => res.json());
 }
 
 
@@ -177,10 +174,11 @@ function sendBack(bundleId) {
  */
 
 const compareVersion = (a, b) => {
-  let aa = a.split('.');
-  let ab = b.split('.');
+  const aa = a.split('.');
+  const ab = b.split('.');
   let i = 0;
-  let la = aa.length, lb = ab.length;
+  let la = aa.length; let
+    lb = ab.length;
   while (la > lb) {
     ab.push(0);
     ++lb;
@@ -194,10 +192,10 @@ const compareVersion = (a, b) => {
     const bi = parseInt(ab[i], 10);
     if (ai > bi) {
       return 1;
-    } else if (ai < bi) {
+    } if (ai < bi) {
       return -1;
     }
     ++i;
   }
   return 0;
-}
+};

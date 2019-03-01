@@ -3,7 +3,6 @@
  * @flow
  */
 
-'use strict';
 
 import React, { Component } from 'react';
 import {
@@ -12,10 +11,14 @@ import {
   StyleSheet,
   Dimensions,
 
-} from 'react-native'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Map } from 'immutable';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import { formValueSelector } from 'redux-form/immutable';
+import Toast from 'react-native-simple-toast';
 import {
   StyledContent,
   StyledHeaderImage,
@@ -24,22 +27,18 @@ import {
   StyledActivityIndicator,
 
 } from './style'
-import { Map } from 'immutable';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import Button from '../../../components/Button'
-import { formValueSelector } from 'redux-form/immutable'
-import CourseForm, { FormID } from '../../../components/Form/Course'
-import { uploadImages } from '../../../redux/actions/util'
-import { update, updateByID, findByID } from '../../../redux/module/leancloud'
-import { addNormalizrEntity } from '../../../redux/module/normalizr'
-import { COURSE } from '../../../redux/reqKeys'
-import { deleteFile } from '../../../request/leanCloud'
-import { load, req } from "../../../redux/actions/req";
-import Toast from 'react-native-simple-toast'
-import { showImagePicker } from '../../../components/ImagePicker/imagePicker'
-import { CourseStatu } from '../../../configure/enum'
+import Button from '../../../components/Button';
+import CourseForm, { FormID } from '../../../components/Form/Course';
+import { uploadImages } from '../../../redux/actions/util';
+import { update, updateByID, findByID } from '../../../redux/module/leancloud';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { COURSE } from '../../../redux/reqKeys';
+import { deleteFile } from '../../../request/leanCloud';
+import { load, req } from '../../../redux/actions/req';
+import { showImagePicker } from '../../../components/ImagePicker/imagePicker';
+import { CourseStatu } from '../../../configure/enum';
 
-const selector = formValueSelector(FormID)
+const selector = formValueSelector(FormID);
 
 @connect(
   (state, props) => ({
@@ -50,32 +49,32 @@ const selector = formValueSelector(FormID)
   (dispatch, props) => ({
 
     load: () => {
-      const id = props.navigation.state.params.CourseId
-      return dispatch(findByID(COURSE, id))
+      const id = props.navigation.state.params.CourseId;
+      return dispatch(findByID(COURSE, id));
     },
 
     onSubmit: (cance) => {
       dispatch(async (dispatch, getState) => {
-        const id = props.navigation.state.params.CourseId
-        const state = getState()
+        const id = props.navigation.state.params.CourseId;
+        const state = getState();
 
         // const course = state.normalizr.get(COURSE).get(props.navigation.state.params.CourseId)
         if (cance) {
-          return await  dispatch(updateByID(COURSE, id, {
+          return await dispatch(updateByID(COURSE, id, {
             statu: CourseStatu.close
-          }))
+          }));
         }
 
 
         const title = selector(state, 'title');
         const subtitle = selector(state, 'subtitle');
-        let cover = selector(state, 'cover')
-        const ppt = selector(state, 'ppt')
+        let cover = selector(state, 'cover');
+        const ppt = selector(state, 'ppt');
 
-        //修改本地保存
+        // 修改本地保存
         storage.save({
-          key: "course",
-          id,  //注意:请不要在key中使用_下划线符号!
+          key: 'course',
+          id, // 注意:请不要在key中使用_下划线符号!
           data: {
             title,
             cover,
@@ -84,10 +83,10 @@ const selector = formValueSelector(FormID)
           },
         });
         cover = {
-          "id": cover.get('id'),
-          "__type": "File",
+          id: cover.get('id'),
+          __type: 'File',
           url: cover.get('url')
-        }
+        };
         // const cover = selector(state, 'cover');
         const params = {
           title,
@@ -96,36 +95,34 @@ const selector = formValueSelector(FormID)
           ppt,
           statu: CourseStatu.open
           // statu: course.get('statu') === 0 ? 1 : 0
-        }
+        };
 
 
-        const res = await  dispatch(updateByID(COURSE, id, params))
-        Toast.show('发布成功')
+        const res = await dispatch(updateByID(COURSE, id, params));
+        Toast.show('发布成功');
         return res;
         // props.navigation.goBack()
-      })
-
+      });
     },
     handleImage: async (onChange) => {
-
-      const id = props.navigation.state.params.CourseId
+      const id = props.navigation.state.params.CourseId;
 
 
       const response = await showImagePicker({
         title: '添加封面',
         maxWidth: 2000, // photos only
         maxHeight: 2000, // photos only
-      })
+      });
 
-      const { uri } = response
+      const { uri } = response;
 
       if (uri.length > 0) {
-        //上传image
-        //判断是否有老照片,有的话就删除
+        // 上传image
+        // 判断是否有老照片,有的话就删除
 
 
-        const res = await dispatch(uploadImages([uri], 'CourseCover'))
-        const img = res.payload[0]
+        const res = await dispatch(uploadImages([uri], 'CourseCover'));
+        const img = res.payload[0];
         // if (!img) {
         //     return null
         // }
@@ -157,14 +154,10 @@ const selector = formValueSelector(FormID)
         // dispatch(addNormalizrEntity(COURSE, entity))
 
 
-        if (img) {
-          onChange(new Map({ id: img.id, url: img.attributes.url }))
+        if (img && onChange) {
+          onChange(new Map({ id: img.id, url: img.attributes.url }));
         }
-
-
       }
-
-
     }
   })
 )
@@ -177,39 +170,39 @@ export default class CourseCreat extends Component {
 
     this.state = {
       getSave: false,
-    }
+    };
 
-    const id = props.course.get('objectId')
+    const id = props.course.get('objectId');
     storage.load({
-      key: "course",
+      key: 'course',
       id,
-    }).then(localSave => {
+    }).then((localSave) => {
       this.setState({
         getSave: true,
         localSave
-      })
-    }).catch(e => {
+      });
+    }).catch((e) => {
       this.setState({
         getSave: true,
-      })
-    })
-
+      });
+    });
   }
 
   static propTypes = {};
+
   static defaultProps = {};
-  static navigationOptions = props => {
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    return {
-      title: '',
-    }
-  };
+
+  static navigationOptions = // const {navigation} = props;
+                             // const {state} = navigation;
+                             // const {params} = state;
+                             props => ({
+                               title: '',
+                             })
+  ;
 
 
   componentDidMount() {
-    !this.props.course && this.props.load()
+    !this.props.course && this.props.load();
   }
 
   // __renderRow = () => {
@@ -233,12 +226,10 @@ export default class CourseCreat extends Component {
   // }
 
   render(): ReactElement<any> {
+    const coverLoad = this.props.coverLoad && this.props.coverLoad.get('load');
 
-
-    const coverLoad = this.props.coverLoad && this.props.coverLoad.get('load')
-
-    const course = this.props.course
-    const cover = course && course.get('cover')
+    const { course } = this.props;
+    const cover = course && course.get('cover');
 
 
     const initialValues = {
@@ -250,28 +241,31 @@ export default class CourseCreat extends Component {
       subtitle: course.get('subtitle'),
       ppt: course.get('ppt'),
       ...this.state.localSave,
-    }
+    };
     // console.log('cover:', cover);
 
 
     return (
       <StyledContent>
-        {course && this.state.getSave ? <CourseForm
+        {course && this.state.getSave ? (
+          <CourseForm
             {...this.props}
             load={this.props.courseLoad}
             initialValues={initialValues}
             cance={course.get('statu') === CourseStatu.open}
             imageLoad={coverLoad}
             handleImage={this.props.handleImage}
-            onSubmit={this.props.onSubmit}/> :
-          <StyledActivietyView>
-            <StyledActivityIndicator/>
-          </StyledActivietyView>
+            onSubmit={this.props.onSubmit}
+          />
+        )
+          : (
+            <StyledActivietyView>
+              <StyledActivityIndicator />
+                        </StyledActivietyView>
+          )
         }
 
       </StyledContent>
     );
   }
 }
-
-
