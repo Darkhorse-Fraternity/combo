@@ -119,6 +119,8 @@ export const epUpdate = async () => {
     timeId && clearTimeout(timeId);
     // await interactionManagerDelay()
     let remoteData = await send(appUpdateInfo()).then(res => res.json());
+    console.log('remoteData', remoteData);
+
     remoteData = remoteData && remoteData.result || {};
 
     const { desc, version } = remoteData;
@@ -173,7 +175,7 @@ function sendBack(bundleId) {
  * @return {number}
  */
 
-const compareVersion = (a, b) => {
+export const compareVersion = (a, b) => {
   const aa = a.split('.');
   const ab = b.split('.');
   let i = 0;

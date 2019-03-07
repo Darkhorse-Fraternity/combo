@@ -56,7 +56,7 @@ import { req } from '../../../redux/actions/req';
   (dispatch, props) => ({
     pay: (description, amount) => dispatch(easyPay(amount, description, 'fb',)),
 
-    join: async (icardId, flagId, description, flag) => {
+    join: async (icardId, flagId, description, flag, tradeId) => {
       const {
         cost, endDate, startDate, joinNum, totalBonus
       } = flag;
@@ -72,6 +72,7 @@ import { req } from '../../../redux/actions/req';
         amount: cost,
         endDate,
         startDate,
+        tradeId,
         // include: 'avatar'
       };
       const entity = {
@@ -129,7 +130,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-    </StyledBtn>),
+                  </StyledBtn>),
   })
   ;
 
@@ -344,9 +345,10 @@ export default class FlagDetail extends PureComponent {
           try {
             this.setState({ load: true });
             const payRes = await pay(description, cost);
-            payRes.payload.statu === 'suc' && Pop.hide();
-            const res = payRes.payload.statu === 'suc'
-              && await join(iCardId, flagId, description, flagModel);
+            const { data, statu } = payRes.payload;
+            statu === 'suc' && Pop.hide();
+            const res = statu === 'suc'
+              && await join(iCardId, flagId, description, flagModel, data.out_trade_no);
             this.setState({ load: false, flip: !!res });
           } catch (e) {
             console.log('e:', e.message);

@@ -50,7 +50,7 @@ export default class extends PureComponent {
           <StyledRowTitle style={{ fontSize: 30 }}>
               x
           </StyledRowTitle>
-          <StyledRowTitle style={{ fontSize: 25, fontWeight: '600' }}>
+          <StyledRowTitle style={{ fontSize: 25, fontWeight: '400' }}>
             {' '}
             {redo}
           </StyledRowTitle>

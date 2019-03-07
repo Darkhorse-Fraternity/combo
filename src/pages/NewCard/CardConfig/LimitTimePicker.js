@@ -71,8 +71,8 @@ export default class LimitTimePicker extends PureComponent {
             this.setState({ isDateTimePickerVisible: true });
             this.onChange = async (time) => {
               // fields.
-              const before = moment(time, 'HH');
-              const after = moment(fields.get(1), 'HH');
+              const before = moment(time, 'HH:mm');
+              const after = moment(fields.get(1), 'HH:mm');
               const flag = before.isBefore(after);
               if (flag) {
                 props.input.onChange && props.input.onChange(time);
@@ -108,14 +108,14 @@ export default class LimitTimePicker extends PureComponent {
             this.setState({ isDateTimePickerVisible: true });
             this.onChange = async (time) => {
               // fields.
-              const before = moment(fields.get(0), 'HH');
-              const after = moment(time, 'HH');
+              const before = moment(fields.get(0), 'HH:mm');
+              const after = moment(time, 'HH:mm');
               const flag = before.isBefore(after);
               if (flag) {
                 props.input.onChange && props.input.onChange(time);
                 self.setState({ isDateTimePickerVisible: false });
               } else {
-                Toast.showWithGravity('开始时间要小于结束时间~',
+                Toast.showWithGravity('开始时间要小于结束时间,建议至少有一小时间隔',
                   Toast.SHORT,
                   Toast.TOP);
               }

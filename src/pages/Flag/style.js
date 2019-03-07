@@ -45,6 +45,17 @@ export const StyledItemImage = styled(FastImage)`
   elevation: 5;
 `;
 
+export const StyledItemTitle = styled.Text`
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: ${props => props.color};
+  elevation: 6;
+`;
+
+
 export const StyledItemText = styled.Text`
   position: absolute;
   bottom: 30px;

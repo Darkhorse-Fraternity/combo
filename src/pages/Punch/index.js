@@ -63,7 +63,7 @@ import rate from '../../../helps/rate';
         statu: 'start'
       },
       order: '-time',
-      include: `${FLAG},${ICARD},iCard.user`
+      include: `${ICARD},iCard.user`
     }, IUSE)),
     done: async (data) => {
       // 评价

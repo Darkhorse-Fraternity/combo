@@ -1,33 +1,33 @@
-export const USER = 'user'
-export const ICARD = 'iCard'
-export const IDONE = 'iDone'
-export const IRECORD = 'iRecord'
-export const FOLLOWRECORD = 'FollowRecord'
-export const FRIENDNUM = 'friendNum'
-export const FRIENDEXIST = 'friendExist'
-export const FOLLOWING = 'following'
-export const IDO = 'iDo'
-export const ORDER = 'Order'
-export const ENCH = 'Enchashment'
-export const IDOCALENDAR = 'iDoCalendar'
-export const IUSE = 'iUse'
-export const AUTHCODE = 'authCode'
-export const SCENELIST = 'sceneList'
-export const CARDLIST = 'cardList'
-export const FBLIST = 'fbList'
-export const IDOULIMAGE = 'iDoULImage'
-export const PBULImage = 'PBULImage'
-export const IUSEExist = 'iUseExist'
-export const UPDATENICKNAME = 'updateNickName'
-export const FEEDBACKPARAM = 'feedbackParam'
-export const ICOMMENT = 'iComment'
-export const REPORT = 'Report'
-//设置初始值
-export const COURSE = 'Course'
-export const WECHATLOGIN = 'WeChatLogin'
-export const QQLOGIN = 'QQLogin'
-export const FLAG = 'Flag'
-export const FLAGRECORD = 'FlagRecord'
+export const USER = 'user';
+export const ICARD = 'iCard';
+export const IDONE = 'iDone';
+export const IRECORD = 'iRecord';
+export const FOLLOWRECORD = 'FollowRecord';
+export const FRIENDNUM = 'friendNum';
+export const FRIENDEXIST = 'friendExist';
+export const FOLLOWING = 'following';
+export const IDO = 'iDo';
+export const ORDER = 'Order';
+export const ENCH = 'Enchashment';
+export const IDOCALENDAR = 'iDoCalendar';
+export const IUSE = 'iUse';
+export const AUTHCODE = 'authCode';
+export const SCENELIST = 'sceneList';
+export const CARDLIST = 'cardList';
+export const FBLIST = 'fbList';
+export const IDOULIMAGE = 'iDoULImage';
+export const PBULImage = 'PBULImage';
+export const IUSEExist = 'iUseExist';
+export const UPDATENICKNAME = 'updateNickName';
+export const FEEDBACKPARAM = 'feedbackParam';
+export const ICOMMENT = 'iComment';
+export const REPORT = 'Report';
+// 设置初始值
+export const COURSE = 'Course';
+export const WECHATLOGIN = 'WeChatLogin';
+export const QQLOGIN = 'QQLogin';
+export const FLAG = 'Flag';
+export const FLAGRECORD = 'FlagRecord';
 
 export const registerReqKeys = [
   ICARD,
@@ -50,8 +50,8 @@ export const registerReqKeys = [
   ENCH,
   FLAG,
   FLAGRECORD
-//设置初始值
-]
+// 设置初始值
+];
 
 
 export const registerListKeys = [
@@ -68,6 +68,6 @@ export const registerListKeys = [
   ENCH,
   FLAG,
   FLAGRECORD
-]
+];
 
-export const registerNormalizrKeys = registerListKeys
+export const registerNormalizrKeys = registerListKeys;

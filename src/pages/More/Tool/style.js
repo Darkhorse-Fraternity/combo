@@ -17,7 +17,7 @@ export const StyledHeaderTitle = styled.Text`
 
 
 export const StyledRow = styled.View`
-    padding:20px;
+    padding:20px 20px 20px 20px;
     background-color: #e69;
     border-radius:10px;
     margin: 20px 20px 0px 20px;
@@ -32,14 +32,14 @@ export const StyledRowInner = styled.View`
 export const StyledRowTitle = styled.Text`
     font-size:23px;
     color: white;
-    font-weight:500;
+    font-weight:400;
 `;
 
 export const StyledRowDiscrib = styled.Text`
      font-size:15px;
      margin-top:5px;
      color: white;
-     font-weight:500;
+     font-weight:400;
 `;
 
 export const StyledIcon = styled(FontAwesome5)`

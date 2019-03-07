@@ -4,7 +4,6 @@
  */
 
 
-
 import styled from 'styled-components';
 import { SafeAreaView } from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
@@ -17,7 +16,7 @@ export const StyledContent = styled(SafeAreaView)`
 `;
 
 export const StyledHeader = styled.View`
-    padding: ${Platform.OS === 'ios' ? 44:64}px 0px 5px 0px;
+    padding: ${Platform.OS === 'ios' ? 44 : 64}px 0px 5px 0px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;  
@@ -41,7 +40,8 @@ export const StyledSectionHeaderTitle = styled.Text`
 
 
 export const StyledAdd = styled(BorderlessButton)`
-    
+    width:25px;
+    height:25px;
 `;
 
 export const StyledIonicons = styled(Feather)`

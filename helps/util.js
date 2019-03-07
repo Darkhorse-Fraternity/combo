@@ -46,7 +46,10 @@ export async function firstInstaller() {
 
 export let appChannel = 'unknow';
 const app_channel = async () => {
-  appChannel = Platform.OS === 'ios' ? 'appStore'
-    : await RNAppUtil.getAppMetadataBy('TD_CHANNEL_ID');
+  if (Platform.OS === 'ios') {
+    appChannel = !__DEV__ ? 'appStore' : 'iOS_inhouse';
+  } else {
+    appChannel = await RNAppUtil.getAppMetadataBy('TD_CHANNEL_ID');
+  }
 };
 app_channel();

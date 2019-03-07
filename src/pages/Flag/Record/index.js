@@ -22,8 +22,6 @@ import {
   StyledArrow,
   StyledHeader,
   StyledHeaderTitle
-
-
 } from './style';
 import { iCard } from '../../../request/LCModle';
 

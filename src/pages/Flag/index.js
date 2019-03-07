@@ -22,6 +22,7 @@ import {
   StyledHeaderTitle,
   StyledItem,
   StyledItemImage,
+  StyledItemTitle,
   StyledItemText
 } from './style';
 import LCList from '../../components/Base/LCList';
@@ -80,6 +81,9 @@ export default class Flag extends PureComponent {
       }}
       >
         <StyledItemImage source={{ uri: item.cover.url }} />
+        <StyledItemTitle color={color}>
+          {title}
+        </StyledItemTitle>
         <StyledItemText color={color}>
           {title}
         </StyledItemText>
