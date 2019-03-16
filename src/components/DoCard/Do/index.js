@@ -99,9 +99,7 @@ export default class Doing extends Component {
     return (
       <Do
         record={record}
-        done={() => {
-          done(type, doneDate);
-        }}
+        done={() => done(type, doneDate)}
         load={load}
         type={type}
         {...otherProps}

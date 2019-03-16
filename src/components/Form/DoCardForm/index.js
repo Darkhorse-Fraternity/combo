@@ -208,9 +208,11 @@ export default class DoCardForm extends Component {
                 }}
                 onPress={async () => {
                   if (onSubmit) {
-                    await handleSubmit(onSubmit)();
-                    await reset();
-                    Pop.hide();
+                    const res = await handleSubmit(onSubmit)();
+                    if (res) {
+                      await reset();
+                      Pop.hide();
+                    }
                   }
                 }}
               >

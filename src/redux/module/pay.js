@@ -90,6 +90,7 @@ export function pay(type, amount, detail, description, uid, bid) {
         return dispatch(fail());
       }
 
+
       const obj = {
         // appid:'wx637e6f35f8211c6d',
         partnerId: data.partnerid, // 商家向财付通申请的商家ID
@@ -101,7 +102,7 @@ export function pay(type, amount, detail, description, uid, bid) {
       };
 
 
-      // console.log('obj:', obj);
+      console.log('pay:', obj);
 
       try {
         await WeChat.pay(obj);
