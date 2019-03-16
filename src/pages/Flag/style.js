@@ -44,24 +44,24 @@ export const StyledItemImage = styled(FastImage)`
   background-color: #fdfbfb;
   elevation: 5;
 `;
+export const StyledItemCover = styled.View`
+  position: absolute;
+  elevation: 6;
+  padding: 20px;
+  top:${props => (props.position === 'top' ? 20 : 140)}px;
+`;
+
 
 export const StyledItemTitle = styled.Text`
-  position: absolute;
-  bottom: 30px;
-  left: 20px;
   font-size: 20px;
   font-weight: 500;
   color: ${props => props.color};
-  elevation: 6;
 `;
 
 
 export const StyledItemText = styled.Text`
-  position: absolute;
-  bottom: 30px;
-  left: 20px;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 15px;
   color: ${props => props.color};
-  elevation: 6;
+  font-weight: 500;
+  margin-top:5px;
 `;

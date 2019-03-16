@@ -23,7 +23,8 @@ import {
   StyledItem,
   StyledItemImage,
   StyledItemTitle,
-  StyledItemText
+  StyledItemText,
+  StyledItemCover
 } from './style';
 import LCList from '../../components/Base/LCList';
 
@@ -71,9 +72,20 @@ export default class Flag extends PureComponent {
       title,
       objectId,
       iCard,
-      titleConfig
+      titleConfig,
+      reward,
+      rewardConfig,
+      totalBonus
     } = item;
-    const { color } = titleConfig;
+    const { color = 'white', dColor = 'white', position } = titleConfig;
+
+    let discirb = '奖励:';
+    if (reward === 'money') {
+      discirb = `奖金池:${totalBonus}元`;
+    } else if (reward === 'redo') {
+      discirb = `完成奖励:补打卡${rewardConfig.redo}张`;
+    }
+
 
     return (
       <StyledItem onPress={() => {
@@ -81,12 +93,15 @@ export default class Flag extends PureComponent {
       }}
       >
         <StyledItemImage source={{ uri: item.cover.url }} />
-        <StyledItemTitle color={color}>
-          {title}
-        </StyledItemTitle>
-        <StyledItemText color={color}>
-          {title}
-        </StyledItemText>
+        <StyledItemCover position={position}>
+          <StyledItemTitle color={color} position={position}>
+            {title}
+          </StyledItemTitle>
+          <StyledItemText color={dColor} position={position}>
+            {discirb}
+          </StyledItemText>
+        </StyledItemCover>
+
       </StyledItem>
     );
   }

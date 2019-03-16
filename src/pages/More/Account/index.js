@@ -6,7 +6,6 @@ import {
   View,
   Alert,
   TouchableOpacity,
-  NativeModules,
   Platform
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -49,8 +48,8 @@ import {
 import Button from '../../../components/Button/index';
 import { logout } from '../../../redux/actions/user';
 import Avatar from '../../../components/Avatar';
+import { appChannel } from '../../../../helps/util';
 
-const { RNAppUtil } = NativeModules;
 
 @connect(
   state => ({
@@ -211,17 +210,11 @@ export default class Account extends React.Component {
       </StyledButton>
   )
 
-   app_channel = async () => (Platform.OS === 'ios' ? 'appStore'
-     : await RNAppUtil.getAppMetadataBy('TD_CHANNEL_ID'))
-
 
   _renderAppInfo = () => (
     <StyledAppInfo>
       <TouchableOpacity
         onLongPress={async () => {
-          if (!this.channel) {
-            this.channel = await this.app_channel();
-          }
           this.setState({ appInfoShow: !this.state.appInfoShow });
         }}
         activeOpacity={1}
@@ -231,7 +224,7 @@ export default class Account extends React.Component {
             ? `APP VERSION: ${DeviceInfo.getVersion()}`
             : '用于截屏反馈BUG\n'
               + `UserID: ${this.props.user.objectId}\n`
-              + `App Channel: ${this.channel}\n`
+              + `App Channel: ${appChannel}\n`
               + `App version: ${DeviceInfo.getVersion()}\n`
               + `App Build: ${DeviceInfo.getBuildNumber()}\n`
               + `Brand: ${DeviceInfo.getBrand()}\n`

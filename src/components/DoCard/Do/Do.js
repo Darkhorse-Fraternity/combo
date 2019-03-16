@@ -41,7 +41,7 @@ export default class Do extends Component {
 
   render(): ReactElement<any> {
     const {
-      record, load, done, type
+      record, load, done, type, iUse
     } = this.props;
     // const iconAndColor = iCard.get('iconAndColor')
     // const color = iconAndColor && iconAndColor.get('color')
@@ -71,6 +71,8 @@ export default class Do extends Component {
         />
         )}
         <DoCardForm
+          localSaveEnable
+          localSaveID={iUse.objectId}
           color={color}
           type={type}
           load={load}

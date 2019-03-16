@@ -15,6 +15,7 @@ import { formValueSelector } from 'redux-form/immutable';
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
 import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-input'; // <-- same as form name
 import KeyboardManager from 'react-native-keyboard-manager';
+import * as immutable from 'immutable';
 import theme from '../../../Theme';
 
 import { dataStorage } from '../../../redux/actions/util';
@@ -45,6 +46,10 @@ const TrackInteractive = true;
 @connect(
   (state, props) => {
     const recordText = selector(state, 'recordText');
+
+    const { util } = state;
+    const storage = util.get(FormID + props.localSaveID);
+    const storageData = storage && storage.toJS() || { imgs: [] };
     let imgs = selector(state, 'imgs');
     // console.log('imgs:', imgs);
     imgs = imgs && imgs.toJS && imgs.toJS();
@@ -56,23 +61,30 @@ const TrackInteractive = true;
 
     return {
       enableSumbmit: !hasNone || props.type === 1,
-      initialValues: { imgs: [] },
-      inputText: props.localSaveEnable && text,
+      initialValues: storageData,
+      imgs,
+      recordText
+      // inputText: props.localSaveEnable && text,
     };
   },
   (dispatch, props) => ({
 
-    localSave: (text) => {
-      dispatch(dataStorage(FormID + props.localSaveID, { text }));
-    }
+    localSave: (recordText, imgs) => {
+      dispatch((dispatch, getState) => {
+        // const state = getState();
+        // const recordText = selector(state, 'recordText');
+        dispatch(dataStorage(FormID + props.localSaveID, { recordText, imgs }));
+      });
+    },
+    // localLoad
   })
 )
 
 @reduxForm({
   form: FormID,
+  // destroyOnUnmount: false
 })
 
-@immutableRenderDecorator
 
 export default class DoCardForm extends Component {
   constructor(props: Object) {
@@ -98,12 +110,25 @@ export default class DoCardForm extends Component {
     Platform.OS === 'ios' && KeyboardManager.setEnable(false);
   }
 
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const otherNextProps = { ...nextProps };
+    const props = { ...this.props };
+
+    delete otherNextProps.imgs;
+    delete otherNextProps.recordText;
+    delete props.imgs;
+    delete props.recordText;
+    return !immutable.is(props, otherNextProps) || !immutable.is(this.state, nextState);
+    // return this.props.enableSumbmit !== nextProps.enableSumbmit;
+  }
+
   componentWillUnmount() {
     Platform.OS === 'ios' && KeyboardManager.setEnable(true);
     KeyboardUtils.dismiss();
-    // this.props.localSaveEnable && this.props.localSave(this.props.inputText)
+    const { imgs, recordText } = this.props;
+    this.props.localSaveEnable && this.props.localSave(recordText, imgs);
   }
-
 
   __textType = () => (
     <StyledTextInput
@@ -149,10 +174,11 @@ export default class DoCardForm extends Component {
       pristine,
       color,
       enableSumbmit,
+      reset,
       ...rest
     } = this.props;
-    const { submitting, invalid } = rest;
-    const { record } = this.props;
+    // const { submitting, invalid } = rest;
+    // const { record } = this.props;
 
     // console.log('submitting222:', load);
 
@@ -180,7 +206,13 @@ export default class DoCardForm extends Component {
                 hitSlop={{
                   top: 5, left: 20, bottom: 5, right: 50
                 }}
-                onPress={onSubmit && handleSubmit(onSubmit)}
+                onPress={async () => {
+                  if (onSubmit) {
+                    await handleSubmit(onSubmit)();
+                    await reset();
+                    Pop.hide();
+                  }
+                }}
               >
                 <StyledBackBtnText
                   disabled={!enableSumbmit}

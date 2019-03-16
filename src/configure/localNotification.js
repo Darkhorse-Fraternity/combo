@@ -177,7 +177,7 @@ export default class LocalNotification extends PureComponent {
         return;
       }
       // 检查几个已经打卡了
-      const done = moment(1, 'HH').isBefore(item.doneDate.iso);
+      const done = moment(0, 'HH').isBefore(item.doneDate.iso);
       !done && unDoneCount++;
 
 
@@ -293,6 +293,21 @@ export default class LocalNotification extends PureComponent {
   calendarSaved = {}
 
   calendarEvents = async (data, localRemindData) => {
+    let unDoneCount = 0;
+    if (data) {
+      data.forEach((item) => {
+        if (item.statu !== 'start') {
+          // 已经删除了,就不用提醒了。
+          return;
+        }
+        // 检查几个已经打卡了
+        const done = moment(0, 'HH').isBefore(item.doneDate.iso);
+        !done && unDoneCount++;
+      });
+    }
+    PushNotification.setApplicationIconBadgeNumber(unDoneCount);
+
+
     let { all } = localRemindData;
 
     // 获取是否开启通知的条件。 当all 不存在时候，all 为true

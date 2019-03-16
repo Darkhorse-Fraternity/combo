@@ -28,7 +28,9 @@ import creatIDO from '../doCard';
     // ...bindActionCreators({},dispatch),
     done: () => {
       // 先判断是否有图片，如果有则 先上传图片。
-      dispatch(async (dispatch, getState) => {
+      console.log('done');
+
+      return dispatch(async (dispatch, getState) => {
         try {
           const { iUse } = props;
           // const {files, ...otherState} = state
@@ -59,7 +61,7 @@ import creatIDO from '../doCard';
           }
 
 
-          await dispatch(creatIDO(iUse, iCardM,
+          const iDoRes = await dispatch(creatIDO(iUse, iCardM,
             {
               recordText,
               imgs,
@@ -67,7 +69,8 @@ import creatIDO from '../doCard';
               doneDate: new Date()
             }));
 
-          Pop.hide();
+          // Pop.hide();
+          return iDoRes;
         } catch (e) {
           console.log('test:', e.message);
         }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -17,10 +17,9 @@ import {
   StyledTime,
   StyledIconImage
 } from './style';
-import svgs from '../../../../source/icons'
+import svgs from '../../../../source/icons';
 
-export default class Cell extends Component {
-
+export default class Cell extends PureComponent {
   static propTypes = {
     data: PropTypes.object.isRequired,
   };
@@ -34,8 +33,10 @@ export default class Cell extends Component {
       iCard: { img },
     } = this.props;
 
-    const { title, notifyText, iconAndColor,period } = iCard
-    const time = data.time
+    const {
+      title, notifyText, iconAndColor, period
+    } = iCard;
+    const { time } = data;
 
     return (
       <StyledContent
@@ -44,14 +45,14 @@ export default class Cell extends Component {
         <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
           <StyledIconImage
             size={40}
-            resizeMode={'contain'}
+            resizeMode="contain"
             source={svgs[iconAndColor ? iconAndColor.name : 'sun']}
           />
-          {/*<SvgUri*/}
-            {/*width={40}*/}
-            {/*height={40}*/}
-            {/*svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'sun']}*/}
-          {/*/>*/}
+          {/* <SvgUri */}
+          {/* width={40} */}
+          {/* height={40} */}
+          {/* svgXmlData={svgs[iconAndColor ? iconAndColor.name : 'sun']} */}
+          {/* /> */}
         </StyledIconBG>
         <StyledInner>
           <StyledTitle>
@@ -59,7 +60,9 @@ export default class Cell extends Component {
           </StyledTitle>
 
           <StyledTime>
-            第{time}次
+            第
+            {time}
+次
           </StyledTime>
           <StyledDes>
             {notifyText}

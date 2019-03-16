@@ -26,7 +26,7 @@ import {
   StyledActivietyView,
   StyledActivityIndicator,
 
-} from './style'
+} from './style';
 import Button from '../../../components/Button';
 import CourseForm, { FormID } from '../../../components/Form/Course';
 import { uploadImages } from '../../../redux/actions/util';
@@ -261,7 +261,7 @@ export default class CourseCreat extends Component {
           : (
             <StyledActivietyView>
               <StyledActivityIndicator />
-                        </StyledActivietyView>
+            </StyledActivietyView>
           )
         }
 
