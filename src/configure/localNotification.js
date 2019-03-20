@@ -177,10 +177,19 @@ export default class LocalNotification extends PureComponent {
         return;
       }
       // 检查几个已经打卡了
-      const done = moment(0, 'HH').isBefore(item.doneDate.iso);
-      !done && unDoneCount++;
+      const { iCard, doneDate } = item;
+      const { limitTimes } = iCard;
+      const done = moment(0, 'HH').isBefore(doneDate.iso);
 
+      const before = moment(limitTimes[0], 'HH');
+      const after = moment(limitTimes[1], 'HH');
+      const now = moment(new Date());
+      const momentIn = moment(now).isBetween(before, after);
+      if (momentIn && !done) {
+        unDoneCount += 1;
+      }
 
+      PushNotification.setApplicationIconBadgeNumber(unDoneCount);
       const { recordDay } = item.iCard;
       const notifyTimes = item.iCard.notifyTimes || [];
 
@@ -204,9 +213,8 @@ export default class LocalNotification extends PureComponent {
     });
 
     // console.log('unDoneCount:', unDoneCount);
-    const name = (`${this.props.user.nickname},`) || '';
-    PushNotification.setApplicationIconBadgeNumber(unDoneCount);
 
+    const name = (`${this.props.user.nickname},`) || '';
     if (!daysFlag) {
       PushNotification.localNotificationSchedule({
         title: '给自己添加一个习惯吧~',
@@ -301,8 +309,17 @@ export default class LocalNotification extends PureComponent {
           return;
         }
         // 检查几个已经打卡了
-        const done = moment(0, 'HH').isBefore(item.doneDate.iso);
-        !done && unDoneCount++;
+        const { iCard, doneDate } = item;
+        const { limitTimes } = iCard;
+        const done = moment(0, 'HH').isBefore(doneDate.iso);
+
+        const before = moment(limitTimes[0], 'HH');
+        const after = moment(limitTimes[1], 'HH');
+        const now = moment(new Date());
+        const momentIn = moment(now).isBetween(before, after);
+        if (momentIn && !done) {
+          unDoneCount += 1;
+        }
       });
     }
     PushNotification.setApplicationIconBadgeNumber(unDoneCount);

@@ -101,9 +101,6 @@ export function pay(type, amount, detail, description, uid, bid) {
         sign: data.sign, // 商家根据微信开放平台文档对数据做的签名
       };
 
-
-      console.log('pay:', obj);
-
       try {
         await WeChat.pay(obj);
         // console.log('wechatRes:', wechatRes);
@@ -148,12 +145,12 @@ export function pay(type, amount, detail, description, uid, bid) {
       const { alipay_trade_app_pay_response } = aliPayRes;
       if (alipay_trade_app_pay_response) {
         // const { trade_no } = alipay_trade_app_pay_response;
-        console.log('aliPayRes:', aliPayRes);
+        // console.log('aliPayRes:', aliPayRes);
         // const params = payOrder(trade_no, tradeId)
         // await dispatch(req(params))
         Toast.show('支付成功');
         // console.log('lastRes:', lastRes);
-        return dispatch(suc(aliPayRes));
+        return dispatch(suc(alipay_trade_app_pay_response));
       }
       return dispatch(fail());
     } else if (type === 'cash') {

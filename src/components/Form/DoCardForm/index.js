@@ -174,6 +174,7 @@ export default class DoCardForm extends Component {
       pristine,
       color,
       enableSumbmit,
+      localSave,
       reset,
       ...rest
     } = this.props;
@@ -212,6 +213,7 @@ export default class DoCardForm extends Component {
                     if (res) {
                       await reset();
                       Pop.hide();
+                      localSave('', []);
                     }
                   }
                 }}

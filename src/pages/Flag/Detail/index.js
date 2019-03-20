@@ -79,14 +79,20 @@ import { req } from '../../../redux/actions/req';
         ...param,
       };
       const fbParam = fbJoin(param);
+      // console.log('fbParam', fbParam);
+
       const fbRes = await dispatch(req(fbParam));
-      fbRes.result.iUse && dispatch(addListNormalizrEntity(IUSE, fbRes.result.iUse));
-      dispatch(addNormalizrEntity(FLAGRECORD, entity));
-      dispatch(addNormalizrEntity(FLAG, {
-        objectId: flagId,
-        joinNum: joinNum + 1,
-        totalBonus: totalBonus + cost
-      }));
+      // console.log('fbRes', fbRes);
+      if (fbRes) {
+        fbRes.result.iUse && dispatch(addListNormalizrEntity(IUSE, fbRes.result.iUse));
+        dispatch(addNormalizrEntity(FLAGRECORD, entity));
+        dispatch(addNormalizrEntity(FLAG, {
+          objectId: flagId,
+          joinNum: joinNum + 1,
+          totalBonus: totalBonus + cost
+        }));
+      }
+
       return fbRes;
     },
     exist: async (icardId, flagId) => {
@@ -130,7 +136,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-                  </StyledBtn>),
+    </StyledBtn>),
   })
   ;
 
