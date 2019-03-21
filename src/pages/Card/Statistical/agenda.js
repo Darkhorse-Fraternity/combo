@@ -39,7 +39,7 @@ import {
 
         const { iUseId } = props.navigation.state.params;
         const userId = props.iUse.get('user');
-        console.log('last', last);
+        // console.log('last', last);
 
         const param = {
           where: {
@@ -65,7 +65,7 @@ import {
         const params = classSearch(IDO, param);
         dispatch(req(params, IDOCALENDAR, {
           dataMap: (datas) => {
-            console.log('datas', datas);
+            // console.log('datas', datas);
 
             datas.results.forEach((item) => {
               const { createdAt, doneDate } = item;

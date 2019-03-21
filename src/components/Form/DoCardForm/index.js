@@ -92,7 +92,7 @@ export default class DoCardForm extends Component {
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
     this.state = {
-
+      clear: false
     };
   }
 
@@ -126,7 +126,11 @@ export default class DoCardForm extends Component {
   componentWillUnmount() {
     Platform.OS === 'ios' && KeyboardManager.setEnable(true);
     KeyboardUtils.dismiss();
-    const { imgs, recordText } = this.props;
+    let { imgs, recordText } = this.props;
+    if (this.state.clear) {
+      imgs = [];
+      recordText = '';
+    }
     this.props.localSaveEnable && this.props.localSave(recordText, imgs);
   }
 
@@ -211,9 +215,8 @@ export default class DoCardForm extends Component {
                   if (onSubmit) {
                     const res = await handleSubmit(onSubmit)();
                     if (res) {
-                      await reset();
+                      this.setState({ clear: true });
                       Pop.hide();
-                      localSave('', []);
                     }
                   }
                 }}

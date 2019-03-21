@@ -109,6 +109,7 @@ export default class Punch extends Component {
     if (nextProps.user.objectId
       && nextProps.user.objectId !== this.props.user.objectId) {
       this.props.search();
+      this.props.fbSearch();
     }
     if (this.props.flagRecord !== nextProps.flagRecord) {
       const flagRecordModal = nextProps.flagRecord.toJS();

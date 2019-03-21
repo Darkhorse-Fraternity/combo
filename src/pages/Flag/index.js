@@ -81,7 +81,7 @@ export default class Flag extends PureComponent {
 
     let discirb = '奖励:';
     if (reward === 'money') {
-      discirb = `奖金池:${totalBonus}元`;
+      discirb = `奖金池:${totalBonus.toFixed(1)}元`;
     } else if (reward === 'redo') {
       discirb = `完成奖励:补打卡${rewardConfig.redo}张`;
     }

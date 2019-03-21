@@ -189,6 +189,7 @@ export default class LocalNotification extends PureComponent {
         unDoneCount += 1;
       }
 
+
       PushNotification.setApplicationIconBadgeNumber(unDoneCount);
       const { recordDay } = item.iCard;
       const notifyTimes = item.iCard.notifyTimes || [];
@@ -322,6 +323,7 @@ export default class LocalNotification extends PureComponent {
         }
       });
     }
+
     PushNotification.setApplicationIconBadgeNumber(unDoneCount);
 
 

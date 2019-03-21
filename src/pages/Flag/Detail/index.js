@@ -136,7 +136,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-    </StyledBtn>),
+                  </StyledBtn>),
   })
   ;
 
@@ -179,7 +179,7 @@ export default class FlagDetail extends PureComponent {
         <StyledDiscrib>
           奖金池:
           {' '}
-          {flag.get('totalBonus')}
+          {flag.get('totalBonus').toFixed(1)}
           元
         </StyledDiscrib>
         )}

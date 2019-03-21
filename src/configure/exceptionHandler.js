@@ -4,35 +4,28 @@ import {
 } from 'react-native-exception-handler';
 import { Alert } from 'react-native';
 import RNRestart from 'react-native-restart';
+import DeviceInfo from 'react-native-device-info'
 import { strings } from '../../locales/i18n';
 import tracker from './googleAnalytics'
+import { Platform } from 'react-native';
 
-const allowInDevMode = false
-import DeviceInfo from 'react-native-device-info'
-import { Platform } from 'react-native'
-
+const allowInDevMode = false;
 
 
+const DeviceBugInfo = () => `Brand: ${DeviceInfo.getBrand()}\n` +
+    `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+    `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
+    `Model: ${DeviceInfo.getModel()}\n` +
+    `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
+    `APILevel: ${DeviceInfo.getAPILevel()}`;
 
-
-const DeviceBugInfo =  ()=>{
-
-  return `Brand: ${DeviceInfo.getBrand()}\n`+
-    `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n`+
-    `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n`+
-    `Model: ${DeviceInfo.getModel()}\n`+
-    `SystemVersion: ${DeviceInfo.getSystemVersion()}\n`+
-    `APILevel: ${DeviceInfo.getAPILevel()}`
-
-}
-
-//=================================================
+//= ================================================
 // ADVANCED use case:
 const errorHandler = (e, isFatal) => {
   if (isFatal) {
-    //发送错误信息给服务器
-    const errorString = `${e.name} ${e.message}`
-    uploadErrorString('js\n'+DeviceBugInfo()+'\n', errorString,isFatal)
+    // 发送错误信息给服务器
+    const errorString = `${e.name} ${e.message}`;
+    uploadErrorString(`js\n${DeviceBugInfo()}\n`, errorString, isFatal);
     Alert.alert(
       e.name,
       e.message,
@@ -58,10 +51,10 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 
 
 setNativeExceptionHandler((errorString) => {
-  //发送错误信息给服务器
+  // 发送错误信息给服务器
 
-  uploadErrorString('native\n'+DeviceBugInfo()+'\n', errorString,true)
-  //You can do something like call an api to report to dev team here
+  uploadErrorString(`native\n${DeviceBugInfo()}\n`, errorString, true);
+  // You can do something like call an api to report to dev team here
   // When you call setNativeExceptionHandler, react-native-exception-handler sets a
   // Native Exception Handler popup which supports restart on error in case of android.
   // In case of iOS, it is not possible to restart the app programmatically, so we just show an error popup and close the app.
@@ -96,7 +89,7 @@ setNativeExceptionHandler((errorString) => {
 // const sessionId = () => uniqueId + "-" + stateTime
 
 
-const uploadErrorString = async (from, errorString,isFatal) => {
+const uploadErrorString = async (from, errorString, isFatal) => {
   // console.log('nativeExceptionHandler:',from, errorString);
   // let params = {
   //   client: await client(),
@@ -111,5 +104,4 @@ const uploadErrorString = async (from, errorString,isFatal) => {
   //   }]
   // }
   tracker.trackException(`${from}:${errorString}`, isFatal);
-
-}
+};
