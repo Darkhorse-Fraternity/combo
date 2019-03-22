@@ -3,17 +3,17 @@
  * @flow
  */
 
-'use strict';
 
 import React, { PureComponent } from 'react';
 import {
   View,
   Dimensions
-} from 'react-native'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 
+import { debounce } from 'lodash';
 import {
   StyledFlipCard,
   StyledCard,
@@ -27,13 +27,13 @@ import {
   StyledFB,
   StyledFBText,
   StyledTop
-} from './style'
+} from './style';
+import svgs from '../../../../source/icons';
 
-const width = Dimensions.get('window').width
-const itemWidth = (width - 60) / 3
-const iconWidth = itemWidth / 2
-import svgs from '../../../../source/icons'
-import { debounce } from 'lodash'; // 4.0.8
+const { width, height } = Dimensions.get('window');
+const minWidth = Math.min(width, height);
+const itemWidth = (minWidth - 60) / 3;
+const iconWidth = itemWidth / 2; // 4.0.8
 
 
 @connect(
@@ -46,7 +46,7 @@ export default class PunchItem extends PureComponent {
     super(props);
     this.state = {
       flip: props.done
-    }
+    };
   }
 
   static propTypes = {
@@ -56,6 +56,7 @@ export default class PunchItem extends PureComponent {
     color: PropTypes.string,
     showFB: PropTypes.bool,
   };
+
   static defaultProps = {
     done: false,
     name: 'sun',
@@ -68,24 +69,22 @@ export default class PunchItem extends PureComponent {
     if (this.props.done !== this.state.flip) {
       // console.log('title2:', this.props.title);
       // console.log('flip2:', this.props.done);
-      this.setState({ flip: this.props.done })
+      this.setState({ flip: this.props.done });
     }
   }
 
   debounceFlip = debounce(this.flipDo, 1000, { leading: false, trailing: true })
 
   componentWillReceiveProps(nextProps) {
-    //TODO： 这边这样设置会有反复哦，所以这边就先避免了
+    // TODO： 这边这样设置会有反复哦，所以这边就先避免了
 
     // const debounceFlip = debounceFlipConfig(nextProps,this.state)
 
-    this.debounceFlip()
-
+    this.debounceFlip();
   }
 
 
   render(): ReactElement<any> {
-
     const {
       title,
       done,
@@ -96,10 +95,10 @@ export default class PunchItem extends PureComponent {
       onPress,
       discrib,
       showFB
-    } = this.props
-    const { flip } = this.state
+    } = this.props;
+    const { flip } = this.state;
 
-    const self = this
+    const self = this;
     return (
       <StyledButton
         // disabled={flip}
@@ -107,29 +106,33 @@ export default class PunchItem extends PureComponent {
         onPress={() => {
           // if (!flip) {
           onPress && onPress(flip, () => {
-            self.setState({ flip: !flip })
-          })
+            self.setState({ flip: !flip });
+          });
           // }
-        }}>
+        }}
+      >
         <StyledFlipCard
           style={style}
-          useNativeDriver={true}
+          useNativeDriver
           friction={50}
           perspective={360}
-          flipHorizontal={true}
+          flipHorizontal
           flipVertical={false}
           flip={flip}
           clickable={false}
         >
           <StyledCard
             width={itemWidth}
-            backgroundColor={color}>
+            backgroundColor={color}
+          >
             <StyledTop>
-              {showFB? <StyledFB>
-                <StyledFBText color={color}>
+              {showFB ? (
+                <StyledFB>
+                  <StyledFBText color={color}>
                   副本
-                </StyledFBText>
-              </StyledFB>:<View/>}
+                  </StyledFBText>
+                </StyledFB>
+              ) : <View />}
               <StyledCardDis>
                 {discrib}
               </StyledCardDis>
@@ -138,16 +141,17 @@ export default class PunchItem extends PureComponent {
               <StyledIconImage
                 size={iconWidth}
                 source={svgs[name]}
-                resizeMode={'contain'}
+                resizeMode="contain"
               />
             </StyledInner>
             <StyledCardTitleView>
               <StyledInner height={25}>
                 <StyledCardTitle
-                  adjustsFontSizeToFit={true}
+                  adjustsFontSizeToFit
                   minimumFontScale={0.7}
-                  textAlignVertical={'center'}
-                  numberOfLines={1}>
+                  textAlignVertical="center"
+                  numberOfLines={1}
+                >
                   {title}
                 </StyledCardTitle>
               </StyledInner>
@@ -155,7 +159,8 @@ export default class PunchItem extends PureComponent {
           </StyledCard>
           <StyledCard
             width={itemWidth}
-            backgroundColor={color}>
+            backgroundColor={color}
+          >
             <StyledCardDis
               style={{ color: 'white', fontWeight: '600' }}
             >
@@ -163,18 +168,20 @@ export default class PunchItem extends PureComponent {
             </StyledCardDis>
             <StyledInner height={iconWidth}>
               <StyledMaterialCommunityIcons
-                color={'white'}
+                color="white"
                 size={50}
-                name={'check-decagram'}/>
+                name="check-decagram"
+              />
             </StyledInner>
             <StyledCardTitleView>
               <StyledInner height={25}>
                 <StyledCardTitle
                   style={{ color: 'white', fontWeight: '600' }}
-                  adjustsFontSizeToFit={true}
+                  adjustsFontSizeToFit
                   minimumFontScale={0.7}
-                  textAlignVertical={'center'}
-                  numberOfLines={1}>
+                  textAlignVertical="center"
+                  numberOfLines={1}
+                >
                   {title}
                 </StyledCardTitle>
               </StyledInner>
@@ -186,5 +193,3 @@ export default class PunchItem extends PureComponent {
     );
   }
 }
-
-

@@ -2,7 +2,8 @@
  * Created by lintong on 2017/7/3.
  * @flow
  */
-'use strict';
+
+
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
@@ -14,9 +15,10 @@ import {
   TouchableOpacity,
   Alert,
   Platform
-} from 'react-native'
-import { connect } from 'react-redux'
-import { FlatList, } from 'react-navigation'
+} from 'react-native';
+import { connect } from 'react-redux';
+import { FlatList, } from 'react-navigation';
+import moment from 'moment'
 import { selfUser, } from '../../request/LCModle'
 import Cell from './Cell'
 
@@ -34,34 +36,32 @@ import {
 import { strings } from '../../../locales/i18n';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
 import HeaderBtn from '../../components/Button/HeaderBtn'
-import moment from 'moment'
-import AppleStyleSwipeableRow from '../../components/Swipeable'
-import { update, search } from '../../redux/module/leancloud'
+import AppleStyleSwipeableRow from '../../components/Swipeable';
+import { update, search } from '../../redux/module/leancloud';
 
-import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys'
-import { claerByID } from '../../redux/actions/list'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { classUpdate } from '../../request/leanCloud'
-import { req } from '../../redux/actions/req'
+import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys';
+import { claerByID } from '../../redux/actions/list';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+import { classUpdate } from '../../request/leanCloud';
+import { req } from '../../redux/actions/req';
 import * as Animatable from 'react-native-animatable';
-import AnimationRow from '../../components/AnimationRow'
+import AnimationRow from '../../components/AnimationRow';
 
-const Archive = IUSE + "archive"
+const Archive = `${IUSE  }archive`;
 
 @connect(
   state => ({
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
-    refreshLoad: state.req.get(IUSE).get("load"),
+    refreshLoad: state.req.get(IUSE).get('load'),
     stopIUSEexist: state.req.get('StopIUSEexist'),
     user: state.user.data
   }),
   (dispatch, props) => ({
-    //...bindActionCreators({},dispatch)
+    // ...bindActionCreators({},dispatch)
     search: () => {
-
-      //cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
+      // cloude 中加入',iCard.course' 反而完全没有信息了，很奇怪
 
       dispatch(search(false, {
         where: {
@@ -69,28 +69,28 @@ const Archive = IUSE + "archive"
           statu: 'start'
         },
         order: '-time',
-        include: ICARD + ',iCard.user'
-      }, IUSE))
+        include: `${ICARD  },iCard.user`
+      }, IUSE));
     },
     stop: async (data, handleView) => {
-      const id = data.objectId
+      const id = data.objectId;
       const param = {
         statu: 'stop',
-        //cycle,
-      }
-      const lParams = classUpdate(IUSE, id, param)
-      const res = await dispatch(req(lParams, Archive))
+        // cycle,
+      };
+      const lParams = classUpdate(IUSE, id, param);
+      const res = await dispatch(req(lParams, Archive));
       const entity = {
         ...param,
         ...res,
-      }
+      };
 
-      dispatch(addNormalizrEntity(IUSE, entity))
-      handleView && await handleView.remove()
-      await dispatch(claerByID(IUSE, id))
-      handleView && await handleView.reset()
+      dispatch(addNormalizrEntity(IUSE, entity));
+      handleView && await handleView.remove();
+      await dispatch(claerByID(IUSE, id));
+      handleView && await handleView.reset();
       // handleView && await handleView.fadeIn(100)
-      return res
+      return res;
     },
     delete: async (objectId, handleView) => {
       // await remove(objectId,IUSE)
@@ -100,24 +100,25 @@ const Archive = IUSE + "archive"
         '确定删除?',
         '删除后不可恢复~！',
         [{ text: '取消' }, {
-          text: '确定', onPress: async () => {
+          text: '确定',
+onPress: async () => {
             const param = {
               statu: 'del'
-            }
-            const res = await dispatch(update(objectId, param, IUSE))
+            };
+            const res = await dispatch(update(objectId, param, IUSE));
             const entity = {
               ...param,
               ...res
-            }
-            dispatch(addNormalizrEntity(IUSE, entity))
-            handleView && await handleView.remove()
-            await dispatch(claerByID(IUSE, objectId))
-            await dispatch(claerByID(IRECORD, objectId))
-            handleView && await handleView.reset()
+            };
+            dispatch(addNormalizrEntity(IUSE, entity));
+            handleView && await handleView.remove();
+            await dispatch(claerByID(IUSE, objectId));
+            await dispatch(claerByID(IRECORD, objectId));
+            handleView && await handleView.reset();
             return res;
           }
         }]
-      )
+      );
     },
 
   })
@@ -127,19 +128,20 @@ export default class Habit extends PureComponent {
     super(props);
     this.state = {
       openIndex: -1,
-    }
+    };
   }
 
   static propTypes = {};
+
   static defaultProps = {};
 
 
-  static navigationOptions = props => {
+  static navigationOptions = (props) => 
     // const { navigation } = props;
     // const { state } = navigation;
     // const { params } = state;
     // console.log('test:', params,localLoad);
-    return {
+     ({
       // gesturesEnabled: false,
       header: null
 
@@ -158,30 +160,28 @@ export default class Habit extends PureComponent {
       //         }}>
       //             <Icon name="md-list" size={30}/>
       //         </TouchableOpacity>)
-    }
-  };
+    })
+  ;
 
   __renderNoData = (statu) => {
-
-
-    const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA'
+    const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
     return (
       <ExceptionView
         style={{ height: Dimensions.get('window').height / 2 }}
-        exceptionType={refreshLoad ?
-          ExceptionType.Loading : ExceptionType.NoData}
-        tipBtnText={'添加卡片111'}
+        exceptionType={refreshLoad
+          ? ExceptionType.Loading : ExceptionType.NoData}
+        tipBtnText="添加卡片"
         refresh={refreshLoad}
         prompt={refreshLoad ? '正在加载' : '暂无数据'}
         onRefresh={() => {
-          this.props.navigation.navigate('newCard')
-        }}/>
-    )
+          this.props.navigation.navigate('newCard');
+        }} 
+      />
+    );
   }
 
 
-  _renderSwipeOutDeleteBtn = (title, color, name,CMP = StyledIcon) => {
-    return (
+  _renderSwipeOutDeleteBtn = (title, color, name, CMP = StyledIcon) => (
       <StyledDeleteBtn>
         <CMP size={25} color={color} name={name}/>
         <StyledDeleteBtnText color={color}>
@@ -189,14 +189,14 @@ export default class Habit extends PureComponent {
         </StyledDeleteBtnText>
       </StyledDeleteBtn>
     )
-  }
 
 
   handleViewRef = {}
-  swipeRefs = {}
-  __renderItem = ({ item, index }) => {
 
-    const self = this
+  swipeRefs = {}
+
+  __renderItem = ({ item, index }) => {
+    const self = this;
     // if (item === -1) {
     //     return <StopCell title='查看已归档的卡片'
     //                      des='重新打卡点这里'
@@ -206,12 +206,12 @@ export default class Habit extends PureComponent {
     //                      }}/>
     // }
 
-    const data = this.props.iUse.get(item).toJS()
+    const data = this.props.iUse.get(item).toJS();
 
     // console.log('data:', data);
-    const iCardId = data[ICARD]
-    let iCard = this.props.iCard.get(iCardId)
-    const isSelf = iCard.get('user') === this.props.user.objectId
+    const iCardId = data[ICARD];
+    const iCard = this.props.iCard.get(iCardId);
+    const isSelf = iCard.get('user') === this.props.user.objectId;
 
     return (
       <AnimationRow
@@ -304,47 +304,45 @@ export default class Habit extends PureComponent {
             iCard={iCard.toJS()}
           />
         </AppleStyleSwipeableRow>
-      </AnimationRow>);
+      </AnimationRow>
+);
   }
 
 
   _keyExtractor = (item, index) => {
     const key = item || index;
-    return key + '';
+    return `${key  }`;
   }
 
 
-  _renderHeader = () => {
-    return (
+  _renderHeader = () => (
       <StyledHeader>
         <StyledHeaderTitle>
           日常习惯
         </StyledHeaderTitle>
       </StyledHeader>
     )
-  }
 
   render(): ReactElement<any> {
+    const statu = this.props.data.get('loadStatu');
 
-    const statu = this.props.data.get('loadStatu')
-
-    let data = this.props.data.get('listData')
-    data = data && data.toJS()
+    let data = this.props.data.get('listData');
+    data = data && data.toJS();
     // data = data.sort((a,b)=> a.time - b.time)
 
     return (
       <StyledInnerdContent>
-        {/*<StyledContent*/}
-        {/*style={this.props.style}>*/}
+        {/* <StyledContent*/}
+        {/* style={this.props.style}>*/}
 
-        {/*{this._renderHeader()}*/}
+        {/* {this._renderHeader()}*/}
 
         <FlatList
           scrollEnabled={this.state.openIndex === -1}
           refreshing={false}
           onRefresh={() => {
-            this.setState({ openIndex: -1 })
-            this.props.search()
+            this.setState({ openIndex: -1 });
+            this.props.search();
           }}
           style={styles.container}
           data={data}
@@ -355,7 +353,7 @@ export default class Habit extends PureComponent {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
+          ListFooterComponent={data.length > 0 && <View style={{ height: 100 }} />}
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
 
@@ -370,4 +368,4 @@ const styles = StyleSheet.create({
     flex: 1,
     // overflow: 'hidden', 会影响ListEmptyComponent
   },
-})
+});

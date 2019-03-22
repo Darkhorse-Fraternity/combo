@@ -131,7 +131,7 @@ export default class Punch extends Component {
         style={{ height: Dimensions.get('window').height / 2 }}
         exceptionType={refreshLoad
           ? ExceptionType.Loading : ExceptionType.NoData}
-        tipBtnText="添加卡片111"
+        tipBtnText="添加卡片"
         refresh={refreshLoad}
         prompt={refreshLoad ? '正在加载' : '暂无数据~'}
         onRefresh={() => {

@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,6 +8,7 @@ import {
   Image,
   View,
   LayoutAnimation,
+  ScrollView
 } from 'react-native';
 import PropTypes from 'prop-types';
 import * as immutable from 'immutable';
@@ -17,7 +18,20 @@ import Button from '../Button';
 import ImagesViewModal from '../ZoomImage/ImagesViewModal';
 
 
-export default class ImageSelectView extends Component {
+export default class ImageSelectView extends PureComponent {
+  static propTypes = {
+    maxImage: PropTypes.number,
+    files: PropTypes.any,
+    onChange: PropTypes.func,
+  };
+
+  static defaultProps = {
+    maxImage: 8,
+    files: [],
+    index: 0
+  };
+
+
   constructor(props: Object) {
     super(props);
 
@@ -30,52 +44,34 @@ export default class ImageSelectView extends Component {
     this.state = {
       files: value || [],
       visible: false
-
     };
   }
 
-    state: {
-        files:[],
-    }
+  state: {
+    files:[],
+  }
 
-    static propTypes = {
-      maxImage: PropTypes.number,
-      files: PropTypes.any,
-      onChange: PropTypes.func,
-    };
-
-    static defaultProps = {
-      maxImage: 8,
-      files: [],
-      index: 0
-    };
-
-
-    componentWillReceiveProps(nextProps) {
-      // console.log('test:', nextProps.files);
-      if (nextProps.files && nextProps.files !== this.props.files) {
-        let value = nextProps.files;
-        // console.log('value:', typeof value, value);
-        if (typeof value === 'object' && value.toJS) {
-          value = value.toJS();
-        }
-        // console.log('value:', value);
-        this.setState({ files: value });
+  componentWillReceiveProps(nextProps) {
+    // console.log('test:', nextProps.files);
+    if (nextProps.files && nextProps.files !== this.props.files) {
+      let value = nextProps.files;
+      // console.log('value:', typeof value, value);
+      if (typeof value === 'object' && value.toJS) {
+        value = value.toJS();
       }
+      // console.log('value:', value);
+      this.setState({ files: value });
     }
+  }
 
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     if(nextProps.files && nextProps.files !== prevState.files) {
-    //         return {
-    //             files: nextProps.files
-    //         };
-    //     }
-    // }
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //     if(nextProps.files && nextProps.files !== prevState.files) {
+  //         return {
+  //             files: nextProps.files
+  //         };
+  //     }
+  // }
 
-
-    shouldComponentUpdate(nextProps: Object, nextState: Object): bool {
-      return this.state !== nextState || !immutable.is(this.props, nextProps);
-    }
 
     _selectImage = () => {
       const opt = {
@@ -107,10 +103,17 @@ export default class ImageSelectView extends Component {
     }
 
     render() {
-      const { files } = this.state;
+      const { files = [] } = this.state;
+      const { style } = this.props;
+      const uris = files.map(file => file.uri);
       // console.log('files:', files);
       return (
-        <View style={[styles.imageBackView, this.props.style]}>
+        <ScrollView
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          style={[styles.imageBackView, style]}
+        >
+          {this._renderLastButton()}
           { files && (
           <ImagesViewModal
             visible={this.state.visible}
@@ -118,7 +121,7 @@ export default class ImageSelectView extends Component {
               this.setState({ visible: false });
             }}
             index={this.state.index}
-            imageUrls={files && files.map(file => ({ url: file.uri })) || []}
+            imageUrls={uris}
           />
           )}
           {
@@ -153,8 +156,8 @@ export default class ImageSelectView extends Component {
                       return null;
                     })
                 }
-          {this._renderLastButton()}
-        </View>
+
+        </ScrollView>
       );
     }
 }
@@ -162,12 +165,8 @@ export default class ImageSelectView extends Component {
 const styles = StyleSheet.create({
 
   imageBackView: {
-    marginTop: 30,
-    height: 100,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginLeft: -15
     // backgroundColor:'red',
+
   },
   image: {
     height: 80,
@@ -179,6 +178,7 @@ const styles = StyleSheet.create({
   },
   add: {
     fontSize: 60,
+
     color: 'rgb(200,200,200)',
     backgroundColor: 'transparent',
     textAlign: 'center',
