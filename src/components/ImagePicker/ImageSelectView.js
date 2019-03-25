@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   View,
-  LayoutAnimation,
+  // LayoutAnimation,
   ScrollView
 } from 'react-native';
 import PropTypes from 'prop-types';
@@ -103,10 +103,10 @@ export default class ImageSelectView extends PureComponent {
     }
 
     render() {
-      const { files = [] } = this.state;
+      const { files = [], index, visible } = this.state;
       const { style } = this.props;
       const uris = files.map(file => file.uri);
-      // console.log('files:', files);
+      console.log('uris:', uris);
       return (
         <ScrollView
           showsHorizontalScrollIndicator={false}
@@ -114,13 +114,13 @@ export default class ImageSelectView extends PureComponent {
           style={[styles.imageBackView, style]}
         >
           {this._renderLastButton()}
-          { files && (
+          { uris.length > 0 && (
           <ImagesViewModal
-            visible={this.state.visible}
+            visible={visible}
             closeCallBack={() => {
               this.setState({ visible: false });
             }}
-            index={this.state.index}
+            index={index}
             imageUrls={uris}
           />
           )}
@@ -140,7 +140,7 @@ export default class ImageSelectView extends PureComponent {
                             />
                             <TouchableOpacity
                               hitSlop={{
-                                top: 15, left: 25, bottom: 25, right: 15
+                                top: 10, left: 10, bottom: 10, right: 10
                               }}
                               onPress={() => {
                                 const n = files.filter(f => f !== file);
