@@ -105,8 +105,7 @@ export default class ImageSelectView extends PureComponent {
     render() {
       const { files = [], index, visible } = this.state;
       const { style } = this.props;
-      const uris = files.map(file => file.uri);
-      console.log('uris:', uris);
+      const uris = files.map(file => ({ url: file.uri }));
       return (
         <ScrollView
           showsHorizontalScrollIndicator={false}
