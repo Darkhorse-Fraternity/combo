@@ -11,7 +11,6 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  ListView,
   ViewPagerAndroid,
   ActivityIndicator,
   Platform,

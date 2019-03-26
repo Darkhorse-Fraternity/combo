@@ -17,6 +17,8 @@ import {
   StyledButton,
   StyledImage,
   StyledZoomImage,
+  StyledImageButton,
+  StyledImagesScolleView,
   StyledArrowView,
   StyledIcon,
   StyledBottom,
@@ -30,8 +32,8 @@ import {
   StyledDateTextBig,
   StyledDateTextSmall
 } from './style';
+import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
 
-const { width } = Dimensions.get('window');
 // static displayName = RecordRow
 @connect(
   state => ({
@@ -45,6 +47,9 @@ const { width } = Dimensions.get('window');
 export default class RecordRow extends Component {
   constructor(props: Object) {
     super(props);
+    this.state = {
+      visible: false,
+    };
   }
 
   static propTypes = {
@@ -109,7 +114,9 @@ export default class RecordRow extends Component {
       item, onPress, color
     } = this.props;
     if (!item) return null;
-    const img = item.imgs && item.imgs[0] || null;
+    const { visible, index } = this.state;
+    const { imgs } = item;
+    const uris = imgs && imgs.map(img => ({ url: img }));
     // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
     // moment.locale('zh-cn')
     // const fromNow = moment(item.createdAt).fromNow()
@@ -137,15 +144,36 @@ export default class RecordRow extends Component {
             {item.recordText}
           </StyledRecordText>
           )}
-          {img && (
-          <StyledImage
-            // easingFunc={Easing.bounce}
-            source={{ uri: img }}
-          />
+          {imgs && (
+            <StyledImagesScolleView
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              horizontal
+            >
+              {imgs.map((img, i) => (
+                <StyledImageButton
+                  onPress={() => {
+                    this.setState({ visible: true, index: i });
+                  }}
+                  key={img}
+                >
+                  <StyledImage
+                    source={{ uri: img }}
+                  />
+                </StyledImageButton>
+              ))}
+            </StyledImagesScolleView>
           )}
-          {/* {img && showImage && (<StyledZoomImage */}
-          {/* height={width * 0.7} */}
-          {/* imageUrls={[{ url: img }]}/>)} */}
+          { uris.length > 0 && (
+            <ImagesViewModal
+              visible={visible}
+              closeCallBack={() => {
+                this.setState({ visible: false });
+              }}
+              index={index}
+              imageUrls={uris}
+            />
+          )}
         </StyledMain>
         {/* <StyledBottom> */}
         {/* <StyledDateView> */}

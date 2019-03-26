@@ -2,7 +2,7 @@
  * Created by lintong on 2018/1/8.
  * @flow
  */
-'use strict';
+
 
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
@@ -10,11 +10,9 @@ import PropTypes from 'prop-types';
 import {
   View,
   Dimensions
-} from 'react-native'
-import { connect } from 'react-redux'
-import moment from 'moment'
-
-const width = Dimensions.get('window').width
+} from 'react-native';
+import { connect } from 'react-redux';
+import moment from 'moment';
 import {
   StyledTop,
   StyledButton,
@@ -30,15 +28,17 @@ import {
   StyledChatbtn,
   StyledChatBtnText,
 
-} from './style'
-//static displayName = RecordRow
+} from './style';
+
+const { width } = Dimensions.get('window');
+// static displayName = RecordRow
 @connect(
   state => ({
-    //data:state.req.get()
+    // data:state.req.get()
     user: state.user.data
   }),
   dispatch => ({
-    //...bindActionCreators({},dispatch),
+    // ...bindActionCreators({},dispatch),
   })
 )
 export default class RecordRow extends Component {
@@ -52,6 +52,7 @@ export default class RecordRow extends Component {
     showChat: PropTypes.bool,
     showImage: PropTypes.bool,
   };
+
   static defaultProps = {
     showChat: true,
     showImage: false,
@@ -63,94 +64,95 @@ export default class RecordRow extends Component {
   // }
 
   chatBtnRef = 0
+
   _renderChatBtn = (item) => {
-    const { commentNew, commentNum, user, objectId } = item
+    const {
+      commentNew, commentNum, user, objectId
+    } = item;
 
     return (
       <StyledChatbtn
         onPress={() => {
-          this.props.navigation &&
-          this.props.navigation.navigate('rcomment', { iDoID: objectId })
-        }}>
-        {/*<Image style={{width:20,height:20}} source={icon}/>*/}
+          this.props.navigation
+          && this.props.navigation.navigate('rcomment', { iDoID: objectId });
+        }}
+      >
+        {/* <Image style={{width:20,height:20}} source={icon}/> */}
         {commentNew && user === this.props.user.objectId
-        && (<StyledNewTip/>)}
-        {commentNum > 0 &&
-        (<StyledChatBtnText
-          numberOfLines={1}>
+        && (<StyledNewTip />)}
+        {commentNum > 0
+        && (
+        <StyledChatBtnText
+          numberOfLines={1}
+        >
           {item.commentNum}
-        </StyledChatBtnText>)}
-        <StyledArrowView/>
-        {/*<Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text>*/}
+        </StyledChatBtnText>
+        )}
+        <StyledArrowView />
+        {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
-    )
+    );
   }
 
-  _renderDone = () => {
-    return (
-      <StyledIcon
-        ref={this.chatBtnRef}
-        name={'md-checkmark'}
-        size={25}
-        color={'green'}
-        //backgroundColor="transparent"
-        //resizeMode = 'contain'
-        //source={image}
-      />
-    )
-  }
+  _renderDone = () => (
+    <StyledIcon
+      ref={this.chatBtnRef}
+      name="md-checkmark"
+      size={25}
+      color="green"
+    />
+  )
 
 
   CNDateString(date) {
-    let cn = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
-    let s = [];
-    let YY = date.getFullYear().toString();
-    for (let i = 0; i < YY.length; i++)
-      if (cn[YY.charAt(i)])
-        s.push(cn[YY.charAt(i)]);
-      else
-        s.push(YY.charAt(i));
-    s.push("年");
-    let MM = date.getMonth()+1;
-    if (MM < 10){
-      s.push(cn[MM]);
-    } else if (MM < 20){
-      s.push("十" + cn[MM% 10] );
+    const cn = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    const s = [];
+    const YY = date.getFullYear().toString();
+    for (let i = 0; i < YY.length; i++) {
+      if (cn[YY.charAt(i)]) { s.push(cn[YY.charAt(i)]); } else { s.push(YY.charAt(i)); }
     }
-    s.push("月");
-    let DD = date.getDate();
-    if (DD < 10)
-      s.push(cn[DD]);
-    else if (DD < 20)
-      s.push("十" + cn[DD% 10]);
-    else
-      s.push("二十"+ cn[DD% 10] );
-    s.push("日");
+    s.push('年');
+    const MM = date.getMonth() + 1;
+    if (MM < 10) {
+      s.push(cn[MM]);
+    } else if (MM < 20) {
+      s.push(`十${cn[MM % 10]}`);
+    }
+    s.push('月');
+    const DD = date.getDate();
+    if (DD < 10) { s.push(cn[DD]); } else if (DD < 20) { s.push(`十${cn[DD % 10]}`); } else { s.push(`二十${cn[DD % 10]}`); }
+    s.push('日');
     return s.join('');
   }
 
 
   render(): ReactElement<any> {
-    const { item } = this.props
-    if (!item) return null
-    const img = item.imgs && item.imgs[0] || null
-    const date = moment(item.createdAt).format(" dddd")
+    const { item } = this.props;
+    if (!item) return null;
+    const { imgs } = item;
+    const date = moment(item.createdAt).format(' dddd');
     return (
       <View>
         <StyledTop>
           <StyledDateText>
-            {this.CNDateString(new Date(item.createdAt))+date}
+            {this.CNDateString(new Date(item.createdAt)) + date}
           </StyledDateText>
-          {/*{this._renderDone()}*/}
+          {/* {this._renderDone()} */}
         </StyledTop>
-        {!!item.recordText && <StyledRecordText>
+        {!!item.recordText && (
+        <StyledRecordText>
           {item.recordText}
-        </StyledRecordText>}
+        </StyledRecordText>
+        )}
 
-        {img && <StyledZoomImage
-          imageUrls={[{ url: img }]}/>}
+        {imgs && (imgs.map(img => (
+          <StyledImage
+            key={img}
+          // easingFunc={Easing.bounce}
+            source={{ uri: img }}
+          />
+        )))}
       </View>
     );
   }
 }
-
