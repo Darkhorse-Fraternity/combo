@@ -22,6 +22,7 @@ import {
   StyledIcon,
   StyledBottom,
   StyledDateView,
+  StyledImagesScolleView,
   StyledNewTip,
   StyledDateText,
   StyledRecordText,
@@ -145,13 +146,22 @@ export default class RecordRow extends Component {
         </StyledRecordText>
         )}
 
-        {imgs && (imgs.map(img => (
-          <StyledImage
-            key={img}
+        {imgs && (
+        <StyledImagesScolleView
+          scrollEnabled={imgs.length > 1}
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          horizontal
+        >
+          { imgs.map(img => (
+            <StyledImage
+              key={img}
           // easingFunc={Easing.bounce}
-            source={{ uri: img }}
-          />
-        )))}
+              source={{ uri: img }}
+            />
+          ))}
+        </StyledImagesScolleView>
+        )}
       </View>
     );
   }

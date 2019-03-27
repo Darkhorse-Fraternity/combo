@@ -30,7 +30,8 @@ import { reset } from 'redux-form';
 import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { RectButton } from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
-import RecordRow from '../RecordRow'
+import * as Animatable from 'react-native-animatable';
+import RecordRow from '../RecordRow';
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import LCList from '../../../components/Base/LCList';
 
@@ -64,7 +65,6 @@ import Dialog from '../../../components/Dialog';
 import Button from '../../../components/Button';
 // static displayName = RComment
 import Avatar from '../../../components/Avatar/Avatar2';
-import * as Animatable from 'react-native-animatable';
 
 import { findByID } from '../../../redux/module/leancloud';
 
@@ -160,7 +160,7 @@ const Name = 'text';
               // console.log('iDoMap:', iDoMap);
               const createdAt = iDoMap.get('createdAt');
               const doneDate = iDoMap.get('doneDate');
-              const time = doneDate ? doneDate.get('iso'):createdAt;
+              const time = doneDate ? doneDate.get('iso') : createdAt;
               const date = moment(time).format('YYYY-MM-DD');
               dispatch(reqChangeData(IDOCALENDAR, {
                 [date]: null
@@ -421,13 +421,13 @@ export default class RComment extends PureComponent {
       },
       include: 'user'
     };
-
+    // {Platform.OS === 'ios' && this._renderHeader()}
     return (
       <StyledContent forceInset={{ top: 'never' }}>
-        {Platform.OS === 'ios' && this._renderHeader()}
+
         <LCList
           keyboardDismissMode="interactive"
-          ListHeaderComponent={Platform.OS !== 'ios' && this._renderHeader}
+          ListHeaderComponent={this._renderHeader}
           style={[styles.list]}
           reqKey={ICOMMENT}
           sKey={ICOMMENT + iDoID}
@@ -438,6 +438,7 @@ export default class RComment extends PureComponent {
 
         {this.state.showIn && (
         <KeyboardAccessoryView
+          iOSScrollBehavior={1}
           renderContent={this.keyboardAccessoryViewContent}
           trackInteractive={TrackInteractive}
           kbInputRef={this.textInputRef}

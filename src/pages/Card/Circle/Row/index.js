@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import {
   View,
   Dimensions,
+  TouchableNativeFeedback
 } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -28,7 +29,8 @@ import {
   StyledChatbtn,
   StyledChatBtnText,
   StyledMain,
-  StyledImageButton
+  StyledImageButton,
+  StyledMaterialCommunityIcons
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
 
@@ -74,39 +76,47 @@ export default class RecordRow extends Component {
     const {
       commentNew, commentNum, user, objectId
     } = item;
-
+    const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+    && TouchableNativeFeedback.SelectableBackgroundBorderless();
     return (
       <StyledChatbtn
+        hitSlop={{
+          top: 15, left: 25, bottom: 15, right: 15
+        }}
+        background={background}
         onPress={() => {
           this.props.navigation
           && this.props.navigation.navigate('rcomment', { iDoID: objectId });
         }}
       >
-        {/* <Image style={{width:20,height:20}} source={icon}/> */}
+        <StyledMaterialCommunityIcons
+          name="chat"
+          size={20}
+          color="#8c8c85"
+        />
         {commentNew && user === this.props.user.objectId
         && (<StyledNewTip />)}
-        {commentNum > 0
-        && (
+
         <StyledChatBtnText
           numberOfLines={1}
         >
-          {item.commentNum}
+          {item.commentNum === 0 ? '' : item.commentNum}
         </StyledChatBtnText>
-        )}
-        <StyledArrowView />
+
+
         {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
     );
   }
 
-  _renderDone = () => (
-    <StyledIcon
-      ref={this.chatBtnRef}
-      name="md-checkmark"
-      size={25}
-      color="green"
-    />
-  )
+  // _renderDone = () => (
+  //   <StyledIcon
+  //     ref={this.chatBtnRef}
+  //     name="md-checkmark"
+  //     size={25}
+  //     color="green"
+  //   />
+  // )
 
   render(): ReactElement<any> {
     const { item, showImage } = this.props;
@@ -137,6 +147,7 @@ export default class RecordRow extends Component {
           )}
           {imgs && (
           <StyledImagesScolleView
+            scrollEnabled={imgs.length > 1}
             showsHorizontalScrollIndicator={false}
             pagingEnabled
             horizontal
@@ -171,9 +182,8 @@ export default class RecordRow extends Component {
             <StyledDateText>
               {fromNow}
             </StyledDateText>
-            {this.props.showChat
-              ? this._renderChatBtn(item)
-              : this._renderDone()}
+
+            {this._renderChatBtn(item)}
           </StyledDateView>
         </StyledBottom>
       </StyledButton>

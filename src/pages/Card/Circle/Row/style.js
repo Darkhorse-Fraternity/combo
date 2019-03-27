@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import { ScrollView } from 'react-navigation';
 import Button from '../../../../components/Button';
@@ -13,8 +14,11 @@ export const StyledButton = styled.View`
 export const StyledImagesScolleView = styled.ScrollView`
     margin: 15px 0px 0px 0px;
     width: ${props => props.theme.width * 0.8};
-    
-    
+`;
+
+export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`
+    align-self: center;
+   
 `;
 
 export const StyledImage = styled(FastImage)`
@@ -76,14 +80,16 @@ export const StyledIcon = styled(Icon)`
     align-self: center;
 `;
 
-export const StyledChatbtn = styled.View`
+export const StyledChatbtn = styled(Button)`
     justify-content: space-between;
-    margin: 4px;
     flex-direction: row;
     align-items: center;
+    margin-top:10px;
 `;
 export const StyledChatBtnText = styled.Text`
     margin-left: 5px;
+    color: #8c8c85;
+    width:35px;
 `;
 
 export const StyledArrowView = styled.View`

@@ -146,6 +146,7 @@ export default class RecordRow extends Component {
           )}
           {imgs && (
             <StyledImagesScolleView
+              scrollEnabled={imgs.length > 1}
               showsHorizontalScrollIndicator={false}
               pagingEnabled
               horizontal

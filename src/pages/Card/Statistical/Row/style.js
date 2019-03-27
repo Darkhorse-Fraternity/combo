@@ -4,7 +4,7 @@ import FastImage from 'react-native-fast-image';
 import Button from '../../../../components/Button';
 import ZoomImage from '../../../../components/ZoomImage/ZoomImage';
 
-export const StyledButton = styled.View`
+export const StyledButton = styled(Button)`
     padding: 20px ;
     flex-direction: row;
 `;
