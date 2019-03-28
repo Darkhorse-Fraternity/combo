@@ -12,10 +12,12 @@ export const StyledImagesScolleView = styled.ScrollView`
     margin: 15px 0px 0px 0px;
 `;
 
+export const StyledImageButton = styled(Button)`
+`;
 
 export const StyledImage = styled(FastImage)`
-    width: ${props => props.theme.width * 0.7};
-    height: ${props => props.theme.width * 0.6};
+    width: ${props => props.theme.width * 0.65};
+    height: ${props => (props.theme.width - 140) * 0.8};
     border-radius: 10px;
     margin: 0px 15px 0px 0px; 
     background-color: #fdfbfb;
@@ -59,13 +61,13 @@ export const StyledNewTip = styled.View`
 `;
 
 export const StyledDateText = styled.Text`
-    font-size: 18px;
+    font-size: 15px;
     color: #646464;
 `;
 
 export const StyledRecordText = styled.Text`
    line-height:25px;
-   font-size: 19px;
+   font-size: 15px;
    margin: 20px 0px 0px 0px; 
 `;
 

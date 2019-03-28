@@ -28,8 +28,9 @@ import {
   StyledRecordText,
   StyledChatbtn,
   StyledChatBtnText,
-
+  StyledImageButton
 } from './style';
+import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';
 
 const { width } = Dimensions.get('window');
 // static displayName = RecordRow
@@ -45,6 +46,10 @@ const { width } = Dimensions.get('window');
 export default class RecordRow extends Component {
   constructor(props: Object) {
     super(props);
+    this.state = {
+      visible: false,
+      like: false
+    };
   }
 
   static propTypes = {
@@ -130,8 +135,10 @@ export default class RecordRow extends Component {
   render(): ReactElement<any> {
     const { item } = this.props;
     if (!item) return null;
+    const { visible, index } = this.state;
     const { imgs } = item;
     const date = moment(item.createdAt).format(' dddd');
+    const uris = imgs && imgs.map(img => ({ url: img }));
     return (
       <View>
         <StyledTop>
@@ -153,14 +160,31 @@ export default class RecordRow extends Component {
           pagingEnabled
           horizontal
         >
-          { imgs.map(img => (
-            <StyledImage
+          { imgs.map((img, i) => (
+            <StyledImageButton
+              onPress={() => {
+                this.setState({ visible: true, index: i });
+              }}
               key={img}
+            >
+              <StyledImage
+                key={img}
           // easingFunc={Easing.bounce}
-              source={{ uri: img }}
-            />
+                source={{ uri: img }}
+              />
+            </StyledImageButton>
           ))}
         </StyledImagesScolleView>
+        )}
+        { uris.length > 0 && (
+          <ImagesViewModal
+            visible={visible}
+            closeCallBack={() => {
+              this.setState({ visible: false });
+            }}
+            index={index}
+            imageUrls={uris}
+          />
         )}
       </View>
     );

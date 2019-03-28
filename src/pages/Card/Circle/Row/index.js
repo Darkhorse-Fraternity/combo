@@ -46,6 +46,9 @@ const { width } = Dimensions.get('window');
   }),
   dispatch => ({
     // ...bindActionCreators({},dispatch),
+    doLike: (id, like) => {
+      const num = like ? 1 : -1;
+    }
   })
 )
 export default class RecordRow extends Component {
@@ -87,6 +90,7 @@ export default class RecordRow extends Component {
         hitSlop={{
           top: 15, left: 5, bottom: 15, right: 25
         }}
+        disabled
         background={background}
         onPress={() => {
           this.props.navigation
@@ -121,24 +125,27 @@ export default class RecordRow extends Component {
         objectId
       } = item;
       const { liked } = this.state;
+      const { doLike } = this.props;
       const background = TouchableNativeFeedback.SelectableBackgroundBorderless
     && TouchableNativeFeedback.SelectableBackgroundBorderless();
       return (
         <StyledChatbtn
+          activeOpacity={1}
           hitSlop={{
             top: 15, left: 25, bottom: 15, right: 5
           }}
           background={background}
           onPress={() => {
-            this.setState({ liked: !liked });
             this.likeView.bounceIn(2000);
+            doLike(objectId, !liked);
+            this.setState({ liked: !liked });
           }}
         >
           <Animatable.View
             ref={this.handleViewRef}
           >
-            <StyledLikeIcon
-              name={liked ? 'ios-heart' : 'ios-heart-empty'}
+            <StyledMaterialCommunityIcons
+              name={liked ? 'favorite' : 'favorite-border'}
               size={20}
               color={liked ? '#fd696a' : '#8c8c85'}
             />
