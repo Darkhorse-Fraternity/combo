@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import * as Animatable from 'react-native-animatable';
 import {
   StyledButton,
   StyledImage,
@@ -30,7 +31,9 @@ import {
   StyledChatBtnText,
   StyledMain,
   StyledImageButton,
-  StyledMaterialCommunityIcons
+  StyledMaterialCommunityIcons,
+  StyledLikeIcon,
+  StyledBottomBtnView
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
 
@@ -50,6 +53,7 @@ export default class RecordRow extends Component {
     super(props);
     this.state = {
       visible: false,
+      like: false
     };
   }
 
@@ -81,7 +85,7 @@ export default class RecordRow extends Component {
     return (
       <StyledChatbtn
         hitSlop={{
-          top: 15, left: 25, bottom: 15, right: 15
+          top: 15, left: 5, bottom: 15, right: 25
         }}
         background={background}
         onPress={() => {
@@ -90,7 +94,7 @@ export default class RecordRow extends Component {
         }}
       >
         <StyledMaterialCommunityIcons
-          name="chat"
+          name="chat-bubble-outline"
           size={20}
           color="#8c8c85"
         />
@@ -100,7 +104,7 @@ export default class RecordRow extends Component {
         <StyledChatBtnText
           numberOfLines={1}
         >
-          {item.commentNum === 0 ? '' : item.commentNum}
+          {commentNum === 0 ? '' : commentNum}
         </StyledChatBtnText>
 
 
@@ -109,64 +113,103 @@ export default class RecordRow extends Component {
     );
   }
 
-  // _renderDone = () => (
-  //   <StyledIcon
-  //     ref={this.chatBtnRef}
-  //     name="md-checkmark"
-  //     size={25}
-  //     color="green"
-  //   />
-  // )
+   handleViewRef = ref => this.likeView = ref;
 
-  render(): ReactElement<any> {
-    const { item, showImage } = this.props;
-    const { visible, index } = this.state;
-    if (!item) return null;
-    const { imgs } = item;
-    const uris = imgs && imgs.map(img => ({ url: img }));
-    // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
-    // moment.locale('zh-cn')
-    const fromNow = moment(item.createdAt).fromNow();
-    return (
-      <StyledButton
-        activeOpacity={1}
-        disabled={!this.props.navigation}
-        onPress={() => {
-          this.props.navigation
+    renderLikes = (item) => {
+      const {
+        likeNum,
+        objectId
+      } = item;
+      const { liked } = this.state;
+      const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+    && TouchableNativeFeedback.SelectableBackgroundBorderless();
+      return (
+        <StyledChatbtn
+          hitSlop={{
+            top: 15, left: 25, bottom: 15, right: 5
+          }}
+          background={background}
+          onPress={() => {
+            this.setState({ liked: !liked });
+            this.likeView.bounceIn(2000);
+          }}
+        >
+          <Animatable.View
+            ref={this.handleViewRef}
+          >
+            <StyledLikeIcon
+              name={liked ? 'ios-heart' : 'ios-heart-empty'}
+              size={20}
+              color={liked ? '#fd696a' : '#8c8c85'}
+            />
+          </Animatable.View>
+          <StyledChatBtnText
+            numberOfLines={1}
+          >
+            {likeNum === 0 ? '' : likeNum}
+          </StyledChatBtnText>
+        </StyledChatbtn>
+      );
+    }
+
+    // _renderDone = () => (
+    //   <StyledIcon
+    //     ref={this.chatBtnRef}
+    //     name="md-checkmark"
+    //     size={25}
+    //     color="green"
+    //   />
+    // )
+
+    render(): ReactElement<any> {
+      const { item, showImage } = this.props;
+      const { visible, index } = this.state;
+      if (!item) return null;
+      const { imgs } = item;
+      const uris = imgs && imgs.map(img => ({ url: img }));
+      // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
+      // moment.locale('zh-cn')
+      const fromNow = moment(item.createdAt).fromNow();
+      return (
+        <StyledButton
+          activeOpacity={1}
+          disabled={!this.props.navigation}
+          onPress={() => {
+            this.props.navigation
           && this.props.navigation.navigate('rcomment',
             { iDoID: item.objectId });
-        }}
-        style={this.props.style}
-      >
-        <StyledMain>
-          {!!item.recordText
+          }}
+          style={this.props.style}
+        >
+          <StyledMain>
+            {!!item.recordText
           && (
           <StyledRecordText numberOfLines={3}>
             {item.recordText}
           </StyledRecordText>
           )}
-          {imgs && (
-          <StyledImagesScolleView
-            scrollEnabled={imgs.length > 1}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-            horizontal
-          >
-            {imgs.map((img, i) => (
-              <StyledImageButton
-                onPress={() => {
-                  this.setState({ visible: true, index: i });
-                }}
-                key={img}
-              >
-                <StyledImage
-                  source={{ uri: img }}
-                />
-              </StyledImageButton>
-            ))}
-          </StyledImagesScolleView>
-          )}
-          { uris.length > 0 && (
+            {imgs && (
+            <StyledImagesScolleView
+              scrollEnabled={imgs.length > 1}
+              showsHorizontalScrollIndicator={false}
+              pagingEnabled
+              horizontal
+            >
+              {imgs.map((img, i) => (
+                <StyledImageButton
+                  onPress={() => {
+                    this.setState({ visible: true, index: i });
+                  }}
+                  key={img}
+                >
+                  <StyledImage
+                    source={{ uri: img }}
+                  />
+                </StyledImageButton>
+              ))}
+            </StyledImagesScolleView>
+            )}
+            { uris.length > 0 && (
             <ImagesViewModal
               visible={visible}
               closeCallBack={() => {
@@ -175,18 +218,20 @@ export default class RecordRow extends Component {
               index={index}
               imageUrls={uris}
             />
-          )}
-        </StyledMain>
-        <StyledBottom>
-          <StyledDateView>
-            <StyledDateText>
-              {fromNow}
-            </StyledDateText>
-
-            {this._renderChatBtn(item)}
-          </StyledDateView>
-        </StyledBottom>
-      </StyledButton>
-    );
-  }
+            )}
+          </StyledMain>
+          <StyledBottom>
+            <StyledDateView>
+              <StyledDateText>
+                {fromNow}
+              </StyledDateText>
+              <StyledBottomBtnView>
+                {this.renderLikes(item)}
+                {this._renderChatBtn(item)}
+              </StyledBottomBtnView>
+            </StyledDateView>
+          </StyledBottom>
+        </StyledButton>
+      );
+    }
 }

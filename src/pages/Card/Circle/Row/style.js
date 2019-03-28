@@ -8,6 +8,7 @@ import ZoomImage from '../../../../components/ZoomImage/ZoomImage';
 
 export const StyledButton = styled.View`
     padding: 0px 0px;
+  
 `;
 
 
@@ -18,7 +19,10 @@ export const StyledImagesScolleView = styled.ScrollView`
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`
     align-self: center;
-   
+`;
+
+export const StyledLikeIcon = styled(Icon)`
+align-self: center;
 `;
 
 export const StyledImage = styled(FastImage)`
@@ -41,7 +45,7 @@ export const StyledZoomImage = styled(ZoomImage)`
 `;
 
 export const StyledMain = styled.View`
-    padding: 0px 70px;
+    padding: 0px 20px 0px 70px;
 `;
 
 export const StyledBottom = styled.View`
@@ -70,10 +74,17 @@ export const StyledDateText = styled.Text`
     color: #646464;
 `;
 
+export const StyledBottomBtnView = styled.View`
+    flex-direction: row;
+`;
+
+
 export const StyledRecordText = styled.Text`
    color: #323232;
    font-size: 15px;
    margin: 10px 0px 5px 0px; 
+   line-height:25;
+
 `;
 
 export const StyledIcon = styled(Icon)`

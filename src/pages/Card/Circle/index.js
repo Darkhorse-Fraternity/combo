@@ -36,7 +36,8 @@ import {
   StyledTitleText,
   StyledHeaderButton,
   StyledHeaderImage,
-  StyledHeaderText
+  StyledHeaderText,
+  StyledRow
 } from './style';
 
 
@@ -218,7 +219,10 @@ export default class Circle extends Component {
 
   renderRow({ item, index }: Object) {
     return (
-      <View>
+      <StyledRow onPress={() => {
+        this.props.navigation.navigate('rcomment', { iDoID: item.objectId });
+      }}
+      >
         <Header
           userId={item.user}
           onPress={(user) => {
@@ -226,8 +230,8 @@ export default class Circle extends Component {
               { userId: user.objectId });
           }}
         />
-        <RecordRow item={item} navigation={this.props.navigation} />
-      </View>
+        <RecordRow item={item} />
+      </StyledRow>
     );
   }
 

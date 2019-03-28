@@ -64,7 +64,7 @@ export const StyledDateText = styled.Text`
 `;
 
 export const StyledRecordText = styled.Text`
-  
+   line-height:25px;
    font-size: 19px;
    margin: 20px 0px 0px 0px; 
 `;

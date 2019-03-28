@@ -400,8 +400,8 @@ export default class FlagDetail extends PureComponent {
           {this._renderTaskDesMore()}
           {this._renderReward()}
           {cost > 0 && this._renderBonus()}
-          {this._renderAudit()}
-          {this._renderAppeal()}
+          {cost > 0 && this._renderAudit()}
+          {cost > 0 && this._renderAppeal()}
           <View style={{ height: 100 }} />
         </StyledContent>
         <FlipButton
