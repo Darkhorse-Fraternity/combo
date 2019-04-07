@@ -136,7 +136,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-                  </StyledBtn>),
+    </StyledBtn>),
   })
   ;
 

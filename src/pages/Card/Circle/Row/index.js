@@ -36,8 +36,11 @@ import {
   StyledBottomBtnView
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
-
-const { width } = Dimensions.get('window');
+import { addNormalizrEntity } from '../../../../redux/module/normalizr';
+import { IDO } from '../../../../redux/reqKeys';
+import { likeAdd } from '../../../../request/leanCloud';
+import { get } from '../../../../redux/actions/req';
+import { dataStorage } from '../../../../redux/actions/util';
 // static displayName = RecordRow
 @connect(
   state => ({
@@ -46,20 +49,38 @@ const { width } = Dimensions.get('window');
   }),
   dispatch => ({
     // ...bindActionCreators({},dispatch),
-    doLike: (id, like) => {
-      const num = like ? 1 : -1;
+    doLike: (objectId, like, likeNum) => {
+      let num = 1;
+      if (likeNum !== 0) {
+        num = like ? 1 : -1;
+      }
+      const params = likeAdd(objectId, num);
+      get(params);
+
+      dispatch(addNormalizrEntity(IDO, {
+        objectId,
+        likeNum: likeNum + num
+      }));
+
+      if (num > 0) {
+        storage.save({
+          key: 'likeRecord',
+          id: objectId, // 注意:请不要在key中使用_下划线符号!
+          data: true,
+        });
+      } else {
+        storage.remove({
+          key: 'likeRecord',
+          id: objectId, // 注意:请不要在key中使用_下划线符号!
+        });
+      }
+
+
+      // 点过赞的 在本地做一个记录
     }
   })
 )
 export default class RecordRow extends Component {
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      visible: false,
-      like: false
-    };
-  }
-
   static propTypes = {
     item: PropTypes.object.isRequired,
     navigation: PropTypes.object,
@@ -72,12 +93,32 @@ export default class RecordRow extends Component {
     showImage: false,
   };
 
+  chatBtnRef = 0
+
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      visible: false,
+      liked: false
+    };
+
+    const { item } = props;
+
+    storage.load({
+      key: 'likeRecord',
+      id: item.objectId,
+    }).then((liked) => {
+      this.setState({
+        liked,
+      });
+    }).catch();
+  }
+
 
   // shouldComponentUpdate(nextProps: Object) {
   //     return !immutable.is(this.props, nextProps)
   // }
 
-  chatBtnRef = 0
 
   _renderChatBtn = (item) => {
     const {
@@ -137,7 +178,7 @@ export default class RecordRow extends Component {
           background={background}
           onPress={() => {
             this.likeView.bounceIn(2000);
-            doLike(objectId, !liked);
+            doLike(objectId, !liked, likeNum);
             this.setState({ liked: !liked });
           }}
         >

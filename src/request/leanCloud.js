@@ -630,3 +630,14 @@ export function courseReadNumAdd(courseId) {
     }
   };
 }
+
+export function likeAdd(iDoId, addNum) {
+  return {
+    path: '/call/iDoLike',
+    method: methodType.post,
+    params: {
+      iDoId,
+      addNum
+    }
+  };
+}
