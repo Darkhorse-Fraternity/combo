@@ -34,7 +34,9 @@ import {
 import { strings } from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
-
+import { iUseList } from '../../request/leanCloud';
+import { addNormalizrEntities } from '../../redux/module/normalizr';
+import { listReq } from '../../redux/actions/list';
 
 @connect(
   state => ({
@@ -49,22 +51,32 @@ import rate from '../../../helps/rate';
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch)
 
-    fbSearch: () => dispatch(search(false, {
-      where: {
-        ...dispatch(selfUser()),
-        doneDate: { $exists: false },
-        endDate: { $gte: { __type: 'Date', iso: moment().toISOString() } }
-      },
-      include: FLAG
-    }, FLAGRECORD)),
-    search: () => dispatch(search(false, {
-      where: {
-        ...dispatch(selfUser()),
-        statu: 'start'
-      },
-      order: '-time',
-      include: `${ICARD},iCard.user`
-    }, IUSE)),
+    // fbSearch: () => dispatch(search(false, {
+    //   where: {
+    //     ...dispatch(selfUser()),
+    //     doneDate: { $exists: false },
+    //     endDate: { $gte: { __type: 'Date', iso: moment().toISOString() } }
+    //   },
+    //   include: FLAG
+    // }, FLAGRECORD)),
+    // search1: () => dispatch(search(false, {
+    //   where: {
+    //     ...dispatch(selfUser()),
+    //     statu: 'start'
+    //   },
+    //   order: '-time',
+    //   include: `${ICARD},iCard.user`
+    // }, IUSE)),
+    search: () => {
+      dispatch(listReq(IUSE, iUseList(), false, {
+        dataMap: (data) => {
+          const { fbList, iUseList } = data.result;
+          // 添加副本
+          dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+          return { results: iUseList };
+        }
+      }));
+    },
     done: async (data) => {
       // 评价
       rate();
@@ -98,7 +110,8 @@ export default class Punch extends Component {
   ;
 
   componentDidMount() {
-    this.props.fbSearch();
+    // this.props.fbSearch();
+    // this.props.getiUse();
     const loadStatu = this.props.data.get('loadStatu');
     loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
     // this.props.exist()
@@ -109,7 +122,7 @@ export default class Punch extends Component {
     if (nextProps.user.objectId
       && nextProps.user.objectId !== this.props.user.objectId) {
       this.props.search();
-      this.props.fbSearch();
+      // this.props.fbSearch();
     }
     if (this.props.flagRecord !== nextProps.flagRecord) {
       const flagRecordModal = nextProps.flagRecord.toJS();

@@ -2,8 +2,10 @@
  * Created by lintong on 10/19/16.
  * @flow
  */
-'use strict';
 
+
+
+import Toast from 'react-native-simple-toast';
 import {
   LIST_FIRST_JOIN,
   // LIST_NO_DATA,
@@ -13,9 +15,8 @@ import {
   LIST_LOAD_ERROR,
   LIST_NORMAL,
 } from '../../components/Base/BaseSectionView'
-import Toast from 'react-native-simple-toast';
-import { schemas } from '../scemes'
-import { addNormalizrEntity } from '../module/normalizr'
+import { schemas } from '../scemes';
+import { addNormalizrEntity } from '../module/normalizr';
 /**
  * 保证加载的时候，同个请求不窜行。
  */
@@ -27,16 +28,16 @@ import {
   MSG,
   reqM,
   cleanData
-} from './req'
+} from './req';
 
-export const LIST_START = 'LIST_START'
-export const LIST_FAILED = 'LIST_FAILED'
-export const LIST_SUCCEED = 'LIST_SUCCEEDT'
-export const LIST_SELECT = 'LIST_SELECT'
-export const LIST_DELETE = 'LIST_DELETE'
-export const LIST_ADD = 'LIST_ADD'
+export const LIST_START = 'LIST_START';
+export const LIST_FAILED = 'LIST_FAILED';
+export const LIST_SUCCEED = 'LIST_SUCCEEDT';
+export const LIST_SELECT = 'LIST_SELECT';
+export const LIST_DELETE = 'LIST_DELETE';
+export const LIST_ADD = 'LIST_ADD';
 
-const pageSize = 40;;
+const pageSize = 40;
 
 const pageKey = 'pageIndex';
 

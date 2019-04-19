@@ -76,8 +76,8 @@ export default class ImageSelectView extends PureComponent {
     _selectImage = () => {
       const opt = {
         title: '添加图片',
-        maxWidth: 2000, // photos only
-        maxHeight: 2000, // photos only
+        maxWidth: 2500, // photos only
+        maxHeight: 2500, // photos only
       };
       imagePicker(opt, (response) => {
         // console.log('response:', response);

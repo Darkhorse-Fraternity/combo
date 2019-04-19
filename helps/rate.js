@@ -13,12 +13,15 @@ const androidRateTime = 'AndroidRateTime';
 const appURL = 'https://icard.leanapp.cn/';
 
 const iosRate = () => {
-  Rate.rate({
-    AppleAppID: appleAppID,
-    preferInApp: true,
-    inAppDelay: 5.0,
-    openAppStoreIfInAppFails: false,
-  }, () => {});
+  // 版本10.3之后用这个方法
+  if (Number(DeviceInfo.getSystemVersion()) > 10.3) {
+    Rate.rate({
+      AppleAppID: appleAppID,
+      preferInApp: true,
+      inAppDelay: 5.0,
+      openAppStoreIfInAppFails: false,
+    }, () => {});
+  }
 };
 
 const anrdroidRate = async () => {

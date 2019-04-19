@@ -44,5 +44,6 @@ export function httpHeaders(needSession: bool): Object {
         'X-LC-Session': LeanCloud_APP_Session
       });
   }
+  console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
   return header;
 }

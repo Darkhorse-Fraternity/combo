@@ -66,8 +66,9 @@ import { appChannel } from '../../../../helps/util';
       /* 事件的默认动作已被取消 */
       const response = await showImagePicker({
         title: '修改头像',
-        maxWidth: 500, // photos only
-        maxHeight: 500, // photos only
+        maxWidth: 2000, // photos only
+        maxHeight: 2000, // photos only
+        allowsEditing: true
       });
       if (response.uri) {
         const avatar = await dispatch(uploadAvatar(response.uri));

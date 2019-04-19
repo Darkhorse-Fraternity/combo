@@ -562,7 +562,15 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
  *  @type  0 微信 1 支付宝
  */
 
-export function userpay(type, amount, detail, description, ip, uid, bid,) {
+export function userpay(
+  type,
+  amount,
+  detail,
+  description,
+  ip,
+  uid,
+  bid,
+) {
   return {
     host: apiHost,
     path: '/getPrePay/',
@@ -638,6 +646,15 @@ export function likeAdd(iDoId, addNum) {
     params: {
       iDoId,
       addNum
+    }
+  };
+}
+
+export function iUseList() {
+  return {
+    path: '/call/iUseList',
+    method: methodType.post,
+    params: {
     }
   };
 }

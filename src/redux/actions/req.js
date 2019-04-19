@@ -42,7 +42,6 @@ export async function reqY(params) {
 
 export async function reqS(params) {
   let response = await reqY(params);
-  // console.log('response000:', response);
   if (!params.host && response && !response[RESCODE]) {
     response = { [DATA]: response, [RESCODE]: SUCCODE };
   }
