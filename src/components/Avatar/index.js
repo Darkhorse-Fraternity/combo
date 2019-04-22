@@ -2,13 +2,13 @@
  * Created by lintong on 2018/9/29.
  * @flow
  */
-'use strict';
+
 
 import React, { PureComponent } from 'react';
 import {
   View,
-} from 'react-native'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import AV from 'leancloud-storage';
 
@@ -16,13 +16,13 @@ import {
   StyledContent,
   StyledAvatar,
   StyledIndicator
-} from './style'
+} from './style';
 
-import {add_Leancloud_Thumbnail_Suffix} from '../../../helps/util'
+import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
-//?imageView/1/w/10/h/10/q/100/format/png
+// ?imageView/1/w/10/h/10/q/100/format/png
 
 @connect(
   state => ({
@@ -35,7 +35,6 @@ import {add_Leancloud_Thumbnail_Suffix} from '../../../helps/util'
 export default class Avatar extends PureComponent {
   constructor(props: Object) {
     super(props);
-
   }
 
   static propTypes = {
@@ -43,6 +42,7 @@ export default class Avatar extends PureComponent {
     radius: PropTypes.number,
     load: PropTypes.bool
   };
+
   static defaultProps = {
     type: 'small',
     radius: 40,
@@ -51,36 +51,37 @@ export default class Avatar extends PureComponent {
 
 
   render(): ReactElement<any> {
+    const { radius, user, load } = this.props;
 
-    const { radius, user, load } = this.props
-
-    const { avatar, headimgurl, } = user
-    let avatarUrl = (avatar ? avatar.url : headimgurl)
-    avatarUrl = !avatarUrl ?avatarUrl:add_Leancloud_Thumbnail_Suffix(avatarUrl,radius*3,radius*3)
-    const avatarSource = avatarUrl ? { uri: avatarUrl } :
-      require('../../../source/img/my/icon-60.png')
+    const { avatar, headimgurl, } = user;
+    let avatarUrl = (avatar ? avatar.url : headimgurl);
+    avatarUrl = !avatarUrl ? avatarUrl : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 8, radius * 8);
+    const avatarSource = avatarUrl ? { uri: avatarUrl }
+      : require('../../../source/img/my/icon-60.png');
 
 
     // console.log('avatarUrl:', avatarUrl);
 
-    if(!avatarUrl){
+    if (!avatarUrl) {
       return (
         <StyledAvatar
-          style={{margin:5}}
-          radius={radius *0.75}
-          source={avatarSource}/>
-      )
+          style={{ margin: 5 }}
+          radius={radius * 0.75}
+          source={avatarSource}
+        />
+      );
     }
 
     return (
       <StyledContent radius={radius}>
-        {load ? <StyledIndicator radius={radius}/> :
-          <StyledAvatar
-            radius={radius}
-            source={avatarSource}/>}
+        {load ? <StyledIndicator radius={radius} />
+          : (
+            <StyledAvatar
+              radius={radius}
+              source={avatarSource}
+            />
+          )}
       </StyledContent>
     );
   }
 }
-
-

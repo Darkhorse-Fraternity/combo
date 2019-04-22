@@ -570,6 +570,7 @@ export function userpay(
   ip,
   uid,
   bid,
+  exData
 ) {
   return {
     host: apiHost,
@@ -582,7 +583,8 @@ export function userpay(
       description,
       ip,
       uid,
-      bid
+      bid,
+      exData
     }
   };
 }

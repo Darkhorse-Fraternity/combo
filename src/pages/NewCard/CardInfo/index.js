@@ -25,6 +25,7 @@ import { connect } from 'react-redux';
 // import styled from 'styled-components';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
 import {
   ICARD,
@@ -79,7 +80,6 @@ import {
 
 import { Privacy, CircleState } from '../../../configure/enum';
 import FlipButton from '../../../components/Button/FlipButton';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { findByID, find } from '../../../redux/module/leancloud';
 import PayForm, { FormID } from '../../../components/Form/Pay';
 import { formValueSelector } from 'redux-form/immutable';
@@ -254,8 +254,8 @@ export default class CardInfo extends Component {
 
   _renderCourse = // console.log('course:', course);
                   course => (
-      <StyledCourseView />
-    )
+                    <StyledCourseView />
+                  )
 
 
   render(): ReactElement<any> {
@@ -313,10 +313,10 @@ export default class CardInfo extends Component {
           visible={this.state.visible}
           index={this.state.index}
           closeCallBack={() => {
-    this.setState({ visible: false, index: 0 });
-  }}
+            this.setState({ visible: false, index: 0 });
+          }}
           imageUrls={[{ url: iCard.img.url }, ...urlList]}
-/>
+        />
         )}
         <FlipButton
           faceText={'马上\n参与'}
@@ -372,15 +372,15 @@ export default class CardInfo extends Component {
             }}
             >
               <StyledHeaderImage
-    resizeMode={iCard.img ? 'cover' : 'center'}
-    source={cover}
+                resizeMode={iCard.img ? 'cover' : 'center'}
+                source={cover}
               />
-                        </StyledHeaderCover>
+            </StyledHeaderCover>
           )
             : (
               <StyledHedaderIconBack color={iconAndColor.color}>
-  <StyledHeaderIcon resizeMode="contain" source={svgs[iconAndColor.name]} />
-</StyledHedaderIconBack>
+                <StyledHeaderIcon resizeMode="contain" source={svgs[iconAndColor.name]} />
+                            </StyledHedaderIconBack>
             )
           }
 
@@ -390,7 +390,7 @@ export default class CardInfo extends Component {
               {iCard.subtitle && (
               <StyledSubTitle>
                 {iCard.subtitle}
-                            </StyledSubTitle>
+              </StyledSubTitle>
               )}
 
               <StyledHeaderTitle>
@@ -398,10 +398,10 @@ export default class CardInfo extends Component {
               </StyledHeaderTitle>
               {keys && (
               <StyledKeysView>
-                {keys.map(key => `#${  key}`).join(' ')}
+                {keys.map(key => `#${key}`).join(' ')}
 
 
-                            </StyledKeysView>
+              </StyledKeysView>
               )}
 
 
@@ -479,23 +479,23 @@ export default class CardInfo extends Component {
           {describe
           && (
           <StyledDescirbeView>
-  <StyledDescirbe>
-              {describe}
-            </StyledDescirbe>
-</StyledDescirbeView>
+            <StyledDescirbe>
+    {describe}
+  </StyledDescirbe>
+                    </StyledDescirbeView>
           )}
 
           {imgs && imgs.map((item, index) => (
             <TouchableHighlight
               key={item.img.url + index}
               onPress={() => [
-                  this.setState({ visible: true, index: index + 1 })
-                ]}
+                this.setState({ visible: true, index: index + 1 })
+              ]}
             >
               <StyledImg
-                  width={Dimensions.get('window').width - 50}
-                  source={{ uri: item.img.url }}
-                />
+                width={Dimensions.get('window').width - 50}
+                source={{ uri: item.img.url }}
+              />
             </TouchableHighlight>
           ))}
           <View style={{ height: 200 }} />

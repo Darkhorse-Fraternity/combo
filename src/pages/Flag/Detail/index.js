@@ -54,7 +54,7 @@ import { req } from '../../../redux/actions/req';
     isTourist: state.user.isTourist
   }),
   (dispatch, props) => ({
-    pay: (description, amount) => dispatch(easyPay(amount, description, 'fb',)),
+    pay: (description, amount, iCardId, flagId) => dispatch(easyPay(amount, description, 'fb', undefined, { iCardId, flagId })),
 
     join: async (icardId, flagId, description, flag, tradeId) => {
       const {
@@ -350,7 +350,7 @@ export default class FlagDetail extends PureComponent {
         onSubmit={async () => {
           try {
             this.setState({ load: true });
-            const payRes = await pay(description, cost);
+            const payRes = await pay(description, cost, iCardId, flagId);
             const { data, statu } = payRes.payload;
             statu === 'suc' && Pop.hide();
             const res = statu === 'suc'

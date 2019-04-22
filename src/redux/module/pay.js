@@ -27,7 +27,7 @@ const getIp = async () => {
   bid：受益人
  */
 
-export function easyPay(amount, description, detail, bid) {
+export function easyPay(amount, description, detail, bid, exData) {
   return dispatch => dispatch(async (dispatch, getState) => {
     const state = getState();
     const userId = state.user.data.objectId;
@@ -51,12 +51,13 @@ export function easyPay(amount, description, detail, bid) {
         detail,
         description,
         userId,
-        bid)
+        bid,
+        exData)
     );
   });
 }
 
-export function pay(type, amount, detail, description, uid, bid) {
+export function pay(type, amount, detail, description, uid, bid, exData) {
   return async (dispatch) => {
     // if(__DEV__){
     //   await dispatch(req(payOrder('', tradeId)))
@@ -83,6 +84,7 @@ export function pay(type, amount, detail, description, uid, bid) {
         ip,
         uid,
         bid,
+        exData
       )));
 
       if (!data) {
@@ -132,6 +134,7 @@ export function pay(type, amount, detail, description, uid, bid) {
         '',
         uid,
         bid,
+        exData
       )));
 
       if (!res) {
@@ -167,6 +170,7 @@ export function pay(type, amount, detail, description, uid, bid) {
         '',
         uid,
         bid,
+        exData
       );
       const lastRes = await dispatch(req(cashParams));
       if (lastRes) {

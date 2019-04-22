@@ -151,11 +151,10 @@ const listKey = IDO;
           doMoment.set('hours', moment().hours());
           doMoment.set('minutes', moment().minutes());
 
-          const activityMoment = activityEndDate ? moment(activityEndDate)
+          const activityMoment = activityEndDate ? moment(activityEndDate.iso || activityEndDate)
             : moment('2016-01-01');
-          const isAfter = moment().isAfter(activityMoment);
-          // console.log('activityMoment', activityMoment.toISOString());
 
+          const isAfter = moment().isAfter(activityMoment);
 
           const { redo } = toolConfig;
           if (isAfter && redo > 0) {
