@@ -235,7 +235,7 @@ export default class More extends Component {
 
     let rows = [
 
-      this.renderRow('归档习惯', true, () => {
+      this.renderRow('已暂停习惯', true, () => {
         navigation.navigate('record', { statu: 'stop' });
       }),
 

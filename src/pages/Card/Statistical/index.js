@@ -127,26 +127,8 @@ const listKey = IDO;
             return;
           }
 
-
-          // 如果是今天则正常打卡
-          const doMoment = moment(item);
-          const before = moment(0, 'HH').subtract(1, 'minutes');
-          const after = moment(24, 'HH');
-          const momentIn = doMoment.isBetween(before, after);
-
-          if (momentIn) {
-            return dispatch(doCardWithNone(iUse));
-          }
-
-          // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
-
-          if (doMoment.isAfter(before)) {
-            SimpleToast.show('只能给今日及之前打卡~!');
-            return;
-          }
-
-
           // 活动截止时间
+          const doMoment = moment(item);
           const { activityEndDate } = iCard;
           doMoment.set('hours', moment().hours());
           doMoment.set('minutes', moment().minutes());
@@ -156,34 +138,53 @@ const listKey = IDO;
 
           const isAfter = moment().isAfter(activityMoment);
 
-          const { redo } = toolConfig;
-          if (isAfter && redo > 0) {
+
+          if (isAfter) {
+            // 如果是今天则正常打卡
+            const before = moment(0, 'HH').subtract(1, 'minutes');
+            const after = moment(24, 'HH');
+            const momentIn = doMoment.isBetween(before, after);
+
+            if (momentIn) {
+              return dispatch(doCardWithNone(iUse));
+            }
+
+            // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
+
+            if (doMoment.isAfter(before)) {
+              SimpleToast.show('这个时间段还没有到~!');
+              return;
+            }
+
+
+            const { redo } = toolConfig;
+            if (redo > 0) {
             // 先获取那一天这个时候的moment
             // 以当天时间做打卡,并做特殊标记type=2。
             // 提示将消耗一张补签劵
-            Alert.alert(
-              '是否进行补签?',
-              `将消耗一张补签卡,补签卡数量:${redo}。`,
-              [{ text: '取消' }, {
-                text: '确定',
-                onPress: () => {
-                  const doneDate = doMoment.toDate();
-                  dispatch(doCardWithNone(iUse, 2, doneDate));
-                }
-              }]
-            );
+              Alert.alert(
+                '是否进行补签?',
+                `将消耗一张补签卡,补签卡数量:${redo}。`,
+                [{ text: '取消' }, {
+                  text: '确定',
+                  onPress: () => {
+                    const doneDate = doMoment.toDate();
+                    dispatch(doCardWithNone(iUse, 2, doneDate));
+                  }
+                }]
+              );
 
             // 扣去一个补签卡
             // toolConfig.redo = redo - 1;
             // dispatch(updateMeByParam({
             //   toolConfig
             // }));
-          } if (!isAfter) {
-            // 卡片正在活动期间不允许不打卡。
-            SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');
-          } else if (redo <= 0) {
+            } else {
             // 补签卡数量不够去挑战一些活动吧。
-            SimpleToast.show('亲,补签卡数量不够去挑战副本活动吧~!');
+              SimpleToast.show('亲,补签卡数量不够去挑战副本活动吧~!');
+            }
+          } else {
+            SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');
           }
         } catch (e) {
           console.log(e.messege);

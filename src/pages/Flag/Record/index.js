@@ -55,7 +55,7 @@ export default class FlagRecord extends PureComponent {
     <StyledHeader>
       <StyledHeaderTitle>
         {this.props.iCard.get('title')}
-副本的记录
+      副本的记录
       </StyledHeaderTitle>
     </StyledHeader>
   )
@@ -98,7 +98,7 @@ export default class FlagRecord extends PureComponent {
     const param = {
       where: {
         ...iCard(this.props.navigation.state.params.iCardId),
-        settled: true
+        // settled: true
       },
       // order: 'doneDate',
       // include: 'user',

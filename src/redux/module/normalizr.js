@@ -39,7 +39,6 @@ export function addNormalizrEntities(schemeOrkey, data) {
   }
   const scheme = typeof schemeOrkey === 'string' ? schemas[schemeOrkey] : schemeOrkey;
   const nData = normalize(data, scheme);
-  console.log(schemeOrkey, nData);
 
   return dispatch => dispatch(addEntities(nData.entities));
 }

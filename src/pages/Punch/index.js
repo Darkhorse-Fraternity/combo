@@ -72,8 +72,18 @@ import { listReq } from '../../redux/actions/list';
         dataMap: (data) => {
           const { fbList, iUseList } = data.result;
           // 添加副本
+          console.log('iUseList', iUseList);
+
           dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
-          return { results: iUseList };
+          const newIUseList = iUseList.sort((a, b) => {
+            const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+            const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
+            if (aDone && bDone) {
+              return false;
+            }
+            return aDone;
+          });
+          return { results: newIUseList };
         }
       }));
     },

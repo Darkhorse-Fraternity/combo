@@ -4,7 +4,6 @@
  */
 
 
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -18,9 +17,10 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { FlatList, } from 'react-navigation';
-import moment from 'moment'
-import { selfUser, } from '../../request/LCModle'
-import Cell from './Cell'
+import moment from 'moment';
+import * as Animatable from 'react-native-animatable';
+import { selfUser, } from '../../request/LCModle';
+import Cell from './Cell';
 
 import {
   StyledInnerdContent,
@@ -32,10 +32,10 @@ import {
   StyledHeader,
   StyledHeaderTitle,
   StyledAntDesign
-} from './style'
+} from './style';
 import { strings } from '../../../locales/i18n';
-import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index'
-import HeaderBtn from '../../components/Button/HeaderBtn'
+import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index';
+import HeaderBtn from '../../components/Button/HeaderBtn';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
 import { update, search } from '../../redux/module/leancloud';
 
@@ -44,10 +44,9 @@ import { claerByID } from '../../redux/actions/list';
 import { addNormalizrEntity } from '../../redux/module/normalizr';
 import { classUpdate } from '../../request/leanCloud';
 import { req } from '../../redux/actions/req';
-import * as Animatable from 'react-native-animatable';
 import AnimationRow from '../../components/AnimationRow';
 
-const Archive = `${IUSE  }archive`;
+const Archive = `${IUSE}archive`;
 
 @connect(
   state => ({
@@ -69,7 +68,7 @@ const Archive = `${IUSE  }archive`;
           statu: 'start'
         },
         order: '-time',
-        include: `${ICARD  },iCard.user`
+        include: `${ICARD},iCard.user`
       }, IUSE));
     },
     stop: async (data, handleView) => {
@@ -101,7 +100,7 @@ const Archive = `${IUSE  }archive`;
         '删除后不可恢复~！',
         [{ text: '取消' }, {
           text: '确定',
-onPress: async () => {
+          onPress: async () => {
             const param = {
               statu: 'del'
             };
@@ -136,31 +135,30 @@ export default class Habit extends PureComponent {
   static defaultProps = {};
 
 
-  static navigationOptions = (props) => 
-    // const { navigation } = props;
-    // const { state } = navigation;
-    // const { params } = state;
-    // console.log('test:', params,localLoad);
-     ({
-      // gesturesEnabled: false,
-      header: null
+  static navigationOptions = // const { navigation } = props;
+                             // const { state } = navigation;
+                             // const { params } = state;
+                             // console.log('test:', params,localLoad);
+                             props => ({
+                               // gesturesEnabled: false,
+                               header: null
 
-      //     headerRight: ( <TouchableOpacity
-      //         style={styles.headerBtn}
-      //         onPress={()=>{
-      //                 navigation.navigate('NewCard')
-      //             }}>
-      //         <Icon name="md-add" size={30}/>
-      //     </TouchableOpacity>),
-      //     headerLeft: (
-      //         <TouchableOpacity
-      //             style={styles.headerBtn}
-      //             onPress={()=>{
-      //                 Pop.show(<Menu/>,{maskStyle:{backgroundColor:'transparent'}})
-      //         }}>
-      //             <Icon name="md-list" size={30}/>
-      //         </TouchableOpacity>)
-    })
+                               //     headerRight: ( <TouchableOpacity
+                               //         style={styles.headerBtn}
+                               //         onPress={()=>{
+                               //                 navigation.navigate('NewCard')
+                               //             }}>
+                               //         <Icon name="md-add" size={30}/>
+                               //     </TouchableOpacity>),
+                               //     headerLeft: (
+                               //         <TouchableOpacity
+                               //             style={styles.headerBtn}
+                               //             onPress={()=>{
+                               //                 Pop.show(<Menu/>,{maskStyle:{backgroundColor:'transparent'}})
+                               //         }}>
+                               //             <Icon name="md-list" size={30}/>
+                               //         </TouchableOpacity>)
+                             })
   ;
 
   __renderNoData = (statu) => {
@@ -175,20 +173,20 @@ export default class Habit extends PureComponent {
         prompt={refreshLoad ? '正在加载' : '暂无数据'}
         onRefresh={() => {
           this.props.navigation.navigate('newCard');
-        }} 
+        }}
       />
     );
   }
 
 
   _renderSwipeOutDeleteBtn = (title, color, name, CMP = StyledIcon) => (
-      <StyledDeleteBtn>
-        <CMP size={25} color={color} name={name}/>
-        <StyledDeleteBtnText color={color}>
-          {title}
-        </StyledDeleteBtnText>
-      </StyledDeleteBtn>
-    )
+    <StyledDeleteBtn>
+      <CMP size={25} color={color} name={name} />
+      <StyledDeleteBtnText color={color}>
+        {title}
+      </StyledDeleteBtnText>
+    </StyledDeleteBtn>
+  )
 
 
   handleViewRef = {}
@@ -216,38 +214,37 @@ export default class Habit extends PureComponent {
     return (
       <AnimationRow
         useNativeDriver
-        ref={res => this.handleViewRef['habit' + index] = res}
+        ref={res => this.handleViewRef[`habit${index}`] = res}
       >
         <AppleStyleSwipeableRow
           // rowID={index}
           // autoClose={true}
-          ref={ref => {
-            this.swipeRefs['swipe' + index] = ref
+          ref={(ref) => {
+            this.swipeRefs[`swipe${index}`] = ref;
           }}
-          backgroundColor='white'
+          backgroundColor="white"
           // close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
-            const openIndex = this.state.openIndex
+            const { openIndex } = this.state;
             if (index === openIndex) {
-              return
+              return;
             }
             if (openIndex !== -1) {
-              const swipeRef = this.swipeRefs['swipe' + openIndex]
-              swipeRef && swipeRef.close()
+              const swipeRef = this.swipeRefs[`swipe${openIndex}`];
+              swipeRef && swipeRef.close();
             }
-            this.setState({ openIndex: index })
+            this.setState({ openIndex: index });
           }}
           onSwipeableWillClose={() => {
             // rowId === this.state.openIndex &&
             if (index === this.state.openIndex) {
-              this.setState({ openIndex: -1 })
+              this.setState({ openIndex: -1 });
             }
-
           }}
           right={[isSelf ? {
             type: 'secondary',
             onPress: () => {
-              this.props.navigation.navigate('cardConfig', { iCardId: iCardId })
+              this.props.navigation.navigate('cardConfig', { iCardId });
               // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('设置', '#388e3c', 'settings'),
@@ -258,7 +255,7 @@ export default class Habit extends PureComponent {
               // this.props.navigation.navigate('cardSetting',
               //   { iCardId, iUseId: item })
               this.props.navigation.navigate('cardInfo',
-                { iCardId })
+                { iCardId });
               // this.setState({ openIndex: -1 })
             },
             component: this._renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
@@ -267,22 +264,21 @@ export default class Habit extends PureComponent {
             type: 'delete',
             onPress: () => {
               // this.setState({ openIndex: -1 })
-              const handleView = self.handleViewRef['habit' + index]
-              this.props.delete(item, handleView)
-
+              const handleView = self.handleViewRef[`habit${index}`];
+              this.props.delete(item, handleView);
             },
-            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete',StyledAntDesign),
+            component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete', StyledAntDesign),
             backgroundColor: '#fdfbfb'
           }, {
             type: 'primary',
             onPress: async () => {
               // this.setState({ openIndex: -1 })
-              const handleView = self.handleViewRef['habit' + index]
-              await this.props.stop(data, handleView)
+              const handleView = self.handleViewRef[`habit${index}`];
+              await this.props.stop(data, handleView);
               // await self.handleViewRef['habit' + index].fadeOutLeft(800)
               // handleView && self.handleViewRef['habit' + index].fadeInUp(800)
             },
-            component: this._renderSwipeOutDeleteBtn('归档', '#009afb', 'archive'),
+            component: this._renderSwipeOutDeleteBtn('暂停', '#009afb', 'pause'),
             backgroundColor: '#fdfbfb'
           }]}
         >
@@ -298,30 +294,30 @@ export default class Habit extends PureComponent {
               this.props.navigation.navigate('card', {
                 iUseId: data.objectId,
                 iCardId: iCard.get('objectId')
-              })
+              });
             }}
             data={data}
             iCard={iCard.toJS()}
           />
         </AppleStyleSwipeableRow>
       </AnimationRow>
-);
+    );
   }
 
 
   _keyExtractor = (item, index) => {
     const key = item || index;
-    return `${key  }`;
+    return `${key}`;
   }
 
 
   _renderHeader = () => (
-      <StyledHeader>
-        <StyledHeaderTitle>
+    <StyledHeader>
+      <StyledHeaderTitle>
           日常习惯
-        </StyledHeaderTitle>
-      </StyledHeader>
-    )
+      </StyledHeaderTitle>
+    </StyledHeader>
+  )
 
   render(): ReactElement<any> {
     const statu = this.props.data.get('loadStatu');
@@ -332,10 +328,10 @@ export default class Habit extends PureComponent {
 
     return (
       <StyledInnerdContent>
-        {/* <StyledContent*/}
-        {/* style={this.props.style}>*/}
+        {/* <StyledContent */}
+        {/* style={this.props.style}> */}
 
-        {/* {this._renderHeader()}*/}
+        {/* {this._renderHeader()} */}
 
         <FlatList
           scrollEnabled={this.state.openIndex === -1}

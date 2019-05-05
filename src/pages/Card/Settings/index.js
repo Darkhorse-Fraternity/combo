@@ -221,7 +221,7 @@ export default class Settings extends PureComponent {
 
   _renderRresh = (reflesh, iUse) => {
     const text = !reflesh
-      ? '习惯归档'
+      ? '暂停打卡'
       : '继续打卡';
     const archiveLoad = this.props.archive && this.props.archive.get('load');
 
@@ -231,9 +231,9 @@ export default class Settings extends PureComponent {
         onPress={() => {
           !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse);
         }}
-        Icon={!reflesh ? StyledEntypoIcon : StyledIcon}
+        Icon={StyledIcon}
         name={!reflesh
-          ? 'archive' : 'md-refresh'}
+          ? 'md-pause' : 'md-refresh'}
         title={text}
       />
     );

@@ -103,7 +103,7 @@ export default class FRDetail extends PureComponent {
       where: {
         ...Flag(this.props.navigation.state.params.flagId),
       },
-      order: '-doneDate',
+      order: '-doneState,doneDate',
       include: 'user',
     };
 

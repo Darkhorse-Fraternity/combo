@@ -4,7 +4,6 @@
  */
 
 
-
 import Toast from 'react-native-simple-toast';
 import {
   LIST_FIRST_JOIN,
@@ -14,7 +13,7 @@ import {
   LIST_LOAD_NO_MORE,
   LIST_LOAD_ERROR,
   LIST_NORMAL,
-} from '../../components/Base/BaseSectionView'
+} from '../../components/Base/BaseSectionView';
 import { schemas } from '../scemes';
 import { addNormalizrEntity } from '../module/normalizr';
 /**

@@ -85,8 +85,12 @@ import { appChannel } from '../../../../helps/util';
     mobilePhoneNumBinding: () => {
 
     },
-    brekeBinding: (key, loadKey) => {
-      dispatch(breakBinding(key, loadKey));
+    brekeBinding: (key, loadKey, dbNum) => {
+      if (dbNum > 1) {
+        dispatch(breakBinding(key, loadKey));
+      } else {
+        alert('唯一身份认证,解除后,一旦退出无法找回身份.');
+      }
     },
     update: (nickname) => {
       dispatch(async (dispatch, getState) => {
@@ -248,8 +252,13 @@ export default class Account extends React.Component {
     const { user } = this.props;
     const { authData, mobilePhoneVerified } = user;
     const { weixin, qq } = authData || {};
-
-    // console.log('authData:', authData);
+    let dbNum = 0;
+    if (mobilePhoneVerified) { dbNum += 1; }
+    if (weixin) { dbNum += 1; }
+    if (qq) { dbNum += 1; }
+    // weixin && ++bindingNum;
+    // qq && ++bindingNum;
+    console.log('dbNum:', dbNum);
 
 
     return (
@@ -267,12 +276,12 @@ export default class Account extends React.Component {
 
 
           {this.state.isWXAppInstalled && this._renderRow('微信', weixin ? '解除绑定' : '点击绑定', () => {
-            weixin ? this.props.brekeBinding('weixin', WECHATLOGIN)
+            weixin ? this.props.brekeBinding('weixin', WECHATLOGIN, dbNum)
               : this.props.wechatBinding();
           }, this.props.wechatLoad)}
 
           {this._renderRow('QQ', qq ? '解除绑定' : '点击绑定', () => {
-            qq ? this.props.brekeBinding('qq', QQLOGIN)
+            qq ? this.props.brekeBinding('qq', QQLOGIN, dbNum)
               : this.props.qqBinding();
           }, this.props.qqLoad)}
 

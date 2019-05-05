@@ -164,6 +164,8 @@ export default class FlagDetail extends PureComponent {
     const startDate = flag.get('startDate');
     const iCard = this.props.iCard.toJS();
     const { limitTimes } = iCard;
+    console.log('limitTimes', limitTimes);
+
     const time = moment(startDate.get('iso')).calendar().split('00:00')[0];
     return (
       <StyledFlagView>
@@ -240,7 +242,11 @@ export default class FlagDetail extends PureComponent {
         </StyledDiscrib>
         <StyledDiscrib>
           报名截止：
-          {moment(startDate.iso).subtract(1, 'seconds').format('MM月DD日 h:mm')}
+          {moment(startDate.iso).subtract(1, 'seconds').format('MM月DD日 hh:mm')}
+        </StyledDiscrib>
+        <StyledDiscrib>
+          结算时间：
+          {moment(endDate.iso).add(3, 'hours').format('MM月DD日 hh:mm')}
         </StyledDiscrib>
       </StyledFlagView>
     );
