@@ -605,6 +605,21 @@
   version "0.7.3"
   resolved "http://registry.npm.taobao.org/@emotion/unitless/download/@emotion/unitless-0.7.3.tgz#6310a047f12d21a1036fb031317219892440416f"
 
+"@react-native-firebase/analytics@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npm.taobao.org/@react-native-firebase/analytics/download/@react-native-firebase/analytics-0.0.4.tgz#60c385765ef2bec1971c06eedfa3ad960dca0dfe"
+  dependencies:
+    "@react-native-firebase/app-types" "6.0.0-alpha.2"
+    "@react-native-firebase/common" "6.0.0-alpha.2"
+
+"@react-native-firebase/app-types@6.0.0-alpha.2":
+  version "6.0.0-alpha.2"
+  resolved "https://registry.npm.taobao.org/@react-native-firebase/app-types/download/@react-native-firebase/app-types-6.0.0-alpha.2.tgz#7d1cf972cc4d51f281c5175712df2bd7d27450c3"
+
+"@react-native-firebase/common@6.0.0-alpha.2":
+  version "6.0.0-alpha.2"
+  resolved "https://registry.npm.taobao.org/@react-native-firebase/common/download/@react-native-firebase/common-6.0.0-alpha.2.tgz#8ee9ddc42df1c8c10350a17016024d409a42a741"
+
 "@react-navigation/core@3.0.2":
   version "3.0.2"
   resolved "http://registry.npm.taobao.org/@react-navigation/core/download/@react-navigation/core-3.0.2.tgz#8631801533a27d034a3b8421dfd0510a9f27dcf3"

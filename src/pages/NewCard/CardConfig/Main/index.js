@@ -142,7 +142,7 @@ export default class OptionDo extends PureComponent {
 
   __renderperiod = () => {
     const items = ['5', '6', '7', '8',
-      '9', '10', '11', '12', '13', '14'];
+      '9', '10', '14', '21', '30'];
 
     const __renderRadioItem = (item, selItem) => (
       <StyledItemView

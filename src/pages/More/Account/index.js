@@ -89,7 +89,8 @@ import { appChannel } from '../../../../helps/util';
       if (dbNum > 1) {
         dispatch(breakBinding(key, loadKey));
       } else {
-        alert('唯一身份认证,解除后,一旦退出无法找回身份.');
+        Alert.alert('解除后,一旦退出将无法找回',
+          null, [{ text: '取消' }]);
       }
     },
     update: (nickname) => {

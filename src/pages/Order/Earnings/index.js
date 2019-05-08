@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Animated
@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import LCList from '../../../components/Base/LCList';
 import {
@@ -54,10 +53,9 @@ const listKey = ORDER;
 )
 
 
-export default class Earnings extends Component {
+export default class Earnings extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       scrollValue: new Animated.Value(0)
     };

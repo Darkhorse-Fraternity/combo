@@ -10,6 +10,7 @@ import {
   View,
   Dimensions,
   SectionList,
+  Alert
 } from 'react-native';
 // import { FlatList, } from 'react-navigation';
 import { connect } from 'react-redux';
@@ -72,8 +73,6 @@ import { listReq } from '../../redux/actions/list';
         dataMap: (data) => {
           const { fbList, iUseList } = data.result;
           // 添加副本
-          console.log('iUseList', iUseList);
-
           dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
           const newIUseList = iUseList.sort((a, b) => {
             const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
@@ -230,12 +229,12 @@ export default class Punch extends Component {
         // TODO,这边感觉有点不安全。
         const fr = this.state.frMap[iCardId];
         const { objectId, startDate, endDate } = fr;
-        const before = moment(startDate.iso);
-        const after = moment(endDate.iso);
-        const momentIn = moment().isBetween(before, after);
-        if (momentIn) {
-          data.fr = objectId;
-        }
+        // const before = moment(startDate.iso);
+        // const after = moment(endDate.iso);
+        // const momentIn = moment().isBetween(before, after);
+        // if (momentIn) {
+        data.fr = objectId;
+        // }
       }
 
       const done = moment(0, 'HH').isBefore(data.doneDate.iso);

@@ -27,8 +27,6 @@ import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-inpu
 import moment from 'moment';
 import { formValueSelector } from 'redux-form/immutable';
 import { reset } from 'redux-form';
-import { immutableRenderDecorator } from 'react-immutable-render-mixin';
-import { RectButton } from 'react-native-gesture-handler';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
 import RecordRow from '../RecordRow';

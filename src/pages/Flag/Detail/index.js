@@ -136,7 +136,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-    </StyledBtn>),
+                  </StyledBtn>),
   })
   ;
 
@@ -325,7 +325,8 @@ export default class FlagDetail extends PureComponent {
           关于申诉
       </StyledTitle>
       <StyledDiscrib>
-          为保障用户财产不受侵害,当用户因小改变app问题没有正常完成副本任务,用户可以进行申诉。
+          为保障用户财产不受侵害,当用户因小改变app问题没有正常完成副本任务,
+          用户可以通过我们的微博号进行申诉。
       </StyledDiscrib>
     </StyledFlagView>
   )

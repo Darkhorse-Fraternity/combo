@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -18,8 +18,6 @@ import {
   FlatList as FlatListAndroid
 } from 'react-native';
 import { SectionList, FlatList as FlatListIOS, } from 'react-navigation';
-import { is } from 'immutable';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ExceptionView, { ExceptionType } from './ExceptionView';
 
 // const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
@@ -32,10 +30,9 @@ export const LIST_LOAD_NO_MORE = 'LIST_LOAD_NO_MORE';
 export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
 export const LIST_NORMAL = 'LIST_NORMAL';
 
-export default class BaseSectionView extends Component {
+export default class BaseSectionView extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       shouldShowloadMore: false,
       joinTime: 0,

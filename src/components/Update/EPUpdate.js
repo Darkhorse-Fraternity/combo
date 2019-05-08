@@ -14,8 +14,9 @@ import Pop from '../Pop';
 // import {androidUpdate} from './downLoad'
 import UpdateView from './AndroidUpdateView';
 import { appUpdateInfo } from '../../request/leanCloud';
+import { appChannel } from '../../../helps/util';
 // 当前测试版本号
-const AppTestVersion = '1..0';
+const AppTestVersion = '1.3.0';
 
 const api_token = 'a3f43472f64ddccbc58c2dcf75438f18';
 
@@ -149,7 +150,7 @@ export const epUpdate = async () => {
         }
         ]
       );
-    } else if (compareVersion(version, appVersion) < 0) {
+    } else if (compareVersion(version, appVersion) < 0 && appChannel === 'andoird_inhouse') {
       // 本地版本号大于远程版本号 查询编译号，是否进入测试升级
       const res = await sendBack(bundleId);
       // console.log('update:', res);

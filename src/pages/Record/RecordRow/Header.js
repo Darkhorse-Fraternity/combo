@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Image,
@@ -18,7 +18,6 @@ import Avatar from '../../../components/Avatar/Avatar2';
 import {
 } from './style';
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Button from '../../../components/Button';
 
 @connect(
@@ -29,10 +28,9 @@ import Button from '../../../components/Button';
 )
 
 
-export default class Header extends Component {
+export default class Header extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
     static propTypes = {
