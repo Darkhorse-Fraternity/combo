@@ -4,58 +4,51 @@
  */
 
 
-'use strict';
-
-import { createStore, applyMiddleware, compose,combineReducers } from 'redux';
+import {
+  createStore, applyMiddleware, compose, combineReducers
+} from 'redux';
 import thunk from 'redux-thunk';
 
 import * as immutable from 'immutable';
 import { Platform } from 'react-native';
-import * as reducers from './reducers'
-
-import googleTracking from './middleware/googleTracking'
-// import { combineReducers } from 'redux-immutablejs'
-import { reducer as form } from 'redux-form/immutable'
-// import { fromJS } from 'immutable'
+import { reducer as form } from 'redux-form/immutable';
 import {
-    createNavigationReducer,
-    createReactNavigationReduxMiddleware,
-} from 'react-navigation-redux-helpers'
+  createNavigationReducer,
+  createReactNavigationReduxMiddleware,
+} from 'react-navigation-redux-helpers';
+import * as reducers from './reducers';
 
-
-
-
-
-
-
+import googleTracking from './middleware/googleTracking';
+// import { combineReducers } from 'redux-immutablejs'
+// import { fromJS } from 'immutable'
 
 
 const middleware = createReactNavigationReduxMiddleware(
-    "root",
-    state => state.nav,
+  'root',
+  state => state.nav,
 );
 
-const middlewares = [thunk,middleware,googleTracking];
+const middlewares = [thunk, middleware, googleTracking];
 let enhancer;
 if (__DEV__) {
-    const installDevTools = require('immutable-devtools');
-    installDevTools(immutable);
+  const installDevTools = require('immutable-devtools');
+  installDevTools(immutable);
 
-    enhancer = compose(
-        applyMiddleware(...middlewares),
-        global.reduxNativeDevTools ?
-            global.reduxNativeDevTools() :
-            nope => nope
-    );
-    // enhancer = applyMiddleware(...middlewares);
+  enhancer = compose(
+    applyMiddleware(...middlewares),
+    global.reduxNativeDevTools
+      ? global.reduxNativeDevTools()
+      : nope => nope
+  );
+  // enhancer = applyMiddleware(...middlewares);
 } else {
-    enhancer = applyMiddleware(...middlewares);
+  enhancer = applyMiddleware(...middlewares);
 }
 
 
-let store
+let store;
 export function creatStore(route) {
-  if(!store && route){
+  if (!store && route) {
     const navReducer = createNavigationReducer(route);
     const reducer = combineReducers({
       ...reducers,
@@ -64,16 +57,16 @@ export function creatStore(route) {
     });
     const rootReducer = (state, action) => {
       if (action.type === 'LOGOUT') {
-        const {nav} = state
-        state = {nav}
+        const { nav } = state;
+        state = { nav };
       }
-      return reducer(state, action)
-    }
+      return reducer(state, action);
+    };
 
     store = createStore(rootReducer, {}, enhancer);
     if (global.reduxNativeDevTools) {
       global.reduxNativeDevToolsCompose(store);
     }
   }
-  return store
+  return store;
 }

@@ -19,6 +19,7 @@ import com.cmcewen.blurview.BlurViewPackage;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.analytics.ReactNativeFirebaseAnalyticsPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -73,6 +74,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new ReactNativeFirebaseAnalyticsPackage(),
                     new FastImageViewPackage(),
                     new GoogleAnalyticsBridgePackage(),
                     new RNScreensPackage(),

@@ -2,10 +2,7 @@ import { NavigationActions } from 'react-navigation';
 import DeviceInfo from 'react-native-device-info';
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
 import { Platform } from 'react-native';
-import { NativeModules } from 'react-native';
-import tracker from '../../configure/googleAnalytics';
-
-const { RNAppUtil } = NativeModules;
+import tracker from '../../configure/firebase/analytics';
 
 
 function getActiveRouteName(navigationState) {
@@ -25,7 +22,10 @@ const tracking = ({ getState }) => next => (action) => {
   // if(__DEV__){return next(action);}
 
   // action.type === 'APP_STATE_UPDATE' && appStateTracking(action.state)
-  action.type === 'LOGIN_SUCCEED' && tracker.setUser(action.data.objectId);
+  if (action.type === 'LOGIN_SUCCEED') {
+    tracker.setUserId(action.data.objectId);
+    tracker.setUserProperty('nickname', action.data.nickname);
+  }
   action.type === 'APP_SHARE' && shareTracking(action.tag);
   // action.type === 'LOGIN_SUCCEED' && console.log('id:', action.data.objectId);
   if (
@@ -70,7 +70,7 @@ const client = async () => {
 
 
 const screenTracking = async (sceen) => {
-  tracker.trackScreenView(sceen);
+  tracker.setCurrentScreen(sceen);
 };
 
 const shareTracking = async (tag) => {
