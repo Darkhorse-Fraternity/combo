@@ -47,7 +47,6 @@ import java.util.List;
 
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
-import me.listenzz.modal.TranslucentModalReactPackage;
 
 public class MainApplication extends MultiDexApplication implements ReactApplication {
     private Intent mIntent;
@@ -81,7 +80,6 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                     new ReactNativeExceptionHandlerPackage(),
                     new RNAppUtilPackage(),
                     new CalendarEventsPackage(),
-                    new TranslucentModalReactPackage(),
                     new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), BuildConfig.DEBUG),
                     new RNI18nPackage(),
                     new AlipayPackage(),

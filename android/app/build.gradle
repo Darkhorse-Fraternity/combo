@@ -189,7 +189,6 @@ dependencies {
     compile project(':react-native-restart')
     compile project(':react-native-exception-handler')
     compile project(':react-native-calendar-events')
-    compile project(':react-native-modal-translucent')
     compile project(':react-native-code-push')
     implementation project(':react-native-i18n')
     implementation project(':react-native-update-app')

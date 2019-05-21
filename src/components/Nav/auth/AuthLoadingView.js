@@ -10,25 +10,22 @@ import {
 } from 'react-native';
 // import { loadUserData } from '../../../configure/storage'
 // import { loginSucceed } from '../../../redux/actions/user'
-import { userInfo } from '../../../redux/actions/user'
-import { connect } from 'react-redux'
-import Toast from 'react-native-simple-toast'
-import { search } from '../../../redux/module/leancloud'
-import { selfUser } from '../../../request/LCModle'
-import { IUSE, ICARD } from '../../../redux/reqKeys'
-import { firstInstaller } from '../../../../helps/util'
-import Indicators from '../../../components/Indicators'
+import { connect } from 'react-redux';
+import Toast from 'react-native-simple-toast';
+import { userInfo } from '../../../redux/actions/user';
+import { search } from '../../../redux/module/leancloud';
+import { selfUser } from '../../../request/LCModle';
+import { IUSE, ICARD } from '../../../redux/reqKeys';
+import { firstInstaller } from '../../../../helps/util';
+import Indicators from '../../Indicators';
 
 
 @connect(
   state => ({}),
   (dispatch, props) => ({
     bootstrapAsync: async () => {
-
       try {
-
-        
-        const user = await dispatch(userInfo())
+        const user = await dispatch(userInfo());
         // if (user) {
         //   await dispatch(search(false, {
         //     where: {
@@ -55,19 +52,17 @@ import Indicators from '../../../components/Indicators'
           // }, IUSE))
           // Toast.show('222')
           dispatch(async (dispatch, getState) => {
-            const state = getState()
-            const { user } = state
+            const state = getState();
+            const { user } = state;
 
-            const isFirstInstaller = await firstInstaller()
+            const isFirstInstaller = await firstInstaller();
             // console.log('isFirstInstaller:', isFirstInstaller);
             if (user.isTourist && isFirstInstaller) {
               props.navigation.navigate('login', { transition: 'forVertical' });
             } else {
               props.navigation.navigate('tab');
             }
-
-          })
-
+          });
         }
         // props.navigation.navigate(user ? 'tab' : 'login');
       } catch (e) {
@@ -75,7 +70,6 @@ import Indicators from '../../../components/Indicators'
         // Toast.show(e.message)
         // props.navigation.navigate('login');
       }
-
     }
   })
 )
@@ -85,34 +79,33 @@ export default class AuthLoadingScreen extends React.Component {
     super(props);
   }
 
-  handleFirstConnectivityChange = (isConnected)=> {
-    console.log('Then, is ' + (isConnected ? 'online' : 'offline'));
-    if(isConnected){
+  handleFirstConnectivityChange = (isConnected) => {
+    console.log(`Then, is ${isConnected ? 'online' : 'offline'}`);
+    if (isConnected) {
       this.props.bootstrapAsync();
     }
   }
 
   listener = false
+
   async componentDidMount() {
+    const isConnected = await NetInfo.isConnected.fetch();
 
-    const isConnected = await NetInfo.isConnected.fetch()
-
-    if(!isConnected){
+    if (!isConnected) {
       console.log('111');
       this.listener = true;
       NetInfo.isConnected.addEventListener(
         'connectionChange',
         this.handleFirstConnectivityChange
       );
-    }else{
+    } else {
       this.props.bootstrapAsync();
     }
-    
   }
 
 
   componentWillUnmount() {
-    if(this.listener){
+    if (this.listener) {
       NetInfo.isConnected.removeEventListener(
         'connectionChange',
         this.handleFirstConnectivityChange
@@ -127,9 +120,9 @@ export default class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Indicators size={'large'}/>
-        {/*<ActivityIndicator size={'large'}/>*/}
-        {/*<StatusBar barStyle="default" />*/}
+        <Indicators size="large" />
+        {/* <ActivityIndicator size={'large'}/> */}
+        {/* <StatusBar barStyle="default" /> */}
       </View>
     );
   }
@@ -141,4 +134,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   }
-})
+});

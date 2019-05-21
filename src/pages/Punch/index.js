@@ -73,7 +73,10 @@ import { listReq } from '../../redux/actions/list';
         dataMap: (data) => {
           const { fbList, iUseList } = data.result;
           // 添加副本
+          console.log('fbList', fbList);
+
           dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+
           const newIUseList = iUseList.sort((a, b) => {
             const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
             const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);

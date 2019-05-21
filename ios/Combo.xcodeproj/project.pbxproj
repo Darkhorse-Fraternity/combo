@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
 		06733710DE0E40F38BE2A0EB /* libReactNativeExceptionHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3315F86FD8B84EA9BEBA9274 /* libReactNativeExceptionHandler.a */; };
@@ -39,6 +40,7 @@
 		CC09E6B9212056F600327D96 /* libRNKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD487A820EE14F10017ED35 /* libRNKeychain.a */; };
 		CC09E6BA2120570C00327D96 /* libBVLinearGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC203A8720FC980300D9206D /* libBVLinearGradient.a */; };
 		CC09E6BB2120572C00327D96 /* libReactNativeKeyboardManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1096502116EA490068E5DF /* libReactNativeKeyboardManager.a */; };
+		CC622AAA228561C1004240FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC622A57228561C1004240FE /* JavaScriptCore.framework */; };
 		CC688B04217CB4E5006A413F /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC688B03217CB4E5006A413F /* iconfont.ttf */; };
 		CC803A88206896F5004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
 		CC803ABC206896FA004A5AA9 /* libRCTCustomInputController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE915D7201F234E007DDE65 /* libRCTCustomInputController.a */; };
@@ -358,6 +360,34 @@
 			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
 			remoteInfo = RCTRestart;
 		};
+		CC622A8E228561C1004240FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDEBC6D6214B3E7000DD5AC8;
+			remoteInfo = jsi;
+		};
+		CC622A90228561C1004240FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EDEBC73B214B45A300DD5AC8;
+			remoteInfo = jsiexecutor;
+		};
+		CC622A92228561C1004240FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ED296FB6214C9A0900B7C4FE;
+			remoteInfo = "jsi-tvOS";
+		};
+		CC622A94228561C1004240FE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
+			remoteInfo = "jsiexecutor-tvOS";
+		};
 		CC688AFD217C78BA006A413F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B4BB2A60BDF64834AD2E2F44 /* CodePush.xcodeproj */;
@@ -392,20 +422,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = RCTOrientation;
-		};
-		CC72BAD82003461500ED0D9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9936F3131F5F2E4B0010BF04;
-			remoteInfo = privatedata;
-		};
-		CC72BADA2003461500ED0D9A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
-			remoteInfo = "privatedata-tvOS";
 		};
 		CC7959BA1E02A6A600FAA8EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -505,20 +521,6 @@
 			remoteGlobalIDString = 3D3CD9321DE5FBEE00167DC4;
 			remoteInfo = "cxxreact-tvOS";
 		};
-		CCAC9EDA1E38E6E2004BB455 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3D3CD90B1DE5FBD600167DC4;
-			remoteInfo = jschelpers;
-		};
-		CCAC9EDC1E38E6E2004BB455 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3D3CD9181DE5FBD800167DC4;
-			remoteInfo = "jschelpers-tvOS";
-		};
 		CCB9003821A4111E005BD7C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2F06B803DC36415EBEF49179 /* ReactNativeExceptionHandler.xcodeproj */;
@@ -616,6 +618,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = CCCE41862064A0F000F282E3;
 			remoteInfo = "ComboEp copy";
+		};
+		CCD2508A22924F5900B6B65D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99EC38CCA2B6411A8990967B /* RNGestureHandler.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B5C32A36220C603B000FFB8D;
+			remoteInfo = "RNGestureHandler-tvOS";
 		};
 		CCD487A720EE14F10017ED35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -760,6 +769,7 @@
 		CC3E39B11E26234D0019B85F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		CC3E39B31E2624580019B85F /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = "../node_modules/react-native-qq/ios/RCTQQAPI/TencentOpenAPI.framework"; sourceTree = "<group>"; };
 		CC4548E71E03FBAC00A6CE93 /* Combo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Combo.entitlements; path = Combo/Combo.entitlements; sourceTree = "<group>"; };
+		CC622A57228561C1004240FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		CC688B03217CB4E5006A413F /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
 		CC72BAAA2003461500ED0D9A /* RCTOrientation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTOrientation.xcodeproj; path = "../node_modules/react-native-orientation/iOS/RCTOrientation.xcodeproj"; sourceTree = "<group>"; };
 		CC7959AA1E02A6A600FAA8EB /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
@@ -840,6 +850,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC622AAA228561C1004240FE /* JavaScriptCore.framework in Frameworks */,
 				CC09E6B7212056AC00327D96 /* QuartzCore.framework in Frameworks */,
 				CC09E6B52120569A00327D96 /* CoreText.framework in Frameworks */,
 				CC09E6B32120568500327D96 /* CoreMotion.framework in Frameworks */,
@@ -963,6 +974,7 @@
 		115E0148E2FB61C13FFE9539 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC622A57228561C1004240FE /* JavaScriptCore.framework */,
 				CC09E6B6212056AC00327D96 /* QuartzCore.framework */,
 				CC09E6B42120569A00327D96 /* CoreText.framework */,
 				CC09E6B22120568500327D96 /* CoreMotion.framework */,
@@ -1031,16 +1043,16 @@
 				CCAC9ED51E38E6E2004BB455 /* libyoga.a */,
 				CCAC9ED71E38E6E2004BB455 /* libcxxreact.a */,
 				CCAC9ED91E38E6E2004BB455 /* libcxxreact.a */,
-				CCAC9EDB1E38E6E2004BB455 /* libjschelpers.a */,
-				CCAC9EDD1E38E6E2004BB455 /* libjschelpers.a */,
 				CCBDB6902057D9940097762A /* libjsinspector.a */,
 				CCBDB6922057D9940097762A /* libjsinspector-tvOS.a */,
 				CC5C64761F171D1E004BECB9 /* libthird-party.a */,
 				CCC926841F453387008CD87F /* libthird-party.a */,
 				CC5C64781F171D1E004BECB9 /* libdouble-conversion.a */,
 				CCC926861F453387008CD87F /* libdouble-conversion.a */,
-				CC72BAD92003461500ED0D9A /* libprivatedata.a */,
-				CC72BADB2003461500ED0D9A /* libprivatedata-tvOS.a */,
+				CC622A8F228561C1004240FE /* libjsi.a */,
+				CC622A91228561C1004240FE /* libjsiexecutor.a */,
+				CC622A93228561C1004240FE /* libjsi-tvOS.a */,
+				CC622A95228561C1004240FE /* libjsiexecutor-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1172,6 +1184,7 @@
 			isa = PBXGroup;
 			children = (
 				CC01442D21AFCEAE005A08CE /* libRNGestureHandler.a */,
+				CCD2508B22924F5900B6B65D /* libRNGestureHandler-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1271,7 +1284,6 @@
 				A21A32F9B5CF4FF19A67FEE9 /* libRNScreens.a */,
 				9F855DF2ED35450786D61B80 /* libRCTGoogleAnalyticsBridge.a */,
 				01ACECC0F197454DBB9C6C72 /* libFastImage.a */,
-				075B1897CCC74E708AC3E4E2 /* libRNFBAnalytics.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1994,6 +2006,34 @@
 			remoteRef = CC61A05921A4E5CF00B452BF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CC622A8F228561C1004240FE /* libjsi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libjsi.a;
+			remoteRef = CC622A8E228561C1004240FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC622A91228561C1004240FE /* libjsiexecutor.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libjsiexecutor.a;
+			remoteRef = CC622A90228561C1004240FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC622A93228561C1004240FE /* libjsi-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjsi-tvOS.a";
+			remoteRef = CC622A92228561C1004240FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC622A95228561C1004240FE /* libjsiexecutor-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjsiexecutor-tvOS.a";
+			remoteRef = CC622A94228561C1004240FE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		CC688AFE217C78BA006A413F /* libCodePush.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2027,20 +2067,6 @@
 			fileType = archive.ar;
 			path = libRCTOrientation.a;
 			remoteRef = CC72BABB2003461500ED0D9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC72BAD92003461500ED0D9A /* libprivatedata.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libprivatedata.a;
-			remoteRef = CC72BAD82003461500ED0D9A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC72BADB2003461500ED0D9A /* libprivatedata-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libprivatedata-tvOS.a";
-			remoteRef = CC72BADA2003461500ED0D9A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC7959BB1E02A6A600FAA8EB /* libRCTPushNotification.a */ = {
@@ -2141,20 +2167,6 @@
 			remoteRef = CCAC9ED81E38E6E2004BB455 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CCAC9EDB1E38E6E2004BB455 /* libjschelpers.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libjschelpers.a;
-			remoteRef = CCAC9EDA1E38E6E2004BB455 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CCAC9EDD1E38E6E2004BB455 /* libjschelpers.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libjschelpers.a;
-			remoteRef = CCAC9EDC1E38E6E2004BB455 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		CCB9003921A4111E005BD7C5 /* libReactNativeExceptionHandler.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2244,6 +2256,13 @@
 			fileType = archive.ar;
 			path = libRCTGoogleAnalyticsBridge.a;
 			remoteRef = CCC9514921C7754600FCD752 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CCD2508B22924F5900B6B65D /* libRNGestureHandler-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNGestureHandler-tvOS.a";
+			remoteRef = CCD2508A22924F5900B6B65D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CCD487A820EE14F10017ED35 /* libRNKeychain.a */ = {
@@ -2419,7 +2438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		CCCE41BE2064A0F000F282E3 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2518,9 +2537,7 @@
 				INFOPLIST_FILE = ComboTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2541,9 +2558,7 @@
 				INFOPLIST_FILE = ComboTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2784,9 +2799,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -2826,9 +2839,7 @@
 				INFOPLIST_FILE = ComboTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2880,9 +2891,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -2957,9 +2966,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -3029,9 +3036,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -3110,9 +3115,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -3187,9 +3190,7 @@
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

@@ -5,10 +5,7 @@
  */
 
 import { AppRegistry, YellowBox } from 'react-native';
-// YellowBox.ignoreWarnings([
-//     'Warning: componentWillMount is deprecated',
-//     'Warning: componentWillReceiveProps is deprecated',
-// ]);
+YellowBox.ignoreWarnings(["Require cycle:", "Remote debugger"]);
 
 // import svgs from './source/icons'
 import { name } from './app.json';
