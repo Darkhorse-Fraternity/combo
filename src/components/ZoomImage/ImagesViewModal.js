@@ -14,7 +14,6 @@ import {
   Modal,
   Image,
   Dimensions,
-  ViewPagerAndroid,
   StatusBar,
   Platform,
   CameraRoll,

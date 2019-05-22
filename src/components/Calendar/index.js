@@ -11,12 +11,12 @@ import {
   Dimensions,
   Text,
   TouchableOpacity,
-  ViewPagerAndroid,
   ActivityIndicator,
   Platform,
   ScrollView
 } from 'react-native';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import ViewPagerAndroid from "@react-native-community/viewpager";
 import DateBoard from './DateBoard';
 import Pop from '../Pop';
 

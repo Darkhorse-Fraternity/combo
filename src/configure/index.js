@@ -7,12 +7,12 @@ import {
   ToastAndroid,
   StatusBar,
   BackHandler,
-  NetInfo,
   Linking,
   AppState,
   Alert,
   View
 } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';

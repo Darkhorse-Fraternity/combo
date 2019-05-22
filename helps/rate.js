@@ -1,11 +1,11 @@
 import {
-  AsyncStorage,
   Alert,
   Platform
 } from 'react-native';
 import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import Rate, { AndroidMarket } from 'react-native-rate';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const appleAppID = '1332546993';
 let hasTryRate = false;
