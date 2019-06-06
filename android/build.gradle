@@ -2,11 +2,11 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "27.0.3"
+        buildToolsVersion = "28.0.0"
         minSdkVersion = 16
-        compileSdkVersion = 27
-        targetSdkVersion = 26
-        supportLibVersion = "27.1.1"
+        compileSdkVersion = 28
+        targetSdkVersion = 28
+        supportLibVersion = "28.0.0"
     }
     repositories {
         jcenter()
@@ -42,25 +42,25 @@ allprojects {
     }
 }
 
-subprojects {
-    project.configurations.all {
-        resolutionStrategy.eachDependency { details ->
-            if (details.requested.group == 'com.android.support'
-                    && !details.requested.name.contains('multidex') )
-            {
-                details.useVersion "27.0.1"
-            }
-        }
-    }
-    afterEvaluate {project ->
-        if (project.hasProperty("android")) {
-            android {
-                compileSdkVersion 27
-                buildToolsVersion '27.0.3'
-            }
-        }
-    }
-}
+//subprojects {
+//    project.configurations.all {
+//        resolutionStrategy.eachDependency { details ->
+//            if (details.requested.group == 'com.android.support'
+//                    && !details.requested.name.contains('multidex') )
+//            {
+//                details.useVersion "28.0.0"
+//            }
+//        }
+//    }
+//    afterEvaluate {project ->
+//        if (project.hasProperty("android")) {
+//            android {
+//                compileSdkVersion 28
+//                buildToolsVersion '28.0.0'
+//            }
+//        }
+//    }
+//}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '4.4'
