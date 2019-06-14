@@ -11,7 +11,8 @@ module.exports = {
     'comma-dangle': 'off'
   },
   'globals': {
-    "fetch": false
+    "fetch": false,
+    "__DEV__": false,
   },
   parserOptions: { ecmaVersion: 2015, ecmaFeatures: { legacyDecorators: true } },
 }

@@ -3,6 +3,8 @@ package com.combo;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
@@ -18,14 +20,9 @@ import com.calendarevents.CalendarEventsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.facebook.react.ReactApplication;
-import com.reactnativecommunity.netinfo.NetInfoPackage;
-import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
-import com.idehub.GoogleAnalyticsBridge.GoogleAnalyticsBridgePackage;
-import com.swmansion.rnscreens.RNScreensPackage;
-import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.example.umenganaticlys.UmengAnalyticsPackage;
+import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -38,8 +35,15 @@ import com.microsoft.codepush.react.CodePush;
 import com.oblador.keychain.KeychainPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactlibrary.AlipayPackage;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.reactnativecommunity.netinfo.NetInfoPackage;
+import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
 import com.rnfs.RNFSPackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
 import com.theweflex.react.WeChatPackage;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 import com.wix.autogrowtextinput.AutoGrowTextInputPackage;
 import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
@@ -75,6 +79,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new UmengAnalyticsPackage (),
             new NetInfoPackage(),
             new RNCViewPagerPackage(),
             new AsyncStoragePackage(),
@@ -123,6 +128,22 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
         // 用于推送判断前后台
         ActivityLifecycleCallbacks();
+
+
+
+        try {
+            PackageManager pm = this.getPackageManager();
+            ApplicationInfo pInfo = pm.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+            String channelId = pInfo.metaData.getString("TD_CHANNEL_ID");
+            UMConfigure.init(this, "5cfe130c570df3f63b0012bc", channelId, UMConfigure.DEVICE_TYPE_PHONE, null);
+            MobclickAgent.openActivityDurationTrack(false);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("[RNAppMetadata]", " name not found");
+        }
+
+
+//        UMConfigure.init(this, '', '', UMConfigure.DEVICE_TYPE_PHONE, null);
+//        MobclickAgent.openActivityDurationTrack(false);
     }
 
 

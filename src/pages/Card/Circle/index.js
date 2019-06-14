@@ -268,7 +268,7 @@ export default class Circle extends Component {
       <LCList
         ref="list"
         initialNumToRender={2}
-        noDataPrompt="写一个日记吧~！"
+        // noDataPrompt="写一个日记吧~！"
         ListHeaderComponent={this.__renderHeader}
         style={[this.props.style, styles.list]}
         reqKey={listKey}

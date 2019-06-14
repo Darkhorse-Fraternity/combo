@@ -1,4 +1,4 @@
-/*@flow*/
+/* @flow */
 import React, { Component, isValidElement } from 'react';
 import {
   StyleSheet,
@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import Indicators from '../../Indicators'
+import Indicators from '../../Indicators';
 import {
   StyledContent,
   StyledReportBtn,
@@ -20,7 +20,7 @@ import {
   StyleReportView,
   StyledIcon,
   StyledRefresh
-} from './style'
+} from './style';
 
 
 export const ExceptionType = {
@@ -31,7 +31,6 @@ export const ExceptionType = {
 
 
 export default class ExceptionView extends Component {
-
   static propTypes = {
     exceptionType: PropTypes.string,
     prompt: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -40,6 +39,7 @@ export default class ExceptionView extends Component {
     onRefresh: PropTypes.func,
     tipBtnText: PropTypes.string
   };
+
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
     prompt: '暂无数据'
@@ -49,16 +49,6 @@ export default class ExceptionView extends Component {
     super(props);
   }
 
-  renderPrompt() {
-    if (isValidElement(this.props.prompt)) {
-      return this.props.prompt;
-    }
-    return (
-      <Text style={styles.text}>
-        {this.getPromptText(this.props.exceptionType)}
-      </Text>
-    );
-  }
 
   renderOtherTips() {
     if (isValidElement(this.props.otherTips)) {
@@ -69,44 +59,45 @@ export default class ExceptionView extends Component {
     );
   }
 
-  renderTipButton = () => {
+  renderTipButton = () => (
+    this.props.tipBtnText ? (
+      <StyledReportBtn onPress={() => {
+        this.props.onRefresh && this.props.onRefresh();
+      }}
+      >
+        <StyledReportText>
+          {this.props.tipBtnText}
+        </StyledReportText>
 
-
-    return (
-      this.props.tipBtnText ? <StyledReportBtn onPress={() => {
-          this.props.onRefresh && this.props.onRefresh()
-        }}>
-          <StyledReportText>
-            {this.props.tipBtnText}
-          </StyledReportText>
-
-        </StyledReportBtn> :null
-    )
-
-  }
+      </StyledReportBtn>
+    ) : null
+  )
 
   render() {
     // let prompt = this.getPromptText(this.props.exceptionType);
     // console.log('test:', this.props.styles);
     // const style = {height:300,... this.props.styles}
     // console.log('test:', style);
-    const { otherTips, onRefresh, refresh, style, styles } = this.props
+    const {
+      otherTips, onRefresh, refresh, style, styles
+    } = this.props;
     return (
       <StyledContent
-        style={[style, styles]}>
+        style={[style, styles]}
+      >
         {this._renderPromptIndicator(this.props.exceptionType)}
         {this.renderPrompt()}
         {otherTips && this.renderOtherTips()}
-        {!refresh && onRefresh ? this.renderTipButton() :
-          <StyleReportView/>}
-        {/*<Button*/}
-        {/*style={}*/}
-        {/*onPress={() => {*/}
-        {/*this.props.onRefresh && this.props.onRefresh()*/}
-        {/*}}>*/}
+        {!refresh && onRefresh ? this.renderTipButton()
+          : <StyleReportView />}
+        {/* <Button */}
+        {/* style={} */}
+        {/* onPress={() => { */}
+        {/* this.props.onRefresh && this.props.onRefresh() */}
+        {/* }}> */}
 
         {/**/}
-        {/*</Button>*/}
+        {/* </Button> */}
 
       </StyledContent>
     );
@@ -116,7 +107,7 @@ export default class ExceptionView extends Component {
     switch (type) {
       case ExceptionType.Loading:
         return (
-          <Indicators  size="large"/>
+          <Indicators size="large" />
         );
       case ExceptionType.NoData:
       case ExceptionType.NetError:
@@ -128,14 +119,15 @@ export default class ExceptionView extends Component {
     }
   };
 
+
   getPromptText(type: string): string {
     if (this.props.prompt) {
-      return this.props.prompt
+      return this.props.prompt;
     }
     let prompt;
     switch (type) {
       case ExceptionType.Loading:
-        prompt = '';
+        prompt = '正在加载';
         break;
       case ExceptionType.NoData:
         prompt = '';
@@ -144,9 +136,23 @@ export default class ExceptionView extends Component {
         prompt = '网络异常';
         break;
       default:
-        prompt = 'there is nothing to show';
+        break;
     }
     return prompt;
+  }
+
+  renderPrompt() {
+    if (isValidElement(this.props.prompt)) {
+      return this.props.prompt;
+    }
+    const text = this.getPromptText(this.props.exceptionType);
+    if (text) {
+      return (
+        <Text style={styles.text}>
+          {text}
+        </Text>
+      );
+    }
   }
 }
 
@@ -158,8 +164,9 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    fontSize: 17,
+    fontSize: 15,
     color: '#9e9e9e',
+    fontStyle: 'italic',
     alignSelf: 'center',
   },
   otherTips: {

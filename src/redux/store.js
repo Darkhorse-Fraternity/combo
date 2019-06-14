@@ -18,7 +18,7 @@ import {
 } from 'react-navigation-redux-helpers';
 import * as reducers from './reducers';
 
-import googleTracking from './middleware/googleTracking';
+import umTracking from './middleware/umTracking';
 // import { combineReducers } from 'redux-immutablejs'
 // import { fromJS } from 'immutable'
 
@@ -28,7 +28,7 @@ const middleware = createReactNavigationReduxMiddleware(
   state => state.nav,
 );
 
-const middlewares = [thunk, middleware, googleTracking];
+const middlewares = [thunk, middleware, umTracking];
 let enhancer;
 if (__DEV__) {
   const installDevTools = require('immutable-devtools');

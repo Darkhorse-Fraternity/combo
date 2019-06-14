@@ -1,16 +1,11 @@
 
 
-
-
-
 export function addParams(url:string, params:Object) {
   if (url.indexOf('?') === -1) {
-    return url+'?'+toQueryString(params);
-  }else {
-    return url + '&' + toQueryString(params);
+    return `${url}?${toQueryString(params)}`;
   }
-
-};
+  return `${url}&${toQueryString(params)}`;
+}
 
 
 /**
@@ -19,29 +14,26 @@ export function addParams(url:string, params:Object) {
  * @return {[type]} string key1=value1&key2=value2
  */
 export function toQueryString(obj:Object) {
-  return obj?Object.keys(obj).sort().map(function(key){
+  return obj ? Object.keys(obj).sort().map((key) => {
     let val = obj[key];
     if (typeof val === 'object') val = JSON.stringify(val);
     if (Array.isArray(val)) {
-      return val.sort().map(function(val2){
-        return encodeURIComponent(key)+ '=' + encodeURIComponent(val2);
-      }).join('&');
+      return val.sort().map(val2 => `${encodeURIComponent(key)}=${encodeURIComponent(val2)}`).join('&');
     }
-    return encodeURIComponent(key) + '=' + encodeURIComponent(val);
-  }).join('&'):'';
-};
-
+    return `${encodeURIComponent(key)}=${encodeURIComponent(val)}`;
+  }).join('&') : '';
+}
 
 
 export function queryStringToJSON(queryString) {
-    if(queryString.indexOf('?') > -1){
-        queryString = queryString.split('?')[1];
-    }
-    var pairs = queryString.split('&');
-    var result = {};
-    pairs.forEach(function(pair) {
-        pair = pair.split('=');
-        result[pair[0]] = decodeURIComponent(pair[1] || '');
-    });
-    return result;
+  if (queryString.indexOf('?') > -1) {
+    queryString = queryString.split('?')[1];
+  }
+  const pairs = queryString.split('&');
+  const result = {};
+  pairs.forEach((pair) => {
+    pair = pair.split('=');
+    result[pair[0]] = decodeURIComponent(pair[1] || '');
+  });
+  return result;
 }

@@ -1,19 +1,17 @@
-import React from 'react'
+import React from 'react';
 import {
   View,
   Button,
   Text,
   InteractionManager,
   Platform
-} from 'react-native'
+} from 'react-native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {
   createBottomTabNavigator,
   createStackNavigator,
 } from 'react-navigation';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
-
-
 
 
 // import * as Animatable from 'react-native-animatable';
@@ -24,17 +22,17 @@ import {
   settingRoute,
   punchRoute,
   flagRoute
-} from '../../../pages'
-import { defaultNavigationOptions, tabsOptions } from './navigationOptions'
-import { TransitionConfiguration } from '../navigators/TransitionConfiguration'
+} from '../../../pages';
+import { defaultNavigationOptions, tabsOptions } from './navigationOptions';
+import { TransitionConfiguration } from '../navigators/TransitionConfiguration';
 
-//默认背景色
-const cardStyle = {backgroundColor: 'white'}
+// 默认背景色
+const cardStyle = { backgroundColor: 'white' };
 const stackDefoultConfig = {
   defaultNavigationOptions,
   transitionConfig: TransitionConfiguration,
   cardStyle
-}
+};
 
 
 const PunchStack = createStackNavigator({
@@ -42,7 +40,7 @@ const PunchStack = createStackNavigator({
 }, {
   initialRouteName: 'punch',
   navigationOptions: {
-    labelName:strings('tabs.clockIn'),
+    labelName: strings('tabs.clockIn'),
   },
   ...stackDefoultConfig
 });
@@ -53,7 +51,7 @@ const HabitStack = createStackNavigator({
 }, {
   initialRouteName: 'habit',
   navigationOptions: {
-    labelName:strings('tabs.habit'),
+    labelName: strings('tabs.habit'),
   },
   ...stackDefoultConfig
 });
@@ -64,7 +62,7 @@ const FlagStack = createStackNavigator({
 }, {
   initialRouteName: 'flag',
   navigationOptions: {
-    labelName:strings('tabs.flag'),
+    labelName: strings('tabs.flag'),
   },
   ...stackDefoultConfig
 });
@@ -74,7 +72,7 @@ const SettingsStack = createStackNavigator({
 }, {
   initialRouteName: 'more',
   navigationOptions: {
-    labelName:strings('tabs.more'),
+    labelName: strings('tabs.more'),
   },
   ...stackDefoultConfig
 });
@@ -90,40 +88,34 @@ export default createBottomTabNavigator(
   {
     defaultNavigationOptions: ({ navigation }) => {
       const { routeName, index } = navigation.state;
-      const { iconName,Icon,size } = tabsOptions[routeName]
+      const { iconName, Icon, size } = tabsOptions[routeName];
 
       return {
         // header:null,
-        tabBarIcon: ({ focused, tintColor }) => {
-
-          // const iterationCount = focused?infinite:1
-
-          // You can return any component that you like here! We usually use an
-          // icon component from react-native-vector-icons
-          return <Icon
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Icon
             // delay={1000}
             // iterationCount={iterationCount}
             name={iconName}
             // animation={'bounceIn'}
-            size={!!focused ? size : size}
-            color={tintColor}/>;
-        },
+            size={focused ? size : size}
+            color={tintColor}
+          />
+        ),
         tabBarButtonComponent: TouchableBounce,
         tabBarOnPress: ({ navigation, defaultHandler }: args) => {
           // console.log('test:', '1111');
-          defaultHandler()
+          defaultHandler();
           // // console.log('test:', '222');
           // const { routeName } = navigation.state;
           // refs[routeName] && refs[routeName].bounceIn(1000);
           // InteractionManager.runAfterInteractions(() => {
           //   defaultHandler()
           // })
-
-
         },
         tabBarVisible: index === 0,
         // tabBarLabel: labelName
-      }
+      };
     },
     // tabBarComponent: (option, k) => {
     //     console.log('test:', option, k);
@@ -138,14 +130,16 @@ export default createBottomTabNavigator(
     //     )
     // },
     tabBarOptions: {
-      activeTintColor: Platform.OS === 'ios'?
-        'rgba(0,0,0,0.85)':'rgba(0,0,0,0.65)',
+      activeTintColor: Platform.OS === 'ios'
+        ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.65)',
       inactiveTintColor: 'rgba(0,0,0,0.2)',
       showLabel: false,
 
       style: {
-        backgroundColor: "#fdfbfb",
-        borderTopColor: 'white'
+        backgroundColor: Platform.OS === 'ios'
+          ? '#fdfbfb' : '#cbcbca',
+        borderTopColor: 'white',
+        height: 70,
       },
       labelStyle: {
         fontSize: 11,

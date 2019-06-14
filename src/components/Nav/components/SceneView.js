@@ -4,10 +4,10 @@ import React, { PureComponent } from 'react';
 import propTypes from 'prop-types';
 
 import type {
-    NavigationScreenProp,
-    NavigationRoute,
-    NavigationAction,
-    NavigationNavigatorProps,
+  NavigationScreenProp,
+  NavigationRoute,
+  NavigationAction,
+  NavigationNavigatorProps,
 } from '../TypeDefinition';
 
 type Props<O> = {
@@ -18,20 +18,20 @@ type Props<O> = {
 
 export default class SceneView<O> extends PureComponent<void, Props<O>, void> {
     static childContextTypes = {
-        navigation: propTypes.object.isRequired,
+      navigation: propTypes.object.isRequired,
     };
 
     props: Props<O>;
 
     getChildContext() {
-        return {
-            navigation: this.props.navigation,
-        };
+      return {
+        navigation: this.props.navigation,
+      };
     }
 
     render() {
-        const { screenProps, navigation, component: Component } = this.props;
+      const { screenProps, navigation, component: Component } = this.props;
 
-        return <Component screenProps={screenProps} navigation={navigation} />;
+      return <Component screenProps={screenProps} navigation={navigation} />;
     }
 }

@@ -354,7 +354,7 @@ export default class Statistical extends PureComponent {
     const isSelf = this.props.user.objectId === iUseM.user;
 
     const config = isSelf ? {
-      noDataPrompt: '写一个日记吧~！',
+      // noDataPrompt: '写一个日记吧~！',
       tipBtnText: '添加日记',
       tipTap: () => this.props.tipTap(this.props.iUse.toJS())
     } : {};

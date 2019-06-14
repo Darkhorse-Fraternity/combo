@@ -18,6 +18,8 @@
 #import "AppearanceConfig.h"
 #import "Orientation.h"
 #import "RNSplashScreen.h"
+#import "RNUMConfigure.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -45,6 +47,7 @@
   
   [AppearanceConfig appearanceConfig];
   
+  [RNUMConfigure initWithAppkey:@"5cfe13734ca357b73e00053f" channel:@"appStore"];
 
 #ifdef DEBUG
   

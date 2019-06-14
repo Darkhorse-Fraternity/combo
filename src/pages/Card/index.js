@@ -142,10 +142,10 @@ export default class Card extends Component {
           this.props.setCircleState(iCard);
         }}
       >
-        <StyledIconSet
+        <StyledIcon
           style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
           size={28}
-          name="picasa"
+          name="users"
         />
       </Button>
       ),

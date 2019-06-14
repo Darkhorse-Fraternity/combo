@@ -1,5 +1,5 @@
 /* @flow */
-'use strict'
+
 
 export const LimitableMap = function (limit:number) {
   this.limit = limit || 10;
@@ -7,14 +7,14 @@ export const LimitableMap = function (limit:number) {
   this.keys = [];
 };
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+const { hasOwnProperty } = Object.prototype;
 
 LimitableMap.prototype.set = function (key, value) {
-  var map = this.map;
-  var keys = this.keys;
+  const { map } = this;
+  const { keys } = this;
   if (!hasOwnProperty.call(map, key)) {
     if (keys.length === this.limit) {
-      var firstKey = keys.shift();
+      const firstKey = keys.shift();
       delete map[firstKey];
     }
     keys.push(key);
