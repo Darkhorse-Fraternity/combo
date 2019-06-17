@@ -26,7 +26,7 @@ import creatIDO from '../doCard';
     // ...bindActionCreators({},dispatch),
     done: (type = 0, doneDate = new Date()) => {
       // 先判断是否有图片，如果有则 先上传图片。
-      console.log('done');
+      // console.log('done');
 
       return dispatch(async (dispatch, getState) => {
         try {
@@ -86,10 +86,9 @@ export default class Doing extends Component {
   render(): ReactElement<any> {
     const {
       type = 0,
-      iCard,
       done,
+      iCard,
       doneDate,
-      load,
       ...otherProps
     } = this.props;
     // const iCard = this.props.iCard.get(iUse[ICARD]);
@@ -100,7 +99,6 @@ export default class Doing extends Component {
       <Do
         record={record}
         done={() => done(type, doneDate)}
-        load={load}
         type={type}
         {...otherProps}
       />

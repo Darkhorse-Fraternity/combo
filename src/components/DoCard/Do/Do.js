@@ -22,12 +22,7 @@ import DoCardForm from '../../Form/DoCardForm/index';
 // static displayName =
 
 export default class Do extends Component {
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      viewRef: null,
-    };
-  }
+ 
 
   static propTypes = {};
 
@@ -37,11 +32,16 @@ export default class Do extends Component {
   // shouldComponentUpdate(nextProps: Object) {
   //     return !immutable.is(this.props, nextProps)
   // }
-
+  constructor(props: Object) {
+    super(props);
+    this.state = {
+      viewRef: null,
+    };
+  }
 
   render(): ReactElement<any> {
     const {
-      record, load, done, type, iUse
+      record, load, done, type, localSaveID
     } = this.props;
     // const iconAndColor = iCard.get('iconAndColor')
     // const color = iconAndColor && iconAndColor.get('color')
@@ -72,7 +72,7 @@ export default class Do extends Component {
         )}
         <DoCardForm
           localSaveEnable
-          localSaveID={iUse.objectId}
+          localSaveID={localSaveID}
           color={color}
           type={type}
           load={load}

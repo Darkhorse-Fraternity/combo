@@ -89,7 +89,7 @@ export default class Diary extends Component {
     const record = ['文字', '图片'];
 
     return (
-      <Do record={record} {...this.props} iCard={iCard} type={1} />
+      <Do record={record} {...this.props} localSaveID={iUse.objectId} type={1} />
     );
   }
 }

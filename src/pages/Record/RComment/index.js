@@ -4,22 +4,17 @@
  */
 
 
-import * as immutable from 'immutable';
 import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
   Platform,
-  ScrollView,
-  Text,
-  PixelRatio,
   Clipboard,
-  Keyboard,
   TouchableOpacity,
-  InteractionManager,
   Alert,
   TouchableNativeFeedback,
-  ActivityIndicator
+  ActivityIndicator,
+
 } from 'react-native';
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
@@ -41,7 +36,8 @@ import {
   IUSE
 } from '../../../redux/reqKeys';
 import {
-  add, remove, update, updateByID
+  add, remove, update, updateByID,
+  findByID
 } from '../../../redux/module/leancloud';
 import { selfUser, iDo } from '../../../request/LCModle';
 import { add as listAdd, claerByID } from '../../../redux/actions/list';
@@ -57,14 +53,18 @@ import {
   StyledNickText,
   StyledContentText,
   StyledDate,
-  StyledIcon
+  StyledIcon,
+  StyledRightView
 } from './style';
 import Dialog from '../../../components/Dialog';
 import Button from '../../../components/Button';
 // static displayName = RComment
 import Avatar from '../../../components/Avatar/Avatar2';
+import NavBar from '../../../components/Nav/bar/NavBar';
 
-import { findByID } from '../../../redux/module/leancloud';
+import Pop from '../../../components/Pop';
+import Do from '../../../components/DoCard/Do/Do';
+
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
@@ -231,12 +231,60 @@ const Name = 'text';
           dispatch(addNormalizrEntity(IDO, iDoData));
         }
       });
+    },
+    reEdit: () => {
+      // record, load, done, type, iUse
+      dispatch(async (_, getState) => {
+        const { iUseId } = props.navigation.state.params;
+        const state = getState();
+        console.log('props.navigation.state.params', props.navigation.state.params);
+        
+        Pop.show(<Do record={['图片', '文字']} iCard={iCard} type={1} />,
+          {
+            wrapStyle: { justifyContent: 'flex-start' },
+            maskStyle: {
+              backgroundColor: 'transparent',
+            }
+          });
+      });
     }
   })
 )
 
 
 export default class RComment extends PureComponent {
+  static propTypes = {};
+
+  static defaultProps = {};
+
+  static navigationOptions = props =>
+    // const { params } = props.navigation.state;
+    // const { iDoLoad, iDoDelete, isSelf } = params;
+    ({
+      // title: '',
+      header: null,
+      // headerRight: (
+      //   isSelf && (
+      //   <Button
+      //     disabled={iDoLoad}
+      //     background={TouchableNativeFeedback.SelectableBackgroundBorderless
+      //     && TouchableNativeFeedback.SelectableBackgroundBorderless()}
+      //     onPress={iDoDelete}
+      //     style={{ paddingHorizontal: 15 }}
+      //   >
+      //     {iDoLoad ? <ActivityIndicator /> : (
+      //       <StyledIcon
+      //         size={25}
+      //         color="black"
+      //         name="close"
+      //       />
+      //     )}
+      //   </Button>
+      //   )
+      // ),
+    })
+  ;
+
   constructor(props: Object) {
     super(props);
     this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
@@ -247,47 +295,16 @@ export default class RComment extends PureComponent {
     };
   }
 
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  static navigationOptions = (props) => {
-    const { params } = props.navigation.state;
-    const { iDoLoad, iDoDelete, isSelf } = params;
-    return {
-      title: '',
-      headerRight: (
-        isSelf && (
-        <Button
-          disabled={iDoLoad}
-          background={TouchableNativeFeedback.SelectableBackgroundBorderless
-          && TouchableNativeFeedback.SelectableBackgroundBorderless()}
-          onPress={iDoDelete}
-          style={{ paddingHorizontal: 15 }}
-        >
-          {iDoLoad ? <ActivityIndicator /> : (
-            <StyledIcon
-              size={25}
-              color="black"
-              name="delete"
-            />
-          )}
-        </Button>
-        )
-      ),
-    };
-  };
-
   componentDidMount() {
     const {
-      iDoLoad, iDoDelete, iDoData, user
+      iDoData, find, refresh
     } = this.props;
-    const isSelf = user.objectId === iDoData.get('user');
-    this.props.navigation.setParams({ iDoDelete, iDoLoad, isSelf });
+    // const isSelf = user.objectId === iDoData.get('user');
+    // navigation.setParams({ iDoDelete, iDoLoad, isSelf });
     if (!iDoData) {
-      this.props.find();
+      find();
     } else {
-      this.props.refresh();
+      refresh();
     }
     // InteractionManager.runAfterInteractions(async () => {
     //     this.setState({showIn:true})
@@ -302,6 +319,51 @@ export default class RComment extends PureComponent {
 
   componentWillUnmount() {
     KeyboardUtils.dismiss();
+  }
+
+  renderRightView = () => {
+    const {
+      iDoLoad, iDoDelete, iDoData, user
+    } = this.props;
+    const isSelf = user.objectId === iDoData.get('user');
+
+    if (!isSelf) {
+      return null;
+    }
+
+
+    return (
+      <StyledRightView>
+        <Button
+          disabled={iDoLoad}
+          background={TouchableNativeFeedback.SelectableBackgroundBorderless
+  && TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          onPress={this.props.reEdit}
+          style={{ paddingHorizontal: 10 }}
+        >
+          <StyledIcon
+              size={25}
+              color="black"
+              name="edit"
+            />
+        </Button>
+        <Button
+          disabled={iDoLoad}
+          background={TouchableNativeFeedback.SelectableBackgroundBorderless
+        && TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          onPress={iDoDelete}
+          style={{ paddingHorizontal: 10 }}
+        >
+          {iDoLoad ? <ActivityIndicator /> : (
+            <StyledIcon
+              size={25}
+              color="black"
+              name="close"
+            />
+          )}
+        </Button>
+      </StyledRightView>
+    );
   }
 
   _renderHeader = () => {
@@ -410,7 +472,9 @@ export default class RComment extends PureComponent {
 
 
   render(): ReactElement<any> {
-    const { iDoID } = this.props.navigation.state.params;
+    const { navigation } = this.props;
+    const { goBack, state } = navigation;
+    const { iDoID } = state.params;
 
     const params = {
       where: {
@@ -421,8 +485,11 @@ export default class RComment extends PureComponent {
     };
     // {Platform.OS === 'ios' && this._renderHeader()}
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
-
+      <StyledContent>
+        <NavBar
+          onBackPress={goBack}
+          rightView={this.renderRightView}
+        />
         <LCList
           keyboardDismissMode="interactive"
           ListHeaderComponent={this._renderHeader}

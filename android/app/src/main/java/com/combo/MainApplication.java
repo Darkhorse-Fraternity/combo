@@ -79,12 +79,11 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-            new UmengAnalyticsPackage (),
-            new NetInfoPackage(),
-            new RNCViewPagerPackage(),
-            new AsyncStoragePackage(),
+                    new UmengAnalyticsPackage (),
+                    new NetInfoPackage(),
+                    new RNCViewPagerPackage(),
+                    new AsyncStoragePackage(),
                     new FastImageViewPackage(),
-                    new GoogleAnalyticsBridgePackage(),
                     new RNScreensPackage(),
                     new RNGestureHandlerPackage(),
                     new ReactNativeRestartPackage(),

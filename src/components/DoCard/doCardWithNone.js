@@ -10,7 +10,7 @@ export default function doCardWithNone(iUse, type = 0, doneDate = new Date()) {
     const iCardM = state.normalizr.get(ICARD).get(iUse[ICARD]).toJS();
 
     if (iCardM.record.length > 0) {
-      Pop.show(<Do iUse={iUse} type={type} doneDate={doneDate} />,
+      Pop.show(<Do localSaveID={iUse.objectId} type={type} doneDate={doneDate} />,
         {
           wrapStyle: { justifyContent: 'flex-start' },
           maskStyle: {
