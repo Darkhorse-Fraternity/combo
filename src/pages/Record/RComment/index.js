@@ -63,7 +63,8 @@ import Avatar from '../../../components/Avatar/Avatar2';
 import NavBar from '../../../components/Nav/bar/NavBar';
 
 import Pop from '../../../components/Pop';
-import Do from '../../../components/DoCard/Do/Do';
+import DoWithLoad from '../../../components/DoCard/Do/DoWithLoad';
+import { dataStorage, uploadImages } from '../../../redux/actions/util';
 
 
 const IsIOS = Platform.OS === 'ios';
@@ -232,20 +233,63 @@ const Name = 'text';
         }
       });
     },
-    reEdit: () => {
+    reEdit: ({
+      objectId,
+      imgs,
+      recordText
+    }) => {
       // record, load, done, type, iUse
       dispatch(async (_, getState) => {
-        const { iUseId } = props.navigation.state.params;
-        const state = getState();
-        console.log('props.navigation.state.params', props.navigation.state.params);
-        
-        Pop.show(<Do record={['图片', '文字']} iCard={iCard} type={1} />,
-          {
-            wrapStyle: { justifyContent: 'flex-start' },
-            maskStyle: {
-              backgroundColor: 'transparent',
+        const imgObjects = imgs.map(item => ({ uri: item }));
+        dispatch(dataStorage(`DoCardForm${objectId}`, { recordText, imgs: imgObjects }));
+        // const { iDoID } = props.navigation.state.params;
+        Pop.show(<DoWithLoad
+          record={['文字', '图片']}
+          localSaveID={objectId}
+          type={1}
+          done={async () => {
+            const state = getState();
+            const selector = formValueSelector('DoCardForm');
+            const recordTextN = selector(state, 'recordText') || '';
+            let imgs1 = selector(state, 'imgs');
+            if (imgs1) {
+              imgs1 = imgs1.toJS();
+              const imagUploads = [];
+              const imagIndexs = [];
+              // eslint-disable-next-line no-plusplus
+              for (let index = 0; index < imgs1.length; index++) {
+                const element = imgs1[index];
+                const { uri } = element;
+                // eslint-disable-next-line no-empty
+                if (uri.startsWith('file://')) {
+                  imagUploads.push(uri);
+                  imagIndexs.push(index);
+                }
+              }
+              // 上传图片
+              if (imagUploads.length > 0) {
+                const imgLoadData = await dispatch(uploadImages(imagUploads, 'iDoULImage'));
+                console.log('imgLoadData', imgLoadData);
+
+                imgLoadData.payload.forEach((item, index) => {
+                  const imagIndex = imagIndexs[index];
+                  imgs1[imagIndex] = { uri: item.attributes.url };
+                });
+              }
             }
-          });
+            dispatch(updateByID(IDO, objectId, {
+              recordText: recordTextN,
+              imgs: imgs1 && imgs1.map(img => img.uri)
+            }));
+            Pop.hide();
+          }}
+        />,
+        {
+          wrapStyle: { justifyContent: 'flex-start' },
+          maskStyle: {
+            backgroundColor: 'transparent'
+          }
+        });
       });
     }
   })
@@ -323,7 +367,7 @@ export default class RComment extends PureComponent {
 
   renderRightView = () => {
     const {
-      iDoLoad, iDoDelete, iDoData, user
+      iDoLoad, iDoDelete, iDoData, user, reEdit
     } = this.props;
     const isSelf = user.objectId === iDoData.get('user');
 
@@ -338,14 +382,16 @@ export default class RComment extends PureComponent {
           disabled={iDoLoad}
           background={TouchableNativeFeedback.SelectableBackgroundBorderless
   && TouchableNativeFeedback.SelectableBackgroundBorderless()}
-          onPress={this.props.reEdit}
+          onPress={() => {
+            reEdit(iDoData.toJS());
+          }}
           style={{ paddingHorizontal: 10 }}
         >
           <StyledIcon
-              size={25}
-              color="black"
-              name="edit"
-            />
+            size={25}
+            color="black"
+            name="edit"
+          />
         </Button>
         <Button
           disabled={iDoLoad}

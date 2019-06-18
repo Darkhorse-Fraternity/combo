@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import { formValueSelector } from 'redux-form/immutable';
-import Do from './Do';
+import DoWithLoad from './DoWithLoad';
 
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
@@ -20,9 +20,7 @@ import creatIDO from '../doCard';
 @connect(
   state => ({
     // data:state.req.get()
-    iCard: state.normalizr.get(ICARD),
-    load: state.req.get(IDO).get('load')
-    || state.req.get(IDOULIMAGE).get('load')
+    // iCard: state.normalizr.get(ICARD),
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
@@ -81,21 +79,15 @@ import creatIDO from '../doCard';
 
 export default class Diary extends Component {
   render(): ReactElement<any> {
-    const { iUse } = this.props;
-
-    // console.log('ICARD:', data[ICARD]);
-    const iCard = this.props.iCard.get(iUse[ICARD]);
-
     const record = ['文字', '图片'];
-
     return (
-      <Do record={record} {...this.props} localSaveID={iUse.objectId} type={1} />
+      <DoWithLoad {...this.props} record={record} type={1} />
     );
   }
 }
 
 export function recordDiary(iUse) {
-  Pop.show(<Diary iUse={iUse} />,
+  Pop.show(<DoWithLoad localSaveID={iUse.objectId} />,
     {
       wrapStyle: { justifyContent: 'flex-start' },
       maskStyle: {

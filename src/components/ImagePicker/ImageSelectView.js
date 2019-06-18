@@ -84,7 +84,7 @@ export default class ImageSelectView extends PureComponent {
         if (response.uri) {
           // LayoutAnimation.spring();
           delete response.data;
-          const files = this.state.files.concat(response);
+          const files = [response].concat(this.state.files);
           this.props.onChange && this.props.onChange(immutable.fromJS(files));
         }
       });

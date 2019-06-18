@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import { formValueSelector } from 'redux-form/immutable';
-import Do from './Do';
+import DoWithLoad from './DoWithLoad';
 
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
@@ -82,7 +82,7 @@ import creatIDO from '../doCard';
   })
 )
 
-export default class Doing extends Component {
+export default class Do extends Component {
   render(): ReactElement<any> {
     const {
       type = 0,
@@ -96,7 +96,7 @@ export default class Doing extends Component {
     // record 强制类型需要
 
     return (
-      <Do
+      <DoWithLoad
         record={record}
         done={() => done(type, doneDate)}
         type={type}

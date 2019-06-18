@@ -21,7 +21,7 @@ import { BlurView } from 'react-native-blur';
 import DoCardForm from '../../Form/DoCardForm/index';
 // static displayName =
 
-export default class Do extends Component {
+export default class DoView extends Component {
  
 
   static propTypes = {};
