@@ -5,8 +5,11 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { StyledContent } from '../style';
-
+import {
+  StyledContent,
+  StyledNarBarRightView
+} from '../style';
+import NavBar from '../../../components/Nav/bar/NavBar';
 @connect(
   state => ({
 
@@ -18,10 +21,25 @@ export default class Search extends PureComponent {
 
   static defaultProps = {};
 
+  static navigationOptions = () => ({
+    header: null,
+  });
+
+
+  renderNarBarRightView = () => (
+    <StyledNarBarRightView />
+  )
 
   render() {
+    const { navigation } = this.props;
+    const { goBack } = navigation;
     return (
-      <StyledContent />
+      <StyledContent>
+        <NavBar
+          onBackPress={goBack}
+          rightView={this.renderNarBarRightView}
+        />
+      </StyledContent>
     );
   }
 }
