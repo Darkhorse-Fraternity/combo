@@ -388,7 +388,7 @@ export default class RComment extends PureComponent {
           style={{ paddingHorizontal: 10 }}
         >
           <StyledIcon
-            size={25}
+            size={20}
             color="black"
             name="edit"
           />
@@ -402,7 +402,7 @@ export default class RComment extends PureComponent {
         >
           {iDoLoad ? <ActivityIndicator /> : (
             <StyledIcon
-              size={25}
+              size={20}
               color="black"
               name="close"
             />

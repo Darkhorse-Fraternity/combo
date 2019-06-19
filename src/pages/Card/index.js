@@ -144,7 +144,7 @@ export default class Card extends Component {
       >
         <StyledIcon
           style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
-          size={25}
+          size={20}
           name="users"
         />
       </Button>
@@ -160,7 +160,7 @@ export default class Card extends Component {
         <StyledIcon
           color="black"
           style={{ marginRight: 10 }}
-          size={25}
+          size={20}
           name="more-horizontal"
         />
       </Button>,

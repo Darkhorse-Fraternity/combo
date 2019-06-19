@@ -34,10 +34,11 @@ import Flag from './Flag';
 import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
-
+import Search from './NewCard/Search';
 
 export const otherRoute = {
   web: { screen: WebView },
+  search: { screen: Search },
   tool: { screen: Tool },
   FlagRecord: { screen: FlagRecord },
   earnings: { screen: Earnings },
