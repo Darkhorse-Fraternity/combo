@@ -2,14 +2,14 @@
  * Created by lintong on 2018/7/23.
  * @flow
  */
-'use strict';
 
-import React, { Component } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+
+import React, { PureComponent } from 'react';
 import {
+  StyleSheet, Dimensions, Platform,
   View,
   Image
-} from 'react-native'
+} from 'react-native';
 import PropTypes from 'prop-types';
 
 import {
@@ -18,37 +18,28 @@ import {
   StyledInnerView,
   StyledTitle,
   StyledImageBack
-} from './style'
-import icons from '../../../../source/icons'
-
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+} from './style';
+import icons from '../../../../source/icons';
 
 
-export default class CardCell extends Component {
-  constructor(props: Object) {
-    super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
-  }
-
+export default class CardCell extends PureComponent {
   static propTypes = {
     onPress: PropTypes.func,
     img: PropTypes.object,
     title: PropTypes.string,
     des: PropTypes.string,
   };
+
   static defaultProps = {};
 
 
   render(): ReactElement<any> {
-
-
     const {
       title,
       onPress,
       name,
       color,
-    } = this.props
+    } = this.props;
 
 
     // const {  iconAndColor,title ,recordDay} = iCard
@@ -61,7 +52,7 @@ export default class CardCell extends Component {
     return (
       <StyledContent onPress={onPress}>
         <StyledImageBack color={color}>
-          <StyledImage resizeMode={'contain'} source={icons[name]}/>
+          <StyledImage resizeMode="contain" source={icons[name]} />
         </StyledImageBack>
         <StyledTitle numberOfLines={1}>
           {title}
@@ -70,5 +61,3 @@ export default class CardCell extends Component {
     );
   }
 }
-
-

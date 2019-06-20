@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -13,48 +13,53 @@ import {
   StatusBar
 } from 'react-native';
 
-import Button from "../../../components/Button";
+import Button from '../../Button';
+import HeaderBackImage from '../components/HeaderBackImage';
 
-const backWidth = Dimensions.get('window').width / 3
-import HeaderBackImage from '../../../components/Nav/components/HeaderBackImage'
+const backWidth = Dimensions.get('window').width / 3;
 
-export default class BackTabBar extends Component {
+export default class BackTabBar extends PureComponent {
   static propTypes = {
     title: PropTypes.string
   };
 
-
+  static defaultProps = {
+    title: ''
+  }
 
   render() {
+    const { title } = this.props;
 
-    const {title} = this.props
-
-    const background = TouchableNativeFeedback.SelectableBackgroundBorderless &&
-      TouchableNativeFeedback.SelectableBackgroundBorderless()
+    const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+      && TouchableNativeFeedback.SelectableBackgroundBorderless();
     return (
       <View style={[styles.tabs, {
         backgroundColor:
-        this.props.backgroundColor || 'white', marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-      }, this.props.style,]}>
+        this.props.backgroundColor || 'white',
+        marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+      }, this.props.style, ]}
+      >
         <Button
           background={background}
           onPress={() => {
-            this.props.onBackPress &&
-            this.props.onBackPress()
+            this.props.onBackPress
+            && this.props.onBackPress();
           }}
           style={{
             width: backWidth,
             justifyContent: 'center',
-          }}>
-          <HeaderBackImage/>
+          }}
+        >
+          <HeaderBackImage />
         </Button>
         <View style={[styles.tab, styles.contain]}>
-            <Text
-              adjustsFontSizeToFit={true}
-              numberOfLines={1}
-              style={styles.title}>
-              {title}
-            </Text>
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            style={styles.title}
+          >
+            {title}
+          </Text>
         </View>
         <View style={{
           width: backWidth,
@@ -62,9 +67,10 @@ export default class BackTabBar extends Component {
           justifyContent: 'flex-end',
           paddingRight: 0,
           alignItems: 'center'
-        }}>
-          {this.props.rightView &&
-          this.props.rightView()}
+        }}
+        >
+          {this.props.rightView
+          && this.props.rightView()}
         </View>
       </View>
     );
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
 
   },
-  title:{
+  title: {
     alignItems: 'center',
     fontSize: 19,
   }

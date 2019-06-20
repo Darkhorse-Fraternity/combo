@@ -790,9 +790,9 @@
     xcode "^2.0.0"
     xmldoc "^0.4.0"
 
-"@react-native-community/netinfo@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.npm.taobao.org/@react-native-community/netinfo/download/@react-native-community/netinfo-3.1.0.tgz#760ec7f6da4aa4fc187a3d03e801490621abd714"
+"@react-native-community/netinfo@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npm.taobao.org/@react-native-community/netinfo/download/@react-native-community/netinfo-3.2.1.tgz#cd073b81a4b978f7f55f1a960a0b56c462813e02"
 
 "@react-native-community/viewpager@^1.1.7":
   version "1.1.7"
@@ -5739,10 +5739,6 @@ react-native-gesture-handler@^1.0.10:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     prop-types "^15.5.10"
-
-react-native-google-analytics-bridge@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.npm.taobao.org/react-native-google-analytics-bridge/download/react-native-google-analytics-bridge-6.1.2.tgz#1b901d7c06209f88baf4980d5be2ca8150c8df66"
 
 react-native-i18n@^2.0.15:
   version "2.0.15"

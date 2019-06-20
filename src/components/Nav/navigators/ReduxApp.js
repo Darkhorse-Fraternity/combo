@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import {
   ActivityIndicator,
   Platform
-} from 'react-native'
+} from 'react-native';
 import {
   reduxifyNavigator,
-} from 'react-navigation-redux-helpers'
+} from 'react-navigation-redux-helpers';
 import React, { Component } from 'react';
 
 // const prefix = Platform.OS === 'android' ? 'combo://combo/' : 'combo://';
 
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
-let App
+let App;
 @connect(
   state => ({
     state: state.nav,
@@ -20,11 +20,10 @@ let App
 )
 export default class ReduxApp extends Component {
   render(): ReactElement<any> {
-    const { state, dispatch ,appNavigator} = this.props
-     App = !App ? reduxifyNavigator(appNavigator, "root"):App;
+    const { state, dispatch, appNavigator } = this.props;
+    App = !App ? reduxifyNavigator(appNavigator, 'root') : App;
     return (
-      <App {...{state,dispatch}}/>
+      <App {...{ state, dispatch }} />
     );
   }
 }
-
