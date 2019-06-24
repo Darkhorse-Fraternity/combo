@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 const appleAppID = '1332546993';
 let hasTryRate = false;
 const androidRateTime = 'AndroidRateTime';
-const appURL = 'https://icard.leanapp.cn/';
+const appURL = 'https://icouage.cn/';
 
 const iosRate = () => {
   // 版本10.3之后用这个方法

@@ -7,12 +7,12 @@ import { appChannel } from '../../helps/util';
 
 
 export const defaultHost = !__DEV__
-  /* release */ ? 'cmwljtyw.api.lncld.net/1.1'
-  /* debug */ : 'cmwljtyw.api.lncld.net/1.1';
+  /* release */ ? 'api.icourage.cn/1.1'
+  /* debug */ : 'api.icourage.cn/1.1';
 
 
 export const apiHost = !__DEV__
-  /* release */ ? 'icard.leanapp.cn'
+  /* release */ ? 'icourage.cn'
 /* debug */ : 'stg-icard.leanapp.cn';
   // /* debug */ : 'icard.leanapp.cn';
 

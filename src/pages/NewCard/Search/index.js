@@ -107,6 +107,7 @@ export default class Search extends PureComponent {
         {text.length > 0 && (
         <LCList
           style={style}
+          noDataPrompt="没有查到相关习惯"
           reqKey={listKey} // 在normalizr 中的位置
           renderItem={this.renderRow}
           reqParam={param}

@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AV from 'leancloud-storage';
 
 import {
   StyledContent,

@@ -66,7 +66,7 @@ export default class ShareView extends Component {
 
     const shareParams = {
       title: iCard.title,
-      webpageUrl: `https://icard.leanapp.cn/cardInfo?iCardId=${iCard.objectId}`,
+      webpageUrl: `https://icourage.cn/cardInfo?iCardId=${iCard.objectId}`,
       description: iCard.nitifyText || '加入我的卡片，和我结伴同行',
       imageUrl: url,
       thumbImage: `${url}?imageView/1/w/100/h/100/q/50` // /1/代表center

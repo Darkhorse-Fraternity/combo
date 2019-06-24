@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -17,7 +17,6 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Toast from 'react-native-simple-toast';
 import {
   StyledContent,
@@ -94,10 +93,9 @@ import { addNormalizrEntity } from '../../redux/module/normalizr';
 )
 
 
-export default class Card extends Component {
+export default class Card extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       scrollValue: new Animated.Value(0)
     };
@@ -126,12 +124,19 @@ export default class Card extends Component {
   //   DeviceEventEmitter.emit(key);
   // }
 
+  componentDidMount() {
+    // const { iCard, iUse } = this.props
+    // const state = iCard.get('state')
+    // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
+    //   title: iCard.get('title') })
+  }
 
   __renderRightView = () => {
     const { navigation, iCard, user } = this.props;
     const { state } = navigation;
     const { params } = state;
     const { iCardId, iUseId } = params;
+
 
     const isSelf = iCard.get('user') === user.objectId;
     return [
@@ -167,13 +172,6 @@ export default class Card extends Component {
     ];
   }
 
-
-  componentDidMount() {
-    // const { iCard, iUse } = this.props
-    // const state = iCard.get('state')
-    // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
-    //   title: iCard.get('title') })
-  }
 
   render(): ReactElement<any> {
     // const params = this.props.navigation.state.params

@@ -2,44 +2,43 @@
  * Created by lintong on 2017/9/7.
  * @flow
  */
-'use strict';
+
 
 import {
-    Platform,
-    Animated,
-    Easing
-} from 'react-native'
+  Platform,
+  Animated,
+  Easing
+} from 'react-native';
 
 // import {HeaderStyleInterpolator} from 'react-navigation';
-import * as Transition from './Transition'
+import StackViewStyleInterpolator from 'react-navigation-stack/lib/module/views/StackView/StackViewStyleInterpolator';
+import * as Transition from './Transition';
 
-import StackViewStyleInterpolator from 'react-navigation-stack/dist/views/StackView/StackViewStyleInterpolator'
-//https://github.com/react-community/react-navigation/issues/85  穿透共享元素讨论
+// https://github.com/react-community/react-navigation/issues/85  穿透共享元素讨论
 
-export  const TransitionConfiguration = () => ({
-    screenInterpolator: (sceneProps) => {
-        const { scenes} = sceneProps;
-        const scene =scenes[scenes.length-1]
-        const { route } = scene;
-        const params = route.params || {};
+export const TransitionConfiguration = () => ({
+  screenInterpolator: (sceneProps) => {
+    const { scenes } = sceneProps;
+    const scene = scenes[scenes.length - 1];
+    const { route } = scene;
+    const params = route.params || {};
 
-        let transition = params.transition || 'forHorizontal';
-        if(params.transition === 'none'){return null}
+    let transition = params.transition || 'forHorizontal';
+    if (params.transition === 'none') { return null; }
 
-        // andorid 上拉不同。翻转动画实现，如果需要和ios一致，则在这边修改
-        if(transition === 'forVertical' && Platform.OS === 'android')
-        {transition = 'forFadeFromBottomAndroid'}
+    // andorid 上拉不同。翻转动画实现，如果需要和ios一致，则在这边修改
+    if (transition === 'forVertical' && Platform.OS === 'android') { transition = 'forFadeFromBottomAndroid'; }
 
-        const StackTransitions = {
-            ...StackViewStyleInterpolator,
-            ...Transition
-        }
-        return StackTransitions[transition](sceneProps);
-    },
-    transitionSpec: {
-        duration: 500,
-        easing: Easing.bezier(0.2833, 0.99, 0.31833, 0.99),
-        timing: Animated.timing,
-        //useNativeDriver:false,
-    },
+    const StackTransitions = {
+      ...StackViewStyleInterpolator,
+      ...Transition
+    };
+    return StackTransitions[transition](sceneProps);
+  },
+  transitionSpec: {
+    duration: 500,
+    easing: Easing.bezier(0.2833, 0.99, 0.31833, 0.99),
+    timing: Animated.timing,
+    // useNativeDriver:false,
+  },
 });

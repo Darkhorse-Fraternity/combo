@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -18,7 +18,7 @@ import HeaderBackImage from '../components/HeaderBackImage';
 
 const backWidth = Dimensions.get('window').width / 3;
 
-export default class BackTabBar extends PureComponent {
+export default class BackTabBar extends Component {
   static propTypes = {
     title: PropTypes.string
   };
@@ -37,7 +37,7 @@ export default class BackTabBar extends PureComponent {
         backgroundColor:
         this.props.backgroundColor || 'white',
         marginTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-      }, this.props.style, ]}
+      }, this.props.style,]}
       >
         <Button
           background={background}

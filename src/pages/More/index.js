@@ -37,9 +37,9 @@ import {
 } from '../../redux/reqKeys';
 import {
   friendNum,
-} from '../../request/leanCloud';
+ updateNickName } from '../../request/leanCloud';
 import Avatar from '../../components/Avatar';
-import { updateNickName } from '../../request/leanCloud';
+
 
 @connect(
   state => ({
@@ -73,7 +73,7 @@ import { updateNickName } from '../../request/leanCloud';
         preferredAndroidMarket: AndroidMarket.Other,
         OtherAndroidURL: url,
         openAppStoreIfInAppFails: true,
-        fallbackPlatformURL: 'https://icard.leanapp.cn/',
+        fallbackPlatformURL: 'https://icouage.cn/',
       };
       Rate.rate(options, (success) => {
         if (success) {
