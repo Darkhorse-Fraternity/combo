@@ -87,7 +87,7 @@ export default class Diary extends Component {
 }
 
 export function recordDiary(iUse) {
-  Pop.show(<DoWithLoad localSaveID={iUse.objectId} />,
+  Pop.show(<Diary localSaveID={iUse.objectId} iUse={iUse} />,
     {
       wrapStyle: { justifyContent: 'flex-start' },
       maskStyle: {

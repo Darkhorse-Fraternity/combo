@@ -7,10 +7,12 @@ import DoWithLoad from './DoWithLoad';
 
 
 // const BlurView = Platform.OS === 'ios' ? BlurViewIOS : View
-import { uploadImages } from '../../../redux/actions/util';
+import { uploadImages, localRemind } from '../../../redux/actions/util';
 import Pop from '../../Pop/index';
 
-import { ICARD, IDO, IDOULIMAGE } from '../../../redux/reqKeys';
+import {
+  ICARD, IDO, IDOULIMAGE, IUSE
+} from '../../../redux/reqKeys';
 import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
 import creatIDO from '../doCard';
@@ -18,22 +20,25 @@ import creatIDO from '../doCard';
 @connect(
   state => ({
     // data:state.req.get()
-    iCard: state.normalizr.get(ICARD),
-    load: state.req.get(IDO).get('load')
-    || state.req.get(IDOULIMAGE).get('load')
+    // iCard: state.normalizr.get(ICARD),
+    // load: state.req.get(IDO).get('load')
+    // || state.req.get(IDOULIMAGE).get('load')
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
-    done: (type = 0, doneDate = new Date()) => {
-      // 先判断是否有图片，如果有则 先上传图片。
-      // console.log('done');
+    done: (type = 0, doneDate = new Date()) =>
+    // 先判断是否有图片，如果有则 先上传图片。
+    // console.log('done');
 
-      return dispatch(async (dispatch, getState) => {
+      dispatch(async (dispatch, getState) => {
         try {
-          const { iUse } = props;
-          // const {files, ...otherState} = state
+          console.log('xxxxx');
 
+          const { iUse } = props;
           const state = getState();
+          // const {files, ...otherState} = state
+          // const iUse = state.normalizr.get(IUSE).get(iUseId).toJS();
+
           const iCardM = state.normalizr.get(ICARD).get(iUse[ICARD]).toJS();
 
 
@@ -77,8 +82,8 @@ import creatIDO from '../doCard';
         } catch (e) {
           console.log('test:', e.message);
         }
-      });
-    },
+      })
+    ,
   })
 )
 
@@ -87,17 +92,19 @@ export default class Do extends Component {
     const {
       type = 0,
       done,
-      iCard,
+      record,
       doneDate,
+      iUseId,
       ...otherProps
     } = this.props;
     // const iCard = this.props.iCard.get(iUse[ICARD]);
-    const { record } = iCard;
+
     // record 强制类型需要
 
     return (
       <DoWithLoad
         record={record}
+        localSaveID={iUseId}
         done={() => done(type, doneDate)}
         type={type}
         {...otherProps}

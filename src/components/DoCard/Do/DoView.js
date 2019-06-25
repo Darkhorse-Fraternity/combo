@@ -22,8 +22,6 @@ import DoCardForm from '../../Form/DoCardForm/index';
 // static displayName =
 
 export default class DoView extends Component {
- 
-
   static propTypes = {};
 
   static defaultProps = {};
@@ -43,7 +41,6 @@ export default class DoView extends Component {
     const {
       record, load, done, type, localSaveID
     } = this.props;
-    // const iconAndColor = iCard.get('iconAndColor')
     // const color = iconAndColor && iconAndColor.get('color')
     const color = '#51c332';
 

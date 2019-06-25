@@ -100,6 +100,7 @@ export const StyledImageBack2 = styled.View`
   border-radius: 10px;
   padding: 10px;
   align-items: center;
+  height: 60px;
 `;
 
 export const StyledImage2 = styled.Image`
