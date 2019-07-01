@@ -4029,6 +4029,10 @@ jest@^24.1.0:
     import-local "^2.0.0"
     jest-cli "^24.8.0"
 
+jetifier@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npm.taobao.org/jetifier/download/jetifier-1.6.0.tgz#38b365958de88ba00359f8b1cbb166acf4d0573f"
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npm.taobao.org/js-tokens/download/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -5684,9 +5688,9 @@ react-native-debugger-open@^0.3.18:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-device-info@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-2.1.1.tgz#c6ddc022033756a5e4c5899eb83e390b5a18cc17"
+react-native-device-info@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-1.8.0.tgz#98a7e3adb4e3d377eeba9c751bda03b2d7f9da35"
 
 react-native-dialogs@^1.0.0:
   version "1.0.5"
@@ -5696,9 +5700,9 @@ react-native-exception-handler@^2.10.2:
   version "2.10.7"
   resolved "https://registry.npm.taobao.org/react-native-exception-handler/download/react-native-exception-handler-2.10.7.tgz#3ce2f10d6a8add35fdc036af62c2859c4b7f505c"
 
-react-native-fast-image@^6.0.3:
-  version "6.0.3"
-  resolved "https://registry.npm.taobao.org/react-native-fast-image/download/react-native-fast-image-6.0.3.tgz#e644076c5e21dd8695db07905779352b2b9c1cb8"
+react-native-fast-image@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.npm.taobao.org/react-native-fast-image/download/react-native-fast-image-6.1.0.tgz#2562ed0c62e9c07df2cc275c797ef90e76e987d2"
 
 react-native-flip-card@^3.5.2:
   version "3.5.5"
@@ -5801,7 +5805,7 @@ react-native-platform-touchable@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npm.taobao.org/react-native-platform-touchable/download/react-native-platform-touchable-1.1.1.tgz#fde4acc65eea585d28b164d0c3716a42129a68e4"
 
-react-native-push-notification@^3.1.2:
+react-native-push-notification@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npm.taobao.org/react-native-push-notification/download/react-native-push-notification-3.1.3.tgz#f8dab43aec734dbb1a8bbc50caf82dd682655392"
 
