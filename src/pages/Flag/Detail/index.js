@@ -9,7 +9,9 @@ import {
   View,
   Text,
   StyleSheet,
-  Platform
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Linking
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -24,7 +26,7 @@ import {
 } from '../../../redux/reqKeys';
 import { selfUser, iCard, Flag } from '../../../request/LCModle';
 import { add, find, update } from '../../../redux/module/leancloud';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { addNormalizrEntity, addNormalizrEntities } from '../../../redux/module/normalizr';
 import PayForm, { FormID } from '../../../components/Form/Pay';
 import { easyPay } from '../../../redux/module/pay';
 
@@ -38,13 +40,16 @@ import {
   StyledTitle,
   StyledDiscrib,
   StyledBtn,
-  StyledHeaderBtnText
+  StyledHeaderBtnText,
+  StyledComplaintText
 } from './style';
 import Pop from '../../../components/Pop';
-import { addListNormalizrEntity } from '../../../redux/actions/list';
-import { list, entitys } from '../../../redux/scemes';
+import { listReq } from '../../../redux/actions/list';
+// import { list, entitys } from '../../../redux/scemes';
 import { fbJoin } from '../../../request/LCCloudFuncs';
 import { req } from '../../../redux/actions/req';
+import { iUseList as iUseListParams } from '../../../request/leanCloud';
+
 
 @connect(
   (state, props) => ({
@@ -70,26 +75,49 @@ import { req } from '../../../redux/actions/req';
         ...Flag(flagId),
         title: description,
         amount: cost,
-        endDate,
         startDate,
+        endDate,
         tradeId,
         // include: 'avatar'
       };
-      const entity = {
-        ...param,
-      };
+      // const entity = {
+      //   ...param,
+      // };
       const fbParam = fbJoin(param);
       // console.log('fbParam', fbParam);
 
       const fbRes = await dispatch(req(fbParam));
       // console.log('fbRes', fbRes);
       if (fbRes) {
-        fbRes.result.iUse && dispatch(addListNormalizrEntity(IUSE, fbRes.result.iUse));
-        dispatch(addNormalizrEntity(FLAGRECORD, entity));
-        dispatch(addNormalizrEntity(FLAG, {
+        // fbRes.result.iUse && dispatch(addListNormalizrEntity(IUSE, fbRes.result.iUse));
+        // dispatch(addNormalizrEntity(FLAGRECORD, entity));
+        await dispatch(addNormalizrEntity(FLAG, {
           objectId: flagId,
           joinNum: joinNum + 1,
           totalBonus: totalBonus + cost
+        }));
+
+
+        // 刷新首页
+        dispatch(listReq(IUSE, iUseListParams(), false, {
+          dataMap: (data) => {
+            const { iUseList } = data.result;
+            // 添加副本
+            // console.log('fbList', fbList);
+
+            // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+
+            // 通过本地时间验证,判断今日是否已经打卡
+            const newIUseList = iUseList.sort((a, b) => {
+              const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+              const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
+              if (aDone && bDone) {
+                return false;
+              }
+              return aDone;
+            });
+            return { results: newIUseList };
+          }
         }));
       }
 
@@ -196,14 +224,19 @@ export default class FlagDetail extends PureComponent {
   }
 
   _renderTaskDesMore = () => {
-    const iCard = this.props.iCard.toJS();
-    const flag = this.props.flag.toJS();
-    const { limitTimes } = iCard;
+    const iCardM = this.props.iCard.toJS();
+    // eslint-disable-next-line react/destructuring-assignment
+    const flagM = this.props.flag.toJS();
+    const { limitTimes } = iCardM;
     const {
       cost,
       startDate,
       endDate
-    } = flag;
+    } = flagM;
+
+    // const limitEndDate = moment(limitTimes[1], 'HH');
+    // const limitEndHour = limitEndDate.hours();
+
     return (
       <StyledFlagView>
         <StyledTitle>
@@ -215,7 +248,7 @@ export default class FlagDetail extends PureComponent {
           {' '}
 -
           {' '}
-          {moment(startDate.iso).format('MM月DD日')}
+          {moment(endDate.iso).format('MM月DD日')}
         </StyledDiscrib>
         <StyledDiscrib>
           打卡时段：
@@ -224,11 +257,11 @@ export default class FlagDetail extends PureComponent {
             <Text style={{ color: '#f5943f' }}>
               {limitTimes[0]}
               {' '}
--
+              -
               {' '}
               {limitTimes[1]}
               {' '}
-(北京时间)
+              (北京时间)
             </Text>
             )}
         </StyledDiscrib>
@@ -242,11 +275,11 @@ export default class FlagDetail extends PureComponent {
         </StyledDiscrib>
         <StyledDiscrib>
           报名截止：
-          {moment(startDate.iso).subtract(1, 'seconds').format('MM月DD日 hh:mm')}
+          {moment(startDate.iso).format('MM-DD HH:mm')}
         </StyledDiscrib>
         <StyledDiscrib>
           结算时间：
-          {moment(endDate.iso).add(3, 'hours').format('MM月DD日 hh:mm')}
+          {moment(endDate.iso).add(300, 'seconds').format('MM-DD HH:mm')}
         </StyledDiscrib>
       </StyledFlagView>
     );
@@ -254,7 +287,7 @@ export default class FlagDetail extends PureComponent {
 
   _renderReward = () => {
     const { flag } = this.props;
-    const cost = flag.get('cost');
+    // const cost = flag.get('cost');
     const reward = flag.get('reward');
     const rewardConfig = flag.get('rewardConfig');
     const rewardView = () => {
@@ -326,8 +359,25 @@ export default class FlagDetail extends PureComponent {
       </StyledTitle>
       <StyledDiscrib>
           为保障用户财产不受侵害,当用户因小改变app问题没有正常完成副本任务,
-          用户可以通过我们的微博号进行申诉。
+          用户可以通过我们的微博号进行申诉:
       </StyledDiscrib>
+      <TouchableOpacity onPress={() => {
+        Linking.canOpenURL('sinaweibo://').then((supported) => { // weixin://  alipay://
+          if (supported) {
+            Linking.openURL('sinaweibo://messagelist?uid=6861885697');
+          } else {
+            this.props.navigation.navigate('web', {
+              url: 'https://weibo.com/u/6861885697',
+              title: '小改变的微博'
+            });
+          }
+        });
+      }}
+      >
+        <StyledComplaintText>
+        「 点击申诉 」
+        </StyledComplaintText>
+      </TouchableOpacity>
     </StyledFlagView>
   )
 

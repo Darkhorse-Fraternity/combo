@@ -61,9 +61,9 @@ export default class FlagRecord extends PureComponent {
   )
 
 
-  __renderItem = ({ item, index }) => {
+  __renderItem = ({ item }) => {
     const {
-      totalBonus, startDate, cost, objectId, joinNum, reward
+      totalBonus, startDate, objectId, joinNum, reward
     } = item;
     return (
       <StyledItem onPress={() => {

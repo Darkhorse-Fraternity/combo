@@ -196,7 +196,7 @@ export function add(key, data) {
   };
 }
 
-export function addListNormalizrEntity(key, data): Function {
+export function addListNormalizrEntity(key, data) {
   return (dispatch) => {
     if (!data) {
       return;

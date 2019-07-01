@@ -2,7 +2,7 @@
  * Created by lintong on 2019/1/10.
  * @flow
  */
-'use strict';
+
 
 import React, { PureComponent } from 'react';
 import {
@@ -10,33 +10,41 @@ import {
   Image,
   Animated,
   Easing
-} from 'react-native'
+} from 'react-native';
 import PropTypes from 'prop-types';
-
-const AnimatedImage = Animated.createAnimatedComponent(Image);
 import * as Animatable from 'react-native-animatable';
 import {
   StyledContent,
   StyleLogo
-} from './style'
+} from './style';
+
+const AnimatedImage = Animated.createAnimatedComponent(Image);
 
 
 export default class Indicators extends PureComponent {
+  static propTypes = {
+    size: PropTypes.string,
+    animated: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    size: 'small',
+    animated: true
+  };
+
   constructor(props: Object) {
     super(props);
-    this.springValue = new Animated.Value(0)
+    this.springValue = new Animated.Value(0);
   }
 
-  static propTypes = {
-    size: PropTypes.string
-  };
-  static defaultProps = {
-    size: 'small'
-  };
+
+  componentDidMount() {
+    this.toMax();
+  }
 
 
   toMax() {
-    this.springValue.setValue(0)
+    this.springValue.setValue(0);
     Animated.timing(
       this.springValue,
       {
@@ -45,36 +53,31 @@ export default class Indicators extends PureComponent {
         easing: Easing.linear
       }
     ).start(() => {
-      this.toMax()
-    })
+      this.toMax();
+    });
   }
 
-
-
-  componentDidMount() {
-    this.toMax()
-  }
 
   render(): ReactElement<any> {
+    const { animated, size } = this.props;
 
     const spin = this.springValue.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg']
-    })
+    });
 
-    const size = this.props.size === 'large' ? 60:30
+    const sizeNum = size === 'large' ? 60 : 30;
+    const transform = animated ? { transform: [{ rotate: spin }] } : {};
 
     return (
       <AnimatedImage
         style={{
-          width:size,
-          height:size,
-          transform: [{ rotate: spin }]
+          width: sizeNum,
+          height: sizeNum,
+          ...transform
         }}
         source={require('../../../source/img/my/logo.png')}
       />
     );
   }
 }
-
-

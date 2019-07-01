@@ -654,7 +654,7 @@ export function likeAdd(iDoId, addNum) {
 
 export function iUseList() {
   return {
-    path: '/call/iUseList',
+    path: '/call/iUseList2',
     method: methodType.post,
     params: {
     }

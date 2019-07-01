@@ -19,10 +19,10 @@ import _ from 'lodash';
 import {
   ICARD, IUSE, IDO, FLAG, FLAGRECORD
 } from '../../redux/reqKeys';
-import { search, } from '../../redux/module/leancloud';
+// import { search, } from '../../redux/module/leancloud';
 import doCardWithNone from '../../components/DoCard/doCardWithNone';
 import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index';
-import { selfUser } from '../../request/LCModle';
+// import { selfUser } from '../../request/LCModle';
 import {
   StyledContent,
   StyledHeader,
@@ -35,7 +35,7 @@ import {
 import { strings } from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
-import { iUseList } from '../../request/leanCloud';
+import { iUseList as iUseListParams } from '../../request/leanCloud';
 import { addNormalizrEntities } from '../../redux/module/normalizr';
 import { listReq } from '../../redux/actions/list';
 
@@ -69,14 +69,15 @@ import { listReq } from '../../redux/actions/list';
     //   include: `${ICARD},iCard.user`
     // }, IUSE)),
     search: () => {
-      dispatch(listReq(IUSE, iUseList(), false, {
+      dispatch(listReq(IUSE, iUseListParams(), false, {
         dataMap: (data) => {
-          const { fbList, iUseList } = data.result;
+          const { iUseList } = data.result;
           // 添加副本
-          console.log('fbList', fbList);
+          // console.log('fbList', fbList);
 
-          dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+          // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
 
+          // 通过本地时间验证,判断今日是否已经打卡
           const newIUseList = iUseList.sort((a, b) => {
             const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
             const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
@@ -122,30 +123,39 @@ export default class Punch extends Component {
   ;
 
   componentDidMount() {
+    // this.props.search();
     // this.props.fbSearch();
     // this.props.getiUse();
-    const loadStatu = this.props.data.get('loadStatu');
-    loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
+    // const loadStatu = this.props.data.get('loadStatu');
+    // loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log('000');
+    const { user, search } = this.props;
     if (nextProps.user.objectId
-      && nextProps.user.objectId !== this.props.user.objectId) {
-      this.props.search();
+      && nextProps.user.objectId !== user.objectId) {
+      search();
       // this.props.fbSearch();
     }
-    if (this.props.flagRecord !== nextProps.flagRecord) {
-      const flagRecordModal = nextProps.flagRecord.toJS();
-      const frValue = Object.values(flagRecordModal);
-      const frMap = {};
-      frValue && frValue.forEach((item) => {
-        frMap[item.iCard] = item;
-      });
+    // console.log('1111');
 
-      this.setState({ frMap });
-    }
+    // if (flagRecord !== nextProps.flagRecord) {
+    //   const flagRecordModal = nextProps.flagRecord.toJS();
+    //   console.log('flagRecordModal', flagRecordModal);
+    //   const frValue = Object.values(flagRecordModal);
+    //   const frMap = {};
+    //   if (frValue) {
+    //     frValue.forEach((item) => {
+    //       // if (item.user && item.user.objectId === user.objectId) {
+    //       frMap[item.iCard] = item;
+    //       // }
+    //     });
+    //   }
+    //   this.setState({ frMap });
+    // }
   }
 
 
@@ -208,39 +218,26 @@ export default class Punch extends Component {
 
   __renderItem = (data) => {
     // return (<View/>)
-
-
     // const
     const views = data.item.map((item, index) => {
-      const data = item;
-      // const flag = this.props.Flag.get(item.Flag)
+      const iCardId = item[ICARD];
+      const iCard = this.props.iCard.get(iCardId);
+      const showFB = item.isFb;
 
-      // if (flag) {
-      //   const flagEndDate = flag.get('endDate') ? moment(flag.get('endDate').get('iso'))
-      //     : moment('24:00', 'HH:mm')
-      //   showFB = moment().isBefore(flagEndDate)
-      //   // console.log('endDate:', flag.get('endDate'));
+
+      // if (showFB) {
+      //   // TODO,这边感觉有点不安全。
+      //   const fr = this.state.frMap[iCardId];
+      //   const { objectId } = fr;
+      //   // const before = moment(startDate.iso);
+      //   // const after = moment(endDate.iso);
+      //   // const momentIn = moment().isBetween(before, after);
+      //   // if (momentIn) {
+      //   data.fr = objectId;
+      //   // }
       // }
 
-      // console.log('flag:', flag);
-      // console.log('data:', data);
-      const iCardId = data[ICARD];
-      const iCard = this.props.iCard.get(iCardId);
-      const showFB = !!this.state.frMap[iCardId];
-
-      if (showFB) {
-        // TODO,这边感觉有点不安全。
-        const fr = this.state.frMap[iCardId];
-        const { objectId, startDate, endDate } = fr;
-        // const before = moment(startDate.iso);
-        // const after = moment(endDate.iso);
-        // const momentIn = moment().isBetween(before, after);
-        // if (momentIn) {
-        data.fr = objectId;
-        // }
-      }
-
-      const done = moment(0, 'HH').isBefore(data.doneDate.iso);
+      const done = moment(0, 'HH').isBefore(item.doneDate.iso);
       let iconAndColor = iCard.get('iconAndColor');
       iconAndColor = iconAndColor ? iconAndColor.toJS() : {};
       return (
@@ -251,14 +248,14 @@ export default class Punch extends Component {
           color={iconAndColor.color}
           done={done}
           title={iCard.get('title')}
-          discrib={data.unSatisfyDiscrib || `${data.time}次`}
+          discrib={item.unSatisfyDiscrib || `${item.time}次`}
           onPress={async (flip, doIt) => {
             // const iCardM = iCard.toJS()
             // 如果没有强制打卡类型，则直接翻转
-            if (!flip && data.satisfy) {
+            if (!flip && item.satisfy) {
               iCard.get('record').size === 0 && doIt();
               if (!this.props.load && !done) {
-                await this.props.done(data);
+                await this.props.done(item);
               }
             } else {
               this.props.navigation.navigate('card', {

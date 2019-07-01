@@ -86,12 +86,15 @@ export const StyledTitle2 = styled.Text`
     font-size: 17px;
     margin-left: 10px;
     margin-top:5px;
+    max-width: 70%
 `;
 export const StyledNotify = styled.Text`
     color: #808080;
     font-size: 15px;
     margin-left: 10px;
-    margin-top:5px;
+    margin-top:8px;
+    max-width: 80%;
+    
 `;
 
 
@@ -116,5 +119,5 @@ export const StyledArrowView = styled.View`
   transform: rotate(315deg);
   width: 10px;
   height: 10px;
-  margin-right: 35px;
+  margin-right: 20px;
 `;

@@ -4,13 +4,10 @@
  * https://github.com/facebook/react-native
  */
 
-import { batch } from '../module/leancloud'
 import { NavigationActions, StackActions } from 'react-navigation';
-import { setLeanCloudSession } from '../../configure/reqConfigs'
 // *** Action Types ***
-import { Platform } from 'react-native'
+import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import { updatePush } from '../../configure/push/push'
 import { user } from '../../request/LCModle'
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
@@ -18,7 +15,10 @@ import * as QQAPI from 'react-native-qq';
 import moment from 'moment'
 import DeviceInfo from 'react-native-device-info'
 import md5 from "react-native-md5";
-import { get, req } from './req'
+import { updatePush } from '../../configure/push/push'
+import { setLeanCloudSession } from '../../configure/reqConfigs';
+import { batch } from '../module/leancloud';
+import { get, req } from './req';
 import {
   loadAccount,
 } from '../../configure/storage';
@@ -146,7 +146,7 @@ const anonymousUser = () => async (dispatch) => {
     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
     const user = await get(userInfoParmas);
     await dispatch(_loginSucceed(user));
-    await dispatch(_addSample(user));
+    await dispatch(addSample(user));
     //
     // dispatch(NavigationActions.navigate({
     //   routeName: 'tab'
@@ -224,7 +224,7 @@ const iUseSample = (objectId, iCardId) => ({
 });
 
 // 预设示例
-function _addSample(user) {
+function addSample(user) {
   return async (dispatch) => {
     const { createdAt, updatedAt, objectId } = user;
     const createdAtTime = (new Date(createdAt)).getTime();
@@ -244,6 +244,7 @@ function _addSample(user) {
         }
       });
       // 添加圈子示例
+      // 5d15ef37a91c9300681b515b
       const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
       iUseReq.push(classCreatNewOne('iUse', iUseParam));
       const iUseBatch = classBatch(iUseReq);
@@ -332,7 +333,7 @@ export function register(state: Object): Function {
       );
       const user = await get(params);
       await dispatch(_loginSucceed(user));
-      await dispatch(_addSample(user));
+      await dispatch(addSample(user));
       // dispatch(NavigationActions.navigate({
       //   routeName: 'punch'
       // }))
@@ -485,8 +486,8 @@ export function updateUserData(data: Object) {
 
 export function updateMeByParam(param) {
   return async (dispatch, getState) => {
-    const user = getState().user.data;
-    const params = getUpdateMeByParam(user.objectId, param);
+    const userData = getState().user.data;
+    const params = getUpdateMeByParam(userData.objectId, param);
     await get(params);
     return dispatch(updateUserData(param));
   };
@@ -559,7 +560,7 @@ export function weChatLogin(Key) {
         user = await get(userInfoParmas);
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
-          await dispatch(_addSample(user));
+          await dispatch(addSample(user));
           // dispatch(NavigationActions.navigate({
           //   routeName: 'tab',
           //   params: { transition: 'forVertical' }
@@ -639,7 +640,7 @@ export function qqLogin(Key) {
         user = await get(userInfoParmas);
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
-          await dispatch(_addSample(user));
+          await dispatch(addSample(user));
           // dispatch(NavigationActions.navigate({
           //   routeName: 'tab',
           //   params: { transition: 'forVertical' }

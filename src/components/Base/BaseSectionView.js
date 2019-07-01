@@ -179,8 +179,8 @@ export default class BaseSectionView extends PureComponent {
     return `${key}`;
   }
 
-
   openRefreshing = false
+
 
   render() {
     // const refreshable = this.props.refreshable && this.props.loadData;

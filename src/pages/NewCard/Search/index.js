@@ -56,7 +56,6 @@ export default class Search extends PureComponent {
       user,
       notifyText
     } = item;
-    console.log('item', item);
 
     const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' };
     const { navigation } = this.props;
@@ -75,7 +74,6 @@ export default class Search extends PureComponent {
   }
 
   render() {
-    const { style } = this.props;
     const { text } = this.state;
 
     const param = {
@@ -106,6 +104,7 @@ export default class Search extends PureComponent {
         <View style={{ height: 20 }} />
         {text.length > 0 && (
         <LCList
+          keyboardDismissMode="interactive"
           noDataPrompt="没有查到相关习惯"
           reqKey={listKey} // 在normalizr 中的位置
           renderItem={this.renderRow}

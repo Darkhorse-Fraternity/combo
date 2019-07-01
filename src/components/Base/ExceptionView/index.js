@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { defaultFormatUtc } from 'moment';
 import Indicators from '../../Indicators';
 import {
   StyledContent,
@@ -50,15 +51,6 @@ export default class ExceptionView extends Component {
   }
 
 
-  renderOtherTips() {
-    if (isValidElement(this.props.otherTips)) {
-      return this.props.otherTips;
-    }
-    return (
-      <Text style={styles.otherTips}>{this.props.otherTips}</Text>
-    );
-  }
-
   renderTipButton = () => (
     this.props.tipBtnText ? (
       <StyledReportBtn onPress={() => {
@@ -73,58 +65,36 @@ export default class ExceptionView extends Component {
     ) : null
   )
 
-  render() {
-    // let prompt = this.getPromptText(this.props.exceptionType);
-    // console.log('test:', this.props.styles);
-    // const style = {height:300,... this.props.styles}
-    // console.log('test:', style);
-    const {
-      otherTips, onRefresh, refresh, style, styles
-    } = this.props;
+  renderPrompt() {
+    if (isValidElement(this.props.prompt)) {
+      return this.props.prompt;
+    }
+    const text = this.getPromptText(this.props.exceptionType);
+    if (text) {
+      return (
+        <Text style={styles.text}>
+          {text}
+        </Text>
+      );
+    }
+  }
+
+  renderOtherTips() {
+    const { otherTips } = this.props;
+    if (isValidElement(otherTips)) {
+      return otherTips;
+    }
     return (
-      <StyledContent
-        style={[style, styles]}
-      >
-        {this._renderPromptIndicator(this.props.exceptionType)}
-        {this.renderPrompt()}
-        {otherTips && this.renderOtherTips()}
-        {!refresh && onRefresh ? this.renderTipButton()
-          : <StyleReportView />}
-        {/* <Button */}
-        {/* style={} */}
-        {/* onPress={() => { */}
-        {/* this.props.onRefresh && this.props.onRefresh() */}
-        {/* }}> */}
-
-        {/**/}
-        {/* </Button> */}
-
-      </StyledContent>
+      <Text style={styles.otherTips}>{otherTips}</Text>
     );
   }
 
-  _renderPromptIndicator = (type: string) => {
-    switch (type) {
-      case ExceptionType.Loading:
-        return (
-          <Indicators size="large" />
-        );
-      case ExceptionType.NoData:
-      case ExceptionType.NetError:
-        return (
-          <StyledImage
-            source={require('../../../../source/img/my/icon-60.png')}
-          />
-        );
-    }
-  };
-
 
   getPromptText(type: string): string {
-    if (this.props.prompt) {
-      return this.props.prompt;
+    let { prompt } = this.props;
+    if (prompt) {
+      return prompt;
     }
-    let prompt;
     switch (type) {
       case ExceptionType.Loading:
         prompt = '正在加载';
@@ -141,18 +111,56 @@ export default class ExceptionView extends Component {
     return prompt;
   }
 
-  renderPrompt() {
-    if (isValidElement(this.props.prompt)) {
-      return this.props.prompt;
+
+  _renderPromptIndicator = (type: string) => {
+    switch (type) {
+      case ExceptionType.Loading:
+        return (
+          <Indicators size="large" />
+        );
+      case ExceptionType.NoData:
+      case ExceptionType.NetError:
+        return (
+          <Indicators size="large" animated={false} />
+        );
+      default:
+        break;
     }
-    const text = this.getPromptText(this.props.exceptionType);
-    if (text) {
-      return (
-        <Text style={styles.text}>
-          {text}
-        </Text>
-      );
-    }
+  };
+
+
+  render() {
+    // let prompt = this.getPromptText(this.props.exceptionType);
+    // console.log('test:', this.props.styles);
+    // const style = {height:300,... this.props.styles}
+    // console.log('test:', style);
+    const {
+      otherTips,
+      // onRefresh,
+      // refresh,
+      style,
+      styles,
+      exceptionType
+    } = this.props;
+    return (
+      <StyledContent
+        style={[style, styles]}
+      >
+        {this._renderPromptIndicator(exceptionType)}
+        {this.renderPrompt()}
+        {otherTips && this.renderOtherTips()}
+        {this.renderTipButton()}
+        {/* <Button */}
+        {/* style={} */}
+        {/* onPress={() => { */}
+        {/* this.props.onRefresh && this.props.onRefresh() */}
+        {/* }}> */}
+
+        {/**/}
+        {/* </Button> */}
+
+      </StyledContent>
+    );
   }
 }
 
