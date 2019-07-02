@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -52,6 +51,7 @@ import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.multidex.MultiDexApplication;
 import cn.reactnative.modules.qq.QQPackage;
 import io.liaoyuan.reactnative.leancloudpush.LeanCloudPushPackage;
 

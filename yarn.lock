@@ -6651,10 +6651,10 @@ react-native-device-info@2.0.0:
   resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-2.0.0.tgz#7b36f33187f2ca471f8978b102cf023ff3f47e8f"
   integrity sha1-ezbzMYfyykcfiXixAs8CP/P0fo8=
 
-react-native-dialogs@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/react-native-dialogs/download/react-native-dialogs-1.0.0.tgz#8f7993b5a0e108aabca1c1d7923e0057853ad9fb"
-  integrity sha1-j3mTtaDhCKq8ocHXkj4AV4U62fs=
+react-native-dialogs@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npm.taobao.org/react-native-dialogs/download/react-native-dialogs-1.0.5.tgz#b64e8d00e8942009861f432d2cce930e84db8737"
+  integrity sha1-tk6NAOiUIAmGH0MtLM6TDoTbhzc=
 
 react-native-exception-handler@2.10.2:
   version "2.10.2"

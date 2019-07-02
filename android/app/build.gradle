@@ -217,10 +217,10 @@ dependencies {
     implementation project(':react-native-dialogs')
     implementation project(':react-native-device-info')
     implementation "com.google.android.gms:play-services-gcm:${safeExtGet('googlePlayServicesVersion', '+')}"
-    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'androidx.multidex:multidex:2.0.0'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.android.support:appcompat-v7:${safeExtGet('supportLibVersion', '+')}"
+    implementation "androidx.appcompat:appcompat:1.0.0"
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.facebook.soloader:soloader:0.6.0+'
 }
