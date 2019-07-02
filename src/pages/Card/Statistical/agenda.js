@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 
 
 import moment from 'moment';
-import { withTheme } from 'styled-components';
+// import { withTheme } from 'styled-components';
 import { classSearch } from '../../../request/leanCloud';
 // import {addListNormalizrEntity} from '../../../redux/actions/list'
 import { IDO, IDOCALENDAR } from '../../../redux/reqKeys';
@@ -84,8 +84,7 @@ import {
   })
 )
 
-@withTheme
-
+// @withTheme
 export default class AgendaScreen extends Component {
   constructor(props) {
     super(props);
