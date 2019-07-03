@@ -148,6 +148,7 @@ export default class Card extends PureComponent {
         }}
       >
         <StyledIcon
+          color="black"
           style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
           size={20}
           name="users"

@@ -137,7 +137,7 @@ export default createBottomTabNavigator(
 
       style: {
         backgroundColor: Platform.OS === 'ios'
-          ? '#fdfbfb' : '#cbcbca',
+          ? '#fdfbfb' : '#fdfbfb',
         borderTopColor: 'white',
         height: 70,
       },

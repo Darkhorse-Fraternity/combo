@@ -145,7 +145,7 @@ export default class AuthLoadingScreen extends React.Component {
         {/* <ActivityIndicator size={'large'}/> */}
         {/* <StatusBar barStyle="default" /> */}
         <Text style={styles.text}>
-          Load...
+          加载中...
         </Text>
       </View>
     );

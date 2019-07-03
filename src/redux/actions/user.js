@@ -8,21 +8,21 @@ import { NavigationActions, StackActions } from 'react-navigation';
 // *** Action Types ***
 import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import { user } from '../../request/LCModle'
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
 import moment from 'moment'
 import DeviceInfo from 'react-native-device-info'
 import md5 from "react-native-md5";
-import { updatePush } from '../../configure/push/push'
+import { user } from '../../request/LCModle'
+import { updatePush , leancloud_installationId } from '../../configure/push/push'
 import { setLeanCloudSession } from '../../configure/reqConfigs';
 import { batch } from '../module/leancloud';
 import { get, req } from './req';
 import {
   loadAccount,
 } from '../../configure/storage';
-import { leancloud_installationId } from '../../configure/push/push';
+
 import {
   requestLogin,
   requestUsersByMobilePhone,
@@ -244,8 +244,9 @@ function addSample(user) {
         }
       });
       // 添加圈子示例
-      // 5d15ef37a91c9300681b515b
-      const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
+      // 5d15ef37a91c9300681b515b 亲子共学
+      // 5be8f3f0ee920a00668767bc 健身
+      const iUseParam = iUseSample(objectId, '5d15ef37a91c9300681b515b');
       iUseReq.push(classCreatNewOne('iUse', iUseParam));
       const iUseBatch = classBatch(iUseReq);
       await get(iUseBatch);
