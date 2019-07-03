@@ -86,14 +86,14 @@ export const StyledTitle2 = styled.Text`
     font-size: 17px;
     margin-left: 10px;
     margin-top:5px;
-    max-width: 70%
+    max-width: 200
 `;
 export const StyledNotify = styled.Text`
     color: #808080;
     font-size: 15px;
     margin-left: 10px;
     margin-top:8px;
-    max-width: 80%;
+    max-width: 200;
     
 `;
 
