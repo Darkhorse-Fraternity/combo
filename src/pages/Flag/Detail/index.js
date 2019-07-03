@@ -164,7 +164,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-                  </StyledBtn>),
+    </StyledBtn>),
   })
   ;
 
@@ -385,7 +385,7 @@ export default class FlagDetail extends PureComponent {
   __payAndJoin = async () => {
     const { iCardId, flagId } = this.props.navigation.state.params;
     const {
-      selfUse, join, flag, iCard, isTourist, pay
+      selfUse, join, flag, isTourist, pay
     } = this.props;
     const flagModel = flag.toJS();
     const cost = flag.get('cost');
@@ -400,7 +400,7 @@ export default class FlagDetail extends PureComponent {
       Toast.show('参加副本需要先登录~!');
       return this.props.navigation.navigate('login', { transition: 'forVertical' });
     }
-    const title = iCard.get('title');
+    const title = this.props.iCard.get('title');
     const description = `副本_${title}的加入费用`;
     if (cost > 0) {
       Pop.show(<PayForm

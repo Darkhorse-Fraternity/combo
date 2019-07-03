@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/lintong/.nvm/versions/node/v10.11.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js cache list --pattern gulp
+  /Users/lintong/.nvm/versions/node/v10.11.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js install
 
 PATH: 
   /Users/lintong/.rbenv/shims:/Users/lintong/.rbenv/bin:/Users/lintong/.fastlane/bin:/Users/lintong/.nvm/versions/node/v10.11.0/bin:/usr/local/Cellar/pyenv-virtualenv/1.1.3/shims:/Users/lintong/.pyenv/shims:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Sublime Text.app/Contents/SharedSupport/bin:/Users/lintong/.yarn/bin:/Users/lintong/Library/Android/sdk/tools:/Users/lintong/Library/Android/sdk/platform-tools
@@ -14,12 +14,17 @@ Platform:
   darwin x64
 
 Trace: 
-  Invariant Violation: There should only be one folder in a package cache (got  in /Users/lintong/Library/Caches/Yarn/v4/npm-react-native-fast-image-6.1.0-a682184d4cf8c9440bde8bf6628379cd2695d6ca/node_modules)
-      at invariant (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:2314:15)
-      at /usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:59910:7
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:304:30)
-      at /usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:315:13
+  Error: https://registry.npm.taobao.org/react-native-leancloud-push: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:66091:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129590:22)
+      at Request.emit (events.js:182:13)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130562:10)
+      at Request.emit (events.js:182:13)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130484:12)
+      at Object.onceWrapper (events.js:273:13)
+      at IncomingMessage.emit (events.js:187:15)
+      at endReadableNT (_stream_readable.js:1092:12)
+      at process._tickCallback (internal/process/next_tick.js:63:19)
 
 npm manifest: 
   {
@@ -56,7 +61,7 @@ npm manifest:
       "react-native-device-info": "2.0.0",
       "react-native-dialogs": "1.0.5",
       "react-native-exception-handler": "2.10.2",
-      "react-native-fast-image": "6.1.0",
+      "react-native-fast-image": "git+https://github.com/vokhuyetOz/react-native-fast-image.git",
       "react-native-flip-card": "3.5.2",
       "react-native-fs": "2.12.1",
       "react-native-gesture-handler": "1.0.10",
@@ -67,7 +72,7 @@ npm manifest:
       "react-native-keyboard-manager": "4.0.13-9",
       "react-native-keyboard-tracking-view": "5.4.4",
       "react-native-keychain": "3.0.0",
-      "react-native-leancloud-push": "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git",
+      "react-native-leancloud-push": "6.1.0",
       "react-native-linear-gradient": "2.4.0",
       "react-native-md5": "1.0.0",
       "react-native-modal": "10.0.0",
