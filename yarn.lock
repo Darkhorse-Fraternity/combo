@@ -6646,10 +6646,10 @@ react-native-debugger-open@^0.3.18:
     minimist "^1.2.0"
     semver "^5.4.1"
 
-react-native-device-info@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-2.0.0.tgz#7b36f33187f2ca471f8978b102cf023ff3f47e8f"
-  integrity sha1-ezbzMYfyykcfiXixAs8CP/P0fo8=
+react-native-device-info@2.2.2:
+  version "2.2.2"
+  resolved "https://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-2.2.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-native-device-info%2Fdownload%2Freact-native-device-info-2.2.2.tgz#777388b8cff4594c8db2ea3a53f2f1f9e2c611a1"
+  integrity sha1-d3OIuM/0WUyNsuo6U/Lx+eLGEaE=
 
 react-native-dialogs@1.0.5:
   version "1.0.5"
@@ -6661,10 +6661,10 @@ react-native-exception-handler@2.10.2:
   resolved "https://registry.npm.taobao.org/react-native-exception-handler/download/react-native-exception-handler-2.10.2.tgz#c500f7713fd30e79f44b03b223cf9ea90facae89"
   integrity sha1-xQD3cT/TDnn0SwOyI8+eqQ+srok=
 
-react-native-fast-image@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.npm.taobao.org/react-native-fast-image/download/react-native-fast-image-6.1.0.tgz#2562ed0c62e9c07df2cc275c797ef90e76e987d2"
-  integrity sha1-JWLtDGLpwH3yzCdceX75Dnbph9I=
+react-native-fast-image@7.0.1:
+  version "7.0.1"
+  resolved "https://registry.npm.taobao.org/react-native-fast-image/download/react-native-fast-image-7.0.1.tgz#27f9b7212d6888a12d5251ee4e2c9a4a5e19233b"
+  integrity sha1-J/m3IS1oiKEtUlHuTiyaSl4ZIzs=
 
 react-native-flip-card@3.5.2:
   version "3.5.2"
@@ -6681,10 +6681,10 @@ react-native-fs@2.12.1:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-react-native-gesture-handler@1.0.10:
-  version "1.0.10"
-  resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.0.10.tgz#160e55e4886471931b7f7d52e22d94007540ab83"
-  integrity sha1-Fg5V5IhkcZMbf31S4i2UAHVAq4M=
+react-native-gesture-handler@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.3.0.tgz#d0386f565928ccc1849537f03f2e37fd5f6ad43f"
+  integrity sha1-0DhvVlkozMGElTfwPy43/V9q1D8=
   dependencies:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
@@ -6742,9 +6742,9 @@ react-native-keychain@3.0.0:
   resolved "https://registry.npm.taobao.org/react-native-keychain/download/react-native-keychain-3.0.0.tgz#29da1dfa43c2581f76bf9420914fd38a1558cf18"
   integrity sha1-Kdod+kPCWB92v5QgkU/TihVYzxg=
 
-"react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git":
+"react-native-leancloud-push@git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#sdk4.7.14":
   version "0.1.0"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#a5ff32458d92f8990a3765e803808e5b6c26429c"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#c4be49fa0dff21869b6441ce96777155af1aea4e"
 
 react-native-linear-gradient@2.4.0:
   version "2.4.0"
@@ -7067,15 +7067,15 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@16.8.3:
-  version "16.8.3"
-  resolved "https://registry.npm.taobao.org/react/download/react-16.8.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.8.3.tgz#c6f988a2ce895375de216edcfaedd6b9a76451d9"
-  integrity sha1-xvmIos6JU3XeIW7c+u3WuadkUdk=
+react@16.8.6:
+  version "16.8.6"
+  resolved "https://registry.npm.taobao.org/react/download/react-16.8.6.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
+  integrity sha1-rWw6lhT9Ok6e9REX9U2IjaAfK74=
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.13.3"
+    scheduler "^0.13.6"
 
 read-pkg-up@^2.0.0:
   version "2.0.0"

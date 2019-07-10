@@ -164,7 +164,7 @@ export default class FlagDetail extends PureComponent {
       <StyledHeaderBtnText>
           副本记录
       </StyledHeaderBtnText>
-    </StyledBtn>),
+                  </StyledBtn>),
   })
   ;
 
@@ -367,7 +367,7 @@ export default class FlagDetail extends PureComponent {
             Linking.openURL('sinaweibo://messagelist?uid=6861885697');
           } else {
             this.props.navigation.navigate('web', {
-              url: 'https://weibo.com/u/6861885697',
+              url: 'https://www.weibo.com/u/6861885697',
               title: '小改变的微博'
             });
           }

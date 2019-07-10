@@ -37,7 +37,8 @@ import {
 } from '../../redux/reqKeys';
 import {
   friendNum,
- updateNickName } from '../../request/leanCloud';
+  updateNickName 
+} from '../../request/leanCloud';
 import Avatar from '../../components/Avatar';
 
 
@@ -265,7 +266,7 @@ export default class More extends Component {
             Linking.openURL('sinaweibo://userinfo?uid=6861885697');
           } else {
             navigation.navigate('web', {
-              url: 'https://weibo.com/u/6861885697',
+              url: 'https://www.weibo.com/u/6861885697',
               title: '小改变的微博'
             });
           }
