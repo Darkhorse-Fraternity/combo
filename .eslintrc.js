@@ -5,6 +5,7 @@ module.exports = {
     'jest': true,
   },
   'rules': {
+    "no-console": "off",
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',

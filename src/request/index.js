@@ -2,11 +2,11 @@
 
 
 import { defaultHost, httpHeaders } from '../configure/reqConfigs';
-import { addParams } from './useMeth';
+import { addParams, toQueryString } from './useMeth';
 
-if (typeof global.self === 'undefined') {
-  global.self = global;
-}
+// if (typeof global.self === 'undefined') {
+//   global.self = global;
+// }
 
 export const schemeType = {
   http: 'http',
@@ -32,45 +32,99 @@ export async function send({
   scheme = schemeType.https,
   host = defaultHost,
   path = throwIfMissing('send/path'),
-  method = 'GET',
-  timeout = 200000,
+  method = methodType.get,
+  timeout = 10000,
   params,
   head,
   needSession = true,
-}: Object): Promise<any> {
+}) {
   const urlpath = `${scheme}://${host}${path}`;
-  const httpHeader = head || httpHeaders(needSession);
+  const headers = head || httpHeaders(needSession);
 
 
-  const body = httpHeader['Content-Type'] === 'application/x-www-form-urlencoded'
-    ? toQueryString(params)
-    : JSON.stringify(params);
-  const request = method === 'GET' ? new Request(addParams(urlpath, params), {
+  const contentType = headers['Content-Type'];
+  let body;
+  if (method === methodType.post) {
+    body = fetchBody(params, contentType);
+  }
+  const url = fetchUrl(urlpath, method, params);
+  // fetch(request, { credentials: 'include' }),
+  const fetchPromise = fetch(url, {
     method,
-    headers: httpHeader
-  }) : new Request(urlpath, {
-    method,
-    headers: httpHeader,
+    headers,
     body
   });
-  const requestPromise = Promise.race([
-    fetch(request, { credentials: 'include' }),
-    new Promise(((resolve, reject) => {
-      // var reason = __DEV__ ? '网络请求超时' + urlpath : '网络请求超时'
-      // setTimeout(() => reject(new Error(reason)), timeout);
+  const requestPromise = fetchByInterrupt(fetchPromise, timeout);
+  // 做错误处理.
+
+  const tr1 = new Date();
+  return new Promise(((resolve, reject) => {
+    requestPromise
+      .then((res) => {
+        if (!res.ok) {
+          errorShow({
+            url,
+            method,
+            headers,
+            body,
+            res
+          });
+        }
+        const tr2 = new Date();
+        console.log(url, tr2 - tr1);
+
+        return resolve(res);
+      })
+      .catch((e) => {
+        if (__DEV__) {
+          errorShow({
+            url,
+            method,
+            headers,
+            body
+          });
+        }
+        const tr2 = new Date();
+        console.log(url, tr2 - tr1);
+        return reject(e);
+      });
+  }));
+}
+
+
+function fetchBody(params, contentType) {
+  switch (contentType) {
+    case 'application/x-www-form-urlencoded':
+    case 'application/x-www-form-urlencoded; charset=utf-8':
+      return toQueryString(params);
+    case 'application/json':
+    case 'application/json; charset=utf-8':
+      return JSON.stringify(params);
+    default:
+      break;
+  }
+  return undefined;
+}
+
+function fetchUrl(urlpath, method, params) {
+  if (method === methodType.get) {
+    return addParams(urlpath, params);
+  }
+  return urlpath;
+}
+
+
+function fetchByInterrupt(fetchPromise, timeout) {
+  return Promise.race([
+    fetchPromise,
+    new Promise(((_, reject) => {
+      setTimeout(() => reject(new Error('请求超时')), timeout);
     }))
   ]);
+}
 
-
-  const response = await requestPromise.then();
-  if (__DEV__ && !response.ok) {
-    const body = typeof response._bodyInit === 'string'
-      ? response._bodyInit
-      : JSON.stringify(response._bodyInit);
-    const message = __DEV__ ? `${'接口请求错误:\n' + 'URL:\n'}${urlpath
-    }\n参数:\n${JSON.stringify(params)} \n回值:\n${
-      body}` : response._bodyInit;
-    console.log(message);
+function errorShow(data) {
+  if (__DEV__) {
+    console.log('network error:', data);
   }
-  return response;
 }
