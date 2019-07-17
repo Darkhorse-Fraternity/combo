@@ -56,7 +56,7 @@ export async function send({
   const requestPromise = fetchByInterrupt(fetchPromise, timeout);
   // 做错误处理.
 
-  const tr1 = new Date();
+  // const tr1 = new Date();
   return new Promise(((resolve, reject) => {
     requestPromise
       .then((res) => {
@@ -69,8 +69,8 @@ export async function send({
             res
           });
         }
-        const tr2 = new Date();
-        console.log(url, body, tr2 - tr1);
+        // const tr2 = new Date();
+        // console.log(url, tr2 - tr1);
 
         return resolve(res);
       })
@@ -83,8 +83,8 @@ export async function send({
             body
           });
         }
-        const tr2 = new Date();
-        console.log(url, tr2 - tr1);
+        // const tr2 = new Date();
+        // console.log(url, tr2 - tr1);
         return reject(e);
       });
   }));
