@@ -41,10 +41,9 @@ export async function send({
   const urlpath = `${scheme}://${host}${path}`;
   const headers = head || httpHeaders(needSession);
 
-
   const contentType = headers['Content-Type'];
   let body;
-  if (method === methodType.post) {
+  if (method === methodType.post || method === methodType.put) {
     body = fetchBody(params, contentType);
   }
   const url = fetchUrl(urlpath, method, params);
@@ -71,7 +70,7 @@ export async function send({
           });
         }
         const tr2 = new Date();
-        console.log(url, tr2 - tr1);
+        console.log(url, body, tr2 - tr1);
 
         return resolve(res);
       })
