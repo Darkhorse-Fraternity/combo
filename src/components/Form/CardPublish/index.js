@@ -184,7 +184,7 @@ export default class CardPublishForm extends Component {
                   '删除后不可恢复',
                   [{ text: '取消' }, {
                     text: '确定',
-                    onPress: async () => {
+                    onPress: async () => { 
                       self.handleViewRef[`ppt${index}`]
                       && await self.handleViewRef[`ppt${index}`].fadeOutLeft(800);
                       await fields.remove(index);
