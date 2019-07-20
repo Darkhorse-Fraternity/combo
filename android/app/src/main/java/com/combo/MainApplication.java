@@ -19,9 +19,9 @@ import com.calendarevents.CalendarEventsPackage;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
 import com.example.umenganaticlys.UmengAnalyticsPackage;
 import com.facebook.react.ReactApplication;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -79,6 +79,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
+            new FastImageViewPackage(),
                     new UmengAnalyticsPackage (),
                     new NetInfoPackage(),
                     new RNCViewPagerPackage(),

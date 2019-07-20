@@ -1,4 +1,6 @@
 rootProject.name = 'Combo'
+include ':react-native-fast-image'
+project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
 include ':react-native-umeng-analytics'
 project(':react-native-umeng-analytics').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-umeng-analytics/android')
 include ':@react-native-community_netinfo'
@@ -7,8 +9,6 @@ include ':@react-native-community_viewpager'
 project(':@react-native-community_viewpager').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/viewpager/android')
 include ':@react-native-community_async-storage'
 project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
-include ':react-native-fast-image'
-project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
 include ':react-native-screens'
 project(':react-native-screens').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-screens/android')
 include ':react-native-gesture-handler'
