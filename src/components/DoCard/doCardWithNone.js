@@ -1,7 +1,7 @@
 import React from 'react';
 import Pop from '../Pop';
 import Do from './Do';
-import creatIDO from './doCard';
+import creatIDO from './DoCard';
 import { ICARD } from '../../redux/reqKeys';
 
 export default function doCardWithNone(iUse, type = 0, doneDate = new Date()) {

@@ -15,7 +15,7 @@ import {
 } from '../../../redux/reqKeys';
 import { FormID } from '../../Form/DoCardForm/index';
 // static displayName =
-import creatIDO from '../doCard';
+import creatIDO from '../DoCard';
 
 @connect(
   state => ({

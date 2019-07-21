@@ -68,7 +68,7 @@ import { addNormalizrEntities } from '../../../redux/module/normalizr';
 
           let timer;
           const p2 = new Promise(((resolve) => {
-            timer = setTimeout(resolve, 3000, 'one');
+            timer = setTimeout(resolve, 9000, 'one');
           }));
 
           await Promise.race([p1, p2]);
