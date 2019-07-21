@@ -202,7 +202,7 @@ export default class FlagDetail extends PureComponent {
         </StyledTitle>
         {limitTimes && (
         <StyledDiscrib>
-          {`${time} ${limitTimes[0]} - ${limitTimes[1]} 内点击首页 副本卡片-早起 完成打卡`}
+          {`${time} ${limitTimes[0]} - ${limitTimes[1]} 内点击首页 副本卡片 - ${iCard.title} 完成打卡`}
         </StyledDiscrib>
         )}
         {flag.get('reward') === 'money' && (

@@ -248,7 +248,7 @@ export default class Punch extends Component {
           color={iconAndColor.color}
           done={done}
           title={iCard.get('title')}
-          discrib={item.unSatisfyDiscrib || `${item.time}次`}
+          discrib={item.unSatisfyDiscrib || `第${item.time}日`}
           onPress={async (flip, doIt) => {
             // const iCardM = iCard.toJS()
             // 如果没有强制打卡类型，则直接翻转

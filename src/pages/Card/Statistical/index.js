@@ -279,7 +279,7 @@ export default class Statistical extends PureComponent {
         </StyledTitleView>
         <View style={{ height: 10 }} />
         {this._renderRow('已完成周期', `${(time / iCard.period).toFixed(2)}轮`)}
-        {this._renderRow('总打卡次数', `${time}次`)}
+        {this._renderRow('总打卡天数', `${time}日`)}
         {this._renderRow('上次打卡', fromNow)}
         {this._renderRow('加入天数', `${date}天`)}
         {this._renderRow('建立日期', cardCreatedAt)}
