@@ -35,9 +35,9 @@ export async function reqY(params) {
   const jsonTypes = ['application/json', 'text/plain'];
   const isJSON = jsonTypes.some(type => contentType.includes(type));
   if (isJSON) {
-    return await response.json();
+    return response.json();
   }
-  return await response.text();
+  return response.text();
 }
 
 export async function reqS(params) {

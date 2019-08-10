@@ -6610,10 +6610,9 @@ react-native-blur@3.2.2:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-calendar-events@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.npm.taobao.org/react-native-calendar-events/download/react-native-calendar-events-1.7.0.tgz#6cd62c7d03e8884dc5c14ba05ef58e802ec68792"
-  integrity sha1-bNYsfQPoiE3FwUugXvWOgC7Gh5I=
+"react-native-calendar-events@git+https://github.com/Darkhorse-Fraternity/react-native-calendar-events.git#tonyYo":
+  version "1.7.3"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-calendar-events.git#7a411bff97a6382ee5961ea67b6a87a161165398"
 
 react-native-clean-form@0.5.0:
   version "0.5.0"

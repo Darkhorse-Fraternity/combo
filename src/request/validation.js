@@ -1,10 +1,10 @@
 const isEmpty = value => value === undefined || value === null || value === '';
-const join = (rules) => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0 /* first error */ ];
+const join = rules => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0];
 
 
-export  function checkPhoneNum(value){
+export function checkPhoneNum(value) {
   const reg = /^1[0-9]{10}$/;
-  return !isEmpty(value) && reg.test(value)
+  return !isEmpty(value) && reg.test(value);
 }
 
 export function email(value) {
@@ -21,7 +21,7 @@ export function required(value) {
 }
 
 export function minLength(min) {
-  return value => {
+  return (value) => {
     if (!isEmpty(value) && value.length < min) {
       return `Must be at least ${min} characters`;
     }
@@ -29,7 +29,7 @@ export function minLength(min) {
 }
 
 export function maxLength(max) {
-  return value => {
+  return (value) => {
     if (!isEmpty(value) && value.length > max) {
       return `Must be no more than ${max} characters`;
     }
@@ -43,7 +43,7 @@ export function integer(value) {
 }
 
 export function oneOf(enumeration) {
-  return value => {
+  return (value) => {
     if (!~enumeration.indexOf(value)) {
       return `Must be one of: ${enumeration.join(', ')}`;
     }

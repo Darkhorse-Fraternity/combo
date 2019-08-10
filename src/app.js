@@ -4,8 +4,8 @@
  */
 
 
-import React, { Component, } from 'react';
-import { Platform, StatusBar, View } from 'react-native';
+import React, { PureComponent } from 'react';
+import { Platform } from 'react-native';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import SplashScreen from 'react-native-splash-screen';
@@ -16,7 +16,6 @@ import ReduxApp from './components/Nav/navigators/ReduxApp';
 import theme from './Theme';
 import Configure from './configure';
 import { creatAppNavigator } from './components/Nav/navigators/CreateAppNavigator';
-import { required } from './request/validation';
 // import {route} from './pages'
 const AppNavigator = creatAppNavigator();
 require('../helps/AnimatableRegist');
@@ -32,7 +31,7 @@ if (Platform.OS === 'ios') {
 
 // import App from './components/js/App'
 @codePush
-export default class App extends Component {
+export default class App extends PureComponent {
   // https://github.com/Microsoft/react-native-code-push/blob/master/docs/api-js.md
   codePushStatusDidChange(status) {
     switch (status) {

@@ -7,7 +7,7 @@ import {
   Animated,
 } from 'react-native';
 
-import Button from "../Button";
+import Button from '../Button';
 
 export default class TitleTabBar extends Component {
   static propTypes = {
@@ -21,7 +21,6 @@ export default class TitleTabBar extends Component {
   };
 
   renderTabOption(name: string, page: number) {
-
     const {
       activeTab,
       activeTextColor = '#rgb(50,50,50)',
@@ -32,7 +31,7 @@ export default class TitleTabBar extends Component {
       underlineColor,
       scrollValueWithOutNative,
       tabUnderlineWidth
-    } = this.props
+    } = this.props;
 
 
     const isTabActive = activeTab === page;
@@ -43,19 +42,19 @@ export default class TitleTabBar extends Component {
     //   backgroundColor: underlineColor || theme.mainColor,
     // };
 
-    const inputRange = []
-    const outputRange = []
-    const outputRangeColor = []
-    const outputRangefontSize = []
+    const inputRange = [];
+    const outputRange = [];
+    const outputRangeColor = [];
+    const outputRangefontSize = [];
     for (let i = -1; i < numberOfTabs + 1; i++) {
-      inputRange.push(i)
-      outputRange.push(0.001)
-      outputRangeColor.push(inactiveTextColor)
-      outputRangefontSize.push(15)
+      inputRange.push(i);
+      outputRange.push(0.001);
+      outputRangeColor.push(inactiveTextColor);
+      outputRangefontSize.push(15);
     }
-      outputRange.splice(page + 1, 1, 1)
-      outputRangeColor.splice(page + 1, 1, activeTextColor)
-      outputRangefontSize.splice(page + 1, 1, 21)
+    outputRange.splice(page + 1, 1, 1);
+    outputRangeColor.splice(page + 1, 1, activeTextColor);
+    outputRangefontSize.splice(page + 1, 1, 21);
 
     // const scaleX = scrollValue.interpolate({
     //   inputRange: inputRange,
@@ -63,31 +62,36 @@ export default class TitleTabBar extends Component {
     // });
 
     const color = scrollValueWithOutNative.interpolate({
-      inputRange: inputRange,
+      inputRange,
       outputRange: outputRangeColor,
     });
 
-    const fontSize =  scrollValueWithOutNative.interpolate({
-      inputRange: inputRange,
+    const fontSize = scrollValueWithOutNative.interpolate({
+      inputRange,
       outputRange: outputRangefontSize,
     });
 
-    return <Button
-      key={name}
-      accessible={true}
-      accessibilityLabel={name}
-      accessibilityTraits='button'
-      style={{ paddingVertical: 20, paddingHorizontal: 10 }}
-      onPress={() => this.props.goToPage(page)}>
+    return (
+      <Button
+        key={name}
+        accessible
+        accessibilityLabel={name}
+        accessibilityTraits="button"
+        style={{ paddingVertical: 20, paddingHorizontal: 10 }}
+        onPress={() => this.props.goToPage(page)}
+      >
 
-      <Animated.Text style={
+        <Animated.Text style={
         [{
-          color: color,
-          fontWeight: 'bold', fontSize: fontSize
-        }, textStyle]}>
-        {name}
-      </Animated.Text>
-    </Button>;
+          color,
+          fontWeight: 'bold',
+          fontSize
+        }, textStyle]}
+  >
+    {name}
+  </Animated.Text>
+            </Button>
+    );
   }
 
   render() {
@@ -95,13 +99,13 @@ export default class TitleTabBar extends Component {
     // const numberOfTabs = this.props.tabs.length;
     // const tabWidth = containerWidth / numberOfTabs/2;
     return (
-      <View style={[styles.tab,this.props.style]}>
+      <View style={[styles.tab, this.props.style]}>
         <View style={styles.tabs1}>
           {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
         </View>
         <View style={styles.tabs2}>
-          {this.props.rightView &&
-          this.props.rightView()}
+          {this.props.rightView
+          && this.props.rightView()}
         </View>
       </View>
     );
@@ -109,9 +113,9 @@ export default class TitleTabBar extends Component {
 }
 
 const styles = StyleSheet.create({
-  tab:{
+  tab: {
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
   tabs1: {
     flexDirection: 'row',

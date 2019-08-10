@@ -15,11 +15,11 @@
 		28F1747744E74E64B64F4944 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8177F759E54A2886769701 /* libRNI18n.a */; };
 		2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6726C820089B4C888439340C /* libRNFS.a */; };
 		2D76EF2DC2EE445896E17107 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5483F03BFE6D403F82EE857C /* libRCTRestart.a */; };
+		2E57AC5E3ADC49CEB60DABA8 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D7B1DE639640129A56118E /* libFastImage.a */; };
 		36BB97B1B48E499CAE28F874 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1AE109D90CA45D88696A539 /* FontAwesome.ttf */; };
 		3BA1EFFC1D7B4BC3BC4C6743 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98CF67D2E586418AA05A8641 /* AntDesign.ttf */; };
 		4773A3CBF6F34A11926A42DF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D19A2EDE567241D28B757A47 /* Entypo.ttf */; };
 		4FA1C026ACE24F72837DDA8E /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C421093BF46426F94553282 /* libRNVectorIcons.a */; };
-		67C2383A62194E8693F17CE5 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 945F08031815434C8DF138A7 /* libFastImage.a */; };
 		6B95A11D3E8B4485B0ACC2E2 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F569424914A47BD869B82DB /* libCodePush.a */; };
 		6BAC55FB8320425C8F651C2C /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1933DEE1D3C74972ADB169AC /* Zocial.ttf */; };
 		750D52FA5FC54A0EAA33E46E /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F699DF69B8845BE9A544214 /* Feather.ttf */; };
@@ -261,6 +261,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = CE26B1D81D64421700D853E8;
 			remoteInfo = RCTUmengAnalytics;
+		};
+		CC3B032222E442B500983824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A287971D1DE0C0A60081BDFA;
+			remoteInfo = FastImage;
+		};
+		CC3B032422E442B500983824 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FD751C4D229EB44C002BE1F4;
+			remoteInfo = "FastImage-tvOS";
 		};
 		CC3E39A21E260A200019B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -727,6 +741,7 @@
 		1770132A42DF4BA8AA918694 /* libKeyboardTrackingView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libKeyboardTrackingView.a; sourceTree = "<group>"; };
 		18D9351FB09745DC9F603A64 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		1933DEE1D3C74972ADB169AC /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		24D7B1DE639640129A56118E /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 		2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		2CF171FD312C41BEA3A10D16 /* libRNUpdateApp.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNUpdateApp.a; sourceTree = "<group>"; };
 		2F06B803DC36415EBEF49179 /* ReactNativeExceptionHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeExceptionHandler.xcodeproj; path = "../node_modules/react-native-exception-handler/ios/ReactNativeExceptionHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -762,7 +777,7 @@
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		8F0676DE5D6F40F48EDFBC07 /* AutoGrowTextInput.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AutoGrowTextInput.xcodeproj; path = "../node_modules/react-native-autogrow-textinput/ios/AutoGrowTextInput.xcodeproj"; sourceTree = "<group>"; };
 		92F6A1F4EE004F3B9976D7FE /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
-		945F08031815434C8DF138A7 /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
+		934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		98CF67D2E586418AA05A8641 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		99EC38CCA2B6411A8990967B /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -822,7 +837,6 @@
 		DD29E71744E948EB9B9B941A /* RNI18n.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNI18n.xcodeproj; path = "../node_modules/react-native-i18n/ios/RNI18n.xcodeproj"; sourceTree = "<group>"; };
 		E2830FBE75314B37B6AB5927 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		E29BE60B3CB348F98132AEE8 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
-		FE2EEB98DC744E748993C8F1 /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		FE3142187D364EDDA87EED18 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -931,7 +945,7 @@
 				C82FAC12112F4B78A1074002 /* libRCTUmengAnalytics.a in Frameworks */,
 				CC287C5522AE64CA00D67502 /* UMAnalytics.framework in Frameworks */,
 				CC287C5722AE650900D67502 /* UMCommon.framework in Frameworks */,
-				67C2383A62194E8693F17CE5 /* libFastImage.a in Frameworks */,
+				2E57AC5E3ADC49CEB60DABA8 /* libFastImage.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,7 +1182,7 @@
 				5CE5128B80BB4BA0951A20C7 /* RNCViewpager.xcodeproj */,
 				9A25EDCB5FDD477B870B983D /* RNCNetInfo.xcodeproj */,
 				A534189F26C84B2D8F297650 /* RCTUmengAnalytics.xcodeproj */,
-				FE2EEB98DC744E748993C8F1 /* FastImage.xcodeproj */,
+				934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1275,6 +1289,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		CC3B031E22E442B300983824 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC3B032322E442B500983824 /* libFastImage.a */,
+				CC3B032522E442B500983824 /* libFastImage-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		CC3E399F1E260A200019B85F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,7 +1370,7 @@
 				505CE15320B94E90AEC18FC8 /* libRNCViewpager.a */,
 				69E7D30C48234DA5890EFBF9 /* libRNCNetInfo.a */,
 				D82FE5A0057046799E3592ED /* libRCTUmengAnalytics.a */,
-				945F08031815434C8DF138A7 /* libFastImage.a */,
+				24D7B1DE639640129A56118E /* libFastImage.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1665,6 +1688,10 @@
 					ProjectRef = B4BB2A60BDF64834AD2E2F44 /* CodePush.xcodeproj */;
 				},
 				{
+					ProductGroup = CC3B031E22E442B300983824 /* Products */;
+					ProjectRef = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
+				},
+				{
 					ProductGroup = CCE915D8201F234E007DDE65 /* Products */;
 					ProjectRef = A61AFD2B2D6643398F8C7193 /* KeyboardTrackingView.xcodeproj */;
 				},
@@ -1962,6 +1989,20 @@
 			fileType = archive.ar;
 			path = libRCTUmengAnalytics.a;
 			remoteRef = CC287C5222AE5ACC00D67502 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC3B032322E442B500983824 /* libFastImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFastImage.a;
+			remoteRef = CC3B032222E442B500983824 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC3B032522E442B500983824 /* libFastImage-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libFastImage-tvOS.a";
+			remoteRef = CC3B032422E442B500983824 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC3E39A31E260A200019B85F /* libRCTWeChat.a */ = {
@@ -2852,7 +2893,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
@@ -2893,6 +2934,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2959,7 +3001,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -2995,6 +3037,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3035,7 +3078,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3076,6 +3119,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3116,7 +3160,7 @@
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = K337TT4UYE;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**";
 				HEADER_SEARCH_PATHS = (
@@ -3152,6 +3196,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3195,7 +3240,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3239,6 +3284,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3284,7 +3330,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 223;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
@@ -3325,6 +3371,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
+					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -12,7 +12,6 @@ import {
   Easing
 } from 'react-native';
 import PropTypes from 'prop-types';
-import * as Animatable from 'react-native-animatable';
 import {
   StyledContent,
   StyleLogo
