@@ -12,13 +12,13 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import "RCTPushNotificationManager.h"
 #import <React/RCTLog.h>
-#import "../Libraries/LinkingIOS/RCTLinkingManager.h"
+#import <React/RCTLinkingManager.h>
 #import "AppearanceConfig.h"
 #import "Orientation.h"
 #import "RNSplashScreen.h"
 #import "RNUMConfigure.h"
+#import <React/RCTPushNotificationManager.h>
 
 @implementation AppDelegate
 

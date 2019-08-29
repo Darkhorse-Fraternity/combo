@@ -918,10 +918,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@react-native-community/async-storage@1.5.0":
-  version "1.5.0"
-  resolved "https://registry.npm.taobao.org/@react-native-community/async-storage/download/@react-native-community/async-storage-1.5.0.tgz#647ffcd832272068b0be57332e08d73036ed391f"
-  integrity sha1-ZH/82DInIGiwvlczLgjXMDbtOR8=
+"@react-native-community/async-storage@1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.6.1.tgz#19be07fc1d65c77bdeb20f46108ba12076aad1c5"
+  integrity sha512-1WA28xfdhG+unkTEk/lXnqI2izv6belo0CYw7UdvaeHm8TIYT6eTmIIdGR7oiCa2xSKEnaPQqRMH6h7gyLNbww==
 
 "@react-native-community/cli-platform-android@^2.6.0", "@react-native-community/cli-platform-android@^2.9.0":
   version "2.9.0"
@@ -994,10 +994,10 @@
     shell-quote "1.6.1"
     ws "^1.1.0"
 
-"@react-native-community/netinfo@3.2.1":
-  version "3.2.1"
-  resolved "https://registry.npm.taobao.org/@react-native-community/netinfo/download/@react-native-community/netinfo-3.2.1.tgz#cd073b81a4b978f7f55f1a960a0b56c462813e02"
-  integrity sha1-zQc7gaS5ePf1XxqWCgtWxGKBPgI=
+"@react-native-community/netinfo@4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-4.1.5.tgz#4bb44842db6a1a18f00a0f061b0e3dcc638f67dd"
+  integrity sha512-lagdZr9UiVAccNXYfTEj+aUcPCx9ykbMe9puffeIyF3JsRuMmlu3BjHYx1klUHX7wNRmFNC8qVP0puxUt1sZ0A==
 
 "@react-native-community/viewpager@1.1.7":
   version "1.1.7"
@@ -6655,10 +6655,10 @@ react-native-code-push@5.4.2:
     plist "3.0.1"
     xcode "1.0.0"
 
-react-native-debugger-open@^0.3.18:
-  version "0.3.19"
-  resolved "https://registry.npm.taobao.org/react-native-debugger-open/download/react-native-debugger-open-0.3.19.tgz#d34af49cb871db5161fa46b4b5d24d01b22755a1"
-  integrity sha1-00r0nLhx21Fh+ka0tdJNAbInVaE=
+react-native-debugger-open@^0.3.20:
+  version "0.3.20"
+  resolved "https://registry.yarnpkg.com/react-native-debugger-open/-/react-native-debugger-open-0.3.20.tgz#9503542e10ba6a5cdd47f6c4e5c36cef629e90f7"
+  integrity sha512-xMYB2d0FFRHuHFO24oFlaRhfkNpamLNVystVRJ65WqV5CiKbK2yfnAIgQX7eOg0khrxSrRFRO6znRnBGNZaWiA==
   dependencies:
     chalk "^1.1.3"
     es6-template "^1.0.4"
@@ -6895,10 +6895,9 @@ react-native-typography@1.3.0:
   resolved "https://registry.npm.taobao.org/react-native-typography/download/react-native-typography-1.3.0.tgz#ae921c141ab1dfdf4335ebc2b4a146bcf7919b36"
   integrity sha1-rpIcFBqx399DNevCtKFGvPeRmzY=
 
-react-native-umeng-analytics@0.2.5:
+"react-native-umeng-analytics@git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git":
   version "0.2.5"
-  resolved "https://registry.npm.taobao.org/react-native-umeng-analytics/download/react-native-umeng-analytics-0.2.5.tgz#36343ab986119cbf6c3358106ea51ac965551f92"
-  integrity sha1-NjQ6uYYRnL9sM1gQbqUayWVVH5I=
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git#d427f99dea51690b8199a6f8618ad346e2367484"
 
 react-native-update-app@1.1.11:
   version "1.1.11"
