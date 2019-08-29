@@ -1,6 +1,4 @@
 rootProject.name = 'Combo'
-include ':react-native-fast-image'
-project(':react-native-fast-image').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fast-image/android')
 include ':react-native-umeng-analytics'
 project(':react-native-umeng-analytics').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-umeng-analytics/android')
 include ':@react-native-community_netinfo'

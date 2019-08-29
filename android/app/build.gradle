@@ -185,7 +185,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-fast-image')
     implementation project(':react-native-umeng-analytics')
     implementation project(':@react-native-community_netinfo')
     implementation project(':@react-native-community_viewpager')

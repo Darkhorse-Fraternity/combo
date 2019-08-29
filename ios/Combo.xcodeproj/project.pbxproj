@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
 		06733710DE0E40F38BE2A0EB /* libReactNativeExceptionHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3315F86FD8B84EA9BEBA9274 /* libReactNativeExceptionHandler.a */; };
@@ -15,7 +14,6 @@
 		28F1747744E74E64B64F4944 /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C8177F759E54A2886769701 /* libRNI18n.a */; };
 		2C0B0E56E994425DA9909841 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6726C820089B4C888439340C /* libRNFS.a */; };
 		2D76EF2DC2EE445896E17107 /* libRCTRestart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5483F03BFE6D403F82EE857C /* libRCTRestart.a */; };
-		2E57AC5E3ADC49CEB60DABA8 /* libFastImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D7B1DE639640129A56118E /* libFastImage.a */; };
 		36BB97B1B48E499CAE28F874 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A1AE109D90CA45D88696A539 /* FontAwesome.ttf */; };
 		3BA1EFFC1D7B4BC3BC4C6743 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98CF67D2E586418AA05A8641 /* AntDesign.ttf */; };
 		4773A3CBF6F34A11926A42DF /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D19A2EDE567241D28B757A47 /* Entypo.ttf */; };
@@ -29,6 +27,7 @@
 		85B2F2C8741B403286DBC2D6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E29BE60B3CB348F98132AEE8 /* MaterialIcons.ttf */; };
 		8993B0145A764E70ABEBB301 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F51F1B947D24F84BC7182B7 /* libRNCAsyncStorage.a */; };
 		8B3819AC35B34972824F9680 /* libRNScreens.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A21A32F9B5CF4FF19A67FEE9 /* libRNScreens.a */; };
+		93F2061A8DA0FF04CFC41514 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
 		A649F9F5B2A64BC0B9A18BBC /* libRNCNetInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69E7D30C48234DA5890EFBF9 /* libRNCNetInfo.a */; };
 		A7D530F9F62C4C889BC85FEC /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 499ED42862704E9EA54A79B8 /* libRNGestureHandler.a */; };
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
@@ -261,20 +260,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = CE26B1D81D64421700D853E8;
 			remoteInfo = RCTUmengAnalytics;
-		};
-		CC3B032222E442B500983824 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A287971D1DE0C0A60081BDFA;
-			remoteInfo = FastImage;
-		};
-		CC3B032422E442B500983824 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FD751C4D229EB44C002BE1F4;
-			remoteInfo = "FastImage-tvOS";
 		};
 		CC3E39A21E260A200019B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -739,9 +724,9 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		170D291B78714F1B8CCED218 /* libAutoGrowTextInput.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAutoGrowTextInput.a; sourceTree = "<group>"; };
 		1770132A42DF4BA8AA918694 /* libKeyboardTrackingView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libKeyboardTrackingView.a; sourceTree = "<group>"; };
+		1885572350E87AB4C4FD7AC4 /* Pods-Combo.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.staging.xcconfig"; sourceTree = "<group>"; };
 		18D9351FB09745DC9F603A64 /* RNCAsyncStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNCAsyncStorage.xcodeproj; path = "../node_modules/@react-native-community/async-storage/ios/RNCAsyncStorage.xcodeproj"; sourceTree = "<group>"; };
 		1933DEE1D3C74972ADB169AC /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
-		24D7B1DE639640129A56118E /* libFastImage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libFastImage.a; sourceTree = "<group>"; };
 		2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.release.xcconfig"; sourceTree = "<group>"; };
 		2CF171FD312C41BEA3A10D16 /* libRNUpdateApp.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNUpdateApp.a; sourceTree = "<group>"; };
 		2F06B803DC36415EBEF49179 /* ReactNativeExceptionHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeExceptionHandler.xcodeproj; path = "../node_modules/react-native-exception-handler/ios/ReactNativeExceptionHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -777,7 +762,6 @@
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		8F0676DE5D6F40F48EDFBC07 /* AutoGrowTextInput.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = AutoGrowTextInput.xcodeproj; path = "../node_modules/react-native-autogrow-textinput/ios/AutoGrowTextInput.xcodeproj"; sourceTree = "<group>"; };
 		92F6A1F4EE004F3B9976D7FE /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
-		934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = FastImage.xcodeproj; path = "../node_modules/react-native-fast-image/ios/FastImage.xcodeproj"; sourceTree = "<group>"; };
 		97BCDBA17C724339888AF233 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "../node_modules/react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<group>"; };
 		98CF67D2E586418AA05A8641 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		99EC38CCA2B6411A8990967B /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
@@ -945,7 +929,7 @@
 				C82FAC12112F4B78A1074002 /* libRCTUmengAnalytics.a in Frameworks */,
 				CC287C5522AE64CA00D67502 /* UMAnalytics.framework in Frameworks */,
 				CC287C5722AE650900D67502 /* UMCommon.framework in Frameworks */,
-				2E57AC5E3ADC49CEB60DABA8 /* libFastImage.a in Frameworks */,
+				93F2061A8DA0FF04CFC41514 /* libPods-Combo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1101,6 +1085,7 @@
 			children = (
 				B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */,
 				2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */,
+				1885572350E87AB4C4FD7AC4 /* Pods-Combo.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1182,7 +1167,6 @@
 				5CE5128B80BB4BA0951A20C7 /* RNCViewpager.xcodeproj */,
 				9A25EDCB5FDD477B870B983D /* RNCNetInfo.xcodeproj */,
 				A534189F26C84B2D8F297650 /* RCTUmengAnalytics.xcodeproj */,
-				934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1285,15 +1269,6 @@
 			isa = PBXGroup;
 			children = (
 				CC287C5322AE5ACC00D67502 /* libRCTUmengAnalytics.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		CC3B031E22E442B300983824 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				CC3B032322E442B500983824 /* libFastImage.a */,
-				CC3B032522E442B500983824 /* libFastImage-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1613,7 +1588,6 @@
 				CCCE41AD2064A0F000F282E3 /* Resources */,
 				CCCE41BB2064A0F000F282E3 /* Bundle React Native code and images */,
 				AE43CB8B07860A8DD8EFCDB7 /* [CP] Embed Pods Frameworks */,
-				B05FCC5A10E69E9D5B1D2972 /* [CP] Copy Pods Resources */,
 				DC3AFC021B320CCE97E9EEF3 /* Embed App Extensions */,
 				CC3C8E3D22C0CC09009B89B2 /* ShellScript */,
 			);
@@ -1686,10 +1660,6 @@
 				{
 					ProductGroup = CC688AF9217C78BA006A413F /* Products */;
 					ProjectRef = B4BB2A60BDF64834AD2E2F44 /* CodePush.xcodeproj */;
-				},
-				{
-					ProductGroup = CC3B031E22E442B300983824 /* Products */;
-					ProjectRef = 934762FFE9DD4EC18B811F2A /* FastImage.xcodeproj */;
 				},
 				{
 					ProductGroup = CCE915D8201F234E007DDE65 /* Products */;
@@ -1989,13 +1959,6 @@
 			fileType = archive.ar;
 			path = libRCTUmengAnalytics.a;
 			remoteRef = CC287C5222AE5ACC00D67502 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		CC3B032322E442B500983824 /* libFastImage.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFastImage.a;
-			remoteRef = CC3B032222E442B500983824 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		CC3B032522E442B500983824 /* libFastImage-tvOS.a */ = {
@@ -2475,28 +2438,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Combo/Pods-Combo-frameworks.sh",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-21/iOS/RevealServer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Combo/Pods-Combo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B05FCC5A10E69E9D5B1D2972 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Combo/Pods-Combo-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Combo/Pods-Combo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC2CCE2D205BC65A00627D3A /* ShellScript */ = {
@@ -2558,7 +2509,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CCCE41BB2064A0F000F282E3 /* Bundle React Native code and images */ = {
@@ -2661,7 +2612,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2685,7 +2635,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -2885,7 +2834,7 @@
 		};
 		CC6BB77F2189337E003DCC59 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */;
+			baseConfigurationReference = 1885572350E87AB4C4FD7AC4 /* Pods-Combo.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODEPUSH_KEY = "dYiyEr21MfAgpoPlHI9ZvVqA6tncHJ-doats7";
@@ -2933,14 +2882,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -2984,7 +2931,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = "-lc++";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
@@ -3036,14 +2982,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3118,14 +3062,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3195,14 +3137,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3283,14 +3223,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
@@ -3370,14 +3308,12 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/viewpager/ios",
 					"$(SRCROOT)/../node_modules/@react-native-community/netinfo/ios",
 					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/RCTUmengAnalytics/**",
-					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage",
 					"$(SRCROOT)/../node_modules/react-native-fast-image/ios/FastImage/**",
 				);
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_CFLAGS = (
 					"$(inherited)",
