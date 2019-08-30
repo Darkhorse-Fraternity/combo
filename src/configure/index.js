@@ -5,19 +5,15 @@ import {
   Platform,
   UIManager,
   ToastAndroid,
-  StatusBar,
   BackHandler,
   Linking,
   AppState,
-  Alert,
   View
 } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
 import { NavigationActions } from 'react-navigation';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';
 import KeyboardManager from 'react-native-keyboard-manager';
-import RNUpdate from 'react-native-update-app';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
 import { epUpdate } from '../components/Update/EPUpdate';

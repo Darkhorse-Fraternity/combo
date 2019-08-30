@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import {
   NativeModules,
   View,
-  Modal,
   Text,
-  TouchableOpacity,
   Dimensions,
   StyleSheet,
   Image,
-  Alert,
   Platform,
   Linking,
-  ImageBackground,
   ToastAndroid,
-  ScrollView
 } from 'react-native';
 import Pop from '../Pop';
 

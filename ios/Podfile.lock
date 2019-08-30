@@ -1,6 +1,8 @@
 PODS:
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
+  - BVLinearGradient (2.4.0):
+    - React
   - CodePush (5.4.2):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
@@ -17,8 +19,22 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - IQKeyboardManager (4.0.13)
   - JWT (3.0.0-beta.11):
     - Base64 (~> 1.1.2)
+  - libwebp (1.0.3):
+    - libwebp/demux (= 1.0.3)
+    - libwebp/mux (= 1.0.3)
+    - libwebp/webp (= 1.0.3)
+  - libwebp/demux (1.0.3):
+    - libwebp/webp
+  - libwebp/mux (1.0.3):
+    - libwebp/demux
+  - libwebp/webp (1.0.3)
+  - RCTAlipay (1.0.0):
+    - React
+  - RCTRestart (0.0.10):
+    - React
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -64,11 +80,21 @@ PODS:
     - React-cxxreact (= 0.60.5)
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
+  - react-native-blur (0.8.0):
+    - React
+  - react-native-calendar-events (1.7.3):
+    - React
+  - react-native-image-picker (0.28.1):
+    - React
+  - react-native-netinfo (4.1.5):
+    - React
   - react-native-orientation (3.1.3):
     - React
   - react-native-splash-screen (3.1.1):
     - React
   - react-native-umeng-analytics (0.2.5):
+    - React
+  - react-native-wechat (1.9.10):
     - React
   - React-RCTActionSheet (0.60.5):
     - React-Core (= 0.60.5)
@@ -95,15 +121,51 @@ PODS:
     - React-Core (= 0.60.5)
   - React-RCTWebSocket (0.60.5):
     - React-Core (= 0.60.5)
+  - ReactNativeExceptionHandler (2.3.0):
+    - React
+  - ReactNativeKeyboardManager (4.0.13-9):
+    - IQKeyboardManager (= 4.0.13)
+    - React
   - Reveal-SDK (21)
+  - RNCAsyncStorage (1.6.1):
+    - React
+  - RNCViewpager (1.1.7):
+    - React
+  - RNDeviceInfo (2.2.2):
+    - React
+  - RNFastImage (7.0.2):
+    - React
+    - SDWebImage (~> 5.0)
+    - SDWebImageWebPCoder (~> 0.2.3)
+  - RNFS (2.12.1):
+    - React
+  - RNGestureHandler (1.3.0):
+    - React
+  - RNI18n (2.0.15):
+    - React
+  - RNKeychain (3.0.0):
+    - React
+  - RNRate (1.0.1):
+    - React
+  - RNVectorIcons (6.1.0):
+    - React
+  - SDWebImage (5.1.0):
+    - SDWebImage/Core (= 5.1.0)
+  - SDWebImage/Core (5.1.0)
+  - SDWebImageWebPCoder (0.2.3):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.0)
   - SSZipArchive (2.2.2)
   - yoga (0.60.5.React)
 
 DEPENDENCIES:
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - "RCTAlipay (from `../node_modules/@0x5e/react-native-alipay/ios`)"
+  - RCTRestart (from `../node_modules/react-native-restart/ios`)
   - React (from `../node_modules/react-native/`)
   - React-Core (from `../node_modules/react-native/React`)
   - React-cxxreact (from `../node_modules/react-native/ReactCommon/cxxreact`)
@@ -111,9 +173,14 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-blur (from `../node_modules/react-native-blur`)
+  - react-native-calendar-events (from `../node_modules/react-native-calendar-events`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-umeng-analytics (from `../node_modules/react-native-umeng-analytics`)
+  - react-native-wechat (from `../node_modules/react-native-wechat`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -125,18 +192,36 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - React-RCTWebSocket (from `../node_modules/react-native/Libraries/WebSocket`)
+  - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler/ios`)
+  - ReactNativeKeyboardManager (from `../node_modules/react-native-keyboard-manager`)
   - Reveal-SDK (= 21)
+  - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCViewpager (from `../node_modules/@react-native-community/viewpager`)"
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNFastImage (from `../node_modules/react-native-fast-image`)
+  - RNFS (from `../node_modules/react-native-fs`)
+  - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNI18n (from `../node_modules/react-native-i18n`)
+  - RNKeychain (from `../node_modules/react-native-keychain`)
+  - RNRate (from `../node_modules/react-native-rate/ios`)
+  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Base64
     - boost-for-react-native
+    - IQKeyboardManager
     - JWT
+    - libwebp
     - Reveal-SDK
+    - SDWebImage
+    - SDWebImageWebPCoder
     - SSZipArchive
 
 EXTERNAL SOURCES:
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   CodePush:
     :path: "../node_modules/react-native-code-push"
   DoubleConversion:
@@ -145,6 +230,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  RCTAlipay:
+    :path: "../node_modules/@0x5e/react-native-alipay/ios"
+  RCTRestart:
+    :path: "../node_modules/react-native-restart/ios"
   React:
     :path: "../node_modules/react-native/"
   React-Core:
@@ -159,12 +248,22 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-blur:
+    :path: "../node_modules/react-native-blur"
+  react-native-calendar-events:
+    :path: "../node_modules/react-native-calendar-events"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-orientation:
     :path: "../node_modules/react-native-orientation"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-umeng-analytics:
     :path: "../node_modules/react-native-umeng-analytics"
+  react-native-wechat:
+    :path: "../node_modules/react-native-wechat"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -187,17 +286,46 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   React-RCTWebSocket:
     :path: "../node_modules/react-native/Libraries/WebSocket"
+  ReactNativeExceptionHandler:
+    :path: "../node_modules/react-native-exception-handler/ios"
+  ReactNativeKeyboardManager:
+    :path: "../node_modules/react-native-keyboard-manager"
+  RNCAsyncStorage:
+    :path: "../node_modules/@react-native-community/async-storage"
+  RNCViewpager:
+    :path: "../node_modules/@react-native-community/viewpager"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
+  RNFastImage:
+    :path: "../node_modules/react-native-fast-image"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
+  RNGestureHandler:
+    :path: "../node_modules/react-native-gesture-handler"
+  RNI18n:
+    :path: "../node_modules/react-native-i18n"
+  RNKeychain:
+    :path: "../node_modules/react-native-keychain"
+  RNRate:
+    :path: "../node_modules/react-native-rate/ios"
+  RNVectorIcons:
+    :path: "../node_modules/react-native-vector-icons"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
   CodePush: 73650f38e476f1a31757aaa9f6a732fd131f0be7
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
+  libwebp: db273b5a72581ca31985dec5c3b8bc826a5f59ee
+  RCTAlipay: 3a02fb52bbb17f8cf5cf814c6ab32526a04c5dd1
+  RCTRestart: aeb4062d92ed0805be440fe8988e83d8bab2e2a0
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -205,9 +333,14 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
+  react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
+  react-native-calendar-events: eaa63134881d97488feb21ea114158f712894018
+  react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
+  react-native-netinfo: 0e563248a4b9a99c33ec29bd03c2d50767db22a6
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
-  react-native-umeng-analytics: 651dc526bd1abaa58b0d68b8cfa1599511d51be0
+  react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
+  react-native-wechat: d864e3f5e526fb21fee7db42fbc1ef69e3ec420d
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
   React-RCTBlob: 5e2b55f76e9a1c7ae52b826923502ddc3238df24
@@ -219,10 +352,24 @@ SPEC CHECKSUMS:
   React-RCTText: b074d89033583d4f2eb5faf7ea2db3a13c7553a2
   React-RCTVibration: 2105b2e0e2b66a6408fc69a46c8a7fb5b2fdade0
   React-RCTWebSocket: cd932a16b7214898b6b7f788c8bddb3637246ac4
+  ReactNativeExceptionHandler: 040b33d72849a0aa862d1dcb54008ccef77a935e
+  ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
   Reveal-SDK: 3523e0eb7c562811c51bb71da6e523a6373702c8
+  RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
+  RNCViewpager: d11d720f0c6fbd2024788d09108a9f7abb1fac5a
+  RNDeviceInfo: 1215084f45c1059b031c530281442dc7079ccf0a
+  RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
+  RNFS: 0f4d630b538e93e0e9e3519ff0b7b7b48760d8ed
+  RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
+  RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
+  RNKeychain: 3aa3cf891a09a0d18d306862ab2bb9e106079b24
+  RNRate: 29be49c24b314c4e8ec09d848c3965f61cb0be47
+  RNVectorIcons: ac7bf6bfeafaf3ad34552cdc6eed6fb8c4b7c940
+  SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
+  SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   yoga: 312528f5bbbba37b4dcea5ef00e8b4033fdd9411
 
-PODFILE CHECKSUM: 0560cc42f3207f4e484cb21201b7ea9819245bfc
+PODFILE CHECKSUM: 57e53b4090abdb207b08be15eb8286d0eefa60e5
 
 COCOAPODS: 1.7.5

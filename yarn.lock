@@ -6895,9 +6895,9 @@ react-native-typography@1.3.0:
   resolved "https://registry.npm.taobao.org/react-native-typography/download/react-native-typography-1.3.0.tgz#ae921c141ab1dfdf4335ebc2b4a146bcf7919b36"
   integrity sha1-rpIcFBqx399DNevCtKFGvPeRmzY=
 
-"react-native-umeng-analytics@git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git":
+"react-native-umeng-analytics@git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git#pod2":
   version "0.2.5"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git#d427f99dea51690b8199a6f8618ad346e2367484"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git#5a276153eec376760b720f55a76560834c95d330"
 
 react-native-update-app@1.1.11:
   version "1.1.11"
@@ -6929,10 +6929,9 @@ react-native-vector-icons@>=4.0.0:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
-react-native-wechat@1.9.9:
-  version "1.9.9"
-  resolved "https://registry.npm.taobao.org/react-native-wechat/download/react-native-wechat-1.9.9.tgz#acc4f7f22a3aeae13671108bcee39cbcb023c23a"
-  integrity sha1-rMT38io66uE2cRCLzuOcvLAjwjo=
+"react-native-wechat@git+ https://github.com/yorkie/react-native-wechat.git":
+  version "1.9.10"
+  resolved "git+ https://github.com/yorkie/react-native-wechat.git#717ae5f6ae23768a5ffe3e7d8ecc97f2d143acdb"
   dependencies:
     events "1.0.2"
 

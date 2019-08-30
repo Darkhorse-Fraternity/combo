@@ -9,6 +9,11 @@ module.exports = {
       },
     },
     'react-native-simple-toast': {},
+    'react-native-update-app': {
+      platforms: {
+        ios: null
+      },
+    },
     // 'react-native-fast-image': {},
   },
 };
