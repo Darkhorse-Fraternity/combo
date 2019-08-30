@@ -6618,10 +6618,9 @@ react-native-auto-height-image@1.0.5:
     prop-types "^15.5.8"
     react-native-android-image-polyfill "^1.0.0"
 
-react-native-autogrow-textinput@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.npm.taobao.org/react-native-autogrow-textinput/download/react-native-autogrow-textinput-5.1.0.tgz#04aa7b0923a3b552a4c21cd7b187fb1a6e6a5661"
-  integrity sha1-BKp7CSOjtVKkwhzXsYf7Gm5qVmE=
+"react-native-autogrow-textinput@git+https://github.com/pokemon-corps/react-native-autogrow-textinput.git":
+  version "5.2.0"
+  resolved "git+https://github.com/pokemon-corps/react-native-autogrow-textinput.git#14655a00cb5d8f01dce375a7ec90606b5b9d3263"
 
 react-native-blur@3.2.2:
   version "3.2.2"
@@ -6733,10 +6732,9 @@ react-native-image-zoom-viewer@2.2.24:
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 
-react-native-keyboard-input@5.3.1:
+"react-native-keyboard-input@git+https://github.com/pokemon-corps/react-native-keyboard-input.git":
   version "5.3.1"
-  resolved "https://registry.npm.taobao.org/react-native-keyboard-input/download/react-native-keyboard-input-5.3.1.tgz#e90f43e17c070535cb54cc0be66a247f177474fc"
-  integrity sha1-6Q9D4XwHBTXLVMwL5mokfxd0dPw=
+  resolved "git+https://github.com/pokemon-corps/react-native-keyboard-input.git#f2b5886a6f05cdcad253e30d76c1e34b4d0b7ad1"
   dependencies:
     lodash "^4.17.4"
     react-native-keyboard-tracking-view "^5.5.0"
@@ -6746,15 +6744,14 @@ react-native-keyboard-manager@4.0.13-9:
   resolved "https://registry.npm.taobao.org/react-native-keyboard-manager/download/react-native-keyboard-manager-4.0.13-9.tgz#836c30b4f48d79ade23e257639bbed84509f6fdf"
   integrity sha1-g2wwtPSNea3iPiV2ObvthFCfb98=
 
-react-native-keyboard-tracking-view@5.4.4:
-  version "5.4.4"
-  resolved "https://registry.npm.taobao.org/react-native-keyboard-tracking-view/download/react-native-keyboard-tracking-view-5.4.4.tgz#2ec99d232bf59a73493288ba8503b29057fa8a06"
-  integrity sha1-LsmdIyv1mnNJMoi6hQOykFf6igY=
-
 react-native-keyboard-tracking-view@^5.5.0:
   version "5.5.0"
   resolved "https://registry.npm.taobao.org/react-native-keyboard-tracking-view/download/react-native-keyboard-tracking-view-5.5.0.tgz#87d28639f30e5b511de510e4063e476f23d6e4f2"
   integrity sha1-h9KGOfMOW1Ed5RDkBj5HbyPW5PI=
+
+"react-native-keyboard-tracking-view@git+https://github.com/pokemon-corps/react-native-keyboard-tracking-view.git":
+  version "5.5.0"
+  resolved "git+https://github.com/pokemon-corps/react-native-keyboard-tracking-view.git#e80557ea31aec74438841edc57f769961e9fb457"
 
 react-native-keychain@3.0.0:
   version "3.0.0"

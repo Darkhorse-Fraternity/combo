@@ -1057,11 +1057,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 243;
 				DEVELOPMENT_TEAM = G54H3R6236;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/analytics_ios_5.4.1",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/common_ios_1.4.2/normal",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1396,12 +1392,7 @@
 				CURRENT_PROJECT_VERSION = 243;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = G54H3R6236;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/analytics_ios_5.4.1",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/common_ios_1.4.2/normal",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1481,11 +1472,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 243;
 				DEVELOPMENT_TEAM = G54H3R6236;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-qq/ios/RCTQQAPI/**",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/analytics_ios_5.4.1",
-					"$(SRCROOT)/../node_modules/react-native-umeng-analytics/ios/common_ios_1.4.2/normal",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,

@@ -80,11 +80,17 @@ PODS:
     - React-cxxreact (= 0.60.5)
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
+  - react-native-autogrow-textinput (5.2.0):
+    - React
   - react-native-blur (0.8.0):
     - React
   - react-native-calendar-events (1.7.3):
     - React
   - react-native-image-picker (0.28.1):
+    - React
+  - react-native-keyboard-input (5.3.1):
+    - React
+  - react-native-keyboard-tracking-view (5.5.0):
     - React
   - react-native-netinfo (4.1.5):
     - React
@@ -179,9 +185,12 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-autogrow-textinput (from `../node_modules/react-native-autogrow-textinput`)
   - react-native-blur (from `../node_modules/react-native-blur`)
   - react-native-calendar-events (from `../node_modules/react-native-calendar-events`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-keyboard-input (from `../node_modules/react-native-keyboard-input`)
+  - react-native-keyboard-tracking-view (from `../node_modules/react-native-keyboard-tracking-view`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-qq (from `../node_modules/react-native-qq`)
@@ -257,12 +266,18 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-autogrow-textinput:
+    :path: "../node_modules/react-native-autogrow-textinput"
   react-native-blur:
     :path: "../node_modules/react-native-blur"
   react-native-calendar-events:
     :path: "../node_modules/react-native-calendar-events"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-keyboard-input:
+    :path: "../node_modules/react-native-keyboard-input"
+  react-native-keyboard-tracking-view:
+    :path: "../node_modules/react-native-keyboard-tracking-view"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-orientation:
@@ -348,9 +363,12 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
+  react-native-autogrow-textinput: 6ac9827113fab5e72be63ba6f0e40e6a01aa4697
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-calendar-events: eaa63134881d97488feb21ea114158f712894018
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
+  react-native-keyboard-input: 06790d8058189f1f0e4099ceb8cc69f6435dcc07
+  react-native-keyboard-tracking-view: e5266ec24dd99e44fdb4529d12818e2ed6beff43
   react-native-netinfo: 0e563248a4b9a99c33ec29bd03c2d50767db22a6
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
