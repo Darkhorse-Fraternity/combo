@@ -14,6 +14,11 @@ module.exports = {
         ios: null
       },
     },
+    'react-native-screens': {
+      platforms: {
+        android: null
+      },
+    },
     // 'react-native-fast-image': {},
   },
 };
