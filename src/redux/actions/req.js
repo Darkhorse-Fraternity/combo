@@ -33,6 +33,8 @@ export async function reqY(params) {
   // console.log('response:', response);
   const contentType = response.headers.get('content-type');
   const jsonTypes = ['application/json', 'text/plain'];
+  console.log('contentType', contentType);
+
   const isJSON = jsonTypes.some(type => contentType.includes(type));
   if (isJSON) {
     return response.json();

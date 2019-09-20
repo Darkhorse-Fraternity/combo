@@ -3,7 +3,7 @@ import {
   createSwitchNavigator,
   createAppContainer
 } from 'react-navigation';
-import { TransitionConfiguration } from './TransitionConfiguration';
+// import { TransitionConfiguration } from './TransitionConfiguration';
 import Tab from '../components/StaticTab';
 import AuthLoadingScreen from '../auth/AuthLoadingView';
 

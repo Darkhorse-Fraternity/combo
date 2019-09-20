@@ -19,6 +19,22 @@ module.exports = {
         android: null
       },
     },
+    'react-native-code-push': {
+      platforms: {
+        android: {
+          packageInstance:
+            'new CodePush(BuildConfig.CODEPUSH_KEY,getApplicationContext(),BuildConfig.DEBUG)',
+        },
+      },
+    },
+    'react-native-keyboard-input': {
+      platforms: {
+        android: {
+          packageInstance:
+            'new KeyboardInputPackage(getApplicationContext())',
+        },
+      },
+    },
     // 'react-native-fast-image': {},
   },
 };
