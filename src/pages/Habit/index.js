@@ -91,9 +91,15 @@ const Archive = `${IUSE}archive`;
       // handleView && await handleView.fadeIn(100)
       return res;
     },
-    delete: async (objectId, handleView) => {
+    delete: async (objectId, handleView, isFb) => {
       // await remove(objectId,IUSE)
       // 做伪删除
+
+      if (isFb) {
+        Alert.alert('主人，我正参与副本活动，不可以被删除哦～！', '等活动结束后再来吧。', [{ text: '知道了' }]);
+        return;
+      }
+
 
       Alert.alert(
         '确定删除?',
@@ -265,7 +271,7 @@ export default class Habit extends PureComponent {
             onPress: () => {
               // this.setState({ openIndex: -1 })
               const handleView = self.handleViewRef[`habit${index}`];
-              this.props.delete(item, handleView);
+              this.props.delete(item, handleView, data.isFb);
             },
             component: this._renderSwipeOutDeleteBtn('删除', '#f44336', 'delete', StyledAntDesign),
             backgroundColor: '#fdfbfb'

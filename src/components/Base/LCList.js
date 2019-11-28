@@ -2,54 +2,50 @@
  * Created by lintong on 2017/6/14.
  * @flow
  */
-'use strict';
+
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
-} from 'react-native'
-import { connect } from 'react-redux'
+} from 'react-native';
+import { connect } from 'react-redux';
 import * as immutable from 'immutable';
-import BaseSectionView from './BaseSectionView'
 import { bindActionCreators } from 'redux';
-import { listReq } from '../../redux/actions/list'
-//static displayName = ReqListView
-import { listDefouteKey, schemas } from '../../redux/scemes'
-import { search } from '../../redux/module/leancloud'
-import { denormalize } from 'normalizr'
+import { denormalize } from 'normalizr';
 import { debounce } from 'lodash'; // 4.0.8
+import BaseSectionView from './BaseSectionView';
+import { listReq } from '../../redux/actions/list';
+// static displayName = ReqListView
+import { listDefouteKey, schemas } from '../../redux/scemes';
+import { search } from '../../redux/module/leancloud';
 
 @connect(
   (state, props) => ({
     data: state.list.get(props.sKey || props.reqKey),
     normalizrData: state.normalizr.get(props.reqKey)
   }),
-  (dispatch, props) => {
-
-    return {
-      //...bindActionCreators({},dispatch),
-      loadData: (more = false,p = props) => {
-        const mSearch = p.search || search
-        const {
-          reqKey,
+  (dispatch, props) => ({
+    // ...bindActionCreators({},dispatch),
+    loadData: (more = false, p = props) => {
+      const mSearch = p.search || search;
+      const {
+        reqKey,
+        sKey,
+        dataMap,
+        callPath,
+        reqParam
+      } = p;
+      return dispatch(mSearch(more,
+        reqParam,
+        reqKey, {
           sKey,
-          dataMap,
-          callPath,
-          reqParam
-        } = p
-        return dispatch(mSearch(more,
-          reqParam,
-          reqKey, {
-            sKey,
-            dataMap
-          },
-          callPath)
-        )
-      },
-    }
-  }
+          dataMap
+        },
+        callPath));
+    },
+  })
 )
 
 export default class LCList extends PureComponent {
@@ -61,7 +57,7 @@ export default class LCList extends PureComponent {
     reqParam: PropTypes.object.isRequired,
     reqKey: PropTypes.string.isRequired,
     sKey: PropTypes.string,
-    callPath: PropTypes.string, //不为空则表示走leancloud 的云函数
+    callPath: PropTypes.string, // 不为空则表示走leancloud 的云函数
     search: PropTypes.func
   };
 
@@ -75,20 +71,18 @@ export default class LCList extends PureComponent {
   debounceLoadData = debounce(this.props.loadData, 100, { leading: false, trailing: true })
 
   componentWillReceiveProps(nextProps: Object) {
-
-    //只进行值比较
+    // 只进行值比较
     if (JSON.stringify(nextProps.reqParam)
       !== JSON.stringify(this.props.reqParam)) {
-      this.debounceLoadData(false,nextProps)
+      this.debounceLoadData(false, nextProps);
     }
-
   }
 
 
   __renderItem({ item, index }: { item: Item, index: number }): ReactElement<any> {
-    const data = typeof item === 'object' ? item :
-      this.props.normalizrData.get(item + '').toJS()
-    return this.props.renderItem({ item: data, index })
+    const data = typeof item === 'object' ? item
+      : this.props.normalizrData.get(`${item}`).toJS();
+    return this.props.renderItem({ item: data, index });
   }
 
 
@@ -110,20 +104,20 @@ export default class LCList extends PureComponent {
     const {
       data,
       loadData,
-    } = this.props
+    } = this.props;
 
-    const modal = data && data.toJS() || {}
-    const { loadStatu, listData } = modal
+    const modal = data && data.toJS() || {};
+    const { loadStatu, listData } = modal;
 
 
-    const afterDataMap = this.props.afterDataMap &&
-      this.props.afterDataMap(listData) || listData
+    const afterDataMap = this.props.afterDataMap
+      && this.props.afterDataMap(listData) || listData;
 
 
     return (
       <BaseSectionView
         {...this.props}
-        loadData={()=>loadData(false)}
+        loadData={() => loadData(false)}
         loadMore={() => loadData(true)}
         data={afterDataMap}
         loadStatu={loadStatu}
@@ -133,5 +127,3 @@ export default class LCList extends PureComponent {
     );
   }
 }
-
-

@@ -4,8 +4,6 @@
  */
 
 
-
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -21,11 +19,11 @@ import { connect } from 'react-redux';
 import * as immutable from 'immutable';
 import * as Animatable from 'react-native-animatable';
 import LCList from '../../components/Base/LCList';
-import { IRECORD, ICARD, IUSE } from '../../redux/reqKeys'
-import { selfUser } from '../../request/LCModle'
-import { update } from '../../redux/module/leancloud'
+import { IRECORD, ICARD, IUSE } from '../../redux/reqKeys';
+import { selfUser } from '../../request/LCModle';
+import { update } from '../../redux/module/leancloud';
 
-import CardRow from '../Habit/Cell'
+import CardRow from '../Habit/Cell';
 import {
   StyledContent,
   StyledHeader,
@@ -34,18 +32,17 @@ import {
   StyledDeleteBtn,
   StyledDeleteBtnText,
   StyledAntDesign
-} from './style'
+} from './style';
 
-import { claerByID } from '../../redux/actions/list'
-import { addNormalizrEntity } from '../../redux/module/normalizr'
-import { addListNormalizrEntity } from '../../redux/actions/list'
-import { classUpdate } from '../../request/leanCloud'
-import { req } from '../../redux/actions/req'
+import { claerByID, addListNormalizrEntity } from '../../redux/actions/list';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+import { classUpdate } from '../../request/leanCloud';
+import { req } from '../../redux/actions/req';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
 import AnimationRow from '../../components/AnimationRow';
 
 
-const Archive = `${IUSE  }archive`;
+const Archive = `${IUSE}archive`;
 
 
 @connect(
@@ -79,15 +76,21 @@ const Archive = `${IUSE  }archive`;
       await dispatch(claerByID(IRECORD, id));
       handleView && await handleView.reset();
     },
-    delete: async (objectId, handleView) => {
+    delete: async (objectId, handleView, isFb) => {
       // await remove(objectId,IUSE)
       // 做伪删除
+
+      if (isFb) {
+        Alert.alert('主人，我正参与副本活动，不可以被删除哦～！', '等活动结束后再来吧。', [{ text: '知道了' }]);
+        return;
+      }
+
       Alert.alert(
         '确定删除?',
         '删除后不可恢复~！',
         [{ text: '取消' }, {
           text: '确定',
-onPress: async () => {
+          onPress: async () => {
             const param = {
               statu: 'del'
             };
@@ -122,11 +125,11 @@ export default class Record extends Component {
 
   static defaultProps = {};
 
-  static navigationOptions = (props) => 
+  static navigationOptions = props =>
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-     ({
+    ({
       // title: '我的记录',
     })
   ;
@@ -137,21 +140,21 @@ export default class Record extends Component {
 
 
   _renderHeader = () => (
-      <StyledHeader>
-        <StyledHeaderTitle>
+    <StyledHeader>
+      <StyledHeaderTitle>
           已暂停卡片
-        </StyledHeaderTitle>
-      </StyledHeader>
-    )
+      </StyledHeaderTitle>
+    </StyledHeader>
+  )
 
   _renderSwipeOutDeleteBtn = (title, color, name, CMP = StyledIcon) => (
-      <StyledDeleteBtn>
-        <CMP size={25} color={color} name={name}/>
-        <StyledDeleteBtnText color={color}>
-          {title}
-        </StyledDeleteBtnText>
-      </StyledDeleteBtn>
-    )
+    <StyledDeleteBtn>
+      <CMP size={25} color={color} name={name} />
+      <StyledDeleteBtnText color={color}>
+        {title}
+      </StyledDeleteBtnText>
+    </StyledDeleteBtn>
+  )
 
   handleViewRef = {}
 
@@ -178,21 +181,21 @@ export default class Record extends Component {
     return (
       <AnimationRow
         useNativeDriver
-        ref={res => this.handleViewRef[`habit${  index}`] = res}
+        ref={res => this.handleViewRef[`habit${index}`] = res}
       >
         <AppleStyleSwipeableRow
           ref={(ref) => {
-            this.swipeRefs[`swipe${  index}`] = ref;
+            this.swipeRefs[`swipe${index}`] = ref;
           }}
           backgroundColor="white"
           close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
-            const {openIndex} = this.state;
+            const { openIndex } = this.state;
             if (index === openIndex) {
               return;
             }
             if (openIndex !== -1) {
-              const swipeRef = this.swipeRefs[`swipe${  openIndex}`];
+              const swipeRef = this.swipeRefs[`swipe${openIndex}`];
               swipeRef && swipeRef.close();
             }
             this.setState({ openIndex: index });
@@ -226,8 +229,8 @@ export default class Record extends Component {
             type: 'delete',
             onPress: () => {
               // this._deleteRow(item)
-              const handleView = self.handleViewRef[`habit${  index}`];
-              this.props.delete(item.objectId, handleView);
+              const handleView = self.handleViewRef[`habit${index}`];
+              this.props.delete(item.objectId, handleView, item.isFb);
 
               // this.setState({ openIndex: -1 })
             },
@@ -237,7 +240,7 @@ export default class Record extends Component {
             type: 'primary',
             onPress: () => {
               // this._deleteRow(item)
-              const handleView = self.handleViewRef[`habit${  index}`];
+              const handleView = self.handleViewRef[`habit${index}`];
               this.props.refresh(item, handleView);
               // this.setState({ openIndex: -1 })
             },
@@ -254,7 +257,7 @@ export default class Record extends Component {
                 iUseId: item.objectId,
                 iCardId: iCard.objectId
               });
-            }} 
+            }}
           />
         </AppleStyleSwipeableRow>
       </AnimationRow>
@@ -262,15 +265,17 @@ export default class Record extends Component {
   }
 
   render() {
-    const { dispatch, state } = this.props.navigation;
+    const { navigation } = this.props;
+    const { dispatch, state } = navigation;
     const { params } = state;
-    const statu = params ? params.statu : { '$ne': 'del' };
+    const statu = params ? params.statu : { $ne: 'del' };
     const param = {
-      where: {
-        ...dispatch(selfUser()),
-        statu,
-      },
-      include: ICARD,
+      // where: {
+      //   ...dispatch(selfUser()),
+      //   statu,
+      // },
+      // include: ICARD,
+      statu
     };
     return (
       <StyledContent forceInset={{ top: 'never' }}>
@@ -280,10 +285,13 @@ export default class Record extends Component {
           style={[this.props.style, styles.list]}
           reqKey={IUSE}
           sKey={IRECORD}
-          renderItem={this.renderRow.bind(this)}
-          // dataMap={(data)=>{
-          //   return {[OPENHISTORYLIST]:data.list}
-          // }}
+          renderItem={this.renderRow}
+          dataMap={(data) => {
+            console.log('data', data);
+
+            return { results: data.result.iUseList };
+          }}
+          callPath="iUseList2"
           reqParam={param}
         />
       </StyledContent>

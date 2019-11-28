@@ -47,9 +47,9 @@ import { popToIndex } from '../../../redux/nav';
 import { update, search } from '../../../redux/module/leancloud';
 
 import { IUSE, IRECORD } from '../../../redux/reqKeys';
-import { claerByID } from '../../../redux/actions/list';
+import { claerByID, addListNormalizrEntity } from '../../../redux/actions/list';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { addListNormalizrEntity } from '../../../redux/actions/list';
+
 import { Privacy, CircleState } from '../../../configure/enum';
 import { classUpdate } from '../../../request/leanCloud';
 import { req } from '../../../redux/actions/req';
@@ -117,9 +117,13 @@ const Archive = `${IUSE}archive`;
       dispatch(claerByID(IUSE, id));
       dispatch(popToIndex());
     },
-    delete: async (objectId) => {
+    delete: async (objectId, isFb) => {
       // await remove(objectId,IUSE)
       // 做伪删除
+      if (isFb) {
+        Alert.alert('主人，我正参与副本活动，不可以被删除哦～！', '等活动结束后再来吧。', [{ text: '知道了' }]);
+        return;
+      }
 
       Alert.alert(
         '确定删除?',
@@ -183,7 +187,7 @@ export default class Settings extends PureComponent {
         <StyledBtnTitle>
             查看
         </StyledBtnTitle>
-                    </StyledBtn>
+      </StyledBtn>
       ),
       // headerStyle: {
       //     backgroundColor: '#f5fcff',
@@ -269,7 +273,7 @@ export default class Settings extends PureComponent {
 
         <this._renderItem
           onPress={() => {
-            this.props.delete(iUse.objectId);
+            this.props.delete(iUse.objectId, iUse.isFb);
           }}
           load={this.props.iUseLoad}
           name="md-trash"

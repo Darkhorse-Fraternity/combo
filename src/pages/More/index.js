@@ -37,7 +37,7 @@ import {
 } from '../../redux/reqKeys';
 import {
   friendNum,
-  updateNickName 
+  updateNickName
 } from '../../request/leanCloud';
 import Avatar from '../../components/Avatar';
 
