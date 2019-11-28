@@ -1,17 +1,17 @@
 /* @flow */
 
 // import DeviceInfo from 'react-native-device-info'
-import DeviceInfo from 'react-native-device-info';
-import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from './leancloud';
-import { appChannel } from '../../helps/util';
+import DeviceInfo from "react-native-device-info";
+import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from "./leancloud";
+import { appChannel } from "../../helps/util";
 
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
 
 export const defaultHost = !__DEV__
-  ? /* release */ 'icard.leanapp.cn/1.1'
-  : /* debug */ 'icard.leanapp.cn/1.1';
+  ? /* release */ "cmwljtyw.engine.lncld.net/1.1"
+  : /* debug */ "cmwljtyw.engine.lncld.net/1.1";
 
 // export const apiHost = !__DEV__
 //   ? /* release */ "icourage.cn"
@@ -19,10 +19,10 @@ export const defaultHost = !__DEV__
 // /* debug */ : 'icard.leanapp.cn';
 
 export const apiHost = !__DEV__
-  ? /* release */ 'icard.leanapp.cn'
-  : /* debug */ 'stg-icard.leanapp.cn';
+  ? /* release */ "cmwljtyw.api.lncld.net"
+  : /* debug */ "cmwljtyw.api.lncld.net";
 
-let LeanCloud_APP_Session = '';
+let LeanCloud_APP_Session = "";
 
 export function setLeanCloudSession(session: string) {
   LeanCloud_APP_Session = session;
@@ -32,17 +32,17 @@ export function httpHeaders(needSession: boolean): Object {
   const appVersion = DeviceInfo.getVersion();
 
   let header = {
-    'Content-Type': 'application/json; charset=utf-8',
-    'X-LC-Sign': LeanCloud_APP_SIGN,
-    'X-LC-Id': LeanCloud_APP_ID,
-    'X-LC-Prod': __DEV__ ? 0 : 1,
+    "Content-Type": "application/json; charset=utf-8",
+    "X-LC-Sign": LeanCloud_APP_SIGN,
+    "X-LC-Id": LeanCloud_APP_ID,
+    "X-LC-Prod": __DEV__ ? 0 : 1,
     appVersion,
     appChannel
   };
 
   if (needSession) {
     header = Object.assign({}, header, {
-      'X-LC-Session': LeanCloud_APP_Session
+      "X-LC-Session": LeanCloud_APP_Session
     });
   }
   // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);

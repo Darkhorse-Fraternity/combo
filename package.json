@@ -80,6 +80,7 @@
     "wurl": "2.5.3"
   },
   "devDependencies": {
+    "@react-native-community/eslint-config": "^0.0.5",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^24.1.0",
@@ -96,7 +97,8 @@
     "jest-react-native": "^18.0.0",
     "jetifier": "^1.6.0",
     "react-native-debugger-open": "^0.3.20",
-    "react-test-renderer": "^16.4.1"
+    "react-test-renderer": "^16.4.1",
+    "typescript-eslint-parser": "^22.0.0"
   },
   "jest": {
     "preset": "react-native",
