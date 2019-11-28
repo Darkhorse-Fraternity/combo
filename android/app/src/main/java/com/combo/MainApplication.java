@@ -2,6 +2,7 @@ package com.combo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -12,7 +13,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.PushService;
 
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
-
+import java.lang.reflect.InvocationTargetException;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -52,6 +53,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 
         @Override
         protected List<ReactPackage> getPackages() {
+            @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
             packages.add( new RNAppUtilPackage());
             return packages;
@@ -63,6 +65,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
+        initializeFlipper(this); // Remove this line if you don't want Flipper enabled
         // 初始化参数依次为 this, AppId, AppKey
         String packageName = this.getPackageName();
         PushService.setDefaultChannelId(this, packageName + "android.push");
@@ -70,7 +73,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
                 "S6wxWnhQfL9rBLo2ngEctK0u");
 
         // 用于推送判断前后台
-        ActivityLifecycleCallbacks();
+//        ActivityLifecycleCallbacks();
 
 
 
@@ -89,6 +92,26 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 //        MobclickAgent.openActivityDurationTrack(false);
     }
 
+    private static void initializeFlipper(Context context) {
+        if (BuildConfig.DEBUG) {
+            try {
+        /*
+         We use reflection here to pick up the class that initializes Flipper,
+        since Flipper library is not available in release mode
+        */
+                Class<?> aClass = Class.forName("com.facebook.flipper.ReactNativeFlipper");
+                aClass.getMethod("initializeFlipper", Context.class).invoke(null, context);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public ReactNativeHost getReactNativeHost() {

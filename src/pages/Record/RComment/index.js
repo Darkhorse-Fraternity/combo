@@ -3,8 +3,7 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 import {
   View,
   StyleSheet,
@@ -13,37 +12,36 @@ import {
   TouchableOpacity,
   Alert,
   TouchableNativeFeedback,
-  ActivityIndicator,
-
-} from 'react-native';
-import { connect } from 'react-redux';
-import { BlurView } from 'react-native-blur';
-import { KeyboardAccessoryView, KeyboardUtils } from 'react-native-keyboard-input';
-import moment from 'moment';
-import { formValueSelector } from 'redux-form/immutable';
-import { reset } from 'redux-form';
-import Toast from 'react-native-simple-toast';
-import * as Animatable from 'react-native-animatable';
-import RecordRow from '../RecordRow';
+  ActivityIndicator
+} from "react-native";
+import { connect } from "react-redux";
+import { BlurView } from "@react-native-community/blur";
+import {
+  KeyboardAccessoryView,
+  KeyboardUtils
+} from "react-native-keyboard-input";
+import moment from "moment";
+import { formValueSelector } from "redux-form/immutable";
+import { reset } from "redux-form";
+import Toast from "react-native-simple-toast";
+import * as Animatable from "react-native-animatable";
+import RecordRow from "../RecordRow";
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
-import LCList from '../../../components/Base/LCList';
+import LCList from "../../../components/Base/LCList";
 
-
+import { ICOMMENT, IDO, IDOCALENDAR, IUSE } from "../../../redux/reqKeys";
 import {
-  ICOMMENT,
-  IDO,
-  IDOCALENDAR,
-  IUSE
-} from '../../../redux/reqKeys';
-import {
-  add, remove, update, updateByID,
+  add,
+  remove,
+  update,
+  updateByID,
   findByID
-} from '../../../redux/module/leancloud';
-import { selfUser, iDo } from '../../../request/LCModle';
-import { add as listAdd, claerByID } from '../../../redux/actions/list';
-import { addNormalizrEntity, } from '../../../redux/module/normalizr';
-import { reqChangeData } from '../../../redux/actions/req';
-import ChatSendForm, { FormID } from '../../../components/Form/ChatSendForm';
+} from "../../../redux/module/leancloud";
+import { selfUser, iDo } from "../../../request/LCModle";
+import { add as listAdd, claerByID } from "../../../redux/actions/list";
+import { addNormalizrEntity } from "../../../redux/module/normalizr";
+import { reqChangeData } from "../../../redux/actions/req";
+import ChatSendForm, { FormID } from "../../../components/Form/ChatSendForm";
 import {
   StyledHeader,
   StyledContent,
@@ -55,28 +53,27 @@ import {
   StyledDate,
   StyledIcon,
   StyledRightView
-} from './style';
-import Dialog from '../../../components/Dialog';
-import Button from '../../../components/Button';
+} from "./style";
+import Dialog from "../../../components/Dialog";
+import Button from "../../../components/Button";
 // static displayName = RComment
-import Avatar from '../../../components/Avatar/Avatar2';
-import NavBar from '../../../components/Nav/bar/NavBar';
+import Avatar from "../../../components/Avatar/Avatar2";
+import NavBar from "../../../components/Nav/bar/NavBar";
 
-import Pop from '../../../components/Pop';
-import DoWithLoad from '../../../components/DoCard/Do/DoWithLoad';
-import { dataStorage, uploadImages } from '../../../redux/actions/util';
+import Pop from "../../../components/Pop";
+import DoWithLoad from "../../../components/DoCard/Do/DoWithLoad";
+import { dataStorage, uploadImages } from "../../../redux/actions/util";
 
-
-const IsIOS = Platform.OS === 'ios';
+const IsIOS = Platform.OS === "ios";
 const TrackInteractive = true;
-const Name = 'text';
+const Name = "text";
 
 @connect(
   (state, props) => ({
     // data:state.req.get()
     user: state.user.data,
     iDoData: state.normalizr.get(IDO).get(props.navigation.state.params.iDoID),
-    iDoLoad: state.req.get(IDO).get('load')
+    iDoLoad: state.req.get(IDO).get("load")
   }),
   (dispatch, props) => ({
     find: () => {
@@ -84,59 +81,58 @@ const Name = 'text';
       // console.log('id:', id);
       dispatch(findByID(IDO, id));
     },
-    send: () => dispatch(async (dispatch, getState) => {
-      const state = getState();
-      const { iDoID } = props.navigation.state.params;
-      let iDoData = state.normalizr.get(IDO).get(props.navigation.state.params.iDoID);
-      iDoData = iDoData && iDoData.toJS();
+    send: () =>
+      dispatch(async (dispatch, getState) => {
+        const state = getState();
+        const { iDoID } = props.navigation.state.params;
+        let iDoData = state.normalizr
+          .get(IDO)
+          .get(props.navigation.state.params.iDoID);
+        iDoData = iDoData && iDoData.toJS();
 
-      const selector = formValueSelector(FormID); // <-- same as form name
-      // KeyboardUtils.dismiss()
-      KeyboardUtils.dismiss();
+        const selector = formValueSelector(FormID); // <-- same as form name
+        // KeyboardUtils.dismiss()
+        KeyboardUtils.dismiss();
 
+        const text = selector(state, Name);
+        const param = {
+          text,
+          ...dispatch(selfUser()),
+          ...iDo(iDoID)
+        };
+        // const res = await add(param, ICOMMENT)
 
-      const text = selector(state, Name);
-      const param = {
-        text,
-        ...dispatch(selfUser()),
-        ...iDo(iDoID)
-      };
-      // const res = await add(param, ICOMMENT)
+        const res = await dispatch(add(param, ICOMMENT)); //
 
+        // console.log('res:', res);
 
-      const res = await dispatch(add(param, ICOMMENT)); //
+        if (!res) {
+          return;
+        }
 
-      // console.log('res:', res);
+        const entity = {
+          ...param,
+          ...res,
+          user: state.user.data
+        };
+        // dispatch(addListNormalizrEntity(ICOMMENT, entity))
 
-      if (!res) {
-        return;
-      }
+        dispatch(addNormalizrEntity(ICOMMENT, entity));
+        if (iDoData) {
+          iDoData.commentNum++;
+          dispatch(addNormalizrEntity(IDO, iDoData));
+        }
 
-      const entity = {
-        ...param,
-        ...res,
-        user: state.user.data
-      };
-      // dispatch(addListNormalizrEntity(ICOMMENT, entity))
+        // // dispatch(addNormalizrEntities(key,data))
+        dispatch(listAdd(ICOMMENT + iDoID, entity.objectId));
 
-
-      dispatch(addNormalizrEntity(ICOMMENT, entity));
-      if (iDoData) {
-        iDoData.commentNum++;
-        dispatch(addNormalizrEntity(IDO, iDoData));
-      }
-
-      // // dispatch(addNormalizrEntities(key,data))
-      dispatch(listAdd(ICOMMENT + iDoID, entity.objectId));
-
-      dispatch(reset(FormID));
-    }),
+        dispatch(reset(FormID));
+      }),
     iDoDelete: () => {
-      Alert.alert(
-        '删除日记?',
-        '删除后不可恢复',
-        [{ text: '取消' }, {
-          text: '确定',
+      Alert.alert("删除日记?", "删除后不可恢复", [
+        { text: "取消" },
+        {
+          text: "确定",
           onPress: async () => {
             const { iDoID } = props.navigation.state.params;
             const { iUseId } = props.navigation.state.params;
@@ -146,27 +142,27 @@ const Name = 'text';
             const res = await dispatch(updateByID(IDO, iDoID, param));
             const entity = {
               ...param,
-              ...res,
+              ...res
             };
             dispatch(addNormalizrEntity(IDO, entity));
-            iUseId && await dispatch(claerByID(IDO + iUseId, iDoID));
-            iCardId && await dispatch(claerByID(IDO + iCardId, iDoID));
-
+            iUseId && (await dispatch(claerByID(IDO + iUseId, iDoID)));
+            iCardId && (await dispatch(claerByID(IDO + iCardId, iDoID)));
 
             dispatch((dispatch, getState) => {
               const state = getState();
               const iDoMap = state.normalizr.get(IDO).get(iDoID);
               // console.log('iDoMap:', iDoMap);
-              const createdAt = iDoMap.get('createdAt');
-              const doneDate = iDoMap.get('doneDate');
-              const time = doneDate ? doneDate.get('iso') : createdAt;
-              const date = moment(time).format('YYYY-MM-DD');
-              dispatch(reqChangeData(IDOCALENDAR, {
-                [date]: null
-              }));
+              const createdAt = iDoMap.get("createdAt");
+              const doneDate = iDoMap.get("doneDate");
+              const time = doneDate ? doneDate.get("iso") : createdAt;
+              const date = moment(time).format("YYYY-MM-DD");
+              dispatch(
+                reqChangeData(IDOCALENDAR, {
+                  [date]: null
+                })
+              );
 
-
-              if (iDoMap.get('type') === 1) {
+              if (iDoMap.get("type") === 1) {
                 return;
               }
 
@@ -176,48 +172,50 @@ const Name = 'text';
               }
 
               const iUse = state.normalizr.get(IUSE).get(iUseId);
-              const paramiUSE = { time: iUse.get('time') - 1 };
-              const before = moment(0, 'HH');
-              const after = moment(24, 'HH');
+              const paramiUSE = { time: iUse.get("time") - 1 };
+              const before = moment(0, "HH");
+              const after = moment(24, "HH");
 
               const momentIn = moment(time).isBetween(before, after);
               if (momentIn) {
                 paramiUSE.doneDate = {
-                  __type: 'Date',
-                  iso:
-                  moment(time).subtract(1, 'day').toISOString()
+                  __type: "Date",
+                  iso: moment(time)
+                    .subtract(1, "day")
+                    .toISOString()
                 };
               }
               const entityiUse = {
                 ...paramiUSE,
-                objectId: iUse.get('objectId')
+                objectId: iUse.get("objectId")
               };
               dispatch(addNormalizrEntity(IUSE, entityiUse));
             });
 
             props.navigation.goBack();
           }
-        }]
-      );
+        }
+      ]);
     },
-    delete: async (item) => {
+    delete: async item => {
       const { iDoID } = props.navigation.state.params;
       await dispatch(remove(item.objectId, ICOMMENT));
       dispatch(claerByID(ICOMMENT + iDoID, item.objectId));
     },
-    copy: (item) => {
+    copy: item => {
       Clipboard.setString(item.text);
-      Toast.show('已复制评论!');
+      Toast.show("已复制评论!");
     },
     refresh: () => {
       dispatch(async (dispatch, getState) => {
         const state = getState();
         const user = state.user.data;
-        let iDoData = state.normalizr.get(IDO).get(props.navigation.state.params.iDoID);
+        let iDoData = state.normalizr
+          .get(IDO)
+          .get(props.navigation.state.params.iDoID);
         iDoData = iDoData && iDoData.toJS();
         const { iDoID } = props.navigation.state.params;
-        if (iDoData && iDoData.commentNew
-          && iDoData.user === user.objectId) {
+        if (iDoData && iDoData.commentNew && iDoData.user === user.objectId) {
           const params = {
             commentNew: false
           };
@@ -233,69 +231,71 @@ const Name = 'text';
         }
       });
     },
-    reEdit: ({
-      objectId,
-      imgs,
-      recordText
-    }) => {
+    reEdit: ({ objectId, imgs, recordText }) => {
       // record, load, done, type, iUse
       dispatch(async (_, getState) => {
         const imgObjects = imgs.map(item => ({ uri: item }));
-        dispatch(dataStorage(`DoCardForm${objectId}`, { recordText, imgs: imgObjects }));
+        dispatch(
+          dataStorage(`DoCardForm${objectId}`, { recordText, imgs: imgObjects })
+        );
         // const { iDoID } = props.navigation.state.params;
-        Pop.show(<DoWithLoad
-          record={['文字', '图片']}
-          localSaveID={objectId}
-          type={1}
-          done={async () => {
-            const state = getState();
-            const selector = formValueSelector('DoCardForm');
-            const recordTextN = selector(state, 'recordText') || '';
-            let imgs1 = selector(state, 'imgs');
-            if (imgs1) {
-              imgs1 = imgs1.toJS();
-              const imagUploads = [];
-              const imagIndexs = [];
-              // eslint-disable-next-line no-plusplus
-              for (let index = 0; index < imgs1.length; index++) {
-                const element = imgs1[index];
-                const { uri } = element;
-                // eslint-disable-next-line no-empty
-                if (uri.startsWith('file://')) {
-                  imagUploads.push(uri);
-                  imagIndexs.push(index);
+        Pop.show(
+          <DoWithLoad
+            record={["文字", "图片"]}
+            localSaveID={objectId}
+            type={1}
+            done={async () => {
+              const state = getState();
+              const selector = formValueSelector("DoCardForm");
+              const recordTextN = selector(state, "recordText") || "";
+              let imgs1 = selector(state, "imgs");
+              if (imgs1) {
+                imgs1 = imgs1.toJS();
+                const imagUploads = [];
+                const imagIndexs = [];
+                // eslint-disable-next-line no-plusplus
+                for (let index = 0; index < imgs1.length; index++) {
+                  const element = imgs1[index];
+                  const { uri } = element;
+                  // eslint-disable-next-line no-empty
+                  if (uri.startsWith("file://")) {
+                    imagUploads.push(uri);
+                    imagIndexs.push(index);
+                  }
+                }
+                // 上传图片
+                if (imagUploads.length > 0) {
+                  const imgLoadData = await dispatch(
+                    uploadImages(imagUploads, "iDoULImage")
+                  );
+                  console.log("imgLoadData", imgLoadData);
+
+                  imgLoadData.payload.forEach((item, index) => {
+                    const imagIndex = imagIndexs[index];
+                    imgs1[imagIndex] = { uri: item.attributes.url };
+                  });
                 }
               }
-              // 上传图片
-              if (imagUploads.length > 0) {
-                const imgLoadData = await dispatch(uploadImages(imagUploads, 'iDoULImage'));
-                console.log('imgLoadData', imgLoadData);
-
-                imgLoadData.payload.forEach((item, index) => {
-                  const imagIndex = imagIndexs[index];
-                  imgs1[imagIndex] = { uri: item.attributes.url };
-                });
-              }
+              dispatch(
+                updateByID(IDO, objectId, {
+                  recordText: recordTextN,
+                  imgs: imgs1 && imgs1.map(img => img.uri)
+                })
+              );
+              Pop.hide();
+            }}
+          />,
+          {
+            wrapStyle: { justifyContent: "flex-start" },
+            maskStyle: {
+              backgroundColor: "transparent"
             }
-            dispatch(updateByID(IDO, objectId, {
-              recordText: recordTextN,
-              imgs: imgs1 && imgs1.map(img => img.uri)
-            }));
-            Pop.hide();
-          }}
-        />,
-        {
-          wrapStyle: { justifyContent: 'flex-start' },
-          maskStyle: {
-            backgroundColor: 'transparent'
           }
-        });
+        );
       });
     }
   })
 )
-
-
 export default class RComment extends PureComponent {
   static propTypes = {};
 
@@ -306,7 +306,7 @@ export default class RComment extends PureComponent {
     // const { iDoLoad, iDoDelete, isSelf } = params;
     ({
       // title: '',
-      header: null,
+      header: null
       // headerRight: (
       //   isSelf && (
       //   <Button
@@ -326,23 +326,22 @@ export default class RComment extends PureComponent {
       //   </Button>
       //   )
       // ),
-    })
-  ;
+    });
 
   constructor(props: Object) {
     super(props);
-    this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(this);
+    this.keyboardAccessoryViewContent = this.keyboardAccessoryViewContent.bind(
+      this
+    );
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
     this.state = {
-      text: '',
-      showIn: true,
+      text: "",
+      showIn: true
     };
   }
 
   componentDidMount() {
-    const {
-      iDoData, find, refresh
-    } = this.props;
+    const { iDoData, find, refresh } = this.props;
     // const isSelf = user.objectId === iDoData.get('user');
     // navigation.setParams({ iDoDelete, iDoLoad, isSelf });
     if (!iDoData) {
@@ -366,80 +365,68 @@ export default class RComment extends PureComponent {
   }
 
   renderRightView = () => {
-    const {
-      iDoLoad, iDoDelete, iDoData, user, reEdit
-    } = this.props;
-    const isSelf = user.objectId === iDoData.get('user');
+    const { iDoLoad, iDoDelete, iDoData, user, reEdit } = this.props;
+    const isSelf = user.objectId === iDoData.get("user");
 
     if (!isSelf) {
       return null;
     }
 
-
     return (
       <StyledRightView>
         <Button
           disabled={iDoLoad}
-          background={TouchableNativeFeedback.SelectableBackgroundBorderless
-  && TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          background={
+            TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
+          }
           onPress={() => {
             reEdit(iDoData.toJS());
           }}
           style={{ paddingHorizontal: 10 }}
         >
-          <StyledIcon
-            size={20}
-            color="black"
-            name="edit"
-          />
+          <StyledIcon size={20} color="black" name="edit" />
         </Button>
         <Button
           disabled={iDoLoad}
-          background={TouchableNativeFeedback.SelectableBackgroundBorderless
-        && TouchableNativeFeedback.SelectableBackgroundBorderless()}
+          background={
+            TouchableNativeFeedback.SelectableBackgroundBorderless &&
+            TouchableNativeFeedback.SelectableBackgroundBorderless()
+          }
           onPress={iDoDelete}
           style={{ paddingHorizontal: 10 }}
         >
-          {iDoLoad ? <ActivityIndicator /> : (
-            <StyledIcon
-              size={20}
-              color="black"
-              name="close"
-            />
+          {iDoLoad ? (
+            <ActivityIndicator />
+          ) : (
+            <StyledIcon size={20} color="black" name="close" />
           )}
         </Button>
       </StyledRightView>
     );
-  }
+  };
 
   _renderHeader = () => {
     let { iDoData } = this.props;
     iDoData = iDoData && iDoData.toJS();
     return (
-      <StyledHeader>
-        {iDoData && <RecordRow item={iDoData} />}
-      </StyledHeader>
+      <StyledHeader>{iDoData && <RecordRow item={iDoData} />}</StyledHeader>
     );
-  }
+  };
 
-
-  onKeyboardResigned() {
-  }
+  onKeyboardResigned() {}
 
   keyboardAccessoryViewContent() {
     const { iDoID } = this.props.navigation.state.params;
-    const InnerContainerComponent = (IsIOS && BlurView) ? BlurView : View;
+    const InnerContainerComponent = IsIOS && BlurView ? BlurView : View;
 
     return (
-      <Animatable.View
-        useNativeDriver
-        animation="fadeInUp"
-      >
+      <Animatable.View useNativeDriver animation="fadeInUp">
         <InnerContainerComponent blurType="xlight" style={styles.blurContainer}>
           {/* <View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/> */}
           <ChatSendForm
             maxHeight={200}
-            ref={(r) => {
+            ref={r => {
               this.textInputRef = r;
             }}
             name={Name}
@@ -458,64 +445,62 @@ export default class RComment extends PureComponent {
     );
   }
 
-
   renderRow({ item }: Object): ReactElement<any> {
-    const date = moment(item.createdAt).format('MM/DD HH:mm');
+    const date = moment(item.createdAt).format("MM/DD HH:mm");
     return (
-      <StyledRow onPress={async () => {
-        const { user } = this.props;
+      <StyledRow
+        onPress={async () => {
+          const { user } = this.props;
 
-        // if (item.user.objectId === user.objectId) {
-        //     showSelector(['删除', '复制'], (index) => {
-        //         if (index === 0) {
-        //             this.props.delete(item)
-        //         } else if (index === 1) {
-        //             this.props.copy(item)
-        //         }
-        //     })
-        // } else {
-        //     showSelector(['复制'], (index) => {
-        //         if (index === 0) {
-        //             this.props.copy(item)
-        //         }
-        //     })
-        // }
+          // if (item.user.objectId === user.objectId) {
+          //     showSelector(['删除', '复制'], (index) => {
+          //         if (index === 0) {
+          //             this.props.delete(item)
+          //         } else if (index === 1) {
+          //             this.props.copy(item)
+          //         }
+          //     })
+          // } else {
+          //     showSelector(['复制'], (index) => {
+          //         if (index === 0) {
+          //             this.props.copy(item)
+          //         }
+          //     })
+          // }
 
-        const items = [{ label: '复制', id: 'copy' }];
-        if (item.user.objectId === user.objectId) {
-          items.push({ label: '删除', id: 'delete' });
-        }
-        const { selectedItem } = await Dialog.showPicker('请选择', null, { items });
-        if (selectedItem) {
-          const { id } = selectedItem;
-          // console.log('You selected item:', selectedItem);
-          this.props[id] && this.props[id](item);
-        }
-      }}
+          const items = [{ label: "复制", id: "copy" }];
+          if (item.user.objectId === user.objectId) {
+            items.push({ label: "删除", id: "delete" });
+          }
+          const { selectedItem } = await Dialog.showPicker("请选择", null, {
+            items
+          });
+          if (selectedItem) {
+            const { id } = selectedItem;
+            // console.log('You selected item:', selectedItem);
+            this.props[id] && this.props[id](item);
+          }
+        }}
       >
         <StyledRowLeft>
-          <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('following', { userId: item.user.objectId });
-          }}
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigation.navigate("following", {
+                userId: item.user.objectId
+              });
+            }}
           >
             <Avatar radius={15} user={item.user} />
           </TouchableOpacity>
         </StyledRowLeft>
         <StyledRowRight>
-          <StyledNickText>
-            {item.user.nickname || '路人甲'}
-          </StyledNickText>
-          <StyledContentText>
-            {item.text}
-          </StyledContentText>
-          <StyledDate>
-            {date}
-          </StyledDate>
+          <StyledNickText>{item.user.nickname || "路人甲"}</StyledNickText>
+          <StyledContentText>{item.text}</StyledContentText>
+          <StyledDate>{date}</StyledDate>
         </StyledRowRight>
       </StyledRow>
     );
   }
-
 
   render(): ReactElement<any> {
     const { navigation } = this.props;
@@ -524,18 +509,14 @@ export default class RComment extends PureComponent {
 
     const params = {
       where: {
-        ...iDo(iDoID),
-
+        ...iDo(iDoID)
       },
-      include: 'user'
+      include: "user"
     };
     // {Platform.OS === 'ios' && this._renderHeader()}
     return (
       <StyledContent>
-        <NavBar
-          onBackPress={goBack}
-          rightView={this.renderRightView}
-        />
+        <NavBar onBackPress={goBack} rightView={this.renderRightView} />
         <LCList
           keyboardDismissMode="interactive"
           ListHeaderComponent={this._renderHeader}
@@ -548,14 +529,14 @@ export default class RComment extends PureComponent {
         />
 
         {this.state.showIn && (
-        <KeyboardAccessoryView
-          iOSScrollBehavior={1}
-          renderContent={this.keyboardAccessoryViewContent}
-          trackInteractive={TrackInteractive}
-          kbInputRef={this.textInputRef}
-          onKeyboardResigned={this.onKeyboardResigned}
-          revealKeyboardInteractive
-        />
+          <KeyboardAccessoryView
+            iOSScrollBehavior={1}
+            renderContent={this.keyboardAccessoryViewContent}
+            trackInteractive={TrackInteractive}
+            kbInputRef={this.textInputRef}
+            onKeyboardResigned={this.onKeyboardResigned}
+            revealKeyboardInteractive
+          />
         )}
       </StyledContent>
     );

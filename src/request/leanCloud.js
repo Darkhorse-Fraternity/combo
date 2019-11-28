@@ -1,31 +1,29 @@
 /* @flow */
 
-import { methodType, cacheType } from '.';
-import { apiHost } from '../configure/reqConfigs';
-
+import { methodType, cacheType } from "./index";
+import { apiHost } from "../configure/reqConfigs";
 
 // import {LeanCloud_APP_ID,LeanCloud_APP_KEY} from '../configure/leancloud'
 
 export function requestSmsCode(mobilePhoneNumber) {
   return {
-    path: '/requestSmsCode',
+    path: "/requestSmsCode",
     method: methodType.post,
     params: {
-      mobilePhoneNumber, // 必须
+      mobilePhoneNumber // 必须
     }
   };
 }
 
-
 export function usersMe() {
   return {
-    path: '/users/me',
+    path: "/users/me",
     // head:{
     //     "Content-Type": "application/json",
     //     "X-LC-Key": LeanCloud_APP_KEY,
     //     "X-LC-Id": LeanCloud_APP_ID,
     // },
-    method: methodType.get,
+    method: methodType.get
   };
 }
 
@@ -34,7 +32,7 @@ export function getUpdateMeByParam(id, params) {
     path: `/users/${id}`,
     method: methodType.put,
     params,
-    needSession: true,
+    needSession: true
   };
 }
 
@@ -45,11 +43,11 @@ export function getUpdateMeByParam(id, params) {
  */
 export function requestPasswordResetBySmsCode(mobilePhoneNumber: string) {
   return {
-    path: '/requestPasswordResetBySmsCode',
+    path: "/requestPasswordResetBySmsCode",
     method: methodType.post,
     params: {
       mobilePhoneNumber
-    },
+    }
   };
 }
 
@@ -58,20 +56,19 @@ export function resetPasswordBySmsCode(password: string, code: string) {
     path: `/resetPasswordBySmsCode/${code}`,
     method: methodType.put,
     params: {
-      password,
-    },
+      password
+    }
   };
 }
-
 
 // 发送验证码
 export function requestMobilePhoneVerify(mobilePhoneNumber) {
   return {
-    path: '/requestMobilePhoneVerify',
+    path: "/requestMobilePhoneVerify",
     method: methodType.post,
     params: {
-      mobilePhoneNumber,
-    },
+      mobilePhoneNumber
+    }
   };
 }
 
@@ -81,11 +78,10 @@ export function verifySmsCode(mobilePhoneNumber, code) {
     path: `/verifySmsCode/${code}`,
     method: methodType.post,
     params: {
-      mobilePhoneNumber,
-    },
+      mobilePhoneNumber
+    }
   };
 }
-
 
 /**
  * 用手机号码来注册
@@ -94,14 +90,18 @@ export function verifySmsCode(mobilePhoneNumber, code) {
  * @param  {[type]} password:string          [description]
  * @return {[type]}                          [description]
  */
-export function requestUsersByMobilePhone(mobilePhoneNumber: string, smsCode: string, password: string): Object {
+export function requestUsersByMobilePhone(
+  mobilePhoneNumber: string,
+  smsCode: string,
+  password: string
+): Object {
   return {
-    path: '/usersByMobilePhone',
+    path: "/usersByMobilePhone",
     method: methodType.post,
     params: {
       mobilePhoneNumber, // 必须
       smsCode, // 必须，且为六位。
-      password, // 不必须，要业务需求必须。
+      password // 不必须，要业务需求必须。
     }
   };
 }
@@ -112,17 +112,19 @@ export function requestUsersByMobilePhone(mobilePhoneNumber: string, smsCode: st
  * @param  {[type]} password:string          密码
  * @return {[type]}                          返回参数信息
  */
-export function requestLogin(mobilePhoneNumber: string, password: string): Object {
+export function requestLogin(
+  mobilePhoneNumber: string,
+  password: string
+): Object {
   return {
-    path: '/login',
+    path: "/login",
     method: methodType.get,
     params: {
       mobilePhoneNumber,
-      password,
+      password
     }
   };
 }
-
 
 /**
  * 获取用户
@@ -132,7 +134,7 @@ export function requestLogin(mobilePhoneNumber: string, password: string): Objec
 export function getUserByID(id: string): Object {
   return {
     path: `/users/${id}`,
-    method: methodType.get,
+    method: methodType.get
   };
 }
 
@@ -148,7 +150,7 @@ export function bindingToUser(userID: string, obj: Object): Object {
     path,
     method: methodType.put,
     params: obj,
-    needSession: true,
+    needSession: true
   };
 }
 
@@ -159,16 +161,19 @@ export function bindingToUser(userID: string, obj: Object): Object {
  * @param  {[type]} new_password:'string' [description]
  * @return {[type]}                       [description]
  */
-export function updatePassword(id: string, old_password: string,
-  new_password: string): Object {
+export function updatePassword(
+  id: string,
+  old_password: string,
+  new_password: string
+): Object {
   return {
     path: `/users/${id}/updatePassword`,
     method: methodType.put,
     params: {
       old_password,
-      new_password,
+      new_password
     },
-    needSession: true,
+    needSession: true
   };
 }
 
@@ -196,24 +201,29 @@ export function updateNickName(id: string, nickname: string): Object {
  * @param  {[type]} name:string   [description]
  * @return {[type]}               [description]
  */
-export function bindingFileToUser(userID: string, fileID: string, name: string): Object {
+export function bindingFileToUser(
+  userID: string,
+  fileID: string,
+  name: string
+): Object {
   const param = {};
   param[name] = {
     id: fileID,
-    __type: 'File'
+    __type: "File"
   };
 
   return bindingToUser(userID, param);
 }
 
-
 /**
  * 连接第三方用户
  */
-export function bindingAuthDataToUser(userID: string,
+export function bindingAuthDataToUser(
+  userID: string,
   key: string,
   authData: object,
-  exData: obejct): Object {
+  exData: obejct
+): Object {
   return bindingToUser(userID, {
     authData: {
       [key]: authData
@@ -224,16 +234,15 @@ export function bindingAuthDataToUser(userID: string,
 
 export function thirdLogin(key, authData) {
   return {
-    path: '/users',
+    path: "/users",
     method: methodType.post,
     params: {
       authData: {
         [key]: authData
       }
-    },
+    }
   };
 }
-
 
 /**
  * 删除文件
@@ -244,18 +253,18 @@ export function deleteFile(fileID: string): Object {
   const path = `/files/${fileID}`;
   return {
     path,
-    method: methodType.delete,
+    method: methodType.delete
   };
 }
 
 export function feedbackParam(content: string, contact: string): Object {
   return {
-    path: '/feedback',
+    path: "/feedback",
     method: methodType.post,
     params: {
-      status: 'open',
+      status: "open",
       content,
-      contact,
+      contact
     }
   };
 }
@@ -268,7 +277,7 @@ export function feedbackParam(content: string, contact: string): Object {
  * @param  {[type]} id:string        =“” 可选，具体的id
  * @return {[type]}                  [description]
  */
-export function classIDSearch(className: string, id: string = ''): Object {
+export function classIDSearch(className: string, id: string = ""): Object {
   return {
     path: `/classes/${className}/${id}`,
     method: methodType.get
@@ -283,8 +292,13 @@ export function classSearch(className: string, params: Object) {
   };
 }
 
-export function limitSearch(className: string, page: Number = 0,
-  limit: Number = 40, other: Object = {}, callPath: string): Object {
+export function limitSearch(
+  className: string,
+  page: Number = 0,
+  limit: Number = 40,
+  other: Object = {},
+  callPath: string
+): Object {
   const skip = page * limit;
   return {
     path: !callPath ? `/classes/${className}` : `/call/${callPath}`,
@@ -292,7 +306,7 @@ export function limitSearch(className: string, page: Number = 0,
     params: {
       skip: `${skip}`,
       limit: `${limit}`,
-      order: '-createdAt', // 降序
+      order: "-createdAt", // 降序
       ...other
     }
   };
@@ -320,7 +334,7 @@ export function classCreatNewOne(className: string, params: Object): Object {
   return {
     path: `/classes/${className}`,
     method: methodType.post,
-    params,
+    params
   };
 }
 
@@ -331,11 +345,15 @@ export function classCreatNewOne(className: string, params: Object): Object {
  * @param  {[type]} params:Object    参数
  * @return {[type]}                  [description]
  */
-export function classUpdate(className: string, objectId: string, params: Object): Object {
+export function classUpdate(
+  className: string,
+  objectId: string,
+  params: Object
+): Object {
   return {
     path: `/classes/${className}/${objectId}`,
     method: methodType.put,
-    params,
+    params
   };
 }
 
@@ -347,11 +365,15 @@ export function classUpdate(className: string, objectId: string, params: Object)
  * @param  {[type]} params:Object    [description]
  * @return {[type]}                  [description]
  */
-export function classDelete(className: string, objectId: string, params: Object): Object {
+export function classDelete(
+  className: string,
+  objectId: string,
+  params: Object
+): Object {
   return {
     path: `/classes/${className}/${objectId}`,
     method: methodType.delete,
-    params,
+    params
   };
 }
 
@@ -359,22 +381,21 @@ export function classBatch(requests: [Object]): Object {
   const newRequests = requests.map((request, i) => ({
     path: `/1.1${request.path}`,
     method: request.method,
-    body: request.params,
+    body: request.params
   }));
   return {
-    path: '/batch',
+    path: "/batch",
     method: methodType.post,
-    params: { requests: newRequests },
+    params: { requests: newRequests }
   };
 }
-
 
 // 关注
 export function friendshipAdd(userId: string, friendshipId: string): Object {
   return {
     path: `/users/${userId}/friendship/${friendshipId}`,
     method: methodType.post,
-    params: {},
+    params: {}
   };
 }
 
@@ -383,7 +404,7 @@ export function friendshipDelete(userId: string, friendshipId: string): Object {
   return {
     path: `/users/${userId}/friendship/${friendshipId}`,
     method: methodType.delete,
-    params: {},
+    params: {}
   };
 }
 
@@ -394,7 +415,7 @@ export function friendNum(userId: string): Object {
     params: {
       count: 1,
       limit: 0
-    },
+    }
   };
 }
 
@@ -406,11 +427,11 @@ export function followeeList(userId: string, page: number = 0) {
     path: `/users/${userId}/followees`,
     method: methodType.get,
     params: {
-      include: 'followee',
+      include: "followee",
       skip: `${skip}`,
       limit: `${limit}`,
-      order: '-createdAt', // 降序
-    },
+      order: "-createdAt" // 降序
+    }
   };
 }
 
@@ -422,11 +443,11 @@ export function followerList(userId: string, page: number = 0) {
     path: `/users/${userId}/followers`,
     method: methodType.get,
     params: {
-      include: 'follower',
+      include: "follower",
       skip: `${skip}`,
       limit: `${limit}`,
-      order: '-createdAt', // 降序
-    },
+      order: "-createdAt" // 降序
+    }
   };
 }
 
@@ -439,25 +460,26 @@ export function friendExist(userId: string, followId: string) {
     params: {
       where: {
         followee: {
-          __type: 'Pointer',
-          className: '_User',
+          __type: "Pointer",
+          className: "_User",
           objectId: followId
-        },
+        }
       },
       count: 1,
-      limit: 0,
+      limit: 0
     }
   };
 }
 
 export function pushInstallation(OS: String, token: string) {
-  const installationId = OS === 'ios' ? { deviceToken: token } : { installationId: token };
+  const installationId =
+    OS === "ios" ? { deviceToken: token } : { installationId: token };
   // const LeanCloud_APP_ID = 'q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt';
   // const LeanCloud_APP_KEY = 'y6ffzv6mq705pya2pd6kgl1ni1vwlppesis7f1qi19afg5nn';
   return {
-    scheme: 'https',
-    host: 'leancloud.cn/1.1',
-    path: '/installations',
+    scheme: "https",
+    host: "leancloud.cn/1.1",
+    path: "/installations",
     method: methodType.post,
     // head:{
     //     "Content-Type": "application/json",
@@ -467,17 +489,15 @@ export function pushInstallation(OS: String, token: string) {
     params: {
       deviceType: OS,
       ...installationId,
-      channels: [
-        'public', 'protected', 'private'
-      ],
-    },
+      channels: ["public", "protected", "private"]
+    }
   };
 }
 
 export function updateInstallation(id: String, params) {
   return {
-    scheme: 'https',
-    host: 'leancloud.cn/1.1',
+    scheme: "https",
+    host: "leancloud.cn/1.1",
     path: `/installations/${id}`,
     method: methodType.put,
     // head:{
@@ -492,9 +512,9 @@ export function updateInstallation(id: String, params) {
 // 统计数据API
 export function openCollet(params) {
   return {
-    scheme: 'https',
-    host: 'leancloud.cn/1.1',
-    path: '/stats/open/collect',
+    scheme: "https",
+    host: "leancloud.cn/1.1",
+    path: "/stats/open/collect",
     method: methodType.post,
     // head:{
     //     "Content-Type": "application/json",
@@ -508,16 +528,16 @@ export function openCollet(params) {
 // 获取微信OPENID
 export function wechatInfo(appid, secret, code) {
   return {
-    scheme: 'https',
-    host: 'api.weixin.qq.com',
-    path: '/sns/oauth2/access_token',
+    scheme: "https",
+    host: "api.weixin.qq.com",
+    path: "/sns/oauth2/access_token",
     method: methodType.get,
     head: {},
     params: {
       appid,
       secret,
       code,
-      grant_type: 'authorization_code'
+      grant_type: "authorization_code"
     }
   };
 }
@@ -525,14 +545,14 @@ export function wechatInfo(appid, secret, code) {
 // 获取微信用户信息
 export function wechatUserInfo(access_token, openid) {
   return {
-    scheme: 'https',
-    host: 'api.weixin.qq.com',
-    path: '/sns/userinfo',
+    scheme: "https",
+    host: "api.weixin.qq.com",
+    path: "/sns/userinfo",
     method: methodType.get,
     head: {},
     params: {
       access_token,
-      openid,
+      openid
     }
   };
 }
@@ -540,9 +560,9 @@ export function wechatUserInfo(access_token, openid) {
 // 获取QQ用户信息
 export function QQUserInfo(access_token, oauth_consumer_key, openid) {
   return {
-    scheme: 'https',
-    host: 'graph.qq.com',
-    path: '/user/get_user_info',
+    scheme: "https",
+    host: "graph.qq.com",
+    path: "/user/get_user_info",
     method: methodType.get,
     head: {},
     params: {
@@ -552,7 +572,6 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
     }
   };
 }
-
 
 /*
  *  用户支付
@@ -574,7 +593,7 @@ export function userpay(
 ) {
   return {
     host: apiHost,
-    path: '/getPrePay/',
+    path: "/getPrePay/",
     method: methodType.post,
     params: {
       amount,
@@ -589,24 +608,21 @@ export function userpay(
   };
 }
 
-
 /*
  * 获取android 升级配置
  */
 
-
 export function appUpdateInfo(): Object {
   return {
-    path: '/call/appUpdateInfo',
+    path: "/call/appUpdateInfo",
     method: methodType.post,
     params: {}
   };
 }
 
-
 export function userExsitJudge(type, id): Object {
   return {
-    path: '/call/userExsitJudge',
+    path: "/call/userExsitJudge",
     method: methodType.post,
     params: {
       type,
@@ -619,10 +635,9 @@ export function userExsitJudge(type, id): Object {
  *  支付的最后一步流程
  */
 
-
 export function payOrder(payId, tradeId) {
   return {
-    path: '/call/payOrder',
+    path: "/call/payOrder",
     method: methodType.post,
     params: {
       payId,
@@ -633,17 +648,17 @@ export function payOrder(payId, tradeId) {
 
 export function courseReadNumAdd(courseId) {
   return {
-    path: '/call/courseReadNumAdd',
+    path: "/call/courseReadNumAdd",
     method: methodType.post,
     params: {
-      courseId,
+      courseId
     }
   };
 }
 
 export function likeAdd(iDoId, addNum) {
   return {
-    path: '/call/iDoLike',
+    path: "/call/iDoLike",
     method: methodType.post,
     params: {
       iDoId,
@@ -654,9 +669,8 @@ export function likeAdd(iDoId, addNum) {
 
 export function iUseList() {
   return {
-    path: '/call/iUseList2',
+    path: "/call/iUseList2",
     method: methodType.post,
-    params: {
-    }
+    params: {}
   };
 }

@@ -120,7 +120,7 @@ android {
         javaMaxHeapSize "2g"
     }
     defaultConfig {
-        renderscriptTargetApi 27
+        renderscriptTargetApi 28
         renderscriptSupportModeEnabled true
         applicationId "com.combo"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -190,12 +190,12 @@ android {
         }
     }
 
-    packagingOptions {
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-    }
+//    packagingOptions {
+//        pickFirst 'lib/x86/libc++_shared.so'
+//        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+//        pickFirst 'lib/x86_64/libc++_shared.so'
+//        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+//    }
 }
 
 dependencies {
@@ -208,7 +208,7 @@ dependencies {
     implementation 'com.facebook.soloader:soloader:0.6.0+'
 
     if (enableHermes) {
-        def hermesPath = "../../node_modules/hermesvm/android/";
+        def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
         releaseStagingImplementation files(hermesPath + "hermes-release.aar")

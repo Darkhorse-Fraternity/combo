@@ -27,11 +27,11 @@
     "paths": {
       // "*": ["src/*", "source/*"],
       // "test/*": ["test/*"],
-      // "@request/*": ["src/request/*"],
-      // "@components/*": ["src/components/*"],
-      // "@pages/*": ["src/pages/*"],
-      // "@img/*": ["source/img/*"],
-      // "underscore": ["lodash"]
+      "@request/*": ["src/request/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@img/*": ["source/img/*"],
+      "underscore": ["lodash"]
     }
   },
   "exclude": [

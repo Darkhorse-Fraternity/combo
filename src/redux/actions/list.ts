@@ -3,8 +3,7 @@
  * @flow
  */
 
-
-import Toast from 'react-native-simple-toast';
+import Toast from "react-native-simple-toast";
 import {
   LIST_FIRST_JOIN,
   // LIST_NO_DATA,
@@ -12,71 +11,74 @@ import {
   LIST_LOAD_MORE,
   LIST_LOAD_NO_MORE,
   LIST_LOAD_ERROR,
-  LIST_NORMAL,
-} from '../../components/Base/BaseSectionView';
-import { schemas } from '../scemes';
-import { addNormalizrEntity } from '../module/normalizr';
+  LIST_NORMAL
+} from "../../components/Base/BaseSectionView";
+import { schemas } from "../scemes";
+import { addNormalizrEntity } from "../module/normalizr";
 /**
  * 保证加载的时候，同个请求不窜行。
  */
 
-import {
-  RESCODE,
-  SUCCODE,
-  DATA,
-  MSG,
-  reqM,
-  cleanData
-} from './req';
+import { RESCODE, SUCCODE, DATA, MSG, reqM, cleanData } from "./req";
 
-export const LIST_START = 'LIST_START';
-export const LIST_FAILED = 'LIST_FAILED';
-export const LIST_SUCCEED = 'LIST_SUCCEEDT';
-export const LIST_SELECT = 'LIST_SELECT';
-export const LIST_DELETE = 'LIST_DELETE';
-export const LIST_ADD = 'LIST_ADD';
+export const LIST_START = "LIST_START";
+export const LIST_FAILED = "LIST_FAILED";
+export const LIST_SUCCEED = "LIST_SUCCEEDT";
+export const LIST_SELECT = "LIST_SELECT";
+export const LIST_DELETE = "LIST_DELETE";
+export const LIST_ADD = "LIST_ADD";
 
 const pageSize = 40;
 
-const pageKey = 'pageIndex';
+const pageKey = "pageIndex";
 
-export function listReq(key: string = '', params: Object, more: bool = false, option: Object = {}) {
+export function listReq(
+  key: string = "",
+  params: Object,
+  more: bool = false,
+  option: Object = {}
+) {
+  console.log("111111");
   return async (dispatch, getState) => {
     const listKey = option.sKey || key;
-    const page = !more ? 0 : getState().list.getIn([listKey, 'page']) + 1;
-    const load = getState().list.getIn([listKey, 'loadStatu']);
-    if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) { // not serial
+    const page = !more ? 0 : getState().list.getIn([listKey, "page"]) + 1;
+    const load = getState().list.getIn([listKey, "loadStatu"]);
+    if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {
+      // not serial
       // params.params[pageKey] = page + ''
 
-      dispatch(_listStart(page, listKey));// 当page 不为0 的时候则表示不是加载多页。
+      dispatch(_listStart(page, listKey)); // 当page 不为0 的时候则表示不是加载多页。
       // console.log('params:', params);
 
       try {
         const response = await reqM(params);
         if (response[RESCODE] && response[RESCODE] === SUCCODE) {
-          const data = await dispatch(cleanData(response, {
-            ...option,
-            sceme: option.sceme || schemas[key]
-          }));
+          const data = await dispatch(
+            cleanData(response, {
+              ...option,
+              sceme: option.sceme || schemas[key]
+            })
+          );
           if (!data) {
-            console.log(listKey, data, '数据为空');
+            console.log(listKey, data, "数据为空");
             return dispatch(_listFailed(listKey));
           }
-          const loadStatu = (response[DATA][DATA] || data).length < pageSize
-            ? LIST_LOAD_NO_MORE : LIST_NORMAL;
+          const loadStatu =
+            (response[DATA][DATA] || data).length < pageSize
+              ? LIST_LOAD_NO_MORE
+              : LIST_NORMAL;
           dispatch(_listSucceed(data, page, listKey, loadStatu));
         } else {
           return dispatch(_listFailed(listKey, response[MSG]));
         }
       } catch (e) {
-        console.log('error:', e.message);
+        console.log("error:", e.message);
         Toast.show(e.message);
         dispatch(_listFailed(listKey));
       }
     }
   };
 }
-
 
 // export function listLoad(key: string, params: Object, more: bool = false, dataMap: Function): Function {
 //     return (dispatch, getState) => {
@@ -107,7 +109,6 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
 //     }
 // }
 
-
 /**
  * 请求成功
  * @param  {[type] data:Object [成功返回的数据]
@@ -115,7 +116,12 @@ export function listReq(key: string = '', params: Object, more: bool = false, op
  * @return {[type]}             [description]
  */
 
-function _listSucceed(data: Object, page: number = 0, key: string, loadStatu:string): Object {
+function _listSucceed(
+  data: Object,
+  page: number = 0,
+  key: string,
+  loadStatu: string
+): Object {
   // const loadStatu = data.length < pageSize ?
   //   LIST_LOAD_NO_MORE : LIST_NORMAL
 
@@ -124,10 +130,9 @@ function _listSucceed(data: Object, page: number = 0, key: string, loadStatu:str
     page,
     loadStatu,
     data,
-    key,
+    key
   };
 }
-
 
 /**
  * 请求失败
@@ -137,8 +142,8 @@ function _listSucceed(data: Object, page: number = 0, key: string, loadStatu:str
 function _listFailed(key: string): Object {
   return {
     type: LIST_FAILED,
-    loadStatu: 'LIST_LOAD_ERROR',
-    key,
+    loadStatu: "LIST_LOAD_ERROR",
+    key
   };
 }
 
@@ -152,10 +157,9 @@ function _listStart(page: number, key: string): Object {
   return {
     type: LIST_START,
     loadStatu,
-    key,
+    key
   };
 }
-
 
 export function clear(key: string, rowID: number, loadStatu: string) {
   return {
@@ -174,7 +178,7 @@ export function claerByID(key: string, objID: string) {
     }
     const state = getState();
     let list = state.list.get(key);
-    list = list && list.get('listData');
+    list = list && list.get("listData");
     list = list && list.toJS();
     if (!list) {
       return;
@@ -192,12 +196,12 @@ export function add(key, data) {
     type: LIST_ADD,
     key,
     data,
-    loadStatu: LIST_NORMAL,
+    loadStatu: LIST_NORMAL
   };
 }
 
 export function addListNormalizrEntity(key, data) {
-  return (dispatch) => {
+  return dispatch => {
     if (!data) {
       return;
     }
