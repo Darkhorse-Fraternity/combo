@@ -241,7 +241,7 @@ PODS:
     - React
   - react-native-umeng-analytics (0.2.5):
     - React
-  - react-native-viewpager (3.1.0):
+  - react-native-viewpager (2.0.2):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -543,7 +543,7 @@ SPEC CHECKSUMS:
   react-native-simple-toast: 1fc69d83c24279ed4f9624352551a5a3406678a2
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
   react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
-  react-native-viewpager: 66c02e8a18d2d11eef08c84ed9a406b149791751
+  react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -572,6 +572,6 @@ SPEC CHECKSUMS:
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: e1c839d21a1442098744db42b361ca9024e26f95
+PODFILE CHECKSUM: ed6e3176a09dee96669f05fb6252faf7ed922c99
 
 COCOAPODS: 1.8.4

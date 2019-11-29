@@ -1,6 +1,6 @@
 <resources>
     <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"></string>
     <!--<string name="app_name">小改变-日常打卡与备忘提醒及目标计划</string>-->
-    <string name="app_name">iBetter</string>
+    <string name="app_name">小改变</string>
     <string name="slogan">小改变，大不同 \u00A0</string>
 </resources>
