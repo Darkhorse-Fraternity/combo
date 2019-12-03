@@ -139,12 +139,11 @@ export default class ExceptionView extends Component {
       // onRefresh,
       // refresh,
       style,
-      styles,
       exceptionType
-    } = this.props;
+    } = this.props;    
     return (
       <StyledContent
-        style={[style, styles]}
+        style={style}
       >
         {this._renderPromptIndicator(exceptionType)}
         {this.renderPrompt()}
@@ -158,7 +157,6 @@ export default class ExceptionView extends Component {
 
         {/**/}
         {/* </Button> */}
-
       </StyledContent>
     );
   }

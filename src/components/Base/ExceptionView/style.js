@@ -10,7 +10,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import {BorderlessButton} from 'react-native-gesture-handler'
 
 export const StyledContent = styled.View`
-    flex: 1;
     align-items: center;
     justify-content: center;
     

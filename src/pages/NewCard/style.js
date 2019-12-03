@@ -3,16 +3,15 @@
  * @flow
  */
 
-
-import styled from 'styled-components';
-import { materialColors } from 'react-native-typography';
-import { SafeAreaView, ScrollView } from 'react-navigation';
-import Icon from 'react-native-vector-icons/Feather';
-import HeaderBtn from '../../components/Button/HeaderBtn';
+import styled from "styled-components";
+import { materialColors } from "react-native-typography";
+import { SafeAreaView, ScrollView } from "react-navigation";
+import Icon from "react-native-vector-icons/Feather";
+import HeaderBtn from "../../components/Button/HeaderBtn";
 
 export const StyledContent = styled(SafeAreaView)`
-    flex: 1;
-    background-color: white;
+  flex: 1;
+  background-color: white;
 `;
 
 export const StyledTitleView = styled.View`
@@ -26,7 +25,6 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `;
 
-
 export const StyledTop = styled(ScrollView)`
 `;
 
@@ -36,26 +34,23 @@ export const StyledHeader = styled.View`
   overflow: visible;
 `;
 
-
 export const StyledHeaderText = styled.Text`
   font-size: 20px;
-  color:${materialColors.blackPrimary};
+  color: ${materialColors.blackPrimary};
   overflow: visible;
   padding: 20px 15px;
 `;
 
 export const StyledHerderButton = styled(HeaderBtn)`
-  padding:11px 5px;
+  padding: 11px 5px;
   margin-top: 20px;
   margin-bottom: 20px;
   overflow: visible;
 `;
 
-export const StyledIcon = styled(Icon)`
-  
-`;
+export const StyledIcon = styled(Icon)``;
 
 export const StyledNarBarRightView = styled.View`
-    flex-direction: row;
-    padding-right: 10px;
+  flex-direction: row;
+  padding-right: 10px;
 `;
