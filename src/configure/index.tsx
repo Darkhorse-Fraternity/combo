@@ -272,8 +272,8 @@ export default class Configure extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        {/* <LocalNotification /> */}
-        {Platform.OS === "ios" || (level < 29 && <LightStatuBar />)}
+        {(Platform.OS === "ios" || level < 29) && <LocalNotification />}
+        <LightStatuBar />
         {this.props.children}
         <InfoBar />
       </View>

@@ -1,89 +1,88 @@
-import React from 'react';
-import {
-  View,
-  Button,
-  Text,
-  InteractionManager,
-  Platform
-} from 'react-native';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-} from 'react-navigation';
+import React from "react";
+import { View, Button, Text, InteractionManager, Platform } from "react-native";
+import TouchableBounce from "react-native/Libraries/Components/Touchable/TouchableBounce";
+import { createStackNavigator } from "react-navigation-stack";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
-
 // import * as Animatable from 'react-native-animatable';
-import { strings } from '../../../../locales/i18n';
+import { strings } from "../../../../locales/i18n";
 
 import {
   habitRoute,
   settingRoute,
   punchRoute,
   flagRoute
-} from '../../../pages';
-import { defaultNavigationOptions, tabsOptions } from './navigationOptions';
-import { TransitionConfiguration } from '../navigators/TransitionConfiguration';
+} from "../../../pages";
+import { defaultNavigationOptions, tabsOptions } from "./navigationOptions";
+import { TransitionConfiguration } from "../navigators/TransitionConfiguration";
 
 // 默认背景色
-const cardStyle = { backgroundColor: 'white' };
+const cardStyle = { backgroundColor: "white" };
 const stackDefoultConfig = {
   defaultNavigationOptions,
   transitionConfig: TransitionConfiguration,
   cardStyle
 };
 
-
-const PunchStack = createStackNavigator({
-  ...punchRoute,
-}, {
-  initialRouteName: 'punch',
-  navigationOptions: {
-    labelName: strings('tabs.clockIn'),
+const PunchStack = createStackNavigator(
+  {
+    ...punchRoute
   },
-  ...stackDefoultConfig
-});
+  {
+    initialRouteName: "punch",
+    navigationOptions: {
+      labelName: strings("tabs.clockIn")
+    },
+    ...stackDefoultConfig
+  }
+);
 
-
-const HabitStack = createStackNavigator({
-  ...habitRoute
-}, {
-  initialRouteName: 'habit',
-  navigationOptions: {
-    labelName: strings('tabs.habit'),
+const HabitStack = createStackNavigator(
+  {
+    ...habitRoute
   },
-  ...stackDefoultConfig
-});
+  {
+    initialRouteName: "habit",
+    navigationOptions: {
+      labelName: strings("tabs.habit")
+    },
+    ...stackDefoultConfig
+  }
+);
 
-
-const FlagStack = createStackNavigator({
-  ...flagRoute,
-}, {
-  initialRouteName: 'flag',
-  navigationOptions: {
-    labelName: strings('tabs.flag'),
+const FlagStack = createStackNavigator(
+  {
+    ...flagRoute
   },
-  ...stackDefoultConfig
-});
+  {
+    initialRouteName: "flag",
+    navigationOptions: {
+      labelName: strings("tabs.flag")
+    },
+    ...stackDefoultConfig
+  }
+);
 
-const SettingsStack = createStackNavigator({
-  ...settingRoute,
-}, {
-  initialRouteName: 'more',
-  navigationOptions: {
-    labelName: strings('tabs.more'),
+const SettingsStack = createStackNavigator(
+  {
+    ...settingRoute
   },
-  ...stackDefoultConfig
-});
-
+  {
+    initialRouteName: "more",
+    navigationOptions: {
+      labelName: strings("tabs.more")
+    },
+    ...stackDefoultConfig
+  }
+);
 
 export default createBottomTabNavigator(
   {
     Punch: PunchStack,
     Habit: HabitStack,
     Flag: FlagStack,
-    Settings: SettingsStack,
+    Settings: SettingsStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => {
@@ -113,7 +112,7 @@ export default createBottomTabNavigator(
           //   defaultHandler()
           // })
         },
-        tabBarVisible: index === 0,
+        tabBarVisible: index === 0
         // tabBarLabel: labelName
       };
     },
@@ -130,25 +129,22 @@ export default createBottomTabNavigator(
     //     )
     // },
     tabBarOptions: {
-      activeTintColor: Platform.OS === 'ios'
-        ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.65)',
-      inactiveTintColor: 'rgba(0,0,0,0.2)',
+      activeTintColor:
+        Platform.OS === "ios" ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0.65)",
+      inactiveTintColor: "rgba(0,0,0,0.2)",
       showLabel: false,
 
       style: {
-        backgroundColor: Platform.OS === 'ios'
-          ? '#fdfbfb' : '#fdfbfb',
-        borderTopColor: 'white',
-        height: 70,
+        backgroundColor: Platform.OS === "ios" ? "#fdfbfb" : "#fdfbfb",
+        borderTopColor: "white",
+        height: 70
       },
       labelStyle: {
-        fontSize: 11,
-
+        fontSize: 11
       },
       tabStyle: {
-        paddingVertical: 3,
+        paddingVertical: 3
       }
-
-    },
-  },
+    }
+  }
 );
