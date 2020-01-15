@@ -31,8 +31,14 @@ module.exports = function(api) {
     ]
   ];
 
+  const env = {
+    production: {
+      plugins: ["transform-remove-console"]
+    }
+  };
   return {
     presets,
-    plugins
+    plugins,
+    env
   };
 };

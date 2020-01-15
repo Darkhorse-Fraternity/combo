@@ -11,7 +11,7 @@ import * as immutable from "immutable";
 import { debounce } from "lodash"; // 4.0.8
 import { localRemindLoad } from "../redux/actions/util";
 import { ICARD, IUSE } from "../redux/reqKeys";
-import DeviceInfo from 'react-native-device-info'
+import DeviceInfo from "react-native-device-info";
 
 export function nowNotification() {
   PushNotification.localNotification({
@@ -179,8 +179,8 @@ export default class LocalNotification extends PureComponent {
         unDoneCount += 1;
       }
 
-      const APILevel =  DeviceInfo.getAPILevel()
-      (Platform.OS === 'ios' || APILevel <29) && PushNotification.setApplicationIconBadgeNumber(unDoneCount);
+      (Platform.OS === "ios" || DeviceInfo.getAPILevel() < 29) &&
+        PushNotification.setApplicationIconBadgeNumber(unDoneCount);
       const { recordDay } = item.iCard;
       const notifyTimes = item.iCard.notifyTimes || [];
 
@@ -312,8 +312,8 @@ export default class LocalNotification extends PureComponent {
       });
     }
 
-    const APILevel = DeviceInfo.getAPILevel();
-    (Platform.OS === 'ios' || APILevel <29) && PushNotification.setApplicationIconBadgeNumber(unDoneCount);
+    (Platform.OS === "ios" || DeviceInfo.getAPILevel() < 29) &&
+      PushNotification.setApplicationIconBadgeNumber(unDoneCount);
 
     let { all } = localRemindData;
 
@@ -448,7 +448,6 @@ export default class LocalNotification extends PureComponent {
             num => ["MO", "TU", "WE", "TH", "FR", "SA", "SU"][num - 1]
           );
         }
-
         const { nickname } = this.props.user;
         const name = nickname ? `${nickname},` : "";
         const idConfig = calendaId ? { id: calendaId } : {};
