@@ -69,7 +69,7 @@ export const otherRoute = {
   login: { screen: LoginView },
   flagDetail: { screen: FlagDetail },
   FRDetail: { screen: FRDetail },
-  CirlcleSetting: { screen: CirlcleSetting }
+  cirlcleSetting: { screen: CirlcleSetting }
   // pptDescribe: { screen: PPTDescribe },
 };
 

@@ -416,6 +416,7 @@
 				CC3C8E3D22C0CC09009B89B2 /* ShellScript */,
 				62991423853992130A7E27F2 /* [CP] Copy Pods Resources */,
 				77A60D162318B26600D48BEF /* Start Pakage */,
+				77F3ECE623CEDC5000C54DBF /* Set Version */,
 			);
 			buildRules = (
 			);
@@ -584,6 +585,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\nif ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\necho \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi\n";
+		};
+		77F3ECE623CEDC5000C54DBF /* Set Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PACKAGE_VERSION=$(cat ../app.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		AE43CB8B07860A8DD8EFCDB7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

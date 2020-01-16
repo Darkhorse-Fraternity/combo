@@ -16,7 +16,6 @@ import {
     TouchableNativeFeedback
 } from 'react-native'
 import Pop from '../../../Pop/index'
-import { mainColor } from '../../../../Theme/index'
 import {
     StyledIcon,
     StyledRowInnerView

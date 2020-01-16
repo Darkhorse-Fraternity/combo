@@ -39,6 +39,7 @@ export const toLazyExoticComponent = (
         navigationOptions &&
         typeof navigationOptions === "function" &&
         (navigationOptions().header as null);
+
       return lazyRender(
         Render as LazyExoticComponent<() => ReactElement>,
         header !== null,

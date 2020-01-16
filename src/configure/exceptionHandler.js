@@ -1,23 +1,23 @@
 import {
   setJSExceptionHandler,
   setNativeExceptionHandler
-} from 'react-native-exception-handler';
-import { Alert } from 'react-native';
-import RNRestart from 'react-native-restart';
-import DeviceInfo from 'react-native-device-info'
-import { strings } from '../../locales/i18n';
-import tracker from './googleAnalytics'
-import { Platform } from 'react-native';
+} from "react-native-exception-handler";
+import { Alert } from "react-native";
+import RNRestart from "react-native-restart";
+import DeviceInfo from "react-native-device-info";
+import { strings } from "../../locales/i18n";
+import tracker from "./googleAnalytics";
+import { Platform } from "react-native";
 
 const allowInDevMode = false;
 
-
-const DeviceBugInfo = () => `Brand: ${DeviceInfo.getBrand()}\n` +
-    `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
-    `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
-    `Model: ${DeviceInfo.getModel()}\n` +
-    `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
-    `APILevel: ${DeviceInfo.getAPILevel()}`;
+const DeviceBugInfo = () =>
+  `Brand: ${DeviceInfo.getBrand()}\n` +
+  `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+  `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
+  `Model: ${DeviceInfo.getModel()}\n` +
+  `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
+  `APILevel: ${DeviceInfo.getApiLevel()}`;
 
 //= ================================================
 // ADVANCED use case:
@@ -26,16 +26,14 @@ const errorHandler = (e, isFatal) => {
     // 发送错误信息给服务器
     const errorString = `${e.name} ${e.message}`;
     uploadErrorString(`js\n${DeviceBugInfo()}\n`, errorString, isFatal);
-    Alert.alert(
-      e.name,
-      e.message,
-      [{
-        text: strings('error.Restart'),
+    Alert.alert(e.name, e.message, [
+      {
+        text: strings("error.Restart"),
         onPress: () => {
           RNRestart.Restart();
         }
-      }]
-    );
+      }
+    ]);
   } else {
     console.log(e); // So that we can see it in the ADB logs in case of Android if needed
   }
@@ -49,8 +47,7 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 
 // getJSExceptionHandler gives the currently set JS exception handler
 
-
-setNativeExceptionHandler((errorString) => {
+setNativeExceptionHandler(errorString => {
   // 发送错误信息给服务器
 
   uploadErrorString(`native\n${DeviceBugInfo()}\n`, errorString, true);
@@ -60,7 +57,6 @@ setNativeExceptionHandler((errorString) => {
   // In case of iOS, it is not possible to restart the app programmatically, so we just show an error popup and close the app.
   // To customize the popup screen take a look at CUSTOMIZATION section.
 });
-
 
 // const client = async () => {
 //   const uniqueId = DeviceInfo.getUniqueID();
@@ -87,7 +83,6 @@ setNativeExceptionHandler((errorString) => {
 // const uniqueId = DeviceInfo.getUniqueID();
 // let stateTime = new Date().getTime()
 // const sessionId = () => uniqueId + "-" + stateTime
-
 
 const uploadErrorString = async (from, errorString, isFatal) => {
   // console.log('nativeExceptionHandler:',from, errorString);

@@ -1,11 +1,11 @@
 /* @flow */
 
-import { methodType, cacheType } from "./index";
+import { methodType } from "./index";
 import { apiHost } from "../configure/reqConfigs";
 
 // import {LeanCloud_APP_ID,LeanCloud_APP_KEY} from '../configure/leancloud'
 
-export function requestSmsCode(mobilePhoneNumber) {
+export function requestSmsCode(mobilePhoneNumber: number) {
   return {
     path: "/requestSmsCode",
     method: methodType.post,
@@ -27,7 +27,7 @@ export function usersMe() {
   };
 }
 
-export function getUpdateMeByParam(id, params) {
+export function getUpdateMeByParam(id: string, params: object) {
   return {
     path: `/users/${id}`,
     method: methodType.put,
@@ -62,7 +62,7 @@ export function resetPasswordBySmsCode(password: string, code: string) {
 }
 
 // 发送验证码
-export function requestMobilePhoneVerify(mobilePhoneNumber) {
+export function requestMobilePhoneVerify(mobilePhoneNumber: number) {
   return {
     path: "/requestMobilePhoneVerify",
     method: methodType.post,
@@ -73,7 +73,7 @@ export function requestMobilePhoneVerify(mobilePhoneNumber) {
 }
 
 // 检验验证码
-export function verifySmsCode(mobilePhoneNumber, code) {
+export function verifySmsCode(mobilePhoneNumber: number, code: string) {
   return {
     path: `/verifySmsCode/${code}`,
     method: methodType.post,
@@ -222,7 +222,7 @@ export function bindingAuthDataToUser(
   userID: string,
   key: string,
   authData: object,
-  exData: obejct
+  exData: object
 ): Object {
   return bindingToUser(userID, {
     authData: {
@@ -232,7 +232,7 @@ export function bindingAuthDataToUser(
   });
 }
 
-export function thirdLogin(key, authData) {
+export function thirdLogin(key: string, authData: object) {
   return {
     path: "/users",
     method: methodType.post,
@@ -294,9 +294,9 @@ export function classSearch(className: string, params: Object) {
 
 export function limitSearch(
   className: string,
-  page: Number = 0,
-  limit: Number = 40,
-  other: Object = {},
+  page: number = 0,
+  limit: number = 40,
+  other: object = {},
   callPath: string
 ): Object {
   const skip = page * limit;
@@ -377,8 +377,14 @@ export function classDelete(
   };
 }
 
-export function classBatch(requests: [Object]): Object {
-  const newRequests = requests.map((request, i) => ({
+interface requestsPorps {
+  path: string;
+  method: string;
+  params: any;
+}
+
+export function classBatch(requests: [requestsPorps]): Object {
+  const newRequests = requests.map((request: requestsPorps) => ({
     path: `/1.1${request.path}`,
     method: request.method,
     body: request.params
@@ -494,7 +500,7 @@ export function pushInstallation(OS: String, token: string) {
   };
 }
 
-export function updateInstallation(id: String, params) {
+export function updateInstallation(id: String, params: object) {
   return {
     scheme: "https",
     host: "leancloud.cn/1.1",
@@ -510,7 +516,7 @@ export function updateInstallation(id: String, params) {
 }
 
 // 统计数据API
-export function openCollet(params) {
+export function openCollet(params: object) {
   return {
     scheme: "https",
     host: "leancloud.cn/1.1",
@@ -526,7 +532,7 @@ export function openCollet(params) {
 }
 
 // 获取微信OPENID
-export function wechatInfo(appid, secret, code) {
+export function wechatInfo(appid: string, secret: string, code: string) {
   return {
     scheme: "https",
     host: "api.weixin.qq.com",
@@ -543,7 +549,7 @@ export function wechatInfo(appid, secret, code) {
 }
 
 // 获取微信用户信息
-export function wechatUserInfo(access_token, openid) {
+export function wechatUserInfo(access_token: string, openid: string) {
   return {
     scheme: "https",
     host: "api.weixin.qq.com",
@@ -558,7 +564,11 @@ export function wechatUserInfo(access_token, openid) {
 }
 
 // 获取QQ用户信息
-export function QQUserInfo(access_token, oauth_consumer_key, openid) {
+export function QQUserInfo(
+  access_token: string,
+  oauth_consumer_key: string,
+  openid: string
+) {
   return {
     scheme: "https",
     host: "graph.qq.com",
@@ -582,14 +592,14 @@ export function QQUserInfo(access_token, oauth_consumer_key, openid) {
  */
 
 export function userpay(
-  type,
-  amount,
-  detail,
-  description,
-  ip,
-  uid,
-  bid,
-  exData
+  type: string,
+  amount: number,
+  detail: string,
+  description: string,
+  ip: string,
+  uid: string,
+  bid: string,
+  exData: object
 ) {
   return {
     host: apiHost,
@@ -612,7 +622,7 @@ export function userpay(
  * 获取android 升级配置
  */
 
-export function appUpdateInfo(): Object {
+export function appUpdateInfo() {
   return {
     path: "/call/appUpdateInfo",
     method: methodType.post,
@@ -620,7 +630,7 @@ export function appUpdateInfo(): Object {
   };
 }
 
-export function userExsitJudge(type, id): Object {
+export function userExsitJudge(type: string, id: string) {
   return {
     path: "/call/userExsitJudge",
     method: methodType.post,
@@ -635,7 +645,7 @@ export function userExsitJudge(type, id): Object {
  *  支付的最后一步流程
  */
 
-export function payOrder(payId, tradeId) {
+export function payOrder(payId: string, tradeId: string) {
   return {
     path: "/call/payOrder",
     method: methodType.post,
@@ -646,7 +656,7 @@ export function payOrder(payId, tradeId) {
   };
 }
 
-export function courseReadNumAdd(courseId) {
+export function courseReadNumAdd(courseId: string) {
   return {
     path: "/call/courseReadNumAdd",
     method: methodType.post,
@@ -656,7 +666,7 @@ export function courseReadNumAdd(courseId) {
   };
 }
 
-export function likeAdd(iDoId, addNum) {
+export function likeAdd(iDoId: string, addNum: string) {
   return {
     path: "/call/iDoLike",
     method: methodType.post,

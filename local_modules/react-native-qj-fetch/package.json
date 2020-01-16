@@ -1,0 +1,11 @@
+{
+  "name": "react-native-qj-fetch",
+  "version": "0.0.1",
+  "description": "for react-native fetch with react-hook",
+  "main": "index.ts",
+  "author": "tonyYo",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.10.2"
+  }
+}

@@ -179,7 +179,7 @@ export default class LocalNotification extends PureComponent {
         unDoneCount += 1;
       }
 
-      (Platform.OS === "ios" || DeviceInfo.getAPILevel() < 29) &&
+      (Platform.OS === "ios" || DeviceInfo.getApiLevel() < 29) &&
         PushNotification.setApplicationIconBadgeNumber(unDoneCount);
       const { recordDay } = item.iCard;
       const notifyTimes = item.iCard.notifyTimes || [];
@@ -312,7 +312,7 @@ export default class LocalNotification extends PureComponent {
       });
     }
 
-    (Platform.OS === "ios" || DeviceInfo.getAPILevel() < 29) &&
+    (Platform.OS === "ios" || DeviceInfo.getApiLevel() < 29) &&
       PushNotification.setApplicationIconBadgeNumber(unDoneCount);
 
     let { all } = localRemindData;

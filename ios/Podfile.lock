@@ -3,7 +3,7 @@ PODS:
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.4.0):
     - React
-  - CodePush (5.4.2):
+  - CodePush (6.0.0):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
     - React
@@ -229,19 +229,20 @@ PODS:
     - React
   - react-native-keyboard-tracking-view (5.5.0):
     - React
-  - react-native-netinfo (4.6.1):
+  - react-native-netinfo (5.3.2):
     - React
   - react-native-orientation (3.1.3):
     - React
   - react-native-qq (3.0.0):
     - React
-  - react-native-simple-toast (0.1.1):
+  - react-native-simple-toast (1.0.0):
     - React
+    - Toast (~> 4.0.0)
   - react-native-splash-screen (3.1.1):
     - React
   - react-native-umeng-analytics (0.2.5):
     - React
-  - react-native-viewpager (2.0.2):
+  - react-native-viewpager (3.3.0):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -285,9 +286,9 @@ PODS:
   - ReactNativeKeyboardManager (4.0.13-9):
     - IQKeyboardManager (= 4.0.13)
     - React
-  - RNCAsyncStorage (1.6.3):
+  - RNCAsyncStorage (1.7.1):
     - React
-  - RNDeviceInfo (2.2.2):
+  - RNDeviceInfo (5.4.1):
     - React
   - RNFastImage (7.0.2):
     - React
@@ -303,9 +304,9 @@ PODS:
     - React
   - RNRate (1.0.1):
     - React
-  - RNReanimated (1.4.0):
+  - RNReanimated (1.5.0):
     - React
-  - RNScreens (2.0.0-alpha.16):
+  - RNScreens (2.0.0-alpha.24):
     - React
   - RNVectorIcons (6.1.0):
     - React
@@ -316,6 +317,7 @@ PODS:
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.0)
   - SSZipArchive (2.2.2)
+  - Toast (4.0.0)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -393,6 +395,7 @@ SPEC REPOS:
     - SSZipArchive
   trunk:
     - LookinServer
+    - Toast
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -514,7 +517,7 @@ SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
-  CodePush: 73650f38e476f1a31757aaa9f6a732fd131f0be7
+  CodePush: 58d8b6595f46057ca1f49c55fb6860ad7fd38ce3
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: aaeaf388755e4f29cd74acbc9e3b8da6d807c37f
   FBReactNativeSpec: 118d0d177724c2d67f08a59136eb29ef5943ec75
@@ -542,13 +545,13 @@ SPEC CHECKSUMS:
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-keyboard-input: 06790d8058189f1f0e4099ceb8cc69f6435dcc07
   react-native-keyboard-tracking-view: e5266ec24dd99e44fdb4529d12818e2ed6beff43
-  react-native-netinfo: a59d8426a8484f739fe3a95dd6ad5af1435db05f
+  react-native-netinfo: 817823a90f13ced48413875c0820df04c3aae28d
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
-  react-native-simple-toast: 1fc69d83c24279ed4f9624352551a5a3406678a2
+  react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
   react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
-  react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
+  react-native-viewpager: a7b438ca32c57b2614ece2a123e7fe116f743131
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -562,20 +565,21 @@ SPEC CHECKSUMS:
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   ReactNativeExceptionHandler: 040b33d72849a0aa862d1dcb54008ccef77a935e
   ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
-  RNCAsyncStorage: 3c304d1adfaea02ec732ac218801cb13897aa8c0
-  RNDeviceInfo: 1215084f45c1059b031c530281442dc7079ccf0a
+  RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
+  RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNFS: 0f4d630b538e93e0e9e3519ff0b7b7b48760d8ed
   RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNKeychain: 3aa3cf891a09a0d18d306862ab2bb9e106079b24
   RNRate: 29be49c24b314c4e8ec09d848c3965f61cb0be47
-  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
-  RNScreens: 6f748645b4037f2579b363862754dd458d8ce376
+  RNReanimated: 1761c14b3982fc77fc9fdad6ea2f42ed861c342a
+  RNScreens: 52650fc6874b8ba68a88da452833562fcf45afb5
   RNVectorIcons: ac7bf6bfeafaf3ad34552cdc6eed6fb8c4b7c940
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b
   SSZipArchive: fa16b8cc4cdeceb698e5e5d9f67e9558532fbf23
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: ed6e3176a09dee96669f05fb6252faf7ed922c99

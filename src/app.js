@@ -12,7 +12,7 @@ import codePush from "react-native-code-push";
 // import { useScreens } from "react-native-screens";
 import { creatStore } from "./redux/store";
 import ReduxApp from "./components/Nav/navigators/ReduxApp";
-import theme from "./Theme";
+import { theme } from "./Theme";
 import Configure from "./configure";
 import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigator";
 // import {route} from './pages'

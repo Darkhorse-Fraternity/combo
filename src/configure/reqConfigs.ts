@@ -1,0 +1,146 @@
+/* @flow */
+
+// import DeviceInfo from 'react-native-device-info'
+import DeviceInfo from "react-native-device-info";
+import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from "./leancloud";
+import { appChannel } from "../../helps/util";
+import {
+  setNetworkConig,
+  getNetworkConfig,
+  setDoCache,
+  mapProps,
+  setDataMap,
+  setShowErrorAction,
+  reqCProps
+} from "react-native-qj-fetch";
+import AsyncStorage from "@react-native-community/async-storage";
+import SimpleToast from "react-native-simple-toast";
+import { Cache } from "react-native-cache";
+// export const defaultHost = !__DEV__
+//   /* release */ ? 'api.icourage.cn/1.1'
+//   /* debug */ : 'api.icourage.cn/1.1';
+
+export const defaultHost = !__DEV__
+  ? /* release */ "cmwljtyw.engine.lncld.net/1.1"
+  : /* debug */ "cmwljtyw.engine.lncld.net/1.1";
+
+// export const apiHost = !__DEV__
+//   ? /* release */ "icourage.cn"
+//   : /* debug */ "stg-icard.leanapp.cn";
+// /* debug */ : 'icard.leanapp.cn';
+
+export const apiHost = !__DEV__
+  ? /* release */ "cmwljtyw.api.lncld.net"
+  : /* debug */ "cmwljtyw.api.lncld.net";
+
+let LeanCloud_APP_Session = "";
+
+export function setLeanCloudSession(session: string) {
+  LeanCloud_APP_Session = session;
+}
+
+export function httpHeaders(needSession: boolean): Object {
+  const appVersion = DeviceInfo.getVersion();
+
+  let header = {
+    "Content-Type": "application/json; charset=utf-8",
+    "X-LC-Sign": LeanCloud_APP_SIGN,
+    "X-LC-Id": LeanCloud_APP_ID,
+    "X-LC-Prod": __DEV__ ? 0 : 1,
+    appVersion,
+    appChannel
+  };
+
+  if (needSession) {
+    header = Object.assign({}, header, {
+      "X-LC-Session": LeanCloud_APP_Session
+    });
+  }
+  // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
+  return header;
+}
+
+const cache = new Cache({
+  namespace: "myapp",
+  policy: {
+    maxEntries: 50000
+  },
+  backend: AsyncStorage
+});
+
+export const setCache = (key: string, value: any) =>
+  new Promise((resolve, reject) => {
+    cache.setItem(key, value, (err: Error) => {
+      // key 'hello' is 'world' in cache
+      if (err) {
+        reject(err);
+      }
+      resolve();
+    });
+  });
+// cache.clearAll();
+export const getCache = (key: string) =>
+  new Promise((resolve, reject) => {
+    // cache.clearAll();\
+    cache.getItem(key, (err: Error, value: object) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(value);
+      }
+    });
+  });
+
+export const doCache = async (key: string, req: Function) => {
+  let cacheData = await getCache(key);
+  if (!cacheData) {
+    cacheData = await req();
+    setCache(key, cacheData);
+  } else {
+    req().then((res: Object) => {
+      setCache(key, res);
+    });
+  }
+  return cacheData;
+};
+setDoCache(doCache);
+
+const dataMap = async <T extends {}>(data: T, e?: Error, reload?: Function) => {
+  const RESCODE = "status_code";
+  const MSG = "message";
+  const DATA = "result";
+  if (e) {
+    return { error: e.message, code: 0, result: data };
+  }
+  return {
+    error: data[MSG],
+    result: data[DATA],
+    code: data[RESCODE]
+  };
+};
+
+setDataMap(<any>dataMap);
+
+const errorAction = (props: reqCProps, error: string, code: number) => {
+  // if (code === 432) {
+  //   return;
+  // }
+  const localizr = { "Network request failed": "网络请求失败" };
+  const codeString = code !== 0 ? `code:${code}` : "";
+  const message = (localizr[error] || error) + codeString;
+  SimpleToast.show(message);
+};
+
+setShowErrorAction(errorAction);
+
+export interface reqPlacehold {
+  scheme?: string;
+  host?: string;
+  headers?: HeadersInit_;
+}
+
+setNetworkConig({
+  headers: httpHeaders(true) as HeadersInit_,
+  host: defaultHost,
+  scheme: "https"
+});

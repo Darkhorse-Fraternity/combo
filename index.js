@@ -10,12 +10,17 @@ import { AppRegistry, YellowBox } from "react-native";
 import { name } from "./app.json";
 import App from "./src/app";
 
-YellowBox.ignoreWarnings(["Require cycle:"]);
-// import { required } from './src/request/validation';
-
-console.ignoredYellowBox = [
-  "Warning: isMounted(...)",
-  "Module RCTAlipay requires main queue setup since it overrides `init` but doesn't implement `requiresMainQueueSetup`. In a future release React Native will default to initializing all native modules on a background thread unless explicitly opted-out of."
-];
+YellowBox.ignoreWarnings([
+  //'Warning: Async Storage has been extracted',
+  "BugReporting extraData:",
+  "Expected style",
+  "Battery state",
+  "componentWillMount",
+  "componentWillUpdate",
+  "componentWillReceiveProps",
+  "[location] ERROR - 0",
+  "Warning: DatePickerAndroid", // will be fixed with https://github.com/mmazzarolo/react-native-modal-datetime-picker/pull/262
+  "RCTRootView cancelTouches" // https://github.com/kmagiera/react-native-gesture-handler/issues/746
+]);
 
 AppRegistry.registerComponent(name, () => App);

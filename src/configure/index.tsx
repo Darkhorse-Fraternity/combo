@@ -199,14 +199,6 @@ export default class Configure extends React.Component {
     // }
 
     // this.requestCameraPermission()
-
-    // NetInfo.isConnected.addEventListener(
-    //     'connectionChange',
-    //     (isConnected)=>{
-    //        dispatch(dataStorage('isConnected',isConnected))
-    //     }
-    // );
-    // this.props.deeplink()
   }
 
   componentWillUnmount() {
@@ -268,7 +260,7 @@ export default class Configure extends React.Component {
     });
 
   render() {
-    const level = DeviceInfo.getAPILevel(); // andorid q 用会报错
+    const level = DeviceInfo.getApiLevel(); // andorid q 用会报错
 
     return (
       <View style={{ flex: 1 }}>

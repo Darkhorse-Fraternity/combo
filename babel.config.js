@@ -25,6 +25,8 @@ module.exports = function(api) {
           "@pages": "./src/pages",
           "@img": "./source/img",
           "test/*": "./test/*",
+          "@local_modules": "./local_modules",
+          "react-native-qj-fetch": "./local_modules/react-native-qj-fetch",
           underscore: "lodash"
         }
       }

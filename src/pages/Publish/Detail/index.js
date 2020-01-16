@@ -202,7 +202,7 @@ export default class PublishDetail extends Component {
 
         {allow &&
           this._renderRow("圈子设置", () => {
-            navigation.navigate("publishing", {
+            navigation.navigate("cirlcleSetting", {
               iCardID: navigation.state.params.iCardID
             });
           })}

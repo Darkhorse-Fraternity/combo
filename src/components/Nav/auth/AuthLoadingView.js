@@ -102,15 +102,12 @@ import { addNormalizrEntities } from "../../../redux/module/normalizr";
   })
 )
 export default class AuthLoadingScreen extends React.Component {
-  listener = false;
-
+  unsubscribe = null;
   async componentDidMount() {
-    const isConnected = await NetInfo.isConnected.fetch();
-
+    const { isConnected } = await NetInfo.fetch();
     if (!isConnected) {
       // console.log('111');
-      this.listener = true;
-      NetInfo.isConnected.addEventListener(
+      this.unsubscribe = NetInfo.addEventListener(
         "connectionChange",
         this.handleFirstConnectivityChange
       );
@@ -120,12 +117,7 @@ export default class AuthLoadingScreen extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.listener) {
-      NetInfo.isConnected.removeEventListener(
-        "connectionChange",
-        this.handleFirstConnectivityChange
-      );
-    }
+    this.unsubscribe && this.unsubscribe();
   }
 
   handleFirstConnectivityChange = isConnected => {
