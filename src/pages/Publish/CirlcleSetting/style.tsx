@@ -29,6 +29,7 @@ interface submitType {
 
 export const StyledButton = styled(Button)`
   align-self: center;
+  min-height: 20;
 `;
 
 export const StyledButtonText = styled.Text<submitType>`

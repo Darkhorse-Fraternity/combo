@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Alert, View, Text } from "react-native";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   StyledContent,
   StyledText,
@@ -8,15 +8,24 @@ import {
   StyledUnderLine,
   StyledNavBar
 } from "./style";
-import { reqO } from "react-native-qj-fetch";
+import { reqO, useFetch } from "react-native-qj-fetch";
 import * as yup from "yup";
-import { MemoRHFError, MemoRHFInput } from "@components/Form";
+import { MemoRHFError, MemoRHFInput, RHFError } from "@components/Form";
 import { useNavigationParam } from "react-navigation-hooks";
+import { classUpdate, classIDSearch } from "@request/leanCloud";
+import { ICARD } from "src/redux/reqKeys";
+import SimpleToast from "react-native-simple-toast";
+import { loadView } from "@components/Load";
+
+interface iCardType {
+  objectId?: string;
+}
 
 const validationSchema = yup.object().shape({
   password: yup
     .string()
     .max(50)
+    .min(6)
     .trim()
     .label("密码")
 });
@@ -28,15 +37,48 @@ type FormData = {
 const render = () => {
   const iCardID = useNavigationParam("iCardID") as string;
   // console.log("req", reqO);
-  const lParams = classUpdate(key, objectId, params);
   // reqO();
+
+  const [formData, setFormData] = useState<FormData>();
+  const { password } = formData || {};
+
+  const params = classUpdate(ICARD, iCardID, formData || {});
+
+  const [{ pending, result }, load] = useFetch<iCardType>(params, false);
+
+  const searchParams = classIDSearch(ICARD, iCardID);
+  const [{ result: searchResult, pending: searchPennding }] = useFetch<
+    FormData
+  >(searchParams);
 
   const { register, setValue, handleSubmit, errors } = useForm<FormData>({
     validationSchema
+    // defaultValues: { password: "234" }
   });
 
-  const onSubmit = (data: FormData) =>
-    Alert.alert("Form Data2", JSON.stringify(data));
+  useEffect(() => {
+    if (result?.objectId) {
+      SimpleToast.show("保存成功！");
+    }
+  }, [result]);
+
+  const onSubmit = ({ password = "" }: FormData) => {
+    setFormData({ password });
+  };
+
+  //根据password 去加载
+  useEffect(() => {
+    if (password !== undefined) {
+      load();
+    }
+  }, [password]);
+
+  //赋予初始值，因为是异步的，所以只能这么做。
+  // useEffect(() => {
+  //   if (searchResult) {
+  //     setValue("password", searchResult.password, true);
+  //   }
+  // }, [searchResult]);
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
@@ -46,11 +88,18 @@ const render = () => {
 
   // console.log('RHFErrorAnmition', RHFErrorAnmition);
 
+  if (searchPennding) {
+    return loadView();
+  }
+
+  console.log("searchResult?.password", searchResult?.password);
+
   return (
     <StyledContent>
       <StyledNavBar>
         <StyledText>圈子设置</StyledText>
         <StyledButton
+          loading={pending}
           hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
           // loading={true}
           onPress={memoHanleSubmit}
@@ -64,6 +113,7 @@ const render = () => {
         autoFocus
         name="password"
         register={register}
+        setValue={setValue}
         maxLength={50}
         placeholder={"设置加入密码"}
         clearButtonMode={"while-editing"}
@@ -71,13 +121,14 @@ const render = () => {
         returnKeyType={"done"}
         // keyboardType={'default'}
         textContentType={"password"}
+        defaultValue={searchResult?.password}
         onSubmitEditing={memoHanleSubmit}
         onChangeText={onChangeText}
         // underlineColorAndroid={'green'}
         style={{ paddingVertical: 5 }}
       />
       <StyledUnderLine />
-      <MemoRHFError errors={errors} name={"password"} />
+      <RHFError errors={errors} name={"password"} />
     </StyledContent>
   );
 };

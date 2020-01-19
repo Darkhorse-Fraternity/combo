@@ -41,26 +41,25 @@ export const useFetch = <T extends {}>(
   // console.log('urlpath', urlpath);
 
   const headersString = JSON.stringify(headers);
-  const url = !query ? urlpath : addParams(urlpath, query);
-
-  const load = () => {
-    setPending(true);
-    return reqO<T>({host, path, headers, query, ...other}).then(res => {
+  // const url = !query ? urlpath : addParams(urlpath, query);
+  const load = () => {    
+    setPending(true);    
+    return reqO<T>({host, path, headers, ...other}).then(res => {
       if (!res.error) {
         setData(res.result);
         setError(null);
       } else {
         setError(res.error);
       }
-      setCode(res.code);
+      // setCode(res.code);
       setPending(false);
       return res;
     });
   };
   useEffect(() => {
     // Update the document title using the browser API
-    autoTrigger && load();
-  }, [url, headersString, otherParamString]);
+    autoTrigger && load();    
+  }, [urlpath, headersString, otherParamString]);
 
   return [
     {

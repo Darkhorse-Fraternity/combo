@@ -277,10 +277,10 @@ export function feedbackParam(content: string, contact: string): Object {
  * @param  {[type]} id:string        =“” 可选，具体的id
  * @return {[type]}                  [description]
  */
-export function classIDSearch(className: string, id: string = ""): Object {
+export function classIDSearch(className: string, id: string = "") {
   return {
     path: `/classes/${className}/${id}`,
-    method: methodType.get
+    method: methodType.get,
   };
 }
 

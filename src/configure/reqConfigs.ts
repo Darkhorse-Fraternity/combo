@@ -37,27 +37,47 @@ let LeanCloud_APP_Session = "";
 
 export function setLeanCloudSession(session: string) {
   LeanCloud_APP_Session = session;
+  const myHeader = { ...header };
+  if (session && session.length > 0) {
+    myHeader["X-LC-Session"] = LeanCloud_APP_Session;
+  }
+
+  setNetworkConig({
+    headers: myHeader as HeadersInit_,
+    host: defaultHost,
+    scheme: "https"
+  });
 }
+setLeanCloudSession("");
+
+const header = {
+  "Content-Type": "application/json; charset=utf-8",
+  "X-LC-Sign": LeanCloud_APP_SIGN,
+  "X-LC-Id": LeanCloud_APP_ID,
+  "X-LC-Prod": __DEV__ ? 0 : 1,
+  appVersion: DeviceInfo.getVersion(),
+  appChannel
+};
 
 export function httpHeaders(needSession: boolean): Object {
-  const appVersion = DeviceInfo.getVersion();
-
-  let header = {
-    "Content-Type": "application/json; charset=utf-8",
-    "X-LC-Sign": LeanCloud_APP_SIGN,
-    "X-LC-Id": LeanCloud_APP_ID,
-    "X-LC-Prod": __DEV__ ? 0 : 1,
-    appVersion,
-    appChannel
-  };
-
+  // let header = {
+  //   "Content-Type": "application/json; charset=utf-8",
+  //   "X-LC-Sign": LeanCloud_APP_SIGN,
+  //   "X-LC-Id": LeanCloud_APP_ID,
+  //   "X-LC-Prod": __DEV__ ? 0 : 1,
+  //   appVersion,
+  //   appChannel
+  // };
+  const myHeader = { ...header };
   if (needSession) {
-    header = Object.assign({}, header, {
-      "X-LC-Session": LeanCloud_APP_Session
-    });
+    // header = Object.assign({}, header, {
+    //   "X-LC-Session": LeanCloud_APP_Session
+    // });
+    myHeader["X-LC-Session"] = LeanCloud_APP_Session;
   }
+
   // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
-  return header;
+  return myHeader;
 }
 
 const cache = new Cache({
@@ -105,18 +125,22 @@ export const doCache = async (key: string, req: Function) => {
 };
 setDoCache(doCache);
 
-const dataMap = async <T extends {}>(data: T, e?: Error, reload?: Function) => {
-  const RESCODE = "status_code";
-  const MSG = "message";
-  const DATA = "result";
-  if (e) {
-    return { error: e.message, code: 0, result: data };
+const RESCODE = "code";
+const MSG = "error";
+const DATA = "results";
+
+interface eType{
+  message?:string,
+  code?:number,
+  error?:string,
+}
+
+const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
+  if (!!e ) {    
+    return { error: e.message || e.error ,code:e.code,result:data };
   }
-  return {
-    error: data[MSG],
-    result: data[DATA],
-    code: data[RESCODE]
-  };
+
+  return {result:data,code:200};
 };
 
 setDataMap(<any>dataMap);
@@ -126,7 +150,7 @@ const errorAction = (props: reqCProps, error: string, code: number) => {
   //   return;
   // }
   const localizr = { "Network request failed": "网络请求失败" };
-  const codeString = code !== 0 ? `code:${code}` : "";
+  const codeString = code ? `,code:${code}` : "";
   const message = (localizr[error] || error) + codeString;
   SimpleToast.show(message);
 };
@@ -139,8 +163,8 @@ export interface reqPlacehold {
   headers?: HeadersInit_;
 }
 
-setNetworkConig({
-  headers: httpHeaders(true) as HeadersInit_,
-  host: defaultHost,
-  scheme: "https"
-});
+// setNetworkConig({
+//   headers: header as HeadersInit_,
+//   host: defaultHost,
+//   scheme: "https"
+// });

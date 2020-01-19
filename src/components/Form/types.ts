@@ -1,5 +1,4 @@
-  
-import * as React from 'react';
+import * as React from "react";
 
 export type ValidateResult = string | boolean | undefined;
 
@@ -28,14 +27,14 @@ type EventFunctionResult = {
 };
 
 export type EventFunction = (
-  args: any,
+  args: any
 ) => EventFunctionResult | Promise<EventFunctionResult>;
 
 export type Props = {
   children?: React.ReactNode;
   innerProps?: any;
   setValue?: (name: string, value: any, trigger?: boolean) => void;
-  register:   (reg: {name:string}) => void;
+  register: (ref: any, rules: ValidationOptions) => (name: string) => void;
   unregister?: (name: string) => void;
   name: string;
   as?: React.ElementType<any> | React.FunctionComponent<any> | string | any;
@@ -44,11 +43,12 @@ export type Props = {
   value?: string | boolean;
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
-  mode?: 'onBlur' | 'onChange' | 'onSubmit';
+  mode?: "onBlur" | "onChange" | "onSubmit";
   defaultValue?: string;
   defaultChecked?: boolean;
   onChangeName?: string;
   onChangeEvent?: EventFunction;
   onBlurName?: string;
   onBlurEvent?: EventFunction;
+  showUnderline?: boolean;
 };
