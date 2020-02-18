@@ -74,6 +74,26 @@ import { easyPay } from "../../../redux/module/pay";
 import { daysText } from "../../../configure/enum";
 import Avatar from "../../../components/Avatar/Avatar2";
 import { PasswordValidation } from "./PasswordValidation";
+import { User } from "src/interface";
+import { NavigationInjectedProps } from "react-navigation";
+
+interface StateType {
+  showModal: boolean;
+  visible: boolean;
+  index: number;
+}
+
+interface PropsType {
+  useExist: boolean;
+  user: User;
+  exist: (id: number) => void;
+}
+
+interface NavigationParams {
+  iCardId: number;
+}
+
+type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
 
 @connect(
   (state, props) => {
@@ -176,13 +196,14 @@ import { PasswordValidation } from "./PasswordValidation";
     }
   })
 )
-export default class CardInfo extends Component {
-  constructor(props: Object) {
+export default class CardInfo extends Component<NavAndPropsType, StateType> {
+  constructor(props: NavAndPropsType) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       visible: false,
-      index: 0
+      index: 0,
+      showModal: false
     };
   }
 
@@ -204,6 +225,12 @@ export default class CardInfo extends Component {
     }
     this.props.exist(this.props.navigation.state.params.iCardId);
     this.props.loadCourse(this.props.course);
+  }
+
+  componentWillReceiveProps(nextProps: NavAndPropsType) {
+    if (nextProps.user !== this.props.user) {
+      this.props.exist(this.props.navigation.state.params.iCardId);
+    }
   }
 
   // shouldComponentUpdate(nextProps: Object) {
@@ -280,7 +307,21 @@ export default class CardInfo extends Component {
         colors={["#ffffff", "#f1f6f9", "#ebf0f3", "#ffffff"]}
         forceInset={{ top: "never" }}
       >
-        <PasswordValidation show={true} onDone={() => {}} />
+        <PasswordValidation
+          show={this.state.showModal}
+          onDone={(password, pdErrorAction) => {
+            if (password === iCard.password) {
+              this.props.use(iCard);
+              this.setState({ showModal: false });
+            } else {
+              pdErrorAction();
+            }
+          }}
+          loading={false}
+          onClose={() => {
+            this.setState({ showModal: false });
+          }}
+        />
         {iCard.img && (
           <ImagesViewModal
             visible={this.state.visible}
@@ -325,6 +366,7 @@ export default class CardInfo extends Component {
                 //     justifyContent: 'flex-end',
                 //   }
                 // });
+                this.setState({ showModal: true });
               } else {
                 this.props.use(iCard);
               }
@@ -369,23 +411,6 @@ export default class CardInfo extends Component {
                   {keys.map(key => `#${key}`).join(" ")}
                 </StyledKeysView>
               )}
-
-              {/* <Button */}
-              {/* style={{ */}
-              {/* flexDirection: 'row', */}
-              {/* marginTop: 10, */}
-              {/* alignItems: 'center', */}
-              {/* }} */}
-              {/* onPress={() => { */}
-              {/*! userLoad && this.props.navigation.navigate('cardUse', { iCardId: iCard.objectId }) */}
-              {/* }}> */}
-              {/* <StyledReadNum> */}
-              {/* 参与人数：{iCard.useNum} */}
-              {/* </StyledReadNum> */}
-              {/* <StyledIcon */}
-              {/* size={15} */}
-              {/* name="ios-arrow-forward"/> */}
-              {/* </Button> */}
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
               <Button
@@ -423,7 +448,7 @@ export default class CardInfo extends Component {
           )}
           {/* {this.row('关键字:', iCard.keys.join("+"))} */}
           {this.row("打卡时间:", limitTime)}
-          {this.row("习惯周期:", `${iCard.period}次`)}
+          {/* {this.row("习惯周期:", `${iCard.period}次`)} */}
           {this.row("打卡要求:", iCard.record.join("+") || "默认点击")}
           {this.row("创建时间:", moment(iCard.createdAt).format("MMM YYYY"))}
           <Button

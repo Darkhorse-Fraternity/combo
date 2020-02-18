@@ -257,7 +257,7 @@ export default class RecordRow extends Component {
               ))}
             </StyledImagesScolleView>
             )}
-            { uris.length > 0 && (
+            { uris && uris.length > 0 && (
             <ImagesViewModal
               visible={visible}
               closeCallBack={() => {

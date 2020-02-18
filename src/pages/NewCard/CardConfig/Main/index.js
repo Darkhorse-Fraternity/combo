@@ -414,12 +414,12 @@ export default class OptionDo extends PureComponent {
             discrib={record}
             type="record"
           />
-          <this.__renderItem
+          {/* <this.__renderItem
             index={5}
             title="习惯周期"
             discrib={`${this.props.period}组`}
             type="period"
-          />
+          /> */}
 
         </View>
         )}

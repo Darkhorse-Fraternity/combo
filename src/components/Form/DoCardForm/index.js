@@ -9,10 +9,6 @@ import { immutableRenderDecorator } from "react-immutable-render-mixin";
 import { formValueSelector } from "redux-form/immutable";
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
-import {
-  KeyboardAccessoryView,
-  KeyboardUtils
-} from "react-native-keyboard-input"; // <-- same as form name
 import KeyboardManager from "react-native-keyboard-manager";
 import * as immutable from "immutable";
 import { theme } from "../../../Theme";
@@ -124,7 +120,6 @@ export default class DoCardForm extends Component {
 
   componentWillUnmount() {
     Platform.OS === "ios" && KeyboardManager.setEnable(true);
-    KeyboardUtils.dismiss();
     let { imgs, recordText } = this.props;
     if (this.state.clear) {
       imgs = [];

@@ -113,7 +113,7 @@ export default class ImageSelectView extends PureComponent {
           style={[styles.imageBackView, style]}
         >
           {this._renderLastButton()}
-          { uris.length > 0 && (
+          { uris && uris.length > 0 && (
           <ImagesViewModal
             visible={visible}
             closeCallBack={() => {

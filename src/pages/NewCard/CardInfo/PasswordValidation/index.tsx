@@ -4,15 +4,11 @@ import {
   StyledButton,
   StyledUnderLine,
   StyleModalMain,
-  StyleModalOutView,
-  StyleTitle,
-  StyleCance,
-  StyleConceText,
-  StyledIcon
+  StyleTitle
 } from "./style";
-import Modal from "react-native-modal";
 import * as yup from "yup";
 import { RHFError, MemoRHFInput } from "@components/Form";
+import CModal, { CModalPropsType } from "@components/Modal";
 
 const validationSchema = yup.object().shape({
   password: yup
@@ -27,18 +23,24 @@ type FormData = {
   password: string;
 };
 
-interface RenderPropsType {
-  show: boolean;
-  onDone: (password: string) => void;
+interface RenderPropsType extends CModalPropsType {
+  onDone: (password: string, pdErrorAction: () => void) => void;
+  loading?: boolean;
 }
 
-const Render = ({ show = false, onDone }: RenderPropsType) => {
-  const { register, setValue, handleSubmit, errors } = useForm<FormData>({
+const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
+  const { register, setValue, handleSubmit, errors, setError } = useForm<
+    FormData
+  >({
     validationSchema
-    // defaultValues: {password: '11111'},
   });
 
-  const onSubmit = (data: FormData) => onDone(data.password);
+  const pdErrorAction = () => {
+    setValue("password", "", false);
+    setError("password", "", "密码错误");
+  };
+
+  const onSubmit = (data: FormData) => onDone(data.password, pdErrorAction);
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
@@ -46,64 +48,39 @@ const Render = ({ show = false, onDone }: RenderPropsType) => {
     []
   );
 
-  const [showModal, setShowModal] = useState(show);
-
   return (
-    <Modal
-      avoidKeyboard
-      useNativeDriver={true}
-      animationIn={"fadeInUp"}
-      animationOut={"fadeOutDown"}
-      style={{ margin: 20 }}
-      // swipeDirection="up"
-      // coverScreen={false}
-      // onBackdropPress={() => {
-      //   setShowModal(!showModal);
-      // }}
-      // transparent={true}
-      isVisible={showModal}
-    >
-      <StyleModalOutView>
-        <StyleCance
-          onPress={() => {
-            setShowModal(!showModal);
-          }}
+    <CModal show={show}>
+      <StyleModalMain>
+        <StyleTitle>请输入加入密码</StyleTitle>
+        <MemoRHFInput
+          autoFocus
+          name="password"
+          setValue={setValue}
+          register={register}
+          maxLength={50}
+          placeholder={"设置加入密码"}
+          clearButtonMode={"while-editing"}
+          autoCapitalize={"none"}
+          returnKeyType={"done"}
+          // keyboardType={'default'}
+          textContentType={"password"}
+          onSubmitEditing={memoHanleSubmit}
+          onChangeText={onChangeText}
+          // underlineColorAndroid={'green'}
+          style={{ paddingVertical: 5 }}
+        />
+        <StyledUnderLine />
+        <RHFError errors={errors} name={"password"} />
+        <StyledButton
+          loading={loading}
+          // dise
+          disabled={Object.keys(errors).length > 0}
+          onPress={memoHanleSubmit}
         >
-          <StyledIcon name="ios-close" size={20} />
-        </StyleCance>
-        <StyleModalMain>
-          <StyleTitle>请加入输入密码</StyleTitle>
-          <MemoRHFInput
-            autoFocus
-            name="password"
-            setValue={setValue}
-            register={register}
-            maxLength={50}
-            placeholder={"设置加入密码"}
-            clearButtonMode={"while-editing"}
-            autoCapitalize={"none"}
-            returnKeyType={"done"}
-            // keyboardType={'default'}
-            textContentType={"password"}
-            onSubmitEditing={memoHanleSubmit}
-            onChangeText={onChangeText}
-            // underlineColorAndroid={'green'}
-            style={{ paddingVertical: 5 }}
-          />
-          <StyledUnderLine />
-          <RHFError errors={errors} name={"password"} />
-          <StyledButton
-            // loading={true}
-            onPress={() => {
-              // this.setModalVisible(!this.state.modalVisible);
-              setShowModal(!showModal);
-            }}
-          >
-            确定
-          </StyledButton>
-        </StyleModalMain>
-      </StyleModalOutView>
-    </Modal>
+          确定
+        </StyledButton>
+      </StyleModalMain>
+    </CModal>
   );
 };
 

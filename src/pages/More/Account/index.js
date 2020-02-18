@@ -219,7 +219,7 @@ export default class Account extends React.Component {
     }
     // weixin && ++bindingNum;
     // qq && ++bindingNum;
-    console.log("dbNum:", dbNum);
+    // console.log("dbNum:", dbNum);
 
     return (
       <StyledSafeAreaView forceInset={{ top: "never" }}>

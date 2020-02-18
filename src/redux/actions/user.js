@@ -137,12 +137,13 @@ export function userInfo() {
 
 
 const anonymousUser = () => async (dispatch) => {
+  let uniqueId = DeviceInfo.getUniqueId();
+  const anonymousConfig = { id: uniqueId };
   try {
-    let uniqueId = DeviceInfo.getUniqueID();
+  
     if (Platform.OS === 'ios') {
       uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
     }
-    const anonymousConfig = { id: uniqueId };
     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
     const user = await get(userInfoParmas);
     await dispatch(_loginSucceed(user));

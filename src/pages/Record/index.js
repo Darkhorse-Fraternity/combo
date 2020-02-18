@@ -142,7 +142,7 @@ export default class Record extends Component {
   _renderHeader = () => (
     <StyledHeader>
       <StyledHeaderTitle>
-          已暂停卡片
+          已暂停习惯
       </StyledHeaderTitle>
     </StyledHeader>
   )
@@ -268,7 +268,8 @@ export default class Record extends Component {
     const { navigation } = this.props;
     const { dispatch, state } = navigation;
     const { params } = state;
-    const statu = params ? params.statu : { $ne: 'del' };
+    const statu = !!params ? params.statu : { $ne: 'del' };
+    // const statu =  { $ne: 'del' };
     const param = {
       // where: {
       //   ...dispatch(selfUser()),
@@ -287,7 +288,7 @@ export default class Record extends Component {
           sKey={IRECORD}
           renderItem={this.renderRow}
           dataMap={(data) => {
-            console.log('data', data);
+            // console.log('data', data);
 
             return { results: data.result.iUseList };
           }}
