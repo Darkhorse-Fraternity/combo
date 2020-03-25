@@ -12,13 +12,14 @@ import {
   TouchableOpacity,
   Alert,
   TouchableNativeFeedback,
-  ActivityIndicator
+  ActivityIndicator,
+  Keyboard
 } from "react-native";
 import { connect } from "react-redux";
 import { BlurView } from "@react-native-community/blur";
 import {
-  KeyboardAccessoryView,
-  KeyboardUtils
+  KeyboardAccessoryView
+  // KeyboardUtils
 } from "react-native-keyboard-input";
 import moment from "moment";
 import { formValueSelector } from "redux-form/immutable";
@@ -92,7 +93,7 @@ const Name = "text";
 
         const selector = formValueSelector(FormID); // <-- same as form name
         // KeyboardUtils.dismiss()
-        KeyboardUtils.dismiss();
+        Keyboard.dismiss();
 
         const text = selector(state, Name);
         const param = {
@@ -361,7 +362,7 @@ export default class RComment extends PureComponent {
   }
 
   componentWillUnmount() {
-    KeyboardUtils.dismiss();
+    Keyboard.dismiss();
   }
 
   renderRightView = () => {

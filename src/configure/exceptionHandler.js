@@ -17,7 +17,7 @@ const DeviceBugInfo = () =>
   `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
   `Model: ${DeviceInfo.getModel()}\n` +
   `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
-  `APILevel: ${DeviceInfo.getApiLevel()}`;
+  `APILevel: ${DeviceInfo.getApiLevelSync()}`;
 
 //= ================================================
 // ADVANCED use case:

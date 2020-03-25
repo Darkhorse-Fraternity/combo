@@ -260,7 +260,7 @@ export default class Configure extends React.Component {
     });
 
   render() {
-    const level = DeviceInfo.getApiLevel(); // andorid q 用会报错
+    const level = DeviceInfo.getApiLevelSync(); // andorid q 用会报错
 
     return (
       <View style={{ flex: 1 }}>

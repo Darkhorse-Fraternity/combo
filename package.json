@@ -7,10 +7,13 @@
     "test": "jest",
     "lint": "eslint .",
     "reload": "curl http://localhost:8081/reload",
-    "postinstall": "npx jetify"
+    "postinstall": "npx jetify",
+    "run-ios": "yarn react-native run-ios",
+    "run-android": "yarn react-native run-android",
+    "release-android": "cd android && ./gradlew assembleRelease && cd ../",
+    "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../"
   },
   "dependencies": {
-    "react-native-keyboard-input": "6.0.0",
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#0.2.5",
     "@react-native-community/async-storage": "1.7.1",
     "@react-native-community/blur": "git+https://github.com/react-native-community/react-native-blur.git",
@@ -45,6 +48,7 @@
     "react-native-i18n": "2.0.15",
     "react-native-image-picker": "0.28.1",
     "react-native-image-zoom-viewer": "2.2.24",
+    "react-native-keyboard-input": "git+https://github.com/pokemon-corps/react-native-keyboard-input.git",
     "react-native-keyboard-manager": "4.0.13-9",
     "react-native-keyboard-tracking-view": "git+https://github.com/pokemon-corps/react-native-keyboard-tracking-view.git",
     "react-native-keychain": "3.0.0",

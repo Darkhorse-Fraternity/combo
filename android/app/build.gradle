@@ -136,7 +136,7 @@ android {
         versionCode buildTime()
         versionName appVersion
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", 'arm64-v8a','x86','x86_64'
         }
         manifestPlaceholders = [
                 QQ_APPID: "1106001821",
@@ -198,12 +198,12 @@ android {
         }
     }
 
-    packagingOptions {
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-    }
+//    packagingOptions {
+//        pickFirst 'lib/x86/libc++_shared.so'
+//        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+//        pickFirst 'lib/x86_64/libc++_shared.so'
+//        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+//    }
 }
 
 dependencies {

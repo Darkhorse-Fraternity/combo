@@ -1054,6 +1054,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.3.4;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1389,6 +1390,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.3.4;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1469,6 +1471,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				MARKETING_VERSION = 1.3.4;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",

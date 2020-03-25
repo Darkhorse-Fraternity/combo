@@ -193,11 +193,11 @@ export default class Account extends React.Component {
               `App version: ${DeviceInfo.getVersion()}\n` +
               `App Build: ${DeviceInfo.getBuildNumber()}\n` +
               `Brand: ${DeviceInfo.getBrand()}\n` +
-              `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
-              `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
+              // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+              `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorageSync()}\n` +
               `Model: ${DeviceInfo.getModel()}\n` +
               `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
-              `APILevel: ${DeviceInfo.getApiLevel()}`}
+              `APILevel: ${DeviceInfo.getApiLevelSync()}`}
         </StyledAppVersionText>
       </TouchableOpacity>
     </StyledAppInfo>
