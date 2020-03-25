@@ -221,13 +221,9 @@ PODS:
     - React
   - react-native-blur (0.8.0):
     - React
-  - react-native-calendar-events (1.7.3):
-    - React
   - react-native-image-picker (0.28.1):
     - React
   - react-native-keyboard-input (5.3.1):
-    - React
-  - react-native-keyboard-tracking-view (5.5.0):
     - React
   - react-native-netinfo (5.3.2):
     - React
@@ -242,7 +238,7 @@ PODS:
     - React
   - react-native-umeng-analytics (0.2.5):
     - React
-  - react-native-viewpager (3.3.0):
+  - react-native-viewpager (2.0.2):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -304,9 +300,9 @@ PODS:
     - React
   - RNRate (1.0.1):
     - React
-  - RNReanimated (1.5.0):
+  - RNReanimated (1.7.0):
     - React
-  - RNScreens (2.0.0-alpha.24):
+  - RNScreens (2.2.0):
     - React
   - RNVectorIcons (6.1.0):
     - React
@@ -345,10 +341,8 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-autogrow-textinput (from `../node_modules/react-native-autogrow-textinput`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
-  - react-native-calendar-events (from `../node_modules/react-native-calendar-events`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-keyboard-input (from `../node_modules/react-native-keyboard-input`)
-  - react-native-keyboard-tracking-view (from `../node_modules/react-native-keyboard-tracking-view`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-qq (from `../node_modules/react-native-qq`)
@@ -440,14 +434,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-autogrow-textinput"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
-  react-native-calendar-events:
-    :path: "../node_modules/react-native-calendar-events"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-keyboard-input:
     :path: "../node_modules/react-native-keyboard-input"
-  react-native-keyboard-tracking-view:
-    :path: "../node_modules/react-native-keyboard-tracking-view"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-orientation:
@@ -541,17 +531,15 @@ SPEC CHECKSUMS:
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-autogrow-textinput: 6ac9827113fab5e72be63ba6f0e40e6a01aa4697
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
-  react-native-calendar-events: eaa63134881d97488feb21ea114158f712894018
   react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   react-native-keyboard-input: 06790d8058189f1f0e4099ceb8cc69f6435dcc07
-  react-native-keyboard-tracking-view: e5266ec24dd99e44fdb4529d12818e2ed6beff43
   react-native-netinfo: 817823a90f13ced48413875c0820df04c3aae28d
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
   react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
   react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
-  react-native-viewpager: a7b438ca32c57b2614ece2a123e7fe116f743131
+  react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -573,8 +561,8 @@ SPEC CHECKSUMS:
   RNI18n: e2f7e76389fcc6e84f2c8733ea89b92502351fd8
   RNKeychain: 3aa3cf891a09a0d18d306862ab2bb9e106079b24
   RNRate: 29be49c24b314c4e8ec09d848c3965f61cb0be47
-  RNReanimated: 1761c14b3982fc77fc9fdad6ea2f42ed861c342a
-  RNScreens: 52650fc6874b8ba68a88da452833562fcf45afb5
+  RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
+  RNScreens: 812b79d384e2bea7eebc4ec981469160d4948fd5
   RNVectorIcons: ac7bf6bfeafaf3ad34552cdc6eed6fb8c4b7c940
   SDWebImage: fb387001955223213dde14bc08c8b73f371f8d8f
   SDWebImageWebPCoder: 7568737603c50f6237850afedd7e9e28e5917e6b

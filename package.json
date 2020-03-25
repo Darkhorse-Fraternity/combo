@@ -11,7 +11,8 @@
     "run-ios": "yarn react-native run-ios",
     "run-android": "yarn react-native run-android",
     "release-android": "cd android && ./gradlew assembleRelease && cd ../",
-    "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../"
+    "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../",
+    "release-ios": "cd ios && fastlane beta && cd ../"
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#0.2.5",
@@ -50,7 +51,6 @@
     "react-native-image-zoom-viewer": "2.2.24",
     "react-native-keyboard-input": "git+https://github.com/pokemon-corps/react-native-keyboard-input.git",
     "react-native-keyboard-manager": "4.0.13-9",
-    "react-native-keyboard-tracking-view": "git+https://github.com/pokemon-corps/react-native-keyboard-tracking-view.git",
     "react-native-keychain": "3.0.0",
     "react-native-leancloud-push": "git+https://github.com/Darkhorse-Fraternity/react-native-leancloud-push.git#sdk4.7.14",
     "react-native-linear-gradient": "2.4.0",
