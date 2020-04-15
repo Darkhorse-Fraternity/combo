@@ -50,7 +50,7 @@
     "react-native-i18n": "2.0.15",
     "react-native-image-picker": "0.28.1",
     "react-native-image-zoom-viewer": "2.2.24",
-    "react-native-keyboard-input": "git+https://github.com/pokemon-corps/react-native-keyboard-input.git",
+    "react-native-keyboard-input": "6.0.0",
     "react-native-keyboard-manager": "4.0.13-9",
     "react-native-keyboard-tracking-view": "^5.6.1",
     "react-native-keychain": "3.0.0",

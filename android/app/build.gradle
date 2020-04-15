@@ -219,6 +219,8 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.facebook.soloader:soloader:0.6.0+'
 
+    implementation project(":reactnativekeyboardinput") // 这个库还不支持自动
+
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")

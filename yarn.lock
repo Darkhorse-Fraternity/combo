@@ -6947,9 +6947,10 @@ react-native-image-zoom-viewer@2.2.24:
   dependencies:
     react-native-image-pan-zoom "^2.1.9"
 
-"react-native-keyboard-input@git+https://github.com/pokemon-corps/react-native-keyboard-input.git":
-  version "5.3.1"
-  resolved "git+https://github.com/pokemon-corps/react-native-keyboard-input.git#f2b5886a6f05cdcad253e30d76c1e34b4d0b7ad1"
+react-native-keyboard-input@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-input/-/react-native-keyboard-input-6.0.0.tgz#db71ddc8f7c6fdb799b17b9ebdeb783c7ca55c08"
+  integrity sha512-dpmkLaLk1+hqYfsRFktB5z0UuJHvJSBCQG67o8MhHa9uOq01OSwMIQUujuOwnGwJ/iIzexZs7YaI2Yb6M34g5g==
   dependencies:
     lodash "^4.17.4"
     react-native-keyboard-tracking-view "^5.5.0"

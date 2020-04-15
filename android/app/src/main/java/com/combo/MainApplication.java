@@ -25,6 +25,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
 import com.facebook.react.PackageList;
+import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
 import java.util.List;
 
@@ -51,14 +52,21 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             return "index";
         }
 
+
         @Override
         protected List<ReactPackage> getPackages() {
             @SuppressWarnings("UnnecessaryLocalVariable")
             List<ReactPackage> packages = new PackageList(this).getPackages();
             packages.add( new RNAppUtilPackage());
+            packages.add(new KeyboardInputPackage(getThis()));
             return packages;
         }
     };
+
+
+    private MainApplication getThis() {
+        return this;
+    }
 
 
     @Override
