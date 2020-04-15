@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 import { View, Platform, KeyboardAvoidingView } from "react-native";
 import { connect } from "react-redux";
-import { immutableRenderDecorator } from "react-immutable-render-mixin";
 import { formValueSelector } from "redux-form/immutable";
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
