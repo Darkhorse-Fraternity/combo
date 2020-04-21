@@ -3,18 +3,12 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import SimpleToast from 'react-native-simple-toast';
+import React, { PureComponent } from "react";
+import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import moment from "moment";
+import SimpleToast from "react-native-simple-toast";
 import {
   StyledContent,
   StyledInner,
@@ -24,93 +18,92 @@ import {
   StyledRowText,
   StyledHeaderBtn,
   StyledAdd,
-  StyledIonicons
-} from './style';
+  StyledIonicons,
+} from "./style";
 
-import AgendaScreen from './agenda';
+import AgendaScreen from "./agenda";
 
-import { user, iUse } from '../../../request/LCModle';
-import LCList from '../../../components/Base/LCList';
-import { IDO, IUSE, IDOCALENDAR } from '../../../redux/reqKeys';
-import { recordDiary } from '../../../components/DoCard/Do/Diary';
-import { updateByID } from '../../../redux/module/leancloud';
-import { reqChangeData } from '../../../redux/actions/req';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import doCardWithNone from '../../../components/DoCard/doCardWithNone';
-import { updateMeByParam } from '../../../redux/actions/user';
+import { user, iUse } from "../../../request/LCModle";
+import LCList from "../../../components/Base/LCList";
+import { IDO, IUSE, IDOCALENDAR } from "../../../redux/reqKeys";
+import { recordDiary } from "../../../components/DoCard/Do/Diary";
+import { updateByID } from "../../../redux/module/leancloud";
+import { reqChangeData } from "../../../redux/actions/req";
+import { addNormalizrEntity } from "../../../redux/module/normalizr";
+import doCardWithNone from "../../../components/DoCard/doCardWithNone";
+import { updateMeByParam } from "../../../redux/actions/user";
 
-import RecordRow from './Row';
-
+import RecordRow from "./Row";
 
 const listKey = IDO;
 
-
 @connect(
-  state => ({ user: state.user.data }),
+  (state) => ({ user: state.user.data }),
   (dispatch, props) => ({
     iDoDelete: async (item, user) => {
-      const isDiary = (item.imgs && item.imgs.length > 0)
-        || (item.recordText && item.recordText.length > 0);
+      const isDiary =
+        (item.imgs && item.imgs.length > 0) ||
+        (item.recordText && item.recordText.length > 0);
       if (isDiary) {
-        props.navigation.navigate('rcomment',
-          {
-            iDoID: item.objectId,
-            iUseId: props.iUse.get('objectId'),
-            iCardId: props.iCard.get('objectId')
-          });
+        props.navigation.navigate("rcomment", {
+          iDoID: item.objectId,
+          iUseId: props.iUse.get("objectId"),
+          iCardId: props.iCard.get("objectId"),
+        });
       } else if (user.objectId === item.user.objectId) {
         // 取消打卡
         // console.log('item:', item);
 
-        Alert.alert(
-          '删除打卡记录?',
-          '删除后不可恢复',
-          [{ text: '取消' },
-            {
-              text: '确定',
-              onPress: async () => {
-                const { createdAt, type, doneDate } = item;
-                const time = doneDate ? doneDate.iso : createdAt;
-                const iDoID = item.objectId;
-                const param = { state: -1 };
-                const res = await dispatch(updateByID(IDO, iDoID, param));
-                const entity = {
-                  ...param,
-                  ...res,
-                };
-                dispatch(addNormalizrEntity(IDO, entity));
-                const date = moment(time).format('YYYY-MM-DD');
-                dispatch(reqChangeData(IDOCALENDAR, {
-                  [date]: null
-                }));
+        Alert.alert("删除打卡记录?", "删除后不可恢复", [
+          { text: "取消" },
+          {
+            text: "确定",
+            onPress: async () => {
+              const { createdAt, type, doneDate } = item;
+              const time = doneDate ? doneDate.iso : createdAt;
+              const iDoID = item.objectId;
+              const param = { state: -1 };
+              const res = await dispatch(updateByID(IDO, iDoID, param));
+              const entity = {
+                ...param,
+                ...res,
+              };
+              dispatch(addNormalizrEntity(IDO, entity));
+              const date = moment(time).format("YYYY-MM-DD");
+              dispatch(
+                reqChangeData(IDOCALENDAR, {
+                  [date]: null,
+                })
+              );
 
-                // type === 1 为日记，不记录打卡次数
-                if (type === 1) {
-                  return;
-                }
-                // 打卡次数也需要修改。
-                const iUse = props.iUse.toJS();
-                const paramiUSE = { time: iUse.time - 1 };
-                const before = moment(0, 'HH');
-                const after = moment(24, 'HH');
-
-                const momentIn = moment(time).isBetween(before, after);
-                // console.log('momentIn:', momentIn);
-                if (momentIn) {
-                  paramiUSE.doneDate = {
-                    __type: 'Date',
-                    iso:
-                    moment(time).subtract(1, 'day').toISOString()
-                  };
-                }
-                const entityiUse = {
-                  ...paramiUSE,
-                  objectId: item.iUse.objectId
-                };
-                dispatch(addNormalizrEntity(IUSE, entityiUse));
+              // type === 1 为日记，不记录打卡次数
+              if (type === 1) {
+                return;
               }
-            }]
-        );
+              // 打卡次数也需要修改。
+              const iUse = props.iUse.toJS();
+              const paramiUSE = { time: iUse.time - 1 };
+              const before = moment(0, "HH");
+              const after = moment(24, "HH");
+
+              const momentIn = moment(time).isBetween(before, after);
+              // console.log('momentIn:', momentIn);
+              if (momentIn) {
+                paramiUSE.doneDate = {
+                  __type: "Date",
+                  iso: moment(time)
+                    .subtract(1, "day")
+                    .toISOString(),
+                };
+              }
+              const entityiUse = {
+                ...paramiUSE,
+                objectId: item.iUse.objectId,
+              };
+              dispatch(addNormalizrEntity(IUSE, entityiUse));
+            },
+          },
+        ]);
       }
     },
     tipTap: recordDiary,
@@ -130,19 +123,19 @@ const listKey = IDO;
           // 活动截止时间
           const doMoment = moment(item);
           const { activityEndDate } = iCard;
-          doMoment.set('hours', moment().hours());
-          doMoment.set('minutes', moment().minutes());
+          doMoment.set("hours", moment().hours());
+          doMoment.set("minutes", moment().minutes());
 
-          const activityMoment = activityEndDate ? moment(activityEndDate.iso || activityEndDate)
-            : moment('2016-01-01');
+          const activityMoment = activityEndDate
+            ? moment(activityEndDate.iso || activityEndDate)
+            : moment("2016-01-01");
 
           const isAfter = moment().isAfter(activityMoment);
 
-
           if (isAfter) {
             // 如果是今天则正常打卡
-            const before = moment(0, 'HH').subtract(1, 'minutes');
-            const after = moment(24, 'HH');
+            const before = moment(0, "HH").subtract(1, "minutes");
+            const after = moment(24, "HH");
             const momentIn = doMoment.isBetween(before, after);
 
             if (momentIn) {
@@ -152,50 +145,50 @@ const listKey = IDO;
             // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
 
             if (doMoment.isAfter(before)) {
-              SimpleToast.show('这个时间段还没有到~!');
+              SimpleToast.show("这个时间段还没有到~!");
               return;
             }
 
-
             const { redo } = toolConfig;
             if (redo > 0) {
-            // 先获取那一天这个时候的moment
-            // 以当天时间做打卡,并做特殊标记type=2。
-            // 提示将消耗一张补签劵
+              // 先获取那一天这个时候的moment
+              // 以当天时间做打卡,并做特殊标记type=2。
+              // 提示将消耗一张补签劵
               Alert.alert(
-                '是否进行补签?',
+                "是否进行补签?",
                 `将消耗一张补签卡,补签卡数量:${redo}。`,
-                [{ text: '取消' }, {
-                  text: '确定',
-                  onPress: () => {
-                    const doneDate = doMoment.toDate();
-                    dispatch(doCardWithNone(iUse, 2, doneDate));
-                  }
-                }]
+                [
+                  { text: "取消" },
+                  {
+                    text: "确定",
+                    onPress: () => {
+                      const doneDate = doMoment.toDate();
+                      dispatch(doCardWithNone(iUse, 2, doneDate));
+                    },
+                  },
+                ]
               );
 
-            // 扣去一个补签卡
-            // toolConfig.redo = redo - 1;
-            // dispatch(updateMeByParam({
-            //   toolConfig
-            // }));
+              // 扣去一个补签卡
+              // toolConfig.redo = redo - 1;
+              // dispatch(updateMeByParam({
+              //   toolConfig
+              // }));
             } else {
-            // 补签卡数量不够去挑战一些活动吧。
-              SimpleToast.show('亲,补签卡数量不够去挑战副本活动吧~!');
+              // 补签卡数量不够去挑战一些活动吧。
+              SimpleToast.show("亲,补签卡数量不够去挑战副本活动吧~!");
             }
           } else {
-            SimpleToast.show('亲,卡片正在活动期间,不允许补打卡哦~!');
+            SimpleToast.show("亲,卡片正在活动期间,不允许补打卡哦~!");
           }
         } catch (e) {
           console.log(e.messege);
           SimpleToast.show(e.messege);
         }
       });
-    }
+    },
   })
 )
-
-
 export default class Statistical extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -204,7 +197,6 @@ export default class Statistical extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {};
-
 
   componentDidMount() {
     // const key = 'done_' + this.props.iCard.get('objectId')
@@ -220,19 +212,13 @@ export default class Statistical extends PureComponent {
   //     this.refs['list'].selector.props.loadData()
   // }
 
-
   _renderRow = (title, des) => (
     <StyledRow>
-      <StyledRowText>
-        {`${title}:`}
-      </StyledRowText>
+      <StyledRowText>{`${title}:`}</StyledRowText>
       <View style={{ width: 20 }} />
-      <StyledRowText>
-        {des}
-      </StyledRowText>
+      <StyledRowText>{des}</StyledRowText>
     </StyledRow>
-  )
-
+  );
 
   _renderHeader = () => {
     // const { navigation } = this.props;
@@ -243,11 +229,14 @@ export default class Statistical extends PureComponent {
     const iCard = this.props.iCard.toJS();
     const iUse = this.props.iUse.toJS();
 
-    const cardCreatedAt = moment(iCard.createdAt).format('YYYY-MM-DD');
+    const cardCreatedAt = moment(iCard.createdAt).format("YYYY-MM-DD");
     // const useCreatedAt = moment(iUse.createdAt).format("YYYY-MM-DD")
     const date1 = new Date();
     const date2 = new Date(iUse.createdAt);
-    const date = ((date1.getTime() - date2.getTime()) / (24 * 60 * 60 * 1000)).toFixed(1);
+    const date = (
+      (date1.getTime() - date2.getTime()) /
+      (24 * 60 * 60 * 1000)
+    ).toFixed(1);
 
     const { time } = iUse;
     // moment.locale('zh-cn')
@@ -256,12 +245,10 @@ export default class Statistical extends PureComponent {
     const isSelf = this.props.user.objectId === iUse.user;
 
     return (
-      <StyledInner
-        colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
-      >
+      <StyledInner colors={["#ffffff", "#f1f6f9", "#ebf0f3", "#ffffff"]}>
         <AgendaScreen
           {...this.props}
-          selectDay={item => this.props.retroactive(item, iCard, iUse)}
+          selectDay={(item) => this.props.retroactive(item, iCard, iUse)}
           onPress={(item) => {
             this.props.iDoDelete(item, this.props.user);
             // this.props.navigation.navigate('rcomment',
@@ -273,28 +260,26 @@ export default class Statistical extends PureComponent {
           }}
         />
         <StyledTitleView>
-          <StyledTitleText>
-            习惯统计
-          </StyledTitleText>
+          <StyledTitleText>习惯统计</StyledTitleText>
         </StyledTitleView>
         <View style={{ height: 10 }} />
-        {this._renderRow('已完成周期', `${(time / iCard.period).toFixed(2)}轮`)}
-        {this._renderRow('总打卡天数', `${time}日`)}
-        {this._renderRow('上次打卡', fromNow)}
-        {this._renderRow('加入天数', `${date}天`)}
-        {this._renderRow('建立日期', cardCreatedAt)}
+        {/* {this._renderRow('已完成周期', `${(time / iCard.period).toFixed(2)}轮`)} */}
+        {this._renderRow("总打卡天数", `${time}日`)}
+        {this._renderRow("上次打卡", fromNow)}
+        {this._renderRow("加入天数", `${date}天`)}
+        {this._renderRow("建立日期", cardCreatedAt)}
         <StyledTitleView>
-          <StyledTitleText>
-            习惯日记
-          </StyledTitleText>
-          {isSelf
-            && (
+          <StyledTitleText>习惯日记</StyledTitleText>
+          {isSelf && (
             <StyledAdd
               onPress={() => {
                 this.props.tipTap(this.props.iUse.toJS());
               }}
               hitSlop={{
-                top: 20, left: 20, bottom: 20, right: 20
+                top: 20,
+                left: 20,
+                bottom: 20,
+                right: 20,
               }}
             >
               <StyledIonicons
@@ -303,13 +288,11 @@ export default class Statistical extends PureComponent {
                 name="plus-circle"
               />
             </StyledAdd>
-            )
-          }
+          )}
         </StyledTitleView>
       </StyledInner>
-
     );
-  }
+  };
 
   renderRow({ item, index }: Object) {
     // const img = item.imgs && item.imgs[0] || null
@@ -319,12 +302,11 @@ export default class Statistical extends PureComponent {
         item={item}
         color={this.props.color}
         onPress={() => {
-          this.props.navigation.navigate('rcomment',
-            {
-              iDoID: item.objectId,
-              iUseId: this.props.iUse.get('objectId'),
-              iCardId: this.props.iCard.get('objectId')
-            });
+          this.props.navigation.navigate("rcomment", {
+            iDoID: item.objectId,
+            iUseId: this.props.iUse.get("objectId"),
+            iCardId: this.props.iCard.get("objectId"),
+          });
         }}
       />
     );
@@ -341,23 +323,21 @@ export default class Statistical extends PureComponent {
       where: {
         ...user(iUseM.user),
         ...iUse(iUseM.objectId),
-        $or: [
-          { imgs: { $exists: true } },
-          { recordText: { $exists: true } }
-        ],
-        state: { $ne: -1 }
+        $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+        state: { $ne: -1 },
       },
-      order: '-doneDate,-createdAt',
+      order: "-doneDate,-createdAt",
     };
-
 
     const isSelf = this.props.user.objectId === iUseM.user;
 
-    const config = isSelf ? {
-      // noDataPrompt: '写一个日记吧~！',
-      tipBtnText: '添加日记',
-      tipTap: () => this.props.tipTap(this.props.iUse.toJS())
-    } : {};
+    const config = isSelf
+      ? {
+          // noDataPrompt: '写一个日记吧~！',
+          tipBtnText: "添加日记",
+          tipTap: () => this.props.tipTap(this.props.iUse.toJS()),
+        }
+      : {};
     return (
       <LCList
         ref="list"
@@ -366,7 +346,6 @@ export default class Statistical extends PureComponent {
         style={{ flex: 1 }}
         sKey={listKey + iUseM.objectId}
         renderItem={this.renderRow.bind(this)}
-
         // dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         // }
