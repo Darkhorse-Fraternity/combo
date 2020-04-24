@@ -43,24 +43,24 @@ export function nowNotification() {
     // soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
     number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
     repeatType: "day", // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval
-    actions: '["Yes", "No"]' // (Android only) See the doc for notification actions to know more
+    actions: '["Yes", "No"]', // (Android only) See the doc for notification actions to know more
   });
 }
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IUSE),
     normalizrData: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
     localRemindData: state.util.get("localRemind"),
-    user: state.user.data
+    user: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     load: async () => {
       const ids = await storage.getIdsForKey("localRemind");
       const values = await storage.getBatchDataWithIds({
         key: "localRemind",
-        ids
+        ids,
       });
       const data = {};
       ids.forEach((id, index) => {
@@ -68,7 +68,7 @@ export function nowNotification() {
       });
 
       return dispatch(localRemindLoad(data));
-    }
+    },
   })
 )
 export default class LocalNotification extends PureComponent {
@@ -91,7 +91,7 @@ export default class LocalNotification extends PureComponent {
     // }
   }
 
-  remind = props => {
+  remind = (props) => {
     let { data, localRemindData, iCard, normalizrData } = props;
     data = data.toJS();
 
@@ -105,7 +105,7 @@ export default class LocalNotification extends PureComponent {
       localRemindData = localRemindData.toJS();
       const ndata = normalizrData.toJS();
       data = data.listData;
-      const array = data.map(key => {
+      const array = data.map((key) => {
         const res = ndata[key];
         const iCard = props.iCard.get(res[ICARD]);
         res.iCard = iCard && iCard.toJS();
@@ -122,7 +122,7 @@ export default class LocalNotification extends PureComponent {
 
   debounceRemind = debounce(this.remind, 1000, {
     leading: false,
-    trailing: true
+    trailing: true,
   });
 
   // static getDerivedStateFromProps(nextProps, prevState) {
@@ -161,7 +161,7 @@ export default class LocalNotification extends PureComponent {
 
     let daysFlag = false;
     let unDoneCount = 0;
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.statu !== "start") {
         // 已经删除了,就不用提醒了。
         return;
@@ -188,8 +188,8 @@ export default class LocalNotification extends PureComponent {
       // const message = item.iCard.notifyText || '快来记录一下吧!'
       // const id = item.iCard.objectId
 
-      recordDay.forEach(day => {
-        notifyTimes.forEach(notifyTime => {
+      recordDay.forEach((day) => {
+        notifyTimes.forEach((notifyTime) => {
           // console.log('notifyTime:', notifyTime);
           const id = item.objectId + notifyTime;
           const open = localRemindData[id];
@@ -213,10 +213,10 @@ export default class LocalNotification extends PureComponent {
         // date: new Date(Date.now() + (1*1000)), // in 60 secs
         data: {
           webUrl: "",
-          action: "com.avos.UPDATE_STATUS"
+          action: "com.avos.UPDATE_STATUS",
         },
         repeatType: "day",
-        userInfo: { type: "local" }
+        userInfo: { type: "local" },
       });
     }
 
@@ -229,10 +229,10 @@ export default class LocalNotification extends PureComponent {
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
       data: {
         webUrl: "",
-        action: "com.avos.UPDATE_STATUS"
+        action: "com.avos.UPDATE_STATUS",
       },
       repeatType: "week",
-      userInfo: { type: "local" }
+      userInfo: { type: "local" },
     });
   };
 
@@ -281,8 +281,8 @@ export default class LocalNotification extends PureComponent {
         // webUrl: "combo://combo/card",
         // params: { iUseId: item.objectId, iCardId: item.iCard.objectId },
         // action: "com.avos.UPDATE_STATUS",
-        type: "local"
-      }
+        type: "local",
+      },
       // userInfo: {'type': 'local'},
     });
   };
@@ -292,7 +292,7 @@ export default class LocalNotification extends PureComponent {
   calendarEvents = async (data, localRemindData) => {
     let unDoneCount = 0;
     if (data) {
-      data.forEach(item => {
+      data.forEach((item) => {
         if (item.statu !== "start") {
           // 已经删除了,就不用提醒了。
           return;
@@ -341,7 +341,7 @@ export default class LocalNotification extends PureComponent {
       );
 
       const objEvents = {};
-      events.forEach(item => {
+      events.forEach((item) => {
         if (item.description.indexOf("来自小改变的提醒") !== -1) {
           objEvents[item.id] = item;
         }
@@ -351,24 +351,24 @@ export default class LocalNotification extends PureComponent {
       // console.log('ids:', ids);
       if (!all) {
         ids &&
-          ids.forEach(id => {
+          ids.forEach((id) => {
             RNCalendarEvents.removeEvent(id);
           });
         return;
       }
       // 老版本数据清除
       ids &&
-        ids.forEach(id => {
+        ids.forEach((id) => {
           if (objEvents[id].location.indexOf("来自小改变的提醒") !== -1) {
             RNCalendarEvents.removeEvent(id);
           }
         });
 
-      data.forEach(async item => {
+      data.forEach(async (item) => {
         let calendaId;
 
         ids &&
-          ids.forEach(id => {
+          ids.forEach((id) => {
             if (
               objEvents[id] &&
               objEvents[id].description.indexOf(item.objectId) !== -1
@@ -407,7 +407,7 @@ export default class LocalNotification extends PureComponent {
         // 提醒时间,需要计算和最后一次提醒的分钟差别,即与startDate的相差分钟数
         if (notifyTimes.length > 0) {
           const notifyMonets = notifyTimes
-            .map(notify => {
+            .map((notify) => {
               const remindId = objectId + notify;
               const open = localRemindData[remindId];
               if (open || open === undefined) {
@@ -419,12 +419,12 @@ export default class LocalNotification extends PureComponent {
                 );
               }
             })
-            .map(minutes => {
+            .map((minutes) => {
               if (minutes) {
                 return { date: minutes };
               }
             })
-            .filter(item => item !== undefined);
+            .filter((item) => item !== undefined);
           alarms.push(...notifyMonets);
           // console.log('alarms:', alarms);
         }
@@ -441,11 +441,17 @@ export default class LocalNotification extends PureComponent {
         const day = recordDay.sort();
         // PT1M 是指持续1分钟，PT1S 是指持续1S 在魅族手机上 PT1S 会导致没有循环。
 
-        const recurrenceRule = { frequency: "daily", duration: "PT1M" };
+        const recurrenceRule = {
+          frequency: "daily",
+          duration: "PT1M",
+          occurrence: 100,
+          interval: 1,
+          // endDate: startDate.toISOString(),
+        };
         if (day.length < 7) {
           recurrenceRule.frequency = "weekly";
           recurrenceRule.daysOfWeek = day.map(
-            num => ["MO", "TU", "WE", "TH", "FR", "SA", "SU"][num - 1]
+            (num) => ["MO", "TU", "WE", "TH", "FR", "SA", "SU"][num - 1]
           );
         }
         const { nickname } = this.props.user;
@@ -460,7 +466,7 @@ export default class LocalNotification extends PureComponent {
           url: "combo://combo",
           // location: '#来自小改变的提醒-'+objectId+'#',
           location: name + (notifyText || "锲而不舍,金石可镂!"),
-          alarms
+          alarms,
         };
         if (calendaId) {
           if (
@@ -477,7 +483,7 @@ export default class LocalNotification extends PureComponent {
       // 将剩余的本地已被移的event 移除
       const ids2 = Object.keys(objEvents);
       ids2 &&
-        ids2.forEach(oid => {
+        ids2.forEach((oid) => {
           RNCalendarEvents.removeEvent(oid);
         });
 

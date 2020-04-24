@@ -8,7 +8,7 @@ import {
   BackHandler,
   Linking,
   AppState,
-  View
+  View,
 } from "react-native";
 import { NavigationActions } from "react-navigation";
 import Orientation from "react-native-orientation";
@@ -27,9 +27,9 @@ import InfoBar from "../components/InfoBar";
 // import exceptionHandler from './exceptionHandler';
 
 @connect(
-  state => ({
+  (state) => ({
     nav: state.nav,
-    isLogin: state.user.isLogin
+    isLogin: state.user.isLogin,
   })
   // (dispatch, props) => ({
   //     //...bindActionCreators({},dispatch)
@@ -62,19 +62,19 @@ export default class Configure extends React.Component {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    nav: PropTypes.object.isRequired
+    nav: PropTypes.object.isRequired,
   };
 
   static defaultProps = {};
 
   componentWillReceiveProps(nextProps) {
     if (this.urlTask.length > 0 && nextProps.isLogin) {
-      this.urlTask.forEach(url => this._handleUrl(url));
+      this.urlTask.forEach((url) => this._handleUrl(url));
       this.urlTask = [];
     }
   }
 
-  _handleOpenURL = async event => {
+  _handleOpenURL = async (event) => {
     this._handleUrlWithUrlTask(event.url);
   };
 
@@ -85,7 +85,7 @@ export default class Configure extends React.Component {
 
   urlTask = [];
 
-  _handleUrlWithUrlTask = url => {
+  _handleUrlWithUrlTask = (url) => {
     if (!this.props.isLogin) {
       this.urlTask.push(url);
     } else {
@@ -93,7 +93,7 @@ export default class Configure extends React.Component {
     }
   };
 
-  _handleUrl = url => {
+  _handleUrl = (url) => {
     url = decodeURI(url);
     if (url) {
       const wurl = require("wurl");
@@ -113,12 +113,12 @@ export default class Configure extends React.Component {
         { hostname: "stg-icard.leanapp.cn", protocol: "http" },
         { hostname: "icard.leanapp.cn", protocol: "http" },
         { hostname: "icourage.cn", protocol: "http" },
-        { hostname: "icourage.cn", protocol: "https" }
+        { hostname: "icourage.cn", protocol: "https" },
       ];
 
       // console.log('testxxx:', hostname,protocol);
       const flag = conditions.findIndex(
-        item => item.hostname === hostname && protocol === item.protocol
+        (item) => item.hostname === hostname && protocol === item.protocol
       );
 
       if (flag >= 0 && key) {
@@ -130,7 +130,7 @@ export default class Configure extends React.Component {
           courserelease: "courseRelease",
           newcard: "newCard",
           cardinfo: "cardInfo",
-          carduse: "cardUse"
+          carduse: "cardUse",
         };
         const routeName = keys[key.toLowerCase()] || key.toLowerCase();
 
@@ -207,7 +207,7 @@ export default class Configure extends React.Component {
     AppState.removeEventListener("change", this._handleAppStateChange);
   }
 
-  _handleAppStateChange = nextAppState => {
+  _handleAppStateChange = (nextAppState) => {
     this.props.dispatch(appStateUpdate(nextAppState));
   };
 
@@ -256,7 +256,7 @@ export default class Configure extends React.Component {
       filename: "微信.apk",
       url:
         "http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk",
-      desc: ["更新了一些bug", "修复了一些UI问题"]
+      desc: ["更新了一些bug", "修复了一些UI问题"],
     });
 
   render() {
@@ -264,7 +264,7 @@ export default class Configure extends React.Component {
 
     return (
       <View style={{ flex: 1 }}>
-        {(Platform.OS === "ios" || level < 29) && <LocalNotification />}
+        <LocalNotification />
         <LightStatuBar />
         {this.props.children}
         <InfoBar />
