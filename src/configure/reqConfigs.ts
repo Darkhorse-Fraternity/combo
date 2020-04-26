@@ -1,9 +1,9 @@
 /* @flow */
 
 // import DeviceInfo from 'react-native-device-info'
-import DeviceInfo from "react-native-device-info";
-import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from "./leancloud";
-import { appChannel } from "../../helps/util";
+import DeviceInfo from 'react-native-device-info';
+import {LeanCloud_APP_ID, LeanCloud_APP_SIGN} from './leancloud';
+import {appChannel} from '../../helps/util';
 import {
   setNetworkConig,
   getNetworkConfig,
@@ -11,18 +11,18 @@ import {
   mapProps,
   setDataMap,
   setShowErrorAction,
-  reqCProps
-} from "react-native-qj-fetch";
-import AsyncStorage from "@react-native-community/async-storage";
-import SimpleToast from "react-native-simple-toast";
-import { Cache } from "react-native-cache";
+  reqCProps,
+} from 'react-native-qj-fetch';
+import AsyncStorage from '@react-native-community/async-storage';
+import SimpleToast from 'react-native-simple-toast';
+import {Cache} from 'react-native-cache';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
 
 export const defaultHost = !__DEV__
-  ? /* release */ "cmwljtyw.engine.lncld.net/1.1"
-  : /* debug */ "cmwljtyw.engine.lncld.net/1.1";
+  ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
+  : /* debug */ 'cmwljtyw.engine.lncld.net/1.1';
 
 // export const apiHost = !__DEV__
 //   ? /* release */ "icourage.cn"
@@ -30,33 +30,33 @@ export const defaultHost = !__DEV__
 // /* debug */ : 'icard.leanapp.cn';
 
 export const apiHost = !__DEV__
-  ? /* release */ "cmwljtyw.api.lncld.net"
-  : /* debug */ "cmwljtyw.api.lncld.net";
+  ? /* release */ 'cmwljtyw.api.lncld.net'
+  : /* debug */ 'cmwljtyw.api.lncld.net';
 
-let LeanCloud_APP_Session = "";
+let LeanCloud_APP_Session = '';
 
 export function setLeanCloudSession(session: string) {
   LeanCloud_APP_Session = session;
-  const myHeader = { ...header };
+  const myHeader = {...header};
   if (session && session.length > 0) {
-    myHeader["X-LC-Session"] = LeanCloud_APP_Session;
+    myHeader['X-LC-Session'] = LeanCloud_APP_Session;
   }
 
   setNetworkConig({
     headers: myHeader as HeadersInit_,
     host: defaultHost,
-    scheme: "https"
+    scheme: 'https',
   });
 }
-setLeanCloudSession("");
+setLeanCloudSession('');
 
 const header = {
-  "Content-Type": "application/json; charset=utf-8",
-  "X-LC-Sign": LeanCloud_APP_SIGN,
-  "X-LC-Id": LeanCloud_APP_ID,
-  "X-LC-Prod": __DEV__ ? 0 : 1,
+  'Content-Type': 'application/json; charset=utf-8',
+  'X-LC-Sign': LeanCloud_APP_SIGN,
+  'X-LC-Id': LeanCloud_APP_ID,
+  'X-LC-Prod': __DEV__ ? 0 : 1,
   appVersion: DeviceInfo.getVersion(),
-  appChannel
+  appChannel,
 };
 
 export function httpHeaders(needSession: boolean): Object {
@@ -68,12 +68,12 @@ export function httpHeaders(needSession: boolean): Object {
   //   appVersion,
   //   appChannel
   // };
-  const myHeader = { ...header };
+  const myHeader = {...header};
   if (needSession) {
     // header = Object.assign({}, header, {
     //   "X-LC-Session": LeanCloud_APP_Session
     // });
-    myHeader["X-LC-Session"] = LeanCloud_APP_Session;
+    myHeader['X-LC-Session'] = LeanCloud_APP_Session;
   }
 
   // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
@@ -81,11 +81,11 @@ export function httpHeaders(needSession: boolean): Object {
 }
 
 const cache = new Cache({
-  namespace: "myapp",
+  namespace: 'myapp',
   policy: {
-    maxEntries: 50000
+    maxEntries: 50000,
   },
-  backend: AsyncStorage
+  backend: AsyncStorage,
 });
 
 export const setCache = (key: string, value: any) =>
@@ -125,22 +125,22 @@ export const doCache = async (key: string, req: Function) => {
 };
 setDoCache(doCache);
 
-const RESCODE = "code";
-const MSG = "error";
-const DATA = "results";
+const RESCODE = 'code';
+const MSG = 'error';
+const DATA = 'results';
 
-interface eType{
-  message?:string,
-  code?:number,
-  error?:string,
+interface eType {
+  message?: string;
+  code?: number;
+  error?: string;
 }
 
 const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
-  if (!!e ) {    
-    return { error: e.message || e.error ,code:e.code,result:data };
+  if (e) {
+    return {error: e.message || e.error, code: e.code, result: data};
   }
 
-  return {result:data,code:200};
+  return {result: data, code: 200};
 };
 
 setDataMap(<any>dataMap);
@@ -149,8 +149,8 @@ const errorAction = (props: reqCProps, error: string, code: number) => {
   // if (code === 432) {
   //   return;
   // }
-  const localizr = { "Network request failed": "网络请求失败" };
-  const codeString = code ? `,code:${code}` : "";
+  const localizr = {'Network request failed': '网络请求失败'};
+  const codeString = code ? `,code:${code}` : '';
   const message = (localizr[error] || error) + codeString;
   SimpleToast.show(message);
 };

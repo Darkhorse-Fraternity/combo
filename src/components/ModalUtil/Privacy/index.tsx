@@ -1,0 +1,73 @@
+import {
+  StyleModalView,
+  StyledTitle,
+  StyledDiscrib,
+  StyledLine1,
+  StyledBottom,
+  StyleCance,
+  StyledLine2,
+  StyleAgree,
+} from './style';
+import Modal, {ModalProps} from 'react-native-modal';
+import React, {useState, useEffect} from 'react';
+import {BackHandler} from 'react-native';
+import {appChannel} from 'helps/util';
+import {useAsyncStorage} from '@react-native-community/async-storage';
+
+interface PrivacyModal {}
+
+export const PrivacyModal = (props: PrivacyModal) => {
+  const [state, setState] = useState(false);
+  const {setItem, getItem} = useAsyncStorage('PrivacyModal_Show');
+
+  useEffect(() => {
+    // if (appChannel === 'tencent') {
+    getItem((e, res) => {
+      if (res !== 'agree') {
+        setState(true);
+      }
+    });
+
+    // }
+  }, []);
+  return (
+    <Modal
+      useNativeDriver
+      animationIn={'fadeInUp'}
+      animationOut={'fadeOutDown'}
+      {...props}
+      isVisible={state}>
+      <StyleModalView>
+        <StyledTitle>小改变隐私政策</StyledTitle>
+        <StyledDiscrib>
+          请你务必申请阅读，充分理解"小改变隐私政策"各条款，包括但不限于：为了向你提供日常提醒，习惯养成等服务，我们需要收集你的设备信息，操作日志等个人信息,你可以在“设置”中查看、变更、
+          删除个人信息并管理你的授权。{'\n'}
+          你可阅读《隐私政策》了解详细信息。如你同意，请点击”同意“
+          开始接受我们的服务。
+        </StyledDiscrib>
+        <StyledLine1 />
+        <StyledBottom>
+          <StyleCance
+            textColor={'gray'}
+            onPress={() => {
+              if (BackHandler && BackHandler.exitApp) {
+                BackHandler.exitApp();
+              } else {
+                setState(false);
+              }
+            }}>
+            暂不使用
+          </StyleCance>
+          <StyledLine2 />
+          <StyleAgree
+            onPress={() => {
+              setState(false);
+              setItem('agree');
+            }}>
+            同意
+          </StyleAgree>
+        </StyledBottom>
+      </StyleModalView>
+    </Modal>
+  );
+};

@@ -1,10 +1,8 @@
 /* @flow */
 
-
 import AsyncStorage from '@react-native-community/async-storage';
 import Storage from 'react-native-storage';
 // import DefaultPreference from 'react-native-default-preference';
-
 
 // AsyncStorage issues:
 // https://github.com/facebook/react-native/issues/12830
@@ -30,11 +28,10 @@ const storage = new Storage({
   sync: {
     likeRecord() {
       return false;
-    }
-  }
+    },
+  },
 });
 global.storage = storage;
-
 
 // 全局可用的参数下载这里。
 //
@@ -47,12 +44,11 @@ global.storage = storage;
 const instance = null;
 const UserManageSaveInfo = 'UserManageSaveInfo';
 
-
 // 保存到本地
 const Save_UserData_Key = 'saveUserData';
 const Save_FirstTime_Key = 'saveFirstTime';
 const Save_Account_Key = 'saveAccount';
-export function saveUserData(data:Object) {
+export function saveUserData(data: Object) {
   storage.save({
     key: Save_UserData_Key, // 注意:请不要在key中使用_下划线符号!
     data,
@@ -73,12 +69,11 @@ export function loadFirstJoin() {
 
 export function clearUserData() {
   storage.remove({
-    key: Save_UserData_Key
+    key: Save_UserData_Key,
   });
 }
 
-
-export function loadUserData():Promise<Object> {
+export function loadUserData(): Promise<Object> {
   // 读取
   // 这边sui
   //
@@ -96,9 +91,8 @@ export function loadUserData():Promise<Object> {
   });
 }
 
-
 // 存储登录账号
-export function saveAccount(account:string) {
+export function saveAccount(account: string) {
   storage.save({
     key: Save_Account_Key, // 注意:请不要在key中使用_下划线符号!
     data: account,
@@ -106,10 +100,13 @@ export function saveAccount(account:string) {
 }
 
 //
-export function loadAccount(callBack:Function) {
-  storage.load({ key: Save_Account_Key, }).then((ret) => {
-    callBack(ret);
-  }).catch((err) => {
-    console.log('loadAccount:', err);
-  });
+export function loadAccount(callBack: Function) {
+  storage
+    .load({key: Save_Account_Key})
+    .then(ret => {
+      callBack(ret);
+    })
+    .catch(err => {
+      console.log('loadAccount:', err);
+    });
 }

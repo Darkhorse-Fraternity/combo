@@ -1,6 +1,6 @@
-import { debounce } from "lodash";
+import {debounce} from 'lodash';
 
-import React, { ReactChild } from "react";
+import React, {ReactChild} from 'react';
 import {
   TouchableOpacity,
   Platform,
@@ -11,12 +11,12 @@ import {
   StyleProp,
   ViewStyle,
   Text,
-  GestureResponderEvent
-} from "react-native";
+  GestureResponderEvent,
+} from 'react-native';
 
 export interface BtnPeddingProps extends TouchableNativeFeedbackProps {
   loading?: boolean;
-  size?: number | "small" | "large";
+  size?: number | 'small' | 'large';
   color?: string;
   textStyle?: StyleProp<ViewStyle>;
   textColor?: string;
@@ -28,23 +28,25 @@ const withPeddingClick = (WrappedComponent: Function) => {
       const {
         children,
         loading = false,
-        size = "small",
-        color = "gray",
+        size = 'small',
+        color = 'gray',
         disabled,
         textStyle,
-        textColor = "green"
+        textColor = 'green',
       } = this.props;
 
       let hChildren = children;
-      if (typeof children === "string" || typeof children === "number") {
+      if (typeof children === 'string' || typeof children === 'number') {
         hChildren = (
           <Text
             style={[
-              { color: !disabled ? textColor : "rgb(200,200,200)" },
-              textStyle
-            ]}
-          >
-            {children}{" "}
+              {
+                color: !disabled ? textColor : 'rgb(200,200,200)',
+                alignSelf: 'center',
+              },
+              textStyle,
+            ]}>
+            {children}{' '}
           </Text>
         );
       }
@@ -72,7 +74,7 @@ const withPreventDoubleClick = (WrappedComponent: Function) => {
 
     onPress = debounce(this.debouncedOnPress, 300, {
       leading: true,
-      trailing: false
+      trailing: false,
     });
 
     render() {
@@ -94,9 +96,8 @@ const ButtonAndroid = (props: BtnAndroidProps) => (
       TouchableNativeFeedback.SelectableBackground &&
       TouchableNativeFeedback.SelectableBackground()
     } // eslint-disable-line new-cap
-    {...props}
-  >
-    {(typeof props.children !== "string" && props.children) || props.style ? (
+    {...props}>
+    {(typeof props.children !== 'string' && props.children) || props.style ? (
       <View style={props.style}>{props.children}</View>
     ) : (
       props.children
@@ -104,10 +105,10 @@ const ButtonAndroid = (props: BtnAndroidProps) => (
   </TouchableNativeFeedback>
 );
 
-const button = Platform.OS === "ios" ? TouchableOpacity : ButtonAndroid;
+const button = Platform.OS === 'ios' ? TouchableOpacity : ButtonAndroid;
 
 export default withPeddingClick(withPreventDoubleClick(button));
 
 export const ButtonOpacity = withPeddingClick(
-  withPreventDoubleClick(TouchableOpacity)
+  withPreventDoubleClick(TouchableOpacity),
 );

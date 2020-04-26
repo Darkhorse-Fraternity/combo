@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {
   Platform,
   UIManager,
@@ -9,28 +9,28 @@ import {
   Linking,
   AppState,
   View,
-} from "react-native";
-import { NavigationActions } from "react-navigation";
-import Orientation from "react-native-orientation";
-import DeviceInfo from "react-native-device-info";
-import KeyboardManager from "react-native-keyboard-manager";
-import pushConfig from "./push/push";
+} from 'react-native';
+import {NavigationActions} from 'react-navigation';
+import Orientation from 'react-native-orientation';
+import DeviceInfo from 'react-native-device-info';
+import KeyboardManager from 'react-native-keyboard-manager';
+import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
-import { epUpdate } from "../components/Update/EPUpdate";
-import { appStateUpdate } from "../redux/actions/util";
+import {epUpdate} from '../components/Update/EPUpdate';
+import {appStateUpdate} from '../redux/actions/util';
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
-import LocalNotification from "./localNotification";
-import LightStatuBar from "../Theme/LightStatuBar";
-import InfoBar from "../components/InfoBar";
+import LocalNotification from './localNotification';
+import LightStatuBar from '../Theme/LightStatuBar';
+import InfoBar from '../components/InfoBar';
 //
 // import exceptionHandler from './exceptionHandler';
 
 @connect(
-  (state) => ({
+  state => ({
     nav: state.nav,
     isLogin: state.user.isLogin,
-  })
+  }),
   // (dispatch, props) => ({
   //     //...bindActionCreators({},dispatch)
   //     deeplink: () => {
@@ -48,7 +48,7 @@ export default class Configure extends React.Component {
   config = () => {
     epUpdate();
     this.props.dispatch(pushConfig());
-    if (Platform.OS !== "ios") {
+    if (Platform.OS !== 'ios') {
       UIManager.setLayoutAnimationEnabledExperimental &&
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
@@ -69,12 +69,12 @@ export default class Configure extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.urlTask.length > 0 && nextProps.isLogin) {
-      this.urlTask.forEach((url) => this._handleUrl(url));
+      this.urlTask.forEach(url => this._handleUrl(url));
       this.urlTask = [];
     }
   }
 
-  _handleOpenURL = async (event) => {
+  _handleOpenURL = async event => {
     this._handleUrlWithUrlTask(event.url);
   };
 
@@ -85,7 +85,7 @@ export default class Configure extends React.Component {
 
   urlTask = [];
 
-  _handleUrlWithUrlTask = (url) => {
+  _handleUrlWithUrlTask = url => {
     if (!this.props.isLogin) {
       this.urlTask.push(url);
     } else {
@@ -93,50 +93,50 @@ export default class Configure extends React.Component {
     }
   };
 
-  _handleUrl = (url) => {
+  _handleUrl = url => {
     url = decodeURI(url);
     if (url) {
-      const wurl = require("wurl");
+      const wurl = require('wurl');
       const key = wurl(1, url);
-      const params = wurl("?", url);
-      const hostname = wurl("hostname", url);
-      const protocol = wurl("protocol", url);
+      const params = wurl('?', url);
+      const hostname = wurl('hostname', url);
+      const protocol = wurl('protocol', url);
 
       if (params && params.deeplink) {
         return this._handleUrl(params.deeplink);
       }
 
       const conditions = [
-        { hostname: "combo", protocol: "combo" },
-        { hostname: "stg-icard.leanapp.cn", protocol: "https" },
-        { hostname: "icard.leanapp.cn", protocol: "https" },
-        { hostname: "stg-icard.leanapp.cn", protocol: "http" },
-        { hostname: "icard.leanapp.cn", protocol: "http" },
-        { hostname: "icourage.cn", protocol: "http" },
-        { hostname: "icourage.cn", protocol: "https" },
+        {hostname: 'combo', protocol: 'combo'},
+        {hostname: 'stg-icard.leanapp.cn', protocol: 'https'},
+        {hostname: 'icard.leanapp.cn', protocol: 'https'},
+        {hostname: 'stg-icard.leanapp.cn', protocol: 'http'},
+        {hostname: 'icard.leanapp.cn', protocol: 'http'},
+        {hostname: 'icourage.cn', protocol: 'http'},
+        {hostname: 'icourage.cn', protocol: 'https'},
       ];
 
       // console.log('testxxx:', hostname,protocol);
       const flag = conditions.findIndex(
-        (item) => item.hostname === hostname && protocol === item.protocol
+        item => item.hostname === hostname && protocol === item.protocol,
       );
 
       if (flag >= 0 && key) {
         const keys = {
-          recorddetail: "recordDetail",
-          cardsetting: "cardSetting",
-          coursechoose: "courseChoose",
-          coursecreat: "courseCreat",
-          courserelease: "courseRelease",
-          newcard: "newCard",
-          cardinfo: "cardInfo",
-          carduse: "cardUse",
+          recorddetail: 'recordDetail',
+          cardsetting: 'cardSetting',
+          coursechoose: 'courseChoose',
+          coursecreat: 'courseCreat',
+          courserelease: 'courseRelease',
+          newcard: 'newCard',
+          cardinfo: 'cardInfo',
+          carduse: 'cardUse',
         };
         const routeName = keys[key.toLowerCase()] || key.toLowerCase();
 
-        console.log("routeName:", routeName);
-        console.log("params:", params);
-        this.props.dispatch(NavigationActions.navigate({ routeName, params }));
+        console.log('routeName:', routeName);
+        console.log('params:', params);
+        this.props.dispatch(NavigationActions.navigate({routeName, params}));
       }
     }
   };
@@ -163,7 +163,7 @@ export default class Configure extends React.Component {
   // }
 
   keyboardConfig = () => {
-    if (Platform.OS === "ios") {
+    if (Platform.OS === 'ios') {
       KeyboardManager.setEnable(true);
       KeyboardManager.setEnableDebugging(false);
       KeyboardManager.setKeyboardDistanceFromTextField(20);
@@ -172,9 +172,9 @@ export default class Configure extends React.Component {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
-    Linking.addEventListener("url", this._handleOpenURL);
-    AppState.addEventListener("change", this._handleAppStateChange);
+    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    Linking.addEventListener('url', this._handleOpenURL);
+    AppState.addEventListener('change', this._handleAppStateChange);
     this.props.dispatch(appStateUpdate(AppState.currentState));
     this._getInitialURL();
     this.keyboardConfig();
@@ -202,23 +202,23 @@ export default class Configure extends React.Component {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-    Linking.removeEventListener("url", this._handleOpenURL);
-    AppState.removeEventListener("change", this._handleAppStateChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    Linking.removeEventListener('url', this._handleOpenURL);
+    AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  _handleAppStateChange = (nextAppState) => {
+  _handleAppStateChange = nextAppState => {
     this.props.dispatch(appStateUpdate(nextAppState));
   };
 
   lastBackPressed: number = 0;
 
   onBackPress = () => {
-    const { dispatch, nav } = this.props;
-    const { routes, index } = nav;
-    const { routeName } = routes[index];
+    const {dispatch, nav} = this.props;
+    const {routes, index} = nav;
+    const {routeName} = routes[index];
     // idnex 前两个分别是登录和tabview
-    if (routeName === "tab") {
+    if (routeName === 'tab') {
       const tab = routes[index];
       const tabIndex = tab.index;
       const tabNav = tab.routes[tabIndex];
@@ -231,7 +231,7 @@ export default class Configure extends React.Component {
     if (times - this.lastBackPressed >= 2500) {
       // 再次点击退出应用
       this.lastBackPressed = times;
-      ToastAndroid.show("再按一次退出应用", 0);
+      ToastAndroid.show('再按一次退出应用', 0);
       return true;
     }
     this.lastBackPressed = 0;
@@ -252,18 +252,18 @@ export default class Configure extends React.Component {
         "error":{"code":0}
     } */
     async () => ({
-      version: "1.1",
-      filename: "微信.apk",
+      version: '1.1',
+      filename: '微信.apk',
       url:
-        "http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk",
-      desc: ["更新了一些bug", "修复了一些UI问题"],
+        'http://gdown.baidu.com/data/wisegame/785f37df5d72c409/weixin_1320.apk',
+      desc: ['更新了一些bug', '修复了一些UI问题'],
     });
 
   render() {
     const level = DeviceInfo.getApiLevelSync(); // andorid q 用会报错
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <LocalNotification />
         <LightStatuBar />
         {this.props.children}

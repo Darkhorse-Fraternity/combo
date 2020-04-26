@@ -10,13 +10,14 @@ import {ThemeProvider} from 'styled-components';
 import SplashScreen from 'react-native-splash-screen';
 import codePush from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
-import Modal from 'react-native-modal';
+
 import {creatStore} from './redux/store';
 import ReduxApp from './components/Nav/navigators/ReduxApp';
 import {theme} from './Theme';
 import Configure from './configure';
 import {creatAppNavigator} from './components/Nav/navigators/CreateAppNavigator';
 import {appChannel} from 'helps/util';
+import {PrivacyModal} from '@components/ModalUtil/Privacy';
 // import {route} from './pages'
 const AppNavigator = creatAppNavigator();
 require('../helps/AnimatableRegist');
@@ -75,6 +76,7 @@ export default class App extends PureComponent {
       <Provider store={creatStore(AppNavigator)}>
         <ThemeProvider theme={theme}>
           <Configure>
+            <PrivacyModal />
             <ReduxApp appNavigator={AppNavigator} />
           </Configure>
         </ThemeProvider>
@@ -84,14 +86,3 @@ export default class App extends PureComponent {
 }
 
 // var WhiteBoardRN = require('../example_advanced');
-
-const ModalToast = () => {
-  return () => {
-    <Modal
-      useNativeDriver
-      animationIn={'fadeInUp'}
-      animationOut={'fadeOutDown'}
-      isVisible
-    />;
-  };
-};
