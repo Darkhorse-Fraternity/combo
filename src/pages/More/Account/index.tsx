@@ -11,7 +11,7 @@ import { uploadAvatar } from "../../../redux/actions/util";
 import {
   wechatBinding,
   qqBinding,
-  breakBinding
+  breakBinding,
 } from "../../../redux/actions/user";
 import {
   StyledContent,
@@ -29,7 +29,8 @@ import {
   StyledHeader,
   StyledAppInfo,
   StyledAppVersionText,
-  StyledSafeAreaView
+  StyledSafeAreaView,
+  StyledAppPrivacyPolicyText,
 } from "./style";
 import { updateNickName } from "../../../request/leanCloud";
 import { updateUserData } from "../../../redux/actions/user";
@@ -45,7 +46,7 @@ import { appChannel } from "../../../../helps/util";
     user: state.user.data,
     wechatLoad: state.req.get(WECHATLOGIN).get("load"),
     qqLoad: state.req.get(QQLOGIN).get("load"),
-    loadAvatar: state.util.get("loadAvatar")
+    loadAvatar: state.util.get("loadAvatar"),
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch)
@@ -56,7 +57,7 @@ import { appChannel } from "../../../../helps/util";
         title: "修改头像",
         maxWidth: 500, // photos only
         maxHeight: 500, // photos only
-        allowsEditing: true
+        allowsEditing: true,
       });
       if (response.uri) {
         const avatar = await dispatch(uploadAvatar(response.uri));
@@ -95,16 +96,16 @@ import { appChannel } from "../../../../helps/util";
       Alert.alert("确定退出吗?", null, [
         {
           text: "取消",
-          onPress: () => {}
+          onPress: () => {},
         },
         {
           text: "确定",
           onPress: () => {
             dispatch(logout());
-          }
-        }
+          },
+        },
       ]);
-    }
+    },
   })
 )
 export default class Account extends React.Component {
@@ -113,7 +114,7 @@ export default class Account extends React.Component {
     this.state = {
       isWXAppInstalled: false,
       nickname: props.user.nickname,
-      appInfoShow: false
+      appInfoShow: false,
     };
     WeChat.isWXAppInstalled().then(isWXAppInstalled => {
       this.setState({ isWXAppInstalled });
@@ -184,6 +185,16 @@ export default class Account extends React.Component {
         }}
         activeOpacity={1}
       >
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate("web", {
+              url: "https://icourage.cn/privacyAgreement"
+            });
+            // https://icourage.cn/privacyAgreement
+          }}
+        >
+          <StyledAppPrivacyPolicyText>隐私政策</StyledAppPrivacyPolicyText>
+        </TouchableOpacity>
         <StyledAppVersionText>
           {!this.state.appInfoShow
             ? `APP VERSION: ${DeviceInfo.getVersion()}`

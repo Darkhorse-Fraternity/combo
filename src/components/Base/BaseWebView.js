@@ -7,13 +7,13 @@ import {
   Text,
   View,
   ScrollView,
-  WebView,
   Image,
   Platform,
   Linking,
   Dimensions
 } from 'react-native';
 import Button from '../Button'
+import WebView from 'react-native-webview';
 
 const navbarHeight = 0
 const screenHeight = Dimensions.get('window').height

@@ -79,6 +79,7 @@
     "react-native-update-app": "1.1.11",
     "react-native-uuid": "1.4.9",
     "react-native-vector-icons": "6.1.0",
+    "react-native-webview": "^9.3.0",
     "react-native-wechat": "git+ https://github.com/yorkie/react-native-wechat.git",
     "react-navigation": "^4.0.10",
     "react-navigation-fluid-transitions": "0.3.2",

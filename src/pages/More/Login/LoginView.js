@@ -72,9 +72,6 @@ import BackBtn from '../../../components/Button/BackBtn/index';
       Keyboard.dismiss();
       dispatch(register(state));
     },
-    pushWebView: (params) => {
-      // dispatch(navigatePush(params));
-    },
     authCode: (number) => {
       const parmas = requestSmsCode(number);
       return dispatch(req(parmas, AUTHCODE));

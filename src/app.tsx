@@ -3,21 +3,23 @@
  * @flow
  */
 
-import React, { PureComponent } from "react";
-import { Platform } from "react-native";
-import { Provider } from "react-redux";
-import { ThemeProvider } from "styled-components";
-import SplashScreen from "react-native-splash-screen";
-import codePush from "react-native-code-push";
+import React, {PureComponent} from 'react';
+import {Platform, Alert} from 'react-native';
+import {Provider} from 'react-redux';
+import {ThemeProvider} from 'styled-components';
+import SplashScreen from 'react-native-splash-screen';
+import codePush from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
-import { creatStore } from "./redux/store";
-import ReduxApp from "./components/Nav/navigators/ReduxApp";
-import { theme } from "./Theme";
-import Configure from "./configure";
-import { creatAppNavigator } from "./components/Nav/navigators/CreateAppNavigator";
+import Modal from 'react-native-modal';
+import {creatStore} from './redux/store';
+import ReduxApp from './components/Nav/navigators/ReduxApp';
+import {theme} from './Theme';
+import Configure from './configure';
+import {creatAppNavigator} from './components/Nav/navigators/CreateAppNavigator';
+import {appChannel} from 'helps/util';
 // import {route} from './pages'
 const AppNavigator = creatAppNavigator();
-require("../helps/AnimatableRegist");
+require('../helps/AnimatableRegist');
 
 // if (Platform.OS === "ios") {
 //   enableScreens();
@@ -34,26 +36,26 @@ export default class App extends PureComponent {
   codePushStatusDidChange(status) {
     switch (status) {
       case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-        console.log("Checking for updates.");
+        console.log('Checking for updates.');
         break;
       case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-        console.log("Downloading package.");
+        console.log('Downloading package.');
         break;
       case codePush.SyncStatus.INSTALLING_UPDATE:
-        console.log("Installing update.");
+        console.log('Installing update.');
         break;
       case codePush.SyncStatus.UP_TO_DATE:
-        console.log("Up-to-date.");
+        console.log('Up-to-date.');
         break;
       case codePush.SyncStatus.UPDATE_INSTALLED:
-        console.log("Update installed.");
+        console.log('Update installed.');
         break;
     }
   }
 
   codePushDownloadDidProgress(progress) {
     console.log(
-      `${progress.receivedBytes} of ${progress.totalBytes} received.`
+      `${progress.receivedBytes} of ${progress.totalBytes} received.`,
     );
   }
 
@@ -61,6 +63,10 @@ export default class App extends PureComponent {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
+    if (appChannel === 'tencent') {
+      Alert.alert('隐私政策', '请您务必阅读,充分理解"隐私政策"');
+    }
+
     // this.test()
   }
 
@@ -78,3 +84,14 @@ export default class App extends PureComponent {
 }
 
 // var WhiteBoardRN = require('../example_advanced');
+
+const ModalToast = () => {
+  return () => {
+    <Modal
+      useNativeDriver
+      animationIn={'fadeInUp'}
+      animationOut={'fadeOutDown'}
+      isVisible
+    />;
+  };
+};
