@@ -443,7 +443,7 @@ export default class LocalNotification extends PureComponent {
 
         const recurrenceRule = {
           frequency: 'daily',
-          duration: 'PT1M',
+          duration: 'PT1H',
           occurrence: 100,
           interval: 1,
           // endDate: startDate.toISOString(),
