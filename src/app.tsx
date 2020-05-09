@@ -17,7 +17,7 @@ import {theme} from './Theme';
 import Configure from './configure';
 import {creatAppNavigator} from './components/Nav/navigators/CreateAppNavigator';
 import {appChannel} from 'helps/util';
-import {PrivacyModal} from '@components/ModalUtil/Privacy';
+
 // import {route} from './pages'
 const AppNavigator = creatAppNavigator();
 require('../helps/AnimatableRegist');
@@ -76,7 +76,6 @@ export default class App extends PureComponent {
       <Provider store={creatStore(AppNavigator)}>
         <ThemeProvider theme={theme}>
           <Configure>
-            <PrivacyModal />
             <ReduxApp appNavigator={AppNavigator} />
           </Configure>
         </ThemeProvider>

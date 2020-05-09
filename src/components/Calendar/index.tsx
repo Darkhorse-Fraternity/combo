@@ -3,8 +3,7 @@
  * @flow
  */
 
-
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,14 +12,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Platform,
-  ScrollView
+  ScrollView,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
 } from 'react-native';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import ViewPagerAndroid from "@react-native-community/viewpager";
+import {shouldComponentUpdate} from 'react-immutable-render-mixin';
+import ViewPagerAndroid, {
+  ViewPagerOnPageSelectedEventData,
+} from '@react-native-community/viewpager';
 import DateBoard from './DateBoard';
 import Pop from '../Pop';
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 export default class Calendar extends Component {
   constructor(props: Object) {
@@ -44,18 +47,32 @@ export default class Calendar extends Component {
 
   static defaultProps = {};
 
-
   componentDidMount() {
-    this.monthDay = [31, 28 + this.isLeap(this.state.year),
-      31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    this.monthDay = [
+      31,
+      28 + this.isLeap(this.state.year),
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31,
+    ];
     // this.move()
   }
 
-
   isLeap(year) {
-    return ((year % 100 === 0)
-      ? (year % 400 === 0 ? 1 : 0)
-      : (year % 4 === 0) ? 1 : 0);
+    return year % 100 === 0
+      ? year % 400 === 0
+        ? 1
+        : 0
+      : year % 4 === 0
+      ? 1
+      : 0;
   }
 
   selectDay(d) {
@@ -66,8 +83,11 @@ export default class Calendar extends Component {
     this.props.selectDay(d);
   }
 
-
-  myScroll(event) {
+  myScroll(
+    event: NativeSyntheticEvent<
+      ViewPagerOnPageSelectedEventData | NativeScrollEvent
+    >,
+  ) {
     if (Platform.OS === 'ios') {
       const scrollX = event.nativeEvent.contentOffset.x;
       if (scrollX > width) {
@@ -75,75 +95,99 @@ export default class Calendar extends Component {
       } else if (scrollX < width) {
         this.prev();
       } else {
-
       }
-      this.refs.trueScroll.scrollTo({ x: width, y: 0, animated: false });
+      this.refs.trueScroll.scrollTo({x: width, y: 0, animated: false});
     } else {
-      if (event.nativeEvent.position === 2) {
+      // console.log('event', event);
+      const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
+      console.log('nativeEvent', nativeEvent);
+
+      if (nativeEvent.position === 2) {
         this.nextMonth();
       }
-      if (event.nativeEvent.position === 0) {
+      if (nativeEvent.position === 0) {
         this.prev();
       }
       this.refs.trueViewPager.setPageWithoutAnimation(1);
     }
   }
 
-
   nextMonth() {
     // let monthDay = [31, 28 + this.isLeap(this.state.year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     if (this.state.month === 11) {
       if (this.state.date > this.monthDay[0]) {
         this.setState({
-          date: this.monthDay[0]
+          date: this.monthDay[0],
         });
       }
-      this.setState({
-        year: this.state.year + 1,
-        month: 0,
-      }, this.move);
+      this.setState(
+        {
+          year: this.state.year + 1,
+          month: 0,
+        },
+        this.move,
+      );
     } else {
       if (this.state.date > this.monthDay[this.state.month + 1]) {
         this.setState({
-          date: this.monthDay[this.state.month + 1]
+          date: this.monthDay[this.state.month + 1],
         });
       }
-      this.setState({
-        month: this.state.month + 1,
-      }, this.move);
+      this.setState(
+        {
+          month: this.state.month + 1,
+        },
+        this.move,
+      );
     }
   }
 
   prev() {
-    const monthDay = [31, 28 + this.isLeap(this.state.year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    const monthDay = [
+      31,
+      28 + this.isLeap(this.state.year),
+      31,
+      30,
+      31,
+      30,
+      31,
+      31,
+      30,
+      31,
+      30,
+      31,
+    ];
     if (this.state.month == 0) {
       if (this.state.date > this.monthDay[11]) {
         this.setState({
-          date: this.monthDay[11]
+          date: this.monthDay[11],
         });
       }
-      this.setState({
-        year: this.state.year - 1,
-        month: 11,
-      }, this.move);
+      this.setState(
+        {
+          year: this.state.year - 1,
+          month: 11,
+        },
+        this.move,
+      );
     } else {
       if (this.state.date > this.monthDay[this.state.month - 1]) {
         this.setState({
-          date: this.monthDay[this.state.month - 1]
+          date: this.monthDay[this.state.month - 1],
         });
       }
-      this.setState({
-        month: this.state.month - 1,
-      }, this.move);
+      this.setState(
+        {
+          month: this.state.month - 1,
+        },
+        this.move,
+      );
     }
   }
 
+  fetchData() {}
 
-  fetchData() {
-
-  }
-
-  goTo = (direction) => {
+  goTo = direction => {
     const that = this;
     if (direction === 'left') {
       that.refs.trueViewPager.setPage(0);
@@ -153,10 +197,12 @@ export default class Calendar extends Component {
       this.nextMonth();
     }
 
-    this.timer = setTimeout(() => that.refs.trueViewPager.setPageWithoutAnimation(1),
-      1000);
+    this.timer = setTimeout(
+      () => that.refs.trueViewPager.setPageWithoutAnimation(1),
+      1000,
+    );
     // that.refs.trueViewPager.setPageWithoutAnimation(1)
-  }
+  };
 
   move = () => {
     const year = `${this.state.year}`;
@@ -165,12 +211,11 @@ export default class Calendar extends Component {
     const firstDay = `${year}-${month}-01`;
     const lastDay = `${year}-${month}-${this.monthDay[this.state.month]}`;
     this.props.move && this.props.move(firstDay, lastDay);
-  }
+  };
 
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
   }
-
 
   renderDateBorad = month => (
     <DateBoard
@@ -184,51 +229,58 @@ export default class Calendar extends Component {
       fetchData={this.props.fetchData}
       busyDay={this.props.busyDay}
     />
-  )
+  );
 
   renderMain = () => {
-    const pageMonth = [this.state.month - 1, this.state.month, this.state.month + 1];
+    const pageMonth = [
+      this.state.month - 1,
+      this.state.month,
+      this.state.month + 1,
+    ];
 
     if (Platform.OS === 'ios') {
       return (
         <ScrollView
           horizontal
-          contentOffset={{ x: width, y: 0 }}
+          contentOffset={{x: width, y: 0}}
           bounces={false}
           onMomentumScrollEnd={event => this.myScroll(event)}
           ref="trueScroll"
           showsHorizontalScrollIndicator={false}
-          pagingEnabled
-        >
+          pagingEnabled>
           {pageMonth.map(mouth => this.renderDateBorad(mouth))}
         </ScrollView>
       );
     }
     return (
       <ViewPagerAndroid
-        style={{ height: 250, width }}
+        style={{height: 250, width}}
         initialPage={1}
         onPageSelected={event => this.myScroll(event)}
-        ref="trueViewPager"
-      >
-        <View>
-          {this.renderDateBorad(pageMonth[0])}
-        </View>
-        <View>
-          {this.renderDateBorad(pageMonth[1])}
-        </View>
-        <View>
-          {this.renderDateBorad(pageMonth[2])}
-        </View>
+        ref="trueViewPager">
+        <View>{this.renderDateBorad(pageMonth[0])}</View>
+        <View>{this.renderDateBorad(pageMonth[1])}</View>
+        <View>{this.renderDateBorad(pageMonth[2])}</View>
       </ViewPagerAndroid>
     );
-  }
-
+  };
 
   render() {
-    const month = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'];
+    const month = [
+      '一',
+      '二',
+      '三',
+      '四',
+      '五',
+      '六',
+      '七',
+      '八',
+      '九',
+      '十',
+      '十一',
+      '十二',
+    ];
     const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-
 
     return (
       <View style={[this.props.style]}>
@@ -240,7 +292,10 @@ export default class Calendar extends Component {
             <Text style={styles.t1}>
               {`${month[this.state.month]}月` + ` ${this.state.year}`}
             </Text>
-            <ActivityIndicator style={{ marginLeft: 10 }} animating={this.props.load} />
+            <ActivityIndicator
+              style={{marginLeft: 10}}
+              animating={this.props.load}
+            />
             {/* <TouchableOpacity onPress={()=>this.goTo('right')}> */}
             {/* <View style={styles.rightBtn}/> */}
             {/* </TouchableOpacity> */}
@@ -248,14 +303,10 @@ export default class Calendar extends Component {
         </View>
         <View style={styles.dateTitle}>
           {dateTitle.map(title => (
-            <Text
-              key={title}
-              style={styles.dateTitleText}
-            >
+            <Text key={title} style={styles.dateTitleText}>
               {title}
             </Text>
           ))}
-
         </View>
 
         {this.renderMain()}
@@ -285,42 +336,41 @@ const styles = StyleSheet.create({
   },
   dayTimeTouch: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   leftBtn: {
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{ rotate: '135deg' }],
+    transform: [{rotate: '135deg'}],
     width: 10,
     height: 10,
     marginHorizontal: 40,
     marginVertical: 10,
-
   },
   rightBtn: {
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{ rotate: '315deg' }],
+    transform: [{rotate: '315deg'}],
     width: 10,
     height: 10,
     marginHorizontal: 40,
     marginVertical: 10,
   },
   t1: {
-    fontSize: 17
+    fontSize: 17,
   },
   closeBtn: {},
   closeText: {
     marginHorizontal: 20,
     fontSize: 18,
     marginTop: 15,
-    color: '#007ddd'
+    color: '#007ddd',
   },
   header: {
     justifyContent: 'space-between',
     flexDirection: 'row',
     // backgroundColor: '#e9eef4'
-  }
+  },
 });

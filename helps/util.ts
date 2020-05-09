@@ -63,7 +63,7 @@ export async function firstInstaller() {
 }
 
 export let appChannel = 'unknow';
-const app_channel = async () => {
+export const app_channel = async () => {
   if (Platform.OS === 'ios') {
     appChannel = !__DEV__ ? 'appStore' : 'iOS_inhouse';
   } else {

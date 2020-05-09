@@ -3,25 +3,19 @@
  * @flow
  */
 
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Dimensions,
-  SectionList,
-  Alert
-} from 'react-native';
+import {View, Dimensions, SectionList, Alert} from 'react-native';
 // import { FlatList, } from 'react-navigation';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
-import {
-  ICARD, IUSE, IDO, FLAG, FLAGRECORD
-} from '../../redux/reqKeys';
+import {ICARD, IUSE, IDO, FLAG, FLAGRECORD} from '../../redux/reqKeys';
 // import { search, } from '../../redux/module/leancloud';
 import doCardWithNone from '../../components/DoCard/doCardWithNone';
-import ExceptionView, { ExceptionType } from '../../components/Base/ExceptionView/index';
+import ExceptionView, {
+  ExceptionType,
+} from '../../components/Base/ExceptionView/index';
 // import { selfUser } from '../../request/LCModle';
 import {
   StyledContent,
@@ -30,14 +24,15 @@ import {
   StyledSectionHeader,
   StyledSectionHeaderTitle,
   StyledAdd,
-  StyledIonicons
+  StyledIonicons,
 } from './style';
-import { strings } from '../../../locales/i18n';
+import {strings} from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
-import { iUseList as iUseListParams } from '../../request/leanCloud';
-import { addNormalizrEntities } from '../../redux/module/normalizr';
-import { listReq } from '../../redux/actions/list';
+import {iUseList as iUseListParams} from '../../request/leanCloud';
+import {addNormalizrEntities} from '../../redux/module/normalizr';
+import {listReq} from '../../redux/actions/list';
+import {PrivacyModal} from '@components/ModalUtil/Privacy';
 
 @connect(
   state => ({
@@ -47,7 +42,7 @@ import { listReq } from '../../redux/actions/list';
     flagRecord: state.normalizr.get(FLAGRECORD),
     refreshLoad: state.req.get(IUSE).get('load'),
     load: state.req.get(IDO).get('load'),
-    user: state.user.data
+    user: state.user.data,
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch)
@@ -69,39 +64,41 @@ import { listReq } from '../../redux/actions/list';
     //   include: `${ICARD},iCard.user`
     // }, IUSE)),
     search: () => {
-      dispatch(listReq(IUSE, iUseListParams(), false, {
-        dataMap: (data) => {
-          const { iUseList } = data.result;
-          // 添加副本
-          // console.log('fbList', fbList);
+      dispatch(
+        listReq(IUSE, iUseListParams(), false, {
+          dataMap: data => {
+            const {iUseList} = data.result;
+            // 添加副本
+            // console.log('fbList', fbList);
 
-          // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+            // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
 
-          // 通过本地时间验证,判断今日是否已经打卡
-          const newIUseList = iUseList.sort((a, b) => {
-            const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
-            const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
-            if (aDone && bDone) {
-              return false;
-            }
-            return aDone;
-          });
-          return { results: newIUseList };
-        }
-      }));
+            // 通过本地时间验证,判断今日是否已经打卡
+            const newIUseList = iUseList.sort((a, b) => {
+              const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+              const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
+              if (aDone && bDone) {
+                return false;
+              }
+              return aDone;
+            });
+            return {results: newIUseList};
+          },
+        }),
+      );
     },
-    done: async (data) => {
+    done: async data => {
       // 评价
       rate();
       return dispatch(doCardWithNone(data));
     },
-  })
+  }),
 )
 export default class Punch extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
-      frMap: {}
+      frMap: {},
     };
   }
 
@@ -109,18 +106,15 @@ export default class Punch extends Component {
 
   static defaultProps = {};
 
-
   static navigationOptions = // const { navigation } = props;
-                             // const { state } = navigation;
-                             // const { params } = state;
-                             // console.log('test:', params,localLoad);
-                             props => ({
-                               // gesturesEnabled: false,
-                               header: null
-                               // title:strings('app.name')
-
-                             })
-  ;
+    // const { state } = navigation;
+    // const { params } = state;
+    // console.log('test:', params,localLoad);
+    props => ({
+      // gesturesEnabled: false,
+      header: null,
+      // title:strings('app.name')
+    });
 
   componentDidMount() {
     // this.props.search();
@@ -134,9 +128,8 @@ export default class Punch extends Component {
 
   componentWillReceiveProps(nextProps) {
     // console.log('000');
-    const { user, search } = this.props;
-    if (nextProps.user.objectId
-      && nextProps.user.objectId !== user.objectId) {
+    const {user, search} = this.props;
+    if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
       search();
       // this.props.fbSearch();
     }
@@ -158,14 +151,15 @@ export default class Punch extends Component {
     // }
   }
 
-
-  __renderNoData = (statu) => {
-    const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
+  __renderNoData = statu => {
+    const refreshLoad =
+      statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
     return (
       <ExceptionView
-        style={{ height: Dimensions.get('window').height / 2 }}
-        exceptionType={refreshLoad
-          ? ExceptionType.Loading : ExceptionType.NoData}
+        style={{height: Dimensions.get('window').height / 2}}
+        exceptionType={
+          refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
+        }
         tipBtnText="添加卡片"
         refresh={refreshLoad}
         prompt={refreshLoad ? '正在加载' : '暂无数据~'}
@@ -174,56 +168,55 @@ export default class Punch extends Component {
         }}
       />
     );
-  }
+  };
 
   _keyExtractor = (item, index) => {
     const key = item.objectId || index;
     return `${key}`;
-  }
-
+  };
 
   _renderHeader = () => (
     <StyledHeader>
-      <StyledHeaderTitle>
-        {strings('app.name')}
-      </StyledHeaderTitle>
+      <StyledHeaderTitle>{strings('app.name')}</StyledHeaderTitle>
       <StyledAdd
         onPress={() => {
           this.props.navigation.navigate('newCard');
         }}
         hitSlop={{
-          top: 20, left: 20, bottom: 20, right: 20
-        }}
-      >
+          top: 20,
+          left: 20,
+          bottom: 20,
+          right: 20,
+        }}>
         <StyledIonicons
-            // color={'#39ba98'}
+          // color={'#39ba98'}
           size={25}
           name="plus-circle"
         />
       </StyledAdd>
     </StyledHeader>
-  )
+  );
 
-  _renderSectionHeader = (info) => {
-    if (info.section.title.length === 0) return <View style={{ height: 30 }} />;
+  _renderSectionHeader = info => {
+    if (info.section.title.length === 0) {
+      return <View style={{height: 30}} />;
+    }
     return (
       <StyledSectionHeader>
         <StyledSectionHeaderTitle numberOfLines={1}>
           {info.section.title}
         </StyledSectionHeaderTitle>
       </StyledSectionHeader>
-
     );
-  }
+  };
 
-  __renderItem = (data) => {
+  __renderItem = data => {
     // return (<View/>)
     // const
     const views = data.item.map((item, index) => {
       const iCardId = item[ICARD];
       const iCard = this.props.iCard.get(iCardId);
       const showFB = item.isFb;
-
 
       // if (showFB) {
       //   // TODO,这边感觉有点不安全。
@@ -260,7 +253,7 @@ export default class Punch extends Component {
             } else {
               this.props.navigation.navigate('card', {
                 iUseId: item.objectId,
-                iCardId
+                iCardId,
               });
             }
           }}
@@ -268,19 +261,13 @@ export default class Punch extends Component {
       );
     });
 
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        {views}
-      </View>
-    );
-  }
-
+    return <View style={{flexDirection: 'row'}}>{views}</View>;
+  };
 
   render(): ReactElement<any> {
     const statu = this.props.data.get('loadStatu');
 
     const data = this.props.data.toJS().listData;
-
 
     // 按条件分类
 
@@ -325,15 +312,21 @@ export default class Punch extends Component {
             days = nextDoDay + 7 - week;
           }
 
-
           if (days < 4) {
             unSatisfyDiscrib = ['明天', '后天', '大后天'][days - 1];
           } else {
-            unSatisfyDiscrib = ['周一', '周二', '周三', '周四', '周五', '周六', '周天'][nextDoDay - 1];
+            unSatisfyDiscrib = [
+              '周一',
+              '周二',
+              '周三',
+              '周四',
+              '周五',
+              '周六',
+              '周天',
+            ][nextDoDay - 1];
           }
           // 算出离今天最近的下一次打卡时间
           // console.log('week:', recordDay, week);
-
 
           mData.satisfy = false;
           // const fromNow = moment().to(moment().add(2, 'days'))
@@ -341,19 +334,20 @@ export default class Punch extends Component {
           unSatisfy.push(mData);
         }
       }
-      satisfy.length > 0 && sections.push({
-        title: unSatisfy.length > 0 ? '进行中' : '',
-        data: _.chunk(satisfy, 3)
-      });
-      unSatisfy.length > 0 && sections.push({ title: '等待中', data: _.chunk(unSatisfy, 3) });
+      satisfy.length > 0 &&
+        sections.push({
+          title: unSatisfy.length > 0 ? '进行中' : '',
+          data: _.chunk(satisfy, 3),
+        });
+      unSatisfy.length > 0 &&
+        sections.push({title: '等待中', data: _.chunk(unSatisfy, 3)});
     }
-
 
     return (
       <StyledContent>
         {/* <StyledContent */}
         {/* style={this.props.style}> */}
-
+        <PrivacyModal />
         <SectionList
           refreshing={false}
           onRefresh={() => {
@@ -362,7 +356,7 @@ export default class Punch extends Component {
           // data={data}
           sections={sections}
           numColumns={3}
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           renderSectionHeader={this._renderSectionHeader}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
@@ -371,7 +365,9 @@ export default class Punch extends Component {
           renderItem={this.__renderItem}
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={data.length > 0 && <View style={{ height: 120 }} />}
+          ListFooterComponent={
+            data.length > 0 && <View style={{height: 120}} />
+          }
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
       </StyledContent>

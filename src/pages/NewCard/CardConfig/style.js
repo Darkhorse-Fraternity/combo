@@ -3,27 +3,22 @@
  * @flow
  */
 
-
-
 import styled from 'styled-components';
-import {
-  TouchableOpacity,
-  Platform
-} from 'react-native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import {TouchableOpacity, Platform} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 // export const StyledContent = styled.View`
 //     flex: 1;
 //     background-color: white;
 // `
 
-import { SafeAreaView } from 'react-navigation';
-import { materialColors } from 'react-native-typography'
-import Button from "../../../components/Button/";
+import {SafeAreaView} from 'react-navigation';
+import {materialColors} from 'react-native-typography';
+import Button from '../../../components/Button/';
 
 export const StyledContent = styled(SafeAreaView)`
-    background-color: white;
-    flex:1;
+  background-color: white;
+  flex: 1;
 `;
 
 export const StyledTitleView = styled.View`
@@ -36,19 +31,20 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `;
 
-
-export const StyledInnerView = styled.ScrollView`
-
-`;
+export const StyledInnerView = styled.ScrollView``;
 
 export const StyledItemText = styled.Text`
-  font-weight: ${props => (props.contain ? 600 : Platform.OS === 'ios' ? 500 : 400)};
-  color:${props => (props.contain ? 'white' :
-  Platform.OS === 'ios' ? 'black' : materialColors.blackTertiary)}
+  font-weight: ${props =>
+    props.contain ? 600 : Platform.OS === 'ios' ? 500 : 400};
+  color:${props =>
+    props.contain
+      ? 'white'
+      : Platform.OS === 'ios'
+      ? 'black'
+      : materialColors.blackTertiary}
   
   font-size: 14px;
 `;
-
 
 export const StyledSubTitleView = styled.View`
   flex-direction: row;
@@ -63,29 +59,29 @@ export const StyledSubTitle = styled.Text`
 `;
 
 export const StyledControl = styled(TouchableOpacity)`
-    margin: 30px 15px 10px 15px;
-    background-color: white;
-    border-radius: 5px;
-    shadow-opacity: 0.5;
-    shadow-radius:10px;
-    shadow-color: #979797;
-    shadow-offset: 2px 4px;      
-    elevation: 10;
-    padding: 5px 5px;
+  margin: 30px 15px 10px 15px;
+  background-color: white;
+  border-radius: 5px;
+  shadow-opacity: 0.5;
+  shadow-radius: 10px;
+  shadow-color: #979797;
+  shadow-offset: 2px 4px;
+  elevation: 10;
+  padding: 5px 5px;
 `;
 export const StyledShowDelete = styled.Text`
-    color: #646464;
-    fontStyle:italic;
-    font-size: 13px;
+  color: #646464;
+  fontstyle: italic;
+  font-size: 13px;
 `;
 
 // NotifyTimerPicker
 
 export const StyledNotifyButton = styled(TouchableOpacity)`
-    margin: 2px 5px 0px 0px;
-    width: 75px;
-   height: 75px;
-    align-items: center;
+  margin: 2px 5px 0px 0px;
+  width: 75px;
+  height: 75px;
+  align-items: center;
   justify-content: center;
 `;
 
@@ -99,12 +95,10 @@ export const StyledNotifyButtonInner = styled.View`
 `;
 
 export const StyledMaterialIcons = styled(MaterialIcons)`
-   color:${materialColors.blackSecondary}
+  color: ${materialColors.blackSecondary};
 `;
 
-export const StyledIonicons = styled(Ionicons)`
-
-`;
+export const StyledIonicons = styled(Ionicons)``;
 
 export const StyledRound = styled.View`
   align-items: center;
@@ -126,17 +120,16 @@ export const StyledLine = styled.View`
 `;
 
 export const StyledInner = styled.View`
-     flex-direction: row;
-     align-items: center;
-     flex-wrap: wrap;
-     padding: 0px 10px ;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0px 10px;
 `;
 
 export const StyledNotifyTime = styled.Text`
-    text-align: center;
-    color:${materialColors.blackSecondary}
+  text-align: center;
+  color: ${materialColors.blackSecondary};
 `;
-
 
 export const StyledLogoImage = styled.Image`
   width: 150px;

@@ -34,6 +34,12 @@ export const StyledDiscrib = styled.Text`
   line-height: 20px;
   font-size: 13px;
 `;
+export const StyledDiscribIn = styled.Text`
+  margin-top: 12px;
+  line-height: 20px;
+  font-size: 13px;
+  color: blue;
+`;
 
 export const StyledLine1 = styled.View`
   width: 100%;
