@@ -9,7 +9,6 @@ import {
   StyleSheet,
   Dimensions,
   Text,
-  TouchableOpacity,
   ActivityIndicator,
   Platform,
   ScrollView,
@@ -21,7 +20,6 @@ import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard from './DateBoard';
-import Pop from '../Pop';
 
 const {width} = Dimensions.get('window');
 
@@ -100,15 +98,15 @@ export default class Calendar extends Component {
     } else {
       // console.log('event', event);
       const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
-      console.log('nativeEvent', nativeEvent);
-
       if (nativeEvent.position === 2) {
         this.nextMonth();
       }
       if (nativeEvent.position === 0) {
         this.prev();
       }
-      this.refs.trueViewPager.setPageWithoutAnimation(1);
+      if (nativeEvent.position !== 1) {
+        this.refs.trueViewPager.setPageWithoutAnimation(1);
+      }
     }
   }
 
@@ -157,7 +155,7 @@ export default class Calendar extends Component {
       30,
       31,
     ];
-    if (this.state.month == 0) {
+    if (this.state.month === 0) {
       if (this.state.date > this.monthDay[11]) {
         this.setState({
           date: this.monthDay[11],
@@ -258,9 +256,9 @@ export default class Calendar extends Component {
         initialPage={1}
         onPageSelected={event => this.myScroll(event)}
         ref="trueViewPager">
-        <View>{this.renderDateBorad(pageMonth[0])}</View>
-        <View>{this.renderDateBorad(pageMonth[1])}</View>
-        <View>{this.renderDateBorad(pageMonth[2])}</View>
+        <View key="1">{this.renderDateBorad(pageMonth[0])}</View>
+        <View key="2">{this.renderDateBorad(pageMonth[1])}</View>
+        <View key="3">{this.renderDateBorad(pageMonth[2])}</View>
       </ViewPagerAndroid>
     );
   };
