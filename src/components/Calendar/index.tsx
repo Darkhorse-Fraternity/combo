@@ -14,6 +14,7 @@ import {
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  FC,
 } from 'react-native';
 import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import ViewPagerAndroid, {
