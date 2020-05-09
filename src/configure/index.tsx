@@ -26,6 +26,10 @@ import InfoBar from '../components/InfoBar';
 //
 // import exceptionHandler from './exceptionHandler';
 
+interface StateType {
+  isEmulator: boolean;
+}
+
 @connect(
   state => ({
     nav: state.nav,
@@ -38,11 +42,14 @@ import InfoBar from '../components/InfoBar';
   //     }
   // })
 )
-export default class Configure extends React.Component {
+export default class Configure extends React.Component<{}, StateType> {
   constructor(props) {
     super(props);
     // 企业版检测版本
     this.config();
+    this.state = {
+      isEmulator: false,
+    };
   }
 
   config = () => {
@@ -178,6 +185,13 @@ export default class Configure extends React.Component {
     this.props.dispatch(appStateUpdate(AppState.currentState));
     this._getInitialURL();
     this.keyboardConfig();
+    if (Platform.OS === 'android') {
+      DeviceInfo.isEmulator().then(isEmulator => {
+        // false
+        this.setState({isEmulator});
+      });
+    }
+
     // if (Platform.OS === 'ios') {
     //   !__DEV__ && Rate.rate({
     //     AppleAppID: "1332546993",
@@ -264,7 +278,7 @@ export default class Configure extends React.Component {
 
     return (
       <View style={{flex: 1}}>
-        <LocalNotification />
+        {!this.state.isEmulator && <LocalNotification />}
         <LightStatuBar />
         {this.props.children}
         <InfoBar />

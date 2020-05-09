@@ -99,7 +99,6 @@
     "yup": "^0.28.0"
   },
   "devDependencies": {
-    "@types/react-native-vector-icons": "^6.4.5",
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/runtime": "^7.6.2",
@@ -108,6 +107,7 @@
     "@types/lodash": "^4.14.145",
     "@types/react": "^16.9.2",
     "@types/react-native": "^0.60.21",
+    "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-test-renderer": "^16.9.0",
     "@types/styled-components": "^4.4.2",
     "@types/yup": "^0.26.27",
