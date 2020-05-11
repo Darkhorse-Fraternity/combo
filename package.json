@@ -10,8 +10,8 @@
     "postinstall": "npx jetify",
     "run-ios": "yarn react-native run-ios",
     "run-android": "yarn react-native run-android",
-    "release-android": "cd android && ./gradlew assembleRelease && cd ../",
-    "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../",
+    "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
+    "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../"
   },
   "dependencies": {
@@ -96,6 +96,7 @@
     "uuid": "3.2.1",
     "validator": "10.5.0",
     "wurl": "2.5.3",
+    "yapi-to-typescript": "^3.1.5",
     "yup": "^0.28.0"
   },
   "devDependencies": {

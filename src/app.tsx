@@ -64,9 +64,9 @@ export default class App extends PureComponent {
     // do stuff while splash screen is shown
     // After having done stuff (such as async tasks) hide the splash screen
     SplashScreen.hide();
-    if (appChannel === 'tencent') {
-      Alert.alert('隐私政策', '请您务必阅读,充分理解"隐私政策"');
-    }
+    // if (appChannel === 'tencent') {
+    //   Alert.alert('隐私政策', '请您务必阅读,充分理解"隐私政策"');
+    // }
 
     // this.test()
   }

@@ -7,7 +7,7 @@
 import styled from 'styled-components/native';
 import Button from '../../../components/Button/index';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { SafeAreaView } from 'react-navigation';
+import {SafeAreaView} from 'react-navigation';
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
   flex: 1;
@@ -108,10 +108,22 @@ export const StyledAppInfo = styled.View`
 export const StyledAppVersionText = styled.Text`
   color: #a4a4a4;
   font-size: 15px;
+  align-self: center;
+`;
+
+export const StyledAppPrivacyPolicyView = styled.View`
+  flex-direction: row;
+  margin: 15px;
 `;
 
 export const StyledAppPrivacyPolicyText = styled.Text`
   align-self: center;
   color: #0099ff;
-  margin: 15px;
+`;
+
+export const StyledAppPrivacyLine = styled.View`
+  width: ${props => props.theme.hairlineWidth * 2}px;
+  height: 15px;
+  background-color: #0099ff;
+  margin: 0px 10px;
 `;

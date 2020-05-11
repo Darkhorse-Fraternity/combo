@@ -14,7 +14,7 @@ import React, {useState, useEffect} from 'react';
 import {BackHandler} from 'react-native';
 import {appChannel, app_channel} from 'helps/util';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import {useNavigation} from 'react-navigation-hooks';
+import {useNavigation, useIsFocused} from 'react-navigation-hooks';
 
 interface PrivacyModal {}
 
@@ -22,19 +22,24 @@ export const PrivacyModal = (props: PrivacyModal) => {
   const [state, setState] = useState(false);
   const {setItem, getItem} = useAsyncStorage('PrivacyModal_Show');
   const navgaition = useNavigation();
+
   const check = async () => {
     await app_channel();
-    if (appChannel === 'tencent') {
-      getItem((e, res) => {
-        if (res !== 'agree') {
-          setState(true);
-        }
-      });
-    }
+    // if (appChannel === 'tencent') {
+    getItem((e, res) => {
+      if (res !== 'agree') {
+        setState(true);
+      }
+    });
+    // }
   };
+  const isFoucse = useIsFocused();
+
   useEffect(() => {
-    check();
-  }, []);
+    if (isFoucse) {
+      check();
+    }
+  }, [isFoucse]);
   return (
     <Modal
       useNativeDriver
@@ -45,9 +50,19 @@ export const PrivacyModal = (props: PrivacyModal) => {
       <StyleModalView>
         <StyledTitle>小改变隐私政策</StyledTitle>
         <StyledDiscrib>
-          请你务必申请阅读，充分理解"小改变隐私政策"各条款，包括但不限于：为了向你提供日常提醒，习惯养成等服务，我们需要收集你的设备信息，操作日志等个人信息,你可以在“设置”中查看、变更、
+          请你务必申请阅读，充分理解"小改变用户协议"与"隐私政策"各条款，包括但不限于：为了向你提供日常提醒，习惯养成等服务，我们需要收集你的设备信息，操作日志等个人信息,你可以在“设置”中查看、变更、
           删除个人信息并管理你的授权。{'\n'}
           你可阅读
+          <StyledDiscribIn
+            onPress={() => {
+              setState(false);
+              navgaition.navigate('web', {
+                url: 'https://icourage.cn/userAgreement',
+              });
+            }}>
+            《用户协议》
+          </StyledDiscribIn>
+          与
           <StyledDiscribIn
             onPress={() => {
               setState(false);
