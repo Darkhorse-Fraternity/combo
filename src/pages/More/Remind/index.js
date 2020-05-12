@@ -455,7 +455,7 @@ export default class Remind extends Component {
           isVisible={this.state.isDateTimePickerVisible}
           mode="time"
           cancelTextIOS="取消"
-          titleIOS="修改提醒时间"
+          headerTextIOS="修改提醒时间"
           // date={moment(this.state.time, 'HH:mm').toDate()}
           confirmTextIOS="确定"
           onConfirm={this._handleDatePicked}

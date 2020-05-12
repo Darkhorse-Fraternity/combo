@@ -25,13 +25,13 @@ export const PrivacyModal = (props: PrivacyModal) => {
 
   const check = async () => {
     await app_channel();
-    // if (appChannel === 'tencent') {
-    getItem((e, res) => {
-      if (res !== 'agree') {
-        setState(true);
-      }
-    });
-    // }
+    if (appChannel === 'tencent') {
+      getItem((e, res) => {
+        if (res !== 'agree') {
+          setState(true);
+        }
+      });
+    }
   };
   const isFoucse = useIsFocused();
 

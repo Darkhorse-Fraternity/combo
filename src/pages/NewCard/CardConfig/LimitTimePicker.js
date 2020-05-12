@@ -155,7 +155,7 @@ export default class LimitTimePicker extends PureComponent {
           isVisible={this.state.isDateTimePickerVisible}
           mode="time"
           cancelTextIOS="取消"
-          titleIOS="选择提醒时间"
+          headerTextIOS="选择提醒时间"
           confirmTextIOS="确定"
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}

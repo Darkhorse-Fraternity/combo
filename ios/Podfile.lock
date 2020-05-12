@@ -290,6 +290,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.7.1):
     - React
+  - RNDateTimePicker (2.3.2):
+    - React
   - RNDeviceInfo (5.4.1):
     - React
   - RNFastImage (7.0.2):
@@ -374,6 +376,7 @@ DEPENDENCIES:
   - ReactNativeKeyboardManager (from `../node_modules/react-native-keyboard-manager`)
   - ReactNativeKeyboardTrackingView (from `../node_modules/react-native-keyboard-tracking-view`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNFS (from `../node_modules/react-native-fs`)
@@ -495,6 +498,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keyboard-tracking-view"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNDateTimePicker:
+    :path: "../node_modules/@react-native-community/datetimepicker"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
   RNFastImage:
@@ -572,6 +577,7 @@ SPEC CHECKSUMS:
   ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
   ReactNativeKeyboardTrackingView: a240a6a0dba852bb107109a7ec7e98b884055977
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
+  RNDateTimePicker: 4bd49e09f91ca73d69119a9e1173b0d43b82f5e5
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNFS: 0f4d630b538e93e0e9e3519ff0b7b7b48760d8ed

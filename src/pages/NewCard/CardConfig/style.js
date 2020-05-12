@@ -71,7 +71,7 @@ export const StyledControl = styled(TouchableOpacity)`
 `;
 export const StyledShowDelete = styled.Text`
   color: #646464;
-  fontstyle: italic;
+  font-style: italic;
   font-size: 13px;
 `;
 
