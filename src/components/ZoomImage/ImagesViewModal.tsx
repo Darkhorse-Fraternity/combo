@@ -16,6 +16,7 @@ import {
   Platform,
   CameraRoll,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import Toast from 'react-native-simple-toast';
@@ -76,6 +77,12 @@ export default class ImagesViewModals extends Component {
     </Button>
   );
 
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      console.log('111');
+    });
+  }
+
   render() {
     const {imageUrls, visible, closeCallBack, index} = this.props;
 
@@ -90,12 +97,11 @@ export default class ImagesViewModals extends Component {
           marginBottom: 0,
           marginTop: 0,
         }}
-        animationIn={'fadeInUp'}
-        animationOut={'fadeOutDown'}
+        animationIn={'fadeIn'}
+        animationOut={'fadeOut'}
         backdropColor={'black'}
         backdropOpacity={1}
-        onBackdropPress={() => {
-          // this.setState({ visible: false })
+        onBackButtonPress={() => {
           closeCallBack && closeCallBack();
         }}
         isVisible={visible}>
@@ -104,10 +110,17 @@ export default class ImagesViewModals extends Component {
           loadingRender={() => <ActivityIndicator />}
           imageUrls={imageUrls || []}
           index={index}
-          onCancel={() => {
-            // this.setState({ visible: false })
+          onClick={() => {
             closeCallBack && closeCallBack();
           }}
+          enableSwipeDown
+          onCancel={() => {
+            // this.setState({ visible: false })
+
+            closeCallBack && closeCallBack();
+          }}
+          enablePreload
+          doubleClickInterval={200}
           menuContext={{
             saveToLocal: strings('save.save_to_local'),
             cancel: strings('save.cance'),
