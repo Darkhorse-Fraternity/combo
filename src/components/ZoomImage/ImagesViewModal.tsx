@@ -90,7 +90,6 @@ export default class ImagesViewModals extends Component {
     return (
       <Modal
         // useNativeDriver
-
         style={{
           marginLeft: 0,
           marginRight: 0,

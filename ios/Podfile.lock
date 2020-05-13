@@ -223,7 +223,7 @@ PODS:
     - React
   - react-native-cameraroll (1.4.0):
     - React
-  - react-native-image-picker (0.28.1):
+  - react-native-image-picker (2.3.1):
     - React
   - react-native-netinfo (5.3.2):
     - React
@@ -552,7 +552,7 @@ SPEC CHECKSUMS:
   react-native-autogrow-textinput: 6ac9827113fab5e72be63ba6f0e40e6a01aa4697
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-cameraroll: dbda741db5dadcdcf738e55a1fd565c307943bca
-  react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
+  react-native-image-picker: 6a850c41f57f0848d918c2a77aedd7aa272ffa30
   react-native-netinfo: 817823a90f13ced48413875c0820df04c3aae28d
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
