@@ -1,7 +1,7 @@
-import React, { useState, PureComponent, useEffect } from "react";
-import { StyleModalOutView, StyleCance, StyledIcon } from "./style";
-import Modal, { ModalProps } from "react-native-modal";
-import { ViewProps } from "react-native";
+import React, {useState, PureComponent, useEffect} from 'react';
+import {StyleModalOutView, StyleCance, StyledIcon} from './style';
+import Modal, {ModalProps} from 'react-native-modal';
+import {ViewProps} from 'react-native';
 
 export interface CModalPropsType extends ViewProps {
   show?: boolean;
@@ -20,12 +20,11 @@ const CModal = ({
   return (
     <Modal
       avoidKeyboard
-      useNativeDriver={true}
-      animationIn={"fadeInUp"}
-      animationOut={"fadeOutDown"}
+      useNativeDriver
+      animationIn={'fadeInUp'}
+      animationOut={'fadeOutDown'}
       isVisible={show}
-      {...modalProps}
-    >
+      {...modalProps}>
       <StyleModalOutView {...other}>
         <StyleCance onPress={onClose}>
           <StyledIcon name="close" size={20} />
