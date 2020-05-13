@@ -14,14 +14,16 @@ import org.devio.rn.splashscreen.SplashScreen;
 public class MainActivity extends ReactActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(null);
-        if (!BuildConfig.DEBUG) {
+//        if (!BuildConfig.DEBUG) {
             SplashScreen.show(this, true);
-        }
+//        }
 //        super.onCreate(savedInstanceState);
-        LightStatusBarUtil.MIUISetStatusBarLightMode(this, true);
+        LightStatusBarUtil.setTranslucent(this);
+        LightStatusBarUtil.setStatusTextColor(true,this);
 
 //        initView();
     }
