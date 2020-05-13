@@ -90,7 +90,7 @@ export default class ImagesViewModals extends Component {
     return (
       <Modal
         // useNativeDriver
-        deviceHeight={Dimensions.get('screen').height}
+
         style={{
           marginLeft: 0,
           marginRight: 0,
@@ -105,7 +105,13 @@ export default class ImagesViewModals extends Component {
           closeCallBack && closeCallBack();
         }}
         isVisible={visible}>
-        {Platform.OS !== 'ios' && <StatusBar backgroundColor="black" />}
+        {Platform.OS !== 'ios' && (
+          <StatusBar
+            backgroundColor="black"
+            barStyle={'light-content'}
+            translucent
+          />
+        )}
         <ImageViewer
           loadingRender={() => <ActivityIndicator />}
           imageUrls={imageUrls || []}
