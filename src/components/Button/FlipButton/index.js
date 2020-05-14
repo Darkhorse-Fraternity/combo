@@ -3,12 +3,12 @@
  * @flow
  */
 
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import { ActivityIndicator, View } from "react-native";
-import { debounce } from "lodash"; // 4.0.8
-import * as Animatable from "react-native-animatable";
-import { theme } from "../../../Theme";
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
+import {ActivityIndicator, View} from 'react-native';
+import {debounce} from 'lodash'; // 4.0.8
+import * as Animatable from 'react-native-animatable';
+import {theme} from '../../../Theme';
 
 import {
   StyledContent,
@@ -17,11 +17,11 @@ import {
   StyledBack,
   StyledFaceText,
   StyledBackText,
-  StyledIcon
-} from "./style";
+  StyledIcon,
+} from './style';
 
 export const AniStyledContent = Animatable.createAnimatableComponent(
-  StyledContent
+  StyledContent,
 );
 
 export default class FlipButton extends PureComponent {
@@ -30,17 +30,17 @@ export default class FlipButton extends PureComponent {
     backText: PropTypes.string.isRequired,
     load: PropTypes.bool,
     flip: PropTypes.bool,
-    animation: PropTypes.string
+    animation: PropTypes.string,
   };
 
   static defaultProps = {
     load: true,
     // animation:'bounceInRight',
-    flip: false
+    flip: false,
   };
 
   __renderActivety = () => {
-    const { containStyle } = this.props;
+    const {containStyle} = this.props;
     return (
       <StyledFace style={containStyle}>
         <ActivityIndicator
@@ -52,7 +52,7 @@ export default class FlipButton extends PureComponent {
   };
 
   __renderCard = () => {
-    const { containStyle, flip, faceText, backText } = this.props;
+    const {containStyle, flip, faceText, backText} = this.props;
 
     return (
       <StyledCard
@@ -66,8 +66,7 @@ export default class FlipButton extends PureComponent {
         onFlipEnd={isFlipEnd => {
           // console.log('isFlipEnd', isFlipEnd)
           // this.setState({statu:1})
-        }}
-      >
+        }}>
         {/* Face Side */}
         <StyledFace style={containStyle}>
           <StyledFaceText>{faceText}</StyledFaceText>
@@ -92,12 +91,12 @@ export default class FlipButton extends PureComponent {
 
   onPress = debounce(this.debouncedOnPress, 300, {
     leading: true,
-    trailing: false
+    trailing: false,
   });
 
   render() {
     // console.log('test:', this.state.statu !== 0 || this.props.load);
-    const { style, disabled, load, animation } = this.props;
+    const {style, disabled, load, animation} = this.props;
 
     return (
       <AniStyledContent
@@ -108,8 +107,7 @@ export default class FlipButton extends PureComponent {
         style={style}
         activeOpacity={1}
         disabled={disabled || load}
-        onPress={this.onPress}
-      >
+        onPress={this.onPress}>
         {load && this.__renderActivety()}
         {!load && this.__renderCard()}
       </AniStyledContent>
