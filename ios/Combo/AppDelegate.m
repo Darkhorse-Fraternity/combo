@@ -46,6 +46,11 @@ static void InitializeFlipper(UIApplication *application) {
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  
+  #if DEBUG
+     InitializeFlipper(application);
+   #endif
+  
   NSURL *jsCodeLocation;
 
   
