@@ -74,7 +74,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
-//        initializeFlipper(this,getReactNativeHost().getReactInstanceManager()); // Remove this line if you don't want Flipper enabled
+        initializeFlipper(this,getReactNativeHost().getReactInstanceManager());
         // 初始化参数依次为 this, AppId, AppKey
         String packageName = this.getPackageName();
         PushService.setDefaultChannelId(this, packageName + "android.push");
