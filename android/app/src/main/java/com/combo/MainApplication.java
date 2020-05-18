@@ -15,6 +15,7 @@ import com.avos.avoscloud.PushService;
 import com.combo.util.rnappmetadata.RNAppUtilPackage;
 import java.lang.reflect.InvocationTargetException;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -73,13 +74,12 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
-        initializeFlipper(this); // Remove this line if you don't want Flipper enabled
+        initializeFlipper(this,getReactNativeHost().getReactInstanceManager());
         // 初始化参数依次为 this, AppId, AppKey
         String packageName = this.getPackageName();
         PushService.setDefaultChannelId(this, packageName + "android.push");
         AVOSCloud.initialize(this, "cmwLjTYWoYfN4jCgPR49rsi6-gzGzoHsz",
                 "S6wxWnhQfL9rBLo2ngEctK0u");
-
         // 用于推送判断前后台
 //        ActivityLifecycleCallbacks();
 
@@ -100,15 +100,17 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
 //        MobclickAgent.openActivityDurationTrack(false);
     }
 
-    private static void initializeFlipper(Context context) {
+    private static void initializeFlipper(Context context, ReactInstanceManager reactInstanceManager) {
         if (BuildConfig.DEBUG) {
             try {
         /*
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-                Class<?> aClass = Class.forName("com.facebook.flipper.ReactNativeFlipper");
-                aClass.getMethod("initializeFlipper", Context.class).invoke(null, context);
+                Class<?> aClass = Class.forName("com.combo.ReactNativeFlipper");
+                aClass
+                        .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+                        .invoke(null, context, reactInstanceManager);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {

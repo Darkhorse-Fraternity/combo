@@ -20,9 +20,6 @@ import Follower from './More/Follow/Follower';
 import Follow from './More/Follow';
 import Following from './More/Follow/Following';
 import CardUse from './NewCard/CardUse';
-import CourseChoose from './Course/Choose';
-import CourseCreat from './Course/Creat';
-import CourseRelease from './Course/Release';
 import FlagRecord from './Flag/Record';
 // import PPTDescribe from '../components/Form/Course/ppt/PPTDescribe'
 import CardSetting from './Card/Settings';
@@ -47,9 +44,6 @@ export const otherRoute = {
   cash: {screen: Cash},
   recordDetail: {screen: RecordDetail},
   cardSetting: {screen: CardSetting},
-  courseChoose: {screen: CourseChoose},
-  courseCreat: {screen: CourseCreat},
-  courseRelease: {screen: CourseRelease},
   followee: {screen: Followee, path: 'combo/:Followee'},
   follower: {screen: Follower},
   follow: {screen: Follow},

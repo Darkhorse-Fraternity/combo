@@ -1,80 +1,75 @@
-import React from "react";
-import { View, Button, Text, InteractionManager, Platform } from "react-native";
-import TouchableBounce from "react-native/Libraries/Components/Touchable/TouchableBounce";
-import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import React from 'react';
+import {View, Button, Text, InteractionManager, Platform} from 'react-native';
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 
 // import * as Animatable from 'react-native-animatable';
-import { strings } from "../../../../locales/i18n";
+import {strings} from '../../../../locales/i18n';
 
-import {
-  habitRoute,
-  settingRoute,
-  punchRoute,
-  flagRoute
-} from "../../../pages";
-import { defaultNavigationOptions, tabsOptions } from "./navigationOptions";
-import { TransitionConfiguration } from "../navigators/TransitionConfiguration";
+import {habitRoute, settingRoute, punchRoute, flagRoute} from '../../../pages';
+import {defaultNavigationOptions, tabsOptions} from './navigationOptions';
+import {TransitionConfiguration} from '../navigators/TransitionConfiguration';
 
 // 默认背景色
-const cardStyle = { backgroundColor: "white" };
+const cardStyle = {backgroundColor: 'white'};
 const stackDefoultConfig = {
   defaultNavigationOptions,
   transitionConfig: TransitionConfiguration,
-  cardStyle
+  cardStyle,
 };
 
 const PunchStack = createStackNavigator(
   {
-    ...punchRoute
+    ...punchRoute,
   },
   {
-    initialRouteName: "punch",
+    initialRouteName: 'punch',
     navigationOptions: {
-      labelName: strings("tabs.clockIn")
+      labelName: strings('tabs.clockIn'),
     },
-    ...stackDefoultConfig
-  }
+    ...stackDefoultConfig,
+  },
 );
 
 const HabitStack = createStackNavigator(
   {
-    ...habitRoute
+    ...habitRoute,
   },
   {
-    initialRouteName: "habit",
+    initialRouteName: 'habit',
     navigationOptions: {
-      labelName: strings("tabs.habit")
+      labelName: strings('tabs.habit'),
     },
-    ...stackDefoultConfig
-  }
+    ...stackDefoultConfig,
+  },
 );
 
 const FlagStack = createStackNavigator(
   {
-    ...flagRoute
+    ...flagRoute,
   },
   {
-    initialRouteName: "flag",
+    initialRouteName: 'flag',
     navigationOptions: {
-      labelName: strings("tabs.flag")
+      labelName: strings('tabs.flag'),
     },
-    ...stackDefoultConfig
-  }
+    ...stackDefoultConfig,
+  },
 );
 
 const SettingsStack = createStackNavigator(
   {
-    ...settingRoute
+    ...settingRoute,
   },
   {
-    initialRouteName: "more",
+    initialRouteName: 'more',
     navigationOptions: {
-      labelName: strings("tabs.more")
+      labelName: strings('tabs.more'),
     },
-    ...stackDefoultConfig
-  }
+    ...stackDefoultConfig,
+  },
 );
 
 export default createBottomTabNavigator(
@@ -82,16 +77,16 @@ export default createBottomTabNavigator(
     Punch: PunchStack,
     Habit: HabitStack,
     Flag: FlagStack,
-    Settings: SettingsStack
+    Settings: SettingsStack,
   },
   {
-    defaultNavigationOptions: ({ navigation }) => {
-      const { routeName, index } = navigation.state;
-      const { iconName, Icon, size } = tabsOptions[routeName];
+    defaultNavigationOptions: ({navigation}) => {
+      const {routeName, index} = navigation.state;
+      const {iconName, Icon, size} = tabsOptions[routeName];
 
       return {
         // header:null,
-        tabBarIcon: ({ focused, tintColor }) => (
+        tabBarIcon: ({focused, tintColor}) => (
           <Icon
             // delay={1000}
             // iterationCount={iterationCount}
@@ -102,7 +97,7 @@ export default createBottomTabNavigator(
           />
         ),
         tabBarButtonComponent: TouchableBounce,
-        tabBarOnPress: ({ navigation, defaultHandler }: args) => {
+        tabBarOnPress: ({navigation, defaultHandler}: args) => {
           // console.log('test:', '1111');
           defaultHandler();
           // // console.log('test:', '222');
@@ -112,7 +107,7 @@ export default createBottomTabNavigator(
           //   defaultHandler()
           // })
         },
-        tabBarVisible: index === 0
+        tabBarVisible: index === 0,
         // tabBarLabel: labelName
       };
     },
@@ -130,21 +125,21 @@ export default createBottomTabNavigator(
     // },
     tabBarOptions: {
       activeTintColor:
-        Platform.OS === "ios" ? "rgba(0,0,0,0.85)" : "rgba(0,0,0,0.65)",
-      inactiveTintColor: "rgba(0,0,0,0.2)",
+        Platform.OS === 'ios' ? 'rgba(0,0,0,0.85)' : 'rgba(0,0,0,0.65)',
+      inactiveTintColor: 'rgba(0,0,0,0.2)',
       showLabel: false,
 
       style: {
-        backgroundColor: Platform.OS === "ios" ? "#fdfbfb" : "#fdfbfb",
-        borderTopColor: "white",
-        height: 70
+        backgroundColor: Platform.OS === 'ios' ? '#fdfbfb' : '#fdfbfb',
+        borderTopColor: 'white',
+        height: 70,
       },
       labelStyle: {
-        fontSize: 11
+        fontSize: 11,
       },
       tabStyle: {
-        paddingVertical: 3
-      }
-    }
-  }
+        paddingVertical: 3,
+      },
+    },
+  },
 );

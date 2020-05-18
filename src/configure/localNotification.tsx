@@ -41,7 +41,7 @@ export function nowNotification() {
     message: '测试', // (required)
     // playSound: false, // (optional) default: true
     // soundName: 'default', // (optional) Sound to play when the notification is shown. Value of 'default' plays the default sound. It can be set to a custom sound such as 'android.resource://com.xyz/raw/my_sound'. It will look for the 'my_sound' audio file in 'res/raw' directory and play it. default: 'default' (default sound is played)
-    number: 10, // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
+    number: '10', // (optional) Valid 32 bit integer specified as string. default: none (Cannot be zero)
     repeatType: 'day', // (Android only) Repeating interval. Could be one of `week`, `day`, `hour`, `minute, `time`. If specified as time, it should be accompanied by one more parameter 'repeatTime` which should the number of milliseconds between each interval
     actions: '["Yes", "No"]', // (Android only) See the doc for notification actions to know more
   });
@@ -179,7 +179,7 @@ export default class LocalNotification extends PureComponent {
         unDoneCount += 1;
       }
 
-      (Platform.OS === 'ios' || DeviceInfo.getApiLevel() < 29) &&
+      (Platform.OS === 'ios' || DeviceInfo.getApiLevelSync() < 29) &&
         PushNotification.setApplicationIconBadgeNumber(unDoneCount);
       const {recordDay} = item.iCard;
       const notifyTimes = item.iCard.notifyTimes || [];
@@ -211,10 +211,10 @@ export default class LocalNotification extends PureComponent {
         message: `${name}小改变，大不同！`, // (required)
         date: moment(21, 'HH').toDate(), // in 60 secs
         // date: new Date(Date.now() + (1*1000)), // in 60 secs
-        data: {
-          webUrl: '',
-          action: 'com.avos.UPDATE_STATUS',
-        },
+        // data: {
+        //   webUrl: '',
+        //   action: 'com.avos.UPDATE_STATUS',
+        // },
         repeatType: 'day',
         userInfo: {type: 'local'},
       });
@@ -227,10 +227,10 @@ export default class LocalNotification extends PureComponent {
         .day(7)
         .toDate(), // in 60 secs
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
-      data: {
-        webUrl: '',
-        action: 'com.avos.UPDATE_STATUS',
-      },
+      // data: {
+      //   webUrl: '',
+      //   action: 'com.avos.UPDATE_STATUS',
+      // },
       repeatType: 'week',
       userInfo: {type: 'local'},
     });
@@ -312,7 +312,7 @@ export default class LocalNotification extends PureComponent {
       });
     }
 
-    (Platform.OS === 'ios' || DeviceInfo.getApiLevel() < 29) &&
+    (Platform.OS === 'ios' || DeviceInfo.getApiLevelSync() < 29) &&
       PushNotification.setApplicationIconBadgeNumber(unDoneCount);
 
     let {all} = localRemindData;
