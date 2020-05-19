@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-// import {SafeAreaView} from 'react-navigation';
 import Button from '../Button';
 
 export const StyledContent = styled.View`

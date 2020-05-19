@@ -1,4 +1,3 @@
-// import {NavigationActions} from 'react-navigation';
 import {
     Platform,
     DeviceEventEmitter

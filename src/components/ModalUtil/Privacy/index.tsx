@@ -14,7 +14,7 @@ import React, {useState, useEffect} from 'react';
 import {BackHandler} from 'react-native';
 import {appChannel, app_channel} from 'helps/util';
 import {useAsyncStorage} from '@react-native-community/async-storage';
-import {useNavigation, useIsFocused} from 'react-navigation-hooks';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 
 interface PrivacyModal {}
 

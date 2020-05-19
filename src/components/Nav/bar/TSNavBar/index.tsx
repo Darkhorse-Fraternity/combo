@@ -10,7 +10,7 @@ import {
   StatusBarStyle,
   TransformsStyle,
 } from 'react-native';
-import {useNavigation} from 'react-navigation-hooks';
+import {useNavigation} from '@react-navigation/native';
 const {RouterBridge} = NativeModules;
 // const NavBar = title => {
 //   return <StyledNavbar />;

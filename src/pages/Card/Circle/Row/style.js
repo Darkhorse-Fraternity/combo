@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
-import { ScrollView } from 'react-navigation';
 import Button from '../../../../components/Button';
 import ZoomImage from '../../../../components/ZoomImage/ZoomImage';
 

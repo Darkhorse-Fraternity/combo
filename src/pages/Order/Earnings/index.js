@@ -69,10 +69,10 @@ export default class Earnings extends PureComponent {
     const { navigation } = props;
     const { state } = navigation;
     const { params } = state;
-    const { gesturesEnabled } = params || { gesturesEnabled: true };
+    const { gestureEnabled } = params || { gestureEnabled: true };
     return {
       title: '',
-      gesturesEnabled
+      gestureEnabled
     };
   };
 
@@ -150,7 +150,7 @@ export default class Earnings extends PureComponent {
             this.setState({ scrollValue: containerWidthAnimatedValue });
           }}
           onChangeTab={({ i }) => {
-            this.props.navigation.setParams({ gesturesEnabled: i === 0 });
+            this.props.navigation.setParams({ gestureEnabled: i === 0 });
           }}
           renderTabBar={() => (
             <EZTabBar

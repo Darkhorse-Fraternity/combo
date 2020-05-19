@@ -12,14 +12,13 @@ import codePush from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
 
 import {creatStore} from './redux/store';
-import ReduxApp from './components/Nav/navigators/ReduxApp';
 import {theme} from './Theme';
 import Configure from './configure';
-import {creatAppNavigator} from './components/Nav/navigators/CreateAppNavigator';
-import {appChannel} from 'helps/util';
-
+import {SwitchNavigator} from '@components/Nav/components/CreateAppNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 // import {route} from './pages'
-const AppNavigator = creatAppNavigator();
+// const AppNavigator = creatAppNavigator();
 require('../helps/AnimatableRegist');
 
 // if (Platform.OS === "ios") {
@@ -73,10 +72,14 @@ export default class App extends PureComponent {
 
   render() {
     return (
-      <Provider store={creatStore(AppNavigator)}>
+      <Provider store={creatStore(SwitchNavigator)}>
         <ThemeProvider theme={theme}>
           <Configure>
-            <ReduxApp appNavigator={AppNavigator} />
+            <SafeAreaProvider>
+              <NavigationContainer>
+                <SwitchNavigator />
+              </NavigationContainer>
+            </SafeAreaProvider>
           </Configure>
         </ThemeProvider>
       </Provider>

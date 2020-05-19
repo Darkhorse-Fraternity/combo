@@ -7,7 +7,7 @@
 import styled from 'styled-components/native';
 import Button from '../../../components/Button/index';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {SafeAreaView} from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
   flex: 1;

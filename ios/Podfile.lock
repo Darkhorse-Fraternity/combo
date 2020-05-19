@@ -5,7 +5,7 @@ PODS:
     - React
   - CocoaAsyncSocket (7.6.4)
   - CocoaLibEvent (1.0.0)
-  - CodePush (6.0.0):
+  - CodePush (6.2.0):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.7)
     - React
@@ -274,6 +274,8 @@ PODS:
     - React
   - react-native-qq (3.0.0):
     - React
+  - react-native-safe-area-context (1.0.0):
+    - React
   - react-native-simple-toast (1.0.0):
     - React
     - Toast (~> 4.0.0)
@@ -354,6 +356,8 @@ PODS:
   - ReactNativeKeyboardTrackingView (5.6.1):
     - React
   - RNCAsyncStorage (1.7.1):
+    - React
+  - RNCMaskedView (0.1.10):
     - React
   - RNCPushNotificationIOS (1.2.0):
     - React
@@ -442,6 +446,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation (from `../node_modules/react-native-orientation`)
   - react-native-qq (from `../node_modules/react-native-qq`)
+  - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-umeng-analytics (from `../node_modules/react-native-umeng-analytics`)
@@ -463,6 +468,7 @@ DEPENDENCIES:
   - ReactNativeKeyboardManager (from `../node_modules/react-native-keyboard-manager`)
   - ReactNativeKeyboardTrackingView (from `../node_modules/react-native-keyboard-tracking-view`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
@@ -555,6 +561,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation"
   react-native-qq:
     :path: "../node_modules/react-native-qq"
+  react-native-safe-area-context:
+    :path: "../node_modules/react-native-safe-area-context"
   react-native-simple-toast:
     :path: "../node_modules/react-native-simple-toast"
   react-native-splash-screen:
@@ -595,6 +603,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keyboard-tracking-view"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNCMaskedView:
+    :path: "../node_modules/@react-native-community/masked-view"
   RNCPushNotificationIOS:
     :path: "../node_modules/@react-native-community/push-notification-ios"
   RNDateTimePicker:
@@ -628,7 +638,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
-  CodePush: 58d8b6595f46057ca1f49c55fb6860ad7fd38ce3
+  CodePush: 3285d39e9865e0a37a415417402bf568ce49268a
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 4aab18c93cd9546e4bfed752b4084585eca8b245
   FBReactNativeSpec: 5465d51ccfeecb7faa12f9ae0024f2044ce4044e
@@ -665,6 +675,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 817823a90f13ced48413875c0820df04c3aae28d
   react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
+  react-native-safe-area-context: a346c75f2288147527365ce27b59ca6d38c27805
   react-native-simple-toast: 6c376bd79b1e255a4bee90a72ead6447f96ea10d
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
   react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
@@ -685,6 +696,7 @@ SPEC CHECKSUMS:
   ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
   ReactNativeKeyboardTrackingView: a240a6a0dba852bb107109a7ec7e98b884055977
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNCPushNotificationIOS: 4d9ffd08f00ef6c1029ebbf4d72fc711eca3ff01
   RNDateTimePicker: 4bd49e09f91ca73d69119a9e1173b0d43b82f5e5
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4

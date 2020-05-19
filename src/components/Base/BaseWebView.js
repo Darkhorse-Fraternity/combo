@@ -23,7 +23,6 @@ import { connect } from 'react-redux';
 
 
 const WEBVIEW_REF = 'webview';
-// import { NavigaNavigation } from 'react-navigation';
 
 // const noWifi = require('../../../source/img/xy_nowifi/xy_nowifi.png');
 

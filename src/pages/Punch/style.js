@@ -5,7 +5,7 @@
 
 
 import styled from 'styled-components';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
@@ -16,7 +16,7 @@ export const StyledContent = styled(SafeAreaView)`
 `;
 
 export const StyledHeader = styled.View`
-    padding: ${Platform.OS === 'ios' ? 44 : 64}px 0px 5px 0px;
+    padding: ${Platform.OS === 'ios' ? 64 : 44}px 0px 5px 0px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;  

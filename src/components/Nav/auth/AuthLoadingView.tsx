@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react';
 import {
   ActivityIndicator,
   StatusBar,
   StyleSheet,
   View,
-  Text
-} from "react-native";
-import NetInfo from "@react-native-community/netinfo";
+  Text,
+} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 // import AsyncStorage from '@react-native-community/async-storage';
 // import { loadUserData } from '../../../configure/storage'
 // import { loginSucceed } from '../../../redux/actions/user'
-import { connect } from "react-redux";
+import {connect} from 'react-redux';
 // import Toast from 'react-native-simple-toast';
-import moment from "moment";
-import { userInfo } from "../../../redux/actions/user";
+import moment from 'moment';
+import {userInfo} from '../../../redux/actions/user';
 // import { search } from '../../../redux/module/leancloud';
 // import { selfUser } from '../../../request/LCModle';
-import { IUSE, FLAGRECORD } from "../../../redux/reqKeys";
-import { firstInstaller } from "../../../../helps/util";
-import Indicators from "../../Indicators";
-import { listReq } from "../../../redux/actions/list";
-import { iUseList as iUseListParams } from "../../../request/leanCloud";
-import { addNormalizrEntities } from "../../../redux/module/normalizr";
+import {IUSE, FLAGRECORD} from '../../../redux/reqKeys';
+import {firstInstaller} from '../../../../helps/util';
+import Indicators from '../../Indicators';
+import {listReq} from '../../../redux/actions/list';
+import {iUseList as iUseListParams} from '../../../request/leanCloud';
+import {addNormalizrEntities} from '../../../redux/module/normalizr';
 
 @connect(
   state => ({}),
@@ -48,7 +48,7 @@ import { addNormalizrEntities } from "../../../redux/module/normalizr";
           const p1 = dispatch(
             listReq(IUSE, iUseListParams(), false, {
               dataMap: data => {
-                const { iUseList } = data.result;
+                const {iUseList} = data.result;
                 // 添加副本
                 // console.log('fbList', fbList);
 
@@ -56,21 +56,21 @@ import { addNormalizrEntities } from "../../../redux/module/normalizr";
 
                 // 通过本地时间验证,判断今日是否已经打卡
                 const newIUseList = iUseList.sort((a, b) => {
-                  const aDone = moment(0, "HH").isBefore(a.doneDate.iso);
-                  const bDone = moment(0, "HH").isBefore(b.doneDate.iso);
+                  const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+                  const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
                   if (aDone && bDone) {
                     return false;
                   }
                   return aDone;
                 });
-                return { results: newIUseList };
-              }
-            })
+                return {results: newIUseList};
+              },
+            }),
           );
 
           let timer;
           const p2 = new Promise(resolve => {
-            timer = setTimeout(resolve, 9000, "one");
+            timer = setTimeout(resolve, 9000, 'one');
           });
 
           await Promise.race([p1, p2]);
@@ -86,30 +86,30 @@ import { addNormalizrEntities } from "../../../redux/module/normalizr";
           const isFirstInstaller = await firstInstaller();
           // console.log('isFirstInstaller:', isFirstInstaller);
           if (user.isTourist && isFirstInstaller) {
-            props.navigation.navigate("login", { transition: "forVertical" });
+            props.navigation.navigate('login', {transition: 'forVertical'});
           } else {
-            props.navigation.navigate("tab");
+            props.navigation.navigate('tab');
           }
           // });
         }
         // props.navigation.navigate(user ? 'tab' : 'login');
       } catch (e) {
-        console.log("bootstrapAsync error:", e.message);
+        console.log('bootstrapAsync error:', e.message);
         // Toast.show(e.message)
         // props.navigation.navigate('login');
       }
-    }
-  })
+    },
+  }),
 )
 export default class AuthLoadingScreen extends React.Component {
   unsubscribe = null;
   async componentDidMount() {
-    const { isConnected } = await NetInfo.fetch();
+    const {isConnected} = await NetInfo.fetch();
     if (!isConnected) {
       // console.log('111');
       this.unsubscribe = NetInfo.addEventListener(
-        "connectionChange",
-        this.handleFirstConnectivityChange
+        'connectionChange',
+        this.handleFirstConnectivityChange,
       );
     } else {
       this.props.bootstrapAsync();
@@ -121,7 +121,7 @@ export default class AuthLoadingScreen extends React.Component {
   }
 
   handleFirstConnectivityChange = isConnected => {
-    console.log(`Then, is ${isConnected ? "online" : "offline"}`);
+    console.log(`Then, is ${isConnected ? 'online' : 'offline'}`);
     if (isConnected) {
       this.props.bootstrapAsync();
     }
@@ -144,14 +144,14 @@ export default class AuthLoadingScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     marginTop: 10,
     fontSize: 15,
-    color: "#9e9e9e",
-    fontStyle: "italic",
-    alignSelf: "center"
-  }
+    color: '#9e9e9e',
+    fontStyle: 'italic',
+    alignSelf: 'center',
+  },
 });

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Button from '../../../components/Button';
 

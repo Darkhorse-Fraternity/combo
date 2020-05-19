@@ -1,11 +1,11 @@
-import { NavigationActions, StackActions } from 'react-navigation';
+import {CommonActions,StackActions } from '@react-navigation/native';
 
 export function push(key, params) {
-  return dispatch => dispatch(NavigationActions.navigate({ routeName: key, params }));
+  return dispatch => dispatch(CommonActions.navigate({ routeName: key, params }));
 }
 
-export function pop(key) {
-  return dispatch => dispatch(NavigationActions.back({ key }));
+export function pop() {
+  return dispatch => dispatch(CommonActions.goBack());
 }
 
 export function popToIndex(n = 0) {

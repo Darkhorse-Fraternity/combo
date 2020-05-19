@@ -13,10 +13,10 @@ import {
   Text,
   TouchableOpacity,
   Alert,
-  Platform
+  Platform,
+  FlatList
 } from 'react-native';
 import { connect } from 'react-redux';
-import { FlatList, } from 'react-navigation';
 import moment from 'moment';
 import * as Animatable from 'react-native-animatable';
 import { selfUser, } from '../../request/LCModle';
@@ -147,7 +147,7 @@ export default class Habit extends PureComponent {
                              // console.log('test:', params,localLoad);
                              props => ({
                                // gesturesEnabled: false,
-                               header: null
+                               headerShown: false,
 
                                //     headerRight: ( <TouchableOpacity
                                //         style={styles.headerBtn}

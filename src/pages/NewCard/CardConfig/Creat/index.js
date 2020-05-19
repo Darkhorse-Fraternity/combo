@@ -187,7 +187,7 @@ export default class Creat extends PureComponent {
                              // const {state} = navigation;
                              // const {params} = state;
                              props => ({
-                               header: null,
+                              headerShown: false,
                                title: null,
                                headerLeft: null
                              })

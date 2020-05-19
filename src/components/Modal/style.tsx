@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-// import {SafeAreaView} from 'react-navigation';
 import Button from '@components/Button';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 

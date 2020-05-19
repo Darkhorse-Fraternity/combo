@@ -19,10 +19,7 @@ import {
   BackHandler,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import Toast from 'react-native-simple-toast';
-import {SafeAreaView} from 'react-navigation';
 import {strings} from '../../../locales/i18n';
-import {requestExternalStoragePermission} from '../../../helps/permission';
 import {saveToCameraRoll} from '../../../helps/saveToCameraRoll';
 import Modal from 'react-native-modal';
 import Button from '../Button';

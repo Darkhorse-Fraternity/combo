@@ -38,13 +38,13 @@ import { addNormalizrEntity } from "../../redux/module/normalizr";
   (state, props) => {
     const iCard = state.normalizr
       .get("iCard")
-      .get(props.navigation.state.params.iCardId);
+      .get(props.navigation.state?.params?.iCardId);
     // const courseId = iCard.get('course')
     return {
       iCard,
       iUse: state.normalizr
         .get("iUse")
-        .get(props.navigation.state.params.iUseId),
+        .get(props.navigation.state?.params?.iUseId),
       user: state.user.data
       // course:
       // course: courseId && state.normalizr.get(COURSE).get(courseId)
@@ -112,13 +112,13 @@ export default class Card extends PureComponent {
   static navigationOptions = props => {
     const { navigation } = props;
     const { state } = navigation;
-    const { params } = state;
+    const { params } = state || {};
 
-    const { gesturesEnabled } = params || { gesturesEnabled: true };
+    const { gestureEnabled } = params || { gestureEnabled: true };
     return {
       //   title:params && params.title,
-      header: null,
-      gesturesEnabled
+      headerShown: false,
+      gestureEnabled
       // headerRight:params.renderRightView && params.renderRightView()
     };
   };
@@ -203,7 +203,7 @@ export default class Card extends PureComponent {
           ref="ScrollableTabView"
           locked={state !== CircleState.open}
           onChangeTab={({ i }) => {
-            this.props.navigation.setParams({ gesturesEnabled: i === 0 });
+            this.props.navigation.setParams({ gestureEnabled: i === 0 });
           }}
           onScroll={x => {
             // if(state === CircleState.open){

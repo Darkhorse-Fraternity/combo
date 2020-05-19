@@ -4,7 +4,7 @@
  * https://github.com/facebook/react-native
  */
 
-import { NavigationActions, StackActions } from 'react-navigation';
+import { CommonActions, StackActions } from '@react-navigation/native';
 // *** Action Types ***
 import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
@@ -148,10 +148,7 @@ const anonymousUser = () => async (dispatch) => {
     const user = await get(userInfoParmas);
     await dispatch(_loginSucceed(user));
     await dispatch(addSample(user));
-    //
-    // dispatch(NavigationActions.navigate({
-    //   routeName: 'tab'
-    // }))
+
     return user;
     // console.log('user:', user);
   } catch (e) {
@@ -336,9 +333,6 @@ export function register(state: Object): Function {
       const user = await get(params);
       await dispatch(_loginSucceed(user));
       await dispatch(addSample(user));
-      // dispatch(NavigationActions.navigate({
-      //   routeName: 'punch'
-      // }))
       dispatch(StackActions.pop());
       return user;
     } catch (e) {
@@ -439,12 +433,11 @@ export function logout(): Function {
       Keychain.resetGenericPassword();
 
       dispatch(logout2());// 先退出
-      // dispatch(NavigationActions.navigate({ routeName: 'login' }))
       updatePush(user('null'));
 
       // await dispatch(anonymousUser())
 
-      dispatch(NavigationActions.navigate({ routeName: 'AuthLoading' }));
+      dispatch(CommonActions.navigate({ routeName: 'AuthLoading' }));
       // return loadAccount(ret => {
       //   //加载本地数据。
       //   dispatch(_loadAccount(ret));
@@ -563,10 +556,6 @@ export function weChatLogin(Key) {
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
           await dispatch(addSample(user));
-          // dispatch(NavigationActions.navigate({
-          //   routeName: 'tab',
-          //   params: { transition: 'forVertical' }
-          // }))
           dispatch(StackActions.pop());
         } else {
           Toast.show(JSON.stringify(weConfig));
@@ -643,10 +632,6 @@ export function qqLogin(Key) {
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
           await dispatch(addSample(user));
-          // dispatch(NavigationActions.navigate({
-          //   routeName: 'tab',
-          //   params: { transition: 'forVertical' }
-          // }))
           dispatch(StackActions.pop());
         }
       }

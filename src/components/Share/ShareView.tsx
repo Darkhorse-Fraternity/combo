@@ -5,7 +5,7 @@
 
 import * as immutable from 'immutable';
 import React, {Component, PropTypes} from 'react';
-import {SafeAreaView} from 'react-navigation';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   View,
   Text,

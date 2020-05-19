@@ -74,7 +74,7 @@ import {daysText} from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
 import {PasswordValidation} from './PasswordValidation';
 import {User} from 'src/interface';
-import {NavigationInjectedProps} from 'react-navigation';
+import {NavigationInjectedProps} from '@react-navigation/native';
 
 interface StateType {
   showModal: boolean;

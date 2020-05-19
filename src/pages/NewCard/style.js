@@ -5,7 +5,7 @@
 
 import styled from "styled-components";
 import { materialColors } from "react-native-typography";
-import { SafeAreaView, ScrollView } from "react-navigation";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from "react-native-vector-icons/Feather";
 import HeaderBtn from "../../components/Button/HeaderBtn";
 
@@ -25,7 +25,7 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `;
 
-export const StyledTop = styled(ScrollView)`
+export const StyledTop = styled.ScrollView`
 `;
 
 export const StyledHeader = styled.View`

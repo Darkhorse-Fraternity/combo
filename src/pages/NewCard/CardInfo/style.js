@@ -7,7 +7,7 @@
 import styled from 'styled-components';
 
 // import Button from '../../../components/Button'
-// import { SafeAreaView } from 'react-navigation';
+
 import LinearGradient from 'react-native-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';

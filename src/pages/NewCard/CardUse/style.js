@@ -5,7 +5,7 @@
 'use strict';
 
 import styled from "styled-components";
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 export const StyledContent = styled(SafeAreaView)`
     flex: 1;
 `

@@ -307,7 +307,7 @@ export default class RComment extends PureComponent {
     // const { iDoLoad, iDoDelete, isSelf } = params;
     ({
       // title: '',
-      header: null
+      headerShown: false,
       // headerRight: (
       //   isSelf && (
       //   <Button

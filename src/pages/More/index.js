@@ -95,13 +95,13 @@ export default class More extends Component {
   static navigationOptions = (props) => {
     const { navigation } = props;
     const { state } = navigation;
-    const { params } = state;
+    const { params } = state || {};
     const isLogin = params ? params.isLogin : false;
     // console.log('test:', params,localLoad);
     return {
       // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-      gesturesEnabled: false,
-      header: null
+      gestureEnabled: false,
+      headerShown: false,
 
     };
   };

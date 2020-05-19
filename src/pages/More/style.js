@@ -7,7 +7,7 @@
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 import Button from '../../components/Button/index';
 

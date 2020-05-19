@@ -39,13 +39,13 @@ const listKey = ICARD;
   }),
   (dispatch, props) => ({})
 )
-export default class Publish extends PureComponent {
+export default class NewCard extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {};
 
   static navigationOptions = () => ({
-    header: null
+    headerShown: false,
   });
 
   constructor(props: Object) {

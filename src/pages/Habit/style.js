@@ -10,7 +10,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {BorderlessButton} from 'react-native-gesture-handler'
 import {Platform} from 'react-native'
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export const StyledContent = styled.ScrollView`
     flex: 1;

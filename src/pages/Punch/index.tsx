@@ -6,7 +6,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {View, Dimensions, SectionList, Alert} from 'react-native';
-// import { FlatList, } from 'react-navigation';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
@@ -112,8 +111,10 @@ export default class Punch extends Component {
     // console.log('test:', params,localLoad);
     props => ({
       // gesturesEnabled: false,
-      header: null,
+      headerShown: false,
       // title:strings('app.name')
+      // headerTransparent: true,
+      // title: '',
     });
 
   componentDidMount() {

@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {BorderlessButton} from 'react-native-gesture-handler'
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import {Platform} from 'react-native'
 
 export const StyledContent = styled(SafeAreaView)`

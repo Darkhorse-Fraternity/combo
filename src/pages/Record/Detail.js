@@ -55,7 +55,7 @@ export default class Detail extends PureComponent {
     const iCardId = props.navigation.state.params.iCardId
 
     return {
-      header: null,
+      headerShown: false,
       // headerRight: ( <StyledHeaderBtn
       //     // load={false}
       //     // style={{ backgroundColor: color }}

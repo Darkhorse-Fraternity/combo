@@ -14,9 +14,9 @@ import {
   Text,
   Platform,
   Dimensions,
-  FlatList as FlatListAndroid
+  FlatList,
+  SectionList
 } from "react-native";
-import { SectionList, FlatList as FlatListIOS } from "react-navigation";
 import ExceptionView, { ExceptionType } from "./ExceptionView";
 
 // const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
@@ -188,7 +188,6 @@ export default class BaseSectionView extends PureComponent {
       style,
       ...otherProps
     } = this.props;
-    const FlatList = Platform.os === "ios" ? FlatListIOS : FlatListAndroid;
     const TableView = sections.length > 0 ? SectionList : FlatList;
 
     // console.log('loadStatu:', loadStatu);

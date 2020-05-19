@@ -1,4 +1,3 @@
-import { NavigationActions } from "react-navigation";
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
 import tracker from "react-native-umeng-analytics";
 
@@ -36,8 +35,8 @@ const tracking = ({ getState }) => next => action => {
   }
   // action.type === 'LOGIN_SUCCEED' && console.log('id:', action.data.objectId);
   if (
-    action.type !== NavigationActions.NAVIGATE &&
-    action.type !== NavigationActions.BACK
+    action.type !== 'NAVIGATE' &&
+    action.type !== 'GO_BACK'
   ) {
     return next(action);
   }

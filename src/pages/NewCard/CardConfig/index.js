@@ -157,7 +157,7 @@ export default class CardConfig extends PureComponent {
   static defaultProps = {};
 
   static navigationOptions = props => ({
-    header: null,
+    headerShown: false,
   });
 
   // shouldComponentUpdate(nextProps: Object, nextState: Object) {

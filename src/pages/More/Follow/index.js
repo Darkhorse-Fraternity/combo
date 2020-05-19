@@ -46,10 +46,10 @@ export default class Follow extends Component {
     const {navigation} = props;
     const {state} = navigation;
     const {params} = state;
-    const { gesturesEnabled  } = params || {gesturesEnabled: true}
+    const { gestureEnabled  } = params || {gestureEnabled: true}
     return {
       // header:null,
-      gesturesEnabled:gesturesEnabled
+      gestureEnabled:gestureEnabled
     }
   };
 
@@ -68,7 +68,7 @@ export default class Follow extends Component {
              this.setState({ scrollValue: containerWidthAnimatedValue });
            }}
           onChangeTab={({i}) =>{
-            this.props.navigation.setParams({gesturesEnabled:i === 0})
+            this.props.navigation.setParams({gestureEnabled:i === 0})
           }}
           renderTabBar={() => (
             <TitleTabBar

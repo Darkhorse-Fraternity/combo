@@ -6,7 +6,7 @@
 
 import styled from "styled-components";
 import Button from '../../../components/Button'
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ZoomImage from '../../../components/ZoomImage/ZoomImage'
 import FastImage from 'react-native-fast-image'
 

@@ -7,7 +7,8 @@
 import styled from 'styled-components';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { SafeAreaView } from 'react-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`

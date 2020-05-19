@@ -10,7 +10,7 @@ import {
   AppState,
   View,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
+import {StackActions, CommonActions} from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';
 import KeyboardManager from 'react-native-keyboard-manager';
@@ -32,7 +32,7 @@ interface StateType {
 
 @connect(
   state => ({
-    nav: state.nav,
+    // nav: state.nav,
     isLogin: state.user.isLogin,
   }),
   // (dispatch, props) => ({
@@ -69,7 +69,7 @@ export default class Configure extends React.Component<{}, StateType> {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    nav: PropTypes.object.isRequired,
+    // nav: PropTypes.object.isRequired,
   };
 
   static defaultProps = {};
@@ -143,7 +143,7 @@ export default class Configure extends React.Component<{}, StateType> {
 
         console.log('routeName:', routeName);
         console.log('params:', params);
-        this.props.dispatch(NavigationActions.navigate({routeName, params}));
+        this.props.dispatch(CommonActions.navigate({key: routeName, params}));
       }
     }
   };
@@ -237,7 +237,7 @@ export default class Configure extends React.Component<{}, StateType> {
       const tabIndex = tab.index;
       const tabNav = tab.routes[tabIndex];
       if (tabNav.index > 0) {
-        dispatch(NavigationActions.back());
+        dispatch(StackActions.pop());
         return true;
       }
     }
@@ -277,12 +277,12 @@ export default class Configure extends React.Component<{}, StateType> {
     // const level = DeviceInfo.getApiLevelSync(); // andorid q 用会报错
 
     return (
-      <View style={{flex: 1}}>
+      <>
         {!this.state.isEmulator && <LocalNotification />}
         <LightStatuBar />
         {this.props.children}
         <InfoBar />
-      </View>
+      </>
     );
   }
 }

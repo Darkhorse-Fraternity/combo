@@ -1,6 +1,5 @@
-import styled from "styled-components/native";
-// import {SafeAreaView} from 'react-navigation';
-import Button from "@components/Button";
+import styled from 'styled-components/native';
+import Button from '@components/Button';
 
 export const StyledContent = styled.View`
   flex: 1;
@@ -34,11 +33,11 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledButtonText = styled.Text<submitType>`
-  color: ${(props) => (!props.disabled ? "rgb(50,50,50)" : "rgb(200,200,200)")};
+  color: ${props => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
 `;
 
 export const StyledUnderLine = styled.View`
   background-color: rgb(200, 200, 200);
   margin-top: 2;
-  height: ${(props) => props.theme.hairlineWidth};
+  height: ${props => props.theme.hairlineWidth};
 `;

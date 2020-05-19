@@ -31,6 +31,7 @@ export default class Search extends PureComponent {
 
   static navigationOptions = () => ({
     // header: null,
+    title:''
   });
 
 
