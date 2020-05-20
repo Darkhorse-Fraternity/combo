@@ -7,7 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import {strings} from '../../../../locales/i18n';
 import HeaderBackImage from './HeaderBackImage';
-import {StackNavigationOptions} from '@react-navigation/stack/lib/typescript/src/vendor/types';
+import {StackNavigationOptions} from '@react-navigation/stack';
 import {TransitionPresets} from '@react-navigation/stack';
 
 export const defaultNavigationOptions: StackNavigationOptions = {

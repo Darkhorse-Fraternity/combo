@@ -6,10 +6,12 @@ import AuthLoadingScreen from '../auth/AuthLoadingView';
 import {
   createStackNavigator,
   StackNavigationOptions,
+  TransitionPresets,
 } from '@react-navigation/stack';
 
 export const screenOptions: StackNavigationOptions = {
   gestureEnabled: false,
+  ...TransitionPresets.ModalSlideFromBottomIOS,
 };
 
 export const SwitchNavigator = () => {

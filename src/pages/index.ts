@@ -1,5 +1,3 @@
-import {Platform} from 'react-native';
-
 import Habit from './Habit';
 import Creat from './NewCard/CardConfig/Creat';
 import NewCard from './NewCard';
@@ -35,50 +33,50 @@ import Tool from './More/Tool';
 import Search from './NewCard/Search';
 
 export const otherRoute = {
-  web: {screen: WebView},
-  search: {screen: Search},
+  web: {screen: WebView,options:WebView.navigationOptions},
+  search: {screen: Search,options:Search.navigationOptions},
   tool: {screen: Tool},
-  FlagRecord: {screen: FlagRecord},
-  earnings: {screen: Earnings},
-  remind: {screen: Remind},
-  cash: {screen: Cash},
-  recordDetail: {screen: RecordDetail},
-  cardSetting: {screen: CardSetting},
-  followee: {screen: Followee, path: 'combo/:Followee'},
-  follower: {screen: Follower},
-  follow: {screen: Follow},
-  following: {screen: Following},
-  creat: {screen: Creat, path: 'combo/:Creat'},
-  newCard: {screen: NewCard},
-  record: {screen: Record},
-  cardConfig: {screen: CardConfig},
+  FlagRecord: {screen: FlagRecord,options:FlagRecord.navigationOptions},
+  earnings: {screen: Earnings,options:Earnings.navigationOptions},
+  remind: {screen: Remind,options:Remind.navigationOptions},
+  cash: {screen: Cash,options:Cash.navigationOptions},
+  recordDetail: {screen: RecordDetail,options:RecordDetail.navigationOptions},
+  cardSetting: {screen: CardSetting,options:CardSetting.navigationOptions},
+  followee: {screen: Followee,options:Followee.navigationOptions, path: 'combo/:Followee'},
+  follower: {screen: Follower,options:Follower.navigationOptions},
+  follow: {screen: Follow,options:Follow.navigationOptions},
+  following: {screen: Following,options:Following.navigationOptions},
+  creat: {screen: Creat,options:Creat.navigationOptions, path: 'combo/:Creat'},
+  newCard: {screen: NewCard,options:NewCard.navigationOptions},
+  record: {screen: Record,options:Record.navigationOptions},
+  cardConfig: {screen: CardConfig,options:CardConfig.navigationOptions},
   account: {screen: Account},
-  feedback: {screen: Feedback},
-  publishing: {screen: Publishing},
-  cardInfo: {screen: CardInfo},
-  rcomment: {screen: RComment},
-  card: {screen: Card},
-  cardUse: {screen: CardUse},
-  more: {screen: More},
-  login: {screen: LoginView},
-  flagDetail: {screen: FlagDetail},
-  FRDetail: {screen: FRDetail},
-  cirlcleSetting: {screen: CirlcleSetting},
+  feedback: {screen: Feedback,options:Feedback.navigationOptions},
+  publishing: {screen: Publishing,options:Publishing.navigationOptions},
+  cardInfo: {screen: CardInfo,options:CardInfo.navigationOptions},
+  rcomment: {screen: RComment,options:RComment.navigationOptions},
+  card: {screen: Card,options:Card.navigationOptions},
+  cardUse: {screen: CardUse,options:CardUse.navigationOptions},
+  more: {screen: More,options:More.navigationOptions},
+  login: {screen: LoginView,options:LoginView.navigationOptions},
+  flagDetail: {screen: FlagDetail,options:FlagDetail.navigationOptions},
+  FRDetail: {screen: FRDetail,options:FRDetail.navigationOptions},
+  cirlcleSetting: {screen: CirlcleSetting,options:CirlcleSetting.navigationOptions},
   // pptDescribe: { screen: PPTDescribe },
 };
 
 export const punchRoute = {
-  punch: {screen: Punch},
+  punch: {screen: Punch,options:Punch.navigationOptions},
   ...otherRoute,
 };
 
 export const habitRoute = {
-  habit: {screen: Habit},
+  habit: {screen: Habit,options:Habit.navigationOptions},
   ...otherRoute,
 };
 
 export const flagRoute = {
-  flag: {screen: Flag},
+  flag: {screen: Flag,options:Flag.navigationOptions},
   ...otherRoute,
 };
 

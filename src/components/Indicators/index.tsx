@@ -28,20 +28,28 @@ export default class Indicators extends PureComponent {
   }
 
   componentDidMount() {
-    this.toMax();
+    this.start();
   }
 
-  toMax() {
+  start() {
     // this.springValue.setValue(0);
     Animated.loop(
-      Animated.timing(this.springValue, {
-        toValue: 1,
-        duration: 2000,
-        easing: Easing.linear,
-        useNativeDriver: true,
-        isInteraction: false,
-      }).start(),
-    );
+      Animated.sequence([
+        Animated.timing(this.springValue, {
+          toValue: 1,
+          duration: 3000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(this.springValue, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+      ]),
+      {
+        iterations: 100,
+      },
+    ).start();
   }
 
   render(): ReactElement<any> {
