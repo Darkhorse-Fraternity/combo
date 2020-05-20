@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@0x5e/react-native-alipay@git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#0.2.5":
+"@0x5e/react-native-alipa@git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6", "@0x5e/react-native-alipay@git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6":
   version "0.2.4"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#952b983f45139cdb7981ed192108111288b55df8"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#7399bef6a1135a81519d218c338fb378ba37e13b"
   dependencies:
     buffer "^5.0.8"
     jsrsasign "^8.0.4"
@@ -7708,9 +7708,9 @@ react-native-push-notification@3.4.0:
   dependencies:
     "@react-native-community/push-notification-ios" "^1.2.0"
 
-"react-native-qq@git+https://github.com/Darkhorse-Fraternity/react-native-qq.git#update":
+"react-native-qq@git+https://github.com/Darkhorse-Fraternity/react-native-qq.git":
   version "3.0.0"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-qq.git#94ca5e652c62489af48fca8dbbf91661a8868ce7"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-qq.git#f03a706f57a5c449b91402a8c8791b877d0e3361"
 
 react-native-rate@1.1.2:
   version "1.1.2"

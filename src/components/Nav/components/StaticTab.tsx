@@ -15,7 +15,7 @@ interface RootStackParamList {}
 
 interface StackPropsType {
   initialRouteName: string;
-  route: Record<string, {screen: React.ComponentType<any>; options: any}>;
+  route: {string: {screen: React.ComponentType<any>; options: any}};
 }
 
 const OrigenStack = (props: StackPropsType) => {

@@ -5,7 +5,7 @@
 #import <React/RCTBridgeModule.h>
 #endif
 
-@interface RNAppMetadata : NSObject <RCTBridgeModule>
+@interface RNAppUtil : NSObject <RCTBridgeModule>
 
 @end
   

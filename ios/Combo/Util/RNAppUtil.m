@@ -1,12 +1,19 @@
 
 #import "RNAppUtil.h"
 
-@implementation RNAppMetadata
+@implementation RNAppUtil
 
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
 }
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
+
+
 RCT_EXPORT_MODULE()
 
 - (NSDictionary *)constantsToExport {

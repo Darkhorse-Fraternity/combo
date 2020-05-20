@@ -4,7 +4,6 @@
  */
 
 import React, {PureComponent} from 'react';
-import {Platform, Alert} from 'react-native';
 import {Provider} from 'react-redux';
 import {ThemeProvider} from 'styled-components';
 import SplashScreen from 'react-native-splash-screen';
@@ -14,7 +13,7 @@ import codePush from 'react-native-code-push';
 import {creatStore} from './redux/store';
 import {theme} from './Theme';
 import Configure from './configure';
-import {SwitchNavigator} from '@components/Nav/components/CreateAppNavigator';
+import {SwitchNavigator} from '@components/Nav/components/SwitchNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 // import {route} from './pages'
