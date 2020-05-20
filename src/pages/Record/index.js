@@ -54,7 +54,7 @@ const Archive = `${IUSE}archive`;
   dispatch => ({
     refresh: async (data, handleView) => {
       const id = data.objectId;
-      // const card = props.navigation.state.params.iCard
+      // const card = props.navigation.route.iCard
 
       // const isDone = data.time % card.period === 0
 

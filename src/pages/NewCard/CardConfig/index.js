@@ -47,11 +47,11 @@ const FormID = 'CreatCardForm';
 
 @connect(
   (state, props) => {
-    const id = props.navigation.state.params.iCardId;
+    const id = props.navigation.route.iCardId;
     let iCard = state.normalizr.get('iCard').get(id);
     iCard = iCard && iCard.toJS();
 
-    // const data = props.navigation.state.params.opData
+    // const data = props.navigation.route.opData
     const propsOption = {
       ...defaultHabit,
       ...iCard,
@@ -70,7 +70,7 @@ const FormID = 'CreatCardForm';
     // ...bindActionCreators({},dispatch),
     refresh: async () => dispatch(async (dispatch, getState) => {
       {
-        const id = props.navigation.state.params.iCardId;
+        const id = props.navigation.route.iCardId;
         const state = getState();
         const selector = formValueSelector(FormID);
 

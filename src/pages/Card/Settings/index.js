@@ -64,11 +64,11 @@ const Archive = `${IUSE}archive`;
 @connect(
   (state, props) => ({
     user: state.user.data,
-    iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
-    iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
-    // iCardUser: state.normalizr.get('user').get(props.navigation.state.params.iCard.user),
-    // iUse: state.normalizr.get('iUse').get(props.navigation.state.params.iUseId),
-    // iCard: state.normalizr.get('iCard').get(props.navigation.state.params.iCardId),
+    iCard: state.normalizr.get('iCard').get(props.navigation.route.iCardId),
+    iUse: state.normalizr.get('iUse').get(props.navigation.route.iUseId),
+    // iCardUser: state.normalizr.get('user').get(props.navigation.route.iCard.user),
+    // iUse: state.normalizr.get('iUse').get(props.navigation.route.iUseId),
+    // iCard: state.normalizr.get('iCard').get(props.navigation.route.iCardId),
     iUseLoad: state.req.get(IUSE).get('load'),
     archive: state.req.get(Archive),
     // updatePrivacyLoad: state.req.get('updatePrivacy') && state.req.get('updatePrivacy').get('load'),
@@ -76,7 +76,7 @@ const Archive = `${IUSE}archive`;
   (dispatch, props) => ({
     refresh: async (data) => {
       const id = data.objectId;
-      const card = props.navigation.state.params.iCard;
+      const card = props.navigation.route.iCard;
 
       // const isDone = data.time % card.period === 0
 
@@ -172,7 +172,7 @@ export default class Settings extends PureComponent {
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    const { iCardId } = props.navigation.state.params;
+    const { iCardId } = props.navigation.route;
     return {
       title: '',
       headerRight: (porps)=>(<StyledBtn

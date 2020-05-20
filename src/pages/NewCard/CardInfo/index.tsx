@@ -96,7 +96,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
 
 @connect(
   (state, props) => {
-    const {iCardId} = props.navigation.state.params;
+    const {iCardId} = props.navigation.route;
     const iCard = state.normalizr.get(ICARD).get(iCardId);
     const userId = iCard && iCard.get('user');
     // console.log('iCardId:', iCardId);
@@ -124,7 +124,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
     loadCard: () => {
-      const {iCardId} = props.navigation.state.params;
+      const {iCardId} = props.navigation.route;
       dispatch(
         find(
           ICARD,
@@ -224,13 +224,13 @@ export default class CardInfo extends PureComponent<
     if (this.props.user) {
       this.props.loadUser(this.props.user.toJS());
     }
-    this.props.exist(this.props.navigation.state.params.iCardId);
+    this.props.exist(this.props.navigation.route.iCardId);
     this.props.loadCourse(this.props.course);
   }
 
   componentWillReceiveProps(nextProps: NavAndPropsType) {
     if (nextProps.user !== this.props.user) {
-      this.props.exist(this.props.navigation.state.params.iCardId);
+      this.props.exist(this.props.navigation.route.iCardId);
     }
   }
 

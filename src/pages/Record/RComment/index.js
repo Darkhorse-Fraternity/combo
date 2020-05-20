@@ -73,22 +73,22 @@ const Name = "text";
   (state, props) => ({
     // data:state.req.get()
     user: state.user.data,
-    iDoData: state.normalizr.get(IDO).get(props.navigation.state.params.iDoID),
+    iDoData: state.normalizr.get(IDO).get(props.navigation.route.iDoID),
     iDoLoad: state.req.get(IDO).get("load")
   }),
   (dispatch, props) => ({
     find: () => {
-      const id = props.navigation.state.params.iDoID;
+      const id = props.navigation.route.iDoID;
       // console.log('id:', id);
       dispatch(findByID(IDO, id));
     },
     send: () =>
       dispatch(async (dispatch, getState) => {
         const state = getState();
-        const { iDoID } = props.navigation.state.params;
+        const { iDoID } = props.navigation.route;
         let iDoData = state.normalizr
           .get(IDO)
-          .get(props.navigation.state.params.iDoID);
+          .get(props.navigation.route.iDoID);
         iDoData = iDoData && iDoData.toJS();
 
         const selector = formValueSelector(FormID); // <-- same as form name
@@ -135,9 +135,9 @@ const Name = "text";
         {
           text: "确定",
           onPress: async () => {
-            const { iDoID } = props.navigation.state.params;
-            const { iUseId } = props.navigation.state.params;
-            const { iCardId } = props.navigation.state.params;
+            const { iDoID } = props.navigation.route;
+            const { iUseId } = props.navigation.route;
+            const { iCardId } = props.navigation.route;
             // console.log('iCardId:', iCardId);
             const param = { state: -1 };
             const res = await dispatch(updateByID(IDO, iDoID, param));
@@ -199,7 +199,7 @@ const Name = "text";
       ]);
     },
     delete: async item => {
-      const { iDoID } = props.navigation.state.params;
+      const { iDoID } = props.navigation.route;
       await dispatch(remove(item.objectId, ICOMMENT));
       dispatch(claerByID(ICOMMENT + iDoID, item.objectId));
     },
@@ -213,9 +213,9 @@ const Name = "text";
         const user = state.user.data;
         let iDoData = state.normalizr
           .get(IDO)
-          .get(props.navigation.state.params.iDoID);
+          .get(props.navigation.route.iDoID);
         iDoData = iDoData && iDoData.toJS();
-        const { iDoID } = props.navigation.state.params;
+        const { iDoID } = props.navigation.route;
         if (iDoData && iDoData.commentNew && iDoData.user === user.objectId) {
           const params = {
             commentNew: false
@@ -239,7 +239,7 @@ const Name = "text";
         dispatch(
           dataStorage(`DoCardForm${objectId}`, { recordText, imgs: imgObjects })
         );
-        // const { iDoID } = props.navigation.state.params;
+        // const { iDoID } = props.navigation.route;
         Pop.show(
           <DoWithLoad
             record={["文字", "图片"]}
@@ -418,7 +418,7 @@ export default class RComment extends PureComponent {
   onKeyboardResigned() {}
 
   keyboardAccessoryViewContent() {
-    const { iDoID } = this.props.navigation.state.params;
+    const { iDoID } = this.props.navigation.route;
     const InnerContainerComponent = IsIOS && BlurView ? BlurView : View;
 
     return (
@@ -506,7 +506,7 @@ export default class RComment extends PureComponent {
   render(): ReactElement<any> {
     const { navigation } = this.props;
     const { goBack, state } = navigation;
-    const { iDoID } = state.params;
+    const { iDoID } = route;
 
     const params = {
       where: {

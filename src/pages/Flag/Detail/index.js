@@ -51,8 +51,8 @@ import { iUseList as iUseListParams } from "../../../request/leanCloud";
   (state, props) => ({
     iCard: state.normalizr
       .get(ICARD)
-      .get(props.navigation.state.params.iCardId),
-    flag: state.normalizr.get(FLAG).get(props.navigation.state.params.flagId),
+      .get(props.route.params.iCardId),
+    flag: state.normalizr.get(FLAG).get(props.route.params.flagId),
     selfUse: state.user.data,
     isTourist: state.user.isTourist,
   }),
@@ -162,7 +162,7 @@ export default class FlagDetail extends PureComponent {
         }}
         onPress={() => {
           props.navigation.navigate("FlagRecord", {
-            iCardId: props.navigation.state.params.iCardId,
+            iCardId: props.route.params.iCardId,
           });
         }}
       >
@@ -172,7 +172,7 @@ export default class FlagDetail extends PureComponent {
   });
 
   async componentDidMount() {
-    const { iCardId, flagId } = this.props.navigation.state.params;
+    const { iCardId, flagId } = this.props.route.params;
     this.setState({ load: true });
     const res = await this.props.exist(iCardId, flagId);
     this.setState({ load: false, flip: res.results.length > 0 });
@@ -348,7 +348,7 @@ export default class FlagDetail extends PureComponent {
   );
 
   __payAndJoin = async () => {
-    const { iCardId, flagId } = this.props.navigation.state.params;
+    const { iCardId, flagId } = this.props.route.params;
     const { selfUse, join, flag, isTourist, pay } = this.props;
     const flagModel = flag.toJS();
     const cost = flag.get("cost");

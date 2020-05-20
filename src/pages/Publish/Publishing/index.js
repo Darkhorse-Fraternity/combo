@@ -54,7 +54,7 @@ const selector = formValueSelector(FormID);
 @connect(
   (state, props) => ({
     // data:state.req.get()
-    iCard: state.normalizr.get(ICARD).get(props.navigation.state.params.iCardID),
+    iCard: state.normalizr.get(ICARD).get(props.navigation.route.iCardID),
     imageLoad: state.req.get(PBULImage).get('load'),
     load: state.req.get(ICARD).get('load'),
     // user: state.user.data
@@ -199,7 +199,7 @@ const selector = formValueSelector(FormID);
           return;
         }
 
-        // const id = props.navigation.state.params.iCardID
+        // const id = props.navigation.route.iCardID
         const img = res.payload[0];
         // console.log('img:', img);
         // const param = {
@@ -239,7 +239,7 @@ export default class Publishing extends Component {
 
   load = async () => {
     try {
-      const id = this.props.navigation.state.params.iCardID;
+      const id = this.props.navigation.route.iCardID;
 
 
       const localSave = await storage.load({ key: 'CardPublish', id });
@@ -365,7 +365,7 @@ export default class Publishing extends Component {
           load={load}
           color={color}
           maxIndex={5}
-          iCardId={this.props.navigation.state.params.iCardID}
+          iCardId={this.props.navigation.route.iCardID}
           initialValues={initialValues}
           title={iCard.get('title')}
           imageLoad={imageLoad}

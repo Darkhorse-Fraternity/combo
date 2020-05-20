@@ -266,6 +266,7 @@ export default class Punch extends Component {
   };
 
   render(): ReactElement<any> {
+
     const statu = this.props.data.get('loadStatu');
 
     const data = this.props.data.toJS().listData;

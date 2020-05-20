@@ -55,7 +55,7 @@ export default class PPTDescribe extends Component {
 
 
     render(): ReactElement<any> {
-      const { input } = this.props.navigation.state.params;
+      const { input } = this.props.route.params;
 
 
       return (

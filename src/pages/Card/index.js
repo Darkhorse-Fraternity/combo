@@ -38,13 +38,13 @@ import { addNormalizrEntity } from "../../redux/module/normalizr";
   (state, props) => {
     const iCard = state.normalizr
       .get("iCard")
-      .get(props.navigation.state?.params?.iCardId);
+      .get(props.route.params?.iCardId);
     // const courseId = iCard.get('course')
     return {
       iCard,
       iUse: state.normalizr
         .get("iUse")
-        .get(props.navigation.state?.params?.iUseId),
+        .get(props.route.params?.iUseId),
       user: state.user.data
       // course:
       // course: courseId && state.normalizr.get(COURSE).get(courseId)
@@ -78,7 +78,7 @@ import { addNormalizrEntity } from "../../redux/module/normalizr";
         const state = getState();
         const iCard = state.normalizr
           .get("iCard")
-          .get(props.navigation.state.params.iCardId);
+          .get(props.navigation.route.iCardId);
         const courseId = iCard.get("course");
         const course = courseId && state.normalizr.get(COURSE).get(courseId);
         console.log("course:", course);
@@ -135,9 +135,8 @@ export default class Card extends PureComponent {
   }
 
   __renderRightView = () => {
-    const { navigation, iCard, user } = this.props;
-    const { state } = navigation;
-    const { params } = state;
+    const { route, iCard, user } = this.props;
+    const { params } = route;
     const { iCardId, iUseId } = params;
 
     const isSelf = iCard.get("user") === user.objectId;
@@ -177,7 +176,6 @@ export default class Card extends PureComponent {
   };
 
   render(): ReactElement<any> {
-    // const params = this.props.navigation.state.params
     // const {iUse,iCard} = params
 
     const { iCard, iUse } = this.props;

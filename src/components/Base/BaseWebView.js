@@ -63,9 +63,7 @@ export default class BaseWebView extends Component {
 
 
   static navigationOptions = props => {
-    const { navigation } = props;
-    const { state } = navigation;
-    const { params } = state;
+
     return {
       title: '',
       // headerLeft: (
@@ -158,7 +156,7 @@ export default class BaseWebView extends Component {
   }
 
   render() {
-    const params = this.props.navigation.state.params
+    const params = this.props.route.params
     const { url } = this.props
     return (
       <View style={[styles.container]}>
