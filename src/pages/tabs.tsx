@@ -1,27 +1,36 @@
 import React from 'react';
 import {View, Button, Text, InteractionManager, Platform} from 'react-native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  StackNavigationOptions,
+} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 // import * as Animatable from 'react-native-animatable';
-import {strings} from '../../../../locales/i18n';
-
-import {habitRoute, settingRoute, punchRoute, flagRoute} from '../../../pages';
-import {defaultNavigationOptions, tabsOptions} from './navigationOptions';
-import {useNavigation, useRoute} from '@react-navigation/native';
-
-interface RootStackParamList {}
+import {strings} from '../../locales/i18n';
+import {RootStackParamList} from './interface';
+import {habitRoute, settingRoute, punchRoute, flagRoute} from './route';
+import {
+  defaultNavigationOptions,
+  tabsOptions,
+} from '@components/Nav/components/navigationOptions';
+// import {useNavigation, useRoute} from '@react-navigation/native';
 
 interface StackPropsType {
-  initialRouteName: string;
-  route: {string: {screen: React.ComponentType<any>; options: any}};
+  initialRouteName: keyof RootStackParamList;
+  route: {
+    string: {
+      screen: React.ComponentType<any>;
+      options?: StackNavigationOptions;
+    };
+  };
 }
 
 const OrigenStack = (props: StackPropsType) => {
   const {initialRouteName, route} = props;
 
-  const Stack = createStackNavigator<{}>();
+  const Stack = createStackNavigator<RootStackParamList>();
   const keys = Object.keys(route) as (keyof RootStackParamList)[];
   return (
     <Stack.Navigator

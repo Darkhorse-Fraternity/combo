@@ -29,4 +29,11 @@ export type RootStackParamList = {
     flagDetail: undefined,
     FRDetail: undefined,
     cirlcleSetting: undefined,
+
+
+    //tabs
+    punch:undefined,
+    habit:undefined,
+    flag:undefined,
+    
 };

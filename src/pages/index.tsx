@@ -1,8 +1,8 @@
 import React from 'react';
 
 // import { TransitionConfiguration } from './TransitionConfiguration';
-import Tab from './StaticTab';
-import AuthLoadingScreen from '../auth/AuthLoadingView';
+import Tab from './tabs';
+import AuthLoadingScreen from '@components/Nav/auth/AuthLoadingView';
 import {
   createStackNavigator,
   StackNavigationOptions,
@@ -17,7 +17,10 @@ export const screenOptions: StackNavigationOptions = {
 export const SwitchNavigator = () => {
   // const {initialRouteName, route} = props;
 
-  const Stack = createStackNavigator<{AuthLoading: {}; tab: {}}>();
+  const Stack = createStackNavigator<{
+    AuthLoading: undefined;
+    tab: undefined;
+  }>();
   return (
     <Stack.Navigator
       initialRouteName={'AuthLoading'}
