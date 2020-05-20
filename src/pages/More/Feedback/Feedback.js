@@ -69,7 +69,7 @@ export default class Feedback extends Component {
             // headerRight: ( <TouchableOpacity
             //     style={styles.headerBtn}
             //     onPress={() => {
-            //         props.navigation.route.send()
+            //         props.route.send()
             //     }}>
             //     <Icon name="md-send" size={20}/>
             // </TouchableOpacity>),

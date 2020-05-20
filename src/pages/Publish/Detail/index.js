@@ -34,7 +34,7 @@ import Button from "../../../components/Button/index";
     // data:state.req.get()
     iCard: state.normalizr
       .get(ICARD)
-      .get(props.navigation.route.iCardID),
+      .get(props.route.params.iCardID),
     // useExist: state.req.get(IUSEExist),
     load: state.req.get(IUSE).get("load")
   }),
@@ -57,7 +57,7 @@ import Button from "../../../components/Button/index";
       props.navigation.goBack();
     },
     exist: async () => {
-      const id = props.navigation.route.iCardID;
+      const id = props.route.params.iCardID;
       const params = existSearch(IUSE, {
         where: {
           ...iCard(id),
@@ -68,7 +68,7 @@ import Button from "../../../components/Button/index";
       dispatch(req(params, IUSEExist));
     },
     add: async (useNum = 0) => {
-      const id = props.navigation.route.iCardID;
+      const id = props.route.params.iCardID;
       const param = {
         // cycle: 0,
         time: 0,
@@ -203,12 +203,12 @@ export default class PublishDetail extends Component {
         {allow &&
           this._renderRow("圈子设置", () => {
             navigation.navigate("cirlcleSetting", {
-              iCardID: navigation.route.iCardID
+              iCardID: route.iCardID
             });
           })}
         {/* {allow && this._renderRow('发布课程', () => { */}
         {/* navigation.navigate('courseRelease', */}
-        {/* { iCardID: navigation.route.iCardID }) */}
+        {/* { iCardID: route.iCardID }) */}
         {/* })} */}
 
         {allow &&

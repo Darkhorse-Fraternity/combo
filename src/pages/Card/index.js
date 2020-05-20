@@ -78,7 +78,7 @@ import { addNormalizrEntity } from "../../redux/module/normalizr";
         const state = getState();
         const iCard = state.normalizr
           .get("iCard")
-          .get(props.navigation.route.iCardId);
+          .get(props.route.params.iCardId);
         const courseId = iCard.get("course");
         const course = courseId && state.normalizr.get(COURSE).get(courseId);
         console.log("course:", course);

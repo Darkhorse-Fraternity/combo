@@ -27,7 +27,7 @@ import { iCard } from '../../../request/LCModle';
 
 @connect(
   (state, props) => ({
-    iCard: state.normalizr.get(ICARD).get(props.navigation.route.iCardId),
+    iCard: state.normalizr.get(ICARD).get(props.route.params.iCardId),
   }),
   dispatch => ({})
 )
@@ -97,7 +97,7 @@ export default class FlagRecord extends PureComponent {
   render(): ReactElement<any> {
     const param = {
       where: {
-        ...iCard(this.props.navigation.route.iCardId),
+        ...iCard(this.props.route.params.iCardId),
         // settled: true
       },
       // order: 'doneDate',

@@ -56,9 +56,8 @@ export default class Follow extends Component {
   render(): ReactElement<any> {
 
 
-    const { navigation } = this.props;
-    const { state } = navigation;
-    const { params } = state;
+    const { navigation,route } = this.props;
+    const { params } = route;
     const param = { uid: params.userId }
 
     return (

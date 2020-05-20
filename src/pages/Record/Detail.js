@@ -32,8 +32,8 @@ import {
 
 @connect(
   (state, props) => ({
-    iCard: state.normalizr.get('iCard').get(props.navigation.route.iCardId),
-    iUse: state.normalizr.get('iUse').get(props.navigation.route.iUseId),
+    iCard: state.normalizr.get('iCard').get(props.route.params.iCardId),
+    iUse: state.normalizr.get('iUse').get(props.route.params.iUseId),
   }),
   (dispatch, props) => ({})
 )
@@ -52,7 +52,7 @@ export default class Detail extends PureComponent {
 
 
   static navigationOptions = props => {
-    const iCardId = props.navigation.route.iCardId
+    const iCardId = props.route.params.iCardId
 
     return {
       headerShown: false,

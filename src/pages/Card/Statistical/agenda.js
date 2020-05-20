@@ -37,7 +37,8 @@ import {
         const state = getState();
         const data = state.req.get(IDOCALENDAR).get('data').toJS();
 
-        const { iUseId } = props.navigation.route;
+        const { iUseId } = props.route.params;
+        
         const userId = props.iUse.get('user');
         // console.log('last', last);
 

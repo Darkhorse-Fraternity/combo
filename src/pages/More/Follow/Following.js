@@ -71,24 +71,24 @@ import Avatar from '../../../components/Avatar/Avatar2'
 
 @connect(
   (state, props) => ({
-    data: state.list.get(FOLLOWRECORD + props.navigation.route.userId),
+    data: state.list.get(FOLLOWRECORD + props.route.params.userId),
     iCard: state.normalizr.get(ICARD),
     selfUser: state.user.data,
-    user:state.normalizr.get(USER).get(props.navigation.route.userId),
-    friendNum: state.req.get(FRIENDNUM + props.navigation.route.userId),
-    friendeExist: state.req.get(FRIENDEXIST + props.navigation.route.userId),
+    user:state.normalizr.get(USER).get(props.route.params.userId),
+    friendNum: state.req.get(FRIENDNUM + props.route.params.userId),
+    friendeExist: state.req.get(FRIENDEXIST + props.route.params.userId),
     followLoad: state.req.get(FOLLOWING).get('load')
   }),
   (dispatch, props) => ({
     loadFriendNum: (userId) => {
-      // const userId = props.navigation.route.userId
+      // const userId = props.route.params.userId
       const param = friendNum(userId)
       // console.log('test000:', userId);
       dispatch(req(param, FRIENDNUM + userId))
     },
     loadfriendExist: (beFollowedUserId) => {
       dispatch((dispatch, getState) => {
-        // const beFollowedUserId = props.navigation.route.userId
+        // const beFollowedUserId = props.route.params.userId
         const state = getState()
         const userId = state.user.data.objectId
 
@@ -98,7 +98,7 @@ import Avatar from '../../../components/Avatar/Avatar2'
     },
     follow: (isExist, num) => {
       dispatch((dispatch, getState) => {
-        const beFollowedUserId = props.navigation.route.userId
+        const beFollowedUserId = props.route.params.userId
         const state = getState()
         const userId = state.user.data.objectId
 
@@ -160,14 +160,14 @@ export default class Following extends PureComponent {
   };
 
   componentDidMount() {
-    this.props.loadFriendNum(this.props.navigation.route.userId)
-    this.props.loadfriendExist(this.props.navigation.route.userId)
+    this.props.loadFriendNum(this.props.route.params.userId)
+    this.props.loadfriendExist(this.props.route.params.userId)
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.navigation.route.userId !== nextProps.navigation.route.userId){
-      this.props.loadFriendNum(nextProps.navigation.route.userId)
-      this.props.loadfriendExist(nextProps.navigation.route.userId)
+    if(this.props.route.params.userId !== nextProps.route.params.userId){
+      this.props.loadFriendNum(nextProps.route.params.userId)
+      this.props.loadfriendExist(nextProps.route.params.userId)
     }
   }
 
@@ -311,10 +311,9 @@ export default class Following extends PureComponent {
   }
 
   render(): ReactElement<any> {
-    const { navigation } = this.props;
+    const { navigation,route } = this.props;
 
-    const { state } = navigation;
-    const { params } = state;
+    const { params } = route;
     const { userId } = params
 
 

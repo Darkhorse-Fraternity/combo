@@ -64,7 +64,7 @@ const selector = formValueSelector(FormID);
   (state, props) => ({
     // data:state.req.get()
     title: selector(state, 'title'),
-    initialValues: props.navigation.route ? props.navigation.route.habit : defaultHabit,
+    initialValues: props.route.params ? props.route.params.habit : defaultHabit,
     load: state.req.get(ICARD).get('load'),
     iUseLoad: state.req.get(IUSE).get('load'),
     color: selector(state, 'color')

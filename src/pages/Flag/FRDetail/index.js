@@ -29,7 +29,7 @@ import Avatar from '../../../components/Avatar/Avatar2';
 
 @connect(
   (state, props) => ({
-    flag: state.normalizr.get(FLAG).get(props.navigation.route.flagId),
+    flag: state.normalizr.get(FLAG).get(props.route.params.flagId),
   }),
   dispatch => ({})
 )
@@ -101,7 +101,7 @@ export default class FRDetail extends PureComponent {
   render(): ReactElement<any> {
     const param = {
       where: {
-        ...Flag(this.props.navigation.route.flagId),
+        ...Flag(this.props.route.params.flagId),
       },
       order: '-doneState,doneDate',
       include: 'user',
@@ -115,7 +115,7 @@ export default class FRDetail extends PureComponent {
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           reqKey={FLAGRECORD}
-          sKey={FLAGRECORD + this.props.navigation.route.flagId}
+          sKey={FLAGRECORD + this.props.route.params.flagId}
           // dataMap={(data)=>{
           //   return {[OPENHISTORYLIST]:data.list}
           // }}

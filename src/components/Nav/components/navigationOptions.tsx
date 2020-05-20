@@ -22,10 +22,6 @@ export const defaultNavigationOptions: StackNavigationOptions = {
     },
     borderBottomColor: '#F5FCFF',
     elevation: 0,
-    marginTop:
-      Platform.OS === 'ios' || Platform.Version < 20
-        ? 0
-        : StatusBar.currentHeight,
     // headerBackTitle:' '
   },
   headerTintColor: 'black',

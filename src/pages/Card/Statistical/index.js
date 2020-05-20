@@ -313,8 +313,8 @@ export default class Statistical extends PureComponent {
   }
 
   render(): ReactElement<any> {
-    const { navigation } = this.props;
-    const { state } = navigation;
+    // const { navigation } = this.props;
+    // const { state } = navigation;
     // const { params } = state;
     // const iCard = this.props.iCard.toJS()
     const iUseM = this.props.iUse.toJS();

@@ -54,7 +54,7 @@ const Archive = `${IUSE}archive`;
   dispatch => ({
     refresh: async (data, handleView) => {
       const id = data.objectId;
-      // const card = props.navigation.route.iCard
+      // const card = props.route.params.iCard
 
       // const isDone = data.time % card.period === 0
 
@@ -265,9 +265,9 @@ export default class Record extends Component {
   }
 
   render() {
-    const { navigation } = this.props;
-    const { dispatch, state } = navigation;
-    const { params } = state;
+    const { navigation,route } = this.props;
+    const { dispatch } = navigation;
+    const { params } = route;
     const statu = !!params ? params.statu : { $ne: 'del' };
     // const statu =  { $ne: 'del' };
     const param = {
