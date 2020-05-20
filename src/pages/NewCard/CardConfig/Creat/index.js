@@ -188,8 +188,8 @@ export default class Creat extends PureComponent {
                              // const {params} = state;
                              props => ({
                               headerShown: false,
-                               title: null,
-                               headerLeft: null
+                               title: '',
+                               headerLeft: () => <View />
                              })
   ;
 

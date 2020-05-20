@@ -175,7 +175,7 @@ export default class Settings extends PureComponent {
     const { iCardId } = props.navigation.state.params;
     return {
       title: '',
-      headerRight: (<StyledBtn
+      headerRight: (porps)=>(<StyledBtn
           // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
         hitSlop={{
           top: 5, left: 20, bottom: 5, right: 20

@@ -152,7 +152,7 @@ export default class FlagDetail extends PureComponent {
 
   static navigationOptions = (props) => ({
     title: "",
-    headerRight: (
+    headerRight: (props) => (
       <StyledBtn
         hitSlop={{
           top: 5,

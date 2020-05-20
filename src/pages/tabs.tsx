@@ -9,23 +9,13 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 // import * as Animatable from 'react-native-animatable';
 import {strings} from '../../locales/i18n';
-import {RootStackParamList} from './interface';
+import {RootStackParamList, StackPropsType} from './interface';
 import {habitRoute, settingRoute, punchRoute, flagRoute} from './route';
 import {
   defaultNavigationOptions,
   tabsOptions,
 } from '@components/Nav/components/navigationOptions';
 // import {useNavigation, useRoute} from '@react-navigation/native';
-
-interface StackPropsType {
-  initialRouteName: keyof RootStackParamList;
-  route: {
-    string: {
-      screen: React.ComponentType<any>;
-      options?: StackNavigationOptions;
-    };
-  };
-}
 
 const OrigenStack = (props: StackPropsType) => {
   const {initialRouteName, route} = props;
@@ -45,7 +35,7 @@ const OrigenStack = (props: StackPropsType) => {
           //   initialRouteName === key ? initialRouteParams : undefined
           // }
           key={key}
-          component={route[key].screen}
+          component={route[key].component}
           options={route[key].options}
         />
       ))}

@@ -120,8 +120,8 @@ export default class LoginView extends Component {
     // const {params} = state;
      ({
       title: '',
-      headerLeft: null,
-      headerRight: (<StyledBtn
+      headerLeft: () => <View />,
+      headerRight: (props)=> (<StyledBtn
         hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
         onPress={() => {
           props.navigation.goBack()

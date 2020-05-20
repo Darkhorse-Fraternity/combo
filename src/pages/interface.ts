@@ -1,6 +1,8 @@
+import { StackNavigationOptions } from '@react-navigation/stack';
+import { NavigationHelpers, NavigationProp, RouteProp } from '@react-navigation/native';
 
 export type RootStackParamList = {
-    web: undefined,
+    web: {},
     search: undefined,
     tool: undefined,
     FlagRecord: undefined,
@@ -35,5 +37,37 @@ export type RootStackParamList = {
     punch:undefined,
     habit:undefined,
     flag:undefined,
-    
+
 };
+
+
+type NavigationType<T  extends keyof RootStackParamList> = NavigationHelpers<RootStackParamList> &
+  Partial<NavigationProp<RootStackParamList, T, any, any, any>>;
+
+export type NavigationOptionsType<T extends keyof RootStackParamList> =
+  | StackNavigationOptions
+  | ((props: {
+      route: RouteProp<RootStackParamList, T>;
+      navigation: NavigationType<T>;
+    }) => StackNavigationOptions);
+
+export interface ToLazyExoticComponentReturnType {
+  component: React.ComponentType<any>;
+  options: NavigationOptionsType<keyof RootStackParamList>;
+  initialParams?: object;
+}
+
+
+export type RouteNameType =  keyof RootStackParamList;
+
+export type  RouteType =  Record<
+    RouteNameType,{
+        component: React.ComponentType<any>;
+        options?: NavigationOptionsType<keyof RootStackParamList>;
+    }
+>;
+
+export interface StackPropsType {
+    initialRouteName: RouteNameType;
+    route: RouteType
+  }
