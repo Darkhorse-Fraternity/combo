@@ -1,4 +1,4 @@
-import { RouteType } from './interface';
+import {RouteType, RouteKey} from './interface';
 
 import Habit from './Habit';
 import Creat from './NewCard/CardConfig/Creat';
@@ -33,58 +33,116 @@ import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
+import {AndroidBackHandleHOCComponent} from 'src/configure/androidBackHandle';
 
+export const otherRoute: RouteType = {
+  [RouteKey.web]: {component: WebView, options: WebView.navigationOptions},
+  [RouteKey.search]: {component: Search, options: Search.navigationOptions},
+  [RouteKey.tool]: {component: Tool},
+  [RouteKey.FlagRecord]: {
+    component: FlagRecord,
+    options: FlagRecord.navigationOptions,
+  },
+  [RouteKey.earnings]: {
+    component: Earnings,
+    options: Earnings.navigationOptions,
+  },
+  [RouteKey.remind]: {component: Remind, options: Remind.navigationOptions},
+  [RouteKey.cash]: {component: Cash, options: Cash.navigationOptions},
+  [RouteKey.recordDetail]: {
+    component: RecordDetail,
+    options: RecordDetail.navigationOptions,
+  },
+  [RouteKey.cardSetting]: {
+    component: CardSetting,
+    options: CardSetting.navigationOptions,
+  },
+  [RouteKey.followee]: {
+    component: Followee,
+    options: Followee.navigationOptions,
+  },
+  [RouteKey.follower]: {
+    component: Follower,
+    options: Follower.navigationOptions,
+  },
+  [RouteKey.follow]: {component: Follow, options: Follow.navigationOptions},
+  [RouteKey.following]: {
+    component: Following,
+    options: Following.navigationOptions,
+  },
+  [RouteKey.creat]: {component: Creat, options: Creat.navigationOptions},
+  [RouteKey.newCard]: {component: NewCard, options: NewCard.navigationOptions},
+  [RouteKey.record]: {component: Record, options: Record.navigationOptions},
+  [RouteKey.cardConfig]: {
+    component: CardConfig,
+    options: CardConfig.navigationOptions,
+  },
+  [RouteKey.account]: {component: Account},
+  [RouteKey.feedback]: {
+    component: Feedback,
+    options: Feedback.navigationOptions,
+  },
+  [RouteKey.publishing]: {
+    component: Publishing,
+    options: Publishing.navigationOptions,
+  },
+  [RouteKey.cardInfo]: {
+    component: CardInfo,
+    options: CardInfo.navigationOptions,
+  },
+  [RouteKey.rcomment]: {
+    component: RComment,
+    options: RComment.navigationOptions,
+  },
+  [RouteKey.card]: {component: Card, options: Card.navigationOptions},
+  [RouteKey.cardUse]: {component: CardUse, options: CardUse.navigationOptions},
 
-export const otherRoute:RouteType = {
-  web: {component: WebView,options:WebView.navigationOptions},
-  search: {component: Search,options:Search.navigationOptions},
-  tool: {component: Tool},
-  FlagRecord: {component: FlagRecord,options:FlagRecord.navigationOptions},
-  earnings: {component: Earnings,options:Earnings.navigationOptions},
-  remind: {component: Remind,options:Remind.navigationOptions},
-  cash: {component: Cash,options:Cash.navigationOptions},
-  recordDetail: {component: RecordDetail,options:RecordDetail.navigationOptions},
-  cardSetting: {component: CardSetting,options:CardSetting.navigationOptions},
-  followee: {component: Followee,options:Followee.navigationOptions},
-  follower: {component: Follower,options:Follower.navigationOptions},
-  follow: {component: Follow,options:Follow.navigationOptions},
-  following: {component: Following,options:Following.navigationOptions},
-  creat: {component: Creat,options:Creat.navigationOptions},
-  newCard: {component: NewCard,options:NewCard.navigationOptions},
-  record: {component: Record,options:Record.navigationOptions},
-  cardConfig: {component: CardConfig,options:CardConfig.navigationOptions},
-  account: {component: Account},
-  feedback: {component: Feedback,options:Feedback.navigationOptions},
-  publishing: {component: Publishing,options:Publishing.navigationOptions},
-  cardInfo: {component: CardInfo,options:CardInfo.navigationOptions},
-  rcomment: {component: RComment,options:RComment.navigationOptions},
-  card: {component: Card,options:Card.navigationOptions},
-  cardUse: {component: CardUse,options:CardUse.navigationOptions},
-  more: {component: More,options:More.navigationOptions},
-  login: {component: LoginView,options:LoginView.navigationOptions},
-  flagDetail: {component: FlagDetail,options:FlagDetail.navigationOptions},
-  FRDetail: {component: FRDetail,options:FRDetail.navigationOptions},
-  cirlcleSetting: CirlcleSetting,
+  [RouteKey.login]: {
+    component: LoginView,
+    options: LoginView.navigationOptions,
+  },
+  [RouteKey.flagDetail]: {
+    component: FlagDetail,
+    options: FlagDetail.navigationOptions,
+  },
+  [RouteKey.FRDetail]: {
+    component: FRDetail,
+    options: FRDetail.navigationOptions,
+  },
+  [RouteKey.cirlcleSetting]: CirlcleSetting,
   // pptDescribe: { screen: PPTDescribe },
 };
 
-export const punchRoute:RouteType = {
+export const punchRoute: RouteType = {
   ...otherRoute,
-  punch: {component: Punch,options:Punch.navigationOptions},
+  [RouteKey.punch]: {
+    component: AndroidBackHandleHOCComponent(Punch.component),
+    options: Punch.options,
+  },
 };
 
-export const habitRoute:RouteType  = {
+export const habitRoute: RouteType = {
   ...otherRoute,
-  habit: {component: Habit,options:Habit.navigationOptions},
+  [RouteKey.habit]: {
+    component: AndroidBackHandleHOCComponent(Habit),
+    options: Habit.navigationOptions,
+  },
 };
 
-export const flagRoute:RouteType  = {
+export const flagRoute: RouteType = {
   ...otherRoute,
-  flag: {component: Flag,options:Flag.navigationOptions},
+  [RouteKey.flag]: {
+    component: AndroidBackHandleHOCComponent(Flag),
+    options: Flag.navigationOptions,
+  },
 };
 
 export const settingRoute = {
   ...otherRoute,
+  more: {
+    component: AndroidBackHandleHOCComponent(More),
+    options: More.navigationOptions,
+  },
 };
 
 export const route = {

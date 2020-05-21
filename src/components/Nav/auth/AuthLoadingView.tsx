@@ -22,6 +22,7 @@ import Indicators from '../../Indicators';
 import {listReq} from '../../../redux/actions/list';
 import {iUseList as iUseListParams} from '../../../request/leanCloud';
 import {addNormalizrEntities} from '../../../redux/module/normalizr';
+import {StackActions} from '@react-navigation/native';
 
 @connect(
   state => ({}),
@@ -86,9 +87,11 @@ import {addNormalizrEntities} from '../../../redux/module/normalizr';
           const isFirstInstaller = await firstInstaller();
           // console.log('isFirstInstaller:', isFirstInstaller);
           if (user.isTourist && isFirstInstaller) {
-            props.navigation.navigate('login', {transition: 'forVertical'});
+            props.navigation.dispatch(StackActions.replace('tab'));
+            props.navigation.navigate('login');
+            // props.navigation.dispatch(StackActions.replace('login'));
           } else {
-            props.navigation.navigate('tab');
+            props.navigation.dispatch(StackActions.replace('tab'));
           }
           // });
         }

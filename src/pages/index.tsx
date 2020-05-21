@@ -11,7 +11,7 @@ import {
 
 export const screenOptions: StackNavigationOptions = {
   gestureEnabled: false,
-  ...TransitionPresets.ModalSlideFromBottomIOS,
+  ...TransitionPresets.ScaleFromCenterAndroid,
 };
 
 export const SwitchNavigator = () => {

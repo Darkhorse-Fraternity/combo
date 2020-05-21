@@ -4,7 +4,7 @@
  * https://github.com/facebook/react-native
  */
 
-import { CommonActions, StackActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 // *** Action Types ***
 import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
@@ -286,7 +286,7 @@ export function login(state: Object): Function {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function register(state: Object): Function {
+export function register(state: Object,navigation): Function {
   return async (dispatch) => {
     try {
       dispatch(_loginRequest());
@@ -315,7 +315,7 @@ export function register(state: Object): Function {
               anonymous: { __op: 'Delete' },
             }
           }));
-          dispatch(StackActions.pop());
+          navigation.dispatch(StackActions.pop());
         }
 
         // await dispatch(updateMeByParam({mobilePhoneNumber:{"__op":"Delete"}}))
@@ -333,7 +333,7 @@ export function register(state: Object): Function {
       const user = await get(params);
       await dispatch(_loginSucceed(user));
       await dispatch(addSample(user));
-      dispatch(StackActions.pop());
+      navigation.dispatch(StackActions.pop());
       return user;
     } catch (e) {
       Toast.show(e.message);
@@ -414,7 +414,7 @@ export function _loginFailed(response: Object): Object {
 }
 
 
-export function logout(): Function {
+export function logout(navigation) {
   return async (dispatch, getState) => {
     try {
       const state = getState();
@@ -437,7 +437,7 @@ export function logout(): Function {
 
       // await dispatch(anonymousUser())
 
-      dispatch(CommonActions.navigate({ routeName: 'AuthLoading' }));
+      navigation.dispatch(StackActions.replace( 'AuthLoading' ));
       // return loadAccount(ret => {
       //   //加载本地数据。
       //   dispatch(_loadAccount(ret));
@@ -521,7 +521,7 @@ function updateLocation(user) {
 // }
 
 
-export function weChatLogin(Key) {
+export function weChatLogin(Key,navigation) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
@@ -548,7 +548,7 @@ export function weChatLogin(Key) {
             weixin: weInfo
           },
         }));
-        dispatch(StackActions.pop());
+        navigation.dispatch(StackActions.pop());
       } else {
         // 如果存在，则直接登录老账号
         const userInfoParmas = thirdLogin('weixin', weInfo);
@@ -556,7 +556,7 @@ export function weChatLogin(Key) {
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
           await dispatch(addSample(user));
-          dispatch(StackActions.pop());
+          navigation.dispatch(StackActions.pop());
         } else {
           Toast.show(JSON.stringify(weConfig));
         }
@@ -606,7 +606,7 @@ export function weChatLogin(Key) {
   };
 }
 
-export function qqLogin(Key) {
+export function qqLogin(Key,navigation) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
@@ -625,14 +625,14 @@ export function qqLogin(Key) {
             qq: qqConfig
           },
         }));
-        dispatch(StackActions.pop());
+        navigation.dispatch(StackActions.pop());
       } else {
         const userInfoParmas = thirdLogin('qq', qqConfig);
         user = await get(userInfoParmas);
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
           await dispatch(addSample(user));
-          dispatch(StackActions.pop());
+          navigation.dispatch(StackActions.pop());
         }
       }
 

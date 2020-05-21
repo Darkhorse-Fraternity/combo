@@ -15,7 +15,7 @@ import {
   Keyboard
 } from "react-native";
 import { BlurView } from "@react-native-community/blur";
-
+import {SafeAreaView,SafeAreaProvider} from 'react-native-safe-area-context';
 import DoCardForm from "../../Form/DoCardForm/index";
 // static displayName =
 
@@ -40,6 +40,8 @@ export default class DoView extends Component {
     const color = "#51c332";
 
     return (
+      <SafeAreaProvider>
+        <SafeAreaView>
       <View
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}
@@ -75,6 +77,8 @@ export default class DoView extends Component {
           onSubmit={done}
         />
       </View>
+      </SafeAreaView>
+      </SafeAreaProvider>
     );
   }
 }

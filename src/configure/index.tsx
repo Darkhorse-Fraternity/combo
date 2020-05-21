@@ -179,7 +179,7 @@ export default class Configure extends React.Component<{}, StateType> {
   };
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    // BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
     Linking.addEventListener('url', this._handleOpenURL);
     AppState.addEventListener('change', this._handleAppStateChange);
     this.props.dispatch(appStateUpdate(AppState.currentState));
@@ -216,7 +216,7 @@ export default class Configure extends React.Component<{}, StateType> {
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
+    // BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
     Linking.removeEventListener('url', this._handleOpenURL);
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
@@ -227,30 +227,32 @@ export default class Configure extends React.Component<{}, StateType> {
 
   lastBackPressed: number = 0;
 
-  onBackPress = () => {
-    const {dispatch, nav} = this.props;
-    const {routes, index} = nav;
-    const {routeName} = routes[index];
-    // idnex 前两个分别是登录和tabview
-    if (routeName === 'tab') {
-      const tab = routes[index];
-      const tabIndex = tab.index;
-      const tabNav = tab.routes[tabIndex];
-      if (tabNav.index > 0) {
-        dispatch(StackActions.pop());
-        return true;
-      }
-    }
-    const times = Date.now();
-    if (times - this.lastBackPressed >= 2500) {
-      // 再次点击退出应用
-      this.lastBackPressed = times;
-      ToastAndroid.show('再按一次退出应用', 0);
-      return true;
-    }
-    this.lastBackPressed = 0;
-    return false;
-  };
+  // onBackPress = () => {
+  //   console.log('1111');
+
+  //   // const {dispatch, nav} = this.props;
+  //   // const {routes, index} = nav;
+  //   // const {routeName} = routes[index];
+  //   // // idnex 前两个分别是登录和tabview
+  //   // if (routeName === 'tab') {
+  //   //   const tab = routes[index];
+  //   //   const tabIndex = tab.index;
+  //   //   const tabNav = tab.routes[tabIndex];
+  //   //   if (tabNav.index > 0) {
+  //   //     dispatch(StackActions.pop());
+  //   //     return true;
+  //   //   }
+  //   // }
+  //   // const times = Date.now();
+  //   // if (times - this.lastBackPressed >= 2500) {
+  //   //   // 再次点击退出应用
+  //   //   this.lastBackPressed = times;
+  //   //   ToastAndroid.show('再按一次退出应用', 0);
+  //   //   return true;
+  //   // }
+  //   // this.lastBackPressed = 0;
+  //   return false;
+  // };
 
   onBeforeStart = // 在这里可以发请求，用promise返回结果
     // let res = await toolApi.updateApp()

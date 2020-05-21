@@ -24,6 +24,8 @@ import {
   weChatLogin,
   qqLogin
 } from '../../../redux/actions/user';
+import {TransitionPresets} from '@react-navigation/stack';
+
 import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
 import * as Animatable from 'react-native-animatable';
 import { checkPhoneNum } from '../../../request/validation';
@@ -70,17 +72,17 @@ import BackBtn from '../../../components/Button/BackBtn/index';
     },
     mRegister: (state) => {
       Keyboard.dismiss();
-      dispatch(register(state));
+      dispatch(register(state,props.navigation));
     },
     authCode: (number) => {
       const parmas = requestSmsCode(number);
       return dispatch(req(parmas, AUTHCODE));
     },
     qqLogin: () => {
-      dispatch(qqLogin(QQLOGIN));
+      dispatch(qqLogin(QQLOGIN,props.navigation));
     },
     wxLogin: () => {
-      dispatch(weChatLogin(WECHATLOGIN));
+      dispatch(weChatLogin(WECHATLOGIN,props.navigation));
     }
   })
 )
@@ -120,8 +122,9 @@ export default class LoginView extends Component {
     // const {params} = state;
      ({
       title: '',
+      ...TransitionPresets.ModalSlideFromBottomIOS,
       headerLeft: () => <View />,
-      headerRight: (props)=> (<StyledBtn
+      headerRight: (headerRightProps)=> (<StyledBtn
         hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
         onPress={() => {
           props.navigation.goBack()
@@ -332,7 +335,7 @@ export default class LoginView extends Component {
           <View style={styles.top}>
             <View style={{
               flexDirection: 'row',
-backgroundColor: '#f0f0f0',
+              backgroundColor: '#f0f0f0',
               width: Dimensions.get('window').width - 40,
               paddingHorizontal: 20
             }}
@@ -344,7 +347,7 @@ backgroundColor: '#f0f0f0',
             <View style={{ height: 10 }} />
             <View style={{
               flexDirection: 'row',
-backgroundColor: '#f0f0f0',
+              backgroundColor: '#f0f0f0',
               width: Dimensions.get('window').width - 40,
               paddingHorizontal: 20
             }}

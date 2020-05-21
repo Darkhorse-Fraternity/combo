@@ -15,6 +15,7 @@ import {
   defaultNavigationOptions,
   tabsOptions,
 } from '@components/Nav/components/navigationOptions';
+import {useNavigation, useRoute} from '@react-navigation/native';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
@@ -22,6 +23,7 @@ const OrigenStack = (props: StackPropsType) => {
 
   const Stack = createStackNavigator<RootStackParamList>();
   const keys = Object.keys(route) as (keyof RootStackParamList)[];
+
   return (
     <Stack.Navigator
       initialRouteName={initialRouteName}

@@ -103,7 +103,7 @@ import {appChannel} from '../../../../helps/util';
         {
           text: '确定',
           onPress: () => {
-            dispatch(logout());
+            dispatch(logout(props.navigation));
           },
         },
       ]);

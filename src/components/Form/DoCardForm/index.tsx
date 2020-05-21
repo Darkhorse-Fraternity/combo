@@ -29,6 +29,7 @@ import {
   StyledIcon,
 } from './style';
 import {ImageSelectView} from '../Select';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export const FormID = 'DoCardForm';
 const selector = formValueSelector(FormID);

@@ -13,7 +13,7 @@ import Pop from '../../Pop/index';
 import {
   ICARD, IDO, IUSE, IDOULIMAGE
 } from '../../../redux/reqKeys';
-import { FormID } from '../../Form/DoCardForm/index';
+import { FormID } from '../../Form/DoCardForm';
 // static displayName =
 import creatIDO from '../DoCard';
 
