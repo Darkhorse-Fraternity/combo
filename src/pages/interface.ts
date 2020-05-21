@@ -4,6 +4,7 @@ import {
   NavigationProp,
   RouteProp,
 } from '@react-navigation/native';
+import {Record} from 'immutable';
 
 export enum RouteKey {
   web = 'web',
@@ -79,12 +80,15 @@ export type RootStackParamList = {
   [RouteKey.flag]: undefined;
 };
 
-type NavigationType<T extends keyof RootStackParamList> = NavigationHelpers<
+// type KeyType = keyof typeof RouteKey;
+export type RouteNameType = keyof RootStackParamList;
+
+type NavigationType<T extends RouteKey> = NavigationHelpers<
   RootStackParamList
 > &
   Partial<NavigationProp<RootStackParamList, T, any, any, any>>;
 
-export type NavigationOptionsType<T extends keyof RootStackParamList> =
+export type NavigationOptionsType<T extends RouteKey> =
   | StackNavigationOptions
   | ((props: {
       route: RouteProp<RootStackParamList, T>;
@@ -93,19 +97,11 @@ export type NavigationOptionsType<T extends keyof RootStackParamList> =
 
 export interface ToLazyExoticComponentReturnType {
   component: React.ComponentType<any>;
-  options: NavigationOptionsType<keyof RootStackParamList>;
+  options: NavigationOptionsType<any>;
   initialParams?: object;
 }
 
-export type RouteNameType = keyof RootStackParamList;
-
-export type RouteType = Record<
-  RouteNameType,
-  {
-    component: React.ComponentType<any>;
-    options?: NavigationOptionsType<keyof RootStackParamList>;
-  }
->;
+export type RouteType = Record<RouteNameType, ToLazyExoticComponentReturnType>;
 
 export interface StackPropsType {
   initialRouteName: RouteNameType;
