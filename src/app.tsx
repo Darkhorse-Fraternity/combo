@@ -24,7 +24,6 @@ require('../helps/AnimatableRegist');
 //   enableScreens();
 // }
 
-// import  SafeAreaView  from 'react-native-safe-area-view'
 // 启动初始配置
 // import Toast from 'react-native-simple-toast'
 
