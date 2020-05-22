@@ -40,6 +40,7 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   ),
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
+  title: '',
   ...TransitionPresets.SlideFromRightIOS,
   // gesturesEnabled: true,
 };

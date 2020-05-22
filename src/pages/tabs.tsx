@@ -9,7 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 // import * as Animatable from 'react-native-animatable';
 import {strings} from '../../locales/i18n';
-import {RootStackParamList, StackPropsType} from './interface';
+import {RootStackParamList, StackPropsType, RouteKey} from './interface';
 import {habitRoute, settingRoute, punchRoute, flagRoute} from './route';
 import {
   defaultNavigationOptions,
@@ -48,7 +48,7 @@ const OrigenStack = (props: StackPropsType) => {
 const PunchStack = () => {
   return (
     <OrigenStack
-      initialRouteName={'punch'}
+      initialRouteName={RouteKey.punch}
       // initialParams={}
       route={punchRoute}
     />
@@ -58,7 +58,7 @@ const PunchStack = () => {
 const HabitStack = () => {
   return (
     <OrigenStack
-      initialRouteName={'habit'}
+      initialRouteName={RouteKey.habit}
       // initialParams={}
       route={habitRoute}
     />
@@ -68,7 +68,7 @@ const HabitStack = () => {
 const FlagStack = () => {
   return (
     <OrigenStack
-      initialRouteName={'flag'}
+      initialRouteName={RouteKey.flag}
       // initialParams={}
       route={flagRoute}
     />
@@ -78,7 +78,7 @@ const FlagStack = () => {
 const SettingsStack = () => {
   return (
     <OrigenStack
-      initialRouteName={'more'}
+      initialRouteName={RouteKey.more}
       // initialParams={}
       route={settingRoute}
     />
