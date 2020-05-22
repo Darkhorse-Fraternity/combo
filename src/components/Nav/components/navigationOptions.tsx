@@ -27,8 +27,8 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   headerTintColor: 'black',
   headerTitleStyle: {
     alignItems: 'center',
-    fontSize: 21,
-    fontWeight: '500',
+    fontSize: 23,
+    fontWeight: '400',
   },
   cardStyle: {backgroundColor: 'white'},
   // headerBackImage: require('../../source/img/bar/back-icon.png'),

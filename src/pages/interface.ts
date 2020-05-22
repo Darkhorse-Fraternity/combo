@@ -97,7 +97,7 @@ export type NavigationOptionsType<T extends RouteKey> =
 
 export interface ToLazyExoticComponentReturnType {
   component: React.ComponentType<any>;
-  options: NavigationOptionsType<any>;
+  options?: NavigationOptionsType<any>;
   initialParams?: object;
 }
 

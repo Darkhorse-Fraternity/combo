@@ -9,6 +9,8 @@ import {AppRegistry, YellowBox} from 'react-native';
 // import svgs from './source/icons'
 import {name} from './app.json';
 import App from './src/app';
+import { enableScreens } from 'react-native-screens';
+
 
 YellowBox.ignoreWarnings([
   //'Warning: Async Storage has been extracted',

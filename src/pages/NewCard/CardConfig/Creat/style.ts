@@ -5,7 +5,7 @@
 
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderBtn from '../../../../components/Button/HeaderBtn';
 

@@ -4,19 +4,17 @@
  */
 
 
-import styled from 'styled-components';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { BorderlessButton } from 'react-native-gesture-handler';
-import { Platform } from 'react-native';
 
-export const StyledContent = styled(SafeAreaView)`
+export const StyledContent = styled.View`
      flex: 1;
      padding: 0px 20px;
 `;
 
 export const StyledHeader = styled.View`
-    padding: ${Platform.OS === 'ios' ? 64 : 44}px 0px 5px 0px;
+    padding: 10px 0px 5px 0px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;  
@@ -24,10 +22,11 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 25px;
   font-weight: bold;
+  margin-bottom:20px;
 `;
 
 export const StyledSectionHeader = styled.View`
-  padding: 25px 0px 15px 0px ;
+  padding: 10px 0px 15px 0px ;
   background-color: white;
 `;
 

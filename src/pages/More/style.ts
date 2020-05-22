@@ -4,11 +4,10 @@
  */
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Platform } from 'react-native';
 import Button from '../../components/Button/index';
 
 export const StyledContent = styled(SafeAreaView)`
@@ -20,7 +19,7 @@ export const StyledInnerContent = styled.ScrollView`
 
 
 export const StyleHeader = styled.View`
-  margin-top: ${Platform.OS === 'ios' ? 44 : 64}px;
+  margin-top: 44px;
   padding: 15px 25px;
 `;
 

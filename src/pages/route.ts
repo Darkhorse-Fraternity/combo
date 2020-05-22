@@ -124,24 +124,24 @@ export const punchRoute: RouteType = {
 export const habitRoute: RouteType = {
   ...otherRoute,
   [RouteKey.habit]: {
-    component: AndroidBackHandleHOCComponent(Habit),
-    options: Habit.navigationOptions,
+    component: AndroidBackHandleHOCComponent(Habit.component),
+    options: Habit.options,
   },
 };
 
 export const flagRoute: RouteType = {
   ...otherRoute,
   [RouteKey.flag]: {
-    component: AndroidBackHandleHOCComponent(Flag),
-    options: Flag.navigationOptions,
+    component: AndroidBackHandleHOCComponent(Flag.component),
+    options: Flag.options,
   },
 };
 
 export const settingRoute = {
   ...otherRoute,
   more: {
-    component: AndroidBackHandleHOCComponent(More),
-    options: More.navigationOptions,
+    component: AndroidBackHandleHOCComponent(More.component),
+    options: More.options,
   },
 };
 

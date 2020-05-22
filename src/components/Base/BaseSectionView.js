@@ -76,7 +76,7 @@ export default class BaseSectionView extends PureComponent {
     // console.log('test:', shouldShowloadMore);
     // console.log('nativeEvent:', nativeEvent);
     // console.log('shouldShowloadMore:', shouldShowloadMore);
-    this.props.onScroll && this.props.onScroll(arguments);
+    this.props.onScroll && this.props.onScroll(e);
   }
 
   componentDidMount() {

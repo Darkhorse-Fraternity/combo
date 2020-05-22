@@ -1,7 +1,6 @@
 /* @flow */
 
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -10,10 +9,10 @@ import {
   Image,
   RefreshControl,
   Platform,
-  Linking
+  Linking,
 } from 'react-native';
-import { connect } from 'react-redux';
-import Rate, { AndroidMarket } from 'react-native-rate';
+import {connect} from 'react-redux';
+import Rate, {AndroidMarket} from 'react-native-rate';
 import DeviceInfo from 'react-native-device-info';
 import Button from '../../components/Button/index';
 
@@ -29,18 +28,12 @@ import {
   StyledFuncView,
   StyledIncome,
   StyledEntypoIcon,
-  StyledInnerContent
+  StyledInnerContent,
 } from './style';
-import { req, } from '../../redux/actions/req';
-import {
-  FRIENDNUM,
-} from '../../redux/reqKeys';
-import {
-  friendNum,
-  updateNickName
-} from '../../request/leanCloud';
+import {req} from '../../redux/actions/req';
+import {FRIENDNUM} from '../../redux/reqKeys';
+import {friendNum, updateNickName} from '../../request/leanCloud';
 import Avatar from '../../components/Avatar';
-
 
 @connect(
   state => ({
@@ -57,7 +50,6 @@ import Avatar from '../../components/Avatar';
       });
     },
 
-
     rate: () => {
       let url = '';
       const IOS_APP_ID = '1332546993';
@@ -68,7 +60,6 @@ import Avatar from '../../components/Avatar';
       }
       // Linking.openURL(url)
 
-
       const options = {
         AppleAppID: IOS_APP_ID,
         preferredAndroidMarket: AndroidMarket.Other,
@@ -76,65 +67,42 @@ import Avatar from '../../components/Avatar';
         openAppStoreIfInAppFails: true,
         fallbackPlatformURL: 'https://icouage.cn/',
       };
-      Rate.rate(options, (success) => {
+      Rate.rate(options, success => {
         if (success) {
           console.log('Rate success');
           // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
           // this.setState({rated:true})
         }
       });
-    }
-  })
+    },
+  }),
 )
-
 export default class More extends Component {
   constructor(props: Object) {
     super(props);
   }
 
-  static navigationOptions = (props) => {
-    const { navigation } = props;
-    const { state } = navigation;
-    const { params } = state || {};
-    const isLogin = params ? params.isLogin : false;
-    // console.log('test:', params,localLoad);
-    return {
-      // header: isLogin ? undefined : ()=>(<View style={{height:64,backgroundColor:'#F5FCFF'}}/>),
-      gestureEnabled: false,
-      headerShown: false,
-
-    };
-  };
-
   componentDidMount() {
     // this.props.loadFriendNum()
   }
 
-
   _renderFunction = () => (
-    <Button onPress={() => {
-      this.props.navigation.navigate('earnings');
-    }}
-    >
+    <Button
+      onPress={() => {
+        this.props.navigation.navigate('earnings');
+      }}>
       <StyledFuncView>
+        <StyledIncome>我的钱包</StyledIncome>
 
-        <StyledIncome>
-            我的钱包
-        </StyledIncome>
-
-        <StyledEntypoIcon
-          color="#c1c1c1"
-          size={20}
-          name="triangle-right"
-        />
+        <StyledEntypoIcon color="#c1c1c1" size={20} name="triangle-right" />
       </StyledFuncView>
     </Button>
-  )
+  );
 
   _renderFollow = () => {
-    const { friendNum, navigation } = this.props;
-    let followers_count = 0; let
-      followees_count = 0;
+    const {friendNum, navigation} = this.props;
+    let followers_count = 0;
+    let followees_count = 0;
     const friendNumData = friendNum && friendNum.toJS();
 
     if (friendNumData && friendNumData.data) {
@@ -149,57 +117,55 @@ export default class More extends Component {
     return (
       <StyleFolllow>
         {followees_count > 0 && (
-        <Button
-          style={{ alignItems: 'center' }}
-          onPress={() => {
-            navigation.navigate('followee', { userId: this.props.user.data.objectId });
-          }}
-        >
-
-          <StyleFollowText>
-            关注：
-            {followees_count}
-          </StyleFollowText>
-        </Button>
+          <Button
+            style={{alignItems: 'center'}}
+            onPress={() => {
+              navigation.navigate('followee', {
+                userId: this.props.user.data.objectId,
+              });
+            }}>
+            <StyleFollowText>
+              关注：
+              {followees_count}
+            </StyleFollowText>
+          </Button>
         )}
         {followers_count > 0 && <StyleFollowDevide />}
         {followers_count > 0 && (
-        <Button
-          style={{ alignItems: 'center' }}
-          onPress={() => {
-            navigation.navigate('follower', { userId: this.props.user.data.objectId });
-          }}
-        >
-          <StyleFollowText>
-            被关注：
-            {' '}
-            {followers_count}
-          </StyleFollowText>
-        </Button>
+          <Button
+            style={{alignItems: 'center'}}
+            onPress={() => {
+              navigation.navigate('follower', {
+                userId: this.props.user.data.objectId,
+              });
+            }}>
+            <StyleFollowText>被关注： {followers_count}</StyleFollowText>
+          </Button>
         )}
       </StyleFolllow>
     );
-  }
+  };
 
   _renderHeadRow() {
     // let {grade_str,connect_phone} = data;
     // console.log('test111:',data.avatar.url)
-    const { loadAvatar, user } = this.props;
-    const { data, isTourist } = user;
+    const {loadAvatar, user} = this.props;
+    const {data, isTourist} = user;
 
     const name = isTourist ? '点击登录' : data.nickname || '匿名';
 
-
     return (
       <StyleHeader>
-        <StyledHeaderTop onPress={() => {
-          if (isTourist) {
-            this.props.navigation.navigate('login', { transition: 'forVertical' });
-          } else {
-            this.props.navigation.navigate('account');
-          }
-        }}
-        >
+        <StyledHeaderTop
+          onPress={() => {
+            if (isTourist) {
+              this.props.navigation.navigate('login', {
+                transition: 'forVertical',
+              });
+            } else {
+              this.props.navigation.navigate('account');
+            }
+          }}>
           <StyledAvatarView>
             <Avatar load={loadAvatar} />
             {/* <View style={{ */}
@@ -215,29 +181,23 @@ export default class More extends Component {
             {/* </View> */}
           </StyledAvatarView>
           <View>
-            <StyledHeaderName>
-              {name}
-            </StyledHeaderName>
+            <StyledHeaderName>{name}</StyledHeaderName>
             {/* {this._renderFollow()} */}
           </View>
-
         </StyledHeaderTop>
 
         {/* {this._renderFunction()} */}
-
       </StyleHeader>
     );
   }
 
-
   __renderLoginRow() {
-    const { navigation, user, rate } = this.props;
-    const { isTourist } = user;
+    const {navigation, user, rate} = this.props;
+    const {isTourist} = user;
 
     let rows = [
-
       this.renderRow('已暂停习惯', true, () => {
-        navigation.navigate('record', { statu: 'stop' });
+        navigation.navigate('record', {statu: 'stop'});
       }),
 
       this.renderRow('习惯提醒', true, () => {
@@ -248,31 +208,32 @@ export default class More extends Component {
         navigation.navigate('tool');
       }),
 
+      !isTourist &&
+        this.renderRow('我的钱包', true, () => {
+          navigation.navigate('earnings');
+        }),
 
-      !isTourist && this.renderRow('我的钱包', true, () => {
-        navigation.navigate('earnings');
-      }),
-
-      !isTourist && this.renderRow('粉丝查看', false, () => {
-        navigation.navigate('follow',
-          { userId: user.data.objectId });
-      }),
+      !isTourist &&
+        this.renderRow('粉丝查看', false, () => {
+          navigation.navigate('follow', {userId: user.data.objectId});
+        }),
 
       this.renderRow('好评鼓励', false, rate),
 
       this.renderRow('微博反馈', false, () => {
-        Linking.canOpenURL('sinaweibo://').then((supported) => { // weixin://  alipay://
+        Linking.canOpenURL('sinaweibo://').then(supported => {
+          // weixin://  alipay://
           if (supported) {
             Linking.openURL('sinaweibo://userinfo?uid=6861885697');
           } else {
             navigation.navigate('web', {
               url: 'https://www.weibo.com/u/6861885697',
-              title: '小改变的微博'
+              title: '小改变的微博',
             });
           }
         });
       }),
-      <View key="height" styles={{ height: 100 }} />
+      <View key="height" styles={{height: 100}} />,
     ];
 
     rows = rows.filter(item => !!item);
@@ -280,30 +241,37 @@ export default class More extends Component {
     const count = rows.length + 1;
     let up = 0;
     for (let index = 3; index < count; index += 3) {
-      rows.splice(index + up, 0, <View key={`index${index}`} style={{ height: 20, }} />);
+      rows.splice(
+        index + up,
+        0,
+        <View key={`index${index}`} style={{height: 20}} />,
+      );
       up += 1;
     }
 
     return rows;
   }
 
-
-  renderRow(title: string, isArraw: bool = false, onPress: Function = () => {
-  }, description: any = null) {
+  renderRow(
+    title: string,
+    isArraw: bool = false,
+    onPress: Function = () => {},
+    description: any = null,
+  ) {
     return (
       <Button key={title} onPress={onPress} style={[styles.row]}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
           {/* <Image
                          resizeMode='contain'
                          source={source}
                          style={styles.imageNail}
                          /> */}
-          <Text style={styles.rowText}>
-            {title}
-          </Text>
+          <Text style={styles.rowText}>{title}</Text>
         </View>
         <View style={styles.row2}>
-          {description ? <Text style={styles.description}>{description}</Text> : null}
+          {description ? (
+            <Text style={styles.description}>{description}</Text>
+          ) : null}
           {/* {isArraw ? <View style={styles.arrowView}/> : null} */}
         </View>
       </Button>
@@ -324,8 +292,6 @@ export default class More extends Component {
 }
 
 const styles = StyleSheet.create({
-
-
   head: {
     marginBottom: 7,
     flexDirection: 'row',
@@ -378,7 +344,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#8c8c85',
-    transform: [{ rotate: '315deg' }],
+    transform: [{rotate: '315deg'}],
     marginRight: 5,
     width: 10,
     height: 10,
@@ -396,9 +362,8 @@ const styles = StyleSheet.create({
   description: {
     marginRight: 12,
     fontSize: 13,
-    color: '#333333'
+    color: '#333333',
   },
-
 
   headViewText: {
     fontSize: 30,

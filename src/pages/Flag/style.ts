@@ -4,7 +4,7 @@
  */
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -16,7 +16,7 @@ export const StyledContent = styled(SafeAreaView)`
 `;
 
 export const StyledHeader = styled.View`
-    padding: ${Platform.OS === 'ios' ? 44 : 64}px 20px 24px 20px;
+    padding: 10px 20px 24px 20px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

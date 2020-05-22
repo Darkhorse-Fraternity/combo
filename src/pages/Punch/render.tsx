@@ -115,6 +115,8 @@ export default class Punch extends Component {
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
   }
 
+  openSmallTitle = false;
+
   componentWillReceiveProps(nextProps) {
     // console.log('000');
     const {user, search} = this.props;
@@ -165,31 +167,13 @@ export default class Punch extends Component {
   };
 
   _renderHeader = () => (
-    <StyledHeader>
-      <StyledHeaderTitle>{strings('app.name')}</StyledHeaderTitle>
-      <StyledAdd
-        onPress={() => {
-          this.props.navigation.navigate('newCard');
-        }}
-        hitSlop={{
-          top: 20,
-          left: 20,
-          bottom: 20,
-          right: 20,
-        }}>
-        <StyledIonicons
-          // color={'#39ba98'}
-          size={25}
-          name="plus-circle"
-        />
-      </StyledAdd>
-    </StyledHeader>
+    <StyledHeaderTitle>{strings('app.name')}</StyledHeaderTitle>
   );
 
   _renderSectionHeader = info => {
-    if (info.section.title.length === 0) {
-      return <View style={{height: 30}} />;
-    }
+    // if (info.section.title.length === 0) {
+    //   return <View style={{height: 30}} />;
+    // }
     return (
       <StyledSectionHeader>
         <StyledSectionHeaderTitle numberOfLines={1}>
@@ -339,6 +323,17 @@ export default class Punch extends Component {
         <PrivacyModal />
         <SectionList
           refreshing={false}
+          onScroll={event => {
+            const y = event.nativeEvent.contentOffset.y;
+            if (!this.openSmallTitle && y > 35) {
+              this.openSmallTitle = true;
+              this.props.navigation.setOptions({title: '小改变'});
+            }
+            if (this.openSmallTitle && y < 35) {
+              this.openSmallTitle = false;
+              this.props.navigation.setOptions({title: ''});
+            }
+          }}
           onRefresh={() => {
             this.props.search();
           }}
