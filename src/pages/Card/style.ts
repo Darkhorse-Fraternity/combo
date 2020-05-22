@@ -4,7 +4,7 @@
  */
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 import {SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
@@ -15,6 +15,12 @@ export const StyledContent = styled(SafeAreaView)`
     background-color: white;
 `;
 
+
+
+export const StyledHeaderRight = styled.View`
+  flex-direction:row;
+  align-items:center;
+`
 
 export const StyledIcon = styled(Feather)`
   align-self: center;

@@ -29,7 +29,6 @@ import {
 } from './style';
 import CardTemplate from './CardTemplate';
 import {habits} from '../../configure/habit';
-import NavBar from '../../components/Nav/bar/NavBar';
 
 const listKey = ICARD;
 

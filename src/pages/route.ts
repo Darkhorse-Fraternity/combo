@@ -49,10 +49,7 @@ export const otherRoute: RouteType = {
   },
   [RouteKey.remind]: {component: Remind, options: Remind.navigationOptions},
   [RouteKey.cash]: {component: Cash, options: Cash.navigationOptions},
-  [RouteKey.recordDetail]: {
-    component: RecordDetail,
-    options: RecordDetail.navigationOptions,
-  },
+  [RouteKey.recordDetail]:RecordDetail,
   [RouteKey.cardSetting]: {
     component: CardSetting,
     options: CardSetting.navigationOptions,
@@ -90,11 +87,8 @@ export const otherRoute: RouteType = {
     component: CardInfo,
     options: CardInfo.navigationOptions,
   },
-  [RouteKey.rcomment]: {
-    component: RComment,
-    options: RComment.navigationOptions,
-  },
-  [RouteKey.card]: {component: Card, options: Card.navigationOptions},
+  [RouteKey.rcomment]:RComment,
+  [RouteKey.card]: Card,
   [RouteKey.cardUse]: {component: CardUse, options: CardUse.navigationOptions},
 
   [RouteKey.login]: {
