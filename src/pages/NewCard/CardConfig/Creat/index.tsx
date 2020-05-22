@@ -3,9 +3,8 @@
  * @flow
  */
 
-
 import * as immutable from 'immutable';
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -16,27 +15,24 @@ import {
   Text,
   Alert,
   ScrollView,
-  BackHandler
+  BackHandler,
 } from 'react-native';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import moment from 'moment';
-import {
-  reduxForm,
-  formValueSelector,
-} from 'redux-form/immutable';
+import {reduxForm, formValueSelector} from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
-import { ICARD, IUSE } from '../../../../redux/reqKeys';
-import { add } from '../../../../redux/module/leancloud';
-import { addListNormalizrEntity } from '../../../../redux/actions/list';
-import { addNormalizrEntity } from '../../../../redux/module/normalizr';
-import { selfUser, iCard } from '../../../../request/LCModle';
+import {ICARD, IUSE} from '../../../../redux/reqKeys';
+import {add} from '../../../../redux/module/leancloud';
+import {addListNormalizrEntity} from '../../../../redux/actions/list';
+import {addNormalizrEntity} from '../../../../redux/module/normalizr';
+import {selfUser, iCard} from '../../../../request/LCModle';
 import Main from '../Main';
-import { defaultHabit } from '../../../../configure/habit';
+import {defaultHabit} from '../../../../configure/habit';
 import Button from '../../../../components/Button';
-import { mainColor } from '../../../../Theme/index';
+import {mainColor} from '../../../../Theme/index';
 
-import { popToIndex } from '../../../../redux/nav'; // <-- same as form name
+import {popToIndex} from '../../../../redux/nav'; // <-- same as form name
 
 import {
   StyledContent,
@@ -47,15 +43,15 @@ import {
   StyledTitle,
   StyledHeaderInner,
   StyledHeaderBtn,
-  StyledInnerScrollView
+  StyledInnerScrollView,
 } from './style';
-import { TextInput } from '../../../../components/Form/Cunstom/index';
+import {TextInput} from '../../../../components/Form/Cunstom/index';
 // static displayName = Creat
 import BackBtn from '../../../../components/Button/BackBtn/index';
-import { Privacy } from '../../../../configure/enum';
+import {Privacy} from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import { StyledArrowView } from '../../../Record/RecordRow/style';
+import {StyledArrowView} from '../../../Record/RecordRow/style';
 
 export const FormID = 'CreatCardForm';
 const selector = formValueSelector(FormID);
@@ -67,102 +63,96 @@ const selector = formValueSelector(FormID);
     initialValues: props.route.params ? props.route.params.habit : defaultHabit,
     load: state.req.get(ICARD).get('load'),
     iUseLoad: state.req.get(IUSE).get('load'),
-    color: selector(state, 'color')
+    color: selector(state, 'color'),
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
-    add: () => dispatch(async (dispatch, getState) => {
-      // console.log('test:', option);
+    add: () =>
+      dispatch(async (dispatch, getState) => {
+        // console.log('test:', option);
 
-      // const state = getState()
-      // const user = state.user.data;
-      // 新建卡片
+        // const state = getState()
+        // const user = state.user.data;
+        // 新建卡片
 
+        // WARNING:首次登陆的时候也有用到icard 记得修改
+        const state = getState();
+        // const title = selector(state, 'title')
+        const op = selector(
+          state,
+          'title',
+          'notifyTimes',
+          'period',
+          'recordDay',
+          'notifyText',
+          'record',
+          'icon',
+          'color',
+          'limitTimes',
+        );
+        const notifyTimes = op.notifyTimes
+          .toJS()
+          .sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
 
-      // WARNING:首次登陆的时候也有用到icard 记得修改
-      const state = getState();
-      // const title = selector(state, 'title')
-      const op = selector(
-        state,
-        'title',
-        'notifyTimes',
-        'period',
-        'recordDay',
-        'notifyText',
-        'record',
-        'icon',
-        'color',
-        'limitTimes'
-      );
-      const notifyTimes = op.notifyTimes.toJS()
-        .sort((a, b) => moment(a, 'HH:mm')
-          - moment(b, 'HH:mm'));
+        const param = {
+          title: op.title,
+          period: op.period,
+          record: op.record.toJS(),
+          recordDay: op.recordDay.toJS(),
+          iconAndColor: {
+            name: op.icon,
+            color: op.color,
+          },
+          notifyTimes,
+          notifyText: op.notifyText,
+          limitTimes: op.limitTimes,
+          price: 0,
+          state: 0,
+          // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+          ...dispatch(selfUser()),
+        };
 
-      const param = {
-        title: op.title,
-        period: op.period,
-        record: op.record.toJS(),
-        recordDay: op.recordDay.toJS(),
-        iconAndColor: {
-          name: op.icon,
-          color: op.color,
-        },
-        notifyTimes,
-        notifyText: op.notifyText,
-        limitTimes: op.limitTimes,
-        price: 0,
-        state: 0,
-        // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-        ...dispatch(selfUser()),
-      };
+        const res = await dispatch(add(param, ICARD));
+        const entity = {
+          ...param,
+          ...res,
+        };
+        if (!res || !res.objectId) {
+          return;
+        }
 
+        dispatch(addNormalizrEntity(ICARD, entity));
 
-      const res = await dispatch(add(param, ICARD));
-      const entity = {
-        ...param,
-        ...res
-      };
-      if (!res || !res.objectId) {
-        return;
-      }
+        // 返回首页
+        // dispatch((dispatch, getState) => {
+        //
+        // })
 
-      dispatch(addNormalizrEntity(ICARD, entity));
-
-      // 返回首页
-      // dispatch((dispatch, getState) => {
-      //
-      // })
-
-      const iCardId = res.objectId;
-      const addParam = {
-        time: 0,
-        // notifyTime:option&&option.notifyTime||"20.00",
-        doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
-        ...dispatch(selfUser()),
-        ...iCard(iCardId),
-        statu: 'start',
-        privacy: Privacy.open,
-      };
-      const addRes = await dispatch(add(addParam, IUSE));
-      const addEntity = {
-        ...addParam,
-        ...addRes
-      };
-      dispatch(addListNormalizrEntity(IUSE, addEntity));
-      dispatch(popToIndex());
-    }),
-
-  })
+        const iCardId = res.objectId;
+        const addParam = {
+          time: 0,
+          // notifyTime:option&&option.notifyTime||"20.00",
+          doneDate: {__type: 'Date', iso: moment('2017-03-20').toISOString()},
+          ...dispatch(selfUser()),
+          ...iCard(iCardId),
+          statu: 'start',
+          privacy: Privacy.open,
+        };
+        const addRes = await dispatch(add(addParam, IUSE));
+        const addEntity = {
+          ...addParam,
+          ...addRes,
+        };
+        dispatch(addListNormalizrEntity(IUSE, addEntity));
+        props.navigation.dispatch(popToIndex());
+      }),
+  }),
 )
-
-
 @reduxForm({
   form: FormID,
 })
 
 // @formValues('title')
-
-
 export default class Creat extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -170,7 +160,12 @@ export default class Creat extends PureComponent {
     this.state = {
       step: props.initialValues.get('title') ? 1 : 0,
     };
-    this._didFocusSubscription = props.navigation.addListener('didFocus', payload => BackHandler.addEventListener('hardwareBackPress', this.__backStep));
+    // this._didFocusSubscription = props.navigation.addListener(
+    //   'didFocus',
+    //   payload =>
+    //     BackHandler.addEventListener('hardwareBackPress', this.__backStep),
+    // );
+    BackHandler.addEventListener('hardwareBackPress', this.__backStep);
   }
 
   static propTypes = {
@@ -184,14 +179,13 @@ export default class Creat extends PureComponent {
   };
 
   static navigationOptions = // const {navigation} = props;
-                             // const {state} = navigation;
-                             // const {params} = state;
-                             props => ({
-                              headerShown: false,
-                               title: '',
-                               headerLeft: () => <View />
-                             })
-  ;
+    // const {state} = navigation;
+    // const {params} = state;
+    props => ({
+      headerShown: false,
+      title: '',
+      headerLeft: () => <View />,
+    });
 
   // shouldComponentUpdate(nextProps: Object, nextState: Object) {
   //   return !immutable.is(this.props, nextProps) || !immutable.is(this.state, nextState)
@@ -203,52 +197,53 @@ export default class Creat extends PureComponent {
     // }
   }
 
-
   componentDidMount() {
-    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload => BackHandler.removeEventListener('hardwareBackPress', this.__backStep));
+    // this._willBlurSubscription = this.props.navigation.addListener(
+    //   'willBlur',
+    //   payload =>
+    //     BackHandler.removeEventListener('hardwareBackPress', this.__backStep),
+    // );
   }
 
-
   componentWillUnmount() {
-    this._didFocusSubscription && this._didFocusSubscription.remove();
-    this._willBlurSubscription && this._willBlurSubscription.remove();
+    // console.log('this._didFocusSubscriptio', this._didFocusSubscriptio);
+
+    // this._didFocusSubscription && this._didFocusSubscription.remove();
+    // this._willBlurSubscription && this._willBlurSubscription.remove();
+    BackHandler.removeEventListener('hardwareBackPress', this.__backStep);
   }
 
   __nextStep = () => {
-    const { step } = this.state;
+    const {step} = this.state;
     if (this.props.title && this.props.title.length > 0) {
-      this.setState({ step: step + 1 });
+      this.setState({step: step + 1});
     } else {
       Toast.show('标题不可为空');
     }
-  }
+  };
 
   __backStep = () => {
-    const { step } = this.state;
+    const {step} = this.state;
     if (step < 2) {
       this.props.navigation.goBack();
     } else {
-      this.setState({ step: step - 1 });
+      this.setState({step: step - 1});
     }
     return true;
-  }
-
+  };
 
   __renderName = () => (
-
     <View>
       <StyledSubTitleView>
-        <StyledSubTitle>
-            习惯标题：
-        </StyledSubTitle>
+        <StyledSubTitle>习惯标题：</StyledSubTitle>
       </StyledSubTitleView>
       <TextInput
         name="title"
         placeholderTextColor="rgba(180,180,180,1)"
-          // selectionColor={mainColor}
+        // selectionColor={mainColor}
         returnKeyType="next"
         maxLength={50}
-          // keyboardType={boardType}
+        // keyboardType={boardType}
         style={styles.textInputStyle}
         underlineColorAndroid="transparent"
         placeholder="例如跑步、早睡等"
@@ -256,71 +251,66 @@ export default class Creat extends PureComponent {
         enablesReturnKeyAutomatically
       />
     </View>
-  )
-
+  );
 
   render(): ReactElement<any> {
     // const { title, color } = this.props
-    const { step } = this.state;
+    const {step} = this.state;
     console.log('step:', step);
     return (
       <StyledContent
         // colors={['#f1f6f9', '#ffffff']}
-        style={[this.props.style, styles.wrap]}
-      >
-
+        style={[this.props.style, styles.wrap]}>
         <StyledHeader>
-          <StyledTitle>
-            新建习惯
-          </StyledTitle>
+          <StyledTitle>新建习惯</StyledTitle>
           <StyledHeaderInner>
             <StyledHeaderBtn
               // load={false}
               // disabled={false}
               backgroundColor={step < 2 ? '#bfc2c7' : null}
               hitSlop={{
-                top: 15, left: 10, bottom: 15, right: 10
+                top: 15,
+                left: 10,
+                bottom: 15,
+                right: 10,
               }}
               onPress={this.__backStep}
               title={step < 2 ? '取消' : '返回'}
             />
             {step < 2 && (
-            <StyledHeaderBtn
-              load={this.props.load || this.props.iUseLoad}
-              // disabled={false}
-              // backgroundColor={color}
-              hitSlop={{
-                top: 15, left: 10, bottom: 15, right: 10
-              }}
-              onPress={() => {
-                if (step === 0) {
-                  this.__nextStep();
-                } else {
-                  this.props.add();
-                }
-              }}
-              title={step === 0 ? '下一步' : '提交'}
-            />
+              <StyledHeaderBtn
+                load={this.props.load || this.props.iUseLoad}
+                // disabled={false}
+                // backgroundColor={color}
+                hitSlop={{
+                  top: 15,
+                  left: 10,
+                  bottom: 15,
+                  right: 10,
+                }}
+                onPress={() => {
+                  if (step === 0) {
+                    this.__nextStep();
+                  } else {
+                    this.props.add();
+                  }
+                }}
+                title={step === 0 ? '下一步' : '提交'}
+              />
             )}
           </StyledHeaderInner>
         </StyledHeader>
 
         {this.state.step === 0 && (
-        <StyledInnerScrollView>
-          {this.__renderName()}
-          <IconAndColor />
-        </StyledInnerScrollView>
+          <StyledInnerScrollView>
+            {this.__renderName()}
+            <IconAndColor />
+          </StyledInnerScrollView>
         )}
 
         <StyledInnerView>
-
-
-          {this.state.step >= 1
-          && (
-          <Main
-            step={this.state.step - 1}
-            nextStep={this.__nextStep}
-          />
+          {this.state.step >= 1 && (
+            <Main step={this.state.step - 1} nextStep={this.__nextStep} />
           )}
         </StyledInnerView>
       </StyledContent>
@@ -342,5 +332,4 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 15,
   },
-
 });

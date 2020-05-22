@@ -38,7 +38,6 @@ export function listReq(
   more: bool = false,
   option: Object = {}
 ) {
-  console.log("111111");
   return async (dispatch, getState) => {
     const listKey = option.sKey || key;
     const page = !more ? 0 : getState().list.getIn([listKey, "page"]) + 1;

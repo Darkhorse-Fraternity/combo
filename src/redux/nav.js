@@ -1,19 +1,19 @@
 import {CommonActions,StackActions } from '@react-navigation/native';
 
 export function push(key, params) {
-  return dispatch => dispatch(CommonActions.navigate({ routeName: key, params }));
+  return dispatch(CommonActions.navigate({ routeName: key, params }));
 }
 
 export function pop() {
-  return dispatch => dispatch(CommonActions.goBack());
+  return  dispatch(CommonActions.goBack());
 }
 
 export function popToIndex(n = 0) {
   // 根据index 识别key
 
-  return dispatch => dispatch(n <= 0
+  return n <= 0
     ? StackActions.popToTop()
-    : StackActions.pop({ n }));
+    : StackActions.pop({ n });
 
 
   // return dispatch => dispatch((dispatch, getState) => {

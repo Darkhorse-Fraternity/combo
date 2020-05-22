@@ -37,7 +37,6 @@ import { search } from '../../redux/module/leancloud';
         callPath,
         reqParam
       } = p;
-      console.log('more', more);
       
       return dispatch(mSearch(more,
         reqParam,

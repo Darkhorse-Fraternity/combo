@@ -30,25 +30,18 @@ export default class RecordDetail extends PureComponent {
 
   static defaultProps = {};
 
-  static navigationOptions = props => {
-    // const iCardId = props.route.params.iCardId;
+  componentDidMount() {
+    // const { iCard, iUse } = this.props
+    // const state = iCard.get('state')
+    // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
+    //   title: iCard.get('title') })
+    this.props.navigation.setOptions({headerRight: this.__renderRightView});
+    // console.log('this.props.navigation', this.props.navigation);
+  }
 
-    return {
-      headerShown: false,
-      // headerRight: ( <StyledHeaderBtn
-      //     // load={false}
-      //     // style={{ backgroundColor: color }}
-      //     // disabled={false}
-      //     hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-      //     onPress={()=>{
-      //       props.navigation.navigate('cardInfo', {
-      //         iCardId
-      //       })
-      //     }}
-      //     title={'加入'}/>
-      // ),
-    };
-  };
+  componentWillReceiveProps() {
+    this.props.navigation.setOptions({headerRight: this.__renderRightView});
+  }
 
   __renderRightView = () => {
     const {navigation, iCard, route} = this.props;

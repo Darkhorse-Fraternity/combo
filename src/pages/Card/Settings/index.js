@@ -94,7 +94,6 @@ const Archive = `${IUSE}archive`;
       dispatch(claerByID(IRECORD, id));
       // props.navigation.goBack()
       // props.navigation.goBack()
-      // await dispatch(popToIndex())
       // props.navigation.navigate('habit')
     },
     stop: async (data) => {
@@ -112,7 +111,7 @@ const Archive = `${IUSE}archive`;
 
       dispatch(addNormalizrEntity(IUSE, entity));
       dispatch(claerByID(IUSE, id));
-      dispatch(popToIndex());
+      props.navigation.dispatch(popToIndex());
     },
     delete: async (objectId, isFb) => {
       // await remove(objectId,IUSE)
@@ -140,7 +139,7 @@ const Archive = `${IUSE}archive`;
             dispatch(claerByID(IUSE, objectId));
             dispatch(claerByID(IRECORD, objectId));
             // props.navigation.goBack()
-            dispatch(popToIndex());
+            props.navigation.dispatch(popToIndex());
           }
         }]
       );
