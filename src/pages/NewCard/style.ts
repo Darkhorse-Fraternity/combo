@@ -3,7 +3,7 @@
  * @flow
  */
 
-import styled from "styled-components";
+import styled from "styled-components/native";
 import { materialColors } from "react-native-typography";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from "react-native-vector-icons/Feather";

@@ -66,13 +66,8 @@ export default class Earnings extends PureComponent {
   static defaultProps = {};
 
   static navigationOptions = (props) => {
-    const { navigation } = props;
-    const { state } = navigation;
-    const { params } = state;
-    const { gestureEnabled } = params || { gestureEnabled: true };
     return {
       title: '',
-      gestureEnabled
     };
   };
 

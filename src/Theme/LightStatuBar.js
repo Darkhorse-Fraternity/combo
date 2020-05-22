@@ -30,7 +30,7 @@ export default class LightStatuBar extends Component {
         {Platform.OS !== 'ios' && Platform.Version >= 23 && (
           <StatusBar
             translucent={true}
-            backgroundColor="white"
+            backgroundColor="transparent"
             barStyle={'dark-content'}
           />
         )}

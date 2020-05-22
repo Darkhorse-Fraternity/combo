@@ -10,9 +10,18 @@ import HeaderBackImage from './HeaderBackImage';
 import {StackNavigationOptions} from '@react-navigation/stack';
 import {TransitionPresets} from '@react-navigation/stack';
 
+const currentHeight = StatusBar.currentHeight || 20;
+
+const headerStyleAndroid =
+  Platform.OS === 'ios' || Platform.Version < 20
+    ? {}
+    : {
+        height: 64 + currentHeight - 20,
+      };
+
 export const defaultNavigationOptions: StackNavigationOptions = {
   headerStyle: {
-    backgroundColor: 'white',
+    // backgroundColor: 'red',
     shadowColor: 'red',
     shadowOpacity: 0,
     shadowRadius: 0,
@@ -20,10 +29,12 @@ export const defaultNavigationOptions: StackNavigationOptions = {
       height: 0,
       width: 0,
     },
+    ...headerStyleAndroid,
     borderBottomColor: '#F5FCFF',
     elevation: 0,
     // headerBackTitle:' '
   },
+
   headerTintColor: 'black',
   headerTitleStyle: {
     alignItems: 'center',
@@ -35,7 +46,7 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   headerBackImage: props => (
     <HeaderBackImage
       color={props.tintColor}
-      style={{margin: Platform.OS === 'ios' ? 15 : 10}}
+      // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
     />
   ),
   headerBackTitleVisible: false,

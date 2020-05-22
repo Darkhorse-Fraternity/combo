@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {
   Image,
   StyleSheet,
+  Platform
 } from 'react-native'
 // import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 
@@ -37,8 +38,9 @@ const styles = StyleSheet.create({
   image: {
     height: 24,
     width: 24,
-    marginLeft: 15,
+    marginLeft: Platform.OS ==='ios'?15:5,
     marginRight: 12,
     marginVertical: 14,
+    alignSelf:'center'
   },
 })

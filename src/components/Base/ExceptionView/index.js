@@ -97,10 +97,10 @@ export default class ExceptionView extends Component {
     }
     switch (type) {
       case ExceptionType.Loading:
-        prompt = '正在加载';
+        prompt = '正在加载...';
         break;
       case ExceptionType.NoData:
-        prompt = '';
+        prompt = '没有数据...';
         break;
       case ExceptionType.NetError:
         prompt = '网络异常';

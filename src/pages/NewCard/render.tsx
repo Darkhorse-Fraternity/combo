@@ -3,20 +3,20 @@
  * @flow
  */
 
-import React, { PureComponent, Fragment } from "react";
-import PropTypes from "prop-types";
+import React, {PureComponent, Fragment} from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
   Dimensions,
   TouchableNativeFeedback,
-  Platform
-} from "react-native";
-import { connect } from "react-redux";
-import Button from "../../components/Button";
-import { ICARD, CARDLIST } from "../../redux/reqKeys";
-import LCList from "../../components/Base/LCList";
-import CardCell from "./CardCell";
+  Platform,
+} from 'react-native';
+import {connect} from 'react-redux';
+import Button from '../../components/Button';
+import {ICARD, CARDLIST} from '../../redux/reqKeys';
+import LCList from '../../components/Base/LCList';
+import CardCell from './CardCell';
 import {
   StyledContent,
   StyledTitleView,
@@ -25,28 +25,24 @@ import {
   StyledHerderButton,
   StyledHeaderText,
   StyledIcon,
-  StyledNarBarRightView
-} from "./style";
-import CardTemplate from "./CardTemplate";
-import { habits } from "../../configure/habit";
-import NavBar from "../../components/Nav/bar/NavBar";
+  StyledNarBarRightView,
+} from './style';
+import CardTemplate from './CardTemplate';
+import {habits} from '../../configure/habit';
+import NavBar from '../../components/Nav/bar/NavBar';
 
 const listKey = ICARD;
 
 @connect(
   state => ({
-    data: state.normalizr.get(listKey)
+    data: state.normalizr.get(listKey),
   }),
-  (dispatch, props) => ({})
+  (dispatch, props) => ({}),
 )
 export default class NewCard extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {};
-
-  static navigationOptions = () => ({
-    headerShown: false,
-  });
 
   constructor(props: Object) {
     super(props);
@@ -64,7 +60,7 @@ export default class NewCard extends PureComponent {
           key={`template ${name}`}
           data={habits[name]}
           onPress={habit => {
-            this.props.navigation.navigate("creat", { habit });
+            this.props.navigation.navigate('creat', {habit});
           }}
         />
       </Fragment>
@@ -75,19 +71,19 @@ export default class NewCard extends PureComponent {
     });
 
     //适配安卓
-    const style = Platform.OS === "ios" ? {} : { height: 1062 };
+    const style = Platform.OS === 'ios' ? {} : {height: 1062};
 
     return (
       <StyledTop style={style} removeClippedSubviews>
         <StyledHeaderText>
           「 种一棵树最好的时间是十年前，其次是现在。 」
         </StyledHeaderText>
-        <View style={{ paddingHorizontal: 20 }}>
+        <View style={{paddingHorizontal: 20}}>
           <StyledHerderButton
             style={styles.headerBtn}
             title="自建习惯卡片"
             onPress={() => {
-              this.props.navigation.navigate("creat");
+              this.props.navigation.navigate('creat');
             }}
           />
         </View>
@@ -101,20 +97,20 @@ export default class NewCard extends PureComponent {
     );
   };
 
-  renderRow({ item }) {
+  renderRow({item}) {
     // console.log('test:', item);
-    const { iconAndColor, title, img } = item;
-    const { color, name } = iconAndColor || { name: "sun", color: "#b0d2ee" };
+    const {iconAndColor, title, img} = item;
+    const {color, name} = iconAndColor || {name: 'sun', color: '#b0d2ee'};
 
     return (
       <CardCell
         title={title}
         name={name}
-        color={"white"}
+        color={'white'}
         img={img}
         onPress={() => {
-          this.props.navigation.navigate("cardInfo", {
-            iCardId: item.objectId
+          this.props.navigation.navigate('cardInfo', {
+            iCardId: item.objectId,
           });
         }}
       />
@@ -129,43 +125,39 @@ export default class NewCard extends PureComponent {
           TouchableNativeFeedback.SelectableBackgroundBorderless()
         }
         onPress={() => {
-          this.props.navigation.navigate("search");
+          this.props.navigation.navigate('search');
         }}
-        style={{ paddingHorizontal: 10 }}
-      >
+        style={{paddingHorizontal: 10}}>
         <StyledIcon size={20} color="black" name="search" />
       </Button>
     </StyledNarBarRightView>
   );
 
   render() {
-    const { navigation } = this.props;
-    const { goBack } = navigation;
+    const {navigation} = this.props;
+    const {goBack} = navigation;
     return (
-      <StyledContent>
-        <NavBar onBackPress={goBack} rightView={this.renderNarBarRightView} />
-        <LCList
-          ListHeaderComponent={this._listHeaderComponet}
-          style={[this.props.style, styles.list]}
-          reqKey={listKey} // 在normalizr 中的位置
-          sKey={CARDLIST} // 在list 中的位置
-          callPath={CARDLIST} // 表示走云函数,并告知云函数的路径
-          numColumns={4}
-          columnWrapperStyle={{ padding: 0 }}
-          renderItem={this.renderRow.bind(this)}
-          dataMap={data => ({ results: data.result })}
-          reqParam={{}}
-        />
-      </StyledContent>
+      <LCList
+        ListHeaderComponent={this._listHeaderComponet}
+        style={[this.props.style, styles.list]}
+        reqKey={listKey} // 在normalizr 中的位置
+        sKey={CARDLIST} // 在list 中的位置
+        callPath={CARDLIST} // 表示走云函数,并告知云函数的路径
+        numColumns={4}
+        columnWrapperStyle={{padding: 0}}
+        renderItem={this.renderRow.bind(this)}
+        dataMap={data => ({results: data.result})}
+        reqParam={{}}
+      />
     );
   }
 }
 
-const { width } = Dimensions.get("window");
+const {width} = Dimensions.get('window');
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    overflow: "hidden"
+    overflow: 'hidden',
   },
 
   itemAdd: {
@@ -176,31 +168,31 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   shadow: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     // position: 'absolute',
     // top: 0,
     // left: 0,
     // right: 0,
     // bottom: 0,
-    shadowColor: "black",
+    shadowColor: 'black',
     shadowOpacity: 0.25,
     shadowRadius: 5,
     shadowOffset: {
       height: 3,
-      width: 3
+      width: 3,
     },
     borderRadius: 10,
-    elevation: 10
+    elevation: 10,
     // margin: 10,
     // elevation: 10,
   },
 
   period: {
-    marginTop: 5
-  }
+    marginTop: 5,
+  },
 });

@@ -17,13 +17,7 @@ import CardCell from '../CardCell/CardCell2';
 
 const listKey = ICARD;
 
-@connect(
-  state => ({
-  }),
-  dispatch => ({
 
-  })
-)
 export default class Search extends PureComponent {
   static propTypes = {};
 
@@ -95,7 +89,7 @@ export default class Search extends PureComponent {
       include: 'user',
     };
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
+      <>
         <StyledSearchInput
           autoFocus
           placeholder="请输入查询内容"
@@ -112,7 +106,7 @@ export default class Search extends PureComponent {
           reqParam={param}
         />
         )}
-      </StyledContent>
+      </>
     );
   }
 }
