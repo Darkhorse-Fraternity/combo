@@ -74,6 +74,9 @@ PODS:
     - boost-for-react-native
     - DoubleConversion
     - glog
+  - GDTMobSDK (4.10.19):
+    - GDTMobSDK/GDTMobSDK (= 4.10.19)
+  - GDTMobSDK/GDTMobSDK (4.10.19)
   - glog (0.3.5)
   - IQKeyboardManager (4.0.13)
   - JWT (3.0.0-beta.11):
@@ -371,6 +374,9 @@ PODS:
     - SDWebImageWebPCoder (~> 0.2.3)
   - RNFS (2.12.1):
     - React
+  - RNGdt (4.5.7):
+    - GDTMobSDK (~> 4.10.5)
+    - React
   - RNGestureHandler (1.5.2):
     - React
   - RNKeychain (3.0.0):
@@ -474,6 +480,7 @@ DEPENDENCIES:
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNFS (from `../node_modules/react-native-fs`)
+  - RNGdt (from `../node_modules/react-native-gdt/ios`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNLocalize (from `../node_modules/react-native-localize`)
@@ -487,13 +494,6 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Base64
     - boost-for-react-native
-    - IQKeyboardManager
-    - JWT
-    - libwebp
-    - SDWebImage
-    - SDWebImageWebPCoder
-    - SSZipArchive
-  trunk:
     - CocoaAsyncSocket
     - CocoaLibEvent
     - Flipper
@@ -503,8 +503,15 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
+    - GDTMobSDK
+    - IQKeyboardManager
+    - JWT
+    - libwebp
     - LookinServer
     - OpenSSL-Universal
+    - SDWebImage
+    - SDWebImageWebPCoder
+    - SSZipArchive
     - Toast
     - YogaKit
 
@@ -615,6 +622,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-image"
   RNFS:
     :path: "../node_modules/react-native-fs"
+  RNGdt:
+    :path: "../node_modules/react-native-gdt/ios"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNKeychain:
@@ -650,10 +659,11 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 1260a31c05c238eabfa9bb8a64e3983049048371
   FlipperKit: 6dc9b8f4ef60d9e5ded7f0264db299c91f18832e
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
+  GDTMobSDK: 7cadef357ef98125c5fb4e3cb9e50f3afe7801f4
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
-  libwebp: db273b5a72581ca31985dec5c3b8bc826a5f59ee
+  libwebp: 057912d6d0abfb6357d8bb05c0ea470301f5d61e
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   RCTAlipay: 3a02fb52bbb17f8cf5cf814c6ab32526a04c5dd1
@@ -702,6 +712,7 @@ SPEC CHECKSUMS:
   RNDeviceInfo: 0e40d9a9031252d2525d8b69a4b3fa8689efcea4
   RNFastImage: 9b0c22643872bb7494c8d87bbbb66cc4c0d9e7a2
   RNFS: 0f4d630b538e93e0e9e3519ff0b7b7b48760d8ed
+  RNGdt: fa334a4374164d0d6fdd965a68a4787e7c9647a1
   RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
   RNKeychain: 3aa3cf891a09a0d18d306862ab2bb9e106079b24
   RNLocalize: b6df30cc25ae736d37874f9bce13351db2f56796
@@ -716,6 +727,6 @@ SPEC CHECKSUMS:
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 195e395c99096fbf3e134eed89c54b7851ca36e9
+PODFILE CHECKSUM: 8b9e4910459e0ec211356e67ac5f0632563ad60d
 
 COCOAPODS: 1.8.4

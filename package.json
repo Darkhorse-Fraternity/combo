@@ -84,6 +84,7 @@
     "react-native-umeng-analytics": "git+https://github.com/Darkhorse-Fraternity/react-native-umeng-analytics.git#pod2",
     "react-native-update-app": "1.1.11",
     "react-native-uuid": "1.4.9",
+    "react-native-gdt": "git+https://github.com/Darkhorse-Fraternity/react-native-gdt.git#v1.1",
     "react-native-vector-icons": "6.1.0",
     "react-native-webview": "^9.3.0",
     "react-native-wechat": "git+ https://github.com/yorkie/react-native-wechat.git",
