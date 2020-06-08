@@ -7,10 +7,12 @@
 
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UNUserNotificationCenter.h>
-@interface AppDelegate : UIResponder <UIApplicationDelegate,UNUserNotificationCenterDelegate>
+ #import "GDTSplashAd.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UNUserNotificationCenterDelegate,GDTSplashAdDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
-
+@property (strong, nonatomic) GDTSplashAd *splash;
+@property (retain, nonatomic) UIView *bottomView;
 
 @end

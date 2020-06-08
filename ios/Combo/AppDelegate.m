@@ -60,6 +60,8 @@ static void InitializeFlipper(UIApplication *application) {
         jsCodeLocation = [CodePush bundleURL];
     #endif
 
+
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"Combo"
                                                initialProperties:nil
@@ -67,6 +69,9 @@ static void InitializeFlipper(UIApplication *application) {
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  
+  
+  
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
@@ -83,10 +88,38 @@ static void InitializeFlipper(UIApplication *application) {
 #ifdef DEBUG
   
 #else
-  [RNSplashScreen show];
+//  [RNSplashScreen show];
 #endif
-
+ [self gdtAd];
   return YES;
+}
+
+// gdtad
+-(void)gdtAd{
+//  [GDTSplashAd preloadSplashOrderWithAppId:@"1108555154"  placementId:@"7021515378125473"];
+  GDTSplashAd *splash = [[GDTSplashAd alloc] initWithAppId:@"1110576976" placementId:@"3061711534698128"];
+  self.splash = splash;
+  splash.delegate = self; //设置代理
+  //根据iPhone设备不同设置不同背景图
+//  if ([[UIScreen mainScreen] bounds].size.height >= 568.0f) {
+//   splash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchImage-568h"]];
+//  } else {
+//   splash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"LaunchImage"]];
+//  }
+  splash.fetchDelay = 3; //开发者可以设置开屏拉取时间，超时则放弃展示
+  //设置开屏底部自定义LogoView，展示半屏开屏广告
+  _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 100)];
+  UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-horizontal"]];
+  [logo setFrame:CGRectMake(0, 0,189, 54)];
+  [_bottomView addSubview:logo];
+  logo.center = _bottomView.center;
+  _bottomView.backgroundColor = [UIColor whiteColor];
+  [splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
+}
+
+- (void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error
+{
+  NSLog(@"splashAdFailToPresentwithError:%@",error.userInfo.allValues[0] );
 }
 
 // Required to register for notifications

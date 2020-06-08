@@ -7519,9 +7519,9 @@ react-native-fs@2.12.1:
     base-64 "^0.1.0"
     utf8 "^2.1.1"
 
-"react-native-gdt@git+https://github.com/Darkhorse-Fraternity/react-native-gdt.git#v1.0":
+"react-native-gdt@git+https://github.com/Darkhorse-Fraternity/react-native-gdt.git#v1.1":
   version "4.5.7"
-  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-gdt.git#e3830752e1a085753464e63ffbae5e0aa602b5d6"
+  resolved "git+https://github.com/Darkhorse-Fraternity/react-native-gdt.git#7542034c8957409c9b0856527d5586925c2010f8"
 
 react-native-gesture-handler@1.5.2:
   version "1.5.2"

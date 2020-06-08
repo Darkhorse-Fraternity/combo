@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,33 +13,25 @@
             <rect key="frame" x="0.0" y="0.0" width="611" height="709"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小改变，大不同" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MqK-44-hR0">
-                    <rect key="frame" x="251.66666666666666" y="623" width="107.66666666666666" height="18"/>
-                    <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
-                    <color key="textColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="ComboLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bSU-7r-pjA">
-                    <rect key="frame" x="275.66666666666669" y="558" width="60" height="60"/>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="logo-horizontal.png" translatesAutoresizingMaskIntoConstraints="NO" id="dSQ-ib-cST">
+                    <rect key="frame" x="211" y="631.33333333333337" width="189" height="54.666666666666629"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="icM-aE-U10"/>
-                        <constraint firstAttribute="width" constant="60" id="jte-VS-jJ7"/>
+                        <constraint firstAttribute="height" constant="54.670000000000002" id="AjQ-5R-taf"/>
+                        <constraint firstAttribute="width" constant="189" id="qee-xR-tOi"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.99992293119430542" green="1" blue="0.99988037347793579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="MqK-44-hR0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="2He-s8-MCV"/>
-                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="XQ8-m9-Ui4"/>
-                <constraint firstItem="bSU-7r-pjA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="233.5" id="deH-FY-u0g"/>
-                <constraint firstItem="MqK-44-hR0" firstAttribute="top" secondItem="bSU-7r-pjA" secondAttribute="bottom" constant="5" id="tQb-7K-gUV"/>
+                <constraint firstItem="dSQ-ib-cST" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="90b-bi-fep"/>
+                <constraint firstAttribute="bottom" secondItem="dSQ-ib-cST" secondAttribute="bottom" constant="23" id="s6h-bA-btJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="613.5" y="569.5"/>
+            <point key="canvasLocation" x="612.31884057971024" y="569.429347826087"/>
         </view>
     </objects>
     <resources>
-        <image name="ComboLogo" width="200" height="200"/>
+        <image name="logo-horizontal.png" width="189" height="54.666667938232422"/>
     </resources>
 </document>
