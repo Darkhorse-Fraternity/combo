@@ -20,6 +20,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import com.ineva.gdt.GTDConfig;
 import com.microsoft.codepush.react.CodePush;
 
 import com.umeng.analytics.MobclickAgent;
@@ -95,7 +96,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
             Log.e("[RNAppMetadata]", " name not found");
         }
 
-
+        GTDConfig.config(this,"1110500025");
 //        UMConfigure.init(this, '', '', UMConfigure.DEVICE_TYPE_PHONE, null);
 //        MobclickAgent.openActivityDurationTrack(false);
     }

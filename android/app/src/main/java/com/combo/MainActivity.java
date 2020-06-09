@@ -1,5 +1,6 @@
 package com.combo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.calendarevents.CalendarEventsPackage;
@@ -7,6 +8,7 @@ import com.combo.util.LightStatusBarUtil;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import com.ineva.gdt.SplashActivity;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import com.umeng.analytics.MobclickAgent;
 import org.devio.rn.splashscreen.SplashScreen;
@@ -24,9 +26,19 @@ public class MainActivity extends ReactActivity {
 //        super.onCreate(savedInstanceState);
         LightStatusBarUtil.setTranslucent(this);
         LightStatusBarUtil.setStatusTextColor(true,this);
-
+        startActivity(getSplashActivityIntent());
 //        initView();
     }
+
+    private Intent getSplashActivityIntent() {
+        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+        intent.putExtra("pos_id", "9021211577543167");
+//        intent.putExtra("need_logo", needLogo());
+        intent.putExtra("need_start_demo_list", false);
+//        intent.putExtra("custom_skip_btn", customSkipBtn());
+        return intent;
+    }
+
     /**
      * Returns the name of the main component registered from JavaScript.
      * This is used to schedule rendering of the component.
