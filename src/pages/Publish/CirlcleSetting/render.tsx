@@ -11,11 +11,13 @@ import {
 import {reqO, useFetch} from 'react-native-qj-fetch';
 import * as yup from 'yup';
 import {MemoRHFError, MemoRHFInput, RHFError} from '@components/Form';
-import {useNavigationParam} from '@react-navigation/native';
+// import {useNavigationParam} from '@react-navigation/natve';
 import {classUpdate, classIDSearch} from '@request/leanCloud';
 import {ICARD} from 'src/redux/reqKeys';
 import SimpleToast from 'react-native-simple-toast';
 import {loadView} from '@components/Load';
+import {useNavigationAllParamsWithType} from '@components/Nav/hook';
+import {RouteKey} from '@pages/interface';
 
 interface iCardType {
   objectId?: string;
@@ -35,7 +37,7 @@ type FormData = {
 };
 
 const render = () => {
-  const iCardID = useNavigationParam('iCardID') as string;
+  const {iCardID} = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
   // console.log("req", reqO);
   // reqO();
 

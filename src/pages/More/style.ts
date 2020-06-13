@@ -3,20 +3,18 @@
  * @flow
  */
 
-
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 import Button from '../../components/Button/index';
 
 export const StyledContent = styled(SafeAreaView)`
-    flex: 1;
+  flex: 1;
 `;
 export const StyledInnerContent = styled.ScrollView`
   flex: 1;
 `;
-
 
 export const StyleHeader = styled.View`
   margin-top: 44px;
@@ -24,40 +22,35 @@ export const StyleHeader = styled.View`
 `;
 
 export const StyledHeaderTop = styled(Button)`
-    margin-bottom: 15px;
-     align-items: center;
-    
+  margin-bottom: 15px;
+  align-items: center;
 `;
 
-
 export const StyledHeaderName = styled.Text`
-    font-size: 17px;
-    font-weight: 300;
-    max-width: 150px;
-    margin-top: 5px;
-    
+  font-size: 17px;
+  font-weight: 300;
+  max-width: 150px;
+  margin-top: 5px;
 `;
 
 export const StyledAvatar = styled.Image`
-    width:70px;
-    height:70px;
-   border-radius: 35px;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
 `;
 export const StyledAvatarView = styled.View`
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 `;
-
 
 export const StyledHeaderSubText = styled.Text`
-    font-size: 14px;
-    color: #c1c1c1;
-    margin-left: 2px;
+  font-size: 14px;
+  color: #c1c1c1;
+  margin-left: 2px;
 `;
 
-
 export const StyledIcon = styled(Icon)`
-    align-self: center;
+  align-self: center;
 `;
 
 export const StyledFuncView = styled.View`
@@ -67,44 +60,40 @@ export const StyledFuncView = styled.View`
 `;
 
 export const StyleFolllow = styled.View`
-    flex-direction: row;
-    align-content: center; 
-    justify-content: space-between;
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
 `;
 export const StyledIncome = styled.Text`
-    font-size: 16px;
+  font-size: 16px;
 `;
-export const StyledEntypoIcon = styled(EntypoIcon)`
-
-`;
+export const StyledEntypoIcon = styled(EntypoIcon)``;
 
 export const StyledFollowTextView = styled.View`
-   width: 60px;
-   height: 60px;
-   border-radius: 30px;
-   border-color: #2e2e2e;
-   border-width: ${props => props.theme.hairlineWidth * 2};
-   align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border-color: #2e2e2e;
+  border-width: ${props => props.theme.hairlineWidth * 2};
+  align-items: center;
   justify-content: center;
 `;
 
 export const StyleFollowTextNum = styled.Text`
-    font-size: 20px; 
-    font-weight: 600;
+  font-size: 20px;
+  font-weight: 600;
 `;
 
 export const StyleFollowText = styled.Text`
-    margin-top: 10px;
-    font-size: 23px; 
-    font-weight: 500;
+  margin-top: 10px;
+  font-size: 23px;
+  font-weight: 500;
 `;
 
-
 export const StyleFollowDevide = styled.View`
-    margin: 0px 15px ;
-    background-color: #adadad;
-    width: 2px;
-    margin-top: 8px;
-    height: 25px;
-   
+  margin: 0px 15px;
+  background-color: #adadad;
+  width: 2px;
+  margin-top: 8px;
+  height: 25px;
 `;

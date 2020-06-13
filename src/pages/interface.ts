@@ -52,7 +52,7 @@ export type RootStackParamList = {
   [RouteKey.remind]: undefined;
   [RouteKey.cash]: undefined;
   [RouteKey.recordDetail]: undefined;
-  [RouteKey.cardSetting]: undefined;
+  [RouteKey.cardSetting]: {iCardID: string};
   [RouteKey.followee]: undefined;
   [RouteKey.follower]: undefined;
   [RouteKey.follow]: undefined;

@@ -4,17 +4,17 @@
  */
 'use strict';
 
-import styled from "styled-components";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import styled from 'styled-components';
+import {SafeAreaView} from 'react-native';
 export const StyledContent = styled(SafeAreaView)`
-    flex: 1;
-`
+  flex: 1;
+`;
 
 export const StyledHeader = styled.View`
-    padding: 15px 20px 20px 20px;
-`
+  padding: 15px 20px 20px 20px;
+`;
 
 export const StyledHeaderTitle = styled.Text`
-   font-size: 21px;
-   font-weight: 500;
-`
+  font-size: 21px;
+  font-weight: 500;
+`;

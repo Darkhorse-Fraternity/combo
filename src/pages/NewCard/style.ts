@@ -3,11 +3,11 @@
  * @flow
  */
 
-import styled from "styled-components/native";
-import { materialColors } from "react-native-typography";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from "react-native-vector-icons/Feather";
-import HeaderBtn from "../../components/Button/HeaderBtn";
+import styled from 'styled-components/native';
+import {materialColors} from 'react-native-typography';
+import {SafeAreaView} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
+import HeaderBtn from '../../components/Button/HeaderBtn';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
@@ -25,8 +25,7 @@ export const StyledTitleText = styled.Text`
   margin-left: 10px;
 `;
 
-export const StyledTop = styled.ScrollView`
-`;
+export const StyledTop = styled.ScrollView``;
 
 export const StyledHeader = styled.View`
   margin: 15px 10px 0px 10px;

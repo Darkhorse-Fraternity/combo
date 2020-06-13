@@ -159,9 +159,7 @@ export default class More extends Component {
         <StyledHeaderTop
           onPress={() => {
             if (isTourist) {
-              this.props.navigation.navigate('login', {
-                transition: 'forVertical',
-              });
+              this.props.navigation.navigate('login');
             } else {
               this.props.navigation.navigate('account');
             }

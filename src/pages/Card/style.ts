@@ -3,24 +3,21 @@
  * @flow
  */
 
-
 import styled from 'styled-components/native';
 
-import {SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import IconSet from '../../../source/font/Iconfont';
 
 export const StyledContent = styled(SafeAreaView)`
-    flex: 1;
-    background-color: white;
+  flex: 1;
+  background-color: white;
 `;
 
-
-
 export const StyledHeaderRight = styled.View`
-  flex-direction:row;
-  align-items:center;
-`
+  flex-direction: row;
+  align-items: center;
+`;
 
 export const StyledIcon = styled(Feather)`
   align-self: center;

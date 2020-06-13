@@ -3,15 +3,13 @@
  * @flow
  */
 
-
-
 import styled from 'styled-components/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 import HeaderBtn from '../../../../components/Button/HeaderBtn';
 
 export const StyledContent = styled(SafeAreaView)`
-    background-color: white;
-    flex:1
+  background-color: white;
+  flex: 1;
 `;
 
 export const StyledHeader = styled.View`
@@ -30,13 +28,11 @@ export const StyledHeaderInner = styled.View`
   flex-direction: row;
 `;
 
-
 export const StyledHeaderBtn = styled(HeaderBtn)`
-   background-color: ${props => props.backgroundColor || props.theme.sureColor};
-   margin-left: 10px;
-   width: 80px;
+  background-color: ${props => props.backgroundColor || props.theme.sureColor};
+  margin-left: 10px;
+  width: 80px;
 `;
-
 
 export const StyledSubTitleView = styled.View`
   flex-direction: row;
@@ -47,15 +43,14 @@ export const StyledSubTitleView = styled.View`
 export const StyledSubTitle = styled.Text`
   font-size: 15px;
   margin: 0px 0px 10px 15px;
-  padding: 5px ;
+  padding: 5px;
 `;
-
 
 export const StyledInnerScrollView = styled.ScrollView`
   padding: 10px 0px;
 `;
 
 export const StyledInnerView = styled.View`
-  flex:1;
+  flex: 1;
   padding: 10px 0px;
 `;

@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 //     background-color: white;
 // `
 
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 import {materialColors} from 'react-native-typography';
 import Button from '../../../components/Button/';
 

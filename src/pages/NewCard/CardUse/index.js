@@ -3,37 +3,27 @@
  * @flow
  */
 
-
 'use strict';
 
-import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, {PureComponent} from 'react';
+import {View} from 'react-native';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
-import FollowRow from '../../More/Follow/FollowRow'
-import { IUSE, USER } from "../../../redux/reqKeys";
-import { iCard } from "../../../request/LCModle";
+import FollowRow from '../../More/Follow/FollowRow';
+import {IUSE, USER} from '../../../redux/reqKeys';
+import {iCard} from '../../../request/LCModle';
 
-import {
-  StyledContent,
-  StyledHeader,
-  StyledHeaderTitle
-} from './style'
+import {StyledContent, StyledHeader, StyledHeaderTitle} from './style';
 
-
-const listKey = IUSE
+const listKey = IUSE;
 
 @connect(
   state => ({
-    users: state.normalizr.get(USER)
+    users: state.normalizr.get(USER),
   }),
-  dispatch => ({})
+  dispatch => ({}),
 )
-
-
 export default class CardUse extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -47,55 +37,52 @@ export default class CardUse extends PureComponent {
     // const {params} = state;
     return {
       title: '',
-    }
+    };
   };
-
 
   _renderHeader = () => {
     return (
       <StyledHeader>
-        <StyledHeaderTitle>
-          圈子成员
-        </StyledHeaderTitle>
+        <StyledHeaderTitle>圈子成员</StyledHeaderTitle>
       </StyledHeader>
-    )
-  }
+    );
+  };
 
-  _renderItem = (data) => {
-    const user = this.props.users.get(data.item.user).toJS()
+  _renderItem = data => {
+    const user = this.props.users.get(data.item.user).toJS();
     return (
-      <FollowRow user={user} onPress={() => {
-        this.props.navigation.navigate('following', { userId: data.item.user })
-      }}/>
-    )
-  }
+      <FollowRow
+        user={user}
+        onPress={() => {
+          this.props.navigation.navigate('following', {userId: data.item.user});
+        }}
+      />
+    );
+  };
 
   render(): ReactElement<any> {
+    const {params} = this.props.route;
 
-    const { params } = this.props.navigation.state;
-
-    const iCardId = params && params.iCardId
+    const iCardId = params && params.iCardId;
     if (!iCardId) {
-      return null
+      return null;
     }
     const param = {
       where: {
         ...iCard(iCardId),
-        statu: { "$ne": 'del' },
-
+        statu: {$ne: 'del'},
       },
-      include: USER
-    }
-
+      include: USER,
+    };
 
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
+      <StyledContent forceInset={{top: 'never'}}>
         {this._renderHeader()}
         <LCList
           // ListHeaderComponent={this._renderHeader}
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           reqKey={listKey}
-          sKey={"CardUse" + iCardId}
+          sKey={'CardUse' + iCardId}
           renderItem={this._renderItem}
           noDataPrompt={'还没有人关注~'}
           //search={followList('ee')}
@@ -110,5 +97,3 @@ export default class CardUse extends PureComponent {
     );
   }
 }
-
-

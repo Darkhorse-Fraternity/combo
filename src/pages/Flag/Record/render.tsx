@@ -3,16 +3,13 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {View} from 'react-native';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import LCList from '../../../components/Base/LCList';
-import { ICARD, FLAG } from '../../../redux/reqKeys';
+import {ICARD, FLAG} from '../../../redux/reqKeys';
 import {
   StyledContent,
   StyledItem,
@@ -21,18 +18,16 @@ import {
   StyledCellDiscrib,
   StyledArrow,
   StyledHeader,
-  StyledHeaderTitle
+  StyledHeaderTitle,
 } from './style';
-import { iCard } from '../../../request/LCModle';
+import {iCard} from '../../../request/LCModle';
 
 @connect(
   (state, props) => ({
     iCard: state.normalizr.get(ICARD).get(props.route.params.iCardId),
   }),
-  dispatch => ({})
+  dispatch => ({}),
 )
-
-
 export default class FlagRecord extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -42,42 +37,25 @@ export default class FlagRecord extends PureComponent {
 
   static defaultProps = {};
 
-  static navigationOptions = // const {navigation} = props;
-                             // const {state} = navigation;
-                             // const {params} = state;
-                             props => ({
-                               title: '',
-                             })
-  ;
-
-
   _renderHeader = () => (
     <StyledHeader>
       <StyledHeaderTitle>
         {this.props.iCard.get('title')}
-      副本的记录
+        副本的记录
       </StyledHeaderTitle>
     </StyledHeader>
-  )
+  );
 
-
-  __renderItem = ({ item }) => {
-    const {
-      totalBonus, startDate, objectId, joinNum, reward
-    } = item;
+  __renderItem = ({item}) => {
+    const {totalBonus, startDate, objectId, joinNum, reward} = item;
     return (
-      <StyledItem onPress={() => {
-        this.props.navigation.navigate('FRDetail', { flagId: objectId });
-      }}
-      >
-
+      <StyledItem
+        onPress={() => {
+          this.props.navigation.navigate('FRDetail', {flagId: objectId});
+        }}>
         <StyledCellInner>
-          <StyledCellTitle
-            numberOfLines={1}
-          >
-            第
-            {moment(startDate.iso).format('YYYYMMDD')}
-期
+          <StyledCellTitle numberOfLines={1}>
+            第{moment(startDate.iso).format('YYYYMMDD')}期
           </StyledCellTitle>
 
           <StyledCellDiscrib>
@@ -85,14 +63,11 @@ export default class FlagRecord extends PureComponent {
             {joinNum}
             {reward === 'money' && `,总奖金:${totalBonus.toFixed(2)}元`}
           </StyledCellDiscrib>
-
         </StyledCellInner>
         <StyledArrow />
-
       </StyledItem>
     );
-  }
-
+  };
 
   render(): ReactElement<any> {
     const param = {
@@ -104,11 +79,10 @@ export default class FlagRecord extends PureComponent {
       // include: 'user',
     };
 
-
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
+      <StyledContent edges={['bottom']}>
         <LCList
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           reqKey={FLAG}

@@ -14,6 +14,8 @@ import {
   TouchableNativeFeedback,
   ActivityIndicator,
   Keyboard,
+  SafeAreaView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {BlurView} from '@react-native-community/blur';
@@ -59,7 +61,7 @@ import Dialog from '../../../components/Dialog';
 import Button from '../../../components/Button';
 // static displayName = RComment
 import Avatar from '../../../components/Avatar/Avatar2';
-import NavBar from '../../../components/Nav/bar/NavBar';
+// import NavBar from '../../../components/Nav/bar/NavBar';
 
 import Pop from '../../../components/Pop';
 import DoWithLoad from '../../../components/DoCard/Do/DoWithLoad';
@@ -529,6 +531,7 @@ export default class RComment extends PureComponent {
             revealKeyboardInteractive
           />
         )}
+        {/* {this.keyboardAccessoryViewContent()} */}
       </>
     );
   }
@@ -547,6 +550,6 @@ const styles = StyleSheet.create({
   },
   list: {
     // marginBottom: 50
-    // flex: 1
+    flex: 1,
   },
 });

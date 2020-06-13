@@ -4,8 +4,7 @@
  */
 
 import * as immutable from 'immutable';
-import React, {Component, PropTypes} from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -14,6 +13,7 @@ import {
   StyleSheet,
   Dimensions,
   TouchableNativeFeedback,
+  SafeAreaView,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {Toast} from 'react-native-simple-toast';

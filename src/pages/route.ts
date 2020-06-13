@@ -39,10 +39,7 @@ export const otherRoute: RouteType = {
   [RouteKey.web]: {component: WebView, options: WebView.navigationOptions},
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},
   [RouteKey.tool]: {component: Tool},
-  [RouteKey.FlagRecord]: {
-    component: FlagRecord,
-    options: FlagRecord.navigationOptions,
-  },
+  [RouteKey.FlagRecord]: FlagRecord,
   [RouteKey.earnings]: {
     component: Earnings,
     options: Earnings.navigationOptions,
