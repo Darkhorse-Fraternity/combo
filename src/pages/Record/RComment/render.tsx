@@ -507,6 +507,8 @@ export default class RComment extends PureComponent {
       include: 'user',
     };
     // {Platform.OS === 'ios' && this._renderHeader()}
+    console.log('KeyboardAccessoryView', KeyboardAccessoryView);
+
     return (
       <>
         {/* <NavBar onBackPress={goBack} rightView={this.renderRightView} /> */}
@@ -521,16 +523,15 @@ export default class RComment extends PureComponent {
           noDataPrompt="还没有评论~"
         />
 
-        {this.state.showIn && (
-          <KeyboardAccessoryView
-            iOSScrollBehavior={1}
-            renderContent={this.keyboardAccessoryViewContent}
-            trackInteractive={TrackInteractive}
-            kbInputRef={this.textInputRef}
-            onKeyboardResigned={this.onKeyboardResigned}
-            revealKeyboardInteractive
-          />
-        )}
+        <KeyboardAccessoryView
+          iOSScrollBehavior={1}
+          renderContent={this.keyboardAccessoryViewContent}
+          trackInteractive={TrackInteractive}
+          kbInputRef={this.textInputRef}
+          onKeyboardResigned={this.onKeyboardResigned}
+          revealKeyboardInteractive
+        />
+
         {/* {this.keyboardAccessoryViewContent()} */}
       </>
     );

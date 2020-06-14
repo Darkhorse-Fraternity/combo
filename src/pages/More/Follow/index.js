@@ -4,71 +4,58 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
-import {
-  View,
-  Animated,
-  Platform
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, {Component} from 'react';
+import {View, Animated, Platform} from 'react-native';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {StyledContent} from './style';
+import ScrollableTabView from 'react-native-scrollable-tab-view';
+import TitleTabBar from '../../../components/Groceries/TitleTabBar';
 
-import {
-  StyledContent,
-} from './style'
-import ScrollableTabView from 'react-native-scrollable-tab-view'
-import TitleTabBar from '../../../components/Groceries/TitleTabBar'
-
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
-import Followee from './Followee'
-import Follower from './Follower'
-
+import {shouldComponentUpdate} from 'react-immutable-render-mixin';
+import Followee from './Followee';
+import Follower from './Follower';
 
 @connect(
   state => ({}),
-  dispatch => ({})
+  dispatch => ({}),
 )
-
-
 export default class Follow extends Component {
   constructor(props: Object) {
     super(props);
     this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
-      scrollValue: new Animated.Value(0)
-    }
+      scrollValue: new Animated.Value(0),
+    };
   }
 
   static propTypes = {};
   static defaultProps = {};
   static navigationOptions = props => {
-    const {navigation} = props;
-    const {state} = navigation;
-    const {params} = state;
-    const { gestureEnabled  } = params || {gestureEnabled: true}
+    const {route} = props;
+    // const {state} = navigation;
+    // const {params} = route || {};
+    // const {gestureEnabled} = params || {gestureEnabled: true};
     return {
       // header:null,
-      gestureEnabled:gestureEnabled
-    }
+      gestureEnabled: true,
+    };
   };
 
-
   render(): ReactElement<any> {
-
-
     return (
-      <StyledContent  >
+      <StyledContent>
         <ScrollableTabView
           ref={'ScrollableTabView'}
-           onScroll={(x) => {
-             x = x <= 0 ? 0 : x
-             x = x >= 1 ? 1 : x
-             const containerWidthAnimatedValue = new Animated.Value(x);
-             this.setState({ scrollValue: containerWidthAnimatedValue });
-           }}
-          onChangeTab={({i}) =>{
-            this.props.navigation.setParams({gestureEnabled:i === 0})
+          onScroll={x => {
+            x = x <= 0 ? 0 : x;
+            x = x >= 1 ? 1 : x;
+            const containerWidthAnimatedValue = new Animated.Value(x);
+            this.setState({scrollValue: containerWidthAnimatedValue});
+          }}
+          onChangeTab={({i}) => {
+            // this.props.navigation.setParams({gestureEnabled: i === 0});
           }}
           renderTabBar={() => (
             <TitleTabBar
@@ -81,13 +68,10 @@ export default class Follow extends Component {
           // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
           // tabBarPosition ='bottom'
         >
-          <Followee tabLabel='关注' {...this.props}/>
-          <Follower tabLabel= "被关注"  {...this.props}/>
+          <Followee tabLabel="关注" {...this.props} />
+          <Follower tabLabel="被关注" {...this.props} />
         </ScrollableTabView>
-
       </StyledContent>
     );
   }
 }
-
-

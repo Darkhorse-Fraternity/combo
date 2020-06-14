@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import Statistical from '../../Card/Statistical';
 // import NavBar from '../../../components/Nav/bar/NavBar';
 
-import {StyledHeaderBtn, StyledHeaderTitle} from './style';
+import {StyledHeaderBtn, StyledHeaderTitle, Styledcontain} from './style';
 
 @connect(
   (state, props) => ({
@@ -40,7 +40,7 @@ export default class RecordDetail extends PureComponent {
   }
 
   componentWillReceiveProps() {
-    this.props.navigation.setOptions({headerRight: this.__renderRightView});
+    // this.props.navigation.setOptions({headerRight: this.__renderRightView});
   }
 
   __renderRightView = () => {
@@ -86,14 +86,14 @@ export default class RecordDetail extends PureComponent {
       ? iconAndColor.toJS()
       : {name: 'sun', color: '#fcd22f'};
     return (
-      <>
+      <Styledcontain>
         {/* <NavBar
           onBackPress={this.props.navigation.goBack}
           rightView={this.__renderRightView}
         /> */}
         {this._renderHeader()}
         <Statistical color={color} {...this.props} />
-      </>
+      </Styledcontain>
     );
   }
 }
