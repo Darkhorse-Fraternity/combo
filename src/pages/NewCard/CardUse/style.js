@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import {SafeAreaView} from 'react-native';
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
+  background-color: white;
 `;
 
 export const StyledHeader = styled.View`

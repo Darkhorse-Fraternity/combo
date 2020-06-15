@@ -76,7 +76,7 @@ export default class CardUse extends PureComponent {
     };
 
     return (
-      <StyledContent forceInset={{top: 'never'}}>
+      <StyledContent>
         {this._renderHeader()}
         <LCList
           // ListHeaderComponent={this._renderHeader}
