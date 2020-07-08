@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {
   View,
   StyleSheet,
@@ -13,8 +13,6 @@ import {
   DeviceEventEmitter,
 } from 'react-native';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import LCList from '../../../components/Base/LCList';
 import {Privacy} from '../../../configure/enum';
 import RecordRow from './Row';
@@ -36,10 +34,14 @@ import {
   StyledHeaderImage,
   StyledHeaderText,
   StyledRow,
+  StyledNativeUnifiedADView,
 } from './style';
 
-import {selfUser, iCard} from '../../../request/LCModle';
-import {required} from '../../../request/validation';
+import {iCard} from '../../../request/LCModle';
+import NativeUnifiedADView, {
+  loadWithObjectInfo,
+} from '@components/GDTNativeUnifiedAD';
+import {GTDAppId, GTDUnifiedNativeplacementId} from 'src/configure/tencent_ad';
 
 const listKey = IDO;
 
@@ -86,10 +88,12 @@ const listKey = IDO;
     },
   }),
 )
-export default class Circle extends Component {
+export default class Circle extends PureComponent<any, any> {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
+    this.state = {
+      count: 0,
+    };
   }
 
   static propTypes = {};
@@ -97,6 +101,17 @@ export default class Circle extends Component {
   static defaultProps = {};
 
   componentDidMount() {
+    loadWithObjectInfo({
+      appId: GTDAppId,
+      placementId: GTDUnifiedNativeplacementId,
+    })
+      .then(count => {
+        console.log('count', count);
+        this.setState({count: count});
+      })
+      .catch(e => {
+        console.log('e', e.message);
+      });
     // const key = 'done_' + this.props.iCard.get('objectId')
     // this.subscription =
     //     DeviceEventEmitter.addListener(key, this.refresh);
@@ -221,21 +236,27 @@ export default class Circle extends Component {
   };
 
   renderRow({item, index}: Object) {
+    const showAd = index % 8 === 2;
     return (
-      <StyledRow
-        onPress={() => {
-          this.props.navigation.navigate('rcomment', {iDoID: item.objectId});
-        }}>
-        <Header
-          userId={item.user}
-          onPress={user => {
-            this.props.navigation.navigate('following', {
-              userId: user.objectId,
-            });
-          }}
-        />
-        <RecordRow item={item} />
-      </StyledRow>
+      <>
+        <StyledRow
+          onPress={() => {
+            this.props.navigation.navigate('rcomment', {iDoID: item.objectId});
+          }}>
+          <Header
+            userId={item.user}
+            onPress={user => {
+              this.props.navigation.navigate('following', {
+                userId: user.objectId,
+              });
+            }}
+          />
+          <RecordRow item={item} />
+        </StyledRow>
+        {this.state.count > 0 && showAd && (
+          <StyledNativeUnifiedADView count={this.state.count} />
+        )}
+      </>
     );
   }
 

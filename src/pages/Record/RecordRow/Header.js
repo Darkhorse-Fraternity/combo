@@ -3,67 +3,50 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet
-} from 'react-native';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {View, Image, Text, StyleSheet} from 'react-native';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '../../../components/Avatar/Avatar2';
 
-import {
-} from './style';
+import {} from './style';
 
 import Button from '../../../components/Button';
 
 @connect(
   (state, props) => ({
-    user: state.normalizr.get('user').get(props.userId)
+    user: state.normalizr.get('user').get(props.userId),
   }),
-  dispatch => ({})
+  dispatch => ({}),
 )
-
-
 export default class Header extends PureComponent {
   constructor(props: Object) {
     super(props);
   }
 
-    static propTypes = {
-      userId: PropTypes.string.isRequired,
-      onPress: PropTypes.func
-    };
+  static propTypes = {
+    userId: PropTypes.string.isRequired,
+    onPress: PropTypes.func,
+  };
 
-    static defaultProps = {};
+  static defaultProps = {};
 
+  render(): ReactElement<any> {
+    let {onPress, user} = this.props;
+    user = (user && user.toJS()) || {};
 
-    render(): ReactElement<any> {
-      let { onPress, user } = this.props;
-      user = user && user.toJS() || {};
-
-      // 缩略图
-      return (
-        <View style={styles.header}>
-          <Button
-            onPress={() => onPress && onPress(user)}
-            style={styles.top}
-          >
-            <Avatar radius={20} user={user} />
-            <Text style={styles.name}>
-              {user.nickname || '路人甲'}
-            </Text>
-
-          </Button>
-          <View />
-        </View>
-      );
-    }
+    // 缩略图
+    return (
+      <View style={styles.header}>
+        <Button onPress={() => onPress && onPress(user)} style={styles.top}>
+          <Avatar radius={20} user={user} />
+          <Text style={styles.name}>{user.nickname || '路人甲'}</Text>
+        </Button>
+        <View />
+      </View>
+    );
+  }
 }
-
 
 const styles = StyleSheet.create({
   header: {
@@ -80,12 +63,9 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: 'rgba(0,0,0,0.3)'
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   name: {
     marginLeft: 10,
-
   },
-
-
 });

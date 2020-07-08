@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="logo-horizontal.png" translatesAutoresizingMaskIntoConstraints="NO" id="dSQ-ib-cST">
-                    <rect key="frame" x="211" y="631.33333333333337" width="189" height="54.666666666666629"/>
+                    <rect key="frame" x="211" y="621.33333333333337" width="189" height="54.666666666666629"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54.670000000000002" id="AjQ-5R-taf"/>
                         <constraint firstAttribute="width" constant="189" id="qee-xR-tOi"/>
@@ -24,7 +24,7 @@
             <color key="backgroundColor" red="0.99992293119430542" green="1" blue="0.99988037347793579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dSQ-ib-cST" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="90b-bi-fep"/>
-                <constraint firstAttribute="bottom" secondItem="dSQ-ib-cST" secondAttribute="bottom" constant="23" id="s6h-bA-btJ"/>
+                <constraint firstAttribute="bottom" secondItem="dSQ-ib-cST" secondAttribute="bottom" constant="33" id="s6h-bA-btJ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

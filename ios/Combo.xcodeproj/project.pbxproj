@@ -650,7 +650,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "xcrun agvtool next-version -all";
+			shellScript = "xcrun agvtool next-version -all\n";
 		};
 		CC3C8E3D22C0CC09009B89B2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -681,7 +681,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		CCCE41872064A0F000F282E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

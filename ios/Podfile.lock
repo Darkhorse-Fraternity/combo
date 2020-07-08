@@ -351,7 +351,7 @@ PODS:
     - ReactCommon/callinvoker (= 0.62.2)
   - ReactNativeExceptionHandler (2.3.0):
     - React
-  - ReactNativeKeyboardInput (6.0.0):
+  - ReactNativeKeyboardInput (6.0.1):
     - React
   - ReactNativeKeyboardManager (4.0.13-9):
     - IQKeyboardManager (= 4.0.13)
@@ -702,7 +702,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   ReactNativeExceptionHandler: 040b33d72849a0aa862d1dcb54008ccef77a935e
-  ReactNativeKeyboardInput: c37e26821519869993b3b61844350feb9177ff37
+  ReactNativeKeyboardInput: 266ba27a2e9921f5bdc0b4cc30289b2a2f46b157
   ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
   ReactNativeKeyboardTrackingView: a240a6a0dba852bb107109a7ec7e98b884055977
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca

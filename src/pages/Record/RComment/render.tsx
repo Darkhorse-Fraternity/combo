@@ -66,6 +66,7 @@ import Avatar from '../../../components/Avatar/Avatar2';
 import Pop from '../../../components/Pop';
 import DoWithLoad from '../../../components/DoCard/Do/DoWithLoad';
 import {dataStorage, uploadImages} from '../../../redux/actions/util';
+import KeyboardSpacer from '@components/KeyboardSpacer';
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
@@ -523,22 +524,26 @@ export default class RComment extends PureComponent {
           noDataPrompt="还没有评论~"
         />
 
-        <KeyboardAccessoryView
-          iOSScrollBehavior={1}
-          renderContent={this.keyboardAccessoryViewContent}
-          trackInteractive={TrackInteractive}
-          kbInputRef={this.textInputRef}
-          onKeyboardResigned={this.onKeyboardResigned}
-          revealKeyboardInteractive
-        />
+        {Platform.OS === 'ios' && (
+          <KeyboardAccessoryView
+            iOSScrollBehavior={1}
+            renderContent={this.keyboardAccessoryViewContent}
+            trackInteractive={TrackInteractive}
+            kbInputRef={this.textInputRef}
+            onKeyboardResigned={this.onKeyboardResigned}
+            revealKeyboardInteractive
+          />
+        )}
 
-        {/* {this.keyboardAccessoryViewContent()} */}
+        {Platform.OS !== 'ios' && this.keyboardAccessoryViewContent()}
+        {Platform.OS !== 'ios' && <KeyboardSpacer />}
       </>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  safeAreaView: {flex: 1},
   blurContainer: {
     // ...Platform.select({
     //   ios: {

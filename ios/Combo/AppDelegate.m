@@ -110,7 +110,7 @@ static void InitializeFlipper(UIApplication *application) {
   //设置开屏底部自定义LogoView，展示半屏开屏广告
   _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 100)];
   UIImageView *logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo-horizontal"]];
-  [logo setFrame:CGRectMake(0, 0,189, 54)];
+  [logo setFrame:CGRectMake(0, -10,189, 54)];
   [_bottomView addSubview:logo];
   logo.center = _bottomView.center;
   _bottomView.backgroundColor = [UIColor whiteColor];
