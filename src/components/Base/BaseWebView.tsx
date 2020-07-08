@@ -1,6 +1,6 @@
 /* @flow */
 'use strict';
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -10,38 +10,33 @@ import {
   Image,
   Platform,
   Linking,
-  Dimensions
+  Dimensions,
 } from 'react-native';
-import Button from '../Button'
+import Button from '../Button';
 import WebView from 'react-native-webview';
 
-const navbarHeight = 0
-const screenHeight = Dimensions.get('window').height
+const navbarHeight = 0;
+const screenHeight = Dimensions.get('window').height;
 
-import ExceptionView, { ExceptionType } from './ExceptionView';
-import { connect } from 'react-redux';
-
+import ExceptionView, {ExceptionType} from './ExceptionView';
+import {connect} from 'react-redux';
 
 const WEBVIEW_REF = 'webview';
 
 // const noWifi = require('../../../source/img/xy_nowifi/xy_nowifi.png');
 
-
 @connect(
-  (state, props) =>({
-  }),
-  dispatch =>({
+  (state, props) => ({}),
+  dispatch => ({
     //...bindActionCreators({},dispatch),
-    load: ()=>{}
-  })
+    load: () => {},
+  }),
 )
-
 export default class BaseWebView extends Component {
-
   constructor(props: Object) {
     super(props);
     this.state = {
-      status: "No Page Loaded",
+      status: 'No Page Loaded',
       backButtonEnabled: false,
       forwardButtonEnabled: false,
       loading: true,
@@ -50,20 +45,18 @@ export default class BaseWebView extends Component {
   }
 
   state: {
-    status: string,
-    backButtonEnabled: bool,
-    forwardButtonEnabled: bool,
-    loading: bool,
-    scalesPageToFit: bool,
+    status: string;
+    backButtonEnabled: boolean;
+    forwardButtonEnabled: boolean;
+    loading: boolean;
+    scalesPageToFit: boolean;
   };
 
   static propTypes = {
     url: PropTypes.string,
   };
 
-
   static navigationOptions = props => {
-
     return {
       title: '',
       // headerLeft: (
@@ -76,49 +69,52 @@ export default class BaseWebView extends Component {
       //   }}>
       //     <View style={styles.arrowView}/>
       //   </Button>)
-    }
+    };
   };
 
-
   componentDidMount() {
-    this.props.navigation.setParams({ webView: this.refs[WEBVIEW_REF] })
+    // this.props.navigation.setParams({webView: this.refs[WEBVIEW_REF]});
   }
 
   _onNavigationStateChange(state: Object) {
     // console.log('state:',state);
-    if (state.title && state.title.length) {
-      // this.props.refresh({title:state.title});
-      this.props.navigation.setParams({ title: state.title })
-    }
+    // if (state.title && state.title.length) {
+    //   // this.props.refresh({title:state.title});
+    //   //   this.props.navigation.setParams({title: state.title});
+    // }
     // this.canGoBack = state.canGoBack;
     // console.log('state:', state);
-    this.props.navigation.setParams({ canGoBack: state.canGoBack })
+    // this.props.navigation.setParams({canGoBack: state.canGoBack});
   }
 
   _onError(error: Object) {
-    console.log("webError:", error);
+    console.log('webError:', error);
   }
 
   _onLoadStart(event) {
-    console.log("onloadStart:", event.nativeEvent);
+    console.log('onloadStart:', event.nativeEvent);
   }
 
-  _onLoad() {
-
-  }
+  _onLoad() {}
 
   _renderError() {
     return (
       // <ExceptionView exceptionType={ExceptionType.NetError} image={noWifi}/>
-      <ExceptionView style={{ height: screenHeight }} exceptionType={ExceptionType.NetError}/>
+      <ExceptionView
+        style={{height: screenHeight}}
+        exceptionType={ExceptionType.NetError}
+      />
     );
   }
 
-  _renderLoading(props, e) {
+  _renderLoading() {
     // console.log('test:', props, e);
 
     return (
-      <ExceptionView style={{ height: screenHeight }} exceptionType={ExceptionType.Loading}/>
+      <ExceptionView
+        style={{height: screenHeight}}
+        exceptionType={ExceptionType.Loading}
+      />
     );
   }
 
@@ -134,7 +130,7 @@ export default class BaseWebView extends Component {
    */
   _onShouldStartLoadWithRequest(event: Object) {
     //Implement any custom loading logic here, don't forget to return!
-    console.log("onShouldStartLoadWithRequest:", event.url);
+    console.log('onShouldStartLoadWithRequest:', event.url);
     if (event.url.startsWith('http://') || event.url.startsWith('https://')) {
       // this.props.navigation.setParams({canGoBack: true})
       return true;
@@ -147,28 +143,31 @@ export default class BaseWebView extends Component {
           } else {
             return false;
           }
-        }).catch(err => {
-        return false;
-      })
+        })
+        .catch(err => {
+          return false;
+        });
     }
 
     return false;
   }
 
   render() {
-    const params = this.props.route.params
-    const { url } = this.props
+    const params = this.props.route.params;
+    const {url} = params;
     return (
       <View style={[styles.container]}>
         <WebView
           ref={WEBVIEW_REF}
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
-          source={{ uri: params && params.url || url }}
+          source={{uri: (params && params.url) || url}}
           javaScriptEnabled={true}
           domStorageEnabled={true}
           decelerationRate="normal"
-          onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest.bind(this)}
+          onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest.bind(
+            this,
+          )}
           //javaScriptEnabled={false}
           onNavigationStateChange={this._onNavigationStateChange.bind(this)}
           startInLoadingState={true}
@@ -184,7 +183,7 @@ export default class BaseWebView extends Component {
           renderError={this._renderError} //Function that returns a view to show if there's an error.
         />
       </View>
-    )
+    );
   }
 }
 
@@ -213,7 +212,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 5,
     borderRightWidth: StyleSheet.hairlineWidth * 5,
     borderColor: 'black',
-    transform: [{ rotate: '135deg' }],
+    transform: [{rotate: '135deg'}],
     marginLeft: 15,
     width: 13,
     height: 13,

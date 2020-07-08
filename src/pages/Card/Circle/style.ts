@@ -8,6 +8,7 @@ import styled from 'styled-components/native';
 import HeaderBtn from '@components/Button/HeaderBtn';
 import Button from '@components/Button';
 import NativeUnifiedADView from '@components/GDTNativeUnifiedAD';
+import {Platform} from 'react-native';
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
@@ -55,8 +56,9 @@ export const StyledHeaderText = styled.Text`
   font-size: 12px;
 `;
 
+const imageRate = 16 / 9.0;
 export const StyledNativeUnifiedADView = styled(NativeUnifiedADView)`
-  margin-top: 20px;
+  margin-top: ${Platform.OS === 'ios' ? 20 : 0}px;
   width: 100%;
-  height: 280px;
+  height: ${props => (props.theme.width * 0.65) / imageRate + 114};
 `;
