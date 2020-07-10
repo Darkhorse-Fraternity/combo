@@ -7,8 +7,6 @@ import {
   Text,
 } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
-// import AsyncStorage from '@react-native-community/async-storage';
-// import { loadUserData } from '../../../configure/storage'
 // import { loginSucceed } from '../../../redux/actions/user'
 import {connect} from 'react-redux';
 // import Toast from 'react-native-simple-toast';

@@ -126,3 +126,11 @@ export const StyledDeleteBtnText = styled.Text`
   font-size: 13px;
   font-weight: 300;
 `;
+
+export const StyledTips = styled.Text`
+  align-self: center;
+  margin: 100px;
+  color: rgba(0, 0, 0, 0.4);
+  line-height: 25px;
+  text-align: center;
+`;

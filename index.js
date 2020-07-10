@@ -4,15 +4,14 @@
  * @flow
  */
 import 'react-native-gesture-handler';
-import {AppRegistry, YellowBox} from 'react-native';
+import {AppRegistry, LogBox} from 'react-native';
 
 // import svgs from './source/icons'
 import {name} from './app.json';
 import App from './src/app';
-import { enableScreens } from 'react-native-screens';
+import {enableScreens} from 'react-native-screens';
 
-
-YellowBox.ignoreWarnings([
+LogBox.ignoreLogs([
   //'Warning: Async Storage has been extracted',
   'BugReporting extraData:',
   'Expected style',

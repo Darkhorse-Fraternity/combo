@@ -7,7 +7,7 @@ import Storage from 'react-native-storage';
 // AsyncStorage issues:
 // https://github.com/facebook/react-native/issues/12830
 
-const storage = new Storage({
+export const storage = new Storage({
   // maximum capacity, default 1000
   size: 10000,
 

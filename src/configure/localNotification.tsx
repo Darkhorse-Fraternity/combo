@@ -320,7 +320,8 @@ export default class LocalNotification extends PureComponent {
     // 获取是否开启通知的条件。 当all 不存在时候，all 为true
 
     if (all === undefined) {
-      all = true;
+      //当只有为ios 时候才默认打开
+      all = Platform.OS == 'ios';
     }
 
     const statu = await RNCalendarEvents.authorizationStatus();

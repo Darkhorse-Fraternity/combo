@@ -44,6 +44,8 @@ import {addNormalizrEntity} from '../../../redux/module/normalizr';
 import {update} from '../../../redux/module/leancloud';
 import {shadeBlend} from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
+import {NoticeTip} from './render';
+import {storage} from 'src/configure/storage';
 
 const interactionManagerDelay = () =>
   new Promise(resolve => InteractionManager.runAfterInteractions(resolve));
@@ -184,24 +186,29 @@ export default class Remind extends Component {
             // trackColor:{true: '#f6f7f9'},
           };
 
-    return [
-      <StyledSubTitle key="subTitle">
-        <StyledRowInner>
-          <StyledIcon size={30} name="alarm-on" />
-          <StyledSubTitleText>开启习惯提醒</StyledSubTitleText>
-        </StyledRowInner>
-        <StyledSwitch
-          {...propsColor}
-          value={value}
-          onValueChange={async value => {
-            await this.props.remind(id, value);
-          }}
-        />
-      </StyledSubTitle>,
-      data.length > 0 && (
-        <StyledLine key="line" style={{height: 15, marginLeft: 35}} />
-      ),
-    ];
+    return (
+      <>
+        {this._renderHeader()}
+        <StyledSubTitle key="subTitle">
+          <StyledRowInner>
+            <StyledIcon size={30} name="alarm-on" />
+            <StyledSubTitleText>
+              开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒
+            </StyledSubTitleText>
+          </StyledRowInner>
+          <StyledSwitch
+            {...propsColor}
+            value={value}
+            onValueChange={async value => {
+              await this.props.remind(id, value);
+            }}
+          />
+        </StyledSubTitle>
+        {data.length > 0 && (
+          <StyledLine key="line" style={{height: 15, marginLeft: 35}} />
+        )}
+      </>
+    );
   };
 
   _renderSwipeOutDeleteBtn = () => (
@@ -235,12 +242,9 @@ export default class Remind extends Component {
     // const value =  await  storage.load({
     //    key: "localRemind",
     //    id:item.objectId+item.notifyTime,
-    //  })
+    //  }
     const id = objectId + notifyTime;
-    let value = localRemindData.get(id);
-    if (value === undefined) {
-      value = true;
-    }
+    let value = localRemindData.get(id) ?? true;
     const {iconAndColor, title, recordDay} = iCard;
     const {color, name} = iconAndColor || {name: 'sun', color: '#b0d2ee'};
     const propsColor =
@@ -382,10 +386,11 @@ export default class Remind extends Component {
     let {data, iUseList, iCardList, localRemindData} = this.props;
 
     const id = 'all';
-    let value = localRemindData.get(id);
-    if (value === undefined) {
-      value = true;
-    }
+    //当为ios 时 默认打开
+    let value = localRemindData.get(id) ?? Platform.OS === 'ios';
+    // if (value === undefined) {
+    //   value = true;
+    // }
 
     const newData = [];
     if (value) {
@@ -420,8 +425,7 @@ export default class Remind extends Component {
     // .sort(item => item.iCard.notifyTime)
 
     return (
-      <>
-        {this._renderHeader()}
+      <StyledContent>
         <FlatList
           scrollEnabled={this.state.openIndex === -1}
           data={newData}
@@ -432,6 +436,7 @@ export default class Remind extends Component {
           ListHeaderComponent={() =>
             this._ListHeaderComponent(id, value, newData)
           }
+          ListFooterComponent={() => <NoticeTip />}
         />
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
@@ -443,7 +448,7 @@ export default class Remind extends Component {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
-      </>
+      </StyledContent>
     );
   }
 }
