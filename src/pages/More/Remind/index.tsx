@@ -182,8 +182,9 @@ export default class Remind extends Component {
             trackColor: {false: '#39ba98', true: '#39ba98'},
           }
         : {
-            thumbColor: value ? '#39ba98' : '#f6f7f9',
+            thumbColor: value ? '#f6d971' : '#f6f7f9',
             // trackColor:{true: '#f6f7f9'},
+            trackColor: {true: shadeBlend(0.5, '#f6d971')},
           };
 
     return (
