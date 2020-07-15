@@ -4,9 +4,6 @@
  */
 
 import React, {PureComponent} from 'react';
-import {View, FlatList} from 'react-native';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import {FLAG, ICARD, FBLIST} from '../../redux/reqKeys';

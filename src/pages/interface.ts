@@ -41,10 +41,12 @@ export enum RouteKey {
   punch = 'punch',
   habit = 'habit',
   flag = 'flag',
+  test = 'test',
 }
 
 export type RootStackParamList = {
   [RouteKey.web]: {};
+  [RouteKey.test]: undefined;
   [RouteKey.search]: undefined;
   [RouteKey.tool]: undefined;
   [RouteKey.FlagRecord]: undefined;

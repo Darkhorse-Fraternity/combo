@@ -34,9 +34,11 @@ import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
 import {AndroidBackHandleHOCComponent} from 'src/configure/androidBackHandle';
+import Test from './test';
 
 export const otherRoute: RouteType = {
   [RouteKey.web]: {component: WebView, options: WebView.navigationOptions},
+  [RouteKey.test]: Test,
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},
   [RouteKey.tool]: {component: Tool},
   [RouteKey.FlagRecord]: FlagRecord,
@@ -46,7 +48,7 @@ export const otherRoute: RouteType = {
   },
   [RouteKey.remind]: {component: Remind, options: Remind.navigationOptions},
   [RouteKey.cash]: {component: Cash, options: Cash.navigationOptions},
-  [RouteKey.recordDetail]:RecordDetail,
+  [RouteKey.recordDetail]: RecordDetail,
   [RouteKey.cardSetting]: {
     component: CardSetting,
     options: CardSetting.navigationOptions,
@@ -84,7 +86,7 @@ export const otherRoute: RouteType = {
     component: CardInfo,
     options: CardInfo.navigationOptions,
   },
-  [RouteKey.rcomment]:RComment,
+  [RouteKey.rcomment]: RComment,
   [RouteKey.card]: Card,
   [RouteKey.cardUse]: {component: CardUse, options: CardUse.navigationOptions},
 
@@ -107,7 +109,7 @@ export const otherRoute: RouteType = {
 export const punchRoute: RouteType = {
   ...otherRoute,
   [RouteKey.punch]: {
-    component: AndroidBackHandleHOCComponent(Punch.component),
+    component: AndroidBackHandleHOCComponent(Test.component),
     options: Punch.options,
   },
 };
