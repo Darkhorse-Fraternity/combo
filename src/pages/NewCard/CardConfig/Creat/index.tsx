@@ -30,7 +30,7 @@ import {selfUser, iCard} from '../../../../request/LCModle';
 import Main from '../Main';
 import {defaultHabit} from '../../../../configure/habit';
 import Button from '../../../../components/Button';
-import {mainColor} from '../../../../Theme/index';
+import {Color} from '../../../../Theme/index';
 
 import {popToIndex} from '../../../../redux/nav'; // <-- same as form name
 
@@ -89,6 +89,7 @@ const selector = formValueSelector(FormID);
           'icon',
           'color',
           'limitTimes',
+          'sound',
         );
         const notifyTimes = op.notifyTimes
           .toJS()
@@ -103,6 +104,7 @@ const selector = formValueSelector(FormID);
             name: op.icon,
             color: op.color,
           },
+          sound: op.sound,
           notifyTimes,
           notifyText: op.notifyText,
           limitTimes: op.limitTimes,
@@ -181,7 +183,7 @@ export default class Creat extends PureComponent {
   static navigationOptions = // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    props => ({
+    (props) => ({
       headerShown: false,
       title: '',
       headerLeft: () => <View />,
@@ -253,7 +255,7 @@ export default class Creat extends PureComponent {
     </View>
   );
 
-  render(): ReactElement<any> {
+  render() {
     // const { title, color } = this.props
     const {step} = this.state;
     console.log('step:', step);

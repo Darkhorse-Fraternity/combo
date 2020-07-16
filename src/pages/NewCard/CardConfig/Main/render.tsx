@@ -9,6 +9,7 @@ import {shadeBlend} from 'helps/util';
 import * as Animatable from 'react-native-animatable';
 interface RenderSoundsType {
   color: string;
+  sound: string;
 }
 
 export const RenderSounds: FC<RenderSoundsType> = ({color}) => {

@@ -47,6 +47,7 @@ import {RenderSounds} from './render';
   'icon',
   'color',
   'limitTimes',
+  'sound',
 )
 export default class OptionDo extends PureComponent {
   constructor(props: Object) {
@@ -260,7 +261,7 @@ export default class OptionDo extends PureComponent {
   };
 
   render(): ReactElement<any> {
-    const {icon, color, title} = this.props;
+    const {icon, color, title, sound} = this.props;
     const notifyText =
       this.props.notifyText && this.props.notifyText.length > 0
         ? this.props.notifyText
@@ -376,7 +377,7 @@ export default class OptionDo extends PureComponent {
           this.__remderRecord()}
 
         {this.props.step === 1 && this.state.type === 'sound' && (
-          <RenderSounds color={color} />
+          <RenderSounds color={color} sound={sound} />
         )}
 
         <View style={{height: 100}} />
