@@ -24,6 +24,7 @@ module.exports = function (api) {
           '@components': './src/components',
           '@pages': './src/pages',
           '@img': './source/img',
+          '@music': './source/music',
           '@source': './source',
           'test/*': './test/*',
           '@local_modules': './local_modules',

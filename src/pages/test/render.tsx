@@ -1,26 +1,23 @@
 import {SoundPlayBtn} from '@components/sound-play-btn';
-import React, {useState, FC, useCallback} from 'react';
+import React, {useState, FC, useMemo} from 'react';
+import {soundsSource} from 'src/configure/source';
 import {StyledContent} from './style';
 
 const Render: FC = (props) => {
   const [state, setstate] = useState(true);
 
-  const onClose = useCallback(() => {
-    // setstate(false);
-    // console.log('111:', navigationRef.current?.reset());
-    // navigation
-  }, []);
+  const sources = useMemo(() => soundsSource(), []);
 
   return (
     <StyledContent>
-      <SoundPlayBtn
-        title="正确"
-        uri={require('../../../source/music/sound/dot/right.mp3')}
-      />
-      <SoundPlayBtn
-        title="折叠"
-        uri={require('../../../source/music/sound/dot/switch.mp3')}
-      />
+      {Object.keys(sources).map((item) => (
+        <SoundPlayBtn
+          style={{margin: 20}}
+          key={sources[item].title}
+          title={sources[item].title}
+          uri={sources[item].source}
+        />
+      ))}
     </StyledContent>
   );
 };

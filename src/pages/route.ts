@@ -109,6 +109,7 @@ export const otherRoute: RouteType = {
 export const punchRoute: RouteType = {
   ...otherRoute,
   [RouteKey.punch]: {
+    // component: AndroidBackHandleHOCComponent(Punch.component),
     component: AndroidBackHandleHOCComponent(Test.component),
     options: Punch.options,
   },

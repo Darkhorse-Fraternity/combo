@@ -8,6 +8,7 @@ import {
   Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Foundation from 'react-native-vector-icons/Foundation';
 import Sounds from 'react-native-sound';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 
@@ -19,6 +20,7 @@ interface SoundPlayBtn extends TouchableOpacityProps {
   progressColor?: string;
   color?: string;
   title: string;
+  onPress?: () => void;
 }
 
 export const SoundPlayBtn = (props: SoundPlayBtn) => {
@@ -29,6 +31,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
     progressColor = '#e575ec',
     color = 'rgb(80,80,80)',
     title,
+    onPress,
     ...other
   } = props;
 
@@ -47,38 +50,37 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
   );
 
   const progressRef = useRef<AnimatedCircularProgress>(null);
-
+  const [select, setSelect] = useState(false);
   const timeRef = useRef<NodeJS.Timeout>();
 
   const onStop = () => {
+    setSelect(false);
     setPaused(false);
-    soundRef.current.stop(() => {
-      timeRef.current && clearInterval(timeRef.current);
-      progressRef.current?.animate(0, 100);
-    });
+    // timeRef.current && clearInterval(timeRef.current);
+    progressRef.current?.animate(0, 100);
+    soundRef.current.stop();
   };
 
   const onPlay = () => {
-    timeRef.current && clearInterval(timeRef.current);
-    DeviceEventEmitter.emit(SOUND_PLAY_BTN_STOP_KEY, uri);
+    setSelect(true);
     setPaused(true);
+    // timeRef.current && clearInterval(timeRef.current);
+    DeviceEventEmitter.emit(SOUND_PLAY_BTN_STOP_KEY, title);
 
-    timeRef.current = setInterval(() => {
-      const duration = soundRef.current.getDuration() || 0;
-      if (duration > 0) {
-        // soundRef.current.getCurrentTime((seconds) => {
-        //   //   console.log('seconds', seconds);
-        //   const percent = (seconds / duration) * 100;
-
-        // });
-        progressRef.current?.animate(100, duration);
-      }
-    }, 100);
-
+    // timeRef.current = setInterval(() => {
+    //   if (duration > 0) {
+    //     // soundRef.current.getCurrentTime((seconds) => {
+    //     //   //   console.log('seconds', seconds);
+    //     //   const percent = (seconds / duration) * 100;
+    //     // });
+    //   }
+    // }, 100);
+    const duration = soundRef.current.getDuration() || 0;
+    progressRef.current?.animate(100, duration);
     soundRef.current.play((sc) => {
       if (sc) {
         setPaused(false);
-        timeRef.current && clearInterval(timeRef.current);
+        // timeRef.current && clearInterval(timeRef.current);
         progressRef.current?.animate(0, 100);
       }
     });
@@ -88,8 +90,8 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
     // Sounds.setCategory('Playback');
     const deEmitter = DeviceEventEmitter.addListener(
       SOUND_PLAY_BTN_STOP_KEY,
-      (url: string) => {
-        if (url !== uri) {
+      (item: string) => {
+        if (item !== title) {
           onStop();
         }
       },
@@ -106,6 +108,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
   }, []);
 
   const togglePaused = () => {
+    onPress && onPress();
     if (soundRef.current.isPlaying()) {
       // ref.current.
       onStop();
@@ -121,21 +124,28 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
       {...other}>
       <AnimatedCircularProgress
         ref={progressRef}
-        size={size * 0.78}
-        style={[styles.progress, {top: size * 0.14, left: size * 0.08}]}
-        width={2}
+        size={size * 0.82}
+        style={[styles.progress, {top: size * 0.137, left: size * 0.065}]}
+        width={3}
         rotation={0}
-        backgroundWidth={2}
+        backgroundWidth={3}
         fill={0}
         tintColor={progressColor}
-        backgroundColor="#3d5875"
+        backgroundColor={color}
       />
       <Icon
         color={color}
         size={size}
         name={paused ? 'pause-circle-outline' : 'play-circle-outline'}
       />
-      <Text style={[styles.text, {color: color}]}>{title}</Text>
+      <View style={styles.bottom}>
+        {select && (
+          <View style={[styles.select, {backgroundColor: progressColor}]}>
+            <Foundation color={'white'} size={12} name={'check'} />
+          </View>
+        )}
+        <Text style={[styles.text, {color: color}]}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -150,8 +160,23 @@ const styles = StyleSheet.create({
     top: 1,
     zIndex: 100,
   },
+  bottom: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    height: 20,
+  },
   text: {
     alignSelf: 'center',
     fontSize: 12,
+  },
+  select: {
+    backgroundColor: '#57a417',
+    height: 15,
+    width: 15,
+    borderRadius: 7.5,
+    marginRight: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

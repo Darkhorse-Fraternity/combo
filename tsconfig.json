@@ -33,6 +33,7 @@
       "@pages/*": ["src/pages/*"],
       "@img/*": ["source/img/*"],
       "@source/*": ["source/*"],
+      "@music/*": ["source/music/*"],
       "underscore": ["lodash"],
       "@local_modules/*": ["local_modules/*"],
       "react-native-qj-fetch": ["local_modules/react-native-qj-fetch"]

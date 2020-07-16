@@ -5,7 +5,7 @@
 
 'use strict';
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import {TouchableOpacity, Platform} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -28,10 +28,14 @@ export const StyledContent = styled.View`
   padding: 80px 0px;
 `;
 
-export const StyledItemView = styled.View`
+interface StyledItemViewType {
+  contain: boolean;
+}
+
+export const StyledItemView = styled.View<StyledItemViewType>`
   padding: 0px 15px;
   height: 35px;
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.contain ? '#31d930' : props.theme.textinputbackgroundColor};
   align-items: center;
   justify-content: center;
@@ -39,15 +43,15 @@ export const StyledItemView = styled.View`
   border-radius: 8px;
 `;
 
-export const StyledItemText = styled.Text`
-  font-weight: ${props => (props.contain ? 500 : 400)};
-  color:${props =>
+export const StyledItemText = styled.Text<StyledItemViewType>`
+  font-weight: ${(props) => (props.contain ? 500 : 400)};
+  color: ${(props) =>
     props.contain
       ? 'white'
       : Platform.OS === 'ios'
       ? 'black'
-      : materialColors.blackTertiary}
-  
+      : materialColors.blackTertiary};
+
   font-size: 14px;
 `;
 
@@ -92,22 +96,30 @@ export const StyledTopButton = styled(Button)`
   margin-top: 20px;
 `;
 
-export const StyledIconBG = styled.View`
+interface StyledIconBGType {
+  color: string;
+}
+
+export const StyledIconBG = styled.View<StyledIconBGType>`
   height: 62px;
   width: 62px;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   align-items: center;
   justify-content: center;
   border-radius: 5px;
   shadow-opacity: 0.6;
   shadow-radius: 3px;
-  shadow-color: ${props => props.color};
+  shadow-color: ${(props) => props.color};
   shadow-offset: 2px 2px;
 `;
 
-export const StyledIconImage = styled.Image`
-  width: ${props => props.size};
-  height: ${props => props.size};
+interface StyledIconImageType {
+  size: number;
+}
+
+export const StyledIconImage = styled.Image<StyledIconImageType>`
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
 `;
 
 export const StyledTitleView = styled.View`
@@ -150,8 +162,8 @@ export const StyledCellDiscrib = styled.Text`
 `;
 
 export const StyledArrow = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;
