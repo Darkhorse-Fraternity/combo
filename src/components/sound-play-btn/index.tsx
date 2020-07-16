@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Sounds from 'react-native-sound';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import * as Animatable from 'react-native-animatable';
 
 const SOUND_PLAY_BTN_STOP_KEY = 'SOUND_PLAY_BTN_STOP_KEY';
 
@@ -21,6 +22,7 @@ interface SoundPlayBtn extends TouchableOpacityProps {
   color?: string;
   title: string;
   onPress?: () => void;
+  choice?: boolean;
 }
 
 export const SoundPlayBtn = (props: SoundPlayBtn) => {
@@ -32,6 +34,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
     color = 'rgb(80,80,80)',
     title,
     onPress,
+    choice = false,
     ...other
   } = props;
 
@@ -50,14 +53,14 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
   );
 
   const progressRef = useRef<AnimatedCircularProgress>(null);
-  const [select, setSelect] = useState(false);
+  const [select, setSelect] = useState(choice);
   const timeRef = useRef<NodeJS.Timeout>();
 
   const onStop = () => {
     setSelect(false);
     setPaused(false);
     // timeRef.current && clearInterval(timeRef.current);
-    progressRef.current?.animate(0, 100);
+    progressRef.current?.animate(0, 10);
     soundRef.current.stop();
   };
 
@@ -81,7 +84,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
       if (sc) {
         setPaused(false);
         // timeRef.current && clearInterval(timeRef.current);
-        progressRef.current?.animate(0, 100);
+        progressRef.current?.animate(0, 10);
       }
     });
   };
@@ -140,9 +143,11 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
       />
       <View style={styles.bottom}>
         {select && (
-          <View style={[styles.select, {backgroundColor: progressColor}]}>
+          <Animatable.View
+            animation="zoomIn"
+            style={[styles.select, {backgroundColor: progressColor}]}>
             <Foundation color={'white'} size={12} name={'check'} />
-          </View>
+          </Animatable.View>
         )}
         <Text style={[styles.text, {color: color}]}>{title}</Text>
       </View>

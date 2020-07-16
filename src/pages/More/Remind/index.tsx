@@ -48,10 +48,10 @@ import {NoticeTip} from './render';
 import {storage} from 'src/configure/storage';
 
 const interactionManagerDelay = () =>
-  new Promise(resolve => InteractionManager.runAfterInteractions(resolve));
+  new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
-export const daysText = recordDay => {
+export const daysText = (recordDay) => {
   const days = recordDay.sort();
   // console.log('days:', days);
   if (days.length === 0) {
@@ -66,7 +66,7 @@ export const daysText = recordDay => {
   if (days.length === 5 && days[4] === 5) {
     return '周一至周五';
   }
-  return `逢周 ${days.map(day => `${Days[day - 1]} `).toString()}`;
+  return `逢周 ${days.map((day) => `${Days[day - 1]} `).toString()}`;
 };
 
 function PrefixInteger(num, length) {
@@ -74,14 +74,14 @@ function PrefixInteger(num, length) {
 }
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IUSE).get('listData'),
     iUseList: state.normalizr.get(IUSE),
     iCardList: state.normalizr.get(ICARD),
     localRemindData: state.util.get('localRemind'),
     selfUser: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     remind: (id, value) => {
       storage.save({
         key: 'localRemind',
@@ -165,7 +165,7 @@ export default class Remind extends Component {
   static navigationOptions = // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    props => ({
+    (props) => ({
       title: '',
     });
 
@@ -190,7 +190,7 @@ export default class Remind extends Component {
     return (
       <>
         {this._renderHeader()}
-        <StyledSubTitle key="subTitle">
+        <StyledSubTitle>
           <StyledRowInner>
             <StyledIcon size={30} name="alarm-on" />
             <StyledSubTitleText>
@@ -200,14 +200,12 @@ export default class Remind extends Component {
           <StyledSwitch
             {...propsColor}
             value={value}
-            onValueChange={async value => {
+            onValueChange={async (value) => {
               await this.props.remind(id, value);
             }}
           />
         </StyledSubTitle>
-        {data.length > 0 && (
-          <StyledLine key="line" style={{height: 15, marginLeft: 35}} />
-        )}
+        {data.length > 0 && <StyledLine style={{height: 15, marginLeft: 35}} />}
       </>
     );
   };
@@ -261,9 +259,9 @@ export default class Remind extends Component {
     return (
       <AnimationRow
         useNativeDriver
-        ref={res => (this.handleViewRef[`habit${index}`] = res)}>
+        ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
-          ref={ref => {
+          ref={(ref) => {
             this.swipeRefs[`swipe${index}`] = ref;
           }}
           backgroundColor="white"
@@ -334,7 +332,7 @@ export default class Remind extends Component {
             </StyledRowInner>
             <StyledSwitch
               {...propsColor}
-              onValueChange={value => {
+              onValueChange={(value) => {
                 this.props.remind(id, value);
               }}
               value={value}
@@ -350,7 +348,7 @@ export default class Remind extends Component {
     return `${key}`;
   };
 
-  _handleDatePicked = async date => {
+  _handleDatePicked = async (date) => {
     this.setState({isDateTimePickerVisible: false});
 
     // await interactionManagerDelay()
@@ -397,7 +395,7 @@ export default class Remind extends Component {
     if (value) {
       data = data && data.toJS();
 
-      data.forEach(item => {
+      data.forEach((item) => {
         const iUse = iUseList.get(item).toJS();
         const {statu} = iUse;
         if (statu === 'start') {
@@ -409,7 +407,7 @@ export default class Remind extends Component {
           // if(iUse.)
 
           notifyTimes &&
-            notifyTimes.forEach(notifyTime => {
+            notifyTimes.forEach((notifyTime) => {
               const newUse = {...iUse};
               newUse.notifyTime = notifyTime;
               newData.push(newUse);
