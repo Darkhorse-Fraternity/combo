@@ -27,7 +27,7 @@ const WEBVIEW_REF = 'webview';
 
 @connect(
   (state, props) => ({}),
-  dispatch => ({
+  (dispatch) => ({
     //...bindActionCreators({},dispatch),
     load: () => {},
   }),
@@ -56,7 +56,7 @@ export default class BaseWebView extends Component {
     url: PropTypes.string,
   };
 
-  static navigationOptions = props => {
+  static navigationOptions = (props) => {
     return {
       title: '',
       // headerLeft: (
@@ -136,7 +136,7 @@ export default class BaseWebView extends Component {
       return true;
     } else {
       Linking.canOpenURL(event.url)
-        .then(supported => {
+        .then((supported) => {
           if (supported) {
             return Linking.openURL(url);
             // return false;
@@ -144,7 +144,7 @@ export default class BaseWebView extends Component {
             return false;
           }
         })
-        .catch(err => {
+        .catch((err) => {
           return false;
         });
     }
@@ -162,15 +162,15 @@ export default class BaseWebView extends Component {
           automaticallyAdjustContentInsets={false}
           style={styles.webView}
           source={{uri: (params && params.url) || url}}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
+          javaScriptEnabled
+          domStorageEnabled
           decelerationRate="normal"
           onShouldStartLoadWithRequest={this._onShouldStartLoadWithRequest.bind(
             this,
           )}
           //javaScriptEnabled={false}
           onNavigationStateChange={this._onNavigationStateChange.bind(this)}
-          startInLoadingState={true}
+          startInLoadingState
           scalesPageToFit={this.state.scalesPageToFit}
           onError={this._onError}
           onLoadStart={this._onLoadStart}

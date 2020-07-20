@@ -7,10 +7,12 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
         <item name="android:timePickerDialogTheme">@style/Dialog.Theme</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
     </style>
 
     <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">#f6d971</item>
+        <item name="colorAccent">#FFFFFF</item>
 <!--        <item name="android:textColorPrimary">#0000FF</item>-->
     </style>
+
 </resources>

@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(null);
        if (!BuildConfig.DEBUG) {
-            SplashScreen.show(this, true);
+//            SplashScreen.show(this, true);
        }
 //        super.onCreate(savedInstanceState);
         LightStatusBarUtil.setTranslucent(this);

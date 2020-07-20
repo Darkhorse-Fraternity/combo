@@ -30,7 +30,7 @@ export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
   });
 
   return (
-    <Animatable.View animation="fadeInUp">
+    <>
       <StyledSubTitle>
         <StyledRowInner>
           <Icon size={30} color={'#333333'} name="musical-notes-outline" />
@@ -47,33 +47,38 @@ export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
 
       {openSounds && (
         <>
-          <StyledSubTitle2>普通</StyledSubTitle2>
-          <StyledSoundMain>
-            {Object.keys(sources).map((item) => (
-              <SoundPlayBtn
-                progressColor={color}
-                style={styles.SoundPlayBtn}
-                key={sources[item].title}
-                title={sources[item].title}
-                uri={sources[item].source}
-              />
-            ))}
-          </StyledSoundMain>
-          <StyledSubTitle2>鼓励</StyledSubTitle2>
-          <StyledSoundMain>
-            {Object.keys(incentiveSources).map((item) => (
-              <SoundPlayBtn
-                progressColor={color}
-                style={styles.SoundPlayBtn}
-                key={incentiveSources[item].title}
-                title={incentiveSources[item].title}
-                uri={incentiveSources[item].source}
-              />
-            ))}
-          </StyledSoundMain>
+          <Animatable.View animation="fadeInUp" delay={300}>
+            <StyledSubTitle2>普通</StyledSubTitle2>
+            <StyledSoundMain>
+              {Object.keys(sources).map((item) => (
+                <SoundPlayBtn
+                  progressColor={color}
+                  style={styles.SoundPlayBtn}
+                  key={sources[item].title}
+                  title={sources[item].title}
+                  uri={sources[item].source}
+                />
+              ))}
+            </StyledSoundMain>
+          </Animatable.View>
+
+          <Animatable.View animation="fadeInUp" delay={600}>
+            <StyledSubTitle2>鼓励</StyledSubTitle2>
+            <StyledSoundMain>
+              {Object.keys(incentiveSources).map((item) => (
+                <SoundPlayBtn
+                  progressColor={color}
+                  style={styles.SoundPlayBtn}
+                  key={incentiveSources[item].title}
+                  title={incentiveSources[item].title}
+                  uri={incentiveSources[item].source}
+                />
+              ))}
+            </StyledSoundMain>
+          </Animatable.View>
         </>
       )}
-    </Animatable.View>
+    </>
   );
 };
 

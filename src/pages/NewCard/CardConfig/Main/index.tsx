@@ -35,7 +35,7 @@ import svgs from '../../../../../source/icons';
 import LimitTimePicker from '../LimitTimePicker';
 
 import NotifyTimePicker from '../NotifyTimePicker';
-import {RenderSounds} from './render';
+import {RenderSounds} from './sound';
 
 @formValues(
   'title',
@@ -81,8 +81,8 @@ export default class OptionDo extends PureComponent {
     </Animatable.View>
   );
 
-  __renderTitle = () => [
-    <Animatable.View key="title" animation="fadeInUp">
+  __renderTitle = () => (
+    <>
       <StyledSubTitleView>
         <StyledSubTitle>习惯标题</StyledSubTitle>
       </StyledSubTitleView>
@@ -101,11 +101,11 @@ export default class OptionDo extends PureComponent {
         // clearButtonMode='while-editing'
         enablesReturnKeyAutomatically
       />
-    </Animatable.View>,
-    <Animatable.View key="IconAndColor" animation="fadeInUp" delay={500}>
-      <IconAndColor />
-    </Animatable.View>,
-  ];
+      <Animatable.View key="IconAndColor" animation="fadeInUp" delay={500}>
+        <IconAndColor />
+      </Animatable.View>
+    </>
+  );
 
   __renderperiod = () => {
     const items = ['5', '6', '7', '8', '9', '10', '14', '21', '30'];
@@ -117,7 +117,7 @@ export default class OptionDo extends PureComponent {
     );
 
     return (
-      <Animatable.View animation="fadeInUp">
+      <>
         <StyledSubTitleView>
           <StyledSubTitle>习惯周期</StyledSubTitle>
         </StyledSubTitleView>
@@ -128,22 +128,22 @@ export default class OptionDo extends PureComponent {
           options={items}
           renderItem={__renderRadioItem}
         />
-      </Animatable.View>
+      </>
     );
   };
 
   __renderNotifyTime = () => (
-    <Animatable.View animation="fadeInUp">
+    <>
       <NotifyTimePicker
         name="notifyTimes"
         // keyName='ItemId'
         options={this.props.notifyTimes}
       />
-    </Animatable.View>
+    </>
   );
 
   __remderNotifyText = () => (
-    <Animatable.View animation="fadeInUp">
+    <>
       <StyledSubTitleView>
         <StyledSubTitle>给自己的激励</StyledSubTitle>
       </StyledSubTitleView>
@@ -174,7 +174,7 @@ export default class OptionDo extends PureComponent {
           enablesReturnKeyAutomatically
         />
       </View>
-    </Animatable.View>
+    </>
   );
 
   __remderRecord = () => {
@@ -217,18 +217,16 @@ export default class OptionDo extends PureComponent {
 
     return (
       <StyledSubView>
-        <Animatable.View animation="fadeInUp" delay={100}>
-          <StyledSubTitleView>
-            <StyledSubTitle>打卡日限制</StyledSubTitle>
-          </StyledSubTitleView>
-          <Multiple
-            style={[styles.notifyTimeView]}
-            name="recordDay"
-            // keyName='ItemId'
-            options={sels}
-            renderItem={__renderRadioItem}
-          />
-        </Animatable.View>
+        <StyledSubTitleView>
+          <StyledSubTitle>打卡日限制</StyledSubTitle>
+        </StyledSubTitleView>
+        <Multiple
+          style={[styles.notifyTimeView]}
+          name="recordDay"
+          // keyName='ItemId'
+          options={sels}
+          renderItem={__renderRadioItem}
+        />
         <Animatable.View animation="fadeInUp" delay={300}>
           <StyledSubTitleView>
             <StyledSubTitle>时间段限制</StyledSubTitle>
@@ -283,6 +281,8 @@ export default class OptionDo extends PureComponent {
     // const { modify } = this.props
 
     // console.log('this.state.option:', this.state.option);
+
+    const NextStep = this.props.step ? <View /> : <View />;
 
     return (
       // modify && <StyledLogoImage
@@ -352,32 +352,24 @@ export default class OptionDo extends PureComponent {
           </View>
         )}
 
-        {this.props.step === 1 &&
-          this.state.type === 'title' &&
-          this.__renderTitle()}
+        {this.props.step === 1 && (
+          <Animatable.View animation="fadeInUp">
+            {this.state.type === 'title' && this.__renderTitle()}
 
-        {this.props.step === 1 &&
-          this.state.type === 'notifyTimes' &&
-          this.__renderNotifyTime()}
+            {this.state.type === 'notifyTimes' && this.__renderNotifyTime()}
 
-        {this.props.step === 1 &&
-          this.state.type === 'period' &&
-          this.__renderperiod()}
+            {this.state.type === 'period' && this.__renderperiod()}
 
-        {this.props.step === 1 &&
-          this.state.type === 'notifyText' &&
-          this.__remderNotifyText()}
+            {this.state.type === 'notifyText' && this.__remderNotifyText()}
 
-        {this.props.step === 1 &&
-          this.state.type === 'recordDay' &&
-          this.__renderRecordDay()}
+            {this.state.type === 'recordDay' && this.__renderRecordDay()}
 
-        {this.props.step === 1 &&
-          this.state.type === 'record' &&
-          this.__remderRecord()}
+            {this.state.type === 'record' && this.__remderRecord()}
 
-        {this.props.step === 1 && this.state.type === 'sound' && (
-          <RenderSounds color={color} sound={sound} />
+            {this.state.type === 'sound' && (
+              <RenderSounds color={color} sound={sound} />
+            )}
+          </Animatable.View>
         )}
 
         <View style={{height: 100}} />

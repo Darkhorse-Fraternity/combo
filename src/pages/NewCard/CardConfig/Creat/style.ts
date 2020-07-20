@@ -29,7 +29,8 @@ export const StyledHeaderInner = styled.View`
 `;
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-  background-color: ${props => props.backgroundColor || props.theme.sureColor};
+  background-color: ${(props) =>
+    props.backgroundColor || props.theme.sureColor};
   margin-left: 10px;
   width: 80px;
 `;
