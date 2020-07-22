@@ -3,17 +3,11 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
-import {
-  View,
-  Dimensions
-} from 'react-native';
-import { connect } from 'react-redux';
+import React, {PureComponent} from 'react';
+import {View, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 
-
-import { debounce } from 'lodash';
+import {debounce} from 'lodash';
 import {
   StyledFlipCard,
   StyledCard,
@@ -26,29 +20,45 @@ import {
   StyledInner,
   StyledFB,
   StyledFBText,
-  StyledTop
+  StyledTop,
 } from './style';
 import svgs from '../../../../source/icons';
+import Sounds from 'react-native-sound';
+import {soundsSource, SoundsType} from 'src/configure/source';
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 const minWidth = Math.min(width, height);
 const itemWidth = (minWidth - 60) / 3;
 const iconWidth = itemWidth / 2; // 4.0.8
 
+interface PunchItemProps {
+  done: boolean;
+  soundsKey?: string;
+  openSound?: boolean;
+  onPress: (flip: boolean, flipBack: () => void, sound: () => void) => void;
+}
 
-@connect(
-  state => ({}),
-  dispatch => ({})
-)
+interface PunchItemState {
+  flip: boolean;
+}
 
-export default class PunchItem extends PureComponent {
-  constructor(props: Object) {
+export default class PunchItem extends PureComponent<
+  PunchItemProps,
+  PunchItemState
+> {
+  constructor(props: PunchItemProps) {
     super(props);
+    if (props.openSound && props.soundsKey) {
+      const source = soundsSource();
+      const data = source[props.soundsKey] as SoundsType;
+      this.sound = new Sounds(data?.source);
+    }
     this.state = {
-      flip: props.done
+      flip: props.done,
     };
   }
 
+  sound?: Sounds;
   static propTypes = {
     title: PropTypes.string,
     done: PropTypes.bool,
@@ -64,16 +74,15 @@ export default class PunchItem extends PureComponent {
     showFB: false,
   };
 
-
   flipDo = () => {
     if (this.props.done !== this.state.flip) {
       // console.log('title2:', this.props.title);
       // console.log('flip2:', this.props.done);
-      this.setState({ flip: this.props.done });
+      this.setState({flip: this.props.done});
     }
-  }
+  };
 
-  debounceFlip = debounce(this.flipDo, 1000, { leading: false, trailing: true })
+  debounceFlip = debounce(this.flipDo, 1000, {leading: false, trailing: true});
 
   componentWillReceiveProps(nextProps) {
     // TODO： 这边这样设置会有反复哦，所以这边就先避免了
@@ -83,6 +92,9 @@ export default class PunchItem extends PureComponent {
     this.debounceFlip();
   }
 
+  componentWillUnmount() {
+    this.sound && this.sound.release();
+  }
 
   render(): ReactElement<any> {
     const {
@@ -94,9 +106,9 @@ export default class PunchItem extends PureComponent {
       color,
       onPress,
       discrib,
-      showFB
+      showFB,
     } = this.props;
-    const { flip } = this.state;
+    const {flip} = this.state;
 
     const self = this;
     return (
@@ -105,12 +117,24 @@ export default class PunchItem extends PureComponent {
         onLongPress={onLongPress}
         onPress={() => {
           // if (!flip) {
-          onPress && onPress(flip, () => {
-            self.setState({ flip: !flip });
-          });
+          //   if (!flip) {
+
+          //   }
+
+          onPress &&
+            onPress(
+              flip,
+              () => {
+                self.setState({flip: !flip});
+              },
+              () => {
+                console.log('???', this.props.soundsKey);
+
+                this.sound && this.sound.play();
+              },
+            );
           // }
-        }}
-      >
+        }}>
         <StyledFlipCard
           style={style}
           useNativeDriver
@@ -119,23 +143,17 @@ export default class PunchItem extends PureComponent {
           flipHorizontal
           flipVertical={false}
           flip={flip}
-          clickable={false}
-        >
-          <StyledCard
-            width={itemWidth}
-            backgroundColor={color}
-          >
+          clickable={false}>
+          <StyledCard width={itemWidth} backgroundColor={color}>
             <StyledTop>
               {showFB ? (
                 <StyledFB>
-                  <StyledFBText color={color}>
-                  副本
-                  </StyledFBText>
+                  <StyledFBText color={color}>副本</StyledFBText>
                 </StyledFB>
-              ) : <View />}
-              <StyledCardDis>
-                {discrib}
-              </StyledCardDis>
+              ) : (
+                <View />
+              )}
+              <StyledCardDis>{discrib}</StyledCardDis>
             </StyledTop>
             <StyledInner height={iconWidth}>
               <StyledIconImage
@@ -150,20 +168,14 @@ export default class PunchItem extends PureComponent {
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}
                   textAlignVertical="center"
-                  numberOfLines={1}
-                >
+                  numberOfLines={1}>
                   {title}
                 </StyledCardTitle>
               </StyledInner>
             </StyledCardTitleView>
           </StyledCard>
-          <StyledCard
-            width={itemWidth}
-            backgroundColor={color}
-          >
-            <StyledCardDis
-              style={{ color: 'white', fontWeight: '600' }}
-            >
+          <StyledCard width={itemWidth} backgroundColor={color}>
+            <StyledCardDis style={{color: 'white', fontWeight: '600'}}>
               +1
             </StyledCardDis>
             <StyledInner height={iconWidth}>
@@ -176,16 +188,14 @@ export default class PunchItem extends PureComponent {
             <StyledCardTitleView>
               <StyledInner height={25}>
                 <StyledCardTitle
-                  style={{ color: 'white', fontWeight: '600' }}
+                  style={{color: 'white', fontWeight: '600'}}
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}
                   textAlignVertical="center"
-                  numberOfLines={1}
-                >
+                  numberOfLines={1}>
                   {title}
                 </StyledCardTitle>
               </StyledInner>
-
             </StyledCardTitleView>
           </StyledCard>
         </StyledFlipCard>

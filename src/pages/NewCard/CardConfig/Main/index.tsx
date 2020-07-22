@@ -7,10 +7,10 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {formValues} from 'redux-form/immutable';
 import {TextInput} from '../../../../components/Form/Cunstom/index';
 import {Radio, Multiple} from '../../../../components/Form/Select/index';
 import {mainColor} from '../../../../Theme/index';
+import {Field, formValues} from 'redux-form/immutable';
 import {
   StyledTitleText,
   StyledSubView,
@@ -49,7 +49,13 @@ import {RenderSounds} from './sound';
   'limitTimes',
   'sound',
 )
-export default class OptionDo extends PureComponent {
+export default class OptionDo extends PureComponent<
+  {
+    step: number;
+    onSelect: (field: string, value: string | Object | undefined) => void;
+  },
+  {type: string}
+> {
   constructor(props: Object) {
     super(props);
 
@@ -81,31 +87,34 @@ export default class OptionDo extends PureComponent {
     </Animatable.View>
   );
 
-  __renderTitle = () => (
-    <>
-      <StyledSubTitleView>
-        <StyledSubTitle>习惯标题</StyledSubTitle>
-      </StyledSubTitleView>
+  __renderTitle = () => {
+    const {icon, color, onChange} = this.props;
+    return (
+      <>
+        <StyledSubTitleView>
+          <StyledSubTitle>习惯标题</StyledSubTitle>
+        </StyledSubTitleView>
 
-      <TextInput
-        name="title"
-        placeholderTextColor="rgba(180,180,180,1)"
-        selectionColor={mainColor}
-        returnKeyType="done"
-        autoFocus={false}
-        maxLength={50}
-        // keyboardType={boardType}
-        style={[styles.textInputTitle]}
-        underlineColorAndroid="transparent"
-        placeholder="例如跑步、早睡等"
-        // clearButtonMode='while-editing'
-        enablesReturnKeyAutomatically
-      />
-      <Animatable.View key="IconAndColor" animation="fadeInUp" delay={500}>
-        <IconAndColor />
-      </Animatable.View>
-    </>
-  );
+        <TextInput
+          name="title"
+          placeholderTextColor="rgba(180,180,180,1)"
+          selectionColor={mainColor}
+          returnKeyType="done"
+          autoFocus={false}
+          maxLength={50}
+          // keyboardType={boardType}
+          style={[styles.textInputTitle]}
+          underlineColorAndroid="transparent"
+          placeholder="例如跑步、早睡等"
+          // clearButtonMode='while-editing'
+          enablesReturnKeyAutomatically
+        />
+        <Animatable.View key="IconAndColor" animation="fadeInUp" delay={500}>
+          <IconAndColor />
+        </Animatable.View>
+      </>
+    );
+  };
 
   __renderperiod = () => {
     const items = ['5', '6', '7', '8', '9', '10', '14', '21', '30'];
@@ -259,7 +268,8 @@ export default class OptionDo extends PureComponent {
   };
 
   render(): ReactElement<any> {
-    const {icon, color, title, sound} = this.props;
+    let {icon, color, title, sound, onSelect} = this.props;
+    sound = sound && sound.toJS && sound.toJS();
     const notifyText =
       this.props.notifyText && this.props.notifyText.length > 0
         ? this.props.notifyText
@@ -282,13 +292,13 @@ export default class OptionDo extends PureComponent {
 
     // console.log('this.state.option:', this.state.option);
 
-    const NextStep = this.props.step ? <View /> : <View />;
+    // const NextStep = this.props.step ? <View /> : <View />;
 
     return (
       // modify && <StyledLogoImage
       //   source={require('../../../../source/img/my/icon-60.png')}
       //   key={'logo'}/>,
-      <ScrollView key="bc" style={[styles.wrap]}>
+      <ScrollView style={[styles.wrap]}>
         {this.props.step === 0 && (
           <View style={{flex: 1}}>
             <Animatable.View animation="fadeInUp">
@@ -340,7 +350,9 @@ export default class OptionDo extends PureComponent {
             <this.__renderItem
               index={5}
               title="打卡音效"
-              discrib={'无'}
+              discrib={
+                sound?.open === false ? '无' : sound?.item?.title ?? 'bell'
+              }
               type="sound"
             />
             {/* <this.__renderItem
@@ -367,8 +379,23 @@ export default class OptionDo extends PureComponent {
             {this.state.type === 'record' && this.__remderRecord()}
 
             {this.state.type === 'sound' && (
-              <RenderSounds color={color} sound={sound} />
+              <RenderSounds
+                color={color}
+                value={sound}
+                onChange={(item) => {
+                  onSelect('sound', item);
+                  //   console.log('key', item?.key);
+                }}
+              />
             )}
+            {/* {this.state.type === 'sound' && (
+              <Field
+                name="sound"
+                component={RenderSounds}
+                sound={sound}
+                color={color}
+              />
+            )} */}
           </Animatable.View>
         )}
 

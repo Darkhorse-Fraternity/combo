@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import Toast from 'react-native-simple-toast';
-import {reduxForm, formValueSelector} from 'redux-form/immutable';
+import {reduxForm, formValueSelector, change} from 'redux-form/immutable';
 import moment from 'moment';
 import {addNormalizrEntity} from '../../../redux/module/normalizr';
 import {update} from '../../../redux/module/leancloud';
@@ -62,6 +62,10 @@ const FormID = 'CreatCardForm';
   },
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
+    //用 onChange 会导致错误 onSelect  后面改成hook-form 吧
+    onSelect: (field: string, value: string | object) => {
+      dispatch(change('CreatCardForm', field, value));
+    },
     refresh: async () =>
       dispatch(async (dispatch, getState) => {
         {
@@ -92,6 +96,7 @@ const FormID = 'CreatCardForm';
             'icon',
             'color',
             'limitTimes',
+            'sound',
           );
 
           const notifyTimes = op.notifyTimes
@@ -106,6 +111,10 @@ const FormID = 'CreatCardForm';
             iconAndColor: {
               name: op.icon,
               color: op.color,
+            },
+            sound: op.sound || {
+              open: true,
+              item: {title: 'bell', type: 'normal', key: 'bell'},
             },
             limitTimes: op.limitTimes,
             notifyText: op.notifyText,
@@ -183,6 +192,7 @@ export default class CardConfig extends PureComponent {
 
   render(): ReactElement<any> {
     const {step} = this.state;
+    const {onSelect} = this.props;
     return (
       <StyledContent>
         <StyledHeader>
@@ -227,12 +237,7 @@ export default class CardConfig extends PureComponent {
         </StyledHeader>
 
         <StyledInnerView>
-          <Main
-            modify
-            // goBack={this.__backStep}
-            step={step}
-            nextStep={this.__nextStep}
-          />
+          <Main step={step} nextStep={this.__nextStep} onSelect={onSelect} />
         </StyledInnerView>
       </StyledContent>
     );

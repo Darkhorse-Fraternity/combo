@@ -34,7 +34,7 @@ import {listReq} from '../../redux/actions/list';
 import {PrivacyModal} from '@components/ModalUtil/Privacy';
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
@@ -65,7 +65,7 @@ import {PrivacyModal} from '@components/ModalUtil/Privacy';
     search: () => {
       dispatch(
         listReq(IUSE, iUseListParams(), false, {
-          dataMap: data => {
+          dataMap: (data) => {
             const {iUseList} = data.result;
             // 添加副本
             // console.log('fbList', fbList);
@@ -86,7 +86,7 @@ import {PrivacyModal} from '@components/ModalUtil/Privacy';
         }),
       );
     },
-    done: async data => {
+    done: async (data) => {
       // 评价
       rate();
       return dispatch(doCardWithNone(data));
@@ -142,7 +142,7 @@ export default class Punch extends Component {
     // }
   }
 
-  __renderNoData = statu => {
+  __renderNoData = (statu) => {
     const refreshLoad =
       statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
     return (
@@ -170,7 +170,7 @@ export default class Punch extends Component {
     <StyledHeaderTitle>{strings('app.name')}</StyledHeaderTitle>
   );
 
-  _renderSectionHeader = info => {
+  _renderSectionHeader = (info) => {
     // if (info.section.title.length === 0) {
     //   return <View style={{height: 30}} />;
     // }
@@ -183,7 +183,7 @@ export default class Punch extends Component {
     );
   };
 
-  __renderItem = data => {
+  __renderItem = (data) => {
     // return (<View/>)
     // const
     const views = data.item.map((item, index) => {
@@ -206,22 +206,29 @@ export default class Punch extends Component {
       const done = moment(0, 'HH').isBefore(item.doneDate.iso);
       let iconAndColor = iCard.get('iconAndColor');
       iconAndColor = iconAndColor ? iconAndColor.toJS() : {};
+
+      let sound = iCard.get('sound');
+      sound = sound && sound.toJS && sound.toJS();
       return (
         <Item
           showFB={showFB}
+          openSound={sound?.open ?? false}
+          soundsKey={sound?.item.key}
           key={index + iCard.get('title')}
           name={iconAndColor.name}
           color={iconAndColor.color}
           done={done}
           title={iCard.get('title')}
           discrib={item.unSatisfyDiscrib || `第${item.time}日`}
-          onPress={async (flip, doIt) => {
+          onPress={async (flip, doIt, sound) => {
             // const iCardM = iCard.toJS()
             // 如果没有强制打卡类型，则直接翻转
+
             if (!flip && item.satisfy) {
               iCard.get('record').size === 0 && doIt();
               if (!this.props.load && !done) {
                 await this.props.done(item);
+                sound();
               }
             } else {
               this.props.navigation.navigate('card', {
@@ -275,7 +282,7 @@ export default class Punch extends Component {
         } else {
           let unSatisfyDiscrib = '一周后';
           // 算出正向上满足条件的下一天
-          const unSatisfyRecordDay = recordDay.filter(a => a - week > 0);
+          const unSatisfyRecordDay = recordDay.filter((a) => a - week > 0);
           let nextDoDay = unSatisfyRecordDay[0];
           // 相差几天
           let days = nextDoDay - week;
@@ -323,7 +330,7 @@ export default class Punch extends Component {
         <PrivacyModal />
         <SectionList
           refreshing={false}
-          onScroll={event => {
+          onScroll={(event) => {
             const y = event.nativeEvent.contentOffset.y;
             if (!this.openSmallTitle && y > 35) {
               this.openSmallTitle = true;

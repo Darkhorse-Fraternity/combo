@@ -1,7 +1,7 @@
 import {SoundPlayBtn} from '@components/sound-play-btn';
 import React, {FC, useMemo, useState} from 'react';
 import {Platform, StyleSheet} from 'react-native';
-import {soundsIncentiveSource, soundsNormalSource} from 'src/configure/source';
+import {soundsSource, SoundsType} from 'src/configure/source';
 // import {StyledContent} from './style';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,14 +9,29 @@ import {shadeBlend} from 'helps/util';
 import * as Animatable from 'react-native-animatable';
 interface RenderSoundsType {
   color: string;
-  sound: string;
+  onChange?: (data: {open: boolean; item: SoundsType}) => void;
+  value?: {open: boolean; item: SoundsType};
 }
 
-export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
-  const sources = useMemo(() => soundsNormalSource(), []);
-  const incentiveSources = useMemo(() => soundsIncentiveSource(), []);
+export const RenderSounds: FC<RenderSoundsType> = ({
+  color,
+  onChange,
+  value,
+}) => {
+  const sources = useMemo(() => soundsSource(), []);
+  //   const normalSource
+  const normalSources: SoundsType[] = [];
+  const encourageSources: SoundsType[] = [];
+  const defaultItem = value?.item || sources.bell;
+  Object.values(sources).forEach((item) => {
+    if (item.type === 'normal') {
+      normalSources.push(item);
+    } else if (item.type === 'encourage') {
+      encourageSources.push(item);
+    }
+  });
 
-  const [openSounds, setOpenSounds] = useState(true);
+  const [openSounds, setOpenSounds] = useState(value?.open ?? true);
 
   const propsColor = Platform.select({
     ios: {trackColor: {false: color, true: color}},
@@ -39,8 +54,14 @@ export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
         <StyledSwitch
           {...propsColor}
           value={openSounds}
-          onValueChange={(value) => {
-            setOpenSounds(value);
+          onValueChange={(open) => {
+            setOpenSounds(open);
+            if (onChange) {
+              onChange({
+                open: open,
+                item: defaultItem,
+              });
+            }
           }}
         />
       </StyledSubTitle>
@@ -50,13 +71,17 @@ export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
           <Animatable.View animation="fadeInUp" delay={300}>
             <StyledSubTitle2>普通</StyledSubTitle2>
             <StyledSoundMain>
-              {Object.keys(sources).map((item) => (
+              {normalSources.map((item) => (
                 <SoundPlayBtn
+                  choice={defaultItem.key === item.key}
                   progressColor={color}
                   style={styles.SoundPlayBtn}
-                  key={sources[item].title}
-                  title={sources[item].title}
-                  uri={sources[item].source}
+                  key={item.key}
+                  title={item.title}
+                  uri={item.source}
+                  onPress={(open) =>
+                    open && onChange && onChange({item, open: true})
+                  }
                 />
               ))}
             </StyledSoundMain>
@@ -65,13 +90,17 @@ export const RenderSounds: FC<RenderSoundsType> = ({color}) => {
           <Animatable.View animation="fadeInUp" delay={600}>
             <StyledSubTitle2>鼓励</StyledSubTitle2>
             <StyledSoundMain>
-              {Object.keys(incentiveSources).map((item) => (
+              {encourageSources.map((item) => (
                 <SoundPlayBtn
+                  choice={defaultItem.key === item.key}
                   progressColor={color}
                   style={styles.SoundPlayBtn}
-                  key={incentiveSources[item].title}
-                  title={incentiveSources[item].title}
-                  uri={incentiveSources[item].source}
+                  key={item.key}
+                  title={item.title}
+                  uri={item.source}
+                  onPress={(open) =>
+                    open && onChange && onChange({item, open: true})
+                  }
                 />
               ))}
             </StyledSoundMain>

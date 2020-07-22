@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import moment from 'moment';
-import {reduxForm, formValueSelector} from 'redux-form/immutable';
+import {reduxForm, formValueSelector, change} from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
 import {ICARD, IUSE} from '../../../../redux/reqKeys';
@@ -67,6 +67,9 @@ const selector = formValueSelector(FormID);
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
+    onSelect: (field: string, value: string | object) => {
+      dispatch(change(FormID, field, value));
+    },
     add: () =>
       dispatch(async (dispatch, getState) => {
         // console.log('test:', option);
@@ -104,7 +107,10 @@ const selector = formValueSelector(FormID);
             name: op.icon,
             color: op.color,
           },
-          sound: op.sound,
+          sound: op.sound || {
+            open: true,
+            item: {title: 'bell', type: 'normal', key: 'bell'},
+          },
           notifyTimes,
           notifyText: op.notifyText,
           limitTimes: op.limitTimes,
@@ -258,7 +264,7 @@ export default class Creat extends PureComponent {
   render() {
     // const { title, color } = this.props
     const {step} = this.state;
-    console.log('step:', step);
+    const {onSelect} = this.props;
     return (
       <StyledContent
         // colors={['#f1f6f9', '#ffffff']}
@@ -312,7 +318,11 @@ export default class Creat extends PureComponent {
 
         <StyledInnerView>
           {this.state.step >= 1 && (
-            <Main step={this.state.step - 1} nextStep={this.__nextStep} />
+            <Main
+              step={this.state.step - 1}
+              nextStep={this.__nextStep}
+              onSelect={onSelect}
+            />
           )}
         </StyledInnerView>
       </StyledContent>

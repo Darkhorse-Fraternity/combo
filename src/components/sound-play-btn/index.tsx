@@ -15,13 +15,13 @@ import * as Animatable from 'react-native-animatable';
 
 const SOUND_PLAY_BTN_STOP_KEY = 'SOUND_PLAY_BTN_STOP_KEY';
 
-interface SoundPlayBtn extends TouchableOpacityProps {
+interface SoundPlayBtn extends Omit<TouchableOpacityProps, 'onPress'> {
   uri: string;
   size?: number;
   progressColor?: string;
   color?: string;
   title: string;
-  onPress?: () => void;
+  onPress?: (open: boolean) => void;
   choice?: boolean;
 }
 
@@ -46,9 +46,6 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
         console.log('failed to load the sound', error);
         return;
       }
-      //   if (ref.current.isPlaying()) {
-      //     setPaused(true);
-      //   }
     }),
   );
 
@@ -111,13 +108,13 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
   }, []);
 
   const togglePaused = () => {
-    onPress && onPress();
     if (soundRef.current.isPlaying()) {
       // ref.current.
       onStop();
     } else {
       onPlay();
     }
+    onPress && onPress(!soundRef.current.isPlaying());
   }; // add this toggle function
 
   return (

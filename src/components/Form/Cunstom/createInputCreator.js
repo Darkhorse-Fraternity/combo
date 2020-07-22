@@ -29,7 +29,7 @@ const createInputCreator = ReduxFormFieldComponent => (name, renderFunction, Pro
       name:PropTypes.string.isRequired
     };
     static defaultProps = {};
-    render(): ReactElement<any> {
+    render() {
       const { name, ...rest } = this.props
       return <ReduxFormFieldComponent name={name} component={Component} {...rest} />
     }
