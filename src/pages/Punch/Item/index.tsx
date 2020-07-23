@@ -28,14 +28,13 @@ import {soundsSource, SoundsType} from 'src/configure/source';
 
 const {width, height} = Dimensions.get('window');
 const minWidth = Math.min(width, height);
-const itemWidth = (minWidth - 60) / 3;
-const iconWidth = itemWidth / 2; // 4.0.8
 
 interface PunchItemProps {
   done: boolean;
   soundsKey?: string;
   openSound?: boolean;
   onPress: (flip: boolean, flipBack: () => void, sound: () => void) => void;
+  numColumns: number;
 }
 
 interface PunchItemState {
@@ -96,7 +95,7 @@ export default class PunchItem extends PureComponent<
     this.sound && this.sound.release();
   }
 
-  render(): ReactElement<any> {
+  render() {
     const {
       title,
       done,
@@ -111,6 +110,9 @@ export default class PunchItem extends PureComponent<
     const {flip} = this.state;
 
     const self = this;
+
+    const itemWidth = (minWidth - 60) / this.props.numColumns;
+    const iconWidth = itemWidth / 2; // 4.0.8
     return (
       <StyledButton
         // disabled={flip}
@@ -148,7 +150,7 @@ export default class PunchItem extends PureComponent<
             <StyledTop>
               {showFB ? (
                 <StyledFB>
-                  <StyledFBText color={color}>副本</StyledFBText>
+                  <StyledFBText>副本</StyledFBText>
                 </StyledFB>
               ) : (
                 <View />
@@ -167,7 +169,7 @@ export default class PunchItem extends PureComponent<
                 <StyledCardTitle
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}
-                  textAlignVertical="center"
+                  //   textAlignVertical="center"
                   numberOfLines={1}>
                   {title}
                 </StyledCardTitle>
@@ -191,7 +193,7 @@ export default class PunchItem extends PureComponent<
                   style={{color: 'white', fontWeight: '600'}}
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}
-                  textAlignVertical="center"
+                  //   textAlignVertical="center"
                   numberOfLines={1}>
                   {title}
                 </StyledCardTitle>

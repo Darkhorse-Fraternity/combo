@@ -13,7 +13,11 @@ export const StyledFlipCard = styled(FlipCard)`
   border-width: 0;
 `;
 
-export const StyledCard = styled.View`
+interface StyledCardType {
+  width: number;
+  backgroundColor: string;
+}
+export const StyledCard = styled.View<StyledCardType>`
   justify-content: space-between;
   background-color: ${(props) => props.backgroundColor};
   width: ${(props) => props.width};
@@ -49,12 +53,19 @@ export const StyledCardDis = styled.Text`
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``;
 
-export const StyledIconImage = styled.Image`
+interface StyledIconImageType {
+  size: number;
+}
+export const StyledIconImage = styled.Image<StyledIconImageType>`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
 `;
 
-export const StyledInner = styled.View`
+interface StyledInnerType {
+  height: number;
+}
+
+export const StyledInner = styled.View<StyledInnerType>`
   align-items: center;
   justify-content: center;
   height: ${(props) => props.height};

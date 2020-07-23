@@ -32,6 +32,9 @@ import {iUseList as iUseListParams} from '../../request/leanCloud';
 import {addNormalizrEntities} from '../../redux/module/normalizr';
 import {listReq} from '../../redux/actions/list';
 import {PrivacyModal} from '@components/ModalUtil/Privacy';
+import {isTablet} from 'react-native-device-info';
+
+const numColumns = isTablet() ? 6 : 3;
 
 @connect(
   (state) => ({
@@ -211,6 +214,7 @@ export default class Punch extends Component {
       sound = sound && sound.toJS && sound.toJS();
       return (
         <Item
+          numColumns={numColumns}
           showFB={showFB}
           openSound={sound?.open ?? false}
           soundsKey={sound?.item.key}
@@ -346,7 +350,7 @@ export default class Punch extends Component {
           }}
           // data={data}
           sections={sections}
-          numColumns={3}
+          numColumns={numColumns}
           style={{flex: 1}}
           renderSectionHeader={this._renderSectionHeader}
           // removeClippedSubviews={true}

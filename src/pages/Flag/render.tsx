@@ -92,9 +92,7 @@ export default class Flag extends PureComponent {
         startDate: {
           $gte: {
             __type: 'Date',
-            iso: moment('00:00', 'HH:mm')
-              .add(1, 'day')
-              .toISOString(),
+            iso: moment('00:00', 'HH:mm').add(1, 'day').toISOString(),
           },
         },
         // endDate:{"$lte":{"__type":"Date","iso":moment('24:00', 'HH:mm').add(1, 'day').toISOString()}},
@@ -105,7 +103,7 @@ export default class Flag extends PureComponent {
 
     return (
       <LCList
-        onScroll={event => {
+        onScroll={(event) => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {
             this.openSmallTitle = true;
@@ -125,7 +123,7 @@ export default class Flag extends PureComponent {
         // dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         // }}
-        dataMap={data => ({results: data.result})}
+        dataMap={(data) => ({results: data.result})}
         reqParam={param}
         renderItem={this.__renderItem}
         ListHeaderComponent={this._renderHeader}

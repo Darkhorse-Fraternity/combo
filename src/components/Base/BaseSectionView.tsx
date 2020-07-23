@@ -3,8 +3,8 @@
  * @flow
  */
 
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
+import React, {PureComponent} from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
@@ -15,26 +15,58 @@ import {
   Platform,
   Dimensions,
   FlatList,
-  SectionList
-} from "react-native";
-import ExceptionView, { ExceptionType } from "./ExceptionView";
+  SectionList,
+  FlatListProps,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+  ImageSourcePropType,
+} from 'react-native';
+import ExceptionView, {ExceptionType} from './ExceptionView';
+import {ListLoadType} from './interface';
 
 // const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
-const LIST_FIRST_JOIN = "LIST_FIRST_JOIN";
+const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN';
 // export const LIST_NO_DATA = 'LIST_NO_DATA'
-export const LIST_LOAD_DATA = "LIST_LOAD_DATA";
-export const LIST_LOAD_MORE = "LIST_LOAD_MORE";
-export const LIST_LOAD_NO_MORE = "LIST_LOAD_NO_MORE";
-export const LIST_LOAD_ERROR = "LIST_LOAD_ERROR";
-export const LIST_NORMAL = "LIST_NORMAL";
+export const LIST_LOAD_DATA = 'LIST_LOAD_DATA';
+export const LIST_LOAD_MORE = 'LIST_LOAD_MORE';
+export const LIST_LOAD_NO_MORE = 'LIST_LOAD_NO_MORE';
+export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
+export const LIST_NORMAL = 'LIST_NORMAL';
 
-export default class BaseSectionView extends PureComponent {
-  constructor(props: Object) {
+export type BaseListBaseProps<T> = FlatListProps<T> & {
+  noDataPrompt?: string;
+  tipTap?: Function;
+  keyId: string;
+  noDataImg: ImageSourcePropType;
+  tipBtnText: string;
+  //   promptImage?: ImageSourcePropType;
+  dropDownRefring?: boolean;
+  //   listRef?: LegacyRef<FlatList<T>>;
+  //   refreshPropsAndroid?: SmartRefreshLayoutProps;
+  //   footerStyle?: StyleProp<ViewStyle>;
+  //   onHeaderPulling?: (p: RefreshEvent) => void;
+  showLoadingInView?: boolean;
+};
+
+export interface BaseListProps<T> extends BaseListBaseProps<T> {
+  loadStatu: ListLoadType;
+  loadData: Function;
+  loadMore: Function;
+}
+
+interface IState {
+  shouldShowloadMore: boolean;
+}
+
+export default class BaseSectionView<ItemT> extends PureComponent<
+  BaseListProps<ItemT>,
+  IState
+> {
+  constructor(props: BaseListProps<ItemT>) {
     super(props);
     this.state = {
       shouldShowloadMore: false,
-      joinTime: 0
     };
   }
 
@@ -46,22 +78,22 @@ export default class BaseSectionView extends PureComponent {
     noDataImg: PropTypes.number,
     noDataPrompt: PropTypes.string,
     noDataTips: PropTypes.string,
-    tipTap: PropTypes.func
+    tipTap: PropTypes.func,
   };
 
   static defaultProps = {
     loadStatu: LIST_FIRST_JOIN,
     needDelay: true,
     // noDataImg: require('../../../source/img/xy_course/xy_course.png'),
-    noDataPrompt: "",
-    type: "list",
+    noDataPrompt: '',
+    type: 'list',
     data: [],
-    sections: []
+    sections: [],
   };
 
-  onScroll(e: Object) {
-    const { nativeEvent } = e;
-    const { contentSize, contentOffset, layoutMeasurement } = nativeEvent;
+  onScroll(e: NativeSyntheticEvent<NativeScrollEvent>) {
+    const {nativeEvent} = e;
+    const {contentSize, contentOffset, layoutMeasurement} = nativeEvent;
     const layoutMeasurementHeight = layoutMeasurement.height;
 
     const shouldShowloadMore =
@@ -72,7 +104,7 @@ export default class BaseSectionView extends PureComponent {
 
     // TODO 这样写会导致，已有数据时候，直接往下拉，会有一瞬间renderFooter，似乎是转化时间有问题
     this.state.shouldShowloadMore !== shouldShowloadMore &&
-      this.setState({ shouldShowloadMore });
+      this.setState({shouldShowloadMore});
     // console.log('test:', shouldShowloadMore);
     // console.log('nativeEvent:', nativeEvent);
     // console.log('shouldShowloadMore:', shouldShowloadMore);
@@ -83,29 +115,6 @@ export default class BaseSectionView extends PureComponent {
     this._handleRefresh();
   }
 
-  // componentWillUnmount() {
-  //   this.joinTime = 0
-  //     console.log('componentWillUnmount:', this.joinTime);
-  // }
-  joinTime = 0;
-
-  _scrollView;
-  // componentWillReceiveProps(nextProps) {
-  //     if (nextProps.loadStatu !== LIST_FIRST_JOIN && this.state.joinTime < 2) {
-  //
-  //         // this.joinTime++
-  //         this.setState({joinTime:this.state.joinTime+1})
-  //     }
-  // }
-
-  // shouldComponentUpdate(nextProps: Object, nextState: Object) {
-  //     return !is(this.props, nextProps) || !is(this.state, nextState)
-  // }
-
-  // shouldComponentUpdate(nextProps: Object, nextState: Object) {
-  //     return nextProps.loadStatu !== this.props.loadStatu || !is(this.state, nextState)
-  // }
-
   _handleRefresh = () => {
     if (this.props.loadStatu === LIST_LOAD_DATA) {
       return;
@@ -113,7 +122,7 @@ export default class BaseSectionView extends PureComponent {
     this.props.loadData && this.props.loadData();
   };
 
-  _handleloadMore = (info: { distanceFromEnd: number }) => {
+  _handleloadMore = (info: {distanceFromEnd: number}) => {
     if (
       this.props.loadStatu === LIST_LOAD_MORE ||
       this.props.loadStatu === LIST_LOAD_NO_MORE ||
@@ -135,9 +144,9 @@ export default class BaseSectionView extends PureComponent {
 
     // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
 
-    const { loadStatu, data, sections } = this.props;
+    const {loadStatu, data} = this.props;
 
-    const hasData = sections.length > 0 || data.length > 0;
+    const hasData = data && data.length > 0;
 
     // console.log('data:',this.props.data, hasData);
 
@@ -145,7 +154,7 @@ export default class BaseSectionView extends PureComponent {
       if (loadStatu === LIST_LOAD_NO_MORE) {
         return (
           <View style={styles.noMorefooter}>
-            <Text style={{ color: "rgb(150,150,150)" }}>没有更多了</Text>
+            <Text style={{color: 'rgb(150,150,150)'}}>没有更多了</Text>
           </View>
         );
       }
@@ -153,7 +162,7 @@ export default class BaseSectionView extends PureComponent {
         return (
           <View style={styles.footer}>
             <ActivityIndicator
-              style={{ marginTop: 8, marginBottom: 8 }}
+              style={{marginTop: 8, marginBottom: 8}}
               size="small"
               animating
             />
@@ -162,11 +171,12 @@ export default class BaseSectionView extends PureComponent {
       }
     }
 
-    return <View style={{ height: 50 }} />;
+    return <View style={{height: 50}} />;
   }
 
-  _keyExtractor = (item, index) => {
-    const id = typeof item === "object" ? item.objectId : item;
+  _keyExtractor = (item: ItemT, index: number) => {
+    const {keyId} = this.props;
+    const id = typeof item === 'object' ? item[keyId || 'objectId'] : item;
 
     const key = id || index;
     return `${key}`;
@@ -178,7 +188,6 @@ export default class BaseSectionView extends PureComponent {
     // const refreshable = this.props.refreshable && this.props.loadData;
 
     const {
-      sections,
       data,
       loadStatu,
       tipTap,
@@ -188,7 +197,6 @@ export default class BaseSectionView extends PureComponent {
       style,
       ...otherProps
     } = this.props;
-    const TableView = sections.length > 0 ? SectionList : FlatList;
 
     // console.log('loadStatu:', loadStatu);
 
@@ -196,17 +204,18 @@ export default class BaseSectionView extends PureComponent {
     const refreshing =
       loadStatu === LIST_LOAD_DATA &&
       this.openRefreshing &&
-      (sections.length > 0 || data.length > 0);
+      data &&
+      data.length > 0;
 
     // console.log('refreshing:', refreshing);
 
     // console.log('sections:', sections);
 
     return (
-      <TableView
+      <FlatList
         {...otherProps}
         data={data}
-        sections={sections}
+        // sections={sections}
         refreshing={refreshing}
         onScroll={this.onScroll.bind(this)}
         onRefresh={() => {
@@ -228,41 +237,41 @@ export default class BaseSectionView extends PureComponent {
                 : ExceptionType.NoData
             }
             image={noDataImg}
-            prompt={exceptionViewRefreshing ? "" : noDataPrompt}
+            prompt={exceptionViewRefreshing ? '' : noDataPrompt}
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap || this._handleRefresh}
             {...otherProps}
           />
         )}
         style={[styles.list, style]}
-        onEndReachedThreshold={Platform.OS === "ios" ? 0.1 : 0.1}
+        onEndReachedThreshold={Platform.OS === 'ios' ? 0.1 : 0.1}
       />
     );
   }
 }
 const styles = StyleSheet.create({
   exceptionViewStyle: {
-    height: Dimensions.get("window").height / 1.5
+    height: Dimensions.get('window').height / 1.5,
   },
 
   list: {
     flex: 1,
-    overflow: "hidden",
-    backgroundColor: "white"
+    overflow: 'hidden',
+    backgroundColor: 'white',
   },
 
   footer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    margin: 30
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 30,
   },
   noMorefooter: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     height: 30,
     margin: 12,
-    marginBottom: 30
-  }
+    marginBottom: 30,
+  },
 });
