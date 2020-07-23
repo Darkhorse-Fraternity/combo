@@ -103,6 +103,7 @@ export default class Flag extends PureComponent {
 
     return (
       <LCList
+        numColumns={2}
         onScroll={(event) => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {

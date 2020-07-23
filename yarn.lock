@@ -8441,10 +8441,10 @@ react-native-exception-handler@2.10.2:
   resolved "https://registry.yarnpkg.com/react-native-exception-handler/-/react-native-exception-handler-2.10.2.tgz#c500f7713fd30e79f44b03b223cf9ea90facae89"
   integrity sha512-hcPXfjSTSEbJYhUUbgarKZNwJFG2rehbJVW5ZbQc2rVkFor6tS4diyqufkWayS0mKg+N/Q3sP1w0j3QWv+u4mg==
 
-react-native-fast-image@7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-7.0.2.tgz#e06b21f42f4a9786eaa86f3db35d919070fb8403"
-  integrity sha512-MfuzJbC0RjYobR2gFCdqe1I7jvNOCfDkjQ7VGOHXniqjohhULMkcWNBE9Umovi9Dx93lJ6t5utcE2wf/09zvlg==
+react-native-fast-image@8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.3.2.tgz#e9db271b70b9634b7be054760914d80954f9898c"
+  integrity sha512-AJ0b4BEswRwa0bh4SibYUtXszEiaO88Lf4CZ1ib+t5ZfkAgsMk9Liv3L0LYnDblMJmSeGTr1+2ViIM8F2vamjg==
 
 react-native-flip-card@3.5.6:
   version "3.5.6"
