@@ -31,28 +31,28 @@ export const StyledItem = styled(Button)`
   shadow-offset: 0px 3px;
 `;
 
-export const StyledItemImage = styled(FastImage)`
-  width: ${(props) => props.theme.width - 40};
+export const StyledItemImage = styled(FastImage)<{numColumns: number}>`
+  width: ${(props) => props.theme.width / props.numColumns - 40};
   height: 250px;
   border-radius: 20px;
   align-self: center;
   background-color: #fdfbfb;
   elevation: 5;
 `;
-export const StyledItemCover = styled.View`
+export const StyledItemCover = styled.View<{position: string}>`
   position: absolute;
   elevation: 6;
   padding: 20px;
   top: ${(props) => (props.position === 'top' ? 20 : 140)}px;
 `;
 
-export const StyledItemTitle = styled.Text`
+export const StyledItemTitle = styled.Text<{color: string}>`
   font-size: 20px;
   font-weight: 500;
   color: ${(props) => props.color};
 `;
 
-export const StyledItemText = styled.Text`
+export const StyledItemText = styled.Text<{color: string}>`
   font-size: 15px;
   color: ${(props) => props.color};
   font-weight: 500;

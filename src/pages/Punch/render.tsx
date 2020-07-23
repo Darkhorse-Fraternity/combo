@@ -34,7 +34,7 @@ import {listReq} from '../../redux/actions/list';
 import {PrivacyModal} from '@components/ModalUtil/Privacy';
 import {isTablet} from 'react-native-device-info';
 
-const numColumns = isTablet() ? 6 : 3;
+const numColumns = isTablet() ? 5 : 3;
 
 @connect(
   (state) => ({
@@ -321,7 +321,7 @@ export default class Punch extends Component {
       satisfy.length > 0 &&
         sections.push({
           title: unSatisfy.length > 0 ? '进行中' : '',
-          data: _.chunk(satisfy, 3),
+          data: _.chunk(satisfy, numColumns),
         });
       unSatisfy.length > 0 &&
         sections.push({title: '等待中', data: _.chunk(unSatisfy, 3)});

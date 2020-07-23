@@ -3,8 +3,7 @@
  * @flow
  */
 
-
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,14 +12,13 @@ import {
   ActivityIndicator,
   TouchableNativeFeedback,
   Image,
-  Alert
+  Alert,
 } from 'react-native';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
+import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import {
   StyledContent,
   StyledBottomMenu,
@@ -36,30 +34,28 @@ import {
   StyledBtn,
   StyledHeader,
   StyledEntypoIcon,
-  StyledBtnTitle
+  StyledBtnTitle,
 } from './style';
-
 
 // import ShareView from '../../../components/Share/ShareView'
 // import Pop from '../../../components/Pop'
-import { popToIndex } from '../../../redux/nav';
+import {popToIndex} from '../../../redux/nav';
 
-import { update, search } from '../../../redux/module/leancloud';
+import {update, search} from '../../../redux/module/leancloud';
 
-import { IUSE, IRECORD } from '../../../redux/reqKeys';
-import { claerByID, addListNormalizrEntity } from '../../../redux/actions/list';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import {IUSE, IRECORD} from '../../../redux/reqKeys';
+import {claerByID, addListNormalizrEntity} from '../../../redux/actions/list';
+import {addNormalizrEntity} from '../../../redux/module/normalizr';
 
-import { Privacy, CircleState } from '../../../configure/enum';
-import { classUpdate } from '../../../request/leanCloud';
-import { req } from '../../../redux/actions/req';
+import {Privacy, CircleState} from '../../../configure/enum';
+import {classUpdate} from '../../../request/leanCloud';
+import {req} from '../../../redux/actions/req';
 import Dialog from '../../../components/Dialog';
-import { selfUser } from '../../../request/LCModle';
+import {selfUser} from '../../../request/LCModle';
 
 // const { width } = Dimensions.get('window');
 
 const Archive = `${IUSE}archive`;
-
 
 @connect(
   (state, props) => ({
@@ -82,7 +78,6 @@ const Archive = `${IUSE}archive`;
         statu: 'start',
         // cycle: isDone ? data.cycle + 1 : data.cycle,
       };
-
 
       const lParams = classUpdate(IUSE, id, param);
       const res = await dispatch(req(lParams, Archive));
@@ -117,37 +112,38 @@ const Archive = `${IUSE}archive`;
       // await remove(objectId,IUSE)
       // 做伪删除
       if (isFb) {
-        Alert.alert('主人，我正参与副本活动，不可以被删除哦～！', '等活动结束后再来吧。', [{ text: '知道了' }]);
+        Alert.alert(
+          '主人，我正参与副本活动，不可以被删除哦～！',
+          '等活动结束后再来吧。',
+          [{text: '知道了'}],
+        );
         return;
       }
 
-      Alert.alert(
-        '确定删除?',
-        '删除后不可恢复~！',
-        [{ text: '取消' }, {
+      Alert.alert('确定删除?', '删除后不可恢复~！', [
+        {text: '取消'},
+        {
           text: '确定',
           onPress: async () => {
             const param = {
-              statu: 'del'
+              statu: 'del',
             };
             const res = await dispatch(update(objectId, param, IUSE));
             const entity = {
               ...param,
-              ...res
+              ...res,
             };
             dispatch(addNormalizrEntity(IUSE, entity));
             dispatch(claerByID(IUSE, objectId));
             dispatch(claerByID(IRECORD, objectId));
             // props.navigation.goBack()
             props.navigation.dispatch(popToIndex());
-          }
-        }]
-      );
+          },
+        },
+      ]);
     },
-  })
+  }),
 )
-
-
 export default class Settings extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -156,7 +152,6 @@ export default class Settings extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {};
-
 
   // _renderDoneView = (done, over) => {
   //   return (
@@ -168,22 +163,23 @@ export default class Settings extends PureComponent {
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    const { iCardId } = props.route.params;
+    const {iCardId} = props.route.params;
     return {
       title: '',
-      headerRight: (porps)=>(<StyledBtn
+      headerRight: (porps) => (
+        <StyledBtn
           // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
-        hitSlop={{
-          top: 5, left: 20, bottom: 5, right: 20
-        }}
-        onPress={() => {
-          props.navigation.navigate('cardInfo', { iCardId });
-        }}
-      >
-        <StyledBtnTitle>
-            查看
-        </StyledBtnTitle>
-      </StyledBtn>
+          hitSlop={{
+            top: 5,
+            left: 20,
+            bottom: 5,
+            right: 20,
+          }}
+          onPress={() => {
+            props.navigation.navigate('cardInfo', {iCardId});
+          }}>
+          <StyledBtnTitle>查看</StyledBtnTitle>
+        </StyledBtn>
       ),
       // headerStyle: {
       //     backgroundColor: '#f5fcff',
@@ -193,7 +189,6 @@ export default class Settings extends PureComponent {
     };
   };
 
-
   _renderItem = (props) => {
     const {
       title,
@@ -201,28 +196,26 @@ export default class Settings extends PureComponent {
       load = false,
       size = 30,
       onPress,
-      Icon = StyledIcon
+      Icon = StyledIcon,
     } = props;
     return (
       <StyledBottomMenuButton
         disabled={load}
         hitSlop={{
-          top: 10, left: 20, bottom: 10, right: 10
+          top: 10,
+          left: 20,
+          bottom: 10,
+          right: 10,
         }}
-        onPress={onPress}
-      >
+        onPress={onPress}>
         {load ? <StyledActivityIndicator /> : <Icon size={size} name={name} />}
-        <StyledBottomMenuText>
-          {title}
-        </StyledBottomMenuText>
+        <StyledBottomMenuText>{title}</StyledBottomMenuText>
       </StyledBottomMenuButton>
     );
-  }
+  };
 
   _renderRresh = (reflesh, iUse) => {
-    const text = !reflesh
-      ? '暂停打卡'
-      : '继续打卡';
+    const text = !reflesh ? '暂停打卡' : '继续打卡';
     const archiveLoad = this.props.archive && this.props.archive.get('load');
 
     return (
@@ -232,39 +225,35 @@ export default class Settings extends PureComponent {
           !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse);
         }}
         Icon={StyledIcon}
-        name={!reflesh
-          ? 'md-pause' : 'md-refresh'}
+        name={!reflesh ? 'md-pause' : 'md-refresh'}
         title={text}
       />
     );
-  }
+  };
 
   _renderBottomMenu = () => {
     const iCard = this.props.iCard.toJS();
     const iUse = this.props.iUse.toJS();
-    const { navigation, user } = this.props;
+    const {navigation, user} = this.props;
 
     // const pUse = this.props.iUse && this.props.iUse.toJS()
     // iUse = pUse || iUse
 
-
     const reflesh = iUse.statu === 'stop';
-
 
     return (
       <StyledBottomMenu>
-
-        {iCard.user === user.objectId
-        && iCard.state !== -2
-        && iUse.statu !== 'del' && (
-        <this._renderItem
-          onPress={() => {
-            navigation.navigate('cardConfig', { iCardId: iCard.objectId });
-          }}
-          name="md-settings"
-          title="卡片配置"
-        />
-        )}
+        {iCard.user === user.objectId &&
+          iCard.state !== -2 &&
+          iUse.statu !== 'del' && (
+            <this._renderItem
+              onPress={() => {
+                navigation.navigate('cardConfig', {iCardId: iCard.objectId});
+              }}
+              name="md-settings"
+              title="卡片配置"
+            />
+          )}
         {this._renderRresh(reflesh, iUse)}
 
         <this._renderItem
@@ -275,51 +264,36 @@ export default class Settings extends PureComponent {
           name="md-trash"
           title="删除卡片"
         />
-        <View style={{ width: (Dimensions.get('window').width - 85) / 3 }} />
-
+        <View style={{width: (Dimensions.get('window').width - 85) / 3}} />
       </StyledBottomMenu>
     );
-  }
-
+  };
 
   row = (title, des) => (
     <StyledRow>
-      <StyledRowText>
-        {title}
-      </StyledRowText>
-      <StyledRowDes>
-        {des}
-      </StyledRowDes>
+      <StyledRowText>{title}</StyledRowText>
+      <StyledRowDes>{des}</StyledRowDes>
     </StyledRow>
-  )
+  );
 
   rowTouch = (title, des, onPress) => (
     <StyledRowTouch onPress={onPress}>
-
       {/* <StyledRowText> */}
       {/* {title} */}
       {/* </StyledRowText> */}
-      <StyledRowDes>
-        {des}
-      </StyledRowDes>
+      <StyledRowDes>{des}</StyledRowDes>
       {/* <StyledRowInner> */}
 
       {/* <StyledArrow/> */}
       {/* </StyledRowInner> */}
     </StyledRowTouch>
+  );
 
-  )
-
-  render(): ReactElement<any> {
+  render() {
     return (
-      <StyledContent
-        colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
-      >
+      <StyledContent>
         <StyledHeader>
-          <StyledRowDes>
-            {this.props.iCard.get('title')}
-          </StyledRowDes>
-
+          <StyledRowDes>{this.props.iCard.get('title')}</StyledRowDes>
         </StyledHeader>
         {this._renderBottomMenu()}
       </StyledContent>

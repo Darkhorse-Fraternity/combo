@@ -19,6 +19,9 @@ import {
   StyledItemCover,
 } from './style';
 import LCList from '../../components/Base/LCList';
+import {isTablet} from 'react-native-device-info';
+
+const numColumns = isTablet() ? 2 : 1;
 
 export default class Flag extends PureComponent {
   openSmallTitle = false;
@@ -35,11 +38,6 @@ export default class Flag extends PureComponent {
       <StyledHeaderTitle>副本任务</StyledHeaderTitle>
     </StyledHeader>
   );
-
-  _keyExtractor = (item, index) => {
-    const key = item.objectId || index;
-    return `${key}`;
-  };
 
   __renderItem = ({item, index}) => {
     const {
@@ -68,20 +66,19 @@ export default class Flag extends PureComponent {
             iCardId: iCard,
           });
         }}>
-        <StyledItemImage source={{uri: item.cover.url}} />
+        <StyledItemImage
+          numColumns={numColumns}
+          source={{uri: item.cover.url}}
+        />
         <StyledItemCover position={position}>
-          <StyledItemTitle color={color} position={position}>
-            {title}
-          </StyledItemTitle>
-          <StyledItemText color={dColor} position={position}>
-            {discirb}
-          </StyledItemText>
+          <StyledItemTitle color={color}>{title}</StyledItemTitle>
+          <StyledItemText color={dColor}>{discirb}</StyledItemText>
         </StyledItemCover>
       </StyledItem>
     );
   };
 
-  render(): ReactElement<any> {
+  render() {
     // const data = [{img:require('../../../source/img/flag/flag_up.jpeg'),
     //   title:'早起副本'
     // }]
@@ -103,7 +100,7 @@ export default class Flag extends PureComponent {
 
     return (
       <LCList
-        numColumns={2}
+        numColumns={numColumns}
         onScroll={(event) => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {

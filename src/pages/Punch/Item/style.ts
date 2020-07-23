@@ -16,6 +16,7 @@ export const StyledFlipCard = styled(FlipCard)`
 interface StyledCardType {
   width: number;
   backgroundColor: string;
+  marginRight: number;
 }
 export const StyledCard = styled.View<StyledCardType>`
   justify-content: space-between;
@@ -24,7 +25,7 @@ export const StyledCard = styled.View<StyledCardType>`
   height: ${(props) => props.width * 1.4};
   border-radius: 6px;
   padding: 10px 5px;
-  margin-right: 10px;
+  margin-right: ${(props) => props.marginRight}px;
   margin-bottom: 10px;
   shadow-opacity: 0.6;
   shadow-radius: 3px;

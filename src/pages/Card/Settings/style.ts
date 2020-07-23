@@ -3,12 +3,9 @@
  * @flow
  */
 
-
-
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-
 
 import Button from '../../../components/Button';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
@@ -33,10 +30,9 @@ import HeaderBtn from '../../../components/Button/HeaderBtn';
 //   return "rgba(" + rgb.join(",") +",0.2"+ ")";
 // };
 
-
 export const StyledContent = styled.View`
-    flex: 1;
-    background-color: white;
+  flex: 1;
+  background-color: white;
 `;
 
 export const StyledTitleView = styled.View`
@@ -52,7 +48,7 @@ export const StyledBottomMenu = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   padding: 20px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 export const StyledBottomMenuText = styled.Text`
@@ -64,19 +60,19 @@ export const StyledBottomMenuButton = styled(Button)`
   align-items: center;
   padding: 15px 0px;
   margin-bottom: 15px;
-  background-color: ${props => props.theme.textinputbackgroundColor};
-  width:${props => (props.theme.width - 85) / 3};
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
+  width: 108px;
+  margin-right:15px
+  /* max-width: 100; */
   border-radius: 10px;
   height: 85px;
 `;
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
-  flex:1
+  flex: 1;
 `;
 
-export const StyledIcon = styled(Icon)`
- 
-`;
+export const StyledIcon = styled(Icon)``;
 
 export const StyledEntypoIcon = styled(EntypoIcon)``;
 
@@ -85,7 +81,7 @@ export const StyledRow = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom-width: ${props => props.theme.hairlineWidth};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth};
   border-bottom-color: #e4e4e4;
 `;
 
@@ -117,12 +113,11 @@ export const StyledBtn = styled(Button)`
 `;
 export const StyledBtnTitle = styled.Text`
   font-size: 15px;
-
 `;
 
 export const StyledArrow = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;
@@ -130,9 +125,8 @@ export const StyledArrow = styled.View`
   margin-left: 5px;
 `;
 
-export const StyeldDoneView = styled.View`
-`;
+export const StyeldDoneView = styled.View``;
 
 export const StyledHeader = styled.View`
-  padding:20px 20px 10px 20px;
+  padding: 20px 20px 10px 20px;
 `;

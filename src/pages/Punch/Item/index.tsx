@@ -25,6 +25,7 @@ import {
 import svgs from '../../../../source/icons';
 import Sounds from 'react-native-sound';
 import {soundsSource, SoundsType} from 'src/configure/source';
+import {isTablet} from 'react-native-device-info';
 
 const {width, height} = Dimensions.get('window');
 const minWidth = Math.min(width, height);
@@ -111,7 +112,11 @@ export default class PunchItem extends PureComponent<
 
     const self = this;
 
-    const itemWidth = (minWidth - 60) / this.props.numColumns;
+    const right = isTablet() ? 15 : 10;
+
+    const itemWidth =
+      (minWidth - 40 - right * (this.props.numColumns - 1)) /
+      this.props.numColumns;
     const iconWidth = itemWidth / 2; // 4.0.8
     return (
       <StyledButton
@@ -146,7 +151,10 @@ export default class PunchItem extends PureComponent<
           flipVertical={false}
           flip={flip}
           clickable={false}>
-          <StyledCard width={itemWidth} backgroundColor={color}>
+          <StyledCard
+            marginRight={right}
+            width={itemWidth}
+            backgroundColor={color}>
             <StyledTop>
               {showFB ? (
                 <StyledFB>
@@ -176,7 +184,10 @@ export default class PunchItem extends PureComponent<
               </StyledInner>
             </StyledCardTitleView>
           </StyledCard>
-          <StyledCard width={itemWidth} backgroundColor={color}>
+          <StyledCard
+            marginRight={right}
+            width={itemWidth}
+            backgroundColor={color}>
             <StyledCardDis style={{color: 'white', fontWeight: '600'}}>
               +1
             </StyledCardDis>
