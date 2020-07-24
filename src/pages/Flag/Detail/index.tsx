@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { PureComponent } from "react";
+import React, {PureComponent} from 'react';
 import {
   View,
   Text,
@@ -11,21 +11,21 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Linking,
-} from "react-native";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import moment from "moment";
-import Toast from "react-native-simple-toast";
-import FlipButton from "../../../components/Button/FlipButton";
-import { FLAG, ICARD, FLAGRECORD, IUSE } from "../../../redux/reqKeys";
-import { selfUser, iCard, Flag } from "../../../request/LCModle";
-import { add, find, update } from "../../../redux/module/leancloud";
+} from 'react-native';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Toast from 'react-native-simple-toast';
+import FlipButton from '../../../components/Button/FlipButton';
+import {FLAG, ICARD, FLAGRECORD, IUSE} from '../../../redux/reqKeys';
+import {selfUser, iCard, Flag} from '../../../request/LCModle';
+import {add, find, update} from '../../../redux/module/leancloud';
 import {
   addNormalizrEntity,
   addNormalizrEntities,
-} from "../../../redux/module/normalizr";
-import PayForm, { FormID } from "../../../components/Form/Pay";
-import { easyPay } from "../../../redux/module/pay";
+} from '../../../redux/module/normalizr';
+import PayForm, {FormID} from '../../../components/Form/Pay';
+import {easyPay} from '../../../redux/module/pay';
 
 import {
   StyledSafeAreaView,
@@ -39,19 +39,17 @@ import {
   StyledBtn,
   StyledHeaderBtnText,
   StyledComplaintText,
-} from "./style";
-import Pop from "../../../components/Pop";
-import { listReq } from "../../../redux/actions/list";
+} from './style';
+import Pop from '../../../components/Pop';
+import {listReq} from '../../../redux/actions/list';
 // import { list, entitys } from '../../../redux/scemes';
-import { fbJoin } from "../../../request/LCCloudFuncs";
-import { req } from "../../../redux/actions/req";
-import { iUseList as iUseListParams } from "../../../request/leanCloud";
+import {fbJoin} from '../../../request/LCCloudFuncs';
+import {req} from '../../../redux/actions/req';
+import {iUseList as iUseListParams} from '../../../request/leanCloud';
 
 @connect(
   (state, props) => ({
-    iCard: state.normalizr
-      .get(ICARD)
-      .get(props.route.params.iCardId),
+    iCard: state.normalizr.get(ICARD).get(props.route.params.iCardId),
     flag: state.normalizr.get(FLAG).get(props.route.params.flagId),
     selfUse: state.user.data,
     isTourist: state.user.isTourist,
@@ -59,11 +57,11 @@ import { iUseList as iUseListParams } from "../../../request/leanCloud";
   (dispatch, props) => ({
     pay: (description, amount, iCardId, flagId) =>
       dispatch(
-        easyPay(amount, description, "fb", undefined, { iCardId, flagId })
+        easyPay(amount, description, 'fb', undefined, {iCardId, flagId}),
       ),
 
     join: async (icardId, flagId, description, flag, tradeId) => {
-      const { cost, endDate, startDate, joinNum, totalBonus } = flag;
+      const {cost, endDate, startDate, joinNum, totalBonus} = flag;
       // 缴费。
 
       // 添加记录。会返回一个iUse
@@ -95,14 +93,14 @@ import { iUseList as iUseListParams } from "../../../request/leanCloud";
             objectId: flagId,
             joinNum: joinNum + 1,
             totalBonus: totalBonus + cost,
-          })
+          }),
         );
 
         // 刷新首页
         dispatch(
           listReq(IUSE, iUseListParams(), false, {
             dataMap: (data) => {
-              const { iUseList } = data.result;
+              const {iUseList} = data.result;
               // 添加副本
               // console.log('fbList', fbList);
 
@@ -110,16 +108,16 @@ import { iUseList as iUseListParams } from "../../../request/leanCloud";
 
               // 通过本地时间验证,判断今日是否已经打卡
               const newIUseList = iUseList.sort((a, b) => {
-                const aDone = moment(0, "HH").isBefore(a.doneDate.iso);
-                const bDone = moment(0, "HH").isBefore(b.doneDate.iso);
+                const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+                const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
                 if (aDone && bDone) {
                   return false;
                 }
                 return aDone;
               });
-              return { results: newIUseList };
+              return {results: newIUseList};
             },
-          })
+          }),
         );
       }
 
@@ -135,7 +133,7 @@ import { iUseList as iUseListParams } from "../../../request/leanCloud";
       };
       return dispatch(find(FLAGRECORD, params));
     },
-  })
+  }),
 )
 export default class FlagDetail extends PureComponent {
   constructor(props: Object) {
@@ -151,7 +149,7 @@ export default class FlagDetail extends PureComponent {
   static defaultProps = {};
 
   static navigationOptions = (props) => ({
-    title: "",
+    title: '',
     headerRight: (propsIn) => (
       <StyledBtn
         hitSlop={{
@@ -161,58 +159,53 @@ export default class FlagDetail extends PureComponent {
           right: 15,
         }}
         onPress={() => {
-          props.navigation.navigate("FlagRecord", {
+          props.navigation.navigate('FlagRecord', {
             iCardId: props.route.params.iCardId,
           });
-        }}
-      >
+        }}>
         <StyledHeaderBtnText>副本记录</StyledHeaderBtnText>
       </StyledBtn>
     ),
   });
 
   async componentDidMount() {
-    const { iCardId, flagId } = this.props.route.params;
-    this.setState({ load: true });
+    const {iCardId, flagId} = this.props.route.params;
+    this.setState({load: true});
     const res = await this.props.exist(iCardId, flagId);
-    this.setState({ load: false, flip: res.results.length > 0 });
+    this.setState({load: false, flip: res.results.length > 0});
   }
 
   _renderHeader = () => {
-    const { flag } = this.props;
+    const {flag} = this.props;
     return (
       <StyledHeader>
-        <StyledHeaderTitle>{flag.get("title")}</StyledHeaderTitle>
+        <StyledHeaderTitle>{flag.get('title')}</StyledHeaderTitle>
       </StyledHeader>
     );
   };
 
   _renderTaskDes = () => {
-    const { flag } = this.props;
-    const startDate = flag.get("startDate");
+    const {flag} = this.props;
+    const startDate = flag.get('startDate');
     const iCard = this.props.iCard.toJS();
-    const { limitTimes } = iCard;
-    console.log("limitTimes", limitTimes);
+    const {limitTimes} = iCard;
+    console.log('limitTimes', limitTimes);
 
-    const time = moment(startDate.get("iso"))
-      .calendar()
-      .split("00:00")[0];
+    const time = moment(startDate.get('iso')).calendar().split('00:00')[0];
     return (
       <StyledFlagView>
         <StyledTitle>副本说明</StyledTitle>
         {limitTimes && (
           <StyledDiscrib>
-            {`${time} ${limitTimes[0]} - ${
-              limitTimes[1]
-            } 内点击首页 副本卡片 - ${iCard.title} 完成打卡`}
+            {`${time} ${limitTimes[0]} - ${limitTimes[1]} 内点击首页 副本卡片 - ${iCard.title} 完成打卡`}
           </StyledDiscrib>
         )}
-        {flag.get("reward") === "money" && (
+        {flag.get('reward') === 'money' && (
           <StyledDiscrib>
-            奖金池: {flag.get("totalBonus").toFixed(1)}元
+            奖金池: {flag.get('totalBonus').toFixed(1)}元
           </StyledDiscrib>
         )}
-        <StyledDiscrib>参与人数: {flag.get("joinNum")}人</StyledDiscrib>
+        <StyledDiscrib>参与人数: {flag.get('joinNum')}人</StyledDiscrib>
       </StyledFlagView>
     );
   };
@@ -221,8 +214,8 @@ export default class FlagDetail extends PureComponent {
     const iCardM = this.props.iCard.toJS();
     // eslint-disable-next-line react/destructuring-assignment
     const flagM = this.props.flag.toJS();
-    const { limitTimes } = iCardM;
-    const { cost, startDate, endDate } = flagM;
+    const {limitTimes} = iCardM;
+    const {cost, startDate, endDate} = flagM;
 
     // const limitEndDate = moment(limitTimes[1], 'HH');
     // const limitEndHour = limitEndDate.hours();
@@ -232,56 +225,54 @@ export default class FlagDetail extends PureComponent {
         <StyledTitle>具体要求</StyledTitle>
         <StyledDiscrib>
           活动时间：
-          {moment(startDate.iso).format("MM月DD日")} -{" "}
-          {moment(endDate.iso).format("MM月DD日")}
+          {moment(startDate.iso).format('MM月DD日')} -{' '}
+          {moment(endDate.iso).format('MM月DD日')}
         </StyledDiscrib>
         <StyledDiscrib>
           打卡时段：
           {limitTimes && (
-            <Text style={{ color: "#f5943f" }}>
+            <Text style={{color: '#f5943f'}}>
               {limitTimes[0]} - {limitTimes[1]} (北京时间)
             </Text>
           )}
         </StyledDiscrib>
         <StyledDiscrib>
-          押金：{" "}
-          <Text style={{ color: "#f5943f" }}>
-            {cost > 0 ? `${cost}元` : "无"}{" "}
+          押金：{' '}
+          <Text style={{color: '#f5943f'}}>
+            {cost > 0 ? `${cost}元` : '无'}{' '}
           </Text>
         </StyledDiscrib>
         <StyledDiscrib>
           报名截止：
-          {moment(startDate.iso).format("MM-DD HH:mm")}
+          {moment(startDate.iso).format('MM-DD HH:mm')}
         </StyledDiscrib>
         <StyledDiscrib>
           结算时间：
-          {moment(endDate.iso)
-            .add(300, "seconds")
-            .format("MM-DD HH:mm")}
+          {moment(endDate.iso).add(300, 'seconds').format('MM-DD HH:mm')}
         </StyledDiscrib>
       </StyledFlagView>
     );
   };
 
   _renderReward = () => {
-    const { flag } = this.props;
+    const {flag} = this.props;
     // const cost = flag.get('cost');
-    const reward = flag.get("reward");
-    const rewardConfig = flag.get("rewardConfig");
+    const reward = flag.get('reward');
+    const rewardConfig = flag.get('rewardConfig');
     const rewardView = () => {
-      if (reward === "money") {
+      if (reward === 'money') {
         return (
           <StyledDiscrib>
             奖金：
-            <Text style={{ color: "#f5943f" }}>押金+结算奖金</Text>
+            <Text style={{color: '#f5943f'}}>押金+结算奖金</Text>
           </StyledDiscrib>
         );
       }
       return (
         <StyledDiscrib>
           补签卡：
-          <Text style={{ color: "#f5943f" }}>
-            {rewardConfig && rewardConfig.get("redo")}张
+          <Text style={{color: '#f5943f'}}>
+            {rewardConfig && rewardConfig.get('redo')}张
           </Text>
         </StyledDiscrib>
       );
@@ -329,30 +320,29 @@ export default class FlagDetail extends PureComponent {
       </StyledDiscrib>
       <TouchableOpacity
         onPress={() => {
-          Linking.canOpenURL("sinaweibo://").then((supported) => {
+          Linking.canOpenURL('sinaweibo://').then((supported) => {
             // weixin://  alipay://
             if (supported) {
-              Linking.openURL("sinaweibo://messagelist?uid=6861885697");
+              Linking.openURL('sinaweibo://messagelist?uid=6861885697');
             } else {
-              this.props.navigation.navigate("web", {
-                url: "https://www.weibo.com/u/6861885697",
-                title: "小改变的微博",
+              this.props.navigation.navigate('web', {
+                url: 'https://www.weibo.com/u/6861885697',
+                title: '小改变的微博',
               });
             }
           });
-        }}
-      >
+        }}>
         <StyledComplaintText>「 点击申诉 」</StyledComplaintText>
       </TouchableOpacity>
     </StyledFlagView>
   );
 
   __payAndJoin = async () => {
-    const { iCardId, flagId } = this.props.route.params;
-    const { selfUse, join, flag, isTourist, pay } = this.props;
+    const {iCardId, flagId} = this.props.route.params;
+    const {selfUse, join, flag, isTourist, pay} = this.props;
     const flagModel = flag.toJS();
-    const cost = flag.get("cost");
-    const endDate = flag.get("endDate").toJS();
+    const cost = flag.get('cost');
+    const endDate = flag.get('endDate').toJS();
 
     // console.log('endDate:', endDate);
 
@@ -360,84 +350,84 @@ export default class FlagDetail extends PureComponent {
       return;
     }
     if (isTourist) {
-      Toast.show("参加副本需要先登录~!");
-      return this.props.navigation.navigate("login", {
-        transition: "forVertical",
+      Toast.show('参加副本需要先登录~!');
+      return this.props.navigation.navigate('login', {
+        transition: 'forVertical',
       });
     }
-    const title = this.props.iCard.get("title");
+    const title = this.props.iCard.get('title');
     const description = `副本_${title}的加入费用`;
     if (cost > 0) {
       Pop.show(
         <PayForm
           onSubmit={async () => {
             try {
-              this.setState({ load: true });
+              this.setState({load: true});
               const payRes = await pay(description, cost, iCardId, flagId);
-              const { data, statu } = payRes.payload;
-              statu === "suc" && Pop.hide();
+              const {data, statu} = payRes.payload;
+              statu === 'suc' && Pop.hide();
               const res =
-                statu === "suc" &&
+                statu === 'suc' &&
                 (await join(
                   iCardId,
                   flagId,
                   description,
                   flagModel,
-                  data.out_trade_no
+                  data.out_trade_no,
                 ));
-              this.setState({ load: false, flip: !!res });
+              this.setState({load: false, flip: !!res});
             } catch (e) {
-              console.log("e:", e.message);
-              this.setState({ load: false });
+              console.log('e:', e.message);
+              this.setState({load: false});
             }
           }}
           balance={selfUse.balance || 0}
           price={cost}
         />,
         {
-          animationType: "slide-up",
+          animationType: 'slide-up',
           wrapStyle: {
-            justifyContent: "flex-end",
+            justifyContent: 'flex-end',
           },
-        }
+        },
       );
     } else {
       try {
-        this.setState({ load: true });
+        this.setState({load: true});
         const res = await join(iCardId, flagId, description, flagModel);
-        this.setState({ load: false, flip: !!res });
+        this.setState({load: false, flip: !!res});
       } catch (e) {
-        console.log("e:", e.message);
-        this.setState({ load: false });
+        console.log('e:', e.message);
+        this.setState({load: false});
       }
     }
   };
 
   render(): ReactElement<any> {
     // const { iCard, flag } = this.props
-    const { flag } = this.props;
-    const endDate = flag.get("endDate").toJS();
-    const cover = flag.get("cover");
-    const cost = flag.get("cost");
+    const {flag} = this.props;
+    const endDate = flag.get('endDate').toJS();
+    const cover = flag.get('cover');
+    const cost = flag.get('cost');
     const overdue = moment().isAfter(moment(endDate.iso));
 
     return (
-      <StyledSafeAreaView forceInset={{ top: "never" }}>
+      <StyledSafeAreaView>
         <StyledContent>
           {this._renderHeader()}
-          <StyledCover source={{ uri: cover.get("url") }} />
+          <StyledCover source={{uri: cover.get('url')}} />
           {this._renderTaskDes()}
           {this._renderTaskDesMore()}
           {this._renderReward()}
           {cost > 0 && this._renderBonus()}
           {cost > 0 && this._renderAudit()}
           {cost > 0 && this._renderAppeal()}
-          <View style={{ height: 100 }} />
+          <View style={{height: 100}} />
         </StyledContent>
         <FlipButton
           disabled={this.state.flip || overdue}
-          faceText={"马上\n参与"}
-          backText={overdue ? "已过期" : "已参与"}
+          faceText={'马上\n参与'}
+          backText={overdue ? '已过期' : '已参与'}
           load={this.state.load}
           flip={this.state.flip}
           // animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
@@ -452,7 +442,7 @@ export default class FlagDetail extends PureComponent {
 
 const styles = StyleSheet.create({
   flip: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 100,
     bottom: 100,
     right: 15,

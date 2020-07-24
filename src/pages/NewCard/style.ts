@@ -38,12 +38,16 @@ export const StyledHeaderText = styled.Text`
   color: ${materialColors.blackPrimary};
   overflow: visible;
   padding: 20px 15px;
+  align-self: center;
 `;
 
 export const StyledHerderButton = styled(HeaderBtn)`
   padding: 11px 5px;
   margin-top: 20px;
   margin-bottom: 20px;
+  align-self: center;
+  width: ${(props) => props.theme.width - 50}px;
+  max-width: 380px;
   overflow: visible;
 `;
 

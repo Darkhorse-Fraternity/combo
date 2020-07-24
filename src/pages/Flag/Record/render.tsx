@@ -26,7 +26,7 @@ import {iCard} from '../../../request/LCModle';
   (state, props) => ({
     iCard: state.normalizr.get(ICARD).get(props.route.params.iCardId),
   }),
-  dispatch => ({}),
+  (dispatch) => ({}),
 )
 export default class FlagRecord extends PureComponent {
   constructor(props: Object) {

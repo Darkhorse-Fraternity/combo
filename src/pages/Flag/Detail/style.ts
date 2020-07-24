@@ -3,11 +3,11 @@
  * @flow
  */
 
-import styled from "styled-components";
-import { SafeAreaView } from 'react-native';
-import FastImage from "react-native-fast-image";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
-import Button from "../../../components/Button";
+import styled from 'styled-components/native';
+import {SafeAreaView} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Button from '../../../components/Button';
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
   flex: 1;
@@ -31,10 +31,12 @@ export const StyledHeaderTitle = styled.Text`
 
 export const StyledCover = styled(FastImage)`
   width: ${(props) => props.theme.width - 40};
-  height: 250px;
+  height: ${(props) => (props.theme.width - 40) * 0.6}px;
   border-radius: 20px;
   align-self: center;
   margin-bottom: 20px;
+  max-width: 550px;
+  max-height: 350px;
 `;
 
 export const StyledFlagView = styled.View`
