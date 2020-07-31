@@ -4,9 +4,9 @@
  * https://github.com/facebook/react-native
  */
 
-import { StackActions } from '@react-navigation/native';
+import {StackActions} from '@react-navigation/native';
 // *** Action Types ***
-import { Platform } from 'react-native';
+import {Platform} from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
@@ -14,14 +14,12 @@ import * as QQAPI from 'react-native-qq';
 import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import md5 from 'react-native-md5';
-import { user } from '../../request/LCModle';
-import { updatePush, leancloud_installationId } from '../../configure/push/push';
-import { setLeanCloudSession } from '../../configure/reqConfigs';
-import { batch } from '../module/leancloud';
-import { get, req } from './req';
-import {
-  loadAccount,
-} from '../../configure/storage';
+import {user} from '../../request/LCModle';
+import {updatePush, leancloud_installationId} from '../../configure/push/push';
+import {setLeanCloudSession} from '../../configure/reqConfigs';
+import {batch} from '../module/leancloud';
+import {get, req} from './req';
+import {loadAccount} from '../../configure/storage';
 
 import {
   requestLogin,
@@ -38,10 +36,10 @@ import {
   classCreatNewOne,
   userExsitJudge,
   getUpdateMeByParam,
-  verifySmsCode
+  verifySmsCode,
 } from '../../request/leanCloud';
 
-'use strict';
+('use strict');
 
 export const ACCOUNT_CHANGE = 'ACCOUNTTEXT_CHANGE';
 export const PASSWORD_CHANGE = 'PASSWORD_CHANGE';
@@ -61,11 +59,11 @@ const wechatAppID = 'wx637e6f35f8211c6d';
 
 // 当为异步的时候这么写，返回一个函数
 
-
 export function loadAccountAction(): Function {
-  return dispatch => loadAccount((ret) => {
-    dispatch(_loadAccount(ret));
-  });
+  return (dispatch) =>
+    loadAccount((ret) => {
+      dispatch(_loadAccount(ret));
+    });
 }
 
 function _loadAccount(ret: string): Object {
@@ -96,13 +94,11 @@ export function passwordTextChange(text: string): Object {
  *
  */
 
-
 const sessionTokenkey = 'sessionToken';
 
 export function userInfo() {
   return async (dispatch) => {
     // const uuid =  DeviceInfo.getUniqueID()
-
 
     try {
       dispatch(_loginRequest());
@@ -110,9 +106,9 @@ export function userInfo() {
       const userString = credentials.password;
       // const sessionToken = await storage.load({ key: sessionTokenkey, })
       const user = JSON.parse(userString);
-      const { sessionToken } = user;
+      const {sessionToken} = user;
       if (sessionToken) {
-        const { sessionToken } = user;
+        const {sessionToken} = user;
         // setLeanCloudSession(sessionToken)
         // const params = usersMe()
         await dispatch(loginSucceed(user));
@@ -135,12 +131,10 @@ export function userInfo() {
   };
 }
 
-
 const anonymousUser = () => async (dispatch) => {
   let uniqueId = DeviceInfo.getUniqueId();
-  const anonymousConfig = { id: uniqueId };
+  const anonymousConfig = {id: uniqueId};
   try {
-  
     if (Platform.OS === 'ios') {
       uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
     }
@@ -160,62 +154,64 @@ const anonymousUser = () => async (dispatch) => {
   }
 };
 
-
-const iCardSample = objectId => [{
-  title: '示例：早睡',
-  period: '7',
-  record: [],
-  recordDay: [1, 2, 3, 4, 5, 6, 7],
-  iconAndColor: {
-    name: 'sleepBoy',
-    color: '#F08200',
+const iCardSample = (objectId) => [
+  {
+    title: '示例：早睡',
+    period: '7',
+    record: [],
+    recordDay: [1, 2, 3, 4, 5, 6, 7],
+    iconAndColor: {
+      name: 'sleepBoy',
+      color: '#F08200',
+    },
+    notifyText: '早睡早起身体好!',
+    notifyTimes: ['22:00'],
+    limitTimes: ['20:00', '24:00'],
+    price: 0,
+    state: 0,
+    // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+    user: {
+      __type: 'Pointer',
+      className: '_User',
+      objectId,
+    },
   },
-  notifyText: '早睡早起身体好!',
-  notifyTimes: ['22:00'],
-  limitTimes: ['20:00', '24:00'],
-  price: 0,
-  state: 0,
-  // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-  user: {
-    __type: 'Pointer',
-    className: '_User',
-    objectId
-  }
-}, {
-  title: '示例：记单词',
-  period: '7',
-  record: [],
-  recordDay: [1, 2, 3, 4, 5, 6, 7],
-  iconAndColor: {
-    name: 'homework',
-    color: '#FFC076',
+  {
+    title: '示例：记单词',
+    period: '7',
+    record: [],
+    recordDay: [1, 2, 3, 4, 5, 6, 7],
+    iconAndColor: {
+      name: 'homework',
+      color: '#FFC076',
+    },
+    notifyText: '坚持鸭!',
+    notifyTimes: ['20:00'],
+    limitTimes: ['00:00', '24:00'],
+    price: 0,
+    state: 0,
+    // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+    user: {
+      __type: 'Pointer',
+      className: '_User',
+      objectId,
+    },
   },
-  notifyText: '坚持鸭!',
-  notifyTimes: ['20:00'],
-  limitTimes: ['00:00', '24:00'],
-  price: 0,
-  state: 0,
-  // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-  user: {
-    __type: 'Pointer',
-    className: '_User',
-    objectId
-  }
-}];
+];
 
 const iUseSample = (objectId, iCardId) => ({
   time: 0,
   // notifyTime:option&&option.notifyTime||"20.00",
-  doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
+  doneDate: {__type: 'Date', iso: moment('2017-03-20').toISOString()},
   user: {
     __type: 'Pointer',
     className: '_User',
-    objectId
+    objectId,
   },
   iCard: {
     __type: 'Pointer',
     className: 'iCard',
-    objectId: iCardId
+    objectId: iCardId,
   },
   statu: 'start',
   privacy: 2,
@@ -224,15 +220,15 @@ const iUseSample = (objectId, iCardId) => ({
 // 预设示例
 function addSample(user) {
   return async (dispatch) => {
-    const { createdAt, updatedAt, objectId } = user;
-    const createdAtTime = (new Date(createdAt)).getTime();
-    const updatedAtTime = (new Date(updatedAt)).getTime();
+    const {createdAt, updatedAt, objectId} = user;
+    const createdAtTime = new Date(createdAt).getTime();
+    const updatedAtTime = new Date(updatedAt).getTime();
     // console.log('time:', updatedAtTime,createdAtTime);
     if (updatedAtTime - createdAtTime < 5000) {
       // 生成一个icard
       dispatch(loginLoad(true));
       const iCards = iCardSample(objectId);
-      const iCardsReq = iCards.map(item => classCreatNewOne('iCard', item));
+      const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
       const iCardsBatch = classBatch(iCardsReq);
       const iCardsRes = await get(iCardsBatch);
       const iUseReq = iCardsRes.map((item) => {
@@ -253,7 +249,6 @@ function addSample(user) {
   };
 }
 
-
 /**
  * 登录
  * @param  {[type]} state:Object [description]
@@ -265,12 +260,10 @@ export function login(state: Object): Function {
   return (dispatch) => {
     dispatch(_loginRequest());
 
-
     return get(parame).then(async (response) => {
       if (response.statu) {
         // 加入sessionToken
-        await dispatch((response));
-
+        await dispatch(response);
 
         dispatch(navigatePop());
       } else {
@@ -280,17 +273,15 @@ export function login(state: Object): Function {
   };
 }
 
-
 /**
  * 注册
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function register(state: Object,navigation): Function {
+export function register(state: Object, navigation): Function {
   return async (dispatch) => {
     try {
       dispatch(_loginRequest());
-
 
       const userExsit = await getUserExsitJudge('phoneNumber', state.phone);
       // console.log('userExsit:', userExsit);
@@ -301,20 +292,23 @@ export function register(state: Object,navigation): Function {
         // 第一步设置用户手机号。
         //
         // 第二步校验号码
-        const mobilePhoneVerifyRes = await mobilePhoneVerify(state.phone, state.ymCode);
-
+        const mobilePhoneVerifyRes = await mobilePhoneVerify(
+          state.phone,
+          state.ymCode,
+        );
 
         console.log('mobilePhoneVerifyRes:', mobilePhoneVerifyRes);
         // 第三步如果错误清除手机号，成功则清除匿名标记,并标记已登录
 
-
         if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
-          await dispatch(updateMeByParam({
-            mobilePhoneNumber: state.phone,
-            authData: {
-              anonymous: { __op: 'Delete' },
-            }
-          }));
+          await dispatch(
+            updateMeByParam({
+              mobilePhoneNumber: state.phone,
+              authData: {
+                anonymous: {__op: 'Delete'},
+              },
+            }),
+          );
           navigation.dispatch(StackActions.pop());
         }
 
@@ -328,7 +322,7 @@ export function register(state: Object,navigation): Function {
       const params = requestUsersByMobilePhone(
         state.phone,
         state.ymCode,
-        state.setPwd
+        state.setPwd,
       );
       const user = await get(params);
       await dispatch(_loginSucceed(user));
@@ -342,13 +336,11 @@ export function register(state: Object,navigation): Function {
   };
 }
 
-
 // 校验手机号
 export function mobilePhoneVerify(mobilePhoneNumber, code) {
   const params = verifySmsCode(mobilePhoneNumber, code);
   return get(params);
 }
-
 
 function _loginRequest(): Object {
   return {
@@ -373,13 +365,11 @@ function _loginSucceed(response: Object): Object {
     }
   };
 
-
   // storage.save({
   //     key: sessionTokenkey,  //注意:请不要在key中使用_下划线符号!
   //     data: sessionToken,
   // });
 }
-
 
 export function loginSucceed(data: Object): Object {
   // 保存登录信息。
@@ -409,10 +399,9 @@ export function loginLoad(loaded) {
 export function _loginFailed(response: Object): Object {
   return {
     type: LOGIN_FAILED,
-    loaded: false
+    loaded: false,
   };
 }
-
 
 export function logout(navigation) {
   return async (dispatch, getState) => {
@@ -424,7 +413,6 @@ export function logout(navigation) {
       // if (response.isSuccess === '1') {
       //     //加入sessionToken
 
-
       // dispatch(navigatePush('TabView'));
       // Router.pop()
       // clearUserData();
@@ -432,17 +420,16 @@ export function logout(navigation) {
       // storage.remove({ key: sessionTokenkey });
       Keychain.resetGenericPassword();
 
-      dispatch(logout2());// 先退出
+      dispatch(logout2()); // 先退出
       updatePush(user('null'));
 
       // await dispatch(anonymousUser())
 
-      navigation.dispatch(StackActions.replace( 'AuthLoading' ));
+      navigation.dispatch(StackActions.replace('AuthLoading'));
       // return loadAccount(ret => {
       //   //加载本地数据。
       //   dispatch(_loadAccount(ret));
       // });
-
 
       // } else {
       //     Toast.show(response.msg)
@@ -478,7 +465,6 @@ export function updateUserData(data: Object) {
   };
 }
 
-
 export function updateMeByParam(param) {
   return async (dispatch, getState) => {
     const userData = getState().user.data;
@@ -498,11 +484,10 @@ export function update() {
 }
 
 function updateLocation(user) {
-  const { sessionToken = '', username = '' } = user;
+  const {sessionToken = '', username = ''} = user;
   const userString = JSON.stringify(user);
   Keychain.setGenericPassword(username, userString);
 }
-
 
 // export function getUserByObjectID(objectID: string, callBack: Function): Function {
 //   return dispatch => {
@@ -520,8 +505,7 @@ function updateLocation(user) {
 //   }
 // }
 
-
-export function weChatLogin(Key,navigation) {
+export function weChatLogin(Key, navigation) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
@@ -529,25 +513,26 @@ export function weChatLogin(Key,navigation) {
       if (!weConfig) {
         return dispatch(thirdLoaded(''));
       }
-      const { appid, code } = weConfig;
+      const {appid, code} = weConfig;
 
       // 获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
       const weInfo = await get(wechatInfoParam);
-      const { access_token, openid } = weInfo;
+      const {access_token, openid} = weInfo;
       // console.log('weInfo:', weInfo);
-
 
       const userExsit = await getUserExsitJudge('weixin', openid);
       let user = getState().user.data;
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
-        await dispatch(updateMeByParam({
-          authData: {
-            anonymous: { __op: 'Delete' },
-            weixin: weInfo
-          },
-        }));
+        await dispatch(
+          updateMeByParam({
+            authData: {
+              anonymous: {__op: 'Delete'},
+              weixin: weInfo,
+            },
+          }),
+        );
         navigation.dispatch(StackActions.pop());
       } else {
         // 如果存在，则直接登录老账号
@@ -565,25 +550,26 @@ export function weChatLogin(Key,navigation) {
       dispatch(thirdLoaded(''));
       // 获取微信用户信息
 
-
       let exData = {};
       if (user.sessionToken && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid);
         const userInfo = await get(userInfoParams);
-        let { nickname, headimgurl } = userInfo;
+        let {nickname, headimgurl} = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {
           nickname,
-          headimgurl
+          headimgurl,
         };
         const params = bindingToUser(user.objectId, exData);
         const res = await get(params);
 
-        dispatch(updateUserData({
-          ...exData,
-          ...res
-        }));
+        dispatch(
+          updateUserData({
+            ...exData,
+            ...res,
+          }),
+        );
       }
       // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
     } catch (e) {
@@ -606,7 +592,7 @@ export function weChatLogin(Key,navigation) {
   };
 }
 
-export function qqLogin(Key,navigation) {
+export function qqLogin(Key, navigation) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
@@ -619,12 +605,14 @@ export function qqLogin(Key,navigation) {
       let user = getState().user.data;
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
-        await dispatch(updateMeByParam({
-          authData: {
-            anonymous: { __op: 'Delete' },
-            qq: qqConfig
-          },
-        }));
+        await dispatch(
+          updateMeByParam({
+            authData: {
+              anonymous: {__op: 'Delete'},
+              qq: qqConfig,
+            },
+          }),
+        );
         navigation.dispatch(StackActions.pop());
       } else {
         const userInfoParmas = thirdLogin('qq', qqConfig);
@@ -642,24 +630,30 @@ export function qqLogin(Key,navigation) {
 
       let exData = {};
       if (user.sessionToken && !user.headimgurl) {
-        const { access_token, oauth_consumer_key, openid } = qqConfig;
-        const userInfoParams = QQUserInfo(access_token, oauth_consumer_key, openid);
+        const {access_token, oauth_consumer_key, openid} = qqConfig;
+        const userInfoParams = QQUserInfo(
+          access_token,
+          oauth_consumer_key,
+          openid,
+        );
         const info = await get(userInfoParams);
         const userInfo = JSON.parse(info);
-        let { nickname, figureurl_qq_2 } = userInfo;
+        let {nickname, figureurl_qq_2} = userInfo;
         nickname = user.nickname || nickname;
         exData = {
           nickname,
-          headimgurl: figureurl_qq_2
+          headimgurl: figureurl_qq_2,
         };
         const params = bindingToUser(user.objectId, exData);
         // console.log('params:', params);
         const res = await get(params);
 
-        dispatch(updateUserData({
-          ...exData,
-          ...res
-        }));
+        dispatch(
+          updateUserData({
+            ...exData,
+            ...res,
+          }),
+        );
       }
     } catch (e) {
       dispatch(thirdLoaded(''));
@@ -679,12 +673,12 @@ export function wechatBinding(KEY) {
   return async (dispatch, getState) => {
     try {
       const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
-      const { appid, code } = weConfig;
+      const {appid, code} = weConfig;
 
       // 获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
       const weInfo = await get(wechatInfoParam);
-      const { access_token, openid } = weInfo;
+      const {access_token, openid} = weInfo;
 
       // 获取微信用户信息
       const state = getState();
@@ -693,12 +687,12 @@ export function wechatBinding(KEY) {
       if (openid && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid);
         const userInfo = await get(userInfoParams);
-        let { nickname, headimgurl } = userInfo;
+        let {nickname, headimgurl} = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {
           nickname,
-          headimgurl
+          headimgurl,
         };
       }
 
@@ -727,7 +721,7 @@ export function qqBinding(KEY) {
     try {
       const qqConfig = await QQAPI.login();
 
-      const { access_token, oauth_consumer_key, openid } = qqConfig;
+      const {access_token, oauth_consumer_key, openid} = qqConfig;
 
       // 获取微信用户信息
       const state = getState();
@@ -739,15 +733,14 @@ export function qqBinding(KEY) {
         const info = await get(params);
         const userInfo = JSON.parse(info);
 
-        let { nickname, figureurl_2, figureurl_qq_2 } = userInfo;
+        let {nickname, figureurl_2, figureurl_qq_2} = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {
           nickname,
-          headimgurl: figureurl_qq_2
+          headimgurl: figureurl_qq_2,
         };
       }
-
 
       return dispatch(bindingAuthData('qq', KEY, qqConfig, exData));
     } catch (e) {
@@ -758,11 +751,9 @@ export function qqBinding(KEY) {
   };
 }
 
-
 export function breakBinding(key, loadKey) {
-  return dispatch => dispatch(bindingAuthData(key, loadKey, null));
+  return (dispatch) => dispatch(bindingAuthData(key, loadKey, null));
 }
-
 
 export function bindingAuthData(key, loadKey, ad, exData) {
   return async (dispatch, getState) => {
@@ -774,18 +765,16 @@ export function bindingAuthData(key, loadKey, ad, exData) {
       const authData = {
         ...state.user.data.authData,
         ...params.params.authData,
-
       };
       const entity = {
         authData,
         ...exData,
-        ...res
+        ...res,
       };
       dispatch(updateUserData(entity));
     }
   };
 }
-
 
 // 判断user 是否存在
 

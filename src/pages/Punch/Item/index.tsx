@@ -51,7 +51,9 @@ export default class PunchItem extends PureComponent<
     if (props.openSound && props.soundsKey) {
       const source = soundsSource();
       const data = source[props.soundsKey] as SoundsType;
-      this.sound = new Sounds(data?.source);
+      if (data?.source) {
+        this.sound = new Sounds(data?.source);
+      }
     }
     this.state = {
       flip: props.done,
