@@ -52,7 +52,7 @@ export default class PunchItem extends PureComponent<
       const source = soundsSource();
       const data = source[props.soundsKey] as SoundsType;
       if (data?.source) {
-        this.sound = new Sounds(data?.source);
+        this.sound = new Sounds(data.source);
       }
     }
     this.state = {
@@ -95,7 +95,7 @@ export default class PunchItem extends PureComponent<
   }
 
   componentWillUnmount() {
-    this.sound && this.sound.release();
+    this.sound?.release();
   }
 
   render() {
@@ -139,7 +139,7 @@ export default class PunchItem extends PureComponent<
               () => {
                 console.log('???', this.props.soundsKey);
 
-                this.sound && this.sound.play();
+                this.sound?.play();
               },
             );
           // }
