@@ -1,6 +1,6 @@
 import {SoundPlayBtn} from '@components/sound-play-btn';
 import React, {useState, FC, useMemo} from 'react';
-import {soundsSource} from 'src/configure/source';
+import {soundsSource} from '@configure/source';
 import {StyledContent} from './style';
 
 const Render: FC = (props) => {

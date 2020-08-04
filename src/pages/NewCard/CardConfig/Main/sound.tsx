@@ -1,11 +1,11 @@
 import {SoundPlayBtn} from '@components/sound-play-btn';
 import React, {FC, useMemo, useState} from 'react';
 import {Platform, StyleSheet} from 'react-native';
-import {soundsSource, SoundsType} from 'src/configure/source';
+import {soundsSource, SoundsType} from '@configure/source';
 // import {StyledContent} from './style';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {shadeBlend} from 'helps/util';
+import {shadeBlend} from '@helps/util';
 import * as Animatable from 'react-native-animatable';
 interface RenderSoundsType {
   color: string;

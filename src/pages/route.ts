@@ -27,13 +27,13 @@ import Earnings from './Order/Earnings';
 import Cash from './Order/Cash';
 import Remind from './More/Remind';
 import Punch from './Punch';
-import WebView from '../components/Base/BaseWebView';
+import WebView from '@components/Base/BaseWebView';
 import Flag from './Flag';
 import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
-import {AndroidBackHandleHOCComponent} from 'src/configure/androidBackHandle';
+import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
 import Test from './test';
 
 export const otherRoute: RouteType = {

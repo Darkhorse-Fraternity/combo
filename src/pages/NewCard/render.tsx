@@ -33,7 +33,7 @@ import {habits} from '../../configure/habit';
 const listKey = ICARD;
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.normalizr.get(listKey),
   }),
   (dispatch, props) => ({}),
@@ -50,7 +50,7 @@ export default class NewCard extends PureComponent {
   componentDidMount() {}
 
   _listHeaderComponet = () => {
-    const habitTemplate = Object.keys(habits).map(name => (
+    const habitTemplate = Object.keys(habits).map((name) => (
       <Fragment key={name}>
         <StyledTitleView>
           <StyledTitleText>{name}</StyledTitleText>
@@ -58,14 +58,14 @@ export default class NewCard extends PureComponent {
         <CardTemplate
           key={`template ${name}`}
           data={habits[name]}
-          onPress={habit => {
+          onPress={(habit) => {
             this.props.navigation.navigate('creat', {habit});
           }}
         />
       </Fragment>
     ));
     const habitView = [];
-    habitTemplate.forEach(item => {
+    habitTemplate.forEach((item) => {
       habitView.push(item);
     });
 
@@ -73,7 +73,7 @@ export default class NewCard extends PureComponent {
     const style = Platform.OS === 'ios' ? {} : {height: 1062};
 
     return (
-      <StyledTop style={style} removeClippedSubviews>
+      <StyledTop style={style}>
         <StyledHeaderText>
           「 种一棵树最好的时间是十年前，其次是现在。 」
         </StyledHeaderText>
@@ -145,7 +145,7 @@ export default class NewCard extends PureComponent {
         numColumns={4}
         columnWrapperStyle={{padding: 0}}
         renderItem={this.renderRow.bind(this)}
-        dataMap={data => ({results: data.result})}
+        dataMap={(data) => ({results: data.result})}
         reqParam={{}}
       />
     );

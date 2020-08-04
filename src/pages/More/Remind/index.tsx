@@ -45,7 +45,7 @@ import {update} from '../../../redux/module/leancloud';
 import {shadeBlend} from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
 import {NoticeTip} from './render';
-import {storage} from 'src/configure/storage';
+import {storage} from '@configure/storage';
 
 const interactionManagerDelay = () =>
   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));

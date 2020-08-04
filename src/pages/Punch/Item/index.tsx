@@ -24,7 +24,7 @@ import {
 } from './style';
 import svgs from '../../../../source/icons';
 import Sounds from 'react-native-sound';
-import {soundsSource, SoundsType} from 'src/configure/source';
+import {soundsSource, SoundsType} from '@configure/source';
 import {isTablet} from 'react-native-device-info';
 
 const {width, height} = Dimensions.get('window');
@@ -34,7 +34,7 @@ interface PunchItemProps {
   done: boolean;
   soundsKey?: string;
   openSound?: boolean;
-  onPress: (flip: boolean, flipBack: () => void, sound: () => void) => void;
+  onPress: (flip: boolean, flipBack: () => void) => void;
   numColumns: number;
 }
 
@@ -81,6 +81,10 @@ export default class PunchItem extends PureComponent<
       // console.log('title2:', this.props.title);
       // console.log('flip2:', this.props.done);
       this.setState({flip: this.props.done});
+
+      if (this.props.done) {
+        this.sound?.play();
+      }
     }
   };
 
@@ -131,17 +135,9 @@ export default class PunchItem extends PureComponent<
           //   }
 
           onPress &&
-            onPress(
-              flip,
-              () => {
-                self.setState({flip: !flip});
-              },
-              () => {
-                console.log('???', this.props.soundsKey);
-
-                this.sound?.play();
-              },
-            );
+            onPress(flip, () => {
+              self.setState({flip: !flip});
+            });
           // }
         }}>
         <StyledFlipCard

@@ -73,7 +73,7 @@ import {easyPay} from '../../../redux/module/pay';
 import {daysText} from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
 import {PasswordValidation} from './PasswordValidation';
-import {User} from 'src/interface';
+import {User} from '@interface/index';
 import {NavigationInjectedProps} from '@react-navigation/native';
 
 interface StateType {
@@ -106,16 +106,10 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
       user: userId && state.normalizr.get(USER).get(userId),
       userLoad: state.req.get(USER).get('load'),
       useExist: state.req.get(IUSEExist),
-      data: state.normalizr.get(IUSE).get(
-        state.req
-          .get(IUSEExist)
-          .get('data')
-          .get('0'),
-      ),
-      dataId: state.req
-        .get(IUSEExist)
-        .get('data')
-        .get('0'),
+      data: state.normalizr
+        .get(IUSE)
+        .get(state.req.get(IUSEExist).get('data').get('0')),
+      dataId: state.req.get(IUSEExist).get('data').get('0'),
       course: iCard && state.normalizr.get(COURSE).get(iCard.get('course')),
       selfUse: state.user.data,
       isTourist: state.user.isTourist,
@@ -139,19 +133,19 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
         ),
       );
     },
-    loadCourse: course => {
+    loadCourse: (course) => {
       if (course && !course.get('title')) {
         const id = course.get('objectId');
         dispatch(findByID(COURSE, id));
       }
     },
-    loadUser: iCardUser => {
+    loadUser: (iCardUser) => {
       if (!iCardUser.nickname && iCardUser.objectId) {
         const param = getUserByID(iCardUser.objectId);
         dispatch(req(param, USER, {sceme: UserEntity}));
       }
     },
-    use: async card => {
+    use: async (card) => {
       const param = {
         // cycle: 0,
         time: 0,
@@ -179,7 +173,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
       // props.navigation.goBack()
       Toast.show(`你接受了一个卡片${card.title}`);
     },
-    exist: async id => {
+    exist: async (id) => {
       const params = classSearch(IUSE, {
         where: {
           ...iCard(id),
@@ -215,7 +209,7 @@ export default class CardInfo extends PureComponent<
   static navigationOptions = // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    props => ({});
+    (props) => ({});
 
   componentDidMount() {
     if (!this.props.iCard) {
@@ -258,7 +252,7 @@ export default class CardInfo extends PureComponent<
     </Button>
   );
 
-  _renderCourse = course => <StyledCourseView />; // console.log('course:', course);
+  _renderCourse = (course) => <StyledCourseView />; // console.log('course:', course);
 
   render(): ReactElement<any> {
     if (!this.props.iCard) {
@@ -288,7 +282,7 @@ export default class CardInfo extends PureComponent<
 
     const urlList =
       (imgs &&
-        imgs.map(item => ({
+        imgs.map((item) => ({
           url: item.img.url,
         }))) ||
       [];
@@ -406,7 +400,7 @@ export default class CardInfo extends PureComponent<
               <StyledHeaderTitle>{iCard.title}</StyledHeaderTitle>
               {keys && (
                 <StyledKeysView>
-                  {keys.map(key => `#${key}`).join(' ')}
+                  {keys.map((key) => `#${key}`).join(' ')}
                 </StyledKeysView>
               )}
             </StyledHeaderInnerLeft>

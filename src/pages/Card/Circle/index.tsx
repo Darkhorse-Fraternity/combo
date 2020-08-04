@@ -38,10 +38,8 @@ import {
 } from './style';
 
 import {iCard} from '../../../request/LCModle';
-import NativeUnifiedADView, {
-  loadWithObjectInfo,
-} from '@components/GDTNativeUnifiedAD';
-import {GTDAppId, GTDUnifiedNativeplacementId} from 'src/configure/tencent_ad';
+import {loadWithObjectInfo} from '@components/GDTNativeUnifiedAD';
+import {GTDAppId, GTDUnifiedNativeplacementId} from '@configure/tencent_ad';
 
 const listKey = IDO;
 
@@ -105,11 +103,11 @@ export default class Circle extends PureComponent<any, any> {
       appId: GTDAppId,
       placementId: GTDUnifiedNativeplacementId,
     })
-      .then(count => {
+      .then((count) => {
         console.log('count', count);
         this.setState({count: count});
       })
-      .catch(e => {
+      .catch((e) => {
         console.log('e', e.message);
       });
     // const key = 'done_' + this.props.iCard.get('objectId')
@@ -245,7 +243,7 @@ export default class Circle extends PureComponent<any, any> {
           }}>
           <Header
             userId={item.user}
-            onPress={user => {
+            onPress={(user) => {
               this.props.navigation.navigate('following', {
                 userId: user.objectId,
               });
@@ -299,9 +297,9 @@ export default class Circle extends PureComponent<any, any> {
         renderItem={this.renderRow.bind(this)}
         tipBtnText="添加记录"
         tipTap={() => this.props.tipTap(this.props.iUse.toJS())}
-        dataMap={data => {
+        dataMap={(data) => {
           const results = data.results.filter(
-            item => item.iUse.privacy >= privacy,
+            (item) => item.iUse.privacy >= privacy,
           );
           return {results};
         }}

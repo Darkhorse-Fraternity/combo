@@ -1,13 +1,12 @@
 import {
   setJSExceptionHandler,
-  setNativeExceptionHandler
-} from "react-native-exception-handler";
-import { Alert } from "react-native";
-import RNRestart from "react-native-restart";
-import DeviceInfo from "react-native-device-info";
-import { strings } from "../../locales/i18n";
-import tracker from "./googleAnalytics";
-import { Platform } from "react-native";
+  setNativeExceptionHandler,
+} from 'react-native-exception-handler';
+import {Alert, Platform} from 'react-native';
+import RNRestart from 'react-native-restart';
+import DeviceInfo from 'react-native-device-info';
+import {strings} from '../../locales/i18n';
+import tracker from './googleAnalytics';
 
 const allowInDevMode = false;
 
@@ -28,11 +27,11 @@ const errorHandler = (e, isFatal) => {
     uploadErrorString(`js\n${DeviceBugInfo()}\n`, errorString, isFatal);
     Alert.alert(e.name, e.message, [
       {
-        text: strings("error.Restart"),
+        text: strings('error.Restart'),
         onPress: () => {
           RNRestart.Restart();
-        }
-      }
+        },
+      },
     ]);
   } else {
     console.log(e); // So that we can see it in the ADB logs in case of Android if needed
@@ -47,7 +46,7 @@ setJSExceptionHandler(errorHandler, allowInDevMode);
 
 // getJSExceptionHandler gives the currently set JS exception handler
 
-setNativeExceptionHandler(errorString => {
+setNativeExceptionHandler((errorString) => {
   // 发送错误信息给服务器
 
   uploadErrorString(`native\n${DeviceBugInfo()}\n`, errorString, true);

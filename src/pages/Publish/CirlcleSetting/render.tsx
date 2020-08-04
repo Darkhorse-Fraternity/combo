@@ -13,7 +13,7 @@ import * as yup from 'yup';
 import {MemoRHFError, MemoRHFInput, RHFError} from '@components/Form';
 // import {useNavigationParam} from '@react-navigation/natve';
 import {classUpdate, classIDSearch} from '@request/leanCloud';
-import {ICARD} from 'src/redux/reqKeys';
+import {ICARD} from '../../../redux/reqKeys';
 import SimpleToast from 'react-native-simple-toast';
 import {loadView} from '@components/Load';
 import {useNavigationAllParamsWithType} from '@components/Nav/hook';
@@ -24,19 +24,14 @@ interface iCardType {
 }
 
 const validationSchema = yup.object().shape({
-  password: yup
-    .string()
-    .max(50)
-    .min(6)
-    .trim()
-    .label('密码'),
+  password: yup.string().max(50).min(6).trim().label('密码'),
 });
 
 type FormData = {
   password: string;
 };
 
-const render = () => {
+const Render = () => {
   const {iCardID} = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
   // console.log("req", reqO);
   // reqO();
@@ -84,7 +79,7 @@ const render = () => {
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
-    text => setValue('password', text, true),
+    (text) => setValue('password', text, true),
     [],
   );
 
@@ -134,4 +129,4 @@ const render = () => {
   );
 };
 
-export default render;
+export default Render;

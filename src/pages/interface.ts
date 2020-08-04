@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {StackNavigationOptions} from '@react-navigation/stack';
 import {
   NavigationHelpers,

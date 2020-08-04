@@ -224,7 +224,7 @@ export default class Punch extends Component {
           done={done}
           title={iCard.get('title')}
           discrib={item.unSatisfyDiscrib || `第${item.time}日`}
-          onPress={async (flip, doIt, sound) => {
+          onPress={async (flip, doIt) => {
             // const iCardM = iCard.toJS()
             // 如果没有强制打卡类型，则直接翻转
 
@@ -232,7 +232,6 @@ export default class Punch extends Component {
               iCard.get('record').size === 0 && doIt();
               if (!this.props.load && !done) {
                 await this.props.done(item);
-                sound();
               }
             } else {
               this.props.navigation.navigate('card', {

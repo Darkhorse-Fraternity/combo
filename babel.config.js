@@ -22,6 +22,10 @@ module.exports = function (api) {
         alias: {
           '@request': './src/request',
           '@components': './src/components',
+          '@redux': './src/redux',
+          '@interface': './src/interface',
+          '@helps': './helps',
+          '@configure': './src/configure',
           '@pages': './src/pages',
           '@img': './source/img',
           '@music': './source/music',
