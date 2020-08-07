@@ -32,8 +32,8 @@ export const StyledAvatar = styled.Image`
 `;
 
 export const StyledArrow = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;
@@ -44,6 +44,7 @@ export const StyledArrow = styled.View`
 export const StyledTitle = styled.Text`
   font-size: 17px;
   font-weight: 500;
+  min-width: 60;
 `;
 
 export const StyledDes = styled.Text`
@@ -52,7 +53,7 @@ export const StyledDes = styled.Text`
 `;
 
 export const StyledCaramerBackView = styled.View`
-  background-color: ${props => props.theme.mainColor};
+  background-color: ${(props) => props.theme.mainColor};
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -87,8 +88,8 @@ export const StyledActivityIndicator = styled.ActivityIndicator`
 
 export const StyledInput = styled.TextInput`
   font-size: 17px;
-  background-color: ${props => props.theme.textinputbackgroundColor};
-  width: ${props => props.theme.width - 40};
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
+  width: ${(props) => props.theme.width - 40};
   text-align: center;
   padding: 15px;
   margin: 10px 0px;
@@ -107,8 +108,10 @@ export const StyledAppInfo = styled.View`
 `;
 export const StyledAppVersionText = styled.Text`
   color: #a4a4a4;
-  font-size: 15px;
-  align-self: center;
+  font-size: 13px;
+  /* align-self: center;
+  min-width: 150; */
+  text-align: center;
 `;
 
 export const StyledAppPrivacyPolicyView = styled.View`
@@ -122,7 +125,7 @@ export const StyledAppPrivacyPolicyText = styled.Text`
 `;
 
 export const StyledAppPrivacyLine = styled.View`
-  width: ${props => props.theme.hairlineWidth * 2}px;
+  width: ${(props) => props.theme.hairlineWidth * 2}px;
   height: 15px;
   background-color: #0099ff;
   margin: 0px 10px;

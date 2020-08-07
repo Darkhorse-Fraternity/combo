@@ -52,15 +52,15 @@ subprojects {
             if (details.requested.group == 'com.android.support'
                     && !details.requested.name.contains('multidex') )
             {
-                details.useVersion "28.1.0"
+                details.useVersion "29.0.2"
             }
         }
     }
     afterEvaluate {project ->
         if (project.hasProperty("android")) {
             android {
-                compileSdkVersion 28
-                buildToolsVersion '28.0.3'
+                compileSdkVersion 29
+                buildToolsVersion '29.0.2'
             }
         }
     }

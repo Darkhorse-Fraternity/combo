@@ -44,7 +44,7 @@ import Avatar from '../../../components/Avatar';
 import {appChannel} from '../../../../helps/util';
 
 @connect(
-  state => ({
+  (state) => ({
     user: state.user.data,
     wechatLoad: state.req.get(WECHATLOGIN).get('load'),
     qqLoad: state.req.get(QQLOGIN).get('load'),
@@ -81,7 +81,7 @@ import {appChannel} from '../../../../helps/util';
         Alert.alert('解除后,一旦退出将无法找回', null, [{text: '取消'}]);
       }
     },
-    update: nickname => {
+    update: (nickname) => {
       dispatch(async (dispatch, getState) => {
         const user = getState().user.data;
         const params = updateNickName(user.objectId, nickname);
@@ -118,7 +118,7 @@ export default class Account extends React.Component {
       nickname: props.user.nickname,
       appInfoShow: false,
     };
-    WeChat.isWXAppInstalled().then(isWXAppInstalled => {
+    WeChat.isWXAppInstalled().then((isWXAppInstalled) => {
       this.setState({isWXAppInstalled});
     });
   }
@@ -140,7 +140,7 @@ export default class Account extends React.Component {
         <StyledInput
           ref="nameInput"
           placeholder="请输入昵称"
-          onChangeText={text => {
+          onChangeText={(text) => {
             this.setState({nickname: text});
           }}
           maxLength={30}
@@ -240,6 +240,7 @@ export default class Account extends React.Component {
     if (qq) {
       dbNum += 1;
     }
+
     // weixin && ++bindingNum;
     // qq && ++bindingNum;
     // console.log("dbNum:", dbNum);

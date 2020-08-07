@@ -40,7 +40,7 @@ export default class DoView extends Component {
     const color = '#51c332';
 
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{flex:1}}>
         <View
           onStartShouldSetResponder={() => true}
           onResponderGrant={Keyboard.dismiss}

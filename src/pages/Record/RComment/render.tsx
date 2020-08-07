@@ -180,9 +180,7 @@ const Name = 'text';
               if (momentIn) {
                 paramiUSE.doneDate = {
                   __type: 'Date',
-                  iso: moment(time)
-                    .subtract(1, 'day')
-                    .toISOString(),
+                  iso: moment(time).subtract(1, 'day').toISOString(),
                 };
               }
               const entityiUse = {
@@ -197,12 +195,12 @@ const Name = 'text';
         },
       ]);
     },
-    delete: async item => {
+    delete: async (item) => {
       const {iDoID} = props.route.params;
       await dispatch(remove(item.objectId, ICOMMENT));
       dispatch(claerByID(ICOMMENT + iDoID, item.objectId));
     },
-    copy: item => {
+    copy: (item) => {
       Clipboard.setString(item.text);
       Toast.show('已复制评论!');
     },
@@ -232,7 +230,7 @@ const Name = 'text';
     reEdit: ({objectId, imgs, recordText}) => {
       // record, load, done, type, iUse
       dispatch(async (_, getState) => {
-        const imgObjects = imgs.map(item => ({uri: item}));
+        const imgObjects = imgs.map((item) => ({uri: item}));
         dispatch(
           dataStorage(`DoCardForm${objectId}`, {recordText, imgs: imgObjects}),
         );
@@ -277,7 +275,7 @@ const Name = 'text';
               dispatch(
                 updateByID(IDO, objectId, {
                   recordText: recordTextN,
-                  imgs: imgs1 && imgs1.map(img => img.uri),
+                  imgs: imgs1 && imgs1.map((img) => img.uri),
                 }),
               );
               Pop.hide();
@@ -422,7 +420,7 @@ export default class RComment extends PureComponent {
           {/* <View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/> */}
           <ChatSendForm
             maxHeight={200}
-            ref={r => {
+            ref={(r) => {
               this.textInputRef = r;
             }}
             name={Name}
