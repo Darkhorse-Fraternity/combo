@@ -8,9 +8,9 @@ import {
   StyledUnderLine,
   StyledNavBar,
 } from './style';
-import {reqO, useFetch} from 'react-native-qj-fetch';
+import {useFetch} from 'react-native-qj-fetch';
 import * as yup from 'yup';
-import {MemoRHFError, MemoRHFInput, RHFError} from '@components/Form';
+import {MemoRHFInput, RHFError} from '@components/Form';
 // import {useNavigationParam} from '@react-navigation/natve';
 import {classUpdate, classIDSearch} from '@request/leanCloud';
 import {ICARD} from '../../../redux/reqKeys';

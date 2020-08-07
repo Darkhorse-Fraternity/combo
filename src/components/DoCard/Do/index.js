@@ -32,7 +32,7 @@ import creatIDO from '../DoCard';
 
       dispatch(async (dispatch, getState) => {
         try {
-          console.log('xxxxx');
+   
 
           const { iUse } = props;
           const state = getState();
@@ -61,13 +61,22 @@ import creatIDO from '../DoCard';
 
           if (imgs.length !== 0) {
             const urls = imgs.map(file => file.uri);
-            const res = await dispatch(uploadImages(urls, IDOULIMAGE));
-            if (!res.payload) {
-              return;
+            try {
+                console.log("???");
+                const res = await dispatch(uploadImages(urls, IDOULIMAGE));
+                // console.log('xxxxx',111);
+                if (!res.payload) {
+                  return;
+                }
+                imgs = res.payload.map(img => img.attributes.url);
+            } catch (error) {
+                console.log('error',error.message);
             }
-            imgs = res.payload.map(img => img.attributes.url);
+     
           }
 
+          console.log('xxxxx',imgs);
+          
 
           const iDoRes = await dispatch(creatIDO(iUse, iCardM,
             {

@@ -33,7 +33,9 @@ const DEFAULT_OPTIONS: ImagePickerOptions = {
     // if this key is provided, the image will get saved in the documents directory on ios, and the pictures directory on android (rather than a temporary directory)
     //* *  skipBackup: true, // ios only - image will NOT be backed up to icloud
     path: 'images', // ios only - will save image at /Documents/images rather than the root
+    privateDirectory: true,
   },
+
   permissionDenied: {
     title: '没有权限',
     text: '我们需要权限来打开您的照相机或者照片库',
@@ -47,7 +49,7 @@ export default function imagePicker(
   callBack: Function,
 ) {
   // StatusBar.setBarStyle('default', false);
-  ImagePicker.showImagePicker({...DEFAULT_OPTIONS, ...options}, response => {
+  ImagePicker.showImagePicker({...DEFAULT_OPTIONS, ...options}, (response) => {
     // console.log('Response = ', response);
     // StatusBar.setBarStyle('light-content', false);
     // console.log(response);
@@ -72,11 +74,14 @@ export default function imagePicker(
 
 export function showImagePicker(options: ImagePickerOptions) {
   return new Promise((resolve, reject) => {
-    ImagePicker.showImagePicker({...DEFAULT_OPTIONS, ...options}, response => {
-      if (response.error) {
-        return reject(response.error);
-      }
-      return resolve(response);
-    });
+    ImagePicker.showImagePicker(
+      {...DEFAULT_OPTIONS, ...options},
+      (response) => {
+        if (response.error) {
+          return reject(response.error);
+        }
+        return resolve(response);
+      },
+    );
   });
 }
