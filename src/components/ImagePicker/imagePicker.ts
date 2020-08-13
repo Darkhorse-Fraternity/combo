@@ -5,7 +5,10 @@
  * @flow
  */
 
-import ImagePicker, {ImagePickerOptions} from 'react-native-image-picker';
+import ImagePicker, {
+  ImagePickerOptions,
+  ImagePickerResponse,
+} from 'react-native-image-picker';
 import Toast from 'react-native-simple-toast';
 import {StatusBar} from 'react-native';
 
@@ -72,11 +75,15 @@ export default function imagePicker(
   });
 }
 
-export function showImagePicker(options: ImagePickerOptions) {
+export function showImagePicker(
+  options: ImagePickerOptions,
+): Promise<ImagePickerResponse> {
   return new Promise((resolve, reject) => {
     ImagePicker.showImagePicker(
       {...DEFAULT_OPTIONS, ...options},
       (response) => {
+        // response.uri =
+        //   'file://storage/emulated/0/Android/data/com.combo/files/Pictures/images/image-6be3fe0a-7fb5-48c4-989c-99d1147bfece.jpg';
         if (response.error) {
           return reject(response.error);
         }

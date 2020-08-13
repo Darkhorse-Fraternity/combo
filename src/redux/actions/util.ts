@@ -23,14 +23,20 @@ import {bindingFileToUser} from '../../request/leanCloud';
 import Toast from 'react-native-simple-toast';
 import {uploadFilesByLeanCloud} from '../../request/uploadAVImage';
 
-export function uploadAvatar(uri: string): Function {
+export function uploadAvatar(uri: string) {
   return async (dispatch, getState) => {
     const state = getState();
     const user = state.user.data;
     try {
       console.log('????111');
       dispatch(avatarStatu(true));
-      let res = await uploadFilesByLeanCloud([uri]);
+      let res;
+      try {
+        res = await uploadFilesByLeanCloud([uri]);
+      } catch (error) {
+        console.log('error', error);
+      }
+
       console.log('res', res);
       res = res[0];
       console.log('user.objectId', user.objectId);

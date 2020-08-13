@@ -28,7 +28,7 @@ require('../helps/AnimatableRegist');
 // import Toast from 'react-native-simple-toast'
 
 // import App from './components/js/App'
-@codePush
+@codePush()
 export default class App extends PureComponent {
   // https://github.com/Microsoft/react-native-code-push/blob/master/docs/api-js.md
   codePushStatusDidChange(status) {
