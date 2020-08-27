@@ -73,7 +73,7 @@ export default class Avatar extends PureComponent {
 
     return (
       <StyledContent radius={radius}>
-        {load ? <StyledIndicator radius={radius} />
+        {load ? <StyledIndicator color={'grey'} radius={radius} />
           : (
             <StyledAvatar
               radius={radius}

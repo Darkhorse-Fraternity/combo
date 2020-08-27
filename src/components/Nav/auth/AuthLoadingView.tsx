@@ -8,19 +8,19 @@ import {
 } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 // import { loginSucceed } from '../../../redux/actions/user'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 // import Toast from 'react-native-simple-toast';
 import moment from 'moment';
-import {userInfo} from '../../../redux/actions/user';
+import { userInfo } from '../../../redux/actions/user';
 // import { search } from '../../../redux/module/leancloud';
 // import { selfUser } from '../../../request/LCModle';
-import {IUSE, FLAGRECORD} from '../../../redux/reqKeys';
-import {firstInstaller} from '../../../../helps/util';
+import { IUSE, FLAGRECORD } from '../../../redux/reqKeys';
+import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
-import {listReq} from '../../../redux/actions/list';
-import {iUseList as iUseListParams} from '../../../request/leanCloud';
-import {addNormalizrEntities} from '../../../redux/module/normalizr';
-import {StackActions} from '@react-navigation/native';
+import { listReq } from '../../../redux/actions/list';
+import { iUseList as iUseListParams } from '../../../request/leanCloud';
+import { addNormalizrEntities } from '../../../redux/module/normalizr';
+import { StackActions } from '@react-navigation/native';
 
 @connect(
   state => ({}),
@@ -47,7 +47,7 @@ import {StackActions} from '@react-navigation/native';
           const p1 = dispatch(
             listReq(IUSE, iUseListParams(), false, {
               dataMap: data => {
-                const {iUseList} = data.result;
+                const { iUseList } = data.result;
                 // 添加副本
                 // console.log('fbList', fbList);
 
@@ -62,7 +62,7 @@ import {StackActions} from '@react-navigation/native';
                   }
                   return aDone;
                 });
-                return {results: newIUseList};
+                return { results: newIUseList };
               },
             }),
           );
@@ -105,7 +105,7 @@ import {StackActions} from '@react-navigation/native';
 export default class AuthLoadingScreen extends React.Component {
   unsubscribe = null;
   async componentDidMount() {
-    const {isConnected} = await NetInfo.fetch();
+    const { isConnected } = await NetInfo.fetch();
     if (!isConnected) {
       // console.log('111');
       this.unsubscribe = NetInfo.addEventListener(
