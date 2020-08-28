@@ -1,18 +1,18 @@
-import React, {Component} from 'react';
-import {reduxForm} from 'redux-form/immutable';
+import React, { Component } from 'react';
+import { reduxForm } from 'redux-form/immutable';
 
 import PropTypes from 'prop-types';
 
-import {View, Platform, KeyboardAvoidingView} from 'react-native';
-import {connect} from 'react-redux';
-import {formValueSelector} from 'redux-form/immutable';
+import { View, Platform, KeyboardAvoidingView } from 'react-native';
+import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form/immutable';
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
 import KeyboardManager from 'react-native-keyboard-manager';
 import * as immutable from 'immutable';
-import {theme} from '../../../Theme';
+import { theme } from '../../../Theme';
 
-import {dataStorage} from '../../../redux/actions/util';
+import { dataStorage } from '../../../redux/actions/util';
 import Pop from '../../Pop';
 import {
   Form,
@@ -28,7 +28,7 @@ import {
   StyledHeader,
   StyledIcon,
 } from './style';
-import {ImageSelectView} from '../Select';
+import { ImageSelectView } from '../Select';
 
 export const FormID = 'DoCardForm';
 const selector = formValueSelector(FormID);
@@ -41,13 +41,13 @@ const TrackInteractive = true;
   (state, props) => {
     const recordText = selector(state, 'recordText');
 
-    const {util} = state;
+    const { util } = state;
     const storage = util.get(FormID + props.localSaveID);
-    const storageData = (storage && storage.toJS()) || {imgs: []};
+    const storageData = (storage && storage.toJS()) || { imgs: [] };
     let imgs = selector(state, 'imgs');
     // console.log('imgs:', imgs);
     imgs = imgs && imgs.toJS && imgs.toJS();
-    const config = {文字: recordText, 图片: imgs};
+    const config = { 文字: recordText, 图片: imgs };
     const record = props.record || []; // 需要满足的条件
     // const mustText = chechType(record, '文字') && !isEmpty(config[文字])
     // 遍历查询是否条件未被满足
@@ -68,7 +68,7 @@ const TrackInteractive = true;
       dispatch((dispatch, getState) => {
         // const state = getState();
         // const recordText = selector(state, 'recordText');
-        dispatch(dataStorage(FormID + props.localSaveID, {recordText, imgs}));
+        dispatch(dataStorage(FormID + props.localSaveID, { recordText, imgs }));
       });
     },
     // localLoad
@@ -87,6 +87,7 @@ export default class DoCardForm extends Component {
     this.onKeyboardResigned = this.onKeyboardResigned.bind(this);
     this.state = {
       clear: false,
+      pickImageState: 'stop'
     };
   }
 
@@ -103,8 +104,8 @@ export default class DoCardForm extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const otherNextProps = {...nextProps};
-    const props = {...this.props};
+    const otherNextProps = { ...nextProps };
+    const props = { ...this.props };
 
     delete otherNextProps.imgs;
     delete otherNextProps.recordText;
@@ -119,7 +120,7 @@ export default class DoCardForm extends Component {
 
   componentWillUnmount() {
     Platform.OS === 'ios' && KeyboardManager.setEnable(true);
-    let {imgs, recordText} = this.props;
+    let { imgs, recordText } = this.props;
     if (this.state.clear) {
       imgs = [];
       recordText = '';
@@ -134,13 +135,15 @@ export default class DoCardForm extends Component {
       // ref={(r) => {
       //   this.textInputRef = r;
       // }}
-      style={{backgroundColor: 'transparent'}}
+      style={{ backgroundColor: 'transparent' }}
       returnKeyType="next"
       name="recordText"
+      editable={this.state.pickImageState === 'stop'}
       maxLength={50000}
       autoFocus
       placeholder="想写点什么？"
       multiline
+
       // keyboardType={boardType}
       underlineColorAndroid="transparent"
       clearButtonMode="while-editing"
@@ -156,12 +159,15 @@ export default class DoCardForm extends Component {
           marginBottom: 40,
           marginTop: Platform.OS === 'ios' ? 0 : 20,
         }}>
-        <ImageSelectView name="imgs" maxImage={5} />
+        <ImageSelectView onSelectState={(state) => {
+          console.log('state', state);
+          this.setState({ pickImageState: state });
+        }} name="imgs" maxImage={5} />
       </View>
     );
   }
 
-  onKeyboardResigned() {}
+  onKeyboardResigned() { }
 
   render() {
     // pristine 是否是初始化
@@ -202,28 +208,28 @@ export default class DoCardForm extends Component {
           {load ? (
             <StyledIndicator color={color} />
           ) : (
-            <StyledBtn
-              disabled={!enableSumbmit}
-              hitSlop={{
-                top: 5,
-                left: 20,
-                bottom: 5,
-                right: 50,
-              }}
-              onPress={async () => {
-                if (onSubmit) {
-                  const res = await handleSubmit(onSubmit)();
-                  if (res) {
-                    this.setState({clear: true});
-                    Pop.hide();
+              <StyledBtn
+                disabled={!enableSumbmit}
+                hitSlop={{
+                  top: 5,
+                  left: 20,
+                  bottom: 5,
+                  right: 50,
+                }}
+                onPress={async () => {
+                  if (onSubmit) {
+                    const res = await handleSubmit(onSubmit)();
+                    if (res) {
+                      this.setState({ clear: true });
+                      Pop.hide();
+                    }
                   }
-                }
-              }}>
-              <StyledBackBtnText disabled={!enableSumbmit} color={color}>
-                发布
+                }}>
+                <StyledBackBtnText disabled={!enableSumbmit} color={color}>
+                  发布
               </StyledBackBtnText>
-            </StyledBtn>
-          )}
+              </StyledBtn>
+            )}
         </StyledHeader>
         <StyledContent behavior="padding" enabled>
           {this.__textType()}

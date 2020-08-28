@@ -39,7 +39,7 @@ public class MainActivity extends ReactActivity {
 //        intent.putExtra("custom_skip_btn", customSkipBtn());
         return intent;
     }
-    
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);

@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import HeaderBtn from '../../Button/HeaderBtn';
 import Button from '../../Button';
-import {TextInput} from '../Cunstom';
+import { TextInput } from '../Cunstom';
 
 export const Form = styled.View`
   flex: 1;
