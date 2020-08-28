@@ -12,10 +12,13 @@ import Feather from 'react-native-vector-icons/Feather'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import {BorderlessButton} from 'react-native-gesture-handler'
 import {Platform} from 'react-native'
+import AnimationRow from '@components/AnimationRow';
 
 
 
-
+export const StyledAnimationRow = styled(AnimationRow)`
+  flex:1 0;
+`
 
 
 

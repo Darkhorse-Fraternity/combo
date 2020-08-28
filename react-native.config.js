@@ -1,8 +1,5 @@
 module.exports = {
   dependencies: {
-    'react-native-gesture-handler': {},
-    'react-native-device-info': {},
-    'react-native-simple-toast': {},
     'react-native-calendar-events': {
       platforms: {
         ios: null,

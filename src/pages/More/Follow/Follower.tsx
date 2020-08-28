@@ -22,6 +22,7 @@ import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import FollowRow from './FollowRow'
 import { USER } from "../../../redux/reqKeys";
 import Follow from "./Followee";
+import { isTablet } from 'react-native-device-info';
 
 const listKey = USER
 
@@ -59,7 +60,7 @@ export default class Follower extends Component {
   render(): ReactElement<any> {
 
 
-    const { navigation,route } = this.props;
+    const { navigation, route } = this.props;
     const { params } = route;
     const param = { uid: params.userId }
 
@@ -67,12 +68,13 @@ export default class Follower extends Component {
       <StyledContent>
         {this._renderHeader()}
         <LCList
+          numColumns={isTablet() ? 2 : 1}
           style={{ flex: 1 }}
           reqKey={listKey}
           sKey={"Follower_" + params.userId}
           renderItem={(data) => (<FollowRow user={data.item} onPress={() => {
             this.props.navigation.navigate('following', { userId: data.item.objectId })
-          }}/>)}
+          }} />)}
           noDataPrompt={'还没有人关注~'}
           search={followList('er')}
           dataMap={(data) => {

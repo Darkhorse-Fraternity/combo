@@ -4,9 +4,9 @@
  */
 'use strict';
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Button from '../../../components/Button';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import ZoomImage from '../../../components/ZoomImage/ZoomImage';
 import FastImage from 'react-native-fast-image';
 
@@ -52,6 +52,7 @@ export const StyledRowContent = styled(Button)`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+  flex:1  0 auto;
 `;
 export const StyledInnerView = styled.View`
   flex-direction: row;

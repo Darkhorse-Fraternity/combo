@@ -1,6 +1,7 @@
 package com.combo;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.calendarevents.CalendarEventsPackage;
@@ -37,6 +38,14 @@ public class MainActivity extends ReactActivity {
         intent.putExtra("need_start_demo_list", false);
 //        intent.putExtra("custom_skip_btn", customSkipBtn());
         return intent;
+    }
+    
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Intent intent = new Intent("onConfigurationChanged");
+        intent.putExtra("newConfig", newConfig);
+        this.sendBroadcast(intent);
     }
 
     /**

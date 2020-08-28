@@ -3,13 +3,13 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {View, Dimensions, SectionList, Alert} from 'react-native';
-import {connect} from 'react-redux';
+import { View, Dimensions, SectionList, Alert } from 'react-native';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
-import {ICARD, IUSE, IDO, FLAG, FLAGRECORD} from '../../redux/reqKeys';
+import { ICARD, IUSE, IDO, FLAG, FLAGRECORD } from '../../redux/reqKeys';
 // import { search, } from '../../redux/module/leancloud';
 import doCardWithNone from '../../components/DoCard/doCardWithNone';
 import ExceptionView, {
@@ -25,14 +25,14 @@ import {
   StyledAdd,
   StyledIonicons,
 } from './style';
-import {strings} from '../../../locales/i18n';
+import { strings } from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
-import {iUseList as iUseListParams} from '../../request/leanCloud';
-import {addNormalizrEntities} from '../../redux/module/normalizr';
-import {listReq} from '../../redux/actions/list';
-import {PrivacyModal} from '@components/ModalUtil/Privacy';
-import {isTablet} from 'react-native-device-info';
+import { iUseList as iUseListParams } from '../../request/leanCloud';
+import { addNormalizrEntities } from '../../redux/module/normalizr';
+import { listReq } from '../../redux/actions/list';
+import { PrivacyModal } from '@components/ModalUtil/Privacy';
+import { isTablet } from 'react-native-device-info';
 
 const numColumns = isTablet() ? 5 : 3;
 
@@ -69,7 +69,7 @@ const numColumns = isTablet() ? 5 : 3;
       dispatch(
         listReq(IUSE, iUseListParams(), false, {
           dataMap: (data) => {
-            const {iUseList} = data.result;
+            const { iUseList } = data.result;
             // 添加副本
             // console.log('fbList', fbList);
 
@@ -84,7 +84,7 @@ const numColumns = isTablet() ? 5 : 3;
               }
               return aDone;
             });
-            return {results: newIUseList};
+            return { results: newIUseList };
           },
         }),
       );
@@ -122,7 +122,7 @@ export default class Punch extends Component {
 
   componentWillReceiveProps(nextProps) {
     // console.log('000');
-    const {user, search} = this.props;
+    const { user, search } = this.props;
     if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
       search();
       // this.props.fbSearch();
@@ -150,7 +150,7 @@ export default class Punch extends Component {
       statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
     return (
       <ExceptionView
-        style={{height: Dimensions.get('window').height / 2}}
+        style={{ height: Dimensions.get('window').height / 2 }}
         exceptionType={
           refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
         }
@@ -244,7 +244,7 @@ export default class Punch extends Component {
       );
     });
 
-    return <View style={{flexDirection: 'row'}}>{views}</View>;
+    return <View style={{ flexDirection: 'row' }}>{views}</View>;
   };
 
   render(): ReactElement<any> {
@@ -323,7 +323,7 @@ export default class Punch extends Component {
           data: _.chunk(satisfy, numColumns),
         });
       unSatisfy.length > 0 &&
-        sections.push({title: '等待中', data: _.chunk(unSatisfy, 3)});
+        sections.push({ title: '等待中', data: _.chunk(unSatisfy, 3) });
     }
 
     return (
@@ -337,11 +337,11 @@ export default class Punch extends Component {
             const y = event.nativeEvent.contentOffset.y;
             if (!this.openSmallTitle && y > 35) {
               this.openSmallTitle = true;
-              this.props.navigation.setOptions({title: '小改变'});
+              this.props.navigation.setOptions({ title: '小改变' });
             }
             if (this.openSmallTitle && y < 35) {
               this.openSmallTitle = false;
-              this.props.navigation.setOptions({title: ''});
+              this.props.navigation.setOptions({ title: '' });
             }
           }}
           onRefresh={() => {
@@ -350,7 +350,7 @@ export default class Punch extends Component {
           // data={data}
           sections={sections}
           numColumns={numColumns}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           renderSectionHeader={this._renderSectionHeader}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
@@ -360,7 +360,7 @@ export default class Punch extends Component {
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
           ListFooterComponent={
-            data.length > 0 && <View style={{height: 120}} />
+            data.length > 0 && <View style={{ height: 120 }} />
           }
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />

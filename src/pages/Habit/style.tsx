@@ -8,13 +8,17 @@ import styled from 'styled-components/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {BorderlessButton} from 'react-native-gesture-handler';
-import {Platform} from 'react-native';
-import {SafeAreaView} from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
+import { FlatList, Platform } from 'react-native';
+import { SafeAreaView } from 'react-native';
+import AnimationRow from '@components/AnimationRow';
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
 `;
+
+export const StyledList = (styled(FlatList)`
+` as React.ReactNode) as new <T>() => FlatList<T>;
 
 export const StyledHeader = styled.View`
   padding: 10px 20px 24px 20px;
@@ -57,3 +61,7 @@ export const StyledAdd = styled(BorderlessButton)`
 export const StyledIonicons = styled(Ionicons)`
   align-self: center;
 `;
+
+export const StyledAnimationRow = styled(AnimationRow)`
+  flex:1 0;
+`

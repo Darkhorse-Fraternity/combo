@@ -3,35 +3,32 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {View, StyleSheet, Text, Image, Dimensions, Alert} from 'react-native';
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, Image, Dimensions, Alert } from 'react-native';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import * as immutable from 'immutable';
-import * as Animatable from 'react-native-animatable';
 import LCList from '../../components/Base/LCList';
-import {IRECORD, ICARD, IUSE} from '../../redux/reqKeys';
-import {selfUser} from '../../request/LCModle';
-import {update} from '../../redux/module/leancloud';
+import { IRECORD, ICARD, IUSE } from '../../redux/reqKeys';
+import { update } from '../../redux/module/leancloud';
 
 import CardRow from '../Habit/Cell';
 import {
-  StyledContent,
-  StyledHeader,
+
   StyledHeaderTitle,
   StyledIcon,
   StyledDeleteBtn,
   StyledDeleteBtnText,
   StyledAntDesign,
+  StyledAnimationRow
 } from './style';
 
-import {claerByID, addListNormalizrEntity} from '../../redux/actions/list';
-import {addNormalizrEntity} from '../../redux/module/normalizr';
-import {classUpdate} from '../../request/leanCloud';
-import {req} from '../../redux/actions/req';
+import { claerByID, addListNormalizrEntity } from '../../redux/actions/list';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+import { classUpdate } from '../../request/leanCloud';
+import { req } from '../../redux/actions/req';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
-import AnimationRow from '../../components/AnimationRow';
+import { isTablet } from 'react-native-device-info';
 
 const Archive = `${IUSE}archive`;
 
@@ -73,13 +70,13 @@ const Archive = `${IUSE}archive`;
         Alert.alert(
           '主人，我正参与副本活动，不可以被删除哦～！',
           '等活动结束后再来吧。',
-          [{text: '知道了'}],
+          [{ text: '知道了' }],
         );
         return;
       }
 
       Alert.alert('确定删除?', '删除后不可恢复~！', [
-        {text: '取消'},
+        { text: '取消' },
         {
           text: '确定',
           onPress: async () => {
@@ -144,7 +141,7 @@ export default class Record extends Component {
 
   swipeRefs = {};
 
-  renderRow = ({item, index}: Object) => {
+  renderRow = ({ item, index }: Object) => {
     // md-refresh
     const self = this;
     const iCardId = item[ICARD];
@@ -159,11 +156,11 @@ export default class Record extends Component {
     // const days = item.time
     // const reflesh = item.time === iCard.period || item.statu === 'stop'
     // const cycle = parseInt(item.time / iCard.period)
-    const {user} = iCard;
+    const { user } = iCard;
     const isSelf = user === this.props.user.objectId;
 
     return (
-      <AnimationRow
+      <StyledAnimationRow
         useNativeDriver
         ref={res => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
@@ -173,7 +170,7 @@ export default class Record extends Component {
           backgroundColor="white"
           close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
-            const {openIndex} = this.state;
+            const { openIndex } = this.state;
             if (index === openIndex) {
               return;
             }
@@ -181,44 +178,44 @@ export default class Record extends Component {
               const swipeRef = this.swipeRefs[`swipe${openIndex}`];
               swipeRef && swipeRef.close();
             }
-            this.setState({openIndex: index});
+            this.setState({ openIndex: index });
           }}
           onSwipeableWillClose={() => {
             // rowId === this.state.openIndex &&
             if (index === this.state.openIndex) {
-              this.setState({openIndex: -1});
+              this.setState({ openIndex: -1 });
             }
           }}
           right={[
             isSelf
               ? {
-                  type: 'secondary',
-                  onPress: () => {
-                    this.props.navigation.navigate('cardConfig', {iCardId});
-                    // this.setState({ openIndex: -1 })
-                    // this._deleteRow(item)
-                  },
-                  component: this._renderSwipeOutDeleteBtn(
-                    '设置',
-                    '#388e3c',
-                    'settings',
-                  ),
-                  backgroundColor: '#fdfbfb',
-                }
-              : {
-                  type: 'secondary',
-                  onPress: () => {
-                    this.props.navigation.navigate('cardInfo', {iCardId});
-                    // this.setState({ openIndex: -1 })
-                    // this._deleteRow(item)
-                  },
-                  component: this._renderSwipeOutDeleteBtn(
-                    '查看',
-                    '#388e3c',
-                    'info',
-                  ),
-                  backgroundColor: '#fdfbfb',
+                type: 'secondary',
+                onPress: () => {
+                  this.props.navigation.navigate('cardConfig', { iCardId });
+                  // this.setState({ openIndex: -1 })
+                  // this._deleteRow(item)
                 },
+                component: this._renderSwipeOutDeleteBtn(
+                  '设置',
+                  '#388e3c',
+                  'settings',
+                ),
+                backgroundColor: '#fdfbfb',
+              }
+              : {
+                type: 'secondary',
+                onPress: () => {
+                  this.props.navigation.navigate('cardInfo', { iCardId });
+                  // this.setState({ openIndex: -1 })
+                  // this._deleteRow(item)
+                },
+                component: this._renderSwipeOutDeleteBtn(
+                  '查看',
+                  '#388e3c',
+                  'info',
+                ),
+                backgroundColor: '#fdfbfb',
+              },
             {
               type: 'delete',
               onPress: () => {
@@ -263,15 +260,15 @@ export default class Record extends Component {
             }}
           />
         </AppleStyleSwipeableRow>
-      </AnimationRow>
+      </StyledAnimationRow>
     );
   };
 
   render() {
-    const {navigation, route} = this.props;
-    const {dispatch} = navigation;
-    const {params} = route;
-    const statu = !!params ? params.statu : {$ne: 'del'};
+    const { navigation, route } = this.props;
+    const { dispatch } = navigation;
+    const { params } = route;
+    const statu = !!params ? params.statu : { $ne: 'del' };
     // const statu =  { $ne: 'del' };
     const param = {
       // where: {
@@ -283,6 +280,7 @@ export default class Record extends Component {
     };
     return (
       <LCList
+        numColumns={isTablet() ? 2 : 1}
         scrollEnabled={this.state.openIndex === -1}
         ListHeaderComponent={this._renderHeader}
         style={[styles.list]}
@@ -292,7 +290,7 @@ export default class Record extends Component {
         dataMap={data => {
           // console.log('data', data);
 
-          return {results: data.result.iUseList};
+          return { results: data.result.iUseList };
         }}
         callPath="iUseList2"
         reqParam={param}

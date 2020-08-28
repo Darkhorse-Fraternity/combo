@@ -62,7 +62,7 @@ export default class Cell extends PureComponent {
           <StyledTime>
             第
             {time}
-次
+            次
           </StyledTime>
           <StyledDes>
             {notifyText}

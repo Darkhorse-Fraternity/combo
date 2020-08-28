@@ -92,6 +92,7 @@ export default class AppleStyleSwipeableRow extends Component {
     } = this.props;
     return (
       <Swipeable
+        useNativeAnimations
         ref={this.updateRef}
         friction={2}
         leftThreshold={leftThreshold}

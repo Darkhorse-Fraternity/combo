@@ -3,51 +3,73 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  StyleSheet,
   Dimensions,
-  Text,
-  TouchableOpacity,
   Alert,
-  Platform,
-  FlatList,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import * as Animatable from 'react-native-animatable';
-import {selfUser} from '../../request/LCModle';
+import { selfUser } from '../../request/LCModle';
 import Cell from './Cell';
 
 import {
-  StyledInnerdContent,
   StyledIcon,
   StyledDeleteBtn,
   StyledDeleteBtnText,
-  StyledAdd,
-  StyledIonicons,
   StyledHeader,
   StyledHeaderTitle,
   StyledAntDesign,
+  StyledList, StyledAnimationRow
 } from './style';
-import {strings} from '../../../locales/i18n';
 import ExceptionView, {
   ExceptionType,
 } from '../../components/Base/ExceptionView/index';
 import HeaderBtn from '../../components/Button/HeaderBtn';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
-import {update, search} from '../../redux/module/leancloud';
+import { update, search } from '../../redux/module/leancloud';
 
-import {IUSE, IRECORD, ICARD} from '../../redux/reqKeys';
-import {claerByID} from '../../redux/actions/list';
-import {addNormalizrEntity} from '../../redux/module/normalizr';
-import {classUpdate} from '../../request/leanCloud';
-import {req} from '../../redux/actions/req';
+import { IUSE, IRECORD, ICARD } from '../../redux/reqKeys';
+import { claerByID } from '../../redux/actions/list';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+import { classUpdate } from '../../request/leanCloud';
+import { req } from '../../redux/actions/req';
 import AnimationRow from '../../components/AnimationRow';
+import { useNavigation } from '@react-navigation/native';
+import { isTablet } from 'react-native-device-info';
 
 const Archive = `${IUSE}archive`;
+
+
+const RenderNoData = (statu: string) => {
+  const { navigate } = useNavigation()
+  const refreshLoad =
+    statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
+  return (
+    <ExceptionView
+      style={{ height: Dimensions.get('window').height / 2 }}
+      exceptionType={
+        refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
+      }
+      tipBtnText="添加卡片"
+      refresh={refreshLoad}
+      prompt={refreshLoad ? '正在加载' : '暂无数据'}
+      onRefresh={() => {
+        navigate('newCard');
+      }}
+    />
+  );
+};
+
+const RenderHeader = () => (
+  <StyledHeader>
+    <StyledHeaderTitle>日常习惯</StyledHeaderTitle>
+  </StyledHeader>
+);
+
 
 @connect(
   state => ({
@@ -106,13 +128,13 @@ const Archive = `${IUSE}archive`;
         Alert.alert(
           '主人，我正参与副本活动，不可以被删除哦～！',
           '等活动结束后再来吧。',
-          [{text: '知道了'}],
+          [{ text: '知道了' }],
         );
         return;
       }
 
       Alert.alert('确定删除?', '删除后不可恢复~！', [
-        {text: '取消'},
+        { text: '取消' },
         {
           text: '确定',
           onPress: async () => {
@@ -136,7 +158,7 @@ const Archive = `${IUSE}archive`;
     },
   }),
 )
-export default class Habit extends PureComponent {
+export default class Habit extends PureComponent<any, any> {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -148,24 +170,7 @@ export default class Habit extends PureComponent {
 
   static defaultProps = {};
 
-  __renderNoData = statu => {
-    const refreshLoad =
-      statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
-    return (
-      <ExceptionView
-        style={{height: Dimensions.get('window').height / 2}}
-        exceptionType={
-          refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
-        }
-        tipBtnText="添加卡片"
-        refresh={refreshLoad}
-        prompt={refreshLoad ? '正在加载' : '暂无数据'}
-        onRefresh={() => {
-          this.props.navigation.navigate('newCard');
-        }}
-      />
-    );
-  };
+
 
   _renderSwipeOutDeleteBtn = (title, color, name, CMP = StyledIcon) => (
     <StyledDeleteBtn>
@@ -180,7 +185,7 @@ export default class Habit extends PureComponent {
 
   openSmallTitle = false;
 
-  __renderItem = ({item, index}) => {
+  __renderItem = ({ item, index }) => {
     const self = this;
     // if (item === -1) {
     //     return <StopCell title='查看已归档的卡片'
@@ -199,7 +204,7 @@ export default class Habit extends PureComponent {
     const isSelf = iCard.get('user') === this.props.user.objectId;
 
     return (
-      <AnimationRow
+      <StyledAnimationRow
         useNativeDriver
         ref={res => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
@@ -211,7 +216,7 @@ export default class Habit extends PureComponent {
           backgroundColor="white"
           // close={this.state.openIndex !== index}
           onSwipeableWillOpen={() => {
-            const {openIndex} = this.state;
+            const { openIndex } = this.state;
             if (index === openIndex) {
               return;
             }
@@ -219,44 +224,44 @@ export default class Habit extends PureComponent {
               const swipeRef = this.swipeRefs[`swipe${openIndex}`];
               swipeRef && swipeRef.close();
             }
-            this.setState({openIndex: index});
+            this.setState({ openIndex: index });
           }}
           onSwipeableWillClose={() => {
             // rowId === this.state.openIndex &&
             if (index === this.state.openIndex) {
-              this.setState({openIndex: -1});
+              this.setState({ openIndex: -1 });
             }
           }}
           right={[
             isSelf
               ? {
-                  type: 'secondary',
-                  onPress: () => {
-                    this.props.navigation.navigate('cardConfig', {iCardId});
-                    // this.setState({ openIndex: -1 })
-                  },
-                  component: this._renderSwipeOutDeleteBtn(
-                    '设置',
-                    '#388e3c',
-                    'settings',
-                  ),
-                  backgroundColor: '#fdfbfb',
-                }
-              : {
-                  type: 'secondary',
-                  onPress: () => {
-                    // this.props.navigation.navigate('cardSetting',
-                    //   { iCardId, iUseId: item })
-                    this.props.navigation.navigate('cardInfo', {iCardId});
-                    // this.setState({ openIndex: -1 })
-                  },
-                  component: this._renderSwipeOutDeleteBtn(
-                    '查看',
-                    '#388e3c',
-                    'info',
-                  ),
-                  backgroundColor: '#fdfbfb',
+                type: 'secondary',
+                onPress: () => {
+                  this.props.navigation.navigate('cardConfig', { iCardId });
+                  // this.setState({ openIndex: -1 })
                 },
+                component: this._renderSwipeOutDeleteBtn(
+                  '设置',
+                  '#388e3c',
+                  'settings',
+                ),
+                backgroundColor: '#fdfbfb',
+              }
+              : {
+                type: 'secondary',
+                onPress: () => {
+                  // this.props.navigation.navigate('cardSetting',
+                  //   { iCardId, iUseId: item })
+                  this.props.navigation.navigate('cardInfo', { iCardId });
+                  // this.setState({ openIndex: -1 })
+                },
+                component: this._renderSwipeOutDeleteBtn(
+                  '查看',
+                  '#388e3c',
+                  'info',
+                ),
+                backgroundColor: '#fdfbfb',
+              },
             {
               type: 'delete',
               onPress: () => {
@@ -307,7 +312,7 @@ export default class Habit extends PureComponent {
             iCard={iCard.toJS()}
           />
         </AppleStyleSwipeableRow>
-      </AnimationRow>
+      </StyledAnimationRow>
     );
   };
 
@@ -316,13 +321,9 @@ export default class Habit extends PureComponent {
     return `${key}`;
   };
 
-  _renderHeader = () => (
-    <StyledHeader>
-      <StyledHeaderTitle>日常习惯</StyledHeaderTitle>
-    </StyledHeader>
-  );
 
-  render(): ReactElement<any> {
+
+  render() {
     const statu = this.props.data.get('loadStatu');
 
     let data = this.props.data.get('listData');
@@ -330,25 +331,25 @@ export default class Habit extends PureComponent {
     // data = data.sort((a,b)=> a.time - b.time)
 
     return (
-      <FlatList
+      <StyledList
+        numColumns={isTablet() ? 2 : 1}
         onScroll={event => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {
             this.openSmallTitle = true;
-            this.props.navigation.setOptions({title: '日常习惯'});
+            this.props.navigation.setOptions({ title: '日常习惯' });
           }
           if (this.openSmallTitle && y < 35) {
             this.openSmallTitle = false;
-            this.props.navigation.setOptions({title: ''});
+            this.props.navigation.setOptions({ title: '' });
           }
         }}
         scrollEnabled={this.state.openIndex === -1}
         refreshing={false}
         onRefresh={() => {
-          this.setState({openIndex: -1});
+          this.setState({ openIndex: -1 });
           this.props.search();
         }}
-        style={styles.container}
         data={data}
         // removeClippedSubviews={true}
         // pagingEnabled={true}
@@ -356,17 +357,11 @@ export default class Habit extends PureComponent {
         showsVerticalScrollIndicator={false}
         renderItem={this.__renderItem}
         keyExtractor={this._keyExtractor}
-        ListHeaderComponent={this._renderHeader}
-        ListFooterComponent={data.length > 0 && <View style={{height: 100}} />}
-        ListEmptyComponent={() => this.__renderNoData(statu)}
+        ListHeaderComponent={RenderHeader}
+        // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }} />}
+        ListEmptyComponent={RenderNoData.bind(undefined, statu)}
       />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // overflow: 'hidden', 会影响ListEmptyComponent
-  },
-});

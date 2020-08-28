@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Platform,
   UIManager,
@@ -10,14 +10,14 @@ import {
   AppState,
   View,
 } from 'react-native';
-import {StackActions, CommonActions} from '@react-navigation/native';
+import { StackActions, CommonActions } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';
 import KeyboardManager from 'react-native-keyboard-manager';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
-import {epUpdate} from '../components/Update/EPUpdate';
-import {appStateUpdate} from '../redux/actions/util';
+import { epUpdate } from '../components/Update/EPUpdate';
+import { appStateUpdate } from '../redux/actions/util';
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 import LocalNotification from './localNotification';
@@ -61,7 +61,7 @@ export default class Configure extends React.Component<{}, StateType> {
     }
     if (DeviceInfo.isTablet()) {
       // Orientation.lockToLandscape();
-      Orientation.lockToPortrait();
+      // Orientation.lockToPortrait();
     } else {
       Orientation.lockToPortrait();
     }
@@ -114,13 +114,13 @@ export default class Configure extends React.Component<{}, StateType> {
       }
 
       const conditions = [
-        {hostname: 'combo', protocol: 'combo'},
-        {hostname: 'stg-icard.leanapp.cn', protocol: 'https'},
-        {hostname: 'icard.leanapp.cn', protocol: 'https'},
-        {hostname: 'stg-icard.leanapp.cn', protocol: 'http'},
-        {hostname: 'icard.leanapp.cn', protocol: 'http'},
-        {hostname: 'icourage.cn', protocol: 'http'},
-        {hostname: 'icourage.cn', protocol: 'https'},
+        { hostname: 'combo', protocol: 'combo' },
+        { hostname: 'stg-icard.leanapp.cn', protocol: 'https' },
+        { hostname: 'icard.leanapp.cn', protocol: 'https' },
+        { hostname: 'stg-icard.leanapp.cn', protocol: 'http' },
+        { hostname: 'icard.leanapp.cn', protocol: 'http' },
+        { hostname: 'icourage.cn', protocol: 'http' },
+        { hostname: 'icourage.cn', protocol: 'https' },
       ];
 
       // console.log('testxxx:', hostname,protocol);
@@ -143,7 +143,7 @@ export default class Configure extends React.Component<{}, StateType> {
 
         console.log('routeName:', routeName);
         console.log('params:', params);
-        this.props.dispatch(CommonActions.navigate({key: routeName, params}));
+        this.props.dispatch(CommonActions.navigate({ key: routeName, params }));
       }
     }
   };
@@ -188,7 +188,7 @@ export default class Configure extends React.Component<{}, StateType> {
     if (Platform.OS === 'android') {
       DeviceInfo.isEmulator().then(isEmulator => {
         // false
-        this.setState({isEmulator});
+        this.setState({ isEmulator });
       });
     }
 

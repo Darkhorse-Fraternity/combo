@@ -67,6 +67,7 @@ import {
   FOLLOWING
 } from '../../../redux/reqKeys'
 import Avatar from '../../../components/Avatar/Avatar2'
+import { isTablet } from 'react-native-device-info';
 
 
 @connect(
@@ -329,6 +330,7 @@ export default class Following extends PureComponent {
     return (
       <StyledContent forceInset={{ top: 'never' }}>
         <LCList
+          numColumns={isTablet()?2:1}
           ListHeaderComponent={this._renderHeader}
           style={{ flex: 1 }}
           reqKey={IUSE}

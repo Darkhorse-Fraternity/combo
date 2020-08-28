@@ -85,8 +85,8 @@ export default class AnimationRow extends PureComponent {
   }
 
 
-  render(): ReactElement<any> {
-    const { children, ...other } = this.props
+  render() {
+    const { children,style, ...other } = this.props
     const { height } = this.state
 
     const rowStyles = height === 0 ? [] : [
@@ -115,7 +115,7 @@ export default class AnimationRow extends PureComponent {
 
     return (
 
-      <Animated.View onLayout={this._onLayout} style={rowStyles} {...other}>
+      <Animated.View useNativeDriver onLayout={this._onLayout} style={[rowStyles,style]} {...other}>
         {children}
       </Animated.View>
     );
