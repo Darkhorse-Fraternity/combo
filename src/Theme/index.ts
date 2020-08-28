@@ -6,6 +6,8 @@ const getTheme = () => {
   return {
     width,
     height,
+    getWidth: () => Dimensions.get('window').width,
+    getHeight: () => Dimensions.get('window').height,
     widthProportion: width / 375, // 用于高度根据长度进行缩放
     hairlineWidth: StyleSheet.hairlineWidth,
     hairlineColor: 'rgb(200,200,200)',

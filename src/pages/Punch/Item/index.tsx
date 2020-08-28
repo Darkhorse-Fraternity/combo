@@ -3,11 +3,11 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
-import {View, Dimensions} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import {
   StyledFlipCard,
   StyledCard,
@@ -24,11 +24,11 @@ import {
 } from './style';
 import svgs from '../../../../source/icons';
 import Sounds from 'react-native-sound';
-import {soundsSource, SoundsType} from '@configure/source';
-import {isTablet} from 'react-native-device-info';
+import { soundsSource, SoundsType } from '@configure/source';
+import { isLandscapeSync, isTablet } from 'react-native-device-info';
 
-const {width, height} = Dimensions.get('window');
-const minWidth = Math.min(width, height);
+
+
 
 interface PunchItemProps {
   done: boolean;
@@ -40,12 +40,13 @@ interface PunchItemProps {
 
 interface PunchItemState {
   flip: boolean;
+  isLandscape: boolean
 }
 
 export default class PunchItem extends PureComponent<
   PunchItemProps,
   PunchItemState
-> {
+  > {
   constructor(props: PunchItemProps) {
     super(props);
     if (props.openSound && props.soundsKey) {
@@ -57,6 +58,7 @@ export default class PunchItem extends PureComponent<
     }
     this.state = {
       flip: props.done,
+      isLandscape: isLandscapeSync()
     };
   }
 
@@ -80,7 +82,7 @@ export default class PunchItem extends PureComponent<
     if (this.props.done !== this.state.flip) {
       // console.log('title2:', this.props.title);
       // console.log('flip2:', this.props.done);
-      this.setState({flip: this.props.done});
+      this.setState({ flip: this.props.done });
 
       if (this.props.done) {
         this.sound?.play();
@@ -88,7 +90,7 @@ export default class PunchItem extends PureComponent<
     }
   };
 
-  debounceFlip = debounce(this.flipDo, 1000, {leading: false, trailing: true});
+  debounceFlip = debounce(this.flipDo, 1000, { leading: false, trailing: true });
 
   componentWillReceiveProps(nextProps) {
     // TODO： 这边这样设置会有反复哦，所以这边就先避免了
@@ -114,11 +116,16 @@ export default class PunchItem extends PureComponent<
       discrib,
       showFB,
     } = this.props;
-    const {flip} = this.state;
+    const { flip } = this.state;
 
     const self = this;
 
     const right = isTablet() ? 15 : 10;
+
+
+    const { width, height } = Dimensions.get('window');
+    const minWidth = isLandscapeSync() ? Math.max(width, height) : Math.min(width, height);
+
 
     const itemWidth =
       (minWidth - 40 - right * (this.props.numColumns - 1)) /
@@ -136,7 +143,7 @@ export default class PunchItem extends PureComponent<
 
           onPress &&
             onPress(flip, () => {
-              self.setState({flip: !flip});
+              self.setState({ flip: !flip });
             });
           // }
         }}>
@@ -159,8 +166,8 @@ export default class PunchItem extends PureComponent<
                   <StyledFBText>副本</StyledFBText>
                 </StyledFB>
               ) : (
-                <View />
-              )}
+                  <View />
+                )}
               <StyledCardDis>{discrib}</StyledCardDis>
             </StyledTop>
             <StyledInner height={iconWidth}>
@@ -186,7 +193,7 @@ export default class PunchItem extends PureComponent<
             marginRight={right}
             width={itemWidth}
             backgroundColor={color}>
-            <StyledCardDis style={{color: 'white', fontWeight: '600'}}>
+            <StyledCardDis style={{ color: 'white', fontWeight: '600' }}>
               +1
             </StyledCardDis>
             <StyledInner height={iconWidth}>
@@ -199,7 +206,7 @@ export default class PunchItem extends PureComponent<
             <StyledCardTitleView>
               <StyledInner height={25}>
                 <StyledCardTitle
-                  style={{color: 'white', fontWeight: '600'}}
+                  style={{ color: 'white', fontWeight: '600' }}
                   adjustsFontSizeToFit
                   minimumFontScale={0.7}
                   //   textAlignVertical="center"

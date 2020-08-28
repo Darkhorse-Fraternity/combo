@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 import Button from '../../../../components/Button';
@@ -15,8 +15,8 @@ export const StyledImagesScolleView = styled.ScrollView`
 `;
 
 export const StyledImage = styled(FastImage)`
-  height: ${props => (props.theme.width * 0.65 * 9) / 16};
-  width: ${props => props.theme.width * 0.65};
+  height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
+  width: ${props => props.theme.getWidth() * 0.65};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
   background-color: #fdfbfb;

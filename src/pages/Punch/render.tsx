@@ -29,12 +29,15 @@ import { strings } from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
 import { iUseList as iUseListParams } from '../../request/leanCloud';
-import { addNormalizrEntities } from '../../redux/module/normalizr';
 import { listReq } from '../../redux/actions/list';
 import { PrivacyModal } from '@components/ModalUtil/Privacy';
-import { isTablet } from 'react-native-device-info';
+import { isLandscapeSync, isTablet } from 'react-native-device-info';
+import Orientation from 'react-native-orientation';
 
-const numColumns = isTablet() ? 5 : 3;
+interface StateType {
+  frMap: Object;
+  numColumns: number;
+}
 
 @connect(
   (state) => ({
@@ -96,11 +99,12 @@ const numColumns = isTablet() ? 5 : 3;
     },
   }),
 )
-export default class Punch extends Component {
+export default class Punch extends Component<any, StateType> {
   constructor(props: Object) {
     super(props);
     this.state = {
       frMap: {},
+      numColumns: isTablet() ? isLandscapeSync() ? 7 : 5 : 3
     };
   }
 
@@ -116,6 +120,21 @@ export default class Punch extends Component {
     // loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
+    isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
+  }
+
+  componentWillUnmount() {
+    isTablet() && Orientation.removeOrientationListener(this._orientationDidChange);
+  }
+
+  _orientationDidChange = (orientation) => {
+    if (orientation === 'LANDSCAPE') {
+      this.setState({ numColumns: 7 })
+      // do something with landscape layout
+    } else {
+      this.setState({ numColumns: 5 })
+      // do something with portrait layout
+    }
   }
 
   openSmallTitle = false;
@@ -212,9 +231,10 @@ export default class Punch extends Component {
 
       let sound = iCard.get('sound');
       sound = sound && sound.toJS && sound.toJS();
+
       return (
         <Item
-          numColumns={numColumns}
+          numColumns={this.state.numColumns}
           showFB={showFB}
           openSound={sound?.open ?? false}
           soundsKey={sound?.item.key}
@@ -247,11 +267,10 @@ export default class Punch extends Component {
     return <View style={{ flexDirection: 'row' }}>{views}</View>;
   };
 
-  render(): ReactElement<any> {
+  render() {
     const statu = this.props.data.get('loadStatu');
 
     const data = this.props.data.toJS().listData;
-
     // 按条件分类
 
     const satisfy = [];
@@ -320,10 +339,10 @@ export default class Punch extends Component {
       satisfy.length > 0 &&
         sections.push({
           title: unSatisfy.length > 0 ? '进行中' : '',
-          data: _.chunk(satisfy, numColumns),
+          data: _.chunk(satisfy, this.state.numColumns),
         });
       unSatisfy.length > 0 &&
-        sections.push({ title: '等待中', data: _.chunk(unSatisfy, 3) });
+        sections.push({ title: '等待中', data: _.chunk(unSatisfy, this.state.numColumns) });
     }
 
     return (
@@ -349,7 +368,7 @@ export default class Punch extends Component {
           }}
           // data={data}
           sections={sections}
-          numColumns={numColumns}
+          // numColumns={numColumns}
           style={{ flex: 1 }}
           renderSectionHeader={this._renderSectionHeader}
           // removeClippedSubviews={true}
