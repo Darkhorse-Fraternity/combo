@@ -11,7 +11,9 @@ export const StyledButton = styled.View`
 
 export const StyledImagesScolleView = styled.ScrollView`
   margin: 15px 0px 0px 0px;
-  width: ${props => props.theme.width * 0.8};
+  width: ${props => props.theme.getWidth() -80};
+  border-radius:10px;
+  /* flex: 1 0; */
 `;
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)`
@@ -23,8 +25,8 @@ export const StyledLikeIcon = styled(Icon)`
 `;
 
 export const StyledImage = styled(FastImage)`
-  width: ${props => props.theme.width * 0.65};
-  height: ${props => (props.theme.width * 0.65 * 9) / 16};
+  width: ${props => props.theme.getWidth() * 0.65};
+  height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
   background-color: #fdfbfb;
@@ -34,7 +36,7 @@ export const StyledImageButton = styled(Button)``;
 
 export const StyledZoomImage = styled(ZoomImage)`
     width: 100%;
-    height: ${props => (props.theme.width * 0.65 * 9) / 16};
+    height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
     /* height: ${props => (props.theme.width - 140) * 0.8}; */
     border-radius: 10px;
     margin: 15px 0px 0px 0px;

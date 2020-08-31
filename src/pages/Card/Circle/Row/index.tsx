@@ -125,7 +125,7 @@ export default class RecordRow extends Component {
       commentNew, commentNum, user, objectId
     } = item;
     const background = TouchableNativeFeedback.SelectableBackgroundBorderless
-    && TouchableNativeFeedback.SelectableBackgroundBorderless();
+      && TouchableNativeFeedback.SelectableBackgroundBorderless();
     return (
       <StyledChatbtn
         hitSlop={{
@@ -135,7 +135,7 @@ export default class RecordRow extends Component {
         background={background}
         onPress={() => {
           this.props.navigation
-          && this.props.navigation.navigate('rcomment', { iDoID: objectId });
+            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
         }}
       >
         <StyledMaterialCommunityIcons
@@ -144,7 +144,7 @@ export default class RecordRow extends Component {
           color="#8c8c85"
         />
         {commentNew && user === this.props.user.objectId
-        && (<StyledNewTip />)}
+          && (<StyledNewTip />)}
 
         <StyledChatBtnText
           numberOfLines={1}
@@ -158,87 +158,91 @@ export default class RecordRow extends Component {
     );
   }
 
-   handleViewRef = ref => this.likeView = ref;
+  handleViewRef = ref => this.likeView = ref;
 
-    renderLikes = (item) => {
-      const {
-        likeNum,
-        objectId
-      } = item;
-      const { liked } = this.state;
-      const { doLike } = this.props;
-      const background = TouchableNativeFeedback.SelectableBackgroundBorderless
-    && TouchableNativeFeedback.SelectableBackgroundBorderless();
-      return (
-        <StyledChatbtn
-          activeOpacity={1}
-          hitSlop={{
-            top: 15, left: 25, bottom: 15, right: 5
-          }}
-          background={background}
-          onPress={() => {
-            this.likeView.bounceIn(2000);
-            doLike(objectId, !liked, likeNum);
-            this.setState({ liked: !liked });
-          }}
+  renderLikes = (item) => {
+    const {
+      likeNum,
+      objectId
+    } = item;
+    const { liked } = this.state;
+    const { doLike } = this.props;
+    const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+      && TouchableNativeFeedback.SelectableBackgroundBorderless();
+    return (
+      <StyledChatbtn
+        activeOpacity={1}
+        hitSlop={{
+          top: 15, left: 25, bottom: 15, right: 5
+        }}
+        background={background}
+        onPress={() => {
+          this.likeView.bounceIn(2000);
+          doLike(objectId, !liked, likeNum);
+          this.setState({ liked: !liked });
+        }}
+      >
+        <Animatable.View
+          ref={this.handleViewRef}
         >
-          <Animatable.View
-            ref={this.handleViewRef}
-          >
-            <StyledMaterialCommunityIcons
-              name={liked ? 'favorite' : 'favorite-border'}
-              size={20}
-              color={liked ? '#fd696a' : '#8c8c85'}
-            />
-          </Animatable.View>
-          <StyledChatBtnText
-            numberOfLines={1}
-          >
-            {likeNum === 0 ? '' : likeNum}
-          </StyledChatBtnText>
-        </StyledChatbtn>
-      );
-    }
-
-    // _renderDone = () => (
-    //   <StyledIcon
-    //     ref={this.chatBtnRef}
-    //     name="md-checkmark"
-    //     size={25}
-    //     color="green"
-    //   />
-    // )
-
-    render(): ReactElement<any> {
-      const { item, showImage } = this.props;
-      const { visible, index } = this.state;
-      if (!item) return null;
-      const { imgs } = item;
-      const uris = imgs && imgs.map(img => ({ url: img }));
-      // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
-      // moment.locale('zh-cn')
-      const fromNow = moment(item.createdAt).fromNow();
-      return (
-        <StyledButton
-          activeOpacity={1}
-          disabled={!this.props.navigation}
-          onPress={() => {
-            this.props.navigation
-          && this.props.navigation.navigate('rcomment',
-            { iDoID: item.objectId });
-          }}
-          style={this.props.style}
+          <StyledMaterialCommunityIcons
+            name={liked ? 'favorite' : 'favorite-border'}
+            size={20}
+            color={liked ? '#fd696a' : '#8c8c85'}
+          />
+        </Animatable.View>
+        <StyledChatBtnText
+          numberOfLines={1}
         >
-          <StyledMain>
-            {!!item.recordText
-          && (
-          <StyledRecordText numberOfLines={3}>
-            {item.recordText}
-          </StyledRecordText>
-          )}
-            {imgs && (
+          {likeNum === 0 ? '' : likeNum}
+        </StyledChatBtnText>
+      </StyledChatbtn>
+    );
+  }
+
+  // _renderDone = () => (
+  //   <StyledIcon
+  //     ref={this.chatBtnRef}
+  //     name="md-checkmark"
+  //     size={25}
+  //     color="green"
+  //   />
+  // )
+
+
+
+  render() {
+    const width = Dimensions.get('window').width;
+    const { item, showImage } = this.props;
+    const { visible, index } = this.state;
+    if (!item) return null;
+    const { imgs } = item;
+    const uris = imgs && imgs.map(img => ({ url: img }));
+    // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
+    // moment.locale('zh-cn')
+    const fromNow = moment(item.createdAt).fromNow();
+    return (
+      <StyledButton
+        activeOpacity={1}
+        disabled={!this.props.navigation}
+        onPress={() => {
+          this.props.navigation
+            && this.props.navigation.navigate('rcomment',
+              { iDoID: item.objectId });
+        }}
+        style={this.props.style}
+      >
+        <StyledMain>
+          {!!item.recordText
+            && (
+              <StyledRecordText numberOfLines={3}>
+                {item.recordText}
+              </StyledRecordText>
+            )}
+          {imgs && (
             <StyledImagesScolleView
               scrollEnabled={imgs.length > 1}
+              // contentContainerStyle={{ width: (width * 0.65 + 15) * imgs.length }}
               showsHorizontalScrollIndicator={false}
               pagingEnabled
               horizontal
@@ -255,9 +259,10 @@ export default class RecordRow extends Component {
                   />
                 </StyledImageButton>
               ))}
+              <View style={{ width: 40 }} />
             </StyledImagesScolleView>
-            )}
-            { uris && uris.length > 0 && (
+          )}
+          {uris && uris.length > 0 && (
             <ImagesViewModal
               visible={visible}
               closeCallBack={() => {
@@ -266,20 +271,20 @@ export default class RecordRow extends Component {
               index={index}
               imageUrls={uris}
             />
-            )}
-          </StyledMain>
-          <StyledBottom>
-            <StyledDateView>
-              <StyledDateText>
-                {fromNow}
-              </StyledDateText>
-              <StyledBottomBtnView>
-                {this.renderLikes(item)}
-                {this._renderChatBtn(item)}
-              </StyledBottomBtnView>
-            </StyledDateView>
-          </StyledBottom>
-        </StyledButton>
-      );
-    }
+          )}
+        </StyledMain>
+        <StyledBottom>
+          <StyledDateView>
+            <StyledDateText>
+              {fromNow}
+            </StyledDateText>
+            <StyledBottomBtnView>
+              {this.renderLikes(item)}
+              {this._renderChatBtn(item)}
+            </StyledBottomBtnView>
+          </StyledDateView>
+        </StyledBottom>
+      </StyledButton>
+    );
+  }
 }
