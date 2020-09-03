@@ -596,7 +596,15 @@ export function qqLogin(Key, navigation) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
-      const qqConfig = await QQAPI.login();
+
+      let qqConfig
+      try {
+         qqConfig = await QQAPI.login();
+      } catch (error) {
+        return dispatch(thirdLoaded(''));
+      }
+     
+     
       if (!qqConfig) {
         return dispatch(thirdLoaded(''));
       }

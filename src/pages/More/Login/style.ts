@@ -7,10 +7,10 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Button from '../../../components/Button';
+import Button from '@components/Button';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import LinearGradient from 'react-native-linear-gradient';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+// import {TouchableBounce} from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled.View`
   flex: 1;
@@ -55,7 +55,7 @@ export const ThirdPartyInnerLoginView = styled.View`
   position: absolute;
 `;
 
-export const StyledIconItem = styled(TouchableBounce)`
+export const StyledIconItem = styled(Button)`
   align-items: center;
 `;
 
