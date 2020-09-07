@@ -13,6 +13,10 @@
 		<string>applinks:icourage.cn</string>
 		<string>applinks:www.icourage.cn</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.winlong.xiamen.Bear</string>
+	</array>
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)com.rn.combo</string>

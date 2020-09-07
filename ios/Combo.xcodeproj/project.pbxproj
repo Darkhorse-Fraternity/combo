@@ -46,6 +46,10 @@
 		CCCE41AF2064A0F000F282E3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCFBC8061FEA79D000DA269C /* InfoPlist.strings */; };
 		CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
+		EA9E5B6324FFA235001F3ED7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */; };
+		EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */; };
+		EA9E5B6A24FFA235001F3ED7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */; };
+		EA9E5B6E24FFA235001F3ED7 /* comboTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,13 @@
 			remoteGlobalIDString = CCCE41862064A0F000F282E3;
 			remoteInfo = "ComboEp copy";
 		};
+		EA9E5B6C24FFA235001F3ED7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA9E5B6024FFA235001F3ED7;
+			remoteInfo = comboTodayWidget;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +76,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				EA9E5B6E24FFA235001F3ED7 /* comboTodayWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +156,13 @@
 		D31AAD173C824FABA33FF086 /* libRCTCustomInputController.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCustomInputController.a; sourceTree = "<group>"; };
 		D79C0A728E644F5185C19C2E /* libRCTAlipay.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAlipay.a; sourceTree = "<group>"; };
 		D82FE5A0057046799E3592ED /* libRCTUmengAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTUmengAnalytics.a; sourceTree = "<group>"; };
+		EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = comboTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		EA9E5B6924FFA235001F3ED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		EA9E5B6B24FFA235001F3ED7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAF5A1BE2506103100EDC740 /* comboTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = comboTodayWidget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +208,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA9E5B5E24FFA235001F3ED7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9E5B6324FFA235001F3ED7 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -231,6 +258,7 @@
 				CC3E39A71E2622610019B85F /* libsqlite3.tbd */,
 				CC3E39A51E2622570019B85F /* libiconv.tbd */,
 				80C22219815181E16F163146 /* libPods-Combo.a */,
+				EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -287,6 +315,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* Combo */,
 				00E356EF1AD99517003FC87E /* ComboTests */,
+				EA9E5B6424FFA235001F3ED7 /* comboTodayWidget */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				14D76F37BE6FB929EF410EB7 /* Pods */,
 				115E0148E2FB61C13FFE9539 /* Frameworks */,
@@ -304,6 +333,7 @@
 				00E356EE1AD99517003FC87E /* ComboTests.xctest */,
 				CCA715A52019C9DA00A25FB9 /* ComboEp.app */,
 				CCCE41C22064A0F000F282E3 /* Combo.app */,
+				EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -377,6 +407,18 @@
 			path = Combo/Config;
 			sourceTree = "<group>";
 		};
+		EA9E5B6424FFA235001F3ED7 /* comboTodayWidget */ = {
+			isa = PBXGroup;
+			children = (
+				EAF5A1BE2506103100EDC740 /* comboTodayWidget.entitlements */,
+				EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */,
+				EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */,
+				EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */,
+				EA9E5B6B24FFA235001F3ED7 /* Info.plist */,
+			);
+			path = comboTodayWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -437,11 +479,29 @@
 			);
 			dependencies = (
 				0747B1A95F4F3246C0E1F907 /* PBXTargetDependency */,
+				EA9E5B6D24FFA235001F3ED7 /* PBXTargetDependency */,
 			);
 			name = Combo;
 			productName = "Hello World";
 			productReference = CCCE41C22064A0F000F282E3 /* Combo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		EA9E5B6024FFA235001F3ED7 /* comboTodayWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA9E5B7224FFA235001F3ED7 /* Build configuration list for PBXNativeTarget "comboTodayWidget" */;
+			buildPhases = (
+				EA9E5B5D24FFA235001F3ED7 /* Sources */,
+				EA9E5B5E24FFA235001F3ED7 /* Frameworks */,
+				EA9E5B5F24FFA235001F3ED7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = comboTodayWidget;
+			productName = comboTodayWidget;
+			productReference = EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -476,6 +536,11 @@
 							};
 						};
 					};
+					EA9E5B6024FFA235001F3ED7 = {
+						CreatedOnToolsVersion = 11.6;
+						DevelopmentTeam = G54H3R6236;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Combo" */;
@@ -496,6 +561,7 @@
 				CCCE41862064A0F000F282E3 /* Combo */,
 				00E356ED1AD99517003FC87E /* ComboTests */,
 				CCA7156C2019C9DA00A25FB9 /* ComboEp */,
+				EA9E5B6024FFA235001F3ED7 /* comboTodayWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -529,6 +595,14 @@
 				CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */,
 				CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */,
 				77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9E5B5F24FFA235001F3ED7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9E5B6A24FFA235001F3ED7 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +825,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA9E5B5D24FFA235001F3ED7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -762,6 +844,11 @@
 			isa = PBXTargetDependency;
 			target = CCCE41862064A0F000F282E3 /* Combo */;
 			targetProxy = CCCE422A2064A30A00F282E3 /* PBXContainerItemProxy */;
+		};
+		EA9E5B6D24FFA235001F3ED7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA9E5B6024FFA235001F3ED7 /* comboTodayWidget */;
+			targetProxy = EA9E5B6C24FFA235001F3ED7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -783,6 +870,14 @@
 				CCFBC8341FEA7A3800DA269C /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA9E5B6924FFA235001F3ED7 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1547,6 +1642,90 @@
 			};
 			name = Release;
 		};
+		EA9E5B6F24FFA235001F3ED7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboTodayWidget/comboTodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboTodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA9E5B7024FFA235001F3ED7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboTodayWidget/comboTodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboTodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA9E5B7124FFA235001F3ED7 /* Staging */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboTodayWidget/comboTodayWidget.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboTodayWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Staging;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1586,6 +1765,16 @@
 				CCCE41C02064A0F000F282E3 /* Debug */,
 				CCCE41C12064A0F000F282E3 /* Release */,
 				CC6BB77F2189337E003DCC59 /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA9E5B7224FFA235001F3ED7 /* Build configuration list for PBXNativeTarget "comboTodayWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9E5B6F24FFA235001F3ED7 /* Debug */,
+				EA9E5B7024FFA235001F3ED7 /* Release */,
+				EA9E5B7124FFA235001F3ED7 /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
