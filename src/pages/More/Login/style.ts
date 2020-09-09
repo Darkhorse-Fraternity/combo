@@ -46,13 +46,15 @@ export const ThirdPartyLoginViewInner = styled(LinearGradient)`
 export const ThirdPartyInnerLoginView = styled.View`
   flex-direction: row;
   margin: 20px 0px;
-  padding: 0px
-    ${props => (props.isWXAppInstalled ? 80 : props.theme.width / 2)}px;
-  width: 100%;
+  padding: 0px 20px;
+  width:100%;
+  align-items:center;
   justify-content: space-between;
-  z-index: 100;
-  flex: 1;
-  position: absolute;
+  
+  /* justify-content: space-between; */
+  /* z-index: 100; */
+  /* flex: 1; */
+  /* position: absolute; */
 `;
 
 export const StyledIconItem = styled(Button)`
@@ -117,3 +119,7 @@ export const StyledMoreBtnText = styled.Text`
   font-size: 15px;
   font-weight: 300;
 `;
+
+export const StyledBtnContnet = styled.View`
+  flex:1
+`

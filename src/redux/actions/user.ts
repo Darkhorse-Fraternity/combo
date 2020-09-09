@@ -20,6 +20,12 @@ import {setLeanCloudSession} from '../../configure/reqConfigs';
 import {batch} from '../module/leancloud';
 import {get, req} from './req';
 import {loadAccount} from '../../configure/storage';
+import appleAuth, {
+  AppleButton,
+  AppleAuthRequestOperation,
+  AppleAuthRequestScope,
+  AppleAuthCredentialState,
+} from '@invertase/react-native-apple-authentication';
 
 import {
   requestLogin,
@@ -669,6 +675,84 @@ export function qqLogin(Key, navigation) {
     }
   };
 }
+
+
+export function appleLogin(Key:string, navigation:any) {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(thirdLoaded(Key));
+
+    
+       const appleAuthRequestResponse = await appleAuth.performRequest({
+          requestedOperation: AppleAuthRequestOperation.LOGIN,
+          requestedScopes: [AppleAuthRequestScope.EMAIL, AppleAuthRequestScope.FULL_NAME],
+        });
+
+        if (!appleAuthRequestResponse) {
+          return dispatch(thirdLoaded(''));
+        }
+        console.log('appleAuthRequestResponse',appleAuthRequestResponse)
+        
+      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+
+      console.log('credentialState',credentialState);
+     
+    
+
+      const userExsit = await getUserExsitJudge('apple', appleAuthRequestResponse.identityToken);
+      let user = getState().user.data;
+      if (userExsit === false) {
+        // 如果不存在，则直接更换匿名用户
+        await dispatch(
+          updateMeByParam({
+            authData: {
+              anonymous: {__op: 'Delete'},
+              apple: appleAuthRequestResponse,
+            },
+          }),
+        );
+        navigation.dispatch(StackActions.pop());
+      } else {
+        const userInfoParmas = thirdLogin('apple', appleAuthRequestResponse);
+        user = await get(userInfoParmas);
+        if (user.sessionToken) {
+          await dispatch(_loginSucceed(user));
+          await dispatch(addSample(user));
+          navigation.dispatch(StackActions.pop());
+        }
+      }
+
+      dispatch(thirdLoaded(''));
+
+      // 获取微信用户信息
+
+      let exData = {};
+      if (user.sessionToken && !user.headimgurl) {
+        const {fullName, } = appleAuthRequestResponse;
+
+        exData = {
+          nickname:fullName?.nickname,
+          // headimgurl: figureurl_qq_2,
+        };
+        const params = bindingToUser(user.objectId, exData);
+        // console.log('params:', params);
+        const res = await get(params);
+
+        dispatch(
+          updateUserData({
+            ...exData,
+            ...res,
+          }),
+        );
+      }
+    } catch (e) {
+      dispatch(thirdLoaded(''));
+      Toast.show(e.message);
+    }
+  };
+}
+
+
 
 export function thirdLoaded(key) {
   return {

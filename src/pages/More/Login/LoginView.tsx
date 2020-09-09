@@ -16,9 +16,9 @@ import {
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
 import { req } from '../../../redux/actions/req';
-import { AUTHCODE } from '../../../redux/reqKeys';
+import { APPLELOGIN, AUTHCODE } from '../../../redux/reqKeys';
 import { requestSmsCode } from '../../../request/leanCloud';
-import { register, weChatLogin, qqLogin } from '../../../redux/actions/user';
+import { register, weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
 import { TransitionPresets } from '@react-navigation/stack';
 
 import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
@@ -52,6 +52,7 @@ import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 import Button from '../../../components/Button';
 import BackBtn from '../../../components/Button/BackBtn/index';
+import { SigninBtn } from './components/signin-btn';
 
 @connect(
   state => ({
@@ -79,6 +80,9 @@ import BackBtn from '../../../components/Button/BackBtn/index';
     wxLogin: () => {
       dispatch(weChatLogin(WECHATLOGIN, props.navigation));
     },
+    appleLogin: () => {
+      dispatch(appleLogin(APPLELOGIN, props.navigation));
+    }
   }),
 )
 export default class LoginView extends Component {
@@ -308,7 +312,6 @@ export default class LoginView extends Component {
     const thirdLoaded = this.props.userData.theThirdLoaded;
     return (
       <StyledContent
-        colors={['white', '#f7f8fe', 'white']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
         {/* {!this.props.userData.isLogin && (<BG/>)}*/}
@@ -383,51 +386,11 @@ export default class LoginView extends Component {
             title="登 录"
           />
         </Animatable.View>
-        <ThirdPartyLoginView>
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#fbfcfe']}
-          />
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#f8f9fb']}
-          />
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#fafbfd']}
-          />
-          <ThirdPartyInnerLoginView
-            isWXAppInstalled={this.state.isWXAppInstalled}>
-            {this.state.isWXAppInstalled &&
-              this.renderLoginItem(
-                25,
-                '#f0f0f0',
-                '微信登录',
-                'weixin',
-                thirdLoaded === WECHATLOGIN,
-                this.props.wxLogin,
-              )}
-            {this.renderLoginItem(
-              25,
-              '#f0f0f0',
-              'QQ登录',
-              'qq',
-              thirdLoaded === QQLOGIN,
-              this.props.qqLogin,
-            )}
-            {/* {this.renderLoginItem(35,*/}
-            {/* '#f0f0f0',*/}
-            {/* '手机登录',*/}
-            {/*'mobile', */}
-            {/* false,*/}
-            {/* () => {*/}
-            {/* this.setState({*/}
-            {/*showMobile: !this.state.showMobile */}
-            {/* })*/}
-            {/*}, */}
-            {/* )}*/}
-          </ThirdPartyInnerLoginView>
-        </ThirdPartyLoginView>
-        <StyledImageBottom
-          source={require('../../../../source/img/loginBottom.png')}
-        />
+        <ThirdPartyInnerLoginView>
+          {!!this.state.isWXAppInstalled && <SigninBtn name={'weixin'} onPress={this.props.wxLogin} loading={thirdLoaded === WECHATLOGIN} />}
+          {Platform.OS === 'ios' && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
+          <SigninBtn name={'qq'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
+        </ThirdPartyInnerLoginView>
       </StyledContent>
     );
   };
