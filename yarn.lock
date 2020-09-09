@@ -8551,6 +8551,11 @@ react-native-code-push@6.2.0:
     semver "^7.1.1"
     xcode "1.0.0"
 
+react-native-default-preference@^1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/react-native-default-preference/-/react-native-default-preference-1.4.3.tgz#3c6411d32ea4ebc5286fbf5915546fc57a6014f6"
+  integrity sha512-sQDYwGEdxwKwXKP/8Intc81FyH33Rv8ZvOxdmPX4NM75RAIVeBc13pdabEqycAimNZoY5IDvGp4o1cTTa5gNrA==
+
 react-native-device-info@5.4.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.1.tgz#507d2cd4be98813fc0421a35731b471b86ca194d"

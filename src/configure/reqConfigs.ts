@@ -16,9 +16,13 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 import {Cache} from 'react-native-cache';
+import DefaultPreference from 'react-native-default-preference';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
+
+const NATIVE_NET_KEY = 'NET_FOR_NATIVE'
+
 
 export const defaultHost = !__DEV__
   ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
@@ -40,6 +44,12 @@ export function setLeanCloudSession(session: string) {
   const myHeader = {...header};
   if (session && session.length > 0) {
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
+
+    //发送给原生小组件
+    DefaultPreference.set(NATIVE_NET_KEY, JSON.stringify({
+      header:myHeader,
+      host:defaultHost
+    }));
   }
 
   setNetworkConig({
@@ -59,6 +69,12 @@ const header = {
   appChannel,
 };
 
+//发送给原生小组件
+DefaultPreference.set(NATIVE_NET_KEY, JSON.stringify({
+  header:header,
+  host:defaultHost
+}));
+
 export function httpHeaders(needSession: boolean): Object {
   // let header = {
   //   "Content-Type": "application/json; charset=utf-8",
@@ -75,6 +91,7 @@ export function httpHeaders(needSession: boolean): Object {
     // });
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
   }
+
 
   // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
   return myHeader;
