@@ -33,7 +33,7 @@ export const StyledItem = styled(Button)`
 
 export const StyledItemImage = styled(FastImage)<{numColumns: number}>`
   width: ${(props) =>  props.theme.getWidth() / props.numColumns - 40};
-  height: ${(props) => (props.theme.getWidth() / props.numColumns - 40)*0.65};
+  aspect-ratio:1.5;
   border-radius: 20px;
   align-self: center;
   background-color: #fdfbfb;
