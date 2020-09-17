@@ -687,33 +687,44 @@ export function appleLogin(Key:string, navigation:any) {
           requestedOperation: AppleAuthRequestOperation.LOGIN,
           requestedScopes: [AppleAuthRequestScope.EMAIL, AppleAuthRequestScope.FULL_NAME],
         });
+        // console.log('appleAuthRequestResponse',appleAuthRequestResponse)
 
         if (!appleAuthRequestResponse) {
           return dispatch(thirdLoaded(''));
         }
-        console.log('appleAuthRequestResponse',appleAuthRequestResponse)
         
       const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
 
-      console.log('credentialState',credentialState);
-     
-    
-
-      const userExsit = await getUserExsitJudge('apple', appleAuthRequestResponse.identityToken);
+     if(credentialState !== 1){
+      return dispatch(thirdLoaded(''));
+     }
+  
+      const userExsit = await getUserExsitJudge('lc_apple', appleAuthRequestResponse.user);
+      
       let user = getState().user.data;
+
+     const lc_apple = {
+      uid:appleAuthRequestResponse.user,
+      // identity_token:appleAuthRequestResponse.identityToken,
+      // code:appleAuthRequestResponse.authorizationCode
+     }
+
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
         await dispatch(
           updateMeByParam({
             authData: {
               anonymous: {__op: 'Delete'},
-              apple: appleAuthRequestResponse,
+              lc_apple,
             },
           }),
         );
         navigation.dispatch(StackActions.pop());
       } else {
-        const userInfoParmas = thirdLogin('apple', appleAuthRequestResponse);
+        const userInfoParmas = thirdLogin('lc_apple', lc_apple);
+
+        console.log('userInfoParmas',userInfoParmas);
+        
         user = await get(userInfoParmas);
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
@@ -724,14 +735,12 @@ export function appleLogin(Key:string, navigation:any) {
 
       dispatch(thirdLoaded(''));
 
-      // 获取微信用户信息
 
       let exData = {};
-      if (user.sessionToken && !user.headimgurl) {
-        const {fullName, } = appleAuthRequestResponse;
-
+      const {fullName, } = appleAuthRequestResponse;
+      if (user.sessionToken && !user.headimgurl && fullName?.nickname && fullName?.nickname.length >0 ) {
         exData = {
-          nickname:fullName?.nickname,
+          nickname:fullName?.nickname 
           // headimgurl: figureurl_qq_2,
         };
         const params = bindingToUser(user.objectId, exData);
@@ -746,6 +755,8 @@ export function appleLogin(Key:string, navigation:any) {
         );
       }
     } catch (e) {
+      console.log(e);
+      
       dispatch(thirdLoaded(''));
       Toast.show(e.message);
     }

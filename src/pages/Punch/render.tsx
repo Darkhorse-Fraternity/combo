@@ -4,7 +4,6 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { View, Dimensions, SectionList, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';

@@ -53,6 +53,7 @@ import { strings } from '../../../../locales/i18n';
 import Button from '../../../components/Button';
 import BackBtn from '../../../components/Button/BackBtn/index';
 import { SigninBtn } from './components/signin-btn';
+import appleAuth from '@invertase/react-native-apple-authentication';
 
 @connect(
   state => ({
@@ -388,7 +389,7 @@ export default class LoginView extends Component {
         </Animatable.View>
         <ThirdPartyInnerLoginView>
           {!!this.state.isWXAppInstalled && <SigninBtn name={'weixin'} onPress={this.props.wxLogin} loading={thirdLoaded === WECHATLOGIN} />}
-          {Platform.OS === 'ios' && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
+          {Platform.OS === 'ios' && appleAuth.isSupported && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
           <SigninBtn name={'qq'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
         </ThirdPartyInnerLoginView>
       </StyledContent>

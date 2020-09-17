@@ -33,7 +33,7 @@ const entryBorderRadius = 8;
 
 
 export const StyledContent = styled(TouchableBounce)`
-    width: ${slideWidth};
+    width: ${props=>(props.theme.getWidth() - 10)/4};
     padding: 0px;
     align-items: center;
     margin-top: 15px;

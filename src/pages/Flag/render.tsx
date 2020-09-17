@@ -3,10 +3,10 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import moment from 'moment';
 
-import {FLAG, ICARD, FBLIST} from '../../redux/reqKeys';
+import { FLAG, ICARD, FBLIST } from '../../redux/reqKeys';
 
 import {
   StyledContent,
@@ -19,19 +19,41 @@ import {
   StyledItemCover,
 } from './style';
 import LCList from '../../components/Base/LCList';
-import {isTablet} from 'react-native-device-info';
+import { isTablet, isLandscape } from 'react-native-device-info';
+import Orientation from 'react-native-orientation';
 
-const numColumns = isTablet() ? 2 : 1;
 
-export default class Flag extends PureComponent {
+
+export default class Flag extends PureComponent<any, { numColumns: number }> {
   openSmallTitle = false;
   constructor(props: Object) {
     super(props);
+    this.state = {
+      numColumns: 2
+    }
   }
 
   static propTypes = {};
 
   static defaultProps = {};
+
+
+
+  _orientationDidChange = (orientation: string) => {
+    if (orientation === 'LANDSCAPE') {
+      this.setState({ numColumns: 3 })
+    } else {
+      this.setState({ numColumns: 2 })
+    }
+  }
+
+  componentDidMount() {
+    isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
+  }
+
+  componentWillUnmount() {
+    isTablet() && Orientation.removeOrientationListener(this._orientationDidChange);
+  }
 
   _renderHeader = () => (
     <StyledHeader>
@@ -39,7 +61,7 @@ export default class Flag extends PureComponent {
     </StyledHeader>
   );
 
-  __renderItem = ({item, index}) => {
+  __renderItem = ({ item, index }) => {
     const {
       title,
       objectId,
@@ -49,7 +71,7 @@ export default class Flag extends PureComponent {
       rewardConfig,
       totalBonus,
     } = item;
-    const {color = 'white', dColor = 'white', position} = titleConfig;
+    const { color = 'white', dColor = 'white', position } = titleConfig;
 
     let discirb = '奖励:';
     if (reward === 'money') {
@@ -67,8 +89,8 @@ export default class Flag extends PureComponent {
           });
         }}>
         <StyledItemImage
-          numColumns={numColumns}
-          source={{uri: item.cover.url}}
+          numColumns={this.state.numColumns}
+          source={{ uri: item.cover.url }}
         />
         <StyledItemCover position={position}>
           <StyledItemTitle color={color}>{title}</StyledItemTitle>
@@ -100,32 +122,33 @@ export default class Flag extends PureComponent {
 
     return (
       <LCList
-        numColumns={numColumns}
+        numColumns={this.state.numColumns}
         onScroll={(event) => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {
             this.openSmallTitle = true;
-            this.props.navigation.setOptions({title: '副本任务'});
+            this.props.navigation.setOptions({ title: '副本任务' });
           }
           if (this.openSmallTitle && y < 35) {
             this.openSmallTitle = false;
-            this.props.navigation.setOptions({title: ''});
+            this.props.navigation.setOptions({ title: '' });
           }
         }}
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         // removeClippedSubviews={true}
         // pagingEnabled={true}
+        key={(this.state.numColumns === 2 ? 'h' : 'v')}
         sKey={FBLIST} // 在list 中的位置
         callPath={FBLIST} // 表示走云函数,并告知云函数的路径
         reqKey={FLAG}
         // dataMap={(data)=>{
         //   return {[OPENHISTORYLIST]:data.list}
         // }}
-        dataMap={(data) => ({results: data.result})}
+        dataMap={(data) => ({ results: data.result })}
         reqParam={param}
         renderItem={this.__renderItem}
         ListHeaderComponent={this._renderHeader}
-        // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
+      // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
       />
     );
   }
