@@ -60,7 +60,7 @@ export default class Configure extends React.Component<{}, StateType> {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     if (DeviceInfo.isTablet()) {
-      // Orientation.lockToLandscape();
+      // Orientation.lockToLandscape();      
       // Orientation.lockToPortrait();
     } else {
       Orientation.lockToPortrait();

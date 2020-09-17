@@ -4,7 +4,7 @@
  */
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 // import Button from '../../../components/Button'
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
@@ -33,7 +33,8 @@ const entryBorderRadius = 8;
 
 
 export const StyledContent = styled(TouchableBounce)`
-    width: ${props=>(props.theme.getWidth() - 10)/4};
+    /* width: ${props => (props.theme.getWidth() - 10) / 4}; */
+    flex:1;
     padding: 0px;
     align-items: center;
     margin-top: 15px;

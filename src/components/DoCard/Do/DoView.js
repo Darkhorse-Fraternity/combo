@@ -81,18 +81,17 @@ export default class DoView extends Component {
 }
 
 const {height} = Dimensions.get('window');
-const sHeight = Platform.OS === 'ios' ? height : height;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: Dimensions.get('window').width,
-    height: sHeight,
+    width: '100%',
+    height: height,
     // marginTop:Platform.OS === 'ios'?0:20
   },
   absolute: {
     ...StyleSheet.absoluteFillObject,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: '100%',
+    height: height,
   },
   do: {
     padding: 50,

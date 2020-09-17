@@ -323,8 +323,10 @@ export default class LoginView extends Component {
               style={{
                 flexDirection: 'row',
                 backgroundColor: '#f0f0f0',
-                width: Dimensions.get('window').width - 40,
+                // width: Dimensions.get('window').width - 40,
                 paddingHorizontal: 20,
+                marginHorizontal: 20,
+                maxWidth: 500
               }}>
               {this._renderRowMain(
                 '手机号:',
@@ -342,7 +344,9 @@ export default class LoginView extends Component {
               style={{
                 flexDirection: 'row',
                 backgroundColor: '#f0f0f0',
-                width: Dimensions.get('window').width - 40,
+                marginHorizontal: 20,
+                maxWidth: 500,
+                // width: Dimensions.get('window').width - 40,
                 paddingHorizontal: 20,
               }}>
               {this._renderRowMain(

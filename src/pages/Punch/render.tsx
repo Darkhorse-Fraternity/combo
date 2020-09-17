@@ -128,7 +128,7 @@ export default class Punch extends Component<any, StateType> {
 
   _orientationDidChange = (orientation) => {
     if (orientation === 'LANDSCAPE') {
-      this.setState({ numColumns: 7 })
+      this.setState({ numColumns: 7, })
       // do something with landscape layout
     } else {
       this.setState({ numColumns: 5 })
@@ -230,7 +230,7 @@ export default class Punch extends Component<any, StateType> {
 
       let sound = iCard.get('sound');
       sound = sound && sound.toJS && sound.toJS();
-
+      const { width, height } = Dimensions.get('window')
       return (
         <Item
           numColumns={this.state.numColumns}
@@ -239,6 +239,7 @@ export default class Punch extends Component<any, StateType> {
           soundsKey={sound?.item.key}
           key={index + iCard.get('title')}
           name={iconAndColor.name}
+          scWidth={this.state.numColumns === 7 ? Math.max(width, height) : Math.min(width, height)}
           color={iconAndColor.color}
           done={done}
           title={iCard.get('title')}

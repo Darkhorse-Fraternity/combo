@@ -141,7 +141,7 @@ export default class DoCardForm extends Component {
       editable={this.state.pickImageState === 'stop'}
       maxLength={50000}
       autoFocus
-      placeholder="想写点什么？"
+      placeholder="留些你的记录吧。。。"
       multiline
 
       // keyboardType={boardType}

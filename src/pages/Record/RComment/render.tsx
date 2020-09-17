@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,22 +17,22 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {BlurView} from '@react-native-community/blur';
+import { connect } from 'react-redux';
+import { BlurView } from '@react-native-community/blur';
 import {
   KeyboardAccessoryView,
   // KeyboardUtils
 } from 'react-native-keyboard-input';
 import moment from 'moment';
-import {formValueSelector} from 'redux-form/immutable';
-import {reset} from 'redux-form';
+import { formValueSelector } from 'redux-form/immutable';
+import { reset } from 'redux-form';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
 import RecordRow from '../RecordRow';
 // import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 import LCList from '../../../components/Base/LCList';
 
-import {ICOMMENT, IDO, IDOCALENDAR, IUSE} from '../../../redux/reqKeys';
+import { ICOMMENT, IDO, IDOCALENDAR, IUSE } from '../../../redux/reqKeys';
 import {
   add,
   remove,
@@ -40,11 +40,11 @@ import {
   updateByID,
   findByID,
 } from '../../../redux/module/leancloud';
-import {selfUser, iDo} from '../../../request/LCModle';
-import {add as listAdd, claerByID} from '../../../redux/actions/list';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
-import {reqChangeData} from '../../../redux/actions/req';
-import ChatSendForm, {FormID} from '../../../components/Form/ChatSendForm';
+import { selfUser, iDo } from '../../../request/LCModle';
+import { add as listAdd, claerByID } from '../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { reqChangeData } from '../../../redux/actions/req';
+import ChatSendForm, { FormID } from '../../../components/Form/ChatSendForm';
 import {
   StyledHeader,
   StyledContent,
@@ -65,7 +65,7 @@ import Avatar from '../../../components/Avatar/Avatar2';
 
 import Pop from '../../../components/Pop';
 import DoWithLoad from '../../../components/DoCard/Do/DoWithLoad';
-import {dataStorage, uploadImages} from '../../../redux/actions/util';
+import { dataStorage, uploadImages } from '../../../redux/actions/util';
 import KeyboardSpacer from '@components/KeyboardSpacer';
 
 const IsIOS = Platform.OS === 'ios';
@@ -88,7 +88,7 @@ const Name = 'text';
     send: () =>
       dispatch(async (dispatch, getState) => {
         const state = getState();
-        const {iDoID} = props.route.params;
+        const { iDoID } = props.route.params;
         let iDoData = state.normalizr.get(IDO).get(props.route.params.iDoID);
         iDoData = iDoData && iDoData.toJS();
 
@@ -132,13 +132,13 @@ const Name = 'text';
       }),
     iDoDelete: () => {
       Alert.alert('删除日记?', '删除后不可恢复', [
-        {text: '取消'},
+        { text: '取消' },
         {
           text: '确定',
           onPress: async () => {
-            const {iDoID, iUseId, iCardId} = props.route.params;
+            const { iDoID, iUseId, iCardId } = props.route.params;
             // console.log('iCardId:', iCardId);
-            const param = {state: -1};
+            const param = { state: -1 };
             const res = await dispatch(updateByID(IDO, iDoID, param));
             const entity = {
               ...param,
@@ -172,7 +172,7 @@ const Name = 'text';
               }
 
               const iUse = state.normalizr.get(IUSE).get(iUseId);
-              const paramiUSE = {time: iUse.get('time') - 1};
+              const paramiUSE = { time: iUse.get('time') - 1 };
               const before = moment(0, 'HH');
               const after = moment(24, 'HH');
 
@@ -196,7 +196,7 @@ const Name = 'text';
       ]);
     },
     delete: async (item) => {
-      const {iDoID} = props.route.params;
+      const { iDoID } = props.route.params;
       await dispatch(remove(item.objectId, ICOMMENT));
       dispatch(claerByID(ICOMMENT + iDoID, item.objectId));
     },
@@ -210,7 +210,7 @@ const Name = 'text';
         const user = state.user.data;
         let iDoData = state.normalizr.get(IDO).get(props.route.params.iDoID);
         iDoData = iDoData && iDoData.toJS();
-        const {iDoID} = props.route.params;
+        const { iDoID } = props.route.params;
         if (iDoData && iDoData.commentNew && iDoData.user === user.objectId) {
           const params = {
             commentNew: false,
@@ -227,12 +227,12 @@ const Name = 'text';
         }
       });
     },
-    reEdit: ({objectId, imgs, recordText}) => {
+    reEdit: ({ objectId, imgs, recordText }) => {
       // record, load, done, type, iUse
       dispatch(async (_, getState) => {
-        const imgObjects = imgs.map((item) => ({uri: item}));
+        const imgObjects = imgs.map((item) => ({ uri: item }));
         dispatch(
-          dataStorage(`DoCardForm${objectId}`, {recordText, imgs: imgObjects}),
+          dataStorage(`DoCardForm${objectId}`, { recordText, imgs: imgObjects }),
         );
         // const { iDoID } = props.rout.parames;
         Pop.show(
@@ -252,7 +252,7 @@ const Name = 'text';
                 // eslint-disable-next-line no-plusplus
                 for (let index = 0; index < imgs1.length; index++) {
                   const element = imgs1[index];
-                  const {uri} = element;
+                  const { uri } = element;
                   // eslint-disable-next-line no-empty
                   if (uri.startsWith('file://')) {
                     imagUploads.push(uri);
@@ -268,7 +268,7 @@ const Name = 'text';
 
                   imgLoadData.payload.forEach((item, index) => {
                     const imagIndex = imagIndexs[index];
-                    imgs1[imagIndex] = {uri: item.attributes.url};
+                    imgs1[imagIndex] = { uri: item.attributes.url };
                   });
                 }
               }
@@ -282,7 +282,7 @@ const Name = 'text';
             }}
           />,
           {
-            wrapStyle: {justifyContent: 'flex-start'},
+            wrapStyle: { justifyContent: 'flex-start' },
             maskStyle: {
               backgroundColor: 'transparent',
             },
@@ -337,7 +337,7 @@ export default class RComment extends PureComponent {
   }
 
   componentDidMount() {
-    const {iDoData, find, refresh} = this.props;
+    const { iDoData, find, refresh } = this.props;
     // const isSelf = user.objectId === iDoData.get('user');
     // navigation.setParams({ iDoDelete, iDoLoad, isSelf });
 
@@ -349,11 +349,11 @@ export default class RComment extends PureComponent {
     // InteractionManager.runAfterInteractions(async () => {
     //     this.setState({showIn:true})
     // })
-    this.props.navigation.setOptions({headerRight: this.renderRightView});
+    this.props.navigation.setOptions({ headerRight: this.renderRightView });
   }
 
   componentWillReceiveProps() {
-    this.props.navigation.setOptions({headerRight: this.renderRightView});
+    this.props.navigation.setOptions({ headerRight: this.renderRightView });
   }
 
   componentWillUnmount() {
@@ -361,7 +361,7 @@ export default class RComment extends PureComponent {
   }
 
   renderRightView = () => {
-    const {iDoLoad, iDoDelete, iDoData, user, reEdit} = this.props;
+    const { iDoLoad, iDoDelete, iDoData, user, reEdit } = this.props;
     const isSelf = user.objectId === iDoData.get('user');
 
     if (!isSelf) {
@@ -379,7 +379,7 @@ export default class RComment extends PureComponent {
           onPress={() => {
             reEdit(iDoData.toJS());
           }}
-          style={{paddingHorizontal: 10}}>
+          style={{ paddingHorizontal: 10 }}>
           <StyledIcon size={20} color="black" name="edit" />
         </Button>
         <Button
@@ -389,29 +389,29 @@ export default class RComment extends PureComponent {
             TouchableNativeFeedback.SelectableBackgroundBorderless()
           }
           onPress={iDoDelete}
-          style={{paddingHorizontal: 10}}>
+          style={{ paddingHorizontal: 10 }}>
           {iDoLoad ? (
             <ActivityIndicator />
           ) : (
-            <StyledIcon size={20} color="black" name="close" />
-          )}
+              <StyledIcon size={20} color="black" name="close" />
+            )}
         </Button>
       </StyledRightView>
     );
   };
 
   _renderHeader = () => {
-    let {iDoData} = this.props;
+    let { iDoData } = this.props;
     iDoData = iDoData && iDoData.toJS();
     return (
       <StyledHeader>{iDoData && <RecordRow item={iDoData} />}</StyledHeader>
     );
   };
 
-  onKeyboardResigned() {}
+  onKeyboardResigned() { }
 
   keyboardAccessoryViewContent() {
-    const {iDoID} = this.props.route.params;
+    const { iDoID } = this.props.route.params;
     const InnerContainerComponent = IsIOS && BlurView ? BlurView : View;
 
     return (
@@ -439,12 +439,12 @@ export default class RComment extends PureComponent {
     );
   }
 
-  renderRow({item}: Object): ReactElement<any> {
+  renderRow({ item }: Object): ReactElement<any> {
     const date = moment(item.createdAt).format('MM/DD HH:mm');
     return (
       <StyledRow
         onPress={async () => {
-          const {user} = this.props;
+          const { user } = this.props;
 
           // if (item.user.objectId === user.objectId) {
           //     showSelector(['删除', '复制'], (index) => {
@@ -462,15 +462,15 @@ export default class RComment extends PureComponent {
           //     })
           // }
 
-          const items = [{label: '复制', id: 'copy'}];
+          const items = [{ label: '复制', id: 'copy' }];
           if (item.user.objectId === user.objectId) {
-            items.push({label: '删除', id: 'delete'});
+            items.push({ label: '删除', id: 'delete' });
           }
-          const {selectedItem} = await Dialog.showPicker('请选择', null, {
+          const { selectedItem } = await Dialog.showPicker('请选择', null, {
             items,
           });
           if (selectedItem) {
-            const {id} = selectedItem;
+            const { id } = selectedItem;
             // console.log('You selected item:', selectedItem);
             this.props[id] && this.props[id](item);
           }
@@ -495,9 +495,9 @@ export default class RComment extends PureComponent {
   }
 
   render(): ReactElement<any> {
-    const {navigation, route} = this.props;
-    const {goBack} = navigation;
-    const {iDoID} = route.params;
+    const { navigation, route } = this.props;
+    const { goBack } = navigation;
+    const { iDoID } = route.params;
 
     const params = {
       where: {
@@ -541,7 +541,7 @@ export default class RComment extends PureComponent {
 }
 
 const styles = StyleSheet.create({
-  safeAreaView: {flex: 1},
+  safeAreaView: { flex: 1 },
   blurContainer: {
     // ...Platform.select({
     //   ios: {

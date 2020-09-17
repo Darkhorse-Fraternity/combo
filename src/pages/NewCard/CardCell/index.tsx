@@ -33,12 +33,12 @@ export default class CardCell extends PureComponent {
   static defaultProps = {};
 
 
-  render(): ReactElement<any> {
+  render() {
     const {
       title,
       onPress,
       name,
-      color,
+      color
     } = this.props;
 
 

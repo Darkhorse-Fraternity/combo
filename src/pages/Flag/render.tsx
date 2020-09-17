@@ -29,7 +29,7 @@ export default class Flag extends PureComponent<any, { numColumns: number }> {
   constructor(props: Object) {
     super(props);
     this.state = {
-      numColumns: 2
+      numColumns: isLandscape() ? 3 : 2
     }
   }
 

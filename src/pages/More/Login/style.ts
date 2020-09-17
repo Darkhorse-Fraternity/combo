@@ -48,6 +48,8 @@ export const ThirdPartyInnerLoginView = styled.View`
   margin: 20px 0px;
   padding: 0px 20px;
   width:100%;
+  max-width:700px;
+  align-self: center;
   align-items:center;
   justify-content: space-between;
   

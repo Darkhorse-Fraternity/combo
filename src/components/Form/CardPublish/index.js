@@ -234,7 +234,7 @@ export default class CardPublishForm extends Component {
     ];
   };
 
-  render(): ReactElement<any> {
+  render() {
     const {
       handleSubmit,
       onSubmit,

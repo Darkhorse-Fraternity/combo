@@ -36,11 +36,13 @@ interface PunchItemProps {
   openSound?: boolean;
   onPress: (flip: boolean, flipBack: () => void) => void;
   numColumns: number;
+  scWidth: number;
 }
 
 interface PunchItemState {
   flip: boolean;
   isLandscape: boolean
+
 }
 
 export default class PunchItem extends PureComponent<
@@ -58,24 +60,17 @@ export default class PunchItem extends PureComponent<
     }
     this.state = {
       flip: props.done,
-      isLandscape: isLandscapeSync()
+      isLandscape: isLandscapeSync(),
     };
   }
 
   sound?: Sounds;
-  static propTypes = {
-    title: PropTypes.string,
-    done: PropTypes.bool,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    showFB: PropTypes.bool,
-  };
-
   static defaultProps = {
     done: false,
     name: 'sun',
     color: '#afd2ef',
     showFB: false,
+    scWidth: Dimensions.get('window').width
   };
 
   flipDo = () => {
@@ -100,9 +95,22 @@ export default class PunchItem extends PureComponent<
     this.debounceFlip();
   }
 
+
+  componentDidMount() {
+    // this.props.search();
+    // this.props.fbSearch();
+    // this.props.getiUse();
+    // const loadStatu = this.props.data.get('loadStatu');
+    // loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
+    // this.props.exist()
+    // console.log('this.refs.list:', this.refs.list.scrollToOffset);
+  }
+
+
   componentWillUnmount() {
     this.sound?.release();
   }
+
 
   render() {
     const {
@@ -123,13 +131,20 @@ export default class PunchItem extends PureComponent<
     const right = isTablet() ? 15 : 10;
 
 
-    const { width, height } = Dimensions.get('window');
-    const minWidth = isLandscapeSync() ? Math.max(width, height) : Math.min(width, height);
-
+    // const { width, height } = Dimensions.get('window');
+    const minWidth = this.props.scWidth || 0;
+    // console.log('height', height);
+    // console.log('width', width);
+    console.log('minWidth', minWidth);
 
     const itemWidth =
       (minWidth - 40 - right * (this.props.numColumns - 1)) /
       this.props.numColumns;
+
+
+
+
+
     const iconWidth = itemWidth / 2; // 4.0.8
     return (
       <StyledButton
