@@ -69,6 +69,9 @@ export const StyledIconView = styled.View`
   width: 60px;
   height: 60px;
   border-radius: 30px;
+  /* border-width:${({theme})=>theme.hairlineWidth};
+  border-color:black; */
+
 `;
 
 export const StyledIconText = styled.Text`

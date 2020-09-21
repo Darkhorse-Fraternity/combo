@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -12,19 +12,19 @@ import {
   Alert,
   DeviceEventEmitter,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import LCList from '../../../components/Base/LCList';
-import {Privacy} from '../../../configure/enum';
+import { Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
-import {IDO, IUSE} from '../../../redux/reqKeys';
-import {recordDiary} from '../../../components/DoCard/Do/Diary';
+import { IDO, IUSE } from '../../../redux/reqKeys';
+import { recordDiary } from '../../../components/DoCard/Do/Diary';
 import ShareView from '../../../components/Share/ShareView';
 import Pop from '../../../components/Pop';
 import Dialog from '../../../components/Dialog';
-import {classUpdate} from '../../../request/leanCloud';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
-import {req} from '../../../redux/actions/req';
+import { classUpdate } from '../../../request/leanCloud';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { req } from '../../../redux/actions/req';
 
 import {
   StyledHeader,
@@ -37,9 +37,9 @@ import {
   StyledNativeUnifiedADView,
 } from './style';
 
-import {iCard} from '../../../request/LCModle';
-import {loadWithObjectInfo} from '@components/GDTNativeUnifiedAD';
-import {GTDAppId, GTDUnifiedNativeplacementId} from '@configure/tencent_ad';
+import { iCard } from '../../../request/LCModle';
+import { loadWithObjectInfo } from '@components/GDTNativeUnifiedAD';
+import { GTDAppId, GTDUnifiedNativeplacementId } from '@configure/tencent_ad';
 
 const listKey = IDO;
 
@@ -66,14 +66,14 @@ const listKey = IDO;
     pickPrivacy: async (iUse, isSelf) => {
       const items = isSelf
         ? [
-            {label: '不对外开放', id: '0'},
-            {label: '对外开放', id: '2'},
-          ]
+          { label: '不对外开放', id: '0' },
+          { label: '对外开放', id: '2' },
+        ]
         : [
-            {label: '不对外开放', id: '0'},
-            {label: '仅对卡片拥有者开放', id: '1'},
-            {label: '对外开放', id: '2'},
-          ];
+          { label: '不对外开放', id: '0' },
+          { label: '仅对卡片拥有者开放', id: '1' },
+          { label: '对外开放', id: '2' },
+        ];
 
       const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy;
 
@@ -105,7 +105,7 @@ export default class Circle extends PureComponent<any, any> {
     })
       .then((count) => {
         console.log('count', count);
-        this.setState({count: count});
+        this.setState({ count: count });
       })
       .catch((e) => {
         console.log('e', e.message);
@@ -122,14 +122,14 @@ export default class Circle extends PureComponent<any, any> {
   __renderHeader = () => {
     const iCard = this.props.iCard.toJS();
     const iUse = this.props.iUse.toJS();
-    const {user} = this.props;
+    const { user } = this.props;
     return (
       <StyledHeader>
         {/* <StyledTitleText> */}
         {/* 圈子日记 */}
         {/* </StyledTitleText> */}
         <StyledHeaderButton
-          style={{marginLeft: 0}}
+          style={{ marginLeft: 0 }}
           hitSlop={{
             top: 5,
             left: 10,
@@ -154,9 +154,9 @@ export default class Circle extends PureComponent<any, any> {
             const userId = user.objectId;
             const beUserId = iCard.user;
             const isSelf = userId === beUserId;
-            const {selectedItem} = await this.props.pickPrivacy(iUse, isSelf);
+            const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf);
             if (selectedItem) {
-              const {id} = selectedItem;
+              const { id } = selectedItem;
               iUse.privacy !== Number(id) &&
                 this.props.updatePrivacy(iUse, Number(id));
             }
@@ -233,13 +233,13 @@ export default class Circle extends PureComponent<any, any> {
     );
   };
 
-  renderRow({item, index}: Object) {
-    const showAd = index % 8 === 2;
+  renderRow({ item, index }: Object) {
+    const showAd = index % 15 === 14;
     return (
       <>
         <StyledRow
           onPress={() => {
-            this.props.navigation.navigate('rcomment', {iDoID: item.objectId});
+            this.props.navigation.navigate('rcomment', { iDoID: item.objectId });
           }}>
           <Header
             userId={item.user}
@@ -270,8 +270,8 @@ export default class Circle extends PureComponent<any, any> {
     const param = {
       where: {
         ...iCard(iCardId),
-        $or: [{imgs: {$exists: true}}, {recordText: {$exists: true}}],
-        state: {$ne: -1}, // -1 为已删除
+        $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+        state: { $ne: -1 }, // -1 为已删除
         // "iUse": {
         //   "$inQuery":
         //     {
@@ -301,7 +301,7 @@ export default class Circle extends PureComponent<any, any> {
           const results = data.results.filter(
             (item) => item.iUse.privacy >= privacy,
           );
-          return {results};
+          return { results };
         }}
         reqParam={param}
       />

@@ -392,9 +392,13 @@ export default class LoginView extends Component {
           />
         </Animatable.View>
         <ThirdPartyInnerLoginView>
-          {!!this.state.isWXAppInstalled && <SigninBtn name={'weixin'} onPress={this.props.wxLogin} loading={thirdLoaded === WECHATLOGIN} />}
+          {!!this.state.isWXAppInstalled && <SigninBtn
+            name={'weixin'}
+            color={'#1AAD19'}
+            onPress={this.props.wxLogin}
+            loading={thirdLoaded === WECHATLOGIN} />}
           {Platform.OS === 'ios' && appleAuth.isSupported && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
-          <SigninBtn name={'qq'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
+          <SigninBtn name={'qq'} color={'#0188fb'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
         </ThirdPartyInnerLoginView>
       </StyledContent>
     );

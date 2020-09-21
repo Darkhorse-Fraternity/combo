@@ -43,7 +43,7 @@ export const StyledItemCover = styled.View<{position: string}>`
   position: absolute;
   elevation: 6;
   padding: 20px;
-  top: ${(props) => (props.position === 'top' ? 20 : 140)}px;
+  ${(props) =>props.position}: ${(props) => (props.position === 'top' ? 20 : 5)}px;
 `;
 
 export const StyledItemTitle = styled.Text<{color: string}>`
