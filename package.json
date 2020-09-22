@@ -30,6 +30,8 @@
     "@react-navigation/bottom-tabs": "^5.4.7",
     "@react-navigation/native": "^5.4.0",
     "@react-navigation/stack": "^5.3.9",
+    "ahooks": "^2.6.1",
+    "axios": "^0.20.0",
     "i18n-js": "^3.5.1",
     "immutable": "3.8.2",
     "leancloud-storage": "^4.6.1",
@@ -103,7 +105,6 @@
     "uuid": "3.2.1",
     "validator": "10.5.0",
     "wurl": "2.5.3",
-    "yapi-to-typescript": "^3.2.0",
     "yup": "^0.28.0"
   },
   "devDependencies": {
@@ -147,7 +148,8 @@
     "prettier-eslint": "10.1.0",
     "prettier-eslint-cli": "5.0.0",
     "react-test-renderer": "^16.13.1",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "yapi-to-typescript": "^3.6.0"
   },
   "jest": {
     "preset": "react-native",
