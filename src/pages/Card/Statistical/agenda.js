@@ -108,7 +108,7 @@ export default class AgendaScreen extends Component {
 
 
   refresh = () => {
-    this.refs.calendar && this.refs.calendar.move();
+    this.calendar && this.calendar.move();
   }
 
   render() {
@@ -122,7 +122,7 @@ export default class AgendaScreen extends Component {
     return (
       <Calendar
         color={this.props.color}
-        ref="calendar"
+        ref={ref=> this.calendar= ref}
         date={new Date()}
         load={load}
         fetchData={onPress}

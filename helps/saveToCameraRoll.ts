@@ -6,7 +6,7 @@ import {strings} from '../locales/i18n';
 // const RNFS = require('react-native-fs'); //文件处理
 import RNFS from 'react-native-fs';
 
-export const saveToCameraRoll = async (url) => {
+export const saveToCameraRoll = async (url:string) => {
   try {
     if (Platform.OS !== 'ios') {
       const storeLocation = `${RNFS.DocumentDirectoryPath}`;

@@ -12,7 +12,6 @@
 		77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */; };
 		77A60D1A2318BB5100D48BEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D192318BB5100D48BEF /* SystemConfiguration.framework */; };
 		77A60D1C2318BB6700D48BEF /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D1B2318BB6700D48BEF /* libsqlite3.0.tbd */; };
-		A3F144A730A9F8759D3F1703 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
 		CC09E6AF2120566300327D96 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC09E6AE2120566300327D96 /* CoreGraphics.framework */; };
 		CC09E6B12120567600327D96 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC09E6B02120567600327D96 /* CFNetwork.framework */; };
@@ -185,7 +184,6 @@
 				CCCE41962064A0F000F282E3 /* libsqlite3.tbd in Frameworks */,
 				CCCE41972064A0F000F282E3 /* libiconv.tbd in Frameworks */,
 				AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */,
-				A3F144A730A9F8759D3F1703 /* libPods-Combo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +447,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 940;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -801,7 +799,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = ComboTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";
@@ -822,7 +820,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ComboTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";
@@ -856,6 +854,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -930,6 +929,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -996,6 +996,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1132,7 +1133,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ComboTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-lc++";

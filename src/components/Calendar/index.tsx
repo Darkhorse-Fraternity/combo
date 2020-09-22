@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   View,
   StyleSheet,
@@ -16,13 +16,13 @@ import {
   NativeScrollEvent,
   FC,
 } from 'react-native';
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard from './DateBoard';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 export default class Calendar extends Component {
   constructor(props: Object) {
@@ -70,8 +70,8 @@ export default class Calendar extends Component {
         ? 1
         : 0
       : year % 4 === 0
-      ? 1
-      : 0;
+        ? 1
+        : 0;
   }
 
   selectDay(d) {
@@ -95,7 +95,7 @@ export default class Calendar extends Component {
         this.prev();
       } else {
       }
-      this.refs.trueScroll.scrollTo({x: width, y: 0, animated: false});
+      this.refs.trueScroll.scrollTo({ x: width, y: 0, animated: false });
     } else {
       // console.log('event', event);
       const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
@@ -184,7 +184,7 @@ export default class Calendar extends Component {
     }
   }
 
-  fetchData() {}
+  fetchData() { }
 
   goTo = direction => {
     const that = this;
@@ -241,7 +241,7 @@ export default class Calendar extends Component {
       return (
         <ScrollView
           horizontal
-          contentOffset={{x: width, y: 0}}
+          contentOffset={{ x: width, y: 0 }}
           bounces={false}
           onMomentumScrollEnd={event => this.myScroll(event)}
           ref="trueScroll"
@@ -253,7 +253,7 @@ export default class Calendar extends Component {
     }
     return (
       <ViewPagerAndroid
-        style={{height: 250, width}}
+        style={{ height: 250, width }}
         initialPage={1}
         onPageSelected={event => this.myScroll(event)}
         ref="trueViewPager">
@@ -281,24 +281,25 @@ export default class Calendar extends Component {
     ];
     const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
+    console.log('this.syaye', this.state);
+
     return (
       <View style={[this.props.style]}>
         <View style={styles.dayTitle}>
-          <View style={styles.dayTimeTouch}>
-            {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
-            {/* <View style={styles.leftBtn}/> */}
-            {/* </TouchableOpacity> */}
-            <Text style={styles.t1}>
-              {`${month[this.state.month]}月` + ` ${this.state.year}`}
-            </Text>
-            <ActivityIndicator
-              style={{marginLeft: 10}}
-              animating={this.props.load}
-            />
-            {/* <TouchableOpacity onPress={()=>this.goTo('right')}> */}
-            {/* <View style={styles.rightBtn}/> */}
-            {/* </TouchableOpacity> */}
-          </View>
+          {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
+          {/* <View style={styles.leftBtn}/> */}
+          {/* </TouchableOpacity> */}
+          <Text style={styles.t1}>
+            {`${this.state.year} ${month[this.state.month]}月  `}
+          </Text>
+          <ActivityIndicator
+            style={{ marginLeft: 0 }}
+            color={'gray'}
+            animating={this.props.load}
+          />
+          {/* <TouchableOpacity onPress={()=>this.goTo('right')}> */}
+          {/* <View style={styles.rightBtn}/> */}
+          {/* </TouchableOpacity> */}
         </View>
         <View style={styles.dateTitle}>
           {dateTitle.map(title => (
@@ -316,6 +317,7 @@ export default class Calendar extends Component {
 const styles = StyleSheet.create({
   dayTitle: {
     height: 40,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -341,7 +343,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{rotate: '135deg'}],
+    transform: [{ rotate: '135deg' }],
     width: 10,
     height: 10,
     marginHorizontal: 40,
@@ -351,7 +353,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{rotate: '315deg'}],
+    transform: [{ rotate: '315deg' }],
     width: 10,
     height: 10,
     marginHorizontal: 40,

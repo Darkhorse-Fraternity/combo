@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -19,10 +19,11 @@ import {
   BackHandler,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import {strings} from '../../../locales/i18n';
-import {saveToCameraRoll} from '../../../helps/saveToCameraRoll';
+import { strings } from '../../../locales/i18n';
+import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 import Modal from 'react-native-modal';
 import Button from '../Button';
+import { isIPhoneX } from '@components/Nav/bar';
 
 export default class ImagesViewModals extends Component {
   static propTypes = {
@@ -64,7 +65,7 @@ export default class ImagesViewModals extends Component {
         // this.setState({ visible: false })
         console.log('1111');
 
-        const {closeCallBack} = this.props;
+        const { closeCallBack } = this.props;
         closeCallBack && closeCallBack();
       }}>
       <Image
@@ -81,7 +82,7 @@ export default class ImagesViewModals extends Component {
   }
 
   render() {
-    const {imageUrls, visible, closeCallBack, index} = this.props;
+    const { imageUrls, visible, closeCallBack, index } = this.props;
 
     // console.log('test:', imageUrls);
     return (
@@ -100,6 +101,7 @@ export default class ImagesViewModals extends Component {
         onBackButtonPress={() => {
           closeCallBack && closeCallBack();
         }}
+        useNativeDriver
         isVisible={visible}>
         {Platform.OS !== 'ios' && (
           <StatusBar
@@ -154,9 +156,10 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     left: 0,
-    top: 0,
+    top: isIPhoneX ? 15 : 0,
     zIndex: 10000,
     paddingTop: 10,
+    maxWidth: 50,
   },
   pageStyle: {
     alignItems: 'center',
