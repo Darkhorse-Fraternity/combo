@@ -3,19 +3,19 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
-import {Provider} from 'react-redux';
-import {ThemeProvider} from 'styled-components';
+import React, { PureComponent } from 'react';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import SplashScreen from 'react-native-splash-screen';
 import codePush from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
 
-import {creatStore} from './redux/store';
-import {theme} from './Theme';
+import { creatStore } from './redux/store';
+import { theme } from './Theme';
 import Configure from './configure';
-import {SwitchNavigator} from '@pages/index';
-import {NavigationContainer} from '@react-navigation/native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import { SwitchNavigator } from '@pages/index';
+import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 // import {route} from './pages'
 // const AppNavigator = creatAppNavigator();
 require('../helps/AnimatableRegist');

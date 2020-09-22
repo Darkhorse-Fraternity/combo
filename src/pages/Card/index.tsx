@@ -1,11 +1,11 @@
 import React from 'react';
 import Render from './render';
-import {RouteKey, NavigationOptionsType} from '@pages/interface';
+import { RouteKey, NavigationOptionsType } from '@pages/interface';
 
-const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
+const navigationOptions: NavigationOptionsType<RouteKey.card> = props => {
   return {
     title: '',
   };
 };
 
-export default {component: Render, options: navigationOptions};
+export default { component: Render, options: navigationOptions };

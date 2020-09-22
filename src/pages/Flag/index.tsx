@@ -1,12 +1,11 @@
 import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
-import { View } from 'react-native-animatable';
-import { useGetFb, useGetFbId } from 'src/hooks/interface';
 
-const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
+
+const navigationOptions: NavigationOptionsType<RouteKey.flag> = props => {
   return {
-    title: '',
+    title: ''
   };
 };
 

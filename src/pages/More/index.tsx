@@ -1,8 +1,8 @@
 import React from 'react';
 import Render from './render';
-import {RouteKey, NavigationOptionsType} from '@pages/interface';
+import { RouteKey, NavigationOptionsType } from '@pages/interface';
 
-const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
+const navigationOptions: NavigationOptionsType<RouteKey.more> = props => {
   return {
     title: '',
     gestureEnabled: false,
@@ -10,4 +10,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
   };
 };
 
-export default {component: Render, options: navigationOptions};
+export default { component: Render, options: navigationOptions };

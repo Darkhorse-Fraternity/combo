@@ -21,7 +21,7 @@ export const saveToCameraRoll = async (url) => {
         if (res && res.statusCode === 200) {
           const granted = await requestExternalStoragePermission();
           if (granted) {
-            await CameraRoll.saveToCameraRoll('file://' + downloadDest);
+            await CameraRoll.save('file://' + downloadDest);
             Toast.showWithGravity(
               strings('save.save_success'),
               Toast.SHORT,
@@ -31,7 +31,7 @@ export const saveToCameraRoll = async (url) => {
         }
       });
     } else {
-      await CameraRoll.saveToCameraRoll(url);
+      await CameraRoll.save(url);
       Toast.showWithGravity(
         strings('save.save_success'),
         Toast.SHORT,

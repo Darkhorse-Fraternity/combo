@@ -1,16 +1,15 @@
 import React from 'react';
-import {View, Button, Text, InteractionManager, Platform} from 'react-native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 // import * as Animatable from 'react-native-animatable';
-import {strings} from '../../locales/i18n';
-import {RootStackParamList, StackPropsType, RouteKey} from './interface';
-import {habitRoute, settingRoute, punchRoute, flagRoute} from './route';
+import { strings } from '../../locales/i18n';
+import { RootStackParamList, StackPropsType, RouteKey } from './interface';
+import { habitRoute, settingRoute, punchRoute, flagRoute } from './route';
 import {
   defaultNavigationOptions,
   tabsOptions,
@@ -19,7 +18,7 @@ import {
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
-  const {initialRouteName, route} = props;
+  const { initialRouteName, route } = props;
 
   const Stack = createStackNavigator<RootStackParamList>();
   const keys = Object.keys(route) as (keyof RootStackParamList)[];
@@ -94,16 +93,16 @@ const names = [
   strings('tabs.more'),
 ];
 
-const options = ({route}: {route: any}) => {
-  return {tabBarVisible: route.state ? route.state.index === 0 : true};
+const options = ({ route }: { route: any }) => {
+  return { tabBarVisible: route.state ? route.state.index === 0 : true };
 };
 
 export default function App() {
   return (
     <Tab.Navigator
-      screenOptions={({route, navigation}) => ({
-        tabBarIcon: ({focused, color}) => {
-          const {iconName, Icon, size} = tabsOptions[route.name];
+      screenOptions={({ route, navigation }) => ({
+        tabBarIcon: ({ focused, color }) => {
+          const { iconName, Icon, size } = tabsOptions[route.name];
           return <Icon name={iconName} size={size} color={color} />;
         },
         tabBarButton: props => <TouchableBounce {...props} />,
