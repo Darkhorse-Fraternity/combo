@@ -15,10 +15,9 @@ import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import md5 from 'react-native-md5';
 import {user} from '../../request/LCModle';
-import {updatePush, leancloud_installationId} from '../../configure/push/push';
+import {updatePush} from '../../configure/push/push';
 import {setLeanCloudSession} from '../../configure/reqConfigs';
-import {batch} from '../module/leancloud';
-import {get, req} from './req';
+import {get} from './req';
 import {loadAccount} from '../../configure/storage';
 import appleAuth, {
   AppleButton,

@@ -9,12 +9,13 @@ import {
   View,
   StyleSheet,
   Text,
-  LayoutAnimation
+  LayoutAnimation,
+  Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form/immutable';
-import {} from './style';
+import { StyleNoticeText } from './style';
 import { Map } from 'immutable';
 import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -35,6 +36,9 @@ import {
   StyledLine
 } from './style';
 import { Multiple } from '../../../components/Form/Select/index';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { localRemindConfig } from '@configure/app';
 
 
 function PrefixInteger(num, length) {
@@ -111,7 +115,7 @@ export default class NotifyTimePicker extends PureComponent {
           <Animatable.View
             useNativeDriver
             easing="ease-in-out"
-                   // animation="bounceIn"
+            // animation="bounceIn"
             ref={ref => this.handleViewRef[index] = ref}
           >
             <StyledNotifyButton
@@ -134,7 +138,7 @@ export default class NotifyTimePicker extends PureComponent {
                   if (position === -1) {
                     await props.input.onChange(time);
                     self.handleViewRef[index]
-                           && self.handleViewRef[index].bounceIn();
+                      && self.handleViewRef[index].bounceIn();
                   } else if (position !== index) {
                     this.timer && clearTimeout(this.timer);
                     this.timer = setTimeout(() => {
@@ -200,16 +204,16 @@ export default class NotifyTimePicker extends PureComponent {
             选择提醒时间
           </StyledSubTitle>
           {options.size > 0 && (
-          <StyledControl
-            onPress={() => {
-              this.setState({ isDelete: !this.state.isDelete });
-              LayoutAnimation.spring();
-            }}
-          >
-            <StyledShowDelete>
-              {!this.state.isDelete ? '删除' : '取消删除'}
-            </StyledShowDelete>
-          </StyledControl>
+            <StyledControl
+              onPress={() => {
+                this.setState({ isDelete: !this.state.isDelete });
+                LayoutAnimation.spring();
+              }}
+            >
+              <StyledShowDelete>
+                {!this.state.isDelete ? '删除' : '取消删除'}
+              </StyledShowDelete>
+            </StyledControl>
           )}
         </StyledSubTitleView>
         <StyledInner>
@@ -230,7 +234,29 @@ export default class NotifyTimePicker extends PureComponent {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
+        <NoticeTip />
       </View>
     );
   }
+}
+
+const NoticeTip = () => {
+
+  const { navigate } = useNavigation()
+
+  // const ids = await storage.getIdsForKey('localRemind');
+  // const values = await storage.getBatchDataWithIds({
+  //   key: 'localRemind',
+  //   ids,
+  // });
+  localRemindConfig().then(res => {
+    console.log('res', res);
+
+  })
+
+  return (<TouchableOpacity onPress={() => {
+    navigate('remind')
+  }}>
+    <StyleNoticeText> 点击开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒权限! </StyleNoticeText>
+  </TouchableOpacity>)
 }

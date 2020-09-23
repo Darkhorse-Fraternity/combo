@@ -3,17 +3,17 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {View, InteractionManager, Platform, FlatList} from 'react-native';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { View, InteractionManager, Platform, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
+import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
-import {ICARD, IUSE} from '../../../redux/reqKeys';
+import { ICARD, IUSE } from '../../../redux/reqKeys';
 import svgs from '../../../../source/icons';
 import AppleStyleSwipeableRow from '../../../components/Swipeable';
 
@@ -39,13 +39,13 @@ import {
   StyledIconImage,
   StyledAntDesign,
 } from './style';
-import {localRemind} from '../../../redux/actions/util';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
-import {update} from '../../../redux/module/leancloud';
-import {shadeBlend} from '../../../../helps/util';
+import { localRemind } from '../../../redux/actions/util';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { update } from '../../../redux/module/leancloud';
+import { shadeBlend } from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
-import {NoticeTip} from './render';
-import {storage} from '@configure/storage';
+import { NoticeTip } from './render';
+import { storage } from '@configure/storage';
 
 const interactionManagerDelay = () =>
   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
@@ -123,7 +123,7 @@ function PrefixInteger(num, length) {
           if (index > -1) {
             iCard.notifyTimes.splice(index, 1);
           }
-          const {notifyTimes} = iCard;
+          const { notifyTimes } = iCard;
 
           const param = {
             notifyTimes,
@@ -179,13 +179,13 @@ export default class Remind extends Component {
     const propsColor =
       Platform.OS === 'ios'
         ? {
-            trackColor: {false: '#39ba98', true: '#39ba98'},
-          }
+          trackColor: { false: '#39ba98', true: '#39ba98' },
+        }
         : {
-            thumbColor: value ? '#f6d971' : '#f6f7f9',
-            // trackColor:{true: '#f6f7f9'},
-            trackColor: {true: shadeBlend(0.5, '#f6d971')},
-          };
+          thumbColor: value ? '#f6d971' : '#f6f7f9',
+          // trackColor:{true: '#f6f7f9'},
+          trackColor: { true: shadeBlend(0.5, '#f6d971') },
+        };
 
     return (
       <>
@@ -205,7 +205,7 @@ export default class Remind extends Component {
             }}
           />
         </StyledSubTitle>
-        {data.length > 0 && <StyledLine style={{height: 15, marginLeft: 35}} />}
+        {data.length > 0 && <StyledLine style={{ height: 15, marginLeft: 35 }} />}
       </>
     );
   };
@@ -219,8 +219,8 @@ export default class Remind extends Component {
 
   _deleteRow = async (item, index) => {
     const handleView = this.handleViewRef[`habit${index}`];
-    const {iCard, notifyTime} = item;
-    const {selfUser, deleteRow} = this.props;
+    const { iCard, notifyTime } = item;
+    const { selfUser, deleteRow } = this.props;
 
     if (iCard.user === selfUser.objectId) {
       await deleteRow(notifyTime, iCard, handleView);
@@ -233,28 +233,28 @@ export default class Remind extends Component {
 
   swipeRefs = {};
 
-  _renderRow = ({item, index}) => {
+  _renderRow = ({ item, index }) => {
     // console.log('test:', item);
-    const {iCard, notifyTime, objectId} = item;
+    const { iCard, notifyTime, objectId } = item;
 
-    const {localRemindData} = this.props;
+    const { localRemindData } = this.props;
     // const value =  await  storage.load({
     //    key: "localRemind",
     //    id:item.objectId+item.notifyTime,
     //  }
     const id = objectId + notifyTime;
     let value = localRemindData.get(id) ?? true;
-    const {iconAndColor, title, recordDay} = iCard;
-    const {color, name} = iconAndColor || {name: 'sun', color: '#b0d2ee'};
+    const { iconAndColor, title, recordDay } = iCard;
+    const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' };
     const propsColor =
       Platform.OS === 'ios'
         ? {
-            trackColor: {false: color, true: color},
-          }
+          trackColor: { false: color, true: color },
+        }
         : {
-            thumbColor: value ? color : '#f6f7f9',
-            trackColor: {true: shadeBlend(0.75, color)},
-          };
+          thumbColor: value ? color : '#f6f7f9',
+          trackColor: { true: shadeBlend(0.75, color) },
+        };
 
     return (
       <AnimationRow
@@ -266,7 +266,7 @@ export default class Remind extends Component {
           }}
           backgroundColor="white"
           onSwipeableWillOpen={() => {
-            const {openIndex} = this.state;
+            const { openIndex } = this.state;
             if (index === openIndex) {
               return;
             }
@@ -274,13 +274,13 @@ export default class Remind extends Component {
               const swipeRef = this.swipeRefs[`swipe${openIndex}`];
               swipeRef && swipeRef.close();
             }
-            this.setState({openIndex: index});
+            this.setState({ openIndex: index });
           }}
           onSwipeableWillClose={() => {
             // rowId === this.state.openIndex &&
             console.log('test:', '111');
             if (index === this.state.openIndex) {
-              this.setState({openIndex: -1});
+              this.setState({ openIndex: -1 });
             }
           }}
           right={[
@@ -303,7 +303,7 @@ export default class Remind extends Component {
             }}
             activeOpacity={1}
             onPress={() => {
-              const {selfUser} = this.props;
+              const { selfUser } = this.props;
               if (iCard.user === selfUser.objectId) {
                 this.setState({
                   isDateTimePickerVisible: true,
@@ -349,7 +349,7 @@ export default class Remind extends Component {
   };
 
   _handleDatePicked = async (date) => {
-    this.setState({isDateTimePickerVisible: false});
+    this.setState({ isDateTimePickerVisible: false });
 
     // await interactionManagerDelay()
     // InteractionManager.runAfterInteractions( () => {
@@ -357,9 +357,9 @@ export default class Remind extends Component {
     const hours = PrefixInteger(date.getHours(), 2);
     const minutes = PrefixInteger(date.getMinutes(), 2);
     const time = `${hours}:${minutes}`;
-    const {selectItem} = this.state;
-    const {selfUser, refresh} = this.props;
-    const {iCard, notifyTime} = selectItem;
+    const { selectItem } = this.state;
+    const { selfUser, refresh } = this.props;
+    const { iCard, notifyTime } = selectItem;
     if (iCard.user === selfUser.objectId) {
       const index = iCard.notifyTimes.indexOf(notifyTime);
       if (index > -1) {
@@ -378,11 +378,11 @@ export default class Remind extends Component {
   };
 
   _hideDateTimePicker = () => {
-    this.setState({isDateTimePickerVisible: false});
+    this.setState({ isDateTimePickerVisible: false });
   };
 
   render(): ReactElement<any> {
-    let {data, iUseList, iCardList, localRemindData} = this.props;
+    let { data, iUseList, iCardList, localRemindData } = this.props;
 
     const id = 'all';
     //当为ios 时 默认打开
@@ -397,18 +397,18 @@ export default class Remind extends Component {
 
       data.forEach((item) => {
         const iUse = iUseList.get(item).toJS();
-        const {statu} = iUse;
+        const { statu } = iUse;
         if (statu === 'start') {
           const iCard = iCardList.get(iUse.iCard).toJS();
 
           iUse.iCard = iCard;
 
-          const {notifyTimes} = iCard;
+          const { notifyTimes } = iCard;
           // if(iUse.)
 
           notifyTimes &&
             notifyTimes.forEach((notifyTime) => {
-              const newUse = {...iUse};
+              const newUse = { ...iUse };
               newUse.notifyTime = notifyTime;
               newData.push(newUse);
             });

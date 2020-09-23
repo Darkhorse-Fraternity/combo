@@ -3,14 +3,14 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet, ScrollView} from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {TextInput} from '../../../../components/Form/Cunstom/index';
-import {Radio, Multiple} from '../../../../components/Form/Select/index';
-import {mainColor} from '../../../../Theme/index';
-import {Field, formValues} from 'redux-form/immutable';
+import { TextInput } from '../../../../components/Form/Cunstom/index';
+import { Radio, Multiple } from '../../../../components/Form/Select/index';
+import { mainColor } from '../../../../Theme/index';
+import { Field, formValues } from 'redux-form/immutable';
 import {
   StyledTitleText,
   StyledSubView,
@@ -35,7 +35,7 @@ import svgs from '../../../../../source/icons';
 import LimitTimePicker from '../LimitTimePicker';
 
 import NotifyTimePicker from '../NotifyTimePicker';
-import {RenderSounds} from './sound';
+import { RenderSounds } from './sound';
 
 @formValues(
   'title',
@@ -50,11 +50,11 @@ import {RenderSounds} from './sound';
   'sound',
 )
 export default class OptionDo extends PureComponent<
-  {
-    step: number;
-    onSelect: (field: string, value: string | Object | undefined) => void;
-  },
-  {type: string}
+{
+  step: number;
+  onSelect: (field: string, value: string | Object | undefined) => void;
+},
+{ type: string }
 > {
   constructor(props: Object) {
     super(props);
@@ -75,7 +75,11 @@ export default class OptionDo extends PureComponent<
     <Animatable.View animation="fadeInUp" delay={props.index * 100}>
       <StyledCellButton
         onPress={() => {
-          this.setState({type: props.type});
+          if (props.type === 'notifyTimes') {
+
+
+          }
+          this.setState({ type: props.type });
           this.props.nextStep();
         }}>
         <StyledCellInner>
@@ -88,7 +92,7 @@ export default class OptionDo extends PureComponent<
   );
 
   __renderTitle = () => {
-    const {icon, color, onChange} = this.props;
+    const { icon, color, onChange } = this.props;
     return (
       <>
         <StyledSubTitleView>
@@ -120,7 +124,7 @@ export default class OptionDo extends PureComponent<
     const items = ['5', '6', '7', '8', '9', '10', '14', '21', '30'];
 
     const __renderRadioItem = (item, selItem) => (
-      <StyledItemView contain={selItem === item} style={{width: 75}} key={item}>
+      <StyledItemView contain={selItem === item} style={{ width: 75 }} key={item}>
         <StyledItemText contain={selItem === item}>{item}组</StyledItemText>
       </StyledItemView>
     );
@@ -268,14 +272,14 @@ export default class OptionDo extends PureComponent<
   };
 
   render(): ReactElement<any> {
-    let {icon, color, title, sound, onSelect} = this.props;
+    let { icon, color, title, sound, onSelect } = this.props;
     sound = sound && sound.toJS && sound.toJS();
     const notifyText =
       this.props.notifyText && this.props.notifyText.length > 0
         ? this.props.notifyText
         : '无';
     // console.log('test:', this.props.record);
-    let {record, notifyTimes} = this.props;
+    let { record, notifyTimes } = this.props;
     record =
       record.length === 0 || record.size === 0 ? '默认点击' : record.join('+');
 
@@ -285,7 +289,7 @@ export default class OptionDo extends PureComponent<
     // console.log('notifyTimes:', notifyTimes);
 
     const recordDay = this.__renderDayText(this.props.recordDay);
-    let {limitTimes} = this.props;
+    let { limitTimes } = this.props;
     limitTimes = (limitTimes && limitTimes.toJS().join('~')) || '';
     limitTimes = limitTimes === '00:00~24:00' ? '' : `，${limitTimes}`;
     // const { modify } = this.props
@@ -300,11 +304,11 @@ export default class OptionDo extends PureComponent<
       //   key={'logo'}/>,
       <ScrollView style={[styles.wrap]}>
         {this.props.step === 0 && (
-          <View style={{flex: 1}}>
+          <View style={{ flex: 1 }}>
             <Animatable.View animation="fadeInUp">
               <StyledTopButton
                 onPress={() => {
-                  this.setState({type: 'title'});
+                  this.setState({ type: 'title' });
                   this.props.nextStep();
                 }}>
                 <StyledIconBG color={color || '#afd2ef'}>
@@ -399,7 +403,7 @@ export default class OptionDo extends PureComponent<
           </Animatable.View>
         )}
 
-        <View style={{height: 100}} />
+        <View style={{ height: 100 }} />
       </ScrollView>
     );
   }

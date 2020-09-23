@@ -3,8 +3,8 @@
  * @flow
  */
 
-import styled from 'styled-components';
-import {TouchableOpacity, Platform} from 'react-native';
+import styled from 'styled-components/native';
+import { TouchableOpacity, Platform } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // export const StyledContent = styled.View`
@@ -12,9 +12,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 //     background-color: white;
 // `
 
-import {SafeAreaView} from 'react-native';
-import {materialColors} from 'react-native-typography';
-import Button from '../../../components/Button/';
+import { SafeAreaView } from 'react-native';
+import { materialColors } from 'react-native-typography';
+import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   background-color: white;
@@ -40,8 +40,8 @@ export const StyledItemText = styled.Text`
     props.contain
       ? 'white'
       : Platform.OS === 'ios'
-      ? 'black'
-      : materialColors.blackTertiary}
+        ? 'black'
+        : materialColors.blackTertiary}
   
   font-size: 14px;
 `;
@@ -145,3 +145,9 @@ export const StyledLimitTimeContent = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
+export const StyleNoticeText = styled.Text`
+   margin-top:20px;
+   align-self: center;
+   color: #3333ff;
+`

@@ -135,7 +135,7 @@ export default class PunchItem extends PureComponent<
     const minWidth = this.props.scWidth || 0;
     // console.log('height', height);
     // console.log('width', width);
-    console.log('minWidth', minWidth);
+    // console.log('minWidth', minWidth);
 
     const itemWidth =
       (minWidth - 40 - right * (this.props.numColumns - 1)) /

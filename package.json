@@ -7,7 +7,7 @@
     "test": "jest",
     "lint": "eslint .",
     "reload": "curl http://localhost:8081/reload",
-    "postinstall": "npx jetify",
+    "postinstall": "npx jetify && npx patch-package",
     "run-ios": "yarn react-native run-ios",
     "run-android": "yarn react-native run-android",
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
