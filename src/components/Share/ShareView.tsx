@@ -4,21 +4,17 @@
  */
 
 import * as immutable from 'immutable';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
   Image,
-  Clipboard,
   StyleSheet,
-  Dimensions,
   TouchableNativeFeedback,
   SafeAreaView,
 } from 'react-native';
-import {connect} from 'react-redux';
-import {Toast} from 'react-native-simple-toast';
-import Pop from '../Pop';
-import {theme} from '../../Theme';
+import { connect } from 'react-redux';
+import { theme } from '../../Theme';
 
 import {
   shareTo,
@@ -29,7 +25,34 @@ import {
 } from '../../redux/actions/share';
 import Button from '../Button';
 
-import {isQQInstalled} from 'react-native-qq';
+import { isQQInstalled } from 'react-native-qq';
+import Modal from 'react-native-modal'
+
+interface ShareModal {
+  iCard: object;
+  iUse: object;
+  isVisible: boolean;
+  onClose: () => void
+}
+
+export const ShareModal = (props: ShareModal) => {
+  const { isVisible, ...other } = props;
+  return <Modal
+    useNativeDriver
+    animationIn={'fadeInUp'}
+    isVisible={isVisible}
+    style={{
+      justifyContent: 'flex-end',
+      marginLeft: 0,
+      marginRight: 0,
+      marginBottom: 0,
+    }}
+    animationOut={'fadeOutDown'}>
+    <ShareView {...props} />
+  </Modal>
+}
+
+
 
 interface StateType {
   isQQInstalled: boolean;
@@ -43,15 +66,15 @@ interface StateType {
     },
   }),
 )
-export default class ShareView extends Component<{}, StateType> {
-  constructor(props: Object) {
+export default class ShareView extends Component<ShareModal, StateType> {
+  constructor(props: ShareModal) {
     super(props);
     this.state = {
       isQQInstalled: true,
     };
   }
 
-  shouldComponentUpdate(nextProps: Object, nextState: StateType) {
+  shouldComponentUpdate(nextProps: ShareModal, nextState: StateType) {
     return (
       !immutable.is(this.props, nextProps) ||
       this.state.isQQInstalled !== nextState.isQQInstalled
@@ -61,11 +84,10 @@ export default class ShareView extends Component<{}, StateType> {
   componentDidMount() {
     isQQInstalled()
       .then(() => {
-        console.log('!!!');
-        this.setState({isQQInstalled: true});
+        this.setState({ isQQInstalled: true });
       })
       .catch(() => {
-        this.setState({isQQInstalled: false});
+        this.setState({ isQQInstalled: false });
       });
   }
 
@@ -77,15 +99,15 @@ export default class ShareView extends Component<{}, StateType> {
           TouchableNativeFeedback.SelectableBackgroundBorderless()
         }
         onPress={press}>
-        <View style={{paddingHorizontal: 15}}>
+        <View style={{ paddingHorizontal: 15 }}>
           <Image style={styles.pop_item_image} source={source} />
           <Text style={styles.pop_item_text}>{titel}</Text>
         </View>
       </Button>
     );
 
-    const {share, iCard, iUse} = this.props;
-    const {time} = iUse;
+    const { share, iCard, iUse } = this.props;
+    const { time } = iUse;
     const url =
       (iCard.img && iCard.img.url) ||
       'http://file.icourage.cn/ace9c22b40557933858f.png';
@@ -100,10 +122,10 @@ export default class ShareView extends Component<{}, StateType> {
 
     // console.log('thumbImage:', shareParams.thumbImage);
 
-    console.log('xx', this.state.isQQInstalled);
+    // console.log('xx', this.state.isQQInstalled);
 
     return (
-      <SafeAreaView style={{backgroundColor: 'white', alignItems: 'center'}}>
+      <SafeAreaView style={{ backgroundColor: 'white', alignItems: 'center' }}>
         <View style={styles.top}>
           <Button
             background={
@@ -111,7 +133,7 @@ export default class ShareView extends Component<{}, StateType> {
               TouchableNativeFeedback.SelectableBackgroundBorderless()
             }
             onPress={() => {
-              Pop.hide();
+              this.props.onClose && this.props.onClose()
             }}
             hitSlop={{
               top: 15,
@@ -126,7 +148,7 @@ export default class ShareView extends Component<{}, StateType> {
           </Button>
         </View>
 
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <View style={styles.pop_item}>
             {item(
               require('../../../source/img/icon/circleShare.png'),

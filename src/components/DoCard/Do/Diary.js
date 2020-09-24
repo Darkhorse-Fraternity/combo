@@ -67,7 +67,6 @@ import creatIDO from '../DoCard';
               doneDate: new Date()
             }));
 
-          // Pop.hide();
           return iDoRes;
         } catch (e) {
           console.log('test:', e.message);

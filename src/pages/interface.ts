@@ -27,7 +27,6 @@ export enum RouteKey {
   cardConfig = 'cardConfig',
   account = 'account',
   feedback = 'feedback',
-  publishing = 'publishing',
   cardInfo = 'cardInfo',
   rcomment = 'rcomment',
   card = 'card',
@@ -66,7 +65,6 @@ export type RootStackParamList = {
   [RouteKey.cardConfig]: undefined;
   [RouteKey.account]: undefined;
   [RouteKey.feedback]: undefined;
-  [RouteKey.publishing]: undefined;
   [RouteKey.cardInfo]: undefined;
   [RouteKey.rcomment]: undefined;
   [RouteKey.card]: undefined;

@@ -112,7 +112,7 @@ export default class PayForm extends Component {
         )
     }
 
-    render(): ReactElement<any> {
+    render() {
 
         const {
             handleSubmit,
@@ -122,6 +122,7 @@ export default class PayForm extends Component {
             pristine,
             balance,
             enableSumbmit,
+            onClose,
             ...rest
         } = this.props
         let { submitting, invalid } = rest
@@ -147,9 +148,7 @@ export default class PayForm extends Component {
                     </StyledHeaderTitle>
                     <Button
                         hitSlop={{ top: 20, left: 20, bottom: 10, right: 20 }}
-                        onPress={() => {
-                            Pop.hide()
-                        }}>
+                        onPress={onClose}>
                         <StyledIconAwesome
                             size={30}
                             name={'close'}/>

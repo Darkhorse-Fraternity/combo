@@ -19,8 +19,7 @@ import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
 import { IDO, IUSE } from '../../../redux/reqKeys';
 import { recordDiary } from '../../../components/DoCard/Do/Diary';
-import ShareView from '../../../components/Share/ShareView';
-import Pop from '../../../components/Pop';
+import ShareView, { ShareModal } from '../../../components/Share/ShareView';
 import Dialog from '../../../components/Dialog';
 import { classUpdate } from '../../../request/leanCloud';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
@@ -86,11 +85,12 @@ const listKey = IDO;
     },
   }),
 )
-export default class Circle extends PureComponent<any, any> {
+export default class Circle extends PureComponent<any, { showShare: boolean, count: number }> {
   constructor(props: Object) {
     super(props);
     this.state = {
       count: 0,
+      showShare: false,
     };
   }
 
@@ -197,13 +197,15 @@ export default class Circle extends PureComponent<any, any> {
             right: 10,
           }}
           onPress={() => {
-            Pop.show(<ShareView iCard={iCard} iUse={iUse} />, {
-              animationType: 'slide-up',
-              wrapStyle: {
-                justifyContent: 'flex-end',
-              },
-            });
+            this.setState({ showShare: true })
           }}>
+
+          {!!iCard && !!iUse && <ShareModal
+            isVisible={this.state.showShare}
+            iCard={iCard}
+            iUse={iUse}
+            onClose={() => { this.setState({ showShare: false }) }} />}
+
           <StyledHeaderImage
             source={require('../../../../source/img/circle/invitation.png')}
           />

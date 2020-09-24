@@ -38,7 +38,7 @@ import {
 import { Multiple } from '../../../components/Form/Select/index';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { localRemindConfig } from '@configure/app';
+import { localRemindConfig, useLocalRemindConfig } from '@configure/app';
 
 
 function PrefixInteger(num, length) {
@@ -243,16 +243,11 @@ export default class NotifyTimePicker extends PureComponent {
 const NoticeTip = () => {
 
   const { navigate } = useNavigation()
+  const state = useLocalRemindConfig()
 
-  // const ids = await storage.getIdsForKey('localRemind');
-  // const values = await storage.getBatchDataWithIds({
-  //   key: 'localRemind',
-  //   ids,
-  // });
-  localRemindConfig().then(res => {
-    console.log('res', res);
-
-  })
+  if (state) {
+    return null
+  }
 
   return (<TouchableOpacity onPress={() => {
     navigate('remind')

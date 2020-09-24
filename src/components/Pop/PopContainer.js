@@ -5,7 +5,8 @@
 "use strict";
 
 import React from "react";
-import Modal from "rmc-dialog/es/Modal";
+import {Modal} from 'react-native'
+// import Modal from "rmc-dialog/es/Modal";
 import PropTypes from "prop-types";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
@@ -59,15 +60,16 @@ export default class PopupContainer extends React.Component<any> {
   render() {
     return (
       <Modal
-        maskStyle={this.props.maskStyle}
-        animateAppear
-        onAnimationEnd={this.props.onAnimationEnd}
+        // maskStyle={this.props.maskStyle}
+        // animateAppear
+        // onAnimationEnd={this.props.onAnimationEnd}
         animationType={this.props.animationType}
-        wrapStyle={[styles.wrapStyle, this.props.wrapStyle]}
+        // wrapStyle={[styles.wrapStyle, this.props.wrapStyle]}
         visible={this.state.visible}
-        maskClosable={this.props.maskClosable}
-        onClose={this.onMaskClose}
+        // maskClosable={this.props.maskClosable}
+        // onClose={this.onMaskClose}
         style={{ backgroundColor: "transparent" }}
+        useNativeDriver
       >
         <Provider store={creatStore()}>
           <ThemeProvider theme={theme}>{this.props.children}</ThemeProvider>

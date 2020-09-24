@@ -13,48 +13,7 @@ import {add} from '../../redux/actions/list';
 import {req, reqChangeData} from '../../redux/actions/req';
 import {Privacy} from '../../configure/enum';
 import {updateUserData} from '../../redux/actions/user';
-// import { uploadImages } from '../../redux/actions/util';
 
-// export async function doPre(iUseM, iCardM, other) {
-//   return async (dispatch, getState) => {
-//     try {
-//       const state = getState();
-//       const selector = formValueSelector(FormID);
-//       const recordText = selector(state, 'recordText') || '';
-//       let imgs = selector(state, 'imgs');
-//       imgs = imgs && imgs.toJS();
-
-//       if (iCardM.record.indexOf('文字') !== -1 && recordText.length === 0) {
-//         Toast.show('需要添加文字记录~');
-//         return;
-//       }
-
-//       if (iCardM.record.indexOf('图片') !== -1 && imgs.length === 0) {
-//         Toast.show('需要添加图片~');
-//         return;
-//       }
-
-//       if (imgs.length !== 0) {
-//         const urls = imgs.map(file => file.uri);
-//         const res = await dispatch(uploadImages(urls, IDOULIMAGE));
-//         if (!res.payload) {
-//           return;
-//         }
-//         imgs = res.payload.map(img => img.attributes.url);
-//       }
-//       await dispatch(creatIDO(iUseM, iCardM,
-//         {
-//           recordText,
-//           imgs,
-//           type: 0,
-//         }));
-
-//       Pop.hide();
-//     } catch (e) {
-//       console.log('test:', e.message);
-//     }
-//   };
-// }
 
 export default function creatIDO(iUseM, iCardM, other) {
   return async (dispatch, getState) => {

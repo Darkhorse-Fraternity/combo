@@ -10,7 +10,6 @@ import More from './More';
 import Account from './More/Account';
 import RecordDetail from './Record/Detail';
 import Feedback from './More/Feedback/Feedback';
-import Publishing from './Publish/Publishing';
 import CirlcleSetting from './Publish/CirlcleSetting';
 import CardInfo from './NewCard/CardInfo';
 import RComment from './Record/RComment';
@@ -78,10 +77,7 @@ export const otherRoute: RouteType = {
     component: Feedback,
     options: Feedback.navigationOptions,
   },
-  [RouteKey.publishing]: {
-    component: Publishing,
-    options: Publishing.navigationOptions,
-  },
+  
   [RouteKey.cardInfo]: {
     component: CardInfo,
     options: CardInfo.navigationOptions,

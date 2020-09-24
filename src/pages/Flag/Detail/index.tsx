@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Text,
@@ -12,21 +12,21 @@ import {
   TouchableWithoutFeedback,
   Linking,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import Toast from 'react-native-simple-toast';
 import FlipButton from '../../../components/Button/FlipButton';
-import {FLAG, ICARD, FLAGRECORD, IUSE} from '../../../redux/reqKeys';
-import {selfUser, iCard, Flag} from '../../../request/LCModle';
-import {add, find, update} from '../../../redux/module/leancloud';
+import { FLAG, ICARD, FLAGRECORD, IUSE } from '../../../redux/reqKeys';
+import { selfUser, iCard, Flag } from '../../../request/LCModle';
+import { add, find, update } from '../../../redux/module/leancloud';
 import {
   addNormalizrEntity,
   addNormalizrEntities,
 } from '../../../redux/module/normalizr';
-import PayForm, {FormID} from '../../../components/Form/Pay';
-import {easyPay} from '../../../redux/module/pay';
-
+import PayForm, { FormID } from '../../../components/Form/Pay';
+import { easyPay } from '../../../redux/module/pay';
+import Modal from 'react-native-modal'
 import {
   StyledSafeAreaView,
   StyledContent,
@@ -41,11 +41,18 @@ import {
   StyledComplaintText,
 } from './style';
 import Pop from '../../../components/Pop';
-import {listReq} from '../../../redux/actions/list';
+import { listReq } from '../../../redux/actions/list';
 // import { list, entitys } from '../../../redux/scemes';
-import {fbJoin} from '../../../request/LCCloudFuncs';
-import {req} from '../../../redux/actions/req';
-import {iUseList as iUseListParams} from '../../../request/leanCloud';
+import { fbJoin } from '../../../request/LCCloudFuncs';
+import { req } from '../../../redux/actions/req';
+import { iUseList as iUseListParams } from '../../../request/leanCloud';
+
+
+interface StateType {
+  load: boolean,
+  flip: boolean,
+  showPay: boolean,
+}
 
 @connect(
   (state, props) => ({
@@ -57,11 +64,11 @@ import {iUseList as iUseListParams} from '../../../request/leanCloud';
   (dispatch, props) => ({
     pay: (description, amount, iCardId, flagId) =>
       dispatch(
-        easyPay(amount, description, 'fb', undefined, {iCardId, flagId}),
+        easyPay(amount, description, 'fb', undefined, { iCardId, flagId }),
       ),
 
     join: async (icardId, flagId, description, flag, tradeId) => {
-      const {cost, endDate, startDate, joinNum, totalBonus} = flag;
+      const { cost, endDate, startDate, joinNum, totalBonus } = flag;
       // 缴费。
 
       // 添加记录。会返回一个iUse
@@ -100,7 +107,7 @@ import {iUseList as iUseListParams} from '../../../request/leanCloud';
         dispatch(
           listReq(IUSE, iUseListParams(), false, {
             dataMap: (data) => {
-              const {iUseList} = data.result;
+              const { iUseList } = data.result;
               // 添加副本
               // console.log('fbList', fbList);
 
@@ -115,7 +122,7 @@ import {iUseList as iUseListParams} from '../../../request/leanCloud';
                 }
                 return aDone;
               });
-              return {results: newIUseList};
+              return { results: newIUseList };
             },
           }),
         );
@@ -135,12 +142,13 @@ import {iUseList as iUseListParams} from '../../../request/leanCloud';
     },
   }),
 )
-export default class FlagDetail extends PureComponent {
+export default class FlagDetail extends PureComponent<any, StateType> {
   constructor(props: Object) {
     super(props);
     this.state = {
       load: false,
       flip: false,
+      showPay: false,
     };
   }
 
@@ -169,14 +177,14 @@ export default class FlagDetail extends PureComponent {
   });
 
   async componentDidMount() {
-    const {iCardId, flagId} = this.props.route.params;
-    this.setState({load: true});
+    const { iCardId, flagId } = this.props.route.params;
+    this.setState({ load: true });
     const res = await this.props.exist(iCardId, flagId);
-    this.setState({load: false, flip: res.results.length > 0});
+    this.setState({ load: false, flip: res.results.length > 0 });
   }
 
   _renderHeader = () => {
-    const {flag} = this.props;
+    const { flag } = this.props;
     return (
       <StyledHeader>
         <StyledHeaderTitle>{flag.get('title')}</StyledHeaderTitle>
@@ -185,10 +193,10 @@ export default class FlagDetail extends PureComponent {
   };
 
   _renderTaskDes = () => {
-    const {flag} = this.props;
+    const { flag } = this.props;
     const startDate = flag.get('startDate');
     const iCard = this.props.iCard.toJS();
-    const {limitTimes} = iCard;
+    const { limitTimes } = iCard;
     console.log('limitTimes', limitTimes);
 
     const time = moment(startDate.get('iso')).calendar().split('00:00')[0];
@@ -214,8 +222,8 @@ export default class FlagDetail extends PureComponent {
     const iCardM = this.props.iCard.toJS();
     // eslint-disable-next-line react/destructuring-assignment
     const flagM = this.props.flag.toJS();
-    const {limitTimes} = iCardM;
-    const {cost, startDate, endDate} = flagM;
+    const { limitTimes } = iCardM;
+    const { cost, startDate, endDate } = flagM;
 
     // const limitEndDate = moment(limitTimes[1], 'HH');
     // const limitEndHour = limitEndDate.hours();
@@ -231,14 +239,14 @@ export default class FlagDetail extends PureComponent {
         <StyledDiscrib>
           打卡时段：
           {limitTimes && (
-            <Text style={{color: '#f5943f'}}>
+            <Text style={{ color: '#f5943f' }}>
               {limitTimes[0]} - {limitTimes[1]} (北京时间)
             </Text>
           )}
         </StyledDiscrib>
         <StyledDiscrib>
           押金：{' '}
-          <Text style={{color: '#f5943f'}}>
+          <Text style={{ color: '#f5943f' }}>
             {cost > 0 ? `${cost}元` : '无'}{' '}
           </Text>
         </StyledDiscrib>
@@ -255,7 +263,7 @@ export default class FlagDetail extends PureComponent {
   };
 
   _renderReward = () => {
-    const {flag} = this.props;
+    const { flag } = this.props;
     // const cost = flag.get('cost');
     const reward = flag.get('reward');
     const rewardConfig = flag.get('rewardConfig');
@@ -264,14 +272,14 @@ export default class FlagDetail extends PureComponent {
         return (
           <StyledDiscrib>
             奖金：
-            <Text style={{color: '#f5943f'}}>押金+结算奖金</Text>
+            <Text style={{ color: '#f5943f' }}>押金+结算奖金</Text>
           </StyledDiscrib>
         );
       }
       return (
         <StyledDiscrib>
           补签卡：
-          <Text style={{color: '#f5943f'}}>
+          <Text style={{ color: '#f5943f' }}>
             {rewardConfig && rewardConfig.get('redo')}张
           </Text>
         </StyledDiscrib>
@@ -338,8 +346,8 @@ export default class FlagDetail extends PureComponent {
   );
 
   __payAndJoin = async () => {
-    const {iCardId, flagId} = this.props.route.params;
-    const {selfUse, join, flag, isTourist, pay} = this.props;
+    const { iCardId, flagId } = this.props.route.params;
+    const { selfUse, join, flag, isTourist, pay } = this.props;
     const flagModel = flag.toJS();
     const cost = flag.get('cost');
     const endDate = flag.get('endDate').toJS();
@@ -358,54 +366,28 @@ export default class FlagDetail extends PureComponent {
     const title = this.props.iCard.get('title');
     const description = `副本_${title}的加入费用`;
     if (cost > 0) {
-      Pop.show(
-        <PayForm
-          onSubmit={async () => {
-            try {
-              this.setState({load: true});
-              const payRes = await pay(description, cost, iCardId, flagId);
-              const {data, statu} = payRes.payload;
-              statu === 'suc' && Pop.hide();
-              const res =
-                statu === 'suc' &&
-                (await join(
-                  iCardId,
-                  flagId,
-                  description,
-                  flagModel,
-                  data.out_trade_no,
-                ));
-              this.setState({load: false, flip: !!res});
-            } catch (e) {
-              console.log('e:', e.message);
-              this.setState({load: false});
-            }
-          }}
-          balance={selfUse.balance || 0}
-          price={cost}
-        />,
-        {
-          animationType: 'slide-up',
-          wrapStyle: {
-            justifyContent: 'flex-end',
-          },
-        },
-      );
+
+      this.setState({ showPay: true })
+
     } else {
       try {
-        this.setState({load: true});
+        this.setState({ load: true });
         const res = await join(iCardId, flagId, description, flagModel);
-        this.setState({load: false, flip: !!res});
+        this.setState({ load: false, flip: !!res });
       } catch (e) {
         console.log('e:', e.message);
-        this.setState({load: false});
+        this.setState({ load: false });
       }
     }
   };
 
-  render(): ReactElement<any> {
+  render() {
     // const { iCard, flag } = this.props
-    const {flag} = this.props;
+    const title = this.props.iCard.get('title');
+    const description = `副本_${title}的加入费用`;
+    const { iCardId, flagId } = this.props.route.params;
+    const { selfUse, join, flag, isTourist, pay } = this.props;
+    const flagModel = flag.toJS()
     const endDate = flag.get('endDate').toJS();
     const cover = flag.get('cover');
     const cost = flag.get('cost');
@@ -414,15 +396,52 @@ export default class FlagDetail extends PureComponent {
     return (
       <StyledSafeAreaView>
         <StyledContent>
+          <Modal animationIn={'fadeInUp'}
+            style={{
+              justifyContent: 'flex-end',
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 0,
+            }}
+            useNativeDriver
+            animationOut={'fadeOutDown'}
+            isVisible={this.state.showPay}>
+            <PayForm
+              onSubmit={async () => {
+                try {
+                  this.setState({ load: true });
+                  const payRes = await pay(description, cost, iCardId, flagId);
+                  const { data, statu } = payRes.payload;
+                  statu === 'suc' && this.setState({ showPay: false });
+                  const res =
+                    statu === 'suc' &&
+                    (await join(
+                      iCardId,
+                      flagId,
+                      description,
+                      flagModel,
+                      data.out_trade_no,
+                    ));
+                  this.setState({ load: false, flip: !!res });
+                } catch (e) {
+                  console.log('e:', e.message);
+                  this.setState({ load: false });
+                }
+              }}
+              onClose={() => { this.setState({ showPay: false }) }}
+              balance={selfUse.balance || 0}
+              price={cost}
+            />
+          </Modal>
           {this._renderHeader()}
-          <StyledCover source={{uri: cover.get('url')}} />
+          <StyledCover source={{ uri: cover.get('url') }} />
           {this._renderTaskDes()}
           {this._renderTaskDesMore()}
           {this._renderReward()}
           {cost > 0 && this._renderBonus()}
           {cost > 0 && this._renderAudit()}
           {cost > 0 && this._renderAppeal()}
-          <View style={{height: 100}} />
+          <View style={{ height: 100 }} />
         </StyledContent>
         <FlipButton
           disabled={this.state.flip || overdue}

@@ -4,7 +4,7 @@
  */
 
 import * as immutable from 'immutable';
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
@@ -19,22 +19,22 @@ import {
   Platform,
   TouchableHighlight,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';
-import {ICARD, USER, IUSE, IUSEExist, COURSE} from '../../../redux/reqKeys';
-import {getUserByID, classSearch} from '../../../request/leanCloud';
-import {req, requestSucceed} from '../../../redux/actions/req';
-import {selfUser, iCard, user, pointModel} from '../../../request/LCModle';
-import {add} from '../../../redux/module/leancloud';
-import {addListNormalizrEntity} from '../../../redux/actions/list';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
-import {user as UserEntity, schemas} from '../../../redux/scemes';
+import { ICARD, USER, IUSE, IUSEExist, COURSE } from '../../../redux/reqKeys';
+import { getUserByID, classSearch } from '../../../request/leanCloud';
+import { req, requestSucceed } from '../../../redux/actions/req';
+import { selfUser, iCard, user, pointModel } from '../../../request/LCModle';
+import { add } from '../../../redux/module/leancloud';
+import { addListNormalizrEntity } from '../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { user as UserEntity, schemas } from '../../../redux/scemes';
 import Button from '../../../components/Button';
-import {list, entitys} from '../../../redux/scemes';
+import { list, entitys } from '../../../redux/scemes';
 import svgs from '../../../../source/icons';
 import {
   StyledContent,
@@ -66,15 +66,15 @@ import {
   StyledHedaderIconBack,
 } from './infoStyle';
 
-import {Privacy, CircleState} from '../../../configure/enum';
+import { Privacy, CircleState } from '../../../configure/enum';
 import FlipButton from '../../../components/Button/FlipButton';
-import {findByID, find} from '../../../redux/module/leancloud';
-import {easyPay} from '../../../redux/module/pay';
-import {daysText} from '../../../configure/enum';
+import { findByID, find } from '../../../redux/module/leancloud';
+import { easyPay } from '../../../redux/module/pay';
+import { daysText } from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
-import {PasswordValidation} from './PasswordValidation';
-import {User} from '@interface/index';
-import {NavigationInjectedProps} from '@react-navigation/native';
+import { PasswordValidation } from './PasswordValidation';
+import { User } from '@interface/index';
+import { NavigationInjectedProps } from '@react-navigation/native';
 
 interface StateType {
   showModal: boolean;
@@ -96,7 +96,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
 
 @connect(
   (state, props) => {
-    const {iCardId} = props.route.params;
+    const { iCardId } = props.route.params;
     const iCard = state.normalizr.get(ICARD).get(iCardId);
     const userId = iCard && iCard.get('user');
     // console.log('iCardId:', iCardId);
@@ -118,7 +118,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
     loadCard: () => {
-      const {iCardId} = props.route.params;
+      const { iCardId } = props.route.params;
       dispatch(
         find(
           ICARD,
@@ -129,7 +129,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
             limit: 1,
             include: 'user,course',
           },
-          {sceme: list(entitys[ICARD])},
+          { sceme: list(entitys[ICARD]) },
         ),
       );
     },
@@ -142,7 +142,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
     loadUser: (iCardUser) => {
       if (!iCardUser.nickname && iCardUser.objectId) {
         const param = getUserByID(iCardUser.objectId);
-        dispatch(req(param, USER, {sceme: UserEntity}));
+        dispatch(req(param, USER, { sceme: UserEntity }));
       }
     },
     use: async (card) => {
@@ -152,7 +152,7 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
         privacy: Privacy.open, // 对外开放
         statu: 'start',
         // notifyTime:option&&option.notifyTime||"20.00",
-        doneDate: {__type: 'Date', iso: moment('2017-03-20')},
+        doneDate: { __type: 'Date', iso: moment('2017-03-20') },
         ...dispatch(selfUser()),
         ...iCard(card.objectId),
         // include: 'avatar'
@@ -178,10 +178,10 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
         where: {
           ...iCard(id),
           ...dispatch(selfUser()),
-          statu: {$ne: 'del'},
+          statu: { $ne: 'del' },
         },
       });
-      dispatch(req(params, IUSEExist, {sceme: schemas[IUSE]}));
+      dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }));
     },
     joinPay: async (price, title, bid) => {
       const description = `圈子_${title}的加入费用`;
@@ -190,8 +190,8 @@ type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
   }),
 )
 export default class CardInfo extends PureComponent<
-  NavAndPropsType,
-  StateType
+NavAndPropsType,
+StateType
 > {
   constructor(props: NavAndPropsType) {
     super(props);
@@ -259,21 +259,21 @@ export default class CardInfo extends PureComponent<
       return null;
     }
 
-    const {selfUse, joinPay} = this.props;
+    const { selfUse, joinPay } = this.props;
 
     const iCard = this.props.iCard.toJS();
     const iCardUser = this.props.user.toJS();
 
-    const cover = iCard.img ? {uri: iCard.img.url} : null;
+    const cover = iCard.img ? { uri: iCard.img.url } : null;
 
     const exist = this.props.useExist.get('data').size >= 1;
     const load = this.props.useExist.get('load');
     const nickName = iCardUser.nickname;
-    const {keys} = iCard;
-    const {describe, iconAndColor} = iCard;
+    const { keys } = iCard;
+    const { describe, iconAndColor } = iCard;
     const iUseData = this.props.data && this.props.data.toJS();
 
-    const {userLoad} = this.props;
+    const { userLoad } = this.props;
 
     // let { course } = this.props
     // course = course && course.toJS()
@@ -291,7 +291,7 @@ export default class CardInfo extends PureComponent<
 
     const isSelf = selfUse.objectId === iCard.user;
 
-    let {limitTimes} = iCard;
+    let { limitTimes } = iCard;
     limitTimes = (limitTimes && limitTimes.join('~')) || '';
     limitTimes = limitTimes === '00:00~24:00' ? '' : `，${limitTimes}`;
     const limitTime = daysText(iCard.recordDay) + limitTimes;
@@ -300,20 +300,20 @@ export default class CardInfo extends PureComponent<
     return (
       <StyledContent
         colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
-        forceInset={{top: 'never'}}>
+        forceInset={{ top: 'never' }}>
         <PasswordValidation
           show={this.state.showModal}
           onDone={(password, pdErrorAction) => {
             if (password === iCard.password) {
               this.props.use(iCard);
-              this.setState({showModal: false});
+              this.setState({ showModal: false });
             } else {
               pdErrorAction();
             }
           }}
           loading={false}
           onClose={() => {
-            this.setState({showModal: false});
+            this.setState({ showModal: false });
           }}
         />
         {iCard.img && (
@@ -321,9 +321,9 @@ export default class CardInfo extends PureComponent<
             visible={this.state.visible}
             index={this.state.index}
             closeCallBack={() => {
-              this.setState({visible: false, index: 0});
+              this.setState({ visible: false, index: 0 });
             }}
-            imageUrls={[{url: iCard.img.url}, ...urlList]}
+            imageUrls={[{ url: iCard.img.url }, ...urlList]}
           />
         )}
         <FlipButton
@@ -345,22 +345,8 @@ export default class CardInfo extends PureComponent<
               }
 
               if (iCard.password && iCard.password.length > 0 && !isSelf) {
-                // Pop.show(<PayForm
-                //   onSubmit={async () => {
-                //     const { price, title, user } = iCard;
-                //     const res = await joinPay(price, title, user);
-                //     res.payload.statu === 'suc' && Pop.hide();
-                //     res.payload.statu === 'suc' && this.props.use(iCard);
-                //   }}
-                //   balance={selfUse.balance || 0}
-                //   price={iCard.price}
-                // />, {
-                //   animationType: 'slide-up',
-                //   wrapStyle: {
-                //     justifyContent: 'flex-end',
-                //   }
-                // });
-                this.setState({showModal: true});
+
+                this.setState({ showModal: true });
               } else {
                 this.props.use(iCard);
               }
@@ -375,7 +361,7 @@ export default class CardInfo extends PureComponent<
           {cover ? (
             <StyledHeaderCover
               onPress={() => {
-                this.setState({visible: true});
+                this.setState({ visible: true });
               }}>
               <StyledHeaderImage
                 resizeMode={iCard.img ? 'cover' : 'center'}
@@ -383,13 +369,13 @@ export default class CardInfo extends PureComponent<
               />
             </StyledHeaderCover>
           ) : (
-            <StyledHedaderIconBack color={iconAndColor.color}>
-              <StyledHeaderIcon
-                resizeMode="contain"
-                source={svgs[iconAndColor.name]}
-              />
-            </StyledHedaderIconBack>
-          )}
+              <StyledHedaderIconBack color={iconAndColor.color}>
+                <StyledHeaderIcon
+                  resizeMode="contain"
+                  source={svgs[iconAndColor.name]}
+                />
+              </StyledHedaderIconBack>
+            )}
 
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
@@ -406,7 +392,7 @@ export default class CardInfo extends PureComponent<
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
               <Button
-                style={{alignItems: 'center'}}
+                style={{ alignItems: 'center' }}
                 onPress={() => {
                   this.props.navigation.navigate('following', {
                     userId: iCardUser.objectId,
@@ -419,7 +405,7 @@ export default class CardInfo extends PureComponent<
             </StyledHeaderInnerRight>
           </StyledHeaderInner>
 
-          <View style={{height: 50}} />
+          <View style={{ height: 50 }} />
 
           <StyledTitleView>
             <StyledTitleText>卡片介绍</StyledTitleText>
@@ -457,7 +443,7 @@ export default class CardInfo extends PureComponent<
             {this.row('参与人数:', iCard.useNum)}
             <StyledIcon
               size={15}
-              style={{marginTop: 5}}
+              style={{ marginTop: 5 }}
               name="ios-arrow-forward"
             />
           </Button>
@@ -475,22 +461,22 @@ export default class CardInfo extends PureComponent<
               <TouchableHighlight
                 key={item.img.url + index}
                 onPress={() => [
-                  this.setState({visible: true, index: index + 1}),
+                  this.setState({ visible: true, index: index + 1 }),
                 ]}>
                 <StyledImg
                   width={Dimensions.get('window').width - 50}
-                  source={{uri: item.img.url}}
+                  source={{ uri: item.img.url }}
                 />
               </TouchableHighlight>
             ))}
-          <View style={{height: 200}} />
+          <View style={{ height: 200 }} />
         </ScrollView>
       </StyledContent>
     );
   }
 }
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
@@ -537,7 +523,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#8c8c85',
-    transform: [{rotate: '315deg'}],
+    transform: [{ rotate: '315deg' }],
     marginRight: 5,
     width: 10,
     height: 10,

@@ -24,7 +24,6 @@ import {
   StyleImageSelect
 } from './style'
 
-import PPT from './ppt'
 
 import Toast from 'react-native-simple-toast'
 import { CourseStatu } from '../../../configure/enum'
@@ -184,7 +183,7 @@ export default class CourseForm extends Component {
               placeholder='点此输入副标题(选填)'/>
 
           </View>
-          <PPT {...this.props} maxIndex={20}/>
+          {/* <PPT {...this.props} maxIndex={20}/> */}
           <View style={{ height: 200, overflow: 'hidden' }}/>
 
 

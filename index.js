@@ -4,7 +4,7 @@
  * @flow
  */
 import 'react-native-gesture-handler';
-import {AppRegistry, LogBox} from 'react-native';
+import {AppRegistry, LogBox,Text, TextInput} from 'react-native';
 
 // import svgs from './source/icons'
 import {name} from './app.json';
@@ -25,3 +25,17 @@ LogBox.ignoreLogs([
 ]);
 
 AppRegistry.registerComponent(name, () => App);
+
+
+/**
+ * 禁止系统放大字体
+ */
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
+TextInput.defaultProps = TextInput.defaultProps || {};
+
+TextInput.defaultProps.allowFontScaling = false;
+
+
+// Modal.defaultProps = Text.defaultProps || {};
+// Modal.defaultProps.useNativeDriver = true
