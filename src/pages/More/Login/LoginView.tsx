@@ -46,15 +46,13 @@ import {
   StyledMoreBtn,
   StyledMoreBtnText,
 } from './style';
-import { mainColor } from '../../../Theme/index';
+import { getTheme } from '../../../Theme/index';
 import * as WeChat from 'react-native-wechat';
 import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
-import Button from '../../../components/Button';
-import BackBtn from '../../../components/Button/BackBtn/index';
 import { SigninBtn } from './components/signin-btn';
 import appleAuth from '@invertase/react-native-apple-authentication';
-
+const { mainColor } = getTheme()
 @connect(
   state => ({
     // data:state.req.get()

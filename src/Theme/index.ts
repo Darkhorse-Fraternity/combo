@@ -12,7 +12,7 @@ const getTheme = () => {
     hairlineWidth: StyleSheet.hairlineWidth,
     hairlineColor: 'rgb(200,200,200)',
     statusBarHeight: StatusBarHeight,
-    ...FormTheme,
+    ...FormTheme ,
 
     titleBackViewColor: '#f6f7f9',
     buttonItem: '#e7eced',

@@ -1,14 +1,10 @@
-import {Platform, StatusBar} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Platform, StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
-import Iconfont from '../../../../source/font/Iconfont';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import React from 'react';
-import {strings} from '../../../../locales/i18n';
+import { strings } from '../../../../locales/i18n';
 import HeaderBackImage from './HeaderBackImage';
-import {StackNavigationOptions} from '@react-navigation/stack';
-import {TransitionPresets} from '@react-navigation/stack';
+import { StackNavigationOptions } from '@react-navigation/stack';
+import { TransitionPresets } from '@react-navigation/stack';
 
 const currentHeight = StatusBar.currentHeight || 20;
 
@@ -16,8 +12,8 @@ const headerStyleAndroid =
   Platform.OS === 'ios' || Platform.Version < 20
     ? {}
     : {
-        height: 64 + currentHeight - 20,
-      };
+      height: 64 + currentHeight - 20,
+    };
 
 export const defaultNavigationOptions: StackNavigationOptions = {
   headerStyle: {
@@ -41,12 +37,12 @@ export const defaultNavigationOptions: StackNavigationOptions = {
     fontSize: 23,
     fontWeight: '400',
   },
-  cardStyle: {backgroundColor: 'white'},
+  cardStyle: { backgroundColor: 'white' },
   // headerBackImage: require('../../source/img/bar/back-icon.png'),
   headerBackImage: props => (
     <HeaderBackImage
       color={props.tintColor}
-      // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
+    // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
     />
   ),
   headerBackTitleVisible: false,
@@ -61,20 +57,24 @@ export const tabsOptions = {
     iconName: 'check',
     size: 27,
     Icon: Feather,
+    color: '#5B37B7',
   },
   [strings('tabs.habit')]: {
     iconName: 'sun',
     size: 27,
     Icon: Feather,
+    color: '#E6A919',
   },
   [strings('tabs.flag')]: {
     iconName: 'flag',
     size: 27,
     Icon: Feather,
+    color: '#C9379D',
   },
   [strings('tabs.more')]: {
     iconName: 'more-vertical',
     size: 27,
     Icon: Feather,
+    color: '#1194AA',
   },
 };

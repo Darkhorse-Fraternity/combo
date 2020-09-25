@@ -8,7 +8,7 @@ import {
     Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { ParallaxImage } from 'react-native-snap-carousel';
+// import { ParallaxImage } from 'react-native-snap-carousel';
 import styles from './style';
 
 
@@ -34,19 +34,7 @@ export default class Cell extends Component {
 
         const source = img ? { uri: img.url } : require('../../../../source/img/my/icon-60.png')
 
-        return 0 ? (
-            <ParallaxImage
-                carouselRef={carouselRef}
-                //dimensions={{width:100,height:100}}
-                source={source}
-                containerStyle={[styles.imageContainer, even ? styles.imageContainerEven : {}]}
-                style={styles.image}
-                parallaxFactor={0.35}
-                showSpinner={true}
-                spinnerColor={even ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.25)'}
-                {...parallaxProps}
-            />
-        ) : (
+        return  (
             <Image
                 source={source}
                 defaultSource={ require('../../../../source/img/my/icon-60.png')}

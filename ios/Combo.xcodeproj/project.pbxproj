@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
+		27FD1E63F3F5DA71D877ABD9 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
 		77821596248E0AAB00AF3F2F /* logo-horizontal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */; };
 		77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */; };
 		77A60D1A2318BB5100D48BEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D192318BB5100D48BEF /* SystemConfiguration.framework */; };
@@ -184,6 +185,7 @@
 				CCCE41962064A0F000F282E3 /* libsqlite3.tbd in Frameworks */,
 				CCCE41972064A0F000F282E3 /* libiconv.tbd in Frameworks */,
 				AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */,
+				27FD1E63F3F5DA71D877ABD9 /* libPods-Combo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

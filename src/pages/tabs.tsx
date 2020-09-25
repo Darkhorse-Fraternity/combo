@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Feather from 'react-native-vector-icons/Feather';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
 // import * as Animatable from 'react-native-animatable';
 import { strings } from '../../locales/i18n';
@@ -14,7 +15,8 @@ import {
   defaultNavigationOptions,
   tabsOptions,
 } from '@components/Nav/components/navigationOptions';
-
+import AnimatedTabBar, { FlashyTabBarIconProps, FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
+import { useSafeArea, useSafeAreaInsets } from 'react-native-safe-area-context';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
@@ -83,35 +85,114 @@ const SettingsStack = () => {
     />
   );
 };
-
-const Tab = createBottomTabNavigator();
-
-const names = [
+const names: string[] = [
   strings('tabs.clockIn'),
   strings('tabs.habit'),
   strings('tabs.flag'),
   strings('tabs.more'),
 ];
 
+
+
+
+const tabItems = (name: string) => ({
+  labelStyle: {
+    color: tabsOptions[name].color,
+  },
+  icon: {
+    component: ({ color, size }: FlashyTabBarIconProps) =>
+      <Feather name={tabsOptions[name].iconName} size={size} color={color} />,
+    color: tabsOptions[name].color,
+  },
+  indicator: {
+    size: 4,
+    color: tabsOptions[name].color,
+  }
+})
+
+const tabs: TabsConfig<FlashyTabBarItemConfig> = {
+  [strings('tabs.clockIn')]: tabItems(strings('tabs.clockIn')),
+  [strings('tabs.habit')]: tabItems(strings('tabs.habit')),
+  [strings('tabs.flag')]: tabItems(strings('tabs.flag')),
+  [strings('tabs.more')]: tabItems(strings('tabs.more')),
+};
+
+const Tab = createBottomTabNavigator();
+
+
+
 const options = ({ route }: { route: any }) => {
   return { tabBarVisible: route.state ? route.state.index === 0 : true };
 };
 
 export default function App() {
+
+  // hooks
+  const { bottom } = useSafeAreaInsets();
+
+  // memos
+  // const screenPaddingBottom = useMemo(() => {
+  //   // icon size + margin padding + outer space + inner space + screen bottom padding
+  //   return 20 + bottom + 12 * 2 + 12 * 2 + 12;
+  // }, [bottom]);
+
+  const tabBarOptions = useMemo(
+    () => ({
+      safeAreaInsets: {
+        bottom: bottom,
+      },
+      style: {
+        // position: 'absolute',
+        // left: 0,
+        // right: 0,
+        // bottom: 0,
+        // borderRadius: 16,
+        // marginLeft: 32,
+        // marginRight: 32,
+        // marginBottom: bottom,
+        // backgroundColor: '#000',
+        // shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.0,
+
+        elevation: 24,
+      },
+    }),
+    [bottom]
+  );
+
   return (
     <Tab.Navigator
-      screenOptions={({ route, navigation }) => ({
-        tabBarIcon: ({ focused, color }) => {
-          const { iconName, Icon, size } = tabsOptions[route.name];
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-        tabBarButton: props => <TouchableBounce {...props} />,
-      })}
-      tabBarOptions={{
-        activeTintColor: 'tomato',
-        inactiveTintColor: 'gray',
-        showLabel: false,
-      }}>
+      // screenOptions={({ route, navigation }) => ({
+      //   // tabBarIcon: ({ focused, color }) => {
+      //   //   const { iconName, Icon, size } = tabsOptions[route.name];
+      //   //   return <Icon name={iconName} size={size} color={color} />;
+      //   // },
+      //   // tabBarButton: props => <TouchableBounce {...props} />,
+
+      // })}
+      // tabBarOptions={{
+      //   activeTintColor: 'tomato',
+      //   inactiveTintColor: 'gray',
+      //   showLabel: false,
+      // }}
+      tabBarOptions={tabBarOptions}
+      tabBar={props => (
+        <AnimatedTabBar
+          preset="flashy"
+          tabs={tabs}
+          iconSize={25}
+          itemOuterSpace={12}
+          itemInnerSpace={12}
+          // style={{}}
+          {...props}
+        />
+      )}
+    >
       <Tab.Screen
         name={strings('tabs.clockIn')}
         component={PunchStack}
