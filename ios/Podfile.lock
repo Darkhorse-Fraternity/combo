@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.4.0):
@@ -91,6 +106,7 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - LookinServer (1.0.0)
+  - Masonry (1.1.0)
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
@@ -266,6 +282,8 @@ PODS:
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
   - React-jsinspector (0.63.2)
+  - react-native-apple-authentication (1.0.6):
+    - React
   - react-native-autogrow-textinput (5.2.0):
     - React
   - react-native-blur (0.8.0):
@@ -415,6 +433,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - AFNetworking (~> 3.2.1)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
@@ -442,6 +461,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - LookinServer
+  - Masonry (~> 1.1.0)
   - "RCTAlipay (from `../node_modules/@0x5e/react-native-alipay/ios`)"
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTRestart (from `../node_modules/react-native-restart/ios`)
@@ -457,6 +477,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - react-native-apple-authentication (from `../node_modules/react-native-apple-authentication`)
   - react-native-autogrow-textinput (from `../node_modules/react-native-autogrow-textinput`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
@@ -501,10 +522,12 @@ DEPENDENCIES:
   - RNSound (from `../node_modules/react-native-sound`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
+  - SDWebImage (~> 5.8.0)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
     - Base64
     - boost-for-react-native
     - CocoaAsyncSocket
@@ -521,6 +544,7 @@ SPEC REPOS:
     - JWT
     - libwebp
     - LookinServer
+    - Masonry
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
@@ -569,6 +593,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-apple-authentication:
+    :path: "../node_modules/react-native-apple-authentication"
   react-native-autogrow-textinput:
     :path: "../node_modules/react-native-autogrow-textinput"
   react-native-blur:
@@ -661,6 +687,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: 8913bd8fdc47b85abc801ae8bae007bbfb6b4ce5
@@ -682,8 +709,9 @@ SPEC CHECKSUMS:
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
   IQKeyboardManager: 8eab4d8111418414619d1df8e4779ce5d0f8d7e2
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
-  libwebp: 40fb682a65546d6e327e34372ec4317847e7323d
+  libwebp: 04242ef451672185c1fe41b285a034d2fbda483c
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
   RCTAlipay: 3a02fb52bbb17f8cf5cf814c6ab32526a04c5dd1
   RCTRequired: f13f25e7b12f925f1f6a6a8c69d929a03c0129fe
@@ -698,6 +726,7 @@ SPEC CHECKSUMS:
   React-jsi: 54245e1d5f4b690dec614a73a3795964eeef13a8
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
+  react-native-apple-authentication: f0317f01addb58a91cc8c1a2d41ca258ccf7eca0
   react-native-autogrow-textinput: 6ac9827113fab5e72be63ba6f0e40e6a01aa4697
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-cameraroll: dbda741db5dadcdcf738e55a1fd565c307943bca
@@ -749,6 +778,6 @@ SPEC CHECKSUMS:
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 01834b37038e945ea80bfbe81a1b5cf053343548
+PODFILE CHECKSUM: 8d7902c63c6f7068f539aa27ea5a9cc6f6248d09
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

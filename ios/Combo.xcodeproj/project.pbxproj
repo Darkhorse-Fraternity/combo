@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
+		762383A1B9F2C1920B2C6146 /* libPods-comboTodayWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */; };
 		77821596248E0AAB00AF3F2F /* logo-horizontal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */; };
 		77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */; };
 		77A60D1A2318BB5100D48BEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D192318BB5100D48BEF /* SystemConfiguration.framework */; };
@@ -46,10 +47,15 @@
 		CCCE41AF2064A0F000F282E3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CCFBC8061FEA79D000DA269C /* InfoPlist.strings */; };
 		CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
+		EA1E60B8250724AA004447F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		EA1E60BB25076B4E004447F0 /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */; };
+		EA1E60BE25076E64004447F0 /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */; };
 		EA9E5B6324FFA235001F3ED7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */; };
 		EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */; };
 		EA9E5B6A24FFA235001F3ED7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */; };
 		EA9E5B6E24FFA235001F3ED7 /* comboTodayWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EAF5A1C42506266000EDC740 /* NetworkRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A1C22506266000EDC740 /* NetworkRequests.m */; };
+		EAF5A1C6250633AD00EDC740 /* NetworkRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A1C22506266000EDC740 /* NetworkRequests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,8 +112,10 @@
 		3F569424914A47BD869B82DB /* libCodePush.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libCodePush.a; sourceTree = "<group>"; };
 		499ED42862704E9EA54A79B8 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		505CE15320B94E90AEC18FC8 /* libRNCViewpager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCViewpager.a; sourceTree = "<group>"; };
+		52F8EC000F8A505179501B5E /* Pods-comboTodayWidget.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboTodayWidget.staging.xcconfig"; path = "Pods/Target Support Files/Pods-comboTodayWidget/Pods-comboTodayWidget.staging.xcconfig"; sourceTree = "<group>"; };
 		5483F03BFE6D403F82EE857C /* libRCTRestart.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTRestart.a; sourceTree = "<group>"; };
 		65803600DE744D58A3F6D5A0 /* libLRDRCTSimpleToast.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libLRDRCTSimpleToast.a; sourceTree = "<group>"; };
+		66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comboTodayWidget.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6726C820089B4C888439340C /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		69E7D30C48234DA5890EFBF9 /* libRNCNetInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCNetInfo.a; sourceTree = "<group>"; };
 		6C421093BF46426F94553282 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
@@ -126,6 +134,7 @@
 		92F6A1F4EE004F3B9976D7FE /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
 		A21A32F9B5CF4FF19A67FEE9 /* libRNScreens.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNScreens.a; sourceTree = "<group>"; };
 		B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
+		C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboTodayWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-comboTodayWidget/Pods-comboTodayWidget.debug.xcconfig"; sourceTree = "<group>"; };
 		CB7EB1D4DEBF4314A1710F4E /* libReactNativeKeyboardManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeKeyboardManager.a; sourceTree = "<group>"; };
 		CC01F7D21FD6827C00A18EFD /* tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tip.mp3; sourceTree = "<group>"; };
 		CC09E6AE2120566300327D96 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -154,8 +163,13 @@
 		CCFBC84C1FEA7B2200DA269C /* AppearanceConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppearanceConfig.h; sourceTree = "<group>"; };
 		CCFBC84D1FEA7B2200DA269C /* AppearanceConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppearanceConfig.m; sourceTree = "<group>"; };
 		D31AAD173C824FABA33FF086 /* libRCTCustomInputController.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCustomInputController.a; sourceTree = "<group>"; };
+		D338FE1CE8A6961283FFC90A /* Pods-comboTodayWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboTodayWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-comboTodayWidget/Pods-comboTodayWidget.release.xcconfig"; sourceTree = "<group>"; };
 		D79C0A728E644F5185C19C2E /* libRCTAlipay.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAlipay.a; sourceTree = "<group>"; };
 		D82FE5A0057046799E3592ED /* libRCTUmengAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTUmengAnalytics.a; sourceTree = "<group>"; };
+		EA1E60B925076B4E004447F0 /* EverydayHabitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EverydayHabitCell.h; sourceTree = "<group>"; };
+		EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitCell.m; sourceTree = "<group>"; };
+		EA1E60BC25076E64004447F0 /* EverydayHabitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EverydayHabitModel.h; sourceTree = "<group>"; };
+		EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitModel.m; sourceTree = "<group>"; };
 		EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = comboTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
@@ -163,6 +177,8 @@
 		EA9E5B6924FFA235001F3ED7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		EA9E5B6B24FFA235001F3ED7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EAF5A1BE2506103100EDC740 /* comboTodayWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = comboTodayWidget.entitlements; sourceTree = "<group>"; };
+		EAF5A1C22506266000EDC740 /* NetworkRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkRequests.m; sourceTree = "<group>"; };
+		EAF5A1C32506266000EDC740 /* NetworkRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkRequests.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA9E5B6324FFA235001F3ED7 /* NotificationCenter.framework in Frameworks */,
+				762383A1B9F2C1920B2C6146 /* libPods-comboTodayWidget.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +276,7 @@
 				CC3E39A51E2622570019B85F /* libiconv.tbd */,
 				80C22219815181E16F163146 /* libPods-Combo.a */,
 				EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */,
+				66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -289,6 +307,9 @@
 				B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */,
 				2C9F3BAC5C429BBF1691A487 /* Pods-Combo.release.xcconfig */,
 				1885572350E87AB4C4FD7AC4 /* Pods-Combo.staging.xcconfig */,
+				C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */,
+				D338FE1CE8A6961283FFC90A /* Pods-comboTodayWidget.release.xcconfig */,
+				52F8EC000F8A505179501B5E /* Pods-comboTodayWidget.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -383,6 +404,8 @@
 		CCB9FFCA21A402AA005BD7C5 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				EAF5A1C32506266000EDC740 /* NetworkRequests.h */,
+				EAF5A1C22506266000EDC740 /* NetworkRequests.m */,
 				CCB9FFCC21A40303005BD7C5 /* RNAppUtil.h */,
 				CCB9FFCB21A40303005BD7C5 /* RNAppUtil.m */,
 			);
@@ -413,6 +436,10 @@
 				EAF5A1BE2506103100EDC740 /* comboTodayWidget.entitlements */,
 				EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */,
 				EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */,
+				EA1E60B925076B4E004447F0 /* EverydayHabitCell.h */,
+				EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */,
+				EA1E60BC25076E64004447F0 /* EverydayHabitModel.h */,
+				EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */,
 				EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */,
 				EA9E5B6B24FFA235001F3ED7 /* Info.plist */,
 			);
@@ -478,7 +505,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0747B1A95F4F3246C0E1F907 /* PBXTargetDependency */,
 				EA9E5B6D24FFA235001F3ED7 /* PBXTargetDependency */,
 			);
 			name = Combo;
@@ -490,6 +516,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA9E5B7224FFA235001F3ED7 /* Build configuration list for PBXNativeTarget "comboTodayWidget" */;
 			buildPhases = (
+				683643DF2B6D99ED9364301A /* [CP] Check Pods Manifest.lock */,
 				EA9E5B5D24FFA235001F3ED7 /* Sources */,
 				EA9E5B5E24FFA235001F3ED7 /* Frameworks */,
 				EA9E5B5F24FFA235001F3ED7 /* Resources */,
@@ -603,6 +630,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA9E5B6A24FFA235001F3ED7 /* MainInterface.storyboard in Resources */,
+				EA1E60B8250724AA004447F0 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,6 +689,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Combo/Pods-Combo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		683643DF2B6D99ED9364301A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-comboTodayWidget-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		77A60D162318B26600D48BEF /* Start Pakage */ = {
@@ -818,6 +868,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF5A1C42506266000EDC740 /* NetworkRequests.m in Sources */,
 				CCB9FFCD21A40303005BD7C5 /* RNAppUtil.m in Sources */,
 				CCCE41892064A0F000F282E3 /* AppDelegate.m in Sources */,
 				CCCE418A2064A0F000F282E3 /* main.m in Sources */,
@@ -829,6 +880,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA1E60BB25076B4E004447F0 /* EverydayHabitCell.m in Sources */,
+				EA1E60BE25076E64004447F0 /* EverydayHabitModel.m in Sources */,
+				EAF5A1C6250633AD00EDC740 /* NetworkRequests.m in Sources */,
 				EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -836,10 +890,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0747B1A95F4F3246C0E1F907 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TodayWidgetExtension;
-		};
 		CCCE422B2064A30A00F282E3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CCCE41862064A0F000F282E3 /* Combo */;
@@ -1644,6 +1694,7 @@
 		};
 		EA9E5B6F24FFA235001F3ED7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1672,6 +1723,7 @@
 		};
 		EA9E5B7024FFA235001F3ED7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D338FE1CE8A6961283FFC90A /* Pods-comboTodayWidget.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1700,6 +1752,7 @@
 		};
 		EA9E5B7124FFA235001F3ED7 /* Staging */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52F8EC000F8A505179501B5E /* Pods-comboTodayWidget.staging.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
