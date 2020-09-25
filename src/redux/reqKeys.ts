@@ -26,6 +26,7 @@ export const REPORT = 'Report';
 export const COURSE = 'Course';
 export const WECHATLOGIN = 'WeChatLogin';
 export const QQLOGIN = 'QQLogin';
+export const APPLELOGIN = 'AppleLogin';
 export const FLAG = 'Flag';
 export const FLAGRECORD = 'FlagRecord';
 

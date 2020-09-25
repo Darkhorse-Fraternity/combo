@@ -7,10 +7,10 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import Button from '../../../components/Button';
+import Button from '@components/Button';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import LinearGradient from 'react-native-linear-gradient';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+// import {TouchableBounce} from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled.View`
   flex: 1;
@@ -46,16 +46,18 @@ export const ThirdPartyLoginViewInner = styled(LinearGradient)`
 export const ThirdPartyInnerLoginView = styled.View`
   flex-direction: row;
   margin: 20px 0px;
-  padding: 0px
-    ${props => (props.isWXAppInstalled ? 80 : props.theme.width / 2)}px;
-  width: 100%;
+  padding: 0px 20px;
+  width:100%;
+  align-items:center;
   justify-content: space-between;
-  z-index: 100;
-  flex: 1;
-  position: absolute;
+  
+  /* justify-content: space-between; */
+  /* z-index: 100; */
+  /* flex: 1; */
+  /* position: absolute; */
 `;
 
-export const StyledIconItem = styled(TouchableBounce)`
+export const StyledIconItem = styled(Button)`
   align-items: center;
 `;
 
@@ -117,3 +119,7 @@ export const StyledMoreBtnText = styled.Text`
   font-size: 15px;
   font-weight: 300;
 `;
+
+export const StyledBtnContnet = styled.View`
+  flex:1
+`

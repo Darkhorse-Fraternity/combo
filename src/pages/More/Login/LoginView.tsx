@@ -1,7 +1,7 @@
 /* @flow */
 // 注册页面
 
-import React, {Component, PropTypes} from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
@@ -14,16 +14,16 @@ import {
   Image,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
-import {connect} from 'react-redux';
-import {req} from '../../../redux/actions/req';
-import {AUTHCODE} from '../../../redux/reqKeys';
-import {requestSmsCode} from '../../../request/leanCloud';
-import {register, weChatLogin, qqLogin} from '../../../redux/actions/user';
-import {TransitionPresets} from '@react-navigation/stack';
+import { connect } from 'react-redux';
+import { req } from '../../../redux/actions/req';
+import { APPLELOGIN, AUTHCODE } from '../../../redux/reqKeys';
+import { requestSmsCode } from '../../../request/leanCloud';
+import { register, weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
+import { TransitionPresets } from '@react-navigation/stack';
 
-import {WECHATLOGIN, QQLOGIN} from '../../../redux/reqKeys';
+import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
 import * as Animatable from 'react-native-animatable';
-import {checkPhoneNum} from '../../../request/validation';
+import { checkPhoneNum } from '../../../request/validation';
 import {
   StyledContent,
   ThirdPartyLoginView,
@@ -46,12 +46,13 @@ import {
   StyledMoreBtn,
   StyledMoreBtnText,
 } from './style';
-import {mainColor} from '../../../Theme/index';
+import { mainColor } from '../../../Theme/index';
 import * as WeChat from 'react-native-wechat';
-import {strings} from '../../../../locales/i18n';
+import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 import Button from '../../../components/Button';
 import BackBtn from '../../../components/Button/BackBtn/index';
+import { SigninBtn } from './components/signin-btn';
 
 @connect(
   state => ({
@@ -79,6 +80,9 @@ import BackBtn from '../../../components/Button/BackBtn/index';
     wxLogin: () => {
       dispatch(weChatLogin(WECHATLOGIN, props.navigation));
     },
+    appleLogin: () => {
+      dispatch(appleLogin(APPLELOGIN, props.navigation));
+    }
   }),
 )
 export default class LoginView extends Component {
@@ -96,7 +100,7 @@ export default class LoginView extends Component {
     };
 
     WeChat.isWXAppInstalled().then(isWXAppInstalled => {
-      this.setState({isWXAppInstalled});
+      this.setState({ isWXAppInstalled });
     });
   }
 
@@ -118,7 +122,7 @@ export default class LoginView extends Component {
       headerLeft: () => <View />,
       headerRight: headerRightProps => (
         <StyledBtn
-          hitSlop={{top: 5, left: 15, bottom: 5, right: 15}}
+          hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
           onPress={() => {
             props.navigation.goBack();
           }}>
@@ -143,7 +147,7 @@ export default class LoginView extends Component {
     if (!res.error) {
       Toast.show('发送成功!');
       if (this.state.isTap === false) {
-        this.setState({isTap: true});
+        this.setState({ isTap: true });
         self.time();
         this.id = setInterval(() => {
           self.time();
@@ -156,7 +160,7 @@ export default class LoginView extends Component {
     if (this.state.time === 0) {
       this.id && clearInterval(this.id);
       // this.isTap = false;
-      this.setState({isTap: false});
+      this.setState({ isTap: false });
     }
 
     this.setState({
@@ -181,7 +185,7 @@ export default class LoginView extends Component {
     }
 
     this.props.mRegister(this.state);
-    this.setState({ymCode: ''});
+    this.setState({ ymCode: '' });
   }
 
   componentWillUnmount() {
@@ -192,7 +196,7 @@ export default class LoginView extends Component {
     if (
       Props.userData.mobilePhoneNumber !== this.props.userData.mobilePhoneNumber
     ) {
-      this.setState({phone: Props.userData.mobilePhoneNumber});
+      this.setState({ phone: Props.userData.mobilePhoneNumber });
     }
   }
 
@@ -247,13 +251,6 @@ export default class LoginView extends Component {
     onPress,
     style = {},
   ) => (
-    <Animatable.View
-      style={{zIndex: 100}}
-      useNativeDriver
-      // duration={1000}
-      // delay={200 + Math.random() * 500}
-      // animation="bounceInUp"
-      animation="fadeIn">
       <StyledIconItem
         disabled={load}
         onPress={onPress}
@@ -262,24 +259,23 @@ export default class LoginView extends Component {
           TouchableNativeFeedback.SelectableBackgroundBorderless &&
           TouchableNativeFeedback.SelectableBackgroundBorderless()
         }>
-        <StyledIconView style={{backgroundColor: load ? 'transparent' : color}}>
+        <StyledIconView style={{ backgroundColor: color }}>
           {load ? (
-            <StyledActivityIndicator />
+            <StyledActivityIndicator color={'#c3c3c3'} />
           ) : (
-            <StyledIcon color={'#233238'} name={name} size={size} />
-          )}
+              <StyledIcon color={'#233238'} name={name} size={size} />
+            )}
         </StyledIconView>
         {/*<StyledIconText>*/}
         {/*{title}*/}
         {/*</StyledIconText>*/}
       </StyledIconItem>
-    </Animatable.View>
-  );
+    );
 
   _renderWechat = () => {
     const thirdLoaded = this.props.userData.theThirdLoaded;
     return (
-      <StyledContent style={{justifyContent: 'space-between'}}>
+      <StyledContent style={{ justifyContent: 'space-between' }}>
         <Animatable.View animation="fadeIn">
           <StyledImage
             source={require('../../../../source/img/my/icon-60.png')}
@@ -288,15 +284,15 @@ export default class LoginView extends Component {
         </Animatable.View>
         <StyledBottomView>
           <StyledSignInBtn
-            style={{width: 300}}
-            titleStyle={{color: 'black', fontWeight: '300', fontSize: 15}}
+            style={{ width: 300 }}
+            titleStyle={{ color: 'black', fontWeight: '300', fontSize: 15 }}
             load={thirdLoaded === WECHATLOGIN}
             onPress={this.props.wxLogin}
             title={'微信登录'}
           />
           <StyledMoreBtn
             onPress={() => {
-              this.setState({isRenderMore: true});
+              this.setState({ isRenderMore: true });
             }}>
             <StyledMoreBtnText>更多登录方式</StyledMoreBtnText>
           </StyledMoreBtn>
@@ -316,7 +312,6 @@ export default class LoginView extends Component {
     const thirdLoaded = this.props.userData.theThirdLoaded;
     return (
       <StyledContent
-        colors={['white', '#f7f8fe', 'white']}
         onStartShouldSetResponder={() => true}
         onResponderGrant={Keyboard.dismiss}>
         {/* {!this.props.userData.isLogin && (<BG/>)}*/}
@@ -333,7 +328,7 @@ export default class LoginView extends Component {
               {this._renderRowMain(
                 '手机号:',
                 '请填入手机号',
-                text => this.setState({phone: text}),
+                text => this.setState({ phone: text }),
                 'numeric',
                 true,
                 11,
@@ -341,7 +336,7 @@ export default class LoginView extends Component {
                 this.state.phone,
               )}
             </View>
-            <View style={{height: 10}} />
+            <View style={{ height: 10 }} />
             <View
               style={{
                 flexDirection: 'row',
@@ -353,7 +348,7 @@ export default class LoginView extends Component {
                 '验证码:',
                 '请输入验证码',
                 text => {
-                  this.setState({ymCode: text});
+                  this.setState({ ymCode: text });
                 },
                 'numeric',
                 false,
@@ -372,70 +367,30 @@ export default class LoginView extends Component {
                 {authLoad ? (
                   <StyledActivityIndicator />
                 ) : (
-                  <StyledCodeButtonText>
-                    {this.state.time === 60 || this.state.time === 0
-                      ? '获取验证码'
-                      : this.state.time.toString() + '秒'}
-                  </StyledCodeButtonText>
-                )}
+                    <StyledCodeButtonText>
+                      {this.state.time === 60 || this.state.time === 0
+                        ? '获取验证码'
+                        : this.state.time.toString() + '秒'}
+                    </StyledCodeButtonText>
+                  )}
               </StyledCodeButton>
             </View>
             <View style={styles.line} />
           </View>
 
           <StyledSignInBtn
-            titleStyle={{color: 'black', fontWeight: '300'}}
+            titleStyle={{ color: 'black', fontWeight: '300', width: 100 }}
             disabled={!flag || this.props.userData.loaded}
             load={this.props.userData.loaded}
             onPress={this._goRegist.bind(this)}
             title="登 录"
           />
         </Animatable.View>
-        <ThirdPartyLoginView>
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#fbfcfe']}
-          />
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#f8f9fb']}
-          />
-          <ThirdPartyLoginViewInner
-            colors={['white', '#fcfdfe', '#fafbfe', '#fafbfd']}
-          />
-          <ThirdPartyInnerLoginView
-            isWXAppInstalled={this.state.isWXAppInstalled}>
-            {this.state.isWXAppInstalled &&
-              this.renderLoginItem(
-                25,
-                '#f0f0f0',
-                '微信登录',
-                'weixin',
-                thirdLoaded === WECHATLOGIN,
-                this.props.wxLogin,
-              )}
-            {this.renderLoginItem(
-              25,
-              '#f0f0f0',
-              'QQ登录',
-              'qq',
-              thirdLoaded === QQLOGIN,
-              this.props.qqLogin,
-            )}
-            {/* {this.renderLoginItem(35,*/}
-            {/* '#f0f0f0',*/}
-            {/* '手机登录',*/}
-            {/*'mobile', */}
-            {/* false,*/}
-            {/* () => {*/}
-            {/* this.setState({*/}
-            {/*showMobile: !this.state.showMobile */}
-            {/* })*/}
-            {/*}, */}
-            {/* )}*/}
-          </ThirdPartyInnerLoginView>
-        </ThirdPartyLoginView>
-        <StyledImageBottom
-          source={require('../../../../source/img/loginBottom.png')}
-        />
+        <ThirdPartyInnerLoginView>
+          {!!this.state.isWXAppInstalled && <SigninBtn name={'weixin'} onPress={this.props.wxLogin} loading={thirdLoaded === WECHATLOGIN} />}
+          {Platform.OS === 'ios' && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
+          <SigninBtn name={'qq'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
+        </ThirdPartyInnerLoginView>
       </StyledContent>
     );
   };
