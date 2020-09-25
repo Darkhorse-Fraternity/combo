@@ -31,6 +31,16 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  
+  NSString *myDataStr =[[[NSUserDefaults alloc] initWithSuiteName:@"group.com.winlong.xiamen.Bear"] valueForKey:@"NET_FOR_NATIVE"];
+  NSDictionary *myData = [NetworkRequests dictionaryWithJsonString:myDataStr];
+  if (myData) {
+    NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",myData[@"host"]];
+    [NetworkRequests requestObjWithUrl:url andHeaderDic:myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
+      NSLog(@"%@,dataDict",dataDict);
+    }];
+  }
+  
   self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
   //左右边距8
   self.widgetWidth = self.view.frame.size.width-16;

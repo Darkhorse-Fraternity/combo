@@ -42,17 +42,21 @@ static AFHTTPSessionManager *manager = nil;
  *  @param param      参数
  *  @param addHudView 添加hud的页面
  */
--(void)requestObjWithUrl:(NSString *)urlStr andParam:(NSDictionary *)param withResponseBlock:(ResponseBlock)block{
++(void)requestObjWithUrl:(NSString *)urlStr andHeaderDic:(NSDictionary *)header andParam:(NSDictionary *)param withResponseBlock:(ResponseBlock)block{
     
     __block id obj;
     
     AFHTTPSessionManager *session = [NetworkRequests shareAFManagerHandel];
-    [session.requestSerializer setValue:[self getHmygToken] forHTTPHeaderField:@"token"];//token
-    
-    NSString *userId=@" ";
-    
-    [session.requestSerializer setValue:userId forHTTPHeaderField:@"authc"];
-    
+    if (header) {
+      for (NSString *key in header.allKeys) {
+        NSString *value =header[key];
+        [manager.requestSerializer setValue:value forHTTPHeaderField:key];//type
+
+      }
+    }
+    if (!param) {
+      param = [NSDictionary new];
+    }
     session.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"application/json"];
     [session POST:urlStr parameters:param
          progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -81,5 +85,21 @@ static AFHTTPSessionManager *manager = nil;
 
     [manager.requestSerializer setValue:@"IOS" forHTTPHeaderField:@"type"];//type
 }
-
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString {
+    if (jsonString == nil) {
+        return nil;
+    }
+    
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err) {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
 @end
+

@@ -282,8 +282,6 @@ PODS:
     - React-cxxreact (= 0.63.2)
     - React-jsi (= 0.63.2)
   - React-jsinspector (0.63.2)
-  - react-native-apple-authentication (1.0.6):
-    - React
   - react-native-autogrow-textinput (5.2.0):
     - React
   - react-native-blur (0.8.0):
@@ -481,7 +479,6 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-apple-authentication (from `../node_modules/react-native-apple-authentication`)
   - react-native-autogrow-textinput (from `../node_modules/react-native-autogrow-textinput`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
@@ -599,8 +596,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-apple-authentication:
-    :path: "../node_modules/react-native-apple-authentication"
   react-native-autogrow-textinput:
     :path: "../node_modules/react-native-autogrow-textinput"
   react-native-blur:
@@ -736,7 +731,6 @@ SPEC CHECKSUMS:
   React-jsi: 54245e1d5f4b690dec614a73a3795964eeef13a8
   React-jsiexecutor: 8ca588cc921e70590820ce72b8789b02c67cce38
   React-jsinspector: b14e62ebe7a66e9231e9581279909f2fc3db6606
-  react-native-apple-authentication: f0317f01addb58a91cc8c1a2d41ca258ccf7eca0
   react-native-autogrow-textinput: 6ac9827113fab5e72be63ba6f0e40e6a01aa4697
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
   react-native-cameraroll: dbda741db5dadcdcf738e55a1fd565c307943bca
@@ -792,4 +786,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 8d7902c63c6f7068f539aa27ea5a9cc6f6248d09
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.10.0.beta.2

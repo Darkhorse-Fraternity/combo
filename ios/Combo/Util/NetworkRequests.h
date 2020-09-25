@@ -24,6 +24,6 @@ typedef void(^ResponseBlock)(NSError *error, id dataDict);
  *  @param param      参数
  *  @param block   返回
  */
--(void)requestObjWithUrl:(NSString *)urlStr andParam:(NSDictionary *)param withResponseBlock:(ResponseBlock)block;
-
++(void)requestObjWithUrl:(NSString *)urlStr andHeaderDic:(NSDictionary *)header andParam:(NSDictionary *)param withResponseBlock:(ResponseBlock)block;
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 @end
