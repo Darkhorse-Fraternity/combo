@@ -49,24 +49,6 @@ interface StateType {
     user: state.user.data,
   }),
   (dispatch, props) => ({
-    // ...bindActionCreators({},dispatch)
-
-    // fbSearch: () => dispatch(search(false, {
-    //   where: {
-    //     ...dispatch(selfUser()),
-    //     doneDate: { $exists: false },
-    //     endDate: { $gte: { __type: 'Date', iso: moment().toISOString() } }
-    //   },
-    //   include: FLAG
-    // }, FLAGRECORD)),
-    // search1: () => dispatch(search(false, {
-    //   where: {
-    //     ...dispatch(selfUser()),
-    //     statu: 'start'
-    //   },
-    //   order: '-time',
-    //   include: `${ICARD},iCard.user`
-    // }, IUSE)),
     search: () => {
       dispatch(
         listReq(IUSE, iUseListParams(), false, {
