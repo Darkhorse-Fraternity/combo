@@ -11,15 +11,15 @@ import {
   default as WebViewType,
   WebViewMessageEvent,
 } from 'react-native-webview';
-import {loadView} from '@components/Load';
-import {StyledError, StyledWebView} from './style';
+import { loadView } from '@components/Load';
+import { StyledError, StyledWebView } from './style';
 
 // import {useNavigation} from '@react-navigation/native';
-import {getHeader} from '@local_modules/react-native-qj-fetch';
+import { getHeader } from '@local_modules/react-native-qj-fetch';
 // import {push, pop} from '@components/NativeRoute';
 // import {useIsFirstRouteInParent} from '@components/UseNavigationAllParams';
 // import {loginAction, useLoginCheck} from '@components/NativeTool';
-import {WebViewProp, OnMessageDataType} from './interface';
+import { WebViewProp, OnMessageDataType } from './interface';
 import {
   WebViewJavascriptBridgeJS,
   injectJavaScriptInfo,
@@ -77,7 +77,7 @@ interface WebViewRefProp {
 const WebView = (props: WebViewProp & WebViewRefProp) => {
   const {
     url,
-    headers = getHeader(),
+    headers,
     startInLoadingState = true,
     onMessage,
     onMessageEvents,
@@ -178,8 +178,8 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
       {...other}
     />
   ) : (
-    <StyledError> 未传入URL</StyledError>
-  );
+      <StyledError> 未传入URL</StyledError>
+    );
 };
 
 //https://zh-hans.reactjs.org/docs/forwarding-refs.html

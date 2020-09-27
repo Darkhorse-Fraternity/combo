@@ -26,7 +26,7 @@ import Earnings from './Order/Earnings';
 import Cash from './Order/Cash';
 import Remind from './More/Remind';
 import Punch from './Punch';
-import WebView from '@components/Base/BaseWebView';
+import web from './WebViewPage';
 import Flag from './Flag';
 import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
@@ -35,8 +35,8 @@ import Search from './NewCard/Search';
 import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
 import Test from './test';
 
-export const otherRoute: RouteType = {
-  [RouteKey.web]: {component: WebView, options: WebView.navigationOptions},
+export const otherRoute = {
+  [RouteKey.web]: web,
   [RouteKey.test]: Test,
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},
   [RouteKey.tool]: {component: Tool},

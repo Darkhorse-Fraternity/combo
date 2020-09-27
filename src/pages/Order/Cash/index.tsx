@@ -5,15 +5,11 @@
 
 
 import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native';
+
 import { connect } from 'react-redux';
 
-import moment from 'moment';
 import { formValueSelector } from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
-import LCList from '../../../components/Base/LCList';
 import {
   StyledContent,
   StyledHeader,

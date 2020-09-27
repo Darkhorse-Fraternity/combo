@@ -6,6 +6,7 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import {Record} from 'immutable';
+import { WebViewProp } from '@components/WebView/interface';
 
 export enum RouteKey {
   web = 'web',
@@ -45,7 +46,10 @@ export enum RouteKey {
 }
 
 export type RootStackParamList = {
-  [RouteKey.web]: {};
+  [RouteKey.web]: {
+    title?: string;
+    headerShown?: boolean;
+  } & WebViewProp;
   [RouteKey.test]: undefined;
   [RouteKey.search]: undefined;
   [RouteKey.tool]: undefined;
