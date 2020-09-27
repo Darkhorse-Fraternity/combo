@@ -31,9 +31,6 @@ static AFHTTPSessionManager *manager = nil;
     
     return manager;
 }
--(NSString *)getHmygToken{
-  return @"111";
-}
 #pragma mark-------------AFNetworking请求-------------
 /**
  *  AFNetworking请求

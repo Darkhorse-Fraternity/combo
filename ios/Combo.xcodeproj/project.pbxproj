@@ -48,8 +48,12 @@
 		CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CC01F7D21FD6827C00A18EFD /* tip.mp3 */; };
 		EA1E60B8250724AA004447F0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		EA1E60BB25076B4E004447F0 /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */; };
-		EA1E60BE25076E64004447F0 /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */; };
+		EA88512225205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
+		EA88512325205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
+		EA88512425205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
+		EA88512525205C150006A93E /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88512025205C150006A93E /* EverydayHabitModel.m */; };
+		EA88512625205C150006A93E /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88512025205C150006A93E /* EverydayHabitModel.m */; };
+		EA88512725205C150006A93E /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88512025205C150006A93E /* EverydayHabitModel.m */; };
 		EA9E5B6324FFA235001F3ED7 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */; };
 		EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */; };
 		EA9E5B6A24FFA235001F3ED7 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */; };
@@ -166,10 +170,10 @@
 		D338FE1CE8A6961283FFC90A /* Pods-comboTodayWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboTodayWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-comboTodayWidget/Pods-comboTodayWidget.release.xcconfig"; sourceTree = "<group>"; };
 		D79C0A728E644F5185C19C2E /* libRCTAlipay.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTAlipay.a; sourceTree = "<group>"; };
 		D82FE5A0057046799E3592ED /* libRCTUmengAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTUmengAnalytics.a; sourceTree = "<group>"; };
-		EA1E60B925076B4E004447F0 /* EverydayHabitCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EverydayHabitCell.h; sourceTree = "<group>"; };
-		EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitCell.m; sourceTree = "<group>"; };
-		EA1E60BC25076E64004447F0 /* EverydayHabitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EverydayHabitModel.h; sourceTree = "<group>"; };
-		EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitModel.m; sourceTree = "<group>"; };
+		EA88511E25205C150006A93E /* EverydayHabitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverydayHabitModel.h; sourceTree = "<group>"; };
+		EA88511F25205C150006A93E /* EverydayHabitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitCell.m; sourceTree = "<group>"; tabWidth = 4; };
+		EA88512025205C150006A93E /* EverydayHabitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitModel.m; sourceTree = "<group>"; };
+		EA88512125205C150006A93E /* EverydayHabitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverydayHabitCell.h; sourceTree = "<group>"; };
 		EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = comboTodayWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
@@ -284,6 +288,7 @@
 		13B07FAE1A68108700A75B9A /* Combo */ = {
 			isa = PBXGroup;
 			children = (
+				EA88511D25205C150006A93E /* Common */,
 				77821593248E0AA100AF3F2F /* Images */,
 				CCB9FFCA21A402AA005BD7C5 /* Util */,
 				CCFBC84B1FEA7B2200DA269C /* Config */,
@@ -344,9 +349,9 @@
 				CC55A0EA1F7405BF00FA409B /* Recovered References */,
 				CCEE17B3DF7C46A491B494DA /* Libraries */,
 			);
-			indentWidth = 2;
+			indentWidth = 4;
 			sourceTree = "<group>";
-			tabWidth = 2;
+			tabWidth = 4;
 		};
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
@@ -430,16 +435,23 @@
 			path = Combo/Config;
 			sourceTree = "<group>";
 		};
+		EA88511D25205C150006A93E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EA88511E25205C150006A93E /* EverydayHabitModel.h */,
+				EA88512025205C150006A93E /* EverydayHabitModel.m */,
+				EA88512125205C150006A93E /* EverydayHabitCell.h */,
+				EA88511F25205C150006A93E /* EverydayHabitCell.m */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		EA9E5B6424FFA235001F3ED7 /* comboTodayWidget */ = {
 			isa = PBXGroup;
 			children = (
 				EAF5A1BE2506103100EDC740 /* comboTodayWidget.entitlements */,
 				EA9E5B6524FFA235001F3ED7 /* TodayViewController.h */,
 				EA9E5B6624FFA235001F3ED7 /* TodayViewController.m */,
-				EA1E60B925076B4E004447F0 /* EverydayHabitCell.h */,
-				EA1E60BA25076B4E004447F0 /* EverydayHabitCell.m */,
-				EA1E60BC25076E64004447F0 /* EverydayHabitModel.h */,
-				EA1E60BD25076E64004447F0 /* EverydayHabitModel.m */,
 				EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */,
 				EA9E5B6B24FFA235001F3ED7 /* Info.plist */,
 			);
@@ -858,9 +870,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA88512625205C150006A93E /* EverydayHabitModel.m in Sources */,
 				CCA7156F2019C9DA00A25FB9 /* AppDelegate.m in Sources */,
 				CCA715702019C9DA00A25FB9 /* main.m in Sources */,
 				CCA715712019C9DA00A25FB9 /* AppearanceConfig.m in Sources */,
+				EA88512325205C150006A93E /* EverydayHabitCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -869,8 +883,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EAF5A1C42506266000EDC740 /* NetworkRequests.m in Sources */,
+				EA88512525205C150006A93E /* EverydayHabitModel.m in Sources */,
 				CCB9FFCD21A40303005BD7C5 /* RNAppUtil.m in Sources */,
 				CCCE41892064A0F000F282E3 /* AppDelegate.m in Sources */,
+				EA88512225205C150006A93E /* EverydayHabitCell.m in Sources */,
 				CCCE418A2064A0F000F282E3 /* main.m in Sources */,
 				CCCE418B2064A0F000F282E3 /* AppearanceConfig.m in Sources */,
 			);
@@ -880,8 +896,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA1E60BB25076B4E004447F0 /* EverydayHabitCell.m in Sources */,
-				EA1E60BE25076E64004447F0 /* EverydayHabitModel.m in Sources */,
+				EA88512425205C150006A93E /* EverydayHabitCell.m in Sources */,
+				EA88512725205C150006A93E /* EverydayHabitModel.m in Sources */,
 				EAF5A1C6250633AD00EDC740 /* NetworkRequests.m in Sources */,
 				EA9E5B6724FFA235001F3ED7 /* TodayViewController.m in Sources */,
 			);
