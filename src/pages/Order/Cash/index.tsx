@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native';
@@ -87,12 +87,12 @@ export default class Cash extends PureComponent {
   static defaultProps = {};
 
   static navigationOptions = // const {navigation} = props;
-                             // const {state} = navigation;
-                             // const {params} = state;
-                             props => ({
-                               title: '',
-                             })
-  ;
+    // const {state} = navigation;
+    // const {params} = state;
+    props => ({
+      title: '',
+    })
+    ;
 
 
   _renderHeader = () => {

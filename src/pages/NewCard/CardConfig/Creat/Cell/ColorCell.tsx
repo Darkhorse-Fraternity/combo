@@ -23,7 +23,7 @@ import {
 )
 
 
-export default class IconCell extends Component {
+export default class IconCell extends PureComponent {
   constructor(props: Object) {
     super(props);
 

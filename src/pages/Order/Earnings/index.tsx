@@ -10,7 +10,6 @@ import {
   Animated
 } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import moment from 'moment';
 import ScrollableTabView from 'react-native-scrollable-tab-view';

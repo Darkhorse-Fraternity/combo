@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components";
+import styled from "styled-components/native";
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledCell = styled(TouchableBounce)`
