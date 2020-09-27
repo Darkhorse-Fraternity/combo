@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { StyleSheet, Dimensions, Platform } from 'react-native';
 import {
   View,
@@ -21,13 +21,11 @@ import styles, {
 } from './style'
 import icons from '../../../../source/icons'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
-export default class CardRow extends Component {
+export default class CardRow extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 
@@ -40,7 +38,7 @@ export default class CardRow extends Component {
   static defaultProps = {};
 
 
-  render(): ReactElement<any> {
+  render() {
 
 
     const {

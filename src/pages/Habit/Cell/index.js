@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   Platform
 } from 'react-native';
-import PropTypes from 'prop-types';
 import {
   StyledContent,
   StyledDes,
@@ -20,10 +19,6 @@ import {
 import svgs from '../../../../source/icons';
 
 export default class Cell extends PureComponent {
-  static propTypes = {
-    data: PropTypes.object.isRequired,
-  };
-
 
   render() {
     const {

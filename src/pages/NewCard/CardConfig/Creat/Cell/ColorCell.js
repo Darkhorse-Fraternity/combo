@@ -4,13 +4,11 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 
 import {
@@ -28,7 +26,6 @@ import {
 export default class IconCell extends Component {
   constructor(props: Object) {
     super(props);
-    // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 

@@ -49,7 +49,7 @@ export default class Avatar extends PureComponent {
   };
 
 
-  render(): ReactElement<any> {
+  render() {
     const { radius, user, load } = this.props;
 
     const { avatar, headimgurl, } = user;

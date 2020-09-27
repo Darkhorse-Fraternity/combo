@@ -5,7 +5,6 @@
 'use strict';
 
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {Platform, StatusBar, View} from 'react-native';
 
 export default class LightStatuBar extends Component {

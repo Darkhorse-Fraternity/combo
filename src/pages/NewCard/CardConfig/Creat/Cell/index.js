@@ -10,7 +10,6 @@ import {
   InteractionManager
 } from 'react-native'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
 
 import {
   StyledCell,
@@ -19,7 +18,6 @@ import {
   StyledCellImage
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import svgs from '../../../../../../source/icons'
 import { Field } from 'redux-form/immutable'
 
@@ -33,7 +31,6 @@ import { Field } from 'redux-form/immutable'
 export default class IconCell extends Component {
   constructor(props: Object) {
     super(props);
-    // this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       iconShow: true
     }

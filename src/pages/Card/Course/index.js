@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -35,7 +35,6 @@ import {
 
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import Toast from 'react-native-simple-toast'
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal'
 import Info from '../../Course/Info'
@@ -89,10 +88,9 @@ import { selfUser, iCard } from '../../../request/LCModle'
 )
 
 
-export default class Course extends Component {
+export default class Course extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       visible: false,
       index:0

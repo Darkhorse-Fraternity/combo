@@ -9048,11 +9048,6 @@ react-native-keyboard-tracking-view@^5.5.0:
   resolved "https://registry.yarnpkg.com/react-native-keyboard-tracking-view/-/react-native-keyboard-tracking-view-5.6.1.tgz#287186f6ae6335baf83ad106c7779f68d1cc48c2"
   integrity sha512-uud94SDB2ffGWQHb2ehCIxNi1lmSOQneZ/ro3Zb6Nu6yEh4ljqr1fbRco+pU1RWzaM73uS32A3vPu3NuXjPceA==
 
-react-native-keyboard-tracking-view@^5.7.0:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-tracking-view/-/react-native-keyboard-tracking-view-5.7.0.tgz#264d0b7dfa1a7c362583953f81bc73d7598fea8a"
-  integrity sha512-MDeEwAbn9LJDOfHq0QLCGaZirVLk2X/tHqkAqz3y6uxryTRdSl9PwleOVar5Jx2oAPEg4J9BXbUD1wwOOi+5Kg==
-
 react-native-keychain@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-native-keychain/-/react-native-keychain-3.0.0.tgz#29da1dfa43c2581f76bf9420914fd38a1558cf18"
@@ -9231,10 +9226,10 @@ react-native-vector-icons@>=4.0.0:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
-react-native-webview@^9.3.0:
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-9.3.0.tgz#f0a7d76bae288c78f63e7dad66bca7ed1e6c9386"
-  integrity sha512-mgRTMXELSULf9y7PjJiGO5pZs9tFbXI4fG9zK3rpCR9R9/bJwVdvLW6yIbLZ+8m36Upu9Go/Qsi+42n4UGZMkQ==
+react-native-webview@^10.9.0:
+  version "10.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.9.0.tgz#a45998f82ab1bbbbfde22b8b155394772610157a"
+  integrity sha512-zYZfmdJca/xRbwvvOfPhzL59SQC4L0W9rPWVF4zMi7BMDdCVHXVp0wKZ9KzmqxZNwadZNTxl5s0pvd6p3S34Fg==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"

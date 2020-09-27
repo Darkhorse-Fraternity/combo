@@ -3,13 +3,12 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { View, InteractionManager, Platform, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
@@ -146,10 +145,9 @@ function PrefixInteger(num, length) {
       }),
   }),
 )
-export default class Remind extends Component {
+export default class Remind extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       isDateTimePickerVisible: false,
       time: '00:00',

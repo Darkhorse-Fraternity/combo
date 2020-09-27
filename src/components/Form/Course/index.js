@@ -4,13 +4,12 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-import { immutableRenderDecorator } from 'react-immutable-render-mixin';
 import { formValueSelector } from 'redux-form/immutable'
 import { reduxForm } from 'redux-form/immutable'
 import {
@@ -94,9 +93,8 @@ const selector = formValueSelector(FormID) // <-- same as form name
   form: FormID,
 })
 
-@immutableRenderDecorator
 
-export default class CourseForm extends Component {
+export default class CourseForm extends PureComponent {
 
 
   static propTypes = {
@@ -108,7 +106,7 @@ export default class CourseForm extends Component {
   };
 
 
-  render(): ReactElement<any> {
+  render() {
 
     const {
       handleSubmit,

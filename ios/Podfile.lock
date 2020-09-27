@@ -291,7 +291,7 @@ PODS:
     - React
   - react-native-viewpager (2.0.2):
     - React
-  - react-native-webview (9.3.0):
+  - react-native-webview (10.9.0):
     - React
   - React-RCTActionSheet (0.63.2):
     - React-Core/RCTActionSheetHeaders (= 0.63.2)
@@ -359,8 +359,6 @@ PODS:
     - React
   - ReactNativeKeyboardManager (4.0.13-9):
     - IQKeyboardManager (= 4.0.13)
-    - React
-  - ReactNativeKeyboardTrackingView (5.6.1):
     - React
   - RNAppleAuthentication (1.1.2):
     - React
@@ -495,7 +493,6 @@ DEPENDENCIES:
   - ReactNativeExceptionHandler (from `../node_modules/react-native-exception-handler/ios`)
   - ReactNativeKeyboardInput (from `../node_modules/react-native-keyboard-input`)
   - ReactNativeKeyboardManager (from `../node_modules/react-native-keyboard-manager`)
-  - ReactNativeKeyboardTrackingView (from `../node_modules/react-native-keyboard-tracking-view`)
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
@@ -636,8 +633,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-keyboard-input"
   ReactNativeKeyboardManager:
     :path: "../node_modules/react-native-keyboard-manager"
-  ReactNativeKeyboardTrackingView:
-    :path: "../node_modules/react-native-keyboard-tracking-view"
   RNAppleAuthentication:
     :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNCAsyncStorage:
@@ -729,7 +724,7 @@ SPEC CHECKSUMS:
   react-native-splash-screen: 353334c5ae82d8c74501ea7cbb916cb7cb20c8bf
   react-native-umeng-analytics: 901c27260330ed2f5600315e3dea28d2a75f5856
   react-native-viewpager: 88f4269c19d626d2ccd5f7c7f5f7f76422ddb9e3
-  react-native-webview: 60d883f994e96a560756c14592552e02a06d604d
+  react-native-webview: bfe5436586b214759bd5043658863549fffc8e92
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6
   React-RCTBlob: 39cf0ece1927996c4466510e25d2105f67010e13
@@ -743,7 +738,6 @@ SPEC CHECKSUMS:
   ReactNativeExceptionHandler: 040b33d72849a0aa862d1dcb54008ccef77a935e
   ReactNativeKeyboardInput: 266ba27a2e9921f5bdc0b4cc30289b2a2f46b157
   ReactNativeKeyboardManager: 9c468c033ef79a223b9505195572ab8816f7dd73
-  ReactNativeKeyboardTrackingView: a240a6a0dba852bb107109a7ec7e98b884055977
   RNAppleAuthentication: 473b2c076f1a48a537610580a168c1fb6d0a90c6
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f

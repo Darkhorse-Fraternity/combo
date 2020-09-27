@@ -4,14 +4,12 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import moment from 'moment';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { selfUser } from '../../../request/LCModle';
 import { ENCH } from '../../../redux/reqKeys';
 import {
@@ -34,10 +32,9 @@ const listKey = ENCH;
 )
 
 
-export default class CashRecord extends Component {
+export default class CashRecord extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
   static propTypes = {};

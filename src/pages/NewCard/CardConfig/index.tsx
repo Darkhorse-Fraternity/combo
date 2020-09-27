@@ -5,7 +5,6 @@
 
 import * as immutable from 'immutable';
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,

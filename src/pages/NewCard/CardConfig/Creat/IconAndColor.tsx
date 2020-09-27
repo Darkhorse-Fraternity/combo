@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   ScrollView,
@@ -11,17 +11,16 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import {formValueSelector, change} from 'redux-form/immutable'; // <-- same as form name
-import {StyledSubTitleView, StyledSubTitle} from './style';
-import {StyledCell, StyledCellImage} from './Cell/style';
+import { formValueSelector, change } from 'redux-form/immutable'; // <-- same as form name
+import { StyledSubTitleView, StyledSubTitle } from './style';
+import { StyledCell, StyledCellImage } from './Cell/style';
 import Cell from './Cell';
 import ColorCell from './Cell/ColorCell';
 import svgs from '../../../../../source/icons';
 // import colors from '../../../../../source/colors'
-import {colorsCutThree, iconsCutThree} from './IconAndColorData';
+import { colorsCutThree, iconsCutThree } from './IconAndColorData';
 
 export const FormID = 'CreatCardForm';
 const selector = formValueSelector(FormID);
@@ -45,8 +44,8 @@ interface IconAndColorType {
   }),
 )
 export default class IconAndColor extends PureComponent<
-  IconAndColorType,
-  {iconShow: boolean; colorShow: boolean}
+IconAndColorType,
+{ iconShow: boolean; colorShow: boolean }
 > {
   constructor(props: Object) {
     super(props);
@@ -65,9 +64,9 @@ export default class IconAndColor extends PureComponent<
   };
 
   render() {
-    const {iconShow, colorShow} = this.state;
+    const { iconShow, colorShow } = this.state;
 
-    const {icon, color, onChange} = this.props;
+    const { icon, color, onChange } = this.props;
 
     return (
       <View>
@@ -75,7 +74,7 @@ export default class IconAndColor extends PureComponent<
           <StyledSubTitle>挑选图标与颜色：</StyledSubTitle>
 
           {icon && color && (
-            <StyledCell backgroundColor={color} style={{marginLeft: 0}}>
+            <StyledCell backgroundColor={color} style={{ marginLeft: 0 }}>
               <StyledCellImage
                 resizeMode="contain"
                 // style={{ position: 'absolute' }}
@@ -98,7 +97,7 @@ export default class IconAndColor extends PureComponent<
             // pagingEnabled={true}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <View key={`${item[0].name}11`}>
                 {item.map((it) => (
                   <Cell
@@ -130,7 +129,7 @@ export default class IconAndColor extends PureComponent<
             // pagingEnabled={true}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            renderItem={({item}: data) => (
+            renderItem={({ item }: data) => (
               <View>
                 {item.map((it) => (
                   <ColorCell

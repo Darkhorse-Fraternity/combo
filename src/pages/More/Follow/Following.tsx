@@ -22,7 +22,7 @@ import {
   IUSE,
   USER
 } from '../../../redux/reqKeys'
-import { Privacy ,CircleState} from '../../../configure/enum'
+import { Privacy, CircleState } from '../../../configure/enum'
 import {
   StyleFolllow,
   StyleFollowText,
@@ -51,7 +51,6 @@ import { user as userModel } from '../../../request/LCModle'
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 import LCList from '../../../components/Base/LCList';
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 
 import {
   friendExist,
@@ -75,7 +74,7 @@ import { isTablet } from 'react-native-device-info';
     data: state.list.get(FOLLOWRECORD + props.route.params.userId),
     iCard: state.normalizr.get(ICARD),
     selfUser: state.user.data,
-    user:state.normalizr.get(USER).get(props.route.params.userId),
+    user: state.normalizr.get(USER).get(props.route.params.userId),
     friendNum: state.req.get(FRIENDNUM + props.route.params.userId),
     friendeExist: state.req.get(FRIENDEXIST + props.route.params.userId),
     followLoad: state.req.get(FOLLOWING).get('load')
@@ -166,7 +165,7 @@ export default class Following extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.route.params.userId !== nextProps.route.params.userId){
+    if (this.props.route.params.userId !== nextProps.route.params.userId) {
       this.props.loadFriendNum(nextProps.route.params.userId)
       this.props.loadfriendExist(nextProps.route.params.userId)
     }
@@ -174,13 +173,13 @@ export default class Following extends PureComponent {
 
 
 
-  _renderHeader = ()=> {
+  _renderHeader = () => {
 
-    if(!this.props.user){
+    if (!this.props.user) {
       return null
     }
 
-    const data  = this.props.user.toJS()
+    const data = this.props.user.toJS()
 
     const name = data.nickname || '路人甲'
     const avatar = data.avatar
@@ -224,9 +223,9 @@ export default class Following extends PureComponent {
           <StyleHeaderInnerRight>
             <View
               style={{ borderBottomLeftRadius: 25, borderTopRightRadius: 25, overflow: 'hidden' }}>
-              {!avatarUrl ? <Avatar radius={45} style={{ borderRadius: 0 }} user={data}/> :
+              {!avatarUrl ? <Avatar radius={45} style={{ borderRadius: 0 }} user={data} /> :
                 <StyledZoomImage
-                  imageUrls={[{ url: avatarUrl }]}/>
+                  imageUrls={[{ url: avatarUrl }]} />
               }
             </View>
           </StyleHeaderInnerRight>
@@ -245,7 +244,7 @@ export default class Following extends PureComponent {
             hitSlop={{ top: 5, left: 50, bottom: 5, right: 50 }}
             onPress={() => {
               this.props.follow(isFollow, followers_count)
-            }}/>)}
+            }} />)}
         </StyledHeaderBottom>
         <StyledBottomTitle>
           习惯列表
@@ -255,8 +254,8 @@ export default class Following extends PureComponent {
   }
 
   _renderFollow = (data: Object,
-                   followees_count: number,
-                   followers_count: number) => {
+    followees_count: number,
+    followers_count: number) => {
     const { navigation } = this.props
 
 
@@ -294,7 +293,7 @@ export default class Following extends PureComponent {
 
     if (!iCard) {
       console.log('iCardId:', iCardId, iCard);
-      return <View/>
+      return <View />
     }
     return (
       <Cell
@@ -306,13 +305,13 @@ export default class Following extends PureComponent {
             iUseId: item.objectId,
             iCardId: iCard.objectId,
           })
-        }}/>
+        }} />
     )
 
   }
 
   render(): ReactElement<any> {
-    const { navigation,route } = this.props;
+    const { navigation, route } = this.props;
 
     const { params } = route;
     const { userId } = params
@@ -330,7 +329,7 @@ export default class Following extends PureComponent {
     return (
       <StyledContent forceInset={{ top: 'never' }}>
         <LCList
-          numColumns={isTablet()?2:1}
+          numColumns={isTablet() ? 2 : 1}
           ListHeaderComponent={this._renderHeader}
           style={{ flex: 1 }}
           reqKey={IUSE}
@@ -338,9 +337,9 @@ export default class Following extends PureComponent {
           // numColumns={2}
           // columnWrapperStyle={{ padding: 10 }}
           renderItem={this.renderRow.bind(this)}
-          dataMap={(data)=>{
+          dataMap={(data) => {
             const results = data.results.filter(item => item.iCard.state >= CircleState.open)
-            return {results}
+            return { results }
           }}
           reqParam={param}
         />

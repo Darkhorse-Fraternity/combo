@@ -4,12 +4,11 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
 
 import LCList from '../../../components/Base/LCList';
 import {
@@ -22,7 +21,6 @@ import {
 } from './style'
 import moment from 'moment'
 import { ORDER } from '../../../redux/reqKeys'
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { pointModel } from '../../../request/LCModle'
 const listKey = ORDER
 
@@ -35,10 +33,9 @@ const listKey = ORDER
 )
 
 
-export default class EarningsRecord extends Component {
+export default class EarningsRecord extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 

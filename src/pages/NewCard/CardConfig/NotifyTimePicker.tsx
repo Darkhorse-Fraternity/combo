@@ -7,8 +7,7 @@
 import React, { PureComponent } from 'react';
 import {
   View,
-  StyleSheet,
-  Text,
+
   LayoutAnimation,
   Platform
 } from 'react-native';
@@ -16,8 +15,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form/immutable';
 import { StyleNoticeText } from './style';
-import { Map } from 'immutable';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';

@@ -4,15 +4,13 @@
  */
 'use strict';
 
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import {View, StyleSheet, Text, Alert} from 'react-native';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import Statistical from '../../Card/Statistical';
 // import NavBar from '../../../components/Nav/bar/NavBar';
 
-import {StyledHeaderBtn, StyledHeaderTitle, Styledcontain} from './style';
+import { StyledHeaderBtn, StyledHeaderTitle, Styledcontain } from './style';
 
 @connect(
   (state, props) => ({
@@ -35,7 +33,7 @@ export default class RecordDetail extends PureComponent {
     // const state = iCard.get('state')
     // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
     //   title: iCard.get('title') })
-    this.props.navigation.setOptions({headerRight: this.__renderRightView});
+    this.props.navigation.setOptions({ headerRight: this.__renderRightView });
     // console.log('this.props.navigation', this.props.navigation);
   }
 
@@ -44,19 +42,19 @@ export default class RecordDetail extends PureComponent {
   }
 
   __renderRightView = () => {
-    const {navigation, iCard, route} = this.props;
-    const {params} = route;
+    const { navigation, iCard, route } = this.props;
+    const { params } = route;
     const iconAndColor = iCard.get('iconAndColor');
-    const {color} = iconAndColor
+    const { color } = iconAndColor
       ? iconAndColor.toJS()
-      : {name: 'sun', color: '#fcd22f'};
+      : { name: 'sun', color: '#fcd22f' };
 
     return (
       <StyledHeaderBtn
         // load={false}
-        style={{backgroundColor: color, marginRight: 20}}
+        style={{ backgroundColor: color, marginRight: 20 }}
         // disabled={false}
-        hitSlop={{top: 5, left: 10, bottom: 5, right: 10}}
+        hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
         onPress={() => {
           navigation.navigate('cardInfo', {
             iCardId: params.iCardId,
@@ -68,23 +66,23 @@ export default class RecordDetail extends PureComponent {
   };
   _;
   _renderHeader = () => {
-    const {iCard} = this.props;
+    const { iCard } = this.props;
     // const { state } = navigation;
     // const { params } = state;
     const iconAndColor = iCard.get('iconAndColor');
-    const {color} = iconAndColor
+    const { color } = iconAndColor
       ? iconAndColor.toJS()
-      : {name: 'sun', color: '#fcd22f'};
+      : { name: 'sun', color: '#fcd22f' };
 
     return <StyledHeaderTitle>{iCard.get('title')}</StyledHeaderTitle>;
   };
 
   render() {
-    const {navigation, iCard, route} = this.props;
+    const { navigation, iCard, route } = this.props;
     const iconAndColor = iCard.get('iconAndColor');
-    const {color} = iconAndColor
+    const { color } = iconAndColor
       ? iconAndColor.toJS()
-      : {name: 'sun', color: '#fcd22f'};
+      : { name: 'sun', color: '#fcd22f' };
     return (
       <Styledcontain>
         {/* <NavBar

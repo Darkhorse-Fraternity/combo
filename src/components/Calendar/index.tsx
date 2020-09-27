@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -14,9 +14,7 @@ import {
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  FC,
 } from 'react-native';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
@@ -24,10 +22,9 @@ import DateBoard from './DateBoard';
 
 const { width } = Dimensions.get('window');
 
-export default class Calendar extends Component {
+export default class Calendar extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       year: this.props.date.getFullYear(),
       month: this.props.date.getMonth(),

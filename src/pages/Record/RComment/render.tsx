@@ -14,8 +14,6 @@ import {
   TouchableNativeFeedback,
   ActivityIndicator,
   Keyboard,
-  SafeAreaView,
-  KeyboardAvoidingView,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { BlurView } from '@react-native-community/blur';

@@ -5,7 +5,6 @@
 
 import React, { PureComponent } from 'react';
 import { View, Dimensions } from 'react-native';
-import PropTypes from 'prop-types';
 
 import { debounce } from 'lodash';
 import {

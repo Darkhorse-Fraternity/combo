@@ -20,7 +20,6 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import {
   StyledContent,
   StyledBottomMenu,

@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     View,
     ActivityIndicator
@@ -22,7 +22,6 @@ import {
     StyledTipViewText
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { showImagePicker } from '../../../ImagePicker/imagePicker'
 
 @connect(
@@ -44,10 +43,9 @@ import { showImagePicker } from '../../../ImagePicker/imagePicker'
 )
 
 
-export default class ImageSelect extends Component {
+export default class ImageSelect extends PureComponent {
     constructor(props: Object) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
     }
 
@@ -62,7 +60,7 @@ export default class ImageSelect extends Component {
     };
 
 
-    render(): ReactElement<any> {
+    render() {
         const imageLoad = this.props.imageLoad
         let uri =this.props.value && this.props.value.get&&  this.props.value.get('url');
 

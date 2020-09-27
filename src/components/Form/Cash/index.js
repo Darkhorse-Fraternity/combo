@@ -4,7 +4,7 @@
  */
 
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native';
@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form/immutable';
 import { formValueSelector } from 'redux-form/immutable';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import {
   StyledContent,
   StyledInput,
@@ -45,10 +44,9 @@ const selector = formValueSelector(FormID);
   form: FormID,
 })
 
-export default class CashForm extends Component {
+export default class CashForm extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
     static propTypes = {};
@@ -56,7 +54,7 @@ export default class CashForm extends Component {
     static defaultProps = {};
 
 
-    render(): ReactElement<any> {
+    render() {
       const {
         handleSubmit, onSubmit, disabled, pristine, enableSumbmit, ...rest
       } = this.props;

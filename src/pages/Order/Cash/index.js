@@ -9,10 +9,8 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import moment from 'moment';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { formValueSelector } from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
 import LCList from '../../../components/Base/LCList';
@@ -79,10 +77,9 @@ const listKey = ENCH;
 )
 
 
-export default class Cash extends Component {
+export default class Cash extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
   }
 
   static propTypes = {};

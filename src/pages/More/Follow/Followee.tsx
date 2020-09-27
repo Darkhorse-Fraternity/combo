@@ -5,7 +5,7 @@
 
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native'
@@ -18,7 +18,6 @@ import {
   StyledContent,
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import FollowRow from './FollowRow'
 import { USER } from "../../../redux/reqKeys";
 import { isTablet } from 'react-native-device-info';
@@ -32,10 +31,9 @@ const listKey = USER
 )
 
 
-export default class Follow extends Component {
+export default class Follow extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
   }
 

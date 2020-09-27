@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Text,
   View,
@@ -6,7 +6,6 @@ import {
   Dimensions,
   DeviceEventEmitter
 } from 'react-native';
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { connect } from 'react-redux';
 
 
@@ -86,10 +85,9 @@ import {
 )
 
 // @withTheme
-export default class AgendaScreen extends Component {
+export default class AgendaScreen extends PureComponent {
   constructor(props) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.props.clear();
     this.state = {};
   }

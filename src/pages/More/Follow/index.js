@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {View, Animated, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +13,6 @@ import {StyledContent} from './style';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import TitleTabBar from '../../../components/Groceries/TitleTabBar';
 
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import Followee from './Followee';
 import Follower from './Follower';
 
@@ -21,10 +20,9 @@ import Follower from './Follower';
   state => ({}),
   dispatch => ({}),
 )
-export default class Follow extends Component {
+export default class Follow extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       scrollValue: new Animated.Value(0),
     };

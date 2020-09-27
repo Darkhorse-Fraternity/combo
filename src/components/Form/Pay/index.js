@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
     View,
 } from 'react-native'
@@ -33,7 +33,6 @@ import {
 } from './style'
 import { Radio } from '../../../components/Form/Select'
 import Pop from '../../../components/Pop'
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import { formValueSelector } from 'redux-form/immutable'
 import Button from '../../../components/Button'
 
@@ -75,10 +74,9 @@ const option = [
     form: FormID,
 })
 
-export default class PayForm extends Component {
+export default class PayForm extends PureComponent {
     constructor(props: Object) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
 
     }
 
