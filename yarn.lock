@@ -9043,10 +9043,15 @@ react-native-keyboard-manager@4.0.13-9:
   resolved "https://registry.yarnpkg.com/react-native-keyboard-manager/-/react-native-keyboard-manager-4.0.13-9.tgz#836c30b4f48d79ade23e257639bbed84509f6fdf"
   integrity sha512-9CAJ1hTsLGlCZP7D0auO3DmipkK6I7A/yBn74E1Jxhkh9DIAv3oNFeUqxZ2Se3s/NnUog4o9wZqEF0wz9ODAbA==
 
-react-native-keyboard-tracking-view@^5.5.0, react-native-keyboard-tracking-view@^5.6.1:
+react-native-keyboard-tracking-view@^5.5.0:
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/react-native-keyboard-tracking-view/-/react-native-keyboard-tracking-view-5.6.1.tgz#287186f6ae6335baf83ad106c7779f68d1cc48c2"
   integrity sha512-uud94SDB2ffGWQHb2ehCIxNi1lmSOQneZ/ro3Zb6Nu6yEh4ljqr1fbRco+pU1RWzaM73uS32A3vPu3NuXjPceA==
+
+react-native-keyboard-tracking-view@^5.7.0:
+  version "5.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-tracking-view/-/react-native-keyboard-tracking-view-5.7.0.tgz#264d0b7dfa1a7c362583953f81bc73d7598fea8a"
+  integrity sha512-MDeEwAbn9LJDOfHq0QLCGaZirVLk2X/tHqkAqz3y6uxryTRdSl9PwleOVar5Jx2oAPEg4J9BXbUD1wwOOi+5Kg==
 
 react-native-keychain@3.0.0:
   version "3.0.0"
