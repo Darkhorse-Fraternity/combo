@@ -4,9 +4,10 @@
  */
 'use strict';
 
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 export const StyledContent = styled.View`
+
 `
 
 export const StyleLogo = styled.Image`

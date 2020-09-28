@@ -53,7 +53,7 @@ export default class AnimationRow extends PureComponent {
           this._swiperAnimated, // The value to drive
           {
             toValue: 1,        // Target
-            duration: ANIMATION_DURATION ,    // Configuration
+            duration: ANIMATION_DURATION,    // Configuration
           },
         ),
         Animated.timing(this._animated, {
@@ -77,7 +77,7 @@ export default class AnimationRow extends PureComponent {
 
 
   _onLayout = (event) => {
-    const {  height } = event.nativeEvent.layout;
+    const { height } = event.nativeEvent.layout;
     if (this.state.height === 0) {
       this.setState({ height })
     }
@@ -85,7 +85,7 @@ export default class AnimationRow extends PureComponent {
 
 
   render() {
-    const { children,style, ...other } = this.props
+    const { children, style, ...other } = this.props
     const { height } = this.state
 
     const rowStyles = height === 0 ? [] : [
@@ -114,7 +114,7 @@ export default class AnimationRow extends PureComponent {
 
     return (
 
-      <Animated.View useNativeDriver onLayout={this._onLayout} style={[rowStyles,style]} {...other}>
+      <Animated.View onLayout={this._onLayout} style={[rowStyles, style]} {...other}>
         {children}
       </Animated.View>
     );

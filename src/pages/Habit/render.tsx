@@ -28,7 +28,6 @@ import {
 import ExceptionView, {
   ExceptionType,
 } from '../../components/Base/ExceptionView/index';
-import HeaderBtn from '../../components/Button/HeaderBtn';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
 import { update, search } from '../../redux/module/leancloud';
 
@@ -37,7 +36,6 @@ import { claerByID } from '../../redux/actions/list';
 import { addNormalizrEntity } from '../../redux/module/normalizr';
 import { classUpdate } from '../../request/leanCloud';
 import { req } from '../../redux/actions/req';
-import AnimationRow from '../../components/AnimationRow';
 import { useNavigation } from '@react-navigation/native';
 import { isTablet } from 'react-native-device-info';
 

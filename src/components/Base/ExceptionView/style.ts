@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components";
+import styled from "styled-components/native";
 import Button from '../../Button'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {BorderlessButton} from 'react-native-gesture-handler'

@@ -29,7 +29,7 @@ import Item from './Item';
 import rate from '../../../helps/rate';
 import { iUseList as iUseListParams } from '../../request/leanCloud';
 import { listReq } from '../../redux/actions/list';
-import { PrivacyModal } from '@components/ModalUtil/Privacy';
+import { PrivacyModal } from '@components/modal/privacy';
 import { isLandscapeSync, isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
 
