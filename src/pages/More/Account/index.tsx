@@ -48,19 +48,12 @@ import { AvatarPicker } from '@components/Avatar/avatar-picker';
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch)
 
-    picker: async () => {
+    upload: async (uri: string) => {
       /* 事件的默认动作已被取消 */
-      const response = await showImagePicker({
-        title: '修改头像',
-        maxWidth: 1000, // photos only
-        maxHeight: 1000, // photos only
-        allowsEditing: true,
-      });
-      if (response.uri) {
-        const avatar = await dispatch(uploadAvatar(response.uri));
+      if (uri) {
+        const avatar = await dispatch(uploadAvatar(uri));
         return dispatch(updateUserData({ avatar }));
       }
-      // dispatch(pickerImage())
     },
     wechatBinding: () => {
       dispatch(wechatBinding(WECHATLOGIN));
@@ -119,7 +112,7 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
   }
 
   _renderHeadRow() {
-    const { user, picker } = this.props
+    const { user, picker, upload } = this.props
 
     const { avatar, headimgurl, } = user || {}
     const avatarUrl = (avatar ? avatar.url : headimgurl)
@@ -127,7 +120,14 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
     return (
       <StyledHeader>
         {/* <StyledTitle>修改头像</StyledTitle> */}
-        <AvatarPicker source={{ uri: avatarUrl }} load={this.props.loadAvatar} />
+        <AvatarPicker
+          upload={(res) => {
+            // console.log('res', res);
+
+            upload(res);
+          }}
+          source={{ uri: avatarUrl }}
+          load={this.props.loadAvatar} />
 
         {/* <StyledArrow/> */}
 

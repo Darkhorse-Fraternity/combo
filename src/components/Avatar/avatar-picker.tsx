@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
+import React, { FC, useState } from 'react';
 import Avatar, { AvatarProps } from './avatar-fc';
 import {
   StyledCaramerBackView,
@@ -14,17 +15,25 @@ interface AvatarPickerType extends AvatarProps {
 
 export const AvatarPicker: FC<AvatarPickerType> = (props) => {
   const { load = false, upload, radius = 80, ...other } = props;
-  return (
-    <StyledHeaderRow onPress={() => {
+  const [state, setstate] = useState(false);
 
-    }}>
-      <StyledContent radius={radius}>
-        {load ? <StyledIndicator radius={radius} /> :
-          <Avatar radius={radius} {...other} />}
-      </StyledContent>
-      <StyledCaramerBackView>
-        <StyledIcon color="white" size={15} name="camera" />
-      </StyledCaramerBackView>
-    </StyledHeaderRow>
+  const onSuccess = ({ path }: { path: string }) => {
+    upload(path);
+    setstate(false)
+  }
+
+  return (
+    <>
+      <StyledHeaderRow disabled={load} onPress={setstate.bind(undefined, true)}>
+        <StyledContent radius={radius}>
+          {load ? <StyledIndicator radius={radius / 2} /> :
+            <Avatar radius={radius} {...other} />}
+        </StyledContent>
+        <StyledCaramerBackView>
+          <StyledIcon color="white" size={15} name="camera" />
+        </StyledCaramerBackView>
+      </StyledHeaderRow>
+      <PhotoOrCameraSheet onClose={setstate.bind(undefined, false)} onSuccess={onSuccess} isVisiable={state} />
+    </>
   )
 }

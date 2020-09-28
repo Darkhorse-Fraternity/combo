@@ -1,13 +1,13 @@
 import styled from 'styled-components/native';
-import {View} from 'react-native';
+import { View } from 'react-native';
 interface StyledSubmitTextProps {
   color?: string;
 }
-export const ContentView = styled.View`
+export const ContentView = styled.SafeAreaView`
   background-color: white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  height: 163px;
+  /* height: 163px; */
   justify-content: flex-end;
 `;
 export const CommitBtn = styled.Text<StyledSubmitTextProps>`
