@@ -1,13 +1,13 @@
 /* @flow */
 
 import React from 'react';
-import {View, Alert, TouchableOpacity, Platform} from 'react-native';
-import {connect} from 'react-redux';
+import { View, Alert, TouchableOpacity, Platform } from 'react-native';
+import { connect } from 'react-redux';
 import * as WeChat from 'react-native-wechat';
 import Toast from 'react-native-simple-toast';
 import DeviceInfo from 'react-native-device-info';
-import {showImagePicker} from '../../../components/ImagePicker/imagePicker';
-import {uploadAvatar} from '../../../redux/actions/util';
+import { showImagePicker } from '../../../components/ImagePicker/imagePicker';
+import { uploadAvatar } from '../../../redux/actions/util';
 import {
   wechatBinding,
   qqBinding,
@@ -16,15 +16,11 @@ import {
 import {
   StyledContent,
   StyledButton,
-  StyledAvatar,
   StyledArrow,
   StyledTitle,
   StyledRow,
   StyledDes,
   StyledActivityIndicator,
-  StyledIcon,
-  StyledCaramerBackView,
-  StyledHeaderRow,
   StyledInput,
   StyledHeader,
   StyledAppInfo,
@@ -34,14 +30,13 @@ import {
   StyledAppPrivacyPolicyView,
   StyledAppPrivacyLine,
 } from './style';
-import {updateNickName} from '../../../request/leanCloud';
-import {updateUserData} from '../../../redux/actions/user';
-import {req} from '../../../redux/actions/req';
-import {WECHATLOGIN, QQLOGIN, UPDATENICKNAME} from '../../../redux/reqKeys';
-import Button from '../../../components/Button/index';
-import {logout} from '../../../redux/actions/user';
-import Avatar from '../../../components/Avatar';
-import {appChannel} from '../../../../helps/util';
+import { updateNickName } from '../../../request/leanCloud';
+import { updateUserData } from '../../../redux/actions/user';
+import { req } from '../../../redux/actions/req';
+import { WECHATLOGIN, QQLOGIN, UPDATENICKNAME } from '../../../redux/reqKeys';
+import { logout } from '../../../redux/actions/user';
+import { appChannel } from '../../../../helps/util';
+import { AvatarPicker } from '@components/Avatar/avatar-picker';
 
 @connect(
   (state) => ({
@@ -57,13 +52,13 @@ import {appChannel} from '../../../../helps/util';
       /* 事件的默认动作已被取消 */
       const response = await showImagePicker({
         title: '修改头像',
-        maxWidth: 500, // photos only
-        maxHeight: 500, // photos only
+        maxWidth: 1000, // photos only
+        maxHeight: 1000, // photos only
         allowsEditing: true,
       });
       if (response.uri) {
         const avatar = await dispatch(uploadAvatar(response.uri));
-        return dispatch(updateUserData({avatar}));
+        return dispatch(updateUserData({ avatar }));
       }
       // dispatch(pickerImage())
     },
@@ -73,12 +68,12 @@ import {appChannel} from '../../../../helps/util';
     qqBinding: () => {
       dispatch(qqBinding(QQLOGIN));
     },
-    mobilePhoneNumBinding: () => {},
+    mobilePhoneNumBinding: () => { },
     brekeBinding: (key, loadKey, dbNum) => {
       if (dbNum > 1) {
         dispatch(breakBinding(key, loadKey));
       } else {
-        Alert.alert('解除后,一旦退出将无法找回', null, [{text: '取消'}]);
+        Alert.alert('解除后,一旦退出将无法找回', null, [{ text: '取消' }]);
       }
     },
     update: (nickname) => {
@@ -90,7 +85,7 @@ import {appChannel} from '../../../../helps/util';
 
         Toast.show('修改成功');
         // 修改store
-        dispatch(updateUserData({nickname}));
+        dispatch(updateUserData({ nickname }));
         // props.navigation.goBack()
       });
     },
@@ -98,7 +93,7 @@ import {appChannel} from '../../../../helps/util';
       Alert.alert('确定退出吗?', null, [
         {
           text: '取消',
-          onPress: () => {},
+          onPress: () => { },
         },
         {
           text: '确定',
@@ -110,7 +105,7 @@ import {appChannel} from '../../../../helps/util';
     },
   }),
 )
-export default class Account extends React.Component {
+export default class Account extends React.Component<{ loadAvatar: boolean, user: object }> {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -119,29 +114,28 @@ export default class Account extends React.Component {
       appInfoShow: false,
     };
     WeChat.isWXAppInstalled().then((isWXAppInstalled) => {
-      this.setState({isWXAppInstalled});
+      this.setState({ isWXAppInstalled });
     });
   }
 
-  _renderHeadRow(onPress: Function = () => {}) {
+  _renderHeadRow() {
+    const { user, picker } = this.props
+
+    const { avatar, headimgurl, } = user || {}
+    const avatarUrl = (avatar ? avatar.url : headimgurl)
+
     return (
       <StyledHeader>
-        <Button onPress={onPress}>
-          {/* <StyledTitle>修改头像</StyledTitle> */}
-          <StyledHeaderRow>
-            <Avatar load={this.props.loadAvatar} />
-            <StyledCaramerBackView>
-              <StyledIcon color="white" size={15} name="camera" />
-            </StyledCaramerBackView>
-            {/* <StyledArrow/> */}
-          </StyledHeaderRow>
-        </Button>
+        {/* <StyledTitle>修改头像</StyledTitle> */}
+        <AvatarPicker source={{ uri: avatarUrl }} load={this.props.loadAvatar} />
+
+        {/* <StyledArrow/> */}
 
         <StyledInput
           ref="nameInput"
           placeholder="请输入昵称"
           onChangeText={(text) => {
-            this.setState({nickname: text});
+            this.setState({ nickname: text });
           }}
           maxLength={30}
           blurOnSubmit
@@ -183,7 +177,7 @@ export default class Account extends React.Component {
     <StyledAppInfo>
       <TouchableOpacity
         onLongPress={async () => {
-          this.setState({appInfoShow: !this.state.appInfoShow});
+          this.setState({ appInfoShow: !this.state.appInfoShow });
         }}
         activeOpacity={1}>
         <StyledAppPrivacyPolicyView>
@@ -211,25 +205,25 @@ export default class Account extends React.Component {
           {!this.state.appInfoShow
             ? `APP VERSION: ${DeviceInfo.getVersion()}`
             : '用于截屏反馈BUG\n' +
-              `UserID: ${this.props.user.objectId}\n` +
-              `App Channel: ${appChannel}\n` +
-              `App version: ${DeviceInfo.getVersion()}\n` +
-              `App Build: ${DeviceInfo.getBuildNumber()}\n` +
-              `Brand: ${DeviceInfo.getBrand()}\n` +
-              // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
-              `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorageSync()}\n` +
-              `Model: ${DeviceInfo.getModel()}\n` +
-              `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
-              `APILevel: ${DeviceInfo.getApiLevelSync()}`}
+            `UserID: ${this.props.user.objectId}\n` +
+            `App Channel: ${appChannel}\n` +
+            `App version: ${DeviceInfo.getVersion()}\n` +
+            `App Build: ${DeviceInfo.getBuildNumber()}\n` +
+            `Brand: ${DeviceInfo.getBrand()}\n` +
+            // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+            `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorageSync()}\n` +
+            `Model: ${DeviceInfo.getModel()}\n` +
+            `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
+            `APILevel: ${DeviceInfo.getApiLevelSync()}`}
         </StyledAppVersionText>
       </TouchableOpacity>
     </StyledAppInfo>
   );
 
   render() {
-    const {user} = this.props;
-    const {authData, mobilePhoneVerified} = user;
-    const {weixin, qq} = authData || {};
+    const { user } = this.props;
+    const { authData, mobilePhoneVerified } = user;
+    const { weixin, qq } = authData || {};
     let dbNum = 0;
     if (mobilePhoneVerified) {
       dbNum += 1;
@@ -246,9 +240,9 @@ export default class Account extends React.Component {
     // console.log("dbNum:", dbNum);
 
     return (
-      <StyledSafeAreaView forceInset={{top: 'never'}}>
+      <StyledSafeAreaView forceInset={{ top: 'never' }}>
         <StyledContent>
-          {this._renderHeadRow(this.props.picker)}
+          {this._renderHeadRow()}
           {/* {this._renderRow('昵称', this.props.user.nickname, () => { */}
           {/* this.props.navigation.navigate("NickName"); */}
           {/* })} */}

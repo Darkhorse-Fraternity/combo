@@ -23,6 +23,14 @@ import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
 // ?imageView/1/w/10/h/10/q/100/format/png
 
+interface AvatarType {
+  type?: string;
+  radius?: number;
+  load?: boolean;
+  user: object
+}
+
+
 @connect(
   state => ({
     user: state.user.data,
@@ -31,16 +39,12 @@ import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 )
 
 
-export default class Avatar extends PureComponent {
-  constructor(props: Object) {
+export default class Avatar extends PureComponent<AvatarType> {
+  constructor(props: AvatarType) {
     super(props);
   }
 
-  static propTypes = {
-    type: PropTypes.string,
-    radius: PropTypes.number,
-    load: PropTypes.bool
-  };
+
 
   static defaultProps = {
     type: 'small',
@@ -50,7 +54,7 @@ export default class Avatar extends PureComponent {
 
 
   render() {
-    const { radius, user, load } = this.props;
+    const { radius = 40, user = {}, load = false } = this.props;
 
     const { avatar, headimgurl, } = user;
     let avatarUrl = (avatar ? avatar.url : headimgurl);

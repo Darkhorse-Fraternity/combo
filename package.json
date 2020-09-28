@@ -98,7 +98,6 @@
     "redux": "4.0.4",
     "redux-form": "7.4.2",
     "redux-thunk": "2.3.0",
-    "rmc-dialog": "1.1.1",
     "rn-topview": "0.1.6",
     "styled-components": "^5.0.0",
     "uuid": "3.2.1",

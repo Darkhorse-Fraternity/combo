@@ -32,9 +32,9 @@ export function shadeBlend(p, c0, c1?: number) {
 }
 
 export function add_Leancloud_Thumbnail_Suffix(
-  url,
-  width,
-  height,
+  url:string,
+  width:number,
+  height:number,
   q = 100,
   format = 'jpg',
 ) {

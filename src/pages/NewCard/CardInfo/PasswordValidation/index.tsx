@@ -8,7 +8,7 @@ import {
 } from "./style";
 import * as yup from "yup";
 import { RHFError, MemoRHFInput } from "@components/Form";
-import CModal, { CModalPropsType } from "@components/Modal";
+import CModal, { CModalPropsType } from "@components/modal/c-model";
 
 const validationSchema = yup.object().shape({
   password: yup

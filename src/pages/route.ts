@@ -9,7 +9,6 @@ import LoginView from './More/Login/LoginView';
 import More from './More';
 import Account from './More/Account';
 import RecordDetail from './Record/Detail';
-import Feedback from './More/Feedback/Feedback';
 import CirlcleSetting from './Publish/CirlcleSetting';
 import CardInfo from './NewCard/CardInfo';
 import RComment from './Record/RComment';
@@ -72,12 +71,7 @@ export const otherRoute = {
     component: CardConfig,
     options: CardConfig.navigationOptions,
   },
-  [RouteKey.account]: {component: Account},
-  [RouteKey.feedback]: {
-    component: Feedback,
-    options: Feedback.navigationOptions,
-  },
-  
+  [RouteKey.account]: {component: Account},  
   [RouteKey.cardInfo]: {
     component: CardInfo,
     options: CardInfo.navigationOptions,

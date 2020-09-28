@@ -27,7 +27,6 @@ export enum RouteKey {
   record = 'record',
   cardConfig = 'cardConfig',
   account = 'account',
-  feedback = 'feedback',
   cardInfo = 'cardInfo',
   rcomment = 'rcomment',
   card = 'card',

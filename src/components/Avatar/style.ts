@@ -7,8 +7,10 @@
 import styled from 'styled-components/native';
 import {Platform} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Button from '@components/Button';
 
-export const StyledContent = styled.View`
+export const StyledContent = styled.View<{radius:number}>`
   background-color: white;
   border-radius: ${(props) => props.radius};
   border-width: ${Platform.OS === 'ios' ? 1 : 2}px;
@@ -21,23 +23,47 @@ export const StyledContent = styled.View`
   margin: 5px;
 `;
 
-export const StyledContent2 = styled.View`
+
+
+export const StyledContent2 = styled.View<{radius:number}>`
   background-color: white;
   border-radius: ${(props) => props.radius};
   border-width: 1px;
   border-color: white;
 `;
 
-export const StyledAvatar = styled(FastImage)`
+export const StyledAvatar = styled(FastImage)<{radius:number}>`
   width: ${(props) => props.radius * 2};
   height: ${(props) => props.radius * 2};
   border-radius: ${(props) => props.radius};
   background-color: #fdfbfb;
 `;
 
-export const StyledIndicator = styled.ActivityIndicator`
+export const StyledIndicator = styled.ActivityIndicator<{radius:number}>`
   align-self: center;
   width: ${(props) => props.radius * 2};
   height: ${(props) => props.radius * 2};
   border-radius: ${(props) => props.radius};
+`;
+
+export const StyledCaramerBackView = styled.View`
+  background-color: ${(props) => props.theme.mainColor};
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: -20px;
+  z-index: 100;
+  elevation: 6;
+`;
+
+export const StyledIcon = styled(Icon)``;
+
+
+export const StyledHeaderRow = styled(Button)`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;

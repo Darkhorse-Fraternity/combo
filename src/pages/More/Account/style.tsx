@@ -6,8 +6,8 @@
 
 import styled from 'styled-components/native';
 import Button from '../../../components/Button/index';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import {SafeAreaView} from 'react-native';
+
+import { SafeAreaView } from 'react-native';
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
   flex: 1;
@@ -52,20 +52,7 @@ export const StyledDes = styled.Text`
   font-size: 14px;
 `;
 
-export const StyledCaramerBackView = styled.View`
-  background-color: ${(props) => props.theme.mainColor};
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 50px;
-  margin-left: -20px;
-  z-index: 100;
-  elevation: 6;
-`;
 
-export const StyledIcon = styled(Icon)``;
 
 export const StyledRow = styled.View`
   flex-direction: row;
@@ -74,11 +61,7 @@ export const StyledRow = styled.View`
   padding: 20px 0px;
 `;
 
-export const StyledHeaderRow = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-`;
+
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
   margin-left: 5px;
