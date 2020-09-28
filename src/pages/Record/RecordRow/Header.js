@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '../../../components/Avatar/Avatar2';
 
-import {} from './style';
 
 import Button from '../../../components/Button';
 
@@ -31,7 +30,7 @@ export default class Header extends PureComponent {
 
   static defaultProps = {};
 
-  render(): ReactElement<any> {
+  render() {
     let {onPress, user} = this.props;
     user = (user && user.toJS()) || {};
 

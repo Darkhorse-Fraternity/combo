@@ -102,7 +102,7 @@ export function req(params: Object, key: string, option: Object = {}) {
   };
 }
 
-export function load(params: Object, key: stringg) {
+export function load(params: Object, key: string) {
   return dispatch => dispatch(req(params, key, { sceme: schemas[key] }));
 }
 
