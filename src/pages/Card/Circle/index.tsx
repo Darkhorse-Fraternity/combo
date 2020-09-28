@@ -19,7 +19,7 @@ import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
 import { IDO, IUSE } from '../../../redux/reqKeys';
 import { recordDiary } from '../../../components/DoCard/Do/Diary';
-import ShareView, { ShareModal } from '../../../components/Share/ShareView';
+import { ShareModal } from '../../../components/Share/ShareView';
 import Dialog from '../../../components/Dialog';
 import { classUpdate } from '../../../request/leanCloud';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
@@ -27,8 +27,7 @@ import { req } from '../../../redux/actions/req';
 
 import {
   StyledHeader,
-  StyledTitleView,
-  StyledTitleText,
+
   StyledHeaderButton,
   StyledHeaderImage,
   StyledHeaderText,

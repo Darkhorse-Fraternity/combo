@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   StyleSheet,
@@ -18,7 +18,7 @@ import { required } from "../../request/validation";
 
 const backWidth = Dimensions.get("window").width / 3;
 
-export default class EZTabBar extends Component {
+export default class EZTabBar extends PureComponent {
   static propTypes = {
     goToPage: PropTypes.func,
     activeTab: PropTypes.number,

@@ -24,15 +24,13 @@ import {
   StyledHeaderRight,
 } from './style';
 
-import BackTabBar from '../../components/Groceries/BackTabBar';
 import TitleTabBar from '../../components/Groceries/TitleTabBar';
 import Statistical from './Statistical';
 // import Info from './Settings/index'
 // import Course from './Course/index'
 import Circle from './Circle/index';
 import Button from '../../components/Button/index';
-import {theme} from '../../Theme/index';
-import {Privacy, CircleState} from '../../configure/enum';
+import { CircleState} from '../../configure/enum';
 import {COURSE, ICARD} from '../../redux/reqKeys';
 import {list, entitys} from '../../redux/scemes';
 import {find, update} from '../../redux/module/leancloud';

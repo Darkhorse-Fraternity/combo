@@ -1,5 +1,5 @@
 import {StyleSheet, Dimensions, Platform} from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import Button from '../../../components/Button';
 // import {

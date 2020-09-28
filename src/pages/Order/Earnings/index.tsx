@@ -6,14 +6,11 @@
 
 import React, { PureComponent } from 'react';
 import {
-  View,
   Animated
 } from 'react-native';
 import { connect } from 'react-redux';
 
-import moment from 'moment';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import LCList from '../../../components/Base/LCList';
 import {
   StyledContent,
   StyledHeader,
@@ -21,22 +18,14 @@ import {
   StyledHeaderCash,
   StyledHeaderBottom,
   StyledHeaderBtn,
-  StyledRow,
-  StyledRowTitle,
-  StyledRowInner,
-  StyledRowDate,
-  StyledRowAmount,
-  StyledRowStatu
 } from './style';
 import { ORDER } from '../../../redux/reqKeys';
-import { pointModel } from '../../../request/LCModle';
 import { update } from '../../../redux/actions/user';
 import EarningRecord from '../Record/EarningsRecord';
 import CostRecord from '../Record/CostRecord';
 import CashRecord from '../Record/CashRecord';
 import EZTabBar from '../../../components/Groceries/EZTabBar';
 
-import theme from '../../../Theme';
 
 const listKey = ORDER;
 

@@ -176,7 +176,7 @@ export default class PublishDetail extends Component {
     );
   }
 
-  render(): ReactElement<any> {
+  render() {
     const { navigation } = this.props;
     const iCard = this.props.iCard.toJS();
 

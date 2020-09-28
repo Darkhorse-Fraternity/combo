@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import styled from "styled-components";
+import styled from "styled-components/native";
 import HeaderBtn from '../../../components/Button/HeaderBtn'
 
 

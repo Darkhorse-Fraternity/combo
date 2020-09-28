@@ -4,7 +4,7 @@
  */
 
 
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
