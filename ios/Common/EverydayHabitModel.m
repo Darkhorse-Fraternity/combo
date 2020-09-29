@@ -12,9 +12,9 @@
 
 -(void)setModelWithDic:(NSDictionary *)dic{
     NSDateFormatter *todayFormatter = [[NSDateFormatter alloc]init];
-    todayFormatter.dateFormat=@"yyyy-mm-ddT";
+    todayFormatter.dateFormat=@"yyyy-MM-dd'T'";
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat=@"yyyy-mm-ddThh:mm:ss";
+    formatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ss";
     if (dic[@"doneDate"] && dic[@"doneDate"][@"iso"]) {
         
         NSString *todayStr =[todayFormatter stringFromDate:[NSDate new]];
@@ -46,24 +46,40 @@
             self.canDone = YES;
         }
     }
+    if (dic[@"iCard"] && dic[@"iCard"][@"objectId"]) {
+        self.iCard_objectId = dic[@"iCard"][@"objectId"];
+    }
+    if (dic[@"iCard"] && dic[@"objectId"]) {
+        self.iUse_objectId = dic[@"objectId"];
+    }
+    if (dic[@"iCard"] && dic[@"user"]) {
+        self.User_objectId = dic[@"user"][@"objectId"];
+    }
     if (dic[@"iCard"] && dic[@"iCard"][@"limitTimes"]) {
         NSArray *limitTimes =dic[@"iCard"][@"limitTimes"];
         if (limitTimes.count == 2) {
             NSString *startStr =limitTimes[0];
             NSString *endStr =limitTimes[1];
+            if([startStr isEqualToString:@"24:00"]){
+                startStr = @"23:59";
+            }
+            if([endStr isEqualToString:@"24:00"]){
+                endStr = @"23:59";
+            }
             NSString *todayStr =[todayFormatter stringFromDate:[NSDate new]];
             
             startStr =[NSString stringWithFormat:@"%@%@:00",todayStr,startStr];
             endStr =[NSString stringWithFormat:@"%@%@:00",todayStr,endStr];;
             NSDate *startDate = [formatter dateFromString:startStr];
             NSDate *endDate = [formatter dateFromString:endStr];
-            if (self.doneDate) {
-                if ([self.doneDate earlierDate:startDate] == startDate && [self.doneDate earlierDate:endDate] == self.doneDate) {
-                    self.isShow = YES;
-                }else{
-                    self.isShow = NO;
-                }
+            NSDate *nowDate = [NSDate new];
+            
+            if ([nowDate earlierDate:startDate] == startDate && [nowDate earlierDate:endDate] == nowDate) {
+                self.isShow = YES;
+            }else{
+                self.isShow = NO;
             }
+            
         }
     }
 }

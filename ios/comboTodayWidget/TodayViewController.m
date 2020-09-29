@@ -27,6 +27,8 @@
 @property (nonatomic,assign) CGFloat widgetHeight;
 @property (nonatomic,assign) CGFloat widgetWidth;
 @property (nonatomic,assign) int habitCount;
+
+@property (nonatomic,strong) NSDictionary *myData;
 @end
 
 @implementation TodayViewController
@@ -36,30 +38,31 @@
     NSString *myDataStr =[[[NSUserDefaults alloc] initWithSuiteName:@"group.com.winlong.xiamen.Bear"] valueForKey:@"NET_FOR_NATIVE"];
     NSDictionary *myData = [NetworkRequests dictionaryWithJsonString:myDataStr];
     if (myData) {
-      NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",myData[@"host"]];
-      [NetworkRequests requestObjWithUrl:url andHeaderDic:myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
-        if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
-            NSMutableArray *arrayList = [NSMutableArray new];
-            NSArray *dicArray = dataDict[@"result"][@"iUseList"];
-            for (NSDictionary *dic in dicArray) {
-                EverydayHabitModel *model = [EverydayHabitModel new];
-                [model setModelWithDic:dic];
-                if(model.isShow){
-                    [arrayList addObject:model];
-                }
-            }
-            if (arrayList.count>0) {
-              self.habitCount = (int)arrayList.count;
-              self.collectArray = [arrayList copy];
-              [self setupUI];
-            }else{
-              [self setupNoDateV];
-              self.mianLab.text = @"恭喜您完成今日所有打卡！";
-              self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
-            }
-        }
-        NSLog(@"%@,dataDict",dataDict);
-      }];
+        self.myData = myData;
+        NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",myData[@"host"]];
+        [NetworkRequests requestObjWithUrl:url andHeaderDic:myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
+          if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
+              NSMutableArray *arrayList = [NSMutableArray new];
+              NSArray *dicArray = dataDict[@"result"][@"iUseList"];
+              for (NSDictionary *dic in dicArray) {
+                  EverydayHabitModel *model = [EverydayHabitModel new];
+                  [model setModelWithDic:dic];
+                  if(model.isShow){
+                      [arrayList addObject:model];
+                  }
+              }
+              if (arrayList.count>0) {
+                self.habitCount = (int)arrayList.count;
+                self.collectArray = [arrayList copy];
+                [self setupUI];
+              }else{
+                [self setupNoDateV];
+                self.mianLab.text = @"恭喜您完成今日所有打卡！";
+                self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
+              }
+          }
+          NSLog(@"%@,dataDict",dataDict);
+        }];
     }
     
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
@@ -103,8 +106,25 @@
     EverydayHabitCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EverydayHabitCell" forIndexPath:indexPath];
     EverydayHabitModel *model = self.collectArray[indexPath.item];
     [cell setModel:model andIndexPath:indexPath withTapBlock:^(EverydayHabitModel * _Nonnull model) {
+        
         if (model.canDone) {//能打卡
+            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init] ;
+            dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.000'Z'";
             
+            NSString *url = [NSString stringWithFormat:@"https://%@/classes/iDo",self.myData[@"host"]];
+            NSMutableDictionary *param = [NSMutableDictionary new];
+            param[@"doneDate"]=@{@"__type":@"Date",@"iso":[dateFormatter stringFromDate:[NSDate new]]};
+            param[@"iCard"]=@{@"__type":@"Pointer",@"className":@"iCard",@"objectId":model.iCard_objectId?:@""};
+            param[@"iUse"]=@{@"__type":@"Pointer",@"className":@"iUse",@"objectId":model.iUse_objectId?:@""};
+            param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":model.User_objectId?:@""};
+            param[@"type"]=@0;
+            NSLog(@"%@,param",param);
+            [NetworkRequests requestObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
+              if (!error && dataDict && dataDict[@"result"]) {
+                  NSLog(@"%@,dataDict",dataDict);
+              }
+              NSLog(@"%@,error",error);
+            }];
         }else{//不能打卡去首页
             [self.extensionContext openURL:[NSURL URLWithString:@"combo://combo/done"] completionHandler:nil];
         }

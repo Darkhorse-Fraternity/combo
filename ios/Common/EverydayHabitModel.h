@@ -18,6 +18,11 @@
 
 @property (nonatomic,assign) BOOL isShow;//是否展示（在时间限制内就展示）
 @property (nonatomic,copy) NSDate *doneDate;
+
+
+@property (nonatomic,copy) NSString *iCard_objectId;//
+@property (nonatomic,copy) NSString *iUse_objectId;//
+@property (nonatomic,copy) NSString *User_objectId;//
 -(void)setModelWithDic:(NSDictionary *)dic;
 @end
 

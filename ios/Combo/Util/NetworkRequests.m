@@ -51,7 +51,7 @@ static AFHTTPSessionManager *manager = nil;
 
       }
     }
-    if (!param) {
+    if (param==nil) {
       param = [NSDictionary new];
     }
     session.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"application/json"];
