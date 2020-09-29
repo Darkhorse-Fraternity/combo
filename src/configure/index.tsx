@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Platform,
   UIManager,
-  ToastAndroid,
-  BackHandler,
   Linking,
   AppState,
-  View,
 } from 'react-native';
-import { StackActions, CommonActions } from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';
 import KeyboardManager from 'react-native-keyboard-manager';
@@ -23,6 +20,9 @@ import { appStateUpdate } from '../redux/actions/util';
 import LocalNotification from './localNotification';
 import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
+
+
+require('../../helps/AnimatableRegist');
 //
 // import exceptionHandler from './exceptionHandler';
 
@@ -42,7 +42,7 @@ interface StateType {
   //     }
   // })
 )
-export default class Configure extends React.Component<{}, StateType> {
+export default class Configure extends PureComponent<{}, StateType> {
   constructor(props) {
     super(props);
     // 企业版检测版本

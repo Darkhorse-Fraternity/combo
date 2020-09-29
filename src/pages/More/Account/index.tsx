@@ -121,18 +121,13 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
       <StyledHeader>
         {/* <StyledTitle>修改头像</StyledTitle> */}
         <AvatarPicker
-          upload={(res) => {
-            // console.log('res', res);
-
-            upload(res);
-          }}
+          upload={upload}
           source={{ uri: avatarUrl }}
           load={this.props.loadAvatar} />
 
         {/* <StyledArrow/> */}
 
         <StyledInput
-          ref="nameInput"
           placeholder="请输入昵称"
           onChangeText={(text) => {
             this.setState({ nickname: text });
