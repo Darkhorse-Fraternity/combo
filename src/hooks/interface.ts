@@ -52,7 +52,7 @@ export type Request<
 
 const mockUrl_0_0_0_0 = 'http://121.89.170.197:3000/mock/11' as any
 const devUrl_0_0_0_0 = 'http://127.0.0.1' as any
-const prodUrl_0_0_0_0 = '' as any
+const prodUrl_0_0_0_0 = 'http://121.89.170.197:7001' as any
 const dataKey_0_0_0_0 = undefined as any
 
 /**
@@ -60,7 +60,7 @@ const dataKey_0_0_0_0 = undefined as any
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
 export interface GetFbRequest {
   /**
@@ -86,22 +86,54 @@ export interface GetFbRequest {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
-export type GetFbResponse = any
+export interface GetFbResponse {
+  code: number
+  data: {
+    count?: number
+    rows?: {
+      id?: number
+      userID?: string
+      cost?: string
+      coverUrl?: string
+      rewardConfig?: {
+        type?: string
+      }
+      titleConfig?: {
+        title?: string
+        introduction?: string
+      }
+      sort?: number
+      active?: number
+      verify?: number
+      startTime?: string
+      endTime?: string
+      limitTime?: {
+        end_at?: string
+        start_at?: string
+      }
+      joinTime?: string
+      created_at?: string
+      updated_at?: string
+    }[]
+  }
+  msg?: string
+  timeStamp?: number
+}
 
 /**
  * 接口 [获取副本列表↗](http://121.89.170.197:3000/project/11/interface/api/304) 的 **请求配置的类型**
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
 type GetFbRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
     'http://127.0.0.1',
-    '',
+    'http://121.89.170.197:7001',
     '/fb',
     undefined,
     string,
@@ -115,7 +147,7 @@ type GetFbRequestConfig = Readonly<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
 const getFbRequestConfig: GetFbRequestConfig = {
   mockUrl: mockUrl_0_0_0_0,
@@ -124,7 +156,7 @@ const getFbRequestConfig: GetFbRequestConfig = {
   path: '/fb',
   method: Method.GET,
   requestBodyType: RequestBodyType.query,
-  responseBodyType: ResponseBodyType.raw,
+  responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_0_0_0,
   paramNames: [],
   queryNames: ['offset', 'limit', 'active', 'verify'],
@@ -136,7 +168,7 @@ const getFbRequestConfig: GetFbRequestConfig = {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
 export const getFb = makeRequest<GetFbRequest, GetFbResponse, GetFbRequestConfig>(getFbRequestConfig)
 
@@ -145,7 +177,7 @@ export const getFb = makeRequest<GetFbRequest, GetFbResponse, GetFbRequestConfig
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `GET /fb`
- * @更新时间 `2020-08-10 19:42:57`
+ * @更新时间 `2020-10-07 21:02:10`
  */
 export const useGetFb = makeRequestHook<GetFbRequest, GetFbRequestConfig, ReturnType<typeof getFb>>(getFb)
 
@@ -184,7 +216,16 @@ export interface GetFbIdResponse {}
  * @更新时间 `2020-08-10 19:55:37`
  */
 type GetFbIdRequestConfig = Readonly<
-  RequestConfig<'http://121.89.170.197:3000/mock/11', 'http://127.0.0.1', '', '/fb/:id', undefined, 'id', ':id', false>
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/11',
+    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
+    '/fb/:id',
+    undefined,
+    'id',
+    ':id',
+    false
+  >
 >
 
 /**
@@ -231,7 +272,7 @@ export const useGetFbId = makeRequestHook<GetFbIdRequest, GetFbIdRequestConfig, 
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 export interface PostFbRequest {
   /**
@@ -300,7 +341,7 @@ export interface PostFbRequest {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 export interface PostFbResponse {}
 
@@ -309,10 +350,19 @@ export interface PostFbResponse {}
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 type PostFbRequestConfig = Readonly<
-  RequestConfig<'http://121.89.170.197:3000/mock/11', 'http://127.0.0.1', '', '/fb', undefined, string, string, false>
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/11',
+    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
+    '/fb',
+    undefined,
+    string,
+    string,
+    false
+  >
 >
 
 /**
@@ -320,7 +370,7 @@ type PostFbRequestConfig = Readonly<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 const postFbRequestConfig: PostFbRequestConfig = {
   mockUrl: mockUrl_0_0_0_0,
@@ -341,7 +391,7 @@ const postFbRequestConfig: PostFbRequestConfig = {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 export const postFb = makeRequest<PostFbRequest, PostFbResponse, PostFbRequestConfig>(postFbRequestConfig)
 
@@ -350,7 +400,7 @@ export const postFb = makeRequest<PostFbRequest, PostFbResponse, PostFbRequestCo
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-08-10 19:53:16`
+ * @更新时间 `2020-09-21 19:42:00`
  */
 export const usePostFb = makeRequestHook<PostFbRequest, PostFbRequestConfig, ReturnType<typeof postFb>>(postFb)
 
@@ -359,7 +409,7 @@ export const usePostFb = makeRequestHook<PostFbRequest, PostFbRequestConfig, Ret
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 export interface PostCheckFbJoinRequest {
   /**
@@ -377,7 +427,7 @@ export interface PostCheckFbJoinRequest {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 export interface PostCheckFbJoinResponse {}
 
@@ -386,13 +436,13 @@ export interface PostCheckFbJoinResponse {}
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 type PostCheckFbJoinRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
     'http://127.0.0.1',
-    '',
+    'http://121.89.170.197:7001',
     '/checkFbJoin',
     undefined,
     string,
@@ -406,7 +456,7 @@ type PostCheckFbJoinRequestConfig = Readonly<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 const postCheckFbJoinRequestConfig: PostCheckFbJoinRequestConfig = {
   mockUrl: mockUrl_0_0_0_0,
@@ -427,7 +477,7 @@ const postCheckFbJoinRequestConfig: PostCheckFbJoinRequestConfig = {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 export const postCheckFbJoin = makeRequest<
   PostCheckFbJoinRequest,
@@ -440,7 +490,7 @@ export const postCheckFbJoin = makeRequest<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /checkFbJoin`
- * @更新时间 `2020-08-10 19:55:44`
+ * @更新时间 `2020-09-21 19:40:40`
  */
 export const usePostCheckFbJoin = makeRequestHook<
   PostCheckFbJoinRequest,
@@ -453,7 +503,7 @@ export const usePostCheckFbJoin = makeRequestHook<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
 export interface PostFbJoinRequest {
   /**
@@ -471,22 +521,48 @@ export interface PostFbJoinRequest {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
-export interface PostFbJoinResponse {}
+export interface PostFbJoinResponse {
+  /**
+   * 加入成功或失败
+   */
+  result: boolean
+  /**
+   * 提示
+   */
+  msg: string
+  /**
+   * 加入失败时没有这个字段
+   */
+  info: {
+    /**
+     * 加入副本记录的ID
+     */
+    id: number
+    /**
+     * 为0时表示需要支付金额，为1时表示已付款或不需要付款(0元)
+     */
+    pay: number
+    /**
+     * 支付金额，单位元
+     */
+    payMoney: number
+  }
+}
 
 /**
  * 接口 [加入副本↗](http://121.89.170.197:3000/project/11/interface/api/312) 的 **请求配置的类型**
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
 type PostFbJoinRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
     'http://127.0.0.1',
-    '',
+    'http://121.89.170.197:7001',
     '/fbJoin',
     undefined,
     string,
@@ -500,7 +576,7 @@ type PostFbJoinRequestConfig = Readonly<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
 const postFbJoinRequestConfig: PostFbJoinRequestConfig = {
   mockUrl: mockUrl_0_0_0_0,
@@ -521,7 +597,7 @@ const postFbJoinRequestConfig: PostFbJoinRequestConfig = {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
 export const postFbJoin = makeRequest<PostFbJoinRequest, PostFbJoinResponse, PostFbJoinRequestConfig>(
   postFbJoinRequestConfig,
@@ -532,10 +608,111 @@ export const postFbJoin = makeRequest<PostFbJoinRequest, PostFbJoinResponse, Pos
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fbJoin`
- * @更新时间 `2020-08-10 19:55:27`
+ * @更新时间 `2020-10-07 19:18:04`
  */
 export const usePostFbJoin = makeRequestHook<PostFbJoinRequest, PostFbJoinRequestConfig, ReturnType<typeof postFbJoin>>(
   postFbJoin,
 )
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **请求类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+export interface PutFbJoinSelectPayTypeIdRequest {
+  userID: string
+  /**
+   * 1支付宝2微信3余额
+   */
+  payType: number
+  /**
+   * id为加入副本接口返回的info.id
+   */
+  id: string
+}
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **返回类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+export interface PutFbJoinSelectPayTypeIdResponse {
+  /**
+   * 支付订单生成成功或失败
+   */
+  result: boolean
+  payInfo: boolean
+}
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **请求配置的类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+type PutFbJoinSelectPayTypeIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/11',
+    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
+    '/fbJoinSelectPayType/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **请求配置**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+const putFbJoinSelectPayTypeIdRequestConfig: PutFbJoinSelectPayTypeIdRequestConfig = {
+  mockUrl: mockUrl_0_0_0_0,
+  devUrl: devUrl_0_0_0_0,
+  prodUrl: prodUrl_0_0_0_0,
+  path: '/fbJoinSelectPayType/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_0_0_0,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **请求函数**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+export const putFbJoinSelectPayTypeId = makeRequest<
+  PutFbJoinSelectPayTypeIdRequest,
+  PutFbJoinSelectPayTypeIdResponse,
+  PutFbJoinSelectPayTypeIdRequestConfig
+>(putFbJoinSelectPayTypeIdRequestConfig)
+
+/**
+ * 接口 [选择付款方式↗](http://121.89.170.197:3000/project/11/interface/api/468) 的 **React Hook**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /fbJoinSelectPayType/:id`
+ * @更新时间 `2020-10-07 19:18:06`
+ */
+export const usePutFbJoinSelectPayTypeId = makeRequestHook<
+  PutFbJoinSelectPayTypeIdRequest,
+  PutFbJoinSelectPayTypeIdRequestConfig,
+  ReturnType<typeof putFbJoinSelectPayTypeId>
+>(putFbJoinSelectPayTypeId)
 
 /* prettier-ignore-end */
