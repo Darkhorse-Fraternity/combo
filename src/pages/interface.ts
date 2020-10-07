@@ -36,6 +36,7 @@ export enum RouteKey {
   flagDetail = 'flagDetail',
   FRDetail = 'FRDetail',
   cirlcleSetting = 'cirlcleSetting',
+  clockIn = 'clockIn',
 
   //tabs
   punch = 'punch',
@@ -77,7 +78,7 @@ export type RootStackParamList = {
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
   [RouteKey.cirlcleSetting]: undefined;
-
+  [RouteKey.clockIn]:{}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;

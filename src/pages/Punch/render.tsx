@@ -32,6 +32,7 @@ import { listReq } from '../../redux/actions/list';
 import { PrivacyModal } from '@components/modal/privacy';
 import { isLandscapeSync, isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
+import { RouteKey } from '@pages/interface';
 
 interface StateType {
   frMap: Object;
@@ -233,7 +234,8 @@ export default class Punch extends Component<any, StateType> {
             if (!flip && item.satisfy) {
               iCard.get('record').size === 0 && doIt();
               if (!this.props.load && !done) {
-                await this.props.done(item);
+                this.props.navigation.navigate(RouteKey.clockIn, {});
+                // await this.props.done(item);
               }
             } else {
               this.props.navigation.navigate('card', {

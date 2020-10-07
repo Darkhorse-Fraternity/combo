@@ -32,10 +32,12 @@ import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
 import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
+import ClockIn from '../pages/clock-in';
 import Test from './test';
 
 export const otherRoute = {
   [RouteKey.web]: web,
+  [RouteKey.clockIn]:ClockIn,
   [RouteKey.test]: Test,
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},
   [RouteKey.tool]: {component: Tool},

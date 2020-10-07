@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
 import CodePush, { DownloadProgress } from 'react-native-code-push';
@@ -16,26 +16,7 @@ import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
-// @codePush()
-// export default class App extends PureComponent {
-
-//   render() {
-//     return (
-//       <Provider store={creatStore(SwitchNavigator)}>
-//         <ThemeProvider theme={theme}>
-//           <Configure>
-//             <SafeAreaProvider>
-//               <NavigationContainer>
-//                 <SwitchNavigator />
-//               </NavigationContainer>
-//             </SafeAreaProvider>
-//           </Configure>
-//         </ThemeProvider>
-//       </Provider>
-//     );
-//   }
-// }
+import ContextProvide from './data/data-context/context-provide-class';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -55,17 +36,21 @@ const App = () => {
   }, [])
 
   return (
-    <Provider store={creatStore(SwitchNavigator)}>
-      <ThemeProvider theme={theme}>
-        <Configure>
-          <SafeAreaProvider>
-            <NavigationContainer>
-              <SwitchNavigator />
-            </NavigationContainer>
-          </SafeAreaProvider>
-        </Configure>
-      </ThemeProvider>
-    </Provider>
+
+    <ReduxProvider store={creatStore(SwitchNavigator)}>
+      <ContextProvide>
+        <ThemeProvider theme={theme}>
+          <Configure>
+            <SafeAreaProvider>
+              <NavigationContainer>
+                <SwitchNavigator />
+              </NavigationContainer>
+            </SafeAreaProvider>
+          </Configure>
+        </ThemeProvider>
+      </ContextProvide>
+    </ReduxProvider >
+
   )
 }
 export default App;
