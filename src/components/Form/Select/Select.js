@@ -10,7 +10,7 @@ import { showSelector } from "../../Dialog";
 const HaveNoIdeaWhyThisIsNeeded = 3;
 
 const SelectLabel = styled.Text`
-  font-size: ${props => props.theme.BaseInput.fontSize};
+  font-size: 12;
   flex: 1;
 `;
 
@@ -24,8 +24,8 @@ const LabelIconWrapper = styled.View`
   flex-direction: row;
   height: ${props =>
     props.inlineLabel
-      ? props.theme.FormGroup.height - props.theme.FormGroup.borderWidth * 2
-      : props.theme.FormGroup.height - HaveNoIdeaWhyThisIsNeeded};
+      ? 35 - 1 * 2
+      : 35 - HaveNoIdeaWhyThisIsNeeded};
 `;
 
 LabelIconWrapper.defaultProps = {
@@ -36,8 +36,8 @@ const SelectWrapper = styled.View`
   flex: ${props => (props.inlineLabel ? 0.5 : 1)};
   height: ${props =>
     props.inlineLabel
-      ? props.theme.FormGroup.height - props.theme.FormGroup.borderWidth * 2
-      : props.theme.FormGroup.height - HaveNoIdeaWhyThisIsNeeded};
+      ? 35 - 1 * 2
+      : 35 - HaveNoIdeaWhyThisIsNeeded};
 `;
 
 SelectWrapper.defaultProps = {
@@ -50,7 +50,7 @@ const Icon = styled(BaseIcon)`
 `;
 
 const SelectPlaceholder = styled.Text`
-  color: ${props => props.theme.BaseInput.placeholderColor};
+  color: '#c9c9c9';
 `;
 
 SelectPlaceholder.defaultProps = {

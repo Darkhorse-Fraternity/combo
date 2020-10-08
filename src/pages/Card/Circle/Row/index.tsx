@@ -18,7 +18,6 @@ import * as Animatable from 'react-native-animatable';
 import {
   StyledButton,
   StyledImage,
-  StyledZoomImage,
   StyledImagesScolleView,
   StyledArrowView,
   StyledIcon,
@@ -211,6 +210,7 @@ export default class RecordRow extends Component {
 
 
 
+
   render() {
     const width = Dimensions.get('window').width;
     const { item, showImage } = this.props;
@@ -221,6 +221,7 @@ export default class RecordRow extends Component {
     // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
     // moment.locale('zh-cn')
     const fromNow = moment(item.createdAt).fromNow();
+    console.log('???1111');
     return (
       <StyledButton
         activeOpacity={1}

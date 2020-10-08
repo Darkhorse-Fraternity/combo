@@ -6,15 +6,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
   StyleSheet,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   Image,
   Dimensions,
   StatusBar,
   Platform,
-  CameraRoll,
   ActivityIndicator,
   BackHandler,
 } from 'react-native';
@@ -23,7 +19,7 @@ import { strings } from '../../../locales/i18n';
 import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 import Modal from 'react-native-modal';
 import Button from '../Button';
-import { isIPhoneX } from '@components/Nav/bar';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export default class ImagesViewModals extends Component {
   static propTypes = {
@@ -156,7 +152,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     left: 0,
-    top: isIPhoneX ? 15 : 0,
+    top: getStatusBarHeight() - 30,
     zIndex: 10000,
     paddingTop: 10,
     maxWidth: 50,

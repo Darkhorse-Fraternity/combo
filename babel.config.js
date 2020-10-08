@@ -21,6 +21,7 @@ module.exports = function (api) {
         ],
         alias: {
           '@request': './src/request',
+          '@theme': './src/theme',
           '@components': './src/components',
           '@redux': './src/redux',
           '@interface': './src/interface',

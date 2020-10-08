@@ -4,6 +4,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import Button from '../../../../components/Button';
 import ZoomImage from '../../../../components/ZoomImage/ZoomImage';
+import { randFlowCoverColor } from 'src/Theme/color';
 
 export const StyledButton = styled.View`
   padding: 0px 0px;
@@ -29,19 +30,12 @@ export const StyledImage = styled(FastImage)`
   height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
-  background-color: #fdfbfb;
+  background-color: ${props => props.theme.randFlowCoverColor()};
 `;
 
 export const StyledImageButton = styled(Button)``;
 
-export const StyledZoomImage = styled(ZoomImage)`
-    width: 100%;
-    height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
-    /* height: ${props => (props.theme.width - 140) * 0.8}; */
-    border-radius: 10px;
-    margin: 15px 0px 0px 0px;
-    background-color: #fdfbfb;
-`;
+
 
 export const StyledMain = styled.View`
   padding: 0px 20px 0px 70px;

@@ -11,9 +11,9 @@ import {
   ViewProps
 } from "react-native";
 // import {hideLoding, showLoading} from '../NativeTool';
-import { StatusBarHeight } from "@components/Nav/bar";
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 // import LottieView from 'lottie-react-native';
-export default function(
+export default function (
   size: number | "small" | "large" = "small",
   color = "gray"
 ) {
@@ -51,12 +51,12 @@ export function loadGif(showBar: boolean) {
   // const imgHeight = (width / 375) * 77 * 0.5;
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {LoadAnimation({ top: showBar ? 44 + StatusBarHeight : 0 })}
+      {LoadAnimation({ top: showBar ? 44 + getStatusBarHeight() : 0 })}
     </View>
   );
 }
 // const dp2px = (dp: number) => PixelRatio.getPixelSizeForLayoutSize(dp);
-export function loadView(top: number = 44 + StatusBarHeight) {
+export function loadView(top: number = 44 + getStatusBarHeight()) {
   // const {width, height} = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
   // const imgWidth = dWidth * 359 * 0.5;

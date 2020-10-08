@@ -259,7 +259,7 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
     );
   }
 
-  render(): ReactElement<any> {
+  render() {
     const iCardId = this.props.iCard.get('objectId');
     const privacyIUSE = this.props.iUse.get('privacy');
     const privacy =
