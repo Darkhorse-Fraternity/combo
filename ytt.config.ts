@@ -19,7 +19,8 @@ const config: Config = [
     reactHooks: {
       enabled: true,
     },
-    devEnvName: 'local',
+    // dataKey:'',  
+    devEnvName: 'dev',
     prodEnvName: 'prod',
     outputFilePath: 'src/hooks/interface.ts',
     requestFunctionFilePath: 'src/hooks/request.ts',

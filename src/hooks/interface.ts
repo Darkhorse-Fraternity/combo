@@ -51,7 +51,7 @@ export type Request<
 }
 
 const mockUrl_0_0_0_0 = 'http://121.89.170.197:3000/mock/11' as any
-const devUrl_0_0_0_0 = 'http://127.0.0.1' as any
+const devUrl_0_0_0_0 = 'http://121.89.170.197:7001' as any
 const prodUrl_0_0_0_0 = 'http://121.89.170.197:7001' as any
 const dataKey_0_0_0_0 = undefined as any
 
@@ -132,7 +132,7 @@ export interface GetFbResponse {
 type GetFbRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/fb',
     undefined,
@@ -218,7 +218,7 @@ export interface GetFbIdResponse {}
 type GetFbIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/fb/:id',
     undefined,
@@ -355,7 +355,7 @@ export interface PostFbResponse {}
 type PostFbRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/fb',
     undefined,
@@ -441,7 +441,7 @@ export interface PostCheckFbJoinResponse {}
 type PostCheckFbJoinRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/checkFbJoin',
     undefined,
@@ -561,7 +561,7 @@ export interface PostFbJoinResponse {
 type PostFbJoinRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/fbJoin',
     undefined,
@@ -658,7 +658,7 @@ export interface PutFbJoinSelectPayTypeIdResponse {
 type PutFbJoinSelectPayTypeIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/11',
-    'http://127.0.0.1',
+    'http://121.89.170.197:7001',
     'http://121.89.170.197:7001',
     '/fbJoinSelectPayType/:id',
     undefined,
