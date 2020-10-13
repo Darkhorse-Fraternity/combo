@@ -119,7 +119,7 @@
             param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":model.User_objectId?:@""};
             param[@"type"]=@0;
             NSLog(@"%@,param",param);
-            [NetworkRequests requestObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
+            [NetworkRequests requestJsonObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
               if (!error && dataDict && dataDict[@"result"]) {
                   NSLog(@"%@,dataDict",dataDict);
               }

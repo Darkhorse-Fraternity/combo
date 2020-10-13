@@ -39,7 +39,7 @@ static AFHTTPSessionManager *manager = nil;
  *  @param param      参数
  *  @param addHudView 添加hud的页面
  */
-+(void)requestObjWithUrl:(NSString *)urlStr andHeaderDic:(NSDictionary *)header andParam:(NSDictionary *)param withResponseBlock:(ResponseBlock)block{
++(void)requestObjWithUrl:(NSString *)urlStr andHeaderDic:(NSDictionary *)header andParam:(id)param withResponseBlock:(ResponseBlock)block{
     
     __block id obj;
     
@@ -67,12 +67,52 @@ static AFHTTPSessionManager *manager = nil;
              }
          } failure:^(NSURLSessionDataTask *task, NSError *error) {
              //NSLog(@"失败");
-             
+             NSData *data = error.userInfo[@"com.alamofire.serialization.response.error.data"] ;
+             NSString *errorStr = [[ NSString alloc ] initWithData:data encoding:NSUTF8StringEncoding];
+             NSLog(@"%@",errorStr);
              if(block){
                  block(error,nil);
              }
          }];
 }
+
++(void)requestJsonObjWithUrl:(NSString *)urlStr andHeaderDic:(NSDictionary *)header andParam:(id)param withResponseBlock:(ResponseBlock)block{
+    
+    __block id obj;
+    
+    AFHTTPSessionManager *session = [NetworkRequests shareAFManagerHandel];
+    if (header) {
+      for (NSString *key in header.allKeys) {
+        NSString *value =header[key];
+        [manager.requestSerializer setValue:value forHTTPHeaderField:key];//type
+
+      }
+    }
+    if (param==nil) {
+      param = [NSDictionary new];
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:0 error:NULL];
+    [session POST:urlStr parameters:data
+         progress:^(NSProgress * _Nonnull uploadProgress) {
+             
+         } success:^(NSURLSessionDataTask *task, id responseObject) {
+             //NSLog(@"成功");
+             
+             obj=(NSMutableDictionary *)responseObject;
+             if(block){
+                 block(nil,obj);
+             }
+         } failure:^(NSURLSessionDataTask *task, NSError *error) {
+             //NSLog(@"失败");
+             NSData *data = error.userInfo[@"com.alamofire.serialization.response.error.data"] ;
+             NSString *errorStr = [[ NSString alloc ] initWithData:data encoding:NSUTF8StringEncoding];
+             NSLog(@"%@",errorStr);
+             if(block){
+                 block(error,nil);
+             }
+         }];
+}
+
 /**
  为afn manager设置后台需要的值
 
