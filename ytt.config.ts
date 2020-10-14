@@ -1,6 +1,7 @@
 import {Config, ExtendedInterface, ChangeCase} from 'yapi-to-typescript';
 
 const token = '204b1c40f76f4e4b52ed59f2b9fc7e61ce755318a3d02ec35b57c5ad21641d6a';
+const leancloud_restful_token ='e9e18914866a667174c80c36c0b625b361aa1e6ad9138a6d53d6cd9cdeb3e8e2';
 const getRequestFunctionName = (
   interfaceInfo: ExtendedInterface,
   changeCase: ChangeCase,
@@ -30,6 +31,15 @@ const config: Config = [
         categories: [
           {
             id: [270],
+            getRequestFunctionName,
+          },
+        ],
+      },
+      {
+        token:leancloud_restful_token,
+        categories: [
+          {
+            id: [368,375,382],
             getRequestFunctionName,
           },
         ],

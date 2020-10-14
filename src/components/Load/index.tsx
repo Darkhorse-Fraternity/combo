@@ -87,10 +87,10 @@ interface LoadAnimationProps extends ViewProps {
 }
 
 export function LoadAnimation(props?: LoadAnimationProps) {
-  const { top = 44 + StatusBarHeight } = props || {};
+  const { top = 44 + getStatusBarHeight() } = props || {};
   const { height } = Dimensions.get("window");
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
-  const lastTop = Platform.OS === "ios" ? 0 : StatusBarHeight;
+  const lastTop = Platform.OS === "ios" ? 0 : getStatusBarHeight();
 
   return (
     <View

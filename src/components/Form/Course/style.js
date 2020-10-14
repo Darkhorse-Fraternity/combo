@@ -12,9 +12,7 @@ import { TextInput } from '../Cunstom'
 import ImageSelect from './ImageSelect'
 
 import { Platform } from 'react-native'
-//
-// const KeyboardAvoidingView = Platform.OS === 'ios'?styled.View:
-//     styled.View
+
 
 export const Form = styled.View`
     flex: 1;

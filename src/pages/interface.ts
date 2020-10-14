@@ -68,7 +68,7 @@ export type RootStackParamList = {
   [RouteKey.record]: undefined;
   [RouteKey.cardConfig]: undefined;
   [RouteKey.account]: undefined;
-  [RouteKey.feedback]: undefined;
+  // [RouteKey.feedback]: undefined;
   [RouteKey.cardInfo]: undefined;
   [RouteKey.rcomment]: undefined;
   [RouteKey.card]: undefined;
@@ -77,8 +77,8 @@ export type RootStackParamList = {
   [RouteKey.login]: undefined;
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
-  [RouteKey.cirlcleSetting]: undefined;
-  [RouteKey.clockIn]:{}; 
+  [RouteKey.cirlcleSetting]: {iCardID:string};
+  [RouteKey.clockIn]:{id?:string}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;

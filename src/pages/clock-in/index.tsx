@@ -5,8 +5,10 @@ import {
 } from '@components/util/toLazyExoticComponent';
 import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
-import { StyledHeaderText } from './style';
+import { StyledHeader, StyledHeaderText } from './style';
 import { TransitionPresets } from '@react-navigation/stack';
+import { Keyboard, View } from 'react-native';
+import { ButtonItem } from '@components/Button';
 const render = lazy(() => import('./render'));
 
 const title = '打卡';
@@ -22,20 +24,26 @@ const title = '打卡';
 // };
 
 const navigationOptions: NavigationOptionsType<RouteKey.clockIn> = (props) => {
+
   return {
     title: '',
     // cardStyle: { backgroundColor: 'transparent' },
     ...TransitionPresets.ScaleFromCenterAndroid,
     headerRight: headerRightProps => (
-      <TouchableItem
+      <ButtonItem
         style={{ marginRight: 15 }}
         {...headerRightProps}
         onPress={() => {
+          console.log('props', props);
 
         }}>
         <StyledHeaderText>发布</StyledHeaderText>
-      </TouchableItem>
+      </ButtonItem>
     ),
+    headerBackground: () => <StyledHeader
+      // style={{ backgroundColor: 'red' }}
+      onResponderGrant={Keyboard.dismiss}
+      onStartShouldSetResponder={() => true} />
     // headerRight: headerRightProps => <RightView {...headerRightProps} />,
   };
 };

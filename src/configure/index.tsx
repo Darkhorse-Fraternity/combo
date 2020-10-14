@@ -171,7 +171,7 @@ export default class Configure extends PureComponent<{}, StateType> {
 
   keyboardConfig = () => {
     if (Platform.OS === 'ios') {
-      KeyboardManager.setEnable(true);
+      KeyboardManager.setEnable(false);
       KeyboardManager.setEnableDebugging(false);
       KeyboardManager.setKeyboardDistanceFromTextField(20);
       KeyboardManager.setEnableAutoToolbar(false);

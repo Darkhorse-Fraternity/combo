@@ -333,10 +333,10 @@ export default class Statistical extends PureComponent {
 
     const config = isSelf
       ? {
-          // noDataPrompt: '写一个日记吧~！',
-          tipBtnText: "添加日记",
-          tipTap: () => this.props.tipTap(this.props.iUse.toJS()),
-        }
+        // noDataPrompt: '写一个日记吧~！',
+        tipBtnText: "添加日记",
+        tipTap: () => this.props.tipTap(this.props.iUse.toJS()),
+      }
       : {};
     return (
       <LCList

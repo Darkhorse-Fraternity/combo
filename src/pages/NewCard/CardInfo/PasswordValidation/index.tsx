@@ -1,15 +1,17 @@
 import React, { useCallback, useState, PureComponent } from "react";
-import { useForm } from "react-hook-form";
+
 import {
   StyledButton,
   StyledUnderLine,
   StyleModalMain,
   StyleTitle
 } from "./style";
-import * as yup from "yup";
+
 import { RHFError, MemoRHFInput } from "@components/Form";
 import CModal, { CModalPropsType } from "@components/modal/c-model";
-
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 const validationSchema = yup.object().shape({
   password: yup
     .string()
@@ -32,19 +34,19 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
   const { register, setValue, handleSubmit, errors, setError } = useForm<
     FormData
   >({
-    validationSchema
+    resolver: yupResolver(validationSchema)
   });
 
   const pdErrorAction = () => {
-    setValue("password", "", false);
-    setError("password", "", "密码错误");
+    setValue("password", "", { shouldValidate: false });
+    setError("password", { message: "密码错误" });
   };
 
   const onSubmit = (data: FormData) => onDone(data.password, pdErrorAction);
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
-    text => setValue("password", text, true),
+    text => setValue("password", text, { shouldValidate: true }),
     []
   );
 

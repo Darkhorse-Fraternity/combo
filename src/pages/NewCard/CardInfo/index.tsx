@@ -73,7 +73,7 @@ import { daysText } from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
 import { PasswordValidation } from './PasswordValidation';
 import { User } from '@interface/index';
-import { NavigationInjectedProps } from '@react-navigation/native';
+// import { NavigationInjectedProps } from '@react-navigation/native';
 
 interface StateType {
   showModal: boolean;
@@ -91,7 +91,7 @@ interface NavigationParams {
   iCardId: number;
 }
 
-type NavAndPropsType = PropsType & NavigationInjectedProps<NavigationParams>;
+type NavAndPropsType = PropsType;
 
 @connect(
   (state, props) => {

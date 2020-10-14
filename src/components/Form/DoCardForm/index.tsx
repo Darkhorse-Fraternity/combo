@@ -3,14 +3,13 @@ import { reduxForm } from 'redux-form/immutable';
 
 import PropTypes from 'prop-types';
 
-import { View, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form/immutable';
 // import {getFormValues} from 'redux-form/immutable' //获取全部
 // import ImageSelectView from '../../ImagePicker/ImageSelectView'
 import KeyboardManager from 'react-native-keyboard-manager';
 import * as immutable from 'immutable';
-import { theme } from '../../../Theme';
 
 import { dataStorage } from '../../../redux/actions/util';
 import Pop from '../../Pop';

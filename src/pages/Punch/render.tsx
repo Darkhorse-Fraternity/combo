@@ -234,8 +234,8 @@ export default class Punch extends Component<any, StateType> {
             if (!flip && item.satisfy) {
               iCard.get('record').size === 0 && doIt();
               if (!this.props.load && !done) {
-                this.props.navigation.navigate(RouteKey.clockIn, {});
-                // await this.props.done(item);
+                // this.props.navigation.navigate(RouteKey.clockIn, {});
+                await this.props.done(item);
               }
             } else {
               this.props.navigation.navigate('card', {

@@ -20,14 +20,24 @@ import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 import Modal from 'react-native-modal';
 import Button from '../Button';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
-export default class ImagesViewModals extends Component {
-  static propTypes = {
-    imageUrls: PropTypes.array.isRequired,
-    visible: PropTypes.bool,
-    closeCallBack: PropTypes.func.isRequired,
-    index: PropTypes.number,
-  };
+interface ImagesViewModalsPorps {
+  imageUrls?: IImageInfo[],
+  visible: boolean,
+  closeCallBack: () => void,
+  index: number,
+  height: number
+}
+
+
+export default class ImagesViewModals extends Component<ImagesViewModalsPorps, { visible: boolean }> {
+  // static propTypes = {
+  //   imageUrls: PropTypes.array.isRequired,
+  //   visible: PropTypes.bool,
+  //   closeCallBack: PropTypes.func.isRequired,
+  //   index: PropTypes.number,
+  // };
 
   static defaultProps = {
     height: 250,
@@ -35,14 +45,13 @@ export default class ImagesViewModals extends Component {
     index: 0,
   };
 
-  constructor(props: Object) {
+  constructor(props: ImagesViewModalsPorps) {
     super(props);
     this.state = {
       visible: false,
     };
   }
 
-  state: {};
 
   // componentWillUnmount() {
   //   this.jobId && RNFS.stopDownload(this.jobId)
@@ -72,9 +81,9 @@ export default class ImagesViewModals extends Component {
   );
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('111');
-    });
+    // BackHandler.addEventListener('hardwareBackPress', () => {
+    //   console.log('111');
+    // });
   }
 
   render() {
@@ -108,7 +117,7 @@ export default class ImagesViewModals extends Component {
         )}
         <ImageViewer
           loadingRender={() => <ActivityIndicator />}
-          imageUrls={imageUrls || []}
+          imageUrls={imageUrls}
           index={index}
           onClick={() => {
             closeCallBack && closeCallBack();
@@ -152,7 +161,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     left: 0,
-    top: getStatusBarHeight() - 30,
+    top: getStatusBarHeight() - 10,
     zIndex: 10000,
     paddingTop: 10,
     maxWidth: 50,

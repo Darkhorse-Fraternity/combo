@@ -20,9 +20,14 @@ import {Cache} from 'react-native-cache';
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
 
+// export const defaultHost = !__DEV__
+//   ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
+//   : /* debug */ 'cmwljtyw.engine.lncld.net/1.1';
+
 export const defaultHost = !__DEV__
-  ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
-  : /* debug */ 'cmwljtyw.engine.lncld.net/1.1';
+  ? /* release */ 'api.icourage.cn/1.1'
+  : /* debug */ 'api.icourage.cn/1.1';
+
 
 // export const apiHost = !__DEV__
 //   ? /* release */ "icourage.cn"
