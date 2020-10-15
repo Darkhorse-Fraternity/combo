@@ -73,7 +73,7 @@ export function findByID(key, id, option) {
   };
 }
 
-export function search(more: bool,
+export function search(more: boolean,
   params: Object,
   key: string,
   option: Object = {},

@@ -34,7 +34,7 @@ export default class DoView extends Component {
     };
   }
 
-  render(): ReactElement<any> {
+  render(){
     const {record, load, done, type, localSaveID} = this.props;
     // const color = iconAndColor && iconAndColor.get('color')
     const color = '#51c332';

@@ -45,6 +45,8 @@ export enum RouteKey {
   test = 'test',
 }
 
+type RecordType = '文字'|'图片';
+
 export type RootStackParamList = {
   [RouteKey.web]: {
     title?: string;
@@ -78,7 +80,7 @@ export type RootStackParamList = {
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
   [RouteKey.cirlcleSetting]: {iCardID:string};
-  [RouteKey.clockIn]:{id?:string}; 
+  [RouteKey.clockIn]:{iDoId?:string,iUseId:string,iCardId:string,record:RecordType[]}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;

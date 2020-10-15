@@ -36,6 +36,8 @@ interface PunchItemProps {
   onPress: (flip: boolean, flipBack: () => void) => void;
   numColumns: number;
   scWidth: number;
+  title: string;
+  discrib: string;
 }
 
 interface PunchItemState {

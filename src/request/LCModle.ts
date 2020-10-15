@@ -1,4 +1,4 @@
-export function point(className, objectId) {
+export function point(className:string, objectId:string) {
   return {
     "__type": "Pointer",
     "className": className,
@@ -6,13 +6,13 @@ export function point(className, objectId) {
   }
 }
 
-export function pointModel(name, objectId, className) {
+export function pointModel(name:string, objectId:string, className?:string) {
   return {
     [name]: point(className || name, objectId),
   }
 }
 
-export function user(objectId) {
+export function user(objectId:string) {
   return pointModel("user", objectId, '_User')
 }
 
@@ -23,27 +23,34 @@ export function selfUser() {
   })
 }
 
-export function iCard(id) {
+export function iCard(id:string) {
   return pointModel('iCard', id)
 }
 
-export function iUse(id) {
+export function iUse(id:string) {
   return pointModel('iUse', id)
 }
 
-export function iDo(id) {
+export function iDo(id:string) {
   return pointModel('iDo', id)
 }
 
 
-export function Course(id) {
-  return pointModel('Course', id)
-}
+// export function Course(id:string) {
+//   return pointModel('Course', id)
+// }
 
-export function Flag(id) {
+export function Flag(id:string) {
   return pointModel('Flag', id)
 }
 
-export function FlagRecord(id) {
+export function FlagRecord(id:string) {
   return pointModel('FlagRecord', id)
+}
+
+export function ISODate(iso:string){
+  return {
+    __type:'Date',
+    iso
+  }
 }

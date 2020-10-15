@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
 export interface UserType {
-
+  objectId: string;
 }
 
 export interface StateType {
