@@ -19,7 +19,6 @@ import {
 } from './style';
 import LCList from '../../components/Base/LCList';
 import { isTablet, isLandscape } from 'react-native-device-info';
-import Orientation from 'react-native-orientation';
 import { useNavigation } from '@react-navigation/native';
 import { useOrientation, useScrollTitle } from '@components/util/hooks';
 

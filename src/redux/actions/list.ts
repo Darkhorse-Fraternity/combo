@@ -5,14 +5,8 @@
 
 import Toast from "react-native-simple-toast";
 import {
-  LIST_FIRST_JOIN,
-  // LIST_NO_DATA,
-  LIST_LOAD_DATA,
-  LIST_LOAD_MORE,
-  LIST_LOAD_NO_MORE,
-  LIST_LOAD_ERROR,
-  LIST_NORMAL
-} from "../../components/Base/BaseSectionView";
+  ListLoadType
+} from "../../components/Base/interface";
 import { schemas } from "../scemes";
 import { addNormalizrEntity } from "../module/normalizr";
 /**
@@ -42,10 +36,12 @@ export function listReq(
     const listKey = option.sKey || key;
     const page = !more ? 0 : getState().list.getIn([listKey, "page"]) + 1;
     const load = getState().list.getIn([listKey, "loadStatu"]);
-    if (load !== LIST_LOAD_DATA && load !== LIST_LOAD_MORE) {
+    console.log('load??',load);
+    
+    if (load !== ListLoadType.LIST_LOAD_DATA && load !== ListLoadType.LIST_LOAD_MORE) {
       // not serial
       // params.params[pageKey] = page + ''
-
+      console.log('load!!',load);
       dispatch(_listStart(page, listKey)); // 当page 不为0 的时候则表示不是加载多页。
       // console.log('params:', params);
 
@@ -64,8 +60,8 @@ export function listReq(
           }
           const loadStatu =
             (response[DATA][DATA] || data).length < pageSize
-              ? LIST_LOAD_NO_MORE
-              : LIST_NORMAL;
+              ? ListLoadType.LIST_LOAD_NO_MORE
+              : ListLoadType.LIST_NORMAL;
           dispatch(_listSucceed(data, page, listKey, loadStatu));
         } else {
           return dispatch(_listFailed(listKey, response[MSG]));
@@ -152,7 +148,7 @@ function _listFailed(key: string): Object {
  * @return {[type]}                 [description]
  */
 function _listStart(page: number, key: string): Object {
-  const loadStatu = page !== 0 ? LIST_LOAD_MORE : LIST_LOAD_DATA;
+  const loadStatu = page !== 0 ? ListLoadType.LIST_LOAD_MORE : ListLoadType.LIST_LOAD_DATA;
   return {
     type: LIST_START,
     loadStatu,
@@ -185,7 +181,7 @@ export function claerByID(key: string, objID: string) {
     const rowID = list.indexOf(objID);
     if (rowID > -1) {
       // const loadStatu = list.length <= 1 ? LIST_NO_DATA : LIST_NORMAL
-      return dispatch(clear(key, rowID, LIST_NORMAL));
+      return dispatch(clear(key, rowID, ListLoadType.LIST_NORMAL));
     }
   };
 }
@@ -195,7 +191,7 @@ export function add(key, data) {
     type: LIST_ADD,
     key,
     data,
-    loadStatu: LIST_NORMAL
+    loadStatu: ListLoadType.LIST_NORMAL
   };
 }
 

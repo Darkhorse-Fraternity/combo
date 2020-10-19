@@ -11,7 +11,7 @@ import {
   default as WebViewType,
   WebViewMessageEvent,
 } from 'react-native-webview';
-import { loadView } from '@components/Load';
+import { LoadAnimation, loadView } from '@components/Load';
 import { StyledError, StyledWebView } from './style';
 
 // import {useNavigation} from '@react-navigation/native';
@@ -90,7 +90,7 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
   // const isFirstRouteInParent = useIsFirstRouteInParent();
   // const [isLogin, ifLoginLoading] = useLoginCheck();
   // const firstRef = useRef(true);
-  const renderLoading = useCallback(loadView, []);
+  const renderLoading = useCallback(() => <LoadAnimation top={100} />, []);
 
   //  source
   const memoSource = useMemo(

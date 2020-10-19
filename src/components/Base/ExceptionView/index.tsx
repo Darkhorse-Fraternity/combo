@@ -1,8 +1,15 @@
 /* @flow */
-import React, { Component, isValidElement } from 'react';
+import React, { Component, isValidElement, PureComponent, ReactChild } from 'react';
 import {
   StyleSheet,
   Text,
+  Image,
+  StyleProp,
+  ViewStyle,
+  ImageSourcePropType,
+  Dimensions,
+  Platform,
+  ImageStyle,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Indicators from '../../Indicators';
@@ -13,22 +20,28 @@ import {
 } from './style';
 
 
-export const ExceptionType = {
-  Loading: 'exceptionTypeLoading',
-  NoData: 'exceptionTypeNoData',
-  NetError: 'exceptionTypeError',
+export enum ExceptionType {
+  Loading = 'exceptionTypeLoading',
+  NoData = 'exceptionTypeNoData',
+  NetError = 'exceptionTypeError',
 };
 
 
-export default class ExceptionView extends Component {
-  static propTypes = {
-    exceptionType: PropTypes.string,
-    prompt: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-    image: PropTypes.number,
-    otherTips: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-    onRefresh: PropTypes.func,
-    tipBtnText: PropTypes.string
-  };
+export interface ExceptionViewProps {
+  exceptionType?: ExceptionType;
+  prompt?: Function | ReactChild[] | ReactChild;
+  otherTips?: string;
+  onRefresh?: Function | (() => void) | null;
+  tipBtnText?: string;
+  // children?: ReactChild[] | ReactChild;
+  prompIamgeStyle?: StyleProp<ImageStyle>;
+  style?: StyleProp<ViewStyle>;
+  promptImage?: ImageSourcePropType;
+}
+
+
+export default class ExceptionView extends PureComponent<ExceptionViewProps, any>  {
+
 
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
@@ -58,7 +71,7 @@ export default class ExceptionView extends Component {
     if (isValidElement(this.props.prompt)) {
       return this.props.prompt;
     }
-    const text = this.getPromptText(this.props.exceptionType);
+    const text = this.props.prompt;
     if (text) {
       return (
         <Text style={styles.text}>
@@ -79,64 +92,63 @@ export default class ExceptionView extends Component {
   }
 
 
-  getPromptText(type: string): string {
-    let { prompt } = this.props;
-    if (prompt) {
-      return prompt;
-    }
-    switch (type) {
-      case ExceptionType.Loading:
-        prompt = '正在加载...';
-        break;
-      case ExceptionType.NoData:
-        prompt = '没有数据...';
-        break;
-      case ExceptionType.NetError:
-        prompt = '网络异常';
-        break;
-      default:
-        break;
-    }
-    return prompt;
+
+
+  renderPromptLoad() {
+    // const {width, height} = Dimensions.get('window');
+    // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
+    // const imgWidth = dWidth * 359 * 0.5;
+    // const imgHeight = dWidth * 77 * 0.5;
+    // const navigationBarHeight = 44 + StatusBarHeight;
+    return <Indicators />
   }
 
 
-  _renderPromptIndicator = (type: string) => {
-    switch (type) {
-      case ExceptionType.Loading:
-        return (
-          <Indicators size="large" />
-        );
-      case ExceptionType.NoData:
-      case ExceptionType.NetError:
-        return (
-          <Indicators size="large" animated={false} />
-        );
-      default:
-        break;
-    }
-  };
+  // _renderPromptIndicator = (type: string) => {
+  //   switch (type) {
+  //     case ExceptionType.Loading:
+  //       return (
+  //         <Indicators size="large" />
+  //       );
+  //     case ExceptionType.NoData:
+  //     case ExceptionType.NetError:
+  //       return (
+  //         <Indicators size="large" animated={false} />
+  //       );
+  //     default:
+  //       break;
+  //   }
+  // };
+  renderPromptImage(promptImage: ImageSourcePropType) {
+    const { prompIamgeStyle } = this.props;
+    //console.log('promptImage', promptImage);
 
+    return (
+      <Image source={promptImage} style={[styles.image, prompIamgeStyle]} />
+    );
+  }
 
   render() {
-    // let prompt = this.getPromptText(this.props.exceptionType);
-    // console.log('test:', this.props.styles);
-    // const style = {height:300,... this.props.styles}
-    // console.log('test:', style);
+
+
+
     const {
-      otherTips,
-      // onRefresh,
-      // refresh,
       style,
-      exceptionType
+      exceptionType = ExceptionType.Loading,
+      promptImage = require('@img/my/logo.png'),
     } = this.props;
+
+    // console.log("exceptionType", exceptionType);
     return (
       <StyledContent
         style={style}
       >
-        {this._renderPromptIndicator(exceptionType)}
+        {exceptionType === ExceptionType.Loading && this.renderPromptLoad()}
+        {exceptionType === 'exceptionTypeNoData' &&
+          promptImage &&
+          this.renderPromptImage(promptImage)}
         {this.renderPrompt()}
-        {otherTips && this.renderOtherTips()}
+
         {this.renderTipButton()}
         {/* <Button */}
         {/* style={} */}
@@ -154,12 +166,14 @@ export default class ExceptionView extends Component {
 const styles = StyleSheet.create({
   image: {
     // position:'absolute',
-    width: 50,
-    height: 50
+    width: 40,
+    height: 40,
+    // marginTop: -StatusBarHeight,
+    alignSelf: 'center',
   },
   text: {
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 13,
     color: '#9e9e9e',
     fontStyle: 'italic',
     alignSelf: 'center',

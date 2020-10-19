@@ -258,11 +258,11 @@ export default class Punch extends Component<any, StateType> {
         exceptionType={
           refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
         }
-        tipBtnText="添加卡片"
+        tipBtnText="重新加载"
         refresh={refreshLoad}
         prompt={refreshLoad ? '正在加载' : '暂无数据~'}
         onRefresh={() => {
-          this.props.navigation.navigate('newCard');
+          this.props.search()
         }}
       />
     );

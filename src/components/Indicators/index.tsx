@@ -3,26 +3,22 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
-import {View, Image, Animated, Easing} from 'react-native';
+import React, { PureComponent } from 'react';
+import { View, Image, Animated, Easing } from 'react-native';
 import PropTypes from 'prop-types';
-import {StyledContent, StyleLogo} from './style';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
-export default class Indicators extends PureComponent {
-  static propTypes = {
-    size: PropTypes.string,
-    animated: PropTypes.bool,
-  };
+export default class Indicators extends PureComponent<{ size: number, animated: boolean }> {
+
 
   static defaultProps = {
-    size: 'small',
+    size: 30,
     animated: true,
   };
   springValue: Animated.Value;
 
-  constructor(props: Object) {
+  constructor(props: any) {
     super(props);
     this.springValue = new Animated.Value(0);
   }
@@ -52,22 +48,21 @@ export default class Indicators extends PureComponent {
     ).start();
   }
 
-  render(): ReactElement<any> {
-    const {animated, size} = this.props;
+  render() {
+    const { animated, size } = this.props;
 
     const spin = this.springValue.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg'],
     });
 
-    const sizeNum = size === 'large' ? 60 : 30;
-    const transform = animated ? {transform: [{rotate: spin}]} : {};
+    const transform = animated ? { transform: [{ rotate: spin }] } : {};
 
     return (
       <AnimatedImage
         style={{
-          width: sizeNum,
-          height: sizeNum,
+          width: size,
+          height: size,
           ...transform,
         }}
         source={require('../../../source/img/my/logo.png')}

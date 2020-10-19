@@ -1,3 +1,4 @@
+import Indicators from '@components/Indicators';
 import React, { PureComponent } from "react";
 import {
   ActivityIndicator,
@@ -99,7 +100,8 @@ export function LoadAnimation(props?: LoadAnimationProps) {
         { top: (height - size + lastTop) / 2 - top }
       ]}
     >
-      <ActivityIndicator size={"small"} color={"gray"} />
+      {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
+      <Indicators size={30} />
       {/* <LottieLoading style={styles.lottieView} /> */}
     </View>
   );

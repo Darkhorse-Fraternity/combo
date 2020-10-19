@@ -1,25 +1,20 @@
 import React from 'react';
 import {
-  ActivityIndicator,
-  StatusBar,
+
   StyleSheet,
   View,
   Text,
 } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
-// import { loginSucceed } from '../../../redux/actions/user'
 import { connect } from 'react-redux';
-// import Toast from 'react-native-simple-toast';
 import moment from 'moment';
 import { userInfo } from '../../../redux/actions/user';
-// import { search } from '../../../redux/module/leancloud';
-// import { selfUser } from '../../../request/LCModle';
-import { IUSE, FLAGRECORD } from '../../../redux/reqKeys';
+
+import { IUSE } from '../../../redux/reqKeys';
 import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
 import { listReq } from '../../../redux/actions/list';
 import { iUseList as iUseListParams } from '../../../request/leanCloud';
-import { addNormalizrEntities } from '../../../redux/module/normalizr';
 import { StackActions } from '@react-navigation/native';
 
 @connect(
@@ -133,7 +128,7 @@ export default class AuthLoadingScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Indicators size="large" />
+        <Indicators size={40} />
         {/* <ActivityIndicator size={'large'}/> */}
         {/* <StatusBar barStyle="default" /> */}
         <Text style={styles.text}>加载中...</Text>
@@ -150,7 +145,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 13,
     color: '#9e9e9e',
     fontStyle: 'italic',
     alignSelf: 'center',
