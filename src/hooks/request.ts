@@ -1,5 +1,6 @@
 import { RequestFunctionParams } from 'yapi-to-typescript'
 import axios, { AxiosResponse } from 'axios';
+import { httpHeaders } from '@configure/reqConfigs';
 
 interface AxiosResponseOtherInfoType {
   __axios_info:Omit<AxiosResponse,'data'>
@@ -33,7 +34,7 @@ export default function request<TResponseData>(
     baseURL,
     url: path,
     method,
-    // headers: leancloudHeaders,
+    headers: httpHeaders(true),
     ...config
   }).then(res=>{
     // res.config

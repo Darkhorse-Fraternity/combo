@@ -64,6 +64,8 @@ const header = {
   appChannel,
 };
 
+
+
 export function httpHeaders(needSession: boolean): Object {
   // let header = {
   //   "Content-Type": "application/json; charset=utf-8",

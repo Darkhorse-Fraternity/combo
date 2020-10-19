@@ -1,7 +1,7 @@
 import { ButtonItem } from '@components/Button';
 import UpdateImageView, { pickerImage, UpdateImage, UpdateImageViewType } from '@components/UpdateImageView';
 import { useNavigation } from '@react-navigation/native';
-import React, { FC, useEffect, useLayoutEffect, useState } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Keyboard, Platform, TextInputProps, View, TouchableOpacityProps, DeviceEventEmitter } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
@@ -45,7 +45,7 @@ const validationSchema = yup.object().shape({
 const countInrow = 4
 const maxNumber = 9
 const bottomSpace = getBottomSpace()
-const keyboardVerticalOffsetDefault = (Platform.OS === 'ios' ? 58 : 63) + bottomSpace + (bottomSpace === 0 ? 5 : 0);
+const keyboardVerticalOffsetDefault = (Platform.OS === 'ios' ? 58 : 63) + bottomSpace + (bottomSpace === 0 ? 5 : 0) + 20;
 // const keyboardVerticalOffset = keyboardVerticalOffsetDefault + 70;
 
 
@@ -72,14 +72,11 @@ const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
 // }
 const CustomImagePick: FC<UpdateImageViewType> = (props) => {
   const { value, onChange, ...rest } = props;
-  if (!value || value.length === 0) {
-    return null;
-  }
-
   return (
     <View onResponderGrant={Keyboard.dismiss} onStartShouldSetResponder={() => true}>
       <UpdateImageView
         // data={imgs}
+        hide={!value || value.length === 0}
         value={value}
         onPress={Keyboard.dismiss}
         onChange={res => onChange && onChange(res)}
@@ -103,23 +100,15 @@ interface ToolBarItemProps {
 }
 
 const ToolBarImagePickerItem: FC<TouchableOpacityProps & ToolBarProps & ToolBarItemProps> =
-  ({ setValue, control, showTip, ...other }) => {
+  ({ setValue, control, showTip, onPress, ...other }) => {
 
     const data = useWatch<UpdateImage[]>({ control, name: RecordImgs }) || []
 
-    const toolbarOnPress = () => {
-      const imageCount = maxNumber - data.length;
-      pickerImage(imageCount).then(imageArray => {
-        if (imageArray && setValue) {
-          setValue(RecordImgs, [...data, ...imageArray])
-        }
-      })
-    }
 
     return (
       <TouchableOpacity
         hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
-        onPress={toolbarOnPress}
+        onPress={onPress}
         {...other}
       >
         <StyledToolBarItem name='image' size={19} />
@@ -128,14 +117,14 @@ const ToolBarImagePickerItem: FC<TouchableOpacityProps & ToolBarProps & ToolBarI
     )
   }
 
-const ToolBar: FC<ToolBarProps & { showImagePickTip: boolean }> =
-  ({ showImagePickTip, ...other }) => {
+const ToolBar: FC<ToolBarProps & { showImagePickTip: boolean, onPress: (type: string) => void }> =
+  ({ showImagePickTip, onPress, ...other }) => {
     return (<StyledToolBar  >
 
       {/* <ToolBarImagePickerItem
         // hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
         onPress={onPress.bind(undefined, recordImgs)} /> */}
-      <ToolBarImagePickerItem showTip={showImagePickTip}  {...other} />
+      <ToolBarImagePickerItem showTip={showImagePickTip} onPress={onPress.bind(undefined, 'imagePick')}  {...other} />
       <View style={{ flex: 1 }} onResponderGrant={Keyboard.dismiss} onStartShouldSetResponder={() => true} />
     </StyledToolBar>)
   }
@@ -176,6 +165,7 @@ const Render: FC<{}> = () => {
 
   const onSubmit = async (data: FormData) => {
 
+
     if (record.includes('图片') && data[RecordImgs].length === 0) {
       return AlertWithTitle('该习惯打卡必须包含图片哦～!')
     }
@@ -188,6 +178,8 @@ const Render: FC<{}> = () => {
     const user = getUerInfo();
 
     try {
+      console.log('data', data);
+
       const { objectId } = await postClassesIDo({
         user: point('_User', user?.objectId || ''),
         type: 0,
@@ -232,6 +224,7 @@ const Render: FC<{}> = () => {
       ),
     });
   }, [load]);
+  const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>()
   // setOptions({onSumbmit: handleOnSubmit })
   // useEffect(() => {
 
@@ -248,6 +241,7 @@ const Render: FC<{}> = () => {
         keyboardVerticalOffset={keyboardVerticalOffsetDefault}>
         <Controller
           // defaultValue=''
+          autoFocus={Platform.OS === 'android'}
           name={RecordText}
           control={control}
           multiline
@@ -258,7 +252,7 @@ const Render: FC<{}> = () => {
         />
 
         <Controller
-
+          openPickRef={ref}
           name={RecordImgs}
           control={control}
           // data={imgs}
@@ -269,7 +263,15 @@ const Render: FC<{}> = () => {
           // onChange={onChangeImageArray}
           as={CustomImagePick}
         />
-        <ToolBar showImagePickTip={record.includes('图片')} control={control} setValue={setValue as any} />
+        <ToolBar
+          onPress={type => {
+            if (type === 'imagePick') {
+              ref?.current?.call(undefined, true)
+            }
+          }}
+          showImagePickTip={record.includes('图片')}
+          control={control}
+          setValue={setValue as any} />
       </StyledKeyboardAvoidingView>
     </StyledContent>
   );

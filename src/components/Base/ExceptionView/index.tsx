@@ -3,24 +3,13 @@ import React, { Component, isValidElement } from 'react';
 import {
   StyleSheet,
   Text,
-  Image,
-  View,
-  ScrollView,
-  ActivityIndicator,
-  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { defaultFormatUtc } from 'moment';
 import Indicators from '../../Indicators';
 import {
   StyledContent,
   StyledReportBtn,
   StyledReportText,
-  StyledActivityIndicator,
-  StyledImage,
-  StyleReportView,
-  StyledIcon,
-  StyledRefresh
 } from './style';
 
 
@@ -140,7 +129,7 @@ export default class ExceptionView extends Component {
       // refresh,
       style,
       exceptionType
-    } = this.props;    
+    } = this.props;
     return (
       <StyledContent
         style={style}

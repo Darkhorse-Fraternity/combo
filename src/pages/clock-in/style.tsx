@@ -9,7 +9,6 @@ export const StyledHeader = styled.View`
 
 export const StyledContent = styled.SafeAreaView`
   flex: 1;
-  
 `;
 
 export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
@@ -33,6 +32,7 @@ export const StyledToolBar = styled.View`
   width:100%;
   flex-direction:row;
   padding:0px 10px;
+  margin-bottom:0px;
   /* height:74px; */
   /* background-color:yellow; */
 `

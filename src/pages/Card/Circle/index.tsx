@@ -139,7 +139,7 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
           <StyledHeaderImage
             source={require('../../../../source/img/circle/write.png')}
           />
-          <StyledHeaderText>记录</StyledHeaderText>
+          <StyledHeaderText>打卡</StyledHeaderText>
         </StyledHeaderButton>
 
         <StyledHeaderButton

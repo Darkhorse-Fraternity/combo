@@ -4,7 +4,7 @@
  */
 
 import React, { Component, FC } from 'react';
-import { View, Dimensions, SectionList, Alert } from 'react-native';
+import { View, Dimensions, SectionList, Alert, DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
@@ -37,7 +37,8 @@ import { GetClassesICardIdResponse, GetClassesIUseIdResponse, postClassesIDo } f
 import { useNavigation } from '@react-navigation/native';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { point } from '@request/LCModle';
-import { getUerInfo } from 'src/data/data-context';
+import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
+import SimpleToast from 'react-native-simple-toast';
 
 interface StateType {
   frMap: Object;
@@ -63,13 +64,14 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
   const done = moment(0, 'HH').isBefore(iUse.doneDate.iso);
   const { iconAndColor = {}, sound, title, record, objectId: iCardId } = iCard;
   const { width, height } = Dimensions.get('window')
-
+  const user = useGetUserInfo()
   const { navigate } = useNavigation();
 
-  console.log('record', record);
+
 
   const doCard = async (doIt: () => void) => {
-    const user = getUerInfo();
+
+    doIt();
     try {
       const { objectId: id } = await postClassesIDo({
         user: point('_User', user?.objectId || ''),
@@ -81,7 +83,10 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
       if (!id) {
         doIt();
       }
+      console.log('id', id);
     } catch (error) {
+      console.log('error', error);
+      SimpleToast.show(error.message)
       doIt();
     }
   }
@@ -108,9 +113,9 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
 
           // record?.length === 0 && doIt();
           if (!load && !done) {
-            rate();
 
             if (record?.length === 0) {
+              rate();
               //直接打卡
               doCard(doIt);
             } else {
@@ -186,7 +191,7 @@ export default class Punch extends Component<any, StateType> {
   static propTypes = {};
 
   static defaultProps = {};
-
+  deEmitter?: EmitterSubscription;
   componentDidMount() {
     // this.props.search();
     // this.props.fbSearch();
@@ -196,10 +201,15 @@ export default class Punch extends Component<any, StateType> {
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
     isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
+
+    this.deEmitter = DeviceEventEmitter.addListener('iDO_Reload', () => {
+      this.props.search()
+    });
   }
 
   componentWillUnmount() {
     isTablet() && Orientation.removeOrientationListener(this._orientationDidChange);
+    this.deEmitter && this.deEmitter.remove();
   }
 
   _orientationDidChange = (orientation: string) => {
@@ -289,6 +299,7 @@ export default class Punch extends Component<any, StateType> {
 
       return (
         <RenderCell
+          key={item.objectId}
           numColumns={this.state.numColumns}
           iUse={item}
           iCard={iCard.toJS()}

@@ -1,10 +1,11 @@
 import React, { createContext, useReducer, FC, useContext } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import { GetUsersIdResponse } from 'src/hooks/interface';
 // import { setHeader } from '../../../local_modules/react-native-qj-fetch/config';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
-export interface UserType {
-  objectId: string;
+export interface UserType extends GetUsersIdResponse {
+
 }
 
 export interface StateType {
@@ -14,6 +15,7 @@ export type Action =
   | { type: 'login'; user: UserType }
   | { type: 'update_user_info'; user: UserType }
   | { type: 'logout' }
+  | { type: 'init' }
 
 interface DataContextType {
   config?: any;
@@ -69,7 +71,10 @@ export const Provider: FC<DataContextType> = (props) => {
   const { children, initialState = defaultInitialState } = props;
 
   const dataReducer = (preState: StateType, action: Action) => {
+    console.log('action.type', action.type);
+
     switch (action.type) {
+
       case 'login':
         // AsyncStorage.setItem('sessionToken', JSON.stringify(action.user));
 
@@ -84,6 +89,7 @@ export const Provider: FC<DataContextType> = (props) => {
         // setHeader({ Authorization: '' });
         // user = undefined;
         return { ...preState, user: undefined };
+      case 'init': return { ...preState };
       default:
         return { ...preState };
     }
@@ -91,11 +97,15 @@ export const Provider: FC<DataContextType> = (props) => {
 
   const [data, _dispatch] = useReducer(dataReducer, initialState);
 
+  // console.log('data000', data);
+  // console.log('dataxxxx', initialState);
+
+
   contextValue = {
-    data,
+    data: data.user?.objectId ? data : { ...data, ...initialState },
     dispatch: _dispatch,
   };
-  console.log('initialState', initialState);
+  // console.log('initialState', contextValue.data);
 
 
   return <BaseProvider value={contextValue}>{children}</BaseProvider>;

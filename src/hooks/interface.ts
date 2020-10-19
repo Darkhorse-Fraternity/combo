@@ -1790,4 +1790,118 @@ export const useGetClassesIDo = makeRequestHook<
   ReturnType<typeof getClassesIDo>
 >(getClassesIDo)
 
+const mockUrl_0_1_0_3 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_3 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_3 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_3 = undefined as any
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+export interface GetUsersIdRequest {
+  id: string
+}
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+export interface GetUsersIdResponse {
+  updatedAt: string
+  uid: number
+  objectId: string
+  toolConfig: {
+    redo?: number
+  }
+  nickname?: string
+  headimgurl?: string
+  createdAt: string
+  emailVerified: boolean
+  balance: number
+  avatar?: {
+    mime_type?: string
+    updatedAt?: string
+    key?: string
+    name?: string
+    objectId?: string
+    createdAt?: string
+    __type?: string
+    url?: string
+    provider?: string
+    metaData?: {}
+    bucket?: string
+  }
+  mobilePhoneVerified: boolean
+}
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+type GetUsersIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/:id',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, GetUsersIdRequestConfig>(
+  getUsersIdRequestConfig,
+)
+
+/**
+ * 接口 [用户详情↗](http://121.89.170.197:3000/project/59/interface/api/490) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id`
+ * @更新时间 `2020-10-15 16:26:00`
+ */
+export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdRequestConfig, ReturnType<typeof getUsersId>>(
+  getUsersId,
+)
+
 /* prettier-ignore-end */

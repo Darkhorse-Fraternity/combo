@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo, FC } from 'react';
+import React, { useState, useRef, memo, FC, useEffect } from 'react';
 import { GestureResponderEvent, LayoutAnimation, View, ViewProps } from 'react-native';
 import {
   StyledMainView,
@@ -18,7 +18,7 @@ import ImagePicker, {
 } from 'react-native-image-crop-picker';
 // import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 import ImagesViewModals from '@components/ZoomImage/ImagesViewModal';
-
+import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
 export interface UpdateImage {
   url: string
 }
@@ -30,6 +30,8 @@ export interface UpdateImageViewType extends Omit<ViewProps, 'children'> {
   onChange?: (imageArray: UpdateImage[]) => void;
   onPress?: () => void;
   value?: UpdateImage[];
+  openPickRef?: any;
+  hide?: boolean;
 }
 interface ImagesListType extends UpdateImageViewType {
   deleteImage: (event: GestureResponderEvent, index: number) => void;
@@ -40,13 +42,17 @@ interface ImagesListType extends UpdateImageViewType {
 export const pickerImage = async (maxFiles: number): Promise<UpdateImage[] | null> => {
   const image = await ImagePicker.openPicker({
     maxFiles: maxFiles,
+    showsSelectedCount: true,
     multiple: true,
     cropping: false,
     compressImageMaxWidth: 500,
     hideBottomControls: true, //隐藏底部控制栏，andorid 特有
     showCropGuidelines: false,
     cropperToolbarTitle: '',
-    mediaType: 'photo'
+    mediaType: 'photo',
+    sortOrder: 'desc',
+    cropperCancelText: '取消',
+    cropperChooseText: '选择',
   });
 
   if (!image) {
@@ -119,12 +125,22 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   onChange,
   onPress,
   value = [],
+  openPickRef,
+  hide = false,
   ...other
 }) => {
 
   // const [imagesData, setImagesData] = useState<IImageInfo[]>([]);
-
+  const [state, setstate] = useState(false);
   const [imageViewShow, setImageViewShow] = useState(false);
+  const [imageCount, setImageCount] = useState(9);
+
+  if (openPickRef) {
+    openPickRef.current = setstate;
+    // console.log('openPickRef?.current', openPickRef?.current);
+
+  }
+
 
   const selectIndex = useRef(0);
   const deleteImage = (event: GestureResponderEvent, index: number) => {
@@ -149,25 +165,40 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   };
 
   const addImage = async (event: GestureResponderEvent, index: number) => {
+    onPress && onPress();
     const imageCount = maxNumber - index;
     if (imageCount < 1) {
       return;
     }
-    onPress && onPress();
+
+    setImageCount(imageCount);
+    setstate(true);
+
+
     // const imagesDataArray = [...data];
-    const image = await pickerImage(imageCount);
+    // const image = await pickerImage(imageCount);
 
 
+
+  };
+
+
+  const onSuccess = (data: PickerImage | PickerImage[]) => {
+    // upload(path);
+    const image = data as PickerImage[]
     LayoutAnimation.spring();
-    // setImagesData(imagesDataArray);
     if (onChange && image && image.length > 0) {
       // let imageArray: string[] = [];
       // imagesDataArray.map((item: IImageInfo) => {
       //   imageArray.push(item.url);
       // });
-      onChange([...value, ...image]);
+      setstate(false);
+      onChange([...value, ...(image.map(item => ({ url: item.path })))]);
     }
-  };
+  }
+
+  const onClose = setstate.bind(undefined, false)
+
   return (
     <>
       <ImagesViewModals
@@ -178,14 +209,25 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
         }}
         index={selectIndex.current}
       />
-      <ImagesList
+      {!hide && <ImagesList
         value={value}
         deleteImage={deleteImage}
         showImage={showImage}
         addImage={addImage}
         maxNumber={maxNumber}
         {...other}
-      />
+      />}
+      <PhotoOrCameraSheet
+        option={{
+          multiple: true,
+          maxFiles: imageCount,
+          showsSelectedCount: true,
+          cropping: false,
+        }}
+        // onPick={onClose}
+        onClose={onClose}
+        onSuccess={onSuccess}
+        isVisiable={state} />
     </>
   );
 };
