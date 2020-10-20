@@ -81,7 +81,7 @@ export type RootStackParamList = {
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
   [RouteKey.cirlcleSetting]: {iCardID:string};
-  [RouteKey.clockIn]:{iDoId?:string,iUseId:string,iCardId:string,record:RecordType[]}; 
+  [RouteKey.clockIn]:{iDoId?:string,iUseId:string,iCardId:string,record:RecordType[],type?:number,doneDateIso?:string}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;

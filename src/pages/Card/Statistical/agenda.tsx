@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
+  Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -11,12 +12,12 @@ import doCardWithNone from "../../../components/DoCard/doCardWithNone";
 
 import moment from 'moment';
 import { classSearch } from '../../../request/leanCloud';
-import { user, iUse } from '../../../request/LCModle';
+import { user as UserM, iUse as iUseM } from '../../../request/LCModle';
 import { req, clear } from '../../../redux/actions/req';
 
 import Calendar from '../../../components/Calendar';
 
-
+import SimpleToast from 'react-native-simple-toast'
 
 
 
@@ -33,13 +34,13 @@ import Calendar from '../../../components/Calendar';
 
         const { iUseId } = props.route.params;
 
-        const userId = props.iUse.user;
+        const userId = props.user.objectId;
         // console.log('last', last);
 
         const param = {
           where: {
-            ...user(userId),
-            ...iUse(iUseId),
+            ...UserM(userId),
+            ...iUseM(iUseId),
             $or: [{
               doneDate: {
                 $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
@@ -80,11 +81,14 @@ import Calendar from '../../../components/Calendar';
       const isDiary =
         (item.imgs && item.imgs.length > 0) ||
         (item.recordText && item.recordText.length > 0);
+
+      console.log('user.objectId === item.user.objectId', user);
+
       if (isDiary) {
         props.navigation.navigate("rcomment", {
           iDoID: item.objectId,
-          iUseId: props.iUse.get("objectId"),
-          iCardId: props.iCard.get("objectId"),
+          iUseId: props.iUseId,
+          iCardId: props.iCardId,
         });
       } else if (user.objectId === item.user.objectId) {
         // 取消打卡
@@ -117,7 +121,7 @@ import Calendar from '../../../components/Calendar';
                 return;
               }
               // 打卡次数也需要修改。
-              const iUse = props.iUse.toJS();
+              const iUse = props.iUse;
               const paramiUSE = { time: iUse.time - 1 };
               const before = moment(0, "HH");
               const after = moment(24, "HH");
@@ -142,91 +146,11 @@ import Calendar from '../../../components/Calendar';
         ]);
       }
     },
-    retroactive: (item, iCard, iUse) => {
-      dispatch(async (dispatch, getState) => {
-        // 补打卡
-        // 判断卡片是否在活动中,判断是否有补签卡片
-        try {
-          // 只有自己可以补打卡
-          const state = getState();
-          const user = state.user.data;
-          const { toolConfig, objectId } = user;
-          if (objectId !== iUse.user) {
-            return;
-          }
-
-          // 活动截止时间
-          const doMoment = moment(item);
-          const { activityEndDate } = iCard;
-          doMoment.set("hours", moment().hours());
-          doMoment.set("minutes", moment().minutes());
-
-          const activityMoment = activityEndDate
-            ? moment(activityEndDate.iso || activityEndDate)
-            : moment("2016-01-01");
-
-          const isAfter = moment().isAfter(activityMoment);
-
-          if (isAfter) {
-            // 如果是今天则正常打卡
-            const before = moment(0, "HH").subtract(1, "minutes");
-            const after = moment(24, "HH");
-            const momentIn = doMoment.isBetween(before, after);
-
-            if (momentIn) {
-              return dispatch(doCardWithNone(iUse));
-            }
-
-            // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
-
-            if (doMoment.isAfter(before)) {
-              SimpleToast.show("这个时间段还没有到~!");
-              return;
-            }
-
-            const { redo } = toolConfig;
-            if (redo > 0) {
-              // 先获取那一天这个时候的moment
-              // 以当天时间做打卡,并做特殊标记type=2。
-              // 提示将消耗一张补签劵
-              Alert.alert(
-                "是否进行补签?",
-                `将消耗一张补签卡,补签卡数量:${redo}。`,
-                [
-                  { text: "取消" },
-                  {
-                    text: "确定",
-                    onPress: () => {
-                      const doneDate = doMoment.toDate();
-                      dispatch(doCardWithNone(iUse, 2, doneDate));
-                    },
-                  },
-                ]
-              );
-
-              // 扣去一个补签卡
-              // toolConfig.redo = redo - 1;
-              // dispatch(updateMeByParam({
-              //   toolConfig
-              // }));
-            } else {
-              // 补签卡数量不够去挑战一些活动吧。
-              SimpleToast.show("亲,补签卡数量不够去挑战副本活动吧~!");
-            }
-          } else {
-            SimpleToast.show("亲,卡片正在活动期间,不允许补打卡哦~!");
-          }
-        } catch (e) {
-          console.log(e.messege);
-          SimpleToast.show(e.messege);
-        }
-      });
-    },
   })
 )
 
 // @withTheme
-export default class AgendaScreen extends PureComponent {
+export default class AgendaScreen extends PureComponent<{ color: string, isSelf: boolean, onPress: (item: any) => void }> {
   constructor(props) {
     super(props);
     this.props.clear();
@@ -251,7 +175,7 @@ export default class AgendaScreen extends PureComponent {
   }
 
   render() {
-    const { onPress, data, iCard, iUse } = this.props;
+    const { onPress, data, isSelf, color, user } = this.props;
 
     const busyDay = data.get('data').toJS();
     // console.log('busyDay:', busyDay);
@@ -260,14 +184,14 @@ export default class AgendaScreen extends PureComponent {
 
     return (
       <Calendar
-        color={this.props.color}
+        color={color}
         ref={ref => this.calendar = ref}
         date={new Date()}
         load={load}
         fetchData={(item) => {
-          this.props.iDoDelete(item, user);
+          isSelf && this.props.iDoDelete(item, user);
         }}
-        selectDay={(item) => this.props.retroactive(item, iCard, iUse)}
+        selectDay={onPress}
         busyDay={busyDay}
         move={this.props.load}
       />

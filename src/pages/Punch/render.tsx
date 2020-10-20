@@ -204,6 +204,8 @@ export default class Punch extends Component<any, StateType> {
     isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
 
     this.deEmitter = DeviceEventEmitter.addListener('iDO_Reload', () => {
+
+      // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
       this.props.search()
     });
   }

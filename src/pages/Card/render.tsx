@@ -104,28 +104,8 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
       };
       dispatch(addNormalizrEntity(ICARD, entity));
       Toast.show(data.state === CircleState.close ? '多人模式' : '单人模式');
-    },
-    dataLoad: () => {
-      dispatch(async (dispatch, getState) => {
-        const state = getState();
-        const iCard = state.normalizr
-          .get('iCard')
-          .get(props.route.params.iCardId);
-        const courseId = iCard.get('course');
-        const course = courseId && state.normalizr.get(COURSE).get(courseId);
-        console.log('course:', course);
-        if (courseId && course.get('statu') === undefined) {
-          const params = {
-            include: 'user',
-            where: {
-              objectId: props.courseId,
-            },
-          };
-          await dispatch(find(COURSE, params, { sceme: list(entitys[COURSE]) }));
-        }
-      });
-    },
-  }),
+    }
+  })
 )
 export default class Card extends PureComponent {
   constructor(props: Object) {

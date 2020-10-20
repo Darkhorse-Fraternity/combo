@@ -141,7 +141,7 @@ function point(className: string, objectId: string) {
 const Render: FC<{}> = () => {
   const { setOptions, goBack } = useNavigation();
   // useGetUserInfo();
-  const { iUseId, iDoId, iCardId, record = [] } = useNavigationAllParamsWithType<RouteKey.clockIn>();
+  const { iUseId, iDoId, iCardId, record = [], type = 0, doneDateIso } = useNavigationAllParamsWithType<RouteKey.clockIn>();
   const [load, setLoad] = useState(false);
 
   const { setValue, handleSubmit, errors, control, } = useForm<FormData>({
@@ -149,6 +149,8 @@ const Render: FC<{}> = () => {
     defaultValues: { recordText: '', recordImgs: [] },
     mode: 'onSubmit',
   });
+
+  console.log('type', type);
 
 
   useEffect(() => {
@@ -182,10 +184,10 @@ const Render: FC<{}> = () => {
 
       const { objectId } = await postClassesIDo({
         user: point('_User', user?.objectId || ''),
-        type: 0,
+        type: type, // 0 打卡,1日志,2:补打卡
         iCard: point('iCard', iCardId),
         iUse: point('iUse', iUseId),
-        doneDate: { "__type": "Date", iso: new Date().toISOString() },
+        doneDate: { "__type": "Date", iso: (doneDateIso || new Date()).toISOString() },
         imgs: data[RecordImgs].map(item => item.url),
         recordText: data[RecordText]
       })

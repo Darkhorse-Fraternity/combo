@@ -1183,24 +1183,25 @@ const prodUrl_0_1_0_1 = 'http://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_1 = undefined as any
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求类型**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求类型**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 export interface PostCallCardListRequest {
   skip?: string
-  limit?: string
+  limit: string
   order?: string
+  count?: number
 }
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **返回类型**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **返回类型**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 export interface PostCallCardListResponse {
   result?: {
@@ -1261,11 +1262,11 @@ export interface PostCallCardListResponse {
 }
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求配置的类型**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求配置的类型**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 type PostCallCardListRequestConfig = Readonly<
   RequestConfig<
@@ -1281,11 +1282,11 @@ type PostCallCardListRequestConfig = Readonly<
 >
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求配置**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求配置**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 const postCallCardListRequestConfig: PostCallCardListRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1302,11 +1303,11 @@ const postCallCardListRequestConfig: PostCallCardListRequestConfig = {
 }
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求函数**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求函数**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 export const postCallCardList = makeRequest<
   PostCallCardListRequest,
@@ -1315,11 +1316,11 @@ export const postCallCardList = makeRequest<
 >(postCallCardListRequestConfig)
 
 /**
- * 接口 [call_cardList↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **React Hook**
+ * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **React Hook**
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /call/cardList`
- * @更新时间 `2020-10-12 18:05:59`
+ * @更新时间 `2020-10-20 13:59:28`
  */
 export const usePostCallCardList = makeRequestHook<
   PostCallCardListRequest,
@@ -1332,7 +1333,7 @@ export const usePostCallCardList = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 export interface GetClassesICardIdRequest {
   id: string
@@ -1343,7 +1344,7 @@ export interface GetClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 export interface GetClassesICardIdResponse {
   notifyTimes: string[]
@@ -1377,6 +1378,10 @@ export interface GetClassesICardIdResponse {
     name?: string
     color?: string
   }
+  activityEndDate?: {
+    iso: string
+    __type: string
+  }
 }
 
 /**
@@ -1384,7 +1389,7 @@ export interface GetClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 type GetClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1404,7 +1409,7 @@ type GetClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1425,7 +1430,7 @@ const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 export const getClassesICardId = makeRequest<
   GetClassesICardIdRequest,
@@ -1438,7 +1443,7 @@ export const getClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-15 10:50:48`
+ * @更新时间 `2020-10-20 15:25:18`
  */
 export const useGetClassesICardId = makeRequestHook<
   GetClassesICardIdRequest,
@@ -1685,19 +1690,25 @@ export const useGetClassesIDoId = makeRequestHook<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
-export interface GetClassesIDoRequest {}
+export interface GetClassesIDoRequest {
+  count?: string
+  limit: string
+  where?: string
+  skip?: string
+  order?: string
+}
 
 /**
  * 接口 [打卡详细记录列表↗](http://121.89.170.197:3000/project/59/interface/api/484) 的 **返回类型**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
 export interface GetClassesIDoResponse {
-  results?: {
+  results: {
     updatedAt: string
     objectId: string
     recordText: string
@@ -1723,6 +1734,7 @@ export interface GetClassesIDoResponse {
       objectId?: string
     }
   }[]
+  count?: number
 }
 
 /**
@@ -1730,7 +1742,7 @@ export interface GetClassesIDoResponse {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
 type GetClassesIDoRequestConfig = Readonly<
   RequestConfig<
@@ -1740,8 +1752,8 @@ type GetClassesIDoRequestConfig = Readonly<
     '/classes/iDo',
     undefined,
     string,
-    string,
-    true
+    'count' | 'limit' | 'where' | 'skip' | 'order',
+    false
   >
 >
 
@@ -1750,7 +1762,7 @@ type GetClassesIDoRequestConfig = Readonly<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
 const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
   mockUrl: mockUrl_0_1_0_2,
@@ -1762,8 +1774,8 @@ const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_2,
   paramNames: [],
-  queryNames: [],
-  requestDataOptional: true,
+  queryNames: ['count', 'limit', 'where', 'skip', 'order'],
+  requestDataOptional: false,
 }
 
 /**
@@ -1771,7 +1783,7 @@ const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
 export const getClassesIDo = makeRequest<GetClassesIDoRequest, GetClassesIDoResponse, GetClassesIDoRequestConfig>(
   getClassesIDoRequestConfig,
@@ -1782,7 +1794,7 @@ export const getClassesIDo = makeRequest<GetClassesIDoRequest, GetClassesIDoResp
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-14 17:04:59`
+ * @更新时间 `2020-10-20 13:58:25`
  */
 export const useGetClassesIDo = makeRequestHook<
   GetClassesIDoRequest,

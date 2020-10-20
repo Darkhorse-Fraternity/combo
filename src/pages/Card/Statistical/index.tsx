@@ -4,7 +4,7 @@
  */
 
 import React, { FC } from "react";
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 
 import moment from "moment";
 import {
@@ -23,6 +23,89 @@ import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
 import { GetClassesICardIdResponse, GetClassesIUseIdResponse } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
+import SimpleToast from 'react-native-simple-toast';
+
+
+const retroactive = (
+  item: any,
+  activityEndDateISO: string,
+  redo: number,
+  clockin: (type: number, date?: Date) => void
+) => {
+  // 补打卡
+  // 判断卡片是否在活动中,判断是否有补签卡片
+
+  try {
+    // 只有自己可以补打卡
+
+    // 活动截止时间
+    const doMoment = moment(item);
+    doMoment.set("hours", moment().hours());
+    doMoment.set("minutes", moment().minutes());
+
+    const activityMoment = activityEndDateISO
+      ? moment(activityEndDateISO)
+      : moment("2016-01-01");
+
+    const isAfter = moment().isAfter(activityMoment);
+
+    if (isAfter) {
+
+      // 如果是今天则正常打卡
+      const before = moment(0, "HH").subtract(1, "minutes");
+      const after = moment(24, "HH");
+      const momentIn = doMoment.isBetween(before, after);
+
+      if (momentIn) {
+        // return dispatch(doCardWithNone(iUse));
+        clockin(0);
+      }
+
+      // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
+
+      if (doMoment.isAfter(before)) {
+        SimpleToast.show("这个时间段还没有到~!");
+        return;
+      }
+
+      if (redo > 0) {
+        // 先获取那一天这个时候的moment
+        // 以当天时间做打卡,并做特殊标记type=2。
+        // 提示将消耗一张补签劵
+        Alert.alert(
+          "是否进行补签?",
+          `将消耗一张补签卡,补签卡数量:${redo}。`,
+          [
+            { text: "取消" },
+            {
+              text: "确定",
+              onPress: () => {
+                const doneDate = doMoment.toDate();
+                clockin(2, doneDate);
+                // dispatch(doCardWithNone(iUse, 2, doneDate));
+              },
+            },
+          ]
+        );
+
+        // 扣去一个补签卡
+        // toolConfig.redo = redo - 1;
+        // dispatch(updateMeByParam({
+        //   toolConfig
+        // }));
+      } else {
+        // 补签卡数量不够去挑战一些活动吧。
+        SimpleToast.show("亲,补签卡数量不够去挑战副本活动吧~!");
+      }
+    } else {
+      SimpleToast.show("亲,卡片正在活动期间,不允许补打卡哦~!");
+    }
+  } catch (e) {
+    console.log(e.messege);
+    SimpleToast.show(e.messege);
+  }
+}
+
 
 
 
@@ -61,7 +144,7 @@ const Statistical: FC<StatisticalProps> =
   ({ iCard, iUse, ...other }) => {
 
     const user = useGetUserInfo();
-
+    const { navigate } = useNavigation()
     const cardCreatedAt = moment(iCard.createdAt).format("YYYY-MM-DD");
     // const useCreatedAt = moment(iUse.createdAt).format("YYYY-MM-DD")
     const date1 = new Date();
@@ -81,11 +164,26 @@ const Statistical: FC<StatisticalProps> =
 
     const record = iCard.record || []
     const color = iCard.iconAndColor?.color || 'grey';
+    const { activityEndDate } = iCard;
+    const { toolConfig } = user || {};
+    const iUseId = iUse.objectId;
+    const iCardId = iCard.objectId;
     return (<StyledInner >
       <AgendaScreen
-        color={color}
-        iCard={iCard}
         iUse={iUse}
+        color={color}
+        isSelf={isSelf}
+        iUseId={iUseId}
+        iCardId={iCardId}
+        onPress={(item) => isSelf &&
+          retroactive(
+            item,
+            activityEndDate?.iso || '',
+            toolConfig?.redo || 0,
+            (type, date) => {
+              const iso = date && date.toISOString()
+              navigate(RouteKey.clockIn, { iUseId, iCardId, record, type, iso })
+            })}
         {...other}
       // selectDay={(item) => this.props.retroactive(item, iCard, iUse)}
       // onPress={(item) => {

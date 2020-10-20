@@ -24,6 +24,7 @@ const { width } = Dimensions.get('window');
 
 interface CalendarProps {
   load: boolean;
+  selectDay: (item: any) => void;
 }
 
 export default class Calendar extends PureComponent<CalendarProps> {
@@ -75,13 +76,13 @@ export default class Calendar extends PureComponent<CalendarProps> {
         : 0;
   }
 
-  selectDay(d) {
-    // this.setState({
-    //   date: d
-    // })
-    // this.fetchData()
-    this.props.selectDay(d);
-  }
+  // selectDay(d) {
+  //   // this.setState({
+  //   //   date: d
+  //   // })
+  //   // this.fetchData()
+  //   this.props.selectDay(d);
+  // }
 
   myScroll(
     event: NativeSyntheticEvent<
@@ -282,7 +283,7 @@ export default class Calendar extends PureComponent<CalendarProps> {
     ];
     const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
-    console.log('this.syaye', this.state);
+    // console.log('this.syaye', this.state);
 
     return (
       <View style={[this.props.style]}>
