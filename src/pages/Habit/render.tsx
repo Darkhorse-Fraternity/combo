@@ -48,13 +48,12 @@ const RenderNoData = (statu: string) => {
     statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
   return (
     <ExceptionView
-      style={{ height: Dimensions.get('window').height / 2 }}
+      style={{ height: Dimensions.get('window').height / 1.6 }}
       exceptionType={
         refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
       }
       tipBtnText="添加卡片"
-      refresh={refreshLoad}
-      prompt={refreshLoad ? '正在加载' : '暂无数据'}
+      // prompt={refreshLoad ? '正在加载' : '暂无数据'}
       onRefresh={() => {
         navigate('newCard');
       }}

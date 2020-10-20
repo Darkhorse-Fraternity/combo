@@ -4,7 +4,6 @@
  */
 
 import React, { LegacyRef, PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
@@ -206,9 +205,7 @@ export default class BaseSectionView<ItemT> extends PureComponent<
         showLoadingInView
         ? ExceptionType.Loading
         : ExceptionType.NoData;
-    console.log('exceptionType000:', exceptionType);
 
-    console.log('data:', data);
 
 
 

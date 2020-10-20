@@ -34,9 +34,11 @@ import Search from './NewCard/Search';
 import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
 import ClockIn from '../pages/clock-in';
 import Test from './test';
+import Log from './Card/Log/render'
 
 export const otherRoute = {
   [RouteKey.web]: web,
+  [RouteKey.log]:{component:Log,optione:Log.navigationOptions},
   [RouteKey.clockIn]:ClockIn,
   [RouteKey.test]: Test,
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},

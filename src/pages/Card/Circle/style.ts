@@ -5,7 +5,6 @@
 
 import styled from 'styled-components/native';
 // import Button from '../../../components/Button'
-import HeaderBtn from '@components/Button/HeaderBtn';
 import Button from '@components/Button';
 import NativeUnifiedADView from '@components/GDTNativeUnifiedAD';
 import {Platform} from 'react-native';

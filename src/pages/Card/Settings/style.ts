@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 import Button from '../../../components/Button';
-import HeaderBtn from '../../../components/Button/HeaderBtn';
 
 // var hexToRgb = function(hex) {
 //   var color = [], rgb = [];

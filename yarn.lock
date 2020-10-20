@@ -1659,10 +1659,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
-"@react-native-community/netinfo@5.3.2":
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.3.2.tgz#7b6ee417c2a905663e10de176c00eeab09bdd14c"
-  integrity sha512-npNcLAz6iWzwRNh+0tSFMlR+xkpSz9NWzX+5AxW40KE6qEZGWdE3dtGBKsezMdWD2Fh+6Je6P6hgUEF8xuZrbA==
+"@react-native-community/netinfo@5.9.7":
+  version "5.9.7"
+  resolved "https://registry.yarnpkg.com/@react-native-community/netinfo/-/netinfo-5.9.7.tgz#769c6b306ea6bbaa1c4a3fffdd183d0cfc30ed7e"
+  integrity sha512-NAkkT68oF+M9o6El2xeUqZK7magPjG/tAcEbvCbqyhlh3yElKWnI1e1vpbVvFXzTefy67FwYFWOJqBN6U7Mnkg==
 
 "@react-native-community/push-notification-ios@^1.2.0":
   version "1.2.0"
@@ -9559,10 +9559,10 @@ react-native-code-push@6.2.0:
     semver "^7.1.1"
     xcode "1.0.0"
 
-react-native-device-info@5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.1.tgz#507d2cd4be98813fc0421a35731b471b86ca194d"
-  integrity sha512-eb1fadKkaCy0C6p2gozGQ6vHO+rhQBh1FTN+l7pE23McfI7EKtp6Wy7OCexHvmEe6xsxoHK93cMiCsZuyaTnMA==
+react-native-device-info@6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-6.2.1.tgz#6b63faeef833d8959d636c0413ccd5066eada2bf"
+  integrity sha512-+9Li07jD+7IiSIn9VVmb1YWYfJtgERVMsgO/hG+aUzsFD6uFklpM2TOEBlfKPWP/8J6s8MZgpGfA/Dl1WZrn2g==
 
 react-native-dialogs@1.0.5:
   version "1.0.5"

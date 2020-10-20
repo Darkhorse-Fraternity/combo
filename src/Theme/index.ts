@@ -20,6 +20,9 @@ const getTheme = () => {
     sureColor: '#66bb6a',
     headerButtonColor: '#31d930',
     lightBlue: '#afd2ef',
+    blackPrimary:"rgba(0,0,0,0.87)",
+    blackSecondary:"rgba(0,0,0,0.54)",
+    blackTertiary:'rgba(0,0,0,0.38)',
     normalBtn: {
       color: 'black',
       disabledColor: 'rgb(150,150,150)',

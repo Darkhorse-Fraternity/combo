@@ -37,6 +37,7 @@ export enum RouteKey {
   FRDetail = 'FRDetail',
   cirlcleSetting = 'cirlcleSetting',
   clockIn = 'clockIn',
+  log = 'log',
 
   //tabs
   punch = 'punch',
@@ -85,6 +86,7 @@ export type RootStackParamList = {
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;
   [RouteKey.flag]: undefined;
+  [RouteKey.log]:{iUseId:string,iCardId:string,color:string};
 };
 
 // type KeyType = keyof typeof RouteKey;

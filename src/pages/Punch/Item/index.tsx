@@ -97,15 +97,7 @@ export default class PunchItem extends PureComponent<
   }
 
 
-  componentDidMount() {
-    // this.props.search();
-    // this.props.fbSearch();
-    // this.props.getiUse();
-    // const loadStatu = this.props.data.get('loadStatu');
-    // loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
-    // this.props.exist()
-    // console.log('this.refs.list:', this.refs.list.scrollToOffset);
-  }
+
 
 
   componentWillUnmount() {

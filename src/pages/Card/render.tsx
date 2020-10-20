@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { FC, PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,7 +13,7 @@ import {
   Dimensions,
   Platform,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-simple-toast';
@@ -30,11 +30,45 @@ import Statistical from './Statistical';
 // import Course from './Course/index'
 import Circle from './Circle/index';
 import Button from '../../components/Button/index';
-import { CircleState} from '../../configure/enum';
-import {COURSE, ICARD} from '../../redux/reqKeys';
-import {list, entitys} from '../../redux/scemes';
-import {find, update} from '../../redux/module/leancloud';
-import {addNormalizrEntity} from '../../redux/module/normalizr';
+import { CircleState } from '../../configure/enum';
+import { COURSE, ICARD } from '../../redux/reqKeys';
+import { list, entitys } from '../../redux/scemes';
+import { find, update } from '../../redux/module/leancloud';
+import { addNormalizrEntity } from '../../redux/module/normalizr';
+
+
+interface RenderHeaderRightProps {
+  isSelf: boolean
+  onPress: (type: 'log' | 'setting') => void;
+}
+
+const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
+  return (
+    <StyledHeaderRight>
+      {isSelf && (
+        <Button
+          onPress={onPress.bind(undefined, 'log')}>
+          <StyledIcon
+            color="black"
+            style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
+            size={20}
+            name="users"
+          />
+        </Button>
+      )}
+      <Button
+        onPress={onPress.bind(undefined, 'setting')}>
+        <StyledIcon
+          color="black"
+          style={{ marginRight: 10 }}
+          size={20}
+          name="more-horizontal"
+        />
+      </Button>
+    </StyledHeaderRight>
+  );
+}
+
 
 @connect(
   (state, props) => {
@@ -87,7 +121,7 @@ import {addNormalizrEntity} from '../../redux/module/normalizr';
               objectId: props.courseId,
             },
           };
-          await dispatch(find(COURSE, params, {sceme: list(entitys[COURSE])}));
+          await dispatch(find(COURSE, params, { sceme: list(entitys[COURSE]) }));
         }
       });
     },
@@ -105,84 +139,49 @@ export default class Card extends PureComponent {
 
   static defaultProps = {};
 
-  // static navigationOptions = props => {
-  //   const {navigation} = props;
-  //   const {state} = navigation;
-  //   const {params} = state || {};
-
-  //   const {gestureEnabled} = params || {gestureEnabled: true};
-  //   return {
-  //     //   title:params && params.title,
-  //     headerShown: false,
-  //     gestureEnabled,
-  //     // headerRight:params.renderRightView && params.renderRightView()
-  //   };
-  // };
-
-  // _afterDone = (key) => {
-  //   DeviceEventEmitter.emit(key);
-  // }
 
   componentDidMount() {
-    // const { iCard, iUse } = this.props
-    // const state = iCard.get('state')
-    // this.props.navigation.setParams({ renderRightView: this.__renderRightView,
-    //   title: iCard.get('title') })
-    this.props.navigation.setOptions({headerRight: this.__renderRightView});
-    // console.log('this.props.navigation', this.props.navigation);
+
+
+    this.props.navigation.setOptions({ headerRight: this.__renderRightView });
   }
 
-  componentWillReceiveProps() {
-    this.props.navigation.setOptions({headerRight: this.__renderRightView});
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.iCard !== this.props.iCard) {
+      this.props.navigation.setOptions({ headerRight: this.__renderRightView });
+    }
   }
 
   __renderRightView = () => {
-    const {route, iCard, user} = this.props;
-    const {params} = route;
-    const {iCardId, iUseId} = params;
+    const { route, iCard, user } = this.props;
+    const { params } = route;
+    const { iCardId, iUseId } = params;
 
     const isSelf = iCard.get('user') === user.objectId;
-    return (
-      <StyledHeaderRight>
-        {isSelf && (
-          <Button
-            onPress={() => {
-              this.props.setCircleState(iCard);
-            }}>
-            <StyledIcon
-              color="black"
-              style={{marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2}}
-              size={20}
-              name="users"
-            />
-          </Button>
-        )}
-        <Button
-          onPress={() => {
-            this.props.navigation.navigate('cardSetting', {
-              iCardId,
-              iUseId,
-            });
-          }}>
-          <StyledIcon
-            color="black"
-            style={{marginRight: 10}}
-            size={20}
-            name="more-horizontal"
-          />
-        </Button>
-      </StyledHeaderRight>
-    );
+
+    return <RenderHeaderRight isSelf={isSelf} onPress={(type) => {
+      if (type === 'log') {
+        this.props.setCircleState(iCard);
+      } else {
+        this.props.navigation.navigate('cardSetting', {
+          iCardId,
+          iUseId,
+        });
+      }
+    }} />
+
   };
 
-  render(): ReactElement<any> {
+  render() {
     // const {iUse,iCard} = params
 
-    const {iCard, iUse} = this.props;
+    const { iCard, iUse, ...other } = this.props;
+
     if (!iCard) {
       return <StyledContent />;
     }
-
+    const iCardM = iCard.toJS()
+    const iUseM = iUse.toJS()
     // const useNum = iCard.get('useNum')
     let iconAndColor = iCard.get('iconAndColor');
     iconAndColor = iconAndColor ? iconAndColor.toJS() : {};
@@ -195,15 +194,15 @@ export default class Card extends PureComponent {
       <ScrollableTabView
         ref="ScrollableTabView"
         locked={state !== CircleState.open}
-        onChangeTab={({i}) => {
-          this.props.navigation.setParams({gestureEnabled: i === 0});
+        onChangeTab={({ i }) => {
+          this.props.navigation.setParams({ gestureEnabled: i === 0 });
         }}
         onScroll={x => {
           // if(state === CircleState.open){
           x = x <= 0 ? 0 : x;
           x = x >= 1 ? 1 : x;
           const containerWidthAnimatedValue = new Animated.Value(x);
-          this.setState({scrollValue: containerWidthAnimatedValue});
+          this.setState({ scrollValue: containerWidthAnimatedValue });
           // }
         }}
         renderTabBar={(...props) => (
@@ -213,25 +212,25 @@ export default class Card extends PureComponent {
             title={title}
             tabUnderlineWidth={35}
             scrollValueWithOutNative={this.state.scrollValue}
-            // rightView={this.__renderRightView}
+          // rightView={this.__renderRightView}
           />
         )}
         prerenderingSiblingsNumber={0}
-        // tabBarInactiveTextColor={theme.mainColor}
-        // tabBarActiveTextColor={theme.mainColor}
-        // tabBarUnderlineStyle={{ backgroundColor: theme.mainColor }}
-        // tabBarPosition ='bottom'
       >
-        {/* {course && course.get('statu') === 1 && */}
-        {/* <Course {...this.props} */}
-        {/* tabLabel='课程'/>} */}
         {state === CircleState.open && (
-          <Circle color={color} {...this.props} tabLabel="圈子" />
+          <Circle
+            iUse={iUseM}
+            iCard={iCardM}
+            color={color}
+            {...other}
+            tabLabel="圈子" />
         )}
         <Statistical
-          color={color}
-          {...this.props}
+          {...other}
+          iUse={iUseM}
+          iCard={iCardM}
           tabLabel={state === CircleState.open ? '统计' : title}
+
         />
       </ScrollableTabView>
     );

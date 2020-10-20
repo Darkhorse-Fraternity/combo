@@ -1,6 +1,6 @@
 export const randFlowCoverColor = ()=>{
   const rNumber = Math.floor(Math.random()*7);
-  console.log('rNumber',rNumber);
+  // console.log('rNumber',rNumber);
   
     switch (rNumber) {
         case 0 : return '#AFCCCB'

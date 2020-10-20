@@ -13,8 +13,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // `
 
 import { SafeAreaView } from 'react-native';
-import { materialColors } from 'react-native-typography';
-import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   background-color: white;
@@ -33,7 +31,7 @@ export const StyledTitleText = styled.Text`
 
 export const StyledInnerView = styled.ScrollView``;
 
-export const StyledItemText = styled.Text`
+export const StyledItemText = styled.Text<{ contain: boolean }>`
   font-weight: ${props =>
     props.contain ? 600 : Platform.OS === 'ios' ? 500 : 400};
   color:${props =>
@@ -41,7 +39,7 @@ export const StyledItemText = styled.Text`
       ? 'white'
       : Platform.OS === 'ios'
         ? 'black'
-        : materialColors.blackTertiary}
+        : props.theme.blackTertiary};
   
   font-size: 14px;
 `;
@@ -95,7 +93,7 @@ export const StyledNotifyButtonInner = styled.View`
 `;
 
 export const StyledMaterialIcons = styled(MaterialIcons)`
-  color: ${materialColors.blackSecondary};
+  color: ${props => props.theme.blackSecondary};
 `;
 
 export const StyledIonicons = styled(Ionicons)``;
@@ -128,7 +126,7 @@ export const StyledInner = styled.View`
 
 export const StyledNotifyTime = styled.Text`
   text-align: center;
-  color: ${materialColors.blackSecondary};
+  color: ${props => props.theme.blackSecondary};
 `;
 
 export const StyledLogoImage = styled.Image`

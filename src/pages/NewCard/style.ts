@@ -4,7 +4,6 @@
  */
 
 import styled from 'styled-components/native';
-import {materialColors} from 'react-native-typography';
 import {SafeAreaView} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import HeaderBtn from '../../components/Button/HeaderBtn';
@@ -35,7 +34,7 @@ export const StyledHeader = styled.View`
 
 export const StyledHeaderText = styled.Text`
   font-size: 20px;
-  color: ${materialColors.blackPrimary};
+  color: ${props=>props.theme.blackPrimary};
   overflow: visible;
   padding: 20px 15px;
   align-self: center;

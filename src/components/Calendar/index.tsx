@@ -22,7 +22,11 @@ import DateBoard from './DateBoard';
 
 const { width } = Dimensions.get('window');
 
-export default class Calendar extends PureComponent {
+interface CalendarProps {
+  load: boolean;
+}
+
+export default class Calendar extends PureComponent<CalendarProps> {
   constructor(props: Object) {
     super(props);
     this.state = {

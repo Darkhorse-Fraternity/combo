@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,6 +11,9 @@ import {
   Text,
   Alert,
   DeviceEventEmitter,
+  TouchableOpacityProps,
+  ImageSourcePropType,
+  EmitterSubscription,
 } from 'react-native';
 import { connect } from 'react-redux';
 import LCList from '../../../components/Base/LCList';
@@ -20,7 +23,7 @@ import Header from '../../Record/RecordRow/Header';
 import { IDO, IUSE } from '../../../redux/reqKeys';
 import { recordDiary } from '../../../components/DoCard/Do/Diary';
 import { ShareModal } from '../../../components/Share/ShareView';
-import Dialog from '../../../components/Dialog';
+import Dialog from '@components/Dialog';
 import { classUpdate } from '../../../request/leanCloud';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
 import { req } from '../../../redux/actions/req';
@@ -35,11 +38,77 @@ import {
   StyledNativeUnifiedADView,
 } from './style';
 
-import { iCard } from '../../../request/LCModle';
+import { iCard as iCardM } from '../../../request/LCModle';
 import { loadWithObjectInfo } from '@components/GDTNativeUnifiedAD';
 import { GTDAppId, GTDUnifiedNativeplacementId } from '@configure/tencent_ad';
+import { useNavigation } from '@react-navigation/native';
+import { RouteKey } from '@pages/interface';
+import { GetClassesICardIdResponse, GetClassesIUseIdResponse } from 'src/hooks/interface';
 
 const listKey = IDO;
+
+
+const pickPrivacy = async (privacy: number, isSelf: boolean) => {
+  const items = isSelf
+    ? [
+      { label: '不对外开放', id: '0' },
+      { label: '对外开放', id: '2' },
+    ]
+    : [
+      { label: '不对外开放', id: '0' },
+      { label: '仅对卡片拥有者开放', id: '1' },
+      { label: '对外开放', id: '2' },
+    ];
+
+  const selectedId = privacy === 1 && isSelf ? 0 : privacy;
+
+  return Dialog.showPicker('隐私设置', null, {
+    negativeText: '取消',
+    type: Dialog.listRadio,
+    selectedId: `${selectedId}`,
+    items,
+  });
+}
+
+
+const MenuItem: FC<TouchableOpacityProps & { title: string, source: ImageSourcePropType }> =
+  ({ title, source, ...other }) => {
+    return (
+      <StyledHeaderButton
+        style={{ marginLeft: 0 }}
+        hitSlop={{
+          top: 5,
+          left: 10,
+          bottom: 5,
+          right: 10,
+        }}
+        {...other}
+      >
+        <StyledHeaderImage
+          source={source}
+        />
+        <StyledHeaderText>{title}</StyledHeaderText>
+      </StyledHeaderButton>
+    )
+  }
+
+const ClockInMenuItem: FC<{ iUseId: string, iCardId: string, record: string[] }> =
+  ({ iCardId, iUseId, record }) => {
+    const { navigate } = useNavigation();
+    return <MenuItem
+      title='打卡'
+      source={require('../../../../source/img/circle/write.png')}
+      onPress={() => {
+        navigate(RouteKey.clockIn, { iUseId, iCardId, record });
+      }} />
+  }
+
+
+interface CircleProps {
+  iCard: GetClassesICardIdResponse,
+  iUse: GetClassesIUseIdResponse,
+  tabLabel?: string,
+}
 
 @connect(
   (state, props) => ({
@@ -60,31 +129,10 @@ const listKey = IDO;
         ...res,
       };
       dispatch(addNormalizrEntity(IUSE, entity));
-    },
-    pickPrivacy: async (iUse, isSelf) => {
-      const items = isSelf
-        ? [
-          { label: '不对外开放', id: '0' },
-          { label: '对外开放', id: '2' },
-        ]
-        : [
-          { label: '不对外开放', id: '0' },
-          { label: '仅对卡片拥有者开放', id: '1' },
-          { label: '对外开放', id: '2' },
-        ];
-
-      const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy;
-
-      return Dialog.showPicker('隐私设置', null, {
-        negativeText: '取消',
-        type: Dialog.listRadio,
-        selectedId: `${selectedId}`,
-        items,
-      });
-    },
+    }
   }),
 )
-export default class Circle extends PureComponent<any, { showShare: boolean, count: number }> {
+export default class Circle extends PureComponent<CircleProps, { showShare: boolean, count: number }> {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -96,7 +144,7 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
   static propTypes = {};
 
   static defaultProps = {};
-
+  deEmitter?: EmitterSubscription;
   componentDidMount() {
     loadWithObjectInfo({
       appId: GTDAppId,
@@ -112,36 +160,27 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
     // const key = 'done_' + this.props.iCard.get('objectId')
     // this.subscription =
     //     DeviceEventEmitter.addListener(key, this.refresh);
+    this.deEmitter = DeviceEventEmitter.addListener('iDO_Reload', () => {
+
+    });
   }
 
+
+
+
+
+
   componentWillUnmount() {
-    // this.subscription.remove();
+    this.deEmitter && this.deEmitter.remove();
   }
 
   __renderHeader = () => {
-    const iCard = this.props.iCard.toJS();
-    const iUse = this.props.iUse.toJS();
+    const iCard = this.props.iCard;
+    const iUse = this.props.iUse;
     const { user } = this.props;
     return (
       <StyledHeader>
-        {/* <StyledTitleText> */}
-        {/* 圈子日记 */}
-        {/* </StyledTitleText> */}
-        <StyledHeaderButton
-          style={{ marginLeft: 0 }}
-          hitSlop={{
-            top: 5,
-            left: 10,
-            bottom: 5,
-            right: 10,
-          }}
-          onPress={() => this.props.tipTap(this.props.iUse.toJS())}>
-          <StyledHeaderImage
-            source={require('../../../../source/img/circle/write.png')}
-          />
-          <StyledHeaderText>打卡</StyledHeaderText>
-        </StyledHeaderButton>
-
+        <ClockInMenuItem iCardId={iCard.objectId} iUseId={iUse.objectId} record={iCard.record} />
         <StyledHeaderButton
           hitSlop={{
             top: 5,
@@ -153,7 +192,9 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
             const userId = user.objectId;
             const beUserId = iCard.user;
             const isSelf = userId === beUserId;
-            const { selectedItem } = await this.props.pickPrivacy(iUse, isSelf);
+            const { selectedItem } = await pickPrivacy(iUse.privacy, isSelf);
+            console.log('selectedItem', selectedItem);
+
             if (selectedItem) {
               const { id } = selectedItem;
               iUse.privacy !== Number(id) &&
@@ -260,17 +301,18 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
   }
 
   render() {
-    const iCardId = this.props.iCard.get('objectId');
-    const privacyIUSE = this.props.iUse.get('privacy');
+    const { iCard, iUse } = this.props;
+    const iCardId = iCard.objectId;
+    const privacyIUSE = iUse.privacy;
     const privacy =
-      this.props.iCard.get('user') === this.props.user.objectId
+      iCard.user === this.props.user.objectId
         ? Privacy.openToCoach
         : Privacy.open;
     // const privacy = this.props.iUse.get('privacy')
     // console.log('privacy:', privacy);
     const param = {
       where: {
-        ...iCard(iCardId),
+        ...iCardM(iCardId),
         $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
         state: { $ne: -1 }, // -1 为已删除
         // "iUse": {
@@ -286,6 +328,10 @@ export default class Circle extends PureComponent<any, { showShare: boolean, cou
       order: '-doneDate,-createdAt',
       privacyIUSE, // 用于更换数据时候重新拉取，没有实际params 意义。
     };
+
+    console.log('privacy', privacy);
+
+
     return (
       <LCList
         ref="list"

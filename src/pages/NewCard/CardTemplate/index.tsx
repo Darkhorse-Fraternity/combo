@@ -36,11 +36,11 @@ const CardTemplate: FC<CardTemplateType> = (props) => {
   console.log('res', res.length);
 
 
-  return res.map(cell => (
-    <StyledRow>
+  return res.map((cell, index) => (
+    <StyledRow key={index + ''}>
       {cell.map((item, index) => (
         <CardCell
-          key={'cell' + index}
+          key={item.title + index}
           title={item.title}
           name={item.icon}
           color={item.color}

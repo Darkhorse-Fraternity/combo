@@ -39,6 +39,7 @@ import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { point } from '@request/LCModle';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
+import { ListLoadType } from '@components/Base/interface';
 
 interface StateType {
   frMap: Object;
@@ -251,16 +252,15 @@ export default class Punch extends Component<any, StateType> {
 
   __renderNoData = (statu) => {
     const refreshLoad =
-      statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
+      statu === ListLoadType.LIST_FIRST_JOIN || statu === ListLoadType.LIST_LOAD_DATA;
     return (
       <ExceptionView
-        style={{ height: Dimensions.get('window').height / 2 }}
+        style={{ height: Dimensions.get('window').height / 1.6 }}
         exceptionType={
           refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
         }
         tipBtnText="重新加载"
-        refresh={refreshLoad}
-        prompt={refreshLoad ? '正在加载' : '暂无数据~'}
+        // prompt={refreshLoad ? '正在加载～' : '暂无数据~'}
         onRefresh={() => {
           this.props.search()
         }}

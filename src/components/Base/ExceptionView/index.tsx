@@ -45,7 +45,6 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
 
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
-    prompt: '暂无数据'
   };
 
   constructor(props: Object) {
@@ -68,17 +67,23 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
   )
 
   renderPrompt() {
-    if (isValidElement(this.props.prompt)) {
-      return this.props.prompt;
+
+
+    const { prompt, exceptionType } = this.props;
+
+    const defaultPrompt = exceptionType === ExceptionType.Loading ? '正在加载～' : '没有数据～'
+    const text = prompt || defaultPrompt;
+    console.log('defaultPrompt', defaultPrompt);
+
+    if (isValidElement(prompt)) {
+      return prompt;
     }
-    const text = this.props.prompt;
-    if (text) {
-      return (
-        <Text style={styles.text}>
-          {text}
-        </Text>
-      );
-    }
+
+    return (
+      <Text style={styles.text}>
+        {text}
+      </Text>
+    );
   }
 
   renderOtherTips() {
@@ -95,30 +100,12 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
 
 
   renderPromptLoad() {
-    // const {width, height} = Dimensions.get('window');
-    // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
-    // const imgWidth = dWidth * 359 * 0.5;
-    // const imgHeight = dWidth * 77 * 0.5;
-    // const navigationBarHeight = 44 + StatusBarHeight;
+
     return <Indicators />
   }
 
 
-  // _renderPromptIndicator = (type: string) => {
-  //   switch (type) {
-  //     case ExceptionType.Loading:
-  //       return (
-  //         <Indicators size="large" />
-  //       );
-  //     case ExceptionType.NoData:
-  //     case ExceptionType.NetError:
-  //       return (
-  //         <Indicators size="large" animated={false} />
-  //       );
-  //     default:
-  //       break;
-  //   }
-  // };
+
   renderPromptImage(promptImage: ImageSourcePropType) {
     const { prompIamgeStyle } = this.props;
     //console.log('promptImage', promptImage);
@@ -144,9 +131,7 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
         style={style}
       >
         {exceptionType === ExceptionType.Loading && this.renderPromptLoad()}
-        {exceptionType === 'exceptionTypeNoData' &&
-          promptImage &&
-          this.renderPromptImage(promptImage)}
+        {exceptionType === ExceptionType.NoData && this.renderPromptImage(promptImage)}
         {this.renderPrompt()}
 
         {this.renderTipButton()}
@@ -166,8 +151,8 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
 const styles = StyleSheet.create({
   image: {
     // position:'absolute',
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     // marginTop: -StatusBarHeight,
     alignSelf: 'center',
   },
