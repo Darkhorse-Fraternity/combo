@@ -30,3 +30,7 @@ export const daysText = (recordDay:[]) => {
     return days.map((day) => Days[day - 1]).toString();
   }
 };
+
+export enum DeviceEventEmitterKey {
+  iDO_Reload='iDO_Reload'
+}

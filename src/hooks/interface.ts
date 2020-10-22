@@ -1073,9 +1073,11 @@ export const useGetClassesIUse = makeRequestHook<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 export interface GetClassesIUseIdRequest {
+  include?: string
+  where?: string
   id: string
 }
 
@@ -1084,29 +1086,59 @@ export interface GetClassesIUseIdRequest {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 export interface GetClassesIUseIdResponse {
   updatedAt: string
-  cycle: number
+  cycle?: number
   objectId: string
-  privacy: number
+  privacy?: number
   time: number
   createdAt: string
-  doneDate: {
-    __type?: string
-    iso?: string
+  doneDate?: {
+    __type: string
+    iso: string
   }
   user: {
-    __type: string
-    className: string
-    objectId: string
+    __type?: string
+    className?: string
+    objectId?: string
   }
   statu: string
   iCard: {
-    __type: string
-    className: string
+    notifyTimes?: string[]
+    sound?: {
+      open?: boolean
+      item?: {
+        title?: string
+        type?: string
+        key?: string
+      }
+    }
+    updatedAt?: string
+    limitTimes?: string[]
+    notifyTime?: string
+    useNum?: number
     objectId: string
+    createdAt?: string
+    state?: number
+    className?: string
+    recordDay?: number[]
+    title?: string
+    notifyText?: string
+    __type: string
+    record?: string[]
+    period?: string
+    price?: number
+    user?: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    iconAndColor?: {
+      name?: string
+      color?: string
+    }
   }
 }
 
@@ -1115,7 +1147,7 @@ export interface GetClassesIUseIdResponse {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 type GetClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
@@ -1125,7 +1157,7 @@ type GetClassesIUseIdRequestConfig = Readonly<
     '/classes/iUse/:id',
     undefined,
     'id',
-    string,
+    'include' | 'where',
     false
   >
 >
@@ -1135,7 +1167,7 @@ type GetClassesIUseIdRequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1147,7 +1179,7 @@ const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_0,
   paramNames: ['id'],
-  queryNames: [],
+  queryNames: ['include', 'where'],
   requestDataOptional: false,
 }
 
@@ -1156,7 +1188,7 @@ const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 export const getClassesIUseId = makeRequest<
   GetClassesIUseIdRequest,
@@ -1169,7 +1201,7 @@ export const getClassesIUseId = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-15 10:46:44`
+ * @更新时间 `2020-10-21 15:32:45`
  */
 export const useGetClassesIUseId = makeRequestHook<
   GetClassesIUseIdRequest,
@@ -1457,11 +1489,11 @@ const prodUrl_0_1_0_2 = 'http://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_2 = undefined as any
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求类型**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求类型**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 export interface PostClassesIDoRequest {
   user: {
@@ -1489,11 +1521,11 @@ export interface PostClassesIDoRequest {
 }
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **返回类型**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **返回类型**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 export interface PostClassesIDoResponse {
   objectId?: string
@@ -1501,11 +1533,11 @@ export interface PostClassesIDoResponse {
 }
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求配置的类型**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求配置的类型**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 type PostClassesIDoRequestConfig = Readonly<
   RequestConfig<
@@ -1521,11 +1553,11 @@ type PostClassesIDoRequestConfig = Readonly<
 >
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求配置**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求配置**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 const postClassesIDoRequestConfig: PostClassesIDoRequestConfig = {
   mockUrl: mockUrl_0_1_0_2,
@@ -1542,22 +1574,22 @@ const postClassesIDoRequestConfig: PostClassesIDoRequestConfig = {
 }
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求函数**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **请求函数**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 export const postClassesIDo = makeRequest<PostClassesIDoRequest, PostClassesIDoResponse, PostClassesIDoRequestConfig>(
   postClassesIDoRequestConfig,
 )
 
 /**
- * 接口 [clockIn↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **React Hook**
+ * 接口 [打卡↗](http://121.89.170.197:3000/project/59/interface/api/478) 的 **React Hook**
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `POST /classes/iDo`
- * @更新时间 `2020-10-13 18:09:25`
+ * @更新时间 `2020-10-21 16:47:26`
  */
 export const usePostClassesIDo = makeRequestHook<
   PostClassesIDoRequest,
@@ -1690,7 +1722,7 @@ export const useGetClassesIDoId = makeRequestHook<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 export interface GetClassesIDoRequest {
   count?: string
@@ -1698,6 +1730,7 @@ export interface GetClassesIDoRequest {
   where?: string
   skip?: string
   order?: string
+  include?: string
 }
 
 /**
@@ -1705,7 +1738,7 @@ export interface GetClassesIDoRequest {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 export interface GetClassesIDoResponse {
   results: {
@@ -1716,9 +1749,10 @@ export interface GetClassesIDoResponse {
     state: number
     likeNum: number
     iUse: {
-      __type?: string
-      className?: string
-      objectId?: string
+      __type: string
+      className: string
+      objectId: string
+      privacy?: number
     }
     imgs: string[]
     commentNew: boolean
@@ -1733,6 +1767,11 @@ export interface GetClassesIDoResponse {
       className?: string
       objectId?: string
     }
+    doneDate?: {
+      iso: string
+      __type: string
+    }
+    type: number
   }[]
   count?: number
 }
@@ -1742,7 +1781,7 @@ export interface GetClassesIDoResponse {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 type GetClassesIDoRequestConfig = Readonly<
   RequestConfig<
@@ -1752,7 +1791,7 @@ type GetClassesIDoRequestConfig = Readonly<
     '/classes/iDo',
     undefined,
     string,
-    'count' | 'limit' | 'where' | 'skip' | 'order',
+    'count' | 'limit' | 'where' | 'skip' | 'order' | 'include',
     false
   >
 >
@@ -1762,7 +1801,7 @@ type GetClassesIDoRequestConfig = Readonly<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
   mockUrl: mockUrl_0_1_0_2,
@@ -1774,7 +1813,7 @@ const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_2,
   paramNames: [],
-  queryNames: ['count', 'limit', 'where', 'skip', 'order'],
+  queryNames: ['count', 'limit', 'where', 'skip', 'order', 'include'],
   requestDataOptional: false,
 }
 
@@ -1783,7 +1822,7 @@ const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 export const getClassesIDo = makeRequest<GetClassesIDoRequest, GetClassesIDoResponse, GetClassesIDoRequestConfig>(
   getClassesIDoRequestConfig,
@@ -1794,13 +1833,105 @@ export const getClassesIDo = makeRequest<GetClassesIDoRequest, GetClassesIDoResp
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `GET /classes/iDo`
- * @更新时间 `2020-10-20 13:58:25`
+ * @更新时间 `2020-10-21 14:34:31`
  */
 export const useGetClassesIDo = makeRequestHook<
   GetClassesIDoRequest,
   GetClassesIDoRequestConfig,
   ReturnType<typeof getClassesIDo>
 >(getClassesIDo)
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **请求类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+export interface PutClassesIDoIdRequest {
+  imgs?: string[]
+  recordText?: string
+  id: string
+}
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **返回类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+export interface PutClassesIDoIdResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **请求配置的类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+type PutClassesIDoIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iDo/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **请求配置**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+const putClassesIDoIdRequestConfig: PutClassesIDoIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_2,
+  devUrl: devUrl_0_1_0_2,
+  prodUrl: prodUrl_0_1_0_2,
+  path: '/classes/iDo/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_2,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **请求函数**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+export const putClassesIDoId = makeRequest<
+  PutClassesIDoIdRequest,
+  PutClassesIDoIdResponse,
+  PutClassesIDoIdRequestConfig
+>(putClassesIDoIdRequestConfig)
+
+/**
+ * 接口 [修改打卡↗](http://121.89.170.197:3000/project/59/interface/api/494) 的 **React Hook**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `PUT /classes/iDo/:id`
+ * @更新时间 `2020-10-21 17:10:52`
+ */
+export const usePutClassesIDoId = makeRequestHook<
+  PutClassesIDoIdRequest,
+  PutClassesIDoIdRequestConfig,
+  ReturnType<typeof putClassesIDoId>
+>(putClassesIDoId)
 
 const mockUrl_0_1_0_3 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_3 = 'https://api.icourage.cn/1.1' as any
@@ -1915,5 +2046,333 @@ export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, Get
 export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdRequestConfig, ReturnType<typeof getUsersId>>(
   getUsersId,
 )
+
+const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_4 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_4 = undefined as any
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **请求类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+export interface GetClassesICommentRequest {
+  limit: string
+  skip?: string
+  include?: string
+  where?: string
+  order?: string
+  count?: string
+}
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **返回类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+export interface GetClassesICommentResponse {
+  results?: {
+    text: string
+    user: {
+      updatedAt?: string
+      uid?: number
+      objectId: string
+      toolConfig?: {
+        redo?: number
+      }
+      nickname?: string
+      headimgurl?: string
+      createdAt?: string
+      className?: string
+      emailVerified?: boolean
+      balance?: number
+      __type: string
+      avatar?: {
+        mime_type?: string
+        updatedAt?: string
+        key?: string
+        name?: string
+        objectId?: string
+        createdAt?: string
+        __type?: string
+        url?: string
+        provider?: string
+        metaData?: {}
+        bucket?: string
+      }
+      mobilePhoneVerified?: boolean
+    }
+    iDo: {
+      __type: string
+      className: string
+      objectId: string
+    }
+    createdAt: string
+    updatedAt: string
+    objectId: string
+  }[]
+}
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **请求配置的类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+type GetClassesICommentRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iComment',
+    undefined,
+    string,
+    'limit' | 'skip' | 'include' | 'where' | 'order' | 'count',
+    false
+  >
+>
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **请求配置**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+const getClassesICommentRequestConfig: GetClassesICommentRequestConfig = {
+  mockUrl: mockUrl_0_1_0_4,
+  devUrl: devUrl_0_1_0_4,
+  prodUrl: prodUrl_0_1_0_4,
+  path: '/classes/iComment',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_4,
+  paramNames: [],
+  queryNames: ['limit', 'skip', 'include', 'where', 'order', 'count'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **请求函数**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+export const getClassesIComment = makeRequest<
+  GetClassesICommentRequest,
+  GetClassesICommentResponse,
+  GetClassesICommentRequestConfig
+>(getClassesICommentRequestConfig)
+
+/**
+ * 接口 [评论列表↗](http://121.89.170.197:3000/project/59/interface/api/496) 的 **React Hook**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `GET /classes/iComment`
+ * @更新时间 `2020-10-22 11:03:02`
+ */
+export const useGetClassesIComment = makeRequestHook<
+  GetClassesICommentRequest,
+  GetClassesICommentRequestConfig,
+  ReturnType<typeof getClassesIComment>
+>(getClassesIComment)
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **请求类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+export interface PostClassesICommentRequest {
+  text: string
+  user: {
+    __type: string
+    objectId: string
+    className: string
+  }
+  iDo: {
+    __type: string
+    objectId: string
+    className: string
+  }
+}
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **返回类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+export interface PostClassesICommentResponse {
+  objectId: string
+  createdAt: string
+}
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **请求配置的类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+type PostClassesICommentRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iComment',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **请求配置**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+const postClassesICommentRequestConfig: PostClassesICommentRequestConfig = {
+  mockUrl: mockUrl_0_1_0_4,
+  devUrl: devUrl_0_1_0_4,
+  prodUrl: prodUrl_0_1_0_4,
+  path: '/classes/iComment',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_4,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **请求函数**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+export const postClassesIComment = makeRequest<
+  PostClassesICommentRequest,
+  PostClassesICommentResponse,
+  PostClassesICommentRequestConfig
+>(postClassesICommentRequestConfig)
+
+/**
+ * 接口 [添加评论↗](http://121.89.170.197:3000/project/59/interface/api/498) 的 **React Hook**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `POST /classes/iComment`
+ * @更新时间 `2020-10-22 14:02:04`
+ */
+export const usePostClassesIComment = makeRequestHook<
+  PostClassesICommentRequest,
+  PostClassesICommentRequestConfig,
+  ReturnType<typeof postClassesIComment>
+>(postClassesIComment)
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **请求类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+export interface DeleteClassesICommentIdRequest {
+  id: string
+}
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **返回类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+export interface DeleteClassesICommentIdResponse {
+  createdAt?: string
+  objectId?: string
+}
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **请求配置的类型**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+type DeleteClassesICommentIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iComment/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **请求配置**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+const deleteClassesICommentIdRequestConfig: DeleteClassesICommentIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_4,
+  devUrl: devUrl_0_1_0_4,
+  prodUrl: prodUrl_0_1_0_4,
+  path: '/classes/iComment/:id',
+  method: Method.DELETE,
+  requestBodyType: RequestBodyType.form,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_4,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **请求函数**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+export const deleteClassesICommentId = makeRequest<
+  DeleteClassesICommentIdRequest,
+  DeleteClassesICommentIdResponse,
+  DeleteClassesICommentIdRequestConfig
+>(deleteClassesICommentIdRequestConfig)
+
+/**
+ * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **React Hook**
+ *
+ * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
+ * @请求头 `DELETE /classes/iComment/:id`
+ * @更新时间 `2020-10-22 17:56:41`
+ */
+export const useDeleteClassesICommentId = makeRequestHook<
+  DeleteClassesICommentIdRequest,
+  DeleteClassesICommentIdRequestConfig,
+  ReturnType<typeof deleteClassesICommentId>
+>(deleteClassesICommentId)
 
 /* prettier-ignore-end */

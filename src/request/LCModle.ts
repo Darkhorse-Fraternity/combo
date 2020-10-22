@@ -16,6 +16,10 @@ export function user(objectId:string) {
   return pointModel("user", objectId, '_User')
 }
 
+export function userPoint(objectId:string){
+  return point('_User',objectId)
+}
+
 export function selfUser() {
   return dispatch => dispatch((dispatch, getState) => {
     const id = getState().user.data.objectId;
@@ -27,14 +31,25 @@ export function iCard(id:string) {
   return pointModel('iCard', id)
 }
 
+export function iCardPoint(id:string){
+  return point('iCard', id)
+}
+
 export function iUse(id:string) {
   return pointModel('iUse', id)
+}
+
+export function iUsePoint(id:string){
+  return point('iUse', id)
 }
 
 export function iDo(id:string) {
   return pointModel('iDo', id)
 }
 
+export function iDoPoint(id:string){
+  return point('iDo', id)
+}
 
 // export function Course(id:string) {
 //   return pointModel('Course', id)

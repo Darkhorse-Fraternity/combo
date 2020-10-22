@@ -15,7 +15,7 @@ import {
   StyledAvatar,
   StyledIndicator
 } from './style'
-import {add_Leancloud_Thumbnail_Suffix} from '../../../helps/util'
+import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util'
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
 //?imageView/1/w/10/h/10/q/100/format/png
@@ -47,24 +47,24 @@ export default class Avatar extends PureComponent {
   };
 
 
-  render(): ReactElement<any> {
+  render() {
 
 
     const { radius, user, load } = this.props
 
     const { avatar, headimgurl, } = user
     let avatarUrl = (avatar ? avatar.url : headimgurl)
-    avatarUrl = !avatarUrl ?avatarUrl:add_Leancloud_Thumbnail_Suffix(avatarUrl,radius*3,radius*3)
+    avatarUrl = !avatarUrl ? avatarUrl : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 3, radius * 3)
     const avatarSource = avatarUrl ? { uri: avatarUrl } :
       require('../../../source/img/my/my_head.png')
 
 
     return (
       <StyledContent2 radius={radius}>
-        {load ? <StyledIndicator radius={radius}/> :
+        {load ? <StyledIndicator radius={radius} /> :
           <StyledAvatar
             radius={radius}
-            source={avatarSource}/>}
+            source={avatarSource} />}
       </StyledContent2>
     );
   }

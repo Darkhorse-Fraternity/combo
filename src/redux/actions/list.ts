@@ -36,12 +36,10 @@ export function listReq(
     const listKey = option.sKey || key;
     const page = !more ? 0 : getState().list.getIn([listKey, "page"]) + 1;
     const load = getState().list.getIn([listKey, "loadStatu"]);
-    console.log('load??',load);
     
     if (load !== ListLoadType.LIST_LOAD_DATA && load !== ListLoadType.LIST_LOAD_MORE) {
       // not serial
       // params.params[pageKey] = page + ''
-      console.log('load!!',load);
       dispatch(_listStart(page, listKey)); // 当page 不为0 的时候则表示不是加载多页。
       // console.log('params:', params);
 

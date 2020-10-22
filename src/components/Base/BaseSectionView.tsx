@@ -39,8 +39,8 @@ export type BaseListBaseProps<T> = FlatListProps<T> & ExceptionViewProps & {
   noDataPrompt?: string;
   tipTap?: Function;
   keyId: string;
-  noDataImg: ImageSourcePropType;
-  tipBtnText: string;
+  noDataImg?: ImageSourcePropType;
+  tipBtnText?: string;
   listRef?: LegacyRef<FlatList<T>>;
   footerStyle?: StyleProp<ViewStyle>;
 

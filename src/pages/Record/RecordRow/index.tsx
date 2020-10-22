@@ -80,34 +80,27 @@ export default class RecordRow extends Component {
       <StyledChatbtn
         onPress={() => {
           this.props.navigation
-          && this.props.navigation.navigate('rcomment', { iDoID: objectId });
+            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
         }}
       >
         {/* <Image style={{width:20,height:20}} source={icon}/> */}
         {commentNew && user === this.props.user.objectId
-        && (<StyledNewTip />)}
+          && (<StyledNewTip />)}
         {commentNum > 0
-        && (
-        <StyledChatBtnText
-          numberOfLines={1}
-        >
-          {item.commentNum}
-        </StyledChatBtnText>
-        )}
+          && (
+            <StyledChatBtnText
+              numberOfLines={1}
+            >
+              {item.commentNum}
+            </StyledChatBtnText>
+          )}
         <StyledArrowView />
         {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
     );
   }
 
-  _renderDone = () => (
-    <StyledIcon
-      ref={this.chatBtnRef}
-      name="md-checkmark"
-      size={25}
-      color="green"
-    />
-  )
+
 
 
   CNDateString(date) {
@@ -132,7 +125,7 @@ export default class RecordRow extends Component {
   }
 
 
-  render(): ReactElement<any> {
+  render() {
     const { item } = this.props;
     if (!item) return null;
     const { visible, index } = this.state;
@@ -148,33 +141,33 @@ export default class RecordRow extends Component {
           {/* {this._renderDone()} */}
         </StyledTop>
         {!!item.recordText && (
-        <StyledRecordText>
-          {item.recordText}
-        </StyledRecordText>
+          <StyledRecordText>
+            {item.recordText}
+          </StyledRecordText>
         )}
 
         {imgs && (
-        <StyledImagesScolleView
-          scrollEnabled={imgs.length > 1}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          horizontal
-        >
-          { imgs.map((img, i) => (
-            <StyledImageButton
-              onPress={() => {
-                this.setState({ visible: true, index: i });
-              }}
-              key={img}
-            >
-              <StyledImage
+          <StyledImagesScolleView
+            scrollEnabled={imgs.length > 1}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
+            horizontal
+          >
+            { imgs.map((img, i) => (
+              <StyledImageButton
+                onPress={() => {
+                  this.setState({ visible: true, index: i });
+                }}
                 key={img}
-          // easingFunc={Easing.bounce}
-                source={{ uri: img }}
-              />
-            </StyledImageButton>
-          ))}
-        </StyledImagesScolleView>
+              >
+                <StyledImage
+                  key={img}
+                  // easingFunc={Easing.bounce}
+                  source={{ uri: img }}
+                />
+              </StyledImageButton>
+            ))}
+          </StyledImagesScolleView>
         )}
         { uris && uris.length > 0 && (
           <ImagesViewModal

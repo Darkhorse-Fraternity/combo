@@ -73,7 +73,7 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
 
     const defaultPrompt = exceptionType === ExceptionType.Loading ? '正在加载～' : '没有数据～'
     const text = prompt || defaultPrompt;
-    console.log('defaultPrompt', defaultPrompt);
+    // console.log('defaultPrompt', defaultPrompt);
 
     if (isValidElement(prompt)) {
       return prompt;

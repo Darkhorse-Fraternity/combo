@@ -73,7 +73,7 @@ export type RootStackParamList = {
   [RouteKey.account]: undefined;
   // [RouteKey.feedback]: undefined;
   [RouteKey.cardInfo]: undefined;
-  [RouteKey.rcomment]: undefined;
+  [RouteKey.rcomment]: {iDoID:string};
   [RouteKey.card]: undefined;
   [RouteKey.cardUse]: undefined;
   [RouteKey.more]: undefined;
@@ -81,7 +81,7 @@ export type RootStackParamList = {
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
   [RouteKey.cirlcleSetting]: {iCardID:string};
-  [RouteKey.clockIn]:{iDoId?:string,iUseId:string,iCardId:string,record:RecordType[],type?:number,doneDateIso?:string}; 
+  [RouteKey.clockIn]:{iUseId:string,doneDateIso?:string,iDoId?:string}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;

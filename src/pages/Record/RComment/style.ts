@@ -5,8 +5,12 @@ import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
+
+export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
+  flex:1;
+`
 
 export const StyledHeader = styled.View`
   padding: 10px 20px;
@@ -49,9 +53,45 @@ export const StyledDate = styled.Text`
   color: #9ea1a1;
 `;
 
+export const StyleBottom = styled.View`
+  flex-direction:row;
+  justify-content:space-between;
+  
+`
+
 export const StyledIcon = styled(Icon)``;
 
 export const StyledRightView = styled.View`
   flex-direction: row;
   padding-right: 10px;
 `;
+
+
+import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
+
+export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
+  flex: 1;
+  margin: 0px 0px 0px 0px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  font-size: 16px;
+  background-color: white;
+`;
+
+export const StyledSumbitBtn = styled(Button)``
+
+export const StyledSumbitBtnText = styled.Text<{disabled:boolean}>`
+  color: ${props=>props.disabled?'rgb(150,150,150)':'green'};
+`
+
+export const Form = styled.View`
+     flex-direction: row;
+     align-items: center;
+     padding: 10px 15px 10px 5px;
+     background-color: white;
+     border-top-color: #c8c8c8;
+     border-top-width: ${props => props.theme.hairlineWidth};
+     border-bottom-color:  #c8c8c8;
+     border-bottom-width: ${props => props.theme.hairlineWidth};
+`

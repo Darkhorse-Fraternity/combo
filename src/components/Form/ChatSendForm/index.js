@@ -58,7 +58,6 @@ export default class ChatSendForm extends PureComponent {
     componentDidMount() {}
 
     componentWillUnmount() {
-      Platform.OS === 'ios' && KeyboardManager.setEnable(true);
       this.props.localSaveEnable && this.props.localSave(this.props.inputText);
     }
 

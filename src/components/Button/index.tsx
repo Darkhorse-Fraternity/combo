@@ -1,7 +1,8 @@
+import { types } from '@babel/core';
 import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { debounce } from 'lodash';
 
-import React, { ReactChild, ComponentType, PropsWithChildren } from 'react';
+import React, { ReactChild, ComponentType, PropsWithChildren, FC } from 'react';
 import {
   TouchableOpacity,
   Platform,
@@ -14,6 +15,7 @@ import {
   Text,
   GestureResponderEvent,
   TouchableHighlight,
+  TouchableOpacityProps,
 } from 'react-native';
 
 export interface BtnPeddingProps {
@@ -95,26 +97,31 @@ const withPreventDoubleClick = <
   return PreventDoubleClick;
 };
 
-const ButtonAndroid = (
-  props: PropsWithChildren<TouchableNativeFeedbackProps>,
-) => (
+const ButtonAndroid: FC<TouchableNativeFeedbackProps> = ({
+  background,
+  children,
+  style,
+  ...other
+}) => (
   <TouchableNativeFeedback
     delayPressIn={0}
     background={
-      props.background ||
+      background ||
       (TouchableNativeFeedback.SelectableBackground &&
         TouchableNativeFeedback.SelectableBackground())
     } // eslint-disable-line new-cap
-    {...props}>
-    {(typeof props.children !== 'string' && props.children) || props.style ? (
-      <View style={props.style}>{props.children}</View>
+    {...other}>
+    {(typeof children !== 'string' && children) || style ? (
+      <View style={style}>{children}</View>
     ) : (
-        props.children
+        children
       )}
   </TouchableNativeFeedback>
 );
 
-const button = Platform.OS === 'ios' ? TouchableOpacity : ButtonAndroid;
+type ButtonType = TouchableNativeFeedbackProps & { activeOpacity?: number };
+
+const button = (Platform.OS !== 'ios' ? TouchableOpacity : ButtonAndroid) as ComponentType<ButtonType>
 
 export default withPeddingClick(withPreventDoubleClick(button));
 

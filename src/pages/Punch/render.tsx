@@ -10,7 +10,6 @@ import moment from 'moment';
 import _ from 'lodash';
 import { ICARD, IUSE, IDO, FLAG, FLAGRECORD } from '../../redux/reqKeys';
 // import { search, } from '../../redux/module/leancloud';
-import doCardWithNone from '../../components/DoCard/doCardWithNone';
 import ExceptionView, {
   ExceptionType,
 } from '../../components/Base/ExceptionView/index';
@@ -35,11 +34,11 @@ import Orientation from 'react-native-orientation';
 import { RouteKey } from '@pages/interface';
 import { GetClassesICardIdResponse, GetClassesIUseIdResponse, postClassesIDo } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
-import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { point } from '@request/LCModle';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { ListLoadType } from '@components/Base/interface';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 interface StateType {
   frMap: Object;
@@ -81,10 +80,11 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
         iUse: point('iUse', objectId),
         doneDate: { "__type": "Date", iso: new Date().toISOString() },
       })
-      if (!id) {
+      if (id) {
+        DeviceEventEmitter.emit('iDO_Reload', {});
+      } else {
         doIt();
       }
-      console.log('id', id);
     } catch (error) {
       console.log('error', error);
       SimpleToast.show(error.message)
@@ -120,7 +120,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
               //直接打卡
               doCard(doIt);
             } else {
-              navigate(RouteKey.clockIn, { iUseId: objectId, iCardId, record });
+              navigate(RouteKey.clockIn, { iUseId: objectId });
             }
 
             // await this.props.done(item);
@@ -172,12 +172,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
           },
         }),
       );
-    },
-    done: async (data) => {
-      // 评价
-      rate();
-      return dispatch(doCardWithNone(data));
-    },
+    }
   }),
 )
 export default class Punch extends Component<any, StateType> {
@@ -203,7 +198,7 @@ export default class Punch extends Component<any, StateType> {
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
     isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
 
-    this.deEmitter = DeviceEventEmitter.addListener('iDO_Reload', () => {
+    this.deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
 
       // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
       this.props.search()

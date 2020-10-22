@@ -3,8 +3,8 @@
  * @flow
  */
 
-import React, { FC } from "react";
-import { Alert, View } from "react-native";
+import React, { FC, useEffect, useRef } from "react";
+import { Alert, DeviceEventEmitter, View } from "react-native";
 
 import moment from "moment";
 import {
@@ -21,10 +21,11 @@ import {
 import AgendaScreen from "./agenda";
 import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
-import { GetClassesICardIdResponse, GetClassesIUseIdResponse } from 'src/hooks/interface';
+import { GetClassesICardIdResponse, GetClassesIUseIdResponse, postClassesIDo, useGetClassesIDo } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
-
+import { point } from '@request/LCModle';
+import { iUse as iUseM, user as userM } from '@request/LCModle';
 
 const retroactive = (
   item: any,
@@ -143,6 +144,7 @@ interface StatisticalProps {
 const Statistical: FC<StatisticalProps> =
   ({ iCard, iUse, ...other }) => {
 
+
     const user = useGetUserInfo();
     const { navigate } = useNavigation()
     const cardCreatedAt = moment(iCard.createdAt).format("YYYY-MM-DD");
@@ -168,8 +170,30 @@ const Statistical: FC<StatisticalProps> =
     const { toolConfig } = user || {};
     const iUseId = iUse.objectId;
     const iCardId = iCard.objectId;
+
+    const { data } = useGetClassesIDo({
+      count: '1', limit: '1', where: JSON.stringify({
+        ...userM(user?.objectId || ''),
+        ...iUseM(iUseId),
+        $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+        state: { $ne: -1 },
+      })
+    });
+    // const { count } = data;
+
+    const ref = useRef<AgendaScreen>(null);
+    useEffect(() => {
+      const lesten = DeviceEventEmitter.addListener('iDO_Reload', () => {
+        ref.current?.refresh();
+      })
+      return () => {
+        lesten.remove()
+      }
+    }, [])
+
     return (<StyledInner >
       <AgendaScreen
+        ref={ref}
         iUse={iUse}
         color={color}
         isSelf={isSelf}
@@ -180,9 +204,37 @@ const Statistical: FC<StatisticalProps> =
             item,
             activityEndDate?.iso || '',
             toolConfig?.redo || 0,
-            (type, date) => {
+            async (type, date) => {
+
+              if (type === 0) {
+                //需要判断是否在打卡时间内。 是否已经打卡
+                const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
+                const before = moment(limitTimes[0], 'HH');
+                const after = moment(limitTimes[1], 'HH');
+                const now = moment(new Date());
+                const momentIn = moment(now).isBetween(before, after);
+                if (!momentIn) {
+                  SimpleToast.showWithGravity('你好，我还没有到打卡时间!～', 2, SimpleToast.CENTER)
+                  return;
+                }
+              }
+
               const iso = date && date.toISOString()
-              navigate(RouteKey.clockIn, { iUseId, iCardId, record, type, iso })
+
+              if (record.length > 0) {
+                navigate(RouteKey.clockIn, { iUseId, doneDateIso: iso })
+              } else {
+                const { objectId: id } = await postClassesIDo({
+                  user: point('_User', user?.objectId || ''),
+                  type: 0,
+                  iCard: point('iCard', iCardId),
+                  iUse: point('iUse', iUseId),
+                  doneDate: { "__type": "Date", iso: iso || new Date().toISOString() },
+                })
+                if (id) {
+                  DeviceEventEmitter.emit('iDO_Reload', {});
+                }
+              }
             })}
         {...other}
       // selectDay={(item) => this.props.retroactive(item, iCard, iUse)}

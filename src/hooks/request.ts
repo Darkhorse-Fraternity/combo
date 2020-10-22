@@ -24,7 +24,8 @@ export default function request<TResponseData>(
   options: RequestOptions = {
     server: 'prod',
   },
-): Promise<TResponseData & AxiosResponseOtherInfoType> {
+// ): Promise<TResponseData & AxiosResponseOtherInfoType> {
+): Promise<TResponseData > {
   const { path, method, data, devUrl, prodUrl } = payload;
   const baseURL = options.server === 'dev' ? devUrl : prodUrl;
   // 请求地址
@@ -38,11 +39,11 @@ export default function request<TResponseData>(
     ...config
   }).then(res=>{
     // res.config
-    const {data,...ohter} = res;
+    const {data,...ohter} = res;    
     const response = {
       ...res.data,
-      __axios_info:ohter
-    }
+      // __axios_info:ohter
+    }    
     return response;
   });
  

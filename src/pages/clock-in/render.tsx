@@ -1,5 +1,5 @@
 import { ButtonItem } from '@components/Button';
-import UpdateImageView, { pickerImage, UpdateImage, UpdateImageViewType } from '@components/UpdateImageView';
+import UpdateImageView, { UpdateImage, UpdateImageViewType } from '@components/UpdateImageView';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Keyboard, Platform, TextInputProps, View, TouchableOpacityProps, DeviceEventEmitter } from 'react-native';
@@ -17,8 +17,16 @@ import * as yup from "yup";
 import SimpleToast from 'react-native-simple-toast';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { getClassesIDoId, postClassesIDo } from 'src/hooks/interface';
-import { getUerInfo } from 'src/data/data-context';
+import {
+  getClassesIDo,
+  getClassesIDoId,
+  postClassesIDo,
+  putClassesIDoId,
+  useGetClassesIUseId
+} from 'src/hooks/interface';
+import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
+import { user as UserM } from '@request/LCModle'
+import moment from 'moment';
 
 const RecordText = 'recordText'
 const RecordImgs = 'recordImgs'
@@ -140,8 +148,17 @@ function point(className: string, objectId: string) {
 
 const Render: FC<{}> = () => {
   const { setOptions, goBack } = useNavigation();
+  const user = useGetUserInfo();
   // useGetUserInfo();
-  const { iUseId, iDoId, iCardId, record = [], type = 0, doneDateIso } = useNavigationAllParamsWithType<RouteKey.clockIn>();
+  const {
+    iUseId,
+    iDoId,
+    // iCardId,
+    // record = [],
+    // type = 0,
+    // done = false,
+    doneDateIso
+  } = useNavigationAllParamsWithType<RouteKey.clockIn>();
   const [load, setLoad] = useState(false);
 
   const { setValue, handleSubmit, errors, control, } = useForm<FormData>({
@@ -150,18 +167,62 @@ const Render: FC<{}> = () => {
     mode: 'onSubmit',
   });
 
-  console.log('type', type);
+  const idRef = useRef<string>();
+  if (iDoId) {
+    idRef.current = iDoId;
+  }
+  // console.log('type', type);
 
+  const { data } = useGetClassesIUseId({ id: iUseId });
+  const record = data?.iCard.record || []
+  const iCardId = data?.iCard.objectId || '';
+
+  // const doneDate = data?.doneDate
+
+  // const limitTimes = data?.iCard.limitTimes || ['00:00', '24:00'];
+  // const before = moment(limitTimes[0], 'HH');
+  // const after = moment(limitTimes[1], 'HH');
+  // const now = moment(new Date());
+  // const momentIn = moment(now).isBetween(before, after);
+  const type = !!doneDateIso ? 2 : 0
+  const done = moment(0, 'HH').isBefore(data?.doneDate?.iso || '');
+
+
+  // 如果没有iDoid 怎查询今天的最新打卡。如果有，则修改打卡
+  useEffect(() => {
+    if (done && !iDoId) {
+
+      // getClassesIDoId({ id: iDoId }).then(({ recordText, imgs }) => {
+      //   // if ()
+      //   recordText && setValue(RecordText, recordText)
+      //   imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
+      // })
+      const where = {
+        ...UserM(user?.objectId || ''),
+      }
+      getClassesIDo({ limit: '1', order: '-createdAt', where: JSON.stringify(where) }).then(res => {
+        // console.log('res', res);
+        if (res.results[0]) {
+          const data = res.results[0];
+          const { recordText, imgs, objectId } = data;
+          idRef.current = objectId;
+          recordText && setValue(RecordText, recordText)
+          imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
+        }
+
+      })
+    }
+  }, [done])
 
   useEffect(() => {
     if (iDoId) {
-      getClassesIDoId({ id: iDoId }).then(({ recordText, imgs }) => {
-        // if ()
+      getClassesIDoId({ id: iDoId }).then(res => {
+        const { recordText, imgs } = res;
         recordText && setValue(RecordText, recordText)
         imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
-      })
+      });
     }
-  }, [iDoId])
+  }, [])
 
 
 
@@ -182,15 +243,23 @@ const Render: FC<{}> = () => {
     try {
       console.log('data', data);
 
-      const { objectId } = await postClassesIDo({
+
+      const allParam = {
+        imgs: data[RecordImgs].map(item => item.url),
+        recordText: data[RecordText]
+      }
+      const param1 = { id: idRef.current || '', ...allParam }
+      const param2 = {
         user: point('_User', user?.objectId || ''),
         type: type, // 0 打卡,1日志,2:补打卡
         iCard: point('iCard', iCardId),
         iUse: point('iUse', iUseId),
-        doneDate: { "__type": "Date", iso: (doneDateIso || new Date()).toISOString() },
-        imgs: data[RecordImgs].map(item => item.url),
-        recordText: data[RecordText]
-      })
+        doneDate: { "__type": "Date", iso: (doneDateIso || new Date().toISOString()) },
+        ...allParam
+      }
+      const { objectId } = await (!!idRef.current ? putClassesIDoId(param1) : postClassesIDo(param2))
+
+
       if (objectId) {
         //发消息通知。
         DeviceEventEmitter.emit('iDO_Reload', {});
@@ -213,19 +282,22 @@ const Render: FC<{}> = () => {
 
 
   useLayoutEffect(() => {
-    setOptions({
-      headerRight: (headerRightProps: { tintColor?: string }) => (
-        <ButtonItem
-          loading={load}
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          style={{ marginRight: 15 }}
-          {...headerRightProps}
-          onPress={handleSubmit(onSubmit)}>
-          <StyledHeaderText>发布</StyledHeaderText>
-        </ButtonItem>
-      ),
-    });
-  }, [load]);
+    if (iCardId) {
+      setOptions({
+        headerRight: (headerRightProps: { tintColor?: string }) => (
+          <ButtonItem
+            loading={load}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            style={{ marginRight: 15 }}
+            {...headerRightProps}
+            onPress={handleSubmit(onSubmit)}>
+            <StyledHeaderText>发布</StyledHeaderText>
+          </ButtonItem>
+        ),
+      });
+    }
+
+  }, [load, iCardId]);
   const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>()
   // setOptions({onSumbmit: handleOnSubmit })
   // useEffect(() => {
