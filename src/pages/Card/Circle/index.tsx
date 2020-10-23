@@ -11,7 +11,7 @@ import {
   ListRenderItemInfo,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Privacy } from '../../../configure/enum';
+import { DeviceEventEmitterKey, Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
 import { IUSE } from '../../../redux/reqKeys';
@@ -39,7 +39,8 @@ import {
   GetClassesICardIdResponse,
   getClassesIDo,
   GetClassesIDoResponse,
-  GetClassesIUseIdResponse
+  GetClassesIUseIdResponse,
+  putClassesIUseId
 } from 'src/hooks/interface';
 import PageList from '@components/Base/PageList';
 import { useGetUserInfo } from 'src/data/data-context';
@@ -146,59 +147,68 @@ interface CircleProps {
   tabLabel?: string,
 }
 
-@connect(
-  (state) => ({
-    user: state.user.data,
-  }),
-  (dispatch, props) => ({
-    updatePrivacy: async (data, privacy) => {
-      const id = data.objectId;
-      const param = {
-        privacy,
-      };
-      // const res = await update(id, param, IUSE)
-      const lParams = classUpdate(IUSE, id, param);
-      const res = await dispatch(req(lParams, 'updatePrivacy'));
-      const entity = {
-        ...param,
-        ...res,
-      };
-      dispatch(addNormalizrEntity(IUSE, entity));
-    }
-  }),
-)
-class PrivacyItem extends PureComponent<CircleProps> {
+// @connect(
+//   (state) => ({
+//     user: state.user.data,
+//   }),
+//   (dispatch, props) => ({
+//     updatePrivacy: async (data, privacy) => {
+//       const id = data.objectId;
+//       const param = {
+//         privacy,
+//       };
+//       // const res = await update(id, param, IUSE)
+//       const lParams = classUpdate(IUSE, id, param);
+//       const res = await dispatch(req(lParams, 'updatePrivacy'));
+//       const entity = {
+//         ...param,
+//         ...res,
+//       };
+//       dispatch(addNormalizrEntity(IUSE, entity));
+//     }
+//   }),
+// )
 
-  render() {
-    const { user, iCard, iUse, updatePrivacy } = this.props;
-    return (
-      <MenuItem
-        title='隐私'
-        source={iUse.privacy === Privacy.open
-          ? require('../../../../source/img/circle/privacy_open.png')
-          : require('../../../../source/img/circle/privacy_close.png')}
-        onPress={async () => {
-          const userId = user.objectId;
-          const beUserId = iCard.user;
-          const isSelf = userId === beUserId;
-          const { selectedItem } = await pickPrivacy(iUse.privacy, isSelf);
-          console.log('selectedItem', selectedItem);
+const PrivacyItem: FC<{ iUse: GetClassesIUseIdResponse, iCard: GetClassesICardIdResponse }> = (props) => {
+  const { iCard, iUse } = props;
+  const user = useGetUserInfo();
+  return (
+    <MenuItem
+      title='隐私'
+      source={iUse.privacy === Privacy.open
+        ? require('../../../../source/img/circle/privacy_open.png')
+        : require('../../../../source/img/circle/privacy_close.png')}
+      onPress={async () => {
+        const userId = user!.objectId;
+        const beUserId = iCard.user.objectId;
+        const isSelf = userId === beUserId;
+        const { selectedItem } = await pickPrivacy(iUse.privacy || 0, isSelf);
+        console.log('selectedItem', selectedItem);
 
-          if (selectedItem) {
-            const { id } = selectedItem;
-            iUse.privacy !== Number(id) &&
-              updatePrivacy(iUse, Number(id));
+        if (selectedItem) {
+          const { id } = selectedItem;
+          // iUse.privacy !== Number(id) &&
+          //   updatePrivacy(iUse, Number(id));
+          if (iUse.privacy !== Number(id)) {
+            const { objectId } = await putClassesIUseId({ id: iUse.objectId, privacy: Number(id) })
+            if (objectId) {
+              DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload);
+            }
           }
-        }}
-      />
-    );
-  };
-}
+
+        }
+      }}
+    />
+  );
+};
 
 const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   const user = useGetUserInfo();
   const { navigate } = useNavigation();
   const [showShare, setShowShare] = useState(false);
+
+  console.log('iuserid', iUse.objectId);
+
   return (
     <StyledHeader >
       <ClockInMenuItem iCard={iCard} iUseId={iUse.objectId} />
@@ -259,7 +269,7 @@ const Circle: FC<CircleProps> = (props) => {
         console.log('e', e.message);
       });
 
-    const deEmitter = DeviceEventEmitter.addListener('iDO_Reload', () => {
+    const deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
       ref.current?.reload(0);
     });
 
@@ -274,11 +284,12 @@ const Circle: FC<CircleProps> = (props) => {
       : Privacy.open;
 
   const fristRef = useRef(true);
+
   useEffect(() => {
-    if (fristRef.current) {
+    if (!fristRef.current) {
       ref.current?.reload(0);
-      fristRef.current = false;
     }
+    fristRef.current = false;
   }, [privacy])
 
   const loadPage = (page_index: number, page_size: number) => {
@@ -306,6 +317,8 @@ const Circle: FC<CircleProps> = (props) => {
   };
 
 
+
+
   return (
     <PageList<GetClassesIDoResponse['results'][number]>
       ref={ref}
@@ -314,7 +327,7 @@ const Circle: FC<CircleProps> = (props) => {
       keyId={'id'}
       style={{ backgroundColor: 'transparent' }}
       // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
-      prompIamgeStyle={{ height: 79, width: 113, marginTop: -120 }}
+      prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}
       noDataPrompt="暂无日志信息"
       footerStyle={{ paddingBottom: 60 }}
       renderItem={props => <RenderRow {...props} count={count} />}

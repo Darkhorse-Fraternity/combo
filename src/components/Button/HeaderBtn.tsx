@@ -7,7 +7,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, StyleSheet, Text, ActivityIndicator } from "react-native";
-import Button from "./";
+import Button from ".";
 import { theme } from "../../Theme";
 import TouchableBounce from "react-native/Libraries/Components/Touchable/TouchableBounce";
 import { debounce } from "lodash"; // 4.0.8
@@ -51,8 +51,8 @@ export default class HeaderBtn extends Component {
             {this.props.title}
           </Text>
         ) : (
-          <ActivityIndicator size="small" color={"white"} />
-        )}
+            <ActivityIndicator size="small" color={"white"} />
+          )}
       </TouchableBounce>
     );
   }

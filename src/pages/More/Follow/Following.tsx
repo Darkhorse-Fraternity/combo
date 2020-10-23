@@ -310,7 +310,7 @@ export default class Following extends PureComponent {
 
   }
 
-  render(): ReactElement<any> {
+  render() {
     const { navigation, route } = this.props;
 
     const { params } = route;

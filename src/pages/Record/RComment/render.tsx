@@ -14,6 +14,7 @@ import {
   DeviceEventEmitter,
   TextInput,
   ListRenderItem,
+  Alert,
 } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
 import Clipboard from '@react-native-community/clipboard';
@@ -54,7 +55,7 @@ import { AvatarAuto } from '../../../components/Avatar/avatar-fc';
 
 import KeyboardSpacer from '@components/KeyboardSpacer';
 import { RouteKey } from '@pages/interface';
-import { getClassesIComment, GetClassesICommentResponse, GetClassesIDoIdResponse, useDeleteClassesICommentId, useGetClassesIDoId, usePostClassesIComment } from 'src/hooks/interface';
+import { getClassesIComment, GetClassesICommentResponse, GetClassesIDoIdResponse, putClassesIDoId, useDeleteClassesICommentId, useGetClassesIDoId, usePostClassesIComment, usePutClassesIDoId } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { useGetUserInfo } from 'src/data/data-context';
 import PageList from '@components/Base/PageList';
@@ -74,13 +75,34 @@ const Name = 'text';
 
 
 const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
-  const { data, loading, run } = useGetClassesIDoId({ id: iDoId });
-  const { setOptions } = useNavigation();
+  const { data, run } = useGetClassesIDoId({ id: iDoId });
+  const { run: deleteRun, loading: deleteLoading, data: deleteData } =
+    usePutClassesIDoId({ id: iDoId, state: -1 }, { manual: true });
+  const { setOptions, goBack } = useNavigation();
+
+  useEffect(() => {
+    if (deleteData) {
+      goBack()
+      DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+    }
+  }, [deleteData]);
 
   const first = useRef(true);
   useEffect(() => {
     if (data && first.current) {
-      setOptions({ headerRight: () => <RenderRightView iDo={data} load={false} onDelete={() => { }} /> })
+      setOptions({
+        headerRight: () => <RenderRightView iDo={data} load={deleteLoading} onDelete={() => {
+          Alert.alert('确定删除?', '删除后不可恢复~！', [
+            { text: '取消' },
+            {
+              text: '确定',
+              onPress: deleteRun,
+            },
+          ]);
+
+
+        }} />
+      })
       first.current = false;
     }
     return () => {

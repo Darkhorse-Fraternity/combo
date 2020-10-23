@@ -81,7 +81,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
         doneDate: { "__type": "Date", iso: new Date().toISOString() },
       })
       if (id) {
-        DeviceEventEmitter.emit('iDO_Reload', {});
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
       } else {
         doIt();
       }

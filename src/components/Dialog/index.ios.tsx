@@ -2,15 +2,8 @@
 'use strict';
 import React from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
   ActionSheetIOS
 } from 'react-native'
-import Pop from '../Pop'
-import ListRadioView from './DialogView/ListRadioView'
 
 function processColors(nativeConfig) {
   for (const prop of Object.keys(nativeConfig)) {
@@ -38,7 +31,7 @@ export default class DialogIOS {
   }
 
   static dismiss() {
-    Pop.hide();
+    // Pop.hide();
   }
 
   static assignDefaults(defaults) {
@@ -193,17 +186,6 @@ function showActionSheetWithOptions(items,
 }
 
 function showListRadio(items, selectedIndex, callBack) {
-  // Pop.show(<ListRadioView items={items}
-  //   onPress={(index) => {
-  //     if (index < items.length) {
-  //       callBack && callBack(index)
-  //     }
-  //   }}
-  //   selectedIndex={selectedIndex} />, {
-  //   animationType: 'slide-up',
-  //   wrapStyle: {
-  //     justifyContent: 'flex-end',
-  //   }
-  // })
+
   showActionSheetWithOptions(items, callBack)
 }

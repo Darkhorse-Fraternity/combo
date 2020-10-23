@@ -38,7 +38,6 @@ import {
 } from './style';
 import { TextInput } from '../../../../components/Form/Cunstom/index';
 // static displayName = Creat
-import BackBtn from '../../../../components/Button/BackBtn/index';
 import { Privacy } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';

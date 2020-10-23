@@ -6,11 +6,6 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { followList } from '../../../redux/module/leancloud'
 
@@ -24,11 +19,6 @@ import { isTablet } from 'react-native-device-info';
 
 const listKey = USER
 
-
-@connect(
-  state => ({}),
-  dispatch => ({})
-)
 
 
 export default class Follow extends PureComponent {
@@ -52,7 +42,7 @@ export default class Follow extends PureComponent {
 
   }
 
-  render(): ReactElement<any> {
+  render() {
 
 
     const { navigation, route } = this.props;

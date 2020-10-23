@@ -26,6 +26,7 @@ import { useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { point } from '@request/LCModle';
 import { iUse as iUseM, user as userM } from '@request/LCModle';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 const retroactive = (
   item: any,
@@ -158,11 +159,10 @@ const Statistical: FC<StatisticalProps> =
 
     const { time } = iUse;
     // moment.locale('zh-cn')
-    const fromNow = moment(iUse.doneDate.iso).fromNow();
+    const fromNow = moment(iUse.doneDate?.iso).fromNow();
 
 
-    //Warnming 老代码这边是string;
-    const isSelf = user?.objectId === (iUse.user as string);
+    const isSelf = user?.objectId === iUse.user.objectId;
 
     const record = iCard.record || []
     const color = iCard.iconAndColor?.color || 'grey';
@@ -183,7 +183,7 @@ const Statistical: FC<StatisticalProps> =
 
     const ref = useRef<AgendaScreen>(null);
     useEffect(() => {
-      const lesten = DeviceEventEmitter.addListener('iDO_Reload', () => {
+      const lesten = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
         ref.current?.refresh();
       })
       return () => {
@@ -193,6 +193,7 @@ const Statistical: FC<StatisticalProps> =
 
     return (<StyledInner >
       <AgendaScreen
+        user={user}
         ref={ref}
         iUse={iUse}
         color={color}
@@ -232,7 +233,7 @@ const Statistical: FC<StatisticalProps> =
                   doneDate: { "__type": "Date", iso: iso || new Date().toISOString() },
                 })
                 if (id) {
-                  DeviceEventEmitter.emit('iDO_Reload', {});
+                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
                 }
               }
             })}

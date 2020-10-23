@@ -50,9 +50,14 @@ export const StyledDeleteBtn = styled.View`
   flex: 1;
 `;
 
-export const StyledDeleteBtnText = styled.Text`
+export const StyledDeleteBtnText = styled.Text<{color:string}>`
   color: ${props => props.color};
   margin: ${props => (Platform.OS === 'ios' ? 5 : 3)}px;
   font-size: 13px;
   font-weight: 300;
 `;
+
+export const StyledHeaderText = styled.Text<{color:string}>`
+  color: ${props => props.color};
+  font-size:13px;
+`

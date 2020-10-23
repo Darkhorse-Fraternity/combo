@@ -25,8 +25,9 @@ import {
   useGetClassesIUseId
 } from 'src/hooks/interface';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
-import { user as UserM } from '@request/LCModle'
+import { iUsePoint, user as UserM } from '@request/LCModle'
 import moment from 'moment';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 const RecordText = 'recordText'
 const RecordImgs = 'recordImgs'
@@ -199,11 +200,13 @@ const Render: FC<{}> = () => {
       // })
       const where = {
         ...UserM(user?.objectId || ''),
+        iUse: iUsePoint(iUseId),
+        state: { $ne: -1 },
       }
       getClassesIDo({ limit: '1', order: '-createdAt', where: JSON.stringify(where) }).then(res => {
-        // console.log('res', res);
         if (res.results[0]) {
           const data = res.results[0];
+          console.log('data', data);
           const { recordText, imgs, objectId } = data;
           idRef.current = objectId;
           recordText && setValue(RecordText, recordText)
@@ -262,7 +265,7 @@ const Render: FC<{}> = () => {
 
       if (objectId) {
         //发消息通知。
-        DeviceEventEmitter.emit('iDO_Reload', {});
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
         goBack();
       }
     } catch (error) {
@@ -281,6 +284,7 @@ const Render: FC<{}> = () => {
   }, [errors]);
 
 
+
   useLayoutEffect(() => {
     if (iCardId) {
       setOptions({
@@ -291,7 +295,7 @@ const Render: FC<{}> = () => {
             style={{ marginRight: 15 }}
             {...headerRightProps}
             onPress={handleSubmit(onSubmit)}>
-            <StyledHeaderText>发布</StyledHeaderText>
+            <StyledHeaderText>{'发布'}</StyledHeaderText>
           </ButtonItem>
         ),
       });

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Alert
+  Alert, DeviceEventEmitter
 } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -17,6 +17,7 @@ import { req, clear } from '../../../redux/actions/req';
 import Calendar from '../../../components/Calendar';
 
 import SimpleToast from 'react-native-simple-toast'
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 
 
@@ -31,9 +32,9 @@ import SimpleToast from 'react-native-simple-toast'
         const state = getState();
         const data = state.req.get(IDOCALENDAR).get('data').toJS();
 
-        const { iUseId } = props.route.params;
+        const { iUseId, user } = props;
 
-        const userId = props.user.objectId;
+        const userId = user.objectId;
         // console.log('last', last);
 
         const param = {
@@ -81,8 +82,6 @@ import SimpleToast from 'react-native-simple-toast'
         (item.imgs && item.imgs.length > 0) ||
         (item.recordText && item.recordText.length > 0);
 
-      console.log('user.objectId === item.user.objectId', user);
-
       if (isDiary) {
         props.navigation.navigate("rcomment", {
           iDoID: item.objectId,
@@ -115,31 +114,8 @@ import SimpleToast from 'react-native-simple-toast'
                 })
               );
 
-              // type === 1 为日记，不记录打卡次数
-              if (type === 1) {
-                return;
-              }
-              // 打卡次数也需要修改。
-              const iUse = props.iUse;
-              const paramiUSE = { time: iUse.time - 1 };
-              const before = moment(0, "HH");
-              const after = moment(24, "HH");
+              DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
 
-              const momentIn = moment(time).isBetween(before, after);
-              // console.log('momentIn:', momentIn);
-              if (momentIn) {
-                paramiUSE.doneDate = {
-                  __type: "Date",
-                  iso: moment(time)
-                    .subtract(1, "day")
-                    .toISOString(),
-                };
-              }
-              const entityiUse = {
-                ...paramiUSE,
-                objectId: item.iUse.objectId,
-              };
-              dispatch(addNormalizrEntity(IUSE, entityiUse));
             },
           },
         ]);
@@ -148,7 +124,6 @@ import SimpleToast from 'react-native-simple-toast'
   })
 )
 
-// @withTheme
 export default class AgendaScreen extends PureComponent<{ color: string, isSelf: boolean, onPress: (item: any) => void }> {
   constructor(props) {
     super(props);

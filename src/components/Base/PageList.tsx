@@ -30,9 +30,9 @@ export default class PageList<ItemT> extends Component<
     };
   }
 
-  shouldComponentUpdate(nextProps: PageListT<ItemT>, nextState: IState<ItemT>) {
-    return this.state.loadStatu !== nextState.loadStatu;
-  }
+  // shouldComponentUpdate(nextProps: PageListT<ItemT>, nextState: IState<ItemT>) {
+  //   return this.state.loadStatu !== nextState.loadStatu;
+  // }
 
   reload(page: number = 0) {
     const { pageSize = 20, loadPage } = this.props;

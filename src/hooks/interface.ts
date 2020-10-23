@@ -1209,6 +1209,98 @@ export const useGetClassesIUseId = makeRequestHook<
   ReturnType<typeof getClassesIUseId>
 >(getClassesIUseId)
 
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+export interface PutClassesIUseIdRequest {
+  privacy?: number
+  statu?: string
+  id: string
+}
+
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **返回类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+export interface PutClassesIUseIdResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置的类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+type PutClassesIUseIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iUse/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_0,
+  devUrl: devUrl_0_1_0_0,
+  prodUrl: prodUrl_0_1_0_0,
+  path: '/classes/iUse/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_0,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求函数**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+export const putClassesIUseId = makeRequest<
+  PutClassesIUseIdRequest,
+  PutClassesIUseIdResponse,
+  PutClassesIUseIdRequestConfig
+>(putClassesIUseIdRequestConfig)
+
+/**
+ * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **React Hook**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `PUT /classes/iUse/:id`
+ * @更新时间 `2020-10-23 15:05:22`
+ */
+export const usePutClassesIUseId = makeRequestHook<
+  PutClassesIUseIdRequest,
+  PutClassesIUseIdRequestConfig,
+  ReturnType<typeof putClassesIUseId>
+>(putClassesIUseId)
+
 const mockUrl_0_1_0_1 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_1 = 'https://api.icourage.cn/1.1' as any
 const prodUrl_0_1_0_1 = 'http://api.icourage.cn/1.1' as any
@@ -1482,6 +1574,98 @@ export const useGetClassesICardId = makeRequestHook<
   GetClassesICardIdRequestConfig,
   ReturnType<typeof getClassesICardId>
 >(getClassesICardId)
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **请求类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+export interface PutClassesICardIdRequest {
+  circleState?: number
+  state?: number
+  id: string
+}
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **返回类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+export interface PutClassesICardIdResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **请求配置的类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+type PutClassesICardIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iCard/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **请求配置**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_1,
+  devUrl: devUrl_0_1_0_1,
+  prodUrl: prodUrl_0_1_0_1,
+  path: '/classes/iCard/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_1,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **请求函数**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+export const putClassesICardId = makeRequest<
+  PutClassesICardIdRequest,
+  PutClassesICardIdResponse,
+  PutClassesICardIdRequestConfig
+>(putClassesICardIdRequestConfig)
+
+/**
+ * 接口 [更新习惯↗](http://121.89.170.197:3000/project/59/interface/api/504) 的 **React Hook**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `PUT /classes/iCard/:id`
+ * @更新时间 `2020-10-23 14:59:56`
+ */
+export const usePutClassesICardId = makeRequestHook<
+  PutClassesICardIdRequest,
+  PutClassesICardIdRequestConfig,
+  ReturnType<typeof putClassesICardId>
+>(putClassesICardId)
 
 const mockUrl_0_1_0_2 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_2 = 'https://api.icourage.cn/1.1' as any
@@ -1846,11 +2030,12 @@ export const useGetClassesIDo = makeRequestHook<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 export interface PutClassesIDoIdRequest {
   imgs?: string[]
   recordText?: string
+  state?: number
   id: string
 }
 
@@ -1859,7 +2044,7 @@ export interface PutClassesIDoIdRequest {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 export interface PutClassesIDoIdResponse {
   objectId?: string
@@ -1871,7 +2056,7 @@ export interface PutClassesIDoIdResponse {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 type PutClassesIDoIdRequestConfig = Readonly<
   RequestConfig<
@@ -1891,7 +2076,7 @@ type PutClassesIDoIdRequestConfig = Readonly<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 const putClassesIDoIdRequestConfig: PutClassesIDoIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_2,
@@ -1912,7 +2097,7 @@ const putClassesIDoIdRequestConfig: PutClassesIDoIdRequestConfig = {
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 export const putClassesIDoId = makeRequest<
   PutClassesIDoIdRequest,
@@ -1925,7 +2110,7 @@ export const putClassesIDoId = makeRequest<
  *
  * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
  * @请求头 `PUT /classes/iDo/:id`
- * @更新时间 `2020-10-21 17:10:52`
+ * @更新时间 `2020-10-23 09:57:49`
  */
 export const usePutClassesIDoId = makeRequestHook<
   PutClassesIDoIdRequest,
@@ -2290,7 +2475,7 @@ export const usePostClassesIComment = makeRequestHook<
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
 export interface DeleteClassesICommentIdRequest {
   id: string
@@ -2301,19 +2486,16 @@ export interface DeleteClassesICommentIdRequest {
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
-export interface DeleteClassesICommentIdResponse {
-  createdAt?: string
-  objectId?: string
-}
+export interface DeleteClassesICommentIdResponse {}
 
 /**
  * 接口 [删除评论↗](http://121.89.170.197:3000/project/59/interface/api/500) 的 **请求配置的类型**
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
 type DeleteClassesICommentIdRequestConfig = Readonly<
   RequestConfig<
@@ -2333,7 +2515,7 @@ type DeleteClassesICommentIdRequestConfig = Readonly<
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
 const deleteClassesICommentIdRequestConfig: DeleteClassesICommentIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_4,
@@ -2354,7 +2536,7 @@ const deleteClassesICommentIdRequestConfig: DeleteClassesICommentIdRequestConfig
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
 export const deleteClassesICommentId = makeRequest<
   DeleteClassesICommentIdRequest,
@@ -2367,7 +2549,7 @@ export const deleteClassesICommentId = makeRequest<
  *
  * @分类 [iComment↗](http://121.89.170.197:3000/project/59/interface/api/cat_403)
  * @请求头 `DELETE /classes/iComment/:id`
- * @更新时间 `2020-10-22 17:56:41`
+ * @更新时间 `2020-10-22 18:14:22`
  */
 export const useDeleteClassesICommentId = makeRequestHook<
   DeleteClassesICommentIdRequest,
