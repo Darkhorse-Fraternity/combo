@@ -22,13 +22,18 @@ import DateBoard from './DateBoard';
 
 const { width } = Dimensions.get('window');
 
-interface CalendarProps {
+interface CalendarProps<ItemT> {
   load: boolean;
-  selectDay: (item: any) => void;
+  doneDay: (item: ItemT) => void; // 点击打卡
+  color: string;
+  date: Date;
+  canceDay: (item: ItemT) => void; // 取消打卡
+  busyDay?: ItemT[]
+  move: (first: string, last: string) => void;  // 加载当前月
 }
 
-export default class Calendar extends PureComponent<CalendarProps> {
-  constructor(props: Object) {
+export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>> {
+  constructor(props: any) {
     super(props);
     this.state = {
       year: this.props.date.getFullYear(),
@@ -186,7 +191,6 @@ export default class Calendar extends PureComponent<CalendarProps> {
     }
   }
 
-  fetchData() { }
 
   goTo = direction => {
     const that = this;
@@ -225,9 +229,9 @@ export default class Calendar extends PureComponent<CalendarProps> {
       year={this.state.year}
       month={month}
       date={this.state.date}
-      selectDay={this.props.selectDay}
+      selectDay={this.props.doneDay}
       isLeap={this.isLeap}
-      fetchData={this.props.fetchData}
+      fetchData={this.props.canceDay}
       busyDay={this.props.busyDay}
     />
   );

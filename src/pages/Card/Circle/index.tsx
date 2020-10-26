@@ -207,7 +207,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   const { navigate } = useNavigation();
   const [showShare, setShowShare] = useState(false);
 
-  console.log('iuserid', iUse.objectId);
+  // console.log('iuserid=', iUse.objectId);
 
   return (
     <StyledHeader >
@@ -230,7 +230,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
         }}
       />
 
-      {iCard.user === user?.objectId && (
+      {iCard.user.objectId === user?.objectId && (
         <MenuItem
           title={'设置'}
           source={require('../../../../source/img/circle/settings.png')}

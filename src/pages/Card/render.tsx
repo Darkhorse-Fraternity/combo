@@ -74,11 +74,12 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
 
 
 class Main extends PureComponent<{ iUse: GetClassesIUseIdResponse, iCard: GetClassesICardIdResponse },
-  { scrollValue: Animated.Value }> {
+  { scrollValue: Animated.Value, page: number }> {
   constructor(props: any) {
     super(props);
     this.state = {
       scrollValue: new Animated.Value(0),
+      page: 0
     };
   }
   render() {
@@ -96,9 +97,11 @@ class Main extends PureComponent<{ iUse: GetClassesIUseIdResponse, iCard: GetCla
     return (
       <ScrollableTabView
         ref="ScrollableTabView"
+        // page={this.state.page}
         locked={state !== CircleState.open}
         onChangeTab={({ i }) => {
           this.props.navigation.setParams({ gestureEnabled: i === 0 });
+          // this.setState({ page: i })
         }}
         onScroll={x => {
           // if(state === CircleState.open){
@@ -202,10 +205,11 @@ const Card: FC<{}> = (props) => {
     }
   }, [iCard])
 
-
-  if (loading) {
+  if (!iCard) {
     return <LoadAnimation />
   }
+
+
 
   return (<Main {...props} iUse={data!} iCard={iCard as GetClassesICardIdResponse} />)
 

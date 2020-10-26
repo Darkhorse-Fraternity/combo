@@ -76,12 +76,12 @@ import { StyledHeaderTitle, Styledcontain, StyledHeaderText } from './style';
 
 const RecordDetail: FC<{}> = (porps) => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>()
-  const { data, loading, refresh } = useGetClassesIUseId({ include: 'iCard', id: iUseId });
+  const { data, run } = useGetClassesIUseId({ include: 'iCard', id: iUseId });
   const { setOptions, navigate } = useNavigation()
   const { iCard } = data || {};
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
-      refresh()
+      run()
     });
     return () => {
       deEmitter.remove()
@@ -111,7 +111,7 @@ const RecordDetail: FC<{}> = (porps) => {
   }, [iCard])
 
 
-  if (loading) {
+  if (!data) {
     return <LoadAnimation />
   }
 

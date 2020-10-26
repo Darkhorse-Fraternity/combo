@@ -15,12 +15,15 @@ export default function makeRequestHook<
   TRequestResult extends ReturnType<typeof baseRequest>
 >(request: Request<TRequestData, TRequestConfig, TRequestResult>) {
   // type Data = TRequestResult extends Promise<infer R> ? R : TRequestResult
-  return <U = ThenArg<TRequestResult>>(requestData: TRequestData, config?: OptionsWithFormat2<TRequestResult, any[], U,U>) =>
-    // 一个简单的 Hook 实现，实际项目可结合其他库使用，比如：
-    // @umijs/hooks 的 useRequest (https://github.com/umijs/hooks)
-    // swr (https://github.com/zeit/swr)
-    useRequest<TRequestResult, any[], U>(requestData, {
+
+  type P = TRequestData[]
+  type RequestDataType<R,T> =  R | ((...args: R[]) => R)
+                          | ((...args:  R[]) => Promise<T>)
+  return <U = ThenArg<TRequestResult>>(
+    requestData: RequestDataType<TRequestData,TRequestResult> , 
+    config?: OptionsWithFormat2<TRequestResult, P, U,U>) =>
+    useRequest<TRequestResult, P, U>(requestData, {
       requestMethod: (param: any) => request(param),
-      ...config  as OptionsWithFormat<TRequestResult, any[], U,U>
+      ...config  as OptionsWithFormat<TRequestResult, P, U,U>
     })
 }

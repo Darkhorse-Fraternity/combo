@@ -21,12 +21,53 @@ import {
 import AgendaScreen from "./agenda";
 import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
-import { GetClassesICardIdResponse, GetClassesIUseIdResponse, postClassesIDo, useGetClassesIDo } from 'src/hooks/interface';
+import { GetClassesICardIdResponse, GetClassesIDoIdResponse, GetClassesIDoResponse, GetClassesIUseIdResponse, postClassesIDo, useGetClassesIDo } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { point } from '@request/LCModle';
 import { iUse as iUseM, user as userM } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
+import Calendar from '@components/Calendar';
+
+const calendParam = (first: string, last: string, userId: string, iUseId: string) => {
+  const param = {
+    where: {
+      ...userM(userId),
+      ...iUseM(iUseId),
+      $or: [{
+        doneDate: {
+          $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+          $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+        },
+      }, {
+        createdAt: {
+          $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+          $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+        },
+      },
+
+      ],
+      state: { $ne: -1 },
+      type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
+    }
+  };
+  // dispatch(req(params, IDOCALENDAR, {
+  //   dataMap: (datas) => {
+  //     // console.log('datas', datas);
+
+  //     datas.results.forEach((item) => {
+  //       const { createdAt, doneDate } = item;
+  //       const time = doneDate ? doneDate.iso : createdAt;
+  //       const date = moment(time).format('YYYY-MM-DD');
+  //       data[date] = item;
+  //     });
+
+  //     //  console.log('first:', first,datas,data);
+  //     return data;
+  //   }
+  // }));
+}
+
 
 const retroactive = (
   item: any,
@@ -60,7 +101,7 @@ const retroactive = (
 
       if (momentIn) {
         // return dispatch(doCardWithNone(iUse));
-        clockin(0);
+        return clockin(0);
       }
 
       // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
@@ -74,7 +115,7 @@ const retroactive = (
         // 先获取那一天这个时候的moment
         // 以当天时间做打卡,并做特殊标记type=2。
         // 提示将消耗一张补签劵
-        Alert.alert(
+        return Alert.alert(
           "是否进行补签?",
           `将消耗一张补签卡,补签卡数量:${redo}。`,
           [
@@ -171,30 +212,86 @@ const Statistical: FC<StatisticalProps> =
     const iUseId = iUse.objectId;
     const iCardId = iCard.objectId;
 
-    const { data } = useGetClassesIDo({
-      count: '1', limit: '1', where: JSON.stringify({
+    const { data, } = useGetClassesIDo({
+      count: '1', limit: '0', where: JSON.stringify({
         ...userM(user?.objectId || ''),
         ...iUseM(iUseId),
         $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
         state: { $ne: -1 },
       })
     });
+
+
+
+
+    //本月的打卡记录
+    const { data: calendarData, run, loading } = useGetClassesIDo(item=>item, { manual: true });
     // const { count } = data;
 
-    const ref = useRef<AgendaScreen>(null);
+    const ref = useRef<Calendar<GetClassesIDoResponse['results'][number]>>(null);
     useEffect(() => {
       const lesten = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
-        ref.current?.refresh();
+        ref?.current?.move();
+        // console.log('ref?.current', ref?.current);
       })
+      ref?.current?.move();
       return () => {
         lesten.remove()
       }
     }, [])
 
+
+    const selectDay = (item: GetClassesIDoResponse['results'][number]) => isSelf &&
+      retroactive(
+        item,
+        activityEndDate?.iso || '',
+        toolConfig?.redo || 0,
+        async (type, date) => {
+
+          if (type === 0) {
+            //需要判断是否在打卡时间内。 是否已经打卡
+            const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
+            const before = moment(limitTimes[0], 'HH');
+            const after = moment(limitTimes[1], 'HH');
+            const now = moment(new Date());
+            const momentIn = moment(now).isBetween(before, after);
+            if (!momentIn) {
+              SimpleToast.showWithGravity('你好，我还没有到打卡时间!～', 2, SimpleToast.CENTER)
+              return;
+            }
+          }
+
+          const iso = date && date.toISOString()
+
+          if (record.length > 0) {
+            navigate(RouteKey.clockIn, { iUseId, doneDateIso: iso })
+          } else {
+            const { objectId } = await postClassesIDo({
+              user: point('_User', user?.objectId || ''),
+              type: 0,
+              iCard: point('iCard', iCardId),
+              iUse: point('iUse', iUseId),
+              doneDate: { "__type": "Date", iso: iso || new Date().toISOString() },
+            })
+            if (objectId) {
+              console.log('???');
+
+              DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+            }
+          }
+        })
+
+
+
     return (<StyledInner >
-      <AgendaScreen
+      {/* <AgendaScreen
         user={user}
         ref={ref}
+        load={(first: string, last: string) => {
+          const params = calendParam(first, last, user?.objectId || '', iUseId)
+          mutate()
+
+        }}
         iUse={iUse}
         color={color}
         isSelf={isSelf}
@@ -225,34 +322,77 @@ const Statistical: FC<StatisticalProps> =
               if (record.length > 0) {
                 navigate(RouteKey.clockIn, { iUseId, doneDateIso: iso })
               } else {
-                const { objectId: id } = await postClassesIDo({
+                const { objectId } = await postClassesIDo({
                   user: point('_User', user?.objectId || ''),
                   type: 0,
                   iCard: point('iCard', iCardId),
                   iUse: point('iUse', iUseId),
                   doneDate: { "__type": "Date", iso: iso || new Date().toISOString() },
                 })
-                if (id) {
+                if (objectId) {
+                  console.log('???');
+
                   DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
                 }
               }
             })}
         {...other}
-      // selectDay={(item) => this.props.retroactive(item, iCard, iUse)}
-      // onPress={(item) => {
-      //   this.props.iDoDelete(item, user);
-      // }}
+      /> */}
+      {/* datas.results.forEach((item) => {
+              const { createdAt, doneDate } = item;
+              const time = doneDate ? doneDate.iso : createdAt;
+              const date = moment(time).format('YYYY-MM-DD');
+              data[date] = item;
+            }); */}
+
+
+      <Calendar<GetClassesIDoResponse['results'][number]>
+        color={color}
+        ref={ref}
+        date={new Date()}
+        load={loading}
+        canceDay={(item) => {
+          // isSelf && this.props.iDoDelete(item, user);
+        }} // 取消点击日打卡
+        doneDay={selectDay} // 点击特定日
+        busyDay={calendarData?.results} // 全部数据
+        move={(first, last) => {
+
+          // 加载本月数据
+          const where = {
+            ...userM(user?.objectId || ''),
+            ...iUseM(iUseId),
+            $or: [{
+              doneDate: {
+                $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+              },
+            }, {
+              createdAt: {
+                $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+                $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+              },
+            },
+
+            ],
+            state: { $ne: -1 },
+            type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
+          }
+          // run({where:j})
+          run({ where: JSON.stringify(where), limit: '31', });
+
+        }}
       />
       <StyledTitleView>
         <StyledTitleText>习惯统计</StyledTitleText>
       </StyledTitleView>
       <View style={{ height: 10 }} />
       {/* {this._renderRow('已完成周期', `${(time / iCard.period).toFixed(2)}轮`)} */}
-      <RenderTitle title={"总打卡天数"} des={`${time}日`} />
+      <RenderTitle title={"总打卡天数"} des={`${time + 1}日`} />
       <RenderTitle title={'上次打卡'} des={fromNow} />
       <RenderTitle title={"加入天数"} des={`${date}天`} />
       <RenderTitle title={"建立日期"} des={cardCreatedAt} />
-      {isSelf && record.length > 0 && <LogButton
+      {isSelf && data?.count! > 0 && <LogButton
         color={color}
         iCardId={iCard.objectId}
         iUseId={iUse.objectId} />}

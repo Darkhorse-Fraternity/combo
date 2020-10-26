@@ -18,6 +18,7 @@ import Calendar from '../../../components/Calendar';
 
 import SimpleToast from 'react-native-simple-toast'
 import { DeviceEventEmitterKey } from '@configure/enum';
+import { getClassesICardId, GetClassesIDoIdResponse } from 'src/hooks/interface';
 
 
 
@@ -106,13 +107,13 @@ import { DeviceEventEmitterKey } from '@configure/enum';
                 ...param,
                 ...res,
               };
-              dispatch(addNormalizrEntity(IDO, entity));
-              const date = moment(time).format("YYYY-MM-DD");
-              dispatch(
-                reqChangeData(IDOCALENDAR, {
-                  [date]: null,
-                })
-              );
+              // dispatch(addNormalizrEntity(IDO, entity));
+              // const date = moment(time).format("YYYY-MM-DD");
+              // dispatch(
+              //   reqChangeData(IDOCALENDAR, {
+              //     [date]: null,
+              //   })
+              // );
 
               DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
 
@@ -128,7 +129,6 @@ export default class AgendaScreen extends PureComponent<{ color: string, isSelf:
   constructor(props) {
     super(props);
     this.props.clear();
-    this.state = {};
   }
 
 
@@ -157,15 +157,15 @@ export default class AgendaScreen extends PureComponent<{ color: string, isSelf:
 
 
     return (
-      <Calendar
+      <Calendar<GetClassesIDoIdResponse>
         color={color}
         ref={ref => this.calendar = ref}
         date={new Date()}
         load={load}
         fetchData={(item) => {
           isSelf && this.props.iDoDelete(item, user);
-        }}
-        selectDay={onPress}
+        }} // 取消点击日打卡
+        selectDay={onPress} // 点击日打卡
         busyDay={busyDay}
         move={this.props.load}
       />
