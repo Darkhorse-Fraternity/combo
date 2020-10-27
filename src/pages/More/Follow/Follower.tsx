@@ -5,12 +5,10 @@
 
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
 } from 'react-native'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types';
 import LCList from '../../../components/Base/LCList';
 import { followList } from '../../../redux/module/leancloud'
 
@@ -18,26 +16,18 @@ import {
   StyledContent,
 } from './style'
 
-import { shouldComponentUpdate } from 'react-immutable-render-mixin';
 import FollowRow from './FollowRow'
 import { USER } from "../../../redux/reqKeys";
-import Follow from "./Followee";
 import { isTablet } from 'react-native-device-info';
 
 const listKey = USER
 
 
-@connect(
-  state => ({}),
-  dispatch => ({})
-)
 
 
-export default class Follower extends Component {
+export default class Follower extends PureComponent {
   constructor(props: Object) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
-
   }
 
   static propTypes = {};
@@ -57,7 +47,7 @@ export default class Follower extends Component {
   }
 
 
-  render(): ReactElement<any> {
+  render() {
 
 
     const { navigation, route } = this.props;

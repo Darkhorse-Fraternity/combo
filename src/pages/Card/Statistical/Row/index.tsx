@@ -37,12 +37,8 @@ import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
 // static displayName = RecordRow
 @connect(
   state => ({
-    // data:state.req.get()
     user: state.user.data
   }),
-  dispatch => ({
-    // ...bindActionCreators({},dispatch),
-  })
 )
 export default class RecordRow extends Component {
   constructor(props: Object) {
@@ -80,20 +76,20 @@ export default class RecordRow extends Component {
       <StyledChatbtn
         onPress={() => {
           this.props.navigation
-          && this.props.navigation.navigate('rcomment', { iDoID: objectId });
+            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
         }}
       >
         {/* <Image style={{width:20,height:20}} source={icon}/> */}
         {commentNew && user === this.props.user.objectId
-        && (<StyledNewTip />)}
+          && (<StyledNewTip />)}
         {commentNum > 0
-        && (
-        <StyledChatBtnText
-          numberOfLines={1}
-        >
-          {item.commentNum}
-        </StyledChatBtnText>
-        )}
+          && (
+            <StyledChatBtnText
+              numberOfLines={1}
+            >
+              {item.commentNum}
+            </StyledChatBtnText>
+          )}
         <StyledArrowView />
         {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
@@ -109,7 +105,7 @@ export default class RecordRow extends Component {
     />
   )
 
-  render(): ReactElement<any> {
+  render() {
     const {
       item, onPress, color
     } = this.props;
@@ -139,11 +135,11 @@ export default class RecordRow extends Component {
         </StyledDateView>
         <StyledMain>
           {!!item.recordText
-          && (
-          <StyledRecordText numberOfLines={3}>
-            {item.recordText}
-          </StyledRecordText>
-          )}
+            && (
+              <StyledRecordText numberOfLines={3}>
+                {item.recordText}
+              </StyledRecordText>
+            )}
           {imgs && (
             <StyledImagesScolleView
               scrollEnabled={imgs.length > 1}
@@ -165,7 +161,7 @@ export default class RecordRow extends Component {
               ))}
             </StyledImagesScolleView>
           )}
-          {uris &&  uris.length > 0 && (
+          {uris && uris.length > 0 && (
             <ImagesViewModal
               visible={visible}
               closeCallBack={() => {
@@ -176,16 +172,6 @@ export default class RecordRow extends Component {
             />
           )}
         </StyledMain>
-        {/* <StyledBottom> */}
-        {/* <StyledDateView> */}
-        {/* <StyledDateText> */}
-        {/* {fromNow} */}
-        {/* </StyledDateText> */}
-        {/* {this.props.showChat ? */}
-        {/* this._renderChatBtn(item) : */}
-        {/* this._renderDone()} */}
-        {/* </StyledDateView> */}
-        {/* </StyledBottom> */}
       </StyledButton>
     );
   }

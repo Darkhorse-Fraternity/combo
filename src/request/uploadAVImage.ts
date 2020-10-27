@@ -66,7 +66,6 @@ export function uploadFilesByLeanCloud(imageURLs: string[]) {
     });
   });
 
-  console.log('11111');
 
   return Promise.all(promises);
 }

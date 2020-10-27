@@ -1,13 +1,8 @@
-import React, {Suspense, FC} from 'react';
-import {loadGif} from '../Load';
+import React, { Suspense, FC } from 'react';
+import { loadGif } from '../Load';
+
+import { StackNavigationOptions } from '@react-navigation/stack';
 import {
-  RouteProp,
-  NavigationHelpers,
-  NavigationProp,
-} from '@react-navigation/native';
-import {StackNavigationOptions} from '@react-navigation/stack';
-import {
-  RootStackParamList,
   NavigationOptionsType,
   ToLazyExoticComponentReturnType,
 } from '@pages/interface';
@@ -22,17 +17,17 @@ interface LazyRenderT {
   showBar: boolean;
 }
 
-export const LazyRender: FC<LazyRenderT> = ({showBar, ...props}) => {
+export const LazyRender: FC<LazyRenderT> = ({ showBar, ...props }) => {
   return <Suspense fallback={loadGif(showBar)} {...props} />;
 };
 
 export const toLazyExoticComponent = (
   Render: React.ComponentType<any>,
-  navigationOptions?: NavigationOptionsType<any>,
+  navigationOptions?: any,
 ): ToLazyExoticComponentReturnType => {
   let option = navigationOptions || ({} as StackNavigationOptions);
   if (typeof navigationOptions === 'function') {
-    option = navigationOptions({route: {}, navigation: {}} as any);
+    option = navigationOptions({ route: {}, navigation: {} } as any);
   }
   const {
     headerShown = true,
@@ -51,5 +46,5 @@ export const toLazyExoticComponent = (
   };
 
   // LazyRenderIn.navigationOptions = navigationOptionsIn;
-  return {component: LazyRenderIn, options: option};
+  return { component: LazyRenderIn, options: option };
 };

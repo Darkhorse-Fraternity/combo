@@ -52,6 +52,7 @@ export default {
             // Platform.OS !== 'ios' && StatusBar.setBackgroundColor('white', true);
             popupInstance.hide();
             mContent = null;
+            topView.remove();
         }
     },
 };

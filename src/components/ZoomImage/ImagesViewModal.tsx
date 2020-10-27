@@ -3,34 +3,41 @@
  * @flow
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  View,
   StyleSheet,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
   Image,
   Dimensions,
   StatusBar,
   Platform,
-  CameraRoll,
   ActivityIndicator,
   BackHandler,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
-import {strings} from '../../../locales/i18n';
-import {saveToCameraRoll} from '../../../helps/saveToCameraRoll';
+import { strings } from '../../../locales/i18n';
+import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 import Modal from 'react-native-modal';
 import Button from '../Button';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
-export default class ImagesViewModals extends Component {
-  static propTypes = {
-    imageUrls: PropTypes.array.isRequired,
-    visible: PropTypes.bool,
-    closeCallBack: PropTypes.func.isRequired,
-    index: PropTypes.number,
-  };
+interface ImagesViewModalsPorps {
+  imageUrls?: IImageInfo[],
+  visible: boolean,
+  closeCallBack: () => void,
+  index: number,
+  height: number
+}
+
+
+export default class ImagesViewModals extends Component<ImagesViewModalsPorps, { visible: boolean }> {
+  // static propTypes = {
+  //   imageUrls: PropTypes.array.isRequired,
+  //   visible: PropTypes.bool,
+  //   closeCallBack: PropTypes.func.isRequired,
+  //   index: PropTypes.number,
+  // };
 
   static defaultProps = {
     height: 250,
@@ -38,14 +45,13 @@ export default class ImagesViewModals extends Component {
     index: 0,
   };
 
-  constructor(props: Object) {
+  constructor(props: ImagesViewModalsPorps) {
     super(props);
     this.state = {
       visible: false,
     };
   }
 
-  state: {};
 
   // componentWillUnmount() {
   //   this.jobId && RNFS.stopDownload(this.jobId)
@@ -64,7 +70,7 @@ export default class ImagesViewModals extends Component {
         // this.setState({ visible: false })
         console.log('1111');
 
-        const {closeCallBack} = this.props;
+        const { closeCallBack } = this.props;
         closeCallBack && closeCallBack();
       }}>
       <Image
@@ -75,13 +81,13 @@ export default class ImagesViewModals extends Component {
   );
 
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('111');
-    });
+    // BackHandler.addEventListener('hardwareBackPress', () => {
+    //   console.log('111');
+    // });
   }
 
   render() {
-    const {imageUrls, visible, closeCallBack, index} = this.props;
+    const { imageUrls, visible, closeCallBack, index } = this.props;
 
     // console.log('test:', imageUrls);
     return (
@@ -100,6 +106,7 @@ export default class ImagesViewModals extends Component {
         onBackButtonPress={() => {
           closeCallBack && closeCallBack();
         }}
+        useNativeDriver
         isVisible={visible}>
         {Platform.OS !== 'ios' && (
           <StatusBar
@@ -110,7 +117,7 @@ export default class ImagesViewModals extends Component {
         )}
         <ImageViewer
           loadingRender={() => <ActivityIndicator />}
-          imageUrls={imageUrls || []}
+          imageUrls={imageUrls}
           index={index}
           onClick={() => {
             closeCallBack && closeCallBack();
@@ -154,9 +161,10 @@ const styles = StyleSheet.create({
   header: {
     position: 'absolute',
     left: 0,
-    top: 0,
+    top: getStatusBarHeight() - 10,
     zIndex: 10000,
     paddingTop: 10,
+    maxWidth: 50,
   },
   pageStyle: {
     alignItems: 'center',

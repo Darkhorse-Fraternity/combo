@@ -4,8 +4,7 @@
  */
 
 import * as immutable from 'immutable';
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,16 +16,16 @@ import {
   Keyboard,
   BackHandler,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
-import {reduxForm, formValueSelector, change} from 'redux-form/immutable';
+import { reduxForm, formValueSelector, change } from 'redux-form/immutable';
 import moment from 'moment';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
-import {update} from '../../../redux/module/leancloud';
-import {ICARD} from '../../../redux/reqKeys';
-import {StyledContent} from './style';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
+import { update } from '../../../redux/module/leancloud';
+import { ICARD } from '../../../redux/reqKeys';
+import { StyledContent } from './style';
 import Main from './Main';
-import {defaultHabit} from '../../../configure/habit';
+import { defaultHabit } from '../../../configure/habit';
 // import {
 // import { normalize } from 'normalizr';
 import {
@@ -114,7 +113,7 @@ const FormID = 'CreatCardForm';
             },
             sound: op.sound || {
               open: true,
-              item: {title: 'bell', type: 'normal', key: 'bell'},
+              item: { title: 'bell', type: 'normal', key: 'bell' },
             },
             limitTimes: op.limitTimes,
             notifyText: op.notifyText,
@@ -166,18 +165,18 @@ export default class CardConfig extends PureComponent {
   // }
 
   __backStep = () => {
-    const {step} = this.state;
+    const { step } = this.state;
     if (step === 0) {
       this.props.navigation.goBack();
     } else {
-      this.setState({step: step - 1});
+      this.setState({ step: step - 1 });
     }
     return true;
   };
 
   __nextStep = () => {
-    const {step} = this.state;
-    step === 0 && this.setState({step: step + 1});
+    const { step } = this.state;
+    step === 0 && this.setState({ step: step + 1 });
   };
 
   componentDidMount() {
@@ -191,8 +190,8 @@ export default class CardConfig extends PureComponent {
   }
 
   render(): ReactElement<any> {
-    const {step} = this.state;
-    const {onSelect} = this.props;
+    const { step } = this.state;
+    const { onSelect } = this.props;
     return (
       <StyledContent>
         <StyledHeader>
@@ -227,7 +226,7 @@ export default class CardConfig extends PureComponent {
                   if (step === 0) {
                     this.props.navigation.goBack();
                   } else {
-                    this.setState({step: 0});
+                    this.setState({ step: 0 });
                   }
                 }}
                 title="保存"

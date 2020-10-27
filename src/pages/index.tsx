@@ -29,7 +29,7 @@ export const SwitchNavigator = () => {
       headerMode="screen">
       <Stack.Screen
         name={'AuthLoading'}
-        options={{headerShown: false, cardStyle: {backgroundColor: 'white'}}}
+        options={{ headerShown: false, cardStyle: { backgroundColor: 'white' } }}
         // initialParams={
         //   initialRouteName === key ? initialRouteParams : undefined
         // }
@@ -37,7 +37,7 @@ export const SwitchNavigator = () => {
       />
       <Stack.Screen
         name={'tab'}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
         // initialParams={
         //   initialRouteName === key ? initialRouteParams : undefined
         // }

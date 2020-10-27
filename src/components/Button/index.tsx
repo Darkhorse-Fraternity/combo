@@ -1,6 +1,8 @@
-import {debounce} from 'lodash';
+import { types } from '@babel/core';
+import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
+import { debounce } from 'lodash';
 
-import React, {ReactChild} from 'react';
+import React, { ReactChild, ComponentType, PropsWithChildren, FC } from 'react';
 import {
   TouchableOpacity,
   Platform,
@@ -12,9 +14,11 @@ import {
   ViewStyle,
   Text,
   GestureResponderEvent,
+  TouchableHighlight,
+  TouchableOpacityProps,
 } from 'react-native';
 
-export interface BtnPeddingProps extends TouchableNativeFeedbackProps {
+export interface BtnPeddingProps {
   loading?: boolean;
   size?: number | 'small' | 'large';
   color?: string;
@@ -22,8 +26,12 @@ export interface BtnPeddingProps extends TouchableNativeFeedbackProps {
   textColor?: string;
 }
 
-const withPeddingClick = (WrappedComponent: Function) => {
-  class PreventDoubleClick extends React.PureComponent<BtnPeddingProps> {
+const withPeddingClick = <ComposedComponentProps extends { disabled?: boolean | null }>(
+  WrappedComponent: ComponentType<ComposedComponentProps>,
+) => {
+  class PreventDoubleClick extends React.PureComponent<
+    ComposedComponentProps & BtnPeddingProps
+    > {
     render() {
       const {
         children,
@@ -56,8 +64,8 @@ const withPeddingClick = (WrappedComponent: Function) => {
           {loading ? (
             <ActivityIndicator size={size} color={color} />
           ) : (
-            hChildren
-          )}
+              hChildren
+            )}
         </WrappedComponent>
       );
     }
@@ -66,13 +74,17 @@ const withPeddingClick = (WrappedComponent: Function) => {
   return PreventDoubleClick;
 };
 
-const withPreventDoubleClick = (WrappedComponent: Function) => {
-  class PreventDoubleClick extends React.PureComponent<Props> {
+const withPreventDoubleClick = <
+  ComposedComponentProps extends { onPress?: (e: GestureResponderEvent) => void }
+>(
+  WrappedComponent: ComponentType<ComposedComponentProps>,
+) => {
+  class PreventDoubleClick extends React.PureComponent<ComposedComponentProps> {
     debouncedOnPress = (e: GestureResponderEvent) => {
       this.props.onPress && this.props.onPress(e);
     };
 
-    onPress = debounce(this.debouncedOnPress, 300, {
+    onPress = debounce(this.debouncedOnPress, 600, {
       leading: true,
       trailing: false,
     });
@@ -85,30 +97,46 @@ const withPreventDoubleClick = (WrappedComponent: Function) => {
   return PreventDoubleClick;
 };
 
-export interface BtnAndroidProps extends TouchableNativeFeedbackProps {
-  children?: ReactChild[] | ReactChild;
-}
-
-const ButtonAndroid = (props: BtnAndroidProps) => (
+const ButtonAndroid: FC<TouchableNativeFeedbackProps> = ({
+  background,
+  children,
+  style,
+  ...other
+}) => (
   <TouchableNativeFeedback
     delayPressIn={0}
     background={
-      TouchableNativeFeedback.SelectableBackground &&
-      TouchableNativeFeedback.SelectableBackground()
+      background ||
+      (TouchableNativeFeedback.SelectableBackground &&
+        TouchableNativeFeedback.SelectableBackground())
     } // eslint-disable-line new-cap
-    {...props}>
-    {(typeof props.children !== 'string' && props.children) || props.style ? (
-      <View style={props.style}>{props.children}</View>
+    {...other}>
+    {(typeof children !== 'string' && children) || style ? (
+      <View style={style}>{children}</View>
     ) : (
-      props.children
-    )}
+        children
+      )}
   </TouchableNativeFeedback>
 );
 
-const button = Platform.OS === 'ios' ? TouchableOpacity : ButtonAndroid;
+type ButtonType = TouchableNativeFeedbackProps & { activeOpacity?: number };
+
+const button = (Platform.OS !== 'ios' ? TouchableOpacity : ButtonAndroid) as ComponentType<ButtonType>
 
 export default withPeddingClick(withPreventDoubleClick(button));
 
 export const ButtonOpacity = withPeddingClick(
   withPreventDoubleClick(TouchableOpacity),
 );
+
+export const ButtonHighlight = withPeddingClick(
+  withPreventDoubleClick(TouchableHighlight),
+);
+
+export const ButtonItem = withPeddingClick(
+  withPreventDoubleClick(TouchableItem),
+);
+
+// const styles = StyleSheet.create({
+
+// });

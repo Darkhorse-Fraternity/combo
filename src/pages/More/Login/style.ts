@@ -48,6 +48,8 @@ export const ThirdPartyInnerLoginView = styled.View`
   margin: 20px 0px;
   padding: 0px 20px;
   width:100%;
+  max-width:700px;
+  align-self: center;
   align-items:center;
   justify-content: space-between;
   
@@ -64,9 +66,12 @@ export const StyledIconItem = styled(Button)`
 export const StyledIconView = styled.View`
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  /* border-width:${({theme})=>theme.hairlineWidth};
+  border-color:black; */
+
 `;
 
 export const StyledIconText = styled.Text`

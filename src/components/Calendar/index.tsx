@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {Component, PropTypes} from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -14,20 +14,27 @@ import {
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  FC,
 } from 'react-native';
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard from './DateBoard';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-export default class Calendar extends Component {
-  constructor(props: Object) {
+interface CalendarProps<ItemT> {
+  load: boolean;
+  doneDay: (item: ItemT) => void; // 点击打卡
+  color: string;
+  date: Date;
+  canceDay: (item: ItemT) => void; // 取消打卡
+  busyDay?: Record<string, ItemT>;
+  move: (first: string, last: string) => void;  // 加载当前月
+}
+
+export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>> {
+  constructor(props: any) {
     super(props);
-    this.shouldComponentUpdate = shouldComponentUpdate.bind(this);
     this.state = {
       year: this.props.date.getFullYear(),
       month: this.props.date.getMonth(),
@@ -70,17 +77,17 @@ export default class Calendar extends Component {
         ? 1
         : 0
       : year % 4 === 0
-      ? 1
-      : 0;
+        ? 1
+        : 0;
   }
 
-  selectDay(d) {
-    // this.setState({
-    //   date: d
-    // })
-    // this.fetchData()
-    this.props.selectDay(d);
-  }
+  // selectDay(d) {
+  //   // this.setState({
+  //   //   date: d
+  //   // })
+  //   // this.fetchData()
+  //   this.props.selectDay(d);
+  // }
 
   myScroll(
     event: NativeSyntheticEvent<
@@ -95,7 +102,7 @@ export default class Calendar extends Component {
         this.prev();
       } else {
       }
-      this.refs.trueScroll.scrollTo({x: width, y: 0, animated: false});
+      this.refs.trueScroll.scrollTo({ x: width, y: 0, animated: false });
     } else {
       // console.log('event', event);
       const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
@@ -184,7 +191,6 @@ export default class Calendar extends Component {
     }
   }
 
-  fetchData() {}
 
   goTo = direction => {
     const that = this;
@@ -223,9 +229,9 @@ export default class Calendar extends Component {
       year={this.state.year}
       month={month}
       date={this.state.date}
-      selectDay={this.props.selectDay}
+      selectDay={this.props.doneDay}
       isLeap={this.isLeap}
-      fetchData={this.props.fetchData}
+      fetchData={this.props.canceDay}
       busyDay={this.props.busyDay}
     />
   );
@@ -241,7 +247,7 @@ export default class Calendar extends Component {
       return (
         <ScrollView
           horizontal
-          contentOffset={{x: width, y: 0}}
+          contentOffset={{ x: width, y: 0 }}
           bounces={false}
           onMomentumScrollEnd={event => this.myScroll(event)}
           ref="trueScroll"
@@ -253,7 +259,7 @@ export default class Calendar extends Component {
     }
     return (
       <ViewPagerAndroid
-        style={{height: 250, width}}
+        style={{ height: 250, width }}
         initialPage={1}
         onPageSelected={event => this.myScroll(event)}
         ref="trueViewPager">
@@ -281,24 +287,25 @@ export default class Calendar extends Component {
     ];
     const dateTitle = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
+    // console.log('this.syaye', this.state);
+
     return (
       <View style={[this.props.style]}>
         <View style={styles.dayTitle}>
-          <View style={styles.dayTimeTouch}>
-            {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
-            {/* <View style={styles.leftBtn}/> */}
-            {/* </TouchableOpacity> */}
-            <Text style={styles.t1}>
-              {`${month[this.state.month]}月` + ` ${this.state.year}`}
-            </Text>
-            <ActivityIndicator
-              style={{marginLeft: 10}}
-              animating={this.props.load}
-            />
-            {/* <TouchableOpacity onPress={()=>this.goTo('right')}> */}
-            {/* <View style={styles.rightBtn}/> */}
-            {/* </TouchableOpacity> */}
-          </View>
+          {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
+          {/* <View style={styles.leftBtn}/> */}
+          {/* </TouchableOpacity> */}
+          <Text style={styles.t1}>
+            {`${this.state.year} ${month[this.state.month]}月  `}
+          </Text>
+          <ActivityIndicator
+            style={{ marginLeft: 0 }}
+            color={'gray'}
+            animating={this.props.load}
+          />
+          {/* <TouchableOpacity onPress={()=>this.goTo('right')}> */}
+          {/* <View style={styles.rightBtn}/> */}
+          {/* </TouchableOpacity> */}
         </View>
         <View style={styles.dateTitle}>
           {dateTitle.map(title => (
@@ -316,6 +323,7 @@ export default class Calendar extends Component {
 const styles = StyleSheet.create({
   dayTitle: {
     height: 40,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -341,7 +349,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{rotate: '135deg'}],
+    transform: [{ rotate: '135deg' }],
     width: 10,
     height: 10,
     marginHorizontal: 40,
@@ -351,7 +359,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#007ddd',
-    transform: [{rotate: '315deg'}],
+    transform: [{ rotate: '315deg' }],
     width: 10,
     height: 10,
     marginHorizontal: 40,

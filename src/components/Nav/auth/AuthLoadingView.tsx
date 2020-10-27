@@ -1,25 +1,20 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import {
-  ActivityIndicator,
-  StatusBar,
+
   StyleSheet,
   View,
   Text,
 } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
-// import { loginSucceed } from '../../../redux/actions/user'
+import NetInfo, { NetInfoSubscription } from '@react-native-community/netinfo';
 import { connect } from 'react-redux';
-// import Toast from 'react-native-simple-toast';
 import moment from 'moment';
 import { userInfo } from '../../../redux/actions/user';
-// import { search } from '../../../redux/module/leancloud';
-// import { selfUser } from '../../../request/LCModle';
-import { IUSE, FLAGRECORD } from '../../../redux/reqKeys';
+
+import { IUSE } from '../../../redux/reqKeys';
 import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
 import { listReq } from '../../../redux/actions/list';
 import { iUseList as iUseListParams } from '../../../request/leanCloud';
-import { addNormalizrEntities } from '../../../redux/module/normalizr';
 import { StackActions } from '@react-navigation/native';
 
 @connect(
@@ -28,20 +23,6 @@ import { StackActions } from '@react-navigation/native';
     bootstrapAsync: async () => {
       try {
         const user = await dispatch(userInfo());
-        // if (user) {
-        //   await dispatch(search(false, {
-        //     where: {
-        //       ...dispatch(selfUser()),
-        //       statu: 'start'
-        //     },
-        //     order: '-time',
-        //     include: ICARD + ',iCard.user'
-        //   }, IUSE))
-        // }
-        // const user = await loadUserData();
-        // dispatch(loginSucceed(user))
-        // This will switch to the App screen or auth screen and this loading
-        // screen will be unmounted and thrown away.
         if (user.sessionToken) {
           // Toast.show('111')
           const p1 = dispatch(
@@ -96,22 +77,20 @@ import { StackActions } from '@react-navigation/native';
         // props.navigation.navigate(user ? 'tab' : 'login');
       } catch (e) {
         console.log('bootstrapAsync error:', e.message);
-        // Toast.show(e.message)
-        // props.navigation.navigate('login');
       }
     },
   }),
 )
-export default class AuthLoadingScreen extends React.Component {
-  unsubscribe = null;
+export default class AuthLoadingScreen extends PureComponent {
+  unsubscribe: NetInfoSubscription | undefined;
   async componentDidMount() {
     const { isConnected } = await NetInfo.fetch();
     if (!isConnected) {
-      // console.log('111');
-      this.unsubscribe = NetInfo.addEventListener(
-        'connectionChange',
-        this.handleFirstConnectivityChange,
-      );
+      this.unsubscribe = NetInfo.addEventListener(state => {
+        if (state.isConnected) {
+          this.props.bootstrapAsync();
+        }
+      });
     } else {
       this.props.bootstrapAsync();
     }
@@ -121,21 +100,13 @@ export default class AuthLoadingScreen extends React.Component {
     this.unsubscribe && this.unsubscribe();
   }
 
-  handleFirstConnectivityChange = isConnected => {
-    console.log(`Then, is ${isConnected ? 'online' : 'offline'}`);
-    if (isConnected) {
-      this.props.bootstrapAsync();
-    }
-  };
   // Fetch the token from storage then navigate to our appropriate place
 
   // Render any loading content that you like here
   render() {
     return (
       <View style={styles.container}>
-        <Indicators size="large" />
-        {/* <ActivityIndicator size={'large'}/> */}
-        {/* <StatusBar barStyle="default" /> */}
+        <Indicators size={40} />
         <Text style={styles.text}>加载中...</Text>
       </View>
     );
@@ -150,7 +121,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 10,
-    fontSize: 15,
+    fontSize: 13,
     color: '#9e9e9e',
     fontStyle: 'italic',
     alignSelf: 'center',

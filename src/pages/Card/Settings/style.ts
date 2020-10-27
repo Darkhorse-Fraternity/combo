@@ -8,7 +8,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 import Button from '../../../components/Button';
-import HeaderBtn from '../../../components/Button/HeaderBtn';
 
 // var hexToRgb = function(hex) {
 //   var color = [], rgb = [];
@@ -47,7 +46,7 @@ export const StyledTitleText = styled.Text`
 export const StyledBottomMenu = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px;
+  padding: 20px ;
   /* justify-content: space-between; */
 `;
 
@@ -61,7 +60,7 @@ export const StyledBottomMenuButton = styled(Button)`
   padding: 15px 0px;
   margin-bottom: 15px;
   background-color: ${(props) => props.theme.textinputbackgroundColor};
-  width: 108px;
+  width: 107px;
   margin-right:15px
   /* max-width: 100; */
   border-radius: 10px;

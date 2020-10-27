@@ -10,12 +10,7 @@ import {TouchableOpacity, Platform} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Ionicons from 'react-native-vector-icons/Ionicons'
 import Button from '../../../../components/Button';
-// export const StyledContent = styled.View`
-//     flex: 1;
-//     background-color: white;
-// `
-import {materialColors} from 'react-native-typography';
-// import { Button } from "../../../../../source/font/Iconfont";
+
 
 export const StyledTitleText = styled.Text`
   font-size: 15px;
@@ -50,7 +45,7 @@ export const StyledItemText = styled.Text<StyledItemViewType>`
       ? 'white'
       : Platform.OS === 'ios'
       ? 'black'
-      : materialColors.blackTertiary};
+      : props.theme.blackTertiary};
 
   font-size: 14px;
 `;

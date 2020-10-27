@@ -1,8 +1,8 @@
 import React from 'react';
 import Render from './render';
-import {RouteKey, NavigationOptionsType} from '@pages/interface';
-import {TouchableItem} from '@react-navigation/stack/src/views/TouchableItem.native';
-import {StyledIcon} from './style';
+import { RouteKey, NavigationOptionsType } from '@pages/interface';
+// import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
+// import {StyledIcon} from './style';
 
 const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
   return {
@@ -20,4 +20,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = props => {
   };
 };
 
-export default {component: Render, options: navigationOptions};
+export default { component: Render, options: navigationOptions };

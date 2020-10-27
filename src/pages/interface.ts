@@ -6,6 +6,7 @@ import {
   RouteProp,
 } from '@react-navigation/native';
 import {Record} from 'immutable';
+import { WebViewProp } from '@components/WebView/interface';
 
 export enum RouteKey {
   web = 'web',
@@ -26,8 +27,6 @@ export enum RouteKey {
   record = 'record',
   cardConfig = 'cardConfig',
   account = 'account',
-  feedback = 'feedback',
-  publishing = 'publishing',
   cardInfo = 'cardInfo',
   rcomment = 'rcomment',
   card = 'card',
@@ -37,6 +36,8 @@ export enum RouteKey {
   flagDetail = 'flagDetail',
   FRDetail = 'FRDetail',
   cirlcleSetting = 'cirlcleSetting',
+  clockIn = 'clockIn',
+  log = 'log',
 
   //tabs
   punch = 'punch',
@@ -45,8 +46,13 @@ export enum RouteKey {
   test = 'test',
 }
 
+type RecordType = '文字'|'图片';
+
 export type RootStackParamList = {
-  [RouteKey.web]: {};
+  [RouteKey.web]: {
+    title?: string;
+    headerShown?: boolean;
+  } & WebViewProp;
   [RouteKey.test]: undefined;
   [RouteKey.search]: undefined;
   [RouteKey.tool]: undefined;
@@ -54,7 +60,7 @@ export type RootStackParamList = {
   [RouteKey.earnings]: undefined;
   [RouteKey.remind]: undefined;
   [RouteKey.cash]: undefined;
-  [RouteKey.recordDetail]: undefined;
+  [RouteKey.recordDetail]:{iUseId:string};
   [RouteKey.cardSetting]: {iCardID: string};
   [RouteKey.followee]: undefined;
   [RouteKey.follower]: undefined;
@@ -65,22 +71,22 @@ export type RootStackParamList = {
   [RouteKey.record]: undefined;
   [RouteKey.cardConfig]: undefined;
   [RouteKey.account]: undefined;
-  [RouteKey.feedback]: undefined;
-  [RouteKey.publishing]: undefined;
+  // [RouteKey.feedback]: undefined;
   [RouteKey.cardInfo]: undefined;
-  [RouteKey.rcomment]: undefined;
-  [RouteKey.card]: undefined;
+  [RouteKey.rcomment]: {iDoID:string};
+  [RouteKey.card]: {iUseId:string};
   [RouteKey.cardUse]: undefined;
   [RouteKey.more]: undefined;
   [RouteKey.login]: undefined;
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
-  [RouteKey.cirlcleSetting]: undefined;
-
+  [RouteKey.cirlcleSetting]: {iCardID:string};
+  [RouteKey.clockIn]:{iUseId:string,doneDateIso?:string,iDoId?:string}; 
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;
   [RouteKey.flag]: undefined;
+  [RouteKey.log]:{iUseId:string,iCardId:string,color:string};
 };
 
 // type KeyType = keyof typeof RouteKey;

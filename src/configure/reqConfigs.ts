@@ -16,16 +16,18 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 import {Cache} from 'react-native-cache';
-import DefaultPreference from 'react-native-default-preference';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
 
-const NATIVE_NET_KEY = 'NET_FOR_NATIVE';
+// export const defaultHost = !__DEV__
+//   ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
+//   : /* debug */ 'cmwljtyw.engine.lncld.net/1.1';
 
 export const defaultHost = !__DEV__
-  ? /* release */ 'cmwljtyw.engine.lncld.net/1.1'
-  : /* debug */ 'cmwljtyw.engine.lncld.net/1.1';
+  ? /* release */ 'api.icourage.cn/1.1'
+  : /* debug */ 'api.icourage.cn/1.1';
+
 
 // export const apiHost = !__DEV__
 //   ? /* release */ "icourage.cn"
@@ -43,23 +45,6 @@ export function setLeanCloudSession(session: string) {
   const myHeader = {...header};
   if (session && session.length > 0) {
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
-    console.log(
-      JSON.stringify({
-        header: myHeader,
-        host: defaultHost,
-      }),
-    );
-
-    //发送给原生小组件
-    DefaultPreference.setName('group.com.winlong.xiamen.Bear').then(() => {
-      DefaultPreference.set(
-        NATIVE_NET_KEY,
-        JSON.stringify({
-          header: myHeader,
-          host: defaultHost,
-        }),
-      );
-    });
   }
 
   setNetworkConig({
@@ -74,19 +59,12 @@ const header = {
   'Content-Type': 'application/json; charset=utf-8',
   'X-LC-Sign': LeanCloud_APP_SIGN,
   'X-LC-Id': LeanCloud_APP_ID,
-  'X-LC-Prod': __DEV__ ? '0' : '1',
-  appVersion: DeviceInfo.getVersion().toString(),
+  'X-LC-Prod': __DEV__ ? 0 : 1,
+  appVersion: DeviceInfo.getVersion(),
   appChannel,
 };
 
-//发送给原生小组件
-DefaultPreference.set(
-  NATIVE_NET_KEY,
-  JSON.stringify({
-    header: header,
-    host: defaultHost,
-  }),
-);
+
 
 export function httpHeaders(needSession: boolean): Object {
   // let header = {

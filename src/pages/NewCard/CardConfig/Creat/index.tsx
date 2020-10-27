@@ -3,36 +3,27 @@
  * @flow
  */
 
-import * as immutable from 'immutable';
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
   StyleSheet,
   // TextInput,
-  Dimensions,
-  TouchableOpacity,
-  Text,
-  Alert,
-  ScrollView,
   BackHandler,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
-import {reduxForm, formValueSelector, change} from 'redux-form/immutable';
+import { reduxForm, formValueSelector, change } from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
-import * as Animatable from 'react-native-animatable';
-import {ICARD, IUSE} from '../../../../redux/reqKeys';
-import {add} from '../../../../redux/module/leancloud';
-import {addListNormalizrEntity} from '../../../../redux/actions/list';
-import {addNormalizrEntity} from '../../../../redux/module/normalizr';
-import {selfUser, iCard} from '../../../../request/LCModle';
+import { add } from '../../../../redux/module/leancloud';
+import { addListNormalizrEntity } from '../../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../../redux/module/normalizr';
+import { selfUser, iCard } from '../../../../request/LCModle';
 import Main from '../Main';
-import {defaultHabit} from '../../../../configure/habit';
-import Button from '../../../../components/Button';
-import {Color} from '../../../../Theme/index';
+import { defaultHabit } from '../../../../configure/habit';
 
-import {popToIndex} from '../../../../redux/nav'; // <-- same as form name
+
+import { popToIndex } from '../../../../redux/nav'; // <-- same as form name
 
 import {
   StyledContent,
@@ -45,13 +36,12 @@ import {
   StyledHeaderBtn,
   StyledInnerScrollView,
 } from './style';
-import {TextInput} from '../../../../components/Form/Cunstom/index';
+import { TextInput } from '../../../../components/Form/Cunstom/index';
 // static displayName = Creat
-import BackBtn from '../../../../components/Button/BackBtn/index';
-import {Privacy} from '../../../../configure/enum';
+import { Privacy } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import {StyledArrowView} from '../../../Record/RecordRow/style';
+import { StyledArrowView } from '../../../Record/RecordRow/style';
 
 export const FormID = 'CreatCardForm';
 const selector = formValueSelector(FormID);
@@ -109,7 +99,7 @@ const selector = formValueSelector(FormID);
           },
           sound: op.sound || {
             open: true,
-            item: {title: 'bell', type: 'normal', key: 'bell'},
+            item: { title: 'bell', type: 'normal', key: 'bell' },
           },
           notifyTimes,
           notifyText: op.notifyText,
@@ -140,7 +130,7 @@ const selector = formValueSelector(FormID);
         const addParam = {
           time: 0,
           // notifyTime:option&&option.notifyTime||"20.00",
-          doneDate: {__type: 'Date', iso: moment('2017-03-20').toISOString()},
+          doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
           ...dispatch(selfUser()),
           ...iCard(iCardId),
           statu: 'start',
@@ -222,20 +212,20 @@ export default class Creat extends PureComponent {
   }
 
   __nextStep = () => {
-    const {step} = this.state;
+    const { step } = this.state;
     if (this.props.title && this.props.title.length > 0) {
-      this.setState({step: step + 1});
+      this.setState({ step: step + 1 });
     } else {
       Toast.show('标题不可为空');
     }
   };
 
   __backStep = () => {
-    const {step} = this.state;
+    const { step } = this.state;
     if (step < 2) {
       this.props.navigation.goBack();
     } else {
-      this.setState({step: step - 1});
+      this.setState({ step: step - 1 });
     }
     return true;
   };
@@ -263,8 +253,8 @@ export default class Creat extends PureComponent {
 
   render() {
     // const { title, color } = this.props
-    const {step} = this.state;
-    const {onSelect} = this.props;
+    const { step } = this.state;
+    const { onSelect } = this.props;
     return (
       <StyledContent
         // colors={['#f1f6f9', '#ffffff']}

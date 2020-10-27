@@ -1,6 +1,6 @@
-import React, {useCallback, useState, useEffect} from 'react';
-import {Alert, View, Text} from 'react-native';
-import {useForm} from 'react-hook-form';
+import React, { useCallback, useState, useEffect } from 'react';
+import { Alert, View, Text } from 'react-native';
+import { useForm } from 'react-hook-form';
 import {
   StyledContent,
   StyledText,
@@ -8,17 +8,17 @@ import {
   StyledUnderLine,
   StyledNavBar,
 } from './style';
-import {useFetch} from 'react-native-qj-fetch';
+import { useFetch } from 'react-native-qj-fetch';
 import * as yup from 'yup';
-import {MemoRHFInput, RHFError} from '@components/Form';
+import { MemoRHFInput, RHFError } from '@components/Form';
 // import {useNavigationParam} from '@react-navigation/natve';
-import {classUpdate, classIDSearch} from '@request/leanCloud';
-import {ICARD} from '../../../redux/reqKeys';
+import { classUpdate, classIDSearch } from '@request/leanCloud';
+import { ICARD } from '../../../redux/reqKeys';
 import SimpleToast from 'react-native-simple-toast';
-import {loadView} from '@components/Load';
-import {useNavigationAllParamsWithType} from '@components/Nav/hook';
-import {RouteKey} from '@pages/interface';
-
+import { loadView } from '@components/Load';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { RouteKey } from '@pages/interface';
+import { yupResolver } from '@hookform/resolvers/yup';
 interface iCardType {
   objectId?: string;
 }
@@ -32,24 +32,24 @@ type FormData = {
 };
 
 const Render = () => {
-  const {iCardID} = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
+  const { iCardID } = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
   // console.log("req", reqO);
   // reqO();
 
   const [formData, setFormData] = useState<FormData>();
-  const {password} = formData || {};
+  const { password } = formData || {};
 
   const params = classUpdate(ICARD, iCardID, formData || {});
 
-  const [{pending, result}, load] = useFetch<iCardType>(params, false);
+  const [{ pending, result }, load] = useFetch<iCardType>(params, false);
 
   const searchParams = classIDSearch(ICARD, iCardID);
-  const [{result: searchResult, pending: searchPennding}] = useFetch<FormData>(
+  const [{ result: searchResult, pending: searchPennding }] = useFetch<FormData>(
     searchParams,
   );
 
-  const {register, setValue, handleSubmit, errors} = useForm<FormData>({
-    validationSchema,
+  const { register, setValue, handleSubmit, errors } = useForm<FormData>({
+    resolver: yupResolver(validationSchema)
     // defaultValues: { password: "234" }
   });
 
@@ -59,8 +59,8 @@ const Render = () => {
     }
   }, [result]);
 
-  const onSubmit = ({password = ''}: FormData) => {
-    setFormData({password});
+  const onSubmit = ({ password = '' }: FormData) => {
+    setFormData({ password });
   };
 
   //根据password 去加载
@@ -79,7 +79,7 @@ const Render = () => {
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
-    (text) => setValue('password', text, true),
+    (text) => setValue('password', text, { shouldValidate: true }),
     [],
   );
 
@@ -97,14 +97,14 @@ const Render = () => {
         <StyledText>圈子设置</StyledText>
         <StyledButton
           loading={pending}
-          hitSlop={{top: 10, bottom: 10, left: 20, right: 20}}
+          hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
           // loading={true}
           onPress={memoHanleSubmit}
           disabled={Object.keys(errors).length > 0}>
           保存
         </StyledButton>
       </StyledNavBar>
-      <View style={{height: 10}} />
+      <View style={{ height: 10 }} />
       <MemoRHFInput
         autoFocus
         name="password"
@@ -121,7 +121,7 @@ const Render = () => {
         onSubmitEditing={memoHanleSubmit}
         onChangeText={onChangeText}
         // underlineColorAndroid={'green'}
-        style={{paddingVertical: 5}}
+        style={{ paddingVertical: 5 }}
       />
       <StyledUnderLine />
       <RHFError errors={errors} name={'password'} />

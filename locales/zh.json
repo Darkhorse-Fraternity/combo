@@ -2,11 +2,11 @@
   "app": {
     "name": "小改变"
   },
-  "tabs":{
-    "clockIn":"打卡",
-    "habit":"日常习惯",
-    "flag":"副本",
-    "more":"更多"
+  "tabs": {
+    "clockIn": "打卡",
+    "habit": "习惯",
+    "flag": "副本",
+    "more": "更多"
   },
   "permission": {
     "write_storage_title": "写取储存权限",
@@ -27,8 +27,7 @@
   },
   "error": {
     "Unexpected_error_occurred": "意想不到的错误发生",
-    "We_will_need_to_restart_the_app":"我们需要重新启动应用程序",
-    "Restart":"重新启动"
+    "We_will_need_to_restart_the_app": "我们需要重新启动应用程序",
+    "Restart": "重新启动"
   }
-
 }

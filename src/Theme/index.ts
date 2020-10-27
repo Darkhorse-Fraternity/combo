@@ -1,6 +1,6 @@
-import {Theme as FormTheme} from 'react-native-clean-form';
 import {StyleSheet, Dimensions} from 'react-native';
-import {StatusBarHeight} from '@components/Nav/bar';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
+import { randFlowCoverColor } from './color';
 const getTheme = () => {
   const {height, width} = Dimensions.get('window');
   return {
@@ -11,8 +11,7 @@ const getTheme = () => {
     widthProportion: width / 375, // 用于高度根据长度进行缩放
     hairlineWidth: StyleSheet.hairlineWidth,
     hairlineColor: 'rgb(200,200,200)',
-    statusBarHeight: StatusBarHeight,
-    ...FormTheme,
+    statusBarHeight: getStatusBarHeight(),
 
     titleBackViewColor: '#f6f7f9',
     buttonItem: '#e7eced',
@@ -21,6 +20,9 @@ const getTheme = () => {
     sureColor: '#66bb6a',
     headerButtonColor: '#31d930',
     lightBlue: '#afd2ef',
+    blackPrimary:"rgba(0,0,0,0.87)",
+    blackSecondary:"rgba(0,0,0,0.54)",
+    blackTertiary:'rgba(0,0,0,0.38)',
     normalBtn: {
       color: 'black',
       disabledColor: 'rgb(150,150,150)',
@@ -37,6 +39,9 @@ const getTheme = () => {
     mainColor: '#fdd83c',
     mainLightColor: '#fdd83c',
     textinputbackgroundColor: '#f6f7f9',
+
+    //图片随机背景颜色
+    randFlowCoverColor:randFlowCoverColor,
   };
 };
 

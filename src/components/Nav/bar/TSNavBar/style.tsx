@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
-import {StatusBarHeight} from '../index';
-import {Animated} from 'react-native';
+import { Animated } from 'react-native';
 import Button from '@components/Button';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const StyledNavbar = styled(Animated.View)`
   width: 100%;
@@ -11,8 +11,8 @@ export const StyledNavbar = styled(Animated.View)`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  height: ${props => StatusBarHeight + 44};
-  padding-top: ${props => StatusBarHeight};
+  height: ${props => getStatusBarHeight() + 44};
+  padding-top: ${props => getStatusBarHeight()};
   /* padding-bottom: 15px;  */
   /* background-color: red; */
 `;
@@ -31,7 +31,7 @@ export const StyledArrow = styled.View<colorProps>`
   left: 20;
 `;
 
-export const StyledTitle = styled(Animated.Text)<colorProps>`
+export const StyledTitle = styled(Animated.Text) <colorProps>`
   color: ${props => props.color || 'white'};
   font-size: 18;
   font-weight: 400;

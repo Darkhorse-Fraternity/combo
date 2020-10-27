@@ -9,8 +9,6 @@ import LoginView from './More/Login/LoginView';
 import More from './More';
 import Account from './More/Account';
 import RecordDetail from './Record/Detail';
-import Feedback from './More/Feedback/Feedback';
-import Publishing from './Publish/Publishing';
 import CirlcleSetting from './Publish/CirlcleSetting';
 import CardInfo from './NewCard/CardInfo';
 import RComment from './Record/RComment';
@@ -27,17 +25,21 @@ import Earnings from './Order/Earnings';
 import Cash from './Order/Cash';
 import Remind from './More/Remind';
 import Punch from './Punch';
-import WebView from '@components/Base/BaseWebView';
+import web from './WebViewPage';
 import Flag from './Flag';
 import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
 import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
+import ClockIn from '../pages/clock-in';
 import Test from './test';
+import Log from './Card/Log/render'
 
-export const otherRoute: RouteType = {
-  [RouteKey.web]: {component: WebView, options: WebView.navigationOptions},
+export const otherRoute = {
+  [RouteKey.web]: web,
+  [RouteKey.log]:{component:Log,optione:Log.navigationOptions},
+  [RouteKey.clockIn]:ClockIn,
   [RouteKey.test]: Test,
   [RouteKey.search]: {component: Search, options: Search.navigationOptions},
   [RouteKey.tool]: {component: Tool},
@@ -73,15 +75,7 @@ export const otherRoute: RouteType = {
     component: CardConfig,
     options: CardConfig.navigationOptions,
   },
-  [RouteKey.account]: {component: Account},
-  [RouteKey.feedback]: {
-    component: Feedback,
-    options: Feedback.navigationOptions,
-  },
-  [RouteKey.publishing]: {
-    component: Publishing,
-    options: Publishing.navigationOptions,
-  },
+  [RouteKey.account]: {component: Account},  
   [RouteKey.cardInfo]: {
     component: CardInfo,
     options: CardInfo.navigationOptions,

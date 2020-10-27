@@ -1,3 +1,4 @@
+import Indicators from '@components/Indicators';
 import React, { PureComponent } from "react";
 import {
   ActivityIndicator,
@@ -11,9 +12,9 @@ import {
   ViewProps
 } from "react-native";
 // import {hideLoding, showLoading} from '../NativeTool';
-import { StatusBarHeight } from "@components/Nav/bar";
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 // import LottieView from 'lottie-react-native';
-export default function(
+export default function (
   size: number | "small" | "large" = "small",
   color = "gray"
 ) {
@@ -51,12 +52,12 @@ export function loadGif(showBar: boolean) {
   // const imgHeight = (width / 375) * 77 * 0.5;
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {LoadAnimation({ top: showBar ? 44 + StatusBarHeight : 0 })}
+      {LoadAnimation({ top: showBar ? 44 + getStatusBarHeight() : 0 })}
     </View>
   );
 }
 // const dp2px = (dp: number) => PixelRatio.getPixelSizeForLayoutSize(dp);
-export function loadView(top: number = 44 + StatusBarHeight) {
+export function loadView(top: number = 44 + getStatusBarHeight()) {
   // const {width, height} = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
   // const imgWidth = dWidth * 359 * 0.5;
@@ -87,10 +88,10 @@ interface LoadAnimationProps extends ViewProps {
 }
 
 export function LoadAnimation(props?: LoadAnimationProps) {
-  const { top = 44 + StatusBarHeight } = props || {};
+  const { top = 44 + getStatusBarHeight() } = props || {};
   const { height } = Dimensions.get("window");
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
-  const lastTop = Platform.OS === "ios" ? 0 : StatusBarHeight;
+  const lastTop = Platform.OS === "ios" ? 0 : getStatusBarHeight();
 
   return (
     <View
@@ -99,7 +100,8 @@ export function LoadAnimation(props?: LoadAnimationProps) {
         { top: (height - size + lastTop) / 2 - top }
       ]}
     >
-      <ActivityIndicator size={"small"} color={"gray"} />
+      {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
+      <Indicators size={30} />
       {/* <LottieLoading style={styles.lottieView} /> */}
     </View>
   );

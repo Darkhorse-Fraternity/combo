@@ -3,16 +3,16 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {View, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+import { View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import * as immutable from 'immutable';
 
-import {debounce} from 'lodash'; // 4.0.8
-import BaseSectionView, {BaseListProps} from './BaseSectionView';
+import { debounce } from 'lodash'; // 4.0.8
+import BaseSectionView, { BaseListProps } from './BaseSectionView';
 // static displayName = ReqListView
-import {search} from '../../redux/module/leancloud';
+import { search } from '../../redux/module/leancloud';
 
 @connect(
   (state, props) => ({
@@ -23,7 +23,7 @@ import {search} from '../../redux/module/leancloud';
     // ...bindActionCreators({},dispatch),
     loadData: (more = false, p = props) => {
       const mSearch = p.search || search;
-      const {reqKey, sKey, dataMap, callPath, reqParam} = p;
+      const { reqKey, sKey, dataMap, callPath, reqParam } = p;
 
       return dispatch(
         mSearch(
@@ -40,9 +40,9 @@ import {search} from '../../redux/module/leancloud';
     },
   }),
 )
-export default class fLCList<ItemT> extends PureComponent<
-  BaseListProps<ItemT> & {afterDataMap?: (item: Object) => Object},
-  {}
+export default class LCList<ItemT> extends PureComponent<
+BaseListProps<ItemT> & { afterDataMap?: (item: Object) => Object, },
+{}
 > {
   constructor(props: BaseListProps<ItemT>) {
     super(props);
@@ -76,15 +76,15 @@ export default class fLCList<ItemT> extends PureComponent<
     }
   }
 
-  __renderItem({item, index}: {item: Item; index: number}): ReactElement<any> {
+  __renderItem({ item, index }: { item: ItemT; index: number }) {
     const data =
       typeof item === 'object'
         ? item
         : this.props.normalizrData.get(`${item}`).toJS();
-    return this.props.renderItem({item: data, index});
+    return this.props.renderItem({ item: data, index });
   }
 
-  render(): ReactElement<any> {
+  render() {
     // if (!reqKey) {
     //     console.error('ReqListView传入的reqKey 不能为空~');
     // }
@@ -98,19 +98,19 @@ export default class fLCList<ItemT> extends PureComponent<
     //     />)
     // }
 
-    const {data, loadData} = this.props;
+    const { data, loadData } = this.props;
 
     const modal = (data && data.toJS()) || {};
-    const {loadStatu, listData} = modal;
+    const { loadStatu, listData } = modal;
 
     const afterDataMap =
       (this.props.afterDataMap && this.props.afterDataMap(listData)) ||
       listData;
 
-    console.log('modal', modal);
+    // console.log('modal', modal);
 
     return (
-      <BaseSectionView
+      <BaseSectionView<ItemT>
         {...this.props}
         loadData={() => loadData(false)}
         loadMore={() => loadData(true)}

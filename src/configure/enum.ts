@@ -15,7 +15,7 @@ export const CircleState = {
 };
 
 export const Days = ['周一', '周二', '周三', '周四', '周五', '周六', '周天'];
-export const daysText = (recordDay) => {
+export const daysText = (recordDay:[]) => {
   const days = recordDay.sort();
   // console.log('days:', days);
   if (days.length === 0) {
@@ -30,3 +30,7 @@ export const daysText = (recordDay) => {
     return days.map((day) => Days[day - 1]).toString();
   }
 };
+
+export enum DeviceEventEmitterKey {
+  iDO_Reload='iDO_Reload'
+}

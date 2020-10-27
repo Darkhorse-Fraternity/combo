@@ -7,6 +7,7 @@ import styled from 'styled-components/native';
 import {SafeAreaView} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Button from '../../components/Button';
+import { randFlowCoverColor } from 'src/Theme/color';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
@@ -32,18 +33,18 @@ export const StyledItem = styled(Button)`
 `;
 
 export const StyledItemImage = styled(FastImage)<{numColumns: number}>`
-  width: ${(props) => props.theme.width / props.numColumns - 40};
-  height: 250px;
+  width: ${(props) =>  props.theme.getWidth() / props.numColumns - 40};
+  aspect-ratio:1.5;
   border-radius: 20px;
   align-self: center;
-  background-color: #fdfbfb;
+  background-color: ${props => props.theme.randFlowCoverColor()};
   elevation: 5;
 `;
 export const StyledItemCover = styled.View<{position: string}>`
   position: absolute;
   elevation: 6;
   padding: 20px;
-  top: ${(props) => (props.position === 'top' ? 20 : 140)}px;
+  ${(props) =>props.position}: ${(props) => (props.position === 'top' ? 20 : 5)}px;
 `;
 
 export const StyledItemTitle = styled.Text<{color: string}>`

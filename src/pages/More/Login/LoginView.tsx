@@ -46,14 +46,13 @@ import {
   StyledMoreBtn,
   StyledMoreBtnText,
 } from './style';
-import { mainColor } from '../../../Theme/index';
+import { getTheme } from '../../../Theme/index';
 import * as WeChat from 'react-native-wechat';
 import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
-import Button from '../../../components/Button';
-import BackBtn from '../../../components/Button/BackBtn/index';
 import { SigninBtn } from './components/signin-btn';
-
+import appleAuth from '@invertase/react-native-apple-authentication';
+const { mainColor } = getTheme()
 @connect(
   state => ({
     // data:state.req.get()
@@ -322,8 +321,10 @@ export default class LoginView extends Component {
               style={{
                 flexDirection: 'row',
                 backgroundColor: '#f0f0f0',
-                width: Dimensions.get('window').width - 40,
+                // width: Dimensions.get('window').width - 40,
                 paddingHorizontal: 20,
+                marginHorizontal: 20,
+                maxWidth: 500
               }}>
               {this._renderRowMain(
                 '手机号:',
@@ -341,7 +342,9 @@ export default class LoginView extends Component {
               style={{
                 flexDirection: 'row',
                 backgroundColor: '#f0f0f0',
-                width: Dimensions.get('window').width - 40,
+                marginHorizontal: 20,
+                maxWidth: 500,
+                // width: Dimensions.get('window').width - 40,
                 paddingHorizontal: 20,
               }}>
               {this._renderRowMain(
@@ -387,9 +390,13 @@ export default class LoginView extends Component {
           />
         </Animatable.View>
         <ThirdPartyInnerLoginView>
-          {!!this.state.isWXAppInstalled && <SigninBtn name={'weixin'} onPress={this.props.wxLogin} loading={thirdLoaded === WECHATLOGIN} />}
-          {Platform.OS === 'ios' && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
-          <SigninBtn name={'qq'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
+          {!!this.state.isWXAppInstalled && <SigninBtn
+            name={'weixin'}
+            color={'#1AAD19'}
+            onPress={this.props.wxLogin}
+            loading={thirdLoaded === WECHATLOGIN} />}
+          {Platform.OS === 'ios' && appleAuth.isSupported && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
+          <SigninBtn name={'qq'} color={'#0188fb'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
         </ThirdPartyInnerLoginView>
       </StyledContent>
     );

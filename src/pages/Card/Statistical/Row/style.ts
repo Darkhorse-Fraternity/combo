@@ -100,18 +100,18 @@ export const StyledDateView = styled.View`
   width: 60px;
   height: 60px;
   border-width: 1px;
-  border-color: ${props => props.color};
+  border-color: ${props => props.color || 'gray'};
 `;
 
 export const StyledDateTextBig = styled.Text`
-  color: ${props => props.color};
+  color: ${props => props.color || 'gray'};
   font-size: 20px;
   font-weight: bold;
 `;
 
 export const StyledDateTextSmall = styled.Text`
   margin-top: 1px;
-  color: ${props => props.color};
+  color: ${props => props.color || 'gray'};
   font-size: 12px;
   font-weight: bold;
 `;

@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { FC, PureComponent } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,12 +13,13 @@ import {
   TouchableNativeFeedback,
   Image,
   Alert,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-import {shouldComponentUpdate} from 'react-immutable-render-mixin';
 import {
   StyledContent,
   StyledBottomMenu,
@@ -39,21 +40,59 @@ import {
 
 // import ShareView from '../../../components/Share/ShareView'
 // import Pop from '../../../components/Pop'
-import {popToIndex} from '../../../redux/nav';
+import { popToIndex } from '../../../redux/nav';
 
-import {update, search} from '../../../redux/module/leancloud';
+import { update } from '../../../redux/module/leancloud';
 
-import {IUSE, IRECORD} from '../../../redux/reqKeys';
-import {claerByID, addListNormalizrEntity} from '../../../redux/actions/list';
-import {addNormalizrEntity} from '../../../redux/module/normalizr';
+import { IUSE, IRECORD } from '../../../redux/reqKeys';
+import { claerByID, addListNormalizrEntity } from '../../../redux/actions/list';
+import { addNormalizrEntity } from '../../../redux/module/normalizr';
 
-import {Privacy, CircleState} from '../../../configure/enum';
-import {classUpdate} from '../../../request/leanCloud';
-import {req} from '../../../redux/actions/req';
-import Dialog from '../../../components/Dialog';
-import {selfUser} from '../../../request/LCModle';
+import { classUpdate } from '../../../request/leanCloud';
+import { req } from '../../../redux/actions/req';
+
 
 // const { width } = Dimensions.get('window');
+
+interface RenderItemType {
+  title: string;
+  name: string;
+  load?: boolean;
+  size?: number;
+  onPress: () => void;
+  Icon?: React.ReactNode;
+  style?: StyleProp<ViewStyle>
+}
+
+const RenderItem: FC<RenderItemType> = (props) => {
+  const {
+    title,
+    name,
+    load = false,
+    size = 30,
+    onPress,
+    Icon = StyledIcon,
+    style
+  } = props;
+  console.log('style', style);
+
+  return (
+    <StyledBottomMenuButton
+      style={style}
+      disabled={load}
+      hitSlop={{
+        top: 10,
+        left: 20,
+        bottom: 10,
+        right: 10,
+      }}
+      onPress={onPress}>
+      {load ? <StyledActivityIndicator color={'gray'} /> : <Icon size={size} name={name} />}
+      <StyledBottomMenuText>{title}</StyledBottomMenuText>
+    </StyledBottomMenuButton>
+  );
+};
+
 
 const Archive = `${IUSE}archive`;
 
@@ -115,13 +154,13 @@ const Archive = `${IUSE}archive`;
         Alert.alert(
           '主人，我正参与副本活动，不可以被删除哦～！',
           '等活动结束后再来吧。',
-          [{text: '知道了'}],
+          [{ text: '知道了' }],
         );
         return;
       }
 
       Alert.alert('确定删除?', '删除后不可恢复~！', [
-        {text: '取消'},
+        { text: '取消' },
         {
           text: '确定',
           onPress: async () => {
@@ -163,7 +202,7 @@ export default class Settings extends PureComponent {
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
-    const {iCardId} = props.route.params;
+    const { iCardId } = props.route.params;
     return {
       title: '',
       headerRight: (porps) => (
@@ -176,7 +215,7 @@ export default class Settings extends PureComponent {
             right: 20,
           }}
           onPress={() => {
-            props.navigation.navigate('cardInfo', {iCardId});
+            props.navigation.navigate('cardInfo', { iCardId });
           }}>
           <StyledBtnTitle>查看</StyledBtnTitle>
         </StyledBtn>
@@ -189,37 +228,14 @@ export default class Settings extends PureComponent {
     };
   };
 
-  _renderItem = (props) => {
-    const {
-      title,
-      name,
-      load = false,
-      size = 30,
-      onPress,
-      Icon = StyledIcon,
-    } = props;
-    return (
-      <StyledBottomMenuButton
-        disabled={load}
-        hitSlop={{
-          top: 10,
-          left: 20,
-          bottom: 10,
-          right: 10,
-        }}
-        onPress={onPress}>
-        {load ? <StyledActivityIndicator /> : <Icon size={size} name={name} />}
-        <StyledBottomMenuText>{title}</StyledBottomMenuText>
-      </StyledBottomMenuButton>
-    );
-  };
+
 
   _renderRresh = (reflesh, iUse) => {
     const text = !reflesh ? '暂停打卡' : '继续打卡';
     const archiveLoad = this.props.archive && this.props.archive.get('load');
 
     return (
-      <this._renderItem
+      <RenderItem
         load={archiveLoad}
         onPress={() => {
           !reflesh ? this.props.stop(iUse) : this.props.refresh(iUse);
@@ -234,7 +250,7 @@ export default class Settings extends PureComponent {
   _renderBottomMenu = () => {
     const iCard = this.props.iCard.toJS();
     const iUse = this.props.iUse.toJS();
-    const {navigation, user} = this.props;
+    const { navigation, user } = this.props;
 
     // const pUse = this.props.iUse && this.props.iUse.toJS()
     // iUse = pUse || iUse
@@ -246,9 +262,9 @@ export default class Settings extends PureComponent {
         {iCard.user === user.objectId &&
           iCard.state !== -2 &&
           iUse.statu !== 'del' && (
-            <this._renderItem
+            <RenderItem
               onPress={() => {
-                navigation.navigate('cardConfig', {iCardId: iCard.objectId});
+                navigation.navigate('cardConfig', { iCardId: iCard.objectId });
               }}
               name="md-settings"
               title="卡片配置"
@@ -256,7 +272,8 @@ export default class Settings extends PureComponent {
           )}
         {this._renderRresh(reflesh, iUse)}
 
-        <this._renderItem
+        <RenderItem
+          style={{ marginRight: 0 }}
           onPress={() => {
             this.props.delete(iUse.objectId, iUse.isFb);
           }}
@@ -264,7 +281,7 @@ export default class Settings extends PureComponent {
           name="md-trash"
           title="删除卡片"
         />
-        <View style={{width: (Dimensions.get('window').width - 85) / 3}} />
+        {/* <View style={{ width: (Dimensions.get('window').width - 85) / 3 }} /> */}
       </StyledBottomMenu>
     );
   };

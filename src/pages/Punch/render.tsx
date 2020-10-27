@@ -3,15 +3,13 @@
  * @flow
  */
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, Dimensions, SectionList, Alert } from 'react-native';
+import React, { Component, FC } from 'react';
+import { View, Dimensions, SectionList, Alert, DeviceEventEmitter, EmitterSubscription } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
 import { ICARD, IUSE, IDO, FLAG, FLAGRECORD } from '../../redux/reqKeys';
 // import { search, } from '../../redux/module/leancloud';
-import doCardWithNone from '../../components/DoCard/doCardWithNone';
 import ExceptionView, {
   ExceptionType,
 } from '../../components/Base/ExceptionView/index';
@@ -30,14 +28,115 @@ import Item from './Item';
 import rate from '../../../helps/rate';
 import { iUseList as iUseListParams } from '../../request/leanCloud';
 import { listReq } from '../../redux/actions/list';
-import { PrivacyModal } from '@components/ModalUtil/Privacy';
+import { PrivacyModal } from '@components/modal/privacy';
 import { isLandscapeSync, isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
+import { RouteKey } from '@pages/interface';
+import { GetClassesICardIdResponse, GetClassesIUseIdResponse, postClassesIDo } from 'src/hooks/interface';
+import { useNavigation } from '@react-navigation/native';
+import { point } from '@request/LCModle';
+import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
+import SimpleToast from 'react-native-simple-toast';
+import { ListLoadType } from '@components/Base/interface';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 interface StateType {
   frMap: Object;
   numColumns: number;
 }
+
+
+
+
+type ItemType = GetClassesIUseIdResponse & { satisfy: boolean, unSatisfyDiscrib: string, isFb: boolean }
+
+interface CellProps {
+  iCard: GetClassesICardIdResponse;
+  iUse: ItemType
+  numColumns: number;
+  load: boolean
+}
+
+
+const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
+  // const showFB = iUse.isFb;
+  const { isFb, unSatisfyDiscrib, time, satisfy, objectId } = iUse;
+  const done = moment(0, 'HH').isBefore(iUse.doneDate.iso);
+  const { iconAndColor = {}, sound, title, record, objectId: iCardId } = iCard;
+  const { width, height } = Dimensions.get('window')
+  const user = useGetUserInfo()
+  const { navigate } = useNavigation();
+
+
+
+  const doCard = async (doIt: () => void) => {
+
+    doIt();
+    try {
+      const { objectId: id } = await postClassesIDo({
+        user: point('_User', user?.objectId || ''),
+        type: 0,
+        iCard: point('iCard', iCardId),
+        iUse: point('iUse', objectId),
+        doneDate: { "__type": "Date", iso: new Date().toISOString() },
+      })
+      if (id) {
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+      } else {
+        doIt();
+      }
+    } catch (error) {
+      console.log('error', error);
+      SimpleToast.show(error.message)
+      doIt();
+    }
+  }
+
+  return (
+    <Item
+      numColumns={numColumns}
+      showFB={isFb}
+      openSound={sound?.open ?? false}
+      soundsKey={sound?.item.key}
+      key={title}
+      name={iconAndColor.name}
+      scWidth={numColumns === 7 ? Math.max(width, height) : Math.min(width, height)}
+      color={iconAndColor.color}
+      done={done}
+      title={title}
+      discrib={unSatisfyDiscrib || `第${time}日`}
+      onPress={async (flip, doIt) => {
+        // const iCardM = iCard.toJS()
+        // 如果没有强制打卡类型，则直接翻转
+
+        if (!flip && satisfy) {
+
+
+          // record?.length === 0 && doIt();
+          if (!load && !done) {
+
+            if (record?.length === 0) {
+              rate();
+              //直接打卡
+              doCard(doIt);
+            } else {
+              navigate(RouteKey.clockIn, { iUseId: objectId });
+            }
+
+            // await this.props.done(item);
+          }
+        } else {
+          navigate('card', {
+            iUseId: objectId,
+            iCardId,
+          });
+        }
+      }}
+    />
+  );
+
+}
+
 
 @connect(
   (state) => ({
@@ -50,24 +149,6 @@ interface StateType {
     user: state.user.data,
   }),
   (dispatch, props) => ({
-    // ...bindActionCreators({},dispatch)
-
-    // fbSearch: () => dispatch(search(false, {
-    //   where: {
-    //     ...dispatch(selfUser()),
-    //     doneDate: { $exists: false },
-    //     endDate: { $gte: { __type: 'Date', iso: moment().toISOString() } }
-    //   },
-    //   include: FLAG
-    // }, FLAGRECORD)),
-    // search1: () => dispatch(search(false, {
-    //   where: {
-    //     ...dispatch(selfUser()),
-    //     statu: 'start'
-    //   },
-    //   order: '-time',
-    //   include: `${ICARD},iCard.user`
-    // }, IUSE)),
     search: () => {
       dispatch(
         listReq(IUSE, iUseListParams(), false, {
@@ -91,12 +172,7 @@ interface StateType {
           },
         }),
       );
-    },
-    done: async (data) => {
-      // 评价
-      rate();
-      return dispatch(doCardWithNone(data));
-    },
+    }
   }),
 )
 export default class Punch extends Component<any, StateType> {
@@ -111,7 +187,7 @@ export default class Punch extends Component<any, StateType> {
   static propTypes = {};
 
   static defaultProps = {};
-
+  deEmitter?: EmitterSubscription;
   componentDidMount() {
     // this.props.search();
     // this.props.fbSearch();
@@ -121,15 +197,22 @@ export default class Punch extends Component<any, StateType> {
     // this.props.exist()
     // console.log('this.refs.list:', this.refs.list.scrollToOffset);
     isTablet() && Orientation.addOrientationListener(this._orientationDidChange);
+
+    this.deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
+
+      // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
+      this.props.search()
+    });
   }
 
   componentWillUnmount() {
     isTablet() && Orientation.removeOrientationListener(this._orientationDidChange);
+    this.deEmitter && this.deEmitter.remove();
   }
 
-  _orientationDidChange = (orientation) => {
+  _orientationDidChange = (orientation: string) => {
     if (orientation === 'LANDSCAPE') {
-      this.setState({ numColumns: 7 })
+      this.setState({ numColumns: 7, })
       // do something with landscape layout
     } else {
       this.setState({ numColumns: 5 })
@@ -139,7 +222,7 @@ export default class Punch extends Component<any, StateType> {
 
   openSmallTitle = false;
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: any) {
     // console.log('000');
     const { user, search } = this.props;
     if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
@@ -166,18 +249,17 @@ export default class Punch extends Component<any, StateType> {
 
   __renderNoData = (statu) => {
     const refreshLoad =
-      statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
+      statu === ListLoadType.LIST_FIRST_JOIN || statu === ListLoadType.LIST_LOAD_DATA;
     return (
       <ExceptionView
-        style={{ height: Dimensions.get('window').height / 2 }}
+        style={{ height: Dimensions.get('window').height / 1.6 }}
         exceptionType={
           refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
         }
-        tipBtnText="添加卡片"
-        refresh={refreshLoad}
-        prompt={refreshLoad ? '正在加载' : '暂无数据~'}
+        tipBtnText="重新加载"
+        // prompt={refreshLoad ? '正在加载～' : '暂无数据~'}
         onRefresh={() => {
-          this.props.navigation.navigate('newCard');
+          this.props.search()
         }}
       />
     );
@@ -192,7 +274,7 @@ export default class Punch extends Component<any, StateType> {
     <StyledHeaderTitle>{strings('app.name')}</StyledHeaderTitle>
   );
 
-  _renderSectionHeader = (info) => {
+  _renderSectionHeader = (info: any) => {
     // if (info.section.title.length === 0) {
     //   return <View style={{height: 30}} />;
     // }
@@ -205,61 +287,20 @@ export default class Punch extends Component<any, StateType> {
     );
   };
 
-  __renderItem = (data) => {
+  __renderItem = (data: { item: ItemType[] }) => {
     // return (<View/>)
     // const
     const views = data.item.map((item, index) => {
       const iCardId = item[ICARD];
       const iCard = this.props.iCard.get(iCardId);
-      const showFB = item.isFb;
-
-      // if (showFB) {
-      //   // TODO,这边感觉有点不安全。
-      //   const fr = this.state.frMap[iCardId];
-      //   const { objectId } = fr;
-      //   // const before = moment(startDate.iso);
-      //   // const after = moment(endDate.iso);
-      //   // const momentIn = moment().isBetween(before, after);
-      //   // if (momentIn) {
-      //   data.fr = objectId;
-      //   // }
-      // }
-
-      const done = moment(0, 'HH').isBefore(item.doneDate.iso);
-      let iconAndColor = iCard.get('iconAndColor');
-      iconAndColor = iconAndColor ? iconAndColor.toJS() : {};
-
-      let sound = iCard.get('sound');
-      sound = sound && sound.toJS && sound.toJS();
 
       return (
-        <Item
+        <RenderCell
+          key={item.objectId}
           numColumns={this.state.numColumns}
-          showFB={showFB}
-          openSound={sound?.open ?? false}
-          soundsKey={sound?.item.key}
-          key={index + iCard.get('title')}
-          name={iconAndColor.name}
-          color={iconAndColor.color}
-          done={done}
-          title={iCard.get('title')}
-          discrib={item.unSatisfyDiscrib || `第${item.time}日`}
-          onPress={async (flip, doIt) => {
-            // const iCardM = iCard.toJS()
-            // 如果没有强制打卡类型，则直接翻转
-
-            if (!flip && item.satisfy) {
-              iCard.get('record').size === 0 && doIt();
-              if (!this.props.load && !done) {
-                await this.props.done(item);
-              }
-            } else {
-              this.props.navigation.navigate('card', {
-                iUseId: item.objectId,
-                iCardId,
-              });
-            }
-          }}
+          iUse={item}
+          iCard={iCard.toJS()}
+          load={this.props.load}
         />
       );
     });
@@ -270,7 +311,7 @@ export default class Punch extends Component<any, StateType> {
   render() {
     const statu = this.props.data.get('loadStatu');
 
-    const data = this.props.data.toJS().listData;
+    const data = this.props.data.toJS().listData as GetClassesIUseIdResponse[];
     // 按条件分类
 
     const satisfy = [];
@@ -278,10 +319,10 @@ export default class Punch extends Component<any, StateType> {
     const sections = [];
     if (data.length > 0) {
       for (let i = 0, j = data.length; i < j; i++) {
-        const mData = this.props.iUse.get(data[i]).toJS();
-        const iCard = this.props.iCard.get(mData.iCard).toJS();
+        const mData = this.props.iUse.get(data[i]).toJS() as ItemType;
+        const iCard = this.props.iCard.get(mData.iCard).toJS() as GetClassesICardIdResponse;
         const week = new Date().getDay() === 0 ? 7 : new Date().getDay();
-        const recordDay = iCard.recordDay.sort((a, b) => a - b > 0);
+        const recordDay = iCard.recordDay.sort((a, b) => a - b);
 
         if (recordDay.indexOf(week) !== -1) {
           const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
@@ -379,7 +420,7 @@ export default class Punch extends Component<any, StateType> {
           keyExtractor={this._keyExtractor}
           ListHeaderComponent={this._renderHeader}
           ListFooterComponent={
-            data.length > 0 && <View style={{ height: 120 }} />
+            data.length > 0 ? <View style={{ height: 120 }} /> : null
           }
           ListEmptyComponent={() => this.__renderNoData(statu)}
         />
