@@ -11,6 +11,7 @@
 
 //1、创建一个全局实例,并且初始化为nil
 static AFHTTPSessionManager *manager = nil;
+static AFHTTPSessionManager *jsonManager = nil;
 @interface NetworkRequests()
 
 @end
@@ -30,6 +31,21 @@ static AFHTTPSessionManager *manager = nil;
     });
     
     return manager;
+}
+
++(AFHTTPSessionManager *)shareJsonAFManagerHandel{
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if(jsonManager == nil){
+            jsonManager = [AFHTTPSessionManager manager];
+            
+            //为afn manager设置后台需要的值
+            [self afnManagerSetValue:jsonManager];
+        }
+    });
+    
+    return jsonManager;
 }
 #pragma mark-------------AFNetworking请求-------------
 /**
@@ -80,19 +96,22 @@ static AFHTTPSessionManager *manager = nil;
     
     __block id obj;
     
-    AFHTTPSessionManager *session = [NetworkRequests shareAFManagerHandel];
+    AFHTTPSessionManager *session = [NetworkRequests shareJsonAFManagerHandel];
+    session.requestSerializer =  [AFJSONRequestSerializer serializer];
+    session.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"application/json"];
     if (header) {
       for (NSString *key in header.allKeys) {
         NSString *value =header[key];
-        [manager.requestSerializer setValue:value forHTTPHeaderField:key];//type
+        [jsonManager.requestSerializer setValue:value forHTTPHeaderField:key];//type
 
       }
     }
     if (param==nil) {
       param = [NSDictionary new];
     }
-    NSData *data = [NSJSONSerialization dataWithJSONObject:param options:0 error:NULL];
-    [session POST:urlStr parameters:data
+    
+    
+    [session POST:urlStr parameters:param
          progress:^(NSProgress * _Nonnull uploadProgress) {
              
          } success:^(NSURLSessionDataTask *task, id responseObject) {

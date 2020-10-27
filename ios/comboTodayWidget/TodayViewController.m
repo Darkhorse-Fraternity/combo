@@ -12,7 +12,7 @@
 #import <Masonry/Masonry.h>
 #import "EverydayHabitCell.h"
 
-#define isIpad (UI_USER_INTERFACE_IDIOM()== UIUserInterfaceIdiomPad)
+#define isIpad (([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] ? [[UIDevice currentDevice] userInterfaceIdiom] : UIUserInterfaceIdiomPhone)== UIUserInterfaceIdiomPad)
 #define LINEMAXHABITCOUNT  (isIpad ? 4 : 5)
 #define CELLHEIGTH  90
 @interface TodayViewController () <NCWidgetProviding,UICollectionViewDelegate, UICollectionViewDataSource>
@@ -39,38 +39,63 @@
     NSDictionary *myData = [NetworkRequests dictionaryWithJsonString:myDataStr];
     if (myData) {
         self.myData = myData;
-        NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",myData[@"host"]];
-        [NetworkRequests requestObjWithUrl:url andHeaderDic:myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
-          if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
-              NSMutableArray *arrayList = [NSMutableArray new];
-              NSArray *dicArray = dataDict[@"result"][@"iUseList"];
-              for (NSDictionary *dic in dicArray) {
-                  EverydayHabitModel *model = [EverydayHabitModel new];
-                  [model setModelWithDic:dic];
-                  if(model.isShow){
-                      [arrayList addObject:model];
-                  }
-              }
-              if (arrayList.count>0) {
-                self.habitCount = (int)arrayList.count;
-                self.collectArray = [arrayList copy];
-                [self setupUI];
-              }else{
-                [self setupNoDateV];
-                self.mianLab.text = @"恭喜您完成今日所有打卡！";
-                self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
-              }
-          }
-          NSLog(@"%@,dataDict",dataDict);
-        }];
+        [self iUseList2];
     }
     
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
   
 
 }
+//用户列表
+-(void)iUseList2{
+    NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",self.myData[@"host"]];
+    [NetworkRequests requestObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
+      if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
+          NSMutableArray *arrayList = [NSMutableArray new];
+          NSArray *dicArray = dataDict[@"result"][@"iUseList"];
+          for (NSDictionary *dic in dicArray) {
+              EverydayHabitModel *model = [EverydayHabitModel new];
+              [model setModelWithDic:dic];
+              [arrayList addObject:model];
+          }
+          if (arrayList.count>0) {
+            self.habitCount = (int)arrayList.count;
+            self.collectArray = [arrayList copy];
+            [self setupUI];
+          }else{
+            [self setupNoDateV];
+            self.mianLab.text = @"您暂时没有打卡项目！";
+            self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
+          }
+      }
+    }];
+}
+//打卡
+-(void)classesIDo:(EverydayHabitModel *)model{
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init] ;
+    dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.000'Z'";
+    
+    NSString *url = [NSString stringWithFormat:@"https://%@/classes/iDo",self.myData[@"host"]];
+    NSMutableDictionary *param = [NSMutableDictionary new];
+    param[@"doneDate"]=@{@"__type":@"Date",@"iso":[dateFormatter stringFromDate:[NSDate new]]};
+    param[@"iCard"]=@{@"__type":@"Pointer",@"className":@"iCard",@"objectId":model.iCard_objectId?:@""};
+    param[@"iUse"]=@{@"__type":@"Pointer",@"className":@"iUse",@"objectId":model.iUse_objectId?:@""};
+    param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":model.User_objectId?:@""};
+    param[@"type"]=@0;
+    
+    [NetworkRequests requestJsonObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
+      if (!error && dataDict) {
+          NSLog(@"%@,dataDict",dataDict);
+          [self iUseList2];
+      }
+    }];
+}
 //有数据
 -(void)setupUI{
+    if(self.collectionView && [self.collectionView superview]){
+        self.collectionView.frame = CGRectMake(0, 20, self.widgetWidth, (self.habitCount/LINEMAXHABITCOUNT+1)*CELLHEIGTH);
+        return;
+    }
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     flowLayout.itemSize = CGSizeMake(self.widgetWidth*1.0/LINEMAXHABITCOUNT, CELLHEIGTH);
@@ -108,23 +133,10 @@
     [cell setModel:model andIndexPath:indexPath withTapBlock:^(EverydayHabitModel * _Nonnull model) {
         
         if (model.canDone) {//能打卡
-            NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init] ;
-            dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.000'Z'";
-            
-            NSString *url = [NSString stringWithFormat:@"https://%@/classes/iDo",self.myData[@"host"]];
-            NSMutableDictionary *param = [NSMutableDictionary new];
-            param[@"doneDate"]=@{@"__type":@"Date",@"iso":[dateFormatter stringFromDate:[NSDate new]]};
-            param[@"iCard"]=@{@"__type":@"Pointer",@"className":@"iCard",@"objectId":model.iCard_objectId?:@""};
-            param[@"iUse"]=@{@"__type":@"Pointer",@"className":@"iUse",@"objectId":model.iUse_objectId?:@""};
-            param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":model.User_objectId?:@""};
-            param[@"type"]=@0;
-            NSLog(@"%@,param",param);
-            [NetworkRequests requestJsonObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
-              if (!error && dataDict && dataDict[@"result"]) {
-                  NSLog(@"%@,dataDict",dataDict);
-              }
-              NSLog(@"%@,error",error);
-            }];
+            if (model.isDone) {//已打卡的
+                return;
+            }
+            [self classesIDo:model];
         }else{//不能打卡去首页
             [self.extensionContext openURL:[NSURL URLWithString:@"combo://combo/done"] completionHandler:nil];
         }
@@ -133,7 +145,6 @@
       
     return cell;
 }
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
 }
