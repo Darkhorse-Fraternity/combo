@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -11,8 +11,8 @@ import {
   Platform,
   Linking,
 } from 'react-native';
-import {connect} from 'react-redux';
-import Rate, {AndroidMarket} from 'react-native-rate';
+import { connect } from 'react-redux';
+import Rate, { AndroidMarket } from 'react-native-rate';
 import DeviceInfo from 'react-native-device-info';
 import Button from '../../components/Button/index';
 
@@ -30,18 +30,18 @@ import {
   StyledEntypoIcon,
   StyledInnerContent,
 } from './style';
-import {req} from '../../redux/actions/req';
-import {FRIENDNUM} from '../../redux/reqKeys';
-import {friendNum, updateNickName} from '../../request/leanCloud';
+import { req } from '../../redux/actions/req';
+import { FRIENDNUM } from '../../redux/reqKeys';
+import { friendNum, updateNickName } from '../../request/leanCloud';
 import Avatar from '../../components/Avatar';
 
 @connect(
-  state => ({
+  (state) => ({
     loadAvatar: state.util.get('loadAvatar'),
     user: state.user,
     friendNum: state.req.get(FRIENDNUM + state.user.data.objectId),
   }),
-  dispatch => ({
+  (dispatch) => ({
     loadFriendNum: () => {
       dispatch((dispatch, getState) => {
         const userId = getState().user.data.objectId;
@@ -67,7 +67,7 @@ import Avatar from '../../components/Avatar';
         openAppStoreIfInAppFails: true,
         fallbackPlatformURL: 'https://icouage.cn/',
       };
-      Rate.rate(options, success => {
+      Rate.rate(options, (success) => {
         if (success) {
           console.log('Rate success');
           // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
@@ -100,7 +100,7 @@ export default class More extends Component {
   );
 
   _renderFollow = () => {
-    const {friendNum, navigation} = this.props;
+    const { friendNum, navigation } = this.props;
     let followers_count = 0;
     let followees_count = 0;
     const friendNumData = friendNum && friendNum.toJS();
@@ -118,7 +118,7 @@ export default class More extends Component {
       <StyleFolllow>
         {followees_count > 0 && (
           <Button
-            style={{alignItems: 'center'}}
+            style={{ alignItems: 'center' }}
             onPress={() => {
               navigation.navigate('followee', {
                 userId: this.props.user.data.objectId,
@@ -133,7 +133,7 @@ export default class More extends Component {
         {followers_count > 0 && <StyleFollowDevide />}
         {followers_count > 0 && (
           <Button
-            style={{alignItems: 'center'}}
+            style={{ alignItems: 'center' }}
             onPress={() => {
               navigation.navigate('follower', {
                 userId: this.props.user.data.objectId,
@@ -149,8 +149,8 @@ export default class More extends Component {
   _renderHeadRow() {
     // let {grade_str,connect_phone} = data;
     // console.log('test111:',data.avatar.url)
-    const {loadAvatar, user} = this.props;
-    const {data, isTourist} = user;
+    const { loadAvatar, user } = this.props;
+    const { data, isTourist } = user;
 
     const name = isTourist ? '点击登录' : data.nickname || '匿名';
 
@@ -190,12 +190,12 @@ export default class More extends Component {
   }
 
   __renderLoginRow() {
-    const {navigation, user, rate} = this.props;
-    const {isTourist} = user;
+    const { navigation, user, rate } = this.props;
+    const { isTourist } = user;
 
     let rows = [
       this.renderRow('已暂停习惯', true, () => {
-        navigation.navigate('record', {statu: 'stop'});
+        navigation.navigate('record', { statu: 'stop' });
       }),
 
       this.renderRow('习惯提醒', true, () => {
@@ -207,19 +207,19 @@ export default class More extends Component {
       }),
 
       !isTourist &&
-        this.renderRow('我的钱包', true, () => {
-          navigation.navigate('earnings');
-        }),
+      this.renderRow('我的钱包', true, () => {
+        navigation.navigate('earnings');
+      }),
 
       !isTourist &&
-        this.renderRow('粉丝查看', false, () => {
-          navigation.navigate('follow', {userId: user.data.objectId});
-        }),
+      this.renderRow('粉丝查看', false, () => {
+        navigation.navigate('follow', { userId: user.data.objectId });
+      }),
 
       this.renderRow('好评鼓励', false, rate),
 
       this.renderRow('微博反馈', false, () => {
-        Linking.canOpenURL('sinaweibo://').then(supported => {
+        Linking.canOpenURL('sinaweibo://').then((supported) => {
           // weixin://  alipay://
           if (supported) {
             Linking.openURL('sinaweibo://userinfo?uid=6861885697');
@@ -231,10 +231,10 @@ export default class More extends Component {
           }
         });
       }),
-      <View key="height" styles={{height: 100}} />,
+      <View key="height" styles={{ height: 100 }} />,
     ];
 
-    rows = rows.filter(item => !!item);
+    rows = rows.filter((item) => !!item);
 
     const count = rows.length + 1;
     let up = 0;
@@ -242,7 +242,7 @@ export default class More extends Component {
       rows.splice(
         index + up,
         0,
-        <View key={`index${index}`} style={{height: 20}} />,
+        <View key={`index${index}`} style={{ height: 20 }} />,
       );
       up += 1;
     }
@@ -253,12 +253,12 @@ export default class More extends Component {
   renderRow(
     title: string,
     isArraw: bool = false,
-    onPress: Function = () => {},
+    onPress: Function = () => { },
     description: any = null,
   ) {
     return (
       <Button key={title} onPress={onPress} style={[styles.row]}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           {/* <Image
                          resizeMode='contain'
                          source={source}
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth * 2,
     borderRightWidth: StyleSheet.hairlineWidth * 2,
     borderColor: '#8c8c85',
-    transform: [{rotate: '315deg'}],
+    transform: [{ rotate: '315deg' }],
     marginRight: 5,
     width: 10,
     height: 10,

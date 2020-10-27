@@ -1,6 +1,6 @@
 import React from 'react';
-import {Platform} from 'react-native';
-import {StyledTips} from './style';
+import { Platform } from 'react-native';
+import { StyledTips } from './style';
 
 export const NoticeTip = () => {
   if (Platform.OS === 'android') {
