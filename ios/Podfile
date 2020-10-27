@@ -14,6 +14,7 @@ target 'Combo' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'MBProgressHUD', '~> 1.0.0'
   pod 'AFNetworking', '~> 3.2.1'
   pod 'Masonry', '~> 1.1.0'
   pod 'SDWebImage', '~> 5.8.0'
@@ -28,7 +29,8 @@ target 'Combo' do
 end
 
 target 'comboTodayWidget' do 
-
+  
+  pod 'MBProgressHUD', '~> 1.0.0'
   pod 'AFNetworking', '~> 3.2.1'
   pod 'Masonry', '~> 1.1.0'
   pod 'SDWebImage', '~> 5.8.0'

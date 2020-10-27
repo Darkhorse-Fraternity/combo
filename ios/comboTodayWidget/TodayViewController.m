@@ -11,6 +11,7 @@
 #import "NetworkRequests.h"
 #import <Masonry/Masonry.h>
 #import "EverydayHabitCell.h"
+#import "TTProgressHUD.h"
 
 #define isIpad (([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] ? [[UIDevice currentDevice] userInterfaceIdiom] : UIUserInterfaceIdiomPhone)== UIUserInterfaceIdiomPad)
 #define LINEMAXHABITCOUNT  (isIpad ? 4 : 5)
@@ -94,6 +95,7 @@
 -(void)setupUI{
     if(self.collectionView && [self.collectionView superview]){
         self.collectionView.frame = CGRectMake(0, 20, self.widgetWidth, (self.habitCount/LINEMAXHABITCOUNT+1)*CELLHEIGTH);
+        [self.collectionView reloadData];
         return;
     }
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
@@ -134,6 +136,9 @@
         
         if (model.canDone) {//能打卡
             if (model.isDone) {//已打卡的
+                NSString *text =[NSString stringWithFormat:@"【%@】此项已打卡",model.title];
+                ShowOnlyTextHUD(text);
+                
                 return;
             }
             [self classesIDo:model];
