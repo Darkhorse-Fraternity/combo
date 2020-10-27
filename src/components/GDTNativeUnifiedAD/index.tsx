@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, memo} from 'react';
+import React, { useEffect, useRef, memo } from 'react';
 
-import {NativeModules, requireNativeComponent, ViewProps} from 'react-native';
+import { NativeModules, requireNativeComponent, ViewProps } from 'react-native';
 
-const {RNGDTNativeUnifiedAD} = NativeModules;
+const { RNGDTNativeUnifiedAD } = NativeModules;
 
 interface InfoType {
   appId: string;
@@ -29,7 +29,7 @@ const NativeUnifiedADView = requireNativeComponent<NativeUnifiedADViewType>(
 
 // let countPool = [];
 
-const NativeUnifiedAutoDataADView = (props: {count: number}) => {
+const NativeUnifiedAutoDataADView = (props: { count: number }) => {
   const ref = useRef(-1);
   useEffect(() => {
     ref.current = Math.random() * props.count;

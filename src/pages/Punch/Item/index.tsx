@@ -26,9 +26,6 @@ import Sounds from 'react-native-sound';
 import { soundsSource, SoundsType } from '@configure/source';
 import { isLandscapeSync, isTablet } from 'react-native-device-info';
 
-
-
-
 interface PunchItemProps {
   done: boolean;
   soundsKey?: string;
@@ -42,14 +39,13 @@ interface PunchItemProps {
 
 interface PunchItemState {
   flip: boolean;
-  isLandscape: boolean
-
+  isLandscape: boolean;
 }
 
 export default class PunchItem extends PureComponent<
   PunchItemProps,
   PunchItemState
-  > {
+> {
   constructor(props: PunchItemProps) {
     super(props);
     if (props.openSound && props.soundsKey) {
@@ -71,7 +67,7 @@ export default class PunchItem extends PureComponent<
     name: 'sun',
     color: '#afd2ef',
     showFB: false,
-    scWidth: Dimensions.get('window').width
+    scWidth: Dimensions.get('window').width,
   };
 
   flipDo = () => {
@@ -86,7 +82,10 @@ export default class PunchItem extends PureComponent<
     }
   };
 
-  debounceFlip = debounce(this.flipDo, 1000, { leading: false, trailing: true });
+  debounceFlip = debounce(this.flipDo, 1000, {
+    leading: false,
+    trailing: true,
+  });
 
   componentWillReceiveProps(nextProps) {
     // TODO： 这边这样设置会有反复哦，所以这边就先避免了
@@ -96,14 +95,9 @@ export default class PunchItem extends PureComponent<
     this.debounceFlip();
   }
 
-
-
-
-
   componentWillUnmount() {
     this.sound?.release();
   }
-
 
   render() {
     const {
@@ -123,7 +117,6 @@ export default class PunchItem extends PureComponent<
 
     const right = isTablet() ? 15 : 10;
 
-
     // const { width, height } = Dimensions.get('window');
     const minWidth = this.props.scWidth || 0;
     // console.log('height', height);
@@ -133,10 +126,6 @@ export default class PunchItem extends PureComponent<
     const itemWidth =
       (minWidth - 40 - right * (this.props.numColumns - 1)) /
       this.props.numColumns;
-
-
-
-
 
     const iconWidth = itemWidth / 2; // 4.0.8
     return (
@@ -174,8 +163,8 @@ export default class PunchItem extends PureComponent<
                   <StyledFBText>副本</StyledFBText>
                 </StyledFB>
               ) : (
-                  <View />
-                )}
+                <View />
+              )}
               <StyledCardDis>{discrib}</StyledCardDis>
             </StyledTop>
             <StyledInner height={iconWidth}>

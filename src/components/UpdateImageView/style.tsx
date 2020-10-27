@@ -24,9 +24,11 @@ export const StyledMainView = styled.View<StyledbackgroundColorProps>`
 //itme布局
 export const StyledListItemV = styled.View<StyledListItemVProps>`
   width: ${(props) =>
-    (props.theme.width - 30 - (props.countInrow - 1) * 7) / props.countInrow}px;
+    (props.theme.getWidth() - 30 - (props.countInrow - 1) * 7) /
+    props.countInrow}px;
   height: ${(props) =>
-    (props.theme.width - 30 - (props.countInrow - 1) * 7) / props.countInrow}px;
+    (props.theme.getWidth() - 30 - (props.countInrow - 1) * 7) /
+    props.countInrow}px;
   margin-left: ${(props) => (props.index % props.countInrow === 0 ? 0 : 7)}px;
   margin-top: ${(props) => (props.index < props.countInrow ? 0 : 7)}px;
   border-radius: 5px;

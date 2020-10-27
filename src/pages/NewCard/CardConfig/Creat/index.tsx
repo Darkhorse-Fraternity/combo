@@ -22,7 +22,6 @@ import { selfUser, iCard } from '../../../../request/LCModle';
 import Main from '../Main';
 import { defaultHabit } from '../../../../configure/habit';
 
-
 import { popToIndex } from '../../../../redux/nav'; // <-- same as form name
 
 import {

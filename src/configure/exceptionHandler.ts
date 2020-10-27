@@ -2,10 +2,10 @@ import {
   setJSExceptionHandler,
   setNativeExceptionHandler,
 } from 'react-native-exception-handler';
-import {Alert, Platform} from 'react-native';
+import { Alert, Platform } from 'react-native';
 import RNRestart from 'react-native-restart';
 import DeviceInfo from 'react-native-device-info';
-import {strings} from '../../locales/i18n';
+import { strings } from '../../locales/i18n';
 import tracker from './googleAnalytics';
 
 const allowInDevMode = false;

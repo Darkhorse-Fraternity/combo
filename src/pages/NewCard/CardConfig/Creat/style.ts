@@ -4,7 +4,7 @@
  */
 
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import HeaderBtn from '../../../../components/Button/HeaderBtn';
 
 export const StyledContent = styled(SafeAreaView)`

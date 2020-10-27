@@ -55,7 +55,16 @@ import { AvatarAuto } from '../../../components/Avatar/avatar-fc';
 
 import KeyboardSpacer from '@components/KeyboardSpacer';
 import { RouteKey } from '@pages/interface';
-import { getClassesIComment, GetClassesICommentResponse, GetClassesIDoIdResponse, putClassesIDoId, useDeleteClassesICommentId, useGetClassesIDoId, usePostClassesIComment, usePutClassesIDoId } from 'src/hooks/interface';
+import {
+  getClassesIComment,
+  GetClassesICommentResponse,
+  GetClassesIDoIdResponse,
+  putClassesIDoId,
+  useDeleteClassesICommentId,
+  useGetClassesIDoId,
+  usePostClassesIComment,
+  usePutClassesIDoId,
+} from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { useGetUserInfo } from 'src/data/data-context';
 import PageList from '@components/Base/PageList';
@@ -63,26 +72,24 @@ import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { LoadAnimation } from '@components/Load';
 import { DeviceEventEmitterKey } from '@configure/enum';
 
-
-
-
 type ItemType = NonNullable<GetClassesICommentResponse['results']>[number];
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
 const Name = 'text';
 
-
-
 const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   const { data, run } = useGetClassesIDoId({ id: iDoId });
-  const { run: deleteRun, loading: deleteLoading, data: deleteData } =
-    usePutClassesIDoId({ id: iDoId, state: -1 }, { manual: true });
+  const {
+    run: deleteRun,
+    loading: deleteLoading,
+    data: deleteData,
+  } = usePutClassesIDoId({ id: iDoId, state: -1 }, { manual: true });
   const { setOptions, goBack } = useNavigation();
 
   useEffect(() => {
     if (deleteData) {
-      goBack()
+      goBack();
       DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
     }
   }, [deleteData]);
@@ -91,102 +98,112 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   useEffect(() => {
     if (data && first.current) {
       setOptions({
-        headerRight: () => <RenderRightView iDo={data} load={deleteLoading} onDelete={() => {
-          Alert.alert('确定删除?', '删除后不可恢复~！', [
-            { text: '取消' },
-            {
-              text: '确定',
-              onPress: deleteRun,
-            },
-          ]);
-
-
-        }} />
-      })
+        headerRight: () => (
+          <RenderRightView
+            iDo={data}
+            load={deleteLoading}
+            onDelete={() => {
+              Alert.alert('确定删除?', '删除后不可恢复~！', [
+                { text: '取消' },
+                {
+                  text: '确定',
+                  onPress: deleteRun,
+                },
+              ]);
+            }}
+          />
+        ),
+      });
       first.current = false;
     }
     return () => {
       Keyboard.dismiss();
-    }
-  }, [data])
+    };
+  }, [data]);
 
   useEffect(() => {
-    const deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
-      run()
-    });
+    const deEmitter = DeviceEventEmitter.addListener(
+      DeviceEventEmitterKey.iDO_Reload,
+      () => {
+        run();
+      },
+    );
     return () => {
-      deEmitter.remove()
-    }
-  }, [run])
+      deEmitter.remove();
+    };
+  }, [run]);
 
   if (!data) {
-    return <LoadAnimation />
+    return <LoadAnimation />;
   }
+  return <StyledHeader>{data && <RecordRow item={data} />}</StyledHeader>;
+};
+
+const RenderRightView: FC<{
+  iDo: GetClassesIDoIdResponse;
+  load: boolean;
+  onDelete: () => void;
+}> = ({ iDo, load, onDelete }) => {
+  const { navigate } = useNavigation();
+  const user = useGetUserInfo();
+
+  // console.log('user?.objectId !== iDo.user.objectId', user?.objectId);
+  // console.log('user?.objectId !== iDo.user.objectId', iDo);
+
+  if (user?.objectId !== iDo?.user.objectId) {
+    return null;
+  }
+
   return (
-    <StyledHeader>{data && (<RecordRow item={data} />)}</StyledHeader>
+    <StyledRightView>
+      <Button
+        disabled={load}
+        background={
+          TouchableNativeFeedback.SelectableBackgroundBorderless &&
+          TouchableNativeFeedback.SelectableBackgroundBorderless()
+        }
+        onPress={() => {
+          // reEdit(iDoData.toJS());
+          navigate(RouteKey.clockIn, {
+            iUseId: iDo.iUse.objectId,
+            iDoId: iDo.objectId,
+          });
+        }}
+        style={{ paddingHorizontal: 10 }}>
+        <StyledIcon size={20} color="black" name="edit" />
+      </Button>
+      <Button
+        loading={load}
+        background={
+          TouchableNativeFeedback.SelectableBackgroundBorderless &&
+          TouchableNativeFeedback.SelectableBackgroundBorderless()
+        }
+        onPress={onDelete}
+        style={{ paddingHorizontal: 10 }}>
+        {load ? (
+          <ActivityIndicator />
+        ) : (
+          <StyledIcon size={20} color="black" name="close" />
+        )}
+      </Button>
+    </StyledRightView>
   );
 };
 
-const RenderRightView: FC<{ iDo: GetClassesIDoIdResponse, load: boolean, onDelete: () => void }> =
-  ({ iDo, load, onDelete }) => {
-    const { navigate } = useNavigation();
-    const user = useGetUserInfo();
-
-
-    // console.log('user?.objectId !== iDo.user.objectId', user?.objectId);
-    // console.log('user?.objectId !== iDo.user.objectId', iDo);
-
-    if (user?.objectId !== iDo?.user.objectId) {
-      return null;
-    }
-
-
-
-
-    return (
-      <StyledRightView>
-        <Button
-          disabled={load}
-          background={
-            TouchableNativeFeedback.SelectableBackgroundBorderless &&
-            TouchableNativeFeedback.SelectableBackgroundBorderless()
-          }
-          onPress={() => {
-            // reEdit(iDoData.toJS());
-            navigate(RouteKey.clockIn, { iUseId: iDo.iUse.objectId, iDoId: iDo.objectId })
-          }}
-          style={{ paddingHorizontal: 10 }}>
-          <StyledIcon size={20} color="black" name="edit" />
-        </Button>
-        <Button
-          loading={load}
-          background={
-            TouchableNativeFeedback.SelectableBackgroundBorderless &&
-            TouchableNativeFeedback.SelectableBackgroundBorderless()
-          }
-          onPress={onDelete}
-          style={{ paddingHorizontal: 10 }}>
-          {load ? (
-            <ActivityIndicator />
-          ) : (
-              <StyledIcon size={20} color="black" name="close" />
-            )}
-        </Button>
-      </StyledRightView>
-    );
-  }
-
-
-
-const RenderRow: FC<{ item: ItemType, listRef?: React.RefObject<PageList<ItemType>> }> = ({ item, listRef }) => {
+const RenderRow: FC<{
+  item: ItemType;
+  listRef?: React.RefObject<PageList<ItemType>>;
+}> = ({ item, listRef }) => {
   const { objectId } = item;
   const user = useGetUserInfo();
   const { navigate } = useNavigation();
   // const {user} = this.props;
   const date = moment(item.createdAt).format('MM/DD HH:mm');
 
-
-  const { run } = useDeleteClassesICommentId({ id: objectId }, { manual: true })
+  const { run } = useDeleteClassesICommentId(
+    { id: objectId },
+    { manual: true },
+  );
 
   return (
     <StyledRow
@@ -211,12 +228,9 @@ const RenderRow: FC<{ item: ItemType, listRef?: React.RefObject<PageList<ItemTyp
             // Todo 删除评论
             try {
               await run();
-              listRef?.current?.reload()
-            } catch (error) {
-
-            }
+              listRef?.current?.reload();
+            } catch (error) {}
           }
-
         }
       }}>
       <StyledRowLeft>
@@ -226,9 +240,11 @@ const RenderRow: FC<{ item: ItemType, listRef?: React.RefObject<PageList<ItemTyp
               userId: item.user.objectId,
             });
           }}>
-          <AvatarAuto radius={15}
+          <AvatarAuto
+            radius={15}
             headimgurl={item.user.headimgurl || ''}
-            avatarUrl={item.user.avatar?.url || ''} />
+            avatarUrl={item.user.avatar?.url || ''}
+          />
         </TouchableOpacity>
       </StyledRowLeft>
       <StyledRowRight>
@@ -240,12 +256,9 @@ const RenderRow: FC<{ item: ItemType, listRef?: React.RefObject<PageList<ItemTyp
       </StyledRowRight>
     </StyledRow>
   );
-}
+};
 
-
-
-
-const onKeyboardResigned = () => { }
+const onKeyboardResigned = () => {};
 
 interface KeyboardAccessoryViewContentProps {
   // disabled: boolean,
@@ -253,9 +266,8 @@ interface KeyboardAccessoryViewContentProps {
   // load: boolean;
   inputRef?: React.MutableRefObject<TextInput | undefined>;
   listRef?: React.RefObject<PageList<ItemType>>;
-  iDoId: string
+  iDoId: string;
 }
-
 
 const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
   // disabled,
@@ -263,32 +275,36 @@ const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
   // load,
   inputRef,
   listRef,
-  iDoId
+  iDoId,
 }) => {
   const user = useGetUserInfo();
-  const [state, setState] = useState('')
-  const { loading, run } = usePostClassesIComment({
-    text: state,
-    user: userPoint(user?.objectId!),
-    iDo: iDoPoint(iDoId)
-  }, { manual: true })
+  const [state, setState] = useState('');
+  const { loading, run } = usePostClassesIComment(
+    {
+      text: state,
+      user: userPoint(user?.objectId!),
+      iDo: iDoPoint(iDoId),
+    },
+    { manual: true },
+  );
 
-  const InnerContainerComponent = (IsIOS && BlurView ? BlurView : View) as typeof BlurView;
-
+  const InnerContainerComponent = (IsIOS && BlurView
+    ? BlurView
+    : View) as typeof BlurView;
 
   const onSubmit = async () => {
     const res = await run();
     if (res.objectId) {
       setState('');
-      listRef?.current?.reload()
+      listRef?.current?.reload();
       Keyboard.dismiss();
     }
     // refresh();
-  }
+  };
 
   return (
     <Animatable.View useNativeDriver animation="fadeInUp">
-      <InnerContainerComponent blurType="xlight" >
+      <InnerContainerComponent blurType="xlight">
         <Form>
           {/* <View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/> */}
           <StyleAutoGrowingChatTextInput
@@ -307,42 +323,43 @@ const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
             loading={loading}
             style={{ width: 41, paddingHorizontal: 5 }}
             hitSlop={{
-              top: 10, left: 0, bottom: 10, right: 0
+              top: 10,
+              left: 0,
+              bottom: 10,
+              right: 0,
             }}
-            onPress={onSubmit}
-          >
-            <StyledSumbitBtnText disabled={state.length === 0}>发送</StyledSumbitBtnText>
+            onPress={onSubmit}>
+            <StyledSumbitBtnText disabled={state.length === 0}>
+              发送
+            </StyledSumbitBtnText>
           </StyledSumbitBtn>
         </Form>
       </InnerContainerComponent>
     </Animatable.View>
   );
-}
+};
 
-
-interface RCommentProps {
-
-}
+interface RCommentProps {}
 
 const RComment: FC<RCommentProps> = (props) => {
   const { iDoID } = useNavigationAllParamsWithType<RouteKey.rcomment>();
 
-  const ref = useRef<PageList<ItemType>>(null)
+  const ref = useRef<PageList<ItemType>>(null);
 
   const kbInputRef = useRef<TextInput>();
 
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
       iDo: iDoPoint(iDoID),
-    }
+    };
     const param = {
       limit: page_size + '',
       skip: page_index * page_size + '',
       include: 'user',
       order: '-createdAt',
-      where: JSON.stringify(where)
-    }
-    return getClassesIComment(param).then(res => {
+      where: JSON.stringify(where),
+    };
+    return getClassesIComment(param).then((res) => {
       const { results } = res;
       return results;
     });
@@ -367,7 +384,13 @@ const RComment: FC<RCommentProps> = (props) => {
       {Platform.OS === 'ios' && (
         <KeyboardAccessoryView
           iOSScrollBehavior={1}
-          renderContent={() => (<KeyboardAccessoryViewContent iDoId={iDoID} listRef={ref} inputRef={kbInputRef} />)}
+          renderContent={() => (
+            <KeyboardAccessoryViewContent
+              iDoId={iDoID}
+              listRef={ref}
+              inputRef={kbInputRef}
+            />
+          )}
           trackInteractive={TrackInteractive}
           kbInputRef={kbInputRef.current}
           onKeyboardResigned={onKeyboardResigned}
@@ -375,11 +398,12 @@ const RComment: FC<RCommentProps> = (props) => {
         />
       )}
 
-      {Platform.OS !== 'ios' && <KeyboardAccessoryViewContent listRef={ref} iDoId={iDoID} />}
+      {Platform.OS !== 'ios' && (
+        <KeyboardAccessoryViewContent listRef={ref} iDoId={iDoID} />
+      )}
       {Platform.OS !== 'ios' && <KeyboardSpacer />}
     </>
-  )
-}
+  );
+};
 
-
-export default RComment
+export default RComment;

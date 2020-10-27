@@ -5,23 +5,19 @@
 'use strict';
 
 import React, { FC, PureComponent } from 'react';
-import CardCell from '../CardCell'
+import CardCell from '../CardCell';
 
-import {
-  StyledRow,
-  StyledMain
-} from './style'
+import { StyledRow, StyledMain } from './style';
 
 interface CardItemType {
   title: string;
   icon: string;
   color: string;
-
 }
 
 interface CardTemplateType {
   data: CardItemType[];
-  onPress: Function
+  onPress: Function;
 }
 
 const CardTemplate: FC<CardTemplateType> = (props) => {
@@ -29,12 +25,11 @@ const CardTemplate: FC<CardTemplateType> = (props) => {
   const res: CardItemType[][] = [];
   if (data.length > 0) {
     for (let index = 0; index < data.length; index += 4) {
-      res.push(data.slice(index, index + 4))
+      res.push(data.slice(index, index + 4));
     }
   }
 
   console.log('res', res.length);
-
 
   return res.map((cell, index) => (
     <StyledRow key={index + ''}>
@@ -45,12 +40,12 @@ const CardTemplate: FC<CardTemplateType> = (props) => {
           name={item.icon}
           color={item.color}
           onPress={() => {
-            onPress && onPress(item)
-          }} />
+            onPress && onPress(item);
+          }}
+        />
       ))}
     </StyledRow>
-  ))
+  ));
+};
 
-}
-
-export default CardTemplate
+export default CardTemplate;

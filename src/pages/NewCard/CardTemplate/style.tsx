@@ -4,15 +4,13 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
-
-
+import styled from 'styled-components/native';
 
 export const StyledRow = styled.View`
-    flex-direction: row;
-    flex-wrap: wrap;
-    overflow: hidden;
-`
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+`;
 export const StyledMain = styled.View`
-    flex-direction: row;
-`
+  flex-direction: row;
+`;

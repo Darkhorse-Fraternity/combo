@@ -9,18 +9,18 @@ import {
   StyledLine2,
   StyleAgree,
 } from './style';
-import Modal, {ModalProps} from 'react-native-modal';
-import React, {useState, useEffect} from 'react';
-import {BackHandler} from 'react-native';
-import {appChannel, app_channel} from '@helps/util';
-import {useAsyncStorage} from '@react-native-community/async-storage';
-import {useNavigation, useIsFocused} from '@react-navigation/native';
+import Modal, { ModalProps } from 'react-native-modal';
+import React, { useState, useEffect } from 'react';
+import { BackHandler } from 'react-native';
+import { appChannel, app_channel } from '@helps/util';
+import { useAsyncStorage } from '@react-native-community/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 interface PrivacyModal {}
 
 export const PrivacyModal = (props: PrivacyModal) => {
   const [state, setState] = useState(false);
-  const {setItem, getItem} = useAsyncStorage('PrivacyModal_Show');
+  const { setItem, getItem } = useAsyncStorage('PrivacyModal_Show');
   const navgaition = useNavigation();
 
   const check = async () => {

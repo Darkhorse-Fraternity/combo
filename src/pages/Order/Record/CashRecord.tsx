@@ -3,18 +3,13 @@
  * @flow
  */
 
-
 import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { selfUser } from '../../../request/LCModle';
 import { ENCH } from '../../../redux/reqKeys';
-import {
-  StyledContent,
-} from './style';
+import { StyledContent } from './style';
 
 import {
   StyledRow,
@@ -22,16 +17,12 @@ import {
   StyledRowDate,
   StyledRowAmount,
   StyledRowStatu,
-  StyledRowInner
+  StyledRowInner,
 } from './style';
 import LCList from '../../../components/Base/LCList';
 
 const listKey = ENCH;
-@connect(
-  state => ({}),
-)
-
-
+@connect((state) => ({}))
 export default class CashRecord extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -40,7 +31,6 @@ export default class CashRecord extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {};
-
 
   renderRow = ({ item, index }: Object) => {
     let statu = '处理中';
@@ -57,10 +47,7 @@ export default class CashRecord extends PureComponent {
             申请单号：
             {item.enchId}
           </StyledRowTitle>
-          <StyledRowAmount>
-            ￥
-            {item.amount}
-          </StyledRowAmount>
+          <StyledRowAmount>￥{item.amount}</StyledRowAmount>
         </StyledRowInner>
         <StyledRowInner style={{ marginTop: 10 }}>
           <StyledRowDate>
@@ -68,22 +55,19 @@ export default class CashRecord extends PureComponent {
             {moment(item.createdAt).format('YYYY-MM-DD')}
           </StyledRowDate>
 
-          <StyledRowStatu>
-            {statu}
-          </StyledRowStatu>
+          <StyledRowStatu>{statu}</StyledRowStatu>
         </StyledRowInner>
       </StyledRow>
     );
-  }
+  };
 
   render(): ReactElement<any> {
     const { dispatch } = this.props;
     const param = {
       where: {
-        ...dispatch(selfUser())
-      }
+        ...dispatch(selfUser()),
+      },
     };
-
 
     return (
       <LCList

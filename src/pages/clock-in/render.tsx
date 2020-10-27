@@ -44,6 +44,7 @@ import { iUsePoint, user as UserM } from '@request/LCModle';
 import moment from 'moment';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { isTablet } from 'react-native-device-info';
+import { useOrientation } from '@components/util/hooks';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -337,6 +338,8 @@ const Render: FC<{}> = () => {
 
   // }, [])
 
+  const ori = useOrientation();
+
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
 
   return (
@@ -363,7 +366,9 @@ const Render: FC<{}> = () => {
           control={control}
           // data={imgs}
           onPress={Keyboard.dismiss}
-          countInrow={countInrow}
+          countInrow={
+            ori === 'PORTRAIT' || ori === 'PORTRAITUPSIDEDOWN' ? countInrow : 9
+          }
           maxNumber={maxNumber}
           // onChange={onChangeImageArray}
           as={CustomImagePick}

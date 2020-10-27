@@ -3,14 +3,10 @@
  * @flow
  */
 
-
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Dimensions
-} from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -30,16 +26,14 @@ import {
   StyledMain,
   StyledDateView,
   StyledDateTextBig,
-  StyledDateTextSmall
+  StyledDateTextSmall,
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
 
 // static displayName = RecordRow
-@connect(
-  state => ({
-    user: state.user.data
-  }),
-)
+@connect((state) => ({
+  user: state.user.data,
+}))
 export default class RecordRow extends Component {
   constructor(props: Object) {
     super(props);
@@ -60,41 +54,33 @@ export default class RecordRow extends Component {
     showImage: false,
   };
 
-
   // shouldComponentUpdate(nextProps: Object) {
   //     return !immutable.is(this.props, nextProps)
   // }
 
-  chatBtnRef = 0
+  chatBtnRef = 0;
 
   _renderChatBtn = (item) => {
-    const {
-      commentNew, commentNum, user, objectId
-    } = item;
+    const { commentNew, commentNum, user, objectId } = item;
 
     return (
       <StyledChatbtn
         onPress={() => {
-          this.props.navigation
-            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
-        }}
-      >
+          this.props.navigation &&
+            this.props.navigation.navigate('rcomment', { iDoID: objectId });
+        }}>
         {/* <Image style={{width:20,height:20}} source={icon}/> */}
-        {commentNew && user === this.props.user.objectId
-          && (<StyledNewTip />)}
-        {commentNum > 0
-          && (
-            <StyledChatBtnText
-              numberOfLines={1}
-            >
-              {item.commentNum}
-            </StyledChatBtnText>
-          )}
+        {commentNew && user === this.props.user.objectId && <StyledNewTip />}
+        {commentNum > 0 && (
+          <StyledChatBtnText numberOfLines={1}>
+            {item.commentNum}
+          </StyledChatBtnText>
+        )}
         <StyledArrowView />
         {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
     );
-  }
+  };
 
   _renderDone = () => (
     <StyledIcon
@@ -103,16 +89,14 @@ export default class RecordRow extends Component {
       size={25}
       color="green"
     />
-  )
+  );
 
   render() {
-    const {
-      item, onPress, color
-    } = this.props;
+    const { item, onPress, color } = this.props;
     if (!item) return null;
     const { visible, index } = this.state;
     const { imgs } = item;
-    const uris = imgs && imgs.map(img => ({ url: img }));
+    const uris = imgs && imgs.map((img) => ({ url: img }));
     // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
     // moment.locale('zh-cn')
     // const fromNow = moment(item.createdAt).fromNow()
@@ -122,9 +106,7 @@ export default class RecordRow extends Component {
       <StyledButton
         activeOpacity={1}
         onPress={onPress}
-        style={this.props.style}
-      >
-
+        style={this.props.style}>
         <StyledDateView color={color}>
           <StyledDateTextBig color={color}>
             {moment(time).format('DD')}
@@ -134,29 +116,24 @@ export default class RecordRow extends Component {
           </StyledDateTextSmall>
         </StyledDateView>
         <StyledMain>
-          {!!item.recordText
-            && (
-              <StyledRecordText numberOfLines={3}>
-                {item.recordText}
-              </StyledRecordText>
-            )}
+          {!!item.recordText && (
+            <StyledRecordText numberOfLines={3}>
+              {item.recordText}
+            </StyledRecordText>
+          )}
           {imgs && (
             <StyledImagesScolleView
               scrollEnabled={imgs.length > 1}
               showsHorizontalScrollIndicator={false}
               pagingEnabled
-              horizontal
-            >
+              horizontal>
               {imgs.map((img, i) => (
                 <StyledImageButton
                   onPress={() => {
                     this.setState({ visible: true, index: i });
                   }}
-                  key={img}
-                >
-                  <StyledImage
-                    source={{ uri: img }}
-                  />
+                  key={img}>
+                  <StyledImage source={{ uri: img }} />
                 </StyledImageButton>
               ))}
             </StyledImagesScolleView>

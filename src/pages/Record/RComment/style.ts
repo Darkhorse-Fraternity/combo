@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Button from '../../../components/Button';
 
@@ -9,13 +9,13 @@ export const StyledContent = styled(SafeAreaView)`
 `;
 
 export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
-  flex:1;
-`
+  flex: 1;
+`;
 
 export const StyledHeader = styled.View`
   padding: 10px 20px;
-  border-bottom-width: ${props => props.theme.hairlineWidth};
-  border-bottom-color: ${props => props.theme.hairlineColor};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth};
+  border-bottom-color: ${(props) => props.theme.hairlineColor};
 `;
 
 export const StyledRow = styled(Button)`
@@ -35,8 +35,8 @@ export const StyledAvatar = styled.Image`
 
 export const StyledRowRight = styled.View`
   flex: 1;
-  border-bottom-width: ${props => props.theme.hairlineWidth};
-  border-bottom-color: ${props => props.theme.hairlineColor};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth};
+  border-bottom-color: ${(props) => props.theme.hairlineColor};
 `;
 
 export const StyledNickText = styled.Text`
@@ -54,10 +54,9 @@ export const StyledDate = styled.Text`
 `;
 
 export const StyleBottom = styled.View`
-  flex-direction:row;
-  justify-content:space-between;
-  
-`
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export const StyledIcon = styled(Icon)``;
 
@@ -66,8 +65,7 @@ export const StyledRightView = styled.View`
   padding-right: 10px;
 `;
 
-
-import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
+import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
   flex: 1;
@@ -79,19 +77,19 @@ export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
   background-color: white;
 `;
 
-export const StyledSumbitBtn = styled(Button)``
+export const StyledSumbitBtn = styled(Button)``;
 
-export const StyledSumbitBtnText = styled.Text<{disabled:boolean}>`
-  color: ${props=>props.disabled?'rgb(150,150,150)':'green'};
-`
+export const StyledSumbitBtnText = styled.Text<{ disabled: boolean }>`
+  color: ${(props) => (props.disabled ? 'rgb(150,150,150)' : 'green')};
+`;
 
 export const Form = styled.View`
-     flex-direction: row;
-     align-items: center;
-     padding: 10px 15px 10px 5px;
-     background-color: white;
-     border-top-color: #c8c8c8;
-     border-top-width: ${props => props.theme.hairlineWidth};
-     border-bottom-color:  #c8c8c8;
-     border-bottom-width: ${props => props.theme.hairlineWidth};
-`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 15px 10px 5px;
+  background-color: white;
+  border-top-color: #c8c8c8;
+  border-top-width: ${(props) => props.theme.hairlineWidth};
+  border-bottom-color: #c8c8c8;
+  border-bottom-width: ${(props) => props.theme.hairlineWidth};
+`;

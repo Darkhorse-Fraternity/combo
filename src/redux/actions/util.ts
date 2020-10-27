@@ -9,7 +9,7 @@
  * 工具类，
  */
 
-import {req, requestStart, requestFailed, requestSucceed} from './req';
+import { req, requestStart, requestFailed, requestSucceed } from './req';
 
 export const LOAD_AVATAR = 'LOAD_AVATAR';
 export const UPLOAD_IMAGES = 'UPLOAD_IMAGES';
@@ -18,10 +18,10 @@ export const DATA_STORAGE = 'DATA_STORAGE';
 export const APP_STATE_UPDATE = 'APP_STATE_UPDATE';
 export const LOCAL_REMIND = 'LOCAL_REMIND';
 
-import {bindingFileToUser} from '../../request/leanCloud';
+import { bindingFileToUser } from '../../request/leanCloud';
 
 import Toast from 'react-native-simple-toast';
-import {uploadFilesByLeanCloud} from '../../request/uploadAVImage';
+import { uploadFilesByLeanCloud } from '../../request/uploadAVImage';
 
 export function uploadAvatar(uri: string) {
   return async (dispatch, getState) => {
@@ -87,7 +87,7 @@ export function appStateUpdate(state): Object {
 export function localRemind(id, value) {
   return {
     type: LOCAL_REMIND,
-    data: {[id]: value},
+    data: { [id]: value },
   };
 }
 

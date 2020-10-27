@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import React, { Component } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
 
-import { RectButton } from "react-native-gesture-handler";
+import { RectButton } from 'react-native-gesture-handler';
 
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 export default class AppleStyleSwipeableRow extends Component {
   // renderLeftActions = (progress, dragX) => {
@@ -37,20 +37,18 @@ export default class AppleStyleSwipeableRow extends Component {
     return (
       <Animated.View
         key={index}
-        style={{ flex: 1, transform: [{ translateX: trans }] }}
-      >
+        style={{ flex: 1, transform: [{ translateX: trans }] }}>
         <RectButton
           key={index}
           style={[styles.rightAction, { backgroundColor: color, flex: 1 }]}
-          onPress={pressHandler}
-        >
+          onPress={pressHandler}>
           {component}
         </RectButton>
       </Animated.View>
     );
   };
   renderRightActions = (progress, dragX, data) => (
-    <View style={{ width: data.length * 64, flexDirection: "row" }}>
+    <View style={{ width: data.length * 64, flexDirection: 'row' }}>
       {data.map((item, index) => {
         const { backgroundColor, component, onPress } = item;
         return this.renderRightAction(
@@ -59,7 +57,7 @@ export default class AppleStyleSwipeableRow extends Component {
           onPress,
           (data.length - index) * 64,
           progress,
-          index
+          index,
         );
       })}
       {/*{this.renderRightAction('More', '#C8C7CD', 192, progress)}*/}
@@ -101,8 +99,7 @@ export default class AppleStyleSwipeableRow extends Component {
         renderRightActions={(progress, dragX) =>
           this.renderRightActions(progress, dragX, right)
         }
-        {...otherProps}
-      >
+        {...otherProps}>
         {children}
       </Swipeable>
     );

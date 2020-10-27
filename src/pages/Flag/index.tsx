@@ -4,13 +4,11 @@ import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import { useGetFb } from 'src/hooks/interface';
 import { View } from 'react-native';
 
-
-const navigationOptions: NavigationOptionsType<RouteKey.flag> = props => {
+const navigationOptions: NavigationOptionsType<RouteKey.flag> = (props) => {
   return {
-    title: ''
+    title: '',
   };
 };
-
 
 // const Render = () => {
 //   const { data: response } = useGetFb({ offset: '0', limit: '10' }, {})
@@ -22,6 +20,5 @@ const navigationOptions: NavigationOptionsType<RouteKey.flag> = props => {
 //   // data?.list
 //   return < View />
 // }
-
 
 export default { component: Render, options: navigationOptions };

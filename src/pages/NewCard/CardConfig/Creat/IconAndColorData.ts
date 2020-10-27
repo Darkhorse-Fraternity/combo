@@ -77,4 +77,4 @@ for (let i = 0, len = icons.length; i < len; i += 3) {
   colorsCutThree.push(colors.slice(i, i + 3));
 }
 
-export {icons, iconsCutThree, colors, colorsCutThree};
+export { icons, iconsCutThree, colors, colorsCutThree };

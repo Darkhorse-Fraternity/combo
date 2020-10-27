@@ -1,4 +1,4 @@
-import { WebViewProps } from "react-native-webview";
+import { WebViewProps } from 'react-native-webview';
 
 export interface WebViewProp extends WebViewProps {
   url: string;

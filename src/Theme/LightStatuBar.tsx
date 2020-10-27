@@ -4,8 +4,8 @@
  */
 'use strict';
 
-import React, {Component} from 'react';
-import {Platform, StatusBar, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StatusBar, View } from 'react-native';
 
 export default class LightStatuBar extends Component {
   constructor(props: Object) {
@@ -28,7 +28,7 @@ export default class LightStatuBar extends Component {
           Platform.Version < 23 && <StatusBar backgroundColor="white" />}
         {Platform.OS !== 'ios' && Platform.Version >= 23 && (
           <StatusBar
-            translucent={true}
+            translucent
             backgroundColor="transparent"
             barStyle={'dark-content'}
           />

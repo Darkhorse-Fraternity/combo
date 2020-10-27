@@ -46,14 +46,14 @@ export function nowNotification() {
 }
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IUSE),
     normalizrData: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
     localRemindData: state.util.get('localRemind'),
     user: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     load: async () => {
       const ids = await storage.getIdsForKey('localRemind');
       const values = await storage.getBatchDataWithIds({
@@ -89,7 +89,7 @@ export default class LocalNotification extends PureComponent {
     // }
   }
 
-  remind = props => {
+  remind = (props) => {
     let { data, localRemindData, iCard, normalizrData } = props;
     data = data.toJS();
 
@@ -103,7 +103,7 @@ export default class LocalNotification extends PureComponent {
       localRemindData = localRemindData.toJS();
       const ndata = normalizrData.toJS();
       data = data.listData;
-      const array = data.map(key => {
+      const array = data.map((key) => {
         const res = ndata[key];
         const iCard = props.iCard.get(res[ICARD]);
         res.iCard = iCard && iCard.toJS();
@@ -159,7 +159,7 @@ export default class LocalNotification extends PureComponent {
 
     let daysFlag = false;
     let unDoneCount = 0;
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.statu !== 'start') {
         // 已经删除了,就不用提醒了。
         return;
@@ -186,8 +186,8 @@ export default class LocalNotification extends PureComponent {
       // const message = item.iCard.notifyText || '快来记录一下吧!'
       // const id = item.iCard.objectId
 
-      recordDay.forEach(day => {
-        notifyTimes.forEach(notifyTime => {
+      recordDay.forEach((day) => {
+        notifyTimes.forEach((notifyTime) => {
           // console.log('notifyTime:', notifyTime);
           const id = item.objectId + notifyTime;
           const open = localRemindData[id];
@@ -202,7 +202,7 @@ export default class LocalNotification extends PureComponent {
 
     // console.log('unDoneCount:', unDoneCount);
 
-    const name = !!this.props.user?.nickname ? this.props.user?.nickname : '';
+    const name = this.props.user?.nickname ? this.props.user?.nickname : '';
     if (!daysFlag) {
       PushNotification.localNotificationSchedule({
         title: '给自己添加一个习惯吧~',
@@ -221,9 +221,7 @@ export default class LocalNotification extends PureComponent {
     PushNotification.localNotificationSchedule({
       title: '新的一周开始了~',
       message: `${name}为新的一周设置一些习惯吧！`, // (required)
-      date: moment(21, 'HH')
-        .day(7)
-        .toDate(), // in 60 secs
+      date: moment(21, 'HH').day(7).toDate(), // in 60 secs
       // date: new Date(Date.now() + (1*1000)), // in 60 secs
       // data: {
       //   webUrl: '',
@@ -287,10 +285,13 @@ export default class LocalNotification extends PureComponent {
 
   calendarSaved = {};
 
-  calendarEvents = async (data: any[], localRemindData: { [x: string]: any; all?: any; }) => {
+  calendarEvents = async (
+    data: any[],
+    localRemindData: { [x: string]: any; all?: any },
+  ) => {
     let unDoneCount = 0;
     if (data) {
-      data.forEach(item => {
+      data.forEach((item) => {
         if (item.statu !== 'start') {
           // 已经删除了,就不用提醒了。
           return;
@@ -335,13 +336,11 @@ export default class LocalNotification extends PureComponent {
     try {
       const events = await RNCalendarEvents.fetchAllEvents(
         new Date().toISOString(),
-        moment()
-          .add(1, 'weeks')
-          .toISOString(),
+        moment().add(1, 'weeks').toISOString(),
       );
 
       const objEvents = {};
-      events.forEach(item => {
+      events.forEach((item) => {
         if (item.description.indexOf('来自小改变的提醒') !== -1) {
           objEvents[item.id] = item;
         }
@@ -351,24 +350,24 @@ export default class LocalNotification extends PureComponent {
       // console.log('ids:', ids);
       if (!all) {
         ids &&
-          ids.forEach(id => {
+          ids.forEach((id) => {
             RNCalendarEvents.removeEvent(id);
           });
         return;
       }
       // 老版本数据清除
       ids &&
-        ids.forEach(id => {
+        ids.forEach((id) => {
           if (objEvents[id].location.indexOf('来自小改变的提醒') !== -1) {
             RNCalendarEvents.removeEvent(id);
           }
         });
 
-      data.forEach(async item => {
+      data.forEach(async (item) => {
         let calendaId;
 
         ids &&
-          ids.forEach(id => {
+          ids.forEach((id) => {
             if (
               objEvents[id] &&
               objEvents[id].description.indexOf(item.objectId) !== -1
@@ -407,7 +406,7 @@ export default class LocalNotification extends PureComponent {
         // 提醒时间,需要计算和最后一次提醒的分钟差别,即与startDate的相差分钟数
         if (notifyTimes.length > 0) {
           const notifyMonets = notifyTimes
-            .map(notify => {
+            .map((notify) => {
               const remindId = objectId + notify;
               const open = localRemindData[remindId];
               if (open || open === undefined) {
@@ -419,12 +418,12 @@ export default class LocalNotification extends PureComponent {
                 );
               }
             })
-            .map(minutes => {
+            .map((minutes) => {
               if (minutes) {
                 return { date: minutes };
               }
             })
-            .filter(item => item !== undefined);
+            .filter((item) => item !== undefined);
           alarms.push(...notifyMonets);
           // console.log('alarms:', alarms);
         }
@@ -451,7 +450,7 @@ export default class LocalNotification extends PureComponent {
         if (day.length < 7) {
           recurrenceRule.frequency = 'weekly';
           recurrenceRule.daysOfWeek = day.map(
-            num => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1],
+            (num) => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1],
           );
         }
         const { nickname } = this.props.user;
@@ -483,7 +482,7 @@ export default class LocalNotification extends PureComponent {
       // 将剩余的本地已被移的event 移除
       const ids2 = Object.keys(objEvents);
       ids2 &&
-        ids2.forEach(oid => {
+        ids2.forEach((oid) => {
           RNCalendarEvents.removeEvent(oid);
         });
 

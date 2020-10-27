@@ -6,7 +6,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 import Button from '../../../components/Button';
 
@@ -28,7 +28,7 @@ export const StyledSubTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${props => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.titleBackViewColor};
   border-radius: 10px;
   padding: 10px 8px;
   margin: 30px 20px 0px 20px;
@@ -73,7 +73,7 @@ export const StyledRowDis = styled.View`
 `;
 
 export const StyledLine = styled.View`
-  background-color: ${props => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.titleBackViewColor};
   height: 80px;
   width: 3px;
   margin: 0px 15px 0px 5px;
@@ -82,7 +82,7 @@ export const StyledLine = styled.View`
 `;
 
 export const StyledRound = styled.View`
-  background-color: ${props => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.titleBackViewColor};
   width: 15px;
   height: 15px;
   border-radius: 7.5px;
@@ -91,7 +91,7 @@ export const StyledRound = styled.View`
 `;
 
 export const StyledIconView = styled.View`
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   padding: 10px;
   width: 50px;
   height: 50px;
@@ -102,8 +102,8 @@ export const StyledIconView = styled.View`
 `;
 
 export const StyledIconImage = styled.Image`
-  width: ${props => props.size};
-  height: ${props => props.size};
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
 `;
 
 export const StyledIcon = styled(Icon)`

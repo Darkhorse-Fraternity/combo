@@ -5,7 +5,7 @@
 
 import styled from 'styled-components/native';
 
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import IconSet from '../../../source/font/Iconfont';
 

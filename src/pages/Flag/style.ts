@@ -4,7 +4,7 @@
  */
 
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Button from '../../components/Button';
 import { randFlowCoverColor } from 'src/Theme/color';
@@ -32,28 +32,29 @@ export const StyledItem = styled(Button)`
   shadow-offset: 0px 3px;
 `;
 
-export const StyledItemImage = styled(FastImage)<{numColumns: number}>`
-  width: ${(props) =>  props.theme.getWidth() / props.numColumns - 40};
-  aspect-ratio:1.5;
+export const StyledItemImage = styled(FastImage)<{ numColumns: number }>`
+  width: ${(props) => props.theme.getWidth() / props.numColumns - 40};
+  aspect-ratio: 1.5;
   border-radius: 20px;
   align-self: center;
-  background-color: ${props => props.theme.randFlowCoverColor()};
+  background-color: ${(props) => props.theme.randFlowCoverColor()};
   elevation: 5;
 `;
-export const StyledItemCover = styled.View<{position: string}>`
+export const StyledItemCover = styled.View<{ position: string }>`
   position: absolute;
   elevation: 6;
   padding: 20px;
-  ${(props) =>props.position}: ${(props) => (props.position === 'top' ? 20 : 5)}px;
+  ${(props) => props.position}: ${(props) =>
+    props.position === 'top' ? 20 : 5}px;
 `;
 
-export const StyledItemTitle = styled.Text<{color: string}>`
+export const StyledItemTitle = styled.Text<{ color: string }>`
   font-size: 20px;
   font-weight: 500;
   color: ${(props) => props.color};
 `;
 
-export const StyledItemText = styled.Text<{color: string}>`
+export const StyledItemText = styled.Text<{ color: string }>`
   font-size: 15px;
   color: ${(props) => props.color};
   font-weight: 500;

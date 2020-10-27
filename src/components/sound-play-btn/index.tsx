@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Sounds from 'react-native-sound';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import * as Animatable from 'react-native-animatable';
 
 const SOUND_PLAY_BTN_STOP_KEY = 'SOUND_PLAY_BTN_STOP_KEY';
@@ -125,7 +125,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
       <AnimatedCircularProgress
         ref={progressRef}
         size={size * 0.82}
-        style={[styles.progress, {top: size * 0.137, left: size * 0.065}]}
+        style={[styles.progress, { top: size * 0.137, left: size * 0.065 }]}
         width={3}
         rotation={0}
         backgroundWidth={3}
@@ -142,11 +142,11 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
         {select && (
           <Animatable.View
             animation="zoomIn"
-            style={[styles.select, {backgroundColor: progressColor}]}>
+            style={[styles.select, { backgroundColor: progressColor }]}>
             <Foundation color={'white'} size={12} name={'check'} />
           </Animatable.View>
         )}
-        <Text style={[styles.text, {color: color}]}>{title}</Text>
+        <Text style={[styles.text, { color: color }]}>{title}</Text>
       </View>
     </TouchableOpacity>
   );

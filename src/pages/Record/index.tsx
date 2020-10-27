@@ -14,13 +14,12 @@ import { update } from '../../redux/module/leancloud';
 
 import CardRow from '../Habit/Cell';
 import {
-
   StyledHeaderTitle,
   StyledIcon,
   StyledDeleteBtn,
   StyledDeleteBtnText,
   StyledAntDesign,
-  StyledAnimationRow
+  StyledAnimationRow,
 } from './style';
 
 import { claerByID, addListNormalizrEntity } from '../../redux/actions/list';
@@ -33,12 +32,12 @@ import { isTablet } from 'react-native-device-info';
 const Archive = `${IUSE}archive`;
 
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IRECORD),
     iCard: state.normalizr.get(ICARD),
     user: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     refresh: async (data, handleView) => {
       const id = data.objectId;
       // const card = props.route.params.iCard
@@ -113,7 +112,7 @@ export default class Record extends Component {
 
   static defaultProps = {};
 
-  static navigationOptions = props =>
+  static navigationOptions = (props) =>
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
@@ -162,9 +161,9 @@ export default class Record extends Component {
     return (
       <StyledAnimationRow
         useNativeDriver
-        ref={res => (this.handleViewRef[`habit${index}`] = res)}>
+        ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
-          ref={ref => {
+          ref={(ref) => {
             this.swipeRefs[`swipe${index}`] = ref;
           }}
           backgroundColor="white"
@@ -189,33 +188,33 @@ export default class Record extends Component {
           right={[
             isSelf
               ? {
-                type: 'secondary',
-                onPress: () => {
-                  this.props.navigation.navigate('cardConfig', { iCardId });
-                  // this.setState({ openIndex: -1 })
-                  // this._deleteRow(item)
-                },
-                component: this._renderSwipeOutDeleteBtn(
-                  '设置',
-                  '#388e3c',
-                  'settings',
-                ),
-                backgroundColor: '#fdfbfb',
-              }
+                  type: 'secondary',
+                  onPress: () => {
+                    this.props.navigation.navigate('cardConfig', { iCardId });
+                    // this.setState({ openIndex: -1 })
+                    // this._deleteRow(item)
+                  },
+                  component: this._renderSwipeOutDeleteBtn(
+                    '设置',
+                    '#388e3c',
+                    'settings',
+                  ),
+                  backgroundColor: '#fdfbfb',
+                }
               : {
-                type: 'secondary',
-                onPress: () => {
-                  this.props.navigation.navigate('cardInfo', { iCardId });
-                  // this.setState({ openIndex: -1 })
-                  // this._deleteRow(item)
+                  type: 'secondary',
+                  onPress: () => {
+                    this.props.navigation.navigate('cardInfo', { iCardId });
+                    // this.setState({ openIndex: -1 })
+                    // this._deleteRow(item)
+                  },
+                  component: this._renderSwipeOutDeleteBtn(
+                    '查看',
+                    '#388e3c',
+                    'info',
+                  ),
+                  backgroundColor: '#fdfbfb',
                 },
-                component: this._renderSwipeOutDeleteBtn(
-                  '查看',
-                  '#388e3c',
-                  'info',
-                ),
-                backgroundColor: '#fdfbfb',
-              },
             {
               type: 'delete',
               onPress: () => {
@@ -268,7 +267,7 @@ export default class Record extends Component {
     const { navigation, route } = this.props;
     const { dispatch } = navigation;
     const { params } = route;
-    const statu = !!params ? params.statu : { $ne: 'del' };
+    const statu = params ? params.statu : { $ne: 'del' };
     // const statu =  { $ne: 'del' };
     const param = {
       // where: {
@@ -287,7 +286,7 @@ export default class Record extends Component {
         reqKey={IUSE}
         sKey={IRECORD}
         renderItem={this.renderRow}
-        dataMap={data => {
+        dataMap={(data) => {
           // console.log('data', data);
 
           return { results: data.result.iUseList };

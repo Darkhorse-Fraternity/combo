@@ -3,12 +3,12 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {ActivityIndicator, View} from 'react-native';
-import {debounce} from 'lodash'; // 4.0.8
+import { ActivityIndicator, View } from 'react-native';
+import { debounce } from 'lodash'; // 4.0.8
 import * as Animatable from 'react-native-animatable';
-import {theme} from '../../../Theme';
+import { theme } from '../../../Theme';
 
 import {
   StyledContent,
@@ -40,7 +40,7 @@ export default class FlipButton extends PureComponent {
   };
 
   __renderActivety = () => {
-    const {containStyle} = this.props;
+    const { containStyle } = this.props;
     return (
       <StyledFace style={containStyle}>
         <ActivityIndicator
@@ -52,7 +52,7 @@ export default class FlipButton extends PureComponent {
   };
 
   __renderCard = () => {
-    const {containStyle, flip, faceText, backText} = this.props;
+    const { containStyle, flip, faceText, backText } = this.props;
 
     return (
       <StyledCard
@@ -63,7 +63,7 @@ export default class FlipButton extends PureComponent {
         flipVertical={false}
         flip={flip}
         clickable={false}
-        onFlipEnd={isFlipEnd => {
+        onFlipEnd={(isFlipEnd) => {
           // console.log('isFlipEnd', isFlipEnd)
           // this.setState({statu:1})
         }}>
@@ -96,7 +96,7 @@ export default class FlipButton extends PureComponent {
 
   render() {
     // console.log('test:', this.state.statu !== 0 || this.props.load);
-    const {style, disabled, load, animation} = this.props;
+    const { style, disabled, load, animation } = this.props;
 
     return (
       <AniStyledContent

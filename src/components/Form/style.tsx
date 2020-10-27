@@ -32,5 +32,5 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledButtonText = styled.Text<submitType>`
-  color: ${props => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
+  color: ${(props) => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
 `;

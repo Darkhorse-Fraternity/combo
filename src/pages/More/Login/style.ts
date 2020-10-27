@@ -20,13 +20,13 @@ export const StyledContent = styled.View`
 export const StyledImage = styled.Image`
   width: 120px;
   height: 120px;
-  margin-top: ${props => 50};
+  margin-top: ${(props) => 50};
   align-self: center;
 `;
 
 export const StyledImageBottom = styled.Image`
   width: 100%;
-  height: ${props => props.theme.height * 0.3};
+  height: ${(props) => props.theme.height * 0.3};
 `;
 
 export const SyledImageName = styled.Text`
@@ -47,12 +47,12 @@ export const ThirdPartyInnerLoginView = styled.View`
   flex-direction: row;
   margin: 20px 0px;
   padding: 0px 20px;
-  width:100%;
-  max-width:700px;
+  width: 100%;
+  max-width: 700px;
   align-self: center;
-  align-items:center;
+  align-items: center;
   justify-content: space-between;
-  
+
   /* justify-content: space-between; */
   /* z-index: 100; */
   /* flex: 1; */
@@ -69,7 +69,7 @@ export const StyledIconView = styled.View`
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  /* border-width:${({theme})=>theme.hairlineWidth};
+  /* border-width:${({ theme }) => theme.hairlineWidth};
   border-color:black; */
 
 `;
@@ -98,7 +98,7 @@ export const StyledCodeButtonText = styled.Text`
 `;
 
 export const StyledSignInBtn = styled(HeaderBtn)`
-  background-color: ${props =>
+  background-color: ${(props) =>
     props.disabled ? props.theme.disabledColor : props.theme.mainColor};
   margin: 30px;
   padding: 13px;
@@ -126,5 +126,5 @@ export const StyledMoreBtnText = styled.Text`
 `;
 
 export const StyledBtnContnet = styled.View`
-  flex:1
-`
+  flex: 1;
+`;

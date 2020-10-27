@@ -3,11 +3,8 @@
  * @flow
  */
 
-
 import React, { PureComponent } from 'react';
-import {
-  Animated
-} from 'react-native';
+import { Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -26,26 +23,23 @@ import CostRecord from '../Record/CostRecord';
 import CashRecord from '../Record/CashRecord';
 import EZTabBar from '../../../components/Groceries/EZTabBar';
 
-
 const listKey = ORDER;
 
 @connect(
-  state => ({
-    user: state.user.data
+  (state) => ({
+    user: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     updateUserInfo: () => {
       dispatch(update());
-    }
-  })
+    },
+  }),
 )
-
-
 export default class Earnings extends PureComponent {
   constructor(props: Object) {
     super(props);
     this.state = {
-      scrollValue: new Animated.Value(0)
+      scrollValue: new Animated.Value(0),
     };
   }
 
@@ -63,22 +57,19 @@ export default class Earnings extends PureComponent {
     this.props.updateUserInfo();
   }
 
-
   _renderHeader = () => {
     const cash = this.props.user.balance;
     return (
       <StyledHeader>
-        <StyledHeaderTitle>
-          我的收益
-        </StyledHeaderTitle>
+        <StyledHeaderTitle>我的收益</StyledHeaderTitle>
         <StyledHeaderBottom>
-          <StyledHeaderCash>
-            ￥
-            {(cash / 100).toFixed(2)}
-          </StyledHeaderCash>
+          <StyledHeaderCash>￥{(cash / 100).toFixed(2)}</StyledHeaderCash>
           <StyledHeaderBtn
             hitSlop={{
-              top: 5, left: 50, bottom: 5, right: 5
+              top: 5,
+              left: 50,
+              bottom: 5,
+              right: 5,
             }}
             onPress={() => {
               this.props.navigation.navigate('cash');
@@ -93,7 +84,7 @@ export default class Earnings extends PureComponent {
         {/* </StyledTitleView> */}
       </StyledHeader>
     );
-  }
+  };
   //
   // renderRow = ({ item, index }: Object) => {
   //   // console.log('item:', item);
@@ -120,7 +111,6 @@ export default class Earnings extends PureComponent {
   //   )
   // }
 
-
   render(): ReactElement<any> {
     return (
       <StyledContent>
@@ -140,8 +130,7 @@ export default class Earnings extends PureComponent {
               scrollValueWithOutNative={this.state.scrollValue}
               style={{ marginLeft: 15 }}
             />
-          )}
-        >
+          )}>
           <EarningRecord tabLabel="收益记录" />
           <CostRecord tabLabel="消费记录" />
           <CashRecord tabLabel="取现记录" />

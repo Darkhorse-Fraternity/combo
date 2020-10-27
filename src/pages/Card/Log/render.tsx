@@ -3,32 +3,21 @@
  * @flow
  */
 
-import React, { FC, PureComponent } from "react";
-import { View, Alert } from "react-native";
-import { connect } from "react-redux";
-import {
+import React, { FC, PureComponent } from 'react';
+import { View, Alert } from 'react-native';
+import { connect } from 'react-redux';
+import {} from './style';
 
+import LCList from '../../../components/Base/LCList';
+import { IDO } from '../../../redux/reqKeys';
 
-} from "./style";
-
-
-import LCList from "../../../components/Base/LCList";
-import { IDO, } from "../../../redux/reqKeys";
-
-
-import RecordRow from "../Statistical/Row";
+import RecordRow from '../Statistical/Row';
 import { iUse, user } from '@request/LCModle';
 
 const listKey = IDO;
 
-@connect(
-  (state) => ({ user: state.user.data }),
-)
+@connect((state) => ({ user: state.user.data }))
 export default class Statistical extends PureComponent {
-
-
-
-
   renderRow({ item, index }: Object) {
     // const img = item.imgs && item.imgs[0] || null
 
@@ -39,7 +28,7 @@ export default class Statistical extends PureComponent {
         item={item}
         color={this.props.route.params?.color}
         onPress={() => {
-          this.props.navigation.navigate("rcomment", {
+          this.props.navigation.navigate('rcomment', {
             iDoID: item.objectId,
             iUseId: this.props.route.params?.iCardId,
             iCardId: this.props.route.params?.iUseId,
@@ -50,11 +39,8 @@ export default class Statistical extends PureComponent {
   }
 
   render() {
-
     // const iCardId = this.props.route.params?.iCardId
-    const iUseId = this.props.route.params?.iUseId
-
-
+    const iUseId = this.props.route.params?.iUseId;
 
     const param = {
       where: {
@@ -63,7 +49,7 @@ export default class Statistical extends PureComponent {
         $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
         state: { $ne: -1 },
       },
-      order: "-doneDate,-createdAt",
+      order: '-doneDate,-createdAt',
     };
 
     return (
@@ -77,9 +63,8 @@ export default class Statistical extends PureComponent {
         //   return {[OPENHISTORYLIST]:data.list}
         // }
         reqParam={param}
-      // {...config}
+        // {...config}
       />
     );
   }
 }
-

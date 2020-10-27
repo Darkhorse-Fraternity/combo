@@ -3,7 +3,6 @@
  * @flow
  */
 
-
 import * as immutable from 'immutable';
 import { normalize } from 'normalizr';
 import { schemas, code } from '../scemes';
@@ -19,42 +18,44 @@ const registerKeys = (keys = []) => {
   return newKyes;
 };
 
-const initialState = immutable.fromJS({ ...registerKeys(registerNormalizrKeys) });
+const initialState = immutable.fromJS({
+  ...registerKeys(registerNormalizrKeys),
+});
 
 export const ADD_NORMALIZR = 'ADD_NORMALIZR';
-
 
 // 我们使用的是mergeDeep 有个特点是只会覆盖，当存在array的时候转成了list，就只会添加了。
 export function addNormalizrEntity(key, data) {
   if (!data) {
     return () => {};
   }
-  return dispatch => dispatch(addNormalizrEntities(key, { [code]: [data] }));
+  return (dispatch) => dispatch(addNormalizrEntities(key, { [code]: [data] }));
 }
-
 
 export function addNormalizrEntities(schemeOrkey, data) {
   if (!schemeOrkey || !data) {
     return () => {};
   }
-  const scheme = typeof schemeOrkey === 'string' ? schemas[schemeOrkey] : schemeOrkey;
+  const scheme =
+    typeof schemeOrkey === 'string' ? schemas[schemeOrkey] : schemeOrkey;
   const nData = normalize(data, scheme);
 
-  return dispatch => dispatch(addEntities(nData.entities));
+  return (dispatch) => dispatch(addEntities(nData.entities));
 }
 
-
 export function addEntities(data: Object): Object {
-  return dispatch =>
-  // dispatch(dataCleanInject(data))
+  return (dispatch) =>
+    // dispatch(dataCleanInject(data))
     dispatch({
       type: ADD_NORMALIZR,
       payload: data,
     });
 }
 
-
-export default function itemState(state: immutable.Map<string, any> = initialState, action: Object) {
+export default function itemState(
+  state: immutable.Map<string, any> = initialState,
+  action: Object,
+) {
   switch (action.type) {
     case ADD_NORMALIZR: {
       // const { fromJS } = require('immutable')

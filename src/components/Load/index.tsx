@@ -1,5 +1,5 @@
 import Indicators from '@components/Indicators';
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -9,17 +9,17 @@ import {
   PixelRatio,
   StyleSheet,
   StyleProp,
-  ViewProps
-} from "react-native";
+  ViewProps,
+} from 'react-native';
 // import {hideLoding, showLoading} from '../NativeTool';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 // import LottieView from 'lottie-react-native';
 export default function (
-  size: number | "small" | "large" = "small",
-  color = "gray"
+  size: number | 'small' | 'large' = 'small',
+  color = 'gray',
 ) {
   return (
-    <View style={{ alignItems: "center", justifyContent: "center", flex: 1 }}>
+    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
       <ActivityIndicator size={size} color={color} />
     </View>
   );
@@ -51,7 +51,7 @@ export function loadGif(showBar: boolean) {
   // const imgWidth = (width / 375) * 359 * 0.5;
   // const imgHeight = (width / 375) * 77 * 0.5;
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {LoadAnimation({ top: showBar ? 44 + getStatusBarHeight() : 0 })}
     </View>
   );
@@ -89,17 +89,16 @@ interface LoadAnimationProps extends ViewProps {
 
 export function LoadAnimation(props?: LoadAnimationProps) {
   const { top = 44 + getStatusBarHeight() } = props || {};
-  const { height } = Dimensions.get("window");
+  const { height } = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
-  const lastTop = Platform.OS === "ios" ? 0 : getStatusBarHeight();
+  const lastTop = Platform.OS === 'ios' ? 0 : getStatusBarHeight();
 
   return (
     <View
       style={[
         styles.lottieViewBC,
-        { top: (height - size + lastTop) / 2 - top }
-      ]}
-    >
+        { top: (height - size + lastTop) / 2 - top },
+      ]}>
       {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
       <Indicators size={30} />
       {/* <LottieLoading style={styles.lottieView} /> */}
@@ -122,11 +121,11 @@ const size = 10;
 const styles = StyleSheet.create({
   lottieView: {
     width: size,
-    height: size
+    height: size,
   },
   lottieViewBC: {
     zIndex: 100000,
-    position: "absolute",
-    left: (Dimensions.get("window").width - size) / 2
-  }
+    position: 'absolute',
+    left: (Dimensions.get('window').width - size) / 2,
+  },
 });

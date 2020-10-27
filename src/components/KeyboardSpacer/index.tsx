@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Keyboard,
   KeyboardEvent,
@@ -58,7 +58,7 @@ class KeyboardSpacer extends Component<Props, States> {
   }
 
   componentWillUnmount() {
-    this.listeners?.forEach(listener => listener.remove());
+    this.listeners?.forEach((listener) => listener.remove());
   }
 
   onToggle(open: boolean, space: number) {
@@ -114,7 +114,7 @@ class KeyboardSpacer extends Component<Props, States> {
 
   render() {
     return (
-      <View style={[styles.container, {height: this.state.keyboardSpace}]} />
+      <View style={[styles.container, { height: this.state.keyboardSpace }]} />
     );
   }
 }

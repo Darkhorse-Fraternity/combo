@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { AutoGrowingTextInput } from "react-native-autogrow-textinput";
+import React from 'react';
+import styled from 'styled-components';
+import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
   flex: 1;
@@ -21,6 +21,6 @@ export const StyleAutoGrowingTextInput = styled(AutoGrowingTextInput)`
 
 export const StyleTextInput = styled.TextInput`
   font-size: 17px;
-  background: ${props => props.theme.textinputbackgroundColor};
+  background: ${(props) => props.theme.textinputbackgroundColor};
   height: 50px;
 `;

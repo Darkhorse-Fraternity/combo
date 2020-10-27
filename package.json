@@ -5,7 +5,9 @@
   "scripts": {
     "start": "export RCT_METRO_PORT=8081  && node node_modules/react-native/local-cli/cli.js start ",
     "test": "jest",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
+    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --color  --fix;",
+    "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
     "reload": "curl http://localhost:8081/reload",
     "postinstall": "npx jetify && npx patch-package",
     "run-ios": "yarn react-native run-ios",

@@ -135,7 +135,7 @@ export const StyledAvatar = styled.Image`
 export const StyledFollowBtnText = styled.Text`
   margin-top: 10px;
   font-weight: 600;
-  color: ${props => props.theme.mainColor};
+  color: ${(props) => props.theme.mainColor};
 `;
 
 export const StyledHeaderImage = styled.Image`
@@ -146,7 +146,7 @@ export const StyledHeaderImage = styled.Image`
 
 export const StyledHedaderIconBack = styled.View`
   padding: 10px;
-  background-color: ${props => props.color};
+  background-color: ${(props) => props.color};
   border-radius: 10px;
   align-self: center;
 `;

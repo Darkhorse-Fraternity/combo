@@ -11,7 +11,7 @@ import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 const WebViewPage = () => {
   const data = useNavigationAllParamsWithType<RouteKey.web>();
   return (
-    <StyleSafeAreaView >
+    <StyleSafeAreaView>
       <WebView {...data} />
     </StyleSafeAreaView>
   );

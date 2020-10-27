@@ -42,7 +42,7 @@ export const StyledDiscribIn = styled.Text`
 
 export const StyledLine1 = styled.View`
   width: 100%;
-  height: ${props => props.theme.hairlineWidth * 2}px;
+  height: ${(props) => props.theme.hairlineWidth * 2}px;
   background-color: 'rgb(236,235,235)';
   margin: 10px 10px 5px 10px;
 `;
@@ -50,7 +50,7 @@ export const StyledLine1 = styled.View`
 export const StyledLine2 = styled.View`
   align-self: center;
   background-color: 'rgb(236,235,235)';
-  width: ${props => props.theme.hairlineWidth * 2}px;
+  width: ${(props) => props.theme.hairlineWidth * 2}px;
   height: 30px;
 `;
 

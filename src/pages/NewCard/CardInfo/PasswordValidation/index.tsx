@@ -1,24 +1,19 @@
-import React, { useCallback, useState, PureComponent } from "react";
+import React, { useCallback, useState, PureComponent } from 'react';
 
 import {
   StyledButton,
   StyledUnderLine,
   StyleModalMain,
-  StyleTitle
-} from "./style";
+  StyleTitle,
+} from './style';
 
-import { RHFError, MemoRHFInput } from "@components/Form";
-import CModal, { CModalPropsType } from "@components/modal/c-model";
-import { useForm } from "react-hook-form";
+import { RHFError, MemoRHFInput } from '@components/Form';
+import CModal, { CModalPropsType } from '@components/modal/c-model';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as yup from 'yup';
 const validationSchema = yup.object().shape({
-  password: yup
-    .string()
-    .max(50)
-    .trim()
-    .required()
-    .label("密码")
+  password: yup.string().max(50).trim().required().label('密码'),
 });
 
 type FormData = {
@@ -34,20 +29,20 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
   const { register, setValue, handleSubmit, errors, setError } = useForm<
     FormData
   >({
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver(validationSchema),
   });
 
   const pdErrorAction = () => {
-    setValue("password", "", { shouldValidate: false });
-    setError("password", { message: "密码错误" });
+    setValue('password', '', { shouldValidate: false });
+    setError('password', { message: '密码错误' });
   };
 
   const onSubmit = (data: FormData) => onDone(data.password, pdErrorAction);
 
   const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
   const onChangeText = useCallback(
-    text => setValue("password", text, { shouldValidate: true }),
-    []
+    (text) => setValue('password', text, { shouldValidate: true }),
+    [],
   );
 
   return (
@@ -60,25 +55,24 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
           setValue={setValue}
           register={register}
           maxLength={50}
-          placeholder={"设置加入密码"}
-          clearButtonMode={"while-editing"}
-          autoCapitalize={"none"}
-          returnKeyType={"done"}
+          placeholder={'设置加入密码'}
+          clearButtonMode={'while-editing'}
+          autoCapitalize={'none'}
+          returnKeyType={'done'}
           // keyboardType={'default'}
-          textContentType={"password"}
+          textContentType={'password'}
           onSubmitEditing={memoHanleSubmit}
           onChangeText={onChangeText}
           // underlineColorAndroid={'green'}
           style={{ paddingVertical: 5 }}
         />
         <StyledUnderLine />
-        <RHFError errors={errors} name={"password"} />
+        <RHFError errors={errors} name={'password'} />
         <StyledButton
           loading={loading}
           // dise
           disabled={Object.keys(errors).length > 0}
-          onPress={memoHanleSubmit}
-        >
+          onPress={memoHanleSubmit}>
           确定
         </StyledButton>
       </StyleModalMain>

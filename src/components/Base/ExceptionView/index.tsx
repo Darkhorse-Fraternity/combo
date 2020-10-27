@@ -1,5 +1,10 @@
 /* @flow */
-import React, { Component, isValidElement, PureComponent, ReactChild } from 'react';
+import React, {
+  Component,
+  isValidElement,
+  PureComponent,
+  ReactChild,
+} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,19 +18,13 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Indicators from '../../Indicators';
-import {
-  StyledContent,
-  StyledReportBtn,
-  StyledReportText,
-} from './style';
-
+import { StyledContent, StyledReportBtn, StyledReportText } from './style';
 
 export enum ExceptionType {
   Loading = 'exceptionTypeLoading',
   NoData = 'exceptionTypeNoData',
   NetError = 'exceptionTypeError',
-};
-
+}
 
 export interface ExceptionViewProps {
   exceptionType?: ExceptionType;
@@ -39,10 +38,10 @@ export interface ExceptionViewProps {
   promptImage?: ImageSourcePropType;
 }
 
-
-export default class ExceptionView extends PureComponent<ExceptionViewProps, any>  {
-
-
+export default class ExceptionView extends PureComponent<
+  ExceptionViewProps,
+  any
+> {
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
   };
@@ -51,27 +50,21 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
     super(props);
   }
 
-
-  renderTipButton = () => (
+  renderTipButton = () =>
     this.props.tipBtnText ? (
-      <StyledReportBtn onPress={() => {
-        this.props.onRefresh && this.props.onRefresh();
-      }}
-      >
-        <StyledReportText>
-          {this.props.tipBtnText}
-        </StyledReportText>
-
+      <StyledReportBtn
+        onPress={() => {
+          this.props.onRefresh && this.props.onRefresh();
+        }}>
+        <StyledReportText>{this.props.tipBtnText}</StyledReportText>
       </StyledReportBtn>
-    ) : null
-  )
+    ) : null;
 
   renderPrompt() {
-
-
     const { prompt, exceptionType } = this.props;
 
-    const defaultPrompt = exceptionType === ExceptionType.Loading ? '正在加载～' : '没有数据～'
+    const defaultPrompt =
+      exceptionType === ExceptionType.Loading ? '正在加载～' : '没有数据～';
     const text = prompt || defaultPrompt;
     // console.log('defaultPrompt', defaultPrompt);
 
@@ -79,11 +72,7 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
       return prompt;
     }
 
-    return (
-      <Text style={styles.text}>
-        {text}
-      </Text>
-    );
+    return <Text style={styles.text}>{text}</Text>;
   }
 
   renderOtherTips() {
@@ -91,20 +80,12 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
     if (isValidElement(otherTips)) {
       return otherTips;
     }
-    return (
-      <Text style={styles.otherTips}>{otherTips}</Text>
-    );
+    return <Text style={styles.otherTips}>{otherTips}</Text>;
   }
-
-
-
 
   renderPromptLoad() {
-
-    return <Indicators />
+    return <Indicators />;
   }
-
-
 
   renderPromptImage(promptImage: ImageSourcePropType) {
     const { prompIamgeStyle } = this.props;
@@ -116,9 +97,6 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
   }
 
   render() {
-
-
-
     const {
       style,
       exceptionType = ExceptionType.Loading,
@@ -127,11 +105,10 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps, any
 
     // console.log("exceptionType", exceptionType);
     return (
-      <StyledContent
-        style={style}
-      >
+      <StyledContent style={style}>
         {exceptionType === ExceptionType.Loading && this.renderPromptLoad()}
-        {exceptionType === ExceptionType.NoData && this.renderPromptImage(promptImage)}
+        {exceptionType === ExceptionType.NoData &&
+          this.renderPromptImage(promptImage)}
         {this.renderPrompt()}
 
         {this.renderTipButton()}

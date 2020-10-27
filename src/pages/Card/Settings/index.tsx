@@ -51,7 +51,6 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr';
 import { classUpdate } from '../../../request/leanCloud';
 import { req } from '../../../redux/actions/req';
 
-
 // const { width } = Dimensions.get('window');
 
 interface RenderItemType {
@@ -61,7 +60,7 @@ interface RenderItemType {
   size?: number;
   onPress: () => void;
   Icon?: React.ReactNode;
-  style?: StyleProp<ViewStyle>
+  style?: StyleProp<ViewStyle>;
 }
 
 const RenderItem: FC<RenderItemType> = (props) => {
@@ -72,7 +71,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
     size = 30,
     onPress,
     Icon = StyledIcon,
-    style
+    style,
   } = props;
   console.log('style', style);
 
@@ -87,12 +86,15 @@ const RenderItem: FC<RenderItemType> = (props) => {
         right: 10,
       }}
       onPress={onPress}>
-      {load ? <StyledActivityIndicator color={'gray'} /> : <Icon size={size} name={name} />}
+      {load ? (
+        <StyledActivityIndicator color={'gray'} />
+      ) : (
+        <Icon size={size} name={name} />
+      )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>
   );
 };
-
 
 const Archive = `${IUSE}archive`;
 
@@ -227,8 +229,6 @@ export default class Settings extends PureComponent {
       // },
     };
   };
-
-
 
   _renderRresh = (reflesh, iUse) => {
     const text = !reflesh ? '暂停打卡' : '继续打卡';

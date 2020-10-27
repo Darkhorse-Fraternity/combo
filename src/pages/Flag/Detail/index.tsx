@@ -26,7 +26,7 @@ import {
 } from '../../../redux/module/normalizr';
 import PayForm, { FormID } from '../../../components/Form/Pay';
 import { easyPay } from '../../../redux/module/pay';
-import Modal from 'react-native-modal'
+import Modal from 'react-native-modal';
 import {
   StyledSafeAreaView,
   StyledContent,
@@ -47,11 +47,10 @@ import { fbJoin } from '../../../request/LCCloudFuncs';
 import { req } from '../../../redux/actions/req';
 import { iUseList as iUseListParams } from '../../../request/leanCloud';
 
-
 interface StateType {
-  load: boolean,
-  flip: boolean,
-  showPay: boolean,
+  load: boolean;
+  flip: boolean;
+  showPay: boolean;
 }
 
 @connect(
@@ -366,9 +365,7 @@ export default class FlagDetail extends PureComponent<any, StateType> {
     const title = this.props.iCard.get('title');
     const description = `副本_${title}的加入费用`;
     if (cost > 0) {
-
-      this.setState({ showPay: true })
-
+      this.setState({ showPay: true });
     } else {
       try {
         this.setState({ load: true });
@@ -387,7 +384,7 @@ export default class FlagDetail extends PureComponent<any, StateType> {
     const description = `副本_${title}的加入费用`;
     const { iCardId, flagId } = this.props.route.params;
     const { selfUse, join, flag, isTourist, pay } = this.props;
-    const flagModel = flag.toJS()
+    const flagModel = flag.toJS();
     const endDate = flag.get('endDate').toJS();
     const cover = flag.get('cover');
     const cost = flag.get('cost');
@@ -396,7 +393,8 @@ export default class FlagDetail extends PureComponent<any, StateType> {
     return (
       <StyledSafeAreaView>
         <StyledContent>
-          <Modal animationIn={'fadeInUp'}
+          <Modal
+            animationIn={'fadeInUp'}
             style={{
               justifyContent: 'flex-end',
               marginLeft: 0,
@@ -428,7 +426,9 @@ export default class FlagDetail extends PureComponent<any, StateType> {
                   this.setState({ load: false });
                 }
               }}
-              onClose={() => { this.setState({ showPay: false }) }}
+              onClose={() => {
+                this.setState({ showPay: false });
+              }}
               balance={selfUse.balance || 0}
               price={cost}
             />

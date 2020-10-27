@@ -3,14 +3,14 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableNativeFeedback
-} from "react-native";
+  TouchableNativeFeedback,
+} from 'react-native';
 
-const { width } = Dimensions.get("window");
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { theme } from "../../Theme";
-import Button from "../Button";
+const { width } = Dimensions.get('window');
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { theme } from '../../Theme';
+import Button from '../Button';
 
 export default class DateBoard extends React.Component {
   static defaultProps = {
@@ -20,9 +20,9 @@ export default class DateBoard extends React.Component {
       2018: {
         3: [1, 22],
         2: [3, 22],
-        "6": [4, 22]
-      }
-    }
+        '6': [4, 22],
+      },
+    },
   };
 
   static propTypes = {
@@ -33,7 +33,7 @@ export default class DateBoard extends React.Component {
     date: PropTypes.string,
     busyDay: PropTypes.object,
     fetchData: PropTypes.func,
-    color: PropTypes.string
+    color: PropTypes.string,
   };
 
   constructor(props) {
@@ -87,17 +87,16 @@ export default class DateBoard extends React.Component {
       30,
       31,
       30,
-      31
+      31,
     ];
     const arr = [];
     for (let i = 0; i < firstDay; i++) {
       arr.push(
         <View key={-i} style={styles.dateBox}>
-          <Text style={styles.dateText2}>{`${monthDay[lastMonth] -
-            firstDay +
-            i +
-            1}`}</Text>
-        </View>
+          <Text style={styles.dateText2}>{`${
+            monthDay[lastMonth] - firstDay + i + 1
+          }`}</Text>
+        </View>,
       );
     }
 
@@ -119,30 +118,27 @@ export default class DateBoard extends React.Component {
               this.props.fetchData && this.props.fetchData(busyDay[now]);
             }}
             key={i}
-            style={styles.dateBox}
-          >
+            style={styles.dateBox}>
             <View
               style={[
                 styles.selected,
                 {
                   backgroundColor: this.props.color || theme.mainLightColor,
-                  borderRadius: 17
-                }
-              ]}
-            >
+                  borderRadius: 17,
+                },
+              ]}>
               <Text
                 style={[
                   styles.dateText,
                   {
-                    color: "white",
-                    fontWeight: "bold"
-                  }
-                ]}
-              >
-                {i + ""}
+                    color: 'white',
+                    fontWeight: 'bold',
+                  },
+                ]}>
+                {i + ''}
               </Text>
             </View>
-          </Button>
+          </Button>,
         );
       } else if (this.props.date === now) {
         arr.push(
@@ -155,21 +151,19 @@ export default class DateBoard extends React.Component {
                 this.props.fetchData(busyDay[now]);
             }}
             key={i}
-            style={styles.dateBox}
-          >
+            style={styles.dateBox}>
             <View style={[styles.selected]}>
               <Text
                 style={[
                   styles.dateText,
                   {
-                    fontWeight: "bold"
-                  }
-                ]}
-              >
-                {i + ""}
+                    fontWeight: 'bold',
+                  },
+                ]}>
+                {i + ''}
               </Text>
             </View>
-          </Button>
+          </Button>,
         );
       } else {
         arr.push(
@@ -177,12 +171,11 @@ export default class DateBoard extends React.Component {
             background={background}
             onPress={this.props.selectDay.bind(this, now)}
             key={i}
-            style={styles.dateBox}
-          >
+            style={styles.dateBox}>
             <View style={[styles.selected]}>
               <Text style={[styles.dateText]}>{`${i}`}</Text>
             </View>
-          </Button>
+          </Button>,
         );
       }
     }
@@ -191,7 +184,7 @@ export default class DateBoard extends React.Component {
       arr.push(
         <View key={i + 100} style={styles.dateBox}>
           <Text style={styles.dateText2}>{i}</Text>
-        </View>
+        </View>,
       );
     }
 
@@ -208,40 +201,40 @@ const styles = StyleSheet.create({
     marginTop: 8,
     width,
     paddingHorizontal: 12,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   dateBox: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: (width - 24 - 1) / 7,
-    height: 40
+    height: 40,
   },
   dateText: {
-    fontSize: 15
+    fontSize: 15,
   },
   dateText2: {
     fontSize: 15,
-    color: "rgb(150,150,150)"
+    color: 'rgb(150,150,150)',
   },
 
   selected: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 35,
-    height: 35
+    height: 35,
   },
   addBtn: {
     width,
-    height: 60
+    height: 60,
   },
   point: {
-    position: "absolute",
+    position: 'absolute',
     left: 19,
     top: 3,
     width: 4,
     height: 4,
-    borderRadius: 2
+    borderRadius: 2,
     // backgroundColor: '#f00'
-  }
+  },
 });

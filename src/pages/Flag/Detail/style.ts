@@ -4,7 +4,7 @@
  */
 
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Button from '../../../components/Button';

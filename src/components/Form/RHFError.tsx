@@ -1,12 +1,10 @@
 import React from 'react';
-import {
-  TextProps,
-  StyleSheet,
-  StyleProp,
-  Animated,
-} from 'react-native';
+import { TextProps, StyleSheet, StyleProp, Animated } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-type ErrorFields = Record<string, {message?: string; type: string} | undefined>;
+type ErrorFields = Record<
+  string,
+  { message?: string; type: string } | undefined
+>;
 type Name = keyof ErrorFields;
 
 interface RHFErrorProps<T, U> {
@@ -39,7 +37,7 @@ const RHFError = ({
   }
 
   return as ? (
-    React.cloneElement(as, {children: message})
+    React.cloneElement(as, { children: message })
   ) : (
     <Animatable.Text
       duration={500}
@@ -61,4 +59,4 @@ const styles = StyleSheet.create({
 
 const MemoRHFError = React.memo(RHFError);
 
-export {RHFError, MemoRHFError};
+export { RHFError, MemoRHFError };

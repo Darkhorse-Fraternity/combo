@@ -1,5 +1,5 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Text,
@@ -9,14 +9,14 @@ import {
   Image,
   TouchableOpacity,
   TouchableNativeFeedback,
-  Platform
-} from "react-native";
+  Platform,
+} from 'react-native';
 
-import Button from "../Button";
-import { theme } from "../../Theme";
-import { required } from "../../request/validation";
+import Button from '../Button';
+import { theme } from '../../Theme';
+import { required } from '../../request/validation';
 
-const backWidth = Dimensions.get("window").width / 3;
+const backWidth = Dimensions.get('window').width / 3;
 
 export default class EZTabBar extends PureComponent {
   static propTypes = {
@@ -27,24 +27,24 @@ export default class EZTabBar extends PureComponent {
     backgroundColor: PropTypes.string,
     activeTextColor: PropTypes.string,
     inactiveTextColor: PropTypes.string,
-    tabUnderlineWidth: PropTypes.number
+    tabUnderlineWidth: PropTypes.number,
   };
 
   static defaultProps = {
-    tabUnderlineWidth: 72
+    tabUnderlineWidth: 72,
   };
 
   renderTabOption(name: string, page: number) {
     const {
       activeTab,
-      activeTextColor = "#000000",
-      inactiveTextColor = "#979797",
+      activeTextColor = '#000000',
+      inactiveTextColor = '#979797',
       textStyle = {},
       tabs,
       scrollValue,
       underlineColor,
       scrollValueWithOutNative,
-      tabUnderlineWidth
+      tabUnderlineWidth,
     } = this.props;
 
     const isTabActive = activeTab === page;
@@ -53,7 +53,7 @@ export default class EZTabBar extends PureComponent {
     const tabUnderlineStyle = {
       width: tabUnderlineWidth,
       height: 7,
-      backgroundColor: underlineColor || theme.mainColor
+      backgroundColor: underlineColor || theme.mainColor,
     };
 
     // let outputRange = lastActiveTab - page < 0 && isTabActive ? [0, 1] : [1, 0]
@@ -82,17 +82,17 @@ export default class EZTabBar extends PureComponent {
 
     const scaleX = scrollValue.interpolate({
       inputRange: inputRange,
-      outputRange: outputRange
+      outputRange: outputRange,
     });
 
     const color = scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
-      outputRange: outputRangeColor
+      outputRange: outputRangeColor,
     });
 
     const fontSize = scrollValueWithOutNative.interpolate({
       inputRange: inputRange,
-      outputRange: outputRangefontSize
+      outputRange: outputRangefontSize,
     });
 
     // console.log('outputRangeColor:', outputRangeColor);
@@ -100,21 +100,19 @@ export default class EZTabBar extends PureComponent {
     return (
       <TouchableOpacity
         key={name}
-        accessible={true}
+        accessible
         accessibilityLabel={name}
         accessibilityTraits="button"
-        onPress={() => this.props.goToPage(page)}
-      >
+        onPress={() => this.props.goToPage(page)}>
         <View style={[styles.tab]}>
           <Animated.Text
             style={[
               {
                 fontSize: fontSize,
-                color: color
+                color: color,
               },
-              textStyle
-            ]}
-          >
+              textStyle,
+            ]}>
             {name}
           </Animated.Text>
           {numberOfTabs > 1 && (
@@ -122,8 +120,8 @@ export default class EZTabBar extends PureComponent {
               style={[
                 tabUnderlineStyle,
                 {
-                  transform: [{ scaleX }]
-                }
+                  transform: [{ scaleX }],
+                },
               ]}
             />
           )}
@@ -145,17 +143,17 @@ export default class EZTabBar extends PureComponent {
 
 const styles = StyleSheet.create({
   tabBar: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 1,
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderRightWidth: 0,
-    borderBottomColor: "transparent",
-    alignItems: "center"
+    borderBottomColor: 'transparent',
+    alignItems: 'center',
   },
   tab: {
     paddingHorizontal: 5,
     paddingVertical: 10,
-    alignItems: "center"
-  }
+    alignItems: 'center',
+  },
 });

@@ -207,14 +207,14 @@ export default class More extends Component {
       }),
 
       !isTourist &&
-      this.renderRow('我的钱包', true, () => {
-        navigation.navigate('earnings');
-      }),
+        this.renderRow('我的钱包', true, () => {
+          navigation.navigate('earnings');
+        }),
 
       !isTourist &&
-      this.renderRow('粉丝查看', false, () => {
-        navigation.navigate('follow', { userId: user.data.objectId });
-      }),
+        this.renderRow('粉丝查看', false, () => {
+          navigation.navigate('follow', { userId: user.data.objectId });
+        }),
 
       this.renderRow('好评鼓励', false, rate),
 
@@ -253,7 +253,7 @@ export default class More extends Component {
   renderRow(
     title: string,
     isArraw: bool = false,
-    onPress: Function = () => { },
+    onPress: Function = () => {},
     description: any = null,
   ) {
     return (

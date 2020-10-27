@@ -3,21 +3,21 @@
  * @flow
  */
 
-import Toast from "react-native-simple-toast";
-import { normalize } from "normalizr";
-import { send } from "../../request";
-import { addEntities } from "../module/normalizr";
-import { schemas } from "../scemes";
+import Toast from 'react-native-simple-toast';
+import { normalize } from 'normalizr';
+import { send } from '../../request';
+import { addEntities } from '../module/normalizr';
+import { schemas } from '../scemes';
 
-export const REQUEST_LOAD = "REQUEST_LOAD";
-export const REQUEST_SUCCEEED = "REQUEST_SUCCEEED";
-export const REQUEST_FAILED = "REQUEST_FAILED";
-export const REQUESR_CHANGE_DATA = "REQUESR_CHANGE_DATA";
+export const REQUEST_LOAD = 'REQUEST_LOAD';
+export const REQUEST_SUCCEEED = 'REQUEST_SUCCEEED';
+export const REQUEST_FAILED = 'REQUEST_FAILED';
+export const REQUESR_CHANGE_DATA = 'REQUESR_CHANGE_DATA';
 
-export const RESCODE = "code";
+export const RESCODE = 'code';
 export const SUCCODE = -1000;
-export const MSG = "error";
-export const DATA = "results";
+export const MSG = 'error';
+export const DATA = 'results';
 
 // export function reqF(params) {
 //     return send(params).then(res => res.ok
@@ -28,11 +28,11 @@ export const DATA = "results";
 export async function reqY(params) {
   const response = await send(params);
   // console.log('response:', response);
-  const contentType = response.headers.get("content-type");
-  const jsonTypes = ["application/json", "text/plain"];
+  const contentType = response.headers.get('content-type');
+  const jsonTypes = ['application/json', 'text/plain'];
   // console.log('contentType', contentType);
 
-  const isJSON = jsonTypes.some(type => contentType.includes(type));
+  const isJSON = jsonTypes.some((type) => contentType.includes(type));
   if (isJSON) {
     return response.json();
   }
@@ -54,7 +54,7 @@ export async function reqM(params) {
   if (response && response[RESCODE]) {
     __DEV__ &&
       response[RESCODE] !== SUCCODE &&
-      console.log("req message:", response[MSG]);
+      console.log('req message:', response[MSG]);
     response[RESCODE] !== SUCCODE && Toast.show(response[MSG], Toast.LONG);
   }
 
@@ -63,7 +63,7 @@ export async function reqM(params) {
 
 // 加入 根据key 存入store
 export function reqA(params: Object, key: string, option: Object = {}) {
-  return async dispatch => {
+  return async (dispatch) => {
     if (!key) {
       return reqM(params);
     }
@@ -83,7 +83,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 
 // 不返回错误码，直接通过通用错误处理渠道。
 export function req(params: Object, key: string, option: Object = {}) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const response = await dispatch(reqA(params, key, option));
       if (response && response[RESCODE] === SUCCODE) {
@@ -92,7 +92,7 @@ export function req(params: Object, key: string, option: Object = {}) {
       return response;
     } catch (e) {
       if (e.message) {
-        console.log("message:", e.message);
+        console.log('message:', e.message);
         Toast.show(e.message, Toast.LONG);
       }
       if (key) {
@@ -103,7 +103,7 @@ export function req(params: Object, key: string, option: Object = {}) {
 }
 
 export function load(params: Object, key: string) {
-  return dispatch => dispatch(req(params, key, { sceme: schemas[key] }));
+  return (dispatch) => dispatch(req(params, key, { sceme: schemas[key] }));
 }
 
 export async function get(params) {
@@ -119,7 +119,7 @@ export async function get(params) {
 }
 
 export function cleanData(response, option) {
-  return async dispatch => {
+  return async (dispatch) => {
     const data =
       (!option.dataMap ? response[DATA] : option.dataMap(response[DATA])) ||
       response;
@@ -144,7 +144,7 @@ export function requestSucceed(key: string, data: Object): Object {
     type: REQUEST_SUCCEEED,
     load: false,
     payload: data,
-    key
+    key,
   };
 }
 
@@ -158,7 +158,7 @@ export function requestFailed(key: string, err: any): Object {
     type: REQUEST_FAILED,
     load: false,
     key,
-    err
+    err,
   };
 }
 
@@ -171,7 +171,7 @@ export function requestStart(key: string): Object {
   return {
     type: REQUEST_LOAD,
     load: true,
-    key
+    key,
   };
 }
 
@@ -179,6 +179,6 @@ export function reqChangeData(key: string, data: Object): Object {
   return {
     type: REQUESR_CHANGE_DATA,
     payload: data,
-    key
+    key,
   };
 }

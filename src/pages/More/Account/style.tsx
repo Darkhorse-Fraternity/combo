@@ -52,16 +52,12 @@ export const StyledDes = styled.Text`
   font-size: 14px;
 `;
 
-
-
 export const StyledRow = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 20px 0px;
 `;
-
-
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
   margin-left: 5px;

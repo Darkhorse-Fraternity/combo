@@ -32,7 +32,6 @@ export default class Avatar extends PureComponent<AvatarProps> {
   render() {
     const { radius, style, ...other } = getProps(this.props);
 
-
     return (
       <Image
         // placeholderStyle={[
@@ -57,28 +56,29 @@ export default class Avatar extends PureComponent<AvatarProps> {
 }
 
 interface AvatarUrlProps extends Omit<AvatarProps, 'source'> {
-  url: string
+  url: string;
 }
 
 export const AvatarUrl: FC<AvatarUrlProps> = (props) => {
   const { url, radius = defaultProps.radius, ...ohter } = props;
-  const avatarUrl = add_Leancloud_Thumbnail_Suffix(url, radius * 3, radius * 3)
-  return <Avatar {...ohter} radius={radius} source={{ uri: avatarUrl }} />
-}
+  const avatarUrl = add_Leancloud_Thumbnail_Suffix(url, radius * 3, radius * 3);
+  return <Avatar {...ohter} radius={radius} source={{ uri: avatarUrl }} />;
+};
 
 interface AvatarAutoProps extends Omit<AvatarProps, 'source'> {
-  headimgurl: string,
+  headimgurl: string;
   avatarUrl: string;
 }
 
 export const AvatarAuto: FC<AvatarAutoProps> = (props) => {
   const { avatarUrl, radius, headimgurl, ...ohter } = props;
   if (avatarUrl && avatarUrl.length > 0) {
-    return <AvatarUrl url={avatarUrl} {...ohter} />
+    return <AvatarUrl url={avatarUrl} {...ohter} />;
   }
 
-  const avatarSource = headimgurl ? { uri: headimgurl } :
-    require('../../../source/img/my/my_head.png')
+  const avatarSource = headimgurl
+    ? { uri: headimgurl }
+    : require('../../../source/img/my/my_head.png');
 
-  return <Avatar {...ohter} source={avatarSource} />
-}
+  return <Avatar {...ohter} source={avatarSource} />;
+};

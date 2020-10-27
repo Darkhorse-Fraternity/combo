@@ -4,7 +4,7 @@ import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import { TouchableItem } from '@react-navigation/stack/src/views/TouchableItem';
 import { StyledIonicons } from './style';
 
-const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = props => {
+const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = (props) => {
   return {
     title: '',
     // headerRight: headerRightProps => (

@@ -24,26 +24,27 @@ const title = '打卡';
 // };
 
 const navigationOptions: NavigationOptionsType<RouteKey.clockIn> = (props) => {
-
   return {
     title: '',
     // cardStyle: { backgroundColor: 'transparent' },
     ...TransitionPresets.ScaleFromCenterAndroid,
-    headerRight: headerRightProps => (
+    headerRight: (headerRightProps) => (
       <ButtonItem
         style={{ marginRight: 15 }}
         {...headerRightProps}
         onPress={() => {
           console.log('props', props);
-
         }}>
         <StyledHeaderText>发布</StyledHeaderText>
       </ButtonItem>
     ),
-    headerBackground: () => <StyledHeader
-      // style={{ backgroundColor: 'red' }}
-      onResponderGrant={Keyboard.dismiss}
-      onStartShouldSetResponder={() => true} />
+    headerBackground: () => (
+      <StyledHeader
+        // style={{ backgroundColor: 'red' }}
+        onResponderGrant={Keyboard.dismiss}
+        onStartShouldSetResponder={() => true}
+      />
+    ),
     // headerRight: headerRightProps => <RightView {...headerRightProps} />,
   };
 };

@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Props } from "./types";
-import { StyledTextInput } from "./style";
-import { TextInputProps, TextInput } from "react-native";
-import { RHFInput as InnerRHFInput } from "react-hook-form-input";
+import * as React from 'react';
+import { Props } from './types';
+import { StyledTextInput } from './style';
+import { TextInputProps, TextInput } from 'react-native';
+import { RHFInput as InnerRHFInput } from 'react-hook-form-input';
 const isUndefined = (val: unknown): val is undefined => val === undefined;
 
 function getValue(target: any, { isCheckbox }: { isCheckbox: boolean }) {
@@ -15,25 +15,21 @@ function getValue(target: any, { isCheckbox }: { isCheckbox: boolean }) {
     ? isCheckbox
       ? target.checked
       : isUndefined(target.value)
-        ? target
-        : target.value
+      ? target
+      : target.value
     : target;
 }
 
 const RHFInput = ({
-  mode = "onSubmit",
+  mode = 'onSubmit',
   as: InnerComponent = StyledTextInput,
   ...rest
 }: Props & TextInputProps) => {
   const onChange = (args: any) => ({
-    value: args[0].nativeEvent.text
+    value: args[0].nativeEvent.text,
   });
   return (
-    <InnerRHFInput
-      onChangeEvent={onChange}
-      as={<InnerComponent />}
-      {...rest}
-    />
+    <InnerRHFInput onChangeEvent={onChange} as={<InnerComponent />} {...rest} />
   );
 };
 

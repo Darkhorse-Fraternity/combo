@@ -3,14 +3,8 @@
  * @flow
  */
 
-
 import React, { PureComponent } from 'react';
-import {
-  View,
-
-  LayoutAnimation,
-  Platform
-} from 'react-native';
+import { View, LayoutAnimation, Platform } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FieldArray, Field } from 'redux-form/immutable';
@@ -30,24 +24,18 @@ import {
   StyledShowDelete,
   StyledNotifyButtonInner,
   StyledRound,
-  StyledLine
+  StyledLine,
 } from './style';
 import { Multiple } from '../../../components/Form/Select/index';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { localRemindConfig, useLocalRemindConfig } from '@configure/app';
 
-
 function PrefixInteger(num, length) {
   return (Array(length).join('0') + num).slice(-length);
 }
 
-@connect(
-  state => ({}),
-  dispatch => ({})
-)
-
-
+@connect((state) => ({}), (dispatch) => ({}))
 export default class NotifyTimePicker extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -68,12 +56,11 @@ export default class NotifyTimePicker extends PureComponent {
     this.timer && clearTimeout(this.timer);
   }
 
-  handleViewRef = {}
+  handleViewRef = {};
 
-  item = []
+  item = [];
 
   renderComponent = ({ fields, meta: { error, submitFailed } }) => [
-
     <StyledNotifyButton
       key="button"
       onPress={async () => {
@@ -85,12 +72,12 @@ export default class NotifyTimePicker extends PureComponent {
         const self = this;
         this.onChange = async (time) => {
           const { options } = this.props;
-          const position = options.findIndex(item => item === time);
+          const position = options.findIndex((item) => item === time);
 
           if (position === -1) {
             await fields.insert(fields.length, time);
-            self.handleViewRef[fields.length]
-              && self.handleViewRef[fields.length].bounceIn();
+            self.handleViewRef[fields.length] &&
+              self.handleViewRef[fields.length].bounceIn();
           } else {
             this.timer && clearTimeout(this.timer);
             this.timer = setTimeout(() => {
@@ -98,8 +85,7 @@ export default class NotifyTimePicker extends PureComponent {
             }, 500);
           }
         };
-      }}
-    >
+      }}>
       <StyledNotifyButtonInner>
         <StyledMaterialIcons size={30} name="alarm-add" />
       </StyledNotifyButtonInner>
@@ -108,13 +94,12 @@ export default class NotifyTimePicker extends PureComponent {
       <Field
         name={`${item}`}
         key={`${item}`}
-        component={props => (
+        component={(props) => (
           <Animatable.View
             useNativeDriver
             easing="ease-in-out"
             // animation="bounceIn"
-            ref={ref => this.handleViewRef[index] = ref}
-          >
+            ref={(ref) => (this.handleViewRef[index] = ref)}>
             <StyledNotifyButton
               key="button"
               onPress={async () => {
@@ -127,15 +112,14 @@ export default class NotifyTimePicker extends PureComponent {
                   return;
                 }
 
-
                 this.onChange = async (time) => {
                   const { options } = this.props;
-                  const position = options.findIndex(item => item === time);
+                  const position = options.findIndex((item) => item === time);
                   const self = this;
                   if (position === -1) {
                     await props.input.onChange(time);
-                    self.handleViewRef[index]
-                      && self.handleViewRef[index].bounceIn();
+                    self.handleViewRef[index] &&
+                      self.handleViewRef[index].bounceIn();
                   } else if (position !== index) {
                     this.timer && clearTimeout(this.timer);
                     this.timer = setTimeout(() => {
@@ -146,31 +130,22 @@ export default class NotifyTimePicker extends PureComponent {
                   }
                 };
                 this.setState({ isDateTimePickerVisible: true });
-              }}
-            >
+              }}>
               {this.state.isDelete && (
                 <StyledRound>
                   <StyledLine />
                 </StyledRound>
               )}
               <StyledNotifyButtonInner>
-                <StyledMaterialIcons
-                  size={30}
-                  name="alarm"
-                />
-                <StyledNotifyTime>
-                  {props.input.value}
-                  {' '}
-                </StyledNotifyTime>
+                <StyledMaterialIcons size={30} name="alarm" />
+                <StyledNotifyTime>{props.input.value} </StyledNotifyTime>
               </StyledNotifyButtonInner>
-
             </StyledNotifyButton>
           </Animatable.View>
         )}
       />
-    ))
-  ]
-
+    )),
+  ];
 
   onChange = null;
 
@@ -184,29 +159,25 @@ export default class NotifyTimePicker extends PureComponent {
     this.onChange && this.onChange(time);
 
     this.onChange = null;
-  }
+  };
 
   _hideDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: false });
-  }
+  };
 
   render(): ReactElement<any> {
     const { name, options } = this.props;
 
-
     return (
       <View>
         <StyledSubTitleView>
-          <StyledSubTitle>
-            选择提醒时间
-          </StyledSubTitle>
+          <StyledSubTitle>选择提醒时间</StyledSubTitle>
           {options.size > 0 && (
             <StyledControl
               onPress={() => {
                 this.setState({ isDelete: !this.state.isDelete });
                 LayoutAnimation.spring();
-              }}
-            >
+              }}>
               <StyledShowDelete>
                 {!this.state.isDelete ? '删除' : '取消删除'}
               </StyledShowDelete>
@@ -238,17 +209,22 @@ export default class NotifyTimePicker extends PureComponent {
 }
 
 const NoticeTip = () => {
-
-  const { navigate } = useNavigation()
-  const state = useLocalRemindConfig()
+  const { navigate } = useNavigation();
+  const state = useLocalRemindConfig();
 
   if (state) {
-    return null
+    return null;
   }
 
-  return (<TouchableOpacity onPress={() => {
-    navigate('remind')
-  }}>
-    <StyleNoticeText> 点击开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒权限! </StyleNoticeText>
-  </TouchableOpacity>)
-}
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigate('remind');
+      }}>
+      <StyleNoticeText>
+        {' '}
+        点击开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒权限!{' '}
+      </StyleNoticeText>
+    </TouchableOpacity>
+  );
+};

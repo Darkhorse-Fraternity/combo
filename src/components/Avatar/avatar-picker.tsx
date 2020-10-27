@@ -6,11 +6,11 @@ import {
   StyledContent,
   StyledHeaderRow,
   StyledIcon,
-  StyledIndicator
-} from './style'
+  StyledIndicator,
+} from './style';
 interface AvatarPickerType extends AvatarProps {
-  load: boolean,
-  upload: (uri: string) => void
+  load: boolean;
+  upload: (uri: string) => void;
 }
 
 export const AvatarPicker: FC<AvatarPickerType> = (props) => {
@@ -19,21 +19,28 @@ export const AvatarPicker: FC<AvatarPickerType> = (props) => {
 
   const onSuccess = ({ path }: { path: string }) => {
     upload(path);
-    setstate(false)
-  }
+    setstate(false);
+  };
 
   return (
     <>
       <StyledHeaderRow disabled={load} onPress={setstate.bind(undefined, true)}>
         <StyledContent radius={radius}>
-          {load ? <StyledIndicator radius={radius / 2} /> :
-            <Avatar radius={radius} {...other} />}
+          {load ? (
+            <StyledIndicator radius={radius / 2} />
+          ) : (
+            <Avatar radius={radius} {...other} />
+          )}
         </StyledContent>
         <StyledCaramerBackView>
           <StyledIcon color="white" size={15} name="camera" />
         </StyledCaramerBackView>
       </StyledHeaderRow>
-      <PhotoOrCameraSheet onClose={setstate.bind(undefined, false)} onSuccess={onSuccess} isVisiable={state} />
+      <PhotoOrCameraSheet
+        onClose={setstate.bind(undefined, false)}
+        onSuccess={onSuccess}
+        isVisiable={state}
+      />
     </>
-  )
-}
+  );
+};

@@ -22,8 +22,6 @@ import { isTablet, isLandscape } from 'react-native-device-info';
 import { useNavigation } from '@react-navigation/native';
 import { useOrientation, useScrollTitle } from '@components/util/hooks';
 
-
-
 // export default class Flag extends PureComponent<any, { numColumns: number }> {
 //   openSmallTitle = false;
 //   constructor(props: Object) {
@@ -32,7 +30,6 @@ import { useOrientation, useScrollTitle } from '@components/util/hooks';
 //       numColumns: isTablet() ? isLandscape() ? 3 : 2 : 1
 //     }
 //   }
-
 
 //   _orientationDidChange = (orientation: string) => {
 //     if (orientation === 'LANDSCAPE') {
@@ -149,17 +146,23 @@ import { useOrientation, useScrollTitle } from '@components/util/hooks';
 //   }
 // }
 
-const title = '副本任务'
+const title = '副本任务';
 const RenderHeader = () => (
   <StyledHeader>
     <StyledHeaderTitle>{title}</StyledHeaderTitle>
   </StyledHeader>
 );
 
-
-const RenderItem = ({ item, index, numColumns }: { item: any, index: number, numColumns: number }) => {
-
-  const { navigate } = useNavigation()
+const RenderItem = ({
+  item,
+  index,
+  numColumns,
+}: {
+  item: any;
+  index: number;
+  numColumns: number;
+}) => {
+  const { navigate } = useNavigation();
 
   const {
     title,
@@ -199,16 +202,12 @@ const RenderItem = ({ item, index, numColumns }: { item: any, index: number, num
   );
 };
 
-
-
-
 const Render: FC<any> = () => {
   const onScroll = useScrollTitle(title);
   const ori = useOrientation();
-  const numColumns = isTablet() ? ori === 'LANDSCAPE' ? 3 : 2 : 1;
+  const numColumns = isTablet() ? (ori === 'LANDSCAPE' ? 3 : 2) : 1;
 
-  console.log("???");
-
+  console.log('???');
 
   const param = {
     where: {
@@ -231,7 +230,7 @@ const Render: FC<any> = () => {
       style={{ flex: 1 }}
       // removeClippedSubviews={true}
       // pagingEnabled={true}
-      key={(numColumns === 2 ? 'h' : 'v')}
+      key={numColumns === 2 ? 'h' : 'v'}
       sKey={FBLIST} // 在list 中的位置
       callPath={FBLIST} // 表示走云函数,并告知云函数的路径
       reqKey={FLAG}
@@ -242,8 +241,8 @@ const Render: FC<any> = () => {
       reqParam={param}
       renderItem={(props) => <RenderItem {...props} numColumns={numColumns} />}
       ListHeaderComponent={RenderHeader}
-    // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
+      // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
     />
   );
-}
+};
 export default Render;

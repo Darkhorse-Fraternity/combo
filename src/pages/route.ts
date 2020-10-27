@@ -1,4 +1,4 @@
-import {RouteType, RouteKey} from './interface';
+import { RouteType, RouteKey } from './interface';
 
 import Habit from './Habit';
 import Creat from './NewCard/CardConfig/Creat';
@@ -31,25 +31,25 @@ import FlagDetail from './Flag/Detail';
 import FRDetail from './Flag/FRDetail';
 import Tool from './More/Tool';
 import Search from './NewCard/Search';
-import {AndroidBackHandleHOCComponent} from '../configure/androidBackHandle';
+import { AndroidBackHandleHOCComponent } from '../configure/androidBackHandle';
 import ClockIn from '../pages/clock-in';
 import Test from './test';
-import Log from './Card/Log/render'
+import Log from './Card/Log/render';
 
 export const otherRoute = {
   [RouteKey.web]: web,
-  [RouteKey.log]:{component:Log,optione:Log.navigationOptions},
-  [RouteKey.clockIn]:ClockIn,
+  [RouteKey.log]: { component: Log, optione: Log.navigationOptions },
+  [RouteKey.clockIn]: ClockIn,
   [RouteKey.test]: Test,
-  [RouteKey.search]: {component: Search, options: Search.navigationOptions},
-  [RouteKey.tool]: {component: Tool},
+  [RouteKey.search]: { component: Search, options: Search.navigationOptions },
+  [RouteKey.tool]: { component: Tool },
   [RouteKey.FlagRecord]: FlagRecord,
   [RouteKey.earnings]: {
     component: Earnings,
     options: Earnings.navigationOptions,
   },
-  [RouteKey.remind]: {component: Remind, options: Remind.navigationOptions},
-  [RouteKey.cash]: {component: Cash, options: Cash.navigationOptions},
+  [RouteKey.remind]: { component: Remind, options: Remind.navigationOptions },
+  [RouteKey.cash]: { component: Cash, options: Cash.navigationOptions },
   [RouteKey.recordDetail]: RecordDetail,
   [RouteKey.cardSetting]: {
     component: CardSetting,
@@ -63,26 +63,29 @@ export const otherRoute = {
     component: Follower,
     options: Follower.navigationOptions,
   },
-  [RouteKey.follow]: {component: Follow, options: Follow.navigationOptions},
+  [RouteKey.follow]: { component: Follow, options: Follow.navigationOptions },
   [RouteKey.following]: {
     component: Following,
     options: Following.navigationOptions,
   },
-  [RouteKey.creat]: {component: Creat, options: Creat.navigationOptions},
+  [RouteKey.creat]: { component: Creat, options: Creat.navigationOptions },
   [RouteKey.newCard]: NewCard,
-  [RouteKey.record]: {component: Record, options: Record.navigationOptions},
+  [RouteKey.record]: { component: Record, options: Record.navigationOptions },
   [RouteKey.cardConfig]: {
     component: CardConfig,
     options: CardConfig.navigationOptions,
   },
-  [RouteKey.account]: {component: Account},  
+  [RouteKey.account]: { component: Account },
   [RouteKey.cardInfo]: {
     component: CardInfo,
     options: CardInfo.navigationOptions,
   },
   [RouteKey.rcomment]: RComment,
   [RouteKey.card]: Card,
-  [RouteKey.cardUse]: {component: CardUse, options: CardUse.navigationOptions},
+  [RouteKey.cardUse]: {
+    component: CardUse,
+    options: CardUse.navigationOptions,
+  },
 
   [RouteKey.login]: {
     component: LoginView,

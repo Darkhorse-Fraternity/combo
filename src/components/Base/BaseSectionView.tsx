@@ -22,7 +22,10 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native';
-import ExceptionView, { ExceptionType, ExceptionViewProps } from './ExceptionView';
+import ExceptionView, {
+  ExceptionType,
+  ExceptionViewProps,
+} from './ExceptionView';
 import { ListLoadType } from './interface';
 
 // const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
@@ -35,17 +38,18 @@ import { ListLoadType } from './interface';
 // export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
 // export const LIST_NORMAL = 'LIST_NORMAL';
 
-export type BaseListBaseProps<T> = FlatListProps<T> & ExceptionViewProps & {
-  noDataPrompt?: string;
-  tipTap?: Function;
-  keyId: string;
-  noDataImg?: ImageSourcePropType;
-  tipBtnText?: string;
-  listRef?: LegacyRef<FlatList<T>>;
-  footerStyle?: StyleProp<ViewStyle>;
+export type BaseListBaseProps<T> = FlatListProps<T> &
+  ExceptionViewProps & {
+    noDataPrompt?: string;
+    tipTap?: Function;
+    keyId: string;
+    noDataImg?: ImageSourcePropType;
+    tipBtnText?: string;
+    listRef?: LegacyRef<FlatList<T>>;
+    footerStyle?: StyleProp<ViewStyle>;
 
-  showLoadingInView?: boolean;
-};
+    showLoadingInView?: boolean;
+  };
 
 export interface BaseListProps<T> extends BaseListBaseProps<T> {
   loadStatu: ListLoadType;
@@ -60,15 +64,13 @@ interface IState {
 export default class BaseSectionView<ItemT> extends PureComponent<
   BaseListProps<ItemT>,
   IState
-  > {
+> {
   constructor(props: BaseListProps<ItemT>) {
     super(props);
     this.state = {
       shouldShowloadMore: false,
     };
   }
-
-
 
   static defaultProps = {
     loadStatu: ListLoadType.LIST_FIRST_JOIN,
@@ -149,8 +151,10 @@ export default class BaseSectionView<ItemT> extends PureComponent<
           </View>
         );
       }
-      if (loadStatu === ListLoadType.LIST_LOAD_MORE ||
-        loadStatu === ListLoadType.LIST_NORMAL) {
+      if (
+        loadStatu === ListLoadType.LIST_LOAD_MORE ||
+        loadStatu === ListLoadType.LIST_NORMAL
+      ) {
         return (
           <View style={styles.footer}>
             <ActivityIndicator
@@ -197,18 +201,13 @@ export default class BaseSectionView<ItemT> extends PureComponent<
     const exceptionViewRefreshing = loadStatu === ListLoadType.LIST_LOAD_DATA;
     const isFirst = loadStatu === ListLoadType.LIST_FIRST_JOIN;
     const refreshing =
-      loadStatu === ListLoadType.LIST_LOAD_DATA &&
-      this.openRefreshing;
+      loadStatu === ListLoadType.LIST_LOAD_DATA && this.openRefreshing;
     const exceptionType =
       (exceptionViewRefreshing || isFirst) &&
-        !this.openRefreshing &&
-        showLoadingInView
+      !this.openRefreshing &&
+      showLoadingInView
         ? ExceptionType.Loading
         : ExceptionType.NoData;
-
-
-
-
 
     return (
       <FlatList<ItemT>
@@ -235,7 +234,11 @@ export default class BaseSectionView<ItemT> extends PureComponent<
                 ? ExceptionType.Loading
                 : ExceptionType.NoData
             }
-            prompt={exceptionType !== ExceptionType.Loading ? noDataPrompt : '加载中～'}
+            prompt={
+              exceptionType !== ExceptionType.Loading
+                ? noDataPrompt
+                : '加载中～'
+            }
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap || this._handleRefresh}
             {...otherProps}

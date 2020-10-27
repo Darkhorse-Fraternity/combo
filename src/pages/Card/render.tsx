@@ -77,7 +77,7 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
 class Main extends PureComponent<
   { iUse: GetClassesIUseIdResponse; iCard: GetClassesICardIdResponse },
   { scrollValue: Animated.Value; page: number }
-  > {
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -121,7 +121,7 @@ class Main extends PureComponent<
             // title={title}
             // tabUnderlineWidth={35}
             scrollValueWithOutNative={this.state.scrollValue}
-          // rightView={this.__renderRightView}
+            // rightView={this.__renderRightView}
           />
         )}
         prerenderingSiblingsNumber={0}>

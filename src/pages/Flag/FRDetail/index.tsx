@@ -3,11 +3,8 @@
  * @flow
  */
 
-
 import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -21,20 +18,17 @@ import {
   StyledRanking,
   StyledInner,
   StyledCellDiscrib,
-  StyledCellName
+  StyledCellName,
 } from './style';
 import { Flag } from '../../../request/LCModle';
 import Avatar from '../../../components/Avatar/Avatar2';
-
 
 @connect(
   (state, props) => ({
     flag: state.normalizr.get(FLAG).get(props.route.params.flagId),
   }),
-  dispatch => ({})
+  (dispatch) => ({}),
 )
-
-
 export default class FRDetail extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -45,27 +39,22 @@ export default class FRDetail extends PureComponent {
   static defaultProps = {};
 
   static navigationOptions = // const {navigation} = props;
-                             // const {state} = navigation;
-                             // const {params} = state;
-                             props => ({
-                               title: '',
-                             })
-  ;
-
+    // const {state} = navigation;
+    // const {params} = state;
+    (props) => ({
+      title: '',
+    });
 
   _renderHeader = () => {
     const startDate = this.props.flag.get('startDate');
     return (
       <StyledHeader>
         <StyledHeaderTitle>
-          第
-          {moment(startDate.get('iso')).format('YYYYMMDD')}
-          期
+          第{moment(startDate.get('iso')).format('YYYYMMDD')}期
         </StyledHeaderTitle>
       </StyledHeader>
     );
-  }
-
+  };
 
   __renderItem = ({ item, index }) => {
     const { user, doneDate } = item;
@@ -78,25 +67,18 @@ export default class FRDetail extends PureComponent {
       size = 20;
     }
     return (
-      <StyledItem onPress={() => {
-      }}
-      >
+      <StyledItem onPress={() => {}}>
         <StyledInner>
-          <StyledRanking size={size}>
-            {index + 1}
-          </StyledRanking>
+          <StyledRanking size={size}>{index + 1}</StyledRanking>
           <Avatar user={user} />
-          <StyledCellName>
-            {user.nickname || '路人甲'}
-          </StyledCellName>
+          <StyledCellName>{user.nickname || '路人甲'}</StyledCellName>
         </StyledInner>
         <StyledCellDiscrib done={!!doneDate}>
           {doneDate ? moment(doneDate.iso).format('MM-DD HH:mm') : '未完成'}
         </StyledCellDiscrib>
       </StyledItem>
     );
-  }
-
+  };
 
   render(): ReactElement<any> {
     const param = {
@@ -106,7 +88,6 @@ export default class FRDetail extends PureComponent {
       order: '-doneState,doneDate',
       include: 'user',
     };
-
 
     return (
       <StyledContent forceInset={{ top: 'never' }}>

@@ -7,7 +7,7 @@ import styled from 'styled-components/native';
 // import Button from '../../../components/Button'
 import Button from '@components/Button';
 import NativeUnifiedADView from '@components/GDTNativeUnifiedAD';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
@@ -21,7 +21,7 @@ export const StyledHeader = styled.View`
   background-color: white;
   flex-direction: row;
   flex-wrap: wrap;
-  border-bottom-width: ${props => props.theme.hairlineWidth};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth};
   border-bottom-color: #e4e4e4;
 `;
 
@@ -59,5 +59,5 @@ const imageRate = 16 / 9.0;
 export const StyledNativeUnifiedADView = styled(NativeUnifiedADView)`
   margin-top: ${Platform.OS === 'ios' ? 20 : 0}px;
   width: 100%;
-  height: ${props => (props.theme.width * 0.65) / imageRate + 114};
+  height: ${(props) => (props.theme.width * 0.65) / imageRate + 114};
 `;

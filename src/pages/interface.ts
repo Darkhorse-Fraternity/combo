@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {StackNavigationOptions} from '@react-navigation/stack';
+import { StackNavigationOptions } from '@react-navigation/stack';
 import {
   NavigationHelpers,
   NavigationProp,
   RouteProp,
 } from '@react-navigation/native';
-import {Record} from 'immutable';
+import { Record } from 'immutable';
 import { WebViewProp } from '@components/WebView/interface';
 
 export enum RouteKey {
@@ -46,7 +46,7 @@ export enum RouteKey {
   test = 'test',
 }
 
-type RecordType = '文字'|'图片';
+type RecordType = '文字' | '图片';
 
 export type RootStackParamList = {
   [RouteKey.web]: {
@@ -60,8 +60,8 @@ export type RootStackParamList = {
   [RouteKey.earnings]: undefined;
   [RouteKey.remind]: undefined;
   [RouteKey.cash]: undefined;
-  [RouteKey.recordDetail]:{iUseId:string};
-  [RouteKey.cardSetting]: {iCardID: string};
+  [RouteKey.recordDetail]: { iUseId: string };
+  [RouteKey.cardSetting]: { iCardID: string };
   [RouteKey.followee]: undefined;
   [RouteKey.follower]: undefined;
   [RouteKey.follow]: undefined;
@@ -73,20 +73,20 @@ export type RootStackParamList = {
   [RouteKey.account]: undefined;
   // [RouteKey.feedback]: undefined;
   [RouteKey.cardInfo]: undefined;
-  [RouteKey.rcomment]: {iDoID:string};
-  [RouteKey.card]: {iUseId:string};
+  [RouteKey.rcomment]: { iDoID: string };
+  [RouteKey.card]: { iUseId: string };
   [RouteKey.cardUse]: undefined;
   [RouteKey.more]: undefined;
   [RouteKey.login]: undefined;
   [RouteKey.flagDetail]: undefined;
   [RouteKey.FRDetail]: undefined;
-  [RouteKey.cirlcleSetting]: {iCardID:string};
-  [RouteKey.clockIn]:{iUseId:string,doneDateIso?:string,iDoId?:string}; 
+  [RouteKey.cirlcleSetting]: { iCardID: string };
+  [RouteKey.clockIn]: { iUseId: string; doneDateIso?: string; iDoId?: string };
   //tabs
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;
   [RouteKey.flag]: undefined;
-  [RouteKey.log]:{iUseId:string,iCardId:string,color:string};
+  [RouteKey.log]: { iUseId: string; iCardId: string; color: string };
 };
 
 // type KeyType = keyof typeof RouteKey;

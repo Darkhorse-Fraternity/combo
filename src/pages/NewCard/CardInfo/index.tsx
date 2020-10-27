@@ -189,8 +189,8 @@ type NavAndPropsType = PropsType;
   }),
 )
 export default class CardInfo extends PureComponent<
-NavAndPropsType,
-StateType
+  NavAndPropsType,
+  StateType
 > {
   constructor(props: NavAndPropsType) {
     super(props);
@@ -344,7 +344,6 @@ StateType
               }
 
               if (iCard.password && iCard.password.length > 0 && !isSelf) {
-
                 this.setState({ showModal: true });
               } else {
                 this.props.use(iCard);
@@ -368,13 +367,13 @@ StateType
               />
             </StyledHeaderCover>
           ) : (
-              <StyledHedaderIconBack color={iconAndColor.color}>
-                <StyledHeaderIcon
-                  resizeMode="contain"
-                  source={svgs[iconAndColor.name]}
-                />
-              </StyledHedaderIconBack>
-            )}
+            <StyledHedaderIconBack color={iconAndColor.color}>
+              <StyledHeaderIcon
+                resizeMode="contain"
+                source={svgs[iconAndColor.name]}
+              />
+            </StyledHedaderIconBack>
+          )}
 
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>

@@ -52,7 +52,7 @@ export const StyledRowContent = styled(Button)`
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  flex:1  0 auto;
+  flex: 1 0 auto;
 `;
 export const StyledInnerView = styled.View`
   flex-direction: row;
@@ -74,8 +74,8 @@ export const StyledDiscrib = styled.Text`
 `;
 
 export const StyledArrow = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;

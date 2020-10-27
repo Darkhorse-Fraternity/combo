@@ -20,23 +20,22 @@ import ContextProvide from './data/data-context/context-provide-class';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
-}
-
+};
 
 const App = () => {
-
   useEffect(() => {
-    CodePush.checkForUpdate().then((update) => {
-      if (update) {
-        CodePush.sync({}, undefined, downloadProgressCallback);
-      }
-    }).catch(e => {
-      console.log('热更新错误', e.message);
-    });
-  }, [])
+    CodePush.checkForUpdate()
+      .then((update) => {
+        if (update) {
+          CodePush.sync({}, undefined, downloadProgressCallback);
+        }
+      })
+      .catch((e) => {
+        console.log('热更新错误', e.message);
+      });
+  }, []);
 
   return (
-
     <ReduxProvider store={creatStore(SwitchNavigator)}>
       <ContextProvide>
         <ThemeProvider theme={theme}>
@@ -49,8 +48,7 @@ const App = () => {
           </Configure>
         </ThemeProvider>
       </ContextProvide>
-    </ReduxProvider >
-
-  )
-}
+    </ReduxProvider>
+  );
+};
 export default App;

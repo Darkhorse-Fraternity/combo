@@ -5,8 +5,8 @@
 'use strict';
 
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
-import {Platform} from 'react-native';
+import { SafeAreaView } from 'react-native';
+import { Platform } from 'react-native';
 import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
@@ -47,8 +47,8 @@ export const StyledCellDiscrib = styled.Text`
 `;
 
 export const StyledArrow = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;

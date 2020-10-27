@@ -4,9 +4,7 @@ import { GetUsersIdResponse } from 'src/hooks/interface';
 // import { setHeader } from '../../../local_modules/react-native-qj-fetch/config';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
-export interface UserType extends GetUsersIdResponse {
-
-}
+export interface UserType extends GetUsersIdResponse {}
 
 export interface StateType {
   user: UserType | undefined;
@@ -15,7 +13,7 @@ export type Action =
   | { type: 'login'; user: UserType }
   | { type: 'update_user_info'; user: UserType }
   | { type: 'logout' }
-  | { type: 'init' }
+  | { type: 'init' };
 
 interface DataContextType {
   config?: any;
@@ -55,7 +53,7 @@ export const DataContextInit = () => {
 
 export const DataContext = createContext<BaseProviderValueType>({
   data: defaultInitialState,
-  dispatch: () => { },
+  dispatch: () => {},
 });
 const BaseProvider = DataContext.Provider;
 
@@ -65,7 +63,7 @@ interface CcontextValueT {
 }
 let contextValue: CcontextValueT = {
   data: defaultInitialState,
-  dispatch: () => { },
+  dispatch: () => {},
 };
 export const Provider: FC<DataContextType> = (props) => {
   const { children, initialState = defaultInitialState } = props;
@@ -74,7 +72,6 @@ export const Provider: FC<DataContextType> = (props) => {
     console.log('action.type', action.type);
 
     switch (action.type) {
-
       case 'login':
         // AsyncStorage.setItem('sessionToken', JSON.stringify(action.user));
 
@@ -89,7 +86,8 @@ export const Provider: FC<DataContextType> = (props) => {
         // setHeader({ Authorization: '' });
         // user = undefined;
         return { ...preState, user: undefined };
-      case 'init': return { ...preState };
+      case 'init':
+        return { ...preState };
       default:
         return { ...preState };
     }
@@ -100,13 +98,11 @@ export const Provider: FC<DataContextType> = (props) => {
   // console.log('data000', data);
   // console.log('dataxxxx', initialState);
 
-
   contextValue = {
     data: data.user?.objectId ? data : { ...data, ...initialState },
     dispatch: _dispatch,
   };
   // console.log('initialState', contextValue.data);
-
 
   return <BaseProvider value={contextValue}>{children}</BaseProvider>;
 };

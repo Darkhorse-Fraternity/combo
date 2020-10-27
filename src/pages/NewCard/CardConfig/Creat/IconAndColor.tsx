@@ -44,8 +44,8 @@ interface IconAndColorType {
   }),
 )
 export default class IconAndColor extends PureComponent<
-IconAndColorType,
-{ iconShow: boolean; colorShow: boolean }
+  IconAndColorType,
+  { iconShow: boolean; colorShow: boolean }
 > {
   constructor(props: Object) {
     super(props);

@@ -5,7 +5,7 @@
 
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import {BorderlessButton} from 'react-native-gesture-handler';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const StyledContent = styled.View`
   flex: 1;

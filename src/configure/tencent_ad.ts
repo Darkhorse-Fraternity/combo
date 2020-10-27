@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 export const GTDAppId = Platform.OS === 'ios' ? '1110576976' : '1110500025';
 

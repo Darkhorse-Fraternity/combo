@@ -6,11 +6,10 @@
 'use strict';
 
 import styled from 'styled-components/native';
-import {TouchableOpacity, Platform} from 'react-native';
+import { TouchableOpacity, Platform } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import Ionicons from 'react-native-vector-icons/Ionicons'
 import Button from '../../../../components/Button';
-
 
 export const StyledTitleText = styled.Text`
   font-size: 15px;

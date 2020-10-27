@@ -4,12 +4,12 @@ import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
 import Toast from 'react-native-simple-toast';
 import DeviceInfo from 'react-native-device-info';
-import {formValueSelector} from 'redux-form/immutable';
-import {userpay, payOrder} from '../../request/leanCloud';
-import {req} from '../actions/req';
-import {queryStringToJSON} from '../../request/useMeth';
+import { formValueSelector } from 'redux-form/immutable';
+import { userpay, payOrder } from '../../request/leanCloud';
+import { req } from '../actions/req';
+import { queryStringToJSON } from '../../request/useMeth';
 // type: 0:wechat 1:alipay
-import {update} from '../actions/user';
+import { update } from '../actions/user';
 
 WeChat.registerApp('wx637e6f35f8211c6d');
 const FormID = 'PayForm';
@@ -25,7 +25,7 @@ const getIp = async () => {
  */
 
 export function easyPay(amount, description, detail, bid, exData) {
-  return dispatch =>
+  return (dispatch) =>
     dispatch(async (dispatch, getState) => {
       const state = getState();
       const userId = state.user.data.objectId;
@@ -37,7 +37,7 @@ export function easyPay(amount, description, detail, bid, exData) {
       if (!radio) {
         return;
       }
-      const {ItemId} = radio;
+      const { ItemId } = radio;
       const types = {
         alipay: 'alipay_app',
         wechat: 'weixin_app',
@@ -50,7 +50,7 @@ export function easyPay(amount, description, detail, bid, exData) {
 }
 
 export function pay(type, amount, detail, description, uid, bid, exData) {
-  return async dispatch => {
+  return async (dispatch) => {
     // if(__DEV__){
     //   await dispatch(req(payOrder('', tradeId)))
     //   Toast.show('支付成功')
@@ -142,7 +142,7 @@ export function pay(type, amount, detail, description, uid, bid, exData) {
 
       const aliPayRes = await dispatch(aliPay(res.data));
 
-      const {alipay_trade_app_pay_response} = aliPayRes;
+      const { alipay_trade_app_pay_response } = aliPayRes;
       if (alipay_trade_app_pay_response) {
         // const { trade_no } = alipay_trade_app_pay_response;
         // console.log('aliPayRes:', aliPayRes);
@@ -183,7 +183,7 @@ export function pay(type, amount, detail, description, uid, bid, exData) {
 }
 
 export function wechatPay(obj) {
-  return dispatch => {
+  return (dispatch) => {
     try {
       return WeChat.pay(obj);
       // Toast.show(res)
@@ -211,11 +211,11 @@ export function wechatPay(obj) {
 }
 
 export function aliPay(order) {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
       const response = await Alipay.pay(order);
       // console.log('res', response);
-      const {resultStatus, result, memo} = response;
+      const { resultStatus, result, memo } = response;
       if (resultStatus === '9000') {
         return JSON.parse(result);
         // let { code, msg, app_id, out_trade_no, trade_no,

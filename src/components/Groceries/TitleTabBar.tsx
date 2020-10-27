@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Animated,
-} from 'react-native';
+import { StyleSheet, Text, View, Animated } from 'react-native';
 
 import Button from '../Button';
 
@@ -30,9 +25,8 @@ export default class TitleTabBar extends Component {
       scrollValue,
       underlineColor,
       scrollValueWithOutNative,
-      tabUnderlineWidth
+      tabUnderlineWidth,
     } = this.props;
-
 
     const isTabActive = activeTab === page;
     const numberOfTabs = tabs.length;
@@ -78,19 +72,19 @@ export default class TitleTabBar extends Component {
         accessibilityLabel={name}
         accessibilityTraits="button"
         style={{ paddingVertical: 20, paddingHorizontal: 10 }}
-        onPress={() => this.props.goToPage(page)}
-      >
-
-        <Animated.Text style={
-        [{
-          color,
-          fontWeight: 'bold',
-          fontSize
-        }, textStyle]}
-  >
-    {name}
-  </Animated.Text>
-            </Button>
+        onPress={() => this.props.goToPage(page)}>
+        <Animated.Text
+          style={[
+            {
+              color,
+              fontWeight: 'bold',
+              fontSize,
+            },
+            textStyle,
+          ]}>
+          {name}
+        </Animated.Text>
+      </Button>
     );
   }
 
@@ -104,8 +98,7 @@ export default class TitleTabBar extends Component {
           {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
         </View>
         <View style={styles.tabs2}>
-          {this.props.rightView
-          && this.props.rightView()}
+          {this.props.rightView && this.props.rightView()}
         </View>
       </View>
     );
@@ -115,12 +108,12 @@ export default class TitleTabBar extends Component {
 const styles = StyleSheet.create({
   tab: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   tabs1: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
     // paddingBottom: 10,
   },
   tabs2: {
