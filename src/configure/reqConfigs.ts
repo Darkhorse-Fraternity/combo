@@ -2,8 +2,8 @@
 
 // import DeviceInfo from 'react-native-device-info'
 import DeviceInfo from 'react-native-device-info';
-import {LeanCloud_APP_ID, LeanCloud_APP_SIGN} from './leancloud';
-import {appChannel} from '../../helps/util';
+import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from './leancloud';
+import { appChannel } from '../../helps/util';
 import {
   setNetworkConig,
   getNetworkConfig,
@@ -15,7 +15,7 @@ import {
 } from 'react-native-qj-fetch';
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
-import {Cache} from 'react-native-cache';
+import { Cache } from 'react-native-cache';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
 //   /* debug */ : 'api.icourage.cn/1.1';
@@ -27,7 +27,6 @@ import {Cache} from 'react-native-cache';
 export const defaultHost = !__DEV__
   ? /* release */ 'api.icourage.cn/1.1'
   : /* debug */ 'api.icourage.cn/1.1';
-
 
 // export const apiHost = !__DEV__
 //   ? /* release */ "icourage.cn"
@@ -42,7 +41,7 @@ let LeanCloud_APP_Session = '';
 
 export function setLeanCloudSession(session: string) {
   LeanCloud_APP_Session = session;
-  const myHeader = {...header};
+  const myHeader = { ...header };
   if (session && session.length > 0) {
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
   }
@@ -64,8 +63,6 @@ const header = {
   appChannel,
 };
 
-
-
 export function httpHeaders(needSession: boolean): Object {
   // let header = {
   //   "Content-Type": "application/json; charset=utf-8",
@@ -75,7 +72,7 @@ export function httpHeaders(needSession: boolean): Object {
   //   appVersion,
   //   appChannel
   // };
-  const myHeader = {...header};
+  const myHeader = { ...header };
   if (needSession) {
     // header = Object.assign({}, header, {
     //   "X-LC-Session": LeanCloud_APP_Session
@@ -144,10 +141,10 @@ interface eType {
 
 const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
   if (e) {
-    return {error: e.message || e.error, code: e.code, result: data};
+    return { error: e.message || e.error, code: e.code, result: data };
   }
 
-  return {result: data, code: 200};
+  return { result: data, code: 200 };
 };
 
 setDataMap(<any>dataMap);
@@ -156,7 +153,7 @@ const errorAction = (props: reqCProps, error: string, code: number) => {
   // if (code === 432) {
   //   return;
   // }
-  const localizr = {'Network request failed': '网络请求失败'};
+  const localizr = { 'Network request failed': '网络请求失败' };
   const codeString = code ? `,code:${code}` : '';
   const message = (localizr[error] || error) + codeString;
   SimpleToast.show(message);

@@ -1,12 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  Platform,
-  UIManager,
-  Linking,
-  AppState,
-} from 'react-native';
+import { Platform, UIManager, Linking, AppState } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 import DeviceInfo from 'react-native-device-info';
@@ -21,7 +16,6 @@ import LocalNotification from './localNotification';
 import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
 
-
 require('../../helps/AnimatableRegist');
 //
 // import exceptionHandler from './exceptionHandler';
@@ -31,7 +25,7 @@ interface StateType {
 }
 
 @connect(
-  state => ({
+  (state) => ({
     // nav: state.nav,
     isLogin: state.user.isLogin,
   }),
@@ -60,7 +54,7 @@ export default class Configure extends PureComponent<{}, StateType> {
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     if (DeviceInfo.isTablet()) {
-      // Orientation.lockToLandscape();      
+      // Orientation.lockToLandscape();
       // Orientation.lockToPortrait();
     } else {
       Orientation.lockToPortrait();
@@ -76,12 +70,12 @@ export default class Configure extends PureComponent<{}, StateType> {
 
   componentWillReceiveProps(nextProps) {
     if (this.urlTask.length > 0 && nextProps.isLogin) {
-      this.urlTask.forEach(url => this._handleUrl(url));
+      this.urlTask.forEach((url) => this._handleUrl(url));
       this.urlTask = [];
     }
   }
 
-  _handleOpenURL = async event => {
+  _handleOpenURL = async (event) => {
     this._handleUrlWithUrlTask(event.url);
   };
 
@@ -92,7 +86,7 @@ export default class Configure extends PureComponent<{}, StateType> {
 
   urlTask = [];
 
-  _handleUrlWithUrlTask = url => {
+  _handleUrlWithUrlTask = (url) => {
     if (!this.props.isLogin) {
       this.urlTask.push(url);
     } else {
@@ -100,7 +94,7 @@ export default class Configure extends PureComponent<{}, StateType> {
     }
   };
 
-  _handleUrl = url => {
+  _handleUrl = (url) => {
     url = decodeURI(url);
     if (url) {
       const wurl = require('wurl');
@@ -125,7 +119,7 @@ export default class Configure extends PureComponent<{}, StateType> {
 
       // console.log('testxxx:', hostname,protocol);
       const flag = conditions.findIndex(
-        item => item.hostname === hostname && protocol === item.protocol,
+        (item) => item.hostname === hostname && protocol === item.protocol,
       );
 
       if (flag >= 0 && key) {
@@ -186,7 +180,7 @@ export default class Configure extends PureComponent<{}, StateType> {
     this._getInitialURL();
     this.keyboardConfig();
     if (Platform.OS === 'android') {
-      DeviceInfo.isEmulator().then(isEmulator => {
+      DeviceInfo.isEmulator().then((isEmulator) => {
         // false
         this.setState({ isEmulator });
       });
@@ -221,7 +215,7 @@ export default class Configure extends PureComponent<{}, StateType> {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  _handleAppStateChange = nextAppState => {
+  _handleAppStateChange = (nextAppState) => {
     this.props.dispatch(appStateUpdate(nextAppState));
   };
 

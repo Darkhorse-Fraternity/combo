@@ -17,26 +17,38 @@ import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ContextProvide from './data/data-context/context-provide-class';
+import { Dimensions, ScaledSize } from 'react-native';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
-}
-
+};
 
 const App = () => {
-
   useEffect(() => {
-    CodePush.checkForUpdate().then((update) => {
-      if (update) {
-        CodePush.sync({}, undefined, downloadProgressCallback);
-      }
-    }).catch(e => {
-      console.log('热更新错误', e.message);
-    });
-  }, [])
+    CodePush.checkForUpdate()
+      .then((update) => {
+        if (update) {
+          CodePush.sync({}, undefined, downloadProgressCallback);
+        }
+      })
+      .catch((e) => {
+        console.log('热更新错误', e.message);
+      });
+  }, []);
+
+  // const handle = (item: { window: ScaledSize; screen: ScaledSize }) => {
+  //   console.log('item', item);
+  //   console.log('width', Dimensions.get('window').width);
+  // };
+
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', handle);
+  //   return () => {
+  //     Dimensions.removeEventListener('change', handle);
+  //   };
+  // }, []);
 
   return (
-
     <ReduxProvider store={creatStore(SwitchNavigator)}>
       <ContextProvide>
         <ThemeProvider theme={theme}>
@@ -49,8 +61,7 @@ const App = () => {
           </Configure>
         </ThemeProvider>
       </ContextProvide>
-    </ReduxProvider >
-
-  )
-}
+    </ReduxProvider>
+  );
+};
 export default App;

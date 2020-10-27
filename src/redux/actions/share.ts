@@ -7,7 +7,6 @@ import * as QQAPI from 'react-native-qq';
 
 import Toast from 'react-native-simple-toast';
 
-
 export const SHARE_TO_SESSION = 'SHARE_TO_SESSION';
 export const SHARE_TO_TIMELINE = 'SHARE_TO_TIMELINE';
 export const SHARE_TO_QQ = 'SHARE_TO_QQ';
@@ -28,7 +27,6 @@ export function shareTo(type: string, param: object): Function {
   };
 }
 
-
 export function shareToWechat(type: string, param: object = {}): Function {
   let Method = WeChat.shareToTimeline;
   if (type === SHARE_TO_SESSION) Method = WeChat.shareToSession;
@@ -43,8 +41,11 @@ export function shareToWechat(type: string, param: object = {}): Function {
         mediaTagName: 'email signature',
         messageAction: undefined,
         messageExt: undefined,
-        imageUrl: param.imageUrl || 'http://www.ncloud.hk/email-signature-262x100.png',
-        thumbImage: param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png'
+        imageUrl:
+          param.imageUrl || 'http://www.ncloud.hk/email-signature-262x100.png',
+        thumbImage:
+          param.thumbImage ||
+          'http://www.ncloud.hk/email-signature-262x100.png',
       });
       // console.log('shareToWechat successful:', result);
 
@@ -79,7 +80,10 @@ export function shareToQQ(type: string, param: object = {}): Function {
         title: param.title || '小改变',
         description: param.description || '',
         webpageUrl: param.webpageUrl || 'https://icouage.cn/',
-        imageUrl: param.imageUrl || param.thumbImage || 'http://www.ncloud.hk/email-signature-262x100.png',
+        imageUrl:
+          param.imageUrl ||
+          param.thumbImage ||
+          'http://www.ncloud.hk/email-signature-262x100.png',
       });
       // let result = {}
       console.log('share text message to time line successful:', result);
@@ -109,11 +113,10 @@ export function shareToWeibo(param: object): Function {
   };
 }
 
-
 export function shareLast(tag, result) {
   return {
     type: 'APP_SHARE',
     tag,
-    result
+    result,
   };
 }

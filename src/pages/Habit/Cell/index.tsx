@@ -5,7 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ActivityIndicator,
-  Platform
+  Platform,
 } from 'react-native';
 import {
   StyledContent,
@@ -14,12 +14,11 @@ import {
   StyledIconBG,
   StyledInner,
   StyledTime,
-  StyledIconImage
+  StyledIconImage,
 } from './style';
 import svgs from '../../../../source/icons';
 
 export default class Cell extends PureComponent {
-
   render() {
     const {
       iCard,
@@ -28,15 +27,11 @@ export default class Cell extends PureComponent {
       iCard: { img },
     } = this.props;
 
-    const {
-      title, notifyText, iconAndColor, period
-    } = iCard;
+    const { title, notifyText, iconAndColor, period } = iCard;
     const { time } = data;
 
     return (
-      <StyledContent
-        onPress={onPress}
-      >
+      <StyledContent onPress={onPress}>
         <StyledIconBG color={iconAndColor ? iconAndColor.color : '#afd2ef'}>
           <StyledIconImage
             size={40}
@@ -50,22 +45,12 @@ export default class Cell extends PureComponent {
           {/* /> */}
         </StyledIconBG>
         <StyledInner>
-          <StyledTitle>
-            {title}
-          </StyledTitle>
+          <StyledTitle>{title}</StyledTitle>
 
-          <StyledTime>
-            第
-            {time}
-            次
-          </StyledTime>
-          <StyledDes>
-            {notifyText}
-          </StyledDes>
+          <StyledTime>第{time}次</StyledTime>
+          <StyledDes>{notifyText}</StyledDes>
         </StyledInner>
-
       </StyledContent>
-
     );
   }
 }

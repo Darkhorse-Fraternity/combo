@@ -16,7 +16,7 @@ interface IState<T> {
 export default class PageList<ItemT> extends Component<
   PageListT<ItemT>,
   IState<ItemT>
-  > {
+> {
   constructor(props: any) {
     super(props);
     // default values of state and non-state variables

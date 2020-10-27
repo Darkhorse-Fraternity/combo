@@ -11,12 +11,12 @@ export const StyledButton = styled(Button)`
 
 export const StyledImagesScolleView = styled.ScrollView`
   margin: 15px 0px 0px 0px;
-  width: ${props => props.theme.width * 0.74};
+  width: ${(props) => props.theme.width * 0.74};
 `;
 
 export const StyledImage = styled(FastImage)`
-  height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
-  width: ${props => props.theme.getWidth() * 0.65};
+  height: ${(props) => (props.theme.getWidth() * 0.65 * 9) / 16};
+  width: ${(props) => props.theme.getWidth() * 0.65};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
   background-color: #fdfbfb;
@@ -26,7 +26,7 @@ export const StyledImageButton = styled(Button)``;
 
 export const StyledZoomImage = styled(ZoomImage)`
   width: 100%;
-  height: ${props => (props.theme.width - 160) * 0.8};
+  height: ${(props) => (props.theme.width - 160) * 0.8};
   border-radius: 10px;
   margin: 20px 0px 0px 0px;
   background-color: #fdfbfb;
@@ -83,8 +83,8 @@ export const StyledChatBtnText = styled.Text`
 `;
 
 export const StyledArrowView = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;
@@ -100,18 +100,18 @@ export const StyledDateView = styled.View`
   width: 60px;
   height: 60px;
   border-width: 1px;
-  border-color: ${props => props.color || 'gray'};
+  border-color: ${(props) => props.color || 'gray'};
 `;
 
 export const StyledDateTextBig = styled.Text`
-  color: ${props => props.color || 'gray'};
+  color: ${(props) => props.color || 'gray'};
   font-size: 20px;
   font-weight: bold;
 `;
 
 export const StyledDateTextSmall = styled.Text`
   margin-top: 1px;
-  color: ${props => props.color || 'gray'};
+  color: ${(props) => props.color || 'gray'};
   font-size: 12px;
   font-weight: bold;
 `;

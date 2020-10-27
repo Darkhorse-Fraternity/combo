@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export type ValidateResult = string | boolean | undefined;
 
@@ -27,7 +27,7 @@ type EventFunctionResult = {
 };
 
 export type EventFunction = (
-  args: any
+  args: any,
 ) => EventFunctionResult | Promise<EventFunctionResult>;
 
 export type Props = {
@@ -43,7 +43,7 @@ export type Props = {
   value?: string | boolean;
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
-  mode?: "onBlur" | "onChange" | "onSubmit";
+  mode?: 'onBlur' | 'onChange' | 'onSubmit';
   defaultValue?: string;
   defaultChecked?: boolean;
   onChangeName?: string;

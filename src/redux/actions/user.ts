@@ -4,9 +4,9 @@
  * https://github.com/facebook/react-native
  */
 
-import {StackActions} from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 // *** Action Types ***
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
@@ -14,11 +14,11 @@ import * as QQAPI from 'react-native-qq';
 import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import md5 from 'react-native-md5';
-import {user} from '../../request/LCModle';
-import {updatePush} from '../../configure/push/push';
-import {setLeanCloudSession} from '../../configure/reqConfigs';
-import {get} from './req';
-import {loadAccount} from '../../configure/storage';
+import { user } from '../../request/LCModle';
+import { updatePush } from '../../configure/push/push';
+import { setLeanCloudSession } from '../../configure/reqConfigs';
+import { get } from './req';
+import { loadAccount } from '../../configure/storage';
 import appleAuth, {
   AppleButton,
   AppleAuthRequestOperation,
@@ -111,9 +111,9 @@ export function userInfo() {
       const userString = credentials.password;
       // const sessionToken = await storage.load({ key: sessionTokenkey, })
       const user = JSON.parse(userString);
-      const {sessionToken} = user;
+      const { sessionToken } = user;
       if (sessionToken) {
-        const {sessionToken} = user;
+        const { sessionToken } = user;
         // setLeanCloudSession(sessionToken)
         // const params = usersMe()
         await dispatch(loginSucceed(user));
@@ -138,7 +138,7 @@ export function userInfo() {
 
 const anonymousUser = () => async (dispatch) => {
   let uniqueId = DeviceInfo.getUniqueId();
-  const anonymousConfig = {id: uniqueId};
+  const anonymousConfig = { id: uniqueId };
   try {
     if (Platform.OS === 'ios') {
       uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
@@ -207,7 +207,7 @@ const iCardSample = (objectId) => [
 const iUseSample = (objectId, iCardId) => ({
   time: 0,
   // notifyTime:option&&option.notifyTime||"20.00",
-  doneDate: {__type: 'Date', iso: moment('2017-03-20').toISOString()},
+  doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
   user: {
     __type: 'Pointer',
     className: '_User',
@@ -225,7 +225,7 @@ const iUseSample = (objectId, iCardId) => ({
 // 预设示例
 function addSample(user) {
   return async (dispatch) => {
-    const {createdAt, updatedAt, objectId} = user;
+    const { createdAt, updatedAt, objectId } = user;
     const createdAtTime = new Date(createdAt).getTime();
     const updatedAtTime = new Date(updatedAt).getTime();
     // console.log('time:', updatedAtTime,createdAtTime);
@@ -310,7 +310,7 @@ export function register(state: Object, navigation): Function {
             updateMeByParam({
               mobilePhoneNumber: state.phone,
               authData: {
-                anonymous: {__op: 'Delete'},
+                anonymous: { __op: 'Delete' },
               },
             }),
           );
@@ -489,7 +489,7 @@ export function update() {
 }
 
 function updateLocation(user) {
-  const {sessionToken = '', username = ''} = user;
+  const { sessionToken = '', username = '' } = user;
   const userString = JSON.stringify(user);
   Keychain.setGenericPassword(username, userString);
 }
@@ -518,12 +518,12 @@ export function weChatLogin(Key, navigation) {
       if (!weConfig) {
         return dispatch(thirdLoaded(''));
       }
-      const {appid, code} = weConfig;
+      const { appid, code } = weConfig;
 
       // 获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
       const weInfo = await get(wechatInfoParam);
-      const {access_token, openid} = weInfo;
+      const { access_token, openid } = weInfo;
       // console.log('weInfo:', weInfo);
 
       const userExsit = await getUserExsitJudge('weixin', openid);
@@ -533,7 +533,7 @@ export function weChatLogin(Key, navigation) {
         await dispatch(
           updateMeByParam({
             authData: {
-              anonymous: {__op: 'Delete'},
+              anonymous: { __op: 'Delete' },
               weixin: weInfo,
             },
           }),
@@ -559,7 +559,7 @@ export function weChatLogin(Key, navigation) {
       if (user.sessionToken && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid);
         const userInfo = await get(userInfoParams);
-        let {nickname, headimgurl} = userInfo;
+        let { nickname, headimgurl } = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {
@@ -602,14 +602,13 @@ export function qqLogin(Key, navigation) {
     try {
       dispatch(thirdLoaded(Key));
 
-      let qqConfig
+      let qqConfig;
       try {
-         qqConfig = await QQAPI.login();
+        qqConfig = await QQAPI.login();
       } catch (error) {
         return dispatch(thirdLoaded(''));
       }
-     
-     
+
       if (!qqConfig) {
         return dispatch(thirdLoaded(''));
       }
@@ -621,7 +620,7 @@ export function qqLogin(Key, navigation) {
         await dispatch(
           updateMeByParam({
             authData: {
-              anonymous: {__op: 'Delete'},
+              anonymous: { __op: 'Delete' },
               qq: qqConfig,
             },
           }),
@@ -643,7 +642,7 @@ export function qqLogin(Key, navigation) {
 
       let exData = {};
       if (user.sessionToken && !user.headimgurl) {
-        const {access_token, oauth_consumer_key, openid} = qqConfig;
+        const { access_token, oauth_consumer_key, openid } = qqConfig;
         const userInfoParams = QQUserInfo(
           access_token,
           oauth_consumer_key,
@@ -651,7 +650,7 @@ export function qqLogin(Key, navigation) {
         );
         const info = await get(userInfoParams);
         const userInfo = JSON.parse(info);
-        let {nickname, figureurl_qq_2} = userInfo;
+        let { nickname, figureurl_qq_2 } = userInfo;
         nickname = user.nickname || nickname;
         exData = {
           nickname,
@@ -675,45 +674,51 @@ export function qqLogin(Key, navigation) {
   };
 }
 
-
-export function appleLogin(Key:string, navigation:any) {
+export function appleLogin(Key: string, navigation: any) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
 
-    
-       const appleAuthRequestResponse = await appleAuth.performRequest({
-          requestedOperation: AppleAuthRequestOperation.LOGIN,
-          requestedScopes: [AppleAuthRequestScope.EMAIL, AppleAuthRequestScope.FULL_NAME],
-        });
-        // console.log('appleAuthRequestResponse',appleAuthRequestResponse)
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: AppleAuthRequestOperation.LOGIN,
+        requestedScopes: [
+          AppleAuthRequestScope.EMAIL,
+          AppleAuthRequestScope.FULL_NAME,
+        ],
+      });
+      // console.log('appleAuthRequestResponse',appleAuthRequestResponse)
 
-        if (!appleAuthRequestResponse) {
-          return dispatch(thirdLoaded(''));
-        }
-        
-      const credentialState = await appleAuth.getCredentialStateForUser(appleAuthRequestResponse.user);
+      if (!appleAuthRequestResponse) {
+        return dispatch(thirdLoaded(''));
+      }
 
-     if(credentialState !== 1){
-      return dispatch(thirdLoaded(''));
-     }
-  
-      const userExsit = await getUserExsitJudge('lc_apple', appleAuthRequestResponse.user);
-      
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user,
+      );
+
+      if (credentialState !== 1) {
+        return dispatch(thirdLoaded(''));
+      }
+
+      const userExsit = await getUserExsitJudge(
+        'lc_apple',
+        appleAuthRequestResponse.user,
+      );
+
       let user = getState().user.data;
 
-     const lc_apple = {
-      uid:appleAuthRequestResponse.user,
-      // identity_token:appleAuthRequestResponse.identityToken,
-      // code:appleAuthRequestResponse.authorizationCode
-     }
+      const lc_apple = {
+        uid: appleAuthRequestResponse.user,
+        // identity_token:appleAuthRequestResponse.identityToken,
+        // code:appleAuthRequestResponse.authorizationCode
+      };
 
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
         await dispatch(
           updateMeByParam({
             authData: {
-              anonymous: {__op: 'Delete'},
+              anonymous: { __op: 'Delete' },
               lc_apple,
             },
           }),
@@ -722,8 +727,8 @@ export function appleLogin(Key:string, navigation:any) {
       } else {
         const userInfoParmas = thirdLogin('lc_apple', lc_apple);
 
-        console.log('userInfoParmas',userInfoParmas);
-        
+        console.log('userInfoParmas', userInfoParmas);
+
         user = await get(userInfoParmas);
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
@@ -734,12 +739,16 @@ export function appleLogin(Key:string, navigation:any) {
 
       dispatch(thirdLoaded(''));
 
-
       let exData = {};
-      const {fullName, } = appleAuthRequestResponse;
-      if (user.sessionToken && !user.headimgurl && fullName?.nickname && fullName?.nickname.length >0 ) {
+      const { fullName } = appleAuthRequestResponse;
+      if (
+        user.sessionToken &&
+        !user.headimgurl &&
+        fullName?.nickname &&
+        fullName?.nickname.length > 0
+      ) {
         exData = {
-          nickname:fullName?.nickname 
+          nickname: fullName?.nickname,
           // headimgurl: figureurl_qq_2,
         };
         const params = bindingToUser(user.objectId, exData);
@@ -755,14 +764,12 @@ export function appleLogin(Key:string, navigation:any) {
       }
     } catch (e) {
       console.log(e);
-      
+
       dispatch(thirdLoaded(''));
       Toast.show(e.message);
     }
   };
 }
-
-
 
 export function thirdLoaded(key) {
   return {
@@ -775,12 +782,12 @@ export function wechatBinding(KEY) {
   return async (dispatch, getState) => {
     try {
       const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
-      const {appid, code} = weConfig;
+      const { appid, code } = weConfig;
 
       // 获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
       const weInfo = await get(wechatInfoParam);
-      const {access_token, openid} = weInfo;
+      const { access_token, openid } = weInfo;
 
       // 获取微信用户信息
       const state = getState();
@@ -789,7 +796,7 @@ export function wechatBinding(KEY) {
       if (openid && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid);
         const userInfo = await get(userInfoParams);
-        let {nickname, headimgurl} = userInfo;
+        let { nickname, headimgurl } = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {
@@ -823,7 +830,7 @@ export function qqBinding(KEY) {
     try {
       const qqConfig = await QQAPI.login();
 
-      const {access_token, oauth_consumer_key, openid} = qqConfig;
+      const { access_token, oauth_consumer_key, openid } = qqConfig;
 
       // 获取微信用户信息
       const state = getState();
@@ -835,7 +842,7 @@ export function qqBinding(KEY) {
         const info = await get(params);
         const userInfo = JSON.parse(info);
 
-        let {nickname, figureurl_2, figureurl_qq_2} = userInfo;
+        let { nickname, figureurl_2, figureurl_qq_2 } = userInfo;
 
         nickname = user.nickname || nickname;
         exData = {

@@ -29,7 +29,10 @@ export const SwitchNavigator = () => {
       headerMode="screen">
       <Stack.Screen
         name={'AuthLoading'}
-        options={{ headerShown: false, cardStyle: { backgroundColor: 'white' } }}
+        options={{
+          headerShown: false,
+          cardStyle: { backgroundColor: 'white' },
+        }}
         // initialParams={
         //   initialRouteName === key ? initialRouteParams : undefined
         // }

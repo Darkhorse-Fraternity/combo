@@ -3,12 +3,11 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { View, Image, Text, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Avatar from '../../../components/Avatar/Avatar2';
-
 
 import Button from '../../../components/Button';
 
@@ -16,7 +15,7 @@ import Button from '../../../components/Button';
   (state, props) => ({
     user: state.normalizr.get('user').get(props.userId),
   }),
-  dispatch => ({}),
+  (dispatch) => ({}),
 )
 export default class Header extends PureComponent {
   constructor(props: Object) {
@@ -31,7 +30,7 @@ export default class Header extends PureComponent {
   static defaultProps = {};
 
   render() {
-    let {onPress, user} = this.props;
+    let { onPress, user } = this.props;
     user = (user && user.toJS()) || {};
 
     // 缩略图

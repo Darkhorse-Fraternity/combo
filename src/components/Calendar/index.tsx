@@ -29,10 +29,12 @@ interface CalendarProps<ItemT> {
   date: Date;
   canceDay: (item: ItemT) => void; // 取消打卡
   busyDay?: Record<string, ItemT>;
-  move: (first: string, last: string) => void;  // 加载当前月
+  move: (first: string, last: string) => void; // 加载当前月
 }
 
-export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>> {
+export default class Calendar<ItemT> extends PureComponent<
+  CalendarProps<ItemT>
+> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -77,8 +79,8 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
         ? 1
         : 0
       : year % 4 === 0
-        ? 1
-        : 0;
+      ? 1
+      : 0;
   }
 
   // selectDay(d) {
@@ -191,8 +193,7 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
     }
   }
 
-
-  goTo = direction => {
+  goTo = (direction) => {
     const that = this;
     if (direction === 'left') {
       that.refs.trueViewPager.setPage(0);
@@ -222,7 +223,7 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
     this.timer && clearTimeout(this.timer);
   }
 
-  renderDateBorad = month => (
+  renderDateBorad = (month) => (
     <DateBoard
       color={this.props.color}
       key={month}
@@ -249,11 +250,11 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
           horizontal
           contentOffset={{ x: width, y: 0 }}
           bounces={false}
-          onMomentumScrollEnd={event => this.myScroll(event)}
+          onMomentumScrollEnd={(event) => this.myScroll(event)}
           ref="trueScroll"
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
-          {pageMonth.map(mouth => this.renderDateBorad(mouth))}
+          {pageMonth.map((mouth) => this.renderDateBorad(mouth))}
         </ScrollView>
       );
     }
@@ -261,7 +262,7 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
       <ViewPagerAndroid
         style={{ height: 250, width }}
         initialPage={1}
-        onPageSelected={event => this.myScroll(event)}
+        onPageSelected={(event) => this.myScroll(event)}
         ref="trueViewPager">
         <View key="1">{this.renderDateBorad(pageMonth[0])}</View>
         <View key="2">{this.renderDateBorad(pageMonth[1])}</View>
@@ -308,7 +309,7 @@ export default class Calendar<ItemT> extends PureComponent<CalendarProps<ItemT>>
           {/* </TouchableOpacity> */}
         </View>
         <View style={styles.dateTitle}>
-          {dateTitle.map(title => (
+          {dateTitle.map((title) => (
             <Text key={title} style={styles.dateTitleText}>
               {title}
             </Text>

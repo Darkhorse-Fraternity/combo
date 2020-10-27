@@ -1,7 +1,7 @@
-import {SoundPlayBtn} from '@components/sound-play-btn';
-import React, {useState, FC, useMemo} from 'react';
-import {soundsSource} from '@configure/source';
-import {StyledContent} from './style';
+import { SoundPlayBtn } from '@components/sound-play-btn';
+import React, { useState, FC, useMemo } from 'react';
+import { soundsSource } from '@configure/source';
+import { StyledContent } from './style';
 
 const Render: FC = (props) => {
   const [state, setstate] = useState(true);
@@ -12,7 +12,7 @@ const Render: FC = (props) => {
     <StyledContent>
       {Object.keys(sources).map((item) => (
         <SoundPlayBtn
-          style={{margin: 20}}
+          style={{ margin: 20 }}
           key={sources[item].title}
           title={sources[item].title}
           uri={sources[item].source}

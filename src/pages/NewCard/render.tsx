@@ -47,7 +47,7 @@ export default class NewCard extends PureComponent {
     super(props);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   _listHeaderComponet = () => {
     const habitTemplate = Object.keys(habits).map((name) => (

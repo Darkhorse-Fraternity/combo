@@ -10,8 +10,8 @@ export const StyledButton = styled.View`
 
 export const StyledImagesScolleView = styled.ScrollView`
   margin: 15px 0px 0px 0px;
-  width: ${props => props.theme.getWidth() -80};
-  border-radius:10px;
+  width: ${(props) => props.theme.getWidth() - 80};
+  border-radius: 10px;
   /* flex: 1 0; */
 `;
 
@@ -24,16 +24,14 @@ export const StyledLikeIcon = styled(Icon)`
 `;
 
 export const StyledImage = styled(FastImage)`
-  width: ${props => props.theme.getWidth() * 0.65};
-  height: ${props => (props.theme.getWidth() * 0.65 * 9) / 16};
+  width: ${(props) => props.theme.getWidth() * 0.65};
+  height: ${(props) => (props.theme.getWidth() * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
-  background-color: ${props => props.theme.randFlowCoverColor()};
+  background-color: ${(props) => props.theme.randFlowCoverColor()};
 `;
 
 export const StyledImageButton = styled(Button)``;
-
-
 
 export const StyledMain = styled.View`
   padding: 0px 20px 0px 70px;
@@ -92,8 +90,8 @@ export const StyledChatBtnText = styled.Text`
 `;
 
 export const StyledArrowView = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;

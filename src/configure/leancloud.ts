@@ -17,6 +17,6 @@ const key_pro = 'S6wxWnhQfL9rBLo2ngEctK0u';
 export const LeanCloud_APP_ID = __DEV__ ? id_pro : id_pro;
 export const LeanCloud_APP_KEY = __DEV__ ? key_pro : key_pro;
 
-const timeStamp = Math.round(new Date().getTime()/1000);
+const timeStamp = Math.round(new Date().getTime() / 1000);
 export const LeanCloud_APP_SIGN =
   md5.hex_md5(timeStamp + LeanCloud_APP_KEY) + ',' + timeStamp;

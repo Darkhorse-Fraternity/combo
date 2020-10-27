@@ -1,5 +1,5 @@
-import React, {memo} from 'react';
-import {StyledNavbar, StyledArrow, StyledTitle, StyledButton} from './style';
+import React, { memo } from 'react';
+import { StyledNavbar, StyledArrow, StyledTitle, StyledButton } from './style';
 import {
   StatusBar,
   View,
@@ -10,8 +10,8 @@ import {
   StatusBarStyle,
   TransformsStyle,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-const {RouterBridge} = NativeModules;
+import { useNavigation } from '@react-navigation/native';
+const { RouterBridge } = NativeModules;
 // const NavBar = title => {
 //   return <StyledNavbar />;
 // };
@@ -29,23 +29,23 @@ interface PropsNavBar extends ViewProps {
 const onDefaultBackPress = (event: GestureResponderEvent) => {};
 
 const renderDefaultLeftView = (props: PropsNavBar) => {
-  const {tintColor = 'white'} = props;
+  const { tintColor = 'white' } = props;
 
-  const {goBack, isFirstRouteInParent, getScreenProps} = useNavigation();
-  const {openBaseRouteBackBtn} = getScreenProps();
+  const { goBack, isFirstRouteInParent, getScreenProps } = useNavigation();
+  const { openBaseRouteBackBtn } = getScreenProps();
 
   const go =
     openBaseRouteBackBtn && isFirstRouteInParent()
       ? () => RouterBridge.pop(true)
       : () => goBack();
-  const {onBackPress = go} = props;
+  const { onBackPress = go } = props;
   if (isFirstRouteInParent() && !openBaseRouteBackBtn) {
     return <View />;
   }
   return (
     <StyledButton
       onPress={onBackPress}
-      hitSlop={{top: 30, left: 20, bottom: 20, right: 50}}>
+      hitSlop={{ top: 30, left: 20, bottom: 20, right: 50 }}>
       <StyledArrow color={tintColor} />
     </StyledButton>
   );

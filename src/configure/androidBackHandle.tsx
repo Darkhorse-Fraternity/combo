@@ -1,6 +1,6 @@
-import React, {ComponentType, FC, useRef} from 'react';
-import {useFocusEffect} from '@react-navigation/native';
-import {BackHandler, ToastAndroid} from 'react-native';
+import React, { ComponentType, FC, useRef } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { BackHandler, ToastAndroid } from 'react-native';
 
 // const AndroidBackHandleHOCComponentIn = (props: any) => {
 //   const lastTimesRef = useRef(0);

@@ -3,14 +3,10 @@
  * @flow
  */
 
-
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Dimensions
-} from 'react-native';
+import { View, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -28,27 +24,27 @@ import {
   StyledRecordText,
   StyledChatbtn,
   StyledChatBtnText,
-  StyledImageButton
+  StyledImageButton,
 } from './style';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';
 
 const { width } = Dimensions.get('window');
 // static displayName = RecordRow
 @connect(
-  state => ({
+  (state) => ({
     // data:state.req.get()
-    user: state.user.data
+    user: state.user.data,
   }),
-  dispatch => ({
+  (dispatch) => ({
     // ...bindActionCreators({},dispatch),
-  })
+  }),
 )
 export default class RecordRow extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
       visible: false,
-      like: false
+      like: false,
     };
   }
 
@@ -64,51 +60,44 @@ export default class RecordRow extends Component {
     showImage: false,
   };
 
-
   // shouldComponentUpdate(nextProps: Object) {
   //     return !immutable.is(this.props, nextProps)
   // }
 
-  chatBtnRef = 0
+  chatBtnRef = 0;
 
   _renderChatBtn = (item) => {
-    const {
-      commentNew, commentNum, user, objectId
-    } = item;
+    const { commentNew, commentNum, user, objectId } = item;
 
     return (
       <StyledChatbtn
         onPress={() => {
-          this.props.navigation
-            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
-        }}
-      >
+          this.props.navigation &&
+            this.props.navigation.navigate('rcomment', { iDoID: objectId });
+        }}>
         {/* <Image style={{width:20,height:20}} source={icon}/> */}
-        {commentNew && user === this.props.user.objectId
-          && (<StyledNewTip />)}
-        {commentNum > 0
-          && (
-            <StyledChatBtnText
-              numberOfLines={1}
-            >
-              {item.commentNum}
-            </StyledChatBtnText>
-          )}
+        {commentNew && user === this.props.user.objectId && <StyledNewTip />}
+        {commentNum > 0 && (
+          <StyledChatBtnText numberOfLines={1}>
+            {item.commentNum}
+          </StyledChatBtnText>
+        )}
         <StyledArrowView />
         {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
       </StyledChatbtn>
     );
-  }
-
-
-
+  };
 
   CNDateString(date) {
     const cn = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
     const s = [];
     const YY = date.getFullYear().toString();
     for (let i = 0; i < YY.length; i++) {
-      if (cn[YY.charAt(i)]) { s.push(cn[YY.charAt(i)]); } else { s.push(YY.charAt(i)); }
+      if (cn[YY.charAt(i)]) {
+        s.push(cn[YY.charAt(i)]);
+      } else {
+        s.push(YY.charAt(i));
+      }
     }
     s.push('年');
     const MM = date.getMonth() + 1;
@@ -119,11 +108,16 @@ export default class RecordRow extends Component {
     }
     s.push('月');
     const DD = date.getDate();
-    if (DD < 10) { s.push(cn[DD]); } else if (DD < 20) { s.push(`十${cn[DD % 10]}`); } else { s.push(`二十${cn[DD % 10]}`); }
+    if (DD < 10) {
+      s.push(cn[DD]);
+    } else if (DD < 20) {
+      s.push(`十${cn[DD % 10]}`);
+    } else {
+      s.push(`二十${cn[DD % 10]}`);
+    }
     s.push('日');
     return s.join('');
   }
-
 
   render() {
     const { item } = this.props;
@@ -131,7 +125,7 @@ export default class RecordRow extends Component {
     const { visible, index } = this.state;
     const { imgs } = item;
     const date = moment(item.createdAt).format(' dddd');
-    const uris = imgs && imgs.map(img => ({ url: img }));
+    const uris = imgs && imgs.map((img) => ({ url: img }));
     return (
       <View>
         <StyledTop>
@@ -141,9 +135,7 @@ export default class RecordRow extends Component {
           {/* {this._renderDone()} */}
         </StyledTop>
         {!!item.recordText && (
-          <StyledRecordText>
-            {item.recordText}
-          </StyledRecordText>
+          <StyledRecordText>{item.recordText}</StyledRecordText>
         )}
 
         {imgs && (
@@ -151,15 +143,13 @@ export default class RecordRow extends Component {
             scrollEnabled={imgs.length > 1}
             showsHorizontalScrollIndicator={false}
             pagingEnabled
-            horizontal
-          >
-            { imgs.map((img, i) => (
+            horizontal>
+            {imgs.map((img, i) => (
               <StyledImageButton
                 onPress={() => {
                   this.setState({ visible: true, index: i });
                 }}
-                key={img}
-              >
+                key={img}>
                 <StyledImage
                   key={img}
                   // easingFunc={Easing.bounce}
@@ -169,7 +159,7 @@ export default class RecordRow extends Component {
             ))}
           </StyledImagesScolleView>
         )}
-        { uris && uris.length > 0 && (
+        {uris && uris.length > 0 && (
           <ImagesViewModal
             visible={visible}
             closeCallBack={() => {

@@ -1,16 +1,16 @@
-import {SoundPlayBtn} from '@components/sound-play-btn';
-import React, {FC, useMemo, useState} from 'react';
-import {Platform, StyleSheet} from 'react-native';
-import {soundsSource, SoundsType} from '@configure/source';
+import { SoundPlayBtn } from '@components/sound-play-btn';
+import React, { FC, useMemo, useState } from 'react';
+import { Platform, StyleSheet } from 'react-native';
+import { soundsSource, SoundsType } from '@configure/source';
 // import {StyledContent} from './style';
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {shadeBlend} from '@helps/util';
+import { shadeBlend } from '@helps/util';
 import * as Animatable from 'react-native-animatable';
 interface RenderSoundsType {
   color: string;
-  onChange?: (data: {open: boolean; item: SoundsType}) => void;
-  value?: {open: boolean; item: SoundsType};
+  onChange?: (data: { open: boolean; item: SoundsType }) => void;
+  value?: { open: boolean; item: SoundsType };
 }
 
 export const RenderSounds: FC<RenderSoundsType> = ({
@@ -34,7 +34,7 @@ export const RenderSounds: FC<RenderSoundsType> = ({
   const [openSounds, setOpenSounds] = useState(value?.open ?? true);
 
   const propsColor = Platform.select({
-    ios: {trackColor: {false: color, true: color}},
+    ios: { trackColor: { false: color, true: color } },
     android: {
       thumbColor: openSounds ? color : '#f6f7f9',
       trackColor: {
@@ -80,7 +80,7 @@ export const RenderSounds: FC<RenderSoundsType> = ({
                   title={item.title}
                   uri={item.source}
                   onPress={(open) =>
-                    open && onChange && onChange({item, open: true})
+                    open && onChange && onChange({ item, open: true })
                   }
                 />
               ))}
@@ -99,7 +99,7 @@ export const RenderSounds: FC<RenderSoundsType> = ({
                   title={item.title}
                   uri={item.source}
                   onPress={(open) =>
-                    open && onChange && onChange({item, open: true})
+                    open && onChange && onChange({ item, open: true })
                   }
                 />
               ))}

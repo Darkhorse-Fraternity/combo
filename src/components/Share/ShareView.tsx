@@ -26,41 +26,41 @@ import {
 import Button from '../Button';
 
 import { isQQInstalled } from 'react-native-qq';
-import Modal from 'react-native-modal'
+import Modal from 'react-native-modal';
 
 interface ShareModal {
   iCard: object;
   iUse: object;
   isVisible: boolean;
-  onClose: () => void
+  onClose: () => void;
 }
 
 export const ShareModal = (props: ShareModal) => {
   const { isVisible, ...other } = props;
-  return <Modal
-    useNativeDriver
-    animationIn={'fadeInUp'}
-    isVisible={isVisible}
-    style={{
-      justifyContent: 'flex-end',
-      marginLeft: 0,
-      marginRight: 0,
-      marginBottom: 0,
-    }}
-    animationOut={'fadeOutDown'}>
-    <ShareView {...props} />
-  </Modal>
-}
-
-
+  return (
+    <Modal
+      useNativeDriver
+      animationIn={'fadeInUp'}
+      isVisible={isVisible}
+      style={{
+        justifyContent: 'flex-end',
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: 0,
+      }}
+      animationOut={'fadeOutDown'}>
+      <ShareView {...props} />
+    </Modal>
+  );
+};
 
 interface StateType {
   isQQInstalled: boolean;
 }
 
 @connect(
-  state => ({}),
-  dispatch => ({
+  (state) => ({}),
+  (dispatch) => ({
     share: (type, params) => {
       dispatch(shareTo(type, params));
     },
@@ -133,7 +133,7 @@ export default class ShareView extends Component<ShareModal, StateType> {
               TouchableNativeFeedback.SelectableBackgroundBorderless()
             }
             onPress={() => {
-              this.props.onClose && this.props.onClose()
+              this.props.onClose && this.props.onClose();
             }}
             hitSlop={{
               top: 15,

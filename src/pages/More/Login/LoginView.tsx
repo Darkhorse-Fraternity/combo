@@ -18,7 +18,12 @@ import { connect } from 'react-redux';
 import { req } from '../../../redux/actions/req';
 import { APPLELOGIN, AUTHCODE } from '../../../redux/reqKeys';
 import { requestSmsCode } from '../../../request/leanCloud';
-import { register, weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
+import {
+  register,
+  weChatLogin,
+  qqLogin,
+  appleLogin,
+} from '../../../redux/actions/user';
 import { TransitionPresets } from '@react-navigation/stack';
 
 import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
@@ -52,9 +57,9 @@ import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
 import { SigninBtn } from './components/signin-btn';
 import appleAuth from '@invertase/react-native-apple-authentication';
-const { mainColor } = getTheme()
+const { mainColor } = getTheme();
 @connect(
-  state => ({
+  (state) => ({
     // data:state.req.get()
     userData: state.user,
     auth: state.req.get(AUTHCODE),
@@ -65,11 +70,11 @@ const { mainColor } = getTheme()
       // index.js 为空 则为当前index
       // dispatch(navigateReplaceIndex('TabView'));
     },
-    mRegister: state => {
+    mRegister: (state) => {
       Keyboard.dismiss();
       dispatch(register(state, props.navigation));
     },
-    authCode: number => {
+    authCode: (number) => {
       const parmas = requestSmsCode(number);
       return dispatch(req(parmas, AUTHCODE));
     },
@@ -81,7 +86,7 @@ const { mainColor } = getTheme()
     },
     appleLogin: () => {
       dispatch(appleLogin(APPLELOGIN, props.navigation));
-    }
+    },
   }),
 )
 export default class LoginView extends Component {
@@ -98,20 +103,20 @@ export default class LoginView extends Component {
       isRenderMore: false,
     };
 
-    WeChat.isWXAppInstalled().then(isWXAppInstalled => {
+    WeChat.isWXAppInstalled().then((isWXAppInstalled) => {
       this.setState({ isWXAppInstalled });
     });
   }
 
   state: {
-    phone: string,
-    time: number,
-    codeName: string,
-    ymCode: string,
-    isTap: boolean, // 用于time 是否在走。
+    phone: string;
+    time: number;
+    codeName: string;
+    ymCode: string;
+    isTap: boolean; // 用于time 是否在走。
   };
 
-  static navigationOptions = props =>
+  static navigationOptions = (props) =>
     // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;
@@ -119,7 +124,7 @@ export default class LoginView extends Component {
       title: '',
       ...TransitionPresets.ModalSlideFromBottomIOS,
       headerLeft: () => <View />,
-      headerRight: headerRightProps => (
+      headerRight: (headerRightProps) => (
         <StyledBtn
           hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
           onPress={() => {
@@ -250,26 +255,26 @@ export default class LoginView extends Component {
     onPress,
     style = {},
   ) => (
-      <StyledIconItem
-        disabled={load}
-        onPress={onPress}
-        style={style}
-        background={
-          TouchableNativeFeedback.SelectableBackgroundBorderless &&
-          TouchableNativeFeedback.SelectableBackgroundBorderless()
-        }>
-        <StyledIconView style={{ backgroundColor: color }}>
-          {load ? (
-            <StyledActivityIndicator color={'#c3c3c3'} />
-          ) : (
-              <StyledIcon color={'#233238'} name={name} size={size} />
-            )}
-        </StyledIconView>
-        {/*<StyledIconText>*/}
-        {/*{title}*/}
-        {/*</StyledIconText>*/}
-      </StyledIconItem>
-    );
+    <StyledIconItem
+      disabled={load}
+      onPress={onPress}
+      style={style}
+      background={
+        TouchableNativeFeedback.SelectableBackgroundBorderless &&
+        TouchableNativeFeedback.SelectableBackgroundBorderless()
+      }>
+      <StyledIconView style={{ backgroundColor: color }}>
+        {load ? (
+          <StyledActivityIndicator color={'#c3c3c3'} />
+        ) : (
+          <StyledIcon color={'#233238'} name={name} size={size} />
+        )}
+      </StyledIconView>
+      {/*<StyledIconText>*/}
+      {/*{title}*/}
+      {/*</StyledIconText>*/}
+    </StyledIconItem>
+  );
 
   _renderWechat = () => {
     const thirdLoaded = this.props.userData.theThirdLoaded;
@@ -324,12 +329,12 @@ export default class LoginView extends Component {
                 // width: Dimensions.get('window').width - 40,
                 paddingHorizontal: 20,
                 marginHorizontal: 20,
-                maxWidth: 500
+                maxWidth: 500,
               }}>
               {this._renderRowMain(
                 '手机号:',
                 '请填入手机号',
-                text => this.setState({ phone: text }),
+                (text) => this.setState({ phone: text }),
                 'numeric',
                 true,
                 11,
@@ -350,7 +355,7 @@ export default class LoginView extends Component {
               {this._renderRowMain(
                 '验证码:',
                 '请输入验证码',
-                text => {
+                (text) => {
                   this.setState({ ymCode: text });
                 },
                 'numeric',
@@ -370,12 +375,12 @@ export default class LoginView extends Component {
                 {authLoad ? (
                   <StyledActivityIndicator />
                 ) : (
-                    <StyledCodeButtonText>
-                      {this.state.time === 60 || this.state.time === 0
-                        ? '获取验证码'
-                        : this.state.time.toString() + '秒'}
-                    </StyledCodeButtonText>
-                  )}
+                  <StyledCodeButtonText>
+                    {this.state.time === 60 || this.state.time === 0
+                      ? '获取验证码'
+                      : this.state.time.toString() + '秒'}
+                  </StyledCodeButtonText>
+                )}
               </StyledCodeButton>
             </View>
             <View style={styles.line} />
@@ -390,13 +395,27 @@ export default class LoginView extends Component {
           />
         </Animatable.View>
         <ThirdPartyInnerLoginView>
-          {!!this.state.isWXAppInstalled && <SigninBtn
-            name={'weixin'}
-            color={'#1AAD19'}
-            onPress={this.props.wxLogin}
-            loading={thirdLoaded === WECHATLOGIN} />}
-          {Platform.OS === 'ios' && appleAuth.isSupported && <SigninBtn name={'apple'} onPress={this.props.appleLogin} loading={thirdLoaded === APPLELOGIN} />}
-          <SigninBtn name={'qq'} color={'#0188fb'} onPress={this.props.qqLogin} loading={thirdLoaded === QQLOGIN} />
+          {!!this.state.isWXAppInstalled && (
+            <SigninBtn
+              name={'weixin'}
+              color={'#1AAD19'}
+              onPress={this.props.wxLogin}
+              loading={thirdLoaded === WECHATLOGIN}
+            />
+          )}
+          {Platform.OS === 'ios' && appleAuth.isSupported && (
+            <SigninBtn
+              name={'apple'}
+              onPress={this.props.appleLogin}
+              loading={thirdLoaded === APPLELOGIN}
+            />
+          )}
+          <SigninBtn
+            name={'qq'}
+            color={'#0188fb'}
+            onPress={this.props.qqLogin}
+            loading={thirdLoaded === QQLOGIN}
+          />
         </ThirdPartyInnerLoginView>
       </StyledContent>
     );

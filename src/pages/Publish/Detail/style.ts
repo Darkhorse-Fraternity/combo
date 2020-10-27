@@ -4,17 +4,16 @@
  */
 'use strict';
 
-import styled from "styled-components/native";
-import HeaderBtn from '../../../components/Button/HeaderBtn'
-
+import styled from 'styled-components/native';
+import HeaderBtn from '../../../components/Button/HeaderBtn';
 
 export const StyledContent = styled.View`
-    flex: 1;
-    background-color: white;
-`
-
+  flex: 1;
+  background-color: white;
+`;
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-   background-color: ${props=>props.backgroundColor||props.theme.sureColor};
-   margin-top: 5px;
-`
+  background-color: ${(props) =>
+    props.backgroundColor || props.theme.sureColor};
+  margin-top: 5px;
+`;

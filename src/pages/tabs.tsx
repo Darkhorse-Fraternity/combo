@@ -15,7 +15,11 @@ import {
   defaultNavigationOptions,
   tabsOptions,
 } from '@components/Nav/components/navigationOptions';
-import AnimatedTabBar, { FlashyTabBarIconProps, FlashyTabBarItemConfig, TabsConfig } from '@gorhom/animated-tabbar';
+import AnimatedTabBar, {
+  FlashyTabBarIconProps,
+  FlashyTabBarItemConfig,
+  TabsConfig,
+} from '@gorhom/animated-tabbar';
 import { useSafeArea, useSafeAreaInsets } from 'react-native-safe-area-context';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
@@ -31,7 +35,7 @@ const OrigenStack = (props: StackPropsType) => {
       // initialParams={}
       headerMode="screen"
       screenOptions={defaultNavigationOptions}>
-      {keys.map(key => (
+      {keys.map((key) => (
         <Stack.Screen
           name={key}
           // initialParams={
@@ -92,23 +96,21 @@ const names: string[] = [
   strings('tabs.more'),
 ];
 
-
-
-
 const tabItems = (name: string) => ({
   labelStyle: {
     color: tabsOptions[name].color,
   },
   icon: {
-    component: ({ color, size }: FlashyTabBarIconProps) =>
-      <Feather name={tabsOptions[name].iconName} size={size} color={color} />,
+    component: ({ color, size }: FlashyTabBarIconProps) => (
+      <Feather name={tabsOptions[name].iconName} size={size} color={color} />
+    ),
     color: tabsOptions[name].color,
   },
   indicator: {
     size: 4,
     color: tabsOptions[name].color,
-  }
-})
+  },
+});
 
 const tabs: TabsConfig<FlashyTabBarItemConfig> = {
   [strings('tabs.clockIn')]: tabItems(strings('tabs.clockIn')),
@@ -119,14 +121,11 @@ const tabs: TabsConfig<FlashyTabBarItemConfig> = {
 
 const Tab = createBottomTabNavigator();
 
-
-
 const options = ({ route }: { route: any }) => {
   return { tabBarVisible: route.state ? route.state.index === 0 : true };
 };
 
 export default function App() {
-
   // hooks
   const { bottom } = useSafeAreaInsets();
 
@@ -152,7 +151,7 @@ export default function App() {
         elevation: 24,
       },
     }),
-    [bottom]
+    [bottom],
   );
 
   return (
@@ -171,7 +170,7 @@ export default function App() {
       //   showLabel: false,
       // }}
       tabBarOptions={tabBarOptions}
-      tabBar={props => (
+      tabBar={(props) => (
         <AnimatedTabBar
           preset="flashy"
           tabs={tabs}
@@ -181,8 +180,7 @@ export default function App() {
           // style={{}}
           {...props}
         />
-      )}
-    >
+      )}>
       <Tab.Screen
         name={strings('tabs.clockIn')}
         component={PunchStack}

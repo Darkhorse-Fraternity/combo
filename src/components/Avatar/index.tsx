@@ -3,16 +3,11 @@
  * @flow
  */
 
-
 import React, { PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 
-import {
-  StyledContent,
-  StyledAvatar,
-  StyledIndicator
-} from './style';
+import { StyledContent, StyledAvatar, StyledIndicator } from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 
@@ -24,24 +19,19 @@ interface AvatarType {
   type?: string;
   radius?: number;
   load?: boolean;
-  user: object
+  user: object;
 }
 
-
 @connect(
-  state => ({
+  (state) => ({
     user: state.user.data,
   }),
-  dispatch => ({})
+  (dispatch) => ({}),
 )
-
-
 export default class Avatar extends PureComponent<AvatarType> {
   constructor(props: AvatarType) {
     super(props);
   }
-
-
 
   static defaultProps = {
     type: 'small',
@@ -49,16 +39,17 @@ export default class Avatar extends PureComponent<AvatarType> {
     load: false,
   };
 
-
   render() {
     const { radius = 40, user = {}, load = false } = this.props;
 
-    const { avatar, headimgurl, } = user;
-    let avatarUrl = (avatar ? avatar.url : headimgurl);
-    avatarUrl = !avatarUrl ? avatarUrl : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 8, radius * 8);
-    const avatarSource = avatarUrl ? { uri: avatarUrl }
+    const { avatar, headimgurl } = user;
+    let avatarUrl = avatar ? avatar.url : headimgurl;
+    avatarUrl = !avatarUrl
+      ? avatarUrl
+      : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 8, radius * 8);
+    const avatarSource = avatarUrl
+      ? { uri: avatarUrl }
       : require('../../../source/img/my/icon-60.png');
-
 
     // console.log('avatarUrl:', avatarUrl);
 
@@ -74,13 +65,11 @@ export default class Avatar extends PureComponent<AvatarType> {
 
     return (
       <StyledContent radius={radius}>
-        {load ? <StyledIndicator color={'grey'} radius={radius} />
-          : (
-            <StyledAvatar
-              radius={radius}
-              source={avatarSource}
-            />
-          )}
+        {load ? (
+          <StyledIndicator color={'grey'} radius={radius} />
+        ) : (
+          <StyledAvatar radius={radius} source={avatarSource} />
+        )}
       </StyledContent>
     );
   }

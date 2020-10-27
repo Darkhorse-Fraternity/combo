@@ -13,15 +13,15 @@ export const StyledImagesScolleView = styled.ScrollView`
 export const StyledImageButton = styled(Button)``;
 
 export const StyledImage = styled(FastImage)`
-  width: ${props => props.theme.width * 0.65};
-  height: ${props => (props.theme.width * 0.65 * 9) / 16};
+  width: ${(props) => props.theme.width * 0.65};
+  height: ${(props) => (props.theme.width * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
   background-color: #fdfbfb;
 `;
 
 export const StyledZoomImage = styled(ZoomImage)`
-  height: ${props => (props.theme.width * 0.65 * 9) / 16};
+  height: ${(props) => (props.theme.width * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 15px 45px;
   background-color: #fdfbfb;
@@ -81,8 +81,8 @@ export const StyledChatBtnText = styled.Text`
 `;
 
 export const StyledArrowView = styled.View`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 2};
-  border-right-width: ${props => props.theme.hairlineWidth * 2};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 2};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 2};
   border-color: #8c8c85;
   transform: rotate(315deg);
   width: 10px;

@@ -32,15 +32,15 @@ export const StyledTitleText = styled.Text`
 export const StyledInnerView = styled.ScrollView``;
 
 export const StyledItemText = styled.Text<{ contain: boolean }>`
-  font-weight: ${props =>
+  font-weight: ${(props) =>
     props.contain ? 600 : Platform.OS === 'ios' ? 500 : 400};
-  color:${props =>
+  color: ${(props) =>
     props.contain
       ? 'white'
       : Platform.OS === 'ios'
-        ? 'black'
-        : props.theme.blackTertiary};
-  
+      ? 'black'
+      : props.theme.blackTertiary};
+
   font-size: 14px;
 `;
 
@@ -86,14 +86,14 @@ export const StyledNotifyButton = styled(TouchableOpacity)`
 export const StyledNotifyButtonInner = styled.View`
   align-items: center;
   justify-content: center;
-  background-color: ${props => props.theme.textinputbackgroundColor};
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
   border-radius: 10px;
   width: 60px;
   height: 60px;
 `;
 
 export const StyledMaterialIcons = styled(MaterialIcons)`
-  color: ${props => props.theme.blackSecondary};
+  color: ${(props) => props.theme.blackSecondary};
 `;
 
 export const StyledIonicons = styled(Ionicons)``;
@@ -126,7 +126,7 @@ export const StyledInner = styled.View`
 
 export const StyledNotifyTime = styled.Text`
   text-align: center;
-  color: ${props => props.theme.blackSecondary};
+  color: ${(props) => props.theme.blackSecondary};
 `;
 
 export const StyledLogoImage = styled.Image`
@@ -145,7 +145,7 @@ export const StyledLimitTimeContent = styled.View`
 `;
 
 export const StyleNoticeText = styled.Text`
-   margin-top:20px;
-   align-self: center;
-   color: #3333ff;
-`
+  margin-top: 20px;
+  align-self: center;
+  color: #3333ff;
+`;

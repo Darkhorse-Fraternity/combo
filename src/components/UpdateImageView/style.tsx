@@ -21,14 +21,19 @@ export const StyledMainView = styled.View<StyledbackgroundColorProps>`
   padding-right: 15px;
 `;
 
-//itme布局
-export const StyledListItemV = styled.View<StyledListItemVProps>`
+//itme布局、
+const margin = 10;
+
+export const StyledListItemV = styled.View<
+  StyledListItemVProps & { width: number }
+>`
   width: ${(props) =>
-    (props.theme.width - 30 - (props.countInrow - 1) * 7) / props.countInrow}px;
+    (props.width - 30 - (props.countInrow - 1) * margin) / props.countInrow}px;
   height: ${(props) =>
-    (props.theme.width - 30 - (props.countInrow - 1) * 7) / props.countInrow}px;
-  margin-left: ${(props) => (props.index % props.countInrow === 0 ? 0 : 7)}px;
-  margin-top: ${(props) => (props.index < props.countInrow ? 0 : 7)}px;
+    (props.width - 30 - (props.countInrow - 1) * margin) / props.countInrow}px;
+  margin-left: ${(props) =>
+    props.index % props.countInrow === 0 ? 0 : margin}px;
+  margin-top: ${(props) => (props.index < props.countInrow ? 0 : margin)}px;
   border-radius: 5px;
   overflow: hidden;
 `;

@@ -7,21 +7,16 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-} from 'react-native'
-import ImagesViewModal from './ImagesViewModal'
-import FastImage from 'react-native-fast-image'
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import ImagesViewModal from './ImagesViewModal';
+import FastImage from 'react-native-fast-image';
 
 export default class ZoomImage extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
-      visible: false
-    }
+      visible: false,
+    };
   }
 
   state: {};
@@ -30,32 +25,33 @@ export default class ZoomImage extends Component {
     height: PropTypes.number,
   };
   static defaultProps = {
-    height: 250
+    height: 250,
   };
 
-
   render() {
-
-    const { style, imageUrls } = this.props
+    const { style, imageUrls } = this.props;
 
     return (
-      <View >
+      <View>
         <ImagesViewModal
           visible={this.state.visible}
           closeCallBack={() => {
-            this.setState({ visible: false })
+            this.setState({ visible: false });
           }}
-          imageUrls={imageUrls}/>
+          imageUrls={imageUrls}
+        />
 
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({ visible: true })
-            }}
-          >
-            {imageUrls && <FastImage source={{ uri: imageUrls[0].url }}
-                                     style={[{backgroundColor:'#fdfbfb'},style]}/>}
-          </TouchableOpacity>
-
+        <TouchableOpacity
+          onPress={() => {
+            this.setState({ visible: true });
+          }}>
+          {imageUrls && (
+            <FastImage
+              source={{ uri: imageUrls[0].url }}
+              style={[{ backgroundColor: '#fdfbfb' }, style]}
+            />
+          )}
+        </TouchableOpacity>
       </View>
     );
   }

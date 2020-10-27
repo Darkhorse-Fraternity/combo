@@ -12,8 +12,8 @@ const headerStyleAndroid =
   Platform.OS === 'ios' || Platform.Version < 20
     ? {}
     : {
-      height: 64 + currentHeight - 20,
-    };
+        height: 64 + currentHeight - 20,
+      };
 
 export const defaultNavigationOptions: StackNavigationOptions = {
   headerStyle: {
@@ -39,10 +39,10 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   },
   cardStyle: { backgroundColor: 'white' },
   // headerBackImage: require('../../source/img/bar/back-icon.png'),
-  headerBackImage: props => (
+  headerBackImage: (props) => (
     <HeaderBackImage
       color={props.tintColor}
-    // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
+      // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
     />
   ),
   headerBackTitleVisible: false,

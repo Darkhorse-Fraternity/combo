@@ -44,12 +44,12 @@ const Render = () => {
   const [{ pending, result }, load] = useFetch<iCardType>(params, false);
 
   const searchParams = classIDSearch(ICARD, iCardID);
-  const [{ result: searchResult, pending: searchPennding }] = useFetch<FormData>(
-    searchParams,
-  );
+  const [{ result: searchResult, pending: searchPennding }] = useFetch<
+    FormData
+  >(searchParams);
 
   const { register, setValue, handleSubmit, errors } = useForm<FormData>({
-    resolver: yupResolver(validationSchema)
+    resolver: yupResolver(validationSchema),
     // defaultValues: { password: "234" }
   });
 

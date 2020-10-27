@@ -6,7 +6,7 @@
 import styled from 'styled-components/native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 import Button from '../../components/Button/index';
 
 export const StyledContent = styled(SafeAreaView)`
@@ -74,7 +74,7 @@ export const StyledFollowTextView = styled.View`
   height: 60px;
   border-radius: 30px;
   border-color: #2e2e2e;
-  border-width: ${props => props.theme.hairlineWidth * 2};
+  border-width: ${(props) => props.theme.hairlineWidth * 2};
   align-items: center;
   justify-content: center;
 `;

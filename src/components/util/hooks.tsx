@@ -1,28 +1,61 @@
-
 import { useNavigation } from '@react-navigation/native';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Dimensions,
+  ScaledSize,
+} from 'react-native';
 import { isLandscape } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
-type OrientationType = "LANDSCAPE" | "PORTRAIT" | "UNKNOWN" | "PORTRAITUPSIDEDOWN";
+type OrientationType =
+  | 'LANDSCAPE'
+  | 'PORTRAIT'
+  | 'UNKNOWN'
+  | 'PORTRAITUPSIDEDOWN';
 export const useOrientation = () => {
-  const [orientation, setOrientation] = useState<OrientationType>(isLandscape() ? 'LANDSCAPE' : 'PORTRAIT')
-  const orientationDidChange = (orientation: orientation) => {
-    setOrientation(orientation);
-  }
+  const [orientation, setOrientation] = useState<OrientationType>(
+    isLandscape() ? 'LANDSCAPE' : 'PORTRAIT',
+  );
+  const orientationDidChange = (ori: OrientationType) => {
+    setOrientation(ori);
+  };
 
   useEffect(() => {
     Orientation.addOrientationListener(orientationDidChange);
     return () => {
       Orientation.removeOrientationListener(orientationDidChange);
-    }
-  }, [])
+    };
+  }, []);
   return orientation;
-}
+};
 
+export const useDimensions = () => {
+  const [dimensions, setDimensions] = useState({
+    window: Dimensions.get('window'),
+    screen: Dimensions.get('screen'),
+  });
+  const handle = ({
+    window,
+    screen,
+  }: {
+    window: ScaledSize;
+    screen: ScaledSize;
+  }) => {
+    setDimensions({ window, screen });
+  };
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', handle);
+    return () => {
+      Dimensions.removeEventListener('change', handle);
+    };
+  }, []);
+  return dimensions;
+};
 
 export const useScrollTitle = (title: string, offsetY: number = 35) => {
-  const openSmallTitleRef = useRef(false)
+  const openSmallTitleRef = useRef(false);
   const { setOptions } = useNavigation();
   const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const y = event.nativeEvent.contentOffset.y;
@@ -34,7 +67,7 @@ export const useScrollTitle = (title: string, offsetY: number = 35) => {
       openSmallTitleRef.current = false;
       setOptions({ title: '' });
     }
-  }
+  };
 
   return useCallback(onScroll, []);
-}
+};

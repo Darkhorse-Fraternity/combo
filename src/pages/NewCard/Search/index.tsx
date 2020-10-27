@@ -1,21 +1,14 @@
 import React, { PureComponent } from 'react';
-import {
-  View,
-} from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { debounce } from 'lodash'; // 4.0.8
-import {
-  StyledContent,
-  StyledLine,
-  StyledSearchInput
-} from './style';
+import { StyledContent, StyledLine, StyledSearchInput } from './style';
 import { ICARD } from '../../../redux/reqKeys';
 import LCList from '../../../components/Base/LCList';
 import CardCell from '../CardCell/CardCell2';
 
 const listKey = ICARD;
-
 
 export default class Search extends PureComponent {
   static propTypes = {};
@@ -24,9 +17,8 @@ export default class Search extends PureComponent {
 
   static navigationOptions = () => ({
     // header: null,
-    title:''
+    title: '',
   });
-
 
   constructor(props: Object) {
     super(props);
@@ -37,19 +29,17 @@ export default class Search extends PureComponent {
 
   search = (text) => {
     this.setState({ text });
-  }
+  };
 
   // eslint-disable-next-line react/destructuring-assignment
-  debounceSearch = debounce(this.search, 500, { leading: true, trailing: true })
+  debounceSearch = debounce(this.search, 500, {
+    leading: true,
+    trailing: true,
+  });
 
   renderRow = ({ item }) => {
     // console.log('test:', item);
-    const {
-      iconAndColor,
-      title,
-      user,
-      notifyText
-    } = item;
+    const { iconAndColor, title, user, notifyText } = item;
 
     const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' };
     const { navigation } = this.props;
@@ -65,25 +55,26 @@ export default class Search extends PureComponent {
         }}
       />
     );
-  }
+  };
 
   render() {
     const { text } = this.state;
 
     const param = {
       where: {
-        $or: [{
-          title: {
-            $regex: `(${text})`,
+        $or: [
+          {
+            title: {
+              $regex: `(${text})`,
+            },
           },
-        },
-        {
-          notifyText: {
-            $regex: `(${text})`,
+          {
+            notifyText: {
+              $regex: `(${text})`,
+            },
           },
-        },
         ],
-        state: 1
+        state: 1,
       },
       include: 'user',
     };
@@ -97,13 +88,13 @@ export default class Search extends PureComponent {
         <StyledLine />
         <View style={{ height: 20 }} />
         {text.length > 0 && (
-        <LCList
-          keyboardDismissMode="interactive"
-          noDataPrompt="没有查到相关习惯"
-          reqKey={listKey} // 在normalizr 中的位置
-          renderItem={this.renderRow}
-          reqParam={param}
-        />
+          <LCList
+            keyboardDismissMode="interactive"
+            noDataPrompt="没有查到相关习惯"
+            reqKey={listKey} // 在normalizr 中的位置
+            renderItem={this.renderRow}
+            reqParam={param}
+          />
         )}
       </>
     );

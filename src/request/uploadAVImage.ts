@@ -9,7 +9,7 @@ import AV from 'leancloud-storage';
 import * as adapters from '@leancloud/platform-adapters-react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
 AV.setAdapters(adapters);
-import {LeanCloud_APP_ID, LeanCloud_APP_KEY} from '../configure/leancloud';
+import { LeanCloud_APP_ID, LeanCloud_APP_KEY } from '../configure/leancloud';
 // AV.initialize(LeanCloud_APP_ID, LeanCloud_APP_KEY);
 
 AV.init({
@@ -65,7 +65,6 @@ export function uploadFilesByLeanCloud(imageURLs: string[]) {
       return res;
     });
   });
-
 
   return Promise.all(promises);
 }

@@ -10,7 +10,10 @@ import {
 } from './style';
 import Modal from 'react-native-modal';
 import Button from '@components/Button';
-import ImagePicker, { Image as CropImage, Options } from 'react-native-image-crop-picker';
+import ImagePicker, {
+  Image as CropImage,
+  Options,
+} from 'react-native-image-crop-picker';
 
 const ImagePickerConfig: Options = {
   width: 1000,
@@ -24,15 +27,13 @@ const ImagePickerConfig: Options = {
   sortOrder: 'desc',
   mediaType: 'photo',
   multiple: false,
-}
+};
 
 const selectCamera = (op?: Options) => {
   return ImagePicker.openCamera({ ...ImagePickerConfig, ...op });
 };
 
-
 const selectAlbum = (op?: Options) => {
-
   return ImagePicker.openPicker({ ...ImagePickerConfig, ...op });
 };
 
@@ -50,12 +51,12 @@ export interface InnerViewProps {
 const InnerView = (props: InnerViewProps) => {
   const { onSuccess, onClose, option, onPick } = props;
 
-  const ref = useRef<NodeJS.Timeout>()
+  const ref = useRef<NodeJS.Timeout>();
   useEffect(() => {
     return () => {
-      ref.current && clearTimeout(ref.current)
-    }
-  }, [])
+      ref.current && clearTimeout(ref.current);
+    };
+  }, []);
 
   return (
     <ContentView>
@@ -63,7 +64,11 @@ const InnerView = (props: InnerViewProps) => {
         onPress={() => {
           // onSuccess(0);
           if (!onPick) {
-            selectCamera(option).then(res => { onSuccess(res) }).catch(e => { });
+            selectCamera(option)
+              .then((res) => {
+                onSuccess(res);
+              })
+              .catch((e) => {});
           } else {
             onPick();
           }
@@ -77,19 +82,19 @@ const InnerView = (props: InnerViewProps) => {
         onPress={() => {
           onPick && onPick();
           if (!onPick) {
-            selectAlbum(option).then(res => onSuccess(res)).catch(e => { });
+            selectAlbum(option)
+              .then((res) => onSuccess(res))
+              .catch((e) => {});
           } else {
             onPick();
           }
-
         }}>
         <StyledSubmit>
           <CommitBtn>从相册中选择</CommitBtn>
         </StyledSubmit>
       </Button>
       <StyledSplitView />
-      <Button
-        onPress={onClose}>
+      <Button onPress={onClose}>
         <StyledSubmit>
           <CommitBtn color={'#848494'}>取消</CommitBtn>
         </StyledSubmit>
@@ -119,5 +124,5 @@ const Render: FC<PickViewProps> = (props) => {
   );
 };
 
-const PhotoOrCameraSheet = memo(Render)
+const PhotoOrCameraSheet = memo(Render);
 export default PhotoOrCameraSheet;

@@ -4,7 +4,7 @@ import { lazy } from 'react';
 
 const render = lazy(() => import('./render'));
 
-const navigationOptions: NavigationOptionsType<RouteKey.web> = props => {
+const navigationOptions: NavigationOptionsType<RouteKey.web> = (props) => {
   const { title, url, headerShown = true } = props.route?.params || {};
   return { headerShown, title: title || url || '' };
 };

@@ -3,7 +3,6 @@
  * @flow
  */
 
-
 import * as immutable from 'immutable';
 import { registerListKeys } from '../reqKeys';
 
@@ -15,7 +14,6 @@ import {
   LIST_DELETE,
   LIST_ADD,
 } from '../actions/list';
-
 
 const registerKeys = (keys = []) => {
   const data = {
@@ -32,7 +30,10 @@ const registerKeys = (keys = []) => {
 
 const initialState = immutable.fromJS({ ...registerKeys(registerListKeys) });
 
-export default function listState(state: immutable.Map<string, any> = initialState, action: Object) {
+export default function listState(
+  state: immutable.Map<string, any> = initialState,
+  action: Object,
+) {
   switch (action.type) {
     case LIST_FAILED:
     case LIST_START:
@@ -56,7 +57,9 @@ export default function listState(state: immutable.Map<string, any> = initialSta
       // state.deleteIn([action.key,'listData'])
       // console.log(action.key, action.rowID);
       // console.log('test:', state);
-      return state.deleteIn([action.key, 'listData', action.rowID]).setIn([action.key, 'loadStatu'], action.loadStatu);
+      return state
+        .deleteIn([action.key, 'listData', action.rowID])
+        .setIn([action.key, 'loadStatu'], action.loadStatu);
     }
     case LIST_ADD: {
       if (state.getIn([action.key])) {
@@ -74,8 +77,8 @@ export default function listState(state: immutable.Map<string, any> = initialSta
         [action.key]: {
           page: 0,
           loadStatu: action.loadStatu,
-          listData: [action.data]
-        }
+          listData: [action.data],
+        },
       });
     }
 

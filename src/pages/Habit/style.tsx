@@ -17,8 +17,9 @@ export const StyledContent = styled.ScrollView`
   flex: 1;
 `;
 
-export const StyledList = (styled(FlatList)`
-` as React.ReactNode) as new <T>() => FlatList<T>;
+export const StyledList = (styled(FlatList)`` as React.ReactNode) as new <
+  T
+>() => FlatList<T>;
 
 export const StyledHeader = styled.View`
   padding: 10px 20px 24px 20px;
@@ -48,8 +49,8 @@ export const StyledDeleteBtn = styled.View`
 `;
 
 export const StyledDeleteBtnText = styled.Text`
-  color: ${props => props.color};
-  margin: ${props => (Platform.OS === 'ios' ? 5 : 3)}px;
+  color: ${(props) => props.color};
+  margin: ${(props) => (Platform.OS === 'ios' ? 5 : 3)}px;
   font-size: 13px;
   font-weight: 300;
 `;
@@ -63,5 +64,5 @@ export const StyledIonicons = styled(Ionicons)`
 `;
 
 export const StyledAnimationRow = styled(AnimationRow)`
-  flex:1 0;
-`
+  flex: 1 0;
+`;

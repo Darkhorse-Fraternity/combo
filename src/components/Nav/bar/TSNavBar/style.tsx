@@ -11,8 +11,8 @@ export const StyledNavbar = styled(Animated.View)`
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
-  height: ${props => getStatusBarHeight() + 44};
-  padding-top: ${props => getStatusBarHeight()};
+  height: ${(props) => getStatusBarHeight() + 44};
+  padding-top: ${(props) => getStatusBarHeight()};
   /* padding-bottom: 15px;  */
   /* background-color: red; */
 `;
@@ -22,17 +22,17 @@ interface colorProps {
 }
 
 export const StyledArrow = styled.View<colorProps>`
-  border-bottom-width: ${props => props.theme.hairlineWidth * 5};
-  border-right-width: ${props => props.theme.hairlineWidth * 5};
-  border-color: ${props => props.color || 'white'};
+  border-bottom-width: ${(props) => props.theme.hairlineWidth * 5};
+  border-right-width: ${(props) => props.theme.hairlineWidth * 5};
+  border-color: ${(props) => props.color || 'white'};
   transform: rotate(135deg);
   width: 10;
   height: 10;
   left: 20;
 `;
 
-export const StyledTitle = styled(Animated.Text) <colorProps>`
-  color: ${props => props.color || 'white'};
+export const StyledTitle = styled(Animated.Text)<colorProps>`
+  color: ${(props) => props.color || 'white'};
   font-size: 18;
   font-weight: 400;
 `;

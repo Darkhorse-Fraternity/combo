@@ -177,13 +177,13 @@ export default class Remind extends PureComponent {
     const propsColor =
       Platform.OS === 'ios'
         ? {
-          trackColor: { false: '#39ba98', true: '#39ba98' },
-        }
+            trackColor: { false: '#39ba98', true: '#39ba98' },
+          }
         : {
-          thumbColor: value ? '#f6d971' : '#f6f7f9',
-          // trackColor:{true: '#f6f7f9'},
-          trackColor: { true: shadeBlend(0.5, '#f6d971') },
-        };
+            thumbColor: value ? '#f6d971' : '#f6f7f9',
+            // trackColor:{true: '#f6f7f9'},
+            trackColor: { true: shadeBlend(0.5, '#f6d971') },
+          };
 
     return (
       <>
@@ -203,7 +203,9 @@ export default class Remind extends PureComponent {
             }}
           />
         </StyledSubTitle>
-        {data.length > 0 && <StyledLine style={{ height: 15, marginLeft: 35 }} />}
+        {data.length > 0 && (
+          <StyledLine style={{ height: 15, marginLeft: 35 }} />
+        )}
       </>
     );
   };
@@ -247,12 +249,12 @@ export default class Remind extends PureComponent {
     const propsColor =
       Platform.OS === 'ios'
         ? {
-          trackColor: { false: color, true: color },
-        }
+            trackColor: { false: color, true: color },
+          }
         : {
-          thumbColor: value ? color : '#f6f7f9',
-          trackColor: { true: shadeBlend(0.75, color) },
-        };
+            thumbColor: value ? color : '#f6f7f9',
+            trackColor: { true: shadeBlend(0.75, color) },
+          };
 
     return (
       <AnimationRow

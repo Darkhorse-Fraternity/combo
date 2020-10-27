@@ -102,11 +102,11 @@ export function saveAccount(account: string) {
 //
 export function loadAccount(callBack: Function) {
   storage
-    .load({key: Save_Account_Key})
-    .then(ret => {
+    .load({ key: Save_Account_Key })
+    .then((ret) => {
       callBack(ret);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log('loadAccount:', err);
     });
 }

@@ -1,6 +1,7 @@
-const isEmpty = value => value === undefined || value === null || value === '';
-const join = rules => (value, data) => rules.map(rule => rule(value, data)).filter(error => !!error)[0];
-
+const isEmpty = (value) =>
+  value === undefined || value === null || value === '';
+const join = (rules) => (value, data) =>
+  rules.map((rule) => rule(value, data)).filter((error) => !!error)[0];
 
 export function checkPhoneNum(value) {
   const reg = /^1[0-9]{10}$/;
@@ -9,7 +10,10 @@ export function checkPhoneNum(value) {
 
 export function email(value) {
   // Let's not start a debate on email regex. This is just for an example app!
-  if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+  if (
+    !isEmpty(value) &&
+    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+  ) {
     return 'Invalid email address';
   }
 }

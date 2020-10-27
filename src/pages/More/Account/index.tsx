@@ -61,7 +61,7 @@ import { AvatarPicker } from '@components/Avatar/avatar-picker';
     qqBinding: () => {
       dispatch(qqBinding(QQLOGIN));
     },
-    mobilePhoneNumBinding: () => { },
+    mobilePhoneNumBinding: () => {},
     brekeBinding: (key, loadKey, dbNum) => {
       if (dbNum > 1) {
         dispatch(breakBinding(key, loadKey));
@@ -86,7 +86,7 @@ import { AvatarPicker } from '@components/Avatar/avatar-picker';
       Alert.alert('确定退出吗?', null, [
         {
           text: '取消',
-          onPress: () => { },
+          onPress: () => {},
         },
         {
           text: '确定',
@@ -98,7 +98,10 @@ import { AvatarPicker } from '@components/Avatar/avatar-picker';
     },
   }),
 )
-export default class Account extends React.Component<{ loadAvatar: boolean, user: object }> {
+export default class Account extends React.Component<{
+  loadAvatar: boolean;
+  user: object;
+}> {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -112,10 +115,10 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
   }
 
   _renderHeadRow() {
-    const { user, picker, upload } = this.props
+    const { user, picker, upload } = this.props;
 
-    const { avatar, headimgurl, } = user || {}
-    const avatarUrl = (avatar ? avatar.url : headimgurl)
+    const { avatar, headimgurl } = user || {};
+    const avatarUrl = avatar ? avatar.url : headimgurl;
 
     return (
       <StyledHeader>
@@ -123,7 +126,8 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
         <AvatarPicker
           upload={upload}
           source={{ uri: avatarUrl }}
-          load={this.props.loadAvatar} />
+          load={this.props.loadAvatar}
+        />
 
         {/* <StyledArrow/> */}
 
@@ -200,16 +204,16 @@ export default class Account extends React.Component<{ loadAvatar: boolean, user
           {!this.state.appInfoShow
             ? `APP VERSION: ${DeviceInfo.getVersion()}`
             : '用于截屏反馈BUG\n' +
-            `UserID: ${this.props.user.objectId}\n` +
-            `App Channel: ${appChannel}\n` +
-            `App version: ${DeviceInfo.getVersion()}\n` +
-            `App Build: ${DeviceInfo.getBuildNumber()}\n` +
-            `Brand: ${DeviceInfo.getBrand()}\n` +
-            // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
-            `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorageSync()}\n` +
-            `Model: ${DeviceInfo.getModel()}\n` +
-            `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
-            `APILevel: ${DeviceInfo.getApiLevelSync()}`}
+              `UserID: ${this.props.user.objectId}\n` +
+              `App Channel: ${appChannel}\n` +
+              `App version: ${DeviceInfo.getVersion()}\n` +
+              `App Build: ${DeviceInfo.getBuildNumber()}\n` +
+              `Brand: ${DeviceInfo.getBrand()}\n` +
+              // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+              `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorageSync()}\n` +
+              `Model: ${DeviceInfo.getModel()}\n` +
+              `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
+              `APILevel: ${DeviceInfo.getApiLevelSync()}`}
         </StyledAppVersionText>
       </TouchableOpacity>
     </StyledAppInfo>

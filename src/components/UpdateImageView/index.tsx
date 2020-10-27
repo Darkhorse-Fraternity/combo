@@ -1,5 +1,11 @@
 import React, { useState, useRef, memo, FC, useEffect } from 'react';
-import { GestureResponderEvent, LayoutAnimation, View, ViewProps } from 'react-native';
+import {
+  GestureResponderEvent,
+  LayoutAnimation,
+  View,
+  ViewProps,
+  Dimensions,
+} from 'react-native';
 import {
   StyledMainView,
   StyledListItemV,
@@ -19,8 +25,9 @@ import ImagePicker, {
 // import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 import ImagesViewModals from '@components/ZoomImage/ImagesViewModal';
 import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
+import { useDimensions } from '@components/util/hooks';
 export interface UpdateImage {
-  url: string
+  url: string;
 }
 
 export interface UpdateImageViewType extends Omit<ViewProps, 'children'> {
@@ -30,7 +37,7 @@ export interface UpdateImageViewType extends Omit<ViewProps, 'children'> {
   onChange?: (imageArray: UpdateImage[]) => void;
   onPress?: () => void;
   value?: UpdateImage[];
-  openPickRef?: any;
+  openPickRef?: unknown;
   hide?: boolean;
 }
 interface ImagesListType extends UpdateImageViewType {
@@ -39,7 +46,9 @@ interface ImagesListType extends UpdateImageViewType {
   addImage: (event: GestureResponderEvent, index: number) => void;
 }
 
-export const pickerImage = async (maxFiles: number): Promise<UpdateImage[] | null> => {
+export const pickerImage = async (
+  maxFiles: number,
+): Promise<UpdateImage[] | null> => {
   const image = await ImagePicker.openPicker({
     maxFiles: maxFiles,
     showsSelectedCount: true,
@@ -61,11 +70,13 @@ export const pickerImage = async (maxFiles: number): Promise<UpdateImage[] | nul
   if (Array.isArray(image)) {
     return image.map((obj) => ({ url: obj.path }));
   } else {
-    return [{
-      url: (image as PickerImage).path,
-    }];
+    return [
+      {
+        url: (image as PickerImage).path,
+      },
+    ];
   }
-}
+};
 
 export const ImagesList = ({
   maxNumber,
@@ -77,8 +88,15 @@ export const ImagesList = ({
   backgroundColor,
   ...other
 }: ImagesListType) => {
+  // console.log('countInrow', countInrow);
+  // console.log('width', Dimensions.get('window').width);
+
+  const { window } = useDimensions();
+
   return (
-    <StyledMainView backgroundColor={backgroundColor || 'transparent'} {...other} >
+    <StyledMainView
+      backgroundColor={backgroundColor || 'transparent'}
+      {...other}>
       {value &&
         value.map((item, index) => {
           if (item.url) {
@@ -87,7 +105,10 @@ export const ImagesList = ({
                 key={item.url}
                 // activeOpacity={1}
                 onPress={(event) => showImage(event, index)}>
-                <StyledListItemV index={index} countInrow={countInrow}>
+                <StyledListItemV
+                  width={window.width}
+                  index={index}
+                  countInrow={countInrow}>
                   <StyledCoverImage
                     source={{
                       uri: item.url,
@@ -108,7 +129,10 @@ export const ImagesList = ({
         <StyledCoverBtn
           // activeOpacity={1}
           onPress={(event) => addImage(event, value.length)}>
-          <StyledListItemV index={value.length} countInrow={countInrow}>
+          <StyledListItemV
+            width={window.width}
+            index={value.length}
+            countInrow={countInrow}>
             <StyledCoverImageBg>
               <StyledCoverAddImage source={require('./images/addImage.png')} />
               <StyledCoverAddTitle>上传图片</StyledCoverAddTitle>
@@ -129,7 +153,6 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   hide = false,
   ...other
 }) => {
-
   // const [imagesData, setImagesData] = useState<IImageInfo[]>([]);
   const [state, setstate] = useState(false);
   const [imageViewShow, setImageViewShow] = useState(false);
@@ -138,9 +161,7 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   if (openPickRef) {
     openPickRef.current = setstate;
     // console.log('openPickRef?.current', openPickRef?.current);
-
   }
-
 
   const selectIndex = useRef(0);
   const deleteImage = (event: GestureResponderEvent, index: number) => {
@@ -174,18 +195,13 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
     setImageCount(imageCount);
     setstate(true);
 
-
     // const imagesDataArray = [...data];
     // const image = await pickerImage(imageCount);
-
-
-
   };
-
 
   const onSuccess = (data: PickerImage | PickerImage[]) => {
     // upload(path);
-    const image = data as PickerImage[]
+    const image = data as PickerImage[];
     LayoutAnimation.spring();
     if (onChange && image && image.length > 0) {
       // let imageArray: string[] = [];
@@ -193,11 +209,11 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
       //   imageArray.push(item.url);
       // });
       setstate(false);
-      onChange([...value, ...(image.map(item => ({ url: item.path })))]);
+      onChange([...value, ...image.map((item) => ({ url: item.path }))]);
     }
-  }
+  };
 
-  const onClose = setstate.bind(undefined, false)
+  const onClose = setstate.bind(undefined, false);
 
   return (
     <>
@@ -209,14 +225,16 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
         }}
         index={selectIndex.current}
       />
-      {!hide && <ImagesList
-        value={value}
-        deleteImage={deleteImage}
-        showImage={showImage}
-        addImage={addImage}
-        maxNumber={maxNumber}
-        {...other}
-      />}
+      {!hide && (
+        <ImagesList
+          value={value}
+          deleteImage={deleteImage}
+          showImage={showImage}
+          addImage={addImage}
+          maxNumber={maxNumber}
+          {...other}
+        />
+      )}
       <PhotoOrCameraSheet
         option={{
           multiple: true,
@@ -227,7 +245,8 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
         // onPick={onClose}
         onClose={onClose}
         onSuccess={onSuccess}
-        isVisiable={state} />
+        isVisiable={state}
+      />
     </>
   );
 };

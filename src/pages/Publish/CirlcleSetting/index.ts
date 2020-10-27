@@ -1,11 +1,11 @@
-import { lazy } from "react";
+import { lazy } from 'react';
 import {
   // import render from './render'
-  toLazyExoticComponent
-} from "@components/util/toLazyExoticComponent";
-const render = lazy(() => import("./render"));
+  toLazyExoticComponent,
+} from '@components/util/toLazyExoticComponent';
+const render = lazy(() => import('./render'));
 
-const title = "测试";
+const title = '测试';
 
 const navigationOptions = (props: any) => ({});
 

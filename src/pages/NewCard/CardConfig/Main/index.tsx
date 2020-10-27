@@ -50,11 +50,11 @@ import { RenderSounds } from './sound';
   'sound',
 )
 export default class OptionDo extends PureComponent<
-{
-  step: number;
-  onSelect: (field: string, value: string | Object | undefined) => void;
-},
-{ type: string }
+  {
+    step: number;
+    onSelect: (field: string, value: string | Object | undefined) => void;
+  },
+  { type: string }
 > {
   constructor(props: Object) {
     super(props);
@@ -76,8 +76,6 @@ export default class OptionDo extends PureComponent<
       <StyledCellButton
         onPress={() => {
           if (props.type === 'notifyTimes') {
-
-
           }
           this.setState({ type: props.type });
           this.props.nextStep();
@@ -124,7 +122,10 @@ export default class OptionDo extends PureComponent<
     const items = ['5', '6', '7', '8', '9', '10', '14', '21', '30'];
 
     const __renderRadioItem = (item, selItem) => (
-      <StyledItemView contain={selItem === item} style={{ width: 75 }} key={item}>
+      <StyledItemView
+        contain={selItem === item}
+        style={{ width: 75 }}
+        key={item}>
         <StyledItemText contain={selItem === item}>{item}组</StyledItemText>
       </StyledItemView>
     );

@@ -9,9 +9,10 @@ import PropTypes from 'prop-types';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
-export default class Indicators extends PureComponent<{ size: number, animated: boolean }> {
-
-
+export default class Indicators extends PureComponent<{
+  size: number;
+  animated: boolean;
+}> {
   static defaultProps = {
     size: 30,
     animated: true,

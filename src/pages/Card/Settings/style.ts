@@ -46,7 +46,7 @@ export const StyledTitleText = styled.Text`
 export const StyledBottomMenu = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 20px ;
+  padding: 20px;
   /* justify-content: space-between; */
 `;
 

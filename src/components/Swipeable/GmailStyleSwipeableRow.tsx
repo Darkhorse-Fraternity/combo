@@ -47,26 +47,29 @@ export default class AppleStyleSwipeableRow extends Component {
           style={[styles.actionIcon, { transform: [{ scale }] }]}
         />
       </RectButton>
-
     );
   };
   renderRightActions = (progress, data) => (
-    <View style={{ flex:1, flexDirection: 'row' }}>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
       {data.map((item, index) => {
-        const { backgroundColor, component, onPress } = item
-        return this.renderRightAction(component,
+        const { backgroundColor, component, onPress } = item;
+        return this.renderRightAction(
+          component,
           backgroundColor,
-          onPress, (data.length - index) * 64, progress, index)
+          onPress,
+          (data.length - index) * 64,
+          progress,
+          index,
+        );
       })}
     </View>
   );
-  updateRef = ref => {
+  updateRef = (ref) => {
     this._swipeableRow = ref;
   };
   close = () => {
     this._swipeableRow.close();
   };
-
 
   render() {
     const {
@@ -85,8 +88,7 @@ export default class AppleStyleSwipeableRow extends Component {
         rightThreshold={rightThreshold || 10}
         renderLeftActions={renderLeftActions}
         renderRightActions={this.renderRightAction}
-        {...otherProps}
-      >
+        {...otherProps}>
         {children}
       </Swipeable>
     );
@@ -94,7 +96,6 @@ export default class AppleStyleSwipeableRow extends Component {
 }
 
 const styles = StyleSheet.create({
-
   actionIcon: {
     width: 30,
     marginHorizontal: 10,

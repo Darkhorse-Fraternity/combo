@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import Button from "@components/Button";
+import styled from 'styled-components/native';
+import Button from '@components/Button';
 
 interface submitType {
   disabled: boolean;
@@ -11,13 +11,13 @@ export const StyledButton = styled(Button)`
 `;
 
 export const StyledButtonText = styled.Text<submitType>`
-  color: ${props => (!props.disabled ? "rgb(50,50,50)" : "rgb(200,200,200)")};
+  color: ${(props) => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
 `;
 
 export const StyledUnderLine = styled.View`
   background-color: rgb(200, 200, 200);
   margin-top: 5;
-  height: ${props => props.theme.hairlineWidth};
+  height: ${(props) => props.theme.hairlineWidth};
 `;
 
 export const StyleTitle = styled.Text`

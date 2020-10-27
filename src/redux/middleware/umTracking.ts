@@ -1,5 +1,5 @@
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
-import tracker from "react-native-umeng-analytics";
+import tracker from 'react-native-umeng-analytics';
 
 tracker.setDebugMode(__DEV__);
 
@@ -15,18 +15,18 @@ function getActiveRouteName(navigationState) {
   return route.routeName;
 }
 
-const tracking = ({ getState }) => next => action => {
+const tracking = ({ getState }) => (next) => (action) => {
   // if(__DEV__){return next(action);}
 
   // action.type === 'APP_STATE_UPDATE' && appStateTracking(action.state)
   switch (action.type) {
-    case "LOGIN_SUCCEED":
+    case 'LOGIN_SUCCEED':
       tracker.onProfileSignIn(action.data.objectId);
       break;
-    case "LOGOUT":
+    case 'LOGOUT':
       tracker.onProfileSignOff();
       break;
-    case "APP_SHARE":
+    case 'APP_SHARE':
       tracker.event(action.tag);
       break;
 
@@ -34,10 +34,7 @@ const tracking = ({ getState }) => next => action => {
       break;
   }
   // action.type === 'LOGIN_SUCCEED' && console.log('id:', action.data.objectId);
-  if (
-    action.type !== 'NAVIGATE' &&
-    action.type !== 'GO_BACK'
-  ) {
+  if (action.type !== 'NAVIGATE' && action.type !== 'GO_BACK') {
     return next(action);
   }
 
@@ -46,8 +43,8 @@ const tracking = ({ getState }) => next => action => {
   const nextScreen = getActiveRouteName(getState().nav);
 
   // if (nextScreen !== currentScreen) {
-  console.log("currentScreen", currentScreen);
-  console.log("nextScreen", nextScreen);
+  console.log('currentScreen', currentScreen);
+  console.log('nextScreen', nextScreen);
   // currentScreen && tracker.endLogPageView(currentScreen);
   tracker.beginLogPageView(currentScreen);
   // tracker.onResume();

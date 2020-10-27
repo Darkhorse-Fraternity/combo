@@ -42,7 +42,7 @@ export default function drawState(
     }
 
     case LOCAL_REMIND: {
-      return state.mergeDeep({localRemind: action.data});
+      return state.mergeDeep({ localRemind: action.data });
     }
 
     default:

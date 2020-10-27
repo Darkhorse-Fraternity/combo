@@ -1,13 +1,13 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
-import {DataContext, Action, StateType} from './index';
+import { DataContext, Action, StateType } from './index';
 
-const withData = <T extends {dispatch: React.Dispatch<Action>}>(
+const withData = <T extends { dispatch: React.Dispatch<Action> }>(
   mapStateToProps: (data: StateType, props?: T) => {},
   mapDispatchToProps?: (dispatch: React.Dispatch<Action>, props: T) => {},
 ) => (WrappedComponent: React.ComponentType<T>): React.ComponentType<never> => {
   const Mapper = (props: T) => {
-    const {data, dispatch} = useContext(DataContext);
+    const { data, dispatch } = useContext(DataContext);
 
     let stateProps = {};
     if (mapStateToProps) {
@@ -18,7 +18,7 @@ const withData = <T extends {dispatch: React.Dispatch<Action>}>(
     if (mapDispatchToProps) {
       dispatchProps = mapDispatchToProps(dispatch, props);
     } else {
-      dispatchProps = {dispatch};
+      dispatchProps = { dispatch };
     }
 
     return <WrappedComponent {...props} {...stateProps} {...dispatchProps} />;

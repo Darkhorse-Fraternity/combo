@@ -3,12 +3,14 @@
  * @flow
  */
 
-
 import * as immutable from 'immutable';
 
 const initialState = immutable.fromJS({});
 
-export default function itemState(state: immutable.Map<string, any> = initialState, action: Object) {
+export default function itemState(
+  state: immutable.Map<string, any> = initialState,
+  action: Object,
+) {
   switch (action.type) {
     default:
       return state;

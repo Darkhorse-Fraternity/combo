@@ -1,10 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import NetInfo, { NetInfoSubscription } from '@react-native-community/netinfo';
 import { connect } from 'react-redux';
 import moment from 'moment';
@@ -18,7 +13,7 @@ import { iUseList as iUseListParams } from '../../../request/leanCloud';
 import { StackActions } from '@react-navigation/native';
 
 @connect(
-  state => ({}),
+  (state) => ({}),
   (dispatch, props) => ({
     bootstrapAsync: async () => {
       try {
@@ -27,7 +22,7 @@ import { StackActions } from '@react-navigation/native';
           // Toast.show('111')
           const p1 = dispatch(
             listReq(IUSE, iUseListParams(), false, {
-              dataMap: data => {
+              dataMap: (data) => {
                 const { iUseList } = data.result;
                 // 添加副本
                 // console.log('fbList', fbList);
@@ -49,7 +44,7 @@ import { StackActions } from '@react-navigation/native';
           );
 
           let timer;
-          const p2 = new Promise(resolve => {
+          const p2 = new Promise((resolve) => {
             timer = setTimeout(resolve, 9000, 'one');
           });
 
@@ -86,7 +81,7 @@ export default class AuthLoadingScreen extends PureComponent {
   async componentDidMount() {
     const { isConnected } = await NetInfo.fetch();
     if (!isConnected) {
-      this.unsubscribe = NetInfo.addEventListener(state => {
+      this.unsubscribe = NetInfo.addEventListener((state) => {
         if (state.isConnected) {
           this.props.bootstrapAsync();
         }

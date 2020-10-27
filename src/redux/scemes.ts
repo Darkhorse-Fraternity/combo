@@ -9,21 +9,20 @@ import {
   ORDER,
   ENCH,
   FLAG,
-  FLAGRECORD
-} from './reqKeys'
-
+  FLAGRECORD,
+} from './reqKeys';
 
 export const code = 'results';
 
-
-export const entity = (key, config = {}) => new schema.Entity(key, config, { idAttribute: 'objectId' });
-export const list = item => new schema.Object({ [code]: new schema.Array(item) });
-export const entityFromCode = key => new schema.Object({ [code]: entity(key) });
-
+export const entity = (key, config = {}) =>
+  new schema.Entity(key, config, { idAttribute: 'objectId' });
+export const list = (item) =>
+  new schema.Object({ [code]: new schema.Array(item) });
+export const entityFromCode = (key) =>
+  new schema.Object({ [code]: entity(key) });
 
 export const user = entity(USER);
 export const course = entity(COURSE, { user });
-
 
 const iCard = entity(ICARD, { user, course });
 export const flag = entity(FLAG, { iCard });
@@ -69,7 +68,7 @@ export const entitys = {
   [FLAGRECORD]: flagRecord,
 };
 
-const auto = key => list(entitys[key] || entity(key));
+const auto = (key) => list(entitys[key] || entity(key));
 
 function autoKeys(keys) {
   const schemas = {};
@@ -83,7 +82,6 @@ function autoKeys(keys) {
 export const schemas = {
   ...autoKeys(registerListKeys),
 };
-
 
 // 从normalizr 数据库中取得、存入对应值的key
 export const listDefouteKey = {};

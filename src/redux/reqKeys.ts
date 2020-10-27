@@ -50,10 +50,9 @@ export const registerReqKeys = [
   QQLOGIN,
   ENCH,
   FLAG,
-  FLAGRECORD
-// 设置初始值
+  FLAGRECORD,
+  // 设置初始值
 ];
-
 
 export const registerListKeys = [
   IDONE,
@@ -68,7 +67,7 @@ export const registerListKeys = [
   ORDER,
   ENCH,
   FLAG,
-  FLAGRECORD
+  FLAGRECORD,
 ];
 
 export const registerNormalizrKeys = registerListKeys;

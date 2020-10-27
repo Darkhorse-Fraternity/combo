@@ -4,7 +4,7 @@
 import DialogAndroid from 'react-native-dialogs';
 
 DialogAndroid.assignDefaults({
-    positiveText: '完成',
-})
+  positiveText: '完成',
+});
 
-export default DialogAndroid
+export default DialogAndroid;

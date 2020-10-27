@@ -3,13 +3,13 @@
  * @flow
  */
 
-import React, {PureComponent} from 'react';
-import {View} from 'react-native';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { View } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import LCList from '../../../components/Base/LCList';
-import {ICARD, FLAG} from '../../../redux/reqKeys';
+import { ICARD, FLAG } from '../../../redux/reqKeys';
 import {
   StyledContent,
   StyledItem,
@@ -20,7 +20,7 @@ import {
   StyledHeader,
   StyledHeaderTitle,
 } from './style';
-import {iCard} from '../../../request/LCModle';
+import { iCard } from '../../../request/LCModle';
 
 @connect(
   (state, props) => ({
@@ -46,12 +46,12 @@ export default class FlagRecord extends PureComponent {
     </StyledHeader>
   );
 
-  __renderItem = ({item}) => {
-    const {totalBonus, startDate, objectId, joinNum, reward} = item;
+  __renderItem = ({ item }) => {
+    const { totalBonus, startDate, objectId, joinNum, reward } = item;
     return (
       <StyledItem
         onPress={() => {
-          this.props.navigation.navigate('FRDetail', {flagId: objectId});
+          this.props.navigation.navigate('FRDetail', { flagId: objectId });
         }}>
         <StyledCellInner>
           <StyledCellTitle numberOfLines={1}>
@@ -82,7 +82,7 @@ export default class FlagRecord extends PureComponent {
     return (
       <StyledContent edges={['bottom']}>
         <LCList
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           // removeClippedSubviews={true}
           // pagingEnabled={true}
           reqKey={FLAG}

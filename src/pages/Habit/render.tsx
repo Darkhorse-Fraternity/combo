@@ -5,11 +5,7 @@
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {
-  View,
-  Dimensions,
-  Alert,
-} from 'react-native';
+import { View, Dimensions, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import * as Animatable from 'react-native-animatable';
@@ -23,7 +19,8 @@ import {
   StyledHeader,
   StyledHeaderTitle,
   StyledAntDesign,
-  StyledList, StyledAnimationRow
+  StyledList,
+  StyledAnimationRow,
 } from './style';
 import ExceptionView, {
   ExceptionType,
@@ -41,17 +38,13 @@ import { isTablet } from 'react-native-device-info';
 
 const Archive = `${IUSE}archive`;
 
-
 const RenderNoData = (statu: string) => {
-  const { navigate } = useNavigation()
-  const refreshLoad =
-    statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
+  const { navigate } = useNavigation();
+  const refreshLoad = statu === 'LIST_FIRST_JOIN' || statu === 'LIST_LOAD_DATA';
   return (
     <ExceptionView
       style={{ height: Dimensions.get('window').height / 1.6 }}
-      exceptionType={
-        refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
-      }
+      exceptionType={refreshLoad ? ExceptionType.Loading : ExceptionType.NoData}
       tipBtnText="添加卡片"
       // prompt={refreshLoad ? '正在加载' : '暂无数据'}
       onRefresh={() => {
@@ -67,9 +60,8 @@ const RenderHeader = () => (
   </StyledHeader>
 );
 
-
 @connect(
-  state => ({
+  (state) => ({
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
@@ -167,8 +159,6 @@ export default class Habit extends PureComponent<any, any> {
 
   static defaultProps = {};
 
-
-
   _renderSwipeOutDeleteBtn = (title, color, name, CMP = StyledIcon) => (
     <StyledDeleteBtn>
       <CMP size={25} color={color} name={name} />
@@ -203,11 +193,11 @@ export default class Habit extends PureComponent<any, any> {
     return (
       <StyledAnimationRow
         useNativeDriver
-        ref={res => (this.handleViewRef[`habit${index}`] = res)}>
+        ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
           // rowID={index}
           // autoClose={true}
-          ref={ref => {
+          ref={(ref) => {
             this.swipeRefs[`swipe${index}`] = ref;
           }}
           backgroundColor="white"
@@ -232,33 +222,33 @@ export default class Habit extends PureComponent<any, any> {
           right={[
             isSelf
               ? {
-                type: 'secondary',
-                onPress: () => {
-                  this.props.navigation.navigate('cardConfig', { iCardId });
-                  // this.setState({ openIndex: -1 })
-                },
-                component: this._renderSwipeOutDeleteBtn(
-                  '设置',
-                  '#388e3c',
-                  'settings',
-                ),
-                backgroundColor: '#fdfbfb',
-              }
+                  type: 'secondary',
+                  onPress: () => {
+                    this.props.navigation.navigate('cardConfig', { iCardId });
+                    // this.setState({ openIndex: -1 })
+                  },
+                  component: this._renderSwipeOutDeleteBtn(
+                    '设置',
+                    '#388e3c',
+                    'settings',
+                  ),
+                  backgroundColor: '#fdfbfb',
+                }
               : {
-                type: 'secondary',
-                onPress: () => {
-                  // this.props.navigation.navigate('cardSetting',
-                  //   { iCardId, iUseId: item })
-                  this.props.navigation.navigate('cardInfo', { iCardId });
-                  // this.setState({ openIndex: -1 })
+                  type: 'secondary',
+                  onPress: () => {
+                    // this.props.navigation.navigate('cardSetting',
+                    //   { iCardId, iUseId: item })
+                    this.props.navigation.navigate('cardInfo', { iCardId });
+                    // this.setState({ openIndex: -1 })
+                  },
+                  component: this._renderSwipeOutDeleteBtn(
+                    '查看',
+                    '#388e3c',
+                    'info',
+                  ),
+                  backgroundColor: '#fdfbfb',
                 },
-                component: this._renderSwipeOutDeleteBtn(
-                  '查看',
-                  '#388e3c',
-                  'info',
-                ),
-                backgroundColor: '#fdfbfb',
-              },
             {
               type: 'delete',
               onPress: () => {
@@ -318,8 +308,6 @@ export default class Habit extends PureComponent<any, any> {
     return `${key}`;
   };
 
-
-
   render() {
     const statu = this.props.data.get('loadStatu');
 
@@ -330,7 +318,7 @@ export default class Habit extends PureComponent<any, any> {
     return (
       <StyledList
         numColumns={isTablet() ? 2 : 1}
-        onScroll={event => {
+        onScroll={(event) => {
           const y = event.nativeEvent.contentOffset.y;
           if (!this.openSmallTitle && y > 35) {
             this.openSmallTitle = true;
@@ -361,4 +349,3 @@ export default class Habit extends PureComponent<any, any> {
     );
   }
 }
-

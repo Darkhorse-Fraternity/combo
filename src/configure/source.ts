@@ -8,7 +8,7 @@ export interface SoundsType {
 
 export type SoundsKeys = 'bell' | 'swich' | 'wooden_fish' | 'en' | 'wao';
 
-type SoundFcnType = () => {[key in SoundsKeys]: SoundsType};
+type SoundFcnType = () => { [key in SoundsKeys]: SoundsType };
 
 export const soundsSource: SoundFcnType = () => {
   return {

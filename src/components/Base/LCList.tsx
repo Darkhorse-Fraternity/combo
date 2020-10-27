@@ -41,8 +41,8 @@ import { search } from '../../redux/module/leancloud';
   }),
 )
 export default class LCList<ItemT> extends PureComponent<
-BaseListProps<ItemT> & { afterDataMap?: (item: Object) => Object, },
-{}
+  BaseListProps<ItemT> & { afterDataMap?: (item: Object) => Object },
+  {}
 > {
   constructor(props: BaseListProps<ItemT>) {
     super(props);

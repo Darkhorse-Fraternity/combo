@@ -3,7 +3,6 @@
  * @flow
  */
 
-
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
 import { BorderlessButton } from 'react-native-gesture-handler';
@@ -11,11 +10,10 @@ import HeaderBtn from '../../../components/Button/HeaderBtn';
 import { ButtonOpacity } from '@components/Button';
 
 export const StyledContent = styled.View`
-    flex: 1;
+  flex: 1;
 `;
 
-export const StyledInner = styled.ScrollView`
-`;
+export const StyledInner = styled.ScrollView``;
 
 export const StyledAgendaRow = styled.View`
   margin-top: 20px;
@@ -37,41 +35,36 @@ export const StyledTitleText = styled.Text`
 `;
 
 export const StyledHeaderBtn = styled(HeaderBtn)`
-  background-color: ${props => props.backgroundColor || props.theme.sureColor};
+  background-color: ${(props) =>
+    props.backgroundColor || props.theme.sureColor};
 `;
-
 
 export const StyledRow = styled.View`
   padding: 15px 20px;
   flex-direction: row;
-  
 `;
-
 
 export const StyledRowText = styled.Text`
   font-size: 15px;
   color: black;
-  fontStyle:italic;
+  font-style: italic;
 `;
 
 export const StyledAdd = styled(BorderlessButton)`
-    padding: 10px;
+  padding: 10px;
 `;
 
 export const StyledIonicons = styled(Feather)`
-    align-self: center;
+  align-self: center;
 `;
 
-
-export const StyledLogButton = styled(ButtonOpacity)<{color:string}>`
+export const StyledLogButton = styled(ButtonOpacity)<{ color: string }>`
   align-self: center;
-  background-color:${props=>props.color || 'yellow'};
-  margin-top:50px;
-  border-radius:10px;
-`
-
+  background-color: ${(props) => props.color || 'yellow'};
+  margin-top: 50px;
+  border-radius: 10px;
+`;
 
 export const StyledLogButtonText = styled.Text`
-  margin:10px 20px;
-  
-`
+  margin: 10px 20px;
+`;

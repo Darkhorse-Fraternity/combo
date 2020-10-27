@@ -5,7 +5,7 @@
 'use strict';
 
 import styled from 'styled-components/native';
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
   background-color: white;

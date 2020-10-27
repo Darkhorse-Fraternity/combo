@@ -3,12 +3,12 @@
  * @flow
  */
 
-import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
 import * as immutable from 'immutable';
-import {Platform} from 'react-native';
-import {reducer as form} from 'redux-form/immutable';
+import { Platform } from 'react-native';
+import { reducer as form } from 'redux-form/immutable';
 
 import * as reducers from './reducers';
 
@@ -29,7 +29,7 @@ if (__DEV__) {
 
   enhancer = compose(
     applyMiddleware(...middlewares),
-    global.reduxNativeDevTools ? global.reduxNativeDevTools() : nope => nope,
+    global.reduxNativeDevTools ? global.reduxNativeDevTools() : (nope) => nope,
   );
   // enhancer = applyMiddleware(...middlewares);
 } else {

@@ -1,8 +1,8 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import {FlatList} from 'react-native';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {
   StyledContent,
   StyledHeader,
@@ -13,14 +13,14 @@ import {
   StyledIcon,
   StyledRowInner,
 } from './style';
-import {update} from '../../../redux/actions/user';
-import {isTablet} from 'react-native-device-info';
+import { update } from '../../../redux/actions/user';
+import { isTablet } from 'react-native-device-info';
 
 @connect(
   (state) => ({
     toolConfig: state.user.data.toolConfig,
   }),
-  (dispatch) => bindActionCreators({update}, dispatch),
+  (dispatch) => bindActionCreators({ update }, dispatch),
 )
 export default class extends PureComponent {
   static propTypes = {};
@@ -28,7 +28,7 @@ export default class extends PureComponent {
   static defaultProps = {};
 
   componentDidMount() {
-    const {update} = this.props;
+    const { update } = this.props;
     update();
   }
 
@@ -38,12 +38,12 @@ export default class extends PureComponent {
     </StyledHeader>
   );
 
-  renderRedoRow = ({item, index}) => (
+  renderRedoRow = ({ item, index }) => (
     <StyledRow num={isTablet() ? 2 : 1}>
       <StyledRowInner>
         <StyledRowTitle>
-          补签卡 <StyledRowTitle style={{fontSize: 30}}>x</StyledRowTitle>
-          <StyledRowTitle style={{fontSize: 25, fontWeight: '400'}}>
+          补签卡 <StyledRowTitle style={{ fontSize: 30 }}>x</StyledRowTitle>
+          <StyledRowTitle style={{ fontSize: 25, fontWeight: '400' }}>
             {item}
           </StyledRowTitle>
         </StyledRowTitle>
@@ -61,8 +61,8 @@ export default class extends PureComponent {
   };
 
   render() {
-    const {toolConfig} = this.props;
-    const {redo} = toolConfig;
+    const { toolConfig } = this.props;
+    const { redo } = toolConfig;
     // return (
     //   <StyledContent>
     //     {this.renderHeader()}

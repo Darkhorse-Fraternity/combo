@@ -26,12 +26,14 @@ export interface BtnPeddingProps {
   textColor?: string;
 }
 
-const withPeddingClick = <ComposedComponentProps extends { disabled?: boolean | null }>(
+const withPeddingClick = <
+  ComposedComponentProps extends { disabled?: boolean | null }
+>(
   WrappedComponent: ComponentType<ComposedComponentProps>,
 ) => {
   class PreventDoubleClick extends React.PureComponent<
     ComposedComponentProps & BtnPeddingProps
-    > {
+  > {
     render() {
       const {
         children,
@@ -64,8 +66,8 @@ const withPeddingClick = <ComposedComponentProps extends { disabled?: boolean | 
           {loading ? (
             <ActivityIndicator size={size} color={color} />
           ) : (
-              hChildren
-            )}
+            hChildren
+          )}
         </WrappedComponent>
       );
     }
@@ -75,7 +77,9 @@ const withPeddingClick = <ComposedComponentProps extends { disabled?: boolean | 
 };
 
 const withPreventDoubleClick = <
-  ComposedComponentProps extends { onPress?: (e: GestureResponderEvent) => void }
+  ComposedComponentProps extends {
+    onPress?: (e: GestureResponderEvent) => void;
+  }
 >(
   WrappedComponent: ComponentType<ComposedComponentProps>,
 ) => {
@@ -114,14 +118,16 @@ const ButtonAndroid: FC<TouchableNativeFeedbackProps> = ({
     {(typeof children !== 'string' && children) || style ? (
       <View style={style}>{children}</View>
     ) : (
-        children
-      )}
+      children
+    )}
   </TouchableNativeFeedback>
 );
 
 type ButtonType = TouchableNativeFeedbackProps & { activeOpacity?: number };
 
-const button = (Platform.OS !== 'ios' ? TouchableOpacity : ButtonAndroid) as ComponentType<ButtonType>
+const button = (Platform.OS !== 'ios'
+  ? TouchableOpacity
+  : ButtonAndroid) as ComponentType<ButtonType>;
 
 export default withPeddingClick(withPreventDoubleClick(button));
 

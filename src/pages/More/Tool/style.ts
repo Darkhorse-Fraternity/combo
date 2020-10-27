@@ -14,7 +14,7 @@ export const StyledHeaderTitle = styled.Text`
   font-weight: 500;
 `;
 
-export const StyledRow = styled.View<{num: number}>`
+export const StyledRow = styled.View<{ num: number }>`
   width:${(props) => props.theme.width / props.num - 40}
   padding: 20px 20px 20px 20px;
   background-color: #e69;

@@ -23,15 +23,17 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
 interface ImagesViewModalsPorps {
-  imageUrls?: IImageInfo[],
-  visible: boolean,
-  closeCallBack: () => void,
-  index: number,
-  height: number
+  imageUrls?: IImageInfo[];
+  visible: boolean;
+  closeCallBack: () => void;
+  index: number;
+  height: number;
 }
 
-
-export default class ImagesViewModals extends Component<ImagesViewModalsPorps, { visible: boolean }> {
+export default class ImagesViewModals extends Component<
+  ImagesViewModalsPorps,
+  { visible: boolean }
+> {
   // static propTypes = {
   //   imageUrls: PropTypes.array.isRequired,
   //   visible: PropTypes.bool,
@@ -51,7 +53,6 @@ export default class ImagesViewModals extends Component<ImagesViewModalsPorps, {
       visible: false,
     };
   }
-
 
   // componentWillUnmount() {
   //   this.jobId && RNFS.stopDownload(this.jobId)
@@ -135,7 +136,7 @@ export default class ImagesViewModals extends Component<ImagesViewModalsPorps, {
             cancel: strings('save.cance'),
           }}
           {...this.props}
-          onSave={async url => {
+          onSave={async (url) => {
             saveToCameraRoll(url);
           }}
           // saveToLocalByLongPress={()=>{}}

@@ -53,7 +53,7 @@ export const useCombinedRefs = <T extends any>(
 ): Ref<T> =>
   useCallback(
     (element: T) =>
-      refs.forEach(ref => {
+      refs.forEach((ref) => {
         if (!ref) {
           return;
         }
@@ -178,8 +178,8 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
       {...other}
     />
   ) : (
-      <StyledError> 未传入URL</StyledError>
-    );
+    <StyledError> 未传入URL</StyledError>
+  );
 };
 
 //https://zh-hans.reactjs.org/docs/forwarding-refs.html

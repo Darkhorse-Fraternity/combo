@@ -1,9 +1,9 @@
-import React, {lazy} from 'react';
+import React, { lazy } from 'react';
 import {
   // import render from './render'
   toLazyExoticComponent,
 } from '@components/util/toLazyExoticComponent';
-import {NavigationOptionsType, RouteKey} from '@pages/interface';
+import { NavigationOptionsType, RouteKey } from '@pages/interface';
 const render = lazy(() => import('./render'));
 
 const title = '测试';
