@@ -17,6 +17,7 @@ import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ContextProvide from './data/data-context/context-provide-class';
+import { Dimensions, ScaledSize } from 'react-native';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -34,6 +35,18 @@ const App = () => {
         console.log('热更新错误', e.message);
       });
   }, []);
+
+  // const handle = (item: { window: ScaledSize; screen: ScaledSize }) => {
+  //   console.log('item', item);
+  //   console.log('width', Dimensions.get('window').width);
+  // };
+
+  // useEffect(() => {
+  //   Dimensions.addEventListener('change', handle);
+  //   return () => {
+  //     Dimensions.removeEventListener('change', handle);
+  //   };
+  // }, []);
 
   return (
     <ReduxProvider store={creatStore(SwitchNavigator)}>

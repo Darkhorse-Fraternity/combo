@@ -4,6 +4,7 @@ import {
   LayoutAnimation,
   View,
   ViewProps,
+  Dimensions,
 } from 'react-native';
 import {
   StyledMainView,
@@ -24,6 +25,7 @@ import ImagePicker, {
 // import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 import ImagesViewModals from '@components/ZoomImage/ImagesViewModal';
 import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
+import { useDimensions } from '@components/util/hooks';
 export interface UpdateImage {
   url: string;
 }
@@ -86,6 +88,11 @@ export const ImagesList = ({
   backgroundColor,
   ...other
 }: ImagesListType) => {
+  // console.log('countInrow', countInrow);
+  // console.log('width', Dimensions.get('window').width);
+
+  const { window } = useDimensions();
+
   return (
     <StyledMainView
       backgroundColor={backgroundColor || 'transparent'}
@@ -98,7 +105,10 @@ export const ImagesList = ({
                 key={item.url}
                 // activeOpacity={1}
                 onPress={(event) => showImage(event, index)}>
-                <StyledListItemV index={index} countInrow={countInrow}>
+                <StyledListItemV
+                  width={window.width}
+                  index={index}
+                  countInrow={countInrow}>
                   <StyledCoverImage
                     source={{
                       uri: item.url,
@@ -119,7 +129,10 @@ export const ImagesList = ({
         <StyledCoverBtn
           // activeOpacity={1}
           onPress={(event) => addImage(event, value.length)}>
-          <StyledListItemV index={value.length} countInrow={countInrow}>
+          <StyledListItemV
+            width={window.width}
+            index={value.length}
+            countInrow={countInrow}>
             <StyledCoverImageBg>
               <StyledCoverAddImage source={require('./images/addImage.png')} />
               <StyledCoverAddTitle>上传图片</StyledCoverAddTitle>

@@ -24,13 +24,13 @@ export const StyledRow = styled.View`
 export const StyledRowText = styled.Text`
   color: #323232;
   font-size: 17px;
-  fontstyle: italic;
+  font-style: italic;
 `;
 
 export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 17px;
-  fontstyle: italic;
+  font-style: italic;
   margin-right: 60px;
   margin-left: 20px;
 `;

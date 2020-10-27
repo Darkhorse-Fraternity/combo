@@ -340,6 +340,8 @@ const Render: FC<{}> = () => {
 
   const ori = useOrientation();
 
+  console.log('ori', ori);
+
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
 
   return (

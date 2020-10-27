@@ -47,7 +47,7 @@ export const StyledRow = styled.View`
 export const StyledRowText = styled.Text`
   font-size: 15px;
   color: black;
-  fontstyle: italic;
+  font-style: italic;
 `;
 
 export const StyledAdd = styled(BorderlessButton)`
