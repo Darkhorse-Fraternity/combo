@@ -116,7 +116,7 @@ interface ToolBarProps {
   setValue: <
     TFieldName extends keyof FormData,
     TFieldValue extends FormData[TFieldName]
-    >(
+  >(
     name: TFieldName,
     value: TFieldValue,
   ) => void;
@@ -376,7 +376,7 @@ const Render: FC<{}> = () => {
           }}
           showImagePickTip={record.includes('图片')}
           control={control}
-          setValue={setValue as any}
+          setValue={setValue as unknown}
         />
       </StyledKeyboardAvoidingView>
     </StyledContent>
