@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* ComboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ComboTests.m */; };
 		27FD1E63F3F5DA71D877ABD9 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
+		74B0FEE9FE2107461CC1DD5E /* libPods-comboUnFinished.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F409503550D6680E286CB26 /* libPods-comboUnFinished.a */; };
 		762383A1B9F2C1920B2C6146 /* libPods-comboTodayWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */; };
 		77821596248E0AAB00AF3F2F /* logo-horizontal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */; };
 		77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */; };
@@ -51,6 +52,15 @@
 		EA6EA36A2547EE75007D484B /* TTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6EA3632547EE75007D484B /* TTProgressHUD.m */; };
 		EA6EA36C2547EE75007D484B /* TTProgressHUDResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA6EA3652547EE75007D484B /* TTProgressHUDResource.bundle */; };
 		EA6EA36F2547EEE3007D484B /* TTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6EA3632547EE75007D484B /* TTProgressHUD.m */; };
+		EA6EA3752547FF1A007D484B /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */; };
+		EA6EA3792547FF1A007D484B /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6EA3782547FF1A007D484B /* TodayViewController.m */; };
+		EA6EA37C2547FF1A007D484B /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA6EA37A2547FF1A007D484B /* MainInterface.storyboard */; };
+		EA6EA3802547FF1A007D484B /* comboUnFinished.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EA6EA3742547FF1A007D484B /* comboUnFinished.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EA6EA38625480241007D484B /* EverydayHabitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88512025205C150006A93E /* EverydayHabitModel.m */; };
+		EA6EA38725480244007D484B /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
+		EA6EA3882548025D007D484B /* TTProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6EA3632547EE75007D484B /* TTProgressHUD.m */; };
+		EA6EA38925480262007D484B /* NetworkRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = EAF5A1C22506266000EDC740 /* NetworkRequests.m */; };
+		EA6EA38A254802D9007D484B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		EA88512225205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
 		EA88512325205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
 		EA88512425205C150006A93E /* EverydayHabitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA88511F25205C150006A93E /* EverydayHabitCell.m */; };
@@ -73,6 +83,13 @@
 			remoteGlobalIDString = CCCE41862064A0F000F282E3;
 			remoteInfo = "ComboEp copy";
 		};
+		EA6EA37E2547FF1A007D484B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA6EA3732547FF1A007D484B;
+			remoteInfo = comboUnFinished;
+		};
 		EA9E5B6C24FFA235001F3ED7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -89,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				EA6EA3802547FF1A007D484B /* comboUnFinished.appex in Embed App Extensions */,
 				EA9E5B6E24FFA235001F3ED7 /* comboTodayWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -103,6 +121,7 @@
 		00E356F21AD99517003FC87E /* ComboTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComboTests.m; sourceTree = "<group>"; };
 		03425A176E554E0CA0F9D1AB /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNImagePicker.a; sourceTree = "<group>"; };
 		0DE946A314CE4BD5B8DD70B6 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
+		0F409503550D6680E286CB26 /* libPods-comboUnFinished.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-comboUnFinished.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1213E52D387B4E92BC2FBA92 /* libRCTQQAPI.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTQQAPI.a; sourceTree = "<group>"; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Combo/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Combo/AppDelegate.m; sourceTree = "<group>"; };
@@ -137,11 +156,14 @@
 		84F75574203C4AA595167C53 /* libRNKeychain.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNKeychain.a; sourceTree = "<group>"; };
 		858A1DA5B94F48AA98B5A47F /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = "<group>"; };
 		8C8177F759E54A2886769701 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
+		8CE41BBC4B06FC322DC9F1D1 /* Pods-comboUnFinished.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboUnFinished.debug.xcconfig"; path = "Pods/Target Support Files/Pods-comboUnFinished/Pods-comboUnFinished.debug.xcconfig"; sourceTree = "<group>"; };
 		8D5A78FFFBE64862911175F2 /* libRCTWeChat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTWeChat.a; sourceTree = "<group>"; };
 		92F6A1F4EE004F3B9976D7FE /* libRNRate.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRate.a; sourceTree = "<group>"; };
 		A21A32F9B5CF4FF19A67FEE9 /* libRNScreens.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNScreens.a; sourceTree = "<group>"; };
+		ADA870F9AEA5596353081F4B /* Pods-comboUnFinished.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboUnFinished.staging.xcconfig"; path = "Pods/Target Support Files/Pods-comboUnFinished/Pods-comboUnFinished.staging.xcconfig"; sourceTree = "<group>"; };
 		B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Combo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Combo/Pods-Combo.debug.xcconfig"; sourceTree = "<group>"; };
 		C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboTodayWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-comboTodayWidget/Pods-comboTodayWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		CB3A15A89A887F61B2AD90CF /* Pods-comboUnFinished.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-comboUnFinished.release.xcconfig"; path = "Pods/Target Support Files/Pods-comboUnFinished/Pods-comboUnFinished.release.xcconfig"; sourceTree = "<group>"; };
 		CB7EB1D4DEBF4314A1710F4E /* libReactNativeKeyboardManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeKeyboardManager.a; sourceTree = "<group>"; };
 		CC01F7D21FD6827C00A18EFD /* tip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tip.mp3; sourceTree = "<group>"; };
 		CC09E6AE2120566300327D96 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -176,6 +198,12 @@
 		EA6EA3632547EE75007D484B /* TTProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTProgressHUD.m; sourceTree = "<group>"; };
 		EA6EA3652547EE75007D484B /* TTProgressHUDResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TTProgressHUDResource.bundle; sourceTree = "<group>"; };
 		EA6EA36E2547EED5007D484B /* TTProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProgressHUD.h; sourceTree = "<group>"; };
+		EA6EA3742547FF1A007D484B /* comboUnFinished.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = comboUnFinished.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA6EA3772547FF1A007D484B /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		EA6EA3782547FF1A007D484B /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		EA6EA37B2547FF1A007D484B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		EA6EA37D2547FF1A007D484B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA6EA3852547FF5C007D484B /* comboUnFinished.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = comboUnFinished.entitlements; sourceTree = "<group>"; };
 		EA88511E25205C150006A93E /* EverydayHabitModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EverydayHabitModel.h; sourceTree = "<group>"; };
 		EA88511F25205C150006A93E /* EverydayHabitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitCell.m; sourceTree = "<group>"; tabWidth = 4; };
 		EA88512025205C150006A93E /* EverydayHabitModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EverydayHabitModel.m; sourceTree = "<group>"; };
@@ -234,6 +262,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA6EA3712547FF1A007D484B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA6EA3752547FF1A007D484B /* NotificationCenter.framework in Frameworks */,
+				74B0FEE9FE2107461CC1DD5E /* libPods-comboUnFinished.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA9E5B5E24FFA235001F3ED7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -287,6 +324,7 @@
 				80C22219815181E16F163146 /* libPods-Combo.a */,
 				EA9E5B6224FFA235001F3ED7 /* NotificationCenter.framework */,
 				66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */,
+				0F409503550D6680E286CB26 /* libPods-comboUnFinished.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -321,6 +359,9 @@
 				C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */,
 				D338FE1CE8A6961283FFC90A /* Pods-comboTodayWidget.release.xcconfig */,
 				52F8EC000F8A505179501B5E /* Pods-comboTodayWidget.staging.xcconfig */,
+				8CE41BBC4B06FC322DC9F1D1 /* Pods-comboUnFinished.debug.xcconfig */,
+				CB3A15A89A887F61B2AD90CF /* Pods-comboUnFinished.release.xcconfig */,
+				ADA870F9AEA5596353081F4B /* Pods-comboUnFinished.staging.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -348,6 +389,7 @@
 				13B07FAE1A68108700A75B9A /* Combo */,
 				00E356EF1AD99517003FC87E /* ComboTests */,
 				EA9E5B6424FFA235001F3ED7 /* comboTodayWidget */,
+				EA6EA3762547FF1A007D484B /* comboUnFinished */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				14D76F37BE6FB929EF410EB7 /* Pods */,
 				115E0148E2FB61C13FFE9539 /* Frameworks */,
@@ -366,6 +408,7 @@
 				CCA715A52019C9DA00A25FB9 /* ComboEp.app */,
 				CCCE41C22064A0F000F282E3 /* Combo.app */,
 				EA9E5B6124FFA235001F3ED7 /* comboTodayWidget.appex */,
+				EA6EA3742547FF1A007D484B /* comboUnFinished.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -452,6 +495,18 @@
 			path = TTProgressHUD;
 			sourceTree = "<group>";
 		};
+		EA6EA3762547FF1A007D484B /* comboUnFinished */ = {
+			isa = PBXGroup;
+			children = (
+				EA6EA3852547FF5C007D484B /* comboUnFinished.entitlements */,
+				EA6EA3772547FF1A007D484B /* TodayViewController.h */,
+				EA6EA3782547FF1A007D484B /* TodayViewController.m */,
+				EA6EA37A2547FF1A007D484B /* MainInterface.storyboard */,
+				EA6EA37D2547FF1A007D484B /* Info.plist */,
+			);
+			path = comboUnFinished;
+			sourceTree = "<group>";
+		};
 		EA88511D25205C150006A93E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -535,11 +590,30 @@
 			);
 			dependencies = (
 				EA9E5B6D24FFA235001F3ED7 /* PBXTargetDependency */,
+				EA6EA37F2547FF1A007D484B /* PBXTargetDependency */,
 			);
 			name = Combo;
 			productName = "Hello World";
 			productReference = CCCE41C22064A0F000F282E3 /* Combo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		EA6EA3732547FF1A007D484B /* comboUnFinished */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA6EA3842547FF1A007D484B /* Build configuration list for PBXNativeTarget "comboUnFinished" */;
+			buildPhases = (
+				116AAEFA62A586BD9CF3F853 /* [CP] Check Pods Manifest.lock */,
+				EA6EA3702547FF1A007D484B /* Sources */,
+				EA6EA3712547FF1A007D484B /* Frameworks */,
+				EA6EA3722547FF1A007D484B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = comboUnFinished;
+			productName = comboUnFinished;
+			productReference = EA6EA3742547FF1A007D484B /* comboUnFinished.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		EA9E5B6024FFA235001F3ED7 /* comboTodayWidget */ = {
 			isa = PBXNativeTarget;
@@ -592,6 +666,11 @@
 							};
 						};
 					};
+					EA6EA3732547FF1A007D484B = {
+						CreatedOnToolsVersion = 11.6;
+						DevelopmentTeam = G54H3R6236;
+						ProvisioningStyle = Automatic;
+					};
 					EA9E5B6024FFA235001F3ED7 = {
 						CreatedOnToolsVersion = 11.6;
 						DevelopmentTeam = G54H3R6236;
@@ -618,6 +697,7 @@
 				00E356ED1AD99517003FC87E /* ComboTests */,
 				CCA7156C2019C9DA00A25FB9 /* ComboEp */,
 				EA9E5B6024FFA235001F3ED7 /* comboTodayWidget */,
+				EA6EA3732547FF1A007D484B /* comboUnFinished */,
 			);
 		};
 /* End PBXProject section */
@@ -655,6 +735,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA6EA3722547FF1A007D484B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA6EA37C2547FF1A007D484B /* MainInterface.storyboard in Resources */,
+				EA6EA38A254802D9007D484B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA9E5B5F24FFA235001F3ED7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -667,6 +756,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		116AAEFA62A586BD9CF3F853 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-comboUnFinished-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		62991423853992130A7E27F2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,6 +787,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-Combo/Pods-Combo-resources.sh",
 				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
 				"${PODS_ROOT}/../../node_modules/@0x5e/react-native-alipay/ios/AlipaySDK.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RNImageCropPicker/QBImagePicker.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -693,11 +805,13 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/TOCropViewController/TOCropViewControllerBundle.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QBImagePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -715,6 +829,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TOCropViewControllerBundle.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -911,6 +1026,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EA6EA3702547FF1A007D484B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA6EA38925480262007D484B /* NetworkRequests.m in Sources */,
+				EA6EA3882548025D007D484B /* TTProgressHUD.m in Sources */,
+				EA6EA38725480244007D484B /* EverydayHabitCell.m in Sources */,
+				EA6EA3792547FF1A007D484B /* TodayViewController.m in Sources */,
+				EA6EA38625480241007D484B /* EverydayHabitModel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EA9E5B5D24FFA235001F3ED7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -930,6 +1057,11 @@
 			isa = PBXTargetDependency;
 			target = CCCE41862064A0F000F282E3 /* Combo */;
 			targetProxy = CCCE422A2064A30A00F282E3 /* PBXContainerItemProxy */;
+		};
+		EA6EA37F2547FF1A007D484B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA6EA3732547FF1A007D484B /* comboUnFinished */;
+			targetProxy = EA6EA37E2547FF1A007D484B /* PBXContainerItemProxy */;
 		};
 		EA9E5B6D24FFA235001F3ED7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -956,6 +1088,14 @@
 				CCFBC8341FEA7A3800DA269C /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		EA6EA37A2547FF1A007D484B /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA6EA37B2547FF1A007D484B /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		EA9E5B6824FFA235001F3ED7 /* MainInterface.storyboard */ = {
@@ -1732,6 +1872,93 @@
 			};
 			name = Release;
 		};
+		EA6EA3812547FF1A007D484B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CE41BBC4B06FC322DC9F1D1 /* Pods-comboUnFinished.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboUnFinished/comboUnFinished.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboUnFinished/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EA6EA3822547FF1A007D484B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB3A15A89A887F61B2AD90CF /* Pods-comboUnFinished.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboUnFinished/comboUnFinished.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboUnFinished/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		EA6EA3832547FF1A007D484B /* Staging */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADA870F9AEA5596353081F4B /* Pods-comboUnFinished.staging.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = comboUnFinished/comboUnFinished.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = G54H3R6236;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = comboUnFinished/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Staging;
+		};
 		EA9E5B6F24FFA235001F3ED7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9FA38EB03E9BD989ECB5994 /* Pods-comboTodayWidget.debug.xcconfig */;
@@ -1858,6 +2085,16 @@
 				CCCE41C02064A0F000F282E3 /* Debug */,
 				CCCE41C12064A0F000F282E3 /* Release */,
 				CC6BB77F2189337E003DCC59 /* Staging */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA6EA3842547FF1A007D484B /* Build configuration list for PBXNativeTarget "comboUnFinished" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA6EA3812547FF1A007D484B /* Debug */,
+				EA6EA3822547FF1A007D484B /* Release */,
+				EA6EA3832547FF1A007D484B /* Staging */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

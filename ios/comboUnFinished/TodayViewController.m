@@ -1,8 +1,8 @@
 //
 //  TodayViewController.m
-//  comboTodayWidget
+//  comboUnFinished
 //
-//  Created by 罗伟 on 2020/9/2.
+//  Created by 罗伟 on 2020/10/27.
 //  Copyright © 2020 Facebook. All rights reserved.
 //
 
@@ -57,7 +57,10 @@
           for (NSDictionary *dic in dicArray) {
               EverydayHabitModel *model = [EverydayHabitModel new];
               [model setModelWithDic:dic];
-              [arrayList addObject:model];
+              if(model.canDone && !model.isDone){//能打卡并且未打卡
+                  [arrayList addObject:model];
+              }
+              
           }
           if (arrayList.count>0) {
             self.habitCount = (int)arrayList.count;
@@ -65,8 +68,8 @@
             [self setupUI];
           }else{
             [self setupNoDateV];
-            self.mianLab.text = @"暂无数据，请到App里添加！";
-            self.mianImageV.image = [UIImage imageNamed:@"icon_empty"];
+            self.mianLab.text = @"恭喜您完成今日所有打卡！";
+            self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
           }
       }
     }];
@@ -132,7 +135,7 @@
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EverydayHabitCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EverydayHabitCell" forIndexPath:indexPath];
     EverydayHabitModel *model = self.collectArray[indexPath.item];
-    [cell setModel:model andIndexPath:indexPath withTapBlock:^(EverydayHabitModel * _Nonnull model) {
+    [cell unFinishedSetModel:model andIndexPath:indexPath withTapBlock:^(EverydayHabitModel * _Nonnull model) {
         
         if (model.canDone) {//能打卡
             if (model.isDone) {//已打卡的

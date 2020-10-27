@@ -72,7 +72,11 @@
     }
     return self;
 }
-
+- (void)unFinishedSetModel:(EverydayHabitModel *)model andIndexPath:(NSIndexPath *)indexPath withTapBlock:(TapBlock)block{
+    self.mianImageBgV.layer.borderColor = RGBHexColor(0xEB2D2D, 1).CGColor;
+    self.mianImageBgV.layer.backgroundColor = RGBHexColor(0xF59696, 1).CGColor;
+    [self setModel:model andIndexPath:indexPath withTapBlock:block];
+}
 - (void)setModel:(EverydayHabitModel *)model andIndexPath:(NSIndexPath *)indexPath withTapBlock:(TapBlock)block{
     self.model=model;
     self.doneImageV.hidden = !model.isDone;
