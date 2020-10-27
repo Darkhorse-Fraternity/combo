@@ -166,10 +166,6 @@ export default class RecordRow extends Component<{ item: ItemType }, { visible: 
     };
   }
 
-
-
-
-
   render() {
     const { item } = this.props;
     const { visible, index } = this.state;

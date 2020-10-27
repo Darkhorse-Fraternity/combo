@@ -34,14 +34,18 @@ import Button from '../../components/Button/index';
 import { CircleState, DeviceEventEmitterKey } from '../../configure/enum';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { GetClassesICardIdResponse, GetClassesIUseIdResponse, putClassesICardId, useGetClassesIUseId } from 'src/hooks/interface';
+import {
+  GetClassesICardIdResponse,
+  GetClassesIUseIdResponse,
+  putClassesICardId,
+  useGetClassesIUseId,
+} from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { LoadAnimation } from '@components/Load';
 import { useGetUserInfo } from 'src/data/data-context';
 
-
 interface RenderHeaderRightProps {
-  isSelf: boolean
+  isSelf: boolean;
   onPress: (type: 'log' | 'setting') => void;
 }
 
@@ -49,8 +53,7 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
   return (
     <StyledHeaderRight>
       {isSelf && (
-        <Button
-          onPress={onPress.bind(undefined, 'log')}>
+        <Button onPress={onPress.bind(undefined, 'log')}>
           <StyledIcon
             color="black"
             style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
@@ -59,8 +62,7 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
           />
         </Button>
       )}
-      <Button
-        onPress={onPress.bind(undefined, 'setting')}>
+      <Button onPress={onPress.bind(undefined, 'setting')}>
         <StyledIcon
           color="black"
           style={{ marginRight: 10 }}
@@ -70,23 +72,24 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
       </Button>
     </StyledHeaderRight>
   );
-}
+};
 
-
-class Main extends PureComponent<{ iUse: GetClassesIUseIdResponse, iCard: GetClassesICardIdResponse },
-  { scrollValue: Animated.Value, page: number }> {
+class Main extends PureComponent<
+  { iUse: GetClassesIUseIdResponse; iCard: GetClassesICardIdResponse },
+  { scrollValue: Animated.Value; page: number }
+  > {
   constructor(props: any) {
     super(props);
     this.state = {
       scrollValue: new Animated.Value(0),
-      page: 0
+      page: 0,
     };
   }
   render() {
     const { iCard, iUse, ...other } = this.props;
 
-    const iCardM = iCard
-    const iUseM = iUse
+    const iCardM = iCard;
+    const iUseM = iUse;
     // const useNum = iCard.get('useNum')
     let { iconAndColor = {} } = iCard;
     const color = iconAndColor.color || '';
@@ -103,7 +106,7 @@ class Main extends PureComponent<{ iUse: GetClassesIUseIdResponse, iCard: GetCla
           this.props.navigation.setParams({ gestureEnabled: i === 0 });
           // this.setState({ page: i })
         }}
-        onScroll={x => {
+        onScroll={(x) => {
           // if(state === CircleState.open){
           x = x <= 0 ? 0 : x;
           x = x >= 1 ? 1 : x;
@@ -121,48 +124,44 @@ class Main extends PureComponent<{ iUse: GetClassesIUseIdResponse, iCard: GetCla
           // rightView={this.__renderRightView}
           />
         )}
-        prerenderingSiblingsNumber={0}
-      >
+        prerenderingSiblingsNumber={0}>
         {state === CircleState.open && (
-          <Circle
-            iUse={iUseM}
-            iCard={iCardM}
-            {...other}
-            tabLabel="圈子" />
+          <Circle iUse={iUseM} iCard={iCardM} {...other} tabLabel="圈子" />
         )}
         <Statistical
           {...other}
           iUse={iUseM}
           iCard={iCardM}
           tabLabel={state === CircleState.open ? '统计' : title}
-
         />
       </ScrollableTabView>
     );
   }
 }
 
-
 const Card: FC<{}> = (props) => {
-
-
-  const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>()
-  const { data, loading, run } = useGetClassesIUseId({ include: 'iCard', id: iUseId });
-  const { setOptions, navigate } = useNavigation()
+  const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>();
+  const { data, loading, run } = useGetClassesIUseId({
+    include: 'iCard',
+    id: iUseId,
+  });
+  const { setOptions, navigate } = useNavigation();
   const user = useGetUserInfo();
   const { iCard } = data || {};
   useEffect(() => {
-    const deEmitter = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
-      run()
-    });
+    const deEmitter = DeviceEventEmitter.addListener(
+      DeviceEventEmitterKey.iDO_Reload,
+      () => {
+        run();
+      },
+    );
     return () => {
-      deEmitter.remove()
-    }
-  }, [])
+      deEmitter.remove();
+    };
+  }, []);
 
   useEffect(() => {
     if (iCard) {
-
       const isSelf = iCard.user?.objectId === user?.objectId;
       // const headerRight = () => (
       //   <TouchableItem
@@ -178,40 +177,50 @@ const Card: FC<{}> = (props) => {
       //   </TouchableItem>
       // )
       setOptions({
-        headerRight: () => <RenderHeaderRight isSelf={isSelf} onPress={async (type) => {
-          if (type === 'log') {
-            // this.props.setCircleState(iCard);
-            const circleState =
-              iCard.state === CircleState.close
-                ? CircleState.open
-                : CircleState.close
-            const state =
-              iCard.state === CircleState.close
-                ? CircleState.open
-                : CircleState.close
-            const { objectId } = await putClassesICardId({ id: iCard.objectId, circleState, state })
-            if (objectId) {
-              Toast.show(iCard.state === CircleState.close ? '多人模式' : '单人模式');
-              DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload);
-            }
-          } else {
-            navigate('cardSetting', {
-              iCardId: iCard.objectId,
-              iUseId: iUseId,
-            });
-          }
-        }} />
-      })
+        headerRight: () => (
+          <RenderHeaderRight
+            isSelf={isSelf}
+            onPress={async (type) => {
+              if (type === 'log') {
+                // this.props.setCircleState(iCard);
+                const circleState =
+                  iCard.state === CircleState.close
+                    ? CircleState.open
+                    : CircleState.close;
+                const state =
+                  iCard.state === CircleState.close
+                    ? CircleState.open
+                    : CircleState.close;
+                const { objectId } = await putClassesICardId({
+                  id: iCard.objectId,
+                  circleState,
+                  state,
+                });
+                if (objectId) {
+                  Toast.show(
+                    iCard.state === CircleState.close ? '多人模式' : '单人模式',
+                  );
+                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload);
+                }
+              } else {
+                navigate('cardSetting', {
+                  iCardId: iCard.objectId,
+                  iUseId: iUseId,
+                });
+              }
+            }}
+          />
+        ),
+      });
     }
-  }, [iCard])
+  }, [iCard]);
 
   if (!iCard) {
-    return <LoadAnimation />
+    return <LoadAnimation />;
   }
 
-
-
-  return (<Main {...props} iUse={data!} iCard={iCard as GetClassesICardIdResponse} />)
-
-}
+  return (
+    <Main {...props} iUse={data!} iCard={iCard as GetClassesICardIdResponse} />
+  );
+};
 export default Card;

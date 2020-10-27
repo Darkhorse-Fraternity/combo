@@ -1,19 +1,34 @@
 import { ButtonItem } from '@components/Button';
-import UpdateImageView, { UpdateImage, UpdateImageViewType } from '@components/UpdateImageView';
+import UpdateImageView, {
+  UpdateImage,
+  UpdateImageViewType,
+} from '@components/UpdateImageView';
 import { useNavigation } from '@react-navigation/native';
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Keyboard, Platform, TextInputProps, View, TouchableOpacityProps, DeviceEventEmitter } from 'react-native';
+import {
+  Keyboard,
+  Platform,
+  TextInputProps,
+  View,
+  TouchableOpacityProps,
+  DeviceEventEmitter,
+} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import {
-  StyledContent, StyledHeaderText, StyledKeyboardAvoidingView,
-  StyledTexInput, StyledToolBar, StyledToolBarItem, StyledToolBarItemTip
+  StyledContent,
+  StyledHeaderText,
+  StyledKeyboardAvoidingView,
+  StyledTexInput,
+  StyledToolBar,
+  StyledToolBarItem,
+  StyledToolBarItemTip,
 } from './style';
 
-// 
-import { Control, Controller, useForm, useWatch } from "react-hook-form";
+//
+import { Control, Controller, useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import * as yup from 'yup';
 import SimpleToast from 'react-native-simple-toast';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
@@ -22,45 +37,44 @@ import {
   getClassesIDoId,
   postClassesIDo,
   putClassesIDoId,
-  useGetClassesIUseId
+  useGetClassesIUseId,
 } from 'src/hooks/interface';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
-import { iUsePoint, user as UserM } from '@request/LCModle'
+import { iUsePoint, user as UserM } from '@request/LCModle';
 import moment from 'moment';
 import { DeviceEventEmitterKey } from '@configure/enum';
-
-const RecordText = 'recordText'
-const RecordImgs = 'recordImgs'
+import { isTablet } from 'react-native-device-info';
+const RecordText = 'recordText';
+const RecordImgs = 'recordImgs';
 type FormData = {
   [RecordText]: string;
-  [RecordImgs]: { url: string }[]
+  [RecordImgs]: { url: string }[];
 };
 
-
-
 const validationSchema = yup.object().shape({
-  [RecordText]: yup
-    .string()
-    .max(50)
-    .trim()
-    .label("文本"),
-  [RecordImgs]: yup.array().of(
-    yup.object().shape({
-      url: yup.string().required(),
-    })).label('图片')
+  [RecordText]: yup.string().max(50).trim().label('文本'),
+  [RecordImgs]: yup
+    .array()
+    .of(
+      yup.object().shape({
+        url: yup.string().required(),
+      }),
+    )
+    .label('图片'),
 });
 
-
-const countInrow = 4
-const maxNumber = 9
-const bottomSpace = getBottomSpace()
-const keyboardVerticalOffsetDefault = (Platform.OS === 'ios' ? 58 : 63) + bottomSpace + (bottomSpace === 0 ? 5 : 0) + 20;
+const countInrow = isTablet() ? 6 : 4;
+const maxNumber = 9;
+const bottomSpace = getBottomSpace();
+const keyboardVerticalOffsetDefault =
+  (Platform.OS === 'ios' ? 58 : 63) +
+  bottomSpace +
+  (bottomSpace === 0 ? 5 : 0) +
+  20;
 // const keyboardVerticalOffset = keyboardVerticalOffsetDefault + 70;
 
-
-interface CustomMaskedInputProps extends Omit<TextInputProps
-  , 'onChange'> {
-  onChange?: (text: string) => void
+interface CustomMaskedInputProps extends Omit<TextInputProps, 'onChange'> {
+  onChange?: (text: string) => void;
 }
 
 const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
@@ -68,7 +82,7 @@ const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
   return (
     <StyledTexInput
       {...rest}
-      onChange={e => {
+      onChange={(e) => {
         e.persist();
         onChange && onChange(e.nativeEvent.text);
       }}
@@ -82,70 +96,81 @@ const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
 const CustomImagePick: FC<UpdateImageViewType> = (props) => {
   const { value, onChange, ...rest } = props;
   return (
-    <View onResponderGrant={Keyboard.dismiss} onStartShouldSetResponder={() => true}>
+    <View
+      onResponderGrant={Keyboard.dismiss}
+      onStartShouldSetResponder={() => true}>
       <UpdateImageView
         // data={imgs}
         hide={!value || value.length === 0}
         value={value}
         onPress={Keyboard.dismiss}
-        onChange={res => onChange && onChange(res)}
+        onChange={(res) => onChange && onChange(res)}
         {...rest}
       />
     </View>
-
-  )
-}
-
-
+  );
+};
 
 interface ToolBarProps {
   control: Control<FormData>;
-  setValue: <TFieldName extends keyof FormData, TFieldValue extends FormData[TFieldName]>
-    (name: TFieldName, value: TFieldValue) => void;
+  setValue: <
+    TFieldName extends keyof FormData,
+    TFieldValue extends FormData[TFieldName]
+  >(
+    name: TFieldName,
+    value: TFieldValue,
+  ) => void;
 }
 
 interface ToolBarItemProps {
-  showTip?: boolean
+  showTip?: boolean;
 }
 
-const ToolBarImagePickerItem: FC<TouchableOpacityProps & ToolBarProps & ToolBarItemProps> =
-  ({ setValue, control, showTip, onPress, ...other }) => {
+const ToolBarImagePickerItem: FC<
+  TouchableOpacityProps & ToolBarProps & ToolBarItemProps
+> = ({ setValue, control, showTip, onPress, ...other }) => {
+  const data = useWatch<UpdateImage[]>({ control, name: RecordImgs }) || [];
 
-    const data = useWatch<UpdateImage[]>({ control, name: RecordImgs }) || []
+  return (
+    <TouchableOpacity
+      hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+      onPress={onPress}
+      {...other}>
+      <StyledToolBarItem name="image" size={19} />
+      {!data || (data.length === 0 && showTip && <StyledToolBarItemTip />)}
+    </TouchableOpacity>
+  );
+};
 
-
-    return (
-      <TouchableOpacity
-        hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
-        onPress={onPress}
-        {...other}
-      >
-        <StyledToolBarItem name='image' size={19} />
-        {!data || data.length === 0 && showTip && <StyledToolBarItemTip />}
-      </TouchableOpacity >
-    )
-  }
-
-const ToolBar: FC<ToolBarProps & { showImagePickTip: boolean, onPress: (type: string) => void }> =
-  ({ showImagePickTip, onPress, ...other }) => {
-    return (<StyledToolBar  >
-
+const ToolBar: FC<
+  ToolBarProps & { showImagePickTip: boolean; onPress: (type: string) => void }
+> = ({ showImagePickTip, onPress, ...other }) => {
+  return (
+    <StyledToolBar>
       {/* <ToolBarImagePickerItem
         // hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
         onPress={onPress.bind(undefined, recordImgs)} /> */}
-      <ToolBarImagePickerItem showTip={showImagePickTip} onPress={onPress.bind(undefined, 'imagePick')}  {...other} />
-      <View style={{ flex: 1 }} onResponderGrant={Keyboard.dismiss} onStartShouldSetResponder={() => true} />
-    </StyledToolBar>)
-  }
+      <ToolBarImagePickerItem
+        showTip={showImagePickTip}
+        onPress={onPress.bind(undefined, 'imagePick')}
+        {...other}
+      />
+      <View
+        style={{ flex: 1 }}
+        onResponderGrant={Keyboard.dismiss}
+        onStartShouldSetResponder={() => true}
+      />
+    </StyledToolBar>
+  );
+};
 
 function point(className: string, objectId: string) {
   return {
-    "__type": "Pointer",
-    "className": className,
-    "objectId": objectId
-  }
+    __type: 'Pointer',
+    className: className,
+    objectId: objectId,
+  };
 }
-
 
 const Render: FC<{}> = () => {
   const { setOptions, goBack } = useNavigation();
@@ -158,11 +183,11 @@ const Render: FC<{}> = () => {
     // record = [],
     // type = 0,
     // done = false,
-    doneDateIso
+    doneDateIso,
   } = useNavigationAllParamsWithType<RouteKey.clockIn>();
   const [load, setLoad] = useState(false);
 
-  const { setValue, handleSubmit, errors, control, } = useForm<FormData>({
+  const { setValue, handleSubmit, errors, control } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: { recordText: '', recordImgs: [] },
     mode: 'onSubmit',
@@ -175,7 +200,7 @@ const Render: FC<{}> = () => {
   // console.log('type', type);
 
   const { data } = useGetClassesIUseId({ id: iUseId });
-  const record = data?.iCard.record || []
+  const record = data?.iCard.record || [];
   const iCardId = data?.iCard.objectId || '';
 
   // const doneDate = data?.doneDate
@@ -185,14 +210,12 @@ const Render: FC<{}> = () => {
   // const after = moment(limitTimes[1], 'HH');
   // const now = moment(new Date());
   // const momentIn = moment(now).isBetween(before, after);
-  const type = !!doneDateIso ? 2 : 0
+  const type = doneDateIso ? 2 : 0;
   const done = moment(0, 'HH').isBefore(data?.doneDate?.iso || '');
-
 
   // 如果没有iDoid 怎查询今天的最新打卡。如果有，则修改打卡
   useEffect(() => {
     if (done && !iDoId) {
-
       // getClassesIDoId({ id: iDoId }).then(({ recordText, imgs }) => {
       //   // if ()
       //   recordText && setValue(RecordText, recordText)
@@ -202,42 +225,48 @@ const Render: FC<{}> = () => {
         ...UserM(user?.objectId || ''),
         iUse: iUsePoint(iUseId),
         state: { $ne: -1 },
-      }
-      getClassesIDo({ limit: '1', order: '-createdAt', where: JSON.stringify(where) }).then(res => {
+      };
+      getClassesIDo({
+        limit: '1',
+        order: '-createdAt',
+        where: JSON.stringify(where),
+      }).then((res) => {
         if (res.results[0]) {
           const data = res.results[0];
-          console.log('data', data);
           const { recordText, imgs, objectId } = data;
           idRef.current = objectId;
-          recordText && setValue(RecordText, recordText)
-          imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
+          recordText && setValue(RecordText, recordText);
+          imgs &&
+            setValue(
+              RecordImgs,
+              imgs.map((url) => ({ url })),
+            );
         }
-
-      })
+      });
     }
-  }, [done])
+  }, [done]);
 
   useEffect(() => {
     if (iDoId) {
-      getClassesIDoId({ id: iDoId }).then(res => {
+      getClassesIDoId({ id: iDoId }).then((res) => {
         const { recordText, imgs } = res;
-        recordText && setValue(RecordText, recordText)
-        imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
+        recordText && setValue(RecordText, recordText);
+        imgs &&
+          setValue(
+            RecordImgs,
+            imgs.map((url) => ({ url })),
+          );
       });
     }
-  }, [])
-
-
+  }, []);
 
   const onSubmit = async (data: FormData) => {
-
-
     if (record.includes('图片') && data[RecordImgs].length === 0) {
-      return AlertWithTitle('该习惯打卡必须包含图片哦～!')
+      return AlertWithTitle('该习惯打卡必须包含图片哦～!');
     }
 
     if (record.includes('文字') && data[RecordText].length === 0) {
-      return AlertWithTitle('该习惯打卡必须包含文字哦～!')
+      return AlertWithTitle('该习惯打卡必须包含文字哦～!');
     }
 
     setLoad(true);
@@ -246,22 +275,25 @@ const Render: FC<{}> = () => {
     try {
       console.log('data', data);
 
-
       const allParam = {
-        imgs: data[RecordImgs].map(item => item.url),
-        recordText: data[RecordText]
-      }
-      const param1 = { id: idRef.current || '', ...allParam }
+        imgs: data[RecordImgs].map((item) => item.url),
+        recordText: data[RecordText],
+      };
+      const param1 = { id: idRef.current || '', ...allParam };
       const param2 = {
         user: point('_User', user?.objectId || ''),
         type: type, // 0 打卡,1日志,2:补打卡
         iCard: point('iCard', iCardId),
         iUse: point('iUse', iUseId),
-        doneDate: { "__type": "Date", iso: (doneDateIso || new Date().toISOString()) },
-        ...allParam
-      }
-      const { objectId } = await (!!idRef.current ? putClassesIDoId(param1) : postClassesIDo(param2))
-
+        doneDate: {
+          __type: 'Date',
+          iso: doneDateIso || new Date().toISOString(),
+        },
+        ...allParam,
+      };
+      const { objectId } = await (idRef.current
+        ? putClassesIDoId(param1)
+        : postClassesIDo(param2));
 
       if (objectId) {
         //发消息通知。
@@ -269,10 +301,10 @@ const Render: FC<{}> = () => {
         goBack();
       }
     } catch (error) {
-      SimpleToast.show(error.message)
+      SimpleToast.show(error.message);
     }
     setLoad(false);
-  }
+  };
 
   useEffect(() => {
     const keys = Object.keys(errors);
@@ -282,8 +314,6 @@ const Render: FC<{}> = () => {
       AlertWithTitle(errors[key].message);
     }
   }, [errors]);
-
-
 
   useLayoutEffect(() => {
     if (iCardId) {
@@ -300,19 +330,17 @@ const Render: FC<{}> = () => {
         ),
       });
     }
-
   }, [load, iCardId]);
-  const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>()
+  const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>();
   // setOptions({onSumbmit: handleOnSubmit })
   // useEffect(() => {
 
   // }, [])
 
-
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
 
   return (
-    <StyledContent >
+    <StyledContent>
       <StyledKeyboardAvoidingView
         behavior="padding"
         enabled
@@ -337,19 +365,19 @@ const Render: FC<{}> = () => {
           onPress={Keyboard.dismiss}
           countInrow={countInrow}
           maxNumber={maxNumber}
-
           // onChange={onChangeImageArray}
           as={CustomImagePick}
         />
         <ToolBar
-          onPress={type => {
+          onPress={(type) => {
             if (type === 'imagePick') {
-              ref?.current?.call(undefined, true)
+              ref?.current?.call(undefined, true);
             }
           }}
           showImagePickTip={record.includes('图片')}
           control={control}
-          setValue={setValue as any} />
+          setValue={setValue as unknown}
+        />
       </StyledKeyboardAvoidingView>
     </StyledContent>
   );
