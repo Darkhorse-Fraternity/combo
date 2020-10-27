@@ -28,7 +28,7 @@ interface CalendarProps<ItemT> {
   color: string;
   date: Date;
   canceDay: (item: ItemT) => void; // 取消打卡
-  busyDay?: ItemT[]
+  busyDay?: Record<string, ItemT>;
   move: (first: string, last: string) => void;  // 加载当前月
 }
 

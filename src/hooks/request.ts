@@ -25,7 +25,7 @@ export default function request<TResponseData>(
     server: 'prod',
   },
 // ): Promise<TResponseData & AxiosResponseOtherInfoType> {
-): Promise<TResponseData > {
+): Promise<TResponseData> {
   const { path, method, data, devUrl, prodUrl } = payload;
   const baseURL = options.server === 'dev' ? devUrl : prodUrl;
   // 请求地址

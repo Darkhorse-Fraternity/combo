@@ -2118,6 +2118,102 @@ export const usePutClassesIDoId = makeRequestHook<
   ReturnType<typeof putClassesIDoId>
 >(putClassesIDoId)
 
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **请求类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+export interface PostCallIDoLikeRequest {
+  iDoId: string
+  addNum: number
+}
+
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **返回类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+export interface PostCallIDoLikeResponse {
+  result: {
+    likeNum: number
+    objectId: string
+    updatedAt: string
+    __type: string
+    className: string
+  }
+}
+
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **请求配置的类型**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+type PostCallIDoLikeRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/call/iDoLike',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **请求配置**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+const postCallIDoLikeRequestConfig: PostCallIDoLikeRequestConfig = {
+  mockUrl: mockUrl_0_1_0_2,
+  devUrl: devUrl_0_1_0_2,
+  prodUrl: prodUrl_0_1_0_2,
+  path: '/call/iDoLike',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_2,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **请求函数**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+export const postCallIDoLike = makeRequest<
+  PostCallIDoLikeRequest,
+  PostCallIDoLikeResponse,
+  PostCallIDoLikeRequestConfig
+>(postCallIDoLikeRequestConfig)
+
+/**
+ * 接口 [点赞↗](http://121.89.170.197:3000/project/59/interface/api/510) 的 **React Hook**
+ *
+ * @分类 [iDo↗](http://121.89.170.197:3000/project/59/interface/api/cat_382)
+ * @请求头 `POST /call/iDoLike`
+ * @更新时间 `2020-10-27 13:25:27`
+ */
+export const usePostCallIDoLike = makeRequestHook<
+  PostCallIDoLikeRequest,
+  PostCallIDoLikeRequestConfig,
+  ReturnType<typeof postCallIDoLike>
+>(postCallIDoLike)
+
 const mockUrl_0_1_0_3 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_3 = 'https://api.icourage.cn/1.1' as any
 const prodUrl_0_1_0_3 = 'http://api.icourage.cn/1.1' as any

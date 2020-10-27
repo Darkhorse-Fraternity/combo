@@ -3,8 +3,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import FastImage from 'react-native-fast-image';
 import Button from '../../../../components/Button';
-import ZoomImage from '../../../../components/ZoomImage/ZoomImage';
-import { randFlowCoverColor } from 'src/Theme/color';
 
 export const StyledButton = styled.View`
   padding: 0px 0px;
@@ -81,7 +79,7 @@ export const StyledIcon = styled(Icon)`
   align-self: center;
 `;
 
-export const StyledChatbtn = styled.TouchableOpacity`
+export const StyledChatbtn = styled(Button)`
   justify-content: space-between;
   flex-direction: row;
   align-items: center;

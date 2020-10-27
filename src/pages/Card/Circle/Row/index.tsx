@@ -5,22 +5,17 @@
 
 
 // import * as immutable from 'immutable';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, FC, useEffect, useRef, useState } from 'react';
 import {
   View,
-  Dimensions,
-  TouchableNativeFeedback
+  TouchableNativeFeedback,
 } from 'react-native';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import * as Animatable from 'react-native-animatable';
 import {
   StyledButton,
   StyledImage,
   StyledImagesScolleView,
-  StyledArrowView,
-  StyledIcon,
   StyledBottom,
   StyledDateView,
   StyledNewTip,
@@ -31,207 +26,160 @@ import {
   StyledMain,
   StyledImageButton,
   StyledMaterialCommunityIcons,
-  StyledLikeIcon,
   StyledBottomBtnView
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
-import { addNormalizrEntity } from '../../../../redux/module/normalizr';
-import { IDO } from '../../../../redux/reqKeys';
-import { likeAdd } from '../../../../request/leanCloud';
-import { get } from '../../../../redux/actions/req';
-import { dataStorage } from '../../../../redux/actions/util';
+
+import { GetClassesIDoResponse, usePostCallIDoLike } from 'src/hooks/interface';
+import { storage } from '@configure/storage';
+import { useNavigation } from '@react-navigation/native';
+import { useGetUserInfo } from 'src/data/data-context';
 // static displayName = RecordRow
-@connect(
-  state => ({
-    // data:state.req.get()
-    user: state.user.data
-  }),
-  dispatch => ({
-    // ...bindActionCreators({},dispatch),
-    doLike: (objectId, like, likeNum) => {
-      let num = 1;
-      if (likeNum !== 0) {
-        num = like ? 1 : -1;
-      }
-      const params = likeAdd(objectId, num);
-      get(params);
 
-      dispatch(addNormalizrEntity(IDO, {
-        objectId,
-        likeNum: likeNum + num
-      }));
+type ItemType = GetClassesIDoResponse['results'][number]
 
-      if (num > 0) {
-        storage.save({
-          key: 'likeRecord',
-          id: objectId, // 注意:请不要在key中使用_下划线符号!
-          data: true,
-        });
-      } else {
-        storage.remove({
-          key: 'likeRecord',
-          id: objectId, // 注意:请不要在key中使用_下划线符号!
-        });
-      }
+// handleViewRef = ref => this.likeView = ref;
+
+const RenderLikes: FC<ItemType> = (props) => {
+  const {
+    likeNum,
+    objectId
+  } = props;
+
+  const handleViewRef = useRef<Animatable.View>(null)
+  const [liked, setLiked] = useState(false);
+  const [num, setNum] = useState(likeNum);
+
+  const { run, loading } = usePostCallIDoLike(item => item, { manual: true })
+
+  useEffect(() => {
+    storage.load({
+      key: 'likeRecord',
+      id: objectId
+    }).then((liked: boolean) => {
+      setLiked(liked)
+    }).catch();
+  }, [])
+
+  // const { liked } = this.state;
+  // const { doLike } = this.props;
+  const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+    && TouchableNativeFeedback.SelectableBackgroundBorderless();
+  return (
+    <StyledChatbtn
+      disabled={loading}
+      activeOpacity={1}
+      hitSlop={{
+        top: 15, left: 25, bottom: 15, right: 5
+      }}
+      background={background}
+      onPress={() => {
+        // this.likeView.bounceIn(2000);
+        // doLike(objectId, !liked, likeNum);
+        // this.setState({ liked: !liked });
 
 
-      // 点过赞的 在本地做一个记录
-    }
-  })
-)
-export default class RecordRow extends Component {
-  static propTypes = {
-    item: PropTypes.object.isRequired,
-    navigation: PropTypes.object,
-    showChat: PropTypes.bool,
-    showImage: PropTypes.bool,
-  };
+        handleViewRef.current?.bounceIn!(2000);
+        if (!liked) {
+          storage.save({
+            key: 'likeRecord',
+            id: objectId, // 注意:请不要在key中使用_下划线符号!
+            data: true,
+          });
+        } else {
+          storage.remove({
+            key: 'likeRecord',
+            id: objectId, // 注意:请不要在key中使用_下划线符号!
+          });
+        }
+        setNum(res => res + (!liked ? 1 : -1));
+        run({ iDoId: objectId, addNum: !liked ? 1 : -1 });
+        setLiked(res => !res);
 
-  static defaultProps = {
-    showChat: true,
-    showImage: false,
-  };
+      }}
+    >
+      <Animatable.View
+        ref={handleViewRef as any}
+      >
+        <StyledMaterialCommunityIcons
+          name={liked ? 'favorite' : 'favorite-border'}
+          size={20}
+          color={liked ? '#fd696a' : '#8c8c85'}
+        />
+      </Animatable.View>
+      <StyledChatBtnText
+        numberOfLines={1}
+      >
+        {num === 0 ? '' : num}
+      </StyledChatBtnText>
+    </StyledChatbtn>
+  );
+}
 
-  chatBtnRef = 0
 
-  constructor(props: Object) {
+const RenderChatBtn: FC<ItemType> = (item) => {
+  const {
+    commentNew, commentNum, objectId
+  } = item;
+
+  const user = useGetUserInfo();
+  const { navigate } = useNavigation()
+
+  const background = TouchableNativeFeedback.SelectableBackgroundBorderless
+    && TouchableNativeFeedback.SelectableBackgroundBorderless();
+  return (
+    <StyledChatbtn
+      hitSlop={{
+        top: 15, left: 5, bottom: 15, right: 25
+      }}
+      disabled
+      background={background}
+      onPress={() => {
+        navigate('rcomment', { iDoID: objectId });
+      }}
+    >
+      <StyledMaterialCommunityIcons
+        name="chat-bubble-outline"
+        size={20}
+        color="#8c8c85"
+      />
+      {commentNew && item.user.objectId === user?.objectId
+        && (<StyledNewTip />)}
+
+      <StyledChatBtnText
+        numberOfLines={1}
+      >
+        {commentNum === 0 ? '' : commentNum}
+      </StyledChatBtnText>
+    </StyledChatbtn>
+  );
+}
+
+
+
+export default class RecordRow extends Component<{ item: ItemType }, { visible: boolean, index: number }> {
+  constructor(props: any) {
     super(props);
     this.state = {
       visible: false,
-      liked: false
+      index: 0
     };
-
-    const { item } = props;
-
-    storage.load({
-      key: 'likeRecord',
-      id: item.objectId,
-    }).then((liked) => {
-      this.setState({
-        liked,
-      });
-    }).catch();
   }
 
-
-  // shouldComponentUpdate(nextProps: Object) {
-  //     return !immutable.is(this.props, nextProps)
-  // }
-
-
-  _renderChatBtn = (item) => {
-    const {
-      commentNew, commentNum, user, objectId
-    } = item;
-    const background = TouchableNativeFeedback.SelectableBackgroundBorderless
-      && TouchableNativeFeedback.SelectableBackgroundBorderless();
-    return (
-      <StyledChatbtn
-        hitSlop={{
-          top: 15, left: 5, bottom: 15, right: 25
-        }}
-        disabled
-        background={background}
-        onPress={() => {
-          this.props.navigation
-            && this.props.navigation.navigate('rcomment', { iDoID: objectId });
-        }}
-      >
-        <StyledMaterialCommunityIcons
-          name="chat-bubble-outline"
-          size={20}
-          color="#8c8c85"
-        />
-        {commentNew && user === this.props.user.objectId
-          && (<StyledNewTip />)}
-
-        <StyledChatBtnText
-          numberOfLines={1}
-        >
-          {commentNum === 0 ? '' : commentNum}
-        </StyledChatBtnText>
-
-
-        {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
-      </StyledChatbtn>
-    );
-  }
-
-  handleViewRef = ref => this.likeView = ref;
-
-  renderLikes = (item) => {
-    const {
-      likeNum,
-      objectId
-    } = item;
-    const { liked } = this.state;
-    const { doLike } = this.props;
-    const background = TouchableNativeFeedback.SelectableBackgroundBorderless
-      && TouchableNativeFeedback.SelectableBackgroundBorderless();
-    return (
-      <StyledChatbtn
-        activeOpacity={1}
-        hitSlop={{
-          top: 15, left: 25, bottom: 15, right: 5
-        }}
-        background={background}
-        onPress={() => {
-          this.likeView.bounceIn(2000);
-          doLike(objectId, !liked, likeNum);
-          this.setState({ liked: !liked });
-        }}
-      >
-        <Animatable.View
-          ref={this.handleViewRef}
-        >
-          <StyledMaterialCommunityIcons
-            name={liked ? 'favorite' : 'favorite-border'}
-            size={20}
-            color={liked ? '#fd696a' : '#8c8c85'}
-          />
-        </Animatable.View>
-        <StyledChatBtnText
-          numberOfLines={1}
-        >
-          {likeNum === 0 ? '' : likeNum}
-        </StyledChatBtnText>
-      </StyledChatbtn>
-    );
-  }
-
-  // _renderDone = () => (
-  //   <StyledIcon
-  //     ref={this.chatBtnRef}
-  //     name="md-checkmark"
-  //     size={25}
-  //     color="green"
-  //   />
-  // )
 
 
 
 
   render() {
-    const width = Dimensions.get('window').width;
-    const { item, showImage } = this.props;
+    const { item } = this.props;
     const { visible, index } = this.state;
-    if (!item) return null;
     const { imgs } = item;
     const uris = imgs && imgs.map(img => ({ url: img }));
     // const date = moment(item.createdAt).format("YYYY-MM-DD HH:mm")
     // moment.locale('zh-cn')
     const fromNow = moment(item.createdAt).fromNow();
     return (
-      <StyledButton
-        activeOpacity={1}
-        disabled={!this.props.navigation}
-        onPress={() => {
-          this.props.navigation
-            && this.props.navigation.navigate('rcomment',
-              { iDoID: item.objectId });
-        }}
-        style={this.props.style}
-      >
+      <StyledButton >
         <StyledMain>
           {!!item.recordText
             && (
@@ -279,8 +227,8 @@ export default class RecordRow extends Component {
               {fromNow}
             </StyledDateText>
             <StyledBottomBtnView>
-              {this.renderLikes(item)}
-              {this._renderChatBtn(item)}
+              <RenderLikes {...item} />
+              <RenderChatBtn {...item} />
             </StyledBottomBtnView>
           </StyledDateView>
         </StyledBottom>

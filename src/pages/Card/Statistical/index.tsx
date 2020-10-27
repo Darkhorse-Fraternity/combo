@@ -29,6 +29,9 @@ import { iUse as iUseM, user as userM } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import Calendar from '@components/Calendar';
 
+
+type ItemType = GetClassesIDoResponse['results'][number];
+
 const calendParam = (first: string, last: string, userId: string, iUseId: string) => {
   const param = {
     where: {
@@ -225,10 +228,31 @@ const Statistical: FC<StatisticalProps> =
 
 
     //本月的打卡记录
-    const { data: calendarData, run, loading } = useGetClassesIDo(item=>item, { manual: true });
+    {/* datas.results.forEach((item) => {
+              const { createdAt, doneDate } = item;
+              const time = doneDate ? doneDate.iso : createdAt;
+              const date = moment(time).format('YYYY-MM-DD');
+              data[date] = item;
+            }); */}
+
+    const { data: calendarData, run, loading } = useGetClassesIDo<Record<string, GetClassesIDoResponse['results'][number]>>
+      (item => item, {
+        manual: true,
+        formatResult: (res) => {
+          const data = {};
+          res.results.forEach(item => {
+            const { createdAt, doneDate } = item;
+            const time = doneDate ? doneDate.iso : createdAt;
+            const date = moment(time).format('YYYY-MM-DD');
+            data[date] = item;
+          })
+
+          return data
+        }
+      });
     // const { count } = data;
 
-    const ref = useRef<Calendar<GetClassesIDoResponse['results'][number]>>(null);
+    const ref = useRef<Calendar<ItemType>>(null);
     useEffect(() => {
       const lesten = DeviceEventEmitter.addListener(DeviceEventEmitterKey.iDO_Reload, () => {
         ref?.current?.move();
@@ -241,7 +265,7 @@ const Statistical: FC<StatisticalProps> =
     }, [])
 
 
-    const selectDay = (item: GetClassesIDoResponse['results'][number]) => isSelf &&
+    const selectDay = (item: ItemType) => isSelf &&
       retroactive(
         item,
         activityEndDate?.iso || '',
@@ -282,80 +306,20 @@ const Statistical: FC<StatisticalProps> =
         })
 
 
+    const canceDay = (item: ItemType) => {
+      navigate(RouteKey.rcomment, { iDoID: item.objectId })
+    }
+
 
     return (<StyledInner >
-      {/* <AgendaScreen
-        user={user}
-        ref={ref}
-        load={(first: string, last: string) => {
-          const params = calendParam(first, last, user?.objectId || '', iUseId)
-          mutate()
-
-        }}
-        iUse={iUse}
-        color={color}
-        isSelf={isSelf}
-        iUseId={iUseId}
-        iCardId={iCardId}
-        onPress={(item) => isSelf &&
-          retroactive(
-            item,
-            activityEndDate?.iso || '',
-            toolConfig?.redo || 0,
-            async (type, date) => {
-
-              if (type === 0) {
-                //需要判断是否在打卡时间内。 是否已经打卡
-                const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
-                const before = moment(limitTimes[0], 'HH');
-                const after = moment(limitTimes[1], 'HH');
-                const now = moment(new Date());
-                const momentIn = moment(now).isBetween(before, after);
-                if (!momentIn) {
-                  SimpleToast.showWithGravity('你好，我还没有到打卡时间!～', 2, SimpleToast.CENTER)
-                  return;
-                }
-              }
-
-              const iso = date && date.toISOString()
-
-              if (record.length > 0) {
-                navigate(RouteKey.clockIn, { iUseId, doneDateIso: iso })
-              } else {
-                const { objectId } = await postClassesIDo({
-                  user: point('_User', user?.objectId || ''),
-                  type: 0,
-                  iCard: point('iCard', iCardId),
-                  iUse: point('iUse', iUseId),
-                  doneDate: { "__type": "Date", iso: iso || new Date().toISOString() },
-                })
-                if (objectId) {
-                  console.log('???');
-
-                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
-                }
-              }
-            })}
-        {...other}
-      /> */}
-      {/* datas.results.forEach((item) => {
-              const { createdAt, doneDate } = item;
-              const time = doneDate ? doneDate.iso : createdAt;
-              const date = moment(time).format('YYYY-MM-DD');
-              data[date] = item;
-            }); */}
-
-
-      <Calendar<GetClassesIDoResponse['results'][number]>
+      <Calendar<ItemType>
         color={color}
         ref={ref}
         date={new Date()}
         load={loading}
-        canceDay={(item) => {
-          // isSelf && this.props.iDoDelete(item, user);
-        }} // 取消点击日打卡
+        canceDay={canceDay} // 取消点击日打卡
         doneDay={selectDay} // 点击特定日
-        busyDay={calendarData?.results} // 全部数据
+        busyDay={calendarData} // 全部数据
         move={(first, last) => {
 
           // 加载本月数据

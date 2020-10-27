@@ -8,22 +8,30 @@ interface  OptionsWithFormat2<R, P extends any[], U, UU extends U> extends
   Omit<OptionsWithFormat<R, P , U, UU >,'formatResult' >  {
   formatResult?: (res: R) => U;
 }
+
+
 type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
+
+// type ResultType<T extends  any,M extends any> = T extends  infer R ? R : M;
+
 export default function makeRequestHook<
   TRequestData, 
   TRequestConfig extends RequestConfig,
   TRequestResult extends ReturnType<typeof baseRequest>
 >(request: Request<TRequestData, TRequestConfig, TRequestResult>) {
   // type Data = TRequestResult extends Promise<infer R> ? R : TRequestResult
-
   type P = TRequestData[]
   type RequestDataType<R,T> =  R | ((...args: R[]) => R)
                           | ((...args:  R[]) => Promise<T>)
-  return <U = ThenArg<TRequestResult>>(
+
+  // R为返回后的类型， U 为  formatResult 后的类型 ,
+  // 当未指定U 的时候 N为R类型，否则则为U类型                     
+
+  return <U =unknown ,R = ThenArg<TRequestResult>, N =  U extends {}  ? U : R>(
     requestData: RequestDataType<TRequestData,TRequestResult> , 
-    config?: OptionsWithFormat2<TRequestResult, P, U,U>) =>
-    useRequest<TRequestResult, P, U>(requestData, {
-      requestMethod: (param: any) => request(param),
-      ...config  as OptionsWithFormat<TRequestResult, P, U,U>
-    })
+    config?: OptionsWithFormat2<R, P,  N, N>) =>{
+    return  useRequest<R, P, N >(requestData, {
+      requestMethod: (param: TRequestData) => request(param),
+      ...config  as any  as OptionsWithFormat<R, P, N,N>
+    })}
 }
