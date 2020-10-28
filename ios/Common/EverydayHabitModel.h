@@ -24,5 +24,7 @@
 @property (nonatomic,copy) NSString *iUse_objectId;//
 @property (nonatomic,copy) NSString *User_objectId;//
 -(void)setModelWithDic:(NSDictionary *)dic;
+-(void)changeIsDone:(NSString *)doneStr;
+-(void)changeIsDone;
 @end
 
