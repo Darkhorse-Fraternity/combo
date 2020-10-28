@@ -83,4 +83,28 @@
         }
     }
 }
+-(void)changeIsDone:(NSString *)doneStr{
+    NSDateFormatter *todayFormatter = [[NSDateFormatter alloc]init];
+    todayFormatter.dateFormat=@"yyyy-MM-dd'T'";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat=@"yyyy-MM-dd'T'HH:mm:ss";
+    if (doneStr) {
+        NSString *todayStr =[todayFormatter stringFromDate:[NSDate new]];
+        NSString *dateStr=doneStr;
+        NSString *beforeDawnStr=[NSString stringWithFormat:@"%@00:00:00",todayStr];
+        dateStr = [dateStr substringToIndex:19];
+        NSDate *doneDate = [formatter dateFromString:dateStr];
+        self.doneDate = doneDate;
+        NSDate *beforeDawnDate = [formatter dateFromString:beforeDawnStr];
+        if ([doneDate earlierDate:beforeDawnDate] == beforeDawnDate) {//凌晨是较早的日期 就是打卡了
+            self.isDone = YES;
+        }else{
+            self.isDone = NO;
+        }
+    }
+}
+-(void)changeIsDone{
+    self.doneDate = [NSDate new];
+    self.isDone = YES;
+}
 @end

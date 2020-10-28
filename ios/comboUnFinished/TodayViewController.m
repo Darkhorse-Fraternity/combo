@@ -64,39 +64,58 @@
           }
           if (arrayList.count>0) {
             self.habitCount = (int)arrayList.count;
-            self.collectArray = [arrayList copy];
+            self.collectArray = [[NSMutableArray alloc] initWithArray:[arrayList copy]];
             [self setupUI];
           }else{
             [self setupNoDateV];
-            self.mianLab.text = @"恭喜您完成今日所有打卡！";
-            self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
           }
       }
     }];
 }
 //打卡
 -(void)classesIDo:(EverydayHabitModel *)model{
+    NSString * iCard_objectId = model.iCard_objectId?:@"";
+    NSString * iUse_objectId = model.iUse_objectId?:@"";
+    NSString * User_objectId = model.User_objectId?:@"";
+    self.habitCount--;
+    if (self.habitCount>0) {
+        [self.collectArray removeObject:model];
+        [self setupUI];
+    }else{
+        [self setupNoDateV];
+        self.mianLab.text = @"恭喜您完成今日所有打卡！";
+        self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
+    }
+    
+    
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init] ;
     dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss.000'Z'";
     
     NSString *url = [NSString stringWithFormat:@"https://%@/classes/iDo",self.myData[@"host"]];
     NSMutableDictionary *param = [NSMutableDictionary new];
     param[@"doneDate"]=@{@"__type":@"Date",@"iso":[dateFormatter stringFromDate:[NSDate new]]};
-    param[@"iCard"]=@{@"__type":@"Pointer",@"className":@"iCard",@"objectId":model.iCard_objectId?:@""};
-    param[@"iUse"]=@{@"__type":@"Pointer",@"className":@"iUse",@"objectId":model.iUse_objectId?:@""};
-    param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":model.User_objectId?:@""};
+    param[@"iCard"]=@{@"__type":@"Pointer",@"className":@"iCard",@"objectId":iCard_objectId};
+    param[@"iUse"]=@{@"__type":@"Pointer",@"className":@"iUse",@"objectId":iUse_objectId};
+    param[@"user"]=@{@"__type":@"Pointer",@"className":@"_User",@"objectId":User_objectId};
     param[@"type"]=@0;
     
     [NetworkRequests requestJsonObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:param withResponseBlock:^(NSError *error, id dataDict) {
       if (!error && dataDict) {
+          if (dataDict[@"createdAt"]) {
+              
+          }
           NSLog(@"%@,dataDict",dataDict);
-          [self iUseList2];
       }
     }];
 }
 //有数据
 -(void)setupUI{
+    if (self.mianNoDataV) {
+        self.mianNoDataV.hidden = YES;
+    }
+    
     if(self.collectionView && [self.collectionView superview]){
+        self.collectionView.hidden = NO;
         self.collectionView.frame = CGRectMake(0, 20, self.widgetWidth, (self.habitCount/LINEMAXHABITCOUNT+1)*CELLHEIGTH);
         [self.collectionView reloadData];
         return;
@@ -159,6 +178,15 @@
 
 //无数据情况
 -(void)setupNoDateV{
+    if (self.collectionView) {
+        self.collectionView.hidden = YES;
+    }
+    if (self.mianNoDataV) {
+        self.mianNoDataV.hidden = NO;
+        return ;
+    }
+    
+    
     self.mianNoDataV = [UIView new];
     [self.view addSubview:self.mianNoDataV];
     [self.mianNoDataV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -184,6 +212,8 @@
       make.top.equalTo(self.mianImageV.mas_bottom).offset(6);
       make.centerX.equalTo(self.mianNoDataV);
     }];
+    self.mianLab.text = @"恭喜您完成今日所有打卡！";
+    self.mianImageV.image = [UIImage imageNamed:@"icon_finish"];
 }
 - (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode withMaximumSize:(CGSize)maxSize {
     self.widgetWidth = maxSize.width;
