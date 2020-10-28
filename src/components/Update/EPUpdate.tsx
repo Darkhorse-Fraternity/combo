@@ -2,9 +2,7 @@ import React from 'react';
 
 import DeviceInfo from 'react-native-device-info';
 import { InteractionManager, Platform, Linking, Alert } from 'react-native';
-import Toast from 'react-native-simple-toast';
 import { send } from '../../request/index';
-import { push } from '../../redux/nav';
 import Pop from '../Pop';
 // import {androidUpdate} from './downLoad'
 import UpdateView from './AndroidUpdateView';

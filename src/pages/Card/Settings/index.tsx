@@ -50,6 +50,7 @@ import { addNormalizrEntity } from '../../../redux/module/normalizr';
 
 import { classUpdate } from '../../../request/leanCloud';
 import { req } from '../../../redux/actions/req';
+import { StackActions } from '@react-navigation/native';
 
 // const { width } = Dimensions.get('window');
 
@@ -147,7 +148,7 @@ const Archive = `${IUSE}archive`;
 
       dispatch(addNormalizrEntity(IUSE, entity));
       dispatch(claerByID(IUSE, id));
-      props.navigation.dispatch(popToIndex());
+      props.navigation.dispatch(StackActions.popToTop());
     },
     delete: async (objectId, isFb) => {
       // await remove(objectId,IUSE)
@@ -178,7 +179,7 @@ const Archive = `${IUSE}archive`;
             dispatch(claerByID(IUSE, objectId));
             dispatch(claerByID(IRECORD, objectId));
             // props.navigation.goBack()
-            props.navigation.dispatch(popToIndex());
+            props.navigation.dispatch(StackActions.popToTop());
           },
         },
       ]);

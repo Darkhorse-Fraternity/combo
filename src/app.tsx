@@ -21,6 +21,7 @@ import {
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ContextProvide from './data/data-context/context-provide-class';
 import tracker from 'react-native-umeng-analytics';
+import { navigationRef } from '@components/Nav/navigators';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -51,7 +52,6 @@ const App = () => {
   //   };
   // }, []);
   const routeNameRef = useRef<string>('');
-  const navigationRef = useRef<NavigationContainerRef>();
   return (
     <ReduxProvider store={creatStore(SwitchNavigator)}>
       <ContextProvide>
@@ -59,8 +59,7 @@ const App = () => {
           <Configure />
           <SafeAreaProvider>
             <NavigationContainer
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              ref={navigationRef as any}
+              ref={navigationRef}
               onReady={() => {
                 routeNameRef.current =
                   navigationRef.current?.getCurrentRoute()?.name || '';
@@ -70,17 +69,12 @@ const App = () => {
                 const previousRouteName = routeNameRef.current;
                 const currentRouteName =
                   navigationRef.current?.getCurrentRoute()?.name || '';
-
                 if (previousRouteName !== currentRouteName) {
-                  // The line below uses the expo-firebase-analytics tracker
-                  // https://docs.expo.io/versions/latest/sdk/firebase-analytics/
-                  // Change this line to use another Mobile analytics SDK
                   if (previousRouteName && previousRouteName.length > 0) {
                     tracker.endLogPageView(previousRouteName || 'end');
                   }
                   tracker.beginLogPageView(currentRouteName || 'start');
                 }
-
                 // Save the current route name for later comparision
                 routeNameRef.current = currentRouteName;
               }}>

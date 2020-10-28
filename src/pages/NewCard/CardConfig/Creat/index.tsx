@@ -22,8 +22,6 @@ import { selfUser, iCard } from '../../../../request/LCModle';
 import Main from '../Main';
 import { defaultHabit } from '../../../../configure/habit';
 
-import { popToIndex } from '../../../../redux/nav'; // <-- same as form name
-
 import {
   StyledContent,
   StyledSubTitleView,
@@ -41,6 +39,7 @@ import { Privacy } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
 import { StyledArrowView } from '../../../Record/RecordRow/style';
+import { StackActions } from '@react-navigation/native';
 
 export const FormID = 'CreatCardForm';
 const selector = formValueSelector(FormID);
@@ -141,7 +140,7 @@ const selector = formValueSelector(FormID);
           ...addRes,
         };
         dispatch(addListNormalizrEntity(IUSE, addEntity));
-        props.navigation.dispatch(popToIndex());
+        props.navigation.dispatch(StackActions.popToTop());
       }),
   }),
 )
