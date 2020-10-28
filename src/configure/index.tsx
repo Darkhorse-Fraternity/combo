@@ -1,4 +1,4 @@
-import React, { FC, PureComponent, useEffect } from 'react';
+import React, { FC, memo, PureComponent, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, UIManager, Linking, AppState } from 'react-native';
@@ -16,6 +16,7 @@ import LocalNotification from './localNotification';
 import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
 import { useGetUserInfo } from 'src/data/data-context';
+import { storage } from './storage';
 
 require('../../helps/AnimatableRegist');
 //
@@ -198,19 +199,17 @@ const Configure: FC<{}> = ({ children }) => {
     }
   }, []);
 
-  useEffect(() => {}, [isLogin]);
+  // useEffect(() => {}, [isLogin]);
 
   return (
     <>
       <LightStatuBar />
       <ConfigureClass isLogin={isLogin} />
       {children}
-      {(isEmulatorSync() || Platform.OS === 'ios') && (
-        <LocalNotification user={user!} />
-      )}
+      {(isEmulatorSync() || Platform.OS === 'ios') && <LocalNotification />}
       <InfoBar />
     </>
   );
 };
 
-export default Configure;
+export default memo(Configure);

@@ -180,7 +180,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
     },
   }),
 )
-export default class Punch extends Component<any, StateType> {
+export default class Punch extends Component<{}, StateType> {
   constructor(props: Object) {
     super(props);
     this.state = {

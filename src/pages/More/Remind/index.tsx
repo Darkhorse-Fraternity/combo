@@ -46,8 +46,8 @@ import AnimationRow from '../../../components/AnimationRow';
 import { NoticeTip } from './render';
 import { storage } from '@configure/storage';
 
-const interactionManagerDelay = () =>
-  new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
+// const interactionManagerDelay = () =>
+//   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
 export const daysText = (recordDay) => {
@@ -381,7 +381,7 @@ export default class Remind extends PureComponent {
     this.setState({ isDateTimePickerVisible: false });
   };
 
-  render(): ReactElement<any> {
+  render() {
     let { data, iUseList, iCardList, localRemindData } = this.props;
 
     const id = 'all';

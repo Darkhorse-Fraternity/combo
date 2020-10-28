@@ -6,7 +6,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "react",
+    "jsx": "react-native",
     "lib": [
       "es6"
     ],
@@ -25,7 +25,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "downlevelIteration": true,
-    "module": "esnext",
+    "module": "commonjs",
     "baseUrl": ".",
     "paths": {
       // "*": ["src/*", "source/*"],

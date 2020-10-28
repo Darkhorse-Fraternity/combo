@@ -29,7 +29,7 @@ import {
 import { Multiple } from '../../../components/Form/Select/index';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-import { localRemindConfig, useLocalRemindConfig } from '@configure/app';
+import { useLocalRemindConfig } from '@configure/app';
 
 function PrefixInteger(num, length) {
   return (Array(length).join('0') + num).slice(-length);
