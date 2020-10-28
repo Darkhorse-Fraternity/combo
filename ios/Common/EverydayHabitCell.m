@@ -55,10 +55,12 @@
         self.titleLabel = [[UILabel alloc]init];
         [self.contentView addSubview:self.titleLabel];
         self.titleLabel.font = [UIFont systemFontOfSize:11];
+        self.titleLabel.numberOfLines =2;
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mianImageBgV.mas_bottom).offset(5);
-            make.centerX.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(2);
+            make.right.equalTo(self.contentView).offset(-2);
         }];
         
         
