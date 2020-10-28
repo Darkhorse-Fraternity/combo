@@ -10,6 +10,7 @@ import { debounce } from 'lodash'; // 4.0.8
 import { localRemindLoad } from '../redux/actions/util';
 import { ICARD, IUSE } from '../redux/reqKeys';
 import DeviceInfo from 'react-native-device-info';
+import { UserType } from 'src/data/data-context';
 
 export function nowNotification() {
   PushNotification.localNotification({
@@ -51,7 +52,6 @@ export function nowNotification() {
     normalizrData: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
     localRemindData: state.util.get('localRemind'),
-    user: state.user.data,
   }),
   (dispatch) => ({
     load: async () => {
@@ -69,7 +69,9 @@ export function nowNotification() {
     },
   }),
 )
-export default class LocalNotification extends PureComponent {
+export default class LocalNotification extends PureComponent<{
+  user: UserType;
+}> {
   constructor(props: Object) {
     super(props);
     props.load();
@@ -77,10 +79,6 @@ export default class LocalNotification extends PureComponent {
     //   dayNumber: [0, 0, 0, 0, 0, 0, 0]
     // }
   }
-
-  static propTypes = {};
-
-  static defaultProps = {};
 
   componentWillReceiveProps(nextProps) {
     // TODO 应该做一个检索  只有当检索值不同时才进入更新
@@ -492,7 +490,7 @@ export default class LocalNotification extends PureComponent {
     }
   };
 
-  render(): ReactElement<any> {
+  render() {
     return null;
   }
 }

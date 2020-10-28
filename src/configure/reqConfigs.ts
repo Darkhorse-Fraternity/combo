@@ -46,13 +46,15 @@ export function setLeanCloudSession(session: string) {
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
 
     //发送给原生小组件
-    DefaultPreference.set(
-      NATIVE_NET_KEY,
-      JSON.stringify({
-        header: myHeader,
-        host: defaultHost,
-      }),
-    );
+    DefaultPreference.setName('group.com.winlong.xiamen.Bear').then(() => {
+      DefaultPreference.set(
+        NATIVE_NET_KEY,
+        JSON.stringify({
+          header: myHeader,
+          host: defaultHost,
+        }),
+      );
+    });
   }
 
   setNetworkConig({
@@ -72,14 +74,24 @@ const header = {
   appChannel,
 };
 
-//发送给原生小组件
-DefaultPreference.set(
-  NATIVE_NET_KEY,
-  JSON.stringify({
-    header: header,
-    host: defaultHost,
-  }),
-);
+// //发送给原生小组件
+// DefaultPreference.set(
+//   NATIVE_NET_KEY,
+//   JSON.stringify({
+//     header: header,
+//     host: defaultHost,
+//   }),
+// );
+
+DefaultPreference.setName('group.com.winlong.xiamen.Bear').then(() => {
+  DefaultPreference.set(
+    NATIVE_NET_KEY,
+    JSON.stringify({
+      header: header,
+      host: defaultHost,
+    }),
+  );
+});
 
 export function httpHeaders(needSession: boolean): Object {
   // let header = {
