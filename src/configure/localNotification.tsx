@@ -77,11 +77,10 @@ class LocalNotificationClass extends PureComponent<
   remind = () => {
     let { data, localRemindData, iCard, normalizrData, user } = this.props;
     data = data.toJS();
-
-    // console.log('data:', data);
+    // console.log('localRemindData??ssss?:', localRemindData);
 
     if (!!iCard && data.loadStatu !== 'LIST_LOAD_DATA') {
-      // localRemindData = localRemindData.toJS();
+      // localRemindData = localRemindData.toJS();a
       const ndata = normalizrData.toJS();
       data = data.listData;
       const array = data.map((key) => {
@@ -161,6 +160,8 @@ const calendarEvents = async (
   let { all } = localRemindData;
 
   // 获取是否开启通知的条件。 当all 不存在时候，all 为true
+
+  // console.log('localRemindData', localRemindData);
 
   if (!all) {
     //当只有为ios 时候才默认打开

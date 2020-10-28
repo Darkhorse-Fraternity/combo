@@ -6,6 +6,7 @@ import {
   NavigationOptionsType,
   ToLazyExoticComponentReturnType,
 } from '@pages/interface';
+import { useTrackView } from '@components/umeng/umTracking';
 // interface RHType {
 //   readonly navigationOptions: Function;
 //   readonly render: LazyExoticComponent<() => ReactElement>;
@@ -37,7 +38,8 @@ export const toLazyExoticComponent = (
 
   const showBar = headerShown && !headerTransparent && !headerBackground;
 
-  const LazyRenderIn = (props: any) => {
+  const LazyRenderIn = (props: {}) => {
+    // useTrackView();
     return (
       <LazyRender showBar={showBar} {...props}>
         <Render />

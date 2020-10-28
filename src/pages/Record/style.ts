@@ -15,7 +15,8 @@ import { Platform } from 'react-native';
 import AnimationRow from '@components/AnimationRow';
 
 export const StyledAnimationRow = styled(AnimationRow)`
-  flex: 1 0;
+  /* flex: 1; */
+  /* height: 80px; */
 `;
 
 export const StyledHeaderTitle = styled.Text`

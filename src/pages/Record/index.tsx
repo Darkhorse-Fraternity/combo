@@ -112,14 +112,6 @@ export default class Record extends Component {
 
   static defaultProps = {};
 
-  static navigationOptions = (props) =>
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    ({
-      // title: '我的记录',
-    });
-
   shouldComponentUpdate(nextProps: Object, nextState: Object) {
     return (
       !immutable.is(this.props, nextProps) ||
@@ -142,6 +134,7 @@ export default class Record extends Component {
 
   renderRow = ({ item, index }: Object) => {
     // md-refresh
+
     const self = this;
     const iCardId = item[ICARD];
     const card = this.props.iCard.get(iCardId);
@@ -160,7 +153,6 @@ export default class Record extends Component {
 
     return (
       <StyledAnimationRow
-        useNativeDriver
         ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
           ref={(ref) => {
@@ -279,7 +271,7 @@ export default class Record extends Component {
     };
     return (
       <LCList
-        numColumns={isTablet() ? 2 : 1}
+        numColumns={1}
         scrollEnabled={this.state.openIndex === -1}
         ListHeaderComponent={this._renderHeader}
         style={[styles.list]}
@@ -301,6 +293,6 @@ export default class Record extends Component {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
 });

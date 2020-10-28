@@ -12,7 +12,6 @@ import { reducer as form } from 'redux-form/immutable';
 
 import * as reducers from './reducers';
 
-import umTracking from './middleware/umTracking';
 // import { combineReducers } from 'redux-immutablejs'
 // import { fromJS } from 'immutable'
 
@@ -21,20 +20,20 @@ import umTracking from './middleware/umTracking';
 //   state => state.nav,
 // );
 
-const middlewares = [thunk, umTracking];
-let enhancer;
-if (__DEV__) {
-  const installDevTools = require('immutable-devtools');
-  installDevTools(immutable);
+const middlewares = [thunk];
+// let enhancer;
+// if (__DEV__) {
+//   const installDevTools = require('immutable-devtools');
+//   installDevTools(immutable);
 
-  enhancer = compose(
-    applyMiddleware(...middlewares),
-    global.reduxNativeDevTools ? global.reduxNativeDevTools() : (nope) => nope,
-  );
-  // enhancer = applyMiddleware(...middlewares);
-} else {
-  enhancer = applyMiddleware(...middlewares);
-}
+//   enhancer = compose(
+//     applyMiddleware(...middlewares),
+//     global.reduxNativeDevTools ? global.reduxNativeDevTools() : (nope) => nope,
+//   );
+//   // enhancer = applyMiddleware(...middlewares);
+// } else {
+const enhancer = applyMiddleware(...middlewares);
+// }
 
 let store;
 export function creatStore(route) {
@@ -54,9 +53,9 @@ export function creatStore(route) {
     // };
 
     store = createStore(reducer, {}, enhancer);
-    if (global.reduxNativeDevTools) {
-      global.reduxNativeDevToolsCompose(store);
-    }
+    // if (global.reduxNativeDevTools) {
+    //   global.reduxNativeDevToolsCompose(store);
+    // }
   }
   return store;
 }

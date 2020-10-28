@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
@@ -14,10 +14,13 @@ import { creatStore } from './redux/store';
 import { theme } from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigationContainerRef,
+} from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ContextProvide from './data/data-context/context-provide-class';
-import { Dimensions, ScaledSize } from 'react-native';
+import tracker from 'react-native-umeng-analytics';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -47,18 +50,43 @@ const App = () => {
   //     Dimensions.removeEventListener('change', handle);
   //   };
   // }, []);
-
+  const routeNameRef = useRef<string>('');
+  const navigationRef = useRef<NavigationContainerRef>();
   return (
     <ReduxProvider store={creatStore(SwitchNavigator)}>
       <ContextProvide>
         <ThemeProvider theme={theme}>
-          <Configure>
-            <SafeAreaProvider>
-              <NavigationContainer>
-                <SwitchNavigator />
-              </NavigationContainer>
-            </SafeAreaProvider>
-          </Configure>
+          <Configure />
+          <SafeAreaProvider>
+            <NavigationContainer
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ref={navigationRef as any}
+              onReady={() => {
+                routeNameRef.current =
+                  navigationRef.current?.getCurrentRoute()?.name || '';
+                tracker.beginLogPageView(routeNameRef.current || 'start');
+              }}
+              onStateChange={() => {
+                const previousRouteName = routeNameRef.current;
+                const currentRouteName =
+                  navigationRef.current?.getCurrentRoute()?.name || '';
+
+                if (previousRouteName !== currentRouteName) {
+                  // The line below uses the expo-firebase-analytics tracker
+                  // https://docs.expo.io/versions/latest/sdk/firebase-analytics/
+                  // Change this line to use another Mobile analytics SDK
+                  if (previousRouteName && previousRouteName.length > 0) {
+                    tracker.endLogPageView(previousRouteName || 'end');
+                  }
+                  tracker.beginLogPageView(currentRouteName || 'start');
+                }
+
+                // Save the current route name for later comparision
+                routeNameRef.current = currentRouteName;
+              }}>
+              <SwitchNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
         </ThemeProvider>
       </ContextProvide>
     </ReduxProvider>
