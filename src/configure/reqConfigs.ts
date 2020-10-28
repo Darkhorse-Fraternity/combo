@@ -67,19 +67,22 @@ const header = {
   'Content-Type': 'application/json; charset=utf-8',
   'X-LC-Sign': LeanCloud_APP_SIGN,
   'X-LC-Id': LeanCloud_APP_ID,
-  'X-LC-Prod': __DEV__ ? 0 : 1,
+  'X-LC-Prod': __DEV__ ? '0' : '1',
   appVersion: DeviceInfo.getVersion(),
   appChannel,
 };
 
 //发送给原生小组件
-DefaultPreference.set(
-  NATIVE_NET_KEY,
-  JSON.stringify({
-    header: header,
-    host: defaultHost,
-  }),
-);
+//发送给原生小组件
+DefaultPreference.setName('group.com.winlong.xiamen.Bear').then(() => {
+  DefaultPreference.set(
+    NATIVE_NET_KEY,
+    JSON.stringify({
+      header: header,
+      host: defaultHost,
+    }),
+  );
+});
 
 export function httpHeaders(needSession: boolean): Object {
   // let header = {
