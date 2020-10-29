@@ -32,7 +32,7 @@ export function toQueryString(obj: Object) {
     : '';
 }
 
-export function queryStringToJSON(queryString) {
+export function queryStringToJSON(queryString: string) {
   if (queryString.indexOf('?') > -1) {
     queryString = queryString.split('?')[1];
   }

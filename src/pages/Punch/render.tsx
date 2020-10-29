@@ -165,15 +165,15 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
             // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
 
             // 通过本地时间验证,判断今日是否已经打卡
-            const newIUseList = iUseList.sort((a, b) => {
-              const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
-              const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
-              if (aDone && bDone) {
-                return false;
-              }
-              return aDone;
-            });
-            return { results: newIUseList };
+            // const newIUseList = iUseList.sort((a, b) => {
+            //   const aDone = moment(0, 'HH').isBefore(a.updatedAt.iso);
+            //   const bDone = moment(0, 'HH').isBefore(b.updatedAt.iso);
+            //   if (aDone && bDone) {
+            //     return false;
+            //   }
+            //   return aDone;
+            // });
+            return { results: iUseList };
           },
         }),
       );

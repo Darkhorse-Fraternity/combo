@@ -1705,7 +1705,7 @@
 			baseConfigurationReference = B1E9DCDE33C8CFF684294C89 /* Pods-Combo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODEPUSH_KEY = "";
+				CODEPUSH_KEY = "dYiyEr21MfAgpoPlHI9ZvVqA6tncHJ-doats7";
 				CODE_SIGN_ENTITLEMENTS = Combo/Combo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

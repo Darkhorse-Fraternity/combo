@@ -38,9 +38,8 @@ export default {
   dogBowl: require('./icons/dogBowl.png'),
   potted: require('./icons/potted.png'),
   basketball: require('./icons/basketball.png'),
-  riding:require('./icons/riding.png'),
-  guitar:require('./icons/guitar.png'),
-  reading:require('./icons/reading.png'),
-  studing:require('./icons/studing.png')
-}
-
+  riding: require('./icons/riding.png'),
+  guitar: require('./icons/guitar.png'),
+  reading: require('./icons/reading.png'),
+  studing: require('./icons/studing.png'),
+};

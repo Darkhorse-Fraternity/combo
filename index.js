@@ -4,12 +4,12 @@
  * @flow
  */
 import 'react-native-gesture-handler';
-import {AppRegistry, LogBox,Text, TextInput} from 'react-native';
+import { AppRegistry, LogBox, Text, TextInput } from 'react-native';
 
 // import svgs from './source/icons'
-import {name} from './app.json';
+import { name } from './app.json';
 import App from './src/app';
-import {enableScreens} from 'react-native-screens';
+import { enableScreens } from 'react-native-screens';
 
 LogBox.ignoreLogs([
   //'Warning: Async Storage has been extracted',
@@ -26,7 +26,6 @@ LogBox.ignoreLogs([
 
 AppRegistry.registerComponent(name, () => App);
 
-
 /**
  * 禁止系统放大字体
  */
@@ -35,7 +34,6 @@ Text.defaultProps.allowFontScaling = false;
 TextInput.defaultProps = TextInput.defaultProps || {};
 
 TextInput.defaultProps.allowFontScaling = false;
-
 
 // Modal.defaultProps = Text.defaultProps || {};
 // Modal.defaultProps.useNativeDriver = true

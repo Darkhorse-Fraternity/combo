@@ -679,7 +679,7 @@ export function likeAdd(iDoId: string, addNum: string) {
 
 export function iUseList() {
   return {
-    path: "/call/iUseList2",
+    path: "/call/iUseList3",
     method: methodType.post,
     params: {}
   };

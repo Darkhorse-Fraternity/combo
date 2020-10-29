@@ -721,22 +721,22 @@ const prodUrl_0_1_0_0 = 'http://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_0 = undefined as any
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求类型**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-export interface PostCallIUseList2Request {}
+export interface PostCallIUseList3Request {}
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **返回类型**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **返回类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-export interface PostCallIUseList2Response {
+export interface PostCallIUseList3Response {
   result?: {
     iUseList?: {
       cycle: number
@@ -832,18 +832,18 @@ export interface PostCallIUseList2Response {
 }
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求配置的类型**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求配置的类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-type PostCallIUseList2RequestConfig = Readonly<
+type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
     'http://api.icourage.cn/1.1',
-    '/call/iUseList2',
+    '/call/iUseList3',
     undefined,
     string,
     string,
@@ -852,17 +852,17 @@ type PostCallIUseList2RequestConfig = Readonly<
 >
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求配置**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求配置**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-const postCallIUseList2RequestConfig: PostCallIUseList2RequestConfig = {
+const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
   devUrl: devUrl_0_1_0_0,
   prodUrl: prodUrl_0_1_0_0,
-  path: '/call/iUseList2',
+  path: '/call/iUseList3',
   method: Method.POST,
   requestBodyType: RequestBodyType.json,
   responseBodyType: ResponseBodyType.json,
@@ -873,30 +873,30 @@ const postCallIUseList2RequestConfig: PostCallIUseList2RequestConfig = {
 }
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求函数**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **请求函数**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-export const postCallIUseList2 = makeRequest<
-  PostCallIUseList2Request,
-  PostCallIUseList2Response,
-  PostCallIUseList2RequestConfig
->(postCallIUseList2RequestConfig)
+export const postCallIUseList3 = makeRequest<
+  PostCallIUseList3Request,
+  PostCallIUseList3Response,
+  PostCallIUseList3RequestConfig
+>(postCallIUseList3RequestConfig)
 
 /**
- * 接口 [call_iUseList2↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **React Hook**
+ * 接口 [call_iUseList3↗](http://121.89.170.197:3000/project/59/interface/api/472) 的 **React Hook**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `POST /call/iUseList2`
- * @更新时间 `2020-10-12 18:02:49`
+ * @请求头 `POST /call/iUseList3`
+ * @更新时间 `2020-10-29 15:32:43`
  */
-export const usePostCallIUseList2 = makeRequestHook<
-  PostCallIUseList2Request,
-  PostCallIUseList2RequestConfig,
-  ReturnType<typeof postCallIUseList2>
->(postCallIUseList2)
+export const usePostCallIUseList3 = makeRequestHook<
+  PostCallIUseList3Request,
+  PostCallIUseList3RequestConfig,
+  ReturnType<typeof postCallIUseList3>
+>(postCallIUseList3)
 
 /**
  * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求类型**
