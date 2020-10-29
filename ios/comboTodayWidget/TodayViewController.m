@@ -40,7 +40,7 @@
     NSDictionary *myData = [NetworkRequests dictionaryWithJsonString:myDataStr];
     if (myData) {
         self.myData = myData;
-        [self iUseList2];
+        [self iUseList3];
     }
     
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
@@ -48,7 +48,8 @@
 
 }
 //用户列表
--(void)iUseList2{
+
+-(void)iUseList3{
     NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList3",self.myData[@"host"]];
     [NetworkRequests requestObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
       if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
@@ -100,8 +101,9 @@
 }
 //有数据
 -(void)setupUI{
+    int rowNumber = self.habitCount/LINEMAXHABITCOUNT+((self.habitCount%LINEMAXHABITCOUNT)>0?1:0);
     if(self.collectionView && [self.collectionView superview]){
-        self.collectionView.frame = CGRectMake(0, 20, self.widgetWidth, (self.habitCount/LINEMAXHABITCOUNT+1)*CELLHEIGTH);
+        self.collectionView.frame = CGRectMake(0, 20, self.widgetWidth, rowNumber*CELLHEIGTH);
         [self.collectionView reloadData];
         return;
     }
@@ -110,7 +112,7 @@
     flowLayout.itemSize = CGSizeMake(self.widgetWidth*1.0/LINEMAXHABITCOUNT, CELLHEIGTH);
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
-    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 20, self.widgetWidth, (self.habitCount/LINEMAXHABITCOUNT+1)*CELLHEIGTH) collectionViewLayout:flowLayout];
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 20, self.widgetWidth, rowNumber*CELLHEIGTH) collectionViewLayout:flowLayout];
     [self.view addSubview:self.collectionView];
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.collectionView.showsHorizontalScrollIndicator = NO;
@@ -197,7 +199,13 @@
     self.widgetWidth = maxSize.width;
     if (activeDisplayMode == NCWidgetDisplayModeExpanded) {
         // 设置展开的新高度
-      self.preferredContentSize = CGSizeMake(0, self.collectionView.frame.size.height+self.collectionView.frame.origin.y);
+        CGFloat preferredContentH = 0;
+        if (self.habitCount > 0) {
+            preferredContentH = self.collectionView.frame.size.height+self.collectionView.frame.origin.y;
+        }else{
+            preferredContentH = 110;
+        }
+        self.preferredContentSize = CGSizeMake(0, preferredContentH);
     }else{
         self.preferredContentSize = maxSize;
     }
