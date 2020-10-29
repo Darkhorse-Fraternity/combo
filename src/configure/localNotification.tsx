@@ -1,18 +1,17 @@
 import PushNotification from 'react-native-push-notification';
 import { Platform } from 'react-native';
 import moment from 'moment';
-import React, { memo, PureComponent, useEffect, useState } from 'react';
+import React, { FC, memo, PureComponent, useEffect, useState } from 'react';
 
 import { connect } from 'react-redux';
 import RNCalendarEvents from 'react-native-calendar-events';
 import Toast from 'react-native-simple-toast';
 import { debounce } from 'lodash'; // 4.0.8
-import { localRemindLoad } from '../redux/actions/util';
 import { ICARD, IUSE } from '../redux/reqKeys';
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo, { isEmulatorSync } from 'react-native-device-info';
 import { useGetUserInfo, UserType } from 'src/data/data-context';
-import { storage } from './storage';
 import { GetClassesIUseResponse } from 'src/hooks/interface';
+import { RemindDataType, useLoadlocalRemind } from './app';
 
 export function nowNotification() {
   PushNotification.localNotification({
@@ -74,9 +73,11 @@ class LocalNotificationClass extends PureComponent<
     // }
   }
 
-  remind = () => {
-    let { data, localRemindData, iCard, normalizrData, user } = this.props;
+  remind = (props: LocalNotificationClassProps) => {
+    let { data, localRemindData, iCard, normalizrData, user } = props;
     data = data.toJS();
+    // console.log('???', data);
+
     // console.log('localRemindData??ssss?:', localRemindData);
 
     if (!!iCard && data.loadStatu !== 'LIST_LOAD_DATA') {
@@ -92,7 +93,7 @@ class LocalNotificationClass extends PureComponent<
 
       if (Platform.OS === 'ios') {
         dayNotification(array, localRemindData, user.nickname || '');
-      } else {
+      } else if (!isEmulatorSync()) {
         calendarEvents(array, localRemindData, user.nickname || '');
       }
     }
@@ -132,6 +133,8 @@ const calendarEvents = async (
   localRemindData: RemindDataType,
   nickname: string,
 ) => {
+  // console.log('localRemindData', localRemindData);
+
   let unDoneCount = 0;
   if (data) {
     data.forEach((item) => {
@@ -163,11 +166,11 @@ const calendarEvents = async (
 
   // console.log('localRemindData', localRemindData);
 
-  if (!all) {
-    //当只有为ios 时候才默认打开
-    // all = Platform.OS == 'ios';
-    return;
-  }
+  // if (!all) {
+  //   //当只有为ios 时候才默认打开
+  //   // all = Platform.OS == 'ios';
+  //   return;
+  // }
 
   const statu = await RNCalendarEvents.authorizationStatus();
   let statu2 = '';
@@ -466,33 +469,9 @@ const dayNotification = async (
   });
 };
 
-type RemindDataType = { [x: string]: boolean; all: boolean };
-
-const loadlocalRemind = async (): Promise<RemindDataType> => {
-  const ids = await storage.getIdsForKey('localRemind');
-  const values = await storage.getBatchDataWithIds({
-    key: 'localRemind',
-    ids,
-  });
-  const data = { all: Platform.OS === 'ios' };
-  ids.forEach((id, index) => {
-    data[id] = values[index];
-  });
-
-  return data;
-};
-
-const LocalNotification = () => {
+const LocalNotification: FC<{}> = () => {
   const user = useGetUserInfo();
-  const [localRemindData, setLocalRemindData] = useState<RemindDataType>({
-    all: Platform.OS === 'ios',
-  });
-
-  useEffect(() => {
-    loadlocalRemind().then((res) => {
-      setLocalRemindData(res);
-    });
-  }, []);
+  const localRemindData = useLoadlocalRemind();
 
   return (
     <LocalNotificationClass user={user!} localRemindData={localRemindData} />

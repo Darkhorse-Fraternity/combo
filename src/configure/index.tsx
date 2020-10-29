@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { Platform, UIManager, Linking, AppState } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
-import DeviceInfo, { isEmulatorSync } from 'react-native-device-info';
+import DeviceInfo, {
+  isEmulator,
+  isEmulatorSync,
+} from 'react-native-device-info';
 import KeyboardManager from 'react-native-keyboard-manager';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
@@ -201,12 +204,19 @@ const Configure: FC<{}> = ({ children }) => {
 
   // useEffect(() => {}, [isLogin]);
 
+  // useEffect(() => {
+  //   isEmulator().then((res) => {
+  //     console.log('res', res);
+  //   });
+  // }, []);
+  // console.log('isEmulatorSync()', isEmulatorSync());
+
   return (
     <>
       <LightStatuBar />
       <ConfigureClass isLogin={isLogin} />
       {children}
-      {(isEmulatorSync() || Platform.OS === 'ios') && <LocalNotification />}
+      <LocalNotification />
       <InfoBar />
     </>
   );

@@ -74,7 +74,6 @@ const RenderItem: FC<RenderItemType> = (props) => {
     Icon = StyledIcon,
     style,
   } = props;
-  console.log('style', style);
 
   return (
     <StyledBottomMenuButton

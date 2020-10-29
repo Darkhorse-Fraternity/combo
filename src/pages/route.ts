@@ -34,11 +34,11 @@ import Search from './NewCard/Search';
 import { AndroidBackHandleHOCComponent } from '../configure/androidBackHandle';
 import ClockIn from '../pages/clock-in';
 import Test from './test';
-import Log from './Card/Log/render';
+import log from './Card/Log';
 
 export const otherRoute = {
   [RouteKey.web]: web,
-  [RouteKey.log]: { component: Log, optione: Log.navigationOptions },
+  [RouteKey.log]: log,
   [RouteKey.clockIn]: ClockIn,
   [RouteKey.test]: Test,
   [RouteKey.search]: { component: Search, options: Search.navigationOptions },
@@ -48,7 +48,7 @@ export const otherRoute = {
     component: Earnings,
     options: Earnings.navigationOptions,
   },
-  [RouteKey.remind]: { component: Remind, options: Remind.navigationOptions },
+  [RouteKey.remind]: Remind,
   [RouteKey.cash]: { component: Cash, options: Cash.navigationOptions },
   [RouteKey.recordDetail]: RecordDetail,
   [RouteKey.cardSetting]: {

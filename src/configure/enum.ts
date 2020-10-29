@@ -32,5 +32,6 @@ export const daysText = (recordDay:[]) => {
 };
 
 export enum DeviceEventEmitterKey {
-  iDO_Reload='iDO_Reload'
+  iDO_Reload='iDO_Reload',
+  remind_reload = 'remind_reload'
 }

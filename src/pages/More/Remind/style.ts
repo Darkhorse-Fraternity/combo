@@ -90,7 +90,7 @@ export const StyledRound = styled.View`
   position: absolute;
 `;
 
-export const StyledIconView = styled.View`
+export const StyledIconView = styled.View<{ color: string }>`
   background-color: ${(props) => props.color};
   padding: 10px;
   width: 50px;
@@ -101,7 +101,7 @@ export const StyledIconView = styled.View`
   justify-content: center;
 `;
 
-export const StyledIconImage = styled.Image`
+export const StyledIconImage = styled.Image<{ size: number }>`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
 `;
