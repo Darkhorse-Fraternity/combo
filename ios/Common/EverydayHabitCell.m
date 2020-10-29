@@ -93,17 +93,23 @@
     }
 }
 -(void)tapView:(UITapGestureRecognizer *)sender{
-    [UIView animateWithDuration:1.0 animations:^{
-        //CALayer的3D旋转
-        CATransform3D turnTrans = CATransform3DMakeRotation(M_PI, 0, 1, 0);
-        self.mianImageBgV.layer.transform = turnTrans;
-    }completion:^(BOOL finished) {
+    if (self.model.canDone) {//能打卡
+        [UIView animateWithDuration:1.0 animations:^{
+            //CALayer的3D旋转
+            CATransform3D turnTrans = CATransform3DMakeRotation(M_PI, 0, 1, 0);
+            self.mianImageBgV.layer.transform = turnTrans;
+        }completion:^(BOOL finished) {
+            if (self.tapBlock) {
+                self.tapBlock(self.model);
+            }
+            CATransform3D turnTrans = CATransform3DMakeRotation(0, 0, 1, 0);
+            self.mianImageBgV.layer.transform = turnTrans;
+        }];
+    }else{//不能打卡去首页
         if (self.tapBlock) {
             self.tapBlock(self.model);
         }
-        CATransform3D turnTrans = CATransform3DMakeRotation(0, 0, 1, 0);
-        self.mianImageBgV.layer.transform = turnTrans;
-    }];
+    }
 }
 
 @end
