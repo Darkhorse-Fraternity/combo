@@ -1,13 +1,10 @@
-import React, { FC, memo, PureComponent, useEffect } from 'react';
+import React, { FC, memo, PureComponent, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Platform, UIManager, Linking, AppState } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
-import DeviceInfo, {
-  isEmulator,
-  isEmulatorSync,
-} from 'react-native-device-info';
+
 import KeyboardManager from 'react-native-keyboard-manager';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
@@ -20,6 +17,9 @@ import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
 import { useGetUserInfo } from 'src/data/data-context';
 import { storage } from './storage';
+import { isTablet } from 'react-native-device-info';
+import { navigationRef } from '@components/Nav/navigators';
+import { RouteKey } from '@pages/interface';
 
 require('../../helps/AnimatableRegist');
 //
@@ -45,50 +45,50 @@ class ConfigureClass extends PureComponent<{ isLogin: boolean }> {
 
   // static defaultProps = {};
 
-  componentWillReceiveProps(nextProps) {
-    if (this.urlTask.length > 0 && nextProps.isLogin) {
-      this.urlTask.forEach((url) => {
-        const { routeName, params } = handleUrl(url);
-        routeName &&
-          this.props.dispatch(
-            CommonActions.navigate({ key: routeName, params }),
-          );
-      });
-      this.urlTask = [];
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.urlTask.length > 0 && nextProps.isLogin) {
+  //     this.urlTask.forEach((url) => {
+  //       const { routeName, params } = handleUrl(url);
+  //       routeName &&
+  //         this.props.dispatch(
+  //           CommonActions.navigate({ key: routeName, params }),
+  //         );
+  //     });
+  //     this.urlTask = [];
+  //   }
+  // }
 
-  _handleOpenURL = async (event: { url: string }) => {
-    this._handleUrlWithUrlTask(event.url);
-  };
+  // _handleOpenURL = async (event: { url: string }) => {
+  //   this._handleUrlWithUrlTask(event.url);
+  // };
 
-  _getInitialURL = async () => {
-    const url = (await Linking.getInitialURL()) || '';
-    this._handleUrlWithUrlTask(url);
-  };
+  // _getInitialURL = async () => {
+  //   const url = (await Linking.getInitialURL()) || '';
+  //   this._handleUrlWithUrlTask(url);
+  // };
 
-  urlTask: string[] = [];
+  // urlTask: string[] = [];
 
-  _handleUrlWithUrlTask = (url: string) => {
-    if (!this.props.isLogin) {
-      this.urlTask.push(url);
-    } else {
-      const { routeName, params } = handleUrl(url);
-      this.props.dispatch(CommonActions.navigate({ key: routeName, params }));
-    }
-  };
+  // _handleUrlWithUrlTask = (url: string) => {
+  //   if (!this.props.isLogin) {
+  //     this.urlTask.push(url);
+  //   } else {
+  //     const { routeName, params } = handleUrl(url);
+  //     this.props.dispatch(CommonActions.navigate({ key: routeName, params }));
+  //   }
+  // };
 
   componentDidMount() {
     // BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
-    Linking.addEventListener('url', this._handleOpenURL);
+    // Linking.addEventListener('url', this._handleOpenURL);
     AppState.addEventListener('change', this._handleAppStateChange);
 
-    this._getInitialURL();
+    // this._getInitialURL();
   }
 
   componentWillUnmount() {
     // BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
-    Linking.removeEventListener('url', this._handleOpenURL);
+    // Linking.removeEventListener('url', this._handleOpenURL);
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
@@ -160,6 +160,7 @@ const handleUrl = (url: string): { routeName?: string; params?: Object } => {
         newcard: 'newCard',
         cardinfo: 'cardInfo',
         carduse: 'cardUse',
+        done: RouteKey.clockIn,
       };
       const routeName = keys[key.toLowerCase()] || key.toLowerCase();
 
@@ -186,7 +187,9 @@ const keyboardConfig = () => {
 
 const Configure: FC<{}> = ({ children }) => {
   const user = useGetUserInfo();
+  // const { navigate } = useNavigation();
   const isLogin = !!user?.objectId;
+  const urlTaskRef = useRef<string[]>([]);
   useEffect(() => {
     epUpdate();
     keyboardConfig();
@@ -194,7 +197,7 @@ const Configure: FC<{}> = ({ children }) => {
       UIManager.setLayoutAnimationEnabledExperimental &&
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
-    if (DeviceInfo.isTablet()) {
+    if (isTablet()) {
       // Orientation.lockToLandscape();
       // Orientation.lockToPortrait();
     } else {
@@ -202,7 +205,35 @@ const Configure: FC<{}> = ({ children }) => {
     }
   }, []);
 
-  // useEffect(() => {}, [isLogin]);
+  const handleOpenURL = async (event: { url: string }) => {
+    handleUrlWithUrlTask(event.url);
+  };
+  const handleUrlWithUrlTask = (url: string) => {
+    if (!isLogin) {
+      urlTaskRef.current.push(url);
+    } else {
+      const { routeName, params } = handleUrl(url);
+      if (routeName && navigationRef.current) {
+        // navigate(routeName, params);
+        navigationRef.current.navigate(routeName, params);
+      }
+    }
+  };
+
+  const getInitialURL = async () => {
+    const url = (await Linking.getInitialURL()) || '';
+    handleUrlWithUrlTask(url);
+  };
+  useEffect(() => {
+    Linking.addEventListener('url', handleOpenURL);
+    return () => {
+      Linking.removeEventListener('url', handleOpenURL);
+    };
+  }, [isLogin]);
+
+  useEffect(() => {
+    getInitialURL();
+  }, []);
 
   // useEffect(() => {
   //   isEmulator().then((res) => {

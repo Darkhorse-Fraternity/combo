@@ -49,7 +49,7 @@
 }
 //用户列表
 -(void)iUseList2{
-    NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList2",self.myData[@"host"]];
+    NSString *url = [NSString stringWithFormat:@"https://%@/call/iUseList3",self.myData[@"host"]];
     [NetworkRequests requestObjWithUrl:url andHeaderDic:self.myData[@"header"] andParam:nil withResponseBlock:^(NSError *error, id dataDict) {
       if (!error && dataDict && dataDict[@"result"] && dataDict[@"result"][@"iUseList"]) {
           NSMutableArray *arrayList = [NSMutableArray new];
@@ -165,7 +165,8 @@
             }
             [self classesIDo:model];
         }else{//不能打卡去首页
-            [self.extensionContext openURL:[NSURL URLWithString:@"combo://combo/done"] completionHandler:nil];
+            NSString *url = [NSString stringWithFormat: @"combo://combo/done?iUseId=%@",model.iUse_objectId];
+            [self.extensionContext openURL:[NSURL URLWithString:url] completionHandler:nil];
         }
         
     }];
