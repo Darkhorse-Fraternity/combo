@@ -60,7 +60,7 @@ export function uploadFilesByLeanCloud(imageURLs: string[]) {
       owner: AV.User.currentAsync(),
     });
     return file.save().then((res) => {
-      console.log('res');
+      // console.log('res');
 
       return res;
     });

@@ -41,7 +41,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.clockIn> = (props) => {
     headerBackground: () => (
       <StyledHeader
         // style={{ backgroundColor: 'red' }}
-        onResponderGrant={Keyboard.dismiss}
+        onResponderGrant={() => Keyboard.dismiss()}
         onStartShouldSetResponder={() => true}
       />
     ),

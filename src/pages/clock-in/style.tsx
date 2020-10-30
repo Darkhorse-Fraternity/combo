@@ -24,7 +24,9 @@ export const StyledTexInput = styled.TextInput`
   /* text-align-vertical:top; */
 `;
 
-export const StyledHeaderText = styled.Text``;
+export const StyledHeaderText = styled.Text`
+  color: green;
+`;
 
 export const StyledToolBar = styled.View`
   width: 100%;

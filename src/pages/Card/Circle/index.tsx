@@ -10,15 +10,10 @@ import {
   ImageSourcePropType,
   ListRenderItemInfo,
 } from 'react-native';
-import { connect } from 'react-redux';
 import { DeviceEventEmitterKey, Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
-import { IUSE } from '../../../redux/reqKeys';
 import Dialog from '@components/Dialog';
-import { classUpdate } from '../../../request/leanCloud';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { req } from '../../../redux/actions/req';
 
 import {
   StyledHeader,

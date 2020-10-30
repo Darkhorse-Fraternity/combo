@@ -45,6 +45,8 @@ import moment from 'moment';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { isTablet } from 'react-native-device-info';
 import { useOrientation } from '@components/util/hooks';
+import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
+import { LoadAnimation } from '@components/Load';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -200,7 +202,10 @@ const Render: FC<{}> = () => {
   }
   // console.log('type', type);
 
-  const { data } = useGetClassesIUseId({ id: iUseId });
+  const { data, loading } = useGetClassesIUseId(
+    { id: iUseId },
+    // { defaultLoading: true },
+  );
   const record = data?.iCard.record || [];
   const iCardId = data?.iCard.objectId || '';
 
@@ -213,6 +218,14 @@ const Render: FC<{}> = () => {
   // const momentIn = moment(now).isBetween(before, after);
   const type = doneDateIso ? 2 : 0;
   const done = moment(0, 'HH').isBefore(data?.doneDate?.iso || '');
+  const [idoLoad, setIdoLoad] = useState(false);
+
+  // useEffect(() => {
+  //   if (!done && !loading) {
+  //     //如果今日未打卡，则不需要等待 ido 加载完成
+  //     setIdoLoad(false);
+  //   }
+  // }, [done, loading]);
 
   // 如果没有iDoid 怎查询今天的最新打卡。如果有，则修改打卡
   useEffect(() => {
@@ -227,23 +240,27 @@ const Render: FC<{}> = () => {
         iUse: iUsePoint(iUseId),
         state: { $ne: -1 },
       };
+      // setIdoLoad(true);
       getClassesIDo({
         limit: '1',
         order: '-createdAt',
         where: JSON.stringify(where),
-      }).then((res) => {
-        if (res.results[0]) {
-          const data = res.results[0];
-          const { recordText, imgs, objectId } = data;
-          idRef.current = objectId;
-          recordText && setValue(RecordText, recordText);
-          imgs &&
-            setValue(
-              RecordImgs,
-              imgs.map((url) => ({ url })),
-            );
-        }
-      });
+      })
+        .then((res) => {
+          if (res.results[0]) {
+            const data = res.results[0];
+            const { recordText, imgs, objectId } = data;
+            idRef.current = objectId;
+            recordText && setValue(RecordText, recordText);
+            imgs &&
+              setValue(
+                RecordImgs,
+                imgs.map((url) => ({ url })),
+              );
+          }
+          setIdoLoad(false);
+        })
+        .catch((e) => [setIdoLoad(false)]);
     }
   }, [done]);
 
@@ -276,10 +293,37 @@ const Render: FC<{}> = () => {
     try {
       console.log('data', data);
 
+      // 判断为本地图片时候,则上传并被替换
+      const recordImags = data[RecordImgs];
+      const localUrls: string[] = [];
+      const imags = recordImags.map(({ url }, index) => {
+        if (url.substr(0, 4).toLowerCase() === 'http') {
+          return { id: index, localUrl: '', remoteUrl: url };
+        }
+        localUrls.push(url);
+        return { id: index, localUrl: url, remoteUrl: '' };
+      });
+      //上传本地图片
+
+      if (localUrls.length > 0) {
+        const loadImgs = await uploadFilesByLeanCloud(localUrls);
+        let num = 0;
+        imags.forEach(({ localUrl }, index) => {
+          if (localUrl.length !== 0) {
+            imags[index].remoteUrl = loadImgs[num].url();
+            num++;
+          }
+        });
+        const newImages = imags.map((item) => ({ url: item.remoteUrl }));
+        setValue(RecordImgs, newImages);
+      }
+
       const allParam = {
-        imgs: data[RecordImgs].map((item) => item.url),
+        imgs: imags.map((item) => item.remoteUrl),
         recordText: data[RecordText],
       };
+      //上传图片
+
       const param1 = { id: idRef.current || '', ...allParam };
       const param2 = {
         user: point('_User', user?.objectId || ''),
@@ -342,9 +386,11 @@ const Render: FC<{}> = () => {
 
   const ori = useOrientation();
 
-  console.log('ori', ori);
-
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
+
+  // if (idoLoad) {
+  //   return <LoadAnimation />;
+  // }
 
   return (
     <StyledContent>
