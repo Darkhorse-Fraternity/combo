@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { theme } from '../../Theme';
 import Button from '../Button';
 
-export default class DateBoard extends React.Component {
+export default class DateBoard extends PureComponent {
   static defaultProps = {
     year: 2018,
     month: 0,
@@ -132,7 +132,6 @@ export default class DateBoard extends React.Component {
                   styles.dateText,
                   {
                     color: 'white',
-                    fontWeight: 'bold',
                   },
                 ]}>
                 {i + ''}
@@ -211,7 +210,9 @@ const styles = StyleSheet.create({
     height: 40,
   },
   dateText: {
-    fontSize: 15,
+    fontSize: 13,
+    minWidth: 16,
+    textAlign: 'center',
   },
   dateText2: {
     fontSize: 15,

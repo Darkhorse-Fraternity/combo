@@ -166,7 +166,7 @@ const RenderTitle: FC<{ title: string; des: string }> = ({ title, des }) => {
     <StyledRow>
       <StyledRowText>{`${title}:`}</StyledRowText>
       <View style={{ width: 20 }} />
-      <StyledRowText>{des}</StyledRowText>
+      <StyledRowText style={{ minWidth: 100 }}>{des}</StyledRowText>
     </StyledRow>
   );
 };
