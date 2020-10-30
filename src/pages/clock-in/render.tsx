@@ -388,9 +388,9 @@ const Render: FC<{}> = () => {
 
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
 
-  // if (idoLoad) {
-  //   return <LoadAnimation />;
-  // }
+  if (loading) {
+    return <LoadAnimation />;
+  }
 
   return (
     <StyledContent>
