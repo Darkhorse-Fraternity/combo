@@ -262,7 +262,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
   const ref = useRef<Calendar<ItemType>>(null);
   useEffect(() => {
     const lesten = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iDO_Reload,
+      DeviceEventEmitterKey.iDO_reload,
       () => {
         ref?.current?.move();
         // console.log('ref?.current', ref?.current);
@@ -313,7 +313,8 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
           if (objectId) {
             console.log('???');
 
-            DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+            DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+            DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
           }
         }
       },

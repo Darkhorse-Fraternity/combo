@@ -6,7 +6,7 @@ import {
   Dimensions,
   ScaledSize,
 } from 'react-native';
-import { isLandscape } from 'react-native-device-info';
+import { isLandscapeSync, isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
 type OrientationType =
   | 'LANDSCAPE'
@@ -15,17 +15,19 @@ type OrientationType =
   | 'PORTRAITUPSIDEDOWN';
 export const useOrientation = () => {
   const [orientation, setOrientation] = useState<OrientationType>(
-    isLandscape() ? 'LANDSCAPE' : 'PORTRAIT',
+    isLandscapeSync() ? 'LANDSCAPE' : 'PORTRAIT',
   );
   const orientationDidChange = (ori: OrientationType) => {
     setOrientation(ori);
   };
 
   useEffect(() => {
-    Orientation.addOrientationListener(orientationDidChange);
-    return () => {
-      Orientation.removeOrientationListener(orientationDidChange);
-    };
+    if (isTablet()) {
+      Orientation.addOrientationListener(orientationDidChange);
+      return () => {
+        Orientation.removeOrientationListener(orientationDidChange);
+      };
+    }
   }, []);
   return orientation;
 };

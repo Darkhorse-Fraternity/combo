@@ -79,7 +79,7 @@ const RecordDetail: FC<{}> = (porps) => {
   const { iCard } = data || {};
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iDO_Reload,
+      DeviceEventEmitterKey.iDO_reload,
       () => {
         run();
       },

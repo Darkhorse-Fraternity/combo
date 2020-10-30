@@ -11,7 +11,7 @@
     </style>
 
     <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">#FFFFFF</item>
+<!--        <item name="colorAccent">#f7f6</item>-->
 <!--        <item name="android:textColorPrimary">#0000FF</item>-->
     </style>
 

@@ -5,20 +5,11 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, InteractionManager } from 'react-native';
-import { connect } from 'react-redux';
 
-import {
-  StyledCell,
-  StyledCellBtn,
-  StyledSvgUri,
-  StyledCellImage,
-} from './style';
+import { StyledCell, StyledCellBtn, StyledCellImage } from './style';
 
 import svgs from '../../../../../../source/icons';
-import { Field } from 'redux-form/immutable';
 
-@connect((state) => ({}), (dispatch) => ({}))
 export default class IconCell extends Component {
   constructor(props: Object) {
     super(props);
@@ -52,7 +43,7 @@ export default class IconCell extends Component {
     );
   }
 
-  render(): ReactElement<any> {
+  render() {
     const { iconShow } = this.state;
     const { data, onPress, select } = this.props;
     const { size, name } = data;

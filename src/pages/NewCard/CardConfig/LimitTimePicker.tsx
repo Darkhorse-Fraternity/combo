@@ -133,6 +133,7 @@ export default class LimitTimePicker extends PureComponent {
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           mode="time"
+          display="spinner"
           cancelTextIOS="取消"
           headerTextIOS="选择提醒时间"
           confirmTextIOS="确定"

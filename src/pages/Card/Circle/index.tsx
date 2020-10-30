@@ -204,7 +204,7 @@ const PrivacyItem: FC<{
               privacy: Number(id),
             });
             if (objectId) {
-              DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload);
+              DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
             }
           }
         }
@@ -280,7 +280,7 @@ const Circle: FC<CircleProps> = (props) => {
       });
 
     const deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iDO_Reload,
+      DeviceEventEmitterKey.iDO_reload,
       () => {
         ref.current?.reload(0);
       },

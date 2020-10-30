@@ -150,7 +150,7 @@ const Card: FC<{}> = (props) => {
   const { iCard } = data || {};
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iDO_Reload,
+      DeviceEventEmitterKey.iUse_reload,
       () => {
         run();
       },
@@ -200,7 +200,7 @@ const Card: FC<{}> = (props) => {
                   Toast.show(
                     iCard.state === CircleState.close ? '多人模式' : '单人模式',
                   );
-                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload);
+                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
                 }
               } else {
                 navigate('cardSetting', {

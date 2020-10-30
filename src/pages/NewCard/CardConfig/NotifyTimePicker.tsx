@@ -195,6 +195,7 @@ export default class NotifyTimePicker extends PureComponent {
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           mode="time"
+          display="spinner"
           cancelTextIOS="取消"
           headerTextIOS="选择提醒时间"
           // isDarkModeEnabled={true}

@@ -4,14 +4,13 @@
  */
 'use strict';
 
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { StyledColorCell } from './style';
 
-@connect((state) => ({}), (dispatch) => ({}))
-export default class IconCell extends PureComponent {
+export default class ColorCell extends Component {
   constructor(props: Object) {
     super(props);
   }
@@ -25,7 +24,7 @@ export default class IconCell extends PureComponent {
     return nextProps.select !== this.props.select;
   }
 
-  render(): ReactElement<any> {
+  render() {
     // console.log('color:', i++);
 
     const { color, onPress, select } = this.props;

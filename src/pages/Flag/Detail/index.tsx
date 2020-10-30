@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Linking,
+  DeviceEventEmitter,
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -46,6 +47,7 @@ import { listReq } from '../../../redux/actions/list';
 import { fbJoin } from '../../../request/LCCloudFuncs';
 import { req } from '../../../redux/actions/req';
 import { iUseList as iUseListParams } from '../../../request/leanCloud';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 interface StateType {
   load: boolean;
@@ -103,30 +105,30 @@ interface StateType {
         );
 
         // 刷新首页
-        dispatch(
-          listReq(IUSE, iUseListParams(), false, {
-            dataMap: (data) => {
-              const { iUseList } = data.result;
-              // 添加副本
-              // console.log('fbList', fbList);
+        // dispatch(
+        //   listReq(IUSE, iUseListParams(), false, {
+        //     dataMap: (data) => {
+        //       const { iUseList } = data.result;
+        //       // 添加副本
+        //       // console.log('fbList', fbList);
 
-              // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+        //       // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
 
-              // 通过本地时间验证,判断今日是否已经打卡
-              // const newIUseList = iUseList.sort((a, b) => {
-              //   const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
-              //   const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
-              //   if (aDone && bDone) {
-              //     return false;
-              //   }
-              //   return aDone;
-              // });
-              return { results: iUseList };
-            },
-          }),
-        );
+        //       // 通过本地时间验证,判断今日是否已经打卡
+        //       // const newIUseList = iUseList.sort((a, b) => {
+        //       //   const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
+        //       //   const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
+        //       //   if (aDone && bDone) {
+        //       //     return false;
+        //       //   }
+        //       //   return aDone;
+        //       // });
+        //       return { results: iUseList };
+        //     },
+        //   }),
+        // );
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
       }
-
       return fbRes;
     },
     exist: async (icardId, flagId) => {

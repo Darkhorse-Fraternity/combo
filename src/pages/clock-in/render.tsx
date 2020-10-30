@@ -298,7 +298,9 @@ const Render: FC<{}> = () => {
 
       if (objectId) {
         //发消息通知。
-        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+
         goBack();
       }
     } catch (error) {
@@ -383,7 +385,7 @@ const Render: FC<{}> = () => {
           }}
           showImagePickTip={record.includes('图片')}
           control={control}
-          setValue={setValue as unknown}
+          setValue={setValue}
         />
       </StyledKeyboardAvoidingView>
     </StyledContent>

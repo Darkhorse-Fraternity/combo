@@ -89,7 +89,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
         doneDate: { __type: 'Date', iso: new Date().toISOString() },
       });
       if (id) {
-        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_Reload, {});
+        DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
       } else {
         doIt();
       }
@@ -205,7 +205,7 @@ export default class Punch extends Component<{}, StateType> {
       Orientation.addOrientationListener(this._orientationDidChange);
 
     this.deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iDO_Reload,
+      DeviceEventEmitterKey.iUse_reload,
       () => {
         // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
         this.props.search();

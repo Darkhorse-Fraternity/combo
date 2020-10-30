@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
-import * as Animatable from 'react-native-animatable';
 import { ICARD, IUSE } from '../../../redux/reqKeys';
 import svgs from '../../../../source/icons';
 import AppleStyleSwipeableRow from '../../../components/Swipeable';
@@ -437,6 +436,8 @@ class RemindClass extends PureComponent<RemindClassProps> {
         <DateTimePicker
           isVisible={this.state.isDateTimePickerVisible}
           mode="time"
+          // textColor={'red'}
+          display="spinner"
           cancelTextIOS="取消"
           headerTextIOS="修改提醒时间"
           // date={moment(this.state.time, 'HH:mm').toDate()}

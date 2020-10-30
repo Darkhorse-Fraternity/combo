@@ -38,8 +38,8 @@ import { TextInput } from '../../../../components/Form/Cunstom/index';
 import { Privacy } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import { StyledArrowView } from '../../../Record/RecordRow/style';
 import { StackActions } from '@react-navigation/native';
+import { ICARD, IUSE } from '@redux/reqKeys';
 
 export const FormID = 'CreatCardForm';
 const selector = formValueSelector(FormID);
