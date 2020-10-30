@@ -402,7 +402,7 @@ const RComment: FC<RCommentProps> = (props) => {
       {Platform.OS !== 'ios' && (
         <KeyboardAccessoryViewContent listRef={ref} iDoId={iDoID} />
       )}
-      {Platform.OS !== 'ios' && <KeyboardSpacer />}
+      {Platform.OS !== 'ios' && <KeyboardSpacer topSpacing={48} />}
     </>
   );
 };

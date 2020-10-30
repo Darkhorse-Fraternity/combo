@@ -211,12 +211,14 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: 13,
-    minWidth: 16,
+    minWidth: 20,
     textAlign: 'center',
   },
   dateText2: {
     fontSize: 15,
+    minWidth: 20,
     color: 'rgb(150,150,150)',
+    textAlign: 'center',
   },
 
   selected: {
