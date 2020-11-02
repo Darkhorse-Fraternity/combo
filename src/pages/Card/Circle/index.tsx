@@ -37,7 +37,7 @@ import {
   putClassesIUseId,
 } from 'src/hooks/interface';
 import PageList from '@components/Base/PageList';
-import { useGetUserInfo } from 'src/data/data-context';
+import { useGetUserInfo, UserType } from 'src/data/data-context';
 import { ShareModal } from '@components/Share/ShareView';
 import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
@@ -114,7 +114,7 @@ const ClockInMenuItem: FC<{
 };
 
 const RenderRow: FC<
-  ListRenderItemInfo<GetClassesIDoResponse['results'][number]> & {
+  ListRenderItemInfo<ItemType> & {
     count: number;
   }
 > = ({ item, index, count }) => {
@@ -127,10 +127,10 @@ const RenderRow: FC<
           navigate('rcomment', { iDoID: item.objectId });
         }}>
         <Header
-          userId={item.user.objectId || ''}
-          onPress={(user) => {
+          user={item.user as UserType}
+          onPress={() => {
             navigate('following', {
-              userId: user.objectId,
+              userId: item.user.objectId,
             });
           }}
         />

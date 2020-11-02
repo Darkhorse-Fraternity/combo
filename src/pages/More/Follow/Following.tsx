@@ -8,10 +8,9 @@ import React, { PureComponent } from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import Button from '../../../components/Button';
-import PropTypes from 'prop-types';
 import { FOLLOWRECORD, ICARD, IUSE, USER } from '../../../redux/reqKeys';
 import { Privacy, CircleState } from '../../../configure/enum';
-import { StyleFolllow, StyleFollowText, StyleFollowDevide } from '../style';
+import { StyleFolllow, StyleFollowText } from '../style';
 
 import {
   StyledContent,
@@ -19,8 +18,6 @@ import {
   StyleHeaderInner,
   StyleHeaderInnerLeft,
   StyleHeaderInnerRight,
-  StyledAvatar,
-  StyledHeaderTop,
   StyledHeaderBottom,
   StyledHeaderName,
   StyledZoomImage,

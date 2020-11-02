@@ -4,36 +4,27 @@
  */
 
 import React, { PureComponent } from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { View, Text, StyleSheet } from 'react-native';
 import Avatar from '../../../components/Avatar/Avatar2';
 
 import Button from '../../../components/Button';
+import { UserType } from 'src/data/data-context';
 
-@connect((state, props) => ({
-  user: state.normalizr.get('user').get(props.userId),
-}))
-export default class Header extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
+// @connect((state, props) => ({
+//   user: state.normalizr.get('user').get(props.userId),
+// }))
 
-  static propTypes = {
-    userId: PropTypes.string.isRequired,
-    onPress: PropTypes.func,
-  };
+interface HeaderProps {
+  user: UserType;
+  onPress: () => void;
+}
 
-  static defaultProps = {};
-
+export default class Header extends PureComponent<HeaderProps> {
   render() {
     let { onPress, user } = this.props;
-    user = (user && user.toJS()) || {};
-
-    // 缩略图
     return (
       <View style={styles.header}>
-        <Button onPress={() => onPress && onPress(user)} style={styles.top}>
+        <Button onPress={onPress} style={styles.top}>
           <Avatar radius={20} user={user} />
           <Text style={styles.name}>{user.nickname || '路人甲'}</Text>
         </Button>

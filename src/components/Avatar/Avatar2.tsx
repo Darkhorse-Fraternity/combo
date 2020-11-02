@@ -27,7 +27,7 @@ interface AvatarType {
 }
 
 export default class Avatar extends PureComponent<AvatarType> {
-  constructor(props: Object) {
+  constructor(props: AvatarType) {
     super(props);
   }
 
