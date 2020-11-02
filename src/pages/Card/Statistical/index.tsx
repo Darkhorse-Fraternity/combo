@@ -225,7 +225,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
     count: '1',
     limit: '0',
     where: JSON.stringify({
-      ...userM(iUse.user?.objectId || ''),
+      ...userM(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
       ...iUseM(iUseId),
       $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
       state: { $ne: -1 },
@@ -338,7 +338,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
         move={(first, last) => {
           // 加载本月数据
           const where = {
-            ...userM(iUse.user?.objectId || ''),
+            ...userM(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
             ...iUseM(iUseId),
             $or: [
               {
