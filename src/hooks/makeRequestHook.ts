@@ -4,7 +4,7 @@ import baseRequest from './request';
 import { useRequest } from 'ahooks';
 import { OptionsWithFormat } from '@ahooksjs/use-request/lib/types';
 
-interface OptionsWithFormat2<R, P extends any[], U, UU extends U>
+interface OptionsWithFormat2<R, P extends unknown[], U, UU extends U>
   extends Omit<OptionsWithFormat<R, P, U, UU>, 'formatResult'> {
   formatResult?: (res: R) => U;
 }
@@ -34,7 +34,7 @@ export default function makeRequestHook<
   ) => {
     return useRequest<R, P, N>(requestData, {
       requestMethod: (param: TRequestData) => request(param),
-      ...((config as any) as OptionsWithFormat<R, P, N, N>),
+      ...((config as unknown) as OptionsWithFormat<R, P, N, N>),
     });
   };
 }

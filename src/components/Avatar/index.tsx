@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import { StyledContent, StyledAvatar, StyledIndicator } from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
+import { UserType } from 'src/data/data-context';
 
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
@@ -19,15 +20,9 @@ interface AvatarType {
   type?: string;
   radius?: number;
   load?: boolean;
-  user: object;
+  user: UserType;
 }
 
-@connect(
-  (state) => ({
-    user: state.user.data,
-  }),
-  (dispatch) => ({}),
-)
 export default class Avatar extends PureComponent<AvatarType> {
   constructor(props: AvatarType) {
     super(props);
@@ -40,7 +35,7 @@ export default class Avatar extends PureComponent<AvatarType> {
   };
 
   render() {
-    const { radius = 40, user = {}, load = false } = this.props;
+    const { radius = 40, user, load = false } = this.props;
 
     const { avatar, headimgurl } = user;
     let avatarUrl = avatar ? avatar.url : headimgurl;

@@ -86,7 +86,7 @@ export type RootStackParamList = {
   [RouteKey.punch]: undefined;
   [RouteKey.habit]: undefined;
   [RouteKey.flag]: undefined;
-  [RouteKey.log]: { iUseId: string; iCardId: string; color: string };
+  [RouteKey.log]: { iUseId: string; color: string };
 };
 
 // type KeyType = keyof typeof RouteKey;

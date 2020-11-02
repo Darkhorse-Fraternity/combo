@@ -1,7 +1,7 @@
-import {Alert, Platform} from 'react-native';
+import { Alert, Platform } from 'react-native';
 import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
-import Rate, {AndroidMarket} from 'react-native-rate';
+import Rate, { AndroidMarket } from 'react-native-rate';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const appleAppID = '1332546993';
@@ -32,9 +32,7 @@ const anrdroidRate = async () => {
         text: '取消',
         onPress: async () => {
           // 存一个20天后提醒的时间
-          const nextTime = moment()
-            .add(3, 'weeks')
-            .toISOString();
+          const nextTime = moment().add(3, 'weeks').toISOString();
           await AsyncStorage.setItem(androidRateTime, nextTime);
         },
       },
@@ -49,18 +47,14 @@ const anrdroidRate = async () => {
             fallbackPlatformURL: appURL,
           };
 
-          Rate.rate(options, async success => {
+          Rate.rate(options, async (success) => {
             if (success) {
               // 存一个两月后提醒的时间
-              const nextTime = moment()
-                .add(9, 'weeks')
-                .toISOString();
+              const nextTime = moment().add(9, 'weeks').toISOString();
               await AsyncStorage.setItem(androidRateTime, nextTime);
             } else {
               // 存一个20天后提醒的时间
-              const nextTime = moment()
-                .add(3, 'weeks')
-                .toISOString();
+              const nextTime = moment().add(3, 'weeks').toISOString();
               await AsyncStorage.setItem(androidRateTime, nextTime);
             }
           });
@@ -80,3 +74,30 @@ export default function rate() {
     }
   }
 }
+
+export const marketRate = () => {
+  let url = '';
+  const IOS_APP_ID = '1332546993';
+  if (Platform.OS === 'ios') {
+    url = `itms-apps://itunes.apple.com/app/${IOS_APP_ID}?action=write-review`;
+  } else {
+    url = `market://details?id=${DeviceInfo.getBundleId()}`;
+  }
+  // Linking.openURL(url)
+
+  const options = {
+    AppleAppID: IOS_APP_ID,
+    preferredAndroidMarket: AndroidMarket.Other,
+    OtherAndroidURL: url,
+    openAppStoreIfInAppFails: true,
+    fallbackPlatformURL: 'https://icouage.cn/',
+  };
+
+  Rate.rate(options, (success) => {
+    if (success) {
+      console.log('Rate success');
+      // this technically only tells us if the user successfully went to the Review Page. Whether they actually did anything, we do not know.
+      // this.setState({rated:true})
+    }
+  });
+};

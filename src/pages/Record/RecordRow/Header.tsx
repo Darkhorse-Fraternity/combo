@@ -11,12 +11,9 @@ import Avatar from '../../../components/Avatar/Avatar2';
 
 import Button from '../../../components/Button';
 
-@connect(
-  (state, props) => ({
-    user: state.normalizr.get('user').get(props.userId),
-  }),
-  (dispatch) => ({}),
-)
+@connect((state, props) => ({
+  user: state.normalizr.get('user').get(props.userId),
+}))
 export default class Header extends PureComponent {
   constructor(props: Object) {
     super(props);

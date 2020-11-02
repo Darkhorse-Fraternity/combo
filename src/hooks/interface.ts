@@ -725,7 +725,7 @@ const dataKey_0_1_0_0 = undefined as any
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 export interface PostCallIUseList3Request {}
 
@@ -734,7 +734,7 @@ export interface PostCallIUseList3Request {}
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 export interface PostCallIUseList3Response {
   result?: {
@@ -836,7 +836,7 @@ export interface PostCallIUseList3Response {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
@@ -856,7 +856,7 @@ type PostCallIUseList3RequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -877,7 +877,7 @@ const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 export const postCallIUseList3 = makeRequest<
   PostCallIUseList3Request,
@@ -890,7 +890,7 @@ export const postCallIUseList3 = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:32:43`
+ * @更新时间 `2020-10-29 15:36:47`
  */
 export const usePostCallIUseList3 = makeRequestHook<
   PostCallIUseList3Request,
@@ -2224,7 +2224,7 @@ const dataKey_0_1_0_3 = undefined as any
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 export interface GetUsersIdRequest {
   id: string
@@ -2235,7 +2235,7 @@ export interface GetUsersIdRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 export interface GetUsersIdResponse {
   updatedAt: string
@@ -2263,6 +2263,11 @@ export interface GetUsersIdResponse {
     bucket?: string
   }
   mobilePhoneVerified: boolean
+  authData?: {
+    anonymous?: {
+      id: string
+    }
+  }
 }
 
 /**
@@ -2270,7 +2275,7 @@ export interface GetUsersIdResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 type GetUsersIdRequestConfig = Readonly<
   RequestConfig<
@@ -2290,7 +2295,7 @@ type GetUsersIdRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2311,7 +2316,7 @@ const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, GetUsersIdRequestConfig>(
   getUsersIdRequestConfig,
@@ -2322,7 +2327,7 @@ export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, Get
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-10-15 16:26:00`
+ * @更新时间 `2020-11-02 15:34:46`
  */
 export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdRequestConfig, ReturnType<typeof getUsersId>>(
   getUsersId,

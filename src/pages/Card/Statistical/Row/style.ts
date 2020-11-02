@@ -92,7 +92,7 @@ export const StyledArrowView = styled.View`
   margin-right: 35px;
 `;
 
-export const StyledDateView = styled.View`
+export const StyledDateView = styled.View<{ color: string }>`
   background-color: white;
   align-items: center;
   justify-content: center;
@@ -103,13 +103,13 @@ export const StyledDateView = styled.View`
   border-color: ${(props) => props.color || 'gray'};
 `;
 
-export const StyledDateTextBig = styled.Text`
+export const StyledDateTextBig = styled.Text<{ color: string }>`
   color: ${(props) => props.color || 'gray'};
   font-size: 20px;
   font-weight: bold;
 `;
 
-export const StyledDateTextSmall = styled.Text`
+export const StyledDateTextSmall = styled.Text<{ color: string }>`
   margin-top: 1px;
   color: ${(props) => props.color || 'gray'};
   font-size: 12px;

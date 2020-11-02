@@ -5,91 +5,45 @@
 
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, Dimensions } from 'react-native';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import {
   StyledButton,
   StyledImage,
-  StyledZoomImage,
   StyledImageButton,
   StyledImagesScolleView,
-  StyledArrowView,
-  StyledIcon,
-  StyledBottom,
-  StyledNewTip,
-  StyledDateText,
   StyledRecordText,
-  StyledChatbtn,
-  StyledChatBtnText,
   StyledMain,
   StyledDateView,
   StyledDateTextBig,
   StyledDateTextSmall,
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
+import { UserType } from 'src/data/data-context';
+import { GetClassesIDoResponse } from 'src/hooks/interface';
 
-// static displayName = RecordRow
-@connect((state) => ({
-  user: state.user.data,
-}))
-export default class RecordRow extends Component {
-  constructor(props: Object) {
+type ItemType = GetClassesIDoResponse['results'][number];
+interface RecordRowProps {
+  color: string;
+  onPress: () => void;
+  user: UserType;
+  item: ItemType;
+}
+
+export default class RecordRow extends Component<
+  RecordRowProps,
+  { visible: boolean; index: number }
+> {
+  constructor(props: RecordRowProps) {
     super(props);
     this.state = {
       visible: false,
+      index: 0,
     };
   }
-
-  static propTypes = {
-    item: PropTypes.object.isRequired,
-    navigation: PropTypes.object,
-    showChat: PropTypes.bool,
-    showImage: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    showChat: true,
-    showImage: false,
-  };
 
   // shouldComponentUpdate(nextProps: Object) {
   //     return !immutable.is(this.props, nextProps)
   // }
-
-  chatBtnRef = 0;
-
-  _renderChatBtn = (item) => {
-    const { commentNew, commentNum, user, objectId } = item;
-
-    return (
-      <StyledChatbtn
-        onPress={() => {
-          this.props.navigation &&
-            this.props.navigation.navigate('rcomment', { iDoID: objectId });
-        }}>
-        {/* <Image style={{width:20,height:20}} source={icon}/> */}
-        {commentNew && user === this.props.user.objectId && <StyledNewTip />}
-        {commentNum > 0 && (
-          <StyledChatBtnText numberOfLines={1}>
-            {item.commentNum}
-          </StyledChatBtnText>
-        )}
-        <StyledArrowView />
-        {/* <Text style={[styles.tabLinkText,{color:focused?"#0093cb":'rgb(150,150,150)'}]}>{tabInfo.label}</Text> */}
-      </StyledChatbtn>
-    );
-  };
-
-  _renderDone = () => (
-    <StyledIcon
-      ref={this.chatBtnRef}
-      name="md-checkmark"
-      size={25}
-      color="green"
-    />
-  );
 
   render() {
     const { item, onPress, color } = this.props;
@@ -103,10 +57,7 @@ export default class RecordRow extends Component {
     const { createdAt, doneDate } = item;
     const time = doneDate ? doneDate.iso : createdAt;
     return (
-      <StyledButton
-        activeOpacity={1}
-        onPress={onPress}
-        style={this.props.style}>
+      <StyledButton activeOpacity={1} onPress={onPress}>
         <StyledDateView color={color}>
           <StyledDateTextBig color={color}>
             {moment(time).format('DD')}

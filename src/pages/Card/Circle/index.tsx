@@ -41,6 +41,7 @@ import { useGetUserInfo } from 'src/data/data-context';
 import { ShareModal } from '@components/Share/ShareView';
 import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
+type ItemType = GetClassesIDoResponse['results'][number];
 
 const pickPrivacy = async (privacy: number, isSelf: boolean) => {
   const items = isSelf
@@ -261,7 +262,7 @@ const Circle: FC<CircleProps> = (props) => {
   const { iCard, iUse, ...other } = props;
   const user = useGetUserInfo();
   const [count, setCount] = useState(0);
-  const ref = useRef<PageList<GetClassesIDoResponse['results'][number]>>(null);
+  const ref = useRef<PageList<ItemType>>(null);
   useEffect(() => {
     loadWithObjectInfo({
       appId: GTDAppId,
@@ -316,12 +317,12 @@ const Circle: FC<CircleProps> = (props) => {
       // console.log('results', results);
       const results2 = results.filter((item) => item.iUse.privacy! >= privacy);
 
-      return results2;
+      return { data: results2, hasMore: results.length === page_size };
     });
   };
 
   return (
-    <PageList<GetClassesIDoResponse['results'][number]>
+    <PageList<ItemType>
       ref={ref}
       showsVerticalScrollIndicator={false}
       loadPage={loadPage}

@@ -3,7 +3,10 @@ import { ListLoadType } from './interface';
 import List, { BaseListBaseProps } from './BaseSectionView';
 
 export type PageListT<T> = Omit<BaseListBaseProps<T>, 'data'> & {
-  loadPage?: (pageIndex: number, pageSize: number) => Promise<T[] | undefined>;
+  loadPage?: (
+    pageIndex: number,
+    pageSize: number,
+  ) => Promise<T[] | { data: T[]; hasMore: boolean } | undefined>;
   pageSize?: number;
 };
 
@@ -17,16 +20,13 @@ export default class PageList<ItemT> extends Component<
   PageListT<ItemT>,
   IState<ItemT>
 > {
-  constructor(props: any) {
+  constructor(props: PageListT<ItemT>) {
     super(props);
     // default values of state and non-state variables
     this.state = {
-      data: [] as any,
+      data: [],
       page: 0,
-      loadStatu:
-        props.data > 0
-          ? ListLoadType.LIST_NORMAL
-          : ListLoadType.LIST_FIRST_JOIN,
+      loadStatu: ListLoadType.LIST_NORMAL,
     };
   }
 
@@ -36,64 +36,61 @@ export default class PageList<ItemT> extends Component<
 
   reload(page: number = 0) {
     const { pageSize = 20, loadPage } = this.props;
+    const { data } = this.state;
     if (loadPage) {
-      this.setState({ loadStatu: ListLoadType.LIST_LOAD_DATA }, async () => {
-        const res = await loadPage(page, pageSize);
-        const count = res?.length || 0;
-        const nextLoadStatu =
-          count < pageSize
-            ? ListLoadType.LIST_LOAD_NO_MORE
-            : ListLoadType.LIST_NORMAL;
-        this.setState({
-          page,
-          loadStatu: nextLoadStatu,
-          data: res || [],
-        });
-        // if (!!data) {
-        //   this.setState({page: 0, loadStatu: nextLoadStatu, data});
-        // } else {
-        //   this.setState({loadStatu: ListLoadType.LIST_NORMAL, data});
-        // }
-      });
+      this.setState(
+        {
+          loadStatu:
+            page === 0
+              ? ListLoadType.LIST_LOAD_DATA
+              : ListLoadType.LIST_LOAD_MORE,
+        },
+        async () => {
+          const res = await loadPage(page, pageSize);
+
+          if (!res) {
+            this.setState({
+              loadStatu: ListLoadType.LIST_NORMAL,
+            });
+          }
+
+          let newRes = [] as ItemT[];
+          let nextLoadStatu = ListLoadType.LIST_NORMAL;
+          if (Array.isArray(res)) {
+            newRes = res;
+            const count = res.length || 0;
+            nextLoadStatu =
+              count < pageSize
+                ? ListLoadType.LIST_LOAD_NO_MORE
+                : ListLoadType.LIST_NORMAL;
+          } else {
+            newRes = res!.data;
+            nextLoadStatu = !res!.hasMore
+              ? ListLoadType.LIST_LOAD_NO_MORE
+              : ListLoadType.LIST_NORMAL;
+          }
+
+          this.setState({
+            page,
+            loadStatu: nextLoadStatu,
+            data: page === 0 ? newRes : [...data, ...newRes],
+          });
+        },
+      );
     }
   }
 
   render() {
-    const { page, loadStatu, data } = this.state;
-    const { loadPage, pageSize = 40, ...otherProps } = this.props;
-
-    // console.log('xxx', data?.length || 0);
-    // console.log('www', (page + 1) * pageSize);
-
+    const { loadStatu, data, page } = this.state;
+    const { ...otherProps } = this.props;
     return (
       <List<ItemT>
         {...otherProps}
         // ref={ref=>ref.}
         data={data}
         loadStatu={loadStatu}
-        loadData={() => this.reload(0)}
-        loadMore={async () => {
-          if (loadPage) {
-            this.setState({ loadStatu: ListLoadType.LIST_LOAD_MORE });
-            const res = await loadPage(page + 1, pageSize);
-            const count = res?.length || 0;
-            const nextLoadStatu =
-              count < pageSize
-                ? ListLoadType.LIST_LOAD_NO_MORE
-                : ListLoadType.LIST_NORMAL;
-            this.setState({
-              page: page + 1,
-              loadStatu: nextLoadStatu,
-              data: [...data, ...(res as ItemT[])],
-            });
-          }
-
-          // if (!!data) {
-          //   this.setState({page: page + 1, loadStatu: nextLoadStatu});
-          // } else {
-          //   this.setState({loadStatu: ListLoadType.LIST_NORMAL});
-          // }
-        }}
+        loadData={this.reload.bind(this, 0)}
+        loadMore={this.reload.bind(this, page + 1)}
       />
     );
   }

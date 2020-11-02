@@ -123,7 +123,9 @@ const ButtonAndroid: FC<TouchableNativeFeedbackProps> = ({
   </TouchableNativeFeedback>
 );
 
-type ButtonType = TouchableNativeFeedbackProps & { activeOpacity?: number };
+export type ButtonType = TouchableNativeFeedbackProps & {
+  activeOpacity?: number;
+};
 
 const button = (Platform.OS !== 'ios'
   ? TouchableOpacity

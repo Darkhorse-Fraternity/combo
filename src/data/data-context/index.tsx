@@ -4,19 +4,22 @@ import { GetUsersIdResponse } from 'src/hooks/interface';
 // import { setHeader } from '../../../local_modules/react-native-qj-fetch/config';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
-export interface UserType extends GetUsersIdResponse {}
+export interface UserType extends GetUsersIdResponse {
+  isTourist: boolean;
+  // isLogin: boolean;
+}
 
 export interface StateType {
-  user: UserType | undefined;
+  user: UserType;
 }
 export type Action =
-  | { type: 'login'; user: UserType }
-  | { type: 'update_user_info'; user: UserType }
+  | { type: 'login'; user: GetUsersIdResponse }
+  | { type: 'update_user_info'; user: GetUsersIdResponse }
   | { type: 'logout' }
   | { type: 'init' };
 
 interface DataContextType {
-  config?: any;
+  config?: unknown;
   initialState?: StateType;
 }
 
@@ -25,7 +28,7 @@ export interface BaseProviderValueType {
   dispatch: React.Dispatch<Action>;
 }
 
-let user: UserType | undefined;
+let user: UserType = { isTourist: true } as UserType;
 
 const defaultInitialState: StateType = {
   user: user,
@@ -77,15 +80,27 @@ export const Provider: FC<DataContextType> = (props) => {
 
         // setHeader({ Authorization: 'Bearer ' + action.user.accessToken || '' });
         // user = action.user;
-        return { ...preState, user: action.user };
+        return {
+          ...preState,
+          user: {
+            ...action.user,
+            isTourist: !!action.user.authData?.anonymous?.id,
+          },
+        };
       case 'update_user_info': {
-        return { ...preState, user: action.user };
+        return {
+          ...preState,
+          user: {
+            ...action.user,
+            isTourist: !!action.user.authData?.anonymous?.id,
+          },
+        };
       }
       case 'logout':
         // AsyncStorage.removeItem('sessionToken');
         // setHeader({ Authorization: '' });
         // user = undefined;
-        return { ...preState, user: undefined };
+        return { ...preState, user: { isTourist: true } as UserType };
       case 'init':
         return { ...preState };
       default:

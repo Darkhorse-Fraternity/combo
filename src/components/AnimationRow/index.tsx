@@ -6,7 +6,6 @@
 
 import React, { PureComponent } from 'react';
 import { View, Animated } from 'react-native';
-import { connect } from 'react-redux';
 
 const ANIMATION_DURATION = 1000;
 

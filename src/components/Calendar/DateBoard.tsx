@@ -152,15 +152,7 @@ export default class DateBoard extends PureComponent {
             key={i}
             style={styles.dateBox}>
             <View style={[styles.selected]}>
-              <Text
-                style={[
-                  styles.dateText,
-                  {
-                    fontWeight: 'bold',
-                  },
-                ]}>
-                {i + ''}
-              </Text>
+              <Text style={[styles.dateText]}>{i + ''}</Text>
             </View>
           </Button>,
         );
@@ -215,7 +207,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   dateText2: {
-    fontSize: 15,
+    fontSize: 11,
     minWidth: 20,
     color: 'rgb(150,150,150)',
     textAlign: 'center',

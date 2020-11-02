@@ -1976,10 +1976,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@^0.63.20":
-  version "0.63.20"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.20.tgz#15ccf000bf849d867b15d14d2b4acc364fb7fa27"
-  integrity sha512-APnxRTDxbWw/IYjvwvXkhYJiz1gahyVA579pJqAVsEfZ+ZUwUHZpWKnexobyH5NmRJHuA/8LrThyps/BW3SYXA==
+"@types/react-native@^0.63.30":
+  version "0.63.30"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.63.30.tgz#a0bd61e61b7a020a538ea22901be2f5d178fe02f"
+  integrity sha512-8/PrOjuUaPTCfMeW12ubseZPUGdbRhxYDa/aT+0D0KWVTe60b4H/gJrcfJmBXC6EcCFcimuTzQCv8/S03slYqA==
   dependencies:
     "@types/react" "*"
 
@@ -9712,10 +9712,10 @@ react-native-push-notification@3.4.0:
   version "3.0.0"
   resolved "git+https://github.com/Darkhorse-Fraternity/react-native-qq.git#d3b139f940ee7ae898ce794dc95612b469bfecbd"
 
-react-native-rate@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.1.2.tgz#11c8a70de261da706311698270467fde5cf8a26b"
-  integrity sha512-anJhUcNKdWHUOgdgj26H4AHaymkM+4ilh7pTpT6BdZL9LIRRjS/L4WTdRiXDMFBw9GAvLJYE4/25lWn6AHUn4Q==
+react-native-rate@1.2.4:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.2.4.tgz#bb4024bebc28f40cd4eed70b5c5cbfa733ea68aa"
+  integrity sha512-lvmxu4UJ7/OfpNwww3AmTzAkKdD8z65VNguoKanRyBhrSm/IeNYLe482Vku9YodgWNkjZfl2AtJ51Sv9rhUu3A==
 
 react-native-reanimated@^1.13.0:
   version "1.13.1"
@@ -9823,10 +9823,10 @@ react-native-vector-icons@>=4.0.0:
     prop-types "^15.6.2"
     yargs "^13.2.2"
 
-react-native-webview@^10.9.0:
-  version "10.9.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.9.0.tgz#a45998f82ab1bbbbfde22b8b155394772610157a"
-  integrity sha512-zYZfmdJca/xRbwvvOfPhzL59SQC4L0W9rPWVF4zMi7BMDdCVHXVp0wKZ9KzmqxZNwadZNTxl5s0pvd6p3S34Fg==
+react-native-webview@^10.10.0:
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.10.0.tgz#285703c35eac1eac5b4446df2cba8a146d3c8548"
+  integrity sha512-T0AnZ0LVhaFBqZpl5attDDYo83zqdFRsFVINbrgHaIm6w5r0d/QK/dJRgXRNyFhn1fSONhe0ejdcnCYCT73B6g==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
