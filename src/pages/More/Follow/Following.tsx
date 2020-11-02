@@ -5,13 +5,13 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from '../../../components/Button';
 import { FOLLOWRECORD, ICARD, IUSE, USER } from '../../../redux/reqKeys';
 import { Privacy, CircleState } from '../../../configure/enum';
-import { StyleFolllow, StyleFollowText } from '../style';
-
+import { StyleFollowText } from '../style';
+import { StyleFolllow } from './style';
 import {
   StyledContent,
   StyleHeader,
@@ -275,7 +275,6 @@ export default class Following extends PureComponent {
         onPress={() => {
           this.props.navigation.navigate('recordDetail', {
             iUseId: item.objectId,
-            iCardId: iCard.objectId,
           });
         }}
       />

@@ -903,7 +903,7 @@ export const usePostCallIUseList3 = makeRequestHook<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 export interface GetClassesIUseRequest {}
 
@@ -912,7 +912,7 @@ export interface GetClassesIUseRequest {}
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 export interface GetClassesIUseResponse {
   results?: {
@@ -927,9 +927,9 @@ export interface GetClassesIUseResponse {
       iso?: string
     }
     user: {
-      __type?: string
-      className?: string
-      objectId?: string
+      __type: string
+      className: string
+      objectId: string
     }
     statu: string
     iCard: {
@@ -1008,7 +1008,7 @@ export interface GetClassesIUseResponse {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 type GetClassesIUseRequestConfig = Readonly<
   RequestConfig<
@@ -1028,7 +1028,7 @@ type GetClassesIUseRequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1049,7 +1049,7 @@ const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseResponse, GetClassesIUseRequestConfig>(
   getClassesIUseRequestConfig,
@@ -1060,7 +1060,7 @@ export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseR
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-10-12 17:56:30`
+ * @更新时间 `2020-11-02 17:06:55`
  */
 export const useGetClassesIUse = makeRequestHook<
   GetClassesIUseRequest,

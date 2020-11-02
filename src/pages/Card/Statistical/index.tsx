@@ -193,6 +193,7 @@ interface StatisticalProps {
   iCard: GetClassesICardIdResponse;
   iUse: GetClassesIUseIdResponse;
   tabLabel?: string;
+  userId?: string;
 }
 
 const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
@@ -224,7 +225,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
     count: '1',
     limit: '0',
     where: JSON.stringify({
-      ...userM(user?.objectId || ''),
+      ...userM(iUse.user?.objectId || ''),
       ...iUseM(iUseId),
       $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
       state: { $ne: -1 },
@@ -242,7 +243,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
   }
 
   const { data: calendarData, run, loading } = useGetClassesIDo<
-    Record<string, GetClassesIDoResponse['results'][number]>
+    Record<string, ItemType>
   >((item) => item, {
     manual: true,
     formatResult: (res) => {
@@ -337,7 +338,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
         move={(first, last) => {
           // 加载本月数据
           const where = {
-            ...userM(user?.objectId || ''),
+            ...userM(iUse.user?.objectId || ''),
             ...iUseM(iUseId),
             $or: [
               {

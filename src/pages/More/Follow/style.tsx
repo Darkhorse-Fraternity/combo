@@ -105,3 +105,9 @@ export const StyleFollowTipText = styled.Text`
 `;
 
 export const StyledBottomTitle = styled.Text``;
+
+export const StyleFolllow = styled.View`
+  flex-direction: row;
+  align-content: center;
+  justify-content: space-between;
+`;
