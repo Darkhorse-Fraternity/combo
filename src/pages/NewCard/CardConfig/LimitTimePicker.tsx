@@ -5,7 +5,6 @@
 
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
@@ -24,7 +23,6 @@ function PrefixInteger(num, length) {
   return (Array(length).join('0') + num).slice(-length);
 }
 
-@connect((state) => ({}), (dispatch) => ({}))
 export default class LimitTimePicker extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -118,7 +116,7 @@ export default class LimitTimePicker extends PureComponent {
     </StyledLimitTimeContent>
   );
 
-  render(): ReactElement<any> {
+  render() {
     const { name } = this.props;
 
     return (

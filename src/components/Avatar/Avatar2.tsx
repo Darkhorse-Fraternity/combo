@@ -14,12 +14,6 @@ import { UserType } from 'src/data/data-context';
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
 //?imageView/1/w/10/h/10/q/100/format/png
 
-// @connect(
-//   state => ({
-//     // user: state.user.data,
-//   }),
-//   dispatch => ({})
-// )
 interface AvatarType {
   radius?: number;
   load?: boolean;

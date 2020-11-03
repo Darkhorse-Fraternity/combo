@@ -55,7 +55,7 @@ export default class EarningsRecord extends PureComponent {
     );
   };
 
-  render(): ReactElement<any> {
+  render() {
     const { user } = this.props;
 
     const param = {

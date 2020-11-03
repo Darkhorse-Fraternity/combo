@@ -13,11 +13,12 @@ import {
   Platform,
   ActivityIndicator,
   BackHandler,
+  Modal,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { strings } from '../../../locales/i18n';
 import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
-import Modal from 'react-native-modal';
+// import Modal from 'react-native-modal';
 import Button from '../Button';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
@@ -49,11 +50,15 @@ export default class ImagesViewModals extends Component<
 
   constructor(props: ImagesViewModalsPorps) {
     super(props);
-    this.state = {
-      visible: false,
-    };
   }
 
+  shouldComponentUpdate(nextProps: ImagesViewModalsPorps) {
+    return (
+      nextProps.visible !== this.props.visible ||
+      nextProps.imageUrls !== this.props.imageUrls ||
+      nextProps.index !== this.props.index
+    );
+  }
   // componentWillUnmount() {
   //   this.jobId && RNFS.stopDownload(this.jobId)
   // }
@@ -69,7 +74,6 @@ export default class ImagesViewModals extends Component<
       style={styles.header}
       onPress={() => {
         // this.setState({ visible: false })
-        console.log('1111');
 
         const { closeCallBack } = this.props;
         closeCallBack && closeCallBack();
@@ -81,34 +85,25 @@ export default class ImagesViewModals extends Component<
     </Button>
   );
 
-  componentDidMount() {
-    // BackHandler.addEventListener('hardwareBackPress', () => {
-    //   console.log('111');
-    // });
-  }
-
   render() {
     const { imageUrls, visible, closeCallBack, index } = this.props;
 
-    // console.log('test:', imageUrls);
+    console.log('test222`:', imageUrls);
     return (
       <Modal
+        animated
+        animationType={'fade'}
         // useNativeDriver
-        style={{
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-          marginTop: 0,
-        }}
-        animationIn={'fadeIn'}
-        animationOut={'fadeOut'}
-        backdropColor={'black'}
-        backdropOpacity={1}
-        onBackButtonPress={() => {
+        style={styles.modal}
+        // animationIn={'fadeIn'}
+        // animationOut={'fadeOut'}
+        // backdropColor={'black'}
+        // backdropOpacity={1}
+        onRequestClose={() => {
           closeCallBack && closeCallBack();
         }}
-        useNativeDriver
-        isVisible={visible}>
+        // useNativeDriver
+        visible={visible}>
         {Platform.OS !== 'ios' && (
           <StatusBar
             backgroundColor="black"
@@ -152,6 +147,12 @@ export default class ImagesViewModals extends Component<
   }
 }
 const styles = StyleSheet.create({
+  modal: {
+    marginLeft: 0,
+    marginRight: 0,
+    marginBottom: 0,
+    marginTop: 0,
+  },
   close: {
     marginTop: 25,
     marginLeft: 25,

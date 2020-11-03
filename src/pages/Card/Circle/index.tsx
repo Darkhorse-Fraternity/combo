@@ -147,28 +147,6 @@ interface CircleProps {
   tabLabel?: string;
 }
 
-// @connect(
-//   (state) => ({
-//     user: state.user.data,
-//   }),
-//   (dispatch, props) => ({
-//     updatePrivacy: async (data, privacy) => {
-//       const id = data.objectId;
-//       const param = {
-//         privacy,
-//       };
-//       // const res = await update(id, param, IUSE)
-//       const lParams = classUpdate(IUSE, id, param);
-//       const res = await dispatch(req(lParams, 'updatePrivacy'));
-//       const entity = {
-//         ...param,
-//         ...res,
-//       };
-//       dispatch(addNormalizrEntity(IUSE, entity));
-//     }
-//   }),
-// )
-
 const PrivacyItem: FC<{
   iUse: GetClassesIUseIdResponse;
   iCard: GetClassesICardIdResponse;

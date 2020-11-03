@@ -35,7 +35,6 @@ function PrefixInteger(num, length) {
   return (Array(length).join('0') + num).slice(-length);
 }
 
-@connect((state) => ({}), (dispatch) => ({}))
 export default class NotifyTimePicker extends PureComponent {
   constructor(props: Object) {
     super(props);

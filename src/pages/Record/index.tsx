@@ -27,7 +27,7 @@ import { addNormalizrEntity } from '../../redux/module/normalizr';
 import { classUpdate } from '../../request/leanCloud';
 import { req } from '../../redux/actions/req';
 import AppleStyleSwipeableRow from '../../components/Swipeable';
-import { isTablet } from 'react-native-device-info';
+// import { isTablet } from 'react-native-device-info';
 
 const Archive = `${IUSE}archive`;
 
