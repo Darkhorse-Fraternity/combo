@@ -84,10 +84,10 @@ export const StyledShowDelete = styled.Text`
 
 //NotifyTimerPicker
 
-export const StyledTopButton = styled(Button)`
+export const StyledTopButton = styled(Button)<{ top?: number }>`
   align-items: center;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: ${(props) => props.top ?? 20}px;
 `;
 
 interface StyledIconBGType {
@@ -119,7 +119,7 @@ export const StyledIconImage = styled.Image<StyledIconImageType>`
 export const StyledTitleView = styled.View`
   align-items: center;
   flex-direction: row;
-  margin-top: 10px;
+  margin-top: 0px;
 `;
 
 export const StyledIcon = styled(FontAwesome)`
@@ -134,7 +134,7 @@ export const StyledTitle = styled.Text`
 
 export const StyledCellButton = styled(Button)`
   margin: 7.5px;
-  padding: 15px 20px;
+  padding: 15px 20px 5px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -162,4 +162,10 @@ export const StyledArrow = styled.View`
   transform: rotate(315deg);
   width: 10px;
   height: 10px;
+`;
+
+export const StyledTitleInput = styled.TextInput`
+  font-size: 17px;
+  background: ${(props) => props.theme.textinputbackgroundColor};
+  height: 50px;
 `;

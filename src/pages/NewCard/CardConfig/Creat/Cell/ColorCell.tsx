@@ -5,13 +5,17 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
 
 import { StyledColorCell } from './style';
 
-export default class ColorCell extends Component {
-  constructor(props: Object) {
+interface IconCellProps {
+  select: boolean;
+  color: string;
+  onPress: (color: string) => void;
+}
+
+export default class ColorCell extends Component<IconCellProps> {
+  constructor(props: IconCellProps) {
     super(props);
   }
 
@@ -20,7 +24,7 @@ export default class ColorCell extends Component {
 
   componentDidMount() {}
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: IconCellProps) {
     return nextProps.select !== this.props.select;
   }
 

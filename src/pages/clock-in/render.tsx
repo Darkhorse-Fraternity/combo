@@ -424,14 +424,14 @@ const Render: FC<{}> = () => {
           as={CustomImagePick}
         />
         <ToolBar
-          onPress={(type) => {
-            if (type === 'imagePick') {
+          onPress={(toolBartype) => {
+            if (toolBartype === 'imagePick') {
               ref?.current?.call(undefined, true);
             }
           }}
           showImagePickTip={record.includes('图片')}
           control={control}
-          setValue={setValue}
+          setValue={setValue as never}
         />
       </StyledKeyboardAvoidingView>
     </StyledContent>

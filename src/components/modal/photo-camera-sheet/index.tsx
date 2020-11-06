@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { FC, memo, useEffect, useRef } from 'react';
+import React, { FC, memo, useEffect, useRef, useState } from 'react';
 // import Button from 'components/Button';
 import {
   ContentView,
@@ -49,6 +49,7 @@ export interface InnerViewProps {
 }
 
 const InnerView = (props: InnerViewProps) => {
+  const [loading, setLoding] = useState(false);
   const { onSuccess, onClose, option, onPick } = props;
 
   const ref = useRef<NodeJS.Timeout>();
@@ -57,6 +58,10 @@ const InnerView = (props: InnerViewProps) => {
       ref.current && clearTimeout(ref.current);
     };
   }, []);
+
+  if (loading) {
+    return null;
+  }
 
   return (
     <ContentView>
@@ -67,8 +72,11 @@ const InnerView = (props: InnerViewProps) => {
             selectCamera(option)
               .then((res) => {
                 onSuccess(res);
+                setLoding(false);
               })
-              .catch((e) => {});
+              .catch((e) => {
+                setLoding(false);
+              });
           } else {
             onPick();
           }
@@ -82,9 +90,12 @@ const InnerView = (props: InnerViewProps) => {
         onPress={() => {
           onPick && onPick();
           if (!onPick) {
+            setLoding(true);
             selectAlbum(option)
               .then((res) => onSuccess(res))
-              .catch((e) => {});
+              .catch((e) => {
+                setLoding(false);
+              });
           } else {
             onPick();
           }

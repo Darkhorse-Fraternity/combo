@@ -69,7 +69,7 @@ export type RootStackParamList = {
   [RouteKey.creat]: undefined;
   [RouteKey.newCard]: undefined;
   [RouteKey.record]: undefined;
-  [RouteKey.cardConfig]: undefined;
+  [RouteKey.cardConfig]: { iCardId: string };
   [RouteKey.account]: undefined;
   // [RouteKey.feedback]: undefined;
   [RouteKey.cardInfo]: undefined;

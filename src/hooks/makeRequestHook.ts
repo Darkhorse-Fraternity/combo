@@ -1,7 +1,7 @@
 import { RequestConfig } from 'yapi-to-typescript';
 import { Request } from './interface';
 import baseRequest from './request';
-import { useRequest } from 'ahooks';
+import useRequest from '@ahooksjs/use-request';
 import { OptionsWithFormat } from '@ahooksjs/use-request/lib/types';
 
 interface OptionsWithFormat2<R, P extends unknown[], U, UU extends U>

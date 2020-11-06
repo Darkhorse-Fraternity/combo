@@ -107,6 +107,8 @@ export const StyledDateTextBig = styled.Text<{ color: string }>`
   color: ${(props) => props.color || 'gray'};
   font-size: 20px;
   font-weight: bold;
+  min-width: 40px;
+  text-align: center;
 `;
 
 export const StyledDateTextSmall = styled.Text<{ color: string }>`
@@ -114,4 +116,6 @@ export const StyledDateTextSmall = styled.Text<{ color: string }>`
   color: ${(props) => props.color || 'gray'};
   font-size: 12px;
   font-weight: bold;
+  min-width: 50px;
+  text-align: center;
 `;

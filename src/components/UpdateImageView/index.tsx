@@ -209,7 +209,13 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
       //   imageArray.push(item.url);
       // });
       setstate(false);
-      onChange([...value, ...image.map((item) => ({ url: item.path }))]);
+      // const imgs = [...value, ...image.map((item) => ({ url: item.path }))];
+      //去重
+      const imgs = [
+        ...value.map((item) => item.url),
+        ...image.map((item) => item.path),
+      ];
+      onChange([...new Set(imgs)].map((item) => ({ url: item })));
     }
   };
 

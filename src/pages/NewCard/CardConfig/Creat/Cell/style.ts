@@ -22,12 +22,12 @@ export const StyledCell = styled(TouchableBounce)`
 
 export const StyledCellBtn = styled.View``;
 
-export const StyledCellImage = styled.Image`
+export const StyledCellImage = styled.Image<{ size: number }>`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
 `;
 
-export const StyledColorCell = styled(TouchableBounce)`
+export const StyledColorCell = styled(TouchableBounce)<{ color: string }>`
   width: 30px;
   height: 30px;
   margin: 15px 20px 15px 30px;

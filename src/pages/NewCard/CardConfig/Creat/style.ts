@@ -28,7 +28,7 @@ export const StyledHeaderInner = styled.View`
   flex-direction: row;
 `;
 
-export const StyledHeaderBtn = styled(HeaderBtn)`
+export const StyledHeaderBtn = styled(HeaderBtn)<{ backgroundColor: string }>`
   background-color: ${(props) =>
     props.backgroundColor || props.theme.sureColor};
   margin-left: 10px;

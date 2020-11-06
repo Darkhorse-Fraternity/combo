@@ -68,10 +68,10 @@ colorNames.forEach((name) => {
   });
 });
 
-const colors = shuffle(ColorData);
+const colors: string[] = shuffle(ColorData);
 colors.unshift('#afd2ef');
 
-const colorsCutThree = [];
+const colorsCutThree: string[][] = [];
 
 for (let i = 0, len = icons.length; i < len; i += 3) {
   colorsCutThree.push(colors.slice(i, i + 3));

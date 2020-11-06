@@ -121,7 +121,7 @@ export const StyledInner = styled.View`
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0px 10px;
+  padding: 0px 0px 0px 10px;
 `;
 
 export const StyledNotifyTime = styled.Text`

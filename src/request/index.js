@@ -40,7 +40,6 @@ export async function send({
 
   const contentType = headers['Content-Type'];
   let body;
-  console.log('method', method);
 
   if (method === methodType.post || method === methodType.put) {
     body = fetchBody(params, contentType);

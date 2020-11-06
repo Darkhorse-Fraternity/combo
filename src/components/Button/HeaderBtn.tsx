@@ -4,22 +4,31 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
-import Button from '.';
+import React, { PureComponent } from 'react';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ActivityIndicator,
+  TouchableNativeFeedbackProps,
+} from 'react-native';
 import { theme } from '../../Theme';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import { debounce } from 'lodash'; // 4.0.8
 
-export default class HeaderBtn extends Component {
+export default class HeaderBtn extends PureComponent<
+  {
+    load?: boolean;
+    disabled?: boolean;
+    title: string;
+  } & TouchableNativeFeedbackProps
+> {
   constructor(props: Object) {
     super(props);
-    this.state = {};
   }
 
-  debouncedOnPress = () => {
-    this.props.onPress && this.props.onPress();
+  debouncedOnPress = (e: never) => {
+    this.props.onPress && this.props.onPress(e);
   };
   onPress = debounce(this.debouncedOnPress, 300, {
     leading: true,

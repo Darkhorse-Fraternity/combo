@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { StrictMode, useEffect, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
