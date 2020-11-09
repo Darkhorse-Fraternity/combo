@@ -5,7 +5,7 @@
 
 // import * as immutable from 'immutable';
 import React, { FC, PureComponent, useEffect, useState } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, DeviceEventEmitter } from 'react-native';
 // import { connect } from 'react-redux';
 // import Toast from 'react-native-simple-toast';
 // import { reduxForm, formValueSelector, change } from 'redux-form/immutable';
@@ -42,8 +42,13 @@ import {
 } from './card_interface';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { useGetClassesICardId } from 'src/hooks/interface';
+import {
+  putClassesICardId,
+  putClassesIUseId,
+  useGetClassesICardId,
+} from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
+import { DeviceEventEmitterKey } from '@configure/enum';
 // static displayName = OptionView
 
 // const FormID = 'CreatCardForm';
@@ -162,6 +167,7 @@ import { LoadAnimation } from '@components/Load';
 
 const CardConfig: FC<{}> = (props) => {
   const [step, setStep] = useState(0);
+  const [loading, setLoading] = useState(false);
   const { goBack } = useNavigation();
   const { iCardId } = useNavigationAllParamsWithType<RouteKey.cardConfig>();
 
@@ -181,7 +187,7 @@ const CardConfig: FC<{}> = (props) => {
     },
     mode: 'onSubmit',
   });
-  console.log('data', data);
+  // console.log('data', data);
 
   useEffect(() => {
     if (data) {
@@ -205,6 +211,34 @@ const CardConfig: FC<{}> = (props) => {
     }
   }, [data]);
 
+  const onSubmit = async ({
+    title,
+    record,
+    limitTimes,
+    iconAndColor,
+    notifyText,
+    notifyTimes,
+    sound,
+  }: CardFormData) => {
+    delete sound.item.source;
+    setLoading(true);
+    const { objectId } = await putClassesICardId({
+      id: iCardId,
+      title,
+      record,
+      recordDay: limitTimes.day,
+      limitTimes: limitTimes.time,
+      iconAndColor: iconAndColor,
+      describe: notifyText,
+      notifyTimes,
+      sound,
+    });
+    if (objectId) {
+      DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
+    }
+    setLoading(false);
+  };
+
   const nextStep = () => {
     step === 0 && setStep((s) => s + 1);
   };
@@ -213,19 +247,13 @@ const CardConfig: FC<{}> = (props) => {
       goBack();
     } else {
       setStep((data) => data - 1);
+      // update iUse
+      handleSubmit(onSubmit)();
     }
     return null;
   };
 
   useEffect(() => {
-    // const backStep = () => {
-    //   if (step === 0) {
-    //     goBack();
-    //   } else {
-    //     setStep((data) => data - 1);
-    //   }
-    //   return true;
-    // };
     BackHandler.addEventListener('hardwareBackPress', backStep);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', backStep);
@@ -256,7 +284,7 @@ const CardConfig: FC<{}> = (props) => {
           )}
           {step >= 1 && (
             <StyledHeaderBtn
-              // load={false}
+              load={loading}
               // disabled={false}
               backgroundColor={color}
               hitSlop={{
@@ -267,6 +295,7 @@ const CardConfig: FC<{}> = (props) => {
               }}
               onPress={async () => {
                 // await this.props.refresh();
+                // 准备提交
                 backStep();
               }}
               title="保存"
@@ -277,9 +306,7 @@ const CardConfig: FC<{}> = (props) => {
 
       <StyledInnerView>
         {!data && <LoadAnimation top={120} />}
-        {data && (
-          <Main control={control} step={step} nextStep={nextStep} {...props} />
-        )}
+        {data && <Main control={control} step={step} nextStep={nextStep} />}
       </StyledInnerView>
     </StyledContent>
   );

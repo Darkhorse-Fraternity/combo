@@ -49,15 +49,13 @@ interface IconAndColorType {
 //   return `${key}`;
 // };
 const IconAndColor: FC<IconAndColorType> = (props) => {
-  const { icon, color, onChange } = props;
+  const { icon = 'sun', color, onChange } = props;
 
   const [state, setstate] = useState({ name: icon, color });
 
   const firstRef = useRef(true);
   useEffect(() => {
     if (state && !firstRef.current && onChange) {
-      console.log('state', state);
-
       onChange(state);
     }
     firstRef.current = false;

@@ -1073,7 +1073,7 @@ export const useGetClassesIUse = makeRequestHook<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 export interface GetClassesIUseIdRequest {
   include?: string
@@ -1086,13 +1086,13 @@ export interface GetClassesIUseIdRequest {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 export interface GetClassesIUseIdResponse {
   updatedAt: string
   cycle?: number
   objectId: string
-  privacy?: number
+  privacy: number
   time: number
   createdAt: string
   doneDate?: {
@@ -1147,7 +1147,7 @@ export interface GetClassesIUseIdResponse {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 type GetClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
@@ -1167,7 +1167,7 @@ type GetClassesIUseIdRequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1188,7 +1188,7 @@ const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 export const getClassesIUseId = makeRequest<
   GetClassesIUseIdRequest,
@@ -1201,7 +1201,7 @@ export const getClassesIUseId = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse/:id`
- * @更新时间 `2020-10-21 15:32:45`
+ * @更新时间 `2020-11-09 17:44:47`
  */
 export const useGetClassesIUseId = makeRequestHook<
   GetClassesIUseIdRequest,
@@ -1210,11 +1210,11 @@ export const useGetClassesIUseId = makeRequestHook<
 >(getClassesIUseId)
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求类型**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 export interface PutClassesIUseIdRequest {
   privacy?: number
@@ -1223,11 +1223,11 @@ export interface PutClassesIUseIdRequest {
 }
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **返回类型**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **返回类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 export interface PutClassesIUseIdResponse {
   objectId?: string
@@ -1235,11 +1235,11 @@ export interface PutClassesIUseIdResponse {
 }
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置的类型**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置的类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 type PutClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
@@ -1255,11 +1255,11 @@ type PutClassesIUseIdRequestConfig = Readonly<
 >
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求配置**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1276,11 +1276,11 @@ const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
 }
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求函数**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **请求函数**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 export const putClassesIUseId = makeRequest<
   PutClassesIUseIdRequest,
@@ -1289,17 +1289,118 @@ export const putClassesIUseId = makeRequest<
 >(putClassesIUseIdRequestConfig)
 
 /**
- * 接口 [更新卡片配置↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **React Hook**
+ * 接口 [更新卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/506) 的 **React Hook**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-10-23 15:05:22`
+ * @更新时间 `2020-11-09 17:45:46`
  */
 export const usePutClassesIUseId = makeRequestHook<
   PutClassesIUseIdRequest,
   PutClassesIUseIdRequestConfig,
   ReturnType<typeof putClassesIUseId>
 >(putClassesIUseId)
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **请求类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+export interface PostClassesIUseRequest {
+  privacy?: number
+  statu?: string
+  iCard: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
+}
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **返回类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+export interface PostClassesIUseResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **请求配置的类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+type PostClassesIUseRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iUse',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **请求配置**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+const postClassesIUseRequestConfig: PostClassesIUseRequestConfig = {
+  mockUrl: mockUrl_0_1_0_0,
+  devUrl: devUrl_0_1_0_0,
+  prodUrl: prodUrl_0_1_0_0,
+  path: '/classes/iUse',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_0,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **请求函数**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+export const postClassesIUse = makeRequest<
+  PostClassesIUseRequest,
+  PostClassesIUseResponse,
+  PostClassesIUseRequestConfig
+>(postClassesIUseRequestConfig)
+
+/**
+ * 接口 [添加卡片使用↗](http://121.89.170.197:3000/project/59/interface/api/514) 的 **React Hook**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `POST /classes/iUse`
+ * @更新时间 `2020-11-09 18:07:35`
+ */
+export const usePostClassesIUse = makeRequestHook<
+  PostClassesIUseRequest,
+  PostClassesIUseRequestConfig,
+  ReturnType<typeof postClassesIUse>
+>(postClassesIUse)
 
 const mockUrl_0_1_0_1 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_1 = 'https://api.icourage.cn/1.1' as any
@@ -1580,11 +1681,29 @@ export const useGetClassesICardId = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 export interface PutClassesICardIdRequest {
   circleState?: number
   state?: number
+  describe?: string
+  iconAndColor?: {
+    name: string
+    color: string
+  }
+  limitTimes?: string[]
+  notifyTimes?: string[]
+  record?: string[]
+  recordDay?: number[]
+  sound?: {
+    open: boolean
+    item: {
+      title: string
+      type: string
+      key: string
+    }
+  }
+  title?: string
   id: string
 }
 
@@ -1593,7 +1712,7 @@ export interface PutClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 export interface PutClassesICardIdResponse {
   objectId?: string
@@ -1605,7 +1724,7 @@ export interface PutClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 type PutClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1625,7 +1744,7 @@ type PutClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1646,7 +1765,7 @@ const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 export const putClassesICardId = makeRequest<
   PutClassesICardIdRequest,
@@ -1659,13 +1778,122 @@ export const putClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-10-23 14:59:56`
+ * @更新时间 `2020-11-09 10:15:31`
  */
 export const usePutClassesICardId = makeRequestHook<
   PutClassesICardIdRequest,
   PutClassesICardIdRequestConfig,
   ReturnType<typeof putClassesICardId>
 >(putClassesICardId)
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **请求类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+export interface PostClassesICardRequest {
+  circleState?: number
+  state?: number
+  describe: string
+  iconAndColor: {
+    name: string
+    color: string
+  }
+  limitTimes: string[]
+  notifyTimes: string[]
+  record: string[]
+  recordDay: number[]
+  sound: {
+    open: boolean
+    item: {
+      title: string
+      type: string
+      key: string
+    }
+  }
+  title: string
+}
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **返回类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+export interface PostClassesICardResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **请求配置的类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+type PostClassesICardRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iCard',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **请求配置**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+const postClassesICardRequestConfig: PostClassesICardRequestConfig = {
+  mockUrl: mockUrl_0_1_0_1,
+  devUrl: devUrl_0_1_0_1,
+  prodUrl: prodUrl_0_1_0_1,
+  path: '/classes/iCard',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_1,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **请求函数**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+export const postClassesICard = makeRequest<
+  PostClassesICardRequest,
+  PostClassesICardResponse,
+  PostClassesICardRequestConfig
+>(postClassesICardRequestConfig)
+
+/**
+ * 接口 [新建卡片习惯↗](http://121.89.170.197:3000/project/59/interface/api/512) 的 **React Hook**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `POST /classes/iCard`
+ * @更新时间 `2020-11-09 18:06:30`
+ */
+export const usePostClassesICard = makeRequestHook<
+  PostClassesICardRequest,
+  PostClassesICardRequestConfig,
+  ReturnType<typeof postClassesICard>
+>(postClassesICard)
 
 const mockUrl_0_1_0_2 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_2 = 'https://api.icourage.cn/1.1' as any

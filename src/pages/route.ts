@@ -68,9 +68,9 @@ export const otherRoute = {
     component: Following,
     options: Following.navigationOptions,
   },
-  [RouteKey.creat]: { component: Creat, options: Creat.navigationOptions },
+  [RouteKey.creat]: Creat,
   [RouteKey.newCard]: NewCard,
-  [RouteKey.record]: { component: Record, options: Record.navigationOptions },
+  [RouteKey.record]: { component: Record },
   [RouteKey.cardConfig]: CardConfig,
   [RouteKey.account]: { component: Account },
   [RouteKey.cardInfo]: {
@@ -100,7 +100,7 @@ export const otherRoute = {
   // pptDescribe: { screen: PPTDescribe },
 };
 
-export const punchRoute: RouteType = {
+export const punchRoute = {
   ...otherRoute,
   [RouteKey.punch]: {
     component: AndroidBackHandleHOCComponent(Punch.component),
@@ -109,7 +109,7 @@ export const punchRoute: RouteType = {
   },
 };
 
-export const habitRoute: RouteType = {
+export const habitRoute = {
   ...otherRoute,
   [RouteKey.habit]: {
     component: AndroidBackHandleHOCComponent(Habit.component),
@@ -117,7 +117,7 @@ export const habitRoute: RouteType = {
   },
 };
 
-export const flagRoute: RouteType = {
+export const flagRoute = {
   ...otherRoute,
   [RouteKey.flag]: {
     component: AndroidBackHandleHOCComponent(Flag.component),

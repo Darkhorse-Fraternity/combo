@@ -1,9 +1,5 @@
 import React, { useMemo } from 'react';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
-import {
-  createStackNavigator,
-  StackNavigationOptions,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Feather from 'react-native-vector-icons/Feather';
 // import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
@@ -55,7 +51,7 @@ const PunchStack = () => {
     <OrigenStack
       initialRouteName={RouteKey.punch}
       // initialParams={}
-      route={punchRoute}
+      route={punchRoute as never}
     />
   );
 };
@@ -65,7 +61,7 @@ const HabitStack = () => {
     <OrigenStack
       initialRouteName={RouteKey.habit}
       // initialParams={}
-      route={habitRoute}
+      route={habitRoute as never}
     />
   );
 };
@@ -75,7 +71,7 @@ const FlagStack = () => {
     <OrigenStack
       initialRouteName={RouteKey.flag}
       // initialParams={}
-      route={flagRoute}
+      route={flagRoute as never}
     />
   );
 };
@@ -85,7 +81,7 @@ const SettingsStack = () => {
     <OrigenStack
       initialRouteName={RouteKey.more}
       // initialParams={}
-      route={settingRoute}
+      route={settingRoute as never}
     />
   );
 };
@@ -121,7 +117,7 @@ const tabs: TabsConfig<FlashyTabBarItemConfig> = {
 
 const Tab = createBottomTabNavigator();
 
-const options = ({ route }: { route: any }) => {
+const options = ({ route }: { route: { state: { index: number } } }) => {
   return { tabBarVisible: route.state ? route.state.index === 0 : true };
 };
 
@@ -179,27 +175,28 @@ export default function App() {
           itemInnerSpace={12}
           // style={{}}
           {...props}
+          // style={props.style}
         />
       )}>
       <Tab.Screen
         name={strings('tabs.clockIn')}
         component={PunchStack}
-        options={options}
+        options={options as never}
       />
       <Tab.Screen
         name={strings('tabs.habit')}
         component={HabitStack}
-        options={options}
+        options={options as never}
       />
       <Tab.Screen
         name={strings('tabs.flag')}
         component={FlagStack}
-        options={options}
+        options={options as never}
       />
       <Tab.Screen
         name={strings('tabs.more')}
         component={SettingsStack}
-        options={options}
+        options={options as never}
       />
       {/* <Tab.Screen name="Settings" component={SettingsScreen} /> */}
     </Tab.Navigator>

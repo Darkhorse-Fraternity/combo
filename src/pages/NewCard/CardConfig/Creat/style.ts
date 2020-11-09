@@ -28,7 +28,7 @@ export const StyledHeaderInner = styled.View`
   flex-direction: row;
 `;
 
-export const StyledHeaderBtn = styled(HeaderBtn)<{ backgroundColor: string }>`
+export const StyledHeaderBtn = styled(HeaderBtn)<{ backgroundColor?: string }>`
   background-color: ${(props) =>
     props.backgroundColor || props.theme.sureColor};
   margin-left: 10px;
@@ -54,4 +54,10 @@ export const StyledInnerScrollView = styled.ScrollView`
 export const StyledInnerView = styled.View`
   flex: 1;
   padding: 10px 0px;
+`;
+
+export const StyledTitleInput = styled.TextInput`
+  font-size: 17px;
+  background: ${(props) => props.theme.textinputbackgroundColor};
+  height: 50px;
 `;

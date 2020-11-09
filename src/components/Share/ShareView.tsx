@@ -91,7 +91,7 @@ export default class ShareView extends Component<ShareModal, StateType> {
       });
   }
 
-  render(): ReactElement<any> {
+  render() {
     const item = (source, titel, press) => (
       <Button
         background={

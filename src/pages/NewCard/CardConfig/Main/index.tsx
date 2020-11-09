@@ -242,9 +242,8 @@ const RenderTitle: FC<
       value?: string;
       onChange?: (title: string) => void;
     }
-> = ({ step, value, onPress, type }) => {
+> = ({ step, value, onPress, onChange, type }) => {
   // const { title, icon } = value;
-
   const ref = useRef<Animatable.View>(null);
   const firstRef = useRef(true);
   useEffect(() => {
@@ -284,10 +283,12 @@ const RenderTitle: FC<
 
           <StyledTitleInput
             // name="title"
+            value={value}
             placeholderTextColor="rgba(180,180,180,1)"
             returnKeyType="done"
             autoFocus={false}
             maxLength={50}
+            onChange={(e) => onChange?.call(undefined, e.nativeEvent.text)}
             // keyboardType={boardType}
             style={[styles.textInputTitle]}
             underlineColorAndroid="transparent"
@@ -525,7 +526,12 @@ const RenderComboRecord: FC<
       ref={ref as never}
       useNativeDriver
       delay={index * 100}>
-      {step === 0 && <RenderItem {...other} discrib={value.toString()} />}
+      {step === 0 && (
+        <RenderItem
+          {...other}
+          discrib={value.length > 0 ? value.toString() : '无'}
+        />
+      )}
       {step === 1 && type === CardRecord && (
         <RemderRecord onChange={onChange} value={value} />
       )}
@@ -586,6 +592,8 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
     setType(value);
     nextStep();
   };
+  console.log('???');
+
   return (
     <ScrollView style={[styles.wrap]}>
       <Controller
