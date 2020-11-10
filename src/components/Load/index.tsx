@@ -1,14 +1,11 @@
 import Indicators from '@components/Indicators';
-import React, { PureComponent } from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   View,
-  Image,
   Dimensions,
   Platform,
-  PixelRatio,
   StyleSheet,
-  StyleProp,
   ViewProps,
 } from 'react-native';
 // import {hideLoding, showLoading} from '../NativeTool';
@@ -24,23 +21,6 @@ export default function (
     </View>
   );
 }
-
-// export class LoadCmp extends PureComponent {
-//   componentDidMount() {
-//     showLoading();
-//   }
-//   componentWillUnmount() {
-//     hideLoding();
-//   }
-
-//   render() {
-//     return (
-//       <>
-//         <View {...this.props} style={{flex: 1}} />
-//       </>
-//     );
-//   }
-// }
 
 //@Deprecated WARGMING: use loadGif!
 export function loadCmp() {

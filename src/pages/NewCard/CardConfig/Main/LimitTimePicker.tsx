@@ -3,13 +3,11 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useState } from 'react';
-import { View } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { FC, useState } from 'react';
+
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
-import { FieldArray, Field } from 'redux-form/immutable';
 
 import {
   StyledLimitTimeContent,
@@ -22,32 +20,6 @@ import {
 function PrefixInteger(num: number, length: number) {
   return (Array(length).join('0') + num).slice(-length);
 }
-
-// class LimitTimePickerClass extends PureComponent {
-//   constructor(props: Object) {
-//     super(props);
-//   }
-
-//   _handleDatePicked = (date) => {
-//     const hours = PrefixInteger(date.getHours(), 2);
-//     const minutes = PrefixInteger(date.getMinutes(), 2);
-//     const time = `${hours}:${minutes}`;
-//     this.onChange(time);
-//   };
-
-//   render() {
-//     const { name } = this.props;
-
-//     return (
-//       <FieldArray
-//         key={name}
-//         name={name}
-//         isDelete={this.state.isDelete}
-//         component={this.renderComponent}
-//       />
-//     );
-//   }
-// }
 
 interface NotifyTimePickerProps {
   options: string[];

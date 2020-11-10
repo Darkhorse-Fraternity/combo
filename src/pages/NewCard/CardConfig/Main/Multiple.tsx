@@ -24,7 +24,7 @@ export default class Multiple<T> extends PureComponent<MultipleProps<T>> {
     this.onValueChange = this.onValueChange.bind(this);
   }
   static defaultProps = {
-    componentName: 'Radio',
+    componentName: 'Multiple',
     onValueChange: () => {},
     keyName: '',
     // value: [],

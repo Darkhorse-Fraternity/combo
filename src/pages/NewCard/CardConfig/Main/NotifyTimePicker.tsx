@@ -36,56 +36,6 @@ interface NotifyTimePickerProps {
   onChange?: (options: string[]) => void;
 }
 
-// class NotifyTimePickerClass extends PureComponent<NotifyTimePickerProps> {
-//   constructor(props: NotifyTimePickerProps) {
-//     super(props);
-//     this.state = {
-//       isDateTimePickerVisible: false,
-//       isDelete: false,
-//     };
-//   }
-
-//   componentWillUnmount() {
-//     this.timer && clearTimeout(this.timer);
-//   }
-
-//   handleViewRef = {};
-
-//   onChange = null;
-
-//   dataArray = [];
-
-//   _handleDatePicked = (date) => {
-//     this.setState({ isDateTimePickerVisible: false });
-//     const hours = PrefixInteger(date.getHours(), 2);
-//     const minutes = PrefixInteger(date.getMinutes(), 2);
-//     const time = `${hours}:${minutes}`;
-//     this.onChange && this.onChange(time);
-
-//     this.onChange = null;
-//   };
-
-//   _hideDateTimePicker = () => {
-//     this.setState({ isDateTimePickerVisible: false });
-//   };
-
-//   render() {
-//     return (
-//       <DateTimePicker
-//         isVisible={this.state.isDateTimePickerVisible}
-//         mode="time"
-//         display="spinner"
-//         cancelTextIOS="取消"
-//         headerTextIOS="选择提醒时间"
-//         // isDarkModeEnabled={true}
-//         confirmTextIOS="确定"
-//         onConfirm={this._handleDatePicked}
-//         onCancel={this._hideDateTimePicker}
-//       />
-//     );
-//   }
-// }
-
 const NoticeTip = () => {
   const { navigate } = useNavigation();
   const state = useLocalRemindConfig();

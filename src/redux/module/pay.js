@@ -3,9 +3,8 @@ import * as WeChat from 'react-native-wechat';
 import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
 import Toast from 'react-native-simple-toast';
-import DeviceInfo from 'react-native-device-info';
 import { formValueSelector } from 'redux-form/immutable';
-import { userpay, payOrder } from '../../request/leanCloud';
+import { userpay } from '../../request/leanCloud';
 import { req } from '../actions/req';
 // type: 0:wechat 1:alipay
 import { update } from '../actions/user';
@@ -259,10 +258,7 @@ const initialState = immutable.fromJS({
 
 export const PAY = 'PAY';
 
-export default function payState(
-  state: immutable.Map<string, any> = initialState,
-  action: Object,
-) {
+export default function payState(state = initialState, action) {
   switch (action.type) {
     case PAY: {
       // const { fromJS } = require('immutable')

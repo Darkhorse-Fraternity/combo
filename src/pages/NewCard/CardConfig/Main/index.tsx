@@ -3,19 +3,16 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
-  TextInput,
   NativeSyntheticEvent,
   TextInputChangeEventData,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-// import { TextInput } from '../../../../components/Form/Cunstom/index';
-// import { Radio, Multiple } from '../../../../components/Form/Select/index';
-// import { Field, formValues } from 'redux-form/immutable';
+
 import {
   StyledTitleText,
   StyledSubView,
@@ -55,7 +52,7 @@ import {
   CardTitle,
 } from '../card_interface';
 import { Control, Controller } from 'react-hook-form';
-import Multiple from '@components/Form/Select/Multiple';
+import Multiple from './Multiple';
 
 interface OptionDoProps {
   step: number;
@@ -79,31 +76,6 @@ const RenderItem: FC<RenderItemProps> = ({ title, discrib, ...other }) => (
     <StyledArrow />
   </StyledCellButton>
 );
-
-// const Renderperiod = () => {
-//   const items = ['5', '6', '7', '8', '9', '10', '14', '21', '30'];
-
-//   const __renderRadioItem = (item: string, selItem: string) => (
-//     <StyledItemView contain={selItem === item} style={{ width: 75 }} key={item}>
-//       <StyledItemText contain={selItem === item}>{item}组</StyledItemText>
-//     </StyledItemView>
-//   );
-
-//   return (
-//     <>
-//       <StyledSubTitleView>
-//         <StyledSubTitle>习惯周期</StyledSubTitle>
-//       </StyledSubTitleView>
-//       <Radio
-//         style={[styles.notifyTimeView]}
-//         name="period"
-//         // keyName='ItemId'
-//         options={items}
-//         renderItem={__renderRadioItem}
-//       />
-//     </>
-//   );
-// };
 
 const RemderNotifyText: FC<{
   value: string;

@@ -11,19 +11,13 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-// import { connect } from 'react-redux';
 
-// import { formValueSelector, change } from 'redux-form/immutable'; // <-- same as form name
 import { StyledSubTitleView, StyledSubTitle } from './style';
 import { StyledCell, StyledCellImage } from './Cell/style';
 import Cell from './Cell';
 import ColorCell from './Cell/ColorCell';
 import svgs from '../../../../../source/icons';
-// import colors from '../../../../../source/colors'
 import { colorsCutThree, iconsCutThree } from './IconAndColorData';
-
-// export const FormID = 'CreatCardForm';
-// const selector = formValueSelector(FormID);
 
 interface IconAndColorType {
   icon: string;
@@ -31,23 +25,6 @@ interface IconAndColorType {
   onChange?: (data: { name: string; color: string }) => void;
 }
 
-// @connect(
-//   (state) => ({
-//     // iconAndColor: selector(state, 'iconAndColor'),
-//     icon: selector(state, 'icon'),
-//     color: selector(state, 'color'),
-//   }),
-//   (dispatch) => ({
-//     onChange: (field: string, value: string | object) => {
-//       dispatch(change('CreatCardForm', field, value));
-//     },
-//   }),
-// )
-// export default class IconAndColor extends PureComponent<IconAndColorType> {
-// _keyExtractor = (item: { name: string }[], index) => {
-//   const key = item[0].name || index;
-//   return `${key}`;
-// };
 const IconAndColor: FC<IconAndColorType> = (props) => {
   const { icon = 'sun', color, onChange } = props;
 

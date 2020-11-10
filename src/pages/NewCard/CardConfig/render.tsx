@@ -4,20 +4,12 @@
  */
 
 // import * as immutable from 'immutable';
-import React, { FC, PureComponent, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { BackHandler, DeviceEventEmitter } from 'react-native';
-// import { connect } from 'react-redux';
-// import Toast from 'react-native-simple-toast';
-// import { reduxForm, formValueSelector, change } from 'redux-form/immutable';
-// import moment from 'moment';
-// import { addNormalizrEntity } from '../../../redux/module/normalizr';
-// import { update } from '../../../redux/module/leancloud';
-// import { ICARD } from '../../../redux/reqKeys';
+
 import { StyledContent } from './style';
 import Main from './Main';
-// import { defaultHabit } from '../../../configure/habit';
-// import {
-// import { normalize } from 'normalizr';
+
 import {
   StyledHeader,
   StyledTitle,
@@ -42,11 +34,7 @@ import {
 } from './card_interface';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import {
-  putClassesICardId,
-  putClassesIUseId,
-  useGetClassesICardId,
-} from 'src/hooks/interface';
+import { putClassesICardId, useGetClassesICardId } from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
 import { DeviceEventEmitterKey } from '@configure/enum';
 

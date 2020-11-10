@@ -10,14 +10,10 @@ import {
   // TextInput,
   BackHandler,
   DeviceEventEmitter,
-,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
-import {
-  iCardPoint,
-  userPoint,
-} from '../../../../request/LCModle';
+import { iCardPoint, userPoint } from '../../../../request/LCModle';
 import Main from '../Main';
 import { defaultHabit } from '../../../../configure/habit';
 

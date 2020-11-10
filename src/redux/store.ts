@@ -5,9 +5,6 @@
 
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-
-import * as immutable from 'immutable';
-import { Platform } from 'react-native';
 import { reducer as form } from 'redux-form/immutable';
 
 import * as reducers from './reducers';
