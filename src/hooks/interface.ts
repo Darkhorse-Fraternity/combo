@@ -1681,7 +1681,7 @@ export const useGetClassesICardId = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 export interface PutClassesICardIdRequest {
   circleState?: number
@@ -1704,6 +1704,7 @@ export interface PutClassesICardIdRequest {
     }
   }
   title?: string
+  notifyText?: string
   id: string
 }
 
@@ -1712,7 +1713,7 @@ export interface PutClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 export interface PutClassesICardIdResponse {
   objectId?: string
@@ -1724,7 +1725,7 @@ export interface PutClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 type PutClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1744,7 +1745,7 @@ type PutClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1765,7 +1766,7 @@ const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 export const putClassesICardId = makeRequest<
   PutClassesICardIdRequest,
@@ -1778,7 +1779,7 @@ export const putClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-09 10:15:31`
+ * @更新时间 `2020-11-10 11:00:23`
  */
 export const usePutClassesICardId = makeRequestHook<
   PutClassesICardIdRequest,
@@ -1791,12 +1792,12 @@ export const usePutClassesICardId = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 export interface PostClassesICardRequest {
   circleState?: number
   state?: number
-  describe: string
+  notifyText: string
   iconAndColor: {
     name: string
     color: string
@@ -1814,6 +1815,11 @@ export interface PostClassesICardRequest {
     }
   }
   title: string
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
 }
 
 /**
@@ -1821,7 +1827,7 @@ export interface PostClassesICardRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 export interface PostClassesICardResponse {
   objectId?: string
@@ -1833,7 +1839,7 @@ export interface PostClassesICardResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 type PostClassesICardRequestConfig = Readonly<
   RequestConfig<
@@ -1853,7 +1859,7 @@ type PostClassesICardRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 const postClassesICardRequestConfig: PostClassesICardRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1874,7 +1880,7 @@ const postClassesICardRequestConfig: PostClassesICardRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 export const postClassesICard = makeRequest<
   PostClassesICardRequest,
@@ -1887,7 +1893,7 @@ export const postClassesICard = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `POST /classes/iCard`
- * @更新时间 `2020-11-09 18:06:30`
+ * @更新时间 `2020-11-10 10:58:09`
  */
 export const usePostClassesICard = makeRequestHook<
   PostClassesICardRequest,

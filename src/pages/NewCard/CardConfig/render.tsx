@@ -229,7 +229,7 @@ const CardConfig: FC<{}> = (props) => {
       recordDay: limitTimes.day,
       limitTimes: limitTimes.time,
       iconAndColor: iconAndColor,
-      describe: notifyText,
+      notifyText,
       notifyTimes,
       sound,
     });
