@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { Component, FC } from 'react';
+import React, { Component, FC, useEffect, useState } from 'react';
 import {
   View,
   Dimensions,
@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import moment from 'moment';
 import _ from 'lodash';
-import { ICARD, IUSE, IDO, FLAG, FLAGRECORD } from '../../redux/reqKeys';
+import { ICARD, IUSE, IDO } from '../../redux/reqKeys';
 // import { search, } from '../../redux/module/leancloud';
 import ExceptionView, {
   ExceptionType,
@@ -46,15 +46,10 @@ import {
 } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { point } from '@request/LCModle';
-import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
+import { getUerInfo, useGetUserInfo, UserType } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { ListLoadType } from '@components/Base/interface';
 import { DeviceEventEmitterKey } from '@configure/enum';
-
-interface StateType {
-  frMap: Object;
-  numColumns: number;
-}
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy: boolean;
@@ -148,10 +143,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
     data: state.list.get(IUSE),
     iUse: state.normalizr.get(IUSE),
     iCard: state.normalizr.get(ICARD),
-    flagRecord: state.normalizr.get(FLAGRECORD),
-    refreshLoad: state.req.get(IUSE).get('load'),
     load: state.req.get(IDO).get('load'),
-    user: state.user.data,
   }),
   (dispatch, props) => ({
     search: () => {
@@ -180,30 +172,9 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
     },
   }),
 )
-export default class Punch extends Component<{}, StateType> {
-  constructor(props: Object) {
-    super(props);
-    this.state = {
-      frMap: {},
-      numColumns: isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
-    };
-  }
-
-  static propTypes = {};
-
-  static defaultProps = {};
+class PunchClass extends Component<{ numColumns: number; user: UserType }> {
   deEmitter?: EmitterSubscription;
   componentDidMount() {
-    // this.props.search();
-    // this.props.fbSearch();
-    // this.props.getiUse();
-    // const loadStatu = this.props.data.get('loadStatu');
-    // loadStatu === 'LIST_FIRST_JOIN' && this.props.search();
-    // this.props.exist()
-    // console.log('this.refs.list:', this.refs.list.scrollToOffset);
-    isTablet() &&
-      Orientation.addOrientationListener(this._orientationDidChange);
-
     this.deEmitter = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iUse_reload,
       () => {
@@ -214,24 +185,12 @@ export default class Punch extends Component<{}, StateType> {
   }
 
   componentWillUnmount() {
-    isTablet() &&
-      Orientation.removeOrientationListener(this._orientationDidChange);
     this.deEmitter && this.deEmitter.remove();
   }
 
-  _orientationDidChange = (orientation: string) => {
-    if (orientation === 'LANDSCAPE') {
-      this.setState({ numColumns: 7 });
-      // do something with landscape layout
-    } else {
-      this.setState({ numColumns: 5 });
-      // do something with portrait layout
-    }
-  };
-
   openSmallTitle = false;
 
-  componentWillReceiveProps(nextProps: any) {
+  componentWillReceiveProps(nextProps) {
     // console.log('000');
     const { user, search } = this.props;
     if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
@@ -239,21 +198,6 @@ export default class Punch extends Component<{}, StateType> {
       // this.props.fbSearch();
     }
     // console.log('1111');
-
-    // if (flagRecord !== nextProps.flagRecord) {
-    //   const flagRecordModal = nextProps.flagRecord.toJS();
-    //   console.log('flagRecordModal', flagRecordModal);
-    //   const frValue = Object.values(flagRecordModal);
-    //   const frMap = {};
-    //   if (frValue) {
-    //     frValue.forEach((item) => {
-    //       // if (item.user && item.user.objectId === user.objectId) {
-    //       frMap[item.iCard] = item;
-    //       // }
-    //     });
-    //   }
-    //   this.setState({ frMap });
-    // }
   }
 
   __renderNoData = (statu) => {
@@ -307,7 +251,7 @@ export default class Punch extends Component<{}, StateType> {
       return (
         <RenderCell
           key={item.objectId}
-          numColumns={this.state.numColumns}
+          numColumns={this.props.numColumns}
           iUse={item}
           iCard={iCard.toJS()}
           load={this.props.load}
@@ -392,12 +336,12 @@ export default class Punch extends Component<{}, StateType> {
       satisfy.length > 0 &&
         sections.push({
           title: unSatisfy.length > 0 ? '进行中' : '',
-          data: _.chunk(satisfy, this.state.numColumns),
+          data: _.chunk(satisfy, this.props.numColumns),
         });
       unSatisfy.length > 0 &&
         sections.push({
           title: '等待中',
-          data: _.chunk(unSatisfy, this.state.numColumns),
+          data: _.chunk(unSatisfy, this.props.numColumns),
         });
     }
 
@@ -443,3 +387,32 @@ export default class Punch extends Component<{}, StateType> {
     );
   }
 }
+
+const Punch: FC<{}> = (props) => {
+  const [numColumns, setNumColumns] = useState(
+    isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
+  );
+  const user = useGetUserInfo();
+
+  const _orientationDidChange = (orientation: string) => {
+    if (orientation === 'LANDSCAPE') {
+      setNumColumns(7);
+      // do something with landscape layout
+    } else {
+      setNumColumns(5);
+      // do something with portrait layout
+    }
+  };
+
+  useEffect(() => {
+    isTablet() && Orientation.removeOrientationListener(_orientationDidChange);
+    return () => {
+      isTablet() &&
+        Orientation.removeOrientationListener(_orientationDidChange);
+    };
+  }, []);
+
+  return <PunchClass {...props} numColumns={numColumns} user={user} />;
+};
+
+export default Punch;

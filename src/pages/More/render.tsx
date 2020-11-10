@@ -2,7 +2,6 @@
 
 import React, { Component, FC } from 'react';
 import { StyleSheet, Text, View, Linking } from 'react-native';
-import { connect } from 'react-redux';
 import Button, { ButtonType } from '../../components/Button/index';
 
 import {
@@ -114,8 +113,6 @@ const RenderMain: FC<{}> = () => {
 const RenderHeadRow = () => {
   const { navigate } = useNavigation();
   const user = useGetUserInfo();
-  // let {grade_str,connect_phone} = data;
-  // console.log('test111:',data.avatar.url)
   const { isTourist, ...data } = user!;
 
   const name = isTourist ? '点击登录' : data.nickname || '匿名';

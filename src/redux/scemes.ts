@@ -1,4 +1,4 @@
-import { schema } from 'normalizr';
+
 import {
   registerListKeys,
   ICARD,
@@ -11,14 +11,14 @@ import {
   FLAG,
   FLAGRECORD,
 } from './reqKeys';
-
+import { schema } from 'normalizr';
 export const code = 'results';
 
-export const entity = (key, config = {}) =>
-  new schema.Entity(key, config, { idAttribute: 'objectId' });
-export const list = (item) =>
+export const entity = <T>(key: string, config = {}) =>
+  new schema.Entity<T>(key, config, { idAttribute: 'objectId' });
+export const list = (item:[]) =>
   new schema.Object({ [code]: new schema.Array(item) });
-export const entityFromCode = (key) =>
+export const entityFromCode = (key: string) =>
   new schema.Object({ [code]: entity(key) });
 
 export const user = entity(USER);
@@ -68,9 +68,9 @@ export const entitys = {
   [FLAGRECORD]: flagRecord,
 };
 
-const auto = (key) => list(entitys[key] || entity(key));
+const auto = (key: string) => list(entitys[key] || entity(key));
 
-function autoKeys(keys) {
+function autoKeys(keys: string[]) {
   const schemas = {};
   keys.forEach((key) => {
     schemas[key] = auto(key);

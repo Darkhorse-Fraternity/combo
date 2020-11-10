@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
 import { debounce } from 'lodash'; // 4.0.8
 import { StyledContent, StyledLine, StyledSearchInput } from './style';
 import { ICARD } from '../../../redux/reqKeys';
@@ -11,10 +10,6 @@ import CardCell from '../CardCell/CardCell2';
 const listKey = ICARD;
 
 export default class Search extends PureComponent {
-  static propTypes = {};
-
-  static defaultProps = {};
-
   static navigationOptions = () => ({
     // header: null,
     title: '',

@@ -1,9 +1,28 @@
 import React, { createContext, useReducer, FC, useContext } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { GetUsersIdResponse } from 'src/hooks/interface';
+import {
+  GetUsersIdResponse,
+  GetClassesIUseResponse,
+  GetClassesIUseIdResponse,
+  GetClassesICardIdResponse,
+  PostCallCardListResponse,
+  // GetClassesICardResponse,
+} from 'src/hooks/interface';
+import { entity } from '@redux/scemes';
+import { ICARD, IUSE } from '@redux/reqKeys';
+import { normalize } from 'normalizr';
 // import { setHeader } from '../../../local_modules/react-native-qj-fetch/config';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
+
+type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
+type IUseType = NonNullable<GetClassesIUseResponse['results']>[number];
+type IUseNomType = Omit<IUseType, 'iCard'> & { iCard: string };
+type IUseNom2Type = Omit<GetClassesIUseIdResponse, 'iCard'> & { iCard: string };
+
+const iCardSceme = entity<GetClassesICardIdResponse>(ICARD);
+const iUseSceme = entity<GetClassesIUseIdResponse>(IUSE, { iCard: iCardSceme });
+
 export interface UserType extends GetUsersIdResponse {
   isTourist: boolean;
   // isLogin: boolean;
@@ -11,8 +30,30 @@ export interface UserType extends GetUsersIdResponse {
 
 export interface StateType {
   user: UserType;
+  iCards_self: {
+    [key: string]:
+      | {
+          [key: string]: GetClassesICardIdResponse;
+        }
+      | undefined;
+  }; // user 为自己的iCard
+  iUses_self: {
+    [key: string]:
+      | {
+          [key: string]: GetClassesIUseIdResponse;
+        }
+      | undefined;
+  }; // user 为自己的iUse
 }
 export type Action =
+  | {
+      type: 'updata_iUse';
+      data:
+        | IUseType[]
+        | GetClassesIUseIdResponse[]
+        | IUseType
+        | GetClassesIUseIdResponse;
+    }
   | { type: 'login'; user: GetUsersIdResponse }
   | { type: 'update_user_info'; user: GetUsersIdResponse }
   | { type: 'logout' }
@@ -32,6 +73,8 @@ let user: UserType = { isTourist: true } as UserType;
 
 const defaultInitialState: StateType = {
   user: user,
+  iCards_self: {},
+  iUses_self: {},
 };
 
 //   console.log('
@@ -101,6 +144,14 @@ export const Provider: FC<DataContextType> = (props) => {
         // setHeader({ Authorization: '' });
         // user = undefined;
         return { ...preState, user: { isTourist: true } as UserType };
+      case 'updata_iUse': {
+        const normalizedData = normalize(action.data, iUseSceme);
+        const { entities, result } = normalizedData;
+        console.log('entities', entities);
+        console.log('result', result);
+
+        return { ...preState, iUses: {}, iCards: {} };
+      }
       case 'init':
         return { ...preState };
       default:

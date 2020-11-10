@@ -10,10 +10,6 @@ import Avatar from '../../../components/Avatar/Avatar2';
 import Button from '../../../components/Button';
 import { UserType } from 'src/data/data-context';
 
-// @connect((state, props) => ({
-//   user: state.normalizr.get('user').get(props.userId),
-// }))
-
 interface HeaderProps {
   user: UserType;
   onPress: () => void;

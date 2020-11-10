@@ -21,7 +21,7 @@ export const StyledError = styled.Text`
   margin-top: 5px;
 `;
 
-interface submitType {
+interface SubmitType {
   disabled: boolean;
 }
 
@@ -31,6 +31,6 @@ export const StyledButton = styled(Button)`
   padding: 5px 10px;
 `;
 
-export const StyledButtonText = styled.Text<submitType>`
+export const StyledButtonText = styled.Text<SubmitType>`
   color: ${(props) => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
 `;

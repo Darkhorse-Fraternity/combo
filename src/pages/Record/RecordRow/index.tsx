@@ -5,9 +5,7 @@
 
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { View, Dimensions } from 'react-native';
-import { connect } from 'react-redux';
 import moment from 'moment';
 import {
   StyledTop,

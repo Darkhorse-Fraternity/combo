@@ -5,8 +5,6 @@
 
 import React, { PureComponent } from 'react';
 
-import { connect } from 'react-redux';
-
 import { StyledContent, StyledAvatar, StyledIndicator } from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';

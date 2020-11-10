@@ -23,55 +23,6 @@ import Statistical from '../../Card/Statistical';
 
 import { StyledHeaderTitle, Styledcontain, StyledHeaderText } from './style';
 
-// @connect(
-//   (state, props) => ({
-//     iCard: state.normalizr.get('iCard').get(props.route.params.iCardId),
-//     iUse: state.normalizr.get('iUse').get(props.route.params.iUseId),
-//     user: state.user.data
-//   }),
-//   (dispatch, props) => ({}),
-// )
-// class RecordDetailOld extends PureComponent {
-
-//   componentDidMount() {
-//     this.props.navigation.setOptions({ headerRight: this.__renderRightView });
-//   }
-
-//   __renderRightView = () => {
-//     const { navigation, iCard, route } = this.props;
-//     const { params } = route;
-//     const iconAndColor = iCard.get('iconAndColor');
-//     const { color } = iconAndColor
-//       ? iconAndColor.toJS()
-//       : { name: 'sun', color: '#fcd22f' };
-
-//     return (
-//       <StyledHeaderBtn
-//         // load={false}
-//         style={{ backgroundColor: color, marginRight: 20 }}
-//         // disabled={false}
-//         hitSlop={{ top: 5, left: 10, bottom: 5, right: 10 }}
-//         onPress={() => {
-//           navigation.navigate('cardInfo', {
-//             iCardId: params.iCardId,
-//           });
-//         }}
-//         title={'加入'}
-//       />
-//     );
-//   };
-
-//   render() {
-//     const { iCard, iUse, ...other } = this.props;
-//     return (
-//       <Styledcontain>
-//         <StyledHeaderTitle>{iCard.get('title')}</StyledHeaderTitle>;
-//         <Statistical iCard={iCard.toJS()} iUse={iUse.toJS()} {...other} />
-//       </Styledcontain>
-//     );
-//   }
-// }
-
 const RecordDetail: FC<{}> = (porps) => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>();
   const { data, run } = useGetClassesIUseId({ include: 'iCard', id: iUseId });

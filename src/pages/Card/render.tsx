@@ -14,8 +14,6 @@ import {
   Platform,
   DeviceEventEmitter,
 } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-simple-toast';
 import {

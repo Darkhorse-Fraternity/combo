@@ -43,7 +43,7 @@
     "immutable": "3.8.2",
     "leancloud-storage": "^4.6.1",
     "moment": "2.29.0",
-    "normalizr": "3.2.3",
+    "normalizr": "3.6.1",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -43,7 +43,7 @@ export function addNormalizrEntities(schemeOrkey, data) {
   return (dispatch) => dispatch(addEntities(nData.entities));
 }
 
-export function addEntities(data: Object): Object {
+export function addEntities(data) {
   return (dispatch) =>
     // dispatch(dataCleanInject(data))
     dispatch({
@@ -52,10 +52,7 @@ export function addEntities(data: Object): Object {
     });
 }
 
-export default function itemState(
-  state: immutable.Map<string, any> = initialState,
-  action: Object,
-) {
+export default function itemState(state = initialState, action) {
   switch (action.type) {
     case ADD_NORMALIZR: {
       // const { fromJS } = require('immutable')

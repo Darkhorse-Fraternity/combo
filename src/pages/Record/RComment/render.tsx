@@ -26,7 +26,6 @@ import moment from 'moment';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
 import RecordRow from '../RecordRow';
-// import {AutoGrowingTextInput} from 'react-native-autogrow-textinput';
 
 import { userPoint, iDoPoint } from '../../../request/LCModle';
 import {
