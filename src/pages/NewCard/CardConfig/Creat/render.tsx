@@ -3,28 +3,18 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
   // TextInput,
   BackHandler,
   DeviceEventEmitter,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
+,
 } from 'react-native';
-import { connect } from 'react-redux';
-import moment from 'moment';
-import { reduxForm, formValueSelector, change } from 'redux-form/immutable';
 import Toast from 'react-native-simple-toast';
-import { add } from '../../../../redux/module/leancloud';
-import { addListNormalizrEntity } from '../../../../redux/actions/list';
-import { addNormalizrEntity } from '../../../../redux/module/normalizr';
+
 import {
-  selfUser,
-  iCard,
-  pointModel,
   iCardPoint,
   userPoint,
 } from '../../../../request/LCModle';
@@ -32,7 +22,6 @@ import Main from '../Main';
 import { defaultHabit } from '../../../../configure/habit';
 
 import {
-  StyledContent,
   StyledSubTitleView,
   StyledSubTitle,
   StyledInnerView,
@@ -45,11 +34,10 @@ import {
 } from './style';
 // import { TextInput } from '../../../../components/Form/Cunstom/index';
 // static displayName = Creat
-import { DeviceEventEmitterKey, Privacy } from '../../../../configure/enum';
+import { DeviceEventEmitterKey } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import { ICARD, IUSE } from '@redux/reqKeys';
 import { Controller, useForm } from 'react-hook-form';
 import {
   CardFormData,
@@ -68,180 +56,7 @@ import {
   postClassesIUse,
   putClassesICardId,
 } from 'src/hooks/interface';
-import { ButtonType } from '@components/Button';
 import { useGetUserInfo } from 'src/data/data-context';
-
-// export const FormID = 'CreatCardForm';
-// const selector = formValueSelector(FormID);
-
-// @connect(
-//   (state, props) => ({
-//     // data:state.req.get()
-//     title: selector(state, 'title'),
-//     initialValues: props.route.params ? props.route.params.habit : defaultHabit,
-//     load: state.req.get(ICARD).get('load'),
-//     iUseLoad: state.req.get(IUSE).get('load'),
-//     color: selector(state, 'color'),
-//   }),
-//   (dispatch, props) => ({
-//     // ...bindActionCreators({},dispatch),
-//     onSelect: (field: string, value: string | object) => {
-//       dispatch(change(FormID, field, value));
-//     },
-//     add: () =>
-//       dispatch(async (dispatch, getState) => {
-//         // console.log('test:', option);
-
-//         // const state = getState()
-//         // const user = state.user.data;
-//         // 新建卡片
-
-//         // WARNING:首次登陆的时候也有用到icard 记得修改
-//         const state = getState();
-//         // const title = selector(state, 'title')
-//         const op = selector(
-//           state,
-//           'title',
-//           'notifyTimes',
-//           'period',
-//           'recordDay',
-//           'notifyText',
-//           'record',
-//           'icon',
-//           'color',
-//           'limitTimes',
-//           'sound',
-//         );
-//         const notifyTimes = op.notifyTimes
-//           .toJS()
-//           .sort((a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'));
-
-//         const param = {
-//           title: op.title,
-//           period: op.period,
-//           record: op.record.toJS(),
-//           recordDay: op.recordDay.toJS(),
-//           iconAndColor: {
-//             name: op.icon,
-//             color: op.color,
-//           },
-//           sound: op.sound || {
-//             open: true,
-//             item: { title: 'bell', type: 'normal', key: 'bell' },
-//           },
-//           notifyTimes,
-//           notifyText: op.notifyText,
-//           limitTimes: op.limitTimes,
-//           price: 0,
-//           state: 0,
-//           // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-//           ...dispatch(selfUser()),
-//         };
-
-//         const res = await dispatch(add(param, ICARD));
-//         const entity = {
-//           ...param,
-//           ...res,
-//         };
-//         if (!res || !res.objectId) {
-//           return;
-//         }
-
-//         dispatch(addNormalizrEntity(ICARD, entity));
-
-//         // 返回首页
-//         // dispatch((dispatch, getState) => {
-//         //
-//         // })
-
-//         const iCardId = res.objectId;
-//         const addParam = {
-//           time: 0,
-//           // notifyTime:option&&option.notifyTime||"20.00",
-//           doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
-//           ...dispatch(selfUser()),
-//           ...iCard(iCardId),
-//           statu: 'start',
-//           privacy: Privacy.open,
-//         };
-//         const addRes = await dispatch(add(addParam, IUSE));
-//         const addEntity = {
-//           ...addParam,
-//           ...addRes,
-//         };
-//         dispatch(addListNormalizrEntity(IUSE, addEntity));
-//         props.navigation.dispatch(StackActions.popToTop());
-//       }),
-//   }),
-// )
-// @reduxForm({
-//   form: FormID,
-// })
-
-// // @formValues('title')
-// class CreatClass extends PureComponent {
-//   constructor(props: Object) {
-//     super(props);
-//     this.state = {
-//       step: props.initialValues.get('title') ? 1 : 0,
-//     };
-//   }
-
-//   static propTypes = {
-//     title: PropTypes.string,
-//     type: PropTypes.string,
-//   };
-
-//   static defaultProps = {
-//     title: '',
-//     type: 'custom',
-//   };
-
-//   __nextStep = () => {
-//     const { step } = this.state;
-//     if (this.props.title && this.props.title.length > 0) {
-//       this.setState({ step: step + 1 });
-//     } else {
-//       Toast.show('标题不可为空');
-//     }
-//   };
-
-//   __backStep = () => {
-//     const { step } = this.state;
-//     if (step < 2) {
-//       this.props.navigation.goBack();
-//     } else {
-//       this.setState({ step: step - 1 });
-//     }
-//     return true;
-//   };
-
-//   render() {
-//     // const { title, color } = this.props
-//     const { step } = this.state;
-//     const { onSelect } = this.props;
-//     return (
-//       <>
-//         {this.state.step === 0 && (
-//           <StyledInnerScrollView>
-//             <RenderName />
-//             <IconAndColor />
-//           </StyledInnerScrollView>
-//         )}
-
-//         <StyledInnerView>
-//           {this.state.step >= 1 && (
-//             <Main
-//               step={this.state.step - 1}
-//               nextStep={this.__nextStep}
-//               onSelect={onSelect}
-//             />
-//           )}
-//         </StyledInnerView>
-//       </>
-//     );
-//   }
-// }
 
 const RenderIconAndColor: FC<{
   value?: { name: string; color: string };

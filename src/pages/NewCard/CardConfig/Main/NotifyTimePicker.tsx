@@ -22,7 +22,6 @@ import {
   StyledLine,
   StyleNoticeText,
 } from '../style';
-import { Multiple } from '../../../components/Form/Select/index';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { useLocalRemindConfig } from '@configure/app';

@@ -7,7 +7,6 @@ import DeviceInfo from 'react-native-device-info';
 import { formValueSelector } from 'redux-form/immutable';
 import { userpay, payOrder } from '../../request/leanCloud';
 import { req } from '../actions/req';
-import { queryStringToJSON } from '../../request/useMeth';
 // type: 0:wechat 1:alipay
 import { update } from '../actions/user';
 
