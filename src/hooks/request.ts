@@ -36,12 +36,12 @@ export default function request<TResponseData>(
       baseURL,
       url: path,
       method,
-      headers: httpHeaders(true),
+      headers: httpHeaders(),
       ...config,
     })
     .then((res) => {
       // res.config
-      const { data, ...ohter } = res;
+      // const { data, ...ohter } = res;
       const response = {
         ...res.data,
         // __axios_info:ohter

@@ -8,7 +8,7 @@ import React, { PureComponent } from 'react';
 import { StyledContent, StyledAvatar, StyledIndicator } from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
-import { UserType } from 'src/data/data-context';
+import { UserType } from 'src/data/data-context/interface';
 
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2

@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { Component, FC, useEffect, useState } from 'react';
+import React, { Component, FC, memo, useEffect, useState } from 'react';
 import {
   View,
   Dimensions,
@@ -43,31 +43,37 @@ import {
   GetClassesICardIdResponse,
   GetClassesIUseIdResponse,
   postClassesIDo,
+  usePostCallCardList,
+  usePostCallIUseList3,
 } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { point } from '@request/LCModle';
-import { getUerInfo, useGetUserInfo, UserType } from 'src/data/data-context';
+// import {   useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { ListLoadType } from '@components/Base/interface';
 import { DeviceEventEmitterKey } from '@configure/enum';
+import { useGetUserInfo } from 'src/data/data-context';
+import { useGetIuseData } from 'src/data/data-context/core';
+import { UserType } from 'src/data/data-context/interface';
+import withData from 'src/data/data-context/withData';
 
 type ItemType = GetClassesIUseIdResponse & {
-  satisfy: boolean;
-  unSatisfyDiscrib: string;
-  isFb: boolean;
+  satisfy?: boolean;
+  unSatisfyDiscrib?: string;
+  isFb?: boolean;
 };
 
 interface CellProps {
-  iCard: GetClassesICardIdResponse;
+  iCard: ItemType['iCard'];
   iUse: ItemType;
   numColumns: number;
-  load: boolean;
 }
 
-const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
+const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
   // const showFB = iUse.isFb;
   const { isFb, unSatisfyDiscrib, time, satisfy, objectId } = iUse;
-  const done = moment(0, 'HH').isBefore(iUse.doneDate.iso);
+  const [load, setLoad] = useState(false);
+  const done = moment(0, 'HH').isBefore(iUse.doneDate?.iso);
   const { iconAndColor = {}, sound, title, record, objectId: iCardId } = iCard;
   const { width, height } = Dimensions.get('window');
   const user = useGetUserInfo();
@@ -75,23 +81,28 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
 
   const doCard = async (doIt: () => void) => {
     doIt();
+    setLoad(true);
     try {
-      const { objectId: id } = await postClassesIDo({
-        user: point('_User', user?.objectId || ''),
-        type: 0,
-        iCard: point('iCard', iCardId),
-        iUse: point('iUse', objectId),
-        doneDate: { __type: 'Date', iso: new Date().toISOString() },
-      });
-      if (id) {
-        DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
-      } else {
-        doIt();
-      }
+      console.log('user', user);
+
+      // const { objectId: id } = await postClassesIDo({
+      //   user: point('_User', user?.objectId || ''),
+      //   type: 0,
+      //   iCard: point('iCard', iCardId),
+      //   iUse: point('iUse', objectId),
+      //   doneDate: { __type: 'Date', iso: new Date().toISOString() },
+      // });
+      // if (id) {
+      //   DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+      // } else {
+      //   doIt();
+      // }
+      setLoad(false);
     } catch (error) {
       console.log('error', error);
       SimpleToast.show(error.message);
       doIt();
+      setLoad(false);
     }
   };
 
@@ -100,7 +111,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
       numColumns={numColumns}
       showFB={isFb}
       openSound={sound?.open ?? false}
-      soundsKey={sound?.item.key}
+      soundsKey={sound?.item?.key}
       key={title}
       name={iconAndColor.name}
       scWidth={
@@ -108,7 +119,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
       }
       color={iconAndColor.color}
       done={done}
-      title={title}
+      title={title || ''}
       discrib={unSatisfyDiscrib || `第${time}日`}
       onPress={async (flip, doIt) => {
         // const iCardM = iCard.toJS()
@@ -138,86 +149,72 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns, load }) => {
   );
 };
 
-@connect(
-  (state) => ({
-    data: state.list.get(IUSE),
-    iUse: state.normalizr.get(IUSE),
-    iCard: state.normalizr.get(ICARD),
-    load: state.req.get(IDO).get('load'),
-  }),
-  (dispatch, props) => ({
-    search: () => {
-      dispatch(
-        listReq(IUSE, iUseListParams(), false, {
-          dataMap: (data) => {
-            const { iUseList } = data.result;
-            // 添加副本
-            // console.log('fbList', fbList);
+// @connect(
+//   (state) => ({
+//     // data: state.list.get(IUSE),
+//     // iUse: state.normalizr.get(IUSE),
+//     // iCard: state.normalizr.get(ICARD),
+//     // load: state.req.get(IDO).get('load'),
+//   }),
+//   (dispatch, props) => ({
+//     search: () => {
+//       dispatch(
+//         listReq(IUSE, iUseListParams(), false, {
+//           dataMap: (data) => {
+//             const { iUseList } = data.result;
+//             // 添加副本
+//             // console.log('fbList', fbList);
 
-            // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
+//             // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
 
-            // 通过本地时间验证,判断今日是否已经打卡
-            // const newIUseList = iUseList.sort((a, b) => {
-            //   const aDone = moment(0, 'HH').isBefore(a.updatedAt.iso);
-            //   const bDone = moment(0, 'HH').isBefore(b.updatedAt.iso);
-            //   if (aDone && bDone) {
-            //     return false;
-            //   }
-            //   return aDone;
-            // });
-            return { results: iUseList };
-          },
-        }),
-      );
-    },
-  }),
-)
-class PunchClass extends Component<{ numColumns: number; user: UserType }> {
-  deEmitter?: EmitterSubscription;
-  componentDidMount() {
-    this.deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iUse_reload,
-      () => {
-        // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
-        this.props.search();
-      },
-    );
-  }
+//             // 通过本地时间验证,判断今日是否已经打卡
+//             // const newIUseList = iUseList.sort((a, b) => {
+//             //   const aDone = moment(0, 'HH').isBefore(a.updatedAt.iso);
+//             //   const bDone = moment(0, 'HH').isBefore(b.updatedAt.iso);
+//             //   if (aDone && bDone) {
+//             //     return false;
+//             //   }
+//             //   return aDone;
+//             // });
+//             return { results: iUseList };
+//           },
+//         }),
+//       );
+//     },
+//   }),
+// )
+class PunchClass extends Component<{
+  numColumns: number;
+  user: UserType;
+  iUse: ItemType[];
+  loading: boolean;
+}> {
+  // deEmitter?: EmitterSubscription;
+  // componentDidMount() {
+  //   this.deEmitter = DeviceEventEmitter.addListener(
+  //     DeviceEventEmitterKey.iUse_reload,
+  //     () => {
+  //       // Warming: 当使用补签卡的时候, 这边还需要更新自己的用户数据。这边暂时不需要是因为 整个数据结构还是用旧的 normalizer
+  //       this.props.search();
+  //     },
+  //   );
+  // }
 
-  componentWillUnmount() {
-    this.deEmitter && this.deEmitter.remove();
-  }
+  // componentWillUnmount() {
+  //   this.deEmitter && this.deEmitter.remove();
+  // }
 
   openSmallTitle = false;
 
-  componentWillReceiveProps(nextProps) {
-    // console.log('000');
-    const { user, search } = this.props;
-    if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
-      search();
-      // this.props.fbSearch();
-    }
-    // console.log('1111');
-  }
-
-  __renderNoData = (statu) => {
-    const refreshLoad =
-      statu === ListLoadType.LIST_FIRST_JOIN ||
-      statu === ListLoadType.LIST_LOAD_DATA;
-    return (
-      <ExceptionView
-        style={{ height: Dimensions.get('window').height / 1.6 }}
-        exceptionType={
-          refreshLoad ? ExceptionType.Loading : ExceptionType.NoData
-        }
-        tipBtnText="重新加载"
-        // prompt={refreshLoad ? '正在加载～' : '暂无数据~'}
-        onRefresh={() => {
-          this.props.search();
-        }}
-      />
-    );
-  };
+  // componentWillReceiveProps(nextProps) {
+  //   // console.log('000');
+  //   const { user, search } = this.props;
+  //   if (nextProps.user.objectId && nextProps.user.objectId !== user.objectId) {
+  //     search();
+  //     // this.props.fbSearch();
+  //   }
+  //   // console.log('1111');
+  // }
 
   _keyExtractor = (item, index) => {
     const key = item.objectId || index;
@@ -245,16 +242,15 @@ class PunchClass extends Component<{ numColumns: number; user: UserType }> {
     // return (<View/>)
     // const
     const views = data.item.map((item, index) => {
-      const iCardId = item[ICARD];
-      const iCard = this.props.iCard.get(iCardId);
+      // const iCardId = item[ICARD];
+      const iCard = item[ICARD];
 
       return (
         <RenderCell
           key={item.objectId}
           numColumns={this.props.numColumns}
           iUse={item}
-          iCard={iCard.toJS()}
-          load={this.props.load}
+          iCard={iCard!}
         />
       );
     });
@@ -263,24 +259,25 @@ class PunchClass extends Component<{ numColumns: number; user: UserType }> {
   };
 
   render() {
-    const statu = this.props.data.get('loadStatu');
+    // const statu = this.props.data.get('loadStatu');
 
-    const data = this.props.data.toJS().listData as GetClassesIUseIdResponse[];
+    const data = this.props.iUse;
     // 按条件分类
+    // console.log('data',data);
 
     const satisfy = [];
     const unSatisfy = [];
     const sections = [];
     if (data.length > 0) {
       for (let i = 0, j = data.length; i < j; i++) {
-        const mData = this.props.iUse.get(data[i]).toJS() as ItemType;
-        const iCard = this.props.iCard
-          .get(mData.iCard)
-          .toJS() as GetClassesICardIdResponse;
+        const mData = data[i];
+        const iCard = mData.iCard;
+        // .get(mData.iCard)
+        // .toJS() as GetClassesICardIdResponse;
         const week = new Date().getDay() === 0 ? 7 : new Date().getDay();
-        const recordDay = iCard.recordDay.sort((a, b) => a - b);
+        const recordDay = iCard.recordDay?.sort((a, b) => a - b);
 
-        if (recordDay.indexOf(week) !== -1) {
+        if (recordDay?.indexOf(week) !== -1) {
           const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
           const before = moment(limitTimes[0], 'HH');
           const after = moment(limitTimes[1], 'HH');
@@ -345,54 +342,72 @@ class PunchClass extends Component<{ numColumns: number; user: UserType }> {
         });
     }
 
+    const onRefresh = () => {};
+
     return (
-      <StyledContent>
-        {/* <StyledContent */}
-        {/* style={this.props.style}> */}
-        <PrivacyModal />
-        <SectionList
-          refreshing={false}
-          onScroll={(event) => {
-            const y = event.nativeEvent.contentOffset.y;
-            if (!this.openSmallTitle && y > 35) {
-              this.openSmallTitle = true;
-              this.props.navigation.setOptions({ title: '小改变' });
-            }
-            if (this.openSmallTitle && y < 35) {
-              this.openSmallTitle = false;
-              this.props.navigation.setOptions({ title: '' });
-            }
-          }}
-          onRefresh={() => {
-            this.props.search();
-          }}
-          // data={data}
-          sections={sections}
-          // numColumns={numColumns}
-          style={{ flex: 1 }}
-          renderSectionHeader={this._renderSectionHeader}
-          // removeClippedSubviews={true}
-          // pagingEnabled={true}
-          showsHorizontalScrollIndicator={false}
-          showsVerticalScrollIndicator={false}
-          renderItem={this.__renderItem}
-          keyExtractor={this._keyExtractor}
-          ListHeaderComponent={this._renderHeader}
-          ListFooterComponent={
-            data.length > 0 ? <View style={{ height: 120 }} /> : null
+      <SectionList
+        refreshing={false}
+        onScroll={(event) => {
+          const y = event.nativeEvent.contentOffset.y;
+          if (!this.openSmallTitle && y > 35) {
+            this.openSmallTitle = true;
+            this.props.navigation.setOptions({ title: '小改变' });
           }
-          ListEmptyComponent={() => this.__renderNoData(statu)}
-        />
-      </StyledContent>
+          if (this.openSmallTitle && y < 35) {
+            this.openSmallTitle = false;
+            this.props.navigation.setOptions({ title: '' });
+          }
+        }}
+        onRefresh={onRefresh}
+        // data={data}
+        sections={sections}
+        // numColumns={numColumns}
+        style={{ flex: 1 }}
+        renderSectionHeader={this._renderSectionHeader}
+        // removeClippedSubviews={true}
+        // pagingEnabled={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        renderItem={this.__renderItem}
+        keyExtractor={this._keyExtractor}
+        ListHeaderComponent={this._renderHeader}
+        ListFooterComponent={
+          data.length > 0 ? <View style={{ height: 120 }} /> : null
+        }
+        ListEmptyComponent={() => (
+          <RenderNoData
+            refreshLoad={this.props.loading}
+            onRefresh={onRefresh}
+          />
+        )}
+      />
     );
   }
 }
+
+const RenderNoData: FC<{ refreshLoad: boolean; onRefresh: () => void }> = ({
+  refreshLoad,
+  onRefresh,
+}) => {
+  return (
+    <ExceptionView
+      style={{ height: Dimensions.get('window').height / 1.6 }}
+      exceptionType={refreshLoad ? ExceptionType.Loading : ExceptionType.NoData}
+      tipBtnText="重新加载"
+      // prompt={refreshLoad ? '正在加载～' : '暂无数据~'}
+      onRefresh={onRefresh}
+    />
+  );
+};
 
 const Punch: FC<{}> = (props) => {
   const [numColumns, setNumColumns] = useState(
     isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
   );
   const user = useGetUserInfo();
+  const { data, loading } = useGetIuseData();
+
+  // console.log('data',data?.result);
 
   const _orientationDidChange = (orientation: string) => {
     if (orientation === 'LANDSCAPE') {
@@ -412,7 +427,19 @@ const Punch: FC<{}> = (props) => {
     };
   }, []);
 
-  return <PunchClass {...props} numColumns={numColumns} user={user} />;
+  return (
+    <StyledContent>
+      <PrivacyModal />
+      <PunchClass
+        {...props}
+        numColumns={numColumns}
+        user={user}
+        iUse={data}
+        loading={loading}
+      />
+    </StyledContent>
+  );
 };
 
+// export default withData(memo(Punch))((state) => state.iUses_self);
 export default Punch;

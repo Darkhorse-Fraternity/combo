@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 
-import { DataContext, Action, StateType } from './index';
+import { DataContext } from './index';
+import { Action, StateType } from './interface';
 
 const withData = <T extends { dispatch: React.Dispatch<Action> }>(
+  WrappedComponent: React.ComponentType<T>,
+) => (
   mapStateToProps: (data: StateType, props?: T) => {},
   mapDispatchToProps?: (dispatch: React.Dispatch<Action>, props: T) => {},
-) => (WrappedComponent: React.ComponentType<T>): React.ComponentType<never> => {
+): React.ComponentType<never> => {
   const Mapper = (props: T) => {
     const { data, dispatch } = useContext(DataContext);
 

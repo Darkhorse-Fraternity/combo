@@ -28,7 +28,6 @@ export function uploadAvatar(uri: string) {
     const state = getState();
     const user = state.user.data;
     try {
-      console.log('????111');
       dispatch(avatarStatu(true));
       let res;
       try {
@@ -37,9 +36,7 @@ export function uploadAvatar(uri: string) {
         console.log('error', error);
       }
 
-      console.log('res', res);
       res = res[0];
-      console.log('user.objectId', user.objectId);
       const bindUserParam = bindingFileToUser(user.objectId, res.id, 'avatar');
       await dispatch(req(bindUserParam));
       dispatch(avatarStatu(false));

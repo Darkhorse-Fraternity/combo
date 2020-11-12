@@ -3,15 +3,24 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
-import { Provider as ContextProvide, UserType } from './index';
+import React, { Component } from 'react';
+import { MemoProvider as ContextProvide } from './index';
 import { connect } from 'react-redux';
-import { GetUsersIdResponse } from 'src/hooks/interface';
+import { UserType } from './interface';
 
 @connect((state) => ({
   user: state.user.data,
 }))
-class Provider extends PureComponent<{ user?: GetUsersIdResponse }> {
+class Provider extends Component<{ user?: UserType }> {
+  shouldComponentUpdate(nextProps: { user?: UserType }) {
+    return nextProps.user?.objectId !== this.props.user?.objectId;
+  }
+
+  user = {
+    ...this.props.user!,
+    isTourist: !!this.props.user?.authData?.anonymous?.id,
+  };
+
   render() {
     return (
       <ContextProvide
@@ -27,4 +36,4 @@ class Provider extends PureComponent<{ user?: GetUsersIdResponse }> {
   }
 }
 
-export default Provider;
+// export default Provider;

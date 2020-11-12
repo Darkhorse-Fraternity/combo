@@ -9,9 +9,10 @@ import Toast from 'react-native-simple-toast';
 import { debounce } from 'lodash'; // 4.0.8
 import { ICARD, IUSE } from '../redux/reqKeys';
 import DeviceInfo, { isEmulatorSync } from 'react-native-device-info';
-import { useGetUserInfo, UserType } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { GetClassesIUseResponse } from 'src/hooks/interface';
 import { RemindDataType, useLoadlocalRemind } from './app';
+import { UserType } from 'src/data/data-context/interface';
 
 export function nowNotification() {
   PushNotification.localNotification({

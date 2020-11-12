@@ -6,9 +6,7 @@ import { LeanCloud_APP_ID, LeanCloud_APP_SIGN } from './leancloud';
 import { appChannel } from '../../helps/util';
 import {
   setNetworkConig,
-  getNetworkConfig,
   setDoCache,
-  mapProps,
   setDataMap,
   setShowErrorAction,
   reqCProps,
@@ -85,7 +83,7 @@ DefaultPreference.setName('group.com.winlong.xiamen.Bear').then(() => {
   );
 });
 
-export function httpHeaders(needSession: boolean): Object {
+export function httpHeaders() {
   // let header = {
   //   "Content-Type": "application/json; charset=utf-8",
   //   "X-LC-Sign": LeanCloud_APP_SIGN,
@@ -95,14 +93,12 @@ export function httpHeaders(needSession: boolean): Object {
   //   appChannel
   // };
   const myHeader = { ...header };
-  if (needSession) {
+  if (LeanCloud_APP_Session && LeanCloud_APP_Session.length > 0) {
     // header = Object.assign({}, header, {
     //   "X-LC-Session": LeanCloud_APP_Session
     // });
     myHeader['X-LC-Session'] = LeanCloud_APP_Session;
   }
-
-  // console.log('LeanCloud_APP_Session', LeanCloud_APP_Session);
   return myHeader;
 }
 
@@ -121,7 +117,7 @@ export const setCache = (key: string, value: any) =>
       if (err) {
         reject(err);
       }
-      resolve();
+      resolve(null);
     });
   });
 // cache.clearAll();
@@ -151,9 +147,9 @@ export const doCache = async (key: string, req: Function) => {
 };
 setDoCache(doCache);
 
-const RESCODE = 'code';
-const MSG = 'error';
-const DATA = 'results';
+// const RESCODE = 'code';
+// const MSG = 'error';
+// const DATA = 'results';
 
 interface eType {
   message?: string;

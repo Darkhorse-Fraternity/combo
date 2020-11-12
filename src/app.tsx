@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { StrictMode, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
@@ -14,17 +14,37 @@ import { creatStore } from './redux/store';
 import { theme } from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
-import {
-  NavigationContainer,
-  NavigationContainerRef,
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import ContextProvide from './data/data-context/context-provide-class';
+// import ContextProvide from './data/data-context/context-provide-class';
 import tracker from 'react-native-umeng-analytics';
 import { navigationRef } from '@components/Nav/navigators';
+import { Provider } from './data/data-context';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
+};
+
+const useTracker = () => {
+  const routeNameRef = useRef<string>('');
+  const onReady = () => {
+    routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name || '';
+    tracker.beginLogPageView(routeNameRef.current || 'start');
+  };
+  const onStateChange = () => {
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName =
+      navigationRef.current?.getCurrentRoute()?.name || '';
+    if (previousRouteName !== currentRouteName) {
+      if (previousRouteName && previousRouteName.length > 0) {
+        tracker.endLogPageView(previousRouteName || 'end');
+      }
+      tracker.beginLogPageView(currentRouteName || 'start');
+    }
+    // Save the current route name for later comparision
+    routeNameRef.current = currentRouteName;
+  };
+  return { onReady, onStateChange };
 };
 
 const App = () => {
@@ -51,39 +71,24 @@ const App = () => {
   //     Dimensions.removeEventListener('change', handle);
   //   };
   // }, []);
-  const routeNameRef = useRef<string>('');
+  const { onReady, onStateChange } = useTracker();
+
   return (
-    <ReduxProvider store={creatStore(SwitchNavigator)}>
-      <ContextProvide>
+    <Provider>
+      <ReduxProvider store={creatStore(SwitchNavigator)}>
         <ThemeProvider theme={theme}>
           <Configure />
           <SafeAreaProvider>
             <NavigationContainer
               ref={navigationRef}
-              onReady={() => {
-                routeNameRef.current =
-                  navigationRef.current?.getCurrentRoute()?.name || '';
-                tracker.beginLogPageView(routeNameRef.current || 'start');
-              }}
-              onStateChange={() => {
-                const previousRouteName = routeNameRef.current;
-                const currentRouteName =
-                  navigationRef.current?.getCurrentRoute()?.name || '';
-                if (previousRouteName !== currentRouteName) {
-                  if (previousRouteName && previousRouteName.length > 0) {
-                    tracker.endLogPageView(previousRouteName || 'end');
-                  }
-                  tracker.beginLogPageView(currentRouteName || 'start');
-                }
-                // Save the current route name for later comparision
-                routeNameRef.current = currentRouteName;
-              }}>
+              onReady={onReady}
+              onStateChange={onStateChange}>
               <SwitchNavigator />
             </NavigationContainer>
           </SafeAreaProvider>
         </ThemeProvider>
-      </ContextProvide>
-    </ReduxProvider>
+      </ReduxProvider>
+    </Provider>
   );
 };
 export default App;

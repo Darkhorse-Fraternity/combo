@@ -8,7 +8,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import Avatar from '../../../components/Avatar/Avatar2';
 
 import Button from '../../../components/Button';
-import { UserType } from 'src/data/data-context';
+import { UserType } from 'src/data/data-context/interface';
 
 interface HeaderProps {
   user: UserType;

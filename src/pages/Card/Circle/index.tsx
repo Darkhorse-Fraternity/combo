@@ -37,10 +37,11 @@ import {
   putClassesIUseId,
 } from 'src/hooks/interface';
 import PageList from '@components/Base/PageList';
-import { useGetUserInfo, UserType } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { ShareModal } from '@components/Share/ShareView';
 import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
+import { UserType } from 'src/data/data-context/interface';
 type ItemType = GetClassesIDoResponse['results'][number];
 
 const pickPrivacy = async (privacy: number, isSelf: boolean) => {

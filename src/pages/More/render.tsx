@@ -18,7 +18,7 @@ import {
 
 import Avatar from '../../components/Avatar';
 import { marketRate } from '@helps/rate';
-import { useGetUserInfo, UserType } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { useNavigation } from '@react-navigation/native';
 
 const RenderRow: FC<ButtonType & { title: string; description?: string }> = ({

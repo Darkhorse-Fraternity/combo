@@ -115,7 +115,7 @@ export default class Account extends React.Component<{
   }
 
   _renderHeadRow() {
-    const { user, picker, upload } = this.props;
+    const { user, upload } = this.props;
 
     const { avatar, headimgurl } = user || {};
     const avatarUrl = avatar ? avatar.url : headimgurl;

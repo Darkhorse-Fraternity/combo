@@ -1,8 +1,13 @@
-import React, { FC, memo, PureComponent, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  FC,
+  memo,
+  PureComponent,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { connect } from 'react-redux';
 import { Platform, UIManager, Linking, AppState } from 'react-native';
-import { CommonActions, useNavigation } from '@react-navigation/native';
 import Orientation from 'react-native-orientation';
 
 import KeyboardManager from 'react-native-keyboard-manager';
@@ -15,11 +20,11 @@ import { appStateUpdate } from '../redux/actions/util';
 import LocalNotification from './localNotification';
 import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
-import { useGetUserInfo } from 'src/data/data-context';
-import { storage } from './storage';
+import DataContext, { useGetUserInfo } from 'src/data/data-context';
 import { isTablet } from 'react-native-device-info';
 import { navigationRef } from '@components/Nav/navigators';
 import { RouteKey } from '@pages/interface';
+import { UserType } from 'src/data/data-context/interface';
 
 require('../../helps/AnimatableRegist');
 //
@@ -185,6 +190,25 @@ const keyboardConfig = () => {
   }
 };
 
+const UserDepends: FC<{ user: UserType }> = ({ user }) => {
+  const { dispatch } = useContext(DataContext);
+  const userString = JSON.stringify(user);
+  useEffect(() => {
+    if (user && user.objectId) {
+      dispatch({ type: 'update_user_info', user });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userString, dispatch]);
+  return null;
+};
+
+@connect((state) => ({ user: state.user.data }))
+class UserDependsClass extends PureComponent {
+  render() {
+    return <UserDepends user={this.props.user} />;
+  }
+}
+
 const Configure: FC<{}> = ({ children }) => {
   const user = useGetUserInfo();
   // const { navigate } = useNavigation();
@@ -229,10 +253,12 @@ const Configure: FC<{}> = ({ children }) => {
     return () => {
       Linking.removeEventListener('url', handleOpenURL);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogin]);
 
   useEffect(() => {
     getInitialURL();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // useEffect(() => {
@@ -249,6 +275,7 @@ const Configure: FC<{}> = ({ children }) => {
       {children}
       <LocalNotification />
       <InfoBar />
+      <UserDependsClass />
     </>
   );
 };

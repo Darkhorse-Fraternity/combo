@@ -18,7 +18,7 @@ import {
   StyledDateTextSmall,
 } from './style';
 import ImagesViewModal from '../../../../components/ZoomImage/ImagesViewModal';
-import { UserType } from 'src/data/data-context';
+import { UserType } from 'src/data/data-context/interface';
 import { GetClassesIDoResponse } from 'src/hooks/interface';
 
 type ItemType = GetClassesIDoResponse['results'][number];

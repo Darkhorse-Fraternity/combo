@@ -44,9 +44,10 @@ import { update } from '../../../redux/module/leancloud';
 import { shadeBlend } from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
 import { storage } from '@configure/storage';
-import { useGetUserInfo, UserType } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { remind, RemindDataType, useLoadlocalRemind } from '@configure/app';
 import { GetClassesIUseIdResponse } from 'src/hooks/interface';
+import { UserType } from 'src/data/data-context/interface';
 
 // const interactionManagerDelay = () =>
 //   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
