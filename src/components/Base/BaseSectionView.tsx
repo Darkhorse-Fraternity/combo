@@ -7,8 +7,6 @@ import React, { LegacyRef, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
-  InteractionManager,
-  RefreshControl,
   ActivityIndicator,
   Text,
   Platform,

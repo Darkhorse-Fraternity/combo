@@ -42,3 +42,11 @@ export const StyledAdd = styled(BorderlessButton)`
 export const StyledIonicons = styled(Feather)`
   align-self: center;
 `;
+
+export const StyledCellMain = styled.View`
+  flex-direction: row;
+`;
+
+export const StyledSectionList = styled.SectionList`
+  flex: 1;
+`;

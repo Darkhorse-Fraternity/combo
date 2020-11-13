@@ -13,9 +13,9 @@ import {
 import Pop from '../Pop';
 
 const { RNUpdateApp } = NativeModules;
-const RNFS = require('react-native-fs');
+import RNFS from 'react-native-fs';
 
-const { width, height } = Dimensions.get('window');
+// const { width, height } = Dimensions.get('window');
 const isIOS = Platform.OS === 'ios';
 
 export default class RNUpdate extends Component {
@@ -34,6 +34,8 @@ export default class RNUpdate extends Component {
     errorTips: '', // 下载发生错误的提示
     CancelTips: '', // 用户取消升级的提示
   };
+  filePath: string;
+  jobId: number;
 
   constructor(props) {
     super(props);
@@ -105,7 +107,7 @@ export default class RNUpdate extends Component {
           });
         }
       } else if (isManual) {
-        ToastAndroid.show(
+        ToastAndroid.showWithGravity(
           '已经是最新版本',
           ToastAndroid.SHORT,
           ToastAndroid.BOTTOM,
@@ -117,7 +119,7 @@ export default class RNUpdate extends Component {
   }
 
   errorTips = () => {
-    ToastAndroid.show('安装失败', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
+    ToastAndroid.show('安装失败', ToastAndroid.SHORT);
   };
 
   androidUpdate = async (fetchRes) => {
@@ -176,7 +178,9 @@ export default class RNUpdate extends Component {
 
   updateApp = async (fetchRes) => {
     // 如果已经开始下载
-    if (this.loading) return;
+    if (this.loading) {
+      return;
+    }
     // 如果是android
     if (!isIOS) {
       await this.checkUpdate(fetchRes);

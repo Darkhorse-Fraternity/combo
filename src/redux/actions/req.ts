@@ -106,7 +106,7 @@ export function load(params: Object, key: string) {
   return (dispatch) => dispatch(req(params, key, { sceme: schemas[key] }));
 }
 
-export async function get(params) {
+export async function get(params: {}) {
   const response = await reqM(params);
   if (response && response[RESCODE] === SUCCODE) {
     return response[DATA];

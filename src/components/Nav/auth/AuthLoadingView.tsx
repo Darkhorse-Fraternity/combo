@@ -1,112 +1,72 @@
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent, useContext, useEffect } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import NetInfo, { NetInfoSubscription } from '@react-native-community/netinfo';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { userInfo } from '../../../redux/actions/user';
+// import { userInfo } from '../../../redux/actions/user';
 
 import { IUSE } from '../../../redux/reqKeys';
 import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
 import { listReq } from '../../../redux/actions/list';
 import { iUseList as iUseListParams } from '../../../request/leanCloud';
-import { StackActions } from '@react-navigation/native';
+import {
+  Descriptor,
+  ParamListBase,
+  StackActions,
+} from '@react-navigation/native';
+import { userInfo } from 'src/data/data-context/user';
+import DataContext, { useGetUserInfo } from 'src/data/data-context';
+import { useGetIuseData } from 'src/data/data-context/core';
+import { usePostCallIUseList3 } from 'src/hooks/interface';
 
-@connect(
-  (state) => ({}),
-  (dispatch, props) => ({
-    bootstrapAsync: async () => {
-      try {
-        const user = await dispatch(userInfo());
-        if (user.sessionToken) {
-          // Toast.show('111')
-          const p1 = dispatch(
-            listReq(IUSE, iUseListParams(), false, {
-              dataMap: (data) => {
-                const { iUseList } = data.result;
-                // 添加副本
-                // console.log('fbList', fbList);
-
-                // dispatch(addNormalizrEntities(FLAGRECORD, { results: fbList }));
-
-                // 通过本地时间验证,判断今日是否已经打卡
-                // const newIUseList = iUseList.sort((a, b) => {
-                //   const aDone = moment(0, 'HH').isBefore(a.doneDate.iso);
-                //   const bDone = moment(0, 'HH').isBefore(b.doneDate.iso);
-                //   if (aDone && bDone) {
-                //     return false;
-                //   }
-                //   return aDone;
-                // });
-                return { results: iUseList };
-              },
-            }),
-          );
-
-          let timer;
-          const p2 = new Promise((resolve) => {
-            timer = setTimeout(resolve, 9000, 'one');
-          });
-
-          await Promise.race([p1, p2]);
-          if (timer) {
-            clearTimeout(this.timer);
-          }
-
-          // Toast.show('222')
-          // dispatch(async (dispatch, getState) => {
-          //   const state = getState();
-          //   const { user } = state;
-
-          const isFirstInstaller = await firstInstaller();
-          // console.log('isFirstInstaller:', isFirstInstaller);
-          if (user.isTourist && isFirstInstaller) {
-            props.navigation.dispatch(StackActions.replace('tab'));
-            props.navigation.navigate('login');
-            // props.navigation.dispatch(StackActions.replace('login'));
-          } else {
-            props.navigation.dispatch(StackActions.replace('tab'));
-          }
-          // });
-        }
-        // props.navigation.navigate(user ? 'tab' : 'login');
-      } catch (e) {
-        console.log('bootstrapAsync error:', e.message);
+const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
+  const { data, dispatch: contextDispatch } = useContext(DataContext);
+  const {
+    user: { objectId: uid, isTourist },
+  } = data;
+  const { data: iUse, run } = useGetIuseData();
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (state.isConnected) {
+        userInfo().then((user) => {
+          contextDispatch({ type: 'update_user_info', user: user as never });
+        });
       }
-    },
-  }),
-)
-export default class AuthLoadingScreen extends PureComponent {
-  unsubscribe: NetInfoSubscription | undefined;
-  async componentDidMount() {
-    const { isConnected } = await NetInfo.fetch();
-    if (!isConnected) {
-      this.unsubscribe = NetInfo.addEventListener((state) => {
-        if (state.isConnected) {
-          this.props.bootstrapAsync();
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, [contextDispatch]);
+
+  useEffect(() => {
+    if (uid) {
+      run();
+    }
+  }, [run, uid]);
+
+  useEffect(() => {
+    if (iUse) {
+      firstInstaller().then((isFirstInstaller) => {
+        if (isTourist && isFirstInstaller) {
+          props.navigation.dispatch(StackActions.replace('tab'));
+          props.navigation.navigate('login');
+        } else {
+          props.navigation.dispatch(StackActions.replace('tab'));
         }
       });
-    } else {
-      this.props.bootstrapAsync();
     }
-  }
+  }, [isTourist, iUse, props.navigation]);
 
-  componentWillUnmount() {
-    this.unsubscribe && this.unsubscribe();
-  }
-
-  // Fetch the token from storage then navigate to our appropriate place
-
-  // Render any loading content that you like here
-  render() {
-    return (
-      <View style={styles.container}>
-        <Indicators size={40} />
-        <Text style={styles.text}>加载中...</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <Indicators size={40} />
+      <Text style={styles.text}>加载中...</Text>
+      {/* <AuthLoadingScreenClass {...props} /> */}
+    </View>
+  );
+};
+export default AuthLoadingScreen;
 
 const styles = StyleSheet.create({
   container: {

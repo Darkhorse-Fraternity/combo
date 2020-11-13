@@ -94,7 +94,7 @@ export const Provider: FC<DataContextType> = (props) => {
         // setHeader({ Authorization: '' });
         // user = undefined;
         return { ...preState, user: { isTourist: true } as UserType };
-      case 'updata_iUse': {
+      case 'get_iUse': {
         const normalizedData = normalize(
           action.data,
           new schema.Array(iUseSceme),
@@ -108,6 +108,33 @@ export const Provider: FC<DataContextType> = (props) => {
           ...preState,
           iUses_self: { entities: iUse || {}, list: result },
           iCards_self: iCard || {},
+        };
+      }
+      case 'update_iUse': {
+        // 先取出原来的值。
+        const { iUses_self, iCards_self } = preState;
+        const normalizedData = normalize(action.data, iUseSceme);
+        const { entities, result } = normalizedData;
+        const { iUse, iCard } = entities;
+        const include = iUses_self.list.includes(result);
+        return {
+          ...preState,
+          iUses_self: {
+            entities: { ...iUses_self.entities, ...iUse },
+            // result 如果已经含有，则不变，否则添加到第一个
+            list: include
+              ? preState.iUses_self.list
+              : [result, ...preState.iUses_self.list],
+          },
+          iCards_self: { ...iCards_self, ...iCard },
+        };
+      }
+      case 'update_iCard': {
+        // 先取出原来的值。
+        const { iCards_self } = preState;
+        return {
+          ...preState,
+          iCards_self: { ...iCards_self, [action.data.objectId]: action.data },
         };
       }
       case 'init':

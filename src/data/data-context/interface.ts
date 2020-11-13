@@ -7,6 +7,7 @@ import {
 } from 'src/hooks/interface';
 import { ICARD, IUSE } from '@redux/reqKeys';
 import { entity } from '@redux/scemes';
+import { object, string } from 'prop-types';
 type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
 type IUseType = NonNullable<
   NonNullable<PostCallIUseList3Response['result']>['iUseList']
@@ -20,23 +21,45 @@ export type IUseComboType =
   | IUseType
   | GetClassesIUseIdResponse;
 
+export type iUses_self_type = {
+  entities: {
+    [key: string]: GetClassesIUseIdResponse;
+  };
+  list: string[];
+};
+
+export type iCards_self_type = {
+  [key: string]: GetClassesICardIdResponse;
+};
+
 export interface StateType {
   user: UserType;
-  iCards_self: {
-    [key: string]: GetClassesICardIdResponse;
-  }; // user 为自己的iCard
-  iUses_self: {
-    entities: {
-      [key: string]: GetClassesIUseIdResponse;
-    };
-    list: string[];
-  }; // user 为自己的iUse
+  iCards_self: iCards_self_type; // user 为自己的iCard
+  iUses_self: iUses_self_type; // user 为自己的iUse
 }
+
+type PartialWithoutId<T extends { objectId: string }> = {
+  [P in keyof Omit<T, 'objectId'>]?: T[P];
+} & { objectId: string };
+
+export type IUseUpdateType =
+  | PartialWithoutId<IUseType>
+  | PartialWithoutId<GetClassesIUseIdResponse>;
+
+export type ICardUpdateType = PartialWithoutId<ICardType>;
 
 export type Action =
   | {
-      type: 'updata_iUse';
+      type: 'get_iUse';
       data: IUseComboType;
+    }
+  | {
+      type: 'update_iUse';
+      data: IUseType | GetClassesIUseIdResponse;
+    }
+  | {
+      type: 'update_iCard';
+      data: ICardType;
     }
   | { type: 'login'; user: GetUsersIdResponse }
   | { type: 'update_user_info'; user: GetUsersIdResponse }
@@ -57,7 +80,7 @@ export interface BaseProviderValueType {
   dispatch: React.Dispatch<Action>;
 }
 
-const iCardSceme = entity<GetClassesICardIdResponse>(ICARD);
+export const iCardSceme = entity<GetClassesICardIdResponse>(ICARD);
 export const iUseSceme = entity<GetClassesIUseIdResponse>(IUSE, {
   iCard: iCardSceme,
 });

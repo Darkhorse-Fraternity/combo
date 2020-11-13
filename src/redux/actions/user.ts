@@ -43,6 +43,7 @@ import {
   getUpdateMeByParam,
   verifySmsCode,
 } from '../../request/leanCloud';
+import { iCardSample, iUseSample } from 'src/data/data-context/user';
 
 ('use strict');
 
@@ -99,8 +100,6 @@ export function passwordTextChange(text: string): Object {
  *
  */
 
-const sessionTokenkey = 'sessionToken';
-
 export function userInfo() {
   return async (dispatch) => {
     // const uuid =  DeviceInfo.getUniqueID()
@@ -113,12 +112,12 @@ export function userInfo() {
       const user = JSON.parse(userString);
       const { sessionToken } = user;
       if (sessionToken) {
-        const { sessionToken } = user;
         // setLeanCloudSession(sessionToken)
         // const params = usersMe()
         await dispatch(loginSucceed(user));
         // 更新用户数据
         dispatch(update());
+
         return user;
         // try {
         //   const res = await get(params)
@@ -159,68 +158,68 @@ const anonymousUser = () => async (dispatch) => {
   }
 };
 
-const iCardSample = (objectId) => [
-  {
-    title: '示例：早睡',
-    period: '7',
-    record: [],
-    recordDay: [1, 2, 3, 4, 5, 6, 7],
-    iconAndColor: {
-      name: 'sleepBoy',
-      color: '#F08200',
-    },
-    notifyText: '早睡早起身体好!',
-    notifyTimes: ['22:00'],
-    limitTimes: ['20:00', '24:00'],
-    price: 0,
-    state: 0,
-    // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-    user: {
-      __type: 'Pointer',
-      className: '_User',
-      objectId,
-    },
-  },
-  {
-    title: '示例：记单词',
-    period: '7',
-    record: [],
-    recordDay: [1, 2, 3, 4, 5, 6, 7],
-    iconAndColor: {
-      name: 'homework',
-      color: '#FFC076',
-    },
-    notifyText: '坚持鸭!',
-    notifyTimes: ['20:00'],
-    limitTimes: ['00:00', '24:00'],
-    price: 0,
-    state: 0,
-    // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-    user: {
-      __type: 'Pointer',
-      className: '_User',
-      objectId,
-    },
-  },
-];
+// const iCardSample = (objectId: string) => [
+//   {
+//     title: '示例：早睡',
+//     period: '7',
+//     record: [],
+//     recordDay: [1, 2, 3, 4, 5, 6, 7],
+//     iconAndColor: {
+//       name: 'sleepBoy',
+//       color: '#F08200',
+//     },
+//     notifyText: '早睡早起身体好!',
+//     notifyTimes: ['22:00'],
+//     limitTimes: ['20:00', '24:00'],
+//     price: 0,
+//     state: 0,
+//     // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+//     user: {
+//       __type: 'Pointer',
+//       className: '_User',
+//       objectId,
+//     },
+//   },
+//   {
+//     title: '示例：记单词',
+//     period: '7',
+//     record: [],
+//     recordDay: [1, 2, 3, 4, 5, 6, 7],
+//     iconAndColor: {
+//       name: 'homework',
+//       color: '#FFC076',
+//     },
+//     notifyText: '坚持鸭!',
+//     notifyTimes: ['20:00'],
+//     limitTimes: ['00:00', '24:00'],
+//     price: 0,
+//     state: 0,
+//     // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
+//     user: {
+//       __type: 'Pointer',
+//       className: '_User',
+//       objectId,
+//     },
+//   },
+// ];
 
-const iUseSample = (objectId, iCardId) => ({
-  time: 0,
-  // notifyTime:option&&option.notifyTime||"20.00",
-  doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
-  user: {
-    __type: 'Pointer',
-    className: '_User',
-    objectId,
-  },
-  iCard: {
-    __type: 'Pointer',
-    className: 'iCard',
-    objectId: iCardId,
-  },
-  statu: 'start',
-  privacy: 2,
-});
+// const iUseSample = (objectId, iCardId) => ({
+//   time: 0,
+//   // notifyTime:option&&option.notifyTime||"20.00",
+//   doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
+//   user: {
+//     __type: 'Pointer',
+//     className: '_User',
+//     objectId,
+//   },
+//   iCard: {
+//     __type: 'Pointer',
+//     className: 'iCard',
+//     objectId: iCardId,
+//   },
+//   statu: 'start',
+//   privacy: 2,
+// });
 
 // 预设示例
 function addSample(user) {
@@ -243,8 +242,6 @@ function addSample(user) {
         }
       });
       // 添加圈子示例
-      // 5d15ef37a91c9300681b515b 亲子共学
-      // 5be8f3f0ee920a00668767bc 健身
       const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
       iUseReq.push(classCreatNewOne('iUse', iUseParam));
       const iUseBatch = classBatch(iUseReq);
@@ -412,7 +409,9 @@ export function logout(navigation) {
   return async (dispatch, getState) => {
     try {
       const state = getState();
-      if (!state.user.isLogin) return;
+      if (!state.user.isLogin) {
+        return;
+      }
       // const parame = appLogout(state.user.data.appUserId||'');
       // const response = await send(parame)
       // if (response.isSuccess === '1') {

@@ -2458,7 +2458,7 @@ const dataKey_0_1_0_3 = undefined as any
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 export interface GetUsersIdRequest {
   id: string
@@ -2469,7 +2469,7 @@ export interface GetUsersIdRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 export interface GetUsersIdResponse {
   updatedAt: string
@@ -2502,6 +2502,8 @@ export interface GetUsersIdResponse {
       id: string
     }
   }
+  username: string
+  sessionToken: string
 }
 
 /**
@@ -2509,7 +2511,7 @@ export interface GetUsersIdResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 type GetUsersIdRequestConfig = Readonly<
   RequestConfig<
@@ -2529,7 +2531,7 @@ type GetUsersIdRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2550,7 +2552,7 @@ const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, GetUsersIdRequestConfig>(
   getUsersIdRequestConfig,
@@ -2561,10 +2563,256 @@ export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, Get
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-02 15:34:46`
+ * @更新时间 `2020-11-13 11:01:18`
  */
 export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdRequestConfig, ReturnType<typeof getUsersId>>(
   getUsersId,
+)
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+export interface PostUsersRequest {
+  authData: {
+    anonymous?: {
+      __op?: string
+      id?: string
+    }
+    qq?: {
+      access_token: string
+      openid: string
+      oauth_consumer_key: string
+    }
+    wechat?: {
+      access_token: string
+      openid: string
+    }
+    lc_apple?: {
+      uid: string
+    }
+  }
+}
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+export interface PostUsersResponse {
+  updatedAt: string
+  uid?: number
+  objectId: string
+  createdAt: string
+  emailVerified?: boolean
+  balance?: number
+  mobilePhoneVerified?: boolean
+  toolConfig?: {
+    redo?: number
+  }
+  username: string
+  sessionToken?: string
+  nickname?: string
+  headimgurl?: string
+  avatar?: {
+    mime_type?: string
+    updatedAt?: string
+    key?: string
+    name?: string
+    objectId?: string
+    createdAt?: string
+    __type?: string
+    url?: string
+    provider?: string
+    bucket?: string
+  }
+  authData?: {
+    anonymous?: {
+      id?: string
+    }
+  }
+}
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+type PostUsersRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+const postUsersRequestConfig: PostUsersRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+export const postUsers = makeRequest<PostUsersRequest, PostUsersResponse, PostUsersRequestConfig>(
+  postUsersRequestConfig,
+)
+
+/**
+ * 接口 [第三方登录↗](http://121.89.170.197:3000/project/59/interface/api/520) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users`
+ * @更新时间 `2020-11-13 14:11:44`
+ */
+export const usePostUsers = makeRequestHook<PostUsersRequest, PostUsersRequestConfig, ReturnType<typeof postUsers>>(
+  postUsers,
+)
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+export interface GetUsersMeRequest {}
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+export interface GetUsersMeResponse {
+  updatedAt: string
+  uid: number
+  objectId: string
+  toolConfig: {
+    redo?: number
+  }
+  nickname?: string
+  headimgurl?: string
+  createdAt: string
+  emailVerified: boolean
+  balance: number
+  avatar?: {
+    mime_type?: string
+    updatedAt?: string
+    key?: string
+    name?: string
+    objectId?: string
+    createdAt?: string
+    __type?: string
+    url?: string
+    provider?: string
+    metaData?: {}
+    bucket?: string
+  }
+  mobilePhoneVerified: boolean
+  authData?: {
+    anonymous?: {
+      id: string
+    }
+  }
+  username: string
+  sessionToken: string
+}
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+type GetUsersMeRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/me',
+    undefined,
+    string,
+    string,
+    true
+  >
+>
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+const getUsersMeRequestConfig: GetUsersMeRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/me',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: true,
+}
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+export const getUsersMe = makeRequest<GetUsersMeRequest, GetUsersMeResponse, GetUsersMeRequestConfig>(
+  getUsersMeRequestConfig,
+)
+
+/**
+ * 接口 [自己的用户详情(含token)↗](http://121.89.170.197:3000/project/59/interface/api/534) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/me`
+ * @更新时间 `2020-11-13 15:58:19`
+ */
+export const useGetUsersMe = makeRequestHook<GetUsersMeRequest, GetUsersMeRequestConfig, ReturnType<typeof getUsersMe>>(
+  getUsersMe,
 )
 
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
