@@ -34,6 +34,16 @@ export default class PageList<ItemT> extends Component<
   //   return this.state.loadStatu !== nextState.loadStatu;
   // }
 
+  //让外部直接对date 进行操作
+
+  getData() {
+    return this.state.data;
+  }
+
+  mutate(data: ItemT[]) {
+    this.setState({ data });
+  }
+
   reload(page: number = 0) {
     const { pageSize = 20, loadPage } = this.props;
     const { data } = this.state;

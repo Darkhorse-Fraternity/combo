@@ -301,8 +301,9 @@ const RenderCell: FC<{
   onSwipeableWillClose: (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
   ) => void;
+  listRef: React.MutableRefObject<PageList<IUseType | undefined>>;
 }> = (props) => {
-  const { item, onSwipeableWillOpen, onSwipeableWillClose } = props;
+  const { item, onSwipeableWillOpen, onSwipeableWillClose, listRef } = props;
   const { navigate } = useNavigation();
   const data = item;
 
@@ -321,7 +322,12 @@ const RenderCell: FC<{
     handleViewRef.current?.remove();
     const res = await putClassesIUseId({ id: item.objectId, ...params });
     res && addIuse({ ...item, ...params } as never);
-    await handleViewRef.current?.reset();
+    const info = listRef.current?.getData();
+    // 找到并移除data 中的选项。
+    const index = info.findIndex((cell) => cell?.objectId === item.objectId);
+    const nf = info.splice(index, 1);
+    listRef.current?.mutate(nf);
+    handleViewRef.current?.reset();
   };
   const deleteAction = () => {
     // this.props.delete(item, handleViewRef, data.isFb);
@@ -342,9 +348,15 @@ const RenderCell: FC<{
             statu: 'del',
           };
           handleViewRef.current?.remove();
-          const res = await putClassesIUseId({ id: item.objectId, ...params });
+          putClassesIUseId({ id: item.objectId, ...params });
+          const info = listRef.current?.getData();
+          const index = info.findIndex(
+            (cell) => cell?.objectId === item.objectId,
+          );
+          const nf = info.splice(index, 1);
+          listRef.current?.mutate(nf);
           // res && remove(res.objectId);
-          await handleViewRef.current?.reset();
+          handleViewRef.current?.reset();
         },
       },
     ]);
@@ -426,6 +438,7 @@ const Record: FC<{}> = () => {
   const onScroll = useScrollTitle('已暂停习惯');
 
   const handleRef = useRef<AppleStyleSwipeableRow>();
+  const listRef = useRef<PageList<IUseType>>();
 
   const onSwipeableWillOpen = (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
@@ -472,6 +485,7 @@ const Record: FC<{}> = () => {
       renderItem={(props) => (
         <RenderCell
           {...props}
+          listRef={listRef as never}
           onSwipeableWillOpen={onSwipeableWillOpen}
           onSwipeableWillClose={onSwipeableWillClose}
         />
