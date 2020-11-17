@@ -70,7 +70,7 @@ export const otherRoute = {
   },
   [RouteKey.creat]: Creat,
   [RouteKey.newCard]: NewCard,
-  [RouteKey.record]: { component: Record },
+  [RouteKey.record]: Record,
   [RouteKey.cardConfig]: CardConfig,
   [RouteKey.account]: Account,
   [RouteKey.cardInfo]: {

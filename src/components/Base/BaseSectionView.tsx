@@ -113,6 +113,7 @@ export default class BaseSectionView<ItemT> extends PureComponent<
   _handleloadMore = (info: { distanceFromEnd: number }) => {
     const { loadStatu, loadMore } = this.props;
     const { shouldShowloadMore } = this.state;
+
     if (
       loadStatu === ListLoadType.LIST_LOAD_MORE ||
       loadStatu === ListLoadType.LIST_LOAD_NO_MORE ||
@@ -121,7 +122,8 @@ export default class BaseSectionView<ItemT> extends PureComponent<
     ) {
       return;
     }
-
+    console.log('loadStatu', loadStatu);
+    console.log('shouldShowloadMore', shouldShowloadMore);
     // console.log('distanceFromEnd:', info.distanceFromEnd);
     // console.log('loadStatu:', this.props.loadStatu);
     if (shouldShowloadMore && loadMore) {
@@ -213,7 +215,6 @@ export default class BaseSectionView<ItemT> extends PureComponent<
         ref={listRef}
         // sections={sections}
         refreshing={refreshing}
-        onScroll={this.onScroll.bind(this)}
         onRefresh={() => {
           this.openRefreshing = true;
           this._handleRefresh();
@@ -245,6 +246,7 @@ export default class BaseSectionView<ItemT> extends PureComponent<
         style={[styles.list, style]}
         onEndReachedThreshold={Platform.OS === 'ios' ? 0.1 : 0.1}
         {...otherProps}
+        onScroll={this.onScroll.bind(this)}
       />
     );
   }

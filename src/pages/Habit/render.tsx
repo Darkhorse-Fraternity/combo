@@ -53,14 +53,14 @@ const RenderHeader = () => (
 
 const RenderCell: FC<{
   item: IUseType;
-  index: number;
   onSwipeableWillOpen: (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
-    index: number,
   ) => void;
-  onSwipeableWillClose: (index: number) => void;
+  onSwipeableWillClose: (
+    ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
+  ) => void;
 }> = (props) => {
-  const { item, index, onSwipeableWillOpen, onSwipeableWillClose } = props;
+  const { item, onSwipeableWillOpen, onSwipeableWillClose } = props;
   const { navigate } = useNavigation();
   const data = item;
 
@@ -115,12 +115,8 @@ const RenderCell: FC<{
         // autoClose={true}
         ref={swipeRef as never}
         // close={this.state.openIndex !== index}
-        onSwipeableWillOpen={onSwipeableWillOpen.bind(
-          undefined,
-          swipeRef,
-          index,
-        )}
-        onSwipeableWillClose={onSwipeableWillClose.bind(undefined, index)}
+        onSwipeableWillOpen={onSwipeableWillOpen.bind(undefined, swipeRef)}
+        onSwipeableWillClose={onSwipeableWillClose.bind(undefined, swipeRef)}
         right={[
           isSelf
             ? {
@@ -206,26 +202,28 @@ const _keyExtractor = (item: IUseType) => {
 const Habit = () => {
   // const { user } = useGetInfoOfMe();
   const { data, run, loading } = useGetIuseData();
-  const [openIndex, setOpenIndex] = useState(-1);
   const onScroll = useScrollTitle('日常习惯');
+
+  const handleRef = useRef<AppleStyleSwipeableRow>();
 
   const onSwipeableWillOpen = (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
-    index: number,
   ) => {
-    if (index === openIndex) {
+    if (handleRef.current === ref.current) {
       return;
     }
-    if (openIndex !== -1) {
+    if (handleRef) {
       // const swipeRef = this.swipeRefs[`swipe${openIndex}`];
-      ref.current?.close();
+      handleRef.current?.close();
     }
-    setOpenIndex(index);
+    handleRef.current = ref.current;
   };
 
-  const onSwipeableWillClose = (index: number) => {
-    if (index === openIndex) {
-      setOpenIndex(-1);
+  const onSwipeableWillClose = (
+    ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
+  ) => {
+    if (handleRef.current === ref.current) {
+      handleRef.current = undefined;
     }
   };
 
@@ -233,10 +231,13 @@ const Habit = () => {
     <StyledList<IUseType>
       numColumns={isTablet() ? 2 : 1}
       onScroll={onScroll}
-      scrollEnabled={openIndex === -1}
+      // scrollEnabled={!!handleRef.current}
       refreshing={false}
       onRefresh={() => {
-        setOpenIndex(-1);
+        if (handleRef.current) {
+          handleRef.current?.close();
+          handleRef.current = undefined;
+        }
         run();
       }}
       data={data}
@@ -244,10 +245,9 @@ const Habit = () => {
       // pagingEnabled={true}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item, index }) => (
+      renderItem={(props) => (
         <RenderCell
-          item={item}
-          index={index}
+          {...props}
           onSwipeableWillOpen={onSwipeableWillOpen}
           onSwipeableWillClose={onSwipeableWillClose}
         />

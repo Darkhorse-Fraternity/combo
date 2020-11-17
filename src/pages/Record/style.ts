@@ -6,7 +6,6 @@
 
 import styled from 'styled-components/native';
 import HeaderBtn from '../../components/Button/HeaderBtn';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -50,9 +49,9 @@ export const StyledDeleteBtn = styled.View`
   flex: 1;
 `;
 
-export const StyledDeleteBtnText = styled.Text`
+export const StyledDeleteBtnText = styled.Text<{ color: string }>`
   color: ${(props) => props.color};
-  margin: ${(props) => (Platform.OS === 'ios' ? 5 : 3)}px;
+  margin: ${() => (Platform.OS === 'ios' ? 5 : 3)}px;
   font-size: 13px;
   font-weight: 300;
 `;

@@ -83,6 +83,7 @@ export default class PageList<ItemT> extends Component<
   render() {
     const { loadStatu, data, page } = this.state;
     const { ...otherProps } = this.props;
+
     return (
       <List<ItemT>
         {...otherProps}
