@@ -183,7 +183,7 @@ export function updatePassword(
  * @param  {[type]} nickname:string 更新后的名字
  * @return {[type]}                 [description]
  */
-export function updateNickName(id: string, nickname: string): Object {
+export function updateNickName(id: string, nickname: string) {
   return {
     path: `/users/${id}`,
     method: methodType.put,
@@ -205,7 +205,7 @@ export function bindingFileToUser(
   userID: string,
   fileID: string,
   name: string,
-): Object {
+) {
   const param = {};
   param[name] = {
     id: fileID,

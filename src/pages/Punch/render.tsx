@@ -348,6 +348,7 @@ const Punch: FC<Descriptor<{}>> = () => {
     isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
   );
   const user = useGetUserInfo();
+  const { objectId: uid } = user;
   const { data = [], loading, run } = useGetIuseData();
 
   const { setOptions } = useNavigation();
@@ -370,6 +371,17 @@ const Punch: FC<Descriptor<{}>> = () => {
         Orientation.removeOrientationListener(_orientationDidChange);
     };
   }, []);
+
+  //当切换用户的时候,发起请求
+  const firstRef = useRef(true);
+  useEffect(() => {
+    if (uid && uid.length > 0 && !firstRef.current) {
+      console.log('uid!!!', uid);
+
+      run();
+    }
+    firstRef.current = false;
+  }, [run, uid]);
 
   const openSmallTitleRef = useRef(false);
   const onScroll = useCallback(

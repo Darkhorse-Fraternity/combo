@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import Button from '../../../components/Button';
 // import {
 //   RectButton,
@@ -15,7 +14,7 @@ export const StyledInner = styled.View`
   margin: ${Platform.OS === 'ios' ? 5 : 3}px 15px;
 `;
 
-export const StyledIconImage = styled.Image`
+export const StyledIconImage = styled.Image<{ size: number }>`
   width: ${(props) => props.size};
   height: ${(props) => props.size};
 `;
@@ -38,7 +37,7 @@ export const StyledDes = styled.Text`
   font-style: italic;
 `;
 
-export const StyledIconBG = styled.View`
+export const StyledIconBG = styled.View<{ color: string }>`
   height: 62px;
   width: 62px;
   background-color: ${(props) => props.color};

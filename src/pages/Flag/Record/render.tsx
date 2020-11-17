@@ -69,7 +69,7 @@ export default class FlagRecord extends PureComponent {
     );
   };
 
-  render(): ReactElement<any> {
+  render() {
     const param = {
       where: {
         ...iCard(this.props.route.params.iCardId),

@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -15,7 +15,6 @@ import Toast from 'react-native-simple-toast';
 
 import { iCardPoint, userPoint } from '../../../../request/LCModle';
 import Main from '../Main';
-import { defaultHabit } from '../../../../configure/habit';
 
 import {
   StyledSubTitleView,
@@ -27,6 +26,7 @@ import {
   StyledHeaderBtn,
   StyledInnerScrollView,
   StyledTitleInput,
+  StyledContent,
 } from './style';
 // static displayName = Creat
 import { DeviceEventEmitterKey } from '../../../../configure/enum';
@@ -46,11 +46,7 @@ import {
   cardValidationSchema,
 } from '../card_interface';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  postClassesICard,
-  postClassesIUse,
-  putClassesICardId,
-} from 'src/hooks/interface';
+import { postClassesICard, postClassesIUse } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
 
 const RenderIconAndColor: FC<{
@@ -86,14 +82,12 @@ const RenderName: FC<{
   </View>
 );
 
-const Render: FC<{}> = (props) => {
+const Render: FC<{}> = () => {
   const [step, setStep] = useState(0);
   const user = useGetUserInfo();
   const { goBack, dispatch } = useNavigation();
   const [loading, setLoading] = useState(false);
-  const { setValue, getValues, handleSubmit, errors, control } = useForm<
-    CardFormData
-  >({
+  const { getValues, handleSubmit, control } = useForm<CardFormData>({
     resolver: yupResolver(cardValidationSchema),
     defaultValues: {
       [CardTitle]: '',
@@ -168,7 +162,7 @@ const Render: FC<{}> = (props) => {
       }
     }
   };
-  const backStep = () => {
+  const backStep = useCallback(() => {
     if (step === 0) {
       goBack();
     } else {
@@ -176,14 +170,14 @@ const Render: FC<{}> = (props) => {
       // update iUse
     }
     return null;
-  };
+  }, [goBack, step]);
 
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', backStep);
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', backStep);
     };
-  }, [step]);
+  }, [step, backStep]);
 
   return (
     <StyledContent>

@@ -34,10 +34,6 @@ export default class FRDetail extends PureComponent {
     super(props);
   }
 
-  static propTypes = {};
-
-  static defaultProps = {};
-
   static navigationOptions = // const {navigation} = props;
     // const {state} = navigation;
     // const {params} = state;

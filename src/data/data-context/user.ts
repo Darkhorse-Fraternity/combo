@@ -1,12 +1,13 @@
 import * as Keychain from 'react-native-keychain';
 import {
-  getUsersId,
   GetUsersIdResponse,
   getUsersMe,
   postUsers,
   PostUsersResponse,
+  PutUsersIdRequest,
+  usePutUsersId,
 } from 'src/hooks/interface';
-import { UserType } from './interface';
+import { AuthDataKey, UserType } from './interface';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
@@ -14,7 +15,10 @@ import { classBatch, classCreatNewOne } from '@request/leanCloud';
 import moment from 'moment';
 import { get } from '@redux/actions/req';
 import md5 from 'react-native-md5';
+import * as QQAPI from 'react-native-qq';
 import { setLeanCloudSession } from '@configure/reqConfigs';
+import { useCallback, useContext } from 'react';
+import DataContext from './index';
 export async function userInfo() {
   // const uuid =  DeviceInfo.getUniqueID()
 
@@ -25,8 +29,6 @@ export async function userInfo() {
       // const sessionToken = await storage.load({ key: sessionTokenkey, })
       const user = JSON.parse(userString) as UserType;
       const { sessionToken } = user;
-      console.log('sessionToken', sessionToken);
-
       if (sessionToken) {
         // 更新用户数据
         setLeanCloudSession(sessionToken);
@@ -53,7 +55,7 @@ export async function update() {
   //   return updateUserData(res);
 }
 
-function updateLocation(user: GetUsersIdResponse) {
+export function updateLocation(user: GetUsersIdResponse) {
   const { username = '', sessionToken } = user;
   const userString = JSON.stringify(user);
 
@@ -62,9 +64,41 @@ function updateLocation(user: GetUsersIdResponse) {
   }
 }
 
+export const useGetInfoOfMe = () => {
+  const { data, dispatch } = useContext(DataContext);
+  const updateMe = useCallback(
+    (info: Partial<GetUsersIdResponse>) => {
+      updateLocation({
+        ...data.user,
+        ...info,
+      });
+      dispatch({
+        type: 'update_user_info',
+        user: {
+          ...data.user,
+          ...info,
+        },
+      });
+    },
+    [data.user, dispatch],
+  );
+
+  const logout = useCallback(() => {
+    Keychain.resetGenericPassword();
+    console.log('logoutxxxx');
+
+    setLeanCloudSession('');
+    dispatch({
+      type: 'logout',
+    });
+  }, [dispatch]);
+
+  return { user: data.user, updateMe, logout };
+};
+
 const anonymousUser = async () => {
   let uniqueId = DeviceInfo.getUniqueId();
-  console.log('uniqueId', uniqueId);
+  // console.log('uniqueId', uniqueId);
   if (Platform.OS === 'ios') {
     const md5String = md5.hex_md5(uniqueId, 'md5');
     uniqueId = md5String.substring(8, 24);
@@ -76,6 +110,7 @@ const anonymousUser = async () => {
     // await dispatch(_loginSucceed(user));
 
     const user = await postUsers({ authData: { anonymous: anonymousConfig } });
+    setLeanCloudSession(user.sessionToken || '');
     addSample(user);
 
     return user;
@@ -117,6 +152,74 @@ const addSample = async (user: PostUsersResponse) => {
     await get(iUseBatch);
   }
 };
+
+// 绑定
+export function useBindingAuthData() {
+  const { user, updateMe } = useGetInfoOfMe();
+  const userId = user.objectId;
+
+  const { run, loading } = usePutUsersId((res) => res);
+  const updateBinding = useCallback(
+    (
+      authData: PutUsersIdRequest['authData'],
+      exData?: Omit<PutUsersIdRequest, 'id' | 'authData'>,
+    ) => {
+      const params = {
+        authData: { ...user.authData, ...authData },
+        ...exData,
+      };
+      run({
+        id: userId,
+        ...params,
+      }).then((res) => {
+        updateMe({
+          ...res,
+          ...params,
+        });
+      });
+    },
+    [run, updateMe, user.authData, userId],
+  );
+
+  return { update: updateBinding, loading };
+}
+
+// 解除绑定
+export function useBreakBindingAuthData(key: AuthDataKey) {
+  const { update: updateBinding, loading } = useBindingAuthData();
+  const breakUpdate = () => {
+    if (key === 'anonymous') {
+      updateBinding({ [key]: { __op: 'Delete' } });
+    } else {
+      updateBinding({ [key]: null });
+    }
+  };
+
+  return { update: breakUpdate, loading };
+}
+
+// export function useQQBinding = ()=>{
+//   const qqConfig = await QQAPI.login();
+
+//   const { access_token, oauth_consumer_key, openid } = qqConfig;
+
+//   // 获取微信用户信息
+//   let exData = {};
+
+//   if (!user.headimgurl) {
+//     const params = QQUserInfo(access_token, oauth_consumer_key, openid);
+//     const info = await get(params);
+//     const userInfo = JSON.parse(info);
+
+//     let { nickname, figureurl_2, figureurl_qq_2 } = userInfo;
+
+//     nickname = user.nickname || nickname;
+//     exData = {
+//       nickname,
+//       headimgurl: figureurl_qq_2,
+//     };
+//   }
+// }
 
 export const iCardSample = (objectId: string) => [
   {

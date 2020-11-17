@@ -1214,7 +1214,7 @@ export const useGetClassesIUseId = makeRequestHook<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 export interface PutClassesIUseIdRequest {
   privacy?: number
@@ -1227,11 +1227,11 @@ export interface PutClassesIUseIdRequest {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 export interface PutClassesIUseIdResponse {
-  objectId?: string
-  createdAt?: string
+  objectId: string
+  createdAt: string
 }
 
 /**
@@ -1239,7 +1239,7 @@ export interface PutClassesIUseIdResponse {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 type PutClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
@@ -1259,7 +1259,7 @@ type PutClassesIUseIdRequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1280,7 +1280,7 @@ const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 export const putClassesIUseId = makeRequest<
   PutClassesIUseIdRequest,
@@ -1293,7 +1293,7 @@ export const putClassesIUseId = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `PUT /classes/iUse/:id`
- * @更新时间 `2020-11-09 17:45:46`
+ * @更新时间 `2020-11-17 14:02:45`
  */
 export const usePutClassesIUseId = makeRequestHook<
   PutClassesIUseIdRequest,
@@ -1681,7 +1681,7 @@ export const useGetClassesICardId = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 export interface PutClassesICardIdRequest {
   circleState?: number
@@ -1713,11 +1713,11 @@ export interface PutClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 export interface PutClassesICardIdResponse {
-  objectId?: string
-  createdAt?: string
+  objectId: string
+  createdAt: string
 }
 
 /**
@@ -1725,7 +1725,7 @@ export interface PutClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 type PutClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1745,7 +1745,7 @@ type PutClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1766,7 +1766,7 @@ const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 export const putClassesICardId = makeRequest<
   PutClassesICardIdRequest,
@@ -1779,7 +1779,7 @@ export const putClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-10 11:00:23`
+ * @更新时间 `2020-11-17 14:02:58`
  */
 export const usePutClassesICardId = makeRequestHook<
   PutClassesICardIdRequest,
@@ -2458,7 +2458,7 @@ const dataKey_0_1_0_3 = undefined as any
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 export interface GetUsersIdRequest {
   id: string
@@ -2469,7 +2469,7 @@ export interface GetUsersIdRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 export interface GetUsersIdResponse {
   updatedAt: string
@@ -2497,9 +2497,22 @@ export interface GetUsersIdResponse {
     bucket?: string
   }
   mobilePhoneVerified: boolean
-  authData?: {
+  authData: {
     anonymous?: {
-      id: string
+      id?: string
+      __op?: string
+    }
+    qq?: {
+      access_token: string
+      openid: string
+      oauth_consumer_key: string
+    }
+    weixin?: {
+      access_token: string
+      openid: string
+    }
+    lc_apple?: {
+      uid: string
     }
   }
   username: string
@@ -2511,7 +2524,7 @@ export interface GetUsersIdResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 type GetUsersIdRequestConfig = Readonly<
   RequestConfig<
@@ -2531,7 +2544,7 @@ type GetUsersIdRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2552,7 +2565,7 @@ const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, GetUsersIdRequestConfig>(
   getUsersIdRequestConfig,
@@ -2563,7 +2576,7 @@ export const getUsersId = makeRequest<GetUsersIdRequest, GetUsersIdResponse, Get
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id`
- * @更新时间 `2020-11-13 11:01:18`
+ * @更新时间 `2020-11-16 16:31:37`
  */
 export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdRequestConfig, ReturnType<typeof getUsersId>>(
   getUsersId,
@@ -2574,7 +2587,7 @@ export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdReques
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 export interface PostUsersRequest {
   authData: {
@@ -2587,7 +2600,7 @@ export interface PostUsersRequest {
       openid: string
       oauth_consumer_key: string
     }
-    wechat?: {
+    weixin?: {
       access_token: string
       openid: string
     }
@@ -2602,7 +2615,7 @@ export interface PostUsersRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 export interface PostUsersResponse {
   updatedAt: string
@@ -2643,7 +2656,7 @@ export interface PostUsersResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 type PostUsersRequestConfig = Readonly<
   RequestConfig<
@@ -2663,7 +2676,7 @@ type PostUsersRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 const postUsersRequestConfig: PostUsersRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2684,7 +2697,7 @@ const postUsersRequestConfig: PostUsersRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 export const postUsers = makeRequest<PostUsersRequest, PostUsersResponse, PostUsersRequestConfig>(
   postUsersRequestConfig,
@@ -2695,7 +2708,7 @@ export const postUsers = makeRequest<PostUsersRequest, PostUsersResponse, PostUs
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-13 14:11:44`
+ * @更新时间 `2020-11-16 16:42:23`
  */
 export const usePostUsers = makeRequestHook<PostUsersRequest, PostUsersRequestConfig, ReturnType<typeof postUsers>>(
   postUsers,
@@ -2813,6 +2826,116 @@ export const getUsersMe = makeRequest<GetUsersMeRequest, GetUsersMeResponse, Get
  */
 export const useGetUsersMe = makeRequestHook<GetUsersMeRequest, GetUsersMeRequestConfig, ReturnType<typeof getUsersMe>>(
   getUsersMe,
+)
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+export interface PutUsersIdRequest {
+  nickname?: string
+  avatar?: {
+    __type: string
+    id: string
+  }
+  headimgurl?: string
+  authData?: {
+    anonymous?: {
+      __op?: string
+      id?: string
+    }
+    qq?: {
+      access_token: string
+      openid: string
+      oauth_consumer_key: string
+    }
+    weixin?: {
+      access_token: string
+      openid: string
+    }
+    lc_apple?: {
+      uid: string
+    }
+  }
+  id: string
+}
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+export interface PutUsersIdResponse {
+  updatedAt: string
+  objectId: string
+}
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+type PutUsersIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+const putUsersIdRequestConfig: PutUsersIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+export const putUsersId = makeRequest<PutUsersIdRequest, PutUsersIdResponse, PutUsersIdRequestConfig>(
+  putUsersIdRequestConfig,
+)
+
+/**
+ * 接口 [修改用户信息↗](http://121.89.170.197:3000/project/59/interface/api/538) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `PUT /users/:id`
+ * @更新时间 `2020-11-16 16:44:17`
+ */
+export const usePutUsersId = makeRequestHook<PutUsersIdRequest, PutUsersIdRequestConfig, ReturnType<typeof putUsersId>>(
+  putUsersId,
 )
 
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any

@@ -1,35 +1,35 @@
-import React, { FC, PureComponent, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import NetInfo, { NetInfoSubscription } from '@react-native-community/netinfo';
-import { connect } from 'react-redux';
-import moment from 'moment';
+import NetInfo from '@react-native-community/netinfo';
+
 // import { userInfo } from '../../../redux/actions/user';
 
-import { IUSE } from '../../../redux/reqKeys';
 import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
-import { listReq } from '../../../redux/actions/list';
-import { iUseList as iUseListParams } from '../../../request/leanCloud';
+
 import {
   Descriptor,
   ParamListBase,
   StackActions,
 } from '@react-navigation/native';
-import { userInfo } from 'src/data/data-context/user';
-import DataContext, { useGetUserInfo } from 'src/data/data-context';
+import { updateLocation, userInfo } from 'src/data/data-context/user';
+import DataContext from 'src/data/data-context';
 import { useGetIuseData } from 'src/data/data-context/core';
-import { usePostCallIUseList3 } from 'src/hooks/interface';
 
 const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
   const { data, dispatch: contextDispatch } = useContext(DataContext);
   const {
     user: { objectId: uid, isTourist },
   } = data;
-  const { data: iUse, run } = useGetIuseData();
+
+  const { run } = useGetIuseData();
+  const [state, setstate] = useState(false);
   useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      if (state.isConnected) {
+    const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
+      if (isConnected) {
+        console.log('join');
         userInfo().then((user) => {
+          updateLocation(user as never);
           contextDispatch({ type: 'update_user_info', user: user as never });
         });
       }
@@ -40,23 +40,23 @@ const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
   }, [contextDispatch]);
 
   useEffect(() => {
-    if (uid) {
-      run();
+    if (uid && uid.length > 0) {
+      run().then(() => {
+        setstate(true);
+      });
     }
   }, [run, uid]);
 
   useEffect(() => {
-    if (iUse) {
+    if (state) {
       firstInstaller().then((isFirstInstaller) => {
+        props.navigation.dispatch(StackActions.replace('tab'));
         if (isTourist && isFirstInstaller) {
-          props.navigation.dispatch(StackActions.replace('tab'));
           props.navigation.navigate('login');
-        } else {
-          props.navigation.dispatch(StackActions.replace('tab'));
         }
       });
     }
-  }, [isTourist, iUse, props.navigation]);
+  }, [isTourist, state, props.navigation]);
 
   return (
     <View style={styles.container}>

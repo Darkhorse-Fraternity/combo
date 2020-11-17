@@ -137,6 +137,19 @@ export const Provider: FC<DataContextType> = (props) => {
           iCards_self: { ...iCards_self, [action.data.objectId]: action.data },
         };
       }
+      case 'remove_iUse': {
+        const id = action.id;
+        const list = preState.iUses_self.list;
+        const index = list.indexOf(id);
+        const nl = index > -1 ? list.splice(index, 1) : list;
+        return {
+          ...preState,
+          iUses_self: {
+            ...preState.iUses_self,
+            list: nl,
+          },
+        };
+      }
       case 'init':
         return { ...preState };
       default:

@@ -5,7 +5,7 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import { View, Animated } from 'react-native';
+import { Animated, ViewProps, LayoutChangeEvent } from 'react-native';
 
 const ANIMATION_DURATION = 1000;
 
@@ -13,7 +13,12 @@ const ANIMATION_DURATION = 1000;
 //   StyledContent,
 // } from './style'
 
-export default class AnimationRow extends PureComponent {
+export default class AnimationRow extends PureComponent<
+  ViewProps,
+  { height: number; width: number }
+> {
+  private _animated: Animated.Value;
+  private _swiperAnimated: Animated.Value;
   constructor(props: Object) {
     super(props);
 
@@ -48,11 +53,13 @@ export default class AnimationRow extends PureComponent {
           {
             toValue: 1, // Target
             duration: ANIMATION_DURATION, // Configuration
+            useNativeDriver: true,
           },
         ),
         Animated.timing(this._animated, {
           toValue: 0,
           duration: ANIMATION_DURATION / 2,
+          useNativeDriver: true,
         }),
       ]).start(({ finished }) => {
         resolve(finished);
@@ -61,14 +68,11 @@ export default class AnimationRow extends PureComponent {
   };
 
   reset = () => {
-    new Promise((resolve) => {
-      this._animated.setValue(1);
-      this._swiperAnimated.setValue(0);
-      resolve();
-    });
+    this._animated.setValue(1);
+    this._swiperAnimated.setValue(0);
   };
 
-  _onLayout = (event) => {
+  _onLayout = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
     if (this.state.height === 0) {
       this.setState({ height });
@@ -110,7 +114,7 @@ export default class AnimationRow extends PureComponent {
     return (
       <Animated.View
         onLayout={this._onLayout}
-        style={[rowStyles, style]}
+        style={[...rowStyles, style]}
         {...other}>
         {children}
       </Animated.View>

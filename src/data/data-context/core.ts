@@ -20,6 +20,7 @@ import {
   IUseComboType,
   iUseSceme,
   iUses_self_type,
+  IUseType,
   IUseUpdateType,
 } from './interface';
 
@@ -29,9 +30,7 @@ export const useGetIuseData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
   const { iUses_self, iCards_self } = data;
   // const firstRef = useRef(true); // 第一次进来，避免将data to state 进行不要的转化
-  const dataRef = useRef<
-    T extends string ? GetClassesIUseIdResponse : GetClassesIUseIdResponse[]
-  >();
+  const dataRef = useRef<T extends string ? IUseType : IUseType[]>();
 
   const memoDenormalizeIUse = useCallback(
     () => denormalizeIUse<T>(iUses_self, iCards_self, id),
@@ -96,7 +95,13 @@ export const useMutateIuseData = () => {
     },
     [data.iCards_self, data.iUses_self.entities, dispatch],
   );
-  return { update };
+
+  const remove = useCallback(
+    (id: string) => dispatch({ type: 'remove_iUse', id }),
+    [dispatch],
+  );
+
+  return { update, remove };
 };
 
 export const useMutateICardData = () => {

@@ -96,6 +96,7 @@ export const StyledAppVersionText = styled.Text`
 export const StyledAppPrivacyPolicyView = styled.View`
   flex-direction: row;
   margin: 15px;
+  align-self: center;
 `;
 
 export const StyledAppPrivacyPolicyText = styled.Text`

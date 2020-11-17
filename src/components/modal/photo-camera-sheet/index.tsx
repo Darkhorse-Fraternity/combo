@@ -55,6 +55,7 @@ const InnerView = (props: InnerViewProps) => {
   const ref = useRef<NodeJS.Timeout>();
   useEffect(() => {
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       ref.current && clearTimeout(ref.current);
     };
   }, []);
@@ -74,7 +75,7 @@ const InnerView = (props: InnerViewProps) => {
                 onSuccess(res);
                 setLoding(false);
               })
-              .catch((e) => {
+              .catch(() => {
                 setLoding(false);
               });
           } else {
@@ -93,7 +94,7 @@ const InnerView = (props: InnerViewProps) => {
             setLoding(true);
             selectAlbum(option)
               .then((res) => onSuccess(res))
-              .catch((e) => {
+              .catch(() => {
                 setLoding(false);
               });
           } else {

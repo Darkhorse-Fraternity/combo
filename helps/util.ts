@@ -1,7 +1,7 @@
-import {Platform, NativeModules} from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const {RNAppUtil} = NativeModules;
+const { RNAppUtil } = NativeModules;
 
 export function shadeBlend(p, c0, c1?: number) {
   const n = p < 0 ? p * -1 : p;
@@ -13,8 +13,9 @@ export function shadeBlend(p, c0, c1?: number) {
     const R = w(f[0].slice(4));
     const G = w(f[1]);
     const B = w(f[2]);
-    return `rgb(${u((w(t[0].slice(4)) - R) * n) + R},${u((w(t[1]) - G) * n) +
-      G},${u((w(t[2]) - B) * n) + B})`;
+    return `rgb(${u((w(t[0].slice(4)) - R) * n) + R},${
+      u((w(t[1]) - G) * n) + G
+    },${u((w(t[2]) - B) * n) + B})`;
   }
   const f = w(c0.slice(1), 16);
   const t = w((c1 || (p < 0 ? '#000000' : '#FFFFFF')).slice(1), 16);
@@ -32,9 +33,9 @@ export function shadeBlend(p, c0, c1?: number) {
 }
 
 export function add_Leancloud_Thumbnail_Suffix(
-  url:string,
-  width:number,
-  height:number,
+  url: string,
+  width: number,
+  height: number,
   q = 100,
   format = 'jpg',
 ) {

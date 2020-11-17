@@ -7,9 +7,8 @@ import {
 } from 'src/hooks/interface';
 import { ICARD, IUSE } from '@redux/reqKeys';
 import { entity } from '@redux/scemes';
-import { object, string } from 'prop-types';
-type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
-type IUseType = NonNullable<
+export type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
+export type IUseType = NonNullable<
   NonNullable<PostCallIUseList3Response['result']>['iUseList']
 >[number];
 type IUseNomType = Omit<IUseType, 'iCard'> & { iCard: string };
@@ -47,6 +46,7 @@ export type IUseUpdateType =
   | PartialWithoutId<GetClassesIUseIdResponse>;
 
 export type ICardUpdateType = PartialWithoutId<ICardType>;
+export type AuthDataKey = 'anonymous' | 'qq' | 'weixin' | 'lc_apple';
 
 export type Action =
   | {
@@ -61,6 +61,7 @@ export type Action =
       type: 'update_iCard';
       data: ICardType;
     }
+  | { type: 'remove_iUse'; id: string }
   | { type: 'login'; user: GetUsersIdResponse }
   | { type: 'update_user_info'; user: GetUsersIdResponse }
   | { type: 'logout' }

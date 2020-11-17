@@ -1,6 +1,7 @@
 import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
 import React, { FC, useState } from 'react';
 import Avatar, { AvatarProps } from './avatar-fc';
+import { Image as CropImage } from 'react-native-image-crop-picker';
 import {
   StyledCaramerBackView,
   StyledContent,
@@ -17,9 +18,11 @@ export const AvatarPicker: FC<AvatarPickerType> = (props) => {
   const { load = false, upload, radius = 80, ...other } = props;
   const [state, setstate] = useState(false);
 
-  const onSuccess = ({ path }: { path: string }) => {
-    upload(path);
-    setstate(false);
+  const onSuccess = (img: CropImage | CropImage[]) => {
+    if (!Array.isArray(img)) {
+      upload(img.path);
+      setstate(false);
+    }
   };
 
   return (

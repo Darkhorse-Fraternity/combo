@@ -61,7 +61,7 @@ export default class CardUse extends PureComponent {
     );
   };
 
-  render(): ReactElement<any> {
+  render() {
     const { params } = this.props.route;
 
     const iCardId = params && params.iCardId;

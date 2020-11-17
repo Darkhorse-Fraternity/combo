@@ -1,11 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native';
 
 import { RectButton } from 'react-native-gesture-handler';
 
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Swipeable, {
+  SwipeableProperties,
+} from 'react-native-gesture-handler/Swipeable';
 
-export default class AppleStyleSwipeableRow extends Component {
+interface AppleStyleSwipeableRowProps extends SwipeableProperties {
+  right: {
+    backgroundColor: string;
+    component: JSX.Element;
+    onPress: () => void;
+    type: string;
+  }[];
+}
+
+export default class AppleStyleSwipeableRow extends Component<
+  AppleStyleSwipeableRowProps
+> {
+  swipeableRow?: Swipeable;
   // renderLeftActions = (progress, dragX) => {
   //   const trans = dragX.interpolate({
   //     inputRange: [0, 50, 100, 101],
@@ -25,7 +39,14 @@ export default class AppleStyleSwipeableRow extends Component {
   //     </RectButton>
   //   );
   // };
-  renderRightAction = (component, color, onPress, x, progress, index) => {
+  renderRightAction = (
+    component: ReactNode,
+    color: string,
+    onPress: () => void,
+    x: number,
+    progress: Animated.AnimatedInterpolation,
+    index: number,
+  ) => {
     const trans = progress.interpolate({
       inputRange: [0, 1],
       outputRange: [x, 0],
@@ -47,7 +68,15 @@ export default class AppleStyleSwipeableRow extends Component {
       </Animated.View>
     );
   };
-  renderRightActions = (progress, dragX, data) => (
+  renderRightActions = (
+    progress: Animated.AnimatedInterpolation,
+    dragX: Animated.AnimatedInterpolation,
+    data: {
+      backgroundColor: string;
+      component: ReactNode;
+      onPress: () => void;
+    }[],
+  ) => (
     <View style={{ width: data.length * 64, flexDirection: 'row' }}>
       {data.map((item, index) => {
         const { backgroundColor, component, onPress } = item;
@@ -65,18 +94,12 @@ export default class AppleStyleSwipeableRow extends Component {
       {/*{this.renderRightAction('More', '#dd2c00', 64, progress)}*/}
     </View>
   );
-  updateRef = (ref) => {
-    this._swipeableRow = ref;
+  updateRef = (ref: Swipeable) => {
+    this.swipeableRow = ref;
   };
   close = () => {
-    this._swipeableRow.close();
+    this.swipeableRow!.close();
   };
-
-  componentWillReceiveProps(props) {
-    // if(props.close !=== ){
-    //
-    // }
-  }
 
   render() {
     const {
@@ -84,7 +107,6 @@ export default class AppleStyleSwipeableRow extends Component {
       rightThreshold,
       renderLeftActions,
       leftThreshold,
-      renderRightActions,
       right,
       ...otherProps
     } = this.props;
@@ -106,4 +128,7 @@ export default class AppleStyleSwipeableRow extends Component {
   }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  renderRight: {},
+  rightAction: {},
+});
