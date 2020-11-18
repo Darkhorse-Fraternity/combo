@@ -13,6 +13,7 @@ import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 
 import React, { FC, PureComponent, useEffect } from 'react';
 import { DeviceEventEmitter } from 'react-native';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 import {
   GetClassesICardIdResponse,
   useGetClassesIUseId,
@@ -27,6 +28,7 @@ const RecordDetail: FC<{}> = (porps) => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>();
   const { data, run } = useGetClassesIUseId({ include: 'iCard', id: iUseId });
   const { setOptions, navigate } = useNavigation();
+  const { user } = useGetInfoOfMe();
   const { iCard } = data || {};
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
@@ -41,7 +43,7 @@ const RecordDetail: FC<{}> = (porps) => {
   }, []);
 
   useEffect(() => {
-    if (iCard) {
+    if (iCard?.objectId && data?.user.objectId !== user.objectId) {
       const { color } = iCard.iconAndColor || { name: 'sun', color: '#fcd22f' };
 
       const headerRight = () => (
@@ -65,7 +67,7 @@ const RecordDetail: FC<{}> = (porps) => {
       );
       setOptions({ headerRight });
     }
-  }, [iCard]);
+  }, [data?.user.objectId, iCard, navigate, setOptions, user.objectId]);
 
   if (!data) {
     return <LoadAnimation />;

@@ -51,10 +51,7 @@ export const otherRoute = {
   [RouteKey.remind]: Remind,
   [RouteKey.cash]: { component: Cash, options: Cash.navigationOptions },
   [RouteKey.recordDetail]: RecordDetail,
-  [RouteKey.cardSetting]: {
-    component: CardSetting,
-    options: CardSetting.navigationOptions,
-  },
+  [RouteKey.cardSetting]: CardSetting,
   [RouteKey.followee]: {
     component: Followee,
     options: Followee.navigationOptions,

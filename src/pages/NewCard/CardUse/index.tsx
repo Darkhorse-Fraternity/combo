@@ -6,7 +6,6 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
 import { connect } from 'react-redux';
 import LCList from '../../../components/Base/LCList';
 import FollowRow from '../../More/Follow/FollowRow';

@@ -34,6 +34,7 @@ import { point } from '@request/LCModle';
 import { iUse as iUseM, user as userM } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import Calendar from '@components/Calendar';
+import { IUseType } from 'src/data/data-context/interface';
 
 type ItemType = GetClassesIDoResponse['results'][number];
 
@@ -190,8 +191,8 @@ const LogButton: FC<{ color: string; iCardId: string; iUseId: string }> = ({
 };
 
 interface StatisticalProps {
-  iCard: GetClassesICardIdResponse;
-  iUse: GetClassesIUseIdResponse;
+  iCard: IUseType['iCard'];
+  iUse: IUseType;
   tabLabel?: string;
   userId?: string;
 }
@@ -313,7 +314,10 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
           });
           if (objectId) {
             DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
-            DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+            //只有当今天的时候才刷新。
+            if (!iso) {
+              DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+            }
           }
         }
       },

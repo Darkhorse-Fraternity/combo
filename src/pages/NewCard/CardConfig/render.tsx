@@ -34,9 +34,14 @@ import {
 } from './card_interface';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { putClassesICardId, useGetClassesICardId } from 'src/hooks/interface';
+import {
+  putClassesICardId,
+  PutClassesICardIdRequest,
+  useGetClassesICardId,
+} from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
 import { DeviceEventEmitterKey } from '@configure/enum';
+import { useMutateICardData } from 'src/data/data-context/core';
 
 const CardConfig: FC<{}> = (props) => {
   const [step, setStep] = useState(0);
@@ -46,7 +51,7 @@ const CardConfig: FC<{}> = (props) => {
 
   // 获取已经有的icard 数据
   const { data } = useGetClassesICardId({ id: iCardId });
-
+  const { update } = useMutateICardData();
   const { setValue, handleSubmit, errors, control } = useForm<CardFormData>({
     resolver: yupResolver(cardValidationSchema),
     defaultValues: {
@@ -82,7 +87,7 @@ const CardConfig: FC<{}> = (props) => {
       setValue(CardRecord, record || []);
       setValue(CardSound, sound as never);
     }
-  }, [data]);
+  }, [data, setValue]);
 
   const onSubmit = async ({
     title,
@@ -95,8 +100,7 @@ const CardConfig: FC<{}> = (props) => {
   }: CardFormData) => {
     delete sound.item.source;
     setLoading(true);
-    const { objectId } = await putClassesICardId({
-      id: iCardId,
+    const params: Omit<PutClassesICardIdRequest, 'id'> = {
       title,
       record,
       recordDay: limitTimes.day,
@@ -105,9 +109,13 @@ const CardConfig: FC<{}> = (props) => {
       notifyText,
       notifyTimes,
       sound,
+    };
+    const { objectId } = await putClassesICardId({
+      id: iCardId,
+      ...params,
     });
     if (objectId) {
-      DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
+      update({ objectId, ...params });
     }
     setLoading(false);
   };

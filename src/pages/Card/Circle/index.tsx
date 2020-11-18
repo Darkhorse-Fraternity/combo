@@ -30,10 +30,8 @@ import { GTDAppId, GTDUnifiedNativeplacementId } from '@configure/tencent_ad';
 import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
 import {
-  GetClassesICardIdResponse,
   getClassesIDo,
   GetClassesIDoResponse,
-  GetClassesIUseIdResponse,
   putClassesIUseId,
 } from 'src/hooks/interface';
 import PageList from '@components/Base/PageList';
@@ -41,7 +39,8 @@ import { useGetUserInfo } from 'src/data/data-context';
 import { ShareModal } from '@components/Share/ShareView';
 import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
-import { UserType } from 'src/data/data-context/interface';
+import { IUseType, UserType } from 'src/data/data-context/interface';
+import { useMutateIuseData } from 'src/data/data-context/core';
 type ItemType = GetClassesIDoResponse['results'][number];
 
 const pickPrivacy = async (privacy: number, isSelf: boolean) => {
@@ -87,7 +86,7 @@ const MenuItem: FC<
 
 const ClockInMenuItem: FC<{
   iUseId: string;
-  iCard: GetClassesICardIdResponse;
+  iCard: IUseType['iCard'];
 }> = ({ iUseId, iCard }) => {
   const { navigate } = useNavigation();
   return (
@@ -143,17 +142,18 @@ const RenderRow: FC<
 };
 
 interface CircleProps {
-  iCard: GetClassesICardIdResponse;
-  iUse: GetClassesIUseIdResponse;
+  iCard: IUseType['iCard'];
+  iUse: IUseType;
   tabLabel?: string;
 }
 
 const PrivacyItem: FC<{
-  iUse: GetClassesIUseIdResponse;
-  iCard: GetClassesICardIdResponse;
+  iUse: IUseType;
+  iCard: IUseType['iCard'];
 }> = (props) => {
   const { iCard, iUse } = props;
   const user = useGetUserInfo();
+  const { update } = useMutateIuseData();
   return (
     <MenuItem
       title="隐私"
@@ -167,7 +167,6 @@ const PrivacyItem: FC<{
         const beUserId = iCard.user.objectId;
         const isSelf = userId === beUserId;
         const { selectedItem } = await pickPrivacy(iUse.privacy || 0, isSelf);
-        console.log('selectedItem', selectedItem);
 
         if (selectedItem) {
           const { id } = selectedItem;
@@ -179,7 +178,7 @@ const PrivacyItem: FC<{
               privacy: Number(id),
             });
             if (objectId) {
-              DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
+              update({ objectId, privacy: Number(id) });
             }
           }
         }
@@ -238,7 +237,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
 };
 
 const Circle: FC<CircleProps> = (props) => {
-  const { iCard, iUse, ...other } = props;
+  const { iCard, ...other } = props;
   const user = useGetUserInfo();
   const [count, setCount] = useState(0);
   const ref = useRef<PageList<ItemType>>(null);
@@ -267,7 +266,7 @@ const Circle: FC<CircleProps> = (props) => {
   }, []);
 
   const privacy =
-    iCard.user === user?.objectId ? Privacy.openToCoach : Privacy.open;
+    iCard.user.objectId === user?.objectId ? Privacy.openToCoach : Privacy.open;
 
   const fristRef = useRef(true);
 

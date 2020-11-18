@@ -29,6 +29,7 @@ import {
 import AnimationRow from '@components/AnimationRow';
 import { useNavigation } from '@react-navigation/native';
 import { userPoint } from '@request/LCModle';
+import { RouteKey } from '@pages/interface';
 // import { isTablet } from 'react-native-device-info';
 
 // const Archive = `${IUSE}archive`;
@@ -310,6 +311,7 @@ const RenderCell: FC<{
 
   const { user } = useGetInfoOfMe();
   const { add } = useMutateIuseData();
+
   // console.log('data:', data);
   // const iCardId = data[ICARD];
   const iCard = item.iCard;
@@ -379,31 +381,32 @@ const RenderCell: FC<{
         onSwipeableWillOpen={onSwipeableWillOpen.bind(undefined, swipeRef)}
         onSwipeableWillClose={onSwipeableWillClose.bind(undefined, swipeRef)}
         right={[
-          isSelf
-            ? {
-                type: 'secondary',
-                onPress: () => {
-                  navigate('cardConfig', { iCardId });
-                  // this.setState({ openIndex: -1 })
-                },
-                component: _renderSwipeOutDeleteBtn(
-                  '设置',
-                  '#388e3c',
-                  'settings',
-                ),
-                backgroundColor: '#fdfbfb',
-              }
-            : {
-                type: 'secondary',
-                onPress: () => {
-                  // this.props.navigation.navigate('cardSetting',
-                  //   { iCardId, iUseId: item })
-                  navigate('cardInfo', { iCardId });
-                  // this.setState({ openIndex: -1 })
-                },
-                component: _renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
-                backgroundColor: '#fdfbfb',
-              },
+          // isSelf
+          //   ?
+          // {
+          //     type: 'secondary',
+          //     onPress: () => {
+          //       navigate('cardConfig', { iCardId });
+          //       // this.setState({ openIndex: -1 })
+          //     },
+          //     component: _renderSwipeOutDeleteBtn(
+          //       '设置',
+          //       '#388e3c',
+          //       'settings',
+          //     ),
+          //     backgroundColor: '#fdfbfb',
+          //   }
+          {
+            type: 'secondary',
+            onPress: () => {
+              // this.props.navigation.navigate('cardSetting',
+              //   { iCardId, iUseId: item })
+              navigate('cardInfo', { iCardId });
+              // this.setState({ openIndex: -1 })
+            },
+            component: _renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
+            backgroundColor: '#fdfbfb',
+          },
           {
             type: 'delete',
             onPress: deleteAction,
@@ -428,7 +431,7 @@ const RenderCell: FC<{
         ]}>
         <CardRow
           onPress={() => {
-            navigate('card', {
+            navigate(RouteKey.recordDetail, {
               iUseId: data.objectId,
               iCardId: iCard.objectId,
             });
@@ -480,7 +483,13 @@ const Record: FC<{}> = () => {
       // order: '-doneDate,-createdAt',
       where: JSON.stringify(where),
     };
-    return getClassesIUse(param).then((res) => res.results);
+    return getClassesIUse(param).then((res) => {
+      if (res.results) {
+        // addIuse([...res.results]);
+      }
+
+      return res.results;
+    });
   };
 
   return (

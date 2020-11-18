@@ -61,7 +61,7 @@ export type RootStackParamList = {
   [RouteKey.remind]: undefined;
   [RouteKey.cash]: undefined;
   [RouteKey.recordDetail]: { iUseId: string };
-  [RouteKey.cardSetting]: { iCardID: string };
+  [RouteKey.cardSetting]: { iCardId: string; iUseId: string };
   [RouteKey.followee]: undefined;
   [RouteKey.follower]: undefined;
   [RouteKey.follow]: undefined;
@@ -72,7 +72,7 @@ export type RootStackParamList = {
   [RouteKey.cardConfig]: { iCardId: string };
   [RouteKey.account]: undefined;
   // [RouteKey.feedback]: undefined;
-  [RouteKey.cardInfo]: undefined;
+  [RouteKey.cardInfo]: { iCardId: string };
   [RouteKey.rcomment]: { iDoID: string };
   [RouteKey.card]: { iUseId: string };
   [RouteKey.cardUse]: undefined;

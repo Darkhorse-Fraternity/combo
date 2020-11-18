@@ -4,7 +4,14 @@ import UpdateImageView, {
   UpdateImageViewType,
 } from '@components/UpdateImageView';
 import { useNavigation } from '@react-navigation/native';
-import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import {
   Keyboard,
   Platform,
@@ -47,6 +54,7 @@ import { isTablet } from 'react-native-device-info';
 import { useOrientation } from '@components/util/hooks';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
 import { LoadAnimation } from '@components/Load';
+import { useMutateIuseData } from 'src/data/data-context/core';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -177,6 +185,7 @@ function point(className: string, objectId: string) {
 
 const Render: FC<{}> = () => {
   const { setOptions, goBack } = useNavigation();
+  const { update } = useMutateIuseData();
   const user = useGetUserInfo();
   // useGetUserInfo();
   const {
@@ -206,7 +215,7 @@ const Render: FC<{}> = () => {
     { id: iUseId },
     // { defaultLoading: true },
   );
-  const record = data?.iCard.record || [];
+  const record = data?.iCard.record;
   const iCardId = data?.iCard.objectId || '';
 
   // const doneDate = data?.doneDate
@@ -260,9 +269,9 @@ const Render: FC<{}> = () => {
           }
           setIdoLoad(false);
         })
-        .catch((e) => [setIdoLoad(false)]);
+        .catch(() => [setIdoLoad(false)]);
     }
-  }, [done]);
+  }, [done, iDoId, iUseId, setValue, user?.objectId]);
 
   useEffect(() => {
     if (iDoId) {
@@ -276,82 +285,87 @@ const Render: FC<{}> = () => {
           );
       });
     }
-  }, []);
+  }, [iDoId, setValue]);
 
-  const onSubmit = async (data: FormData) => {
-    if (record.includes('图片') && data[RecordImgs].length === 0) {
-      return AlertWithTitle('该习惯打卡必须包含图片哦～!');
-    }
+  const onSubmit = useCallback(
+    async (data: FormData) => {
+      if (record?.includes('图片') && data[RecordImgs].length === 0) {
+        return AlertWithTitle('该习惯打卡必须包含图片哦～!');
+      }
 
-    if (record.includes('文字') && data[RecordText].length === 0) {
-      return AlertWithTitle('该习惯打卡必须包含文字哦～!');
-    }
+      if (record?.includes('文字') && data[RecordText].length === 0) {
+        return AlertWithTitle('该习惯打卡必须包含文字哦～!');
+      }
 
-    setLoad(true);
-    const user = getUerInfo();
+      setLoad(true);
+      const user = getUerInfo();
 
-    try {
-      console.log('data', data);
+      try {
+        console.log('data', data);
 
-      // 判断为本地图片时候,则上传并被替换
-      const recordImags = data[RecordImgs];
-      const localUrls: string[] = [];
-      const imags = recordImags.map(({ url }, index) => {
-        if (url.substr(0, 4).toLowerCase() === 'http') {
-          return { id: index, localUrl: '', remoteUrl: url };
-        }
-        localUrls.push(url);
-        return { id: index, localUrl: url, remoteUrl: '' };
-      });
-      //上传本地图片
-
-      if (localUrls.length > 0) {
-        const loadImgs = await uploadFilesByLeanCloud(localUrls);
-        let num = 0;
-        imags.forEach(({ localUrl }, index) => {
-          if (localUrl.length !== 0) {
-            imags[index].remoteUrl = loadImgs[num].url();
-            num++;
+        // 判断为本地图片时候,则上传并被替换
+        const recordImags = data[RecordImgs];
+        const localUrls: string[] = [];
+        const imags = recordImags.map(({ url }, index) => {
+          if (url.substr(0, 4).toLowerCase() === 'http') {
+            return { id: index, localUrl: '', remoteUrl: url };
           }
+          localUrls.push(url);
+          return { id: index, localUrl: url, remoteUrl: '' };
         });
-        const newImages = imags.map((item) => ({ url: item.remoteUrl }));
-        setValue(RecordImgs, newImages);
+        //上传本地图片
+
+        if (localUrls.length > 0) {
+          const loadImgs = await uploadFilesByLeanCloud(localUrls);
+          let num = 0;
+          imags.forEach(({ localUrl }, index) => {
+            if (localUrl.length !== 0) {
+              imags[index].remoteUrl = loadImgs[num].url();
+              num++;
+            }
+          });
+          const newImages = imags.map((item) => ({ url: item.remoteUrl }));
+          setValue(RecordImgs, newImages);
+        }
+
+        const allParam = {
+          imgs: imags.map((item) => item.remoteUrl),
+          recordText: data[RecordText],
+        };
+        //上传图片
+
+        const param1 = { id: idRef.current || '', ...allParam };
+        const param2 = {
+          user: point('_User', user?.objectId || ''),
+          type: type, // 0 打卡,1日志,2:补打卡
+          iCard: point('iCard', iCardId),
+          iUse: point('iUse', iUseId),
+          doneDate: {
+            __type: 'Date',
+            iso: doneDateIso || new Date().toISOString(),
+          },
+          ...allParam,
+        };
+        const { objectId, createdAt } = await (idRef.current
+          ? putClassesIDoId(param1)
+          : postClassesIDo(param2));
+
+        if (objectId) {
+          //发消息通知。
+          DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+          update({
+            objectId,
+            doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },
+          });
+          goBack();
+        }
+      } catch (error) {
+        SimpleToast.show(error.message);
       }
-
-      const allParam = {
-        imgs: imags.map((item) => item.remoteUrl),
-        recordText: data[RecordText],
-      };
-      //上传图片
-
-      const param1 = { id: idRef.current || '', ...allParam };
-      const param2 = {
-        user: point('_User', user?.objectId || ''),
-        type: type, // 0 打卡,1日志,2:补打卡
-        iCard: point('iCard', iCardId),
-        iUse: point('iUse', iUseId),
-        doneDate: {
-          __type: 'Date',
-          iso: doneDateIso || new Date().toISOString(),
-        },
-        ...allParam,
-      };
-      const { objectId } = await (idRef.current
-        ? putClassesIDoId(param1)
-        : postClassesIDo(param2));
-
-      if (objectId) {
-        //发消息通知。
-        DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
-        DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
-
-        goBack();
-      }
-    } catch (error) {
-      SimpleToast.show(error.message);
-    }
-    setLoad(false);
-  };
+      setLoad(false);
+    },
+    [doneDateIso, goBack, iCardId, iUseId, record, setValue, type, update],
+  );
 
   useEffect(() => {
     const keys = Object.keys(errors);
@@ -377,7 +391,7 @@ const Render: FC<{}> = () => {
         ),
       });
     }
-  }, [load, iCardId]);
+  }, [load, iCardId, setOptions, handleSubmit, onSubmit]);
   const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>();
   // setOptions({onSumbmit: handleOnSubmit })
   // useEffect(() => {
@@ -429,7 +443,7 @@ const Render: FC<{}> = () => {
               ref?.current?.call(undefined, true);
             }
           }}
-          showImagePickTip={record.includes('图片')}
+          showImagePickTip={!!record?.includes('图片')}
           control={control}
           setValue={setValue as never}
         />

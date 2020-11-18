@@ -89,10 +89,9 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   useEffect(() => {
     if (deleteData) {
       DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
-      DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
       goBack();
     }
-  }, [deleteData]);
+  }, [deleteData, goBack]);
 
   const first = useRef(true);
   useEffect(() => {

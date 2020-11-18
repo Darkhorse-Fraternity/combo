@@ -17,7 +17,6 @@ import { CircleState, DeviceEventEmitterKey } from '../../configure/enum';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
 import {
-  GetClassesICardIdResponse,
   GetClassesIUseIdResponse,
   putClassesICardId,
   useGetClassesIUseId,
@@ -25,6 +24,11 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { LoadAnimation } from '@components/Load';
 import { useGetUserInfo } from 'src/data/data-context';
+import {
+  useGetIuseData,
+  useMutateICardData,
+  useMutateIuseData,
+} from 'src/data/data-context/core';
 
 interface RenderHeaderRightProps {
   isSelf: boolean;
@@ -56,27 +60,14 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
   );
 };
 
-class Main extends PureComponent<
-  { iUse: GetClassesIUseIdResponse; iCard: GetClassesICardIdResponse },
-  { scrollValue: Animated.Value; page: number }
-> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      scrollValue: new Animated.Value(0),
-      page: 0,
-    };
-  }
+class Main extends PureComponent<{
+  iCard: GetClassesIUseIdResponse['iCard'];
+}> {
+  scrollValue = new Animated.Value(0);
   render() {
-    const { iCard, iUse, ...other } = this.props;
-
-    const iCardM = iCard;
-    const iUseM = iUse;
-    // const useNum = iCard.get('useNum')
+    const { iCard, children } = this.props;
     let { iconAndColor = {} } = iCard;
     const color = iconAndColor.color || '';
-    const title = iCard.title;
-    // const privacy = iUse.get('privacy')
     const state = iCard.state;
 
     return (
@@ -92,8 +83,8 @@ class Main extends PureComponent<
           // if(state === CircleState.open){
           x = x <= 0 ? 0 : x;
           x = x >= 1 ? 1 : x;
-          const containerWidthAnimatedValue = new Animated.Value(x);
-          this.setState({ scrollValue: containerWidthAnimatedValue });
+          // const containerWidthAnimatedValue = new Animated.Value(x);
+          this.scrollValue.setValue(x);
           // }
         }}
         renderTabBar={(...props) => (
@@ -102,20 +93,12 @@ class Main extends PureComponent<
             underlineColor={color}
             // title={title}
             // tabUnderlineWidth={35}
-            scrollValueWithOutNative={this.state.scrollValue}
+            scrollValueWithOutNative={this.scrollValue}
             // rightView={this.__renderRightView}
           />
         )}
         prerenderingSiblingsNumber={0}>
-        {state === CircleState.open && (
-          <Circle iUse={iUseM} iCard={iCardM} {...other} tabLabel="圈子" />
-        )}
-        <Statistical
-          {...other}
-          iUse={iUseM}
-          iCard={iCardM}
-          tabLabel={state === CircleState.open ? '统计' : title}
-        />
+        {children}
       </ScrollableTabView>
     );
   }
@@ -123,24 +106,15 @@ class Main extends PureComponent<
 
 const Card: FC<{}> = (props) => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.recordDetail>();
-  const { data, loading, run } = useGetClassesIUseId({
-    include: 'iCard',
-    id: iUseId,
-  });
+  // const { data, run } = useGetClassesIUseId({
+  //   include: 'iCard',
+  //   id: iUseId,
+  // });
+  const { data } = useGetIuseData(iUseId);
+  const { update } = useMutateICardData();
   const { setOptions, navigate } = useNavigation();
   const user = useGetUserInfo();
   const { iCard } = data || {};
-  useEffect(() => {
-    const deEmitter = DeviceEventEmitter.addListener(
-      DeviceEventEmitterKey.iUse_reload,
-      () => {
-        run();
-      },
-    );
-    return () => {
-      deEmitter.remove();
-    };
-  }, [run]);
 
   useEffect(() => {
     if (iCard) {
@@ -179,10 +153,10 @@ const Card: FC<{}> = (props) => {
                   state,
                 });
                 if (objectId) {
+                  update({ state, circleState, objectId: iCard.objectId });
                   Toast.show(
                     iCard.state === CircleState.close ? '多人模式' : '单人模式',
                   );
-                  DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload);
                 }
               } else {
                 navigate('cardSetting', {
@@ -195,14 +169,24 @@ const Card: FC<{}> = (props) => {
         ),
       });
     }
-  }, [iCard, iUseId, navigate, setOptions, user?.objectId]);
+  }, [iCard, iUseId, navigate, setOptions, update, user?.objectId]);
 
   if (!iCard) {
     return <LoadAnimation />;
   }
-
+  const { title, state } = iCard;
   return (
-    <Main {...props} iUse={data!} iCard={iCard as GetClassesICardIdResponse} />
+    <Main {...props} iCard={iCard}>
+      {state === CircleState.open && (
+        <Circle iUse={data!} iCard={iCard!} {...props} tabLabel="圈子" />
+      )}
+      <Statistical
+        {...props}
+        iUse={data!}
+        iCard={iCard!}
+        tabLabel={state === CircleState.open ? '统计' : title}
+      />
+    </Main>
   );
 };
 export default Card;

@@ -725,7 +725,7 @@ const dataKey_0_1_0_0 = undefined as any
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 export interface PostCallIUseList3Request {}
 
@@ -734,7 +734,7 @@ export interface PostCallIUseList3Request {}
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 export interface PostCallIUseList3Response {
   result?: {
@@ -773,7 +773,7 @@ export interface PostCallIUseList3Response {
         record?: string[]
         period?: string
         price?: number
-        user?: {
+        user: {
           uid?: number
           toolConfig?: {
             redo?: number
@@ -789,7 +789,7 @@ export interface PostCallIUseList3Response {
             weixin?: null
           }
           mobilePhoneVerified?: boolean
-          objectId?: string
+          objectId: string
           createdAt?: string
           updatedAt?: string
           __type?: string
@@ -813,7 +813,7 @@ export interface PostCallIUseList3Response {
           name?: string
           color?: string
         }
-        objectId?: string
+        objectId: string
         createdAt?: string
         updatedAt?: string
         __type?: string
@@ -836,7 +836,7 @@ export interface PostCallIUseList3Response {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
@@ -856,7 +856,7 @@ type PostCallIUseList3RequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -877,7 +877,7 @@ const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 export const postCallIUseList3 = makeRequest<
   PostCallIUseList3Request,
@@ -890,7 +890,7 @@ export const postCallIUseList3 = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-10-29 15:36:47`
+ * @更新时间 `2020-11-18 14:34:29`
  */
 export const usePostCallIUseList3 = makeRequestHook<
   PostCallIUseList3Request,
@@ -899,20 +899,20 @@ export const usePostCallIUseList3 = makeRequestHook<
 >(postCallIUseList3)
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求类型**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 export interface GetClassesIUseRequest {}
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **返回类型**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **返回类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 export interface GetClassesIUseResponse {
   results?: {
@@ -1004,11 +1004,11 @@ export interface GetClassesIUseResponse {
 }
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置的类型**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置的类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 type GetClassesIUseRequestConfig = Readonly<
   RequestConfig<
@@ -1024,11 +1024,11 @@ type GetClassesIUseRequestConfig = Readonly<
 >
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1045,22 +1045,22 @@ const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
 }
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求函数**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求函数**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseResponse, GetClassesIUseRequestConfig>(
   getClassesIUseRequestConfig,
 )
 
 /**
- * 接口 [get_classes_iUse↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **React Hook**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **React Hook**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-02 17:06:55`
+ * @更新时间 `2020-11-17 15:56:09`
  */
 export const useGetClassesIUse = makeRequestHook<
   GetClassesIUseRequest,

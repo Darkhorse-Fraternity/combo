@@ -20,7 +20,9 @@ export type IUseComboType =
   | IUseType[]
   | GetClassesIUseIdResponse[]
   | IUseType
-  | GetClassesIUseIdResponse;
+  | GetClassesIUseIdResponse
+  | IUseType2
+  | IUseType2[];
 
 export type iUses_self_type = {
   entities: {

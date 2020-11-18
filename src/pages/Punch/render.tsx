@@ -20,6 +20,7 @@ import {
   SectionListRenderItemInfo,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  DeviceEventEmitter,
 } from 'react-native';
 import moment from 'moment';
 import _ from 'lodash';
@@ -51,6 +52,7 @@ import { useGetUserInfo } from 'src/data/data-context';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { UserType } from 'src/data/data-context/interface';
 import { point } from '@request/LCModle';
+import { DeviceEventEmitterKey } from '@configure/enum';
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy?: boolean;
@@ -88,7 +90,6 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
       });
       if (id && createdAt) {
         //直接更新 iUse 里面的doneDate 数据
-        // DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
         update({
           objectId,
           doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },
@@ -153,11 +154,9 @@ const iUseDataMap = (data: ItemType[], numColumns: number) => {
   const satisfy = [];
   const unSatisfy = [];
   const sections = [];
-
   if (data.length > 0) {
     for (let i = 0, j = data.length; i < j; i++) {
       const mData = data[i];
-      console.log('mData', mData);
       const iCard = mData.iCard;
       // .get(mData.iCard)
       // .toJS() as GetClassesICardIdResponse;
@@ -245,8 +244,6 @@ const PunchClass: FC<PunchProps> = (props): JSX.Element => {
   // const statu = this.props.data.get('loadStatu');
 
   const { iUse, numColumns, onScroll, onRefresh, loading } = props;
-
-  console.log('iUse', iUse);
 
   const sections = useMemo(() => iUseDataMap(iUse, numColumns), [
     iUse,
@@ -379,12 +376,20 @@ const Punch: FC<Descriptor<{}>> = () => {
   const firstRef = useRef(true);
   useEffect(() => {
     if (uid && uid.length > 0 && !firstRef.current) {
-      console.log('uid!!!', uid);
-
       run();
     }
     firstRef.current = false;
   }, [run, uid]);
+
+  useEffect(() => {
+    const deEmitter = DeviceEventEmitter.addListener(
+      DeviceEventEmitterKey.iUse_reload,
+      run,
+    );
+    return () => {
+      deEmitter.remove();
+    };
+  }, [run]);
 
   const openSmallTitleRef = useRef(false);
   const onScroll = useCallback(

@@ -1,18 +1,11 @@
 import { denormalize, schema } from 'normalizr';
-import { string } from 'prop-types';
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import {
   GetClassesIUseIdResponse,
+  useGetClassesIUseId,
   usePostCallIUseList3,
 } from 'src/hooks/interface';
-import DataContext, { useGetUserInfo } from './index';
+import DataContext from './index';
 import {
   iCardSceme,
   iCards_self_type,
@@ -27,6 +20,7 @@ import {
 
 // let iUseGlobelData =
 
+//不包含暂停的iuse 数据
 export const useGetIuseData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
   const { iUses_self, iCards_self } = data;
@@ -58,13 +52,34 @@ export const useGetIuseData = <T>(id?: T) => {
     }
   }, [dispatch, iUseData, addIuse]);
 
-  return { data: dataRef.current, run, ...other };
+  return { data: dataRef.current, addIuse, run, ...other };
+};
+
+export const useGetSafeIUseData = (id: string) => {
+  const { data: loaclData, ...rest1 } = useGetIuseData(id);
+  const { data, run, ...rest2 } = useGetClassesIUseId(
+    { id, include: 'iCard' },
+    { manual: true },
+  );
+
+  useEffect(() => {
+    if (!loaclData) {
+      run();
+    }
+  }, [loaclData, run]);
+
+  if (loaclData) {
+    return { data: loaclData, ...rest1 };
+  } else {
+    return { data, run, ...rest2 };
+  }
 };
 
 const denormalizeIUse = <T>(
   iUses_self: iUses_self_type,
   iCards_self: iCards_self_type,
   id?: T,
+  type?: string,
 ) => {
   if (!id) {
     return denormalize(iUses_self.list, new schema.Array(iUseSceme), {
@@ -72,10 +87,15 @@ const denormalizeIUse = <T>(
       iCard: iCards_self,
     });
   } else {
-    return denormalize(id, iUseSceme, {
+    const list = denormalize(id, iUseSceme, {
       iUse: iUses_self.entities,
       iCard: iCards_self,
-    });
+    }) as IUseType[];
+    if (type) {
+      return list.filter((item) => item.statu === type);
+    }
+
+    return list;
   }
 };
 
