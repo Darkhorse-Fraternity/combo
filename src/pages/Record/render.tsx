@@ -17,7 +17,7 @@ import {
 } from './style';
 
 import AppleStyleSwipeableRow from '../../components/Swipeable';
-import { useGetIuseData } from 'src/data/data-context/core';
+import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { useScrollTitle } from '@components/util/hooks';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import PageList from '@components/Base/PageList';
@@ -28,6 +28,7 @@ import {
 } from 'src/hooks/interface';
 import AnimationRow from '@components/AnimationRow';
 import { useNavigation } from '@react-navigation/native';
+import { userPoint } from '@request/LCModle';
 // import { isTablet } from 'react-native-device-info';
 
 // const Archive = `${IUSE}archive`;
@@ -301,14 +302,14 @@ const RenderCell: FC<{
   onSwipeableWillClose: (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
   ) => void;
-  listRef: React.MutableRefObject<PageList<IUseType | undefined>>;
+  listRef: React.RefObject<PageList<IUseType>>;
 }> = (props) => {
   const { item, onSwipeableWillOpen, onSwipeableWillClose, listRef } = props;
   const { navigate } = useNavigation();
   const data = item;
 
   const { user } = useGetInfoOfMe();
-  const { addIuse } = useGetIuseData();
+  const { add } = useMutateIuseData();
   // console.log('data:', data);
   // const iCardId = data[ICARD];
   const iCard = item.iCard;
@@ -319,14 +320,18 @@ const RenderCell: FC<{
 
   const refreshAction = async () => {
     const params = { statu: 'start' };
-    handleViewRef.current?.remove();
+    await handleViewRef.current?.remove();
     const res = await putClassesIUseId({ id: item.objectId, ...params });
-    res && addIuse({ ...item, ...params } as never);
+    res && add({ ...item, ...params });
     const info = listRef.current?.getData();
+
     // 找到并移除data 中的选项。
-    const index = info.findIndex((cell) => cell?.objectId === item.objectId);
-    const nf = info.splice(index, 1);
-    listRef.current?.mutate(nf);
+    if (info && info.length > 0) {
+      const index = info.findIndex((cell) => cell?.objectId === item.objectId);
+      info.splice(index, 1);
+      listRef.current?.mutate(info);
+    }
+
     handleViewRef.current?.reset();
   };
   const deleteAction = () => {
@@ -347,14 +352,16 @@ const RenderCell: FC<{
           const params = {
             statu: 'del',
           };
-          handleViewRef.current?.remove();
+          await handleViewRef.current?.remove();
           putClassesIUseId({ id: item.objectId, ...params });
           const info = listRef.current?.getData();
-          const index = info.findIndex(
-            (cell) => cell?.objectId === item.objectId,
-          );
-          const nf = info.splice(index, 1);
-          listRef.current?.mutate(nf);
+          if (info) {
+            const index = info.findIndex(
+              (cell) => cell?.objectId === item.objectId,
+            );
+            info.splice(index, 1);
+            listRef.current?.mutate(info);
+          }
           // res && remove(res.objectId);
           handleViewRef.current?.reset();
         },
@@ -436,9 +443,9 @@ const RenderCell: FC<{
 
 const Record: FC<{}> = () => {
   const onScroll = useScrollTitle('已暂停习惯');
-
+  const { user } = useGetInfoOfMe();
   const handleRef = useRef<AppleStyleSwipeableRow>();
-  const listRef = useRef<PageList<IUseType>>();
+  const listRef = useRef<PageList<IUseType>>(null);
 
   const onSwipeableWillOpen = (
     ref: React.MutableRefObject<AppleStyleSwipeableRow | undefined>,
@@ -464,6 +471,7 @@ const Record: FC<{}> = () => {
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
       statu: 'stop',
+      user: userPoint(user.objectId),
     };
     const param = {
       limit: page_size + '',
@@ -477,6 +485,7 @@ const Record: FC<{}> = () => {
 
   return (
     <PageList<IUseType>
+      ref={listRef}
       keyId={'objectId'}
       loadPage={loadPage}
       onScroll={onScroll}
@@ -485,7 +494,7 @@ const Record: FC<{}> = () => {
       renderItem={(props) => (
         <RenderCell
           {...props}
-          listRef={listRef as never}
+          listRef={listRef}
           onSwipeableWillOpen={onSwipeableWillOpen}
           onSwipeableWillClose={onSwipeableWillClose}
         />

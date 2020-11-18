@@ -76,10 +76,10 @@ const RenderCell: FC<{
 
   const stopAction = async () => {
     const params = { statu: 'stop' };
-    handleViewRef.current?.remove();
+    await handleViewRef.current?.remove();
     const res = await putClassesIUseId({ id: item.objectId, ...params });
     res && remove(res.objectId);
-    await handleViewRef.current?.reset();
+    handleViewRef.current?.reset();
   };
   const deleteAction = () => {
     // this.props.delete(item, handleViewRef, data.isFb);
@@ -99,7 +99,7 @@ const RenderCell: FC<{
           const params = {
             statu: 'del',
           };
-          handleViewRef.current?.remove();
+          await handleViewRef.current?.remove();
           const res = await putClassesIUseId({ id: item.objectId, ...params });
           res && remove(res.objectId);
           await handleViewRef.current?.reset();

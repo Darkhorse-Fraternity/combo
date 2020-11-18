@@ -312,8 +312,6 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
             doneDate: { __type: 'Date', iso: iso || new Date().toISOString() },
           });
           if (objectId) {
-            console.log('???');
-
             DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
             DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
           }

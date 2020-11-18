@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';
-import { ICARD, USER, IUSE, IUSEExist, COURSE } from '../../../redux/reqKeys';
+import { ICARD, USER, IUSE, IUSEExist } from '../../../redux/reqKeys';
 import { getUserByID, classSearch } from '../../../request/leanCloud';
 import { req, requestSucceed } from '../../../redux/actions/req';
 import { selfUser, iCard, user, pointModel } from '../../../request/LCModle';
@@ -109,7 +109,6 @@ type NavAndPropsType = PropsType;
         .get(IUSE)
         .get(state.req.get(IUSEExist).get('data').get('0')),
       dataId: state.req.get(IUSEExist).get('data').get('0'),
-      course: iCard && state.normalizr.get(COURSE).get(iCard.get('course')),
       selfUse: state.user.data,
       isTourist: state.user.isTourist,
     };
@@ -126,18 +125,13 @@ type NavAndPropsType = PropsType;
               objectId: iCardId,
             },
             limit: 1,
-            include: 'user,course',
+            include: 'user',
           },
           { sceme: list(entitys[ICARD]) },
         ),
       );
     },
-    loadCourse: (course) => {
-      if (course && !course.get('title')) {
-        const id = course.get('objectId');
-        dispatch(findByID(COURSE, id));
-      }
-    },
+
     loadUser: (iCardUser) => {
       if (!iCardUser.nickname && iCardUser.objectId) {
         const param = getUserByID(iCardUser.objectId);
@@ -218,7 +212,6 @@ export default class CardInfo extends PureComponent<
       this.props.loadUser(this.props.user.toJS());
     }
     this.props.exist(this.props.route.params.iCardId);
-    this.props.loadCourse(this.props.course);
   }
 
   componentWillReceiveProps(nextProps: NavAndPropsType) {
@@ -251,9 +244,7 @@ export default class CardInfo extends PureComponent<
     </Button>
   );
 
-  _renderCourse = (course) => <StyledCourseView />; // console.log('course:', course);
-
-  render(): ReactElement<any> {
+  render() {
     if (!this.props.iCard) {
       return null;
     }
@@ -273,9 +264,6 @@ export default class CardInfo extends PureComponent<
     const iUseData = this.props.data && this.props.data.toJS();
 
     const { userLoad } = this.props;
-
-    // let { course } = this.props
-    // course = course && course.toJS()
 
     const imgs = iCard && iCard.imgs;
 
@@ -446,7 +434,6 @@ export default class CardInfo extends PureComponent<
             />
           </Button>
           {/* {this.rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
-          {/* {course && course.title && this._renderCourse(course)} */}
 
           {describe && (
             <StyledDescirbeView>

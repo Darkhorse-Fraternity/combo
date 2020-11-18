@@ -564,8 +564,6 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
     setType(value);
     nextStep();
   };
-  console.log('???');
-
   return (
     <ScrollView style={[styles.wrap]}>
       <Controller

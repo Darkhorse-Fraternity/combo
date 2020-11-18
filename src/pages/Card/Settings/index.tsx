@@ -40,7 +40,6 @@ import {
 
 // import ShareView from '../../../components/Share/ShareView'
 // import Pop from '../../../components/Pop'
-import { popToIndex } from '../../../redux/nav';
 
 import { update } from '../../../redux/module/leancloud';
 

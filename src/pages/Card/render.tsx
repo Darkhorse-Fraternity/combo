@@ -4,29 +4,13 @@
  */
 
 import React, { FC, PureComponent, useEffect } from 'react';
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-  Animated,
-  Dimensions,
-  Platform,
-  DeviceEventEmitter,
-} from 'react-native';
+import { Animated, Platform, DeviceEventEmitter } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-simple-toast';
-import {
-  StyledContent,
-  StyledIcon,
-  StyledIconSet,
-  StyledHeaderRight,
-} from './style';
+import { StyledHeaderRight, StyledIcon } from './style';
 
 import TitleTabBar from '../../components/Groceries/TitleTabBar';
 import Statistical from './Statistical';
-// import Info from './Settings/index'
-// import Course from './Course/index'
 import Circle from './Circle/index';
 import Button from '../../components/Button/index';
 import { CircleState, DeviceEventEmitterKey } from '../../configure/enum';
@@ -97,13 +81,13 @@ class Main extends PureComponent<
 
     return (
       <ScrollableTabView
-        ref="ScrollableTabView"
+        // ref="ScrollableTabView"
         // page={this.state.page}
         locked={state !== CircleState.open}
-        onChangeTab={({ i }) => {
-          this.props.navigation.setParams({ gestureEnabled: i === 0 });
-          // this.setState({ page: i })
-        }}
+        // onChangeTab={({ i }) => {
+        //   this.props.navigation.setParams({ gestureEnabled: i === 0 });
+        //   // this.setState({ page: i })
+        // }}
         onScroll={(x) => {
           // if(state === CircleState.open){
           x = x <= 0 ? 0 : x;
@@ -156,7 +140,7 @@ const Card: FC<{}> = (props) => {
     return () => {
       deEmitter.remove();
     };
-  }, []);
+  }, [run]);
 
   useEffect(() => {
     if (iCard) {
@@ -211,7 +195,7 @@ const Card: FC<{}> = (props) => {
         ),
       });
     }
-  }, [iCard]);
+  }, [iCard, iUseId, navigate, setOptions, user?.objectId]);
 
   if (!iCard) {
     return <LoadAnimation />;

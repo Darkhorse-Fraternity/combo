@@ -207,8 +207,6 @@ const Render: FC<any> = () => {
   const ori = useOrientation();
   const numColumns = isTablet() ? (ori === 'LANDSCAPE' ? 3 : 2) : 1;
 
-  console.log('???');
-
   const param = {
     where: {
       state: 1,

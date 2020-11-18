@@ -102,8 +102,6 @@ const IconAndColor: FC<IconAndColorType> = (props) => {
                 select={color === it}
                 onPress={(color) => {
                   // onChange('color', ot);
-                  console.log('???');
-
                   setstate((res) => ({ ...res, color }));
                 }}
                 key={it}

@@ -1,6 +1,7 @@
 import {
   GetClassesICardIdResponse,
   GetClassesIUseIdResponse,
+  GetClassesIUseResponse,
   GetUsersIdResponse,
   PostCallCardListResponse,
   PostCallIUseList3Response,
@@ -11,6 +12,7 @@ export type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
 export type IUseType = NonNullable<
   NonNullable<PostCallIUseList3Response['result']>['iUseList']
 >[number];
+export type IUseType2 = NonNullable<GetClassesIUseResponse['results']>[number];
 type IUseNomType = Omit<IUseType, 'iCard'> & { iCard: string };
 type IUseNom2Type = Omit<GetClassesIUseIdResponse, 'iCard'> & { iCard: string };
 

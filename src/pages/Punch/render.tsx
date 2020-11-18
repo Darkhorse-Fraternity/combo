@@ -157,6 +157,7 @@ const iUseDataMap = (data: ItemType[], numColumns: number) => {
   if (data.length > 0) {
     for (let i = 0, j = data.length; i < j; i++) {
       const mData = data[i];
+      console.log('mData', mData);
       const iCard = mData.iCard;
       // .get(mData.iCard)
       // .toJS() as GetClassesICardIdResponse;
@@ -244,6 +245,8 @@ const PunchClass: FC<PunchProps> = (props): JSX.Element => {
   // const statu = this.props.data.get('loadStatu');
 
   const { iUse, numColumns, onScroll, onRefresh, loading } = props;
+
+  console.log('iUse', iUse);
 
   const sections = useMemo(() => iUseDataMap(iUse, numColumns), [
     iUse,

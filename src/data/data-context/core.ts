@@ -21,6 +21,7 @@ import {
   iUseSceme,
   iUses_self_type,
   IUseType,
+  IUseType2,
   IUseUpdateType,
 } from './interface';
 
@@ -57,7 +58,7 @@ export const useGetIuseData = <T>(id?: T) => {
     }
   }, [dispatch, iUseData, addIuse]);
 
-  return { data: dataRef.current, addIuse, run, ...other };
+  return { data: dataRef.current, run, ...other };
 };
 
 const denormalizeIUse = <T>(
@@ -96,12 +97,19 @@ export const useMutateIuseData = () => {
     [data.iCards_self, data.iUses_self.entities, dispatch],
   );
 
+  const add = useCallback(
+    (info: IUseType | GetClassesIUseIdResponse | IUseType2) => {
+      dispatch({ type: 'update_iUse', data: info as IUseType });
+    },
+    [dispatch],
+  );
+
   const remove = useCallback(
     (id: string) => dispatch({ type: 'remove_iUse', id }),
     [dispatch],
   );
 
-  return { update, remove };
+  return { update, remove, add };
 };
 
 export const useMutateICardData = () => {

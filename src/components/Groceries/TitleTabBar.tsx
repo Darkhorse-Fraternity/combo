@@ -1,34 +1,27 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, Animated } from 'react-native';
+import React, { PureComponent } from 'react';
+import { StyleSheet, View, Animated } from 'react-native';
 
 import Button from '../Button';
 
-export default class TitleTabBar extends Component {
-  static propTypes = {
-    goToPage: PropTypes.func,
-    activeTab: PropTypes.number,
-    tabs: PropTypes.array,
-    underlineColor: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    activeTextColor: PropTypes.string,
-    inactiveTextColor: PropTypes.string,
-  };
+interface TitleTabBarProps {
+  activeTextColor?: string;
+  inactiveTextColor?: string;
+  underlineColor: string;
+  scrollValueWithOutNative: Animated.Value;
+  activeTab?: number;
+}
+
+export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
 
   renderTabOption(name: string, page: number) {
     const {
-      activeTab,
       activeTextColor = '#rgb(50,50,50)',
       inactiveTextColor = '#979797',
       textStyle = {},
       tabs,
-      scrollValue,
-      underlineColor,
       scrollValueWithOutNative,
-      tabUnderlineWidth,
     } = this.props;
 
-    const isTabActive = activeTab === page;
     const numberOfTabs = tabs.length;
     // const tabUnderlineStyle = {
     //   width: tabUnderlineWidth,

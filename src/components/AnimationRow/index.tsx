@@ -53,13 +53,13 @@ export default class AnimationRow extends PureComponent<
           {
             toValue: 1, // Target
             duration: ANIMATION_DURATION, // Configuration
-            useNativeDriver: true,
+            useNativeDriver: false,
           },
         ),
         Animated.timing(this._animated, {
           toValue: 0,
           duration: ANIMATION_DURATION / 2,
-          useNativeDriver: true,
+          useNativeDriver: false,
         }),
       ]).start(({ finished }) => {
         resolve(finished);
