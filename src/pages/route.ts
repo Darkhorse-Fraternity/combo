@@ -1,11 +1,11 @@
-import { RouteType, RouteKey } from './interface';
+import { RouteKey } from './interface';
 
 import Habit from './Habit';
 import Creat from './NewCard/CardConfig/Creat';
 import NewCard from './NewCard';
 import Record from './Record';
 import CardConfig from './NewCard/CardConfig';
-import LoginView from './More/Login/LoginView';
+import LoginView from './More/Login';
 import More from './More';
 import Account from './More/Account';
 import RecordDetail from './Record/Detail';
@@ -70,10 +70,7 @@ export const otherRoute = {
   [RouteKey.record]: Record,
   [RouteKey.cardConfig]: CardConfig,
   [RouteKey.account]: Account,
-  [RouteKey.cardInfo]: {
-    component: CardInfo,
-    options: CardInfo.navigationOptions,
-  },
+  [RouteKey.cardInfo]: CardInfo,
   [RouteKey.rcomment]: RComment,
   [RouteKey.card]: Card,
   [RouteKey.cardUse]: {
@@ -81,10 +78,7 @@ export const otherRoute = {
     options: CardUse.navigationOptions,
   },
 
-  [RouteKey.login]: {
-    component: LoginView,
-    options: LoginView.navigationOptions,
-  },
+  [RouteKey.login]: LoginView,
   [RouteKey.flagDetail]: {
     component: FlagDetail,
     options: FlagDetail.navigationOptions,

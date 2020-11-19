@@ -11,7 +11,7 @@ import { RouteKey } from '@pages/interface';
 import { useNavigation } from '@react-navigation/native';
 import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 
-import React, { FC, PureComponent, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { DeviceEventEmitter } from 'react-native';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import {
@@ -40,7 +40,7 @@ const RecordDetail: FC<{}> = (porps) => {
     return () => {
       deEmitter.remove();
     };
-  }, []);
+  }, [run]);
 
   useEffect(() => {
     if (iCard?.objectId && data?.user.objectId !== user.objectId) {

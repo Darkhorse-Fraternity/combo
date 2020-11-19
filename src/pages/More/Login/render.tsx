@@ -1,7 +1,7 @@
 /* @flow */
 // 注册页面
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component, FC, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
@@ -89,7 +89,7 @@ const { mainColor } = getTheme();
     },
   }),
 )
-export default class LoginView extends Component {
+class LoginViewClass extends Component {
   constructor(props: Object) {
     super(props);
     this.state = {
@@ -115,30 +115,6 @@ export default class LoginView extends Component {
     ymCode: string;
     isTap: boolean; // 用于time 是否在走。
   };
-
-  static navigationOptions = (props) =>
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    ({
-      title: '',
-      ...TransitionPresets.ModalSlideFromBottomIOS,
-      headerLeft: () => <View />,
-      headerRight: (headerRightProps) => (
-        <StyledBtn
-          hitSlop={{ top: 5, left: 15, bottom: 5, right: 15 }}
-          onPress={() => {
-            props.navigation.goBack();
-          }}>
-          <StyledEvilIcons size={30} name={'close'} />
-        </StyledBtn>
-      ),
-      // headerStyle: {
-      //     backgroundColor: '#f5fcff',
-      //     shadowColor: '#F5FCFF',
-      //     borderBottomColor: '#F5FCFF',
-      // },
-    });
 
   id: number = 0;
 
@@ -428,6 +404,12 @@ export default class LoginView extends Component {
     return this._renderWechat();
   }
 }
+
+const LoginView: FC<{}> = (props) => {
+  return <LoginViewClass {...props} />;
+};
+
+export default LoginView;
 
 const styles = StyleSheet.create({
   rowMainStyle: {
