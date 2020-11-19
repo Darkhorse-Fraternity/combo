@@ -4,8 +4,7 @@
  */
 
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
 import { debounce } from 'lodash'; // 4.0.8
 import * as Animatable from 'react-native-animatable';
 import { theme } from '../../../Theme';
@@ -24,15 +23,16 @@ export const AniStyledContent = Animatable.createAnimatableComponent(
   StyledContent,
 );
 
-export default class FlipButton extends PureComponent {
-  static propTypes = {
-    faceText: PropTypes.string.isRequired,
-    backText: PropTypes.string.isRequired,
-    load: PropTypes.bool,
-    flip: PropTypes.bool,
-    animation: PropTypes.string,
-  };
+interface FlipButtonProps extends TouchableOpacityProps {
+  flip: boolean;
+  load: boolean;
+  backText: string;
+  faceText: string;
+  animation: string;
+  containStyle: {};
+}
 
+export default class FlipButton extends PureComponent<FlipButtonProps> {
   static defaultProps = {
     load: true,
     // animation:'bounceInRight',
@@ -62,11 +62,7 @@ export default class FlipButton extends PureComponent {
         flipHorizontal
         flipVertical={false}
         flip={flip}
-        clickable={false}
-        onFlipEnd={(isFlipEnd) => {
-          // console.log('isFlipEnd', isFlipEnd)
-          // this.setState({statu:1})
-        }}>
+        clickable={false}>
         {/* Face Side */}
         <StyledFace style={containStyle}>
           <StyledFaceText>{faceText}</StyledFaceText>

@@ -903,16 +903,21 @@ export const usePostCallIUseList3 = makeRequestHook<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
-export interface GetClassesIUseRequest {}
+export interface GetClassesIUseRequest {
+  count?: string
+  where?: string
+  limit?: string
+  skip?: string
+}
 
 /**
  * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **返回类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
 export interface GetClassesIUseResponse {
   results?: {
@@ -1001,6 +1006,7 @@ export interface GetClassesIUseResponse {
       icon?: string
     }
   }[]
+  count?: number
 }
 
 /**
@@ -1008,7 +1014,7 @@ export interface GetClassesIUseResponse {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
 type GetClassesIUseRequestConfig = Readonly<
   RequestConfig<
@@ -1018,8 +1024,8 @@ type GetClassesIUseRequestConfig = Readonly<
     '/classes/iUse',
     undefined,
     string,
-    string,
-    true
+    'count' | 'where' | 'limit' | 'skip',
+    false
   >
 >
 
@@ -1028,7 +1034,7 @@ type GetClassesIUseRequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
 const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -1040,8 +1046,8 @@ const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_0,
   paramNames: [],
-  queryNames: [],
-  requestDataOptional: true,
+  queryNames: ['count', 'where', 'limit', 'skip'],
+  requestDataOptional: false,
 }
 
 /**
@@ -1049,7 +1055,7 @@ const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
 export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseResponse, GetClassesIUseRequestConfig>(
   getClassesIUseRequestConfig,
@@ -1060,7 +1066,7 @@ export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseR
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-17 15:56:09`
+ * @更新时间 `2020-11-19 14:37:29`
  */
 export const useGetClassesIUse = makeRequestHook<
   GetClassesIUseRequest,
@@ -1558,9 +1564,11 @@ export const usePostCallCardList = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 export interface GetClassesICardIdRequest {
+  include?: string
+  where?: string
   id: string
 }
 
@@ -1569,7 +1577,7 @@ export interface GetClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 export interface GetClassesICardIdResponse {
   notifyTimes: string[]
@@ -1607,6 +1615,12 @@ export interface GetClassesICardIdResponse {
     iso: string
     __type: string
   }
+  describe?: string
+  img?: {
+    url: string
+  }
+  password?: string
+  field_1: string
 }
 
 /**
@@ -1614,7 +1628,7 @@ export interface GetClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 type GetClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1624,7 +1638,7 @@ type GetClassesICardIdRequestConfig = Readonly<
     '/classes/iCard/:id',
     undefined,
     'id',
-    string,
+    'include' | 'where',
     false
   >
 >
@@ -1634,7 +1648,7 @@ type GetClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1646,7 +1660,7 @@ const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_1,
   paramNames: ['id'],
-  queryNames: [],
+  queryNames: ['include', 'where'],
   requestDataOptional: false,
 }
 
@@ -1655,7 +1669,7 @@ const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 export const getClassesICardId = makeRequest<
   GetClassesICardIdRequest,
@@ -1668,7 +1682,7 @@ export const getClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-10-20 15:25:18`
+ * @更新时间 `2020-11-19 16:57:55`
  */
 export const useGetClassesICardId = makeRequestHook<
   GetClassesICardIdRequest,

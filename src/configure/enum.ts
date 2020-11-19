@@ -15,7 +15,7 @@ export const CircleState = {
 };
 
 export const Days = ['周一', '周二', '周三', '周四', '周五', '周六', '周天'];
-export const daysText = (recordDay: []) => {
+export const daysText = (recordDay: number[]) => {
   const days = recordDay.sort();
   // console.log('days:', days);
   if (days.length === 0) {

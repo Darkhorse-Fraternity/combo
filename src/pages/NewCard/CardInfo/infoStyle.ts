@@ -144,7 +144,7 @@ export const StyledHeaderImage = styled.Image`
   border-radius: 5px;
 `;
 
-export const StyledHedaderIconBack = styled.View`
+export const StyledHedaderIconBack = styled.View<{ color: string }>`
   padding: 10px;
   background-color: ${(props) => props.color};
   border-radius: 10px;

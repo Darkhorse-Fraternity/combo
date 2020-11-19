@@ -3,31 +3,21 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent, useState } from 'react';
 import {
   View,
   StyleSheet,
   Dimensions,
   ScrollView,
   Platform,
-  TouchableHighlight,
+  DeviceEventEmitter,
 } from 'react-native';
-import { connect } from 'react-redux';
 // import {bindActionCreators} from 'redux';
 // import styled from 'styled-components';
 import Toast from 'react-native-simple-toast';
 import moment from 'moment';
-import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';
-import { ICARD, USER, IUSE, IUSEExist } from '../../../redux/reqKeys';
-import { getUserByID, classSearch } from '../../../request/leanCloud';
-import { req, requestSucceed } from '../../../redux/actions/req';
-import { selfUser, iCard, user, pointModel } from '../../../request/LCModle';
-import { add } from '../../../redux/module/leancloud';
-import { addListNormalizrEntity } from '../../../redux/actions/list';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { user as UserEntity, schemas } from '../../../redux/scemes';
+
 import Button from '../../../components/Button';
-import { list, entitys } from '../../../redux/scemes';
 import svgs from '../../../../source/icons';
 import {
   StyledContent,
@@ -38,10 +28,7 @@ import {
   StyledRowInner,
   StyledTitleView,
   StyledTitleText,
-  StyledCourseView,
-  StyledKeysView,
   StyledDescirbe,
-  StyledImg,
   StyledIcon,
   StyledDescirbeView,
 } from './style';
@@ -54,19 +41,27 @@ import {
   StyledHeaderInnerLeft,
   StyledHeaderInnerRight,
   StyledNickName,
-  StyledSubTitle,
   StyledHeaderIcon,
   StyledHedaderIconBack,
 } from './infoStyle';
 
-import { Privacy, CircleState } from '../../../configure/enum';
+import { CircleState, DeviceEventEmitterKey } from '../../../configure/enum';
 import FlipButton from '../../../components/Button/FlipButton';
-import { findByID, find } from '../../../redux/module/leancloud';
-import { easyPay } from '../../../redux/module/pay';
 import { daysText } from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
 import { PasswordValidation } from './PasswordValidation';
-import { User } from '@interface/index';
+import { RouteKey } from '@pages/interface';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import {
+  GetClassesICardIdResponse,
+  useGetClassesICardId,
+  useGetClassesIUse,
+  usePostClassesIUse,
+} from 'src/hooks/interface';
+import { LoadAnimation } from '@components/Load';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
+import { IUseType2, UserType } from 'src/data/data-context/interface';
+import { iCardPoint, userPoint } from '@request/LCModle';
 // import { NavigationInjectedProps } from '@react-navigation/native';
 
 interface StateType {
@@ -76,110 +71,27 @@ interface StateType {
 }
 
 interface PropsType {
-  useExist: boolean;
-  user: User;
-  exist: (id: number) => void;
-}
-
-interface NavigationParams {
-  iCardId: number;
+  user: UserType;
+  selfUser: UserType;
+  // exist: (id: number) => void;
+  iCard: GetClassesICardIdResponse;
+  isTourist: boolean;
+  load: boolean;
+  exist: boolean;
+  iUseData: IUseType2;
+  use: () => void;
 }
 
 type NavAndPropsType = PropsType;
 
-@connect(
-  (state, props) => {
-    const { iCardId } = props.route.params;
-    const iCard = state.normalizr.get(ICARD).get(iCardId);
-    const userId = iCard && iCard.get('user');
-    // console.log('iCardId:', iCardId);
-    return {
-      // data:state.req.get()
-      iCard,
-      user: userId && state.normalizr.get(USER).get(userId),
-      userLoad: state.req.get(USER).get('load'),
-      useExist: state.req.get(IUSEExist),
-      data: state.normalizr
-        .get(IUSE)
-        .get(state.req.get(IUSEExist).get('data').get('0')),
-      dataId: state.req.get(IUSEExist).get('data').get('0'),
-      selfUse: state.user.data,
-      isTourist: state.user.isTourist,
-    };
-  },
-  (dispatch, props) => ({
-    // ...bindActionCreators({},dispatch),
-    loadCard: () => {
-      const { iCardId } = props.route.params;
-      dispatch(
-        find(
-          ICARD,
-          {
-            where: {
-              objectId: iCardId,
-            },
-            limit: 1,
-            include: 'user',
-          },
-          { sceme: list(entitys[ICARD]) },
-        ),
-      );
-    },
+const row = (title: string, des: string) => (
+  <StyledRow>
+    <StyledRowText>{title}</StyledRowText>
+    <StyledRowDes>{des}</StyledRowDes>
+  </StyledRow>
+);
 
-    loadUser: (iCardUser) => {
-      if (!iCardUser.nickname && iCardUser.objectId) {
-        const param = getUserByID(iCardUser.objectId);
-        dispatch(req(param, USER, { sceme: UserEntity }));
-      }
-    },
-    use: async (card) => {
-      const param = {
-        // cycle: 0,
-        time: 0,
-        privacy: Privacy.open, // 对外开放
-        statu: 'start',
-        // notifyTime:option&&option.notifyTime||"20.00",
-        doneDate: { __type: 'Date', iso: moment('2017-03-20') },
-        ...dispatch(selfUser()),
-        ...iCard(card.objectId),
-        // include: 'avatar'
-      };
-      const res = await dispatch(add(param, IUSE));
-      const entity = {
-        ...param,
-        ...res,
-      };
-      dispatch(addListNormalizrEntity(IUSE, entity));
-      dispatch(
-        addNormalizrEntity(ICARD, {
-          ...card,
-          useNum: card.useNum + 1,
-        }),
-      );
-      dispatch(requestSucceed(IUSEExist, [res.objectId]));
-      // props.navigation.goBack()
-      Toast.show(`你接受了一个卡片${card.title}`);
-    },
-    exist: async (id) => {
-      const params = classSearch(IUSE, {
-        where: {
-          ...iCard(id),
-          ...dispatch(selfUser()),
-          statu: { $ne: 'del' },
-        },
-      });
-      dispatch(req(params, IUSEExist, { sceme: schemas[IUSE] }));
-    },
-    joinPay: async (price, title, bid) => {
-      const description = `圈子_${title}的加入费用`;
-      return dispatch(easyPay(price, description, 'joinCard', bid));
-    },
-  }),
-)
-export default class CardInfo extends PureComponent<
-  NavAndPropsType,
-  StateType
-> {
+class CardInfoClass extends PureComponent<NavAndPropsType, StateType> {
   constructor(props: NavAndPropsType) {
     super(props);
     this.state = {
@@ -189,96 +101,57 @@ export default class CardInfo extends PureComponent<
     };
   }
 
-  componentDidMount() {
-    if (!this.props.iCard) {
-      this.props.loadCard();
-    }
-    if (this.props.user) {
-      this.props.loadUser(this.props.user.toJS());
-    }
-    this.props.exist(this.props.route.params.iCardId);
-  }
-
-  componentWillReceiveProps(nextProps: NavAndPropsType) {
-    if (nextProps.user !== this.props.user) {
-      this.props.exist(this.props.route.params.iCardId);
-    }
-  }
-
-  // shouldComponentUpdate(nextProps: Object) {
-  //     return !immutable.is(this.props, nextProps)
-  // }
-
-  row = (title, des) => (
-    <StyledRow>
-      <StyledRowText>{title}</StyledRowText>
-      <StyledRowDes>{des}</StyledRowDes>
-    </StyledRow>
-  );
-
-  rowTouch = (title, des, onPress) => (
-    <Button onPress={onPress}>
-      <StyledRow>
-        <StyledRowText>{title}</StyledRowText>
-
-        <StyledRowInner>
-          <StyledRowDes>{des}</StyledRowDes>
-          <StyledArrow />
-        </StyledRowInner>
-      </StyledRow>
-    </Button>
-  );
-
   render() {
-    if (!this.props.iCard) {
-      return null;
-    }
-
-    const { selfUse, joinPay } = this.props;
-
-    const iCard = this.props.iCard.toJS();
-    const iCardUser = this.props.user.toJS();
+    const {
+      selfUser,
+      iCard,
+      user: iCardUser,
+      load,
+      exist,
+      iUseData,
+    } = this.props;
 
     const cover = iCard.img ? { uri: iCard.img.url } : null;
 
-    const exist = this.props.useExist.get('data').size >= 1;
-    const load = this.props.useExist.get('load');
+    // const exist = this.props.useExist.get('data').size >= 1;
+    // const load = this.props.useExist.get('load');
     const nickName = iCardUser.nickname;
-    const { keys } = iCard;
+    // const { keys } = iCard;
     const { describe, iconAndColor } = iCard;
-    const iUseData = this.props.data && this.props.data.toJS();
+    // const iUseData = this.props.data && this.props.data.toJS();
 
-    const { userLoad } = this.props;
+    // const { userLoad } = this.props;
 
-    const imgs = iCard && iCard.imgs;
+    // const imgs = iCard && iCard.imgs;
 
-    const urlList =
-      (imgs &&
-        imgs.map((item) => ({
-          url: item.img.url,
-        }))) ||
-      [];
+    // const urlList =
+    //   (imgs &&
+    //     imgs.map((item) => ({
+    //       url: item.img.url,
+    //     }))) ||
+    //   [];
 
     // console.log('iconAndColor:', iconAndColor);
 
-    const isSelf = selfUse.objectId === iCard.user;
+    const isSelf = selfUser.objectId === iCard.user.objectId;
 
-    let { limitTimes } = iCard;
-    limitTimes = (limitTimes && limitTimes.join('~')) || '';
-    limitTimes = limitTimes === '00:00~24:00' ? '' : `，${limitTimes}`;
-    const limitTime = daysText(iCard.recordDay) + limitTimes;
+    const { limitTimes } = iCard;
+    let limitTimesString = limitTimes.join('~');
+    limitTimesString =
+      limitTimesString === '00:00~24:00' ? '' : `，${limitTimesString}`;
+    const limitTime = daysText(iCard.recordDay) + limitTimesString;
     // console.log('iCard.img:', iCard.img);
 
     return (
-      <StyledContent
-        colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}
-        forceInset={{ top: 'never' }}>
+      <StyledContent colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
         <PasswordValidation
           show={this.state.showModal}
           onDone={(password, pdErrorAction) => {
             if (password === iCard.password) {
-              this.props.use(iCard);
+              // this.props.use(iCard);
+              // TODO 参与
               this.setState({ showModal: false });
+              this.props.use();
             } else {
               pdErrorAction();
             }
@@ -288,7 +161,7 @@ export default class CardInfo extends PureComponent<
             this.setState({ showModal: false });
           }}
         />
-        {iCard.img && (
+        {/* {iCard.img && (
           <ImagesViewModal
             visible={this.state.visible}
             index={this.state.index}
@@ -297,7 +170,7 @@ export default class CardInfo extends PureComponent<
             }}
             imageUrls={[{ url: iCard.img.url }, ...urlList]}
           />
-        )}
+        )} */}
         <FlipButton
           faceText={'马上\n参与'}
           backText="已参与"
@@ -319,7 +192,7 @@ export default class CardInfo extends PureComponent<
               if (iCard.password && iCard.password.length > 0 && !isSelf) {
                 this.setState({ showModal: true });
               } else {
-                this.props.use(iCard);
+                this.props.use();
               }
             }
           }}
@@ -328,7 +201,7 @@ export default class CardInfo extends PureComponent<
         />
         <ScrollView
           // removeClippedSubviews={true}
-          style={[this.props.style, styles.wrap]}>
+          style={[styles.wrap]}>
           {cover ? (
             <StyledHeaderCover
               onPress={() => {
@@ -340,26 +213,26 @@ export default class CardInfo extends PureComponent<
               />
             </StyledHeaderCover>
           ) : (
-            <StyledHedaderIconBack color={iconAndColor.color}>
+            <StyledHedaderIconBack color={iconAndColor.color || 'blue'}>
               <StyledHeaderIcon
                 resizeMode="contain"
-                source={svgs[iconAndColor.name]}
+                source={svgs[iconAndColor.name || 'sun']}
               />
             </StyledHedaderIconBack>
           )}
 
           <StyledHeaderInner>
             <StyledHeaderInnerLeft>
-              {iCard.subtitle && (
+              {/* {iCard.subtitle && (
                 <StyledSubTitle>{iCard.subtitle}</StyledSubTitle>
-              )}
+              )} */}
 
               <StyledHeaderTitle>{iCard.title}</StyledHeaderTitle>
-              {keys && (
+              {/* {keys && (
                 <StyledKeysView>
                   {keys.map((key) => `#${key}`).join(' ')}
                 </StyledKeysView>
-              )}
+              )} */}
             </StyledHeaderInnerLeft>
             <StyledHeaderInnerRight>
               <Button
@@ -382,43 +255,39 @@ export default class CardInfo extends PureComponent<
             <StyledTitleText>卡片介绍</StyledTitleText>
           </StyledTitleView>
 
-          {this.row(
-            '加入费用:',
-            iCard.price === 0 ? '免费' : `${iCard.price}元`,
-          )}
-          {this.row(
+          {row('加入费用:', iCard.price === 0 ? '免费' : `${iCard.price}元`)}
+          {row(
             '是否开启圈子:',
-            iCard.circleState !== CircleState.open ? '关闭' : '开启',
+            iCard.state !== CircleState.open ? '关闭' : '开启',
           )}
-          {this.row(
+          {row(
             '提醒时间:',
             iCard.notifyTimes.length > 0 ? iCard.notifyTimes.join('、') : '无',
           )}
-          {/* {this.row('关键字:', iCard.keys.join("+"))} */}
-          {this.row('打卡时间:', limitTime)}
-          {/* {this.row("习惯周期:", `${iCard.period}次`)} */}
-          {this.row('打卡要求:', iCard.record.join('+') || '默认点击')}
-          {this.row('创建时间:', moment(iCard.createdAt).format('MMM YYYY'))}
+          {/* {row('关键字:', iCard.keys.join("+"))} */}
+          {row('打卡时间:', limitTime)}
+          {/* {row("习惯周期:", `${iCard.period}次`)} */}
+          {row('打卡要求:', iCard.record?.join('+') || '默认点击')}
+          {row('创建时间:', moment(iCard.createdAt).format('MMM YYYY'))}
           <Button
             onPress={() => {
-              !userLoad &&
-                this.props.navigation.navigate('cardUse', {
-                  iCardId: iCard.objectId,
-                });
+              this.props.navigation.navigate('cardUse', {
+                iCardId: iCard.objectId,
+              });
             }}
             style={{
               justifyContent: 'space-between',
               alignItems: 'center',
               flexDirection: 'row',
             }}>
-            {this.row('参与人数:', iCard.useNum)}
+            {row('参与人数:', iCard.useNum + '')}
             <StyledIcon
               size={15}
               style={{ marginTop: 5 }}
               name="ios-arrow-forward"
             />
           </Button>
-          {/* {this.rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
+          {/* {rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
 
           {describe && (
             <StyledDescirbeView>
@@ -426,7 +295,7 @@ export default class CardInfo extends PureComponent<
             </StyledDescirbeView>
           )}
 
-          {imgs &&
+          {/* {imgs &&
             imgs.map((item, index) => (
               <TouchableHighlight
                 key={item.img.url + index}
@@ -438,13 +307,81 @@ export default class CardInfo extends PureComponent<
                   source={{ uri: item.img.url }}
                 />
               </TouchableHighlight>
-            ))}
+            ))} */}
           <View style={{ height: 200 }} />
         </ScrollView>
       </StyledContent>
     );
   }
 }
+
+const CardInfo: FC<{}> = (props): JSX.Element => {
+  const { iCardId } = useNavigationAllParamsWithType<RouteKey.cardInfo>();
+  const { user } = useGetInfoOfMe();
+  const { data: iCard } = useGetClassesICardId({
+    id: iCardId,
+    include: 'user',
+  });
+
+  //查询是否已参与
+
+  // where: {
+  //   ...iCard(id),
+  //   ...dispatch(selfUser()),
+  //   statu: { $ne: 'del' },
+  // },
+
+  //判断是否有该习惯
+  const { data } = useGetClassesIUse((res) => ({
+    count: '1',
+    limit: '1',
+    where: JSON.stringify({
+      user: userPoint(user.objectId), //粉丝查看也是这个入口，此时userid 不为自己
+      // ...iCardM(iCardId),
+      iCard: iCardPoint(iCardId),
+      statu: { $ne: 'del' },
+    }),
+    ...res,
+  }));
+
+  // 添加习惯
+  const { run, loading } = usePostClassesIUse(
+    {
+      user: userPoint(user.objectId), //粉丝查看也是这个入口，此时userid 不为自己
+      // ...iCardM(iCardId),
+      iCard: iCardPoint(iCardId),
+    },
+    { manual: true },
+  );
+
+  const [hasJoin, setHasJoin] = useState(false);
+  const addUse = async () => {
+    const res = await run();
+    res.objectId && setHasJoin(true);
+    DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+  };
+
+  if (!data || !iCard) {
+    return <LoadAnimation />;
+  }
+  const { count = 0, results = [] } = data;
+
+  return (
+    <CardInfoClass
+      {...props}
+      iCard={iCard}
+      user={iCard.user as UserType}
+      selfUser={user}
+      isTourist={user.isTourist}
+      exist={count > 0 || hasJoin}
+      iUseData={results[0]}
+      load={loading}
+      use={addUse}
+    />
+  );
+};
+
+export default CardInfo;
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
