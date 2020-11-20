@@ -73,7 +73,7 @@ export const Log: FC<{}> = () => {
       ref={ref}
       showsVerticalScrollIndicator={false}
       loadPage={loadPage}
-      keyId={'id'}
+      keyId={'objectId'}
       // style={{ backgroundColor: 'transparent' }}
       // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
       // prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}

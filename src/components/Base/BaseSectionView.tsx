@@ -36,11 +36,11 @@ import { ListLoadType } from './interface';
 // export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
 // export const LIST_NORMAL = 'LIST_NORMAL';
 
-export type BaseListBaseProps<T> = FlatListProps<T> &
+export type BaseListBaseProps<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;
     tipTap?: Function;
-    keyId: string;
+    keyId: keyof T;
     noDataImg?: ImageSourcePropType;
     tipBtnText?: string;
     listRef?: LegacyRef<FlatList<T>>;

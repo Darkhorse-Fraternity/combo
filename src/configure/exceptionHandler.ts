@@ -6,7 +6,7 @@ import { Alert, Platform } from 'react-native';
 import RNRestart from 'react-native-restart';
 import DeviceInfo from 'react-native-device-info';
 import { strings } from '../../locales/i18n';
-import tracker from './googleAnalytics';
+// import tracker from './googleAnalytics';
 
 const allowInDevMode = false;
 
@@ -97,5 +97,5 @@ const uploadErrorString = async (from, errorString, isFatal) => {
   //     duration: 10000 // 使用时长，单位毫秒
   //   }]
   // }
-  tracker.trackException(`${from}:${errorString}`, isFatal);
+  // tracker.trackException(`${from}:${errorString}`, isFatal);
 };

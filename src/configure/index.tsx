@@ -213,6 +213,8 @@ const Configure: FC<{}> = ({ children }) => {
   const user = useGetUserInfo();
   // const { navigate } = useNavigation();
   const isLogin = !!user?.objectId;
+  console.log('userid', user?.objectId);
+
   const urlTaskRef = useRef<string[]>([]);
   useEffect(() => {
     epUpdate();

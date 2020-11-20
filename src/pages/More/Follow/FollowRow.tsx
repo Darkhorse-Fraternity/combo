@@ -4,8 +4,7 @@
  */
 'use strict';
 
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
 import Avatar from '../../../components/Avatar/Avatar2';
 
 import {
@@ -18,35 +17,32 @@ import {
 } from './style';
 
 import moment from 'moment';
+import { UserType } from 'src/data/data-context/interface';
+import { ButtonType } from '@components/Button';
 
-export default class FollowRow extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
-
-  static propTypes = {
-    user: PropTypes.object.isRequired,
-  };
-  static defaultProps = {};
-
-  render() {
-    const { user, onPress } = this.props;
-    const { nickname, createdAt } = user;
-
-    const name = nickname || '路人甲';
-    return (
-      <StyledRowContent onPress={onPress}>
-        <StyledInnerView>
-          <Avatar user={user} />
-          <StyledInnerRight>
-            <StyledName>{name}</StyledName>
-            <StyledDiscrib>
-              加入时间:{moment(createdAt).format('YYYY-MM-DD')}
-            </StyledDiscrib>
-          </StyledInnerRight>
-        </StyledInnerView>
-        <StyledArrow />
-      </StyledRowContent>
-    );
-  }
+interface FollowRowProps extends ButtonType {
+  user: UserType;
 }
+
+const FollowRow: FC<FollowRowProps> = (props) => {
+  const { user, ...rest } = props;
+  const { nickname, createdAt } = user;
+
+  const name = nickname || '路人甲';
+  return (
+    <StyledRowContent {...rest}>
+      <StyledInnerView>
+        <Avatar user={user} />
+        <StyledInnerRight>
+          <StyledName>{name}</StyledName>
+          <StyledDiscrib>
+            加入时间:{moment(createdAt).format('YYYY-MM-DD')}
+          </StyledDiscrib>
+        </StyledInnerRight>
+      </StyledInnerView>
+      <StyledArrow />
+    </StyledRowContent>
+  );
+};
+
+export default FollowRow;

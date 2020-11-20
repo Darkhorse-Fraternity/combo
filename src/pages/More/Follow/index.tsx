@@ -5,9 +5,7 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import { View, Animated, Platform } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { Animated } from 'react-native';
 
 import { StyledContent } from './style';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -16,7 +14,6 @@ import TitleTabBar from '../../../components/Groceries/TitleTabBar';
 import Followee from './Followee';
 import Follower from './Follower';
 
-@connect((state) => ({}), (dispatch) => ({}))
 export default class Follow extends PureComponent {
   constructor(props: Object) {
     super(props);
@@ -38,11 +35,10 @@ export default class Follow extends PureComponent {
     };
   };
 
-  render(): ReactElement<any> {
+  render() {
     return (
       <StyledContent>
         <ScrollableTabView
-          ref={'ScrollableTabView'}
           onScroll={(x) => {
             x = x <= 0 ? 0 : x;
             x = x >= 1 ? 1 : x;

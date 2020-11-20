@@ -32,23 +32,7 @@ import { habits } from '../../configure/habit';
 
 const listKey = ICARD;
 
-@connect(
-  (state) => ({
-    data: state.normalizr.get(listKey),
-  }),
-  (dispatch, props) => ({}),
-)
 export default class NewCard extends PureComponent {
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  constructor(props: Object) {
-    super(props);
-  }
-
-  componentDidMount() {}
-
   _listHeaderComponet = () => {
     const habitTemplate = Object.keys(habits).map((name) => (
       <Fragment key={name}>

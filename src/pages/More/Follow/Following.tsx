@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import Button from '../../../components/Button';
@@ -43,13 +43,16 @@ import { req, reqChangeData } from '../../../redux/actions/req';
 import { FRIENDNUM, FRIENDEXIST, FOLLOWING } from '../../../redux/reqKeys';
 import Avatar from '../../../components/Avatar/Avatar2';
 import { isTablet } from 'react-native-device-info';
+import { NavigationOptionsType, RouteKey } from '@pages/interface';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { useGetUsersId } from 'src/hooks/interface';
+import { LoadAnimation } from '@components/Load';
 
 @connect(
   (state, props) => ({
     data: state.list.get(FOLLOWRECORD + props.route.params.userId),
     iCard: state.normalizr.get(ICARD),
-    selfUser: state.user.data,
-    user: state.normalizr.get(USER).get(props.route.params.userId),
     friendNum: state.req.get(FRIENDNUM + props.route.params.userId),
     friendeExist: state.req.get(FRIENDEXIST + props.route.params.userId),
     followLoad: state.req.get(FOLLOWING).get('load'),
@@ -122,7 +125,7 @@ import { isTablet } from 'react-native-device-info';
     },
   }),
 )
-export default class Following extends PureComponent {
+class FollowingClass extends PureComponent {
   constructor(props: Object) {
     super(props);
   }
@@ -297,7 +300,7 @@ export default class Following extends PureComponent {
     };
 
     return (
-      <StyledContent forceInset={{ top: 'never' }}>
+      <StyledContent>
         <LCList
           numColumns={isTablet() ? 2 : 1}
           ListHeaderComponent={this._renderHeader}
@@ -319,3 +322,22 @@ export default class Following extends PureComponent {
     );
   }
 }
+
+const Following: FC<{}> = (props) => {
+  const { user } = useGetInfoOfMe();
+  const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
+  const { data, loading } = useGetUsersId({ id: userId });
+  if (loading) {
+    return <LoadAnimation />;
+  }
+
+  return <FollowingClass {...props} selfUser={user} user={data} />;
+};
+
+const navigationOptions: NavigationOptionsType<RouteKey.more> = () => {
+  return {
+    title: '',
+  };
+};
+
+export default { component: Following, options: navigationOptions };

@@ -61,10 +61,7 @@ export const otherRoute = {
     options: Follower.navigationOptions,
   },
   [RouteKey.follow]: { component: Follow, options: Follow.navigationOptions },
-  [RouteKey.following]: {
-    component: Following,
-    options: Following.navigationOptions,
-  },
+  [RouteKey.following]: Following,
   [RouteKey.creat]: Creat,
   [RouteKey.newCard]: NewCard,
   [RouteKey.record]: Record,
@@ -73,11 +70,7 @@ export const otherRoute = {
   [RouteKey.cardInfo]: CardInfo,
   [RouteKey.rcomment]: RComment,
   [RouteKey.card]: Card,
-  [RouteKey.cardUse]: {
-    component: CardUse,
-    options: CardUse.navigationOptions,
-  },
-
+  [RouteKey.cardUse]: CardUse,
   [RouteKey.login]: LoginView,
   [RouteKey.flagDetail]: {
     component: FlagDetail,
