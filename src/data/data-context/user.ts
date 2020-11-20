@@ -2,6 +2,7 @@ import * as Keychain from 'react-native-keychain';
 import {
   GetUsersIdResponse,
   getUsersMe,
+  GetUsersMeResponse,
   postUsers,
   PostUsersResponse,
   PutUsersIdRequest,
@@ -19,6 +20,18 @@ import * as QQAPI from 'react-native-qq';
 import { setLeanCloudSession } from '@configure/reqConfigs';
 import { useCallback, useContext } from 'react';
 import DataContext from './index';
+
+export const useUpdateMe = () => {
+  const { dispatch: contextDispatch } = useContext(DataContext);
+  const run = () => {
+    userInfo().then((user) => {
+      updateLocation(user as never);
+      contextDispatch({ type: 'update_user_info', user: user as never });
+    });
+  };
+  return { run };
+};
+
 export async function userInfo() {
   // const uuid =  DeviceInfo.getUniqueID()
 
@@ -55,7 +68,7 @@ export async function update() {
   //   return updateUserData(res);
 }
 
-export function updateLocation(user: GetUsersIdResponse) {
+export function updateLocation(user: GetUsersMeResponse) {
   const { username = '', sessionToken } = user;
   const userString = JSON.stringify(user);
 

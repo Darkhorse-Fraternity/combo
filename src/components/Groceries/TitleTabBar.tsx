@@ -6,13 +6,12 @@ import Button from '../Button';
 interface TitleTabBarProps {
   activeTextColor?: string;
   inactiveTextColor?: string;
-  underlineColor: string;
+  // underlineColor: string;
   scrollValueWithOutNative: Animated.Value;
   activeTab?: number;
 }
 
 export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
-
   renderTabOption(name: string, page: number) {
     const {
       activeTextColor = '#rgb(50,50,50)',

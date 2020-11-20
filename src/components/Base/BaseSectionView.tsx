@@ -40,8 +40,8 @@ export type BaseListBaseProps<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;
     tipTap?: Function;
-    keyId: keyof T;
-    noDataImg?: ImageSourcePropType;
+    keyId?: keyof T;
+    // noDataImg?: ImageSourcePropType;
     tipBtnText?: string;
     listRef?: LegacyRef<FlatList<T>>;
     footerStyle?: StyleProp<ViewStyle>;
@@ -171,8 +171,8 @@ export default class BaseSectionView<ItemT> extends PureComponent<
   }
 
   _keyExtractor = (item: ItemT, index: number) => {
-    const { keyId } = this.props;
-    const id = typeof item === 'object' ? item[keyId || 'objectId'] : item;
+    const { keyId = 'objectId' } = this.props;
+    const id = typeof item === 'object' ? item[keyId] : item;
 
     const key = id || index;
     return `${key}`;
@@ -187,7 +187,6 @@ export default class BaseSectionView<ItemT> extends PureComponent<
       data,
       loadStatu,
       tipTap,
-      noDataImg,
       noDataPrompt,
       tipBtnText,
       style,

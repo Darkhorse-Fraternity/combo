@@ -67,7 +67,7 @@ class Main extends PureComponent<{
   render() {
     const { iCard, children } = this.props;
     let { iconAndColor = {} } = iCard;
-    const color = iconAndColor.color || '';
+    // const color = iconAndColor.color || '';
     const state = iCard.state;
 
     return (
@@ -90,7 +90,7 @@ class Main extends PureComponent<{
         renderTabBar={(...props) => (
           <TitleTabBar
             {...props}
-            underlineColor={color}
+            // underlineColor={color}
             // title={title}
             // tabUnderlineWidth={35}
             scrollValueWithOutNative={this.scrollValue}

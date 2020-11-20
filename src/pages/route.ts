@@ -52,15 +52,9 @@ export const otherRoute = {
   [RouteKey.cash]: { component: Cash, options: Cash.navigationOptions },
   [RouteKey.recordDetail]: RecordDetail,
   [RouteKey.cardSetting]: CardSetting,
-  [RouteKey.followee]: {
-    component: Followee,
-    options: Followee.navigationOptions,
-  },
-  [RouteKey.follower]: {
-    component: Follower,
-    options: Follower.navigationOptions,
-  },
-  [RouteKey.follow]: { component: Follow, options: Follow.navigationOptions },
+  [RouteKey.followee]: Followee,
+  [RouteKey.follower]: Follower,
+  [RouteKey.follow]: Follow,
   [RouteKey.following]: Following,
   [RouteKey.creat]: Creat,
   [RouteKey.newCard]: NewCard,

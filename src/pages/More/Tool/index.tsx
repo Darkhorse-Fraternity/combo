@@ -1,10 +1,7 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, PureComponent, useEffect } from 'react';
 import { FlatList } from 'react-native';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+
 import {
-  StyledContent,
   StyledHeader,
   StyledHeaderTitle,
   StyledRow,
@@ -13,25 +10,10 @@ import {
   StyledIcon,
   StyledRowInner,
 } from './style';
-import { update } from '../../../redux/actions/user';
 import { isTablet } from 'react-native-device-info';
+import { useGetInfoOfMe, useUpdateMe } from 'src/data/data-context/user';
 
-@connect(
-  (state) => ({
-    toolConfig: state.user.data.toolConfig,
-  }),
-  (dispatch) => bindActionCreators({ update }, dispatch),
-)
-export default class extends PureComponent {
-  static propTypes = {};
-
-  static defaultProps = {};
-
-  componentDidMount() {
-    const { update } = this.props;
-    update();
-  }
-
+class ToolClass extends PureComponent {
   renderHeader = () => (
     <StyledHeader>
       <StyledHeaderTitle>我的道具</StyledHeaderTitle>
@@ -80,3 +62,16 @@ export default class extends PureComponent {
     );
   }
 }
+
+const Tool: FC<{}> = (props) => {
+  const { user } = useGetInfoOfMe();
+  const { run } = useUpdateMe();
+
+  useEffect(() => {
+    run();
+  }, [run]);
+
+  return <ToolClass {...props} toolConfig={user.toolConfig} />;
+};
+
+export default Tool;

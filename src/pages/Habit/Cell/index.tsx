@@ -11,11 +11,11 @@ import {
 } from './style';
 import svgs from '../../../../source/icons';
 import { ButtonType } from '@components/Button';
-import { IUseType } from 'src/data/data-context/interface';
+import { IUseType, IUseType2 } from 'src/data/data-context/interface';
 
 interface CellProps extends ButtonType {
-  iCard: IUseType['iCard'];
-  data: IUseType;
+  iCard: IUseType['iCard'] | IUseType2['iCard'];
+  data: IUseType | IUseType2;
 }
 
 const Cell: FC<CellProps> = (props) => {

@@ -2957,7 +2957,7 @@ export const usePutUsersId = makeRequestHook<PutUsersIdRequest, PutUsersIdReques
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 export interface GetUsersIdFollowersAndFolloweesRequest {
   count?: string
@@ -2973,10 +2973,10 @@ export interface GetUsersIdFollowersAndFolloweesRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 export interface GetUsersIdFollowersAndFolloweesResponse {
-  followers?: {
+  followers: {
     user: {
       __type?: string
       className?: string
@@ -3015,7 +3015,7 @@ export interface GetUsersIdFollowersAndFolloweesResponse {
     updatedAt: string
     objectId: string
   }[]
-  followees?: {
+  followees: {
     user: {
       __type?: string
       className?: string
@@ -3054,6 +3054,8 @@ export interface GetUsersIdFollowersAndFolloweesResponse {
     updatedAt: string
     objectId: string
   }[]
+  followers_count?: number
+  followees_count?: number
 }
 
 /**
@@ -3061,7 +3063,7 @@ export interface GetUsersIdFollowersAndFolloweesResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 type GetUsersIdFollowersAndFolloweesRequestConfig = Readonly<
   RequestConfig<
@@ -3081,7 +3083,7 @@ type GetUsersIdFollowersAndFolloweesRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 const getUsersIdFollowersAndFolloweesRequestConfig: GetUsersIdFollowersAndFolloweesRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -3102,7 +3104,7 @@ const getUsersIdFollowersAndFolloweesRequestConfig: GetUsersIdFollowersAndFollow
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 export const getUsersIdFollowersAndFollowees = makeRequest<
   GetUsersIdFollowersAndFolloweesRequest,
@@ -3115,7 +3117,7 @@ export const getUsersIdFollowersAndFollowees = makeRequest<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followersAndFollowees`
- * @更新时间 `2020-11-20 09:38:28`
+ * @更新时间 `2020-11-20 09:46:00`
  */
 export const useGetUsersIdFollowersAndFollowees = makeRequestHook<
   GetUsersIdFollowersAndFolloweesRequest,
@@ -3124,24 +3126,25 @@ export const useGetUsersIdFollowersAndFollowees = makeRequestHook<
 >(getUsersIdFollowersAndFollowees)
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求类型**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求类型**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 export interface GetUsersIdFolloweesRequest {
   count?: string
   limit?: string
+  where?: string
   id: string
 }
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **返回类型**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **返回类型**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 export interface GetUsersIdFolloweesResponse {
   results?: {
@@ -3183,14 +3186,15 @@ export interface GetUsersIdFolloweesResponse {
     updatedAt: string
     objectId: string
   }[]
+  count?: number
 }
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求配置的类型**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求配置的类型**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 type GetUsersIdFolloweesRequestConfig = Readonly<
   RequestConfig<
@@ -3200,17 +3204,17 @@ type GetUsersIdFolloweesRequestConfig = Readonly<
     '/users/:id/followees',
     undefined,
     'id',
-    'count' | 'limit',
+    'count' | 'limit' | 'where',
     false
   >
 >
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求配置**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求配置**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -3222,16 +3226,16 @@ const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_3,
   paramNames: ['id'],
-  queryNames: ['count', 'limit'],
+  queryNames: ['count', 'limit', 'where'],
   requestDataOptional: false,
 }
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求函数**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **请求函数**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 export const getUsersIdFollowees = makeRequest<
   GetUsersIdFolloweesRequest,
@@ -3240,17 +3244,336 @@ export const getUsersIdFollowees = makeRequest<
 >(getUsersIdFolloweesRequestConfig)
 
 /**
- * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **React Hook**
+ * 接口 [我关注的用户↗](http://121.89.170.197:3000/project/59/interface/api/542) 的 **React Hook**
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 09:39:08`
+ * @更新时间 `2020-11-20 17:03:54`
  */
 export const useGetUsersIdFollowees = makeRequestHook<
   GetUsersIdFolloweesRequest,
   GetUsersIdFolloweesRequestConfig,
   ReturnType<typeof getUsersIdFollowees>
 >(getUsersIdFollowees)
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+export interface GetUsersIdFollowersRequest {
+  count?: string
+  limit?: string
+  where?: string
+  id: string
+}
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+export interface GetUsersIdFollowersResponse {
+  results?: {
+    user: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    follower: {
+      updatedAt?: string
+      uid?: number
+      objectId?: string
+      toolConfig?: {
+        redo?: number
+      }
+      createdAt?: string
+      className?: string
+      emailVerified?: boolean
+      balance?: number
+      __type?: string
+      avatar?: {
+        mime_type?: string
+        updatedAt?: string
+        key?: string
+        name?: string
+        objectId?: string
+        createdAt?: string
+        __type?: string
+        url?: string
+        provider?: string
+        metaData?: {}
+        bucket?: string
+      }
+      mobilePhoneVerified?: boolean
+      nickname?: string
+      headimgurl?: string
+    }
+    createdAt: string
+    updatedAt: string
+    objectId: string
+  }[]
+  count?: number
+}
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+type GetUsersIdFollowersRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/:id/followers',
+    undefined,
+    'id',
+    'count' | 'limit' | 'where',
+    false
+  >
+>
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+const getUsersIdFollowersRequestConfig: GetUsersIdFollowersRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/:id/followers',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['id'],
+  queryNames: ['count', 'limit', 'where'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+export const getUsersIdFollowers = makeRequest<
+  GetUsersIdFollowersRequest,
+  GetUsersIdFollowersResponse,
+  GetUsersIdFollowersRequestConfig
+>(getUsersIdFollowersRequestConfig)
+
+/**
+ * 接口 [粉丝↗](http://121.89.170.197:3000/project/59/interface/api/544) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `GET /users/:id/followers`
+ * @更新时间 `2020-11-20 19:10:00`
+ */
+export const useGetUsersIdFollowers = makeRequestHook<
+  GetUsersIdFollowersRequest,
+  GetUsersIdFollowersRequestConfig,
+  ReturnType<typeof getUsersIdFollowers>
+>(getUsersIdFollowers)
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+export interface PostUsersUidFriendshipFriendshipIdRequest {
+  /**
+   * 自己的
+   */
+  uid: string
+  /**
+   * 关注对象
+   */
+  friendshipId: string
+}
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+export interface PostUsersUidFriendshipFriendshipIdResponse {}
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+type PostUsersUidFriendshipFriendshipIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/:uid/friendship/:friendshipId',
+    undefined,
+    'uid' | 'friendshipId',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+const postUsersUidFriendshipFriendshipIdRequestConfig: PostUsersUidFriendshipFriendshipIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/:uid/friendship/:friendshipId',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.form,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['uid', 'friendshipId'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+export const postUsersUidFriendshipFriendshipId = makeRequest<
+  PostUsersUidFriendshipFriendshipIdRequest,
+  PostUsersUidFriendshipFriendshipIdResponse,
+  PostUsersUidFriendshipFriendshipIdRequestConfig
+>(postUsersUidFriendshipFriendshipIdRequestConfig)
+
+/**
+ * 接口 [添加关注↗](http://121.89.170.197:3000/project/59/interface/api/546) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:36`
+ */
+export const usePostUsersUidFriendshipFriendshipId = makeRequestHook<
+  PostUsersUidFriendshipFriendshipIdRequest,
+  PostUsersUidFriendshipFriendshipIdRequestConfig,
+  ReturnType<typeof postUsersUidFriendshipFriendshipId>
+>(postUsersUidFriendshipFriendshipId)
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+export interface DeleteUsersUidFriendshipFriendshipIdRequest {
+  /**
+   * 自己的
+   */
+  uid: string
+  /**
+   * 关注对象
+   */
+  friendshipId: string
+}
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+export interface DeleteUsersUidFriendshipFriendshipIdResponse {}
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+type DeleteUsersUidFriendshipFriendshipIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/users/:uid/friendship/:friendshipId',
+    undefined,
+    'uid' | 'friendshipId',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+const deleteUsersUidFriendshipFriendshipIdRequestConfig: DeleteUsersUidFriendshipFriendshipIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/users/:uid/friendship/:friendshipId',
+  method: Method.DELETE,
+  requestBodyType: RequestBodyType.form,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['uid', 'friendshipId'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+export const deleteUsersUidFriendshipFriendshipId = makeRequest<
+  DeleteUsersUidFriendshipFriendshipIdRequest,
+  DeleteUsersUidFriendshipFriendshipIdResponse,
+  DeleteUsersUidFriendshipFriendshipIdRequestConfig
+>(deleteUsersUidFriendshipFriendshipIdRequestConfig)
+
+/**
+ * 接口 [取消关注↗](http://121.89.170.197:3000/project/59/interface/api/548) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `DELETE /users/:uid/friendship/:friendshipId`
+ * @更新时间 `2020-11-20 17:24:31`
+ */
+export const useDeleteUsersUidFriendshipFriendshipId = makeRequestHook<
+  DeleteUsersUidFriendshipFriendshipIdRequest,
+  DeleteUsersUidFriendshipFriendshipIdRequestConfig,
+  ReturnType<typeof deleteUsersUidFriendshipFriendshipId>
+>(deleteUsersUidFriendshipFriendshipId)
 
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any

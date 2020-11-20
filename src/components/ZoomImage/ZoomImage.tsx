@@ -7,23 +7,37 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  StyleProp,
+  ImageStyle,
+} from 'react-native';
 import ImagesViewModal from './ImagesViewModal';
 import FastImage from 'react-native-fast-image';
+import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 
-export default class ZoomImage extends Component {
-  constructor(props: Object) {
+interface ZoomImageProps {
+  imageUrls: IImageInfo[];
+  height?: number;
+  style?: StyleProp<ImageStyle>;
+}
+
+export default class ZoomImage extends Component<
+  ZoomImageProps,
+  { visible: boolean }
+> {
+  constructor(props: ZoomImageProps) {
     super(props);
     this.state = {
       visible: false,
     };
   }
 
-  state: {};
-  static propTypes = {
-    imageUrls: PropTypes.array.isRequired,
-    height: PropTypes.number,
-  };
+  // state: {};
+
   static defaultProps = {
     height: 250,
   };

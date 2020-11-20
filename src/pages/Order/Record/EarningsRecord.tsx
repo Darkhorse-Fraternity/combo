@@ -4,7 +4,7 @@
  */
 'use strict';
 
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -20,22 +20,10 @@ import {
 import moment from 'moment';
 import { ORDER } from '../../../redux/reqKeys';
 import { pointModel } from '../../../request/LCModle';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 const listKey = ORDER;
 
-@connect(
-  (state) => ({
-    user: state.user.data,
-  }),
-  (dispatch) => ({}),
-)
-export default class EarningsRecord extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
-
-  static propTypes = {};
-  static defaultProps = {};
-
+class EarningsRecordClass extends PureComponent {
   renderRow = ({ item, index }: Object) => {
     // console.log('item:', item);
     //TODO:这边amount 要再加一个字段，将受益和消费分开。
@@ -81,3 +69,10 @@ export default class EarningsRecord extends PureComponent {
     );
   }
 }
+
+const EarningsRecord: FC<{}> = (props) => {
+  const { user } = useGetInfoOfMe();
+  return <EarningsRecordClass {...props} user={user} />;
+};
+
+export default EarningsRecord;

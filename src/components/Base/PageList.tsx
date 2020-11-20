@@ -37,8 +37,6 @@ export default class PageList<ItemT> extends Component<
   //让外部直接对date 进行操作
 
   getData() {
-    console.log('data', this.state.data);
-
     return this.state.data;
   }
 

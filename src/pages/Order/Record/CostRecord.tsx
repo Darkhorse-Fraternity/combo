@@ -4,12 +4,10 @@
  */
 'use strict';
 
-import React, { PureComponent } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
+import React, { FC, PureComponent } from 'react';
+
 import LCList from '../../../components/Base/LCList';
-import { selfUser } from '../../../request/LCModle';
-import { StyledContent } from './style';
+
 import {
   StyledRow,
   StyledRowTitle,
@@ -23,20 +21,9 @@ import { ORDER } from '../../../redux/reqKeys';
 const listKey = ORDER;
 
 import { pointModel } from '../../../request/LCModle';
-@connect(
-  (state) => ({
-    user: state.user.data,
-  }),
-  (dispatch) => ({}),
-)
-export default class CostRecord extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 
-  static propTypes = {};
-  static defaultProps = {};
-
+class CostRecordClass extends PureComponent {
   renderRow = ({ item, index }: Object) => {
     // console.log('item:', item);
     return (
@@ -82,3 +69,10 @@ export default class CostRecord extends PureComponent {
     );
   }
 }
+
+const CostRecord: FC<{}> = (props) => {
+  const { user } = useGetInfoOfMe();
+  return <CostRecordClass {...props} user={user} />;
+};
+
+export default CostRecord;

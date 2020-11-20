@@ -5,69 +5,108 @@
 
 'use strict';
 
-import React, { PureComponent } from 'react';
-import LCList from '../../../components/Base/LCList';
-import { followList } from '../../../redux/module/leancloud';
+import React, { FC } from 'react';
 
 import { StyledContent } from './style';
 
 import FollowRow from './FollowRow';
-import { USER } from '../../../redux/reqKeys';
 import { isTablet } from 'react-native-device-info';
+import { NavigationOptionsType, RouteKey } from '@pages/interface';
+import PageList from '@components/Base/PageList';
+import { UserType } from 'src/data/data-context/interface';
+import { useNavigation } from '@react-navigation/native';
+import { getUsersIdFollowees } from 'src/hooks/interface';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 
-const listKey = USER;
+// const listKey = USER;
 
-export default class Follow extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
+// class FollowClass extends PureComponent {
+//   constructor(props: Object) {
+//     super(props);
+//   }
 
-  static propTypes = {};
-  static defaultProps = {};
-  static navigationOptions = (props) => {
-    // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    return {
-      title: '',
+//   _renderHeader = () => {};
+
+//   render() {
+//     const { navigation, route } = this.props;
+//     const { params } = route;
+//     const param = { uid: params.userId };
+
+//     return (
+//       <StyledContent>
+//         {this._renderHeader()}
+//         <LCList
+//           numColumns={isTablet() ? 2 : 1}
+//           style={{ flex: 1 }}
+//           reqKey={listKey}
+//           sKey={'followee_' + params.userId}
+//           renderItem={(data) => (
+//             <FollowRow
+//               user={data.item}
+//               onPress={() => {
+//                 this.props.navigation.navigate('following', {
+//                   userId: data.item.objectId,
+//                 });
+//               }}
+//             />
+//           )}
+//           noDataPrompt={'还没有人关注~'}
+//           search={followList('ee')}
+//           dataMap={(data) => {
+//             const list = data.results;
+//             const newList = list.map((item) => item.followee);
+//             return { results: newList };
+//           }}
+//           reqParam={param}
+//         />
+//       </StyledContent>
+//     );
+//   }
+// }
+
+export const Followee: FC<{}> = () => {
+  const { navigate } = useNavigation();
+  const { user } = useGetInfoOfMe();
+  const loadPage = (page_index: number, page_size: number) => {
+    const param = {
+      id: user.objectId,
+      limit: page_size + '',
+      skip: page_index * page_size + '',
     };
+    return getUsersIdFollowees(param).then((res) =>
+      res.results?.map((item) => item.followee as UserType),
+    );
   };
 
-  _renderHeader = () => {};
+  return (
+    <StyledContent>
+      <PageList<UserType>
+        loadPage={loadPage}
+        numColumns={isTablet() ? 2 : 1}
+        // style={{ backgroundColor: 'transparent' }}
+        // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
+        // prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}
+        noDataPrompt="还没关注他人~"
+        // footerStyle={{ paddingBottom: 60 }}
+        renderItem={(data) => (
+          <FollowRow
+            user={data.item}
+            onPress={() => {
+              navigate('following', {
+                userId: data.item.objectId,
+              });
+            }}
+          />
+        )}
+      />
+    </StyledContent>
+  );
+};
 
-  render() {
-    const { navigation, route } = this.props;
-    const { params } = route;
-    const param = { uid: params.userId };
+const navigationOptions: NavigationOptionsType<RouteKey.follower> = () => {
+  return {
+    title: '',
+  };
+};
 
-    return (
-      <StyledContent>
-        {this._renderHeader()}
-        <LCList
-          numColumns={isTablet() ? 2 : 1}
-          style={{ flex: 1 }}
-          reqKey={listKey}
-          sKey={'followee_' + params.userId}
-          renderItem={(data) => (
-            <FollowRow
-              user={data.item}
-              onPress={() => {
-                this.props.navigation.navigate('following', {
-                  userId: data.item.objectId,
-                });
-              }}
-            />
-          )}
-          noDataPrompt={'还没有人关注~'}
-          search={followList('ee')}
-          dataMap={(data) => {
-            const list = data.results;
-            const newList = list.map((item) => item.followee);
-            return { results: newList };
-          }}
-          reqParam={param}
-        />
-      </StyledContent>
-    );
-  }
-}
+export default { component: Followee, options: navigationOptions };
