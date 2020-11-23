@@ -4,9 +4,8 @@
  */
 
 import React, { FC, PureComponent } from 'react';
-import { View, InteractionManager, Platform, FlatList } from 'react-native';
+import { Platform, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
@@ -38,12 +37,10 @@ import {
   StyledAntDesign,
   StyledTips,
 } from './style';
-import { localRemind } from '../../../redux/actions/util';
 import { addNormalizrEntity } from '../../../redux/module/normalizr';
 import { update } from '../../../redux/module/leancloud';
 import { shadeBlend } from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
-import { storage } from '@configure/storage';
 import { useGetUserInfo } from 'src/data/data-context';
 import { remind, RemindDataType, useLoadlocalRemind } from '@configure/app';
 import { GetClassesIUseIdResponse } from 'src/hooks/interface';

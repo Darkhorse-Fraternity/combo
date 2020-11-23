@@ -12,11 +12,7 @@ import {
   Platform,
 } from 'react-native';
 
-import Button from '../Button';
 import { theme } from '../../Theme';
-import { required } from '../../request/validation';
-
-const backWidth = Dimensions.get('window').width / 3;
 
 export default class EZTabBar extends PureComponent {
   static propTypes = {

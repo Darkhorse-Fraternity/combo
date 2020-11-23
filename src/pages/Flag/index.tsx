@@ -1,8 +1,6 @@
 import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
-import { useGetFb } from 'src/hooks/interface';
-import { View } from 'react-native';
 
 const navigationOptions: NavigationOptionsType<RouteKey.flag> = (props) => {
   return {

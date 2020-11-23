@@ -43,7 +43,6 @@ import { LoadAnimation } from '@components/Load';
 import { IUseType2, UserType } from 'src/data/data-context/interface';
 import { useNavigation } from '@react-navigation/native';
 import PageList from '@components/Base/PageList';
-import SimpleToast from 'react-native-simple-toast';
 
 interface FollowingProps {
   followers_count: number;
@@ -52,7 +51,7 @@ interface FollowingProps {
   user: UserType;
   friendeExist: boolean;
   onFollow: () => void;
-  followLoad: Boolean;
+  followLoad: boolean;
 }
 
 const RenderFollow: FC<{
@@ -170,7 +169,7 @@ const Following: FC<{}> = () => {
   const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
   console.log('userId', userId);
 
-  const { data, loading } = useGetUsersId({ id: userId });
+  const { data } = useGetUsersId({ id: userId });
   // where: {
   //   followee: {
   //     __type: 'Pointer',

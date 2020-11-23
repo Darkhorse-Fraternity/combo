@@ -12,7 +12,7 @@ export enum RouteKey {
   web = 'web',
   search = 'search',
   tool = 'tool',
-  FlagRecord = 'FlagRecord',
+  flagRecord = 'FlagRecord',
   earnings = 'earnings',
   remind = 'remind',
   cash = 'cash',
@@ -56,7 +56,7 @@ export type RootStackParamList = {
   [RouteKey.test]: undefined;
   [RouteKey.search]: undefined;
   [RouteKey.tool]: undefined;
-  [RouteKey.FlagRecord]: undefined;
+  [RouteKey.flagRecord]: { iCardId: string; title: string };
   [RouteKey.earnings]: undefined;
   [RouteKey.remind]: undefined;
   [RouteKey.cash]: undefined;
@@ -78,8 +78,8 @@ export type RootStackParamList = {
   [RouteKey.cardUse]: { iCardId: string };
   [RouteKey.more]: undefined;
   [RouteKey.login]: undefined;
-  [RouteKey.flagDetail]: undefined;
-  [RouteKey.FRDetail]: undefined;
+  [RouteKey.flagDetail]: { iCardId: string; flagId: string; title?: string };
+  [RouteKey.FRDetail]: { flagId: string };
   [RouteKey.cirlcleSetting]: { iCardID: string };
   [RouteKey.clockIn]: { iUseId: string; doneDateIso?: string; iDoId?: string };
   //tabs

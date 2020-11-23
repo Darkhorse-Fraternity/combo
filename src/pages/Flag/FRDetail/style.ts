@@ -38,7 +38,7 @@ export const StyledCellName = styled.Text`
   max-width: 100px;
 `;
 
-export const StyledCellDiscrib = styled.Text`
+export const StyledCellDiscrib = styled.Text<{ done: boolean }>`
   margin-top: ${Platform.OS === 'ios' ? 5 : 2};
   color: ${(props) => (props.done ? 'green' : '#888888')};
   font-size: 15px;
@@ -50,7 +50,7 @@ export const StyledInner = styled.View`
   align-items: center;
 `;
 
-export const StyledRanking = styled.Text`
+export const StyledRanking = styled.Text<{ size: number }>`
   font-size: ${(props) => props.size}px;
   font-weight: 500;
   margin-right: 15px;

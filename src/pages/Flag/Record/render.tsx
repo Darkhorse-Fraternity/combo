@@ -3,13 +3,9 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
-import { View } from 'react-native';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { FC } from 'react';
+import { ListRenderItem } from 'react-native';
 import moment from 'moment';
-import LCList from '../../../components/Base/LCList';
-import { ICARD, FLAG } from '../../../redux/reqKeys';
 import {
   StyledContent,
   StyledItem,
@@ -20,82 +16,77 @@ import {
   StyledHeader,
   StyledHeaderTitle,
 } from './style';
-import { iCard } from '../../../request/LCModle';
+import { iCardPoint } from '../../../request/LCModle';
+import { useNavigation } from '@react-navigation/native';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { RouteKey } from '@pages/interface';
+import { getClassesFlag, GetClassesFlagResponse } from 'src/hooks/interface';
+import PageList from '@components/Base/PageList';
 
-@connect(
-  (state, props) => ({
-    iCard: state.normalizr.get(ICARD).get(props.route.params.iCardId),
-  }),
-  (dispatch) => ({}),
-)
-export default class FlagRecord extends PureComponent {
-  constructor(props: Object) {
-    super(props);
-  }
+type ItemType = NonNullable<GetClassesFlagResponse['results']>[number];
 
-  static propTypes = {};
+const _renderItem: ListRenderItem<ItemType> = ({ item }) => {
+  return <RenderItem {...item} />;
+};
 
-  static defaultProps = {};
+const RenderItem: FC<ItemType> = (props) => {
+  const { totalBonus, startDate, objectId, joinNum, reward } = props;
+  const { navigate } = useNavigation();
+  return (
+    <StyledItem
+      onPress={() => {
+        navigate('FRDetail', { flagId: objectId });
+      }}>
+      <StyledCellInner>
+        <StyledCellTitle numberOfLines={1}>
+          第{moment(startDate.iso).format('YYYYMMDD')}期
+        </StyledCellTitle>
 
-  _renderHeader = () => (
-    <StyledHeader>
-      <StyledHeaderTitle>
-        {this.props.iCard.get('title')}
-        副本的记录
-      </StyledHeaderTitle>
-    </StyledHeader>
+        <StyledCellDiscrib>
+          参与人数:
+          {joinNum}
+          {reward === 'money' && `,总奖金:${totalBonus.toFixed(2)}元`}
+        </StyledCellDiscrib>
+      </StyledCellInner>
+      <StyledArrow />
+    </StyledItem>
   );
+};
 
-  __renderItem = ({ item }) => {
-    const { totalBonus, startDate, objectId, joinNum, reward } = item;
-    return (
-      <StyledItem
-        onPress={() => {
-          this.props.navigation.navigate('FRDetail', { flagId: objectId });
-        }}>
-        <StyledCellInner>
-          <StyledCellTitle numberOfLines={1}>
-            第{moment(startDate.iso).format('YYYYMMDD')}期
-          </StyledCellTitle>
+const _renderHeader = (title: string) => (
+  <StyledHeader>
+    <StyledHeaderTitle>
+      {title}
+      副本的记录
+    </StyledHeaderTitle>
+  </StyledHeader>
+);
 
-          <StyledCellDiscrib>
-            参与人数:
-            {joinNum}
-            {reward === 'money' && `,总奖金:${totalBonus.toFixed(2)}元`}
-          </StyledCellDiscrib>
-        </StyledCellInner>
-        <StyledArrow />
-      </StyledItem>
-    );
-  };
-
-  render() {
-    const param = {
-      where: {
-        ...iCard(this.props.route.params.iCardId),
-        // settled: true
-      },
-      // order: 'doneDate',
-      // include: 'user',
+const FlagRecord: FC<{}> = () => {
+  const { title, iCardId } = useNavigationAllParamsWithType<
+    RouteKey.flagRecord
+  >();
+  const loadPage = (page_index: number, page_size: number) => {
+    const where = {
+      iCard: iCardPoint(iCardId),
     };
+    const param = {
+      limit: page_size + '',
+      skip: page_index * page_size + '',
+      order: '-createdAt',
+      where: JSON.stringify(where),
+    };
+    return getClassesFlag(param).then((res) => res.results);
+  };
+  return (
+    <StyledContent>
+      <PageList<ItemType>
+        renderItem={_renderItem}
+        loadPage={loadPage}
+        ListHeaderComponent={_renderHeader.bind(undefined, title)}
+      />
+    </StyledContent>
+  );
+};
 
-    return (
-      <StyledContent edges={['bottom']}>
-        <LCList
-          style={{ flex: 1 }}
-          // removeClippedSubviews={true}
-          // pagingEnabled={true}
-          reqKey={FLAG}
-          sKey={`${FLAG}list`}
-          // dataMap={(data)=>{
-          //   return {[OPENHISTORYLIST]:data.list}
-          // }}
-          reqParam={param}
-          renderItem={this.__renderItem}
-          ListHeaderComponent={this._renderHeader}
-          // ListFooterComponent={data.length > 0 && <View style={{ height: 100 }}/>}
-        />
-      </StyledContent>
-    );
-  }
-}
+export default FlagRecord;

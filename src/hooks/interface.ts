@@ -899,182 +899,6 @@ export const usePostCallIUseList3 = makeRequestHook<
 >(postCallIUseList3)
 
 /**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求类型**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-export interface GetClassesIUseRequest {
-  count?: string
-  where?: string
-  limit?: string
-  skip?: string
-}
-
-/**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **返回类型**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-export interface GetClassesIUseResponse {
-  results?: {
-    updatedAt: string
-    cycle: number
-    objectId: string
-    privacy: number
-    time: number
-    createdAt: string
-    doneDate: {
-      __type?: string
-      iso?: string
-    }
-    user: {
-      __type: string
-      className: string
-      objectId: string
-    }
-    statu: string
-    iCard: {
-      notifyTimes?: string[]
-      sound?: {
-        open?: boolean
-        item?: {
-          title?: string
-          type?: string
-          key?: string
-        }
-      }
-      updatedAt?: string
-      limitTimes?: string[]
-      notifyTime?: string
-      useNum?: number
-      objectId?: string
-      circleState?: number
-      createdAt?: string
-      state?: number
-      className?: string
-      recordDay?: number[]
-      title?: string
-      notifyText?: string
-      __type?: string
-      record?: string[]
-      period?: string
-      price?: number
-      user?: {
-        updatedAt?: string
-        uid?: number
-        objectId?: string
-        toolConfig?: {
-          redo?: number
-        }
-        username?: string
-        createdAt?: string
-        className?: string
-        emailVerified?: boolean
-        balance?: number
-        __type?: string
-        authData?: {
-          anonymous?: {
-            id?: string
-          }
-        }
-        mobilePhoneVerified?: boolean
-        nickname?: string
-        headimgurl?: string
-        avatar?: {
-          mime_type?: string
-          updatedAt?: string
-          key?: string
-          name?: string
-          objectId?: string
-          createdAt?: string
-          __type?: string
-          url?: string
-          provider?: string
-          metaData?: {}
-          bucket?: string
-        }
-      }
-      iconAndColor?: {
-        name?: string
-        color?: string
-      }
-      color?: string
-      icon?: string
-    }
-  }[]
-  count?: number
-}
-
-/**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置的类型**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-type GetClassesIUseRequestConfig = Readonly<
-  RequestConfig<
-    'http://121.89.170.197:3000/mock/59',
-    'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
-    '/classes/iUse',
-    undefined,
-    string,
-    'count' | 'where' | 'limit' | 'skip',
-    false
-  >
->
-
-/**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
-  mockUrl: mockUrl_0_1_0_0,
-  devUrl: devUrl_0_1_0_0,
-  prodUrl: prodUrl_0_1_0_0,
-  path: '/classes/iUse',
-  method: Method.GET,
-  requestBodyType: RequestBodyType.query,
-  responseBodyType: ResponseBodyType.json,
-  dataKey: dataKey_0_1_0_0,
-  paramNames: [],
-  queryNames: ['count', 'where', 'limit', 'skip'],
-  requestDataOptional: false,
-}
-
-/**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求函数**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseResponse, GetClassesIUseRequestConfig>(
-  getClassesIUseRequestConfig,
-)
-
-/**
- * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **React Hook**
- *
- * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
- * @请求头 `GET /classes/iUse`
- * @更新时间 `2020-11-19 14:37:29`
- */
-export const useGetClassesIUse = makeRequestHook<
-  GetClassesIUseRequest,
-  GetClassesIUseRequestConfig,
-  ReturnType<typeof getClassesIUse>
->(getClassesIUse)
-
-/**
  * 接口 [加入卡片详情↗](http://121.89.170.197:3000/project/59/interface/api/488) 的 **请求类型**
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
@@ -1408,10 +1232,339 @@ export const usePostClassesIUse = makeRequestHook<
   ReturnType<typeof postClassesIUse>
 >(postClassesIUse)
 
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **请求类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+export interface GetClassesIUseRequest {
+  count?: string
+  where?: string
+  limit?: string
+  skip?: string
+}
+
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **返回类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+export interface GetClassesIUseResponse {
+  results?: {
+    updatedAt: string
+    cycle: number
+    objectId: string
+    privacy: number
+    time: number
+    createdAt: string
+    doneDate: {
+      __type?: string
+      iso?: string
+    }
+    user: {
+      __type: string
+      className: string
+      objectId: string
+    }
+    statu: string
+    iCard: {
+      notifyTimes?: string[]
+      sound?: {
+        open?: boolean
+        item?: {
+          title?: string
+          type?: string
+          key?: string
+        }
+      }
+      updatedAt?: string
+      limitTimes?: string[]
+      notifyTime?: string
+      useNum?: number
+      objectId?: string
+      circleState?: number
+      createdAt?: string
+      state?: number
+      className?: string
+      recordDay?: number[]
+      title?: string
+      notifyText?: string
+      __type?: string
+      record?: string[]
+      period?: string
+      price?: number
+      user?: {
+        updatedAt?: string
+        uid?: number
+        objectId?: string
+        toolConfig?: {
+          redo?: number
+        }
+        username?: string
+        createdAt?: string
+        className?: string
+        emailVerified?: boolean
+        balance?: number
+        __type?: string
+        authData?: {
+          anonymous?: {
+            id?: string
+          }
+        }
+        mobilePhoneVerified?: boolean
+        nickname?: string
+        headimgurl?: string
+        avatar?: {
+          mime_type?: string
+          updatedAt?: string
+          key?: string
+          name?: string
+          objectId?: string
+          createdAt?: string
+          __type?: string
+          url?: string
+          provider?: string
+          metaData?: {}
+          bucket?: string
+        }
+      }
+      iconAndColor?: {
+        name?: string
+        color?: string
+      }
+      color?: string
+      icon?: string
+    }
+  }[]
+  count?: number
+}
+
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **请求配置的类型**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+type GetClassesIUseRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iUse',
+    undefined,
+    string,
+    'count' | 'where' | 'limit' | 'skip',
+    false
+  >
+>
+
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **请求配置**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
+  mockUrl: mockUrl_0_1_0_0,
+  devUrl: devUrl_0_1_0_0,
+  prodUrl: prodUrl_0_1_0_0,
+  path: '/classes/iUse',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_0,
+  paramNames: [],
+  queryNames: ['count', 'where', 'limit', 'skip'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **请求函数**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+export const getClassesIUse = makeRequest<GetClassesIUseRequest, GetClassesIUseResponse, GetClassesIUseRequestConfig>(
+  getClassesIUseRequestConfig,
+)
+
+/**
+ * 接口 [iUse常规列表↗](http://121.89.170.197:3000/project/59/interface/api/550) 的 **React Hook**
+ *
+ * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
+ * @请求头 `GET /classes/iUse`
+ * @更新时间 `2020-11-23 13:13:29`
+ */
+export const useGetClassesIUse = makeRequestHook<
+  GetClassesIUseRequest,
+  GetClassesIUseRequestConfig,
+  ReturnType<typeof getClassesIUse>
+>(getClassesIUse)
+
 const mockUrl_0_1_0_1 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_1 = 'https://api.icourage.cn/1.1' as any
 const prodUrl_0_1_0_1 = 'http://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_1 = undefined as any
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+export interface GetClassesICardRequest {
+  count?: string
+  where?: string
+  limit?: string
+  skip?: string
+}
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **返回类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+export interface GetClassesICardResponse {
+  results?: {
+    sound: {
+      open?: boolean
+      item?: {
+        title?: string
+        type?: string
+        key?: string
+      }
+    }
+    updatedAt: string
+    limitTimes: string[]
+    notifyTime: string
+    useNum: number
+    objectId: string
+    createdAt: string
+    state: number
+    recordDay: number[]
+    title: string
+    keys: string[]
+    notifyText: string
+    course: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    record: string[]
+    period: string
+    price: number
+    user: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    img: {
+      mime_type?: string
+      updatedAt?: string
+      key?: string
+      name?: string
+      objectId?: string
+      createdAt?: string
+      __type?: string
+      url?: string
+      provider?: string
+      metaData?: {}
+      bucket?: string
+    }
+    notifyTimes: string[]
+    color: string
+    circleState: number
+    icon: string
+    iconAndColor: {
+      name?: string
+      color?: string
+    }
+    describe: string
+    imgs: {
+      img: {
+        id?: string
+        url?: string
+      }
+    }[]
+  }[]
+}
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置的类型**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+type GetClassesICardRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/iCard',
+    undefined,
+    string,
+    'count' | 'where' | 'limit' | 'skip',
+    false
+  >
+>
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求配置**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+const getClassesICardRequestConfig: GetClassesICardRequestConfig = {
+  mockUrl: mockUrl_0_1_0_1,
+  devUrl: devUrl_0_1_0_1,
+  prodUrl: prodUrl_0_1_0_1,
+  path: '/classes/iCard',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_1,
+  paramNames: [],
+  queryNames: ['count', 'where', 'limit', 'skip'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **请求函数**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+export const getClassesICard = makeRequest<
+  GetClassesICardRequest,
+  GetClassesICardResponse,
+  GetClassesICardRequestConfig
+>(getClassesICardRequestConfig)
+
+/**
+ * 接口 [iCard常规列表↗](http://121.89.170.197:3000/project/59/interface/api/474) 的 **React Hook**
+ *
+ * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
+ * @请求头 `GET /classes/iCard`
+ * @更新时间 `2020-11-23 13:13:05`
+ */
+export const useGetClassesICard = makeRequestHook<
+  GetClassesICardRequest,
+  GetClassesICardRequestConfig,
+  ReturnType<typeof getClassesICard>
+>(getClassesICard)
 
 /**
  * 接口 [习惯列表↗](http://121.89.170.197:3000/project/59/interface/api/476) 的 **请求类型**
@@ -3899,5 +4052,622 @@ export const useDeleteClassesICommentId = makeRequestHook<
   DeleteClassesICommentIdRequestConfig,
   ReturnType<typeof deleteClassesICommentId>
 >(deleteClassesICommentId)
+
+const mockUrl_0_1_0_5 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_5 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_5 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_5 = undefined as any
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **请求类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+export interface PostCallFbListRequest {}
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **返回类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+export interface PostCallFbListResponse {
+  result?: {
+    startDate: {
+      __type?: string
+      iso?: string
+    }
+    cover: {
+      name?: string
+      url?: string
+      mime_type?: string
+      bucket?: null
+      metaData?: {
+        owner?: string
+        __source?: string
+        size?: number
+      }
+      objectId?: string
+      createdAt?: string
+      updatedAt?: string
+      __type?: string
+    }
+    reward: string
+    state: number
+    titleConfig: {
+      color?: string
+      position?: string
+      dColor?: string
+    }
+    rewardConfig: {
+      redo?: number
+    }
+    joinNum: number
+    title: string
+    settled: boolean
+    endDate: {
+      __type?: string
+      iso?: string
+    }
+    totalBonus: number
+    priority: number
+    cost: number
+    iCard: {
+      notifyTimes?: string[]
+      sound?: {
+        open?: boolean
+        item?: {
+          title?: string
+          type?: string
+          key?: string
+        }
+      }
+      limitTimes?: string[]
+      notifyTime?: string
+      useNum?: number
+      circleState?: number
+      state?: number
+      recordDay?: number[]
+      title?: string
+      notifyText?: string
+      record?: string[]
+      period?: string
+      price?: number
+      user?: {
+        __type?: string
+        className?: string
+        objectId?: string
+      }
+      iconAndColor?: {
+        name?: string
+        color?: string
+      }
+      activityEndDate?: {
+        __type?: string
+        iso?: string
+      }
+      objectId?: string
+      createdAt?: string
+      updatedAt?: string
+      __type?: string
+      className?: string
+    }
+    objectId: string
+    createdAt: string
+    updatedAt: string
+    __type: string
+    className: string
+  }[]
+}
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **请求配置的类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+type PostCallFbListRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/call/fbList',
+    undefined,
+    string,
+    string,
+    true
+  >
+>
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **请求配置**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+const postCallFbListRequestConfig: PostCallFbListRequestConfig = {
+  mockUrl: mockUrl_0_1_0_5,
+  devUrl: devUrl_0_1_0_5,
+  prodUrl: prodUrl_0_1_0_5,
+  path: '/call/fbList',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.form,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_5,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: true,
+}
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **请求函数**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+export const postCallFbList = makeRequest<PostCallFbListRequest, PostCallFbListResponse, PostCallFbListRequestConfig>(
+  postCallFbListRequestConfig,
+)
+
+/**
+ * 接口 [副本总列表↗](http://121.89.170.197:3000/project/59/interface/api/552) 的 **React Hook**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbList`
+ * @更新时间 `2020-11-23 16:50:18`
+ */
+export const usePostCallFbList = makeRequestHook<
+  PostCallFbListRequest,
+  PostCallFbListRequestConfig,
+  ReturnType<typeof postCallFbList>
+>(postCallFbList)
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **请求类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+export interface GetClassesFlagIdRequest {
+  include?: string
+  id: string
+}
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **返回类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+export interface GetClassesFlagIdResponse {
+  updatedAt?: string
+  objectId?: string
+  startDate: {
+    __type: string
+    iso: string
+  }
+  cover: {
+    mime_type?: string
+    updatedAt?: string
+    key?: string
+    name?: string
+    objectId?: string
+    createdAt?: string
+    __type?: string
+    url: string
+    provider?: string
+    metaData?: {
+      owner?: string
+      __source?: string
+      size?: number
+    }
+    bucket?: null
+  }
+  createdAt?: string
+  reward?: string
+  state?: number
+  titleConfig?: {
+    color?: string
+    position?: string
+    dColor?: string
+  }
+  rewardConfig: {
+    redo: number
+  }
+  joinNum: number
+  title: string
+  settled: boolean
+  endDate: {
+    __type?: string
+    iso?: string
+  }
+  totalBonus?: number
+  priority?: number
+  cost: number
+  iCard?: {
+    notifyTimes?: string[]
+    sound?: {
+      open?: boolean
+      item?: {
+        title?: string
+        type?: string
+        key?: string
+      }
+    }
+    updatedAt?: string
+    limitTimes?: string[]
+    notifyTime?: string
+    useNum?: number
+    objectId?: string
+    circleState?: number
+    createdAt?: string
+    state?: number
+    className?: string
+    recordDay?: number[]
+    title?: string
+    notifyText?: string
+    __type?: string
+    record?: string[]
+    period?: string
+    price?: number
+    user?: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    iconAndColor?: {
+      name?: string
+      color?: string
+    }
+    activityEndDate?: {
+      __type?: string
+      iso?: string
+    }
+  }
+}
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **请求配置的类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+type GetClassesFlagIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Flag/:id',
+    undefined,
+    'id',
+    'include',
+    false
+  >
+>
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **请求配置**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+const getClassesFlagIdRequestConfig: GetClassesFlagIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_5,
+  devUrl: devUrl_0_1_0_5,
+  prodUrl: prodUrl_0_1_0_5,
+  path: '/classes/Flag/:id',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_5,
+  paramNames: ['id'],
+  queryNames: ['include'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **请求函数**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+export const getClassesFlagId = makeRequest<
+  GetClassesFlagIdRequest,
+  GetClassesFlagIdResponse,
+  GetClassesFlagIdRequestConfig
+>(getClassesFlagIdRequestConfig)
+
+/**
+ * 接口 [副本详情↗](http://121.89.170.197:3000/project/59/interface/api/554) 的 **React Hook**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag/:id`
+ * @更新时间 `2020-11-23 17:10:48`
+ */
+export const useGetClassesFlagId = makeRequestHook<
+  GetClassesFlagIdRequest,
+  GetClassesFlagIdRequestConfig,
+  ReturnType<typeof getClassesFlagId>
+>(getClassesFlagId)
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **请求类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+export interface GetClassesFlagRecordRequest {
+  where?: string
+  count?: string
+  limit?: string
+  skip?: string
+}
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **返回类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+export interface GetClassesFlagRecordResponse {
+  results?: {
+    amount: number
+    doneState: number
+    updatedAt: string
+    objectId: string
+    startDate: {
+      __type?: string
+      iso?: string
+    }
+    createdAt: string
+    title: string
+    Flag: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    endDate: {
+      __type?: string
+      iso?: string
+    }
+    user: {
+      __type?: string
+      className?: string
+      objectId?: string
+      nickname?: string
+    }
+    iCard: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    doneDate?: {
+      __type?: string
+      iso?: string
+    }
+  }[]
+  count: string
+}
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **请求配置的类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+type GetClassesFlagRecordRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/FlagRecord',
+    undefined,
+    string,
+    'where' | 'count' | 'limit' | 'skip',
+    false
+  >
+>
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **请求配置**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+const getClassesFlagRecordRequestConfig: GetClassesFlagRecordRequestConfig = {
+  mockUrl: mockUrl_0_1_0_5,
+  devUrl: devUrl_0_1_0_5,
+  prodUrl: prodUrl_0_1_0_5,
+  path: '/classes/FlagRecord',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_5,
+  paramNames: [],
+  queryNames: ['where', 'count', 'limit', 'skip'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **请求函数**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+export const getClassesFlagRecord = makeRequest<
+  GetClassesFlagRecordRequest,
+  GetClassesFlagRecordResponse,
+  GetClassesFlagRecordRequestConfig
+>(getClassesFlagRecordRequestConfig)
+
+/**
+ * 接口 [副本参与证明列表↗](http://121.89.170.197:3000/project/59/interface/api/556) 的 **React Hook**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/FlagRecord`
+ * @更新时间 `2020-11-23 17:24:48`
+ */
+export const useGetClassesFlagRecord = makeRequestHook<
+  GetClassesFlagRecordRequest,
+  GetClassesFlagRecordRequestConfig,
+  ReturnType<typeof getClassesFlagRecord>
+>(getClassesFlagRecord)
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **请求类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+export interface GetClassesFlagRequest {
+  where?: string
+  count?: string
+  limit?: string
+  skip?: string
+  include?: string
+}
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **返回类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+export interface GetClassesFlagResponse {
+  results?: {
+    updatedAt: string
+    objectId: string
+    startDate: {
+      __type?: string
+      iso?: string
+    }
+    cover: {
+      mime_type?: string
+      updatedAt?: string
+      key?: string
+      name?: string
+      objectId?: string
+      createdAt?: string
+      __type?: string
+      url?: string
+      provider?: string
+      metaData?: {
+        owner?: string
+        __source?: string
+        size?: number
+      }
+      bucket?: null
+    }
+    createdAt: string
+    reward: string
+    state: number
+    titleConfig: {
+      color?: string
+      position?: string
+      dColor?: string
+    }
+    rewardConfig: {
+      redo?: number
+    }
+    joinNum: number
+    title: string
+    settled: boolean
+    endDate: {
+      __type?: string
+      iso?: string
+    }
+    totalBonus: number
+    priority: number
+    cost: number
+    iCard: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+  }[]
+}
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **请求配置的类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+type GetClassesFlagRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Flag',
+    undefined,
+    string,
+    'where' | 'count' | 'limit' | 'skip' | 'include',
+    false
+  >
+>
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **请求配置**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+const getClassesFlagRequestConfig: GetClassesFlagRequestConfig = {
+  mockUrl: mockUrl_0_1_0_5,
+  devUrl: devUrl_0_1_0_5,
+  prodUrl: prodUrl_0_1_0_5,
+  path: '/classes/Flag',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_5,
+  paramNames: [],
+  queryNames: ['where', 'count', 'limit', 'skip', 'include'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **请求函数**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+export const getClassesFlag = makeRequest<GetClassesFlagRequest, GetClassesFlagResponse, GetClassesFlagRequestConfig>(
+  getClassesFlagRequestConfig,
+)
+
+/**
+ * 接口 [副本系列列表↗](http://121.89.170.197:3000/project/59/interface/api/558) 的 **React Hook**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `GET /classes/Flag`
+ * @更新时间 `2020-11-23 17:00:54`
+ */
+export const useGetClassesFlag = makeRequestHook<
+  GetClassesFlagRequest,
+  GetClassesFlagRequestConfig,
+  ReturnType<typeof getClassesFlag>
+>(getClassesFlag)
 
 /* prettier-ignore-end */

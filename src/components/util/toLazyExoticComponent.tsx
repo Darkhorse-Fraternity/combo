@@ -42,7 +42,7 @@ export const toLazyExoticComponent = (
     // useTrackView();
     return (
       <LazyRender showBar={showBar} {...props}>
-        <Render />
+        <Render {...props} />
       </LazyRender>
     );
   };

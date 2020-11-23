@@ -405,54 +405,54 @@ export function _loginFailed(response: Object): Object {
   };
 }
 
-export function logout(navigation) {
-  return async (dispatch, getState) => {
-    try {
-      const state = getState();
-      if (!state.user.isLogin) {
-        return;
-      }
-      // const parame = appLogout(state.user.data.appUserId||'');
-      // const response = await send(parame)
-      // if (response.isSuccess === '1') {
-      //     //加入sessionToken
+// export function logout(navigation) {
+//   return async (dispatch, getState) => {
+//     try {
+//       const state = getState();
+//       if (!state.user.isLogin) {
+//         return;
+//       }
+//       // const parame = appLogout(state.user.data.appUserId||'');
+//       // const response = await send(parame)
+//       // if (response.isSuccess === '1') {
+//       //     //加入sessionToken
 
-      // dispatch(navigatePush('TabView'));
-      // Router.pop()
-      // clearUserData();
+//       // dispatch(navigatePush('TabView'));
+//       // Router.pop()
+//       // clearUserData();
 
-      // storage.remove({ key: sessionTokenkey });
-      Keychain.resetGenericPassword();
+//       // storage.remove({ key: sessionTokenkey });
+//       Keychain.resetGenericPassword();
 
-      dispatch(logout2()); // 先退出
-      updatePush(user('null'));
+//       dispatch(logout2()); // 先退出
+//       updatePush(user('null'));
 
-      // await dispatch(anonymousUser())
+//       // await dispatch(anonymousUser())
 
-      navigation.dispatch(StackActions.replace('AuthLoading'));
-      // return loadAccount(ret => {
-      //   //加载本地数据。
-      //   dispatch(_loadAccount(ret));
-      // });
+//       navigation.dispatch(StackActions.replace('AuthLoading'));
+//       // return loadAccount(ret => {
+//       //   //加载本地数据。
+//       //   dispatch(_loadAccount(ret));
+//       // });
 
-      // } else {
-      //     Toast.show(response.msg)
-      //
-      //     // dispatch(_loginFailed(response));
-      // }
-    } catch (e) {
-      console.log('test:', e.message);
-      Toast.show(e.message);
-      // dispatch(_loginFailed(e.message));
-    }
-  };
-}
+//       // } else {
+//       //     Toast.show(response.msg)
+//       //
+//       //     // dispatch(_loginFailed(response));
+//       // }
+//     } catch (e) {
+//       console.log('test:', e.message);
+//       Toast.show(e.message);
+//       // dispatch(_loginFailed(e.message));
+//     }
+//   };
+// }
 
-function logout2() {
-  return {
-    type: LOGOUT,
-  };
-}
+// function logout2() {
+//   return {
+//     type: LOGOUT,
+//   };
+// }
 
 export function updateUserData(data: Object) {
   // if(data.authData){

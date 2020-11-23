@@ -1,5 +1,6 @@
 import {
   GetClassesICardIdResponse,
+  GetClassesICardResponse,
   GetClassesIUseIdResponse,
   GetClassesIUseResponse,
   GetUsersIdResponse,
@@ -9,6 +10,9 @@ import {
 import { ICARD, IUSE } from '@redux/reqKeys';
 import { entity } from '@redux/scemes';
 export type ICardType = NonNullable<PostCallCardListResponse['result']>[number];
+export type ICardType2 = NonNullable<
+  GetClassesICardResponse['results']
+>[number];
 export type IUseType = NonNullable<
   NonNullable<PostCallIUseList3Response['result']>['iUseList']
 >[number];

@@ -42,7 +42,7 @@ class CostRecordClass extends PureComponent {
     );
   };
 
-  render(): ReactElement<any> {
+  render() {
     const { user } = this.props;
 
     const param = {
@@ -50,12 +50,10 @@ class CostRecordClass extends PureComponent {
         ...pointModel('user', user.objectId),
         statu: '1',
       },
-      include: 'iCard',
     };
 
     return (
       <LCList
-        ref={'list'}
         reqKey={listKey}
         sKey={'cost'}
         style={{ flex: 1 }}

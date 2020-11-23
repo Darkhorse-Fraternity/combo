@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { FC, PureComponent } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -15,15 +15,12 @@ import CashForm, { FormID } from '../../../components/Form/Cash';
 import { add } from '../../../redux/module/leancloud';
 import { selfUser } from '../../../request/LCModle';
 import { updateUserData } from '../../../redux/actions/user';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 
 const selector = formValueSelector(FormID);
 
-const listKey = ENCH;
-
 @connect(
-  (state) => ({
-    user: state.user.data,
-  }),
+  (state) => ({}),
   (dispatch, props) => ({
     onSubmit: () =>
       dispatch(async (dispatch, getState) => {
@@ -68,42 +65,33 @@ const listKey = ENCH;
       }),
   }),
 )
-export default class Cash extends PureComponent {
-  constructor(props: Object) {
-    super(props);
+class CashClass extends PureComponent {
+  render() {
+    return <CashForm onSubmit={this.props.onSubmit} />;
   }
+}
 
-  static propTypes = {};
+const des = [
+  '1、每笔提现金额至少10元,支付宝官方收取0.6%手续费、',
+  '2、每日账户提现上线为2000元,超出请联系客服。',
+  '3、为保证你的资金安全,提现申请需实名验证。',
+  '4、账号或收款方实名不对,申请将会被退回。',
+  '5、发起申请后约1到2个工作日到账。',
+];
 
-  static defaultProps = {};
+const Cash: FC<{}> = (props) => {
+  const { user } = useGetInfoOfMe();
 
-  static navigationOptions = // const {navigation} = props;
-    // const {state} = navigation;
-    // const {params} = state;
-    (props) => ({
-      title: '',
-    });
-
-  _renderHeader = () => {
-    const des = [
-      '1、每笔提现金额至少10元,支付宝官方收取0.6%手续费、',
-      '2、每日账户提现上线为2000元,超出请联系客服。',
-      '3、为保证你的资金安全,提现申请需实名验证。',
-      '4、账号或收款方实名不对,申请将会被退回。',
-      '5、发起申请后约1到2个工作日到账。',
-    ];
-
-    return (
+  return (
+    <StyledContent>
       <StyledHeader>
-        <CashForm onSubmit={this.props.onSubmit} />
+        <CashClass {...props} user={user} />
         {des.map((text, index) => (
           <StyledDiscrib key={index}>{text}</StyledDiscrib>
         ))}
       </StyledHeader>
-    );
-  };
+    </StyledContent>
+  );
+};
 
-  render(): ReactElement<any> {
-    return <StyledContent>{this._renderHeader()}</StyledContent>;
-  }
-}
+export default Cash;

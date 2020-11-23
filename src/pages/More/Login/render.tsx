@@ -66,10 +66,6 @@ const { mainColor } = getTheme();
   }),
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
-    push: () => {
-      // index.js 为空 则为当前index
-      // dispatch(navigateReplaceIndex('TabView'));
-    },
     mRegister: (state) => {
       Keyboard.dismiss();
       dispatch(register(state, props.navigation));

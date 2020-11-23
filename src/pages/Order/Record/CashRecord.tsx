@@ -22,9 +22,10 @@ import LCList from '../../../components/Base/LCList';
 import PageList from '@components/Base/PageList';
 import { useGetUserInfo } from 'src/data/data-context';
 
+// interface EnchItem {}
+
 const renderRow: ListRenderItem<{
   amount: string;
-
   enchId: string;
   createdAt: string;
   statu: number;
@@ -89,6 +90,7 @@ const CashRecord: FC<{}> = () => {
       ...UserM(user.objectId),
     },
   };
+
   return (
     <LCList
       reqKey={listKey}

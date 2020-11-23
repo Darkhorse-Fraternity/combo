@@ -7,23 +7,6 @@ import styled from 'styled-components/native';
 // import Button from '../../../components/Button'
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-import { StyleSheet, Dimensions, Platform } from 'react-native';
-
-const colors = {
-  black: '#1a1917',
-  gray: '#888888',
-  background1: '#B721FF',
-  background2: '#21D4FD',
-};
-
-const IS_IOS = Platform.OS === 'ios';
-const { width } = Dimensions.get('window');
-
-const slideWidth = (width - 10) / 4;
-const slideHeight = slideWidth;
-
-const entryBorderRadius = 8;
-
 export const StyledContent = styled(TouchableBounce)`
     /* width: ${(props) => (props.theme.getWidth() - 10) / 4}; */
     flex:1;
@@ -38,7 +21,7 @@ export const StyledContent2 = styled(TouchableBounce)`
   justify-content: space-between;
 `;
 
-export const StyledImageBack = styled.View`
+export const StyledImageBack = styled.View<{ color: string }>`
   background-color: ${(props) => props.color};
   border-radius: 10px;
   padding: 10px;
@@ -85,7 +68,7 @@ export const StyledNotify = styled.Text`
   max-width: 200;
 `;
 
-export const StyledImageBack2 = styled.View`
+export const StyledImageBack2 = styled.View<{ color: string }>`
   background-color: ${(props) => props.color};
   border-radius: 10px;
   padding: 10px;

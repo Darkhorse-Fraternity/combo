@@ -5,7 +5,6 @@
 
 import React, { PureComponent } from 'react';
 import { View } from 'react-native';
-import PropTypes from 'prop-types';
 
 import {
   StyledContent2,
@@ -13,26 +12,26 @@ import {
   StyledInnerView,
   StyledTitle2,
   StyledImageBack2,
-  StyledName,
   StyledArrowView,
   StyledNotify,
 } from './style';
 import icons from '../../../../source/icons';
+import { ButtonType } from '@components/Button';
 
-export default class CardCell extends PureComponent {
-  static propTypes = {
-    onPress: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    des: PropTypes.string,
-  };
+interface CardCellProps extends ButtonType {
+  title: string;
+  color: string;
+  des?: string;
+  name: string;
+}
 
+export default class CardCell extends PureComponent<CardCellProps> {
   static defaultProps = {
     des: '',
   };
 
   render() {
-    const { title, onPress, name, color, nickname, des } = this.props;
+    const { title, onPress, name, color, des } = this.props;
 
     // const {  iconAndColor,title ,recordDay} = iCard
     // const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}

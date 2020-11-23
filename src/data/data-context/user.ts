@@ -23,12 +23,12 @@ import DataContext from './index';
 
 export const useUpdateMe = () => {
   const { dispatch: contextDispatch } = useContext(DataContext);
-  const run = () => {
+  const run = useCallback(() => {
     userInfo().then((user) => {
       updateLocation(user as never);
       contextDispatch({ type: 'update_user_info', user: user as never });
     });
-  };
+  }, [contextDispatch]);
   return { run };
 };
 

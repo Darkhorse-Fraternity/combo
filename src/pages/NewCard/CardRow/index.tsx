@@ -5,7 +5,6 @@
 'use strict';
 
 import React, { PureComponent } from 'react';
-import { StyleSheet, Dimensions, Platform } from 'react-native';
 import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -16,7 +15,6 @@ import styles, {
   StyledTitle,
   StyledDes,
 } from './style';
-import icons from '../../../../source/icons';
 
 export default class CardRow extends PureComponent {
   constructor(props: Object) {

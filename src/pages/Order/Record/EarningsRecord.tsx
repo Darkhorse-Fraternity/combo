@@ -51,12 +51,10 @@ class EarningsRecordClass extends PureComponent {
         ...pointModel('beneficiary', user.objectId),
         statu: '1',
       },
-      include: 'iCard',
     };
 
     return (
       <LCList
-        ref={'list'}
         reqKey={listKey}
         style={{ flex: 1 }}
         renderItem={this.renderRow.bind(this)}

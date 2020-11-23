@@ -12,11 +12,8 @@ import {
   StyleProp,
   ViewStyle,
   ImageSourcePropType,
-  Dimensions,
-  Platform,
   ImageStyle,
 } from 'react-native';
-import PropTypes from 'prop-types';
 import Indicators from '../../Indicators';
 import { StyledContent, StyledReportBtn, StyledReportText } from './style';
 

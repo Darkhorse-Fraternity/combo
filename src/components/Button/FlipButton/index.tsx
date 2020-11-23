@@ -3,8 +3,12 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
-import { ActivityIndicator, TouchableOpacityProps } from 'react-native';
+import React, { PureComponent, RefObject } from 'react';
+import {
+  ActivityIndicator,
+  GestureResponderEvent,
+  TouchableOpacityProps,
+} from 'react-native';
 import { debounce } from 'lodash'; // 4.0.8
 import * as Animatable from 'react-native-animatable';
 import { theme } from '../../../Theme';
@@ -18,6 +22,7 @@ import {
   StyledBackText,
   StyledIcon,
 } from './style';
+import { Icon } from 'react-native-vector-icons/Icon';
 
 export const AniStyledContent = Animatable.createAnimatableComponent(
   StyledContent,
@@ -28,7 +33,7 @@ interface FlipButtonProps extends TouchableOpacityProps {
   load: boolean;
   backText: string;
   faceText: string;
-  animation: string;
+  animation?: string;
   containStyle: {};
 }
 
@@ -81,8 +86,8 @@ export default class FlipButton extends PureComponent<FlipButtonProps> {
     );
   };
 
-  debouncedOnPress = () => {
-    this.props.onPress && this.props.onPress();
+  debouncedOnPress = (e: GestureResponderEvent) => {
+    this.props.onPress && this.props.onPress(e);
   };
 
   onPress = debounce(this.debouncedOnPress, 300, {
@@ -90,9 +95,15 @@ export default class FlipButton extends PureComponent<FlipButtonProps> {
     trailing: false,
   });
 
+  chatBtnRef:
+    | ((instance: Icon | null) => void)
+    | RefObject<Icon>
+    | null
+    | undefined;
+
   render() {
     // console.log('test:', this.state.statu !== 0 || this.props.load);
-    const { style, disabled, load, animation } = this.props;
+    const { style, disabled, load, animation = 'bounceInRight' } = this.props;
 
     return (
       <AniStyledContent

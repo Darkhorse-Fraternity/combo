@@ -18,15 +18,11 @@ import { debounce } from 'lodash'; // 4.0.8
 
 export default class HeaderBtn extends PureComponent<
   {
-    load?: boolean;
+    load: boolean;
     disabled?: boolean;
     title: string;
   } & TouchableNativeFeedbackProps
 > {
-  constructor(props: Object) {
-    super(props);
-  }
-
   debouncedOnPress = (e: never) => {
     this.props.onPress && this.props.onPress(e);
   };

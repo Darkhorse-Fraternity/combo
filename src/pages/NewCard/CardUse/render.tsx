@@ -47,6 +47,7 @@ const CardUse: FC<{}> = () => {
       skip: page_index * page_size + '',
       include: 'user',
       where: JSON.stringify(where),
+      order: '-createdAt',
     };
     return getClassesIUse(param).then((res) => res.results);
   };

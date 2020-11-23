@@ -6,7 +6,6 @@
 
 import React, { PureComponent } from 'react';
 
-import PropTypes from 'prop-types';
 import { StyledContent2, StyledAvatar, StyledIndicator } from './style';
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 import { UserType } from 'src/data/data-context/interface';
@@ -25,11 +24,6 @@ export default class Avatar extends PureComponent<AvatarType> {
     super(props);
   }
 
-  static propTypes = {
-    type: PropTypes.string,
-    radius: PropTypes.number,
-    load: PropTypes.bool,
-  };
   static defaultProps = {
     type: 'small',
     radius: 30,

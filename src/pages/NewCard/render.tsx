@@ -3,139 +3,121 @@
  * @flow
  */
 
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, FC } from 'react';
 import {
   View,
   StyleSheet,
   Dimensions,
-  TouchableNativeFeedback,
   Platform,
+  ListRenderItem,
 } from 'react-native';
-import { connect } from 'react-redux';
-import Button from '../../components/Button';
-import { ICARD, CARDLIST } from '../../redux/reqKeys';
-import LCList from '../../components/Base/LCList';
 import CardCell from './CardCell';
 import {
-  StyledContent,
   StyledTitleView,
   StyledTitleText,
   StyledTop,
   StyledHerderButton,
   StyledHeaderText,
-  StyledIcon,
-  StyledNarBarRightView,
 } from './style';
 import CardTemplate from './CardTemplate';
 import { habits } from '../../configure/habit';
+import { useNavigation } from '@react-navigation/native';
+import { ICardType } from 'src/data/data-context/interface';
+import PageList from '@components/Base/PageList';
+import { postCallCardList } from 'src/hooks/interface';
 
-const listKey = ICARD;
+const ListHeaderComponet = () => {
+  const { navigate } = useNavigation();
 
-export default class NewCard extends PureComponent {
-  _listHeaderComponet = () => {
-    const habitTemplate = Object.keys(habits).map((name) => (
-      <Fragment key={name}>
-        <StyledTitleView>
-          <StyledTitleText>{name}</StyledTitleText>
-        </StyledTitleView>
-        <CardTemplate
-          key={`template ${name}`}
-          data={habits[name]}
-          onPress={(habit) => {
-            this.props.navigation.navigate('creat', { habit });
+  const habitTemplate = Object.keys(habits).map((name) => (
+    <Fragment key={name}>
+      <StyledTitleView>
+        <StyledTitleText>{name}</StyledTitleText>
+      </StyledTitleView>
+      <CardTemplate
+        key={`template ${name}`}
+        data={habits[name]}
+        onPress={(habit) => {
+          navigate('creat', { habit });
+        }}
+      />
+    </Fragment>
+  ));
+
+  //适配安卓
+  const style = Platform.OS === 'ios' ? {} : { height: 1062 };
+
+  return (
+    <StyledTop style={style}>
+      <StyledHeaderText>
+        「 种一棵树最好的时间是十年前，其次是现在。 」
+      </StyledHeaderText>
+      <View style={{ paddingHorizontal: 20 }}>
+        <StyledHerderButton
+          // style={styles.headerBtn}
+          title="自建习惯卡片"
+          onPress={() => {
+            navigate('creat');
           }}
         />
-      </Fragment>
-    ));
-    const habitView = [];
-    habitTemplate.forEach((item) => {
-      habitView.push(item);
-    });
+      </View>
 
-    //适配安卓
-    const style = Platform.OS === 'ios' ? {} : { height: 1062 };
+      {habitTemplate}
 
-    return (
-      <StyledTop style={style}>
-        <StyledHeaderText>
-          「 种一棵树最好的时间是十年前，其次是现在。 」
-        </StyledHeaderText>
-        <View style={{ paddingHorizontal: 20 }}>
-          <StyledHerderButton
-            style={styles.headerBtn}
-            title="自建习惯卡片"
-            onPress={() => {
-              this.props.navigation.navigate('creat');
-            }}
-          />
-        </View>
+      <StyledTitleView key="bottom">
+        <StyledTitleText>圈子推荐</StyledTitleText>
+      </StyledTitleView>
+    </StyledTop>
+  );
+};
 
-        {habitView}
+const renderRow: ListRenderItem<ICardType> = ({ item }) => {
+  return <RenderRow {...item} />;
+};
 
-        <StyledTitleView key="bottom">
-          <StyledTitleText>圈子推荐</StyledTitleText>
-        </StyledTitleView>
-      </StyledTop>
-    );
+const RenderRow: FC<ICardType> = (props) => {
+  const { iconAndColor, title, notifyText, objectId } = props;
+
+  const { name } = iconAndColor || { name: 'sun', color: '#b0d2ee' };
+  const { navigate } = useNavigation();
+
+  return (
+    <CardCell
+      key={title}
+      title={title}
+      name={name || ''}
+      color={'white'}
+      des={notifyText}
+      onPress={() => {
+        navigate('cardInfo', { iCardId: objectId });
+      }}
+    />
+  );
+};
+
+const NewCard: FC<{}> = () => {
+  const loadPage = (page_index: number, page_size: number) => {
+    const param = {
+      limit: page_size + '',
+      skip: page_index * page_size + '',
+    };
+    return postCallCardList(param).then((res) => res.result);
   };
 
-  renderRow({ item }) {
-    // console.log('test:', item);
-    const { iconAndColor, title, img } = item;
-    const { color, name } = iconAndColor || { name: 'sun', color: '#b0d2ee' };
-
-    return (
-      <CardCell
-        key={title}
-        title={title}
-        name={name}
-        color={'white'}
-        img={img}
-        onPress={() => {
-          this.props.navigation.navigate('cardInfo', {
-            iCardId: item.objectId,
-          });
-        }}
-      />
-    );
-  }
-
-  renderNarBarRightView = () => (
-    <StyledNarBarRightView>
-      <Button
-        background={
-          TouchableNativeFeedback.SelectableBackgroundBorderless &&
-          TouchableNativeFeedback.SelectableBackgroundBorderless()
-        }
-        onPress={() => {
-          this.props.navigation.navigate('search');
-        }}
-        style={{ paddingHorizontal: 10 }}>
-        <StyledIcon size={20} color="black" name="search" />
-      </Button>
-    </StyledNarBarRightView>
+  return (
+    <PageList<ICardType>
+      ListHeaderComponent={ListHeaderComponet}
+      loadPage={loadPage}
+      style={styles.list}
+      columnWrapperStyle={{ padding: 0 }}
+      numColumns={4}
+      // footerStyle={{ paddingBottom: 60 }}
+      renderItem={renderRow}
+    />
   );
+};
 
-  render() {
-    const { navigation } = this.props;
-    const { goBack } = navigation;
-    return (
-      <LCList
-        ListHeaderComponent={this._listHeaderComponet}
-        style={[this.props.style, styles.list]}
-        reqKey={listKey} // 在normalizr 中的位置
-        sKey={CARDLIST} // 在list 中的位置
-        callPath={CARDLIST} // 表示走云函数,并告知云函数的路径
-        numColumns={4}
-        columnWrapperStyle={{ padding: 0 }}
-        renderItem={this.renderRow.bind(this)}
-        dataMap={(data) => ({ results: data.result })}
-        reqParam={{}}
-      />
-    );
-  }
-}
+export default NewCard;
 
 const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({

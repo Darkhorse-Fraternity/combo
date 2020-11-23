@@ -4,10 +4,10 @@
  */
 'use strict';
 
-import React, { FC, PureComponent } from 'react';
+import React, { FC } from 'react';
 import CardCell from '../CardCell';
 
-import { StyledRow, StyledMain } from './style';
+import { StyledRow } from './style';
 
 interface CardItemType {
   title: string;
@@ -17,7 +17,7 @@ interface CardItemType {
 
 interface CardTemplateType {
   data: CardItemType[];
-  onPress: Function;
+  onPress: (item: CardItemType) => void;
 }
 
 const CardTemplate: FC<CardTemplateType> = (props) => {
@@ -28,24 +28,25 @@ const CardTemplate: FC<CardTemplateType> = (props) => {
       res.push(data.slice(index, index + 4));
     }
   }
-
-  console.log('res', res.length);
-
-  return res.map((cell, index) => (
-    <StyledRow key={index + ''}>
-      {cell.map((item, index) => (
-        <CardCell
-          key={item.title + index}
-          title={item.title}
-          name={item.icon}
-          color={item.color}
-          onPress={() => {
-            onPress && onPress(item);
-          }}
-        />
+  return (
+    <>
+      {res.map((cell, index) => (
+        <StyledRow key={index + ''}>
+          {cell.map((item, index) => (
+            <CardCell
+              key={item.title + index}
+              title={item.title}
+              name={item.icon}
+              color={item.color}
+              onPress={() => {
+                onPress && onPress(item);
+              }}
+            />
+          ))}
+        </StyledRow>
       ))}
-    </StyledRow>
-  ));
+    </>
+  );
 };
 
 export default CardTemplate;

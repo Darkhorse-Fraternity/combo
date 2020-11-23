@@ -5,27 +5,23 @@
 
 import React, { PureComponent } from 'react';
 
-import PropTypes from 'prop-types';
-
 import {
   StyledContent,
   StyledImage,
-  StyledInnerView,
   StyledTitle,
   StyledImageBack,
 } from './style';
 import icons from '../../../../source/icons';
+import { ButtonType } from '@components/Button';
 
-export default class CardCell extends PureComponent {
-  static propTypes = {
-    onPress: PropTypes.func,
-    img: PropTypes.object,
-    title: PropTypes.string,
-    des: PropTypes.string,
-  };
+interface CardCellProps extends ButtonType {
+  title: string;
+  color: string;
+  des?: string;
+  name: string;
+}
 
-  static defaultProps = {};
-
+export default class CardCell extends PureComponent<CardCellProps> {
   render() {
     const { title, onPress, name, color } = this.props;
 

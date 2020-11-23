@@ -5,7 +5,6 @@
 
 import React, { PureComponent } from 'react';
 import { View, Image, Animated, Easing } from 'react-native';
-import PropTypes from 'prop-types';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 

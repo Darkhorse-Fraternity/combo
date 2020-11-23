@@ -60,6 +60,10 @@ export function Flag(id: string) {
   return pointModel('Flag', id);
 }
 
+export function FlagPoint(id: string) {
+  return point('Flag', id);
+}
+
 export function FlagRecord(id: string) {
   return pointModel('FlagRecord', id);
 }
