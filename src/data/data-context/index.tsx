@@ -16,7 +16,6 @@ import {
   StateType,
   UserType,
 } from './interface';
-// import { setHeader } from '../../../local_modules/react-native-qj-fetch/config';
 // import { GetMemberLoginByCodeResponse } from 'req';
 // export type UserType = NonNullable<GetMemberLoginByCodeResponse['datas']>;
 

@@ -15,7 +15,6 @@ import { LoadAnimation, loadView } from '@components/Load';
 import { StyledError, StyledWebView } from './style';
 
 // import {useNavigation} from '@react-navigation/native';
-import { getHeader } from '@local_modules/react-native-qj-fetch';
 // import {push, pop} from '@components/NativeRoute';
 // import {useIsFirstRouteInParent} from '@components/UseNavigationAllParams';
 // import {loginAction, useLoginCheck} from '@components/NativeTool';

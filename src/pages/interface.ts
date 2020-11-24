@@ -80,7 +80,7 @@ export type RootStackParamList = {
   [RouteKey.login]: undefined;
   [RouteKey.flagDetail]: { iCardId: string; flagId: string; title?: string };
   [RouteKey.FRDetail]: { flagId: string };
-  [RouteKey.cirlcleSetting]: { iCardID: string };
+  [RouteKey.cirlcleSetting]: { iCardId: string };
   [RouteKey.clockIn]: { iUseId: string; doneDateIso?: string; iDoId?: string };
   //tabs
   [RouteKey.punch]: undefined;

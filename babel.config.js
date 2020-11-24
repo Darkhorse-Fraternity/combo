@@ -31,8 +31,6 @@ module.exports = function (api) {
           '@music': './source/music',
           '@source': './source',
           'test/*': './test/*',
-          '@local_modules': './local_modules',
-          'react-native-qj-fetch': './local_modules/react-native-qj-fetch',
           underscore: 'lodash',
         },
       },

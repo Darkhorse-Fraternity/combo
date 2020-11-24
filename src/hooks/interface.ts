@@ -1851,7 +1851,7 @@ export const useGetClassesICardId = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 export interface PutClassesICardIdRequest {
   circleState?: number
@@ -1875,6 +1875,7 @@ export interface PutClassesICardIdRequest {
   }
   title?: string
   notifyText?: string
+  password?: string
   id: string
 }
 
@@ -1883,7 +1884,7 @@ export interface PutClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 export interface PutClassesICardIdResponse {
   objectId: string
@@ -1895,7 +1896,7 @@ export interface PutClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 type PutClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1915,7 +1916,7 @@ type PutClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1936,7 +1937,7 @@ const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 export const putClassesICardId = makeRequest<
   PutClassesICardIdRequest,
@@ -1949,7 +1950,7 @@ export const putClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `PUT /classes/iCard/:id`
- * @更新时间 `2020-11-17 14:02:58`
+ * @更新时间 `2020-11-24 14:27:34`
  */
 export const usePutClassesICardId = makeRequestHook<
   PutClassesICardIdRequest,

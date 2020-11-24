@@ -221,7 +221,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
           source={require('../../../../source/img/circle/settings.png')}
           onPress={() => {
             navigate('cirlcleSetting', {
-              iCardID: iCard.objectId,
+              iCardId: iCard.objectId,
             });
           }}
         />

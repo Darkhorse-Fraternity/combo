@@ -28,13 +28,13 @@ export enum methodType {
 
 // 参数转化
 
-export interface reqPlacehold {
+export interface ReqPlacehold {
   scheme?: string;
   host?: string;
   headers?: HeadersInit_;
 }
 
-export interface reqProps extends reqPlacehold {
+export interface ReqProps extends ReqPlacehold {
   query?: ParsedUrlQuery;
   body?: ParsedUrlQuery;
   path?: string;
@@ -46,11 +46,11 @@ export interface reqProps extends reqPlacehold {
   dataMap?: <T extends {}>(data: T, e?: Error) => dataProps<T>;
 }
 
-export interface reqCacheProps extends reqProps {
+export interface ReqCacheProps extends ReqProps {
   url: string;
 }
 
-let networkConifg: reqPlacehold = {
+let networkConifg: ReqPlacehold = {
   headers: {
     'Content-Type': 'application/json; charset=utf-8',
   },
@@ -58,7 +58,7 @@ let networkConifg: reqPlacehold = {
   scheme: '',
 };
 
-export const setNetworkConig = (config: reqPlacehold) => {
+export const setNetworkConig = (config: ReqPlacehold) => {
   networkConifg = {
     ...config,
     headers: {
@@ -68,11 +68,9 @@ export const setNetworkConig = (config: reqPlacehold) => {
   };
 };
 
-
-export const getNetworkConfig = ()=>{
+export const getNetworkConfig = () => {
   return networkConifg;
-}
-
+};
 
 export const getHeader = () => {
   return networkConifg.headers;
@@ -110,14 +108,14 @@ export const getDataMap = () => {
   return dataMap;
 };
 
-let errorAction: (props: reqProps, error: string, code: number) => void;
+let errorAction: (props: ReqProps, error: string, code: number) => void;
 
 export const getShowErrorAction = () => {
   return errorAction;
 };
 
 export const setShowErrorAction = (
-  action: (props: reqProps, error: string, code: number) => void,
+  action: (props: ReqProps, error: string, code: number) => void,
 ) => {
   errorAction = action;
 };

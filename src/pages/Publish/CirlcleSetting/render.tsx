@@ -8,17 +8,18 @@ import {
   StyledUnderLine,
   StyledNavBar,
 } from './style';
-import { useFetch } from 'react-native-qj-fetch';
 import * as yup from 'yup';
 import { MemoRHFInput, RHFError } from '@components/Form';
 // import {useNavigationParam} from '@react-navigation/natve';
-import { classUpdate, classIDSearch } from '@request/leanCloud';
-import { ICARD } from '../../../redux/reqKeys';
 import SimpleToast from 'react-native-simple-toast';
-import { loadView } from '@components/Load';
+import { LoadAnimation } from '@components/Load';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
 import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  useGetClassesICardId,
+  usePutClassesICardId,
+} from 'src/hooks/interface';
 interface iCardType {
   objectId?: string;
 }
@@ -31,22 +32,31 @@ type FormData = {
   password: string;
 };
 
-const Render = () => {
-  const { iCardID } = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
+const Render = (): JSX.Element => {
+  const { iCardId } = useNavigationAllParamsWithType<RouteKey.cirlcleSetting>();
   // console.log("req", reqO);
   // reqO();
 
   const [formData, setFormData] = useState<FormData>();
   const { password } = formData || {};
 
-  const params = classUpdate(ICARD, iCardID, formData || {});
+  // const params = classUpdate(ICARD, iCardID, formData || {});
 
-  const [{ pending, result }, load] = useFetch<iCardType>(params, false);
+  // const [{ pending, result }, load] = useFetch<iCardType>(params, false);
 
-  const searchParams = classIDSearch(ICARD, iCardID);
-  const [{ result: searchResult, pending: searchPennding }] = useFetch<
-    FormData
-  >(searchParams);
+  // const searchParams = classIDSearch(ICARD, iCardID);
+  // const [{ result: searchResult, pending: searchPennding }] = useFetch<
+  //   FormData
+  // >(searchParams);
+
+  const { data: searchResult, loading: searchLoading } = useGetClassesICardId({
+    id: iCardId,
+  });
+
+  const { data, run, loading } = usePutClassesICardId(
+    { id: iCardId, password },
+    { manual: true },
+  );
 
   const { register, setValue, handleSubmit, errors } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
@@ -54,10 +64,10 @@ const Render = () => {
   });
 
   useEffect(() => {
-    if (result?.objectId) {
+    if (data?.objectId) {
       SimpleToast.show('保存成功！');
     }
-  }, [result]);
+  }, [data]);
 
   const onSubmit = ({ password = '' }: FormData) => {
     setFormData({ password });
@@ -66,9 +76,9 @@ const Render = () => {
   //根据password 去加载
   useEffect(() => {
     if (password !== undefined) {
-      load();
+      run();
     }
-  }, [password]);
+  }, [password, run]);
 
   //赋予初始值，因为是异步的，所以只能这么做。
   // useEffect(() => {
@@ -77,16 +87,16 @@ const Render = () => {
   //   }
   // }, [searchResult]);
 
-  const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
+  const memoHanleSubmit = handleSubmit(onSubmit);
   const onChangeText = useCallback(
     (text) => setValue('password', text, { shouldValidate: true }),
-    [],
+    [setValue],
   );
 
   // console.log('RHFErrorAnmition', RHFErrorAnmition);
 
-  if (searchPennding) {
-    return loadView();
+  if (searchLoading) {
+    return <LoadAnimation />;
   }
 
   console.log('searchResult?.password', searchResult?.password);
@@ -96,7 +106,7 @@ const Render = () => {
       <StyledNavBar>
         <StyledText>圈子设置</StyledText>
         <StyledButton
-          loading={pending}
+          loading={loading}
           hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}
           // loading={true}
           onPress={memoHanleSubmit}
@@ -109,7 +119,7 @@ const Render = () => {
         autoFocus
         name="password"
         register={register}
-        setValue={setValue}
+        setValue={setValue as never}
         maxLength={50}
         placeholder={'设置加入密码'}
         clearButtonMode={'while-editing'}

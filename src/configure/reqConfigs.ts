@@ -9,8 +9,8 @@ import {
   setDoCache,
   setDataMap,
   setShowErrorAction,
-  reqCProps,
-} from 'react-native-qj-fetch';
+  ReqProps,
+} from './config';
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 
@@ -167,7 +167,7 @@ const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
 
 setDataMap(<any>dataMap);
 
-const errorAction = (props: reqCProps, error: string, code: number) => {
+const errorAction = (props: ReqProps, error: string, code: number) => {
   // if (code === 432) {
   //   return;
   // }
