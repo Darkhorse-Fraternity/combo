@@ -1,4 +1,4 @@
-import { Platform, DeviceEventEmitter } from 'react-native';
+import { DeviceEventEmitter } from 'react-native';
 import { addParams } from '../../request/useMeth';
 
 export function doReceiveNotify(notify) {

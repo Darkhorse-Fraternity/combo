@@ -26,8 +26,6 @@ import { fromJS } from 'immutable';
   }),
 )
 export default class InfoBar extends Component {
-  static propTypes = {};
-
   static defaultProps = {
     notify: fromJS({ show: false }),
   };

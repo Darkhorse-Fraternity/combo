@@ -2,22 +2,22 @@
  * Created by lintong on 2017/2/25.
  * @flow
  */
-"use strict";
+'use strict';
 
-import React from "react";
-import {Modal} from 'react-native'
+import React from 'react';
+import { Modal } from 'react-native';
 // import Modal from "rmc-dialog/es/Modal";
-import PropTypes from "prop-types";
-import { Provider } from "react-redux";
-import { ThemeProvider } from "styled-components";
-import { theme } from "../../Theme";
-import { StyleSheet, ViewStyle } from "react-native";
-import { creatStore } from "../../redux/store";
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../../Theme';
+import { StyleSheet, ViewStyle } from 'react-native';
+import { creatStore } from '../../redux/store';
 
 const styles = StyleSheet.create({
   wrapStyle: {
-    justifyContent: "center"
-  }
+    justifyContent: 'center',
+  },
 });
 
 export default class PopupContainer extends React.Component<any> {
@@ -33,13 +33,13 @@ export default class PopupContainer extends React.Component<any> {
   constructor(props) {
     super(props);
     this.state = {
-      visible: props.visible || false
+      visible: props.visible || false,
     };
   }
 
   hide() {
     this.setState({
-      visible: false
+      visible: false,
     });
   }
 
@@ -68,9 +68,8 @@ export default class PopupContainer extends React.Component<any> {
         visible={this.state.visible}
         // maskClosable={this.props.maskClosable}
         // onClose={this.onMaskClose}
-        style={{ backgroundColor: "transparent" }}
-        useNativeDriver
-      >
+        style={{ backgroundColor: 'transparent' }}
+        useNativeDriver>
         <Provider store={creatStore()}>
           <ThemeProvider theme={theme}>{this.props.children}</ThemeProvider>
         </Provider>

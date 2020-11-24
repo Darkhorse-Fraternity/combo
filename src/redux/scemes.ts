@@ -1,4 +1,3 @@
-
 import {
   registerListKeys,
   ICARD,
@@ -16,7 +15,7 @@ export const code = 'results';
 
 export const entity = <T>(key: string, config = {}) =>
   new schema.Entity<T>(key, config, { idAttribute: 'objectId' });
-export const list = (item:[]) =>
+export const list = (item: []) =>
   new schema.Object({ [code]: new schema.Array(item) });
 export const entityFromCode = (key: string) =>
   new schema.Object({ [code]: entity(key) });

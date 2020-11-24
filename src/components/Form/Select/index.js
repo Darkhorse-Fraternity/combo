@@ -3,11 +3,13 @@ import React from 'react';
 import createInputCreator from '../Cunstom/createInputCreator';
 import RadioRenderer from './Radio';
 
-
 const createInput = (inputCreator) => {
- 
   const RenderRadio = ({
-    input: { onChange, value }, options, keyName, renderItem, ...rest
+    input: { onChange, value },
+    options,
+    keyName,
+    renderItem,
+    ...rest
   }) => (
     <RadioRenderer
       {...rest}
@@ -19,19 +21,18 @@ const createInput = (inputCreator) => {
     />
   );
 
-  const Radio = inputCreator('Radio', RenderRadio, RadioRenderer.PropTypes,
-    RadioRenderer.defaultProps);
+  const Radio = inputCreator(
+    'Radio',
+    RenderRadio,
+    RadioRenderer.PropTypes,
+    RadioRenderer.defaultProps,
+  );
 
   return {
     Radio,
   };
 };
 
+const { Radio } = createInput(createInputCreator(Field));
 
-const {
-  Radio,
-} = createInput(createInputCreator(Field));
-
-export {
-  Radio,
-};
+export { Radio };

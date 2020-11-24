@@ -47,7 +47,9 @@ export default class RecordRow extends Component<
 
   render() {
     const { item, onPress, color } = this.props;
-    if (!item) return null;
+    if (!item) {
+      return null;
+    }
     const { visible, index } = this.state;
     const { imgs } = item;
     const uris = imgs && imgs.map((img) => ({ url: img }));

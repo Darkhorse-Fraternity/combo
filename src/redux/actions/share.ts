@@ -15,7 +15,15 @@ export const SHARE_TO_SINA = 'SHARE_TO_SINA';
 
 // WeChat.registerApp('wx637e6f35f8211c6d')
 
-export function shareTo(type: string, param: object): Function {
+export function shareTo(
+  type:
+    | typeof SHARE_TO_SESSION
+    | typeof SHARE_TO_TIMELINE
+    | typeof SHARE_TO_QQ
+    | typeof Share_TO_ZONE
+    | typeof SHARE_TO_SINA,
+  param: object,
+): Function {
   return (dispatch) => {
     if (type === SHARE_TO_TIMELINE || type === SHARE_TO_SESSION) {
       dispatch(shareToWechat(type, param));
@@ -27,9 +35,11 @@ export function shareTo(type: string, param: object): Function {
   };
 }
 
-export function shareToWechat(type: string, param: object = {}): Function {
+export function shareToWechat(type: string, param: object = {}) {
   let Method = WeChat.shareToTimeline;
-  if (type === SHARE_TO_SESSION) Method = WeChat.shareToSession;
+  if (type === SHARE_TO_SESSION) {
+    Method = WeChat.shareToSession;
+  }
 
   return async (dispatch) => {
     try {
@@ -69,9 +79,11 @@ export function shareToWechat(type: string, param: object = {}): Function {
   };
 }
 
-export function shareToQQ(type: string, param: object = {}): Function {
+export function shareToQQ(type: string, param: object = {}) {
   let Method = QQAPI.shareToQQ;
-  if (type === Share_TO_ZONE) Method = QQAPI.shareToQzone;
+  if (type === Share_TO_ZONE) {
+    Method = QQAPI.shareToQzone;
+  }
 
   return async (dispatch) => {
     try {

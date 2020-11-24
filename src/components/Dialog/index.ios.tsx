@@ -53,8 +53,12 @@ export default class DialogIOS {
         onAny: true,
         dismissListener: true,
       };
-      if (title) nativeConfig.title = title;
-      if (content) nativeConfig.content = content;
+      if (title) {
+        nativeConfig.title = title;
+      }
+      if (content) {
+        nativeConfig.content = content;
+      }
 
       if (items) {
         nativeConfig.items = items.map((item) => item[labelKey]);
@@ -82,7 +86,9 @@ export default class DialogIOS {
         }
       }
 
-      if (neutralIsClear) nativeConfig.multiChoiceClearButton = true;
+      if (neutralIsClear) {
+        nativeConfig.multiChoiceClearButton = true;
+      }
 
       processColors(nativeConfig);
 

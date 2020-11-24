@@ -24,7 +24,7 @@ import { pointModel } from '../../../request/LCModle';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 
 class CostRecordClass extends PureComponent {
-  renderRow = ({ item, index }: Object) => {
+  renderRow = ({ item, index }) => {
     // console.log('item:', item);
     return (
       <StyledRow>

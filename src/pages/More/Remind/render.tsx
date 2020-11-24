@@ -5,12 +5,10 @@
 
 import React, { FC, PureComponent } from 'react';
 import { Platform, FlatList } from 'react-native';
-import { connect } from 'react-redux';
 
 import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
-import { ICARD, IUSE } from '../../../redux/reqKeys';
 import svgs from '../../../../source/icons';
 import AppleStyleSwipeableRow from '../../../components/Swipeable';
 
@@ -37,20 +35,22 @@ import {
   StyledAntDesign,
   StyledTips,
 } from './style';
-import { addNormalizrEntity } from '../../../redux/module/normalizr';
-import { update } from '../../../redux/module/leancloud';
 import { shadeBlend } from '../../../../helps/util';
 import AnimationRow from '../../../components/AnimationRow';
 import { useGetUserInfo } from 'src/data/data-context';
 import { remind, RemindDataType, useLoadlocalRemind } from '@configure/app';
-import { GetClassesIUseIdResponse } from 'src/hooks/interface';
-import { UserType } from 'src/data/data-context/interface';
+import { IUseType, UserType } from 'src/data/data-context/interface';
+import { useGetIuseData, useMutateICardData } from 'src/data/data-context/core';
+import {
+  PutClassesICardIdRequest,
+  usePutClassesICardId,
+} from 'src/hooks/interface';
 
 // const interactionManagerDelay = () =>
 //   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
 export const Days = ['一', '二', '三', '四', '五', '六', '天'];
-export const daysText = (recordDay) => {
+export const daysText = (recordDay: number[]) => {
   const days = recordDay.sort();
   // console.log('days:', days);
   if (days.length === 0) {
@@ -75,71 +75,78 @@ function PrefixInteger(num: number, length: number) {
 interface RemindClassProps {
   selfUser: UserType;
   localRemindData: RemindDataType;
+  iUses: IUseType[];
+  refresh: (p: Partial<PutClassesICardIdRequest>) => Promise<{}>;
 }
 
-@connect(
-  (state) => ({
-    data: state.list.get(IUSE).get('listData'),
-    iUseList: state.normalizr.get(IUSE),
-    iCardList: state.normalizr.get(ICARD),
-  }),
-  (dispatch) => ({
-    refresh: async (notifyTimes, iCard) =>
-      dispatch(async (dispatch, getState) => {
-        {
-          const id = iCard.objectId;
+type ItemType = IUseType & { notifyTime: string };
 
-          notifyTimes = notifyTimes.sort(
-            (a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'),
-          );
+interface RemindClassState {
+  isDateTimePickerVisible: boolean;
+  time: string;
+  selectItem: ItemType | null;
+  openIndex: number;
+}
 
-          const param = {
-            notifyTimes,
-          };
+// @connect(
+//   (state) => ({}),
+//   (dispatch) => ({
+//     // refresh: async (notifyTimes, iCard) =>
+//     //   dispatch(async (dispatch, getState) => {
+//     //     {
+//     //       const id = iCard.objectId;
 
-          const res = await dispatch(update(id, param, ICARD));
+//     //       notifyTimes = notifyTimes.sort(
+//     //         (a, b) => moment(a, 'HH:mm') - moment(b, 'HH:mm'),
+//     //       );
 
-          const entity = {
-            ...param,
-            ...res,
-          };
-          return dispatch(addNormalizrEntity(ICARD, entity));
-          // Toast.show('修改配置成功~!')
-        }
-      }),
-    deleteRow: async (notifyTime, iCard, handleView) =>
-      dispatch(async (dispatch, getState) => {
-        {
-          const id = iCard.objectId;
+//     //       const param = {
+//     //         notifyTimes,
+//     //       };
 
-          const index = iCard.notifyTimes.indexOf(notifyTime);
-          if (index > -1) {
-            iCard.notifyTimes.splice(index, 1);
-          }
-          const { notifyTimes } = iCard;
+//     //       const res = await dispatch(update(id, param, ICARD));
 
-          const param = {
-            notifyTimes,
-          };
+//     //       const entity = {
+//     //         ...param,
+//     //         ...res,
+//     //       };
+//     //       return dispatch(addNormalizrEntity(ICARD, entity));
+//     //       // Toast.show('修改配置成功~!')
+//     //     }
+//     //   }),
+//     deleteRow: async (notifyTime, iCard, handleView) =>
+//       dispatch(async (dispatch) => {
+//         {
+//           const id = iCard.objectId;
 
-          const res = await dispatch(update(id, param, ICARD));
+//           const index = iCard.notifyTimes.indexOf(notifyTime);
+//           if (index > -1) {
+//             iCard.notifyTimes.splice(index, 1);
+//           }
+//           const { notifyTimes } = iCard;
 
-          const entity = {
-            ...param,
-            ...res,
-          };
+//           const param = {
+//             notifyTimes,
+//           };
 
-          handleView && (await handleView.remove());
-          await dispatch(addNormalizrEntity(ICARD, entity));
-          handleView && (await handleView.reset());
+//           const res = await dispatch(update(id, param, ICARD));
 
-          return res;
-          // Toast.show('修改配置成功~!')
-        }
-      }),
-  }),
-)
-class RemindClass extends PureComponent<RemindClassProps> {
+//           const entity = {
+//             ...param,
+//             ...res,
+//           };
+
+//           handleView && (await handleView.remove());
+//           await dispatch(addNormalizrEntity(ICARD, entity));
+//           handleView && (await handleView.reset());
+
+//           return res;
+//           // Toast.show('修改配置成功~!')
+//         }
+//       }),
+//   }),
+// )
+class RemindClass extends PureComponent<RemindClassProps, RemindClassState> {
   constructor(props: RemindClassProps) {
     super(props);
     this.state = {
@@ -150,66 +157,22 @@ class RemindClass extends PureComponent<RemindClassProps> {
     };
   }
 
-  _renderHeader = () => (
-    <StyledHeader>
-      <StyledHeaderTitle>提醒时间线</StyledHeaderTitle>
-    </StyledHeader>
-  );
-
-  _ListHeaderComponent = (id, value, data) => {
-    const propsColor =
-      Platform.OS === 'ios'
-        ? {
-            trackColor: { false: '#39ba98', true: '#39ba98' },
-          }
-        : {
-            thumbColor: value ? '#f6d971' : '#f6f7f9',
-            // trackColor:{true: '#f6f7f9'},
-            trackColor: { true: shadeBlend(0.5, '#f6d971') },
-          };
-
-    return (
-      <>
-        {this._renderHeader()}
-        <StyledSubTitle>
-          <StyledRowInner>
-            <StyledIcon size={30} name="alarm-on" />
-            <StyledSubTitleText>
-              开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒
-            </StyledSubTitleText>
-          </StyledRowInner>
-          <StyledSwitch
-            {...propsColor}
-            value={value}
-            onValueChange={async (value) => {
-              remind(id, value);
-            }}
-          />
-        </StyledSubTitle>
-        {data.length > 0 && (
-          <StyledLine style={{ height: 15, marginLeft: 35 }} />
-        )}
-      </>
-    );
-  };
-
-  _renderSwipeOutDeleteBtn = () => (
-    <StyledDeleteBtn>
-      <StyledAntDesign size={25} color="red" name="delete" />
-      <StyledDeleteBtnText>删除</StyledDeleteBtnText>
-    </StyledDeleteBtn>
-  );
-
-  _deleteRow = async (
-    item: GetClassesIUseIdResponse & { notifyTime: string },
-    index: number,
-  ) => {
+  _deleteRow = async (item: ItemType, index: number) => {
     const handleView = this.handleViewRef[`habit${index}`];
     const { iCard, notifyTime } = item;
-    const { selfUser, deleteRow } = this.props;
+    const { selfUser, refresh } = this.props;
 
-    if (iCard.user === selfUser.objectId) {
-      await deleteRow(notifyTime, iCard, handleView);
+    if (iCard.user.objectId === selfUser.objectId) {
+      handleView && (await handleView.remove());
+      // await dispatch(addNormalizrEntity(ICARD, entity));
+      // await deleteRow(notifyTime, iCard, handleView);
+      const { notifyTimes = [] } = iCard;
+      const index1 = notifyTimes.indexOf(notifyTime);
+      if (index1 > -1) {
+        notifyTimes.splice(index1, 1);
+      }
+      await refresh({ id: iCard.objectId, notifyTimes });
+      handleView && (await handleView.reset());
     } else {
       Toast.show('共享卡片,只有卡片拥有有权限删除哦~!');
     }
@@ -219,13 +182,7 @@ class RemindClass extends PureComponent<RemindClassProps> {
 
   swipeRefs = {};
 
-  _renderRow = ({
-    item,
-    index,
-  }: {
-    item: GetClassesIUseIdResponse & { notifyTime: string };
-    index: number;
-  }) => {
+  _renderRow = ({ item, index }: { item: ItemType; index: number }) => {
     // console.log('test:', item);
     const { iCard, notifyTime, objectId } = item;
 
@@ -236,7 +193,7 @@ class RemindClass extends PureComponent<RemindClassProps> {
     //  }
     const id = objectId + notifyTime;
     let value = localRemindData[id] ?? true;
-    const { iconAndColor, title, recordDay } = iCard;
+    const { iconAndColor, title, recordDay = [] } = iCard;
     const { color, name = '' } = iconAndColor || {
       name: 'sun',
       color: '#b0d2ee',
@@ -252,14 +209,12 @@ class RemindClass extends PureComponent<RemindClassProps> {
           };
 
     return (
-      <AnimationRow
-        useNativeDriver
-        ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
+      <AnimationRow ref={(res) => (this.handleViewRef[`habit${index}`] = res)}>
         <AppleStyleSwipeableRow
           ref={(ref) => {
             this.swipeRefs[`swipe${index}`] = ref;
           }}
-          backgroundColor="white"
+          // backgroundColor="white"
           onSwipeableWillOpen={() => {
             const { openIndex } = this.state;
             if (index === openIndex) {
@@ -284,7 +239,7 @@ class RemindClass extends PureComponent<RemindClassProps> {
                 this._deleteRow(item, index);
                 // this.setState({ openIndex: -1 })
               },
-              component: this._renderSwipeOutDeleteBtn(),
+              component: <RenderSwipeOutDeleteBtn />,
               backgroundColor: '#f6f7f9',
             },
           ]}>
@@ -298,7 +253,7 @@ class RemindClass extends PureComponent<RemindClassProps> {
             activeOpacity={1}
             onPress={() => {
               const { selfUser } = this.props;
-              if (iCard.user === selfUser.objectId) {
+              if (iCard.user.objectId === selfUser.objectId) {
                 this.setState({
                   isDateTimePickerVisible: true,
                   time: notifyTime,
@@ -325,9 +280,9 @@ class RemindClass extends PureComponent<RemindClassProps> {
               </StyledRowDis>
             </StyledRowInner>
             <StyledSwitch
-              {...propsColor}
-              onValueChange={(value) => {
-                remind(id, value);
+              {...(propsColor as never)}
+              onValueChange={(value1) => {
+                remind(id, value1);
               }}
               value={value}
             />
@@ -335,11 +290,6 @@ class RemindClass extends PureComponent<RemindClassProps> {
         </AppleStyleSwipeableRow>
       </AnimationRow>
     );
-  };
-
-  _keyExtractor = (item, index) => {
-    const key = item.objectId + item.notifyTime || index;
-    return `${key}`;
   };
 
   _handleDatePicked = async (date: Date) => {
@@ -353,14 +303,16 @@ class RemindClass extends PureComponent<RemindClassProps> {
     const time = `${hours}:${minutes}`;
     const { selectItem } = this.state;
     const { selfUser, refresh } = this.props;
-    const { iCard, notifyTime } = selectItem;
-    if (iCard.user === selfUser.objectId) {
-      const index = iCard.notifyTimes.indexOf(notifyTime);
+    const { iCard, notifyTime } = selectItem!;
+    if (iCard.user.objectId === selfUser.objectId) {
+      const index = iCard.notifyTimes?.indexOf(notifyTime) ?? -1;
       if (index > -1) {
-        iCard.notifyTimes.splice(index, 1);
+        iCard.notifyTimes?.splice(index, 1);
       }
-      const notifyTimes = [time, ...iCard.notifyTimes];
-      refresh(notifyTimes, iCard);
+      const notifyTimes = [time, ...(iCard.notifyTimes || [])].sort((a, b) =>
+        moment(a, 'HH:mm').isAfter(moment(b, 'HH:mm')) ? 1 : -1,
+      );
+      refresh({ id: iCard.objectId, notifyTimes });
     } else {
       Toast.show('共享卡片,只有卡片拥有有权限修改哦~!');
     }
@@ -376,7 +328,7 @@ class RemindClass extends PureComponent<RemindClassProps> {
   };
 
   render() {
-    let { data, iUseList, iCardList, localRemindData } = this.props;
+    let { iUses, localRemindData } = this.props;
 
     const id = 'all';
     //当为ios 时 默认打开
@@ -385,31 +337,25 @@ class RemindClass extends PureComponent<RemindClassProps> {
     //   value = true;
     // }
 
-    const newData = [];
+    const newData: ItemType[] = [];
     if (value) {
-      data = data && data.toJS();
-
-      data.forEach((item) => {
-        const iUse = iUseList.get(item).toJS();
-        const { statu } = iUse;
+      iUses.forEach((iUse) => {
+        const { statu, iCard } = iUse;
         if (statu === 'start') {
-          const iCard = iCardList.get(iUse.iCard).toJS();
-
-          iUse.iCard = iCard;
-
           const { notifyTimes } = iCard;
           // if(iUse.)
 
           notifyTimes &&
             notifyTimes.forEach((notifyTime) => {
-              const newUse = { ...iUse };
-              newUse.notifyTime = notifyTime;
+              const newUse = { ...iUse, notifyTime };
               newData.push(newUse);
             });
         }
       });
-      newData.sort(
-        (a, b) => moment(a.notifyTime, 'HH:mm') - moment(b.notifyTime, 'HH:mm'),
+      newData.sort((a, b) =>
+        moment(a.notifyTime, 'HH:mm').isAfter(moment(b.notifyTime, 'HH:mm'))
+          ? 1
+          : -1,
       );
     }
 
@@ -418,16 +364,20 @@ class RemindClass extends PureComponent<RemindClassProps> {
     // .sort(item => item.iCard.notifyTime)
 
     return (
-      <StyledContent>
-        <FlatList
+      <>
+        <FlatList<ItemType>
           scrollEnabled={this.state.openIndex === -1}
           data={newData}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           renderItem={this._renderRow}
-          keyExtractor={this._keyExtractor}
-          ListHeaderComponent={() =>
-            this._ListHeaderComponent(id, value, newData)
+          keyExtractor={_keyExtractor}
+          ListHeaderComponent={
+            <ListHeaderComponent
+              id={id}
+              value={value}
+              hasData={newData.length > 0}
+            />
           }
           ListFooterComponent={() => <NoticeTip />}
         />
@@ -443,10 +393,67 @@ class RemindClass extends PureComponent<RemindClassProps> {
           onConfirm={this._handleDatePicked}
           onCancel={this._hideDateTimePicker}
         />
-      </StyledContent>
+      </>
     );
   }
 }
+
+const RenderSwipeOutDeleteBtn = () => (
+  <StyledDeleteBtn>
+    <StyledAntDesign size={25} color="red" name="delete" />
+    <StyledDeleteBtnText>删除</StyledDeleteBtnText>
+  </StyledDeleteBtn>
+);
+
+const _keyExtractor = (item: ItemType, index: number) => {
+  const key = item.objectId + item.notifyTime || index;
+  return `${key}`;
+};
+
+const RenderHeader = () => (
+  <StyledHeader>
+    <StyledHeaderTitle>提醒时间线</StyledHeaderTitle>
+  </StyledHeader>
+);
+
+const ListHeaderComponent: FC<{
+  id: string;
+  value: boolean;
+  hasData: boolean;
+}> = ({ id, value, hasData }) => {
+  const propsColor =
+    Platform.OS === 'ios'
+      ? {
+          trackColor: { false: '#39ba98', true: '#39ba98' },
+        }
+      : {
+          thumbColor: value ? '#f6d971' : '#f6f7f9',
+          // trackColor:{true: '#f6f7f9'},
+          trackColor: { true: shadeBlend(0.5, '#f6d971') },
+        };
+
+  return (
+    <>
+      <RenderHeader />
+      <StyledSubTitle>
+        <StyledRowInner>
+          <StyledIcon size={30} name="alarm-on" />
+          <StyledSubTitleText>
+            开启{Platform.OS === 'ios' ? '习惯' : '日历'}提醒
+          </StyledSubTitleText>
+        </StyledRowInner>
+        <StyledSwitch
+          {...(propsColor as any)}
+          value={value}
+          onValueChange={async (value1) => {
+            remind(id, value1);
+          }}
+        />
+      </StyledSubTitle>
+      {hasData && <StyledLine style={{ height: 15, marginLeft: 35 }} />}
+    </>
+  );
+};
 
 export const NoticeTip = () => {
   if (Platform.OS === 'android') {
@@ -466,8 +473,28 @@ export const NoticeTip = () => {
 export const Remind: FC<{}> = ({}) => {
   const user = useGetUserInfo();
   const localRemindData = useLoadlocalRemind();
+  const { data } = useGetIuseData();
+  const { update: iCardUpdate } = useMutateICardData();
 
-  return <RemindClass selfUser={user!} localRemindData={localRemindData} />;
+  const { run } = usePutClassesICardId((res) => res, {
+    manual: true,
+    onSuccess: (_, params) => {
+      const p1 = params[0];
+      const { notifyTimes, id } = p1;
+      iCardUpdate({ objectId: id, notifyTimes });
+    },
+  });
+
+  return (
+    <StyledContent>
+      <RemindClass
+        selfUser={user!}
+        localRemindData={localRemindData}
+        iUses={data || []}
+        refresh={run as never}
+      />
+    </StyledContent>
+  );
 };
 
 export default Remind;

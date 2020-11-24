@@ -16,7 +16,9 @@ export function toQueryString(obj: Object) {
         .sort()
         .map((key) => {
           let val = obj[key];
-          if (typeof val === 'object') val = JSON.stringify(val);
+          if (typeof val === 'object') {
+            val = JSON.stringify(val);
+          }
           if (Array.isArray(val)) {
             return val
               .sort()

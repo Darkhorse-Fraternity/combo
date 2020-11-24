@@ -12,7 +12,9 @@ import DeviceInfo, { isEmulatorSync } from 'react-native-device-info';
 import { useGetUserInfo } from 'src/data/data-context';
 import { GetClassesIUseResponse } from 'src/hooks/interface';
 import { RemindDataType, useLoadlocalRemind } from './app';
-import { UserType } from 'src/data/data-context/interface';
+import { IUseType, UserType } from 'src/data/data-context/interface';
+import { useGetIuseData } from 'src/data/data-context/core';
+import { useDebounce, useDebouncedCallback } from 'use-debounce/lib';
 
 export function nowNotification() {
   PushNotification.localNotification({
@@ -48,86 +50,8 @@ export function nowNotification() {
   });
 }
 
-type ItemType = NonNullable<GetClassesIUseResponse['results']>[number];
+type ItemType = IUseType;
 
-interface LocalNotificationClassProps {
-  user: UserType;
-  localRemindData: RemindDataType;
-}
-
-@connect((state) => ({
-  data: state.list.get(IUSE),
-  normalizrData: state.normalizr.get(IUSE),
-  iCard: state.normalizr.get(ICARD),
-}))
-class LocalNotificationClass extends PureComponent<
-  LocalNotificationClassProps
-> {
-  constructor(props: LocalNotificationClassProps) {
-    super(props);
-  }
-
-  componentWillReceiveProps(nextProps: LocalNotificationClassProps) {
-    // TODO 应该做一个检索  只有当检索值不同时才进入更新
-    // if(!immutable.is(this.props, nextProps)){
-    this.debounceRemind(nextProps);
-    // }
-  }
-
-  remind = (props: LocalNotificationClassProps) => {
-    let { data, localRemindData, iCard, normalizrData, user } = props;
-    data = data.toJS();
-    // console.log('???', data);
-
-    // console.log('localRemindData??ssss?:', localRemindData);
-
-    if (!!iCard && data.loadStatu !== 'LIST_LOAD_DATA') {
-      // localRemindData = localRemindData.toJS();a
-      const ndata = normalizrData.toJS();
-      data = data.listData;
-      const array = data.map((key) => {
-        const res = ndata[key];
-        const iCardM = iCard.get(res[ICARD]);
-        res.iCard = iCardM && iCardM.toJS();
-        return res;
-      });
-
-      if (Platform.OS === 'ios') {
-        dayNotification(array, localRemindData, user.nickname || '');
-      } else if (!isEmulatorSync()) {
-        calendarEvents(array, localRemindData, user.nickname || '');
-      }
-    }
-  };
-
-  debounceRemind = debounce(this.remind, 1000, {
-    leading: false,
-    trailing: true,
-  });
-
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //
-  //     let  data = nextProps.data.toJS()
-  //
-  //     if(!!nextProps.iCard && data.loadStatu !== "LIST_LOAD_DATA"){
-  //         const ndata = nextProps.normalizrData.toJS()
-  //         data = data.listData
-  //         const array = data.map(key =>{
-  //             const res = ndata[key]
-  //             res.iCard = nextProps.iCard.get(res[ICARD]).toJS()
-  //             return res
-  //         })
-  //
-  //         // console.log('test:', array);
-  //         dayNotification(array)
-  //
-  //     }
-  // }
-
-  render() {
-    return null;
-  }
-}
 const calendarSaved = {};
 const calendarEvents = async (
   data: ItemType[],
@@ -470,13 +394,28 @@ const dayNotification = async (
   });
 };
 
-const LocalNotification: FC<{}> = () => {
+const useLocalNotification = () => {
   const user = useGetUserInfo();
   const localRemindData = useLoadlocalRemind();
+  const { data = [] } = useGetIuseData();
 
-  return (
-    <LocalNotificationClass user={user!} localRemindData={localRemindData} />
+  const debounced = useDebouncedCallback(
+    // function
+    (nickname: string, localRemindData1: RemindDataType, iUse1: IUseType[]) => {
+      if (Platform.OS === 'ios') {
+        dayNotification(iUse1, localRemindData1, nickname);
+      } else if (!isEmulatorSync()) {
+        calendarEvents(iUse1, localRemindData1, nickname);
+      }
+    },
+    // delay in ms
+    1000,
+    { trailing: true, leading: true },
   );
+
+  useEffect(() => {
+    debounced.callback(user.nickname || '', localRemindData, data);
+  }, [data, debounced, localRemindData, user.nickname]);
 };
 
-export default memo(LocalNotification);
+export default useLocalNotification;

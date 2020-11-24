@@ -75,7 +75,9 @@ export default class RecordRow extends Component<
 
   render() {
     const { item } = this.props;
-    if (!item) return null;
+    if (!item) {
+      return null;
+    }
     const { visible, index } = this.state;
     const { imgs } = item;
     const date = moment(item.createdAt).format(' dddd');

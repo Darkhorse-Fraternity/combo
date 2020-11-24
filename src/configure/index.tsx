@@ -17,7 +17,6 @@ import { epUpdate } from '../components/Update/EPUpdate';
 import { appStateUpdate } from '../redux/actions/util';
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
-import LocalNotification from './localNotification';
 import LightStatuBar from '../Theme/LightStatuBar';
 import InfoBar from '../components/InfoBar';
 import DataContext, { useGetUserInfo } from 'src/data/data-context';
@@ -25,6 +24,7 @@ import { isTablet } from 'react-native-device-info';
 import { navigationRef } from '@components/Nav/navigators';
 import { RouteKey } from '@pages/interface';
 import { UserType } from 'src/data/data-context/interface';
+import useLocalNotification from './localNotification';
 
 require('../../helps/AnimatableRegist');
 //
@@ -40,7 +40,7 @@ class ConfigureClass extends PureComponent<{ isLogin: boolean }> {
     super(props);
     // 企业版检测版本
     props.dispatch(pushConfig());
-    props.dispatch(appStateUpdate(AppState.currentState));
+    // props.dispatch(appStateUpdate(AppState.currentState));
   }
 
   // static propTypes = {
@@ -86,19 +86,18 @@ class ConfigureClass extends PureComponent<{ isLogin: boolean }> {
   componentDidMount() {
     // BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
     // Linking.addEventListener('url', this._handleOpenURL);
-    AppState.addEventListener('change', this._handleAppStateChange);
-
+    // AppState.addEventListener('change', this._handleAppStateChange);
     // this._getInitialURL();
   }
 
   componentWillUnmount() {
     // BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
     // Linking.removeEventListener('url', this._handleOpenURL);
-    AppState.removeEventListener('change', this._handleAppStateChange);
+    // AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
   _handleAppStateChange = (nextAppState) => {
-    this.props.dispatch(appStateUpdate(nextAppState));
+    // this.props.dispatch(appStateUpdate(nextAppState));
   };
 
   // onBeforeStart = // 在这里可以发请求，用promise返回结果
@@ -269,14 +268,13 @@ const Configure: FC<{}> = ({ children }) => {
   //   });
   // }, []);
   // console.log('isEmulatorSync()', isEmulatorSync());
-
+  useLocalNotification();
   return (
     <>
       <LightStatuBar />
       <ConfigureClass isLogin={isLogin} />
       {children}
-      <LocalNotification />
-      <InfoBar />
+      {/* <InfoBar /> */}
       <UserDependsClass />
     </>
   );
