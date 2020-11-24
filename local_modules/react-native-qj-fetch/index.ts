@@ -10,8 +10,8 @@ import {
   setShowErrorAction,
   reqProps,
 } from './config';
-import {send, reqTry, req, reqO, reqCache} from './req';
-import {useFetch, useReq} from './useReq';
+import { send, reqTry, req, reqO, reqCache } from './req';
+import { useFetch, useReq } from './useReq';
 
 export {
   send,

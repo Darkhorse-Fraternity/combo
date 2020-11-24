@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Alert, View, Text } from 'react-native';
+import { View } from 'react-native';
 import { useForm } from 'react-hook-form';
 import {
   StyledContent,

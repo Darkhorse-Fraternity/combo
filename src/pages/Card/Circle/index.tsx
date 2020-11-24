@@ -24,7 +24,7 @@ import {
   StyledNativeUnifiedADView,
 } from './style';
 
-import { iCard as iCardM } from '../../../request/LCModle';
+import { iCardPoint } from '../../../request/LCModle';
 import { loadWithObjectInfo } from '@components/GDTNativeUnifiedAD';
 import { GTDAppId, GTDUnifiedNativeplacementId } from '@configure/tencent_ad';
 import { useNavigation } from '@react-navigation/native';
@@ -279,7 +279,7 @@ const Circle: FC<CircleProps> = (props) => {
 
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
-      ...iCardM(iCard.objectId),
+      iCard: iCardPoint(iCard.objectId),
       $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
       state: { $ne: -1 }, // -1 为已删除
     };

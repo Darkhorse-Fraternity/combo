@@ -47,7 +47,7 @@ import {
   useGetClassesIUseId,
 } from 'src/hooks/interface';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
-import { iUsePoint, user as UserM } from '@request/LCModle';
+import { iUsePoint, userPoint } from '@request/LCModle';
 import moment from 'moment';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { isTablet } from 'react-native-device-info';
@@ -245,7 +245,7 @@ const Render: FC<{}> = () => {
       //   imgs && setValue(RecordImgs, imgs.map(url => ({ url })))
       // })
       const where = {
-        ...UserM(user?.objectId || ''),
+        user: userPoint(user?.objectId || ''),
         iUse: iUsePoint(iUseId),
         state: { $ne: -1 },
       };

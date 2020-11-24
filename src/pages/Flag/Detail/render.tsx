@@ -18,8 +18,6 @@ import Toast from 'react-native-simple-toast';
 import FlipButton from '../../../components/Button/FlipButton';
 import {
   selfUser,
-  iCard,
-  Flag,
   iCardPoint,
   FlagPoint,
   userPoint,
@@ -85,8 +83,8 @@ interface FDProps {
       const param = {
         // notifyTime:option&&option.notifyTime||"20.00",
         ...dispatch(selfUser()),
-        ...iCard(icardId),
-        ...Flag(flagId),
+        iCard: iCardPoint(icardId),
+        Flag: FlagPoint(flagId),
         title: description,
         amount: cost,
         startDate,

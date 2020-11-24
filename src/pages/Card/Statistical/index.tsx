@@ -17,71 +17,66 @@ import {
   StyledLogButtonText,
 } from './style';
 
-import AgendaScreen from './agenda';
 import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
 import {
-  GetClassesICardIdResponse,
-  GetClassesIDoIdResponse,
   GetClassesIDoResponse,
-  GetClassesIUseIdResponse,
   postClassesIDo,
   useGetClassesIDo,
 } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
-import { point } from '@request/LCModle';
-import { iUse as iUseM, user as userM } from '@request/LCModle';
+import { iUsePoint, point, userPoint } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import Calendar from '@components/Calendar';
 import { IUseType } from 'src/data/data-context/interface';
 
 type ItemType = GetClassesIDoResponse['results'][number];
 
-const calendParam = (
-  first: string,
-  last: string,
-  userId: string,
-  iUseId: string,
-) => {
-  const param = {
-    where: {
-      ...userM(userId),
-      ...iUseM(iUseId),
-      $or: [
-        {
-          doneDate: {
-            $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
-            $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
-          },
-        },
-        {
-          createdAt: {
-            $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
-            $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
-          },
-        },
-      ],
-      state: { $ne: -1 },
-      type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
-    },
-  };
-  // dispatch(req(params, IDOCALENDAR, {
-  //   dataMap: (datas) => {
-  //     // console.log('datas', datas);
+// const calendParam = (
+//   first: string,
+//   last: string,
+//   userId: string,
+//   iUseId: string,
+// ) => {
+//   const param = {
+//     where: {
+//       user: userPoint(userId),
+//       iUse: iUsePoint(iUseId),
+//       $or: [
+//         {
+//           doneDate: {
+//             $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+//             $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+//           },
+//         },
+//         {
+//           createdAt: {
+//             $gte: { __type: 'Date', iso: `${first}T00:00:00.000Z` },
+//             $lte: { __type: 'Date', iso: `${last}T24:00:00.000Z` },
+//           },
+//         },
+//       ],
+//       state: { $ne: -1 },
+//       type: { $ne: 1 }, // 0为打卡,1为日记,2为补打卡
+//     },
+//   };
+//   // dispatch(req(params, IDOCALENDAR, {
+//   //   dataMap: (datas) => {
+//   //     // console.log('datas', datas);
 
-  //     datas.results.forEach((item) => {
-  //       const { createdAt, doneDate } = item;
-  //       const time = doneDate ? doneDate.iso : createdAt;
-  //       const date = moment(time).format('YYYY-MM-DD');
-  //       data[date] = item;
-  //     });
+//   //     datas.results.forEach((item) => {
+//   //       const { createdAt, doneDate } = item;
+//   //       const time = doneDate ? doneDate.iso : createdAt;
+//   //       const date = moment(time).format('YYYY-MM-DD');
+//   //       data[date] = item;
+//   //     });
 
-  //     //  console.log('first:', first,datas,data);
-  //     return data;
-  //   }
-  // }));
-};
+//   //     //  console.log('first:', first,datas,data);
+//   //     return data;
+//   //   }
+//   // }));
+// };
 
 const retroactive = (
   item: any,
@@ -176,7 +171,6 @@ const LogButton: FC<{ color: string; iCardId: string; iUseId: string }> = ({
   iCardId,
   iUseId,
   color,
-  ...other
 }) => {
   const { navigate } = useNavigation();
   return (
@@ -197,7 +191,7 @@ interface StatisticalProps {
   userId?: string;
 }
 
-const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
+const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
   const user = useGetUserInfo();
   const { navigate } = useNavigation();
   const cardCreatedAt = moment(iCard.createdAt).format('YYYY-MM-DD');
@@ -226,8 +220,8 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
     count: '1',
     limit: '0',
     where: JSON.stringify({
-      ...userM(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
-      ...iUseM(iUseId),
+      user: userPoint(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
+      iUse: iUsePoint(iUseId),
       $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
       state: { $ne: -1 },
     }),
@@ -340,8 +334,8 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse, ...other }) => {
         move={(first, last) => {
           // 加载本月数据
           const where = {
-            ...userM(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
-            ...iUseM(iUseId),
+            user: userPoint(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
+            iUse: iUsePoint(iUseId),
             $or: [
               {
                 doneDate: {

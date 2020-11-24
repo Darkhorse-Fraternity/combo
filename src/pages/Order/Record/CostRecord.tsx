@@ -4,9 +4,7 @@
  */
 'use strict';
 
-import React, { FC, PureComponent } from 'react';
-
-import LCList from '../../../components/Base/LCList';
+import React, { FC } from 'react';
 
 import {
   StyledRow,
@@ -17,60 +15,56 @@ import {
   StyledRowStatu,
 } from './style';
 import moment from 'moment';
-import { ORDER } from '../../../redux/reqKeys';
-const listKey = ORDER;
 
-import { pointModel } from '../../../request/LCModle';
+import { userPoint } from '../../../request/LCModle';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
+import { getClassesOrder, GetClassesOrderResponse } from 'src/hooks/interface';
+import { ListRenderItem } from 'react-native';
+import PageList from '@components/Base/PageList';
 
-class CostRecordClass extends PureComponent {
-  renderRow = ({ item, index }) => {
-    // console.log('item:', item);
-    return (
-      <StyledRow>
-        <StyledRowInner>
-          <StyledRowTitle>订单号：{item.tradeId}</StyledRowTitle>
-          <StyledRowDate>
-            {moment(item.createdAt).format('YYYY-MM-DD')}
-          </StyledRowDate>
-        </StyledRowInner>
-        <StyledRowInner style={{ marginTop: 10 }}>
-          <StyledRowStatu numberOfLines={1}>{item.description}</StyledRowStatu>
-          <StyledRowAmount>￥{item.amount.toFixed(1)}</StyledRowAmount>
-        </StyledRowInner>
-      </StyledRow>
-    );
+type ItemType = NonNullable<GetClassesOrderResponse['results']>[number];
+
+const renderRow: ListRenderItem<ItemType> = ({ item }) => {
+  // console.log('item:', item);
+  return (
+    <StyledRow>
+      <StyledRowInner>
+        <StyledRowTitle>订单号：{item.tradeId}</StyledRowTitle>
+        <StyledRowDate>
+          {moment(item.createdAt).format('YYYY-MM-DD')}
+        </StyledRowDate>
+      </StyledRowInner>
+      <StyledRowInner style={{ marginTop: 10 }}>
+        <StyledRowStatu numberOfLines={1}>{item.description}</StyledRowStatu>
+        <StyledRowAmount>￥{item.amount.toFixed(1)}</StyledRowAmount>
+      </StyledRowInner>
+    </StyledRow>
+  );
+};
+
+const CostRecord: FC<{}> = () => {
+  const { user } = useGetInfoOfMe();
+
+  const loadPage = (page_index: number, page_size: number) => {
+    const where = {
+      user: userPoint(user.objectId),
+      statu: '1',
+    };
+    const param = {
+      limit: page_size + '',
+      skip: page_index * page_size + '',
+      where: JSON.stringify(where),
+    };
+    return getClassesOrder(param).then((res) => res.results);
   };
 
-  render() {
-    const { user } = this.props;
-
-    const param = {
-      where: {
-        ...pointModel('user', user.objectId),
-        statu: '1',
-      },
-    };
-
-    return (
-      <LCList
-        reqKey={listKey}
-        sKey={'cost'}
-        style={{ flex: 1 }}
-        renderItem={this.renderRow.bind(this)}
-        noDataPrompt={'还没有记录'}
-        //dataMap={(data)=>{
-        //   return {[OPENHISTORYLIST]:data.list}
-        //}}
-        reqParam={param}
-      />
-    );
-  }
-}
-
-const CostRecord: FC<{}> = (props) => {
-  const { user } = useGetInfoOfMe();
-  return <CostRecordClass {...props} user={user} />;
+  return (
+    <PageList<ItemType>
+      loadPage={loadPage}
+      renderItem={renderRow}
+      noDataPrompt="还没有记录"
+    />
+  );
 };
 
 export default CostRecord;

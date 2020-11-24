@@ -6,7 +6,7 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { DeviceEventEmitter, ListRenderItemInfo } from 'react-native';
 import RecordRow from '../Statistical/Row';
-import { iUse as iUseM, user as UserM } from '@request/LCModle';
+import { iUsePoint, userPoint } from '@request/LCModle';
 import { useGetUserInfo } from 'src/data/data-context';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
@@ -39,8 +39,8 @@ export const Log: FC<{}> = () => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.log>();
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
-      ...UserM(user!.objectId),
-      ...iUseM(iUseId),
+      user: userPoint(user!.objectId),
+      iUse: iUsePoint(iUseId),
       $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
       state: { $ne: -1 },
     };

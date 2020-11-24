@@ -12,11 +12,9 @@ import {
   Platform,
   Dimensions,
   FlatList,
-  SectionList,
   FlatListProps,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  ImageSourcePropType,
   StyleProp,
   ViewStyle,
 } from 'react-native';

@@ -3,12 +3,10 @@
  * @flow
  */
 
-import React, { FC, PureComponent } from 'react';
-import { ListRenderItem, View } from 'react-native';
+import React, { FC } from 'react';
+import { ListRenderItem } from 'react-native';
 import moment from 'moment';
-import { user as UserM } from '../../../request/LCModle';
-import { ENCH } from '../../../redux/reqKeys';
-import { StyledContent } from './style';
+import { userPoint } from '../../../request/LCModle';
 
 import {
   StyledRow,
@@ -18,18 +16,18 @@ import {
   StyledRowStatu,
   StyledRowInner,
 } from './style';
-import LCList from '../../../components/Base/LCList';
-import PageList from '@components/Base/PageList';
 import { useGetUserInfo } from 'src/data/data-context';
+import {
+  getClassesEnchashment,
+  GetClassesEnchashmentResponse,
+} from 'src/hooks/interface';
+import PageList from '@components/Base/PageList';
 
 // interface EnchItem {}
 
-const renderRow: ListRenderItem<{
-  amount: string;
-  enchId: string;
-  createdAt: string;
-  statu: number;
-}> = ({ item, index }) => {
+type ItemType = NonNullable<GetClassesEnchashmentResponse['results']>[number];
+
+const renderRow: ListRenderItem<ItemType> = ({ item }) => {
   let statu = '处理中';
   if (item.statu === 1) {
     statu = '已处理';
@@ -58,49 +56,25 @@ const renderRow: ListRenderItem<{
   );
 };
 
-const listKey = ENCH;
-// export default class CashRecordClass extends PureComponent {
-//   render() {
-//     const { dispatch } = this.props;
-//     const param = {
-//       where: {
-//         ...dispatch(selfUser()),
-//       },
-//     };
-
-//     return (
-//       <LCList
-//         reqKey={listKey}
-//         style={{ flex: 1 }}
-//         renderItem={renderRow)}
-//         noDataPrompt="还没有记录"
-//         // dataMap={(data)=>{
-//         //   return {[OPENHISTORYLIST]:data.list}
-//         // }}
-//         reqParam={param}
-//       />
-//     );
-//   }
-// }
-
 const CashRecord: FC<{}> = () => {
   const user = useGetUserInfo();
-  const param = {
-    where: {
-      ...UserM(user.objectId),
-    },
+  const loadPage = (page_index: number, page_size: number) => {
+    const where = {
+      user: userPoint(user.objectId),
+    };
+    const param = {
+      limit: page_size + '',
+      skip: page_index * page_size + '',
+      where: JSON.stringify(where),
+    };
+    return getClassesEnchashment(param).then((res) => res.results);
   };
 
   return (
-    <LCList
-      reqKey={listKey}
-      style={{ flex: 1 }}
+    <PageList<ItemType>
+      loadPage={loadPage}
       renderItem={renderRow}
       noDataPrompt="还没有记录"
-      // // dataMap={(data)=>{
-      // //   return {[OPENHISTORYLIST]:data.list}
-      // // }}
-      reqParam={param}
     />
   );
 };

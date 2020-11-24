@@ -725,7 +725,7 @@ const dataKey_0_1_0_0 = undefined as any
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 export interface PostCallIUseList3Request {}
 
@@ -734,7 +734,7 @@ export interface PostCallIUseList3Request {}
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 export interface PostCallIUseList3Response {
   result?: {
@@ -743,8 +743,8 @@ export interface PostCallIUseList3Response {
       privacy: number
       time: number
       doneDate: {
-        __type?: string
-        iso?: string
+        __type: string
+        iso: string
       }
       user: {
         __type?: string
@@ -754,6 +754,9 @@ export interface PostCallIUseList3Response {
       statu: string
       iCard: {
         notifyTimes?: string[]
+        activityEndDate?: {
+          iso: string
+        }
         sound?: {
           open?: boolean
           item?: {
@@ -836,7 +839,7 @@ export interface PostCallIUseList3Response {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
@@ -856,7 +859,7 @@ type PostCallIUseList3RequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -877,7 +880,7 @@ const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 export const postCallIUseList3 = makeRequest<
   PostCallIUseList3Request,
@@ -890,7 +893,7 @@ export const postCallIUseList3 = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-18 14:34:29`
+ * @更新时间 `2020-11-24 13:44:31`
  */
 export const usePostCallIUseList3 = makeRequestHook<
   PostCallIUseList3Request,
@@ -4669,5 +4672,232 @@ export const useGetClassesFlag = makeRequestHook<
   GetClassesFlagRequestConfig,
   ReturnType<typeof getClassesFlag>
 >(getClassesFlag)
+
+const mockUrl_0_1_0_6 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_6 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_6 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_6 = undefined as any
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **请求类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+export interface GetClassesOrderRequest {
+  count?: string
+  where?: string
+  include?: string
+  limit?: string
+  skip?: string
+}
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **返回类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+export interface GetClassesOrderResponse {
+  results?: {
+    description: string
+    amount: number
+    updatedAt: string
+    beneficiary: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    objectId: string
+    payType: string
+    createdAt: string
+    tradeId: number
+    benefit: number
+    user: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    statu: string
+    payId: string
+    detail: string
+  }[]
+}
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **请求配置的类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+type GetClassesOrderRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Order',
+    undefined,
+    string,
+    'count' | 'where' | 'include' | 'limit' | 'skip',
+    false
+  >
+>
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **请求配置**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+const getClassesOrderRequestConfig: GetClassesOrderRequestConfig = {
+  mockUrl: mockUrl_0_1_0_6,
+  devUrl: devUrl_0_1_0_6,
+  prodUrl: prodUrl_0_1_0_6,
+  path: '/classes/Order',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_6,
+  paramNames: [],
+  queryNames: ['count', 'where', 'include', 'limit', 'skip'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **请求函数**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+export const getClassesOrder = makeRequest<
+  GetClassesOrderRequest,
+  GetClassesOrderResponse,
+  GetClassesOrderRequestConfig
+>(getClassesOrderRequestConfig)
+
+/**
+ * 接口 [交易记录列表↗](http://121.89.170.197:3000/project/59/interface/api/560) 的 **React Hook**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Order`
+ * @更新时间 `2020-11-24 13:26:53`
+ */
+export const useGetClassesOrder = makeRequestHook<
+  GetClassesOrderRequest,
+  GetClassesOrderRequestConfig,
+  ReturnType<typeof getClassesOrder>
+>(getClassesOrder)
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **请求类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+export interface GetClassesEnchashmentRequest {
+  count?: string
+  where?: string
+  include?: string
+  limit?: string
+  skip?: string
+}
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **返回类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+export interface GetClassesEnchashmentResponse {
+  results?: {
+    enchId: number
+    amount: number
+    updatedAt: string
+    name: string
+    objectId: string
+    createdAt: string
+    account: string
+    user: {
+      __type?: string
+      className?: string
+      objectId?: string
+    }
+    statu: number
+  }[]
+}
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **请求配置的类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+type GetClassesEnchashmentRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Enchashment',
+    undefined,
+    string,
+    'count' | 'where' | 'include' | 'limit' | 'skip',
+    false
+  >
+>
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **请求配置**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+const getClassesEnchashmentRequestConfig: GetClassesEnchashmentRequestConfig = {
+  mockUrl: mockUrl_0_1_0_6,
+  devUrl: devUrl_0_1_0_6,
+  prodUrl: prodUrl_0_1_0_6,
+  path: '/classes/Enchashment',
+  method: Method.GET,
+  requestBodyType: RequestBodyType.query,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_6,
+  paramNames: [],
+  queryNames: ['count', 'where', 'include', 'limit', 'skip'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **请求函数**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+export const getClassesEnchashment = makeRequest<
+  GetClassesEnchashmentRequest,
+  GetClassesEnchashmentResponse,
+  GetClassesEnchashmentRequestConfig
+>(getClassesEnchashmentRequestConfig)
+
+/**
+ * 接口 [取现记录列表↗](http://121.89.170.197:3000/project/59/interface/api/562) 的 **React Hook**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `GET /classes/Enchashment`
+ * @更新时间 `2020-11-24 13:26:38`
+ */
+export const useGetClassesEnchashment = makeRequestHook<
+  GetClassesEnchashmentRequest,
+  GetClassesEnchashmentRequestConfig,
+  ReturnType<typeof getClassesEnchashment>
+>(getClassesEnchashment)
 
 /* prettier-ignore-end */
