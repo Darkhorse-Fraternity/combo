@@ -67,7 +67,6 @@ const { mainColor } = getTheme();
   (dispatch, props) => ({
     // ...bindActionCreators({},dispatch),
     mRegister: (state) => {
-      Keyboard.dismiss();
       dispatch(register(state, props.navigation));
     },
     authCode: (number) => {
@@ -159,7 +158,7 @@ class LoginViewClass extends Component {
       this.refs['2'].focus();
       return;
     }
-
+    Keyboard.dismiss();
     this.props.mRegister(this.state);
     this.setState({ ymCode: '' });
   }

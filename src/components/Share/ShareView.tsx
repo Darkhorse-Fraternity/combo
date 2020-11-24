@@ -13,11 +13,10 @@ import {
   TouchableNativeFeedback,
   SafeAreaView,
 } from 'react-native';
-import { connect } from 'react-redux';
 import { theme } from '../../Theme';
 
 import {
-  shareTo,
+  shareTo as share,
   SHARE_TO_TIMELINE,
   SHARE_TO_SESSION,
   SHARE_TO_QQ,
@@ -27,16 +26,18 @@ import Button from '../Button';
 
 import { isQQInstalled } from 'react-native-qq';
 import Modal from 'react-native-modal';
+import { IUseType } from 'src/data/data-context/interface';
+import { ShareMetadata } from 'react-native-wechat';
 
 interface ShareModal {
-  iCard: object;
-  iUse: object;
+  iCard: IUseType['iCard'];
+  iUse: IUseType;
   isVisible: boolean;
   onClose: () => void;
 }
 
 export const ShareModal = (props: ShareModal) => {
-  const { isVisible, ...other } = props;
+  const { isVisible } = props;
   return (
     <Modal
       useNativeDriver
@@ -58,14 +59,6 @@ interface StateType {
   isQQInstalled: boolean;
 }
 
-@connect(
-  (state) => ({}),
-  (dispatch) => ({
-    share: (type, params) => {
-      dispatch(shareTo(type, params));
-    },
-  }),
-)
 export default class ShareView extends Component<ShareModal, StateType> {
   constructor(props: ShareModal) {
     super(props);
@@ -106,16 +99,15 @@ export default class ShareView extends Component<ShareModal, StateType> {
       </Button>
     );
 
-    const { share, iCard, iUse } = this.props;
-    const { time } = iUse;
+    const { iCard } = this.props;
     const url =
       (iCard.img && iCard.img.url) ||
       'http://file.icourage.cn/ace9c22b40557933858f.png';
 
-    const shareParams = {
+    const shareParams: Omit<ShareMetadata, 'type'> = {
       title: iCard.title,
       webpageUrl: `https://icourage.cn/cardInfo?iCardId=${iCard.objectId}`,
-      description: iCard.nitifyText || '加入我的卡片，和我结伴同行',
+      description: iCard.notifyText || '加入我的卡片，和我结伴同行',
       imageUrl: url,
       thumbImage: `${url}?imageView/1/w/100/h/100/q/50`, // /1/代表center
     };

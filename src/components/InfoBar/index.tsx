@@ -15,16 +15,16 @@ import { dataStorage } from '../../redux/actions/util';
 import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 
-@connect(
-  (state) => ({
-    notify: state.util.get('notify'),
-  }),
-  (dispatch) => ({
-    hidden: () => {
-      dispatch(dataStorage('notify', { show: false }));
-    },
-  }),
-)
+// @connect(
+//   (state) => ({
+//     notify: state.util.get('notify'),
+//   }),
+//   (dispatch) => ({
+//     hidden: () => {
+//       dispatch(dataStorage('notify', { show: false }));
+//     },
+//   }),
+// )
 export default class InfoBar extends Component {
   static defaultProps = {
     notify: fromJS({ show: false }),

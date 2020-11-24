@@ -725,7 +725,7 @@ const dataKey_0_1_0_0 = undefined as any
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 export interface PostCallIUseList3Request {}
 
@@ -734,7 +734,7 @@ export interface PostCallIUseList3Request {}
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 export interface PostCallIUseList3Response {
   result?: {
@@ -823,6 +823,9 @@ export interface PostCallIUseList3Response {
         className?: string
         color?: string
         icon?: string
+        img?: {
+          url: string
+        }
       }
       isFb: boolean
       objectId: string
@@ -839,7 +842,7 @@ export interface PostCallIUseList3Response {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
@@ -859,7 +862,7 @@ type PostCallIUseList3RequestConfig = Readonly<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   mockUrl: mockUrl_0_1_0_0,
@@ -880,7 +883,7 @@ const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 export const postCallIUseList3 = makeRequest<
   PostCallIUseList3Request,
@@ -893,7 +896,7 @@ export const postCallIUseList3 = makeRequest<
  *
  * @分类 [iUse↗](http://121.89.170.197:3000/project/59/interface/api/cat_368)
  * @请求头 `POST /call/iUseList3`
- * @更新时间 `2020-11-24 13:44:31`
+ * @更新时间 `2020-11-24 15:12:59`
  */
 export const usePostCallIUseList3 = makeRequestHook<
   PostCallIUseList3Request,

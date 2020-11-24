@@ -14,7 +14,6 @@ import * as QQAPI from 'react-native-qq';
 import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import md5 from 'react-native-md5';
-import { user } from '../../request/LCModle';
 import { updatePush } from '../../configure/push/push';
 import { setLeanCloudSession } from '../../configure/reqConfigs';
 import { get } from './req';
@@ -44,6 +43,7 @@ import {
   verifySmsCode,
 } from '../../request/leanCloud';
 import { iCardSample, iUseSample } from 'src/data/data-context/user';
+import { UserType } from 'src/data/data-context/interface';
 
 ('use strict');
 
@@ -373,13 +373,13 @@ function _loginSucceed(response: Object): Object {
   // });
 }
 
-export function loginSucceed(data: Object): Object {
+export function loginSucceed(data: UserType) {
   // 保存登录信息。
   setLeanCloudSession(data.sessionToken);
   // setAPPAuthorization(data.authorization);
 
   // console.log('data:', data);
-  updatePush(user(data.objectId));
+  updatePush(data.objectId);
 
   return {
     type: LOGIN_SUCCEED,

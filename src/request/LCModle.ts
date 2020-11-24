@@ -12,10 +12,6 @@ export function pointModel(name: string, objectId: string, className?: string) {
   };
 }
 
-export function user(objectId: string) {
-  return pointModel('user', objectId, '_User');
-}
-
 export function selfUser() {
   return (dispatch) =>
     dispatch((dispatch, getState) => {

@@ -7,10 +7,7 @@ import * as immutable from 'immutable';
 
 const initialState = immutable.fromJS({});
 
-export default function itemState(
-  state: immutable.Map<string, any> = initialState,
-  action: Object,
-) {
+export default function itemState(state = initialState, action) {
   switch (action.type) {
     default:
       return state;

@@ -18,7 +18,7 @@ import { appStateUpdate } from '../redux/actions/util';
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 import LightStatuBar from '../Theme/LightStatuBar';
-import InfoBar from '../components/InfoBar';
+// import InfoBar from '../components/InfoBar';
 import DataContext, { useGetUserInfo } from 'src/data/data-context';
 import { isTablet } from 'react-native-device-info';
 import { navigationRef } from '@components/Nav/navigators';
@@ -34,12 +34,11 @@ require('../../helps/AnimatableRegist');
 //   isEmulator: boolean;
 // }
 
-@connect(() => ({}))
-class ConfigureClass extends PureComponent<{ isLogin: boolean }> {
-  constructor(props) {
+class ConfigureClass extends PureComponent<{ isLogin: boolean; uid: string }> {
+  constructor(props: { isLogin: boolean; uid: string }) {
     super(props);
     // 企业版检测版本
-    props.dispatch(pushConfig());
+    pushConfig(props.uid);
     // props.dispatch(appStateUpdate(AppState.currentState));
   }
 
@@ -272,7 +271,7 @@ const Configure: FC<{}> = ({ children }) => {
   return (
     <>
       <LightStatuBar />
-      <ConfigureClass isLogin={isLogin} />
+      <ConfigureClass isLogin={isLogin} uid={user.objectId} />
       {children}
       {/* <InfoBar /> */}
       <UserDependsClass />
