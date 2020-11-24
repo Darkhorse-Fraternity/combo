@@ -1,8 +1,5 @@
-import React from 'react';
+import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import Render from './render';
-import { RouteKey, NavigationOptionsType } from '@pages/interface';
-import { TouchableItem } from '@react-navigation/stack/src/views/TouchableItem';
-import { StyledIonicons } from './style';
 
 const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = (props) => {
   return {

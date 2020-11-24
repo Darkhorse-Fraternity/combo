@@ -3,79 +3,70 @@
  * @flow
  */
 
-import React, { FC, useEffect, useRef, useState } from 'react';
-import {
-  View,
-  Platform,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  ActivityIndicator,
-  Keyboard,
-  DeviceEventEmitter,
-  TextInput,
-  ListRenderItem,
-  Alert,
-} from 'react-native';
+import PageList from '@components/Base/PageList';
+// import NavBar from '../..../components/Nav/bar/NavBar';
+import KeyboardSpacer from '@components/KeyboardSpacer';
+import { LoadAnimation } from '@components/Load';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { DeviceEventEmitterKey } from '@configure/enum';
+import { RouteKey } from '@pages/interface';
 import { BlurView } from '@react-native-community/blur';
 import Clipboard from '@react-native-community/clipboard';
-import {
-  KeyboardAccessoryView,
-  // KeyboardUtils
-} from 'react-native-keyboard-input';
+import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
-import Toast from 'react-native-simple-toast';
-import * as Animatable from 'react-native-animatable';
-import RecordRow from '../RecordRow';
-
-import { userPoint, iDoPoint } from '../../../request/LCModle';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
-  StyledHeader,
-  StyledRow,
-  StyledRowLeft,
-  StyledRowRight,
-  StyledNickText,
-  StyledContentText,
-  StyledDate,
-  StyledIcon,
-  StyledRightView,
-  StyledContent,
-  StyledKeyboardAvoidingView,
-  StyleAutoGrowingChatTextInput,
-  StyledSumbitBtn,
-  StyledSumbitBtnText,
-  Form,
-  StyleBottom,
-} from './style';
-import Dialog from '../../../components/Dialog';
-import Button from '../../../components/Button';
-// static displayName = RComment
-import { AvatarAuto } from '../../../components/Avatar/avatar-fc';
-// import NavBar from '../..../components/Nav/bar/NavBar';
-
-import KeyboardSpacer from '@components/KeyboardSpacer';
-import { RouteKey } from '@pages/interface';
+  ActivityIndicator,
+  Alert,
+  DeviceEventEmitter,
+  Keyboard,
+  Platform,
+  TextInput,
+  TouchableNativeFeedback,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import * as Animatable from 'react-native-animatable';
+import { KeyboardAccessoryView } from 'react-native-keyboard-input';
+import Toast from 'react-native-simple-toast';
+import { useGetUserInfo } from 'src/data/data-context';
 import {
   getClassesIComment,
   GetClassesICommentResponse,
   GetClassesIDoIdResponse,
-  putClassesIDoId,
   useDeleteClassesICommentId,
   useGetClassesIDoId,
   usePostClassesIComment,
   usePutClassesIDoId,
 } from 'src/hooks/interface';
-import { useNavigation } from '@react-navigation/native';
-import { useGetUserInfo } from 'src/data/data-context';
-import PageList from '@components/Base/PageList';
-import { useNavigationAllParamsWithType } from '@components/Nav/hook';
-import { LoadAnimation } from '@components/Load';
-import { DeviceEventEmitterKey } from '@configure/enum';
+// static displayName = RComment
+import { AvatarAuto } from '../../../components/Avatar/avatar-fc';
+import Button from '../../../components/Button';
+import Dialog from '../../../components/Dialog';
+import { iDoPoint, userPoint } from '../../../request/LCModle';
+import RecordRow from '../RecordRow';
+import {
+  Form,
+  StyleAutoGrowingChatTextInput,
+  StyledContent,
+  StyledContentText,
+  StyledDate,
+  StyledHeader,
+  StyledIcon,
+  StyledNickText,
+  StyledRightView,
+  StyledRow,
+  StyledRowLeft,
+  StyledRowRight,
+  StyledSumbitBtn,
+  StyledSumbitBtnText,
+} from './style';
 
 type ItemType = NonNullable<GetClassesICommentResponse['results']>[number];
 
 const IsIOS = Platform.OS === 'ios';
 const TrackInteractive = true;
-const Name = 'text';
+// const Name = 'text';
 
 const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   const { data, run } = useGetClassesIDoId({ id: iDoId });
@@ -106,7 +97,7 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
                 { text: '取消' },
                 {
                   text: '确定',
-                  onPress: deleteRun,
+                  onPress: () => deleteRun(),
                 },
               ]);
             }}
@@ -118,7 +109,7 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
     return () => {
       Keyboard.dismiss();
     };
-  }, [data]);
+  }, [data, deleteLoading, deleteRun, setOptions]);
 
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
@@ -135,7 +126,9 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   if (!data) {
     return <LoadAnimation />;
   }
-  return <StyledHeader>{data && <RecordRow item={data} />}</StyledHeader>;
+  return (
+    <StyledHeader>{data && <RecordRow item={data as never} />}</StyledHeader>
+  );
 };
 
 const RenderRightView: FC<{
@@ -340,7 +333,7 @@ const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
 
 interface RCommentProps {}
 
-const RComment: FC<RCommentProps> = (props) => {
+const RComment: FC<RCommentProps> = () => {
   const { iDoID } = useNavigationAllParamsWithType<RouteKey.rcomment>();
 
   const ref = useRef<PageList<ItemType>>(null);

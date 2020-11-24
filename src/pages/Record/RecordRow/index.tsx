@@ -5,23 +5,14 @@
 
 // import * as immutable from 'immutable';
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View } from 'react-native';
 import moment from 'moment';
 import {
   StyledTop,
-  StyledButton,
   StyledImage,
-  StyledZoomImage,
-  StyledArrowView,
-  StyledIcon,
-  StyledBottom,
-  StyledDateView,
   StyledImagesScolleView,
-  StyledNewTip,
   StyledDateText,
   StyledRecordText,
-  StyledChatbtn,
-  StyledChatBtnText,
   StyledImageButton,
 } from './style';
 import ImagesViewModal from '../../../components/ZoomImage/ImagesViewModal';

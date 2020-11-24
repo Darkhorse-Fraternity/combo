@@ -3,15 +3,14 @@ import {
   // import render from './render'
   toLazyExoticComponent,
 } from '@components/util/toLazyExoticComponent';
-import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import { StyledHeader, StyledHeaderText } from './style';
 import { TransitionPresets } from '@react-navigation/stack';
-import { Keyboard, View } from 'react-native';
+import { Keyboard } from 'react-native';
 import { ButtonItem } from '@components/Button';
 const render = lazy(() => import('./render'));
 
-const title = '打卡';
+// const title = '打卡';
 
 // const RightView = ({...props}: {tintColor?: string}) => {
 //   return (
