@@ -89,7 +89,7 @@ interface CustomMaskedInputProps extends Omit<TextInputProps, 'onChange'> {
 }
 
 const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
-  const { onChange, placeholderTextColor, ...rest } = props;
+  const { onChange, ...rest } = props;
   return (
     <StyledTexInput
       {...rest}
@@ -139,7 +139,7 @@ interface ToolBarItemProps {
 
 const ToolBarImagePickerItem: FC<
   TouchableOpacityProps & ToolBarProps & ToolBarItemProps
-> = ({ setValue, control, showTip, onPress, ...other }) => {
+> = ({ control, showTip, onPress, ...other }) => {
   const data = useWatch<UpdateImage[]>({ control, name: RecordImgs }) || [];
 
   return (
@@ -227,7 +227,7 @@ const Render: FC<{}> = () => {
   // const momentIn = moment(now).isBetween(before, after);
   const type = doneDateIso ? 2 : 0;
   const done = moment(0, 'HH').isBefore(data?.doneDate?.iso || '');
-  const [idoLoad, setIdoLoad] = useState(false);
+  // const [idoLoad, setIdoLoad] = useState(false);
 
   // useEffect(() => {
   //   if (!done && !loading) {
@@ -254,22 +254,21 @@ const Render: FC<{}> = () => {
         limit: '1',
         order: '-createdAt',
         where: JSON.stringify(where),
-      })
-        .then((res) => {
-          if (res.results[0]) {
-            const data = res.results[0];
-            const { recordText, imgs, objectId } = data;
-            idRef.current = objectId;
-            recordText && setValue(RecordText, recordText);
-            imgs &&
-              setValue(
-                RecordImgs,
-                imgs.map((url) => ({ url })),
-              );
-          }
-          setIdoLoad(false);
-        })
-        .catch(() => [setIdoLoad(false)]);
+      }).then((res) => {
+        if (res.results[0]) {
+          const data = res.results[0];
+          const { recordText, imgs, objectId } = data;
+          idRef.current = objectId;
+          recordText && setValue(RecordText, recordText);
+          imgs &&
+            setValue(
+              RecordImgs,
+              imgs.map((url) => ({ url })),
+            );
+        }
+        // setIdoLoad(false);
+      });
+      // .catch(() => [setIdoLoad(false)]);
     }
   }, [done, iDoId, iUseId, setValue, user?.objectId]);
 

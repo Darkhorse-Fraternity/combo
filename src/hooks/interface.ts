@@ -4677,6 +4677,143 @@ export const useGetClassesFlag = makeRequestHook<
   ReturnType<typeof getClassesFlag>
 >(getClassesFlag)
 
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **请求类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+export interface PostCallFbJoinRequest {
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  iCard: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  Flag: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  title: string
+  amount: number
+  startDate?: {
+    __type?: string
+    iso?: string
+  }
+  endDate?: {
+    __type?: string
+    iso?: string
+  }
+  tradeId?: string
+}
+
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **返回类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+export interface PostCallFbJoinResponse {
+  result: {
+    iUse: {
+      iCard: {
+        __type: string
+        className: string
+        objectId: string
+      }
+      privacy: number
+      time: number
+      statu: string
+      user: {
+        __type: string
+        className: string
+        objectId: string
+      }
+      doneDate: {
+        __type: string
+        iso: string
+      }
+      objectId: string
+      createdAt: string
+      updatedAt: string
+      __type: string
+      className: string
+    }
+  }
+}
+
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **请求配置的类型**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+type PostCallFbJoinRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/call/fbJoin',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **请求配置**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+const postCallFbJoinRequestConfig: PostCallFbJoinRequestConfig = {
+  mockUrl: mockUrl_0_1_0_5,
+  devUrl: devUrl_0_1_0_5,
+  prodUrl: prodUrl_0_1_0_5,
+  path: '/call/fbJoin',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_5,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **请求函数**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+export const postCallFbJoin = makeRequest<PostCallFbJoinRequest, PostCallFbJoinResponse, PostCallFbJoinRequestConfig>(
+  postCallFbJoinRequestConfig,
+)
+
+/**
+ * 接口 [参与副本↗](http://121.89.170.197:3000/project/59/interface/api/568) 的 **React Hook**
+ *
+ * @分类 [副本↗](http://121.89.170.197:3000/project/59/interface/api/cat_417)
+ * @请求头 `POST /call/fbJoin`
+ * @更新时间 `2020-11-25 15:44:29`
+ */
+export const usePostCallFbJoin = makeRequestHook<
+  PostCallFbJoinRequest,
+  PostCallFbJoinRequestConfig,
+  ReturnType<typeof postCallFbJoin>
+>(postCallFbJoin)
+
 const mockUrl_0_1_0_6 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_6 = 'https://api.icourage.cn/1.1' as any
 const prodUrl_0_1_0_6 = 'http://api.icourage.cn/1.1' as any
@@ -4903,5 +5040,103 @@ export const useGetClassesEnchashment = makeRequestHook<
   GetClassesEnchashmentRequestConfig,
   ReturnType<typeof getClassesEnchashment>
 >(getClassesEnchashment)
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **请求类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+export interface PostClassesEnchashmentRequest {
+  account: string
+  name: string
+  amount: number
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  enchId: number
+}
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **返回类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+export interface PostClassesEnchashmentResponse {
+  objectId: string
+  createdAt: string
+}
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **请求配置的类型**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+type PostClassesEnchashmentRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Enchashment',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **请求配置**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+const postClassesEnchashmentRequestConfig: PostClassesEnchashmentRequestConfig = {
+  mockUrl: mockUrl_0_1_0_6,
+  devUrl: devUrl_0_1_0_6,
+  prodUrl: prodUrl_0_1_0_6,
+  path: '/classes/Enchashment',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_6,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **请求函数**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+export const postClassesEnchashment = makeRequest<
+  PostClassesEnchashmentRequest,
+  PostClassesEnchashmentResponse,
+  PostClassesEnchashmentRequestConfig
+>(postClassesEnchashmentRequestConfig)
+
+/**
+ * 接口 [添加取现↗](http://121.89.170.197:3000/project/59/interface/api/566) 的 **React Hook**
+ *
+ * @分类 [钱包↗](http://121.89.170.197:3000/project/59/interface/api/cat_424)
+ * @请求头 `POST /classes/Enchashment`
+ * @更新时间 `2020-11-24 16:54:47`
+ */
+export const usePostClassesEnchashment = makeRequestHook<
+  PostClassesEnchashmentRequest,
+  PostClassesEnchashmentRequestConfig,
+  ReturnType<typeof postClassesEnchashment>
+>(postClassesEnchashment)
 
 /* prettier-ignore-end */

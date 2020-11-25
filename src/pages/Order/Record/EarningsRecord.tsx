@@ -54,6 +54,7 @@ const EarningsRecord: FC<{}> = () => {
       limit: page_size + '',
       skip: page_index * page_size + '',
       where: JSON.stringify(where),
+      order: '-createdAt',
     };
     return getClassesOrder(param).then((res) => res.results);
   };

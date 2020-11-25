@@ -16,7 +16,7 @@ import AnimatedTabBar, {
   FlashyTabBarItemConfig,
   TabsConfig,
 } from '@gorhom/animated-tabbar';
-import { useSafeArea, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
@@ -85,12 +85,12 @@ const SettingsStack = () => {
     />
   );
 };
-const names: string[] = [
-  strings('tabs.clockIn'),
-  strings('tabs.habit'),
-  strings('tabs.flag'),
-  strings('tabs.more'),
-];
+// const names: string[] = [
+//   strings('tabs.clockIn'),
+//   strings('tabs.habit'),
+//   strings('tabs.flag'),
+//   strings('tabs.more'),
+// ];
 
 const tabItems = (name: string) => ({
   labelStyle: {

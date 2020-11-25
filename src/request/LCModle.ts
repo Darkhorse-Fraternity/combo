@@ -12,14 +12,6 @@ export function pointModel(name: string, objectId: string, className?: string) {
   };
 }
 
-export function selfUser() {
-  return (dispatch) =>
-    dispatch((dispatch, getState) => {
-      const id = getState().user.data.objectId;
-      return user(id);
-    });
-}
-
 export function userPoint(objectId: string) {
   return point('_User', objectId);
 }

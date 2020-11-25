@@ -1,12 +1,10 @@
-import React, { lazy } from 'react';
+import { lazy } from 'react';
 import {
   // import render from './render'
   toLazyExoticComponent,
 } from '@components/util/toLazyExoticComponent';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
 const render = lazy(() => import('./render'));
-
-const title = '测试';
 
 // const RightView = ({...props}: {tintColor?: string}) => {
 //   return (
@@ -18,9 +16,9 @@ const title = '测试';
 //   );
 // };
 
-const navigationOptions: NavigationOptionsType<RouteKey.test> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.test> = () => {
   return {
-    title: '222',
+    title: '',
     // headerRight: headerRightProps => <RightView {...headerRightProps} />,
   };
 };

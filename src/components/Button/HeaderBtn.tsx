@@ -6,7 +6,6 @@
 
 import React, { PureComponent } from 'react';
 import {
-  View,
   StyleSheet,
   Text,
   ActivityIndicator,

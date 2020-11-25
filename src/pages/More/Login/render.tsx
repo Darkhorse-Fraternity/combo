@@ -1,17 +1,15 @@
 /* @flow */
 // 注册页面
 
-import React, { Component, FC, PropTypes } from 'react';
+import React, { Component, FC } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  Dimensions,
   Platform,
   Keyboard,
   TouchableNativeFeedback,
-  Image,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import { connect } from 'react-redux';
@@ -24,18 +22,15 @@ import {
   qqLogin,
   appleLogin,
 } from '../../../redux/actions/user';
-import { TransitionPresets } from '@react-navigation/stack';
 
 import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
 import * as Animatable from 'react-native-animatable';
 import { checkPhoneNum } from '../../../request/validation';
 import {
   StyledContent,
-  ThirdPartyLoginView,
   ThirdPartyInnerLoginView,
   StyledIconView,
   StyledIcon,
-  StyledIconText,
   StyledIconItem,
   StyledImage,
   SyledImageName,
@@ -43,10 +38,6 @@ import {
   StyledCodeButton,
   StyledCodeButtonText,
   StyledSignInBtn,
-  StyledImageBottom,
-  ThirdPartyLoginViewInner,
-  StyledEvilIcons,
-  StyledBtn,
   StyledBottomView,
   StyledMoreBtn,
   StyledMoreBtnText,
@@ -187,7 +178,7 @@ class LoginViewClass extends Component {
     title: string,
     placeholder: string,
     onChangeText: Function,
-    boardType: PropTypes.oneOf = 'default',
+    boardType: string,
     autoFocus: boolean = false,
     maxLength: number = 16,
     ref: string,

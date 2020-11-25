@@ -47,7 +47,7 @@ export function upload(image: string, callBack: Function) {
 }
 
 export function uploadFilesByLeanCloud(imageURLs: string[]) {
-  const promises = imageURLs.map((imageURL, i) => {
+  const promises = imageURLs.map((imageURL) => {
     console.log('imageURL', imageURL);
 
     const file = new AV.File('image.jpg', {

@@ -13,11 +13,9 @@ import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 
 import React, { FC, useEffect } from 'react';
 import { DeviceEventEmitter } from 'react-native';
+import { IUseType } from 'src/data/data-context/interface';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
-import {
-  GetClassesICardIdResponse,
-  useGetClassesIUseId,
-} from 'src/hooks/interface';
+import { useGetClassesIUseId } from 'src/hooks/interface';
 
 import Statistical from '../../Card/Statistical';
 // import NavBar from '../../../components/Nav/bar/NavBar';
@@ -77,8 +75,8 @@ const RecordDetail: FC<{}> = (porps) => {
     <Styledcontain>
       <StyledHeaderTitle>{iCard?.title}</StyledHeaderTitle>
       <Statistical
-        iCard={iCard! as GetClassesICardIdResponse}
-        iUse={data!}
+        iCard={iCard as IUseType['iCard']}
+        iUse={data as IUseType}
         {...porps}
       />
     </Styledcontain>

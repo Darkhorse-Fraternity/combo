@@ -16,7 +16,6 @@ import { classBatch, classCreatNewOne } from '@request/leanCloud';
 import moment from 'moment';
 import { get } from '@redux/actions/req';
 import md5 from 'react-native-md5';
-import * as QQAPI from 'react-native-qq';
 import { setLeanCloudSession } from '@configure/reqConfigs';
 import { useCallback, useContext } from 'react';
 import DataContext from './index';
@@ -84,7 +83,7 @@ export const useGetInfoOfMe = () => {
       updateLocation({
         ...data.user,
         ...info,
-      });
+      } as never);
       dispatch({
         type: 'update_user_info',
         user: {

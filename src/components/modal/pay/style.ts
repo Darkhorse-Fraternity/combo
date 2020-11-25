@@ -6,7 +6,7 @@
 
 import styled from 'styled-components/native';
 import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
-import Button from '../../../components/Button';
+import Button from '../../Button';
 import IconAwesome from 'react-native-vector-icons/EvilIcons';
 
 export const StyledContent = styled.View`
@@ -42,7 +42,7 @@ export const StyledBuyButton = styled(Button)`
   margin: 20px 30px;
 `;
 
-export const StyledPriceText = styled.Text`
+export const StyledPriceText = styled.Text<{ submitDisabled: boolean }>`
   color: ${(props) => (props.submitDisabled ? 'rgb(200,200,200)' : 'white')};
   font-size: 20px;
   font-weight: 500;
@@ -95,3 +95,10 @@ export const RadioPlaceholdText = styled.Text`
   font-size: 22px;
   font-weight: 700;
 `;
+
+// export const StyledModle = styled(Modal)`
+//   justify-content: flex-end;
+//   margin-left: 0;
+//   margin-right: 0;
+//   margin-bottom: 0;
+// `;

@@ -1,20 +1,23 @@
 import PushNotification from 'react-native-push-notification';
 import { Platform } from 'react-native';
 import moment from 'moment';
-import React, { FC, memo, PureComponent, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import RNCalendarEvents from 'react-native-calendar-events';
+import RNCalendarEvents, {
+  CalendarEventWritable,
+  RecurrenceRule,
+} from 'react-native-calendar-events';
 import Toast from 'react-native-simple-toast';
-import { debounce } from 'lodash'; // 4.0.8
-import { ICARD, IUSE } from '../redux/reqKeys';
 import DeviceInfo, { isEmulatorSync } from 'react-native-device-info';
 import { useGetUserInfo } from 'src/data/data-context';
-import { GetClassesIUseResponse } from 'src/hooks/interface';
 import { RemindDataType, useLoadlocalRemind } from './app';
-import { IUseType, UserType } from 'src/data/data-context/interface';
+import { IUseType } from 'src/data/data-context/interface';
 import { useGetIuseData } from 'src/data/data-context/core';
-import { useDebounce, useDebouncedCallback } from 'use-debounce/lib';
+import { useDebouncedCallback } from 'use-debounce/lib';
+
+function notEmpty<TValue>(value: TValue | null | undefined): value is TValue {
+  return value !== null && value !== undefined;
+}
 
 export function nowNotification() {
   PushNotification.localNotification({
@@ -181,8 +184,8 @@ const calendarEvents = async (
         const notifyMonets = notifyTimes
           .map((notify) => {
             const remindId = objectId + notify;
-            const open = localRemindData[remindId];
-            if (open || open === undefined) {
+            const open1 = localRemindData[remindId] ?? true;
+            if (open1) {
               // console.log('test:', day,notifyTime,item);
               return (
                 (startDate.hours() - moment(notify, 'HH:mm').hours()) * 60 +
@@ -196,7 +199,7 @@ const calendarEvents = async (
               return { date: minutes };
             }
           })
-          .filter((item) => item !== undefined);
+          .filter(notEmpty);
         alarms.push(...notifyMonets);
         // console.log('alarms:', alarms);
       }
@@ -215,13 +218,14 @@ const calendarEvents = async (
 
       const recurrenceRule = {
         frequency: 'daily',
-        duration: 'PT1H',
+        duration: 'PT1H', // 好像是类型定义有问题
         occurrence: 100,
         interval: 1,
         // endDate: startDate.toISOString(),
       };
       if (day && day.length < 7) {
         recurrenceRule.frequency = 'weekly';
+        // 好像是类型定义有问题
         recurrenceRule.daysOfWeek = day.map(
           (num) => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1],
         );
@@ -229,7 +233,7 @@ const calendarEvents = async (
       const name = nickname ? `${nickname},` : '';
       const idConfig = calendaId ? { id: calendaId } : {};
       // console.log('test:', title,idConfig);
-      const eventBody = {
+      const eventBody: CalendarEventWritable = {
         ...idConfig,
         startDate: startDate.toISOString(),
         description: `来自小改变的提醒(${item.objectId})`,

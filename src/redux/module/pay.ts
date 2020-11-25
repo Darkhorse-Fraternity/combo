@@ -3,15 +3,12 @@ import * as WeChat from 'react-native-wechat';
 import Alipay from '@0x5e/react-native-alipay';
 import * as immutable from 'immutable';
 import Toast from 'react-native-simple-toast';
-import { formValueSelector } from 'redux-form/immutable';
 import { userpay } from '../../request/leanCloud';
 import { req } from '../actions/req';
 // type: 0:wechat 1:alipay
 import { update } from '../actions/user';
 
 WeChat.registerApp('wx637e6f35f8211c6d');
-const FormID = 'PayForm';
-const selector = formValueSelector(FormID); // <-- same as form name
 
 const getIp = async () => {
   const response = await fetch('https://api.ipify.org');
@@ -22,32 +19,31 @@ const getIp = async () => {
   bid：受益人
  */
 
-export function easyPay(amount, description, detail, bid, exData) {
-  return (dispatch) =>
-    dispatch(async (dispatch, getState) => {
-      const state = getState();
-      const userId = state.user.data.objectId;
-      // 缴费。
-
-      let radio = selector(state, 'PayRadio');
-      radio = radio && radio.toJS && radio.toJS();
-
-      if (!radio) {
-        return;
-      }
-      const { ItemId } = radio;
-      const types = {
-        alipay: 'alipay_app',
-        wechat: 'weixin_app',
-        cash: 'cash',
-      };
-      return dispatch(
-        pay(types[ItemId], amount, detail, description, userId, bid, exData),
-      );
-    });
-}
-
-export function pay(type, amount, detail, description, uid, bid, exData) {
+// export function easyPay(payType, amount, description, detail, bid, exData) {
+//   return (dispatch) =>
+//     dispatch(async (dispatch, getState) => {
+//       const state = getState();
+//       const userId = state.user.data.objectId;
+//       return dispatch(
+//         pay(payType, amount, detail, description, userId, bid, exData),
+//       );
+//     });
+// }
+// detail: string,
+// description: string,
+// ip: string,
+// uid: string,
+// bid: string,
+// exData: object,
+export function pay(
+  type: string,
+  amount: number,
+  detail: string,
+  description: string,
+  uid: string,
+  bid: string,
+  exData: object,
+) {
   return async (dispatch) => {
     // if(__DEV__){
     //   await dispatch(req(payOrder('', tradeId)))

@@ -26,14 +26,14 @@ export const defaultHost = !__DEV__
   ? /* release */ 'api.icourage.cn/1.1'
   : /* debug */ 'api.icourage.cn/1.1';
 
-// export const apiHost = !__DEV__
-//   ? /* release */ "icourage.cn"
-//   : /* debug */ "stg-icard.leanapp.cn";
+export const apiHost = !__DEV__
+  ? /* release */ 'icourage.cn'
+  : /* debug */ 'stg-icard.leanapp.cn';
 // /* debug */ : 'icard.leanapp.cn';
 
-export const apiHost = !__DEV__
-  ? /* release */ 'cmwljtyw.api.lncld.net'
-  : /* debug */ 'cmwljtyw.api.lncld.net';
+// export const apiHost = !__DEV__
+//   ? /* release */ 'cmwljtyw.api.lncld.net'
+//   : /* debug */ 'cmwljtyw.api.lncld.net';
 
 let LeanCloud_APP_Session = '';
 

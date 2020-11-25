@@ -1,11 +1,7 @@
-import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
-import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 
-const navigationOptions: NavigationOptionsType<RouteKey.cardConfig> = (
-  props,
-) => {
+const navigationOptions: NavigationOptionsType<RouteKey.cardConfig> = () => {
   return {
     headerShown: false,
   };

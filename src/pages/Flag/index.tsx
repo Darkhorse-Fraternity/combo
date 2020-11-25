@@ -1,8 +1,7 @@
-import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 
-const navigationOptions: NavigationOptionsType<RouteKey.flag> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.flag> = () => {
   return {
     title: '',
   };

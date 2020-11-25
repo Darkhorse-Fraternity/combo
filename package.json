@@ -5,8 +5,8 @@
   "scripts": {
     "start": "export RCT_METRO_PORT=8081  && node node_modules/react-native/local-cli/cli.js start ",
     "test": "jest",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
-    "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx src --color  --fix;",
+    "lint": "eslint --ext .ts,.tsx src --color",
+    "lint:fix": "eslint --ext .ts,.tsx src --color  --fix;",
     "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
     "reload": "curl http://localhost:8081/reload",
     "postinstall": "npx jetify && npx patch-package",
@@ -104,7 +104,6 @@
     "react-native-wechat": "1.9.12",
     "react-redux": "5.0.6",
     "redux": "4.0.4",
-    "redux-form": "7.4.2",
     "redux-thunk": "2.3.0",
     "rn-topview": "0.1.6",
     "styled-components": "^5.2.0",

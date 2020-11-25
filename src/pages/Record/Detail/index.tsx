@@ -1,10 +1,9 @@
-import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 // import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 // import {StyledIcon} from './style';
 
-const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.punch> = () => {
   return {
     title: '',
     // headerRight: headerRightProps => (

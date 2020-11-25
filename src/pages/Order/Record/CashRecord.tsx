@@ -66,6 +66,7 @@ const CashRecord: FC<{}> = () => {
       limit: page_size + '',
       skip: page_index * page_size + '',
       where: JSON.stringify(where),
+      order: '-createdAt',
     };
     return getClassesEnchashment(param).then((res) => res.results);
   };

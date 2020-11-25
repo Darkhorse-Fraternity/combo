@@ -5,7 +5,7 @@
 
 // import * as immutable from 'immutable';
 import React, { FC, useEffect, useState } from 'react';
-import { BackHandler, DeviceEventEmitter } from 'react-native';
+import { BackHandler } from 'react-native';
 
 import { StyledContent } from './style';
 import Main from './Main';
@@ -40,10 +40,9 @@ import {
   useGetClassesICardId,
 } from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
-import { DeviceEventEmitterKey } from '@configure/enum';
 import { useMutateICardData } from 'src/data/data-context/core';
 
-const CardConfig: FC<{}> = (props) => {
+const CardConfig: FC<{}> = () => {
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const { goBack } = useNavigation();
@@ -52,7 +51,7 @@ const CardConfig: FC<{}> = (props) => {
   // 获取已经有的icard 数据
   const { data } = useGetClassesICardId({ id: iCardId });
   const { update } = useMutateICardData();
-  const { setValue, handleSubmit, errors, control } = useForm<CardFormData>({
+  const { setValue, handleSubmit, control } = useForm<CardFormData>({
     resolver: yupResolver(cardValidationSchema),
     defaultValues: {
       [CardTitle]: '',
@@ -150,7 +149,7 @@ const CardConfig: FC<{}> = (props) => {
         <StyledHeaderInner>
           {step === 0 && (
             <StyledHeaderBtn
-              // load={false}
+              load={false}
               // disabled={false}
               backgroundColor="#bfc2c7"
               hitSlop={{

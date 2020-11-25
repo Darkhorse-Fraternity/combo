@@ -781,7 +781,7 @@ export function wechatBinding(KEY) {
   return async (dispatch, getState) => {
     try {
       const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
-      const { appid, code } = weConfig;
+      const { code } = weConfig;
 
       // 获取openid
       const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
