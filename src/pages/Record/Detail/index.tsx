@@ -1,5 +1,6 @@
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 // import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 // import {StyledIcon} from './style';
 
@@ -19,4 +20,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = () => {
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

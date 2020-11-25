@@ -1,6 +1,6 @@
 /* @flow */
 
-import React, { Component, FC } from 'react';
+import React, { FC } from 'react';
 import { StyleSheet, Text, View, Linking } from 'react-native';
 import Button, { ButtonType } from '../../components/Button/index';
 
@@ -10,9 +10,6 @@ import {
   StyledHeaderTop,
   StyledHeaderName,
   StyledAvatarView,
-  StyledFuncView,
-  StyledIncome,
-  StyledEntypoIcon,
   StyledInnerContent,
 } from './style';
 

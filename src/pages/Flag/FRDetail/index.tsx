@@ -1,3 +1,4 @@
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import Render from './render';
 const navigationOptions: NavigationOptionsType<RouteKey.FRDetail> = () => {
@@ -6,4 +7,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.FRDetail> = () => {
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

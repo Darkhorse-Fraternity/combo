@@ -11,7 +11,6 @@ import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
-import moment from 'moment';
 import DeviceInfo from 'react-native-device-info';
 import md5 from 'react-native-md5';
 import { updatePush } from '../../configure/push/push';
@@ -19,16 +18,13 @@ import { setLeanCloudSession } from '../../configure/reqConfigs';
 import { get } from './req';
 import { loadAccount } from '../../configure/storage';
 import appleAuth, {
-  AppleButton,
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
-  AppleAuthCredentialState,
 } from '@invertase/react-native-apple-authentication';
 
 import {
   requestLogin,
   requestUsersByMobilePhone,
-  getUserByID,
   usersMe,
   bindingAuthDataToUser,
   wechatInfo,

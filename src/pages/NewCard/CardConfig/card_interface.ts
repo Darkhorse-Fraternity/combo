@@ -1,4 +1,3 @@
-import { types } from '@babel/core';
 import { SoundsType } from '@configure/source';
 import * as yup from 'yup';
 

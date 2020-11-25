@@ -216,7 +216,7 @@ const calendarEvents = async (
       const day = recordDay?.sort();
       // PT1M 是指持续1分钟，PT1S 是指持续1S 在魅族手机上 PT1S 会导致没有循环。
 
-      const recurrenceRule = {
+      const recurrenceRule: RecurrenceRule = {
         frequency: 'daily',
         duration: 'PT1H', // 好像是类型定义有问题
         occurrence: 100,

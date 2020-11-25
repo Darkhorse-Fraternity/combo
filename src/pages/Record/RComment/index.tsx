@@ -1,7 +1,8 @@
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import Render from './render';
 
-const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = () => {
   return {
     title: '',
     // headerRight: headerRightProps => (
@@ -23,4 +24,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.rcomment> = (props) => {
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

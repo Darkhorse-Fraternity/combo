@@ -1,11 +1,11 @@
-import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
-const navigationOptions: NavigationOptionsType<RouteKey.habit> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.habit> = () => {
   return {
     title: '',
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

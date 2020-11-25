@@ -14,7 +14,6 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 import {
-  StyledTitleText,
   StyledSubView,
   StyledSubTitle,
   StyledSubTitleView,
@@ -127,7 +126,7 @@ const RenderRecordDay: FC<{
       onChange(state);
     }
     firstRef.current = false;
-  }, [state]);
+  }, [onChange, state]);
 
   const { day, time } = value || {};
   const __renderRadioItem = (item: number, contain: boolean) => (
@@ -337,7 +336,7 @@ const RenderNotifyTimePicker: FC<
       ref.current?.fadeInUp?.call(100);
     }
     firstRef.current = false;
-  }, [step]);
+  }, [index, step]);
 
   // console.log('value', value);
 
@@ -382,7 +381,7 @@ const RemderComboNotifyText: FC<
       ref.current?.fadeInUp?.call(100);
     }
     firstRef.current = false;
-  }, [step]);
+  }, [index, step]);
 
   // console.log('value', value);
 
@@ -443,7 +442,7 @@ const RenderLimitTimesPicker: FC<
       ref.current?.fadeInUp?.call(100);
     }
     firstRef.current = false;
-  }, [step]);
+  }, [index, step]);
 
   const { day, time } = value || {};
 
@@ -490,7 +489,7 @@ const RenderComboRecord: FC<
       ref.current?.fadeInUp?.call(100);
     }
     firstRef.current = false;
-  }, [step]);
+  }, [index, step]);
 
   return (
     <Animatable.View
@@ -529,7 +528,7 @@ const RenderComboSounds: FC<
       ref.current?.fadeInUp?.call(100);
     }
     firstRef.current = false;
-  }, [step]);
+  }, [index, step]);
 
   return (
     <Animatable.View

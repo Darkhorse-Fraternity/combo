@@ -2,6 +2,7 @@ import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import React from 'react';
 import { StyledBtn, StyledBtnTitle } from './style';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
 const navigationOptions: NavigationOptionsType<RouteKey.cardSetting> = (
   props,
@@ -9,7 +10,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.cardSetting> = (
   const { iCardId } = props.route.params;
   return {
     title: '',
-    headerRight: (porps) => (
+    headerRight: () => (
       <StyledBtn
         // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
         hitSlop={{
@@ -27,4 +28,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.cardSetting> = (
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

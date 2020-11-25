@@ -62,7 +62,7 @@ import { getUsersIdFollowers } from 'src/hooks/interface';
 //   }
 // }
 
-export const Follower: FC<{}> = () => {
+export const Follower: FC<{ tabLabel?: string }> = () => {
   const { navigate } = useNavigation();
   const { user } = useGetInfoOfMe();
   const loadPage = (page_index: number, page_size: number) => {

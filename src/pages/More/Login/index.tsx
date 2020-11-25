@@ -4,6 +4,7 @@ import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import { TransitionPresets } from '@react-navigation/stack';
 import { View } from 'react-native';
 import { StyledBtn, StyledEvilIcons } from './style';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
 const navigationOptions: NavigationOptionsType<RouteKey.more> = (props) => {
   return {
@@ -24,4 +25,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.more> = (props) => {
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

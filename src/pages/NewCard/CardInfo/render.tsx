@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -24,8 +24,6 @@ import {
   StyledRow,
   StyledRowText,
   StyledRowDes,
-  StyledArrow,
-  StyledRowInner,
   StyledTitleView,
   StyledTitleText,
   StyledDescirbe,
@@ -62,13 +60,8 @@ import { LoadAnimation } from '@components/Load';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { IUseType2, UserType } from 'src/data/data-context/interface';
 import { iCardPoint, userPoint } from '@request/LCModle';
+import { useNavigation } from '@react-navigation/native';
 // import { NavigationInjectedProps } from '@react-navigation/native';
-
-interface StateType {
-  showModal: boolean;
-  visible: boolean;
-  index: number;
-}
 
 interface PropsType {
   user: UserType;
@@ -84,84 +77,72 @@ interface PropsType {
 
 type NavAndPropsType = PropsType;
 
-const row = (title: string, des: string) => (
+const Row: FC<{ title: string; des: string }> = ({ title, des }) => (
   <StyledRow>
     <StyledRowText>{title}</StyledRowText>
     <StyledRowDes>{des}</StyledRowDes>
   </StyledRow>
 );
 
-class CardInfoClass extends PureComponent<NavAndPropsType, StateType> {
-  constructor(props: NavAndPropsType) {
-    super(props);
-    this.state = {
-      visible: false,
-      index: 0,
-      showModal: false,
-    };
-  }
+const CardInfoClass: FC<NavAndPropsType> = (props) => {
+  // const [visible, setVisible] = useState(false);
+  // const [index, setIndex] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const { navigate } = useNavigation();
 
-  render() {
-    const {
-      selfUser,
-      iCard,
-      user: iCardUser,
-      load,
-      exist,
-      iUseData,
-    } = this.props;
+  const { selfUser, iCard, user: iCardUser, load, exist, iUseData } = props;
 
-    const cover = iCard.img ? { uri: iCard.img.url } : null;
+  const cover = iCard.img ? { uri: iCard.img.url } : null;
 
-    // const exist = this.props.useExist.get('data').size >= 1;
-    // const load = this.props.useExist.get('load');
-    const nickName = iCardUser.nickname;
-    // const { keys } = iCard;
-    const { describe, iconAndColor } = iCard;
-    // const iUseData = this.props.data && this.props.data.toJS();
+  // const exist = this.props.useExist.get('data').size >= 1;
+  // const load = this.props.useExist.get('load');
+  const nickName = iCardUser.nickname;
+  // const { keys } = iCard;
+  const { describe, iconAndColor } = iCard;
+  // const iUseData = this.props.data && this.props.data.toJS();
 
-    // const { userLoad } = this.props;
+  // const { userLoad } = this.props;
 
-    // const imgs = iCard && iCard.imgs;
+  // const imgs = iCard && iCard.imgs;
 
-    // const urlList =
-    //   (imgs &&
-    //     imgs.map((item) => ({
-    //       url: item.img.url,
-    //     }))) ||
-    //   [];
+  // const urlList =
+  //   (imgs &&
+  //     imgs.map((item) => ({
+  //       url: item.img.url,
+  //     }))) ||
+  //   [];
 
-    // console.log('iconAndColor:', iconAndColor);
+  // console.log('iconAndColor:', iconAndColor);
 
-    const isSelf = selfUser.objectId === iCard.user.objectId;
+  const isSelf = selfUser.objectId === iCard.user.objectId;
 
-    const { limitTimes } = iCard;
-    let limitTimesString = limitTimes.join('~');
-    limitTimesString =
-      limitTimesString === '00:00~24:00' ? '' : `，${limitTimesString}`;
-    const limitTime = daysText(iCard.recordDay) + limitTimesString;
-    // console.log('iCard.img:', iCard.img);
+  const { limitTimes } = iCard;
+  let limitTimesString = limitTimes.join('~');
+  limitTimesString =
+    limitTimesString === '00:00~24:00' ? '' : `，${limitTimesString}`;
+  const limitTime = daysText(iCard.recordDay) + limitTimesString;
+  // console.log('iCard.img:', iCard.img);
 
-    return (
-      <StyledContent colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
-        <PasswordValidation
-          show={this.state.showModal}
-          onDone={(password, pdErrorAction) => {
-            if (password === iCard.password) {
-              // this.props.use(iCard);
-              // TODO 参与
-              this.setState({ showModal: false });
-              this.props.use();
-            } else {
-              pdErrorAction();
-            }
-          }}
-          loading={false}
-          onClose={() => {
-            this.setState({ showModal: false });
-          }}
-        />
-        {/* {iCard.img && (
+  return (
+    <StyledContent colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+      <PasswordValidation
+        show={showModal}
+        onDone={(password, pdErrorAction) => {
+          if (password === iCard.password) {
+            // this.props.use(iCard);
+            // TODO 参与
+            setShowModal(false);
+            props.use();
+          } else {
+            pdErrorAction();
+          }
+        }}
+        loading={false}
+        onClose={() => {
+          setShowModal(false);
+        }}
+      />
+      {/* {iCard.img && (
           <ImagesViewModal
             visible={this.state.visible}
             index={this.state.index}
@@ -171,131 +152,144 @@ class CardInfoClass extends PureComponent<NavAndPropsType, StateType> {
             imageUrls={[{ url: iCard.img.url }, ...urlList]}
           />
         )} */}
-        <FlipButton
-          faceText={'马上\n参与'}
-          backText="已参与"
-          load={load}
-          flip={exist}
-          animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
-          onPress={() => {
-            if (exist && iUseData) {
-              this.props.navigation.navigate('card', {
-                iUseId: iUseData.objectId,
-                iCardId: iCard.objectId,
-              });
-            } else {
-              if (this.props.isTourist) {
-                this.props.navigation.navigate('login');
-                return Toast.show('加入圈子必须先登录哦~!');
-              }
-
-              if (iCard.password && iCard.password.length > 0 && !isSelf) {
-                this.setState({ showModal: true });
-              } else {
-                this.props.use();
-              }
+      <FlipButton
+        faceText={'马上\n参与'}
+        backText="已参与"
+        load={load}
+        flip={exist}
+        animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
+        onPress={() => {
+          if (exist && iUseData) {
+            navigate('card', {
+              iUseId: iUseData.objectId,
+              iCardId: iCard.objectId,
+            });
+          } else {
+            if (props.isTourist) {
+              navigate('login');
+              return Toast.show('加入圈子必须先登录哦~!');
             }
-          }}
-          containStyle={styles.containStyle}
-          style={styles.flip}
-        />
-        <ScrollView
-          // removeClippedSubviews={true}
-          style={[styles.wrap]}>
-          {cover ? (
-            <StyledHeaderCover
-              onPress={() => {
-                this.setState({ visible: true });
-              }}>
-              <StyledHeaderImage
-                resizeMode={iCard.img ? 'cover' : 'center'}
-                source={cover}
-              />
-            </StyledHeaderCover>
-          ) : (
-            <StyledHedaderIconBack color={iconAndColor.color || 'blue'}>
-              <StyledHeaderIcon
-                resizeMode="contain"
-                source={svgs[iconAndColor.name || 'sun']}
-              />
-            </StyledHedaderIconBack>
-          )}
 
-          <StyledHeaderInner>
-            <StyledHeaderInnerLeft>
-              {/* {iCard.subtitle && (
+            if (iCard.password && iCard.password.length > 0 && !isSelf) {
+              setShowModal(true);
+            } else {
+              props.use();
+            }
+          }
+        }}
+        containStyle={styles.containStyle}
+        style={styles.flip}
+      />
+      <ScrollView
+        // removeClippedSubviews={true}
+        style={[styles.wrap]}>
+        {cover ? (
+          <StyledHeaderCover
+            onPress={() => {
+              // setVisible(true);
+            }}>
+            <StyledHeaderImage
+              resizeMode={iCard.img ? 'cover' : 'center'}
+              source={cover}
+            />
+          </StyledHeaderCover>
+        ) : (
+          <StyledHedaderIconBack color={iconAndColor.color || 'blue'}>
+            <StyledHeaderIcon
+              resizeMode="contain"
+              source={svgs[iconAndColor.name || 'sun']}
+            />
+          </StyledHedaderIconBack>
+        )}
+
+        <StyledHeaderInner>
+          <StyledHeaderInnerLeft>
+            {/* {iCard.subtitle && (
                 <StyledSubTitle>{iCard.subtitle}</StyledSubTitle>
               )} */}
 
-              <StyledHeaderTitle>{iCard.title}</StyledHeaderTitle>
-              {/* {keys && (
+            <StyledHeaderTitle>{iCard.title}</StyledHeaderTitle>
+            {/* {keys && (
                 <StyledKeysView>
                   {keys.map((key) => `#${key}`).join(' ')}
                 </StyledKeysView>
               )} */}
-            </StyledHeaderInnerLeft>
-            <StyledHeaderInnerRight>
-              <Button
-                style={{ alignItems: 'center' }}
-                onPress={() => {
-                  this.props.navigation.navigate('following', {
-                    userId: iCardUser.objectId,
-                  });
-                }}>
-                <Avatar user={iCardUser} />
-                <StyledNickName numberOfLines={3}>{nickName}</StyledNickName>
-              </Button>
-              {/* {this.__renderFocusOn()} */}
-            </StyledHeaderInnerRight>
-          </StyledHeaderInner>
+          </StyledHeaderInnerLeft>
+          <StyledHeaderInnerRight>
+            <Button
+              style={{ alignItems: 'center' }}
+              onPress={() => {
+                navigate('following', {
+                  userId: iCardUser.objectId,
+                });
+              }}>
+              <Avatar user={iCardUser} />
+              <StyledNickName numberOfLines={3}>{nickName}</StyledNickName>
+            </Button>
+            {/* {this.__renderFocusOn()} */}
+          </StyledHeaderInnerRight>
+        </StyledHeaderInner>
 
-          <View style={{ height: 50 }} />
+        <View style={{ height: 50 }} />
 
-          <StyledTitleView>
-            <StyledTitleText>卡片介绍</StyledTitleText>
-          </StyledTitleView>
+        <StyledTitleView>
+          <StyledTitleText>卡片介绍</StyledTitleText>
+        </StyledTitleView>
 
-          {row('加入费用:', iCard.price === 0 ? '免费' : `${iCard.price}元`)}
-          {row(
-            '是否开启圈子:',
-            iCard.state !== CircleState.open ? '关闭' : '开启',
-          )}
-          {row(
-            '提醒时间:',
-            iCard.notifyTimes.length > 0 ? iCard.notifyTimes.join('、') : '无',
-          )}
-          {/* {row('关键字:', iCard.keys.join("+"))} */}
-          {row('打卡时间:', limitTime)}
-          {/* {row("习惯周期:", `${iCard.period}次`)} */}
-          {row('打卡要求:', iCard.record?.join('+') || '默认点击')}
-          {row('创建时间:', moment(iCard.createdAt).format('MMM YYYY'))}
-          <Button
-            onPress={() => {
-              this.props.navigation.navigate('cardUse', {
-                iCardId: iCard.objectId,
-              });
-            }}
-            style={{
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            {row('参与人数:', iCard.useNum + '')}
-            <StyledIcon
-              size={15}
-              style={{ marginTop: 5 }}
-              name="ios-arrow-forward"
-            />
-          </Button>
-          {/* {rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
+        <Row
+          title="加入费用:"
+          des={iCard.price === 0 ? '免费' : `${iCard.price}元`}
+        />
+        <Row
+          title="是否开启圈子:"
+          des={iCard.state !== CircleState.open ? '关闭' : '开启'}
+        />
 
-          {describe && (
-            <StyledDescirbeView>
-              <StyledDescirbe>{describe}</StyledDescirbe>
-            </StyledDescirbeView>
-          )}
+        <Row
+          title="提醒时间:"
+          des={
+            iCard.notifyTimes.length > 0 ? iCard.notifyTimes.join('、') : '无'
+          }
+        />
+        {/* {row('关键字:', iCard.keys.join("+"))} */}
+        <Row title="打卡时间:" des={limitTime} />
+        {/* {row("习惯周期:", `${iCard.period}次`)} */}
+        <Row title="打卡要求:" des={iCard.record?.join('+') || '默认点击'} />
+        <Row
+          title="创建时间:"
+          des={moment(iCard.createdAt).format('MMM YYYY')}
+        />
+        <Row
+          title="创建时间:"
+          des={moment(iCard.createdAt).format('MMM YYYY')}
+        />
+        <Button
+          onPress={() => {
+            navigate('cardUse', {
+              iCardId: iCard.objectId,
+            });
+          }}
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Row title="参与人数:" des={iCard.useNum + ''} />
+          <StyledIcon
+            size={15}
+            style={{ marginTop: 5 }}
+            name="ios-arrow-forward"
+          />
+        </Button>
+        {/* {rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
 
-          {/* {imgs &&
+        {describe && (
+          <StyledDescirbeView>
+            <StyledDescirbe>{describe}</StyledDescirbe>
+          </StyledDescirbeView>
+        )}
+
+        {/* {imgs &&
             imgs.map((item, index) => (
               <TouchableHighlight
                 key={item.img.url + index}
@@ -308,12 +302,11 @@ class CardInfoClass extends PureComponent<NavAndPropsType, StateType> {
                 />
               </TouchableHighlight>
             ))} */}
-          <View style={{ height: 200 }} />
-        </ScrollView>
-      </StyledContent>
-    );
-  }
-}
+        <View style={{ height: 200 }} />
+      </ScrollView>
+    </StyledContent>
+  );
+};
 
 const CardInfo: FC<{}> = (props): JSX.Element => {
   const { iCardId } = useNavigationAllParamsWithType<RouteKey.cardInfo>();

@@ -2,12 +2,13 @@ import React from 'react';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import { StyledBtn, StyledHeaderBtnText } from './style';
 import Render from './render';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 const navigationOptions: NavigationOptionsType<RouteKey.flagDetail> = (
   props,
 ) => {
   return {
     title: '',
-    headerRight: (propsIn) => (
+    headerRight: () => (
       <StyledBtn
         hitSlop={{
           top: 5,
@@ -27,4 +28,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.flagDetail> = (
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

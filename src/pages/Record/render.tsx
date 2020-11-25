@@ -17,7 +17,7 @@ import {
 } from './style';
 
 import AppleStyleSwipeableRow from '../../components/Swipeable';
-import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
+import { useMutateIuseData } from 'src/data/data-context/core';
 import { useScrollTitle } from '@components/util/hooks';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import PageList from '@components/Base/PageList';
@@ -309,13 +309,13 @@ const RenderCell: FC<{
   const { navigate } = useNavigation();
   const data = item;
 
-  const { user } = useGetInfoOfMe();
+  // const { user } = useGetInfoOfMe();
   const { add } = useMutateIuseData();
 
   // console.log('data:', data);
   // const iCardId = data[ICARD];
   const iCard = item.iCard;
-  const isSelf = iCard.user?.objectId === user.objectId;
+  // const isSelf = iCard.user?.objectId === user.objectId;
   const iCardId = iCard.objectId;
   const handleViewRef = useRef<AnimationRow>();
   const swipeRef = useRef<AppleStyleSwipeableRow>();

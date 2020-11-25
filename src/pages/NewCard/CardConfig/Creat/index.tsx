@@ -1,12 +1,11 @@
-import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
-import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
-const navigationOptions: NavigationOptionsType<RouteKey.creat> = (props) => {
+const navigationOptions: NavigationOptionsType<RouteKey.creat> = () => {
   return {
     headerShown: false,
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

@@ -3,6 +3,7 @@ import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { StyledIonicons } from './style';
+import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
 const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
   return {
@@ -26,4 +27,4 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
   };
 };
 
-export default { component: Render, options: navigationOptions };
+export default toLazyExoticComponent(Render, navigationOptions);

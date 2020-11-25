@@ -2,11 +2,7 @@ import React, { Suspense, FC } from 'react';
 import { loadGif } from '../Load';
 
 import { StackNavigationOptions } from '@react-navigation/stack';
-import {
-  NavigationOptionsType,
-  ToLazyExoticComponentReturnType,
-} from '@pages/interface';
-import { useTrackView } from '@components/umeng/umTracking';
+import { ToLazyExoticComponentReturnType } from '@pages/interface';
 // interface RHType {
 //   readonly navigationOptions: Function;
 //   readonly render: LazyExoticComponent<() => ReactElement>;
@@ -26,9 +22,12 @@ export const toLazyExoticComponent = (
   Render: React.ComponentType<any>,
   navigationOptions?: any,
 ): ToLazyExoticComponentReturnType => {
-  let option = navigationOptions || ({} as StackNavigationOptions);
+  let option = navigationOptions || {};
   if (typeof navigationOptions === 'function') {
-    option = navigationOptions({ route: {}, navigation: {} } as any);
+    option = navigationOptions({
+      route: { params: {} },
+      navigation: {},
+    });
   }
   const {
     headerShown = true,
@@ -41,12 +40,12 @@ export const toLazyExoticComponent = (
   const LazyRenderIn = (props: {}) => {
     // useTrackView();
     return (
-      <LazyRender showBar={showBar} {...props}>
+      <LazyRender showBar={showBar}>
         <Render {...props} />
       </LazyRender>
     );
   };
 
   // LazyRenderIn.navigationOptions = navigationOptionsIn;
-  return { component: LazyRenderIn, options: option };
+  return { component: LazyRenderIn, options: navigationOptions };
 };

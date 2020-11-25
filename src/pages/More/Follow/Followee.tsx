@@ -64,7 +64,7 @@ import { useGetInfoOfMe } from 'src/data/data-context/user';
 //   }
 // }
 
-export const Followee: FC<{}> = () => {
+export const Followee: FC<{ tabLabel?: string }> = () => {
   const { navigate } = useNavigation();
   const { user } = useGetInfoOfMe();
   const loadPage = (page_index: number, page_size: number) => {

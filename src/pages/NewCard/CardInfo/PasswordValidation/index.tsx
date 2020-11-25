@@ -1,4 +1,4 @@
-import React, { useCallback, useState, PureComponent } from 'react';
+import React, { useCallback, PureComponent } from 'react';
 
 import {
   StyledButton,
@@ -39,10 +39,10 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
 
   const onSubmit = (data: FormData) => onDone(data.password, pdErrorAction);
 
-  const memoHanleSubmit = useCallback(handleSubmit(onSubmit), []);
+  const memoHanleSubmit = handleSubmit(onSubmit);
   const onChangeText = useCallback(
     (text) => setValue('password', text, { shouldValidate: true }),
-    [],
+    [setValue],
   );
 
   return (
@@ -52,7 +52,7 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
         <MemoRHFInput
           autoFocus
           name="password"
-          setValue={setValue}
+          setValue={setValue as never}
           register={register}
           maxLength={50}
           placeholder={'设置加入密码'}

@@ -4,7 +4,7 @@
  */
 
 import React, { FC, PureComponent, useEffect } from 'react';
-import { Animated, Platform, DeviceEventEmitter } from 'react-native';
+import { Animated, Platform } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-simple-toast';
 import { StyledHeaderRight, StyledIcon } from './style';
@@ -13,22 +13,17 @@ import TitleTabBar from '../../components/Groceries/TitleTabBar';
 import Statistical from './Statistical';
 import Circle from './Circle/index';
 import Button from '../../components/Button/index';
-import { CircleState, DeviceEventEmitterKey } from '../../configure/enum';
+import { CircleState } from '../../configure/enum';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
 import {
   GetClassesIUseIdResponse,
   putClassesICardId,
-  useGetClassesIUseId,
 } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { LoadAnimation } from '@components/Load';
 import { useGetUserInfo } from 'src/data/data-context';
-import {
-  useGetIuseData,
-  useMutateICardData,
-  useMutateIuseData,
-} from 'src/data/data-context/core';
+import { useGetIuseData, useMutateICardData } from 'src/data/data-context/core';
 
 interface RenderHeaderRightProps {
   isSelf: boolean;
