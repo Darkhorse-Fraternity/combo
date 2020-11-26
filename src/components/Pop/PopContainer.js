@@ -7,7 +7,6 @@
 import React from 'react';
 import { Modal } from 'react-native';
 // import Modal from "rmc-dialog/es/Modal";
-import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../Theme';

@@ -20,7 +20,7 @@ export const StyledContent = styled.View`
 export const StyledImage = styled.Image`
   width: 120px;
   height: 120px;
-  margin-top: ${(props) => 50};
+  margin-top: 50;
   align-self: center;
 `;
 

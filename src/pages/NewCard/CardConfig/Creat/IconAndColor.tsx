@@ -3,14 +3,8 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useEffect, useRef, useState } from 'react';
-import {
-  View,
-  ScrollView,
-  InteractionManager,
-  Platform,
-  FlatList,
-} from 'react-native';
+import React, { FC, useEffect, useRef, useState } from 'react';
+import { View, Platform, FlatList } from 'react-native';
 
 import { StyledSubTitleView, StyledSubTitle } from './style';
 import { StyledCell, StyledCellImage } from './Cell/style';
@@ -36,7 +30,7 @@ const IconAndColor: FC<IconAndColorType> = (props) => {
       onChange(state);
     }
     firstRef.current = false;
-  }, [state]);
+  }, [onChange, state]);
 
   return (
     <View>
@@ -80,7 +74,7 @@ const IconAndColor: FC<IconAndColorType> = (props) => {
             ))}
           </View>
         )}
-        keyExtractor={(item, index) => item[0].name}
+        keyExtractor={(item) => item[0].name}
         // ListHeaderComponent={this._renderHeader}
         // ListEmptyComponent={() => this.__renderNoData(statu)}
       />
@@ -110,7 +104,7 @@ const IconAndColor: FC<IconAndColorType> = (props) => {
             ))}
           </View>
         )}
-        keyExtractor={(item, index) => item[0]}
+        keyExtractor={(item) => item[0]}
         // ListHeaderComponent={this._renderHeader}
         // ListEmptyComponent={() => this.__renderNoData(statu)}
       />

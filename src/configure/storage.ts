@@ -31,7 +31,7 @@ export const storage = new Storage({
     },
   },
 });
-global.storage = storage;
+// global.storage = storage;
 
 // 全局可用的参数下载这里。
 //
@@ -41,8 +41,8 @@ global.storage = storage;
 //
 //
 
-const instance = null;
-const UserManageSaveInfo = 'UserManageSaveInfo';
+// const instance = null;
+// const UserManageSaveInfo = 'UserManageSaveInfo';
 
 // 保存到本地
 const Save_UserData_Key = 'saveUserData';

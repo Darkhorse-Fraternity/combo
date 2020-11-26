@@ -7,48 +7,49 @@ import {
 } from 'react-native';
 
 const { width } = Dimensions.get('window');
-import React, { Component, PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import { theme } from '../../Theme';
 import Button from '../Button';
+import moment from 'moment';
 
-export default class DateBoard extends PureComponent {
+export const isLeap = (year: number) => {
+  return year % 100 === 0 ? (year % 400 === 0 ? 1 : 0) : year % 4 === 0 ? 1 : 0;
+};
+
+export interface DateBoardProps<ItemT> {
+  year: number;
+  month: number;
+  doneDay: (item: ItemT) => void;
+  date: Date;
+  busyDay?: Record<string, ItemT>;
+  canceDay: (item: ItemT) => void;
+  color: string;
+}
+
+// interface DateBoardState {
+//   year: number;
+//   month: number;
+//   busyDay: { number: { number: [number] } };
+// }
+
+export default class DateBoard<ItemT> extends PureComponent<
+  DateBoardProps<ItemT>
+  // DateBoardState
+> {
   static defaultProps = {
     year: 2018,
     month: 0,
     busyDay: {
-      2018: {
-        3: [1, 22],
-        2: [3, 22],
-        '6': [4, 22],
+      '2018': {
+        // 3: [1, 22],
+        // 2: [3, 22],
+        // 6: [4, 22],
       },
     },
   };
 
-  static propTypes = {
-    year: PropTypes.number,
-    month: PropTypes.number,
-    selectDay: PropTypes.func,
-    isLeap: PropTypes.func,
-    date: PropTypes.string,
-    busyDay: PropTypes.object,
-    fetchData: PropTypes.func,
-    color: PropTypes.string,
-  };
-
-  constructor(props) {
-    super(props);
-    // this.props.selectDay = this.props.selectDay.bind(this)
-  }
-
-  isLeap(year) {
-    let res;
-    return year % 100 === 0
-      ? (res = year % 400 == 0 ? 1 : 0)
-      : (res = year % 4 == 0 ? 1 : 0);
-  }
-
-  getNowDay(year, month, day) {
+  getNowDay(year: number, month: number, day: number) {
+    // month = month - 1;
     const monthStr = month < 10 ? `0${month}` : `${month}`;
     const dayStr = day < 10 ? `0${day}` : `${day}`;
     return `${year}-${monthStr}-${dayStr}`;
@@ -69,7 +70,7 @@ export default class DateBoard extends PureComponent {
       myYear = this.props.year;
     }
 
-    const { busyDay } = this.props;
+    const { busyDay = {} } = this.props;
 
     lastMonth = myMonth === 0 ? 11 : myMonth - 1;
 
@@ -77,7 +78,7 @@ export default class DateBoard extends PureComponent {
     const firstDay = fd.getDay();
     const monthDay = [
       31,
-      28 + this.props.isLeap(this.props.year),
+      28 + isLeap(this.props.year),
       31,
       30,
       31,
@@ -106,16 +107,18 @@ export default class DateBoard extends PureComponent {
 
     for (let i = 1; i < monthDay[myMonth] + 1; i++) {
       const now = this.getNowDay(myYear, myMonth + 1, i);
+      const today = moment(this.props.date).format('YYYY-MM-DD');
 
+      // console.log('today', today);
       // console.log('test:', i);
       if (busyDay[now]) {
-        const d = i;
+        // const d = i;
         arr.push(
           <Button
             background={background}
             onPress={() => {
               // this.props.selectDay(now)
-              this.props.fetchData && this.props.fetchData(busyDay[now]);
+              this.props.canceDay && this.props.canceDay(busyDay[now]);
             }}
             key={i}
             style={styles.dateBox}>
@@ -139,15 +142,16 @@ export default class DateBoard extends PureComponent {
             </View>
           </Button>,
         );
-      } else if (this.props.date === now) {
+      } else if (today === now) {
         arr.push(
           <Button
             background={background}
             onPress={() => {
               // this.props.selectDay(now)
-              busyDay[now] &&
-                this.props.fetchData &&
-                this.props.fetchData(busyDay[now]);
+              busyDay &&
+                busyDay[now] &&
+                this.props.canceDay &&
+                this.props.canceDay(busyDay[now]);
             }}
             key={i}
             style={styles.dateBox}>
@@ -160,7 +164,7 @@ export default class DateBoard extends PureComponent {
         arr.push(
           <Button
             background={background}
-            onPress={this.props.selectDay.bind(this, now)}
+            onPress={this.props.doneDay.bind(this, busyDay[now])}
             key={i}
             style={styles.dateBox}>
             <View style={[styles.selected]}>

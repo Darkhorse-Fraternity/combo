@@ -18,29 +18,40 @@ import {
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
-import DateBoard from './DateBoard';
+import DateBoard, { DateBoardProps, isLeap } from './DateBoard';
 
 const { width } = Dimensions.get('window');
 
-interface CalendarProps<ItemT> {
+interface CalendarProps<ItemT>
+  extends Omit<DateBoardProps<ItemT>, 'year' | 'month'> {
   load: boolean;
-  doneDay: (item: ItemT) => void; // 点击打卡
-  color: string;
-  date: Date;
-  canceDay: (item: ItemT) => void; // 取消打卡
-  busyDay?: Record<string, ItemT>;
   move: (first: string, last: string) => void; // 加载当前月
 }
 
+interface CalendarState {
+  year: number;
+  month: number;
+  staticYear: number;
+  staticMonth: number;
+  staticDate: number;
+  nextMonthYear: number;
+  nextMonth: number;
+  date: number; //月份
+}
+
 export default class Calendar<ItemT> extends PureComponent<
-  CalendarProps<ItemT>
+  CalendarProps<ItemT>,
+  CalendarState
 > {
+  timer: number | undefined;
+  trueScroll: ScrollView | null | undefined;
+  trueViewPager: ViewPagerAndroid | null | undefined;
   constructor(props: any) {
     super(props);
     this.state = {
       year: this.props.date.getFullYear(),
       month: this.props.date.getMonth(),
-      date: '',
+      date: 0,
       staticYear: this.props.date.getFullYear(),
       staticMonth: this.props.date.getMonth(),
       staticDate: this.props.date.getDate(),
@@ -49,38 +60,28 @@ export default class Calendar<ItemT> extends PureComponent<
     };
   }
 
-  state: {};
+  // state: {};
 
-  static propTypes = {};
+  // static propTypes = {};
 
-  static defaultProps = {};
+  // static defaultProps = {};
+  monthDay: number[] = [
+    31,
+    28 + isLeap(this.props.date.getFullYear()),
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
 
   componentDidMount() {
-    this.monthDay = [
-      31,
-      28 + this.isLeap(this.state.year),
-      31,
-      30,
-      31,
-      30,
-      31,
-      31,
-      30,
-      31,
-      30,
-      31,
-    ];
     // this.move()
-  }
-
-  isLeap(year) {
-    return year % 100 === 0
-      ? year % 400 === 0
-        ? 1
-        : 0
-      : year % 4 === 0
-      ? 1
-      : 0;
   }
 
   // selectDay(d) {
@@ -97,14 +98,15 @@ export default class Calendar<ItemT> extends PureComponent<
     >,
   ) {
     if (Platform.OS === 'ios') {
-      const scrollX = event.nativeEvent.contentOffset.x;
+      const nativeEvent = event.nativeEvent as NativeScrollEvent;
+      const scrollX = nativeEvent.contentOffset.x;
       if (scrollX > width) {
         this.nextMonth();
       } else if (scrollX < width) {
         this.prev();
       } else {
       }
-      this.refs.trueScroll.scrollTo({ x: width, y: 0, animated: false });
+      this.trueScroll?.scrollTo({ x: width, y: 0, animated: false });
     } else {
       // console.log('event', event);
       const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
@@ -115,7 +117,7 @@ export default class Calendar<ItemT> extends PureComponent<
         this.prev();
       }
       if (nativeEvent.position !== 1) {
-        this.refs.trueViewPager.setPageWithoutAnimation(1);
+        this.trueViewPager?.setPageWithoutAnimation(1);
       }
     }
   }
@@ -151,20 +153,6 @@ export default class Calendar<ItemT> extends PureComponent<
   }
 
   prev() {
-    const monthDay = [
-      31,
-      28 + this.isLeap(this.state.year),
-      31,
-      30,
-      31,
-      30,
-      31,
-      31,
-      30,
-      31,
-      30,
-      31,
-    ];
     if (this.state.month === 0) {
       if (this.state.date > this.monthDay[11]) {
         this.setState({
@@ -193,18 +181,18 @@ export default class Calendar<ItemT> extends PureComponent<
     }
   }
 
-  goTo = (direction) => {
+  goTo = (direction: 'left' | 'right') => {
     const that = this;
     if (direction === 'left') {
-      that.refs.trueViewPager.setPage(0);
+      that.trueViewPager?.setPage(0);
       this.prev();
     } else {
-      that.refs.trueViewPager.setPage(2);
+      that.trueViewPager?.setPage(2);
       this.nextMonth();
     }
 
     this.timer = setTimeout(
-      () => that.refs.trueViewPager.setPageWithoutAnimation(1),
+      () => that.trueViewPager?.setPageWithoutAnimation(1),
       1000,
     );
     // that.refs.trueViewPager.setPageWithoutAnimation(1)
@@ -212,10 +200,10 @@ export default class Calendar<ItemT> extends PureComponent<
 
   move = () => {
     const year = `${this.state.year}`;
-    let month = this.state.month + 1;
-    month = month < 10 ? `0${month}` : `${month}`;
-    const firstDay = `${year}-${month}-01`;
-    const lastDay = `${year}-${month}-${this.monthDay[this.state.month]}`;
+    const month = this.state.month + 1;
+    const monthString = month < 10 ? `0${month}` : `${month}`;
+    const firstDay = `${monthString}-${monthString}-01`;
+    const lastDay = `${year}-${monthString}-${this.monthDay[this.state.month]}`;
     this.props.move && this.props.move(firstDay, lastDay);
   };
 
@@ -223,16 +211,15 @@ export default class Calendar<ItemT> extends PureComponent<
     this.timer && clearTimeout(this.timer);
   }
 
-  renderDateBorad = (month) => (
+  renderDateBorad = (month: number) => (
     <DateBoard
       color={this.props.color}
       key={month}
       year={this.state.year}
       month={month}
-      date={this.state.date}
-      selectDay={this.props.doneDay}
-      isLeap={this.isLeap}
-      fetchData={this.props.canceDay}
+      date={this.props.date}
+      doneDay={this.props.doneDay}
+      canceDay={this.props.canceDay}
       busyDay={this.props.busyDay}
     />
   );
@@ -251,7 +238,7 @@ export default class Calendar<ItemT> extends PureComponent<
           contentOffset={{ x: width, y: 0 }}
           bounces={false}
           onMomentumScrollEnd={(event) => this.myScroll(event)}
-          ref="trueScroll"
+          ref={(ref) => (this.trueScroll = ref)}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
           {pageMonth.map((mouth) => this.renderDateBorad(mouth))}
@@ -263,7 +250,7 @@ export default class Calendar<ItemT> extends PureComponent<
         style={{ height: 250, width }}
         initialPage={1}
         onPageSelected={(event) => this.myScroll(event)}
-        ref="trueViewPager">
+        ref={(ref) => (this.trueViewPager = ref)}>
         <View key="1">{this.renderDateBorad(pageMonth[0])}</View>
         <View key="2">{this.renderDateBorad(pageMonth[1])}</View>
         <View key="3">{this.renderDateBorad(pageMonth[2])}</View>
@@ -291,7 +278,7 @@ export default class Calendar<ItemT> extends PureComponent<
     // console.log('this.syaye', this.state);
 
     return (
-      <View style={[this.props.style]}>
+      <View>
         <View style={styles.dayTitle}>
           {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
           {/* <View style={styles.leftBtn}/> */}

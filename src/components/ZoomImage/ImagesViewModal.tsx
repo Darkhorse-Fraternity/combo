@@ -4,7 +4,6 @@
  */
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Image,
@@ -12,7 +11,6 @@ import {
   StatusBar,
   Platform,
   ActivityIndicator,
-  BackHandler,
   Modal,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
@@ -114,7 +112,6 @@ export default class ImagesViewModals extends Component<
         <ImageViewer
           loadingRender={() => <ActivityIndicator />}
           imageUrls={imageUrls}
-          index={index}
           onClick={() => {
             closeCallBack && closeCallBack();
           }}
@@ -131,6 +128,7 @@ export default class ImagesViewModals extends Component<
             cancel: strings('save.cance'),
           }}
           {...this.props}
+          index={index}
           onSave={async (url) => {
             saveToCameraRoll(url);
           }}

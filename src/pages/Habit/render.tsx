@@ -2,7 +2,7 @@
  * Created by lintong on 2017/7/3.
  */
 
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useRef } from 'react';
 import { Dimensions, Alert } from 'react-native';
 import Cell from './Cell';
 

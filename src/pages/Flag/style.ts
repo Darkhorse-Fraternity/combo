@@ -7,7 +7,6 @@ import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Button from '../../components/Button';
-import { randFlowCoverColor } from 'src/Theme/color';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;

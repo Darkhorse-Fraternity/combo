@@ -55,7 +55,7 @@ const RenderLikes: FC<ItemType> = (props) => {
         setLiked(liked);
       })
       .catch();
-  }, []);
+  }, [objectId]);
 
   // const { liked } = this.state;
   // const { doLike } = this.props;

@@ -16,7 +16,7 @@ import { getClassesIDo, GetClassesIDoResponse } from 'src/hooks/interface';
 import { DeviceEventEmitterKey } from '@configure/enum';
 type ItemType = GetClassesIDoResponse['results'][number];
 
-const RenderRow: FC<ListRenderItemInfo<ItemType>> = ({ item, index }) => {
+const RenderRow: FC<ListRenderItemInfo<ItemType>> = ({ item }) => {
   const { color } = useNavigationAllParamsWithType<RouteKey.log>();
   const { navigate } = useNavigation();
   const user = useGetUserInfo();

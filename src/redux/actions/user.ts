@@ -16,7 +16,7 @@ import md5 from 'react-native-md5';
 import { updatePush } from '../../configure/push/push';
 import { setLeanCloudSession } from '../../configure/reqConfigs';
 import { get } from './req';
-import { loadAccount } from '../../configure/storage';
+// import { loadAccount } from '../../configure/storage';
 import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
@@ -61,34 +61,34 @@ const wechatAppID = 'wx637e6f35f8211c6d';
 
 // 当为异步的时候这么写，返回一个函数
 
-export function loadAccountAction(): Function {
-  return (dispatch) =>
-    loadAccount((ret) => {
-      dispatch(_loadAccount(ret));
-    });
-}
+// export function loadAccountAction(): Function {
+//   return (dispatch) =>
+//     loadAccount((ret) => {
+//       dispatch(_loadAccount(ret));
+//     });
+// }
 
-function _loadAccount(ret: string): Object {
-  return {
-    type: LOAD_ACCOUNT,
-    accountText: ret,
-    passwordText: '',
-  };
-}
+// function _loadAccount(ret: string): Object {
+//   return {
+//     type: LOAD_ACCOUNT,
+//     accountText: ret,
+//     passwordText: '',
+//   };
+// }
 
-export function accountTextChange(text: string): Object {
-  return {
-    type: ACCOUNT_CHANGE,
-    accountText: text,
-  };
-}
+// export function accountTextChange(text: string): Object {
+//   return {
+//     type: ACCOUNT_CHANGE,
+//     accountText: text,
+//   };
+// }
 
-export function passwordTextChange(text: string): Object {
-  return {
-    type: ACCOUNT_CHANGE,
-    passwordText: text,
-  };
-}
+// export function passwordTextChange(text: string): Object {
+//   return {
+//     type: ACCOUNT_CHANGE,
+//     passwordText: text,
+//   };
+// }
 
 /**
  * 这边做了一个异步范例
@@ -96,63 +96,63 @@ export function passwordTextChange(text: string): Object {
  *
  */
 
-export function userInfo() {
-  return async (dispatch) => {
-    // const uuid =  DeviceInfo.getUniqueID()
+// export function userInfo() {
+//   return async (dispatch) => {
+//     // const uuid =  DeviceInfo.getUniqueID()
 
-    try {
-      dispatch(_loginRequest());
-      const credentials = await Keychain.getGenericPassword();
-      const userString = credentials.password;
-      // const sessionToken = await storage.load({ key: sessionTokenkey, })
-      const user = JSON.parse(userString);
-      const { sessionToken } = user;
-      if (sessionToken) {
-        // setLeanCloudSession(sessionToken)
-        // const params = usersMe()
-        await dispatch(loginSucceed(user));
-        // 更新用户数据
-        dispatch(update());
+//     try {
+//       dispatch(_loginRequest());
+//       const credentials = await Keychain.getGenericPassword();
+//       const userString = credentials.password;
+//       // const sessionToken = await storage.load({ key: sessionTokenkey, })
+//       const user = JSON.parse(userString);
+//       const { sessionToken } = user;
+//       if (sessionToken) {
+//         // setLeanCloudSession(sessionToken)
+//         // const params = usersMe()
+//         await dispatch(loginSucceed(user));
+//         // 更新用户数据
+//         dispatch(update());
 
-        return user;
-        // try {
-        //   const res = await get(params)
-        //   console.log('res:', res);
-        //   dispatch(_loginSucceed(res));
-        //   return res;
-        // } catch (e) {
-        //   return dispatch(anonymousUser());
-        // }
-      }
-      return dispatch(anonymousUser());
-    } catch (e) {
-      return dispatch(anonymousUser());
-    }
-  };
-}
+//         return user;
+//         // try {
+//         //   const res = await get(params)
+//         //   console.log('res:', res);
+//         //   dispatch(_loginSucceed(res));
+//         //   return res;
+//         // } catch (e) {
+//         //   return dispatch(anonymousUser());
+//         // }
+//       }
+//       return dispatch(anonymousUser());
+//     } catch (e) {
+//       return dispatch(anonymousUser());
+//     }
+//   };
+// }
 
-const anonymousUser = () => async (dispatch) => {
-  let uniqueId = DeviceInfo.getUniqueId();
-  const anonymousConfig = { id: uniqueId };
-  try {
-    if (Platform.OS === 'ios') {
-      uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
-    }
-    const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
-    const user = await get(userInfoParmas);
-    await dispatch(_loginSucceed(user));
-    await dispatch(addSample(user));
+// const anonymousUser = () => async (dispatch) => {
+//   let uniqueId = DeviceInfo.getUniqueId();
+//   const anonymousConfig = { id: uniqueId };
+//   try {
+//     if (Platform.OS === 'ios') {
+//       uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
+//     }
+//     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
+//     const user = await get(userInfoParmas);
+//     await dispatch(_loginSucceed(user));
+//     await dispatch(addSample(user));
 
-    return user;
-    // console.log('user:', user);
-  } catch (e) {
-    // Toast.show(e.message)
-    console.log('anonymousUser error:', e.message);
-    const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
-    dispatch(_loginFailed());
-    return await get(userInfoParmas);
-  }
-};
+//     return user;
+//     // console.log('user:', user);
+//   } catch (e) {
+//     // Toast.show(e.message)
+//     console.log('anonymousUser error:', e.message);
+//     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
+//     dispatch(_loginFailed());
+//     return await get(userInfoParmas);
+//   }
+// };
 
 // const iCardSample = (objectId: string) => [
 //   {
@@ -218,7 +218,7 @@ const anonymousUser = () => async (dispatch) => {
 // });
 
 // 预设示例
-function addSample(user) {
+function addSample(user: UserType) {
   return async (dispatch) => {
     const { createdAt, updatedAt, objectId } = user;
     const createdAtTime = new Date(createdAt).getTime();
@@ -252,24 +252,24 @@ function addSample(user) {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function login(state: Object): Function {
-  const parame = requestLogin(state.phone, state.ymCode);
+// export function login(state: Object): Function {
+//   const parame = requestLogin(state.phone, state.ymCode);
 
-  return (dispatch) => {
-    dispatch(_loginRequest());
+//   return (dispatch) => {
+//     dispatch(_loginRequest());
 
-    return get(parame).then(async (response) => {
-      if (response.statu) {
-        // 加入sessionToken
-        await dispatch(response);
+//     return get(parame).then(async (response) => {
+//       if (response.statu) {
+//         // 加入sessionToken
+//         await dispatch(response);
 
-        dispatch(navigatePop());
-      } else {
-        dispatch(_loginFailed(response));
-      }
-    });
-  };
-}
+//         dispatch(navigatePop());
+//       } else {
+//         dispatch(_loginFailed(response));
+//       }
+//     });
+//   };
+// }
 
 /**
  * 注册
@@ -335,19 +335,19 @@ export function register(state: Object, navigation): Function {
 }
 
 // 校验手机号
-export function mobilePhoneVerify(mobilePhoneNumber, code) {
+export function mobilePhoneVerify(mobilePhoneNumber: number, code: string) {
   const params = verifySmsCode(mobilePhoneNumber, code);
   return get(params);
 }
 
-function _loginRequest(): Object {
+function _loginRequest() {
   return {
     type: LOGIN_REQUEST,
     loaded: true,
   };
 }
 
-function _loginSucceed(response: Object): Object {
+function _loginSucceed(response: Object) {
   // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
   // saveUserData(response);
   // saveAccount(response.mobilePhoneNumber);
@@ -387,14 +387,14 @@ export function loginSucceed(data: UserType) {
   };
 }
 
-export function loginLoad(loaded) {
+export function loginLoad(loaded: boolean) {
   return {
     type: LOGIN_LOAD,
     loaded,
   };
 }
 
-export function _loginFailed(response: Object): Object {
+export function _loginFailed() {
   return {
     type: LOGIN_FAILED,
     loaded: false,
@@ -882,7 +882,7 @@ export function bindingAuthData(key, loadKey, ad, exData) {
 
 // 判断user 是否存在
 
-async function getUserExsitJudge(type, id) {
+async function getUserExsitJudge(type: string, id: string) {
   if (id) {
     const params = userExsitJudge(type, id);
     const res = await get(params);
