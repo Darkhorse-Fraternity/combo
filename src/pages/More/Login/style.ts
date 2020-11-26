@@ -128,3 +128,12 @@ export const StyledMoreBtnText = styled.Text`
 export const StyledBtnContnet = styled.View`
   flex: 1;
 `;
+
+export const StyledInputView = styled.View`
+  flex-direction: row;
+  background-color: #f0f0f0;
+  // width: Dimensions.get('window').width - 40,
+  padding: 0px 20px;
+  margin: 0px 20px;
+  max-width: 500px;
+`;

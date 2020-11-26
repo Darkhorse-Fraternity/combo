@@ -4,7 +4,7 @@
  * https://github.com/facebook/react-native
  */
 
-import { StackActions } from '@react-navigation/native';
+import { StackActions, StackActionType } from '@react-navigation/native';
 // *** Action Types ***
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
@@ -272,7 +272,10 @@ function addSample(user: UserType) {
  * @param  {[type]} state:Object [description]
  * @return {[type]}              [description]
  */
-export function register(state: Object, navigation): Function {
+export function register(
+  state: { phone: string; ymCode: string },
+  navigation: {},
+): Function {
   return async (dispatch) => {
     try {
       dispatch(_loginRequest());
@@ -313,11 +316,7 @@ export function register(state: Object, navigation): Function {
       }
       // 已存在则直接登录
 
-      const params = requestUsersByMobilePhone(
-        state.phone,
-        state.ymCode,
-        state.setPwd,
-      );
+      const params = requestUsersByMobilePhone(state.phone, state.ymCode);
       const user = await get(params);
       await dispatch(_loginSucceed(user));
       await dispatch(addSample(user));
@@ -331,7 +330,7 @@ export function register(state: Object, navigation): Function {
 }
 
 // 校验手机号
-export function mobilePhoneVerify(mobilePhoneNumber: number, code: string) {
+export function mobilePhoneVerify(mobilePhoneNumber: string, code: string) {
   const params = verifySmsCode(mobilePhoneNumber, code);
   return get(params);
 }
@@ -501,7 +500,10 @@ function updateLocation(user: UserType) {
 //   }
 // }
 
-export function weChatLogin(Key, navigation) {
+export function weChatLogin(
+  Key: string,
+  navigation: { dispatch: (a: StackActionType) => void },
+) {
   return async (dispatch, getState) => {
     try {
       dispatch(thirdLoaded(Key));
@@ -509,10 +511,10 @@ export function weChatLogin(Key, navigation) {
       if (!weConfig) {
         return dispatch(thirdLoaded(''));
       }
-      const { appid, code } = weConfig;
+      const { code } = weConfig;
 
       // 获取openid
-      const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
+      const wechatInfoParam = wechatInfo(wechatAppID, secret, code || '');
       const weInfo = await get(wechatInfoParam);
       const { access_token, openid } = weInfo;
       // console.log('weInfo:', weInfo);
@@ -588,10 +590,13 @@ export function weChatLogin(Key, navigation) {
   };
 }
 
-export function qqLogin(Key, navigation) {
+export function qqLogin(
+  key: string,
+  navigation: { dispatch: (a: never) => void },
+) {
   return async (dispatch, getState) => {
     try {
-      dispatch(thirdLoaded(Key));
+      dispatch(thirdLoaded(key));
 
       let qqConfig;
       try {
@@ -665,10 +670,10 @@ export function qqLogin(Key, navigation) {
   };
 }
 
-export function appleLogin(Key: string, navigation: any) {
+export function appleLogin(key: string, navigation: any) {
   return async (dispatch, getState) => {
     try {
-      dispatch(thirdLoaded(Key));
+      dispatch(thirdLoaded(key));
 
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
@@ -867,6 +872,7 @@ export async function bindingAuthData(
       ...res,
     };
   }
+  return null;
 }
 
 // 判断user 是否存在

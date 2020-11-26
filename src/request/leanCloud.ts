@@ -73,7 +73,7 @@ export function requestMobilePhoneVerify(mobilePhoneNumber: number) {
 }
 
 // 检验验证码
-export function verifySmsCode(mobilePhoneNumber: number, code: string) {
+export function verifySmsCode(mobilePhoneNumber: string, code: string) {
   return {
     path: `/verifySmsCode/${code}`,
     method: methodType.post,
@@ -93,7 +93,7 @@ export function verifySmsCode(mobilePhoneNumber: number, code: string) {
 export function requestUsersByMobilePhone(
   mobilePhoneNumber: string,
   smsCode: string,
-  password: string,
+  password?: string,
 ): Object {
   return {
     path: '/usersByMobilePhone',
