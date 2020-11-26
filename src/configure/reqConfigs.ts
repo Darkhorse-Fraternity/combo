@@ -14,7 +14,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 
-import { Cache } from 'react-native-cache';
+// eslint-disable-next-line
+import { Cache } from 'react-native-cache'; 
 import DefaultPreference from 'react-native-default-preference';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'
@@ -157,7 +158,7 @@ interface eType {
   error?: string;
 }
 
-const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
+const dataMap = async <T extends {}>(data: T, e?: eType) => {
   if (e) {
     return { error: e.message || e.error, code: e.code, result: data };
   }
@@ -167,7 +168,7 @@ const dataMap = async <T extends {}>(data: T, e?: eType, reload?: Function) => {
 
 setDataMap(<any>dataMap);
 
-const errorAction = (props: ReqProps, error: string, code: number) => {
+const errorAction = (_: ReqProps, error: string, code: number) => {
   // if (code === 432) {
   //   return;
   // }

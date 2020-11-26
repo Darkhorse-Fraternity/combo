@@ -1,8 +1,9 @@
 import {
+  JSExceptionHandler,
   setJSExceptionHandler,
   setNativeExceptionHandler,
 } from 'react-native-exception-handler';
-import { Alert, Platform } from 'react-native';
+import { Alert } from 'react-native';
 import RNRestart from 'react-native-restart';
 import DeviceInfo from 'react-native-device-info';
 import { strings } from '../../locales/i18n';
@@ -12,7 +13,7 @@ const allowInDevMode = false;
 
 const DeviceBugInfo = () =>
   `Brand: ${DeviceInfo.getBrand()}\n` +
-  `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
+  // `DeviceCountry: ${DeviceInfo.getDeviceCountry()}\n` +
   `FreeDiskStorage: ${DeviceInfo.getFreeDiskStorage()}\n` +
   `Model: ${DeviceInfo.getModel()}\n` +
   `SystemVersion: ${DeviceInfo.getSystemVersion()}\n` +
@@ -20,7 +21,7 @@ const DeviceBugInfo = () =>
 
 //= ================================================
 // ADVANCED use case:
-const errorHandler = (e, isFatal) => {
+const errorHandler: JSExceptionHandler = (e, isFatal) => {
   if (isFatal) {
     // 发送错误信息给服务器
     const errorString = `${e.name} ${e.message}`;
@@ -83,7 +84,14 @@ setNativeExceptionHandler((errorString) => {
 // let stateTime = new Date().getTime()
 // const sessionId = () => uniqueId + "-" + stateTime
 
-const uploadErrorString = async (from, errorString, isFatal) => {
+const uploadErrorString = async (
+  from: string,
+  errorString: string,
+  isFatal: boolean,
+) => {
+  console.log('from', from);
+  console.log('errorString', errorString);
+  console.log('isFatal', isFatal);
   // console.log('nativeExceptionHandler:',from, errorString);
   // let params = {
   //   client: await client(),

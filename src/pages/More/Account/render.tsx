@@ -2,7 +2,6 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { View, Alert, TouchableOpacity } from 'react-native';
-import { connect } from 'react-redux';
 import * as WeChat from 'react-native-wechat';
 import DeviceInfo from 'react-native-device-info';
 
@@ -14,7 +13,6 @@ import {
 import {
   StyledContent,
   StyledButton,
-  StyledArrow,
   StyledTitle,
   StyledRow,
   StyledDes,
@@ -29,93 +27,130 @@ import {
   StyledAppPrivacyLine,
 } from './style';
 
-import { WECHATLOGIN, QQLOGIN, UPDATENICKNAME } from '../../../redux/reqKeys';
 import {
   add_Leancloud_Thumbnail_Suffix,
   appChannel,
 } from '../../../../helps/util';
 import { AvatarPicker } from '@components/Avatar/avatar-picker';
 import { useGetUserInfo } from 'src/data/data-context';
-import { UserType } from 'src/data/data-context/interface';
 import { StackActions, useNavigation } from '@react-navigation/native';
-import { putUsersId, usePutUsersId } from 'src/hooks/interface';
+import { putUsersId } from 'src/hooks/interface';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
-import { updateLocation, useGetInfoOfMe } from 'src/data/data-context/user';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 
-@connect(
-  (state) => ({
-    wechatLoad: state.req.get(WECHATLOGIN).get('load'),
-    qqLoad: state.req.get(QQLOGIN).get('load'),
-    loadAvatar: state.util.get('loadAvatar'),
-  }),
-  (dispatch, props) => ({
-    wechatBinding: () => {
-      dispatch(wechatBinding(WECHATLOGIN));
-    },
-    qqBinding: () => {
-      dispatch(qqBinding(QQLOGIN));
-    },
-    brekeBinding: (key, loadKey, dbNum) => {
-      if (dbNum > 1) {
-        dispatch(breakBinding(key, loadKey));
-      } else {
-        Alert.alert('解除后,一旦退出将无法找回', null, [{ text: '取消' }]);
-      }
-    },
-  }),
-)
-class AccountClass extends React.Component<{
-  // loadAvatar: boolean;
-  user: UserType;
-  isWXAppInstalled: boolean;
-}> {
-  render() {
-    const { user, isWXAppInstalled } = this.props;
-    const { authData, mobilePhoneVerified } = user;
-    const { weixin, qq } = authData || {};
-    let dbNum = 0;
-    if (mobilePhoneVerified) {
-      dbNum += 1;
-    }
-    if (weixin) {
-      dbNum += 1;
-    }
-    if (qq) {
-      dbNum += 1;
-    }
+// @connect(
+//   () => ({
+//     // wechatLoad: state.req.get(WECHATLOGIN).get('load'),
+//     // qqLoad: state.req.get(QQLOGIN).get('load'),
+//     // loadAvatar: state.util.get('loadAvatar'),
+//   }),
+//   (dispatch, props) => ({
+//     wechatBinding: () => {
+//       wechatBinding(props.user);
+//     },
+//     qqBinding: () => {
+//       dispatch(qqBinding(props.user));
+//     },
+//     brekeBinding: (key, loadKey, dbNum) => {
+//       if (dbNum > 1) {
+//         dispatch(breakBinding(key, loadKey));
+//       } else {
+//         Alert.alert('解除后,一旦退出将无法找回', null, [{ text: '取消' }]);
+//       }
+//     },
+//   }),
+// )
 
-    // weixin && ++bindingNum;
-    // qq && ++bindingNum;
-    // console.log("dbNum:", dbNum);
+type KeyType = 'weixin' | 'qq';
 
-    return (
-      <>
-        {isWXAppInstalled && (
-          <RenderRow
-            title="微信"
-            des={weixin ? '解除绑定' : '点击绑定'}
-            onPress={() => {
-              weixin
-                ? this.props.brekeBinding('weixin', WECHATLOGIN, dbNum)
-                : this.props.wechatBinding();
-            }}
-            load={this.props.wechatLoad}
-          />
-        )}
-        <RenderRow
-          title="QQ"
-          des={qq ? '解除绑定' : '点击绑定'}
-          onPress={() => {
-            qq
-              ? this.props.brekeBinding('qq', QQLOGIN, dbNum)
-              : this.props.qqBinding();
-          }}
-          load={this.props.qqLoad}
-        />
-      </>
-    );
+const AccountClass: FC<{ isWXAppInstalled: boolean }> = (props) => {
+  const { isWXAppInstalled } = props;
+  const { user, updateMe } = useGetInfoOfMe();
+  const [wxLoad, setWXLoad] = useState(false);
+  const [qqLoad, setQQLoad] = useState(false);
+  const { authData, mobilePhoneVerified } = user;
+  const { weixin, qq } = authData || {};
+  let dbNum = 0;
+  if (mobilePhoneVerified) {
+    dbNum += 1;
   }
-}
+  if (weixin) {
+    dbNum += 1;
+  }
+  if (qq) {
+    dbNum += 1;
+  }
+
+  const onBreke = async (key: KeyType) => {
+    if (dbNum > 1) {
+      const loadAction = {
+        weixin: setWXLoad,
+        qq: setQQLoad,
+      }[key];
+      try {
+        loadAction(true);
+        const res = await breakBinding(key, user);
+        if (res) {
+          updateMe(res);
+        }
+        loadAction(false);
+      } catch (error) {
+        loadAction(false);
+      }
+    } else {
+      Alert.alert('解除后,一旦退出将无法找回', '', [{ text: '取消' }]);
+    }
+  };
+
+  const onBanding = async (key: KeyType) => {
+    const action = {
+      weixin: wechatBinding,
+      qq: qqBinding,
+    }[key];
+    const loadAction = {
+      weixin: setWXLoad,
+      qq: setQQLoad,
+    }[key];
+    // const action = actions[key];
+    loadAction(true);
+    try {
+      const res = await action(user);
+      if (res) {
+        updateMe(res);
+      }
+      loadAction(false);
+    } catch (error) {
+      loadAction(false);
+    }
+  };
+
+  const onUpdate = async (key: KeyType) => {
+    if (authData[key]) {
+      onBreke(key);
+    } else {
+      onBanding(key);
+    }
+  };
+
+  return (
+    <>
+      {isWXAppInstalled && (
+        <RenderRow
+          title="微信"
+          des={weixin ? '解除绑定' : '点击绑定'}
+          onPress={onUpdate.bind(undefined, 'weixin')}
+          load={wxLoad}
+        />
+      )}
+      <RenderRow
+        title="QQ"
+        des={qq ? '解除绑定' : '点击绑定'}
+        onPress={onUpdate.bind(undefined, 'qq')}
+        load={qqLoad}
+      />
+    </>
+  );
+};
 
 const RenderRow: FC<{
   title: string;
@@ -134,7 +169,7 @@ const RenderRow: FC<{
   );
 };
 
-const RenderHeadRow: FC<{}> = (props) => {
+const RenderHeadRow: FC<{}> = () => {
   // const { upload, update } = props;
   // const { nickname } = this.state;
   // const { data, dispatch } = useContext(DataContext);
@@ -270,7 +305,7 @@ const RenderAppInfo: FC<{}> = () => {
 };
 
 const Account = () => {
-  const { user, logout } = useGetInfoOfMe();
+  const { logout } = useGetInfoOfMe();
   const { dispatch } = useNavigation();
   const [isWXAppInstalled, setIsWXAppInstalled] = useState(false);
   useEffect(() => {
@@ -298,7 +333,7 @@ const Account = () => {
     <StyledSafeAreaView>
       <RenderHeadRow />
       <StyledContent>
-        <AccountClass user={user} isWXAppInstalled={isWXAppInstalled} />
+        <AccountClass isWXAppInstalled={isWXAppInstalled} />
         <RenderRow title="退出登录" des="" onPress={logoutWithAlert} />
       </StyledContent>
       <RenderAppInfo />

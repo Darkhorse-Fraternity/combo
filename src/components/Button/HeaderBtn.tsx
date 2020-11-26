@@ -10,6 +10,8 @@ import {
   Text,
   ActivityIndicator,
   TouchableNativeFeedbackProps,
+  StyleProp,
+  TextStyle,
 } from 'react-native';
 import { theme } from '../../Theme';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
@@ -17,9 +19,10 @@ import { debounce } from 'lodash'; // 4.0.8
 
 export default class HeaderBtn extends PureComponent<
   {
-    load: boolean;
+    load?: boolean;
     disabled?: boolean;
     title: string;
+    titleStyle?: StyleProp<TextStyle>;
   } & TouchableNativeFeedbackProps
 > {
   debouncedOnPress = (e: never) => {

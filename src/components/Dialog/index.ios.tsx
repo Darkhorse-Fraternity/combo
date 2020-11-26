@@ -1,12 +1,12 @@
-/* @flow */
+/* eslint-disable no-new */
 'use strict';
-import React from 'react';
+
 import { ActionSheetIOS } from 'react-native';
 
-function processColors(nativeConfig) {
+function processColors(nativeConfig: {}) {
   for (const prop of Object.keys(nativeConfig)) {
     if (prop.endsWith('Color')) {
-      nativeConfig[prop] = processColor(nativeConfig[prop]);
+      nativeConfig[prop] = processColors(nativeConfig[prop]);
     }
   }
 }
@@ -30,11 +30,11 @@ export default class DialogIOS {
     // Pop.hide();
   }
 
-  static assignDefaults(defaults) {
+  static assignDefaults(defaults: {}) {
     Object.assign(DialogIOS.defaults, defaults);
   }
 
-  static showPicker(title: string, content, options) {
+  static showPicker(title: string, content: null, options: {}) {
     return new Promise((resolve, reject) => {
       const {
         idKey = 'id',
@@ -157,19 +157,19 @@ function getChecked(nativeConfig, checked) {
   return nativeConfig.checkboxLabel ? { checked } : {};
 }
 
-const show = (nativeConfig, callback) => {
+const show = (nativeConfig: { items: [] }, callback: () => void) => {
   const {
     items,
     itemsCallbackSingleChoice,
     itemsCallback,
     itemsCallbackMultiChoice,
-    ...rest
+    // ...rest
   } = nativeConfig;
   // console.log('nativeConfig:', nativeConfig);
 
   if (itemsCallbackSingleChoice) {
-    const { selectedIndex } = rest;
-    showListRadio(items, selectedIndex, (index) => {
+    // const { selectedIndex } = rest;
+    showListRadio(items, (index) => {
       callback('itemsCallbackSingleChoice', index, false);
     });
   } else if (itemsCallback) {
@@ -180,7 +180,7 @@ const show = (nativeConfig, callback) => {
   }
 };
 
-function showActionSheetWithOptions(items, callBack) {
+function showActionSheetWithOptions(items: [], callBack) {
   const BUTTONS = items.concat('取消');
   ActionSheetIOS.showActionSheetWithOptions(
     {
@@ -193,6 +193,6 @@ function showActionSheetWithOptions(items, callBack) {
   );
 }
 
-function showListRadio(items, selectedIndex, callBack) {
+function showListRadio(items: [], callBack: (index: number) => void) {
   showActionSheetWithOptions(items, callBack);
 }

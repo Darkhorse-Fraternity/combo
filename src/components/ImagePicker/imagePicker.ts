@@ -10,7 +10,6 @@ import ImagePicker, {
   ImagePickerResponse,
 } from 'react-native-image-picker';
 import Toast from 'react-native-simple-toast';
-import { StatusBar } from 'react-native';
 
 const DEFAULT_OPTIONS: ImagePickerOptions = {
   title: '添加图片', // specify null or empty string to remove the title

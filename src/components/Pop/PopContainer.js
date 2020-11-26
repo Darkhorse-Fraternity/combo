@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
 
 export default class PopupContainer extends React.Component<any> {
   // static childContextTypes = {
-  //     store: PropTypes.object,
   // };
   // getChildContext(): Object {
   //     return {

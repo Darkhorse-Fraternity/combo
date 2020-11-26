@@ -3,7 +3,6 @@ import {
   NativeModules,
   View,
   Text,
-  Dimensions,
   StyleSheet,
   Image,
   Platform,
@@ -36,6 +35,7 @@ export default class RNUpdate extends Component {
   };
   filePath: string;
   jobId: number;
+  loading: boolean;
 
   constructor(props) {
     super(props);
@@ -230,12 +230,7 @@ export default class RNUpdate extends Component {
   };
 
   renderBanner = () => {
-    const {
-      bannerImage,
-      bannerWidth,
-      bannerHeight,
-      bannerResizeMode,
-    } = this.props;
+    const { bannerImage, bannerWidth, bannerHeight } = this.props;
     return (
       <View style={{ height: bannerHeight }}>
         <Image

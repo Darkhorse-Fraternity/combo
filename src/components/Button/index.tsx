@@ -1,8 +1,7 @@
-import { types } from '@babel/core';
 import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { debounce } from 'lodash';
 
-import React, { ReactChild, ComponentType, PropsWithChildren, FC } from 'react';
+import React, { ComponentType, FC } from 'react';
 import {
   TouchableOpacity,
   Platform,
@@ -15,7 +14,6 @@ import {
   Text,
   GestureResponderEvent,
   TouchableHighlight,
-  TouchableOpacityProps,
 } from 'react-native';
 
 export interface BtnPeddingProps {

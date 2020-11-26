@@ -5,7 +5,6 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Image, StyleSheet, Platform } from 'react-native';
 // import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 

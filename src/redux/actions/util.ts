@@ -16,38 +16,38 @@ export const DATA_STORAGE = 'DATA_STORAGE';
 export const APP_STATE_UPDATE = 'APP_STATE_UPDATE';
 export const LOCAL_REMIND = 'LOCAL_REMIND';
 
-export function dataStorage(key: string, data: any) {
-  return {
-    type: DATA_STORAGE,
-    key,
-    data,
-  };
-}
+// export function dataStorage(key: string, data: any) {
+//   return {
+//     type: DATA_STORAGE,
+//     key,
+//     data,
+//   };
+// }
 
-export function appStateUpdate(state) {
-  return {
-    type: APP_STATE_UPDATE,
-    state,
-  };
-}
+// export function appStateUpdate(state) {
+//   return {
+//     type: APP_STATE_UPDATE,
+//     state,
+//   };
+// }
 
-export function localRemind(id, value) {
-  return {
-    type: LOCAL_REMIND,
-    data: { [id]: value },
-  };
-}
+// export function localRemind(id, value) {
+//   return {
+//     type: LOCAL_REMIND,
+//     data: { [id]: value },
+//   };
+// }
 
-export function localRemindLoad(data) {
-  return {
-    type: LOCAL_REMIND,
-    data,
-  };
-}
+// export function localRemindLoad(data) {
+//   return {
+//     type: LOCAL_REMIND,
+//     data,
+//   };
+// }
 
-function avatarStatu(statu) {
-  return {
-    type: LOAD_AVATAR,
-    statu,
-  };
-}
+// function avatarStatu(statu) {
+//   return {
+//     type: LOAD_AVATAR,
+//     statu,
+//   };
+// }

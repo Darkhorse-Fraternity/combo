@@ -4,7 +4,7 @@
  */
 
 import React, { PureComponent } from 'react';
-import { View, Image, Animated, Easing } from 'react-native';
+import { Image, Animated } from 'react-native';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 

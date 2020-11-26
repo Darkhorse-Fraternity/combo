@@ -3,9 +3,8 @@
  * @flow
  */
 
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import { reducer as form } from 'redux-form/immutable';
 
 import * as reducers from './reducers';
 
@@ -32,14 +31,13 @@ const middlewares = [thunk];
 const enhancer = applyMiddleware(...middlewares);
 // }
 
-let store;
+let store: never;
 export function creatStore(route) {
   if (!store && route) {
     // const navReducer = createNavigationReducer(route);
     const reducer = combineReducers({
       ...reducers,
       // nav: navReducer,
-      form,
     });
     // const rootReducer = (state, action) => {
     //   if (action.type === 'LOGOUT') {

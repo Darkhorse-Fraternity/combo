@@ -1,10 +1,5 @@
-import React, { Component, PureComponent, ReactChild } from 'react';
-import {
-  StyleProp,
-  TouchableOpacity,
-  ViewProps,
-  ViewStyle,
-} from 'react-native';
+import React, { PureComponent, ReactChild } from 'react';
+import { TouchableOpacity, ViewProps } from 'react-native';
 import styled from 'styled-components/native';
 
 const SelectWrapper = styled.View``;

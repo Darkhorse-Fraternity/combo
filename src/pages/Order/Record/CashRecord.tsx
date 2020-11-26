@@ -56,7 +56,7 @@ const renderRow: ListRenderItem<ItemType> = ({ item }) => {
   );
 };
 
-const CashRecord: FC<{}> = () => {
+const CashRecord: FC<{ tabLabel?: string }> = () => {
   const user = useGetUserInfo();
   const loadPage = (page_index: number, page_size: number) => {
     const where = {

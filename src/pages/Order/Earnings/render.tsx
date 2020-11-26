@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useEffect } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -23,33 +23,31 @@ import { useGetInfoOfMe, useUpdateMe } from 'src/data/data-context/user';
 import { UserType } from 'src/data/data-context/interface';
 import { useNavigation } from '@react-navigation/native';
 
-class EarningsClass extends PureComponent<{}> {
-  scrollValue = new Animated.Value(0);
-
-  render() {
-    return (
-      <ScrollableTabView
-        onScroll={(x) => {
-          x = x <= 0 ? 0 : x;
-          x = x >= 2 ? 2 : x;
-          this.scrollValue.setValue(x);
-        }}
-        onChangeTab={({ i }) => {
-          this.props.navigation.setParams({ gestureEnabled: i === 0 });
-        }}
-        renderTabBar={() => (
-          <EZTabBar
-            scrollValueWithOutNative={this.scrollValue}
-            style={{ marginLeft: 15 }}
-          />
-        )}>
-        <EarningRecord tabLabel="收益记录" />
-        <CostRecord tabLabel="消费记录" />
-        <CashRecord tabLabel="取现记录" />
-      </ScrollableTabView>
-    );
-  }
-}
+const EarningsClass: FC<{}> = () => {
+  const scrollValue = useRef(new Animated.Value(0));
+  const { setParams } = useNavigation();
+  return (
+    <ScrollableTabView
+      onScroll={(x) => {
+        x = x <= 0 ? 0 : x;
+        x = x >= 2 ? 2 : x;
+        scrollValue.current.setValue(x);
+      }}
+      onChangeTab={({ i }) => {
+        setParams({ gestureEnabled: i === 0 });
+      }}
+      renderTabBar={() => (
+        <EZTabBar
+          scrollValueWithOutNative={scrollValue.current}
+          style={{ marginLeft: 15 }}
+        />
+      )}>
+      <EarningRecord tabLabel="收益记录" />
+      <CostRecord tabLabel="消费记录" />
+      <CashRecord tabLabel="取现记录" />
+    </ScrollableTabView>
+  );
+};
 
 const RenderHeader: FC<{ user: UserType }> = (props) => {
   const cash = props.user.balance;
@@ -81,7 +79,7 @@ const RenderHeader: FC<{ user: UserType }> = (props) => {
   );
 };
 
-const Earnings: FC<{}> = (props) => {
+const Earnings: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
   const { run } = useUpdateMe();
 
@@ -92,7 +90,7 @@ const Earnings: FC<{}> = (props) => {
   return (
     <StyledContent>
       <RenderHeader user={user} />
-      <EarningsClass {...props} user={user} />
+      <EarningsClass />
     </StyledContent>
   );
 };

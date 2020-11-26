@@ -71,7 +71,7 @@ interface AvatarAutoProps extends Omit<AvatarProps, 'source'> {
 }
 
 export const AvatarAuto: FC<AvatarAutoProps> = (props) => {
-  const { avatarUrl, radius, headimgurl, ...ohter } = props;
+  const { avatarUrl, headimgurl, ...ohter } = props;
   if (avatarUrl && avatarUrl.length > 0) {
     return <AvatarUrl url={avatarUrl} {...ohter} />;
   }

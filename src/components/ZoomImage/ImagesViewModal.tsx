@@ -33,13 +33,6 @@ export default class ImagesViewModals extends Component<
   ImagesViewModalsPorps,
   { visible: boolean }
 > {
-  // static propTypes = {
-  //   imageUrls: PropTypes.array.isRequired,
-  //   visible: PropTypes.bool,
-  //   closeCallBack: PropTypes.func.isRequired,
-  //   index: PropTypes.number,
-  // };
-
   static defaultProps = {
     height: 250,
     visible: false,

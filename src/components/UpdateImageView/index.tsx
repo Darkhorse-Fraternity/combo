@@ -1,10 +1,8 @@
-import React, { useState, useRef, memo, FC, useEffect } from 'react';
+import React, { useState, useRef, memo, FC } from 'react';
 import {
   GestureResponderEvent,
   LayoutAnimation,
-  View,
   ViewProps,
-  Dimensions,
 } from 'react-native';
 import {
   StyledMainView,
@@ -37,7 +35,9 @@ export interface UpdateImageViewType extends Omit<ViewProps, 'children'> {
   onChange?: (imageArray: UpdateImage[]) => void;
   onPress?: () => void;
   value?: UpdateImage[];
-  openPickRef?: unknown;
+  openPickRef?: React.MutableRefObject<
+    React.Dispatch<React.SetStateAction<boolean>> | undefined
+  >;
   hide?: boolean;
 }
 interface ImagesListType extends UpdateImageViewType {
@@ -164,7 +164,7 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   }
 
   const selectIndex = useRef(0);
-  const deleteImage = (event: GestureResponderEvent, index: number) => {
+  const deleteImage = (_: GestureResponderEvent, index: number) => {
     const array = [...value];
 
     array.splice(index, 1);
@@ -180,12 +180,12 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
       }
     }
   };
-  const showImage = (event: GestureResponderEvent, index: number) => {
+  const showImage = (_: GestureResponderEvent, index: number) => {
     selectIndex.current = index;
     setImageViewShow(true);
   };
 
-  const addImage = async (event: GestureResponderEvent, index: number) => {
+  const addImage = async (_: GestureResponderEvent, index: number) => {
     onPress && onPress();
     const imageCount = maxNumber - index;
     if (imageCount < 1) {

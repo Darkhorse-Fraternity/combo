@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DeviceInfo from 'react-native-device-info';
-import { InteractionManager, Platform, Linking, Alert } from 'react-native';
+import { Platform, Linking, Alert } from 'react-native';
 import { send } from '../../request/index';
 import Pop from '../Pop';
 // import {androidUpdate} from './downLoad'
@@ -9,18 +9,19 @@ import UpdateView from './AndroidUpdateView';
 import { appUpdateInfo } from '../../request/leanCloud';
 import { appChannel } from '../../../helps/util';
 // 当前测试版本号
-const AppTestVersion = '1.3.0';
+// const AppTestVersion = '1.3.0';
 
 const api_token = 'a3f43472f64ddccbc58c2dcf75438f18';
 
-const setTimeoutDelay = (delayInMilliseconds) =>
+const setTimeoutDelay = (delayInMilliseconds: number) =>
   new Promise((resolve) => {
     const timer = setTimeout(() => resolve(timer), delayInMilliseconds);
+    return timer;
   });
-const interactionManagerDelay = () =>
-  new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
+// const interactionManagerDelay = () =>
+//   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
 
-function firUpdate(bundleId, api_token, type) {
+function firUpdate(bundleId: string, api_token: string, type: string) {
   return {
     scheme: 'http',
     host: 'api.fir.im/',
@@ -33,10 +34,10 @@ function firUpdate(bundleId, api_token, type) {
   };
 }
 
-const checkIos = (str) => str.lastIndexOf('ep') !== -1;
+const checkIos = (str: string) => str.lastIndexOf('ep') !== -1;
 // 当为android 时 只有大于或等于指定版本进入测试状态
-const checkAndroid = () =>
-  compareVersion(DeviceInfo.getVersion(), AppTestVersion);
+// const checkAndroid = () =>
+//   compareVersion(DeviceInfo.getVersion(), AppTestVersion);
 
 const checkUpdate = (res, callBack) => {
   // installUrl含有表示返回正确值,
@@ -76,12 +77,12 @@ const checkUpdate = (res, callBack) => {
   }
 };
 
-const goWebView = async (uri) => {
-  // push('WebView', { uri, title: '新版本更新' })
-  // let remoteData = await send(appUpdateInfo()).then(res => res.json())
-  //
-  // console.log('remoteData:', remoteData);
-};
+// const goWebView = async (uri) => {
+//   // push('WebView', { uri, title: '新版本更新' })
+//   // let remoteData = await send(appUpdateInfo()).then(res => res.json())
+//   //
+//   // console.log('remoteData:', remoteData);
+// };
 // goWebView()
 // 用于企业端自动更新
 export const epUpdate = async () => {
@@ -155,7 +156,7 @@ export const epUpdate = async () => {
   }
 };
 
-function sendBack(bundleId) {
+function sendBack(bundleId: string) {
   const params = firUpdate(bundleId, api_token, Platform.OS);
   return send(params).then((res) => res.json());
 }

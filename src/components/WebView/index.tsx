@@ -1,29 +1,14 @@
-import React, {
-  memo,
-  useCallback,
-  useMemo,
-  useEffect,
-  useRef,
-  Ref,
-  useLayoutEffect,
-} from 'react';
-import {
-  default as WebViewType,
-  WebViewMessageEvent,
-} from 'react-native-webview';
-import { LoadAnimation, loadView } from '@components/Load';
+import React, { memo, useCallback, useMemo, useRef, Ref } from 'react';
+import { default as WebViewType } from 'react-native-webview';
+import { LoadAnimation } from '@components/Load';
 import { StyledError, StyledWebView } from './style';
 
 // import {useNavigation} from '@react-navigation/native';
 // import {push, pop} from '@components/NativeRoute';
 // import {useIsFirstRouteInParent} from '@components/UseNavigationAllParams';
 // import {loginAction, useLoginCheck} from '@components/NativeTool';
-import { WebViewProp, OnMessageDataType } from './interface';
-import {
-  WebViewJavascriptBridgeJS,
-  injectJavaScriptInfo,
-} from './WebViewJavascriptBridgeJS';
-import SimpleToast from 'react-native-simple-toast';
+import { WebViewProp } from './interface';
+import { WebViewJavascriptBridgeJS } from './WebViewJavascriptBridgeJS';
 // import {WebViewNavigationEvent} from 'react-native-webview/lib/WebViewTypes';
 const MemoWebView = memo(StyledWebView);
 
@@ -47,9 +32,7 @@ const MemoWebView = memo(StyledWebView);
 //              getObjectSch
 //  ```
 
-export const useCombinedRefs = <T extends any>(
-  ...refs: Array<Ref<T>>
-): Ref<T> =>
+export const useCombinedRefs = <T extends any>(...refs: Ref<T>[]): Ref<T> =>
   useCallback(
     (element: T) =>
       refs.forEach((ref) => {
@@ -66,6 +49,7 @@ export const useCombinedRefs = <T extends any>(
         // it should be fine to set current this way.
         (ref as any).current = element;
       }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     refs,
   );
 
@@ -78,8 +62,8 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
     url,
     headers,
     startInLoadingState = true,
-    onMessage,
-    onMessageEvents,
+    // onMessage,
+    // onMessageEvents,
     forwardRef: webViewRefOut,
     source,
     ...other
@@ -98,14 +82,14 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
         uri: url || '',
         headers,
       },
-    [url, headers],
+    [source, url, headers],
   );
 
-  const callJS = (key: string, params?: Object) => {
-    webViewRefIn.current?.injectJavaScript(injectJavaScriptInfo(key, params));
-    // console.log('webViewRefIn', webViewRefIn);
-    // console.log('key', key);
-  };
+  // const callJS = (key: string, params?: Object) => {
+  //   webViewRefIn.current?.injectJavaScript(injectJavaScriptInfo(key, params));
+  //   // console.log('webViewRefIn', webViewRefIn);
+  //   // console.log('key', key);
+  // };
 
   // useEffect(() => {
   //   if (!ifLoginLoading) {
@@ -152,10 +136,10 @@ const WebView = (props: WebViewProp & WebViewRefProp) => {
   //   }
   // };
 
-  // web端 主动调用的接受
-  const onMsg = (event: WebViewMessageEvent) => {
-    // webViewAction(event.nativeEvent.data);
-  };
+  // // web端 主动调用的接受
+  // const onMsg = (event: WebViewMessageEvent) => {
+  //   // webViewAction(event.nativeEvent.data);
+  // };
 
   // const memoOnMsg = useCallback(onMessage || onMsg, [isLogin]);
 

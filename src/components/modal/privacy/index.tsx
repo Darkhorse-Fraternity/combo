@@ -9,7 +9,7 @@ import {
   StyledLine2,
   StyleAgree,
 } from './style';
-import Modal, { ModalProps } from 'react-native-modal';
+import Modal from 'react-native-modal';
 import React, { useState, useEffect } from 'react';
 import { BackHandler } from 'react-native';
 import { appChannel, app_channel } from '@helps/util';
@@ -39,6 +39,7 @@ export const PrivacyModal = (props: PrivacyModal) => {
     if (isFoucse) {
       check();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFoucse]);
   return (
     <Modal

@@ -6,15 +6,7 @@
 'use strict';
 
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  StyleProp,
-  ImageStyle,
-} from 'react-native';
+import { View, TouchableOpacity, StyleProp, ImageStyle } from 'react-native';
 import ImagesViewModal from './ImagesViewModal';
 import FastImage from 'react-native-fast-image';
 import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';

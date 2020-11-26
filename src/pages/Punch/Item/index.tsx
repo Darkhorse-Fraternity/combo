@@ -4,7 +4,7 @@
  */
 
 import React, { PureComponent } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, StyleProp, ViewStyle } from 'react-native';
 
 import { debounce } from 'lodash';
 import {
@@ -35,6 +35,10 @@ interface PunchItemProps {
   scWidth: number;
   title: string;
   discrib: string;
+  style?: StyleProp<ViewStyle>;
+  showFB?: boolean;
+  name?: string;
+  color?: string;
 }
 
 interface PunchItemState {
@@ -87,7 +91,7 @@ export default class PunchItem extends PureComponent<
     trailing: true,
   });
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     // TODO： 这边这样设置会有反复哦，所以这边就先避免了
 
     // const debounceFlip = debounceFlipConfig(nextProps,this.state)
@@ -102,11 +106,10 @@ export default class PunchItem extends PureComponent<
   render() {
     const {
       title,
-      done,
-      onLongPress,
+      // onLongPress,
       style,
-      name,
-      color,
+      name = 'sun',
+      color = '#afd2ef',
       onPress,
       discrib,
       showFB,
@@ -131,7 +134,7 @@ export default class PunchItem extends PureComponent<
     return (
       <StyledButton
         // disabled={flip}
-        onLongPress={onLongPress}
+        // onLongPress={onLongPress}
         onPress={() => {
           // if (!flip) {
           //   if (!flip) {

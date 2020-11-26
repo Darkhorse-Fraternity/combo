@@ -126,7 +126,7 @@ const CardConfig: FC<{}> = () => {
     if (step === 0) {
       goBack();
     } else {
-      setStep((data) => data - 1);
+      setStep((data1) => data1 - 1);
       // update iUse
       handleSubmit(onSubmit)();
     }
@@ -138,6 +138,7 @@ const CardConfig: FC<{}> = () => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', backStep);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
   const color = data?.iconAndColor.color || '';

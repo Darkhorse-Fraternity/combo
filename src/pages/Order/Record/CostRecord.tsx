@@ -42,7 +42,7 @@ const renderRow: ListRenderItem<ItemType> = ({ item }) => {
   );
 };
 
-const CostRecord: FC<{}> = () => {
+const CostRecord: FC<{ tabLabel?: string }> = () => {
   const { user } = useGetInfoOfMe();
 
   const loadPage = (page_index: number, page_size: number) => {

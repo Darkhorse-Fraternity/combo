@@ -7,14 +7,14 @@ import React, {
   useRef,
 } from 'react';
 import { connect } from 'react-redux';
-import { Platform, UIManager, Linking, AppState } from 'react-native';
+import { Platform, UIManager, Linking } from 'react-native';
 import Orientation from 'react-native-orientation';
 
+/* eslint-disable-nextline */
 import KeyboardManager from 'react-native-keyboard-manager';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
 import { epUpdate } from '../components/Update/EPUpdate';
-import { appStateUpdate } from '../redux/actions/util';
 // const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null;
 
 import LightStatuBar from '../Theme/LightStatuBar';
@@ -41,11 +41,6 @@ class ConfigureClass extends PureComponent<{ isLogin: boolean; uid: string }> {
     pushConfig(props.uid);
     // props.dispatch(appStateUpdate(AppState.currentState));
   }
-
-  // static propTypes = {
-  //   dispatch: PropTypes.func.isRequired,
-  //   // nav: PropTypes.object.isRequired,
-  // };
 
   // static defaultProps = {};
 
@@ -95,9 +90,9 @@ class ConfigureClass extends PureComponent<{ isLogin: boolean; uid: string }> {
     // AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
-  _handleAppStateChange = (nextAppState) => {
-    // this.props.dispatch(appStateUpdate(nextAppState));
-  };
+  // _handleAppStateChange = (nextAppState) => {
+  //   // this.props.dispatch(appStateUpdate(nextAppState));
+  // };
 
   // onBeforeStart = // 在这里可以发请求，用promise返回结果
   //   // let res = await toolApi.updateApp()

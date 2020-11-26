@@ -1,10 +1,5 @@
 /* @flow */
-import React, {
-  Component,
-  isValidElement,
-  PureComponent,
-  ReactChild,
-} from 'react';
+import React, { isValidElement, PureComponent, ReactChild } from 'react';
 import {
   StyleSheet,
   Text,

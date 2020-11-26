@@ -102,10 +102,12 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
     return () => {
       // deEmitter.
       deEmitter.remove();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       soundRef.current.release();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       timeRef.current && clearInterval(timeRef.current);
     };
-  }, []);
+  }, [title]);
 
   const togglePaused = () => {
     if (soundRef.current.isPlaying()) {

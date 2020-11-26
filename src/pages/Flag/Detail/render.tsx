@@ -64,7 +64,7 @@ interface FDProps {
 }
 
 @connect(
-  (state, props) => ({}),
+  () => ({}),
   (dispatch, props) => ({
     pay: (type, description, amount, iCardId, flagId) =>
       dispatch(

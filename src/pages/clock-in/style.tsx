@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 // import {SafeAreaView} from '@react-navigation/native';
-import Button from '@components/Button';
 import Feather from 'react-native-vector-icons/Feather';
 
 export const StyledHeader = styled.View`

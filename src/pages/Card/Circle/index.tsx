@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, PureComponent, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   DeviceEventEmitter,
   TouchableOpacityProps,
@@ -246,8 +246,8 @@ const Circle: FC<CircleProps> = (props) => {
       appId: GTDAppId,
       placementId: GTDUnifiedNativeplacementId,
     })
-      .then((count) => {
-        setCount(count);
+      .then((count1) => {
+        setCount(count1);
       })
       .catch((e) => {
         console.log('e', e.message);
@@ -304,7 +304,7 @@ const Circle: FC<CircleProps> = (props) => {
       ref={ref}
       showsVerticalScrollIndicator={false}
       loadPage={loadPage}
-      keyId={'id'}
+      keyId={'objectId'}
       style={{ backgroundColor: 'transparent' }}
       // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
       prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}

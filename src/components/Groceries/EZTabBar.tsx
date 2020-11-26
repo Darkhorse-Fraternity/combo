@@ -1,50 +1,51 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import {
   StyleSheet,
-  Text,
   View,
   Animated,
-  Dimensions,
-  Image,
   TouchableOpacity,
-  TouchableNativeFeedback,
-  Platform,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
 } from 'react-native';
 
 import { theme } from '../../Theme';
 
-export default class EZTabBar extends PureComponent {
-  static propTypes = {
-    goToPage: PropTypes.func,
-    activeTab: PropTypes.number,
-    tabs: PropTypes.array,
-    underlineColor: PropTypes.string,
-    backgroundColor: PropTypes.string,
-    activeTextColor: PropTypes.string,
-    inactiveTextColor: PropTypes.string,
-    tabUnderlineWidth: PropTypes.number,
-  };
+interface EZTabBarProps {
+  goToPage?: (page: number) => void;
+  // activeTab: number;
+  tabs?: [];
+  underlineColor?: string;
+  backgroundColor?: string;
+  activeTextColor?: string;
+  inactiveTextColor?: string;
+  tabUnderlineWidth?: number;
+  textStyle?: StyleProp<TextStyle>;
+  style?: StyleProp<ViewStyle>;
+  scrollValue?: Animated.Value;
+  scrollValueWithOutNative: Animated.Value;
+}
 
+export default class EZTabBar extends PureComponent<EZTabBarProps> {
   static defaultProps = {
     tabUnderlineWidth: 72,
   };
 
-  renderTabOption(name: string, page: number) {
+  renderTabOption = (name: string, page: number) => {
     const {
-      activeTab,
+      // activeTab,
       activeTextColor = '#000000',
       inactiveTextColor = '#979797',
       textStyle = {},
       tabs,
-      scrollValue,
+      scrollValue = new Animated.Value(0),
       underlineColor,
       scrollValueWithOutNative,
       tabUnderlineWidth,
     } = this.props;
 
-    const isTabActive = activeTab === page;
-    const numberOfTabs = tabs.length;
+    // const isTabActive = activeTab === page;
+    const numberOfTabs = tabs?.length || 0;
 
     const tabUnderlineStyle = {
       width: tabUnderlineWidth,
@@ -58,9 +59,9 @@ export default class EZTabBar extends PureComponent {
     //   console.log('inputRange:', inputRange);
     // }
 
-    const background =
-      TouchableNativeFeedback.SelectableBackgroundBorderless &&
-      TouchableNativeFeedback.SelectableBackgroundBorderless();
+    // const background =
+    //   TouchableNativeFeedback.SelectableBackgroundBorderless &&
+    //   TouchableNativeFeedback.SelectableBackgroundBorderless();
 
     const inputRange = [];
     const outputRange = [];
@@ -76,7 +77,7 @@ export default class EZTabBar extends PureComponent {
     outputRangeColor.splice(page + 1, 1, activeTextColor);
     outputRangefontSize.splice(page + 1, 1, 18);
 
-    const scaleX = scrollValue.interpolate({
+    const scaleX = scrollValue?.interpolate({
       inputRange: inputRange,
       outputRange: outputRange,
     });
@@ -92,14 +93,14 @@ export default class EZTabBar extends PureComponent {
     });
 
     // console.log('outputRangeColor:', outputRangeColor);
-
+    const { goToPage } = this.props;
     return (
       <TouchableOpacity
         key={name}
         accessible
         accessibilityLabel={name}
         accessibilityTraits="button"
-        onPress={() => this.props.goToPage(page)}>
+        onPress={() => goToPage && goToPage(page)}>
         <View style={[styles.tab]}>
           <Animated.Text
             style={[
@@ -124,14 +125,14 @@ export default class EZTabBar extends PureComponent {
         </View>
       </TouchableOpacity>
     );
-  }
+  };
 
   render() {
     // console.log('this.props.scrollValue:', translateX);
 
     return (
       <View style={[styles.tabBar, this.props.style]}>
-        {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
+        {this.props.tabs?.map((tab, i) => this.renderTabOption(tab, i))}
       </View>
     );
   }

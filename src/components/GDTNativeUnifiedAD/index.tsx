@@ -33,7 +33,7 @@ const NativeUnifiedAutoDataADView = (props: { count: number }) => {
   const ref = useRef(-1);
   useEffect(() => {
     ref.current = Math.random() * props.count;
-  }, []);
+  }, [props.count]);
 
   if (ref.current < 0) {
     return null;

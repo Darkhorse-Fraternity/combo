@@ -6,13 +6,10 @@
 
 import { StackActions } from '@react-navigation/native';
 // *** Action Types ***
-import { Platform } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
 import * as QQAPI from 'react-native-qq';
-import DeviceInfo from 'react-native-device-info';
-import md5 from 'react-native-md5';
 import { updatePush } from '../../configure/push/push';
 import { setLeanCloudSession } from '../../configure/reqConfigs';
 import { get } from './req';
@@ -23,10 +20,8 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 
 import {
-  requestLogin,
   requestUsersByMobilePhone,
   usersMe,
-  bindingAuthDataToUser,
   wechatInfo,
   wechatUserInfo,
   QQUserInfo,
@@ -40,6 +35,7 @@ import {
 } from '../../request/leanCloud';
 import { iCardSample, iUseSample } from 'src/data/data-context/user';
 import { UserType } from 'src/data/data-context/interface';
+import { putUsersId, PutUsersIdRequest } from 'src/hooks/interface';
 
 ('use strict');
 
@@ -347,7 +343,7 @@ function _loginRequest() {
   };
 }
 
-function _loginSucceed(response: Object) {
+function _loginSucceed(response: UserType) {
   // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
   // saveUserData(response);
   // saveAccount(response.mobilePhoneNumber);
@@ -465,7 +461,7 @@ export function updateUserData(data: Object) {
   };
 }
 
-export function updateMeByParam(param) {
+export function updateMeByParam(param: {}) {
   return async (dispatch, getState) => {
     const userData = getState().user.data;
     const params = getUpdateMeByParam(userData.objectId, param);
@@ -483,8 +479,8 @@ export function update() {
   };
 }
 
-function updateLocation(user) {
-  const { sessionToken = '', username = '' } = user;
+function updateLocation(user: UserType) {
+  const { username = '' } = user;
   const userString = JSON.stringify(user);
   Keychain.setGenericPassword(username, userString);
 }
@@ -766,118 +762,111 @@ export function appleLogin(Key: string, navigation: any) {
   };
 }
 
-export function thirdLoaded(key) {
+export function thirdLoaded(key: string) {
   return {
     type: THIRD_LOAD,
     theThirdLoaded: key,
   };
 }
 
-export function wechatBinding(KEY) {
-  return async (dispatch, getState) => {
-    try {
-      const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
-      const { code } = weConfig;
+export async function wechatBinding(user: UserType) {
+  // try {
+  const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
+  const { code } = weConfig;
 
-      // 获取openid
-      const wechatInfoParam = wechatInfo(wechatAppID, secret, code);
-      const weInfo = await get(wechatInfoParam);
-      const { access_token, openid } = weInfo;
+  // 获取openid
+  const wechatInfoParam = wechatInfo(wechatAppID, secret, code || '');
+  const weInfo = await get(wechatInfoParam);
+  const { access_token, openid } = weInfo;
 
-      // 获取微信用户信息
-      const state = getState();
-      const user = state.user.data;
-      let exData = {};
-      if (openid && !user.headimgurl) {
-        const userInfoParams = wechatUserInfo(access_token, openid);
-        const userInfo = await get(userInfoParams);
-        let { nickname, headimgurl } = userInfo;
+  // 获取微信用户信息
+  let exData = {};
+  if (openid && !user.headimgurl) {
+    const userInfoParams = wechatUserInfo(access_token, openid);
+    const userInfo = await get(userInfoParams);
+    let { nickname, headimgurl } = userInfo;
 
-        nickname = user.nickname || nickname;
-        exData = {
-          nickname,
-          headimgurl,
-        };
-      }
+    nickname = user.nickname || nickname;
+    exData = {
+      nickname,
+      headimgurl,
+    };
+  }
 
-      return dispatch(bindingAuthData('weixin', KEY, weInfo, exData));
-    } catch (e) {
-      if (e instanceof WeChat.WechatError) {
-        const errObj = {
-          '-1': '普通错误类型',
-          '-2': '取消',
-          '-3': '发送失败',
-          '-4': '授权失败',
-          '-5': '微信不支持',
-        };
-        Toast.show(errObj[`${e.code}`]);
-      } else {
-        Toast.show(e.message);
-      }
-    }
+  return bindingAuthData('weixin', user, weInfo, exData);
+  // } catch (e) {
+  //   if (e instanceof WeChat.WechatError) {
+  //     const errObj = {
+  //       '-1': '普通错误类型',
+  //       '-2': '取消',
+  //       '-3': '发送失败',
+  //       '-4': '授权失败',
+  //       '-5': '微信不支持',
+  //     };
+  //     Toast.show(errObj[`${e.code}`]);
+  //   } else {
+  //     Toast.show(e.message);
+  //   }
+  // }
 
-    // const res2 = req(params)
-  };
+  // const res2 = req(params)
 }
 
-export function qqBinding(KEY) {
-  return async (dispatch, getState) => {
-    try {
-      const qqConfig = await QQAPI.login();
+export async function qqBinding(user: UserType) {
+  // try {
+  const qqConfig = await QQAPI.login();
 
-      const { access_token, oauth_consumer_key, openid } = qqConfig;
+  const { access_token, oauth_consumer_key, openid } = qqConfig;
 
-      // 获取微信用户信息
-      const state = getState();
-      const user = state.user.data;
-      let exData = {};
+  // 获取微信用户信息
+  let exData = {};
 
-      if (!user.headimgurl) {
-        const params = QQUserInfo(access_token, oauth_consumer_key, openid);
-        const info = await get(params);
-        const userInfo = JSON.parse(info);
+  if (!user.headimgurl) {
+    const params = QQUserInfo(access_token, oauth_consumer_key, openid);
+    const info = await get(params);
+    const userInfo = JSON.parse(info);
 
-        let { nickname, figureurl_2, figureurl_qq_2 } = userInfo;
+    let { nickname, figureurl_qq_2 } = userInfo;
 
-        nickname = user.nickname || nickname;
-        exData = {
-          nickname,
-          headimgurl: figureurl_qq_2,
-        };
-      }
+    nickname = user.nickname || nickname;
+    exData = {
+      nickname,
+      headimgurl: figureurl_qq_2,
+    };
+  }
 
-      return dispatch(bindingAuthData('qq', KEY, qqConfig, exData));
-    } catch (e) {
-      Toast.show(e.message);
-    }
+  return bindingAuthData('qq', user, qqConfig, exData);
+  // } catch (e) {
+  //   Toast.show(e.message);
+  // }
 
-    // const res2 = req(params)
-  };
+  // const res2 = req(params)
 }
 
-export function breakBinding(key, loadKey) {
-  return (dispatch) => dispatch(bindingAuthData(key, loadKey, null));
+export function breakBinding(key: string, user: UserType) {
+  return bindingAuthData(key, user, null);
 }
 
-export function bindingAuthData(key, loadKey, ad, exData) {
-  return async (dispatch, getState) => {
-    const state = getState();
-    const userId = state.user.data.objectId;
-    const params = bindingAuthDataToUser(userId, key, ad, exData);
-    const res = await get(params, loadKey);
-    if (res.objectId) {
-      const authData = {
-        ...state.user.data.authData,
-        ...params.params.authData,
-      };
-      const entity = {
-        authData,
-        ...exData,
-        ...res,
-      };
-      dispatch(updateUserData(entity));
-    }
+export async function bindingAuthData(
+  key: string,
+  user: UserType,
+  authData: {} | null,
+  exData?: Omit<PutUsersIdRequest, 'id' | 'authData'>,
+) {
+  const params: Omit<PutUsersIdRequest, 'id'> = {
+    authData: { [key]: authData },
+    ...exData,
   };
+  const res = await putUsersId({
+    id: user.objectId,
+    ...params,
+  });
+  if (res.objectId) {
+    return {
+      ...params,
+      ...res,
+    };
+  }
 }
 
 // 判断user 是否存在

@@ -1,5 +1,4 @@
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
-import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
 import tracker from 'react-native-umeng-analytics';
@@ -20,6 +19,6 @@ export const useTrackView = () => {
         // console.log('remove:', routeName);
         tracker.endLogPageView(routeName || 'end');
       };
-    }, []),
+    }, [routeName]),
   );
 };

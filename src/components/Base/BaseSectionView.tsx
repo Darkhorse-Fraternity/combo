@@ -57,10 +57,9 @@ interface IState {
   shouldShowloadMore: boolean;
 }
 
-export default class BaseSectionView<ItemT> extends PureComponent<
-  BaseListProps<ItemT>,
-  IState
-> {
+export default class BaseSectionView<
+  ItemT extends { objectId?: string }
+> extends PureComponent<BaseListProps<ItemT>, IState> {
   constructor(props: BaseListProps<ItemT>) {
     super(props);
     this.state = {
@@ -108,7 +107,7 @@ export default class BaseSectionView<ItemT> extends PureComponent<
     this.props.loadData && this.props.loadData();
   };
 
-  _handleloadMore = (info: { distanceFromEnd: number }) => {
+  _handleloadMore = () => {
     const { loadStatu, loadMore } = this.props;
     const { shouldShowloadMore } = this.state;
 
@@ -120,8 +119,8 @@ export default class BaseSectionView<ItemT> extends PureComponent<
     ) {
       return;
     }
-    console.log('loadStatu', loadStatu);
-    console.log('shouldShowloadMore', shouldShowloadMore);
+    // console.log('loadStatu', loadStatu);
+    // console.log('shouldShowloadMore', shouldShowloadMore);
     // console.log('distanceFromEnd:', info.distanceFromEnd);
     // console.log('loadStatu:', this.props.loadStatu);
     if (shouldShowloadMore && loadMore) {
@@ -134,7 +133,7 @@ export default class BaseSectionView<ItemT> extends PureComponent<
 
     // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
 
-    const { shouldShowloadMore } = this.state;
+    // const { shouldShowloadMore } = this.state;
 
     const { loadStatu, data, footerStyle } = this.props;
     const hasData = data && data.length > 0;

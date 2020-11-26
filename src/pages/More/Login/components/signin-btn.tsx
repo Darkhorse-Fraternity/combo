@@ -9,7 +9,12 @@ import {
 import { BtnPeddingProps } from '@components/Button';
 
 export const SigninBtn = (
-  props: BtnPeddingProps & { color?: string; size?: number; name: string },
+  props: BtnPeddingProps & {
+    color?: string;
+    size?: number;
+    name: string;
+    onPress: () => void;
+  },
 ) => {
   const { color = 'black', size = 20, name, loading, ...other } = props;
   return (

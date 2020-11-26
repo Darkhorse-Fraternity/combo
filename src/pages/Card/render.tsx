@@ -16,14 +16,12 @@ import Button from '../../components/Button/index';
 import { CircleState } from '../../configure/enum';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import {
-  GetClassesIUseIdResponse,
-  putClassesICardId,
-} from 'src/hooks/interface';
+import { putClassesICardId } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { LoadAnimation } from '@components/Load';
 import { useGetUserInfo } from 'src/data/data-context';
 import { useGetIuseData, useMutateICardData } from 'src/data/data-context/core';
+import { IUseType } from 'src/data/data-context/interface';
 
 interface RenderHeaderRightProps {
   isSelf: boolean;
@@ -56,12 +54,12 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
 };
 
 class Main extends PureComponent<{
-  iCard: GetClassesIUseIdResponse['iCard'];
+  iCard: IUseType['iCard'];
 }> {
   scrollValue = new Animated.Value(0);
   render() {
     const { iCard, children } = this.props;
-    let { iconAndColor = {} } = iCard;
+    // let { iconAndColor = {} } = iCard;
     // const color = iconAndColor.color || '';
     const state = iCard.state;
 

@@ -1,4 +1,4 @@
-import React, { useState, PureComponent, useEffect } from 'react';
+import React from 'react';
 import { StyleModalOutView, StyleCance, StyledIcon } from './style';
 import Modal, { ModalProps } from 'react-native-modal';
 import { ViewProps } from 'react-native';

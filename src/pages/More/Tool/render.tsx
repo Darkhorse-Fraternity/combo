@@ -36,14 +36,14 @@ const renderRedoRow: ListRenderItem<ItemT> = ({ item }) => (
   </StyledRow>
 );
 
-const _keyExtractor = (item: ItemT, index: number) => {
+const _keyExtractor = (_: ItemT, index: number) => {
   // const id = typeof item === 'object' ? item[keyId || 'objectId'] : item;
 
   // const key = id || index;
   return `${index}`;
 };
 
-const Tool: FC<{}> = (props) => {
+const Tool: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
   const { run } = useUpdateMe();
 
