@@ -126,7 +126,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
   };
 
   onSubmit = async (type: string) => {
-    const title = this.props.iCard.title;
+    const { title } = this.props.iCard;
     const description = `副本_${title}的加入费用`;
     const { iCardId, flagId } = this.props.route.params;
     const { join, flag, pay } = this.props;

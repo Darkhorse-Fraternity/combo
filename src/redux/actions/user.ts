@@ -4,7 +4,6 @@
  * https://github.com/facebook/react-native
  */
 
-import { StackActions, StackActionType } from '@react-navigation/native';
 // *** Action Types ***
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
@@ -20,22 +19,23 @@ import appleAuth, {
 } from '@invertase/react-native-apple-authentication';
 
 import {
-  requestUsersByMobilePhone,
-  usersMe,
   wechatInfo,
   wechatUserInfo,
   QQUserInfo,
-  thirdLogin,
-  bindingToUser,
-  classBatch,
-  classCreatNewOne,
-  userExsitJudge,
-  getUpdateMeByParam,
-  verifySmsCode,
 } from '../../request/leanCloud';
-import { iCardSample, iUseSample } from 'src/data/data-context/user';
 import { UserType } from 'src/data/data-context/interface';
-import { putUsersId, PutUsersIdRequest } from 'src/hooks/interface';
+import {
+  getUsersMe,
+  GetUsersMeResponse,
+  postCallUserExsitJudge,
+  postUsers,
+  postUsersByMobilePhone,
+  PostUsersResponse,
+  postVerifySmsCodeCode,
+  putUsersId,
+  PutUsersIdRequest,
+} from 'src/hooks/interface';
+import { APPLELOGIN, QQLOGIN, WECHATLOGIN } from '@redux/reqKeys';
 
 ('use strict');
 
@@ -213,35 +213,35 @@ const wechatAppID = 'wx637e6f35f8211c6d';
 //   privacy: 2,
 // });
 
-// 预设示例
-function addSample(user: UserType) {
-  return async (dispatch) => {
-    const { createdAt, updatedAt, objectId } = user;
-    const createdAtTime = new Date(createdAt).getTime();
-    const updatedAtTime = new Date(updatedAt).getTime();
-    // console.log('time:', updatedAtTime,createdAtTime);
-    if (updatedAtTime - createdAtTime < 5000) {
-      // 生成一个icard
-      dispatch(loginLoad(true));
-      const iCards = iCardSample(objectId);
-      const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
-      const iCardsBatch = classBatch(iCardsReq);
-      const iCardsRes = await get(iCardsBatch);
-      const iUseReq = iCardsRes.map((item) => {
-        if (item.success) {
-          const iUseParam = iUseSample(objectId, item.success.objectId);
-          return classCreatNewOne('iUse', iUseParam);
-        }
-      });
-      // 添加圈子示例
-      const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
-      iUseReq.push(classCreatNewOne('iUse', iUseParam));
-      const iUseBatch = classBatch(iUseReq);
-      await get(iUseBatch);
-      return dispatch(loginLoad(false));
-    }
-  };
-}
+// // 预设示例
+// function addSample(user: UserType) {
+//   return async (dispatch) => {
+//     const { createdAt, updatedAt, objectId } = user;
+//     const createdAtTime = new Date(createdAt).getTime();
+//     const updatedAtTime = new Date(updatedAt).getTime();
+//     // console.log('time:', updatedAtTime,createdAtTime);
+//     if (updatedAtTime - createdAtTime < 5000) {
+//       // 生成一个icard
+//       dispatch(loginLoad(true));
+//       const iCards = iCardSample(objectId);
+//       const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
+//       const iCardsBatch = classBatch(iCardsReq);
+//       const iCardsRes = await get(iCardsBatch);
+//       const iUseReq = iCardsRes.map((item) => {
+//         if (item.success) {
+//           const iUseParam = iUseSample(objectId, item.success.objectId);
+//           return classCreatNewOne('iUse', iUseParam);
+//         }
+//       });
+//       // 添加圈子示例
+//       const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
+//       iUseReq.push(classCreatNewOne('iUse', iUseParam));
+//       const iUseBatch = classBatch(iUseReq);
+//       await get(iUseBatch);
+//       return dispatch(loginLoad(false));
+//     }
+//   };
+// }
 
 /**
  * 登录
@@ -274,66 +274,82 @@ function addSample(user: UserType) {
  */
 export function register(
   state: { phone: string; ymCode: string },
-  navigation: {},
-): Function {
+  uid: string,
+) {
   return async (dispatch) => {
-    try {
-      dispatch(_loginRequest());
+    // try {
+    dispatch(_loginRequest());
 
-      const userExsit = await getUserExsitJudge('phoneNumber', state.phone);
-      // console.log('userExsit:', userExsit);
-      if (userExsit === false) {
-        // 将匿名用户转化
-        // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
-        // requestMobilePhoneVerify
-        // 第一步设置用户手机号。
-        //
-        // 第二步校验号码
-        const mobilePhoneVerifyRes = await mobilePhoneVerify(
-          state.phone,
-          state.ymCode,
-        );
+    // const userExsit = await getUserExsitJudge('phoneNumber', state.phone);
+    const userExsit = await postCallUserExsitJudge({
+      type: 'phoneNumber',
+      id: state.phone,
+    });
+    // console.log('userExsit:', userExsit);
 
-        console.log('mobilePhoneVerifyRes:', mobilePhoneVerifyRes);
-        // 第三步如果错误清除手机号，成功则清除匿名标记,并标记已登录
+    if (!userExsit.error && userExsit.result?.userExsit === false) {
+      // 将匿名用户转化
+      // https://leancloud.cn/docs/rest_sms_api.html#hash-745966375
+      // requestMobilePhoneVerify
+      // 第一步设置用户手机号。
+      //
+      // 第二步校验号码
 
-        if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
-          await dispatch(
-            updateMeByParam({
+      const mobilePhoneVerifyRes = await postVerifySmsCodeCode({
+        code: state.ymCode,
+        mobilePhoneNumber: state.phone,
+      });
+
+      // const mobilePhoneVerifyRes = await mobilePhoneVerify(
+      //   state.phone,
+      //   state.ymCode,
+      // );
+
+      // console.log('mobilePhoneVerifyRes:', mobilePhoneVerifyRes);
+      // 第三步如果错误清除手机号，成功则清除匿名标记,并标记已登录
+
+      if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
+        await dispatch(
+          updateMeByParam(
+            {
               mobilePhoneNumber: state.phone,
               authData: {
                 anonymous: { __op: 'Delete' },
               },
-            }),
-          );
-          navigation.dispatch(StackActions.pop());
-        }
-
-        // await dispatch(updateMeByParam({mobilePhoneNumber:{"__op":"Delete"}}))
-
-        // 微信直接清除匿名标记，并标记已登录。
-        return dispatch(_loginFailed());
+            },
+            uid,
+          ),
+        );
       }
-      // 已存在则直接登录
 
-      const params = requestUsersByMobilePhone(state.phone, state.ymCode);
-      const user = await get(params);
-      await dispatch(_loginSucceed(user));
-      await dispatch(addSample(user));
-      navigation.dispatch(StackActions.pop());
-      return user;
-    } catch (e) {
-      Toast.show(e.message);
+      // await dispatch(updateMeByParam({mobilePhoneNumber:{"__op":"Delete"}}))
+
+      // 微信直接清除匿名标记，并标记已登录。
       return dispatch(_loginFailed());
     }
+    // 已存在则直接登录
+
+    const user = await postUsersByMobilePhone({
+      mobilePhoneNumber: state.phone,
+      smsCode: state.ymCode,
+    });
+
+    // const params = requestUsersByMobilePhone(state.phone, state.ymCode);
+    // const user = await get(params);
+    await dispatch(_loginSucceed(user as UserType));
+    // await dispatch(addSample(user));
+    // } catch (e) {
+    //   Toast.show(e.message);
+    //   return dispatch(_loginFailed());
+    // }
   };
 }
 
 // 校验手机号
-export function mobilePhoneVerify(mobilePhoneNumber: string, code: string) {
-  const params = verifySmsCode(mobilePhoneNumber, code);
-  return get(params);
-}
+// export function mobilePhoneVerify(mobilePhoneNumber: string, code: string) {
+//   const params = verifySmsCode(mobilePhoneNumber, code);
+//   return get(params);
+// }
 
 function _loginRequest() {
   return {
@@ -342,7 +358,7 @@ function _loginRequest() {
   };
 }
 
-function _loginSucceed(response: UserType) {
+function _loginSucceed(response: UserType | PostUsersResponse) {
   // const data = {...response,mobileNum:accountText,selectCommunityNum:0}
   // saveUserData(response);
   // saveAccount(response.mobilePhoneNumber);
@@ -364,7 +380,7 @@ function _loginSucceed(response: UserType) {
   // });
 }
 
-export function loginSucceed(data: UserType) {
+export function loginSucceed(data: UserType | PostUsersResponse) {
   // 保存登录信息。
   setLeanCloudSession(data.sessionToken);
   // setAPPAuthorization(data.authorization);
@@ -445,7 +461,7 @@ export function _loginFailed() {
 //   };
 // }
 
-export function updateUserData(data: Object) {
+export function updateUserData(data: Partial<GetUsersMeResponse>) {
   // if(data.authData){
   //   return {
   //     type: UPDATE_USERDATA,
@@ -460,25 +476,32 @@ export function updateUserData(data: Object) {
   };
 }
 
-export function updateMeByParam(param: {}) {
-  return async (dispatch, getState) => {
-    const userData = getState().user.data;
-    const params = getUpdateMeByParam(userData.objectId, param);
-    await get(params);
-    return dispatch(updateUserData(param));
+export function updateMeByParam(
+  param: Omit<PutUsersIdRequest, 'id'>,
+  uid: string,
+) {
+  return async (dispatch) => {
+    // const userData = getState().user.data;
+    // const params = getUpdateMeByParam(userData.objectId, param);
+    // await get(params);
+
+    putUsersId({ id: uid, ...param });
+
+    return dispatch(updateUserData(param as never));
   };
 }
 
 export function update() {
   return async (dispatch) => {
-    const params = usersMe();
-    const res = await get(params);
+    // const params = usersMe();
+    // const res = await get(params);
+    const res = await getUsersMe();
     updateLocation(res);
     return dispatch(updateUserData(res));
   };
 }
 
-function updateLocation(user: UserType) {
+function updateLocation(user: GetUsersMeResponse | PostUsersResponse) {
   const { username = '' } = user;
   const userString = JSON.stringify(user);
   Keychain.setGenericPassword(username, userString);
@@ -500,13 +523,11 @@ function updateLocation(user: UserType) {
 //   }
 // }
 
-export function weChatLogin(
-  Key: string,
-  navigation: { dispatch: (a: StackActionType) => void },
-) {
-  return async (dispatch, getState) => {
+export function weChatLogin(user: UserType | PostUsersResponse) {
+  const key = WECHATLOGIN;
+  return async (dispatch) => {
     try {
-      dispatch(thirdLoaded(Key));
+      dispatch(thirdLoaded(key));
       const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
       if (!weConfig) {
         return dispatch(thirdLoaded(''));
@@ -520,26 +541,29 @@ export function weChatLogin(
       // console.log('weInfo:', weInfo);
 
       const userExsit = await getUserExsitJudge('weixin', openid);
-      let user = getState().user.data;
+      // let user = getState().user.data;
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
         await dispatch(
-          updateMeByParam({
-            authData: {
-              anonymous: { __op: 'Delete' },
-              weixin: weInfo,
+          updateMeByParam(
+            {
+              authData: {
+                anonymous: { __op: 'Delete' },
+                weixin: weInfo,
+              },
             },
-          }),
+            user.objectId,
+          ),
         );
-        navigation.dispatch(StackActions.pop());
       } else {
         // 如果存在，则直接登录老账号
-        const userInfoParmas = thirdLogin('weixin', weInfo);
-        user = await get(userInfoParmas);
+        // const userInfoParmas = thirdLogin('weixin', weInfo);
+
+        user = await postUsers({ authData: { weixin: weInfo } });
+
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
-          await dispatch(addSample(user));
-          navigation.dispatch(StackActions.pop());
+          // await dispatch(addSample(user));
         } else {
           Toast.show(JSON.stringify(weConfig));
         }
@@ -548,19 +572,21 @@ export function weChatLogin(
       dispatch(thirdLoaded(''));
       // 获取微信用户信息
 
-      let exData = {};
+      // let exData = {};
       if (user.sessionToken && !user.headimgurl) {
         const userInfoParams = wechatUserInfo(access_token, openid);
         const userInfo = await get(userInfoParams);
         let { nickname, headimgurl } = userInfo;
 
         nickname = user.nickname || nickname;
-        exData = {
+        const exData = {
           nickname,
           headimgurl,
         };
-        const params = bindingToUser(user.objectId, exData);
-        const res = await get(params);
+        // const params = bindingToUser(user.objectId, exData);
+        // const res = await get(params);
+
+        const res = await putUsersId({ id: user.objectId, ...exData });
 
         dispatch(
           updateUserData({
@@ -590,11 +616,9 @@ export function weChatLogin(
   };
 }
 
-export function qqLogin(
-  key: string,
-  navigation: { dispatch: (a: never) => void },
-) {
-  return async (dispatch, getState) => {
+export function qqLogin(user: UserType | PostUsersResponse) {
+  const key = QQLOGIN;
+  return async (dispatch) => {
     try {
       dispatch(thirdLoaded(key));
 
@@ -610,25 +634,26 @@ export function qqLogin(
       }
 
       const userExsit = await getUserExsitJudge('qq', qqConfig.openid);
-      let user = getState().user.data;
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
         await dispatch(
-          updateMeByParam({
-            authData: {
-              anonymous: { __op: 'Delete' },
-              qq: qqConfig,
+          updateMeByParam(
+            {
+              authData: {
+                anonymous: { __op: 'Delete' },
+                qq: qqConfig,
+              },
             },
-          }),
+            user.objectId,
+          ),
         );
-        navigation.dispatch(StackActions.pop());
       } else {
-        const userInfoParmas = thirdLogin('qq', qqConfig);
-        user = await get(userInfoParmas);
+        // const userInfoParmas = thirdLogin('qq', qqConfig);
+        // user = await get(userInfoParmas);
+        user = await postUsers({ authData: { qq: qqConfig } });
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
-          await dispatch(addSample(user));
-          navigation.dispatch(StackActions.pop());
+          // await dispatch(addSample(user));
         }
       }
 
@@ -636,7 +661,7 @@ export function qqLogin(
 
       // 获取微信用户信息
 
-      let exData = {};
+      // let exData = {};
       if (user.sessionToken && !user.headimgurl) {
         const { access_token, oauth_consumer_key, openid } = qqConfig;
         const userInfoParams = QQUserInfo(
@@ -648,13 +673,14 @@ export function qqLogin(
         const userInfo = JSON.parse(info);
         let { nickname, figureurl_qq_2 } = userInfo;
         nickname = user.nickname || nickname;
-        exData = {
+        const exData = {
           nickname,
           headimgurl: figureurl_qq_2,
         };
-        const params = bindingToUser(user.objectId, exData);
+        // const params = bindingToUser(user.objectId, exData);
+        const res = await putUsersId({ id: user.objectId, ...exData });
         // console.log('params:', params);
-        const res = await get(params);
+        // const res = await get(params);
 
         dispatch(
           updateUserData({
@@ -670,11 +696,12 @@ export function qqLogin(
   };
 }
 
-export function appleLogin(key: string, navigation: any) {
-  return async (dispatch, getState) => {
+export function appleLogin(user: UserType | PostUsersResponse) {
+  const key = APPLELOGIN;
+  return async (dispatch) => {
     try {
       dispatch(thirdLoaded(key));
-
+      // let user = getState().user.data;
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: AppleAuthRequestOperation.LOGIN,
         requestedScopes: [
@@ -701,8 +728,6 @@ export function appleLogin(key: string, navigation: any) {
         appleAuthRequestResponse.user,
       );
 
-      let user = getState().user.data;
-
       const lc_apple = {
         uid: appleAuthRequestResponse.user,
         // identity_token:appleAuthRequestResponse.identityToken,
@@ -712,30 +737,33 @@ export function appleLogin(key: string, navigation: any) {
       if (userExsit === false) {
         // 如果不存在，则直接更换匿名用户
         await dispatch(
-          updateMeByParam({
-            authData: {
-              anonymous: { __op: 'Delete' },
-              lc_apple,
+          updateMeByParam(
+            {
+              authData: {
+                anonymous: { __op: 'Delete' },
+                lc_apple,
+              },
             },
-          }),
+            user.objectId,
+          ),
         );
-        navigation.dispatch(StackActions.pop());
       } else {
-        const userInfoParmas = thirdLogin('lc_apple', lc_apple);
+        // const userInfoParmas = thirdLogin('lc_apple', lc_apple);
 
-        console.log('userInfoParmas', userInfoParmas);
+        // console.log('userInfoParmas', userInfoParmas);
 
-        user = await get(userInfoParmas);
+        // user = await get(userInfoParmas);
+
+        user = await postUsers({ authData: { lc_apple: lc_apple } });
         if (user.sessionToken) {
           await dispatch(_loginSucceed(user));
-          await dispatch(addSample(user));
-          navigation.dispatch(StackActions.pop());
+          // await dispatch(addSample(user));
         }
       }
 
       dispatch(thirdLoaded(''));
 
-      let exData = {};
+      // let exData = {};
       const { fullName } = appleAuthRequestResponse;
       if (
         user.sessionToken &&
@@ -743,14 +771,14 @@ export function appleLogin(key: string, navigation: any) {
         fullName?.nickname &&
         fullName?.nickname.length > 0
       ) {
-        exData = {
+        const exData = {
           nickname: fullName?.nickname,
           // headimgurl: figureurl_qq_2,
         };
-        const params = bindingToUser(user.objectId, exData);
-        // console.log('params:', params);
-        const res = await get(params);
-
+        // const params = bindingToUser(user.objectId, exData);
+        // // console.log('params:', params);
+        // const res = await get(params);
+        const res = await putUsersId({ id: user.objectId, ...exData });
         dispatch(
           updateUserData({
             ...exData,
@@ -879,9 +907,15 @@ export async function bindingAuthData(
 
 async function getUserExsitJudge(type: string, id: string) {
   if (id) {
-    const params = userExsitJudge(type, id);
-    const res = await get(params);
-    return res.result.userExsit;
+    const res = await postCallUserExsitJudge({
+      type,
+      id,
+    });
+    if (res.result) {
+      return res.result?.userExsit;
+    } else {
+      throw new Error('没有检索到用户!');
+    }
   }
   throw new Error('没有检索到用户!');
 }

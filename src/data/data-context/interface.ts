@@ -4,6 +4,7 @@ import {
   GetClassesIUseIdResponse,
   GetClassesIUseResponse,
   GetUsersIdResponse,
+  GetUsersMeResponse,
   PostCallCardListResponse,
   PostCallIUseList3Response,
 } from 'src/hooks/interface';
@@ -79,7 +80,7 @@ export interface DataContextType {
   config?: unknown;
 }
 
-export interface UserType extends GetUsersIdResponse {
+export interface UserType extends GetUsersMeResponse {
   isTourist: boolean;
   // isLogin: boolean;
 }

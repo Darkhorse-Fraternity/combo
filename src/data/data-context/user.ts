@@ -3,8 +3,12 @@ import {
   GetUsersIdResponse,
   getUsersMe,
   GetUsersMeResponse,
+  postCallUserExsitJudge,
   postUsers,
+  postUsersByMobilePhone,
+  PostUsersByMobilePhoneResponse,
   PostUsersResponse,
+  postVerifySmsCodeCode,
   PutUsersIdRequest,
   usePutUsersId,
 } from 'src/hooks/interface';
@@ -17,7 +21,7 @@ import moment from 'moment';
 import { get } from '@redux/actions/req';
 import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import DataContext from './index';
 
 export const useUpdateMe = () => {
@@ -67,7 +71,7 @@ export async function update() {
   //   return updateUserData(res);
 }
 
-export function updateLocation(user: GetUsersMeResponse) {
+export function updateLocation(user: GetUsersMeResponse | GetUsersIdResponse) {
   const { username = '', sessionToken } = user;
   const userString = JSON.stringify(user);
 
@@ -79,11 +83,11 @@ export function updateLocation(user: GetUsersMeResponse) {
 export const useGetInfoOfMe = () => {
   const { data, dispatch } = useContext(DataContext);
   const updateMe = useCallback(
-    (info: Partial<GetUsersIdResponse>) => {
+    (info: Partial<GetUsersIdResponse | GetUsersMeResponse>) => {
       updateLocation({
         ...data.user,
         ...info,
-      } as never);
+      });
       dispatch({
         type: 'update_user_info',
         user: {
@@ -95,9 +99,25 @@ export const useGetInfoOfMe = () => {
     [data.user, dispatch],
   );
 
+  const replaceMe = useCallback(
+    (
+      info:
+        | GetUsersIdResponse
+        | GetUsersMeResponse
+        | PostUsersByMobilePhoneResponse,
+    ) => {
+      updateLocation(info as never);
+      dispatch({
+        type: 'update_user_info',
+        user: info as never,
+      });
+    },
+    [dispatch],
+  );
+
   const logout = useCallback(() => {
     Keychain.resetGenericPassword();
-    console.log('logoutxxxx');
+    // console.log('logoutxxxx');
 
     setLeanCloudSession('');
     dispatch({
@@ -105,7 +125,7 @@ export const useGetInfoOfMe = () => {
     });
   }, [dispatch]);
 
-  return { user: data.user, updateMe, logout };
+  return { user: data.user, updateMe, replaceMe, logout };
 };
 
 const anonymousUser = async () => {
@@ -295,3 +315,49 @@ export const iUseSample = (objectId: string, iCardId: string) => ({
   statu: 'start',
   privacy: 2,
 });
+
+export const usePhoneLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const { updateMe, replaceMe } = useGetInfoOfMe();
+  const run = useCallback(
+    async (phone: string, code: string) => {
+      setLoading(true);
+      // 判断用户是否存在
+      try {
+        const userExsit = await postCallUserExsitJudge({
+          type: 'phoneNumber',
+          id: phone,
+        });
+
+        //如果不存在，则绑定手机号码并删除匿名者标记,否则则直接换账号。
+        if (!userExsit.error && userExsit.result?.userExsit === false) {
+          const mobilePhoneVerifyRes = await postVerifySmsCodeCode({
+            code: code,
+            mobilePhoneNumber: phone,
+          });
+          if (mobilePhoneVerifyRes && !mobilePhoneVerifyRes.error) {
+            updateMe({
+              mobilePhoneNumber: phone,
+              authData: {
+                anonymous: { __op: 'Delete' },
+              },
+            });
+          }
+        } else {
+          // 直接换账号。
+          const user = await postUsersByMobilePhone({
+            mobilePhoneNumber: phone,
+            smsCode: code,
+          });
+          replaceMe(user);
+        }
+        return setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
+    },
+    [replaceMe, updateMe],
+  );
+
+  return { run, loading };
+};

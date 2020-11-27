@@ -2761,7 +2761,7 @@ export const useGetUsersId = makeRequestHook<GetUsersIdRequest, GetUsersIdReques
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 export interface PostUsersRequest {
   authData: {
@@ -2789,7 +2789,7 @@ export interface PostUsersRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 export interface PostUsersResponse {
   updatedAt: string
@@ -2803,7 +2803,7 @@ export interface PostUsersResponse {
     redo?: number
   }
   username: string
-  sessionToken?: string
+  sessionToken: string
   nickname?: string
   headimgurl?: string
   avatar?: {
@@ -2830,7 +2830,7 @@ export interface PostUsersResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 type PostUsersRequestConfig = Readonly<
   RequestConfig<
@@ -2850,7 +2850,7 @@ type PostUsersRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 const postUsersRequestConfig: PostUsersRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2871,7 +2871,7 @@ const postUsersRequestConfig: PostUsersRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 export const postUsers = makeRequest<PostUsersRequest, PostUsersResponse, PostUsersRequestConfig>(
   postUsersRequestConfig,
@@ -2882,7 +2882,7 @@ export const postUsers = makeRequest<PostUsersRequest, PostUsersResponse, PostUs
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `POST /users`
- * @更新时间 `2020-11-16 16:42:23`
+ * @更新时间 `2020-11-27 14:45:50`
  */
 export const usePostUsers = makeRequestHook<PostUsersRequest, PostUsersRequestConfig, ReturnType<typeof postUsers>>(
   postUsers,
@@ -2893,7 +2893,7 @@ export const usePostUsers = makeRequestHook<PostUsersRequest, PostUsersRequestCo
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 export interface GetUsersMeRequest {}
 
@@ -2902,7 +2902,7 @@ export interface GetUsersMeRequest {}
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 export interface GetUsersMeResponse {
   updatedAt: string
@@ -2930,13 +2930,27 @@ export interface GetUsersMeResponse {
     bucket?: string
   }
   mobilePhoneVerified: boolean
-  authData?: {
+  authData: {
     anonymous?: {
       id: string
+      __op: string
+    }
+    qq?: {
+      access_token: string
+      openid: string
+      oauth_consumer_key: string
+    }
+    weixin?: {
+      access_token: string
+      openid: string
+    }
+    lc_apple?: {
+      uid: string
     }
   }
   username: string
   sessionToken: string
+  mobilePhoneNumber?: string
 }
 
 /**
@@ -2944,7 +2958,7 @@ export interface GetUsersMeResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 type GetUsersMeRequestConfig = Readonly<
   RequestConfig<
@@ -2964,7 +2978,7 @@ type GetUsersMeRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 const getUsersMeRequestConfig: GetUsersMeRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -2985,7 +2999,7 @@ const getUsersMeRequestConfig: GetUsersMeRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 export const getUsersMe = makeRequest<GetUsersMeRequest, GetUsersMeResponse, GetUsersMeRequestConfig>(
   getUsersMeRequestConfig,
@@ -2996,7 +3010,7 @@ export const getUsersMe = makeRequest<GetUsersMeRequest, GetUsersMeResponse, Get
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/me`
- * @更新时间 `2020-11-13 15:58:19`
+ * @更新时间 `2020-11-27 10:07:05`
  */
 export const useGetUsersMe = makeRequestHook<GetUsersMeRequest, GetUsersMeRequestConfig, ReturnType<typeof getUsersMe>>(
   getUsersMe,
@@ -3007,7 +3021,7 @@ export const useGetUsersMe = makeRequestHook<GetUsersMeRequest, GetUsersMeReques
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 export interface PutUsersIdRequest {
   nickname?: string
@@ -3034,6 +3048,7 @@ export interface PutUsersIdRequest {
       uid: string
     }
   }
+  mobilePhoneNumber?: string
   id: string
 }
 
@@ -3042,7 +3057,7 @@ export interface PutUsersIdRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 export interface PutUsersIdResponse {
   updatedAt: string
@@ -3054,7 +3069,7 @@ export interface PutUsersIdResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 type PutUsersIdRequestConfig = Readonly<
   RequestConfig<
@@ -3074,7 +3089,7 @@ type PutUsersIdRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 const putUsersIdRequestConfig: PutUsersIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -3095,7 +3110,7 @@ const putUsersIdRequestConfig: PutUsersIdRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 export const putUsersId = makeRequest<PutUsersIdRequest, PutUsersIdResponse, PutUsersIdRequestConfig>(
   putUsersIdRequestConfig,
@@ -3106,7 +3121,7 @@ export const putUsersId = makeRequest<PutUsersIdRequest, PutUsersIdResponse, Put
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `PUT /users/:id`
- * @更新时间 `2020-11-16 16:44:17`
+ * @更新时间 `2020-11-27 14:07:36`
  */
 export const usePutUsersId = makeRequestHook<PutUsersIdRequest, PutUsersIdRequestConfig, ReturnType<typeof putUsersId>>(
   putUsersId,
@@ -3734,6 +3749,416 @@ export const useDeleteUsersUidFriendshipFriendshipId = makeRequestHook<
   DeleteUsersUidFriendshipFriendshipIdRequestConfig,
   ReturnType<typeof deleteUsersUidFriendshipFriendshipId>
 >(deleteUsersUidFriendshipFriendshipId)
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+export interface PostRequestSmsCodeRequest {
+  mobilePhoneNumber: string
+}
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+export interface PostRequestSmsCodeResponse {
+  code?: number
+  error?: string
+}
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+type PostRequestSmsCodeRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/requestSmsCode',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+const postRequestSmsCodeRequestConfig: PostRequestSmsCodeRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/requestSmsCode',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+export const postRequestSmsCode = makeRequest<
+  PostRequestSmsCodeRequest,
+  PostRequestSmsCodeResponse,
+  PostRequestSmsCodeRequestConfig
+>(postRequestSmsCodeRequestConfig)
+
+/**
+ * 接口 [短信验证码↗](http://121.89.170.197:3000/project/59/interface/api/570) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /requestSmsCode`
+ * @更新时间 `2020-11-27 11:41:17`
+ */
+export const usePostRequestSmsCode = makeRequestHook<
+  PostRequestSmsCodeRequest,
+  PostRequestSmsCodeRequestConfig,
+  ReturnType<typeof postRequestSmsCode>
+>(postRequestSmsCode)
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+export interface PostCallUserExsitJudgeRequest {
+  type: string
+  id: string
+}
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+export interface PostCallUserExsitJudgeResponse {
+  code?: number
+  error?: string
+  result?: {
+    userExsit: boolean
+  }
+}
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+type PostCallUserExsitJudgeRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/call/userExsitJudge',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+const postCallUserExsitJudgeRequestConfig: PostCallUserExsitJudgeRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/call/userExsitJudge',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+export const postCallUserExsitJudge = makeRequest<
+  PostCallUserExsitJudgeRequest,
+  PostCallUserExsitJudgeResponse,
+  PostCallUserExsitJudgeRequestConfig
+>(postCallUserExsitJudgeRequestConfig)
+
+/**
+ * 接口 [判断用户是否存在↗](http://121.89.170.197:3000/project/59/interface/api/572) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /call/userExsitJudge`
+ * @更新时间 `2020-11-27 11:24:07`
+ */
+export const usePostCallUserExsitJudge = makeRequestHook<
+  PostCallUserExsitJudgeRequest,
+  PostCallUserExsitJudgeRequestConfig,
+  ReturnType<typeof postCallUserExsitJudge>
+>(postCallUserExsitJudge)
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+export interface PostVerifySmsCodeCodeRequest {
+  mobilePhoneNumber: string
+  code: string
+}
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+export interface PostVerifySmsCodeCodeResponse {
+  error?: string
+  code?: number
+}
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+type PostVerifySmsCodeCodeRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/verifySmsCode/:code',
+    undefined,
+    'code',
+    'mobilePhoneNumber',
+    false
+  >
+>
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+const postVerifySmsCodeCodeRequestConfig: PostVerifySmsCodeCodeRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/verifySmsCode/:code',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: ['code'],
+  queryNames: ['mobilePhoneNumber'],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+export const postVerifySmsCodeCode = makeRequest<
+  PostVerifySmsCodeCodeRequest,
+  PostVerifySmsCodeCodeResponse,
+  PostVerifySmsCodeCodeRequestConfig
+>(postVerifySmsCodeCodeRequestConfig)
+
+/**
+ * 接口 [检验验证码↗](http://121.89.170.197:3000/project/59/interface/api/574) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /verifySmsCode/:code`
+ * @更新时间 `2020-11-27 11:45:30`
+ */
+export const usePostVerifySmsCodeCode = makeRequestHook<
+  PostVerifySmsCodeCodeRequest,
+  PostVerifySmsCodeCodeRequestConfig,
+  ReturnType<typeof postVerifySmsCodeCode>
+>(postVerifySmsCodeCode)
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+export interface PostUsersByMobilePhoneRequest {
+  mobilePhoneNumber: string
+  smsCode: string
+  password?: string
+}
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+export interface PostUsersByMobilePhoneResponse {
+  updatedAt: string
+  uid: number
+  objectId: string
+  createdAt: string
+  emailVerified: boolean
+  balance: number
+  mobilePhoneVerified: boolean
+  toolConfig?: {
+    redo: number
+  }
+  username: string
+  sessionToken: string
+  authData: {
+    anonymous: {
+      id: string
+      __op: string
+    }
+    qq: {
+      access_token: string
+      oauth_consumer_key: string
+      openid: string
+    }
+    weixin: {
+      access_token: string
+      openid: string
+    }
+    lc_apple: {
+      uid: string
+    }
+  }
+  nickname: string
+  headimgurl: string
+  avatar: {
+    mime_type: string
+    updatedAt: string
+    key: string
+    name: string
+    objectId: string
+    createdAt: string
+    __type: string
+    url: string
+    provider: string
+    bucket: string
+  }
+  mobilePhoneNumber: string
+}
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+type PostUsersByMobilePhoneRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/usersByMobilePhone',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+const postUsersByMobilePhoneRequestConfig: PostUsersByMobilePhoneRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/usersByMobilePhone',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+export const postUsersByMobilePhone = makeRequest<
+  PostUsersByMobilePhoneRequest,
+  PostUsersByMobilePhoneResponse,
+  PostUsersByMobilePhoneRequestConfig
+>(postUsersByMobilePhoneRequestConfig)
+
+/**
+ * 接口 [用手机号码来注册↗](http://121.89.170.197:3000/project/59/interface/api/576) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /usersByMobilePhone`
+ * @更新时间 `2020-11-27 14:12:00`
+ */
+export const usePostUsersByMobilePhone = makeRequestHook<
+  PostUsersByMobilePhoneRequest,
+  PostUsersByMobilePhoneRequestConfig,
+  ReturnType<typeof postUsersByMobilePhone>
+>(postUsersByMobilePhone)
 
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any
