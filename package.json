@@ -15,8 +15,6 @@
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
     "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../",
-    "standard-beta": "standard-version --prerelease beta",
-    "standard": "standard-version --prerelease beta"
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6",
@@ -147,7 +145,6 @@
     "prettier": "2.0.5",
     "prettier-eslint-cli": "5.0.0",
     "react-test-renderer": "^16.13.1",
-    "standard-version": "^9.0.0",
     "typescript": "^4.0.5",
     "yapi-to-typescript": "^3.7.0"
   },
