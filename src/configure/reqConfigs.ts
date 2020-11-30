@@ -14,8 +14,8 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 
-// eslint-disable-next-line
-import { Cache } from 'react-native-cache'; 
+/* tslint:disable-next-line */
+import { Cache } from 'react-native-cache';
 import DefaultPreference from 'react-native-default-preference';
 // export const defaultHost = !__DEV__
 //   /* release */ ? 'api.icourage.cn/1.1'

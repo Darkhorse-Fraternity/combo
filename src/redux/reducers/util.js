@@ -17,10 +17,7 @@ const initialUtilState = immutable.fromJS({
   localRemind: {},
 });
 
-export default function drawState(
-  state: immutable.Map<string, any> = initialUtilState,
-  action: Object,
-) {
+export default function drawState(state = initialUtilState, action) {
   switch (action.type) {
     case LOAD_AVATAR: {
       return state.setIn(['loadAvatar'], action.statu);

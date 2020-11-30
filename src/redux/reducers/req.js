@@ -27,10 +27,7 @@ const registerKeys = (keys = []) => {
 
 const initialState = immutable.fromJS({ ...registerKeys(registerReqKeys) });
 
-export default function reqState(
-  state: immutable.Map<string, any> = initialState,
-  action: Object,
-) {
+export default function reqState(state = initialState, action) {
   switch (action.type) {
     case REQUEST_LOAD: {
       return state.setIn([action.key, 'load'], action.load);

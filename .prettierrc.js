@@ -3,6 +3,6 @@ module.exports = {
   jsxBracketSameLine: true,
   singleQuote: true,
   trailingComma: 'all',
-  eslintIntegration: true,
-  tslintIntegration: true,
+  // eslintIntegration: true,
+  // tslintIntegration: true,
 };

@@ -1,6 +1,6 @@
 /* @flow */
 
-export const LimitableMap = function (limit: number) {
+export const LimitableMap = function (limit) {
   this.limit = limit || 10;
   this.map = {};
   this.keys = [];

@@ -5,9 +5,12 @@
   "scripts": {
     "start": "export RCT_METRO_PORT=8081  && node node_modules/react-native/local-cli/cli.js start ",
     "test": "jest",
-    "lint": "eslint --ext .ts,.tsx src --quiet  --color",
-    "lint:fix": "eslint --ext .ts,.tsx src --color  --fix;",
+    "eslint": "eslint --ext .ts,.tsx src --quiet  --color",
+    "eslint:fix": "eslint --ext .ts,.tsx src --color  --fix;",
+    "type-check": "tsc -p tsconfig.json --noEmit",
     "format": "prettier --write src/**/*.{ts,tsx,scss,css,json}",
+    "prettier": "prettier --check \"**/*.tsx\" \"**/*.ts\"",
+    "lint": "concurrently \"yarn type-check\" \"yarn eslint\" \"yarn prettier\"",
     "reload": "curl http://localhost:8081/reload",
     "postinstall": "npx jetify && npx patch-package",
     "run-ios": "yarn react-native run-ios",
@@ -15,6 +18,8 @@
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
     "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../",
+    "release": "semantic-release",
+    "postversion": "react-native-version --never-amend"
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6",
@@ -115,6 +120,8 @@
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/runtime": "^7.9.6",
     "@react-native-community/eslint-config": "2.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@types/i18n-js": "^3.0.3",
     "@types/jest": "^24.0.19",
     "@types/lodash": "^4.14.145",
     "@types/react": "^16.9.2",
@@ -144,7 +151,9 @@
     "metro-react-native-babel-preset": "^0.59.0",
     "prettier": "2.0.5",
     "prettier-eslint-cli": "5.0.0",
+    "react-native-version": "^4.0.0",
     "react-test-renderer": "^16.13.1",
+    "semantic-release": "^17.3.0",
     "typescript": "^4.0.5",
     "yapi-to-typescript": "^3.7.0"
   },

@@ -9,5 +9,4 @@ const ComboZoomOut = {
   },
 };
 
-
 Animatable.initializeRegistryWithDefinitions({ ComboZoomOut });

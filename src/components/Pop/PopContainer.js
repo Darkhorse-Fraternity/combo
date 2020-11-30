@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class PopupContainer extends React.Component<any> {
+export default class PopupContainer extends React.Component {
   // static childContextTypes = {
   // };
   // getChildContext(): Object {

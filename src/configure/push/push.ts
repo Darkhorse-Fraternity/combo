@@ -62,10 +62,10 @@ export default function pushConfig(uid: string) {
     });
 
     LeanCloudPushNative.getInitialNotification()
-      .then((res) => {
+      .then((res: never) => {
         console.log('InitialNotification:', res);
       })
-      .catch((err) => {
+      .catch((err: Error) => {
         console.log('message:', err.message);
       });
 

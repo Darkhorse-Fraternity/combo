@@ -20,7 +20,7 @@ export const methodType = {
   delete: 'DELETE',
 };
 
-function throwIfMissing(paramName: string = ''): string {
+function throwIfMissing(paramName = '') {
   throw new Error(`Missing parameter${paramName}`);
   // return '';
 }

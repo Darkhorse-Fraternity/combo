@@ -1,12 +1,12 @@
-import {PermissionsAndroid, Platform} from 'react-native';
+import { Platform } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
-import {requestExternalStoragePermission} from './permission';
+import { requestExternalStoragePermission } from './permission';
 import Toast from 'react-native-simple-toast';
-import {strings} from '../locales/i18n';
+import { strings } from '../locales/i18n';
 // const RNFS = require('react-native-fs'); //文件处理
 import RNFS from 'react-native-fs';
 
-export const saveToCameraRoll = async (url:string) => {
+export const saveToCameraRoll = async (url: string) => {
   try {
     if (Platform.OS !== 'ios') {
       const storeLocation = `${RNFS.DocumentDirectoryPath}`;

@@ -17,7 +17,6 @@ import {
   LOGIN_LOAD,
 } from '../actions/user';
 import { CHANGEAVATAR } from '../actions/util';
-import { saveUserData } from '../../configure/storage';
 
 const initialLoginState = {
   loaded: false,
@@ -35,10 +34,7 @@ const initialLoginState = {
  * @param  {[type]} action:Object atcions 提交的会在这边显示。
  * @return {[type]}         返回给component 的state 值。
  */
-export default function userState(
-  state: immutable.Map<string, any> = initialLoginState,
-  action: Object,
-) {
+export default function userState(state = initialLoginState, action) {
   switch (action.type) {
     case LOAD_ACCOUNT:
     case ACCOUNT_CHANGE:

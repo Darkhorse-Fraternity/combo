@@ -1,9 +1,7 @@
-import {
-  PermissionsAndroid
-} from 'react-native'
+import { PermissionsAndroid } from 'react-native';
 import { strings } from '../locales/i18n';
 
-export const  requestExternalStoragePermission = async () => {
+export const requestExternalStoragePermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -13,10 +11,10 @@ export const  requestExternalStoragePermission = async () => {
       },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      return true
+      return true;
     } else {
-      console.log("Camera permission denied")
-      return false
+      console.log('Camera permission denied');
+      return false;
     }
   } catch (err) {
     console.error('Failed to request permission ', err.message);
