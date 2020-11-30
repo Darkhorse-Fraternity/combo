@@ -205,7 +205,7 @@ class RemindClass extends PureComponent<RemindClassProps, RemindClassState> {
           }
         : {
             thumbColor: value ? color : '#f6f7f9',
-            trackColor: { true: shadeBlend(0.75, color) },
+            trackColor: { true: shadeBlend(0.75, color || '') },
           };
 
     return (

@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const { RNAppUtil } = NativeModules;
 
-export function shadeBlend(p, c0, c1?: number) {
+export function shadeBlend(p: number, c0: string, c1?: string) {
   const n = p < 0 ? p * -1 : p;
   const u = Math.round;
   const w = parseInt;

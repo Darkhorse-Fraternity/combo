@@ -1,28 +1,4 @@
-//{
-//  "app": {
-//    "name": "Fighter"
-//  },
-//  "tabs": {
-//    "more": "more"
-//  },
-//  "permission": {
-//    "write_storage_title": "My App Storage Permission",
-//    "write_storage_message": "My App needs access to your storage so you can save your photos"
-//  },
-//  "login": {
-//    "welcome": "Welcome  to our localized app!",
-//    "login_button": "Login",
-//    "signup_button": "Sign Up"
-//  },
-//  "user_profile": {
-//    "title": "Your Profile"
-//  },
-//  "save": {
-//    "cance": "cance",
-//    "save_success": "save success",
-//    "save_to_local": "save to the album"
-//  }
-//}
+
 {
   "app": {
     "name": "iBetter"
@@ -35,7 +11,8 @@
   },
   "permission": {
     "write_storage_title": "Store permissions",
-    "write_storage_message": "Our app needs your storage write permission to save pictures"
+    "write_storage_message": "Our app needs your storage write permission to save pictures",
+    "OK": "OK"
   },
   "login": {
     "welcome": "Welcome back!",

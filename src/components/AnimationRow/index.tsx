@@ -114,6 +114,7 @@ export default class AnimationRow extends PureComponent<
     return (
       <Animated.View
         onLayout={this._onLayout}
+        // @ts-ignore: Unreachable code error
         style={[...rowStyles, style]}
         {...other}>
         {children}

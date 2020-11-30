@@ -34,7 +34,7 @@ export const StyledTitleText = styled.Text`
   color: #979797;
 `;
 
-export const StyledHeaderBtn = styled(HeaderBtn)`
+export const StyledHeaderBtn = styled(HeaderBtn)<{ backgroundColor?: string }>`
   background-color: ${(props) =>
     props.backgroundColor || props.theme.sureColor};
 `;

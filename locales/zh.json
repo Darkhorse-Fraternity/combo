@@ -10,7 +10,8 @@
   },
   "permission": {
     "write_storage_title": "写取储存权限",
-    "write_storage_message": "我们的app需要您的存储写权限,用来保存图片"
+    "write_storage_message": "我们的app需要您的存储写权限,用来保存图片",
+    "OK": "好的"
   },
   "login": {
     "welcome": "欢迎  回来!",

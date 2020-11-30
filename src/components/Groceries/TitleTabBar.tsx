@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, View, Animated, ViewStyle, StyleProp } from 'react-native';
 
 import Button from '../Button';
 
@@ -9,6 +9,10 @@ interface TitleTabBarProps {
   // underlineColor: string;
   scrollValueWithOutNative: Animated.Value;
   activeTab?: number;
+  tabs?: [];
+  textStyle?: {};
+  style?: StyleProp<ViewStyle>;
+  goToPage?: (page: number) => void;
 }
 
 export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
@@ -21,7 +25,7 @@ export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
       scrollValueWithOutNative,
     } = this.props;
 
-    const numberOfTabs = tabs.length;
+    const numberOfTabs = tabs?.length ?? 0;
     // const tabUnderlineStyle = {
     //   width: tabUnderlineWidth,
     //   height: 7,
@@ -64,7 +68,7 @@ export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
         accessibilityLabel={name}
         accessibilityTraits="button"
         style={{ paddingVertical: 20, paddingHorizontal: 10 }}
-        onPress={() => this.props.goToPage(page)}>
+        onPress={() => this.props.goToPage && this.props.goToPage(page)}>
         <Animated.Text
           style={[
             {
@@ -87,11 +91,11 @@ export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
     return (
       <View style={[styles.tab, this.props.style]}>
         <View style={styles.tabs1}>
-          {this.props.tabs.map((tab, i) => this.renderTabOption(tab, i))}
+          {this.props.tabs?.map((tab, i) => this.renderTabOption(tab, i))}
         </View>
-        <View style={styles.tabs2}>
+        {/* <View style={styles.tabs2}>
           {this.props.rightView && this.props.rightView()}
-        </View>
+        </View> */}
       </View>
     );
   }

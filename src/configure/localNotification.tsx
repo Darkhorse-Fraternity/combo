@@ -193,11 +193,13 @@ const calendarEvents = async (
                 moment(notify, 'HH:mm').minutes()
               );
             }
+            return undefined;
           })
           .map((minutes) => {
             if (minutes) {
               return { date: minutes };
             }
+            return undefined;
           })
           .filter(notEmpty);
         alarms.push(...notifyMonets);
@@ -258,6 +260,7 @@ const calendarEvents = async (
       }
 
       await RNCalendarEvents.saveEvent(title || '', eventBody);
+      return null;
     });
     // 将剩余的本地已被移的event 移除
     const ids2 = Object.keys(objEvents);

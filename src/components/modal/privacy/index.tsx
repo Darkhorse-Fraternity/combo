@@ -26,7 +26,7 @@ export const PrivacyModal = (props: PrivacyModal) => {
   const check = async () => {
     await app_channel();
     if (appChannel === 'tencent') {
-      getItem((e, res) => {
+      getItem((_, res) => {
         if (res !== 'agree') {
           setState(true);
         }

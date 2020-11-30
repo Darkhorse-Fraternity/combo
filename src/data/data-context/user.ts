@@ -93,7 +93,7 @@ export const useGetInfoOfMe = () => {
         type: 'update_user_info',
         user: {
           ...data.user,
-          ...info,
+          ...(info as UserType),
         },
       });
     },
@@ -172,10 +172,11 @@ const addSample = async (user: PostUsersResponse) => {
     const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
     const iCardsBatch = classBatch(iCardsReq);
     const iCardsRes = await get(iCardsBatch);
-    const iUseReq = iCardsRes.map((item: { success: { objectId: string } }) => {
+    const iUseReq = [];
+    iCardsRes.foreach((item: { success: { objectId: string } }) => {
       if (item.success) {
         const iUseParam = iUseSample(objectId, item.success.objectId);
-        return classCreatNewOne('iUse', iUseParam);
+        iUseReq.push(classCreatNewOne('iUse', iUseParam));
       }
     });
     // 添加圈子示例

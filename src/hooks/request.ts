@@ -1,10 +1,10 @@
 import { RequestFunctionParams } from 'yapi-to-typescript';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { httpHeaders } from '@configure/reqConfigs';
 
-interface AxiosResponseOtherInfoType {
-  __axios_info: Omit<AxiosResponse, 'data'>;
-}
+// interface AxiosResponseOtherInfoType {
+//   __axios_info: Omit<AxiosResponse, 'data'>;
+// }
 
 export interface RequestOptions {
   /**

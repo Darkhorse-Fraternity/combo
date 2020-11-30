@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextProps, StyleSheet, StyleProp, Animated } from 'react-native';
+import { TextProps, StyleSheet, StyleProp } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 type ErrorFields = Record<
   string,
@@ -12,7 +12,7 @@ interface RHFErrorProps<T, U> {
   errors?: T;
   name: U;
   messages?: Record<string, string>;
-  style?: StyleProp<TextProps | Animated.Base>;
+  style?: StyleProp<TextProps>;
 }
 
 type RHFErrorPropsOut = RHFErrorProps<ErrorFields, Name>;

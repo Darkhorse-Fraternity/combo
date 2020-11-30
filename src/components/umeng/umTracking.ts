@@ -1,8 +1,9 @@
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 // @ts-ignore: Unreachable code error
 import tracker from 'react-native-umeng-analytics';
+import { navigationRef } from '@components/Nav/navigators';
 
 tracker.setDebugMode(__DEV__);
 
@@ -22,4 +23,26 @@ export const useTrackView = () => {
       };
     }, [routeName]),
   );
+};
+
+export const useTracker = () => {
+  const routeNameRef = useRef<string>('');
+  const onReady = () => {
+    routeNameRef.current = navigationRef.current?.getCurrentRoute()?.name || '';
+    tracker.beginLogPageView(routeNameRef.current || 'start');
+  };
+  const onStateChange = () => {
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName =
+      navigationRef.current?.getCurrentRoute()?.name || '';
+    if (previousRouteName !== currentRouteName) {
+      if (previousRouteName && previousRouteName.length > 0) {
+        tracker.endLogPageView(previousRouteName || 'end');
+      }
+      tracker.beginLogPageView(currentRouteName || 'start');
+    }
+    // Save the current route name for later comparision
+    routeNameRef.current = currentRouteName;
+  };
+  return { onReady, onStateChange };
 };

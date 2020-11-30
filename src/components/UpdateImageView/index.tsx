@@ -125,6 +125,7 @@ export const ImagesList = ({
               </StyledCoverBtn>
             );
           }
+          return undefined;
         })}
       {value && value.length < maxNumber && (
         <StyledCoverBtn
@@ -188,12 +189,12 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
 
   const addImage = async (_: GestureResponderEvent, index: number) => {
     onPress && onPress();
-    const imageCount = maxNumber - index;
-    if (imageCount < 1) {
+    const imageCount1 = maxNumber - index;
+    if (imageCount1 < 1) {
       return;
     }
 
-    setImageCount(imageCount);
+    setImageCount(imageCount1);
     setstate(true);
 
     // const imagesDataArray = [...data];

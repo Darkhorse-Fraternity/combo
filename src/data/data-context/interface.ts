@@ -72,7 +72,7 @@ export type Action =
     }
   | { type: 'remove_iUse'; id: string }
   | { type: 'login'; user: GetUsersMeResponse }
-  | { type: 'update_user_info'; user: GetUsersMeResponse }
+  | { type: 'update_user_info'; user: UserType }
   | { type: 'logout' }
   | { type: 'init' };
 

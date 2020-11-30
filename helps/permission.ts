@@ -8,6 +8,7 @@ export const requestExternalStoragePermission = async () => {
       {
         title: strings('write_storage_title'),
         message: strings('write_storage_message'),
+        buttonPositive: strings('OK'),
       },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {

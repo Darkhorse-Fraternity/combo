@@ -111,6 +111,7 @@ export default class FlipButton extends PureComponent<FlipButtonProps> {
         duration={1000}
         easing="ease-in-out"
         animation={animation}
+        // @ts-ignore: Unreachable code error
         style={style}
         activeOpacity={1}
         disabled={disabled || load}

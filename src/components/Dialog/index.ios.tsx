@@ -1,4 +1,4 @@
-/* eslint-disable no-new */
+// @ts-nocheck
 'use strict';
 
 import { ActionSheetIOS } from 'react-native';

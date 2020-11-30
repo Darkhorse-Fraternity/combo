@@ -97,6 +97,7 @@ export default class ExceptionView extends PureComponent<
 
     // console.log("exceptionType", exceptionType);
     return (
+      // @ts-ignore: Unreachable code error
       <StyledContent style={style}>
         {exceptionType === ExceptionType.Loading && this.renderPromptLoad()}
         {exceptionType === ExceptionType.NoData &&

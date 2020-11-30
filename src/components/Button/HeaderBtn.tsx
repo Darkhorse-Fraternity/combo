@@ -14,6 +14,7 @@ import {
   TextStyle,
 } from 'react-native';
 import { theme } from '../../Theme';
+// @ts-ignore: Unreachable code error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import { debounce } from 'lodash'; // 4.0.8
 
