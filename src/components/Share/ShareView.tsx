@@ -12,6 +12,8 @@ import {
   StyleSheet,
   TouchableNativeFeedback,
   SafeAreaView,
+  ImageSourcePropType,
+  GestureResponderEvent,
 } from 'react-native';
 import { theme } from '../../Theme';
 
@@ -21,13 +23,14 @@ import {
   SHARE_TO_SESSION,
   SHARE_TO_QQ,
   Share_TO_ZONE,
+  ShareParamsType,
 } from '../../redux/actions/share';
 import Button from '../Button';
-
+// @ts-ignore: Unreachable code error
 import { isQQInstalled } from 'react-native-qq';
 import Modal from 'react-native-modal';
 import { IUseType } from 'src/data/data-context/interface';
-import { ShareMetadata } from 'react-native-wechat';
+// import { ShareMetadata } from 'react-native-wechat';
 
 interface ShareModal {
   iCard: IUseType['iCard'];
@@ -85,7 +88,11 @@ export default class ShareView extends Component<ShareModal, StateType> {
   }
 
   render() {
-    const item = (source, titel, press) => (
+    const item = (
+      source: ImageSourcePropType,
+      titel: string,
+      press?: (event: GestureResponderEvent) => void,
+    ) => (
       <Button
         background={
           TouchableNativeFeedback.SelectableBackgroundBorderless &&
@@ -104,7 +111,7 @@ export default class ShareView extends Component<ShareModal, StateType> {
       (iCard.img && iCard.img.url) ||
       'http://file.icourage.cn/ace9c22b40557933858f.png';
 
-    const shareParams: Omit<ShareMetadata, 'type'> = {
+    const shareParams: ShareParamsType = {
       title: iCard.title,
       webpageUrl: `https://icourage.cn/cardInfo?iCardId=${iCard.objectId}`,
       description: iCard.notifyText || '加入我的卡片，和我结伴同行',

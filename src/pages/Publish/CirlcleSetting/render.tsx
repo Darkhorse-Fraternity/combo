@@ -20,9 +20,9 @@ import {
   useGetClassesICardId,
   usePutClassesICardId,
 } from 'src/hooks/interface';
-interface iCardType {
-  objectId?: string;
-}
+// interface iCardType {
+//   objectId?: string;
+// }
 
 const validationSchema = yup.object().shape({
   password: yup.string().max(50).min(6).trim().label('密码'),

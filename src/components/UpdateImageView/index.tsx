@@ -94,6 +94,7 @@ export const ImagesList = ({
   const { window } = useDimensions();
 
   return (
+    // @ts-ignore: Unreachable code error
     <StyledMainView
       backgroundColor={backgroundColor || 'transparent'}
       {...other}>

@@ -413,7 +413,7 @@ const Punch: FC<Descriptor<{}>> = () => {
       <MemoPunchList
         numColumns={numColumns}
         user={user}
-        iUse={data}
+        iUse={data as never}
         loading={loading}
         onRefresh={run}
         onScroll={onScroll}

@@ -5,6 +5,7 @@
 import styled from 'styled-components/native';
 import FlipCard from 'react-native-flip-card';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// @ts-ignore: Unreachable code error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledButton = styled(TouchableBounce)``;

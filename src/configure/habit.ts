@@ -312,7 +312,7 @@ export const feeling = [
   feeling8,
 ];
 
-const addDefaultHabit = (obj) =>
+const addDefaultHabit = (obj: {}[]) =>
   obj.map((item) => {
     return {
       ...defaultHabit,

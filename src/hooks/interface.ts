@@ -1,4 +1,3 @@
-/* eslint-disable eslint-comments/no-unlimited-disable */
 /* prettier-ignore-start */
 /* tslint:disable */
 /* eslint-disable */
@@ -5564,5 +5563,196 @@ export const usePostClassesEnchashment = makeRequestHook<
   PostClassesEnchashmentRequestConfig,
   ReturnType<typeof postClassesEnchashment>
 >(postClassesEnchashment)
+
+const mockUrl_0_1_0_7 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_7 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_7 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_7 = undefined as any
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **请求类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+export interface PostInstallationsRequest {
+  deviceToken?: string
+  installationId?: string
+  channels: string[]
+  deviceType: string
+}
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **返回类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+export interface PostInstallationsResponse {
+  objectId: string
+}
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **请求配置的类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+type PostInstallationsRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/installations',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **请求配置**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+const postInstallationsRequestConfig: PostInstallationsRequestConfig = {
+  mockUrl: mockUrl_0_1_0_7,
+  devUrl: devUrl_0_1_0_7,
+  prodUrl: prodUrl_0_1_0_7,
+  path: '/installations',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_7,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **请求函数**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+export const postInstallations = makeRequest<
+  PostInstallationsRequest,
+  PostInstallationsResponse,
+  PostInstallationsRequestConfig
+>(postInstallationsRequestConfig)
+
+/**
+ * 接口 [推送注册↗](http://121.89.170.197:3000/project/59/interface/api/578) 的 **React Hook**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `POST /installations`
+ * @更新时间 `2020-11-30 14:43:42`
+ */
+export const usePostInstallations = makeRequestHook<
+  PostInstallationsRequest,
+  PostInstallationsRequestConfig,
+  ReturnType<typeof postInstallations>
+>(postInstallations)
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **请求类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+export interface PutInstallationsIdRequest {
+  badge?: number
+  deviceProfile?: string
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
+  id: string
+}
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **返回类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+export interface PutInstallationsIdResponse {}
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **请求配置的类型**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+type PutInstallationsIdRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/installations/:id',
+    undefined,
+    'id',
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **请求配置**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+const putInstallationsIdRequestConfig: PutInstallationsIdRequestConfig = {
+  mockUrl: mockUrl_0_1_0_7,
+  devUrl: devUrl_0_1_0_7,
+  prodUrl: prodUrl_0_1_0_7,
+  path: '/installations/:id',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_7,
+  paramNames: ['id'],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **请求函数**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+export const putInstallationsId = makeRequest<
+  PutInstallationsIdRequest,
+  PutInstallationsIdResponse,
+  PutInstallationsIdRequestConfig
+>(putInstallationsIdRequestConfig)
+
+/**
+ * 接口 [推送更新↗](http://121.89.170.197:3000/project/59/interface/api/580) 的 **React Hook**
+ *
+ * @分类 [推送↗](http://121.89.170.197:3000/project/59/interface/api/cat_438)
+ * @请求头 `PUT /installations/:id`
+ * @更新时间 `2020-11-30 14:32:02`
+ */
+export const usePutInstallationsId = makeRequestHook<
+  PutInstallationsIdRequest,
+  PutInstallationsIdRequestConfig,
+  ReturnType<typeof putInstallationsId>
+>(putInstallationsId)
 
 /* prettier-ignore-end */

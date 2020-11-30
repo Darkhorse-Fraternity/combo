@@ -134,7 +134,7 @@ const RenderHeader: FC<FollowingProps> = (props) => {
               overflow: 'hidden',
             }}>
             {!avatarUrl ? (
-              <Avatar radius={45} style={{ borderRadius: 0 }} user={data} />
+              <Avatar radius={45} user={data} />
             ) : (
               <StyledZoomImage imageUrls={[{ url: avatarUrl }]} />
             )}

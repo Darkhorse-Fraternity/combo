@@ -70,7 +70,7 @@ export default class AppleStyleSwipeableRow extends Component<
   };
   renderRightActions = (
     progress: Animated.AnimatedInterpolation,
-    dragX: Animated.AnimatedInterpolation,
+    // dragX: Animated.AnimatedInterpolation,
     data: {
       backgroundColor: string;
       component: ReactNode;
@@ -118,8 +118,8 @@ export default class AppleStyleSwipeableRow extends Component<
         leftThreshold={leftThreshold}
         rightThreshold={rightThreshold || 10}
         renderLeftActions={renderLeftActions}
-        renderRightActions={(progress, dragX) =>
-          this.renderRightActions(progress, dragX, right)
+        renderRightActions={(progress) =>
+          this.renderRightActions(progress, right)
         }
         {...otherProps}>
         {children}

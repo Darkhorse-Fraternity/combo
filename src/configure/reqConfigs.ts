@@ -14,7 +14,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 import SimpleToast from 'react-native-simple-toast';
 
-/* tslint:disable-next-line */
+// @ts-ignore: Unreachable code error
 import { Cache } from 'react-native-cache';
 import DefaultPreference from 'react-native-default-preference';
 // export const defaultHost = !__DEV__

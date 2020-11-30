@@ -91,6 +91,7 @@ interface CustomMaskedInputProps extends Omit<TextInputProps, 'onChange'> {
 const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
   const { onChange, ...rest } = props;
   return (
+    // @ts-ignore: Unreachable code error
     <StyledTexInput
       {...rest}
       onChange={(e) => {

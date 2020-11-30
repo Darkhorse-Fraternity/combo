@@ -27,6 +27,7 @@ import {
   View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+// @ts-ignore: Unreachable code error
 import { KeyboardAccessoryView } from 'react-native-keyboard-input';
 import Toast from 'react-native-simple-toast';
 import { useGetUserInfo } from 'src/data/data-context';

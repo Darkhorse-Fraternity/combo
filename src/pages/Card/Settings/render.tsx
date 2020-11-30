@@ -32,7 +32,7 @@ interface RenderItemType {
   load?: boolean;
   size?: number;
   onPress: () => void;
-  Icon?: React.ReactNode;
+  Icon?: typeof StyledIcon;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -46,7 +46,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
     Icon = StyledIcon,
     style,
   } = props;
-
+  const IconIN = Icon || StyledIcon;
   return (
     <StyledBottomMenuButton
       style={style}
@@ -61,7 +61,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
       {load ? (
         <StyledActivityIndicator color={'gray'} />
       ) : (
-        <Icon size={size} name={name} />
+        <IconIN size={size} name={name} />
       )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>

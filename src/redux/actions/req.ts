@@ -25,7 +25,8 @@ export const DATA = 'results';
 // }
 //
 
-export async function reqY(params) {
+export async function reqY(params: {}) {
+  // @ts-ignore: Unreachable code error
   const response = await send(params);
   // console.log('response:', response);
   const contentType = response.headers.get('content-type');
@@ -39,8 +40,9 @@ export async function reqY(params) {
   return response.text();
 }
 
-export async function reqS(params) {
+export async function reqS(params: {}) {
   let response = await reqY(params);
+  // @ts-ignore: Unreachable code error
   if (!params.host && response && !response[RESCODE]) {
     response = { [DATA]: response, [RESCODE]: SUCCODE };
   }
@@ -48,7 +50,7 @@ export async function reqS(params) {
 }
 
 // 加入msg
-export async function reqM(params) {
+export async function reqM(params: {}) {
   const response = await reqS(params);
   // console.log('response111:', response);
   if (response && response[RESCODE]) {
@@ -63,6 +65,7 @@ export async function reqM(params) {
 
 // 加入 根据key 存入store
 export function reqA(params: Object, key: string, option: Object = {}) {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     if (!key) {
       return reqM(params);
@@ -83,6 +86,7 @@ export function reqA(params: Object, key: string, option: Object = {}) {
 
 // 不返回错误码，直接通过通用错误处理渠道。
 export function req(params: Object, key: string, option: Object = {}) {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     try {
       const response = await dispatch(reqA(params, key, option));
@@ -103,6 +107,7 @@ export function req(params: Object, key: string, option: Object = {}) {
 }
 
 export function load(params: Object, key: string) {
+  // @ts-ignore: Unreachable code error
   return (dispatch) => dispatch(req(params, key, { sceme: schemas[key] }));
 }
 
@@ -118,7 +123,8 @@ export async function get(params: {}) {
   }
 }
 
-export function cleanData(response, option) {
+export function cleanData(response: {}, option: any) {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     const data =
       (!option.dataMap ? response[DATA] : option.dataMap(response[DATA])) ||
@@ -134,12 +140,12 @@ export function cleanData(response, option) {
   };
 }
 
-export function clear(key: stringg) {
+export function clear(key: string) {
   // return requestSucceed(key, {})
   return requestSucceed(key, {});
 }
 
-export function requestSucceed(key: string, data: Object): Object {
+export function requestSucceed(key: string, data: Object) {
   return {
     type: REQUEST_SUCCEEED,
     load: false,
@@ -153,7 +159,7 @@ export function requestSucceed(key: string, data: Object): Object {
  * @param  {[type]} response:Object [description]
  * @return {[type]}                 [description]
  */
-export function requestFailed(key: string, err: any): Object {
+export function requestFailed(key: string, err: any) {
   return {
     type: REQUEST_FAILED,
     load: false,
@@ -175,7 +181,7 @@ export function requestStart(key: string): Object {
   };
 }
 
-export function reqChangeData(key: string, data: Object): Object {
+export function reqChangeData(key: string, data: Object) {
   return {
     type: REQUESR_CHANGE_DATA,
     payload: data,

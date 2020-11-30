@@ -6,11 +6,12 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
+// @ts-ignore: Unreachable code error
 import { connect } from 'react-redux';
 import { Platform, UIManager, Linking } from 'react-native';
 import Orientation from 'react-native-orientation';
 
-/* eslint-disable-nextline */
+// @ts-ignore: Unreachable code error
 import KeyboardManager from 'react-native-keyboard-manager';
 import pushConfig from './push/push';
 // import {dataStorage} from '../redux/actions/util'
@@ -195,9 +196,11 @@ const UserDepends: FC<{ user: UserType }> = ({ user }) => {
   return null;
 };
 
+// @ts-ignore: Unreachable code error
 @connect((state) => ({ user: state.user.data }))
 class UserDependsClass extends PureComponent {
   render() {
+    // @ts-ignore: Unreachable code error
     return <UserDepends user={this.props.user} />;
   }
 }

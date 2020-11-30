@@ -3,7 +3,7 @@ import {
   GetClassesICardResponse,
   GetClassesIUseIdResponse,
   GetClassesIUseResponse,
-  GetUsersIdResponse,
+  // GetUsersIdResponse,
   GetUsersMeResponse,
   PostCallCardListResponse,
   PostCallIUseList3Response,
@@ -18,8 +18,8 @@ export type IUseType = NonNullable<
   NonNullable<PostCallIUseList3Response['result']>['iUseList']
 >[number];
 export type IUseType2 = NonNullable<GetClassesIUseResponse['results']>[number];
-type IUseNomType = Omit<IUseType, 'iCard'> & { iCard: string };
-type IUseNom2Type = Omit<GetClassesIUseIdResponse, 'iCard'> & { iCard: string };
+// type IUseNomType = Omit<IUseType, 'iCard'> & { iCard: string };
+// type IUseNom2Type = Omit<GetClassesIUseIdResponse, 'iCard'> & { iCard: string };
 
 export type IUseComboType =
   | IUseType[]
@@ -71,8 +71,8 @@ export type Action =
       data: ICardType;
     }
   | { type: 'remove_iUse'; id: string }
-  | { type: 'login'; user: GetUsersIdResponse }
-  | { type: 'update_user_info'; user: GetUsersIdResponse }
+  | { type: 'login'; user: GetUsersMeResponse }
+  | { type: 'update_user_info'; user: GetUsersMeResponse }
   | { type: 'logout' }
   | { type: 'init' };
 

@@ -1,4 +1,4 @@
-export function addParams(url: string, params: Object) {
+export function addParams(url: string, params?: Object) {
   if (url.indexOf('?') === -1) {
     return `${url}?${toQueryString(params)}`;
   }
@@ -10,7 +10,7 @@ export function addParams(url: string, params: Object) {
  * @param  {[type]} obj 参数
  * @return {[type]} string key1=value1&key2=value2
  */
-export function toQueryString(obj: Object) {
+export function toQueryString(obj?: Object) {
   return obj
     ? Object.keys(obj)
         .sort()
@@ -41,8 +41,8 @@ export function queryStringToJSON(queryString: string) {
   const pairs = queryString.split('&');
   const result = {};
   pairs.forEach((pair) => {
-    pair = pair.split('=');
-    result[pair[0]] = decodeURIComponent(pair[1] || '');
+    const pairArray = pair.split('=');
+    result[pairArray[0]] = decodeURIComponent(pairArray[1] || '');
   });
   return result;
 }

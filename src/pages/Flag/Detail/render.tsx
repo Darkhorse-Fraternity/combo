@@ -12,6 +12,7 @@ import {
   Linking,
   DeviceEventEmitter,
 } from 'react-native';
+// @ts-ignore: Unreachable code error
 import { connect } from 'react-redux';
 import moment from 'moment';
 import Toast from 'react-native-simple-toast';
@@ -65,7 +66,9 @@ interface FDProps {
 
 @connect(
   () => ({}),
+  // @ts-ignore: Unreachable code error
   (dispatch, props) => ({
+    // @ts-ignore: Unreachable code error
     pay: (type, description, amount, iCardId, flagId) =>
       dispatch(
         pay(
@@ -105,6 +108,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
     }
     if (isTourist) {
       Toast.show('参加副本需要先登录~!');
+      // @ts-ignore: Unreachable code error
       return this.props.navigation.navigate('login', {
         transition: 'forVertical',
       });
@@ -128,7 +132,9 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
   onSubmit = async (type: string) => {
     const { title } = this.props.iCard;
     const description = `副本_${title}的加入费用`;
+    // @ts-ignore: Unreachable code error
     const { iCardId, flagId } = this.props.route.params;
+    // @ts-ignore: Unreachable code error
     const { join, flag, pay } = this.props;
     const cost = flag.cost;
     try {

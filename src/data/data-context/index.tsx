@@ -141,13 +141,7 @@ export const Provider: FC<DataContextType> = (props) => {
         const list = preState.iUses_self.list;
         const index = list.indexOf(id);
         index > -1 ? list.splice(index, 1) : list;
-        return {
-          ...preState,
-          iUses_self: {
-            ...preState.iUses_self,
-            list,
-          },
-        };
+        return { ...preState };
       }
       case 'init':
         return { ...preState };

@@ -1,7 +1,10 @@
 import { DeviceEventEmitter } from 'react-native';
 import { addParams } from '../../request/useMeth';
 
-export function doReceiveNotify(notify) {
+export function doReceiveNotify(notify: {
+  data: { webUrl: string; params?: {} };
+  foreground: boolean;
+}) {
   const data = notify.data;
   if (!data) {
     return;

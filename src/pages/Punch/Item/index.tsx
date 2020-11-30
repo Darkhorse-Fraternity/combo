@@ -148,7 +148,7 @@ export default class PunchItem extends PureComponent<
           // }
         }}>
         <StyledFlipCard
-          style={style}
+          style={style as never}
           useNativeDriver
           friction={50}
           perspective={360}

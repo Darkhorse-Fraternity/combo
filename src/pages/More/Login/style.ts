@@ -10,7 +10,6 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Button from '@components/Button';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import LinearGradient from 'react-native-linear-gradient';
-// import {TouchableBounce} from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled.View`
   flex: 1;

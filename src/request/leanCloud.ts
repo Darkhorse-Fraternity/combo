@@ -515,22 +515,6 @@ export function updateInstallation(id: String, params: object) {
   };
 }
 
-// 统计数据API
-export function openCollet(params: object) {
-  return {
-    scheme: 'https',
-    host: 'leancloud.cn/1.1',
-    path: '/stats/open/collect',
-    method: methodType.post,
-    // head:{
-    //     "Content-Type": "application/json",
-    //     "X-LC-Key": LeanCloud_APP_KEY,
-    //     "X-LC-Id": LeanCloud_APP_ID,
-    // },
-    params,
-  };
-}
-
 // 获取微信OPENID
 export function wechatInfo(appid: string, secret: string, code: string) {
   return {

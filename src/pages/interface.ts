@@ -5,7 +5,6 @@ import {
   NavigationProp,
   RouteProp,
 } from '@react-navigation/native';
-import { Record } from 'immutable';
 import { WebViewProp } from '@components/WebView/interface';
 
 export enum RouteKey {
@@ -46,7 +45,7 @@ export enum RouteKey {
   test = 'test',
 }
 
-type RecordType = '文字' | '图片';
+// type RecordType = '文字' | '图片';
 
 export type RootStackParamList = {
   [RouteKey.web]: {

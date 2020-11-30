@@ -4,7 +4,7 @@
  */
 
 import React, { FC, useRef, useState } from 'react';
-import { View, LayoutAnimation, Platform } from 'react-native';
+import { LayoutAnimation, Platform } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';

@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Button from '../../../components/Button';
+// @ts-ignore: Unreachable code error
+import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
@@ -64,8 +66,6 @@ export const StyledRightView = styled.View`
   flex-direction: row;
   padding-right: 10px;
 `;
-
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
   flex: 1;

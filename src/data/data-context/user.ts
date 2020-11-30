@@ -19,6 +19,7 @@ import SimpleToast from 'react-native-simple-toast';
 import { classBatch, classCreatNewOne } from '@request/leanCloud';
 import moment from 'moment';
 import { get } from '@redux/actions/req';
+// @ts-ignore: Unreachable code error
 import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
 import { useCallback, useContext, useState } from 'react';

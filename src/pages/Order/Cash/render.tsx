@@ -103,6 +103,7 @@ const ControlStyledInput: FC<
   Omit<TextInputProps, 'onChange'> & { onChange?: (text: string) => void }
 > = ({ onChange, ...rest }) => {
   return (
+    // @ts-ignore: Unreachable code error
     <StyledInput {...rest} onChangeText={(e) => onChange?.call(undefined, e)} />
   );
 };

@@ -25,6 +25,7 @@ const CModal = ({
       animationOut={'fadeOutDown'}
       isVisible={show}
       {...modalProps}>
+      {/* @ts-ignore: Unreachable code error */}
       <StyleModalOutView {...other}>
         <StyleCance onPress={onClose}>
           <StyledIcon name="close" size={20} />

@@ -1,6 +1,7 @@
 // const tracker = new GoogleAnalyticsTracker(GA_TRACKING_ID);
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
+// @ts-ignore: Unreachable code error
 import tracker from 'react-native-umeng-analytics';
 
 tracker.setDebugMode(__DEV__);

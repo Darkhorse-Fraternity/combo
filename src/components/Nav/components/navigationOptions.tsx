@@ -39,10 +39,10 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   },
   cardStyle: { backgroundColor: 'white' },
   // headerBackImage: require('../../source/img/bar/back-icon.png'),
-  headerBackImage: (props) => (
+  headerBackImage: () => (
     <HeaderBackImage
-      color={props.tintColor}
-      // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
+    // color={props.tintColor}
+    // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
     />
   ),
   headerBackTitleVisible: false,

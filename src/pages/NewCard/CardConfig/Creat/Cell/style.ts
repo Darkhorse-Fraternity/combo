@@ -5,6 +5,7 @@
 'use strict';
 
 import styled from 'styled-components/native';
+// @ts-ignore: Unreachable code error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledCell = styled(TouchableBounce)`

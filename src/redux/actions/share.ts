@@ -3,6 +3,8 @@
  * @flow
  */
 import * as WeChat from 'react-native-wechat';
+
+// @ts-ignore: Unreachable code error
 import * as QQAPI from 'react-native-qq';
 
 import Toast from 'react-native-simple-toast';
@@ -16,6 +18,8 @@ export const SHARE_TO_SINA = 'SHARE_TO_SINA';
 
 // WeChat.registerApp('wx637e6f35f8211c6d')
 
+export type ShareParamsType = Omit<ShareMetadata, 'type'> & { title?: string };
+
 export function shareTo(
   type:
     | typeof SHARE_TO_SESSION
@@ -23,7 +27,7 @@ export function shareTo(
     | typeof SHARE_TO_QQ
     | typeof Share_TO_ZONE
     | typeof SHARE_TO_SINA,
-  param: Omit<ShareMetadata, 'type'>,
+  param: ShareParamsType,
 ) {
   if (type === SHARE_TO_TIMELINE || type === SHARE_TO_SESSION) {
     shareToWechat(type, param);
@@ -34,10 +38,7 @@ export function shareTo(
   }
 }
 
-export async function shareToWechat(
-  type: string,
-  param: Omit<ShareMetadata, 'type'>,
-) {
+export async function shareToWechat(type: string, param: ShareParamsType) {
   let Method = WeChat.shareToTimeline;
   if (type === SHARE_TO_SESSION) {
     Method = WeChat.shareToSession;
@@ -46,6 +47,7 @@ export async function shareToWechat(
   try {
     const result = await Method({
       type: 'news',
+      // @ts-ignore: Unreachable code error
       title: param.title || '小改变',
       webpageUrl: param.webpageUrl || 'https://icouage.cn',
       description: param.description || '勇敢地成为你自己',
@@ -56,6 +58,7 @@ export async function shareToWechat(
     });
     console.log('shareToWechat successful:', result);
   } catch (e) {
+    // @ts-ignore: Unreachable code error
     if (e instanceof WeChat.WechatError) {
       // console.error(e.stack);
       const errObj = {
@@ -73,10 +76,7 @@ export async function shareToWechat(
   }
 }
 
-export async function shareToQQ(
-  type: string,
-  param: Omit<ShareMetadata, 'type'>,
-) {
+export async function shareToQQ(type: string, param: ShareParamsType) {
   let Method = QQAPI.shareToQQ;
   if (type === Share_TO_ZONE) {
     Method = QQAPI.shareToQzone;

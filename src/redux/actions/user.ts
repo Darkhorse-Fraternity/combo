@@ -8,6 +8,8 @@
 import Toast from 'react-native-simple-toast';
 import * as Keychain from 'react-native-keychain';
 import * as WeChat from 'react-native-wechat';
+
+// @ts-ignore: Unreachable code error
 import * as QQAPI from 'react-native-qq';
 import { updatePush } from '../../configure/push/push';
 import { setLeanCloudSession } from '../../configure/reqConfigs';
@@ -276,6 +278,7 @@ export function register(
   state: { phone: string; ymCode: string },
   uid: string,
 ) {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     // try {
     dispatch(_loginRequest());
@@ -364,6 +367,7 @@ function _loginSucceed(response: UserType | PostUsersResponse) {
   // saveAccount(response.mobilePhoneNumber);
 
   // 只保存 sessionToken
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     if (response) {
       // const { sessionToken = '', username = '' } = response
@@ -480,6 +484,7 @@ export function updateMeByParam(
   param: Omit<PutUsersIdRequest, 'id'>,
   uid: string,
 ) {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     // const userData = getState().user.data;
     // const params = getUpdateMeByParam(userData.objectId, param);
@@ -492,6 +497,7 @@ export function updateMeByParam(
 }
 
 export function update() {
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     // const params = usersMe();
     // const res = await get(params);
@@ -525,6 +531,7 @@ function updateLocation(user: GetUsersMeResponse | PostUsersResponse) {
 
 export function weChatLogin(user: UserType | PostUsersResponse) {
   const key = WECHATLOGIN;
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     try {
       dispatch(thirdLoaded(key));
@@ -598,6 +605,7 @@ export function weChatLogin(user: UserType | PostUsersResponse) {
       // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
     } catch (e) {
       dispatch(thirdLoaded(''));
+      // @ts-ignore: Unreachable code error
       if (e instanceof WeChat.WechatError) {
         const errObj = {
           '-1': '普通错误类型',
@@ -618,6 +626,7 @@ export function weChatLogin(user: UserType | PostUsersResponse) {
 
 export function qqLogin(user: UserType | PostUsersResponse) {
   const key = QQLOGIN;
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     try {
       dispatch(thirdLoaded(key));
@@ -698,6 +707,8 @@ export function qqLogin(user: UserType | PostUsersResponse) {
 
 export function appleLogin(user: UserType | PostUsersResponse) {
   const key = APPLELOGIN;
+
+  // @ts-ignore: Unreachable code error
   return async (dispatch) => {
     try {
       dispatch(thirdLoaded(key));

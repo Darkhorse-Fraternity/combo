@@ -1,6 +1,6 @@
 {
   "name": "Combo",
-  "version": "1.5.4",
+  "version": "1.4.3",
   "private": true,
   "scripts": {
     "start": "export RCT_METRO_PORT=8081  && node node_modules/react-native/local-cli/cli.js start ",
@@ -19,7 +19,8 @@
     "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../",
     "release": "semantic-release",
-    "postversion": "react-native-version --never-amend"
+    "postversion": "react-native-version --never-amend",
+    "preminor":"npm version preminor  -m 'Upgrade to %s for reasons'"
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6",

@@ -166,15 +166,14 @@ export default function App() {
       //   showLabel: false,
       // }}
       tabBarOptions={tabBarOptions}
-      tabBar={(props) => (
+      tabBar={({ style: _, ...rest }) => (
         <AnimatedTabBar
           preset="flashy"
           tabs={tabs}
           iconSize={25}
           itemOuterSpace={12}
           itemInnerSpace={12}
-          // style={{}}
-          {...props}
+          {...rest}
           // style={props.style}
         />
       )}>

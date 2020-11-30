@@ -24,10 +24,12 @@ export const useOrientation = () => {
   useEffect(() => {
     if (isTablet()) {
       Orientation.addOrientationListener(orientationDidChange);
-      return () => {
-        Orientation.removeOrientationListener(orientationDidChange);
-      };
     }
+    return () => {
+      if (isTablet()) {
+        Orientation.removeOrientationListener(orientationDidChange);
+      }
+    };
   }, []);
   return orientation;
 };

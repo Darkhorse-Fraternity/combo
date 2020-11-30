@@ -5,6 +5,7 @@
 
 import styled from 'styled-components/native';
 // import Button from '../../../components/Button'
+// @ts-ignore: Unreachable code error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled(TouchableBounce)`

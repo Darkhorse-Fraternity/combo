@@ -40,7 +40,7 @@ const config: Config = [
         token: leancloud_restful_token,
         categories: [
           {
-            id: [368, 375, 382, 389, 403, 417, 424],
+            id: [368, 375, 382, 389, 403, 417, 424, 438],
             getRequestFunctionName,
           },
         ],

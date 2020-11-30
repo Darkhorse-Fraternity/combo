@@ -1,5 +1,5 @@
-import { send } from '../../request/index';
-import { pushInstallation, updateInstallation } from '../../request/leanCloud';
+// import { send } from '../../request/index';
+// import { pushInstallation, updateInstallation } from '../../request/leanCloud';
 import PushNotification from 'react-native-push-notification';
 import DeviceInfo from 'react-native-device-info';
 
@@ -7,6 +7,12 @@ import { Platform, DeviceEventEmitter, NativeModules } from 'react-native';
 import { doReceiveNotify } from './pushReceive';
 // import { dataStorage } from '../../redux/actions/util';
 import { userPoint } from '../../request/LCModle';
+import { postInstallations, putInstallationsId } from 'src/hooks/interface';
+
+interface NotificationData {
+  silent: boolean;
+}
+
 export default function pushConfig(uid: string) {
   // PushNotification.setApplicationIconBadgeNumber(0)
 
@@ -21,12 +27,15 @@ export default function pushConfig(uid: string) {
       onNotification: function (notification) {
         console.log('NOTIFICATION:', notification);
         if (notification && notification.data) {
-          if (notification.foreground && !notification.data.silent) {
+          if (
+            notification.foreground &&
+            !(notification.data as NotificationData).silent
+          ) {
             // TODO:暂时不做处理
             // Toast.show(notification.message)
             // dispatch(dataStorage('notify', { show: true, notification }));
           } else {
-            doReceiveNotify(notification);
+            doReceiveNotify(notification as never);
           }
         }
       },
@@ -92,24 +101,38 @@ export default function pushConfig(uid: string) {
 let InstallationID: string;
 export function push(token: string, uid: string) {
   if (token) {
-    const param = pushInstallation(Platform.OS, token);
+    // const param = pushInstallation(Platform.OS, token);
+    const installationId =
+      Platform.OS === 'ios'
+        ? { deviceToken: token }
+        : { installationId: token };
+    postInstallations({
+      deviceType: Platform.OS,
+      ...installationId,
+      channels: ['public', 'protected', 'private'],
+    }).then((res) => {
+      InstallationID = res.objectId;
+      if (uid) {
+        updatePush(uid);
+      }
+    });
     // console.log('push param:', param);
-    send(param)
-      .then((res) => res.json())
-      .then((res) => {
-        // console.log('response:',res)
-        // store.dispatch(dataStorage('InstallationID',res.objectId))
-        InstallationID = res.objectId;
-        if (uid) {
-          updatePush(uid);
-        }
-      });
+    // send(param)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     // console.log('response:',res)
+    //     // store.dispatch(dataStorage('InstallationID',res.objectId))
+    //     InstallationID = res.objectId;
+    //     if (uid) {
+    //       updatePush(uid);
+    //     }
+    //   });
   }
 }
 
 export function updatePush(uid: string) {
   if (InstallationID) {
-    const profile = {};
+    const profile: { deviceProfile?: string } = {};
     if (Platform.OS === 'ios') {
       const devP = __DEV__ ? 'dev' : 'prod';
       const getBundleId = DeviceInfo.getBundleId();
@@ -118,14 +141,23 @@ export function updatePush(uid: string) {
       profile.deviceProfile = devP + enp;
     }
 
-    const param = updateInstallation(InstallationID, {
+    // const param = updateInstallation(InstallationID, {
+    //   user: userPoint(uid),
+    //   badge: 0,
+    //   ...profile,
+    // });
+
+    // send(param).then((response) => {
+    //   console.log('response:', response);
+    // });
+
+    putInstallationsId({
+      id: InstallationID,
       user: userPoint(uid),
       badge: 0,
       ...profile,
-    });
-
-    send(param).then((response) => {
-      console.log('response:', response);
+    }).then((res) => {
+      console.log('response:', res);
     });
   }
 }

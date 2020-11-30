@@ -218,6 +218,7 @@ const calendarEvents = async (
 
       const recurrenceRule: RecurrenceRule = {
         frequency: 'daily',
+        // @ts-ignore: Unreachable code error
         duration: 'PT1H', // 好像是类型定义有问题
         occurrence: 100,
         interval: 1,
@@ -226,6 +227,7 @@ const calendarEvents = async (
       if (day && day.length < 7) {
         recurrenceRule.frequency = 'weekly';
         // 好像是类型定义有问题
+        // @ts-ignore: Unreachable code error
         recurrenceRule.daysOfWeek = day.map(
           (num) => ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'][num - 1],
         );
@@ -233,6 +235,8 @@ const calendarEvents = async (
       const name = nickname ? `${nickname},` : '';
       const idConfig = calendaId ? { id: calendaId } : {};
       // console.log('test:', title,idConfig);
+      // @ts-ignore: Unreachable code error
+      // TODO 类型错误
       const eventBody: CalendarEventWritable = {
         ...idConfig,
         startDate: startDate.toISOString(),

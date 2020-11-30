@@ -19,6 +19,7 @@ import {
   TextInputProps,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
+// @ts-ignore: Unreachable code error
 import { connect } from 'react-redux';
 // import { req } from '../../../redux/actions/req';
 import { APPLELOGIN } from '../../../redux/reqKeys';
@@ -78,12 +79,14 @@ interface LoginState {
 type LoginKey = 'qqLogin' | 'wxLogin' | 'appleLogin';
 
 @connect(
+  // @ts-ignore: Unreachable code error
   (state) => ({
     // data:state.req.get()
     // loaded: state.user.loaded,
     theThirdLoaded: state.user.theThirdLoaded,
     // auth: state.req.get(AUTHCODE),
   }),
+  // @ts-ignore: Unreachable code error
   (dispatch) => ({
     // ...bindActionCreators({},dispatch),
     //换成 hook 写法

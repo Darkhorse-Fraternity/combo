@@ -3,6 +3,7 @@
  * @flow
  */
 'use strict';
+// @ts-ignore: Unreachable code error
 import md5 from 'react-native-md5';
 
 // const  id_dev = 'q81jdsbi5qp679fi5o46i5nppjgycztgivwj30707xfvehzt'

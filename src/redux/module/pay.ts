@@ -1,3 +1,6 @@
+// @ts-nocheck
+// @ts-ignore
+
 import * as WeChat from 'react-native-wechat';
 // WeChat.registerApp('wx45feb9299ac8334a')
 import Alipay from '@0x5e/react-native-alipay';
@@ -41,7 +44,7 @@ export function pay(
   detail: string,
   description: string,
   uid: string,
-  bid: string,
+  bid: string | undefined,
   exData: object,
 ) {
   return async (dispatch) => {
