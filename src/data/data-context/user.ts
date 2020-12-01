@@ -3,6 +3,7 @@ import {
   GetUsersIdResponse,
   getUsersMe,
   GetUsersMeResponse,
+  postBatch,
   postCallUserExsitJudge,
   postUsers,
   postUsersByMobilePhone,
@@ -16,9 +17,9 @@ import { AuthDataKey, UserType } from './interface';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
-import { classBatch, classCreatNewOne } from '@request/leanCloud';
+import { classCreatNewOne } from '@request/leanCloud';
 import moment from 'moment';
-import { get } from '@redux/actions/req';
+// import { get } from '@redux/actions/req';
 // @ts-ignore: Unreachable code error
 import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
@@ -108,6 +109,7 @@ export const useGetInfoOfMe = () => {
         | PostUsersByMobilePhoneResponse,
     ) => {
       updateLocation(info as never);
+      setLeanCloudSession(info.sessionToken);
       dispatch({
         type: 'update_user_info',
         user: info as never,
@@ -170,10 +172,11 @@ const addSample = async (user: PostUsersResponse) => {
     // 生成一个icard
     const iCards = iCardSample(objectId);
     const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
-    const iCardsBatch = classBatch(iCardsReq);
-    const iCardsRes = await get(iCardsBatch);
-    const iUseReq = [];
-    iCardsRes.foreach((item: { success: { objectId: string } }) => {
+    const iCardsRes = await postBatch({ requests: iCardsReq });
+    // const iCardsBatch = classBatch(iCardsReq);
+    // const iCardsRes = await get(iCardsBatch);
+    const iUseReq: ReturnType<typeof classCreatNewOne>[] = [];
+    iCardsRes.forEach((item) => {
       if (item.success) {
         const iUseParam = iUseSample(objectId, item.success.objectId);
         iUseReq.push(classCreatNewOne('iUse', iUseParam));
@@ -182,8 +185,12 @@ const addSample = async (user: PostUsersResponse) => {
     // 添加圈子示例
     const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
     iUseReq.push(classCreatNewOne('iUse', iUseParam));
-    const iUseBatch = classBatch(iUseReq);
-    await get(iUseBatch);
+
+    postBatch({ requests: iUseReq });
+
+    // const iUseBatch = classBatch(iUseReq);
+
+    // await get(iUseBatch);
   }
 };
 

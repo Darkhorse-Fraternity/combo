@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { Component } from 'react';
 import {
   NativeModules,
@@ -9,16 +8,34 @@ import {
   Platform,
   Linking,
   ToastAndroid,
+  ImageSourcePropType,
 } from 'react-native';
 import Pop from '../Pop';
 
 const { RNUpdateApp } = NativeModules;
 import RNFS from 'react-native-fs';
+import { PostCallAppUpdateInfoResponse } from 'src/hooks/interface';
 
 // const { width, height } = Dimensions.get('window');
 const isIOS = Platform.OS === 'ios';
 
-export default class RNUpdate extends Component {
+interface RNUpdateProps {
+  bannerImage: ImageSourcePropType;
+  fetchRes: PostCallAppUpdateInfoResponse['result'];
+  progressBarColor?: string;
+  updateBoxWidth?: number;
+  bannerWidth?: number;
+  bannerHeight?: number;
+}
+
+interface RNUpdateState {
+  progress: number;
+  modalVisible: boolean;
+  desc: string[];
+  fileSize: number;
+}
+
+export default class RNUpdate extends Component<RNUpdateProps, RNUpdateState> {
   // 定义默认属性
   static defaultProps = {
     progressBarColor: '#f50',
@@ -38,7 +55,7 @@ export default class RNUpdate extends Component {
   jobId: number;
   loading: boolean;
 
-  constructor(props) {
+  constructor(props: RNUpdateProps) {
     super(props);
     this.state = {
       progress: 0,
@@ -76,7 +93,10 @@ export default class RNUpdate extends Component {
     this.loading = false; // 是否在下载中
   }
 
-  async checkUpdate(fetchRes, isManual) {
+  async checkUpdate(
+    fetchRes: NonNullable<PostCallAppUpdateInfoResponse['result']>,
+    isManual: boolean = false,
+  ) {
     try {
       let { version, desc } = fetchRes;
 
@@ -97,7 +117,7 @@ export default class RNUpdate extends Component {
           //     })
           // })
           let fileSize = await RNUpdateApp.getFileSize(fetchRes.url);
-          fileSize = Number(fileSize / 1024 / 1024).toFixed(2, 10);
+          fileSize = Number(fileSize / 1024 / 1024).toFixed(2);
           this.setState({
             desc,
             fileSize,
@@ -123,8 +143,10 @@ export default class RNUpdate extends Component {
     ToastAndroid.show('安装失败', ToastAndroid.SHORT);
   };
 
-  androidUpdate = async (fetchRes) => {
-    const _this = this;
+  androidUpdate = async (
+    fetchRes: NonNullable<PostCallAppUpdateInfoResponse['result']>,
+  ) => {
+    // const _this = this;
     const { url, filename, version } = fetchRes;
     // 按照目录/包名/文件名 存放，生成md5文件标识
 
@@ -142,15 +164,15 @@ export default class RNUpdate extends Component {
       fromUrl: url,
       toFile: this.filePath,
       progressDivider: 2, // 节流
-      begin(res) {
-        _this.jobId = res.jobId; // 设置jobId，用于暂停和恢复下载任务
+      begin: (res) => {
+        this.jobId = res.jobId; // 设置jobId，用于暂停和恢复下载任务
         this.loading = true;
       },
-      progress(res) {
-        const progress = (res.bytesWritten / res.contentLength).toFixed(2, 10);
+      progress: (res) => {
+        const progress = (res.bytesWritten / res.contentLength).toFixed(2);
         // 此处 this 指向有问题，需要使用 _this
-        _this.setState({
-          progress,
+        this.setState({
+          progress: parseInt(progress, 2),
         });
       },
     })
@@ -170,28 +192,31 @@ export default class RNUpdate extends Component {
       })
       .catch((err) => {
         console.log('test:', err, err.message);
-        if (err.description == 'cancegetFileSizelled') {
+        if (err.description === 'cancegetFileSizelled') {
           this.errorTips();
         }
         this.hideModal();
       });
   };
 
-  updateApp = async (fetchRes) => {
+  updateApp = async (fetchRes: PostCallAppUpdateInfoResponse['result']) => {
     // 如果已经开始下载
     if (this.loading) {
       return;
     }
     // 如果是android
-    if (!isIOS) {
+    if (!isIOS && fetchRes) {
       await this.checkUpdate(fetchRes);
       this.androidUpdate(fetchRes);
       return;
     }
 
-    const { url } = fetchRes;
+    const { url } = fetchRes || {};
     // 如果是ios，打开appstore连接
-    Linking.openURL(url).catch((err) => console.warn('An error occurred', err));
+    url &&
+      Linking.openURL(url).catch((err) =>
+        console.warn('An error occurred', err),
+      );
   };
 
   // stopUpdateApp = () => {
@@ -208,7 +233,7 @@ export default class RNUpdate extends Component {
 
   renderBottom = () => {
     const { progress } = this.state;
-    const { progressBarColor, updateBoxWidth } = this.props;
+    const { progressBarColor, updateBoxWidth = 0 } = this.props;
     return (
       <View style={styles.progressBar}>
         <View
@@ -223,9 +248,7 @@ export default class RNUpdate extends Component {
             width: progress * updateBoxWidth,
           }}
         />
-        <Text style={styles.updateBtnText}>
-          下载中 {parseInt(progress * 100, 10)}%
-        </Text>
+        <Text style={styles.updateBtnText}>下载中 {progress * 100}%</Text>
       </View>
     );
   };

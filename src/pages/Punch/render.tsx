@@ -342,7 +342,7 @@ const RenderNoData: FC<{ refreshLoad: boolean; onRefresh: () => void }> = ({
 };
 
 const Punch: FC<Descriptor<{}>> = () => {
-  console.log('render');
+  console.log('puch render');
 
   const [numColumns, setNumColumns] = useState(
     isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
@@ -422,7 +422,6 @@ const Punch: FC<Descriptor<{}>> = () => {
   );
 };
 
-// export default withData(memo(Punch))((state) => state.iUses_self);
 export default Punch;
 
 const styles = StyleSheet.create({

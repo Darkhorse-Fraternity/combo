@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, forwardRef, useCallback, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -52,21 +52,29 @@ import { useGetUserInfo } from 'src/data/data-context';
 const RenderIconAndColor: FC<{
   value?: { name: string; color: string };
   onChange?: (data: { name: string; color: string }) => void;
-}> = ({ value, onChange }) => {
+}> = forwardRef(({ value, onChange }, _) => {
   const { name = '', color = '' } = value || {};
-  return <IconAndColor icon={name} color={color} onChange={onChange} />;
-};
+  return (
+    <IconAndColor
+      // ref={ref as nev/er}
+      icon={name}
+      color={color}
+      onChange={onChange}
+    />
+  );
+});
 
 const RenderName: FC<{
   value?: string;
   onChange?: (value: string) => void;
-}> = ({ value, onChange }) => (
+}> = forwardRef(({ value, onChange }, ref) => (
   <View>
     <StyledSubTitleView>
       <StyledSubTitle>习惯标题：</StyledSubTitle>
     </StyledSubTitleView>
     <StyledTitleInput
       value={value}
+      ref={ref as never}
       onChange={(e) => onChange?.call(undefined, e.nativeEvent.text)}
       placeholderTextColor="rgba(180,180,180,1)"
       // selectionColor={mainColor}
@@ -80,7 +88,7 @@ const RenderName: FC<{
       enablesReturnKeyAutomatically
     />
   </View>
-);
+));
 
 const Render: FC<{}> = () => {
   const [step, setStep] = useState(0);

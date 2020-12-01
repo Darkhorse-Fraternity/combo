@@ -94,7 +94,7 @@ export function requestUsersByMobilePhone(
   mobilePhoneNumber: string,
   smsCode: string,
   password?: string,
-): Object {
+) {
   return {
     path: '/usersByMobilePhone',
     method: methodType.post,
@@ -112,10 +112,7 @@ export function requestUsersByMobilePhone(
  * @param  {[type]} password:string          密码
  * @return {[type]}                          返回参数信息
  */
-export function requestLogin(
-  mobilePhoneNumber: string,
-  password: string,
-): Object {
+export function requestLogin(mobilePhoneNumber: string, password: string) {
   return {
     path: '/login',
     method: methodType.get,
@@ -131,7 +128,7 @@ export function requestLogin(
  * @param id 用户的ID
  * @returns {{path: string, method: string}}
  */
-export function getUserByID(id: string): Object {
+export function getUserByID(id: string) {
   return {
     path: `/users/${id}`,
     method: methodType.get,
@@ -144,7 +141,7 @@ export function getUserByID(id: string): Object {
  * @param  {[type]} obj:Object    [description]
  * @return {[type]}               [description]
  */
-export function bindingToUser(userID: string, obj: Object): Object {
+export function bindingToUser(userID: string, obj: Object) {
   const path = `/users/${userID}`;
   return {
     path,
@@ -165,7 +162,7 @@ export function updatePassword(
   id: string,
   old_password: string,
   new_password: string,
-): Object {
+) {
   return {
     path: `/users/${id}/updatePassword`,
     method: methodType.put,
@@ -223,7 +220,7 @@ export function bindingAuthDataToUser(
   key: string,
   authData: object,
   exData: object,
-): Object {
+) {
   return bindingToUser(userID, {
     authData: {
       [key]: authData,
@@ -249,7 +246,7 @@ export function thirdLogin(key: string, authData: object) {
  * @param  {[type]} fileID:string 文件的ID，
  * @return {[type]}               [description]
  */
-export function deleteFile(fileID: string): Object {
+export function deleteFile(fileID: string) {
   const path = `/files/${fileID}`;
   return {
     path,
@@ -257,7 +254,7 @@ export function deleteFile(fileID: string): Object {
   };
 }
 
-export function feedbackParam(content: string, contact: string): Object {
+export function feedbackParam(content: string, contact: string) {
   return {
     path: '/feedback',
     method: methodType.post,
@@ -298,7 +295,7 @@ export function limitSearch(
   limit: number = 40,
   other: object = {},
   callPath: string,
-): Object {
+) {
   const skip = page * limit;
   return {
     path: !callPath ? `/classes/${className}` : `/call/${callPath}`,
@@ -330,11 +327,11 @@ export function existSearch(className: string, other: Object = {}) {
  * @param  {[type]} params:Object    参数
  * @return {[type]}                  [description]
  */
-export function classCreatNewOne(className: string, params: Object) {
+export function classCreatNewOne(className: string, body: Object) {
   return {
     path: `/classes/${className}`,
     method: methodType.post,
-    params,
+    body,
   };
 }
 
@@ -349,7 +346,7 @@ export function classUpdate(
   className: string,
   objectId: string,
   params: Object,
-): Object {
+) {
   return {
     path: `/classes/${className}/${objectId}`,
     method: methodType.put,
@@ -369,7 +366,7 @@ export function classDelete(
   className: string,
   objectId: string,
   params: Object,
-): Object {
+) {
   return {
     path: `/classes/${className}/${objectId}`,
     method: methodType.delete,
@@ -380,7 +377,7 @@ export function classDelete(
 interface RequestsPorps {
   path: string;
   method: string;
-  params: any;
+  params: Object;
 }
 
 export function classBatch(requests: RequestsPorps[]) {

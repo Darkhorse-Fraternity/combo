@@ -370,6 +370,7 @@ const RenderWechat: FC<RenderWechatProps> = ({ load, onWeChat, onMore }) => {
 const LoginView: FC<{}> = (props) => {
   const [isWXAppInstalled, setIsWXAppInstalled] = useState(false);
   const { user } = useGetInfoOfMe();
+
   const { goBack } = useNavigation();
   const { run: phoneLogin, loading: phoneLoginLoding } = usePhoneLogin();
   const { isTourist } = user;

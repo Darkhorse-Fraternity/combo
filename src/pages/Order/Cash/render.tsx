@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, forwardRef, useCallback, useEffect } from 'react';
 
 import Toast from 'react-native-simple-toast';
 import {
@@ -101,12 +101,17 @@ const des = [
 
 const ControlStyledInput: FC<
   Omit<TextInputProps, 'onChange'> & { onChange?: (text: string) => void }
-> = ({ onChange, ...rest }) => {
+> = forwardRef(({ onChange, value, ...rest }, ref) => {
   return (
-    // @ts-ignore: Unreachable code error
-    <StyledInput {...rest} onChangeText={(e) => onChange?.call(undefined, e)} />
+    //@ts-expect-error
+    <StyledInput
+      {...rest}
+      ref={ref as never}
+      value={value + ''}
+      onChangeText={(e) => onChange?.call(undefined, e)}
+    />
   );
-};
+});
 
 const AlertWithTitle = (title: string) => {
   SimpleToast.showWithGravity(title, SimpleToast.SHORT, SimpleToast.CENTER);

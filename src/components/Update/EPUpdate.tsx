@@ -1,23 +1,23 @@
-//@ts-nocheck
 import React from 'react';
-
 import DeviceInfo from 'react-native-device-info';
 import { Platform, Linking, Alert } from 'react-native';
 import { send } from '../../request/index';
 import Pop from '../Pop';
 // import {androidUpdate} from './downLoad'
 import UpdateView from './AndroidUpdateView';
-import { appUpdateInfo } from '../../request/leanCloud';
 import { appChannel } from '../../../helps/util';
+import { postCallAppUpdateInfo } from 'src/hooks/interface';
+// import axios from 'axios';
 // 当前测试版本号
 // const AppTestVersion = '1.3.0';
 
 const api_token = 'a3f43472f64ddccbc58c2dcf75438f18';
 
-const setTimeoutDelay = (delayInMilliseconds: number) =>
+const setTimeoutDelay = (delayInMilliseconds: number): Promise<number> =>
   new Promise((resolve) => {
-    const timer = setTimeout(() => resolve(timer), delayInMilliseconds);
-    return timer;
+    let timeId = 0;
+    const timer = setTimeout(() => resolve(timeId), delayInMilliseconds);
+    timeId = timer;
   });
 // const interactionManagerDelay = () =>
 //   new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
@@ -40,7 +40,15 @@ const checkIos = (str: string) => str.lastIndexOf('ep') !== -1;
 // const checkAndroid = () =>
 //   compareVersion(DeviceInfo.getVersion(), AppTestVersion);
 
-const checkUpdate = (res, callBack) => {
+const checkUpdate = (
+  res: {
+    installUrl: string;
+    version: string;
+    versionShort: string;
+    changelog?: string;
+  },
+  callBack: () => void,
+) => {
   // installUrl含有表示返回正确值,
 
   if (res.installUrl) {
@@ -110,12 +118,13 @@ export const epUpdate = async () => {
     const timeId = await setTimeoutDelay(5000);
     timeId && clearTimeout(timeId);
     // await interactionManagerDelay()
-    let remoteData = await send(appUpdateInfo()).then((res) => res.json());
+    const remoteData = await postCallAppUpdateInfo({});
+    // let remoteData = await send(appUpdateInfo()).then((res) => res.json());
     console.log('remoteData', remoteData);
 
-    remoteData = (remoteData && remoteData.result) || {};
+    // remoteData = (remoteData && remoteData.result) || {};
 
-    const { desc, version } = remoteData;
+    const { desc = [], version = '' } = remoteData.result || {};
     // console.log('version:', version);
     const appVersion = `${DeviceInfo.getVersion()}`;
     // console.log('remoteData:', version, appVersion);
@@ -133,8 +142,9 @@ export const epUpdate = async () => {
             Pop.show(
               <UpdateView
                 bannerImage={require('../../../source/img/my/icon-60.png')}
-                fetchRes={remoteData}
+                fetchRes={remoteData.result}
               />,
+              //@ts-expect-error
               { maskClosable: false },
             );
           },
@@ -159,7 +169,15 @@ export const epUpdate = async () => {
 
 function sendBack(bundleId: string) {
   const params = firUpdate(bundleId, api_token, Platform.OS);
-  return send(params).then((res) => res.json());
+
+  // axios.request<TResponseData>({
+  //   baseURL,
+  //   url: path,
+  //   method,
+  //   ...config,
+  // });
+
+  return send(params as never).then((res) => res.json());
 }
 
 /**
@@ -168,18 +186,18 @@ function sendBack(bundleId: string) {
  * @return {number}
  */
 
-export const compareVersion = (a, b) => {
+export const compareVersion = (a: string, b: string) => {
   const aa = a.split('.');
   const ab = b.split('.');
   let i = 0;
   let la = aa.length;
   let lb = ab.length;
   while (la > lb) {
-    ab.push(0);
+    ab.push('0');
     ++lb;
   }
   while (la < lb) {
-    aa.push(0);
+    aa.push('0');
     ++la;
   }
   while (i < la && i < lb) {

@@ -5755,4 +5755,197 @@ export const usePutInstallationsId = makeRequestHook<
   ReturnType<typeof putInstallationsId>
 >(putInstallationsId)
 
+const mockUrl_0_1_0_8 = 'http://121.89.170.197:3000/mock/59' as any
+const devUrl_0_1_0_8 = 'https://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_8 = 'http://api.icourage.cn/1.1' as any
+const dataKey_0_1_0_8 = undefined as any
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **请求类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+export interface PostBatchRequest {
+  requests: {
+    path: string
+    method: string
+    body?: {}
+  }[]
+}
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **返回类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+export type PostBatchResponse = {
+  error?: {
+    code: number
+    error: string
+  }
+  success?: {
+    updatedAt: string
+    objectId: string
+  }
+}[]
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **请求配置的类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+type PostBatchRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/batch',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **请求配置**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+const postBatchRequestConfig: PostBatchRequestConfig = {
+  mockUrl: mockUrl_0_1_0_8,
+  devUrl: devUrl_0_1_0_8,
+  prodUrl: prodUrl_0_1_0_8,
+  path: '/batch',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_8,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+}
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **请求函数**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+export const postBatch = makeRequest<PostBatchRequest, PostBatchResponse, PostBatchRequestConfig>(
+  postBatchRequestConfig,
+)
+
+/**
+ * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **React Hook**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /batch`
+ * @更新时间 `2020-12-01 10:04:46`
+ */
+export const usePostBatch = makeRequestHook<PostBatchRequest, PostBatchRequestConfig, ReturnType<typeof postBatch>>(
+  postBatch,
+)
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **请求类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+export interface PostCallAppUpdateInfoRequest {}
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **返回类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+export interface PostCallAppUpdateInfoResponse {
+  result?: {
+    version: string
+    filename: string
+    url: string
+    desc: string[]
+  }
+}
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **请求配置的类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+type PostCallAppUpdateInfoRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/call/appUpdateInfo',
+    undefined,
+    string,
+    string,
+    true
+  >
+>
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **请求配置**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+const postCallAppUpdateInfoRequestConfig: PostCallAppUpdateInfoRequestConfig = {
+  mockUrl: mockUrl_0_1_0_8,
+  devUrl: devUrl_0_1_0_8,
+  prodUrl: prodUrl_0_1_0_8,
+  path: '/call/appUpdateInfo',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_8,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: true,
+}
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **请求函数**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+export const postCallAppUpdateInfo = makeRequest<
+  PostCallAppUpdateInfoRequest,
+  PostCallAppUpdateInfoResponse,
+  PostCallAppUpdateInfoRequestConfig
+>(postCallAppUpdateInfoRequestConfig)
+
+/**
+ * 接口 [Android 版本更新数据↗](http://121.89.170.197:3000/project/59/interface/api/584) 的 **React Hook**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /call/appUpdateInfo`
+ * @更新时间 `2020-12-01 10:20:16`
+ */
+export const usePostCallAppUpdateInfo = makeRequestHook<
+  PostCallAppUpdateInfoRequest,
+  PostCallAppUpdateInfoRequestConfig,
+  ReturnType<typeof postCallAppUpdateInfo>
+>(postCallAppUpdateInfo)
+
 /* prettier-ignore-end */
