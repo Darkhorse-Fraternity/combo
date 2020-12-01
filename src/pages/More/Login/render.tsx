@@ -5,6 +5,7 @@ import React, {
   Component,
   FC,
   RefObject,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -20,13 +21,13 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 // @ts-ignore: Unreachable code error
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 // import { req } from '../../../redux/actions/req';
-import { APPLELOGIN } from '../../../redux/reqKeys';
+// import { APPLELOGIN } from '../../../redux/reqKeys';
 // import { requestSmsCode } from '../../../request/leanCloud';
-import { weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
+// import { weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
 
-import { WECHATLOGIN, QQLOGIN } from '../../../redux/reqKeys';
+// import { WECHATLOGIN, QQLOGIN, APPLELOGIN } from '../../../redux/reqKeys';
 import * as Animatable from 'react-native-animatable';
 import { checkPhoneNum } from '../../../request/validation';
 import {
@@ -51,7 +52,13 @@ import { SigninBtn } from './components/signin-btn';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import { usePostRequestSmsCode } from 'src/hooks/interface';
 import { UserType } from 'src/data/data-context/interface';
-import { useGetInfoOfMe, usePhoneLogin } from 'src/data/data-context/user';
+import {
+  useAppleLogin,
+  useGetInfoOfMe,
+  usePhoneLogin,
+  useQQLogin,
+  useWechatLogin,
+} from 'src/data/data-context/user';
 import { useNavigation } from '@react-navigation/native';
 const { mainColor } = getTheme();
 
@@ -59,10 +66,9 @@ interface LoginProps {
   isWXAppInstalled: boolean;
   authCode: (phone: string) => Promise<{ error?: string }>;
   authLoad: boolean;
-  // userData: UserType;
   user: UserType;
   loaded: boolean;
-  theThirdLoaded?: string;
+
   phoneLogin: (phone: string, code: string) => void;
 }
 
@@ -73,38 +79,37 @@ interface LoginState {
   ymCode: string;
   isTap: boolean;
   showMobile: boolean;
-  isRenderMore: boolean;
 }
 
 type LoginKey = 'qqLogin' | 'wxLogin' | 'appleLogin';
 
-@connect(
-  // @ts-ignore: Unreachable code error
-  (state) => ({
-    // data:state.req.get()
-    // loaded: state.user.loaded,
-    theThirdLoaded: state.user.theThirdLoaded,
-    // auth: state.req.get(AUTHCODE),
-  }),
-  // @ts-ignore: Unreachable code error
-  (dispatch) => ({
-    // ...bindActionCreators({},dispatch),
-    //换成 hook 写法
-    // mRegister: (state: { phone: string; ymCode: string }, uid: string) => {
-    //   dispatch(register(state, uid));
-    // },
-    //三合一
-    qqLogin: (user: UserType) => {
-      dispatch(qqLogin(user));
-    },
-    wxLogin: (user: UserType) => {
-      dispatch(weChatLogin(user));
-    },
-    appleLogin: (user: UserType) => {
-      dispatch(appleLogin(user));
-    },
-  }),
-)
+// @connect(
+//   // @ts-ignore: Unreachable code error
+//   (state) => ({
+//     // data:state.req.get()
+//     // loaded: state.user.loaded,
+//     theThirdLoaded: state.user.theThirdLoaded,
+//     // auth: state.req.get(AUTHCODE),
+//   }),
+//   // @ts-ignore: Unreachable code error
+//   (dispatch) => ({
+//     // ...bindActionCreators({},dispatch),
+//     //换成 hook 写法
+//     // mRegister: (state: { phone: string; ymCode: string }, uid: string) => {
+//     //   dispatch(register(state, uid));
+//     // },
+//     //三合一
+//     qqLogin: (user: UserType) => {
+//       dispatch(qqLogin(user));
+//     },
+//     wxLogin: (user: UserType) => {
+//       dispatch(weChatLogin(user));
+//     },
+//     appleLogin: (user: UserType) => {
+//       dispatch(appleLogin(user));
+//     },
+//   }),
+// )
 class LoginViewClass extends Component<LoginProps, LoginState> {
   phoneRef: RefObject<TextInput> | undefined;
   ymCodeRef: RefObject<TextInput> | undefined;
@@ -117,7 +122,6 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
       ymCode: __DEV__ ? '924007' : '', // 验证码
       isTap: false,
       showMobile: true,
-      isRenderMore: false,
     };
   }
 
@@ -187,126 +191,76 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
   //   }
   // }
 
-  _renderTextInput = () => {
+  render() {
     const { authLoad } = this.props;
     const { phone, time, isTap, ymCode } = this.state;
     const { setState, phoneRef, ymCodeRef, _onClickCode, _goRegist } = this;
     const codeEnable = checkPhoneNum(phone) && time === 60 && !isTap;
-
+    const reg = /^\d{6}$/;
+    const { loaded } = this.props;
+    const flag = reg.test(ymCode) && checkPhoneNum(phone);
     return (
-      <View style={styles.top}>
-        <StyledInputView>
-          <RenderRowMain
-            title={'手机号:'}
-            placeholder="请填入手机号"
-            onChangeText={(text) => setState({ phone: text })}
-            keyboardType="numeric"
-            maxLength={11}
-            inputRef={phoneRef}
-            defaultValue={phone}
-            onSubmitEditing={() => phoneRef?.current?.focus()}
-            // ref={(ref = this.phone = ref)}
-          />
-        </StyledInputView>
-        <View style={{ height: 10 }} />
-        <StyledInputView>
-          <RenderRowMain
-            title={'验证码:'}
-            placeholder="请输入验证码"
-            onChangeText={(text) => setState({ ymCode: text })}
-            keyboardType="numeric"
-            maxLength={6}
-            defaultValue={ymCode}
-            inputRef={ymCodeRef}
-            // inputRef={this.ymCodeRef}
-            onSubmitEditing={_goRegist}
-            // ref={(ref = this.phone = ref)}
-          />
-          <View style={styles.valLine} />
-          <StyledCodeButton
-            disabled={!codeEnable || authLoad}
-            // load={authLoad}
-            // loadColor="rgb(230,230,230)"
-            // styleDisabled={{fontWeight:'normal'}}
-            onPress={_onClickCode.bind(this)}
-            style={styles.buttonContainerStyle}>
-            {authLoad ? (
-              <StyledActivityIndicator />
-            ) : (
-              <StyledCodeButtonText>
-                {this.state.time === 60 || this.state.time === 0
-                  ? '获取验证码'
-                  : this.state.time.toString() + '秒'}
-              </StyledCodeButtonText>
-            )}
-          </StyledCodeButton>
-        </StyledInputView>
-        <View style={styles.line} />
-      </View>
-    );
-  };
-
-  login = (key: LoginKey) => {
-    this.props[key](this.props.user);
-  };
-
-  render() {
-    if (this.state.isRenderMore || !this.props.isWXAppInstalled) {
-      const { theThirdLoaded } = this.props;
-      const { login } = this;
-      const reg = /^\d{6}$/;
-      const { loaded } = this.props;
-      const { phone, ymCode } = this.state;
-      const flag = reg.test(ymCode) && checkPhoneNum(phone);
-      const { _goRegist } = this;
-      return (
-        <StyledContent
-          onStartShouldSetResponder={() => true}
-          onResponderGrant={Keyboard.dismiss}>
-          {this._renderTextInput()}
-          <StyledSignInBtn
-            titleStyle={styles.titleStyle}
-            disabled={!flag || loaded}
-            load={loaded}
-            onPress={_goRegist.bind(this)}
-            title="登 录"
-          />
-          <ThirdPartyInnerLoginView>
-            {!!this.props.isWXAppInstalled && (
-              <SigninBtn
-                name={'weixin'}
-                color={'#1AAD19'}
-                onPress={login.bind(this, 'wxLogin')}
-                loading={theThirdLoaded === WECHATLOGIN}
-              />
-            )}
-            {Platform.OS === 'ios' && appleAuth.isSupported && (
-              <SigninBtn
-                name={'apple'}
-                onPress={login.bind(this, 'appleLogin')}
-                loading={theThirdLoaded === APPLELOGIN}
-              />
-            )}
-            <SigninBtn
-              name={'qq'}
-              color={'#0188fb'}
-              onPress={login.bind(this, 'qqLogin')}
-              loading={theThirdLoaded === QQLOGIN}
+      <>
+        <View style={styles.top}>
+          <StyledInputView>
+            <RenderRowMain
+              title={'手机号:'}
+              placeholder="请填入手机号"
+              onChangeText={(text) => setState({ phone: text })}
+              keyboardType="numeric"
+              maxLength={11}
+              inputRef={phoneRef}
+              defaultValue={phone}
+              onSubmitEditing={() => phoneRef?.current?.focus()}
+              // ref={(ref = this.phone = ref)}
             />
-          </ThirdPartyInnerLoginView>
-        </StyledContent>
-      );
-    }
-    // return this._renderWechat();
-    return (
-      <RenderWechat
-        load={this.props.theThirdLoaded === WECHATLOGIN}
-        onWeChat={this.login.bind(this, 'wxLogin')}
-        onMore={() => {
-          this.setState({ isRenderMore: true });
-        }}
-      />
+          </StyledInputView>
+          <View style={{ height: 10 }} />
+          <StyledInputView>
+            <RenderRowMain
+              title={'验证码:'}
+              placeholder="请输入验证码"
+              onChangeText={(text) => setState({ ymCode: text })}
+              keyboardType="numeric"
+              maxLength={6}
+              defaultValue={ymCode}
+              inputRef={ymCodeRef}
+              // inputRef={this.ymCodeRef}
+              onSubmitEditing={_goRegist}
+              // ref={(ref = this.phone = ref)}
+            />
+            <View style={styles.valLine} />
+            <StyledCodeButton
+              disabled={!codeEnable || authLoad}
+              // load={authLoad}
+              // loadColor="rgb(230,230,230)"
+              // styleDisabled={{fontWeight:'normal'}}
+              onPress={_onClickCode.bind(this)}
+              style={styles.buttonContainerStyle}>
+              {authLoad ? (
+                <StyledActivityIndicator />
+              ) : (
+                <StyledCodeButtonText>
+                  {this.state.time === 60 || this.state.time === 0
+                    ? '获取验证码'
+                    : this.state.time.toString() + '秒'}
+                </StyledCodeButtonText>
+              )}
+            </StyledCodeButton>
+          </StyledInputView>
+          <View style={styles.line} />
+        </View>
+        <StyledSignInBtn
+          titleStyle={styles.titleStyle}
+          disabled={!flag || loaded}
+          load={loaded}
+          onPress={_goRegist.bind(this)}
+          title="登 录"
+        />
+      </>
     );
+
+    // return this._renderWechat();
   }
 }
 
@@ -367,16 +321,19 @@ const RenderWechat: FC<RenderWechatProps> = ({ load, onWeChat, onMore }) => {
   );
 };
 
-const LoginView: FC<{}> = (props) => {
+const LoginView: FC<{}> = () => {
   const [isWXAppInstalled, setIsWXAppInstalled] = useState(false);
   const { user } = useGetInfoOfMe();
-
+  const { loading: qqLoading, run: qqLogin } = useQQLogin();
+  const { loading: wechatLoading, run: wxLogin } = useWechatLogin();
+  const { loading: appleLoading, run: appleLogin } = useAppleLogin();
   const { goBack } = useNavigation();
   const { run: phoneLogin, loading: phoneLoginLoding } = usePhoneLogin();
   const { isTourist } = user;
   const { run, loading: smsCodeLoad } = usePostRequestSmsCode((res) => res, {
     manual: true,
   });
+  const [isRenderMore, setIsRenderMore] = useState(false);
 
   const firstRef = useRef(true);
   useEffect(() => {
@@ -388,21 +345,69 @@ const LoginView: FC<{}> = (props) => {
 
   useEffect(() => {
     WeChat.isWXAppInstalled().then((is) => {
+      console.log('is', is);
+
       setIsWXAppInstalled(is);
     });
   }, []);
 
+  const login = useCallback(
+    (key: LoginKey) => {
+      const actions = { qqLogin, wxLogin, appleLogin };
+      return actions[key]();
+    },
+    [appleLogin, qqLogin, wxLogin],
+  );
+
+  if (isRenderMore || !isWXAppInstalled) {
+    return (
+      <StyledContent
+        onStartShouldSetResponder={() => true}
+        onResponderGrant={Keyboard.dismiss}>
+        <LoginViewClass
+          // {...props}
+          isWXAppInstalled={isWXAppInstalled}
+          authCode={(phone) => {
+            return run({ mobilePhoneNumber: phone });
+          }}
+          user={user}
+          authLoad={smsCodeLoad}
+          phoneLogin={phoneLogin}
+          loaded={phoneLoginLoding}
+        />
+        <ThirdPartyInnerLoginView>
+          {!!isWXAppInstalled && (
+            <SigninBtn
+              name={'weixin'}
+              color={'#1AAD19'}
+              onPress={login.bind(this, 'wxLogin')}
+              loading={wechatLoading}
+            />
+          )}
+          {Platform.OS === 'ios' && appleAuth.isSupported && (
+            <SigninBtn
+              name={'apple'}
+              onPress={login.bind(this, 'appleLogin')}
+              loading={appleLoading}
+            />
+          )}
+          <SigninBtn
+            name={'qq'}
+            color={'#0188fb'}
+            onPress={login.bind(this, 'qqLogin')}
+            loading={qqLoading}
+          />
+        </ThirdPartyInnerLoginView>
+      </StyledContent>
+    );
+  }
   return (
-    <LoginViewClass
-      {...props}
-      isWXAppInstalled={isWXAppInstalled}
-      authCode={(phone) => {
-        return run({ mobilePhoneNumber: phone });
+    <RenderWechat
+      load={wechatLoading}
+      onWeChat={login.bind(this, 'wxLogin')}
+      onMore={() => {
+        setIsRenderMore(true);
       }}
-      user={user}
-      authLoad={smsCodeLoad}
-      phoneLogin={phoneLogin}
-      loaded={phoneLoginLoding}
     />
   );
 };

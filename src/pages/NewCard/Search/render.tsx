@@ -72,12 +72,12 @@ const Search = () => {
       state: 1,
     };
 
-    const param = {
+    return getClassesICard({
       limit: page_size + '',
       skip: page_index * page_size + '',
       where: JSON.stringify(where),
-    };
-    return getClassesICard(param).then((res) => res.results);
+      order: '-createdAt',
+    }).then((res) => res.results);
   };
   return (
     <>

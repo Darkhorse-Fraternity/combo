@@ -10,6 +10,7 @@ import {
   PostUsersByMobilePhoneResponse,
   PostUsersResponse,
   postVerifySmsCodeCode,
+  putUsersId,
   PutUsersIdRequest,
   usePutUsersId,
 } from 'src/hooks/interface';
@@ -17,7 +18,12 @@ import { AuthDataKey, UserType } from './interface';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import SimpleToast from 'react-native-simple-toast';
-import { classCreatNewOne } from '@request/leanCloud';
+import {
+  classCreatNewOne,
+  QQUserInfo,
+  wechatInfo,
+  wechatUserInfo,
+} from '@request/leanCloud';
 import moment from 'moment';
 // import { get } from '@redux/actions/req';
 // @ts-ignore: Unreachable code error
@@ -25,6 +31,18 @@ import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
 import { useCallback, useContext, useState } from 'react';
 import DataContext from './index';
+
+const secret = '00e7625e8d2fdd453ac54e83f2de153c';
+const wechatAppID = 'wx637e6f35f8211c6d';
+
+// @ts-ignore: Unreachable code error
+import * as QQAPI from 'react-native-qq';
+import * as WeChat from 'react-native-wechat';
+import { get } from '@redux/actions/req';
+import appleAuth, {
+  AppleAuthRequestOperation,
+  AppleAuthRequestScope,
+} from '@invertase/react-native-apple-authentication';
 
 export const useUpdateMe = () => {
   const { dispatch: contextDispatch } = useContext(DataContext);
@@ -370,3 +388,372 @@ export const usePhoneLogin = () => {
 
   return { run, loading };
 };
+
+export async function wechatBinding(user: UserType) {
+  // try {
+  const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
+  const { code } = weConfig;
+
+  // 获取openid
+  const wechatInfoParam = wechatInfo(wechatAppID, secret, code || '');
+  const weInfo = await get(wechatInfoParam);
+  const { access_token, openid } = weInfo;
+
+  // 获取微信用户信息
+  let exData = {};
+  if (openid && !user.headimgurl) {
+    const userInfoParams = wechatUserInfo(access_token, openid);
+    const userInfo = await get(userInfoParams);
+    let { nickname, headimgurl } = userInfo;
+
+    nickname = user.nickname || nickname;
+    exData = {
+      nickname,
+      headimgurl,
+    };
+  }
+
+  return bindingAuthData('weixin', user, weInfo, exData);
+  // } catch (e) {
+  //   if (e instanceof WeChat.WechatError) {
+  //     const errObj = {
+  //       '-1': '普通错误类型',
+  //       '-2': '取消',
+  //       '-3': '发送失败',
+  //       '-4': '授权失败',
+  //       '-5': '微信不支持',
+  //     };
+  //     Toast.show(errObj[`${e.code}`]);
+  //   } else {
+  //     Toast.show(e.message);
+  //   }
+  // }
+
+  // const res2 = req(params)
+}
+
+export async function qqBinding(user: UserType) {
+  // try {
+  const qqConfig = await QQAPI.login();
+
+  const { access_token, oauth_consumer_key, openid } = qqConfig;
+
+  // 获取微信用户信息
+  let exData = {};
+
+  if (!user.headimgurl) {
+    const params = QQUserInfo(access_token, oauth_consumer_key, openid);
+    const info = await get(params);
+    const userInfo = JSON.parse(info);
+
+    let { nickname, figureurl_qq_2 } = userInfo;
+
+    nickname = user.nickname || nickname;
+    exData = {
+      nickname,
+      headimgurl: figureurl_qq_2,
+    };
+  }
+
+  return bindingAuthData('qq', user, qqConfig, exData);
+  // } catch (e) {
+  //   Toast.show(e.message);
+  // }
+
+  // const res2 = req(params)
+}
+
+export function breakBinding(key: string, user: UserType) {
+  return bindingAuthData(key, user, null);
+}
+
+export async function bindingAuthData(
+  key: string,
+  user: UserType,
+  authData: {} | null,
+  exData?: Omit<PutUsersIdRequest, 'id' | 'authData'>,
+) {
+  const params: Omit<PutUsersIdRequest, 'id'> = {
+    authData: { [key]: authData },
+    ...exData,
+  };
+  const res = await putUsersId({
+    id: user.objectId,
+    ...params,
+  });
+  if (res.objectId) {
+    return {
+      ...params,
+      ...res,
+    };
+  }
+  return null;
+}
+
+export const useWechatLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const { user, replaceMe, updateMe } = useGetInfoOfMe();
+  const run = useCallback(async () => {
+    try {
+      setLoading(true);
+      const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
+      if (!weConfig) {
+        return setLoading(false);
+      }
+      const { code } = weConfig;
+
+      // 获取openid
+      const wechatInfoParam = wechatInfo(wechatAppID, secret, code || '');
+      const weInfo = await get(wechatInfoParam);
+      const { access_token, openid } = weInfo;
+      // console.log('weInfo:', weInfo);
+
+      const userExsit = await getUserExsitJudge('weixin', openid);
+      // let user = getState().user.data;
+      let user1 = user;
+      if (userExsit === false) {
+        const params = {
+          authData: {
+            ...user.authData,
+            anonymous: { __op: 'Delete' },
+            weixin: weInfo,
+          },
+        };
+        putUsersId({ id: user.objectId, ...params });
+        updateMe(params);
+      } else {
+        // 如果存在，则直接登录老账号
+        // const userInfoParmas = thirdLogin('weixin', weInfo);
+
+        user1 = (await postUsers({ authData: { weixin: weInfo } })) as UserType;
+
+        if (user1.sessionToken) {
+          // await dispatch(_loginSucceed(user));
+          replaceMe(user1);
+          // await dispatch(addSample(user));
+        } else {
+          SimpleToast.show(JSON.stringify(weConfig));
+        }
+      }
+
+      setLoading(false);
+      // 获取微信用户信息
+
+      // let exData = {};
+      if (user1.sessionToken && !user1.headimgurl) {
+        const userInfoParams = wechatUserInfo(access_token, openid);
+        const userInfo = await get(userInfoParams);
+        let { nickname, headimgurl } = userInfo;
+
+        nickname = user.nickname || nickname;
+        updateMe({
+          nickname,
+          headimgurl,
+        });
+      }
+      // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
+    } catch (e) {
+      setLoading(false);
+      // @ts-ignore: Unreachable code error
+      if (e instanceof WeChat.WechatError) {
+        const errObj = {
+          '-1': '普通错误类型',
+          '-2': '取消',
+          '-3': '发送失败',
+          '-4': '授权失败',
+          '-5': '微信不支持',
+        };
+        SimpleToast.show(errObj[`${e.code}`]);
+      } else {
+        SimpleToast.show(e.message);
+      }
+    }
+  }, [replaceMe, updateMe, user]);
+
+  return { loading, run };
+};
+
+export const useQQLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const { user, replaceMe, updateMe } = useGetInfoOfMe();
+  const run = useCallback(async () => {
+    try {
+      setLoading(true);
+
+      let qqConfig;
+      try {
+        qqConfig = await QQAPI.login();
+      } catch (error) {
+        return setLoading(false);
+      }
+
+      if (!qqConfig) {
+        return setLoading(false);
+      }
+
+      const userExsit = await getUserExsitJudge('qq', qqConfig.openid);
+      let user1 = user;
+      if (userExsit === false) {
+        // 如果不存在，则直接更换匿名用户
+
+        const params = {
+          authData: {
+            ...user.authData,
+            anonymous: { __op: 'Delete' },
+            weixin: qqConfig,
+          },
+        };
+        putUsersId({ id: user.objectId, ...params });
+        updateMe(params);
+      } else {
+        // const userInfoParmas = thirdLogin('qq', qqConfig);
+        // user = await get(userInfoParmas);
+        user1 = (await postUsers({ authData: { qq: qqConfig } })) as UserType;
+        if (user1.sessionToken) {
+          replaceMe(user1);
+          // await dispatch(addSample(user));
+        }
+      }
+
+      setLoading(false);
+
+      // 获取微信用户信息
+
+      // let exData = {};
+      if (user1.sessionToken && !user1.headimgurl) {
+        const { access_token, oauth_consumer_key, openid } = qqConfig;
+        const userInfoParams = QQUserInfo(
+          access_token,
+          oauth_consumer_key,
+          openid,
+        );
+        const info = await get(userInfoParams);
+        const userInfo = JSON.parse(info);
+        let { nickname, figureurl_qq_2 } = userInfo;
+        nickname = user.nickname || nickname;
+        const exData = {
+          nickname,
+          headimgurl: figureurl_qq_2,
+        };
+        // const params = bindingToUser(user.objectId, exData);
+        // const res = await putUsersId({ id: user.objectId, ...exData });
+        // console.log('params:', params);
+        // const res = await get(params);
+
+        // dispatch(updateUserInfo(user.objectId, exData));
+        updateMe(exData);
+      }
+    } catch (e) {
+      setLoading(false);
+      SimpleToast.show(e.message);
+    }
+  }, [replaceMe, updateMe, user]);
+
+  return { loading, run };
+};
+
+export const useAppleLogin = () => {
+  const [loading, setLoading] = useState(false);
+  const { user, replaceMe, updateMe } = useGetInfoOfMe();
+  const run = useCallback(async () => {
+    try {
+    } catch (e) {
+      // console.log(e);
+      setLoading(true);
+      // let user = getState().user.data;
+      const appleAuthRequestResponse = await appleAuth.performRequest({
+        requestedOperation: AppleAuthRequestOperation.LOGIN,
+        requestedScopes: [
+          AppleAuthRequestScope.EMAIL,
+          AppleAuthRequestScope.FULL_NAME,
+        ],
+      });
+      // console.log('appleAuthRequestResponse',appleAuthRequestResponse)
+
+      if (!appleAuthRequestResponse) {
+        return setLoading(false);
+      }
+
+      const credentialState = await appleAuth.getCredentialStateForUser(
+        appleAuthRequestResponse.user,
+      );
+
+      if (credentialState !== 1) {
+        return setLoading(false);
+      }
+
+      const userExsit = await getUserExsitJudge(
+        'lc_apple',
+        appleAuthRequestResponse.user,
+      );
+
+      const lc_apple = {
+        uid: appleAuthRequestResponse.user,
+        // identity_token:appleAuthRequestResponse.identityToken,
+        // code:appleAuthRequestResponse.authorizationCode
+      };
+      let user1 = user;
+      if (userExsit === false) {
+        // 如果不存在，则直接更换匿名用户
+        const params = {
+          authData: {
+            ...user.authData,
+            anonymous: { __op: 'Delete' },
+            lc_apple,
+          },
+        };
+        putUsersId({ id: user.objectId, ...params });
+        updateMe(params);
+      } else {
+        user1 = (await postUsers({
+          authData: { lc_apple: lc_apple },
+        })) as UserType;
+        if (user1.sessionToken) {
+          // await dispatch(_loginSucceed(user));
+          replaceMe(user1);
+          // await dispatch(addSample(user));
+        }
+      }
+
+      setLoading(false);
+
+      // let exData = {};
+      const { fullName } = appleAuthRequestResponse;
+      if (
+        user1.sessionToken &&
+        !user1.headimgurl &&
+        fullName?.nickname &&
+        fullName?.nickname.length > 0
+      ) {
+        const exData = {
+          nickname: fullName?.nickname,
+          // headimgurl: figureurl_qq_2,
+        };
+        // const params = bindingToUser(user.objectId, exData);
+        // // console.log('params:', params);
+        // const res = await get(params);
+        // const res = await putUsersId({ id: user.objectId, ...exData });
+        return updateMe(exData);
+        // return dispatch(updateUserInfo(user.objectId, exData));
+      }
+      setLoading(false);
+      SimpleToast.show(e.message);
+    }
+  }, [replaceMe, updateMe, user]);
+  return { loading, run };
+};
+
+async function getUserExsitJudge(type: string, id: string) {
+  if (id) {
+    const res = await postCallUserExsitJudge({
+      type,
+      id,
+    });
+    if (res.result) {
+      return res.result?.userExsit;
+    } else {
+      throw new Error('没有检索到用户!');
+    }
+  }
+  throw new Error('没有检索到用户!');
+}

@@ -59,192 +59,6 @@ const wechatAppID = 'wx637e6f35f8211c6d';
 
 // 当为异步的时候这么写，返回一个函数
 
-// export function loadAccountAction(): Function {
-//   return (dispatch) =>
-//     loadAccount((ret) => {
-//       dispatch(_loadAccount(ret));
-//     });
-// }
-
-// function _loadAccount(ret: string): Object {
-//   return {
-//     type: LOAD_ACCOUNT,
-//     accountText: ret,
-//     passwordText: '',
-//   };
-// }
-
-// export function accountTextChange(text: string): Object {
-//   return {
-//     type: ACCOUNT_CHANGE,
-//     accountText: text,
-//   };
-// }
-
-// export function passwordTextChange(text: string): Object {
-//   return {
-//     type: ACCOUNT_CHANGE,
-//     passwordText: text,
-//   };
-// }
-
-/**
- * 这边做了一个异步范例
- * dipacth 能够实现其异步，是通过 redux-thund 这个库来实现异步的。
- *
- */
-
-// export function userInfo() {
-//   return async (dispatch) => {
-//     // const uuid =  DeviceInfo.getUniqueID()
-
-//     try {
-//       dispatch(_loginRequest());
-//       const credentials = await Keychain.getGenericPassword();
-//       const userString = credentials.password;
-//       // const sessionToken = await storage.load({ key: sessionTokenkey, })
-//       const user = JSON.parse(userString);
-//       const { sessionToken } = user;
-//       if (sessionToken) {
-//         // setLeanCloudSession(sessionToken)
-//         // const params = usersMe()
-//         await dispatch(loginSucceed(user));
-//         // 更新用户数据
-//         dispatch(update());
-
-//         return user;
-//         // try {
-//         //   const res = await get(params)
-//         //   console.log('res:', res);
-//         //   dispatch(_loginSucceed(res));
-//         //   return res;
-//         // } catch (e) {
-//         //   return dispatch(anonymousUser());
-//         // }
-//       }
-//       return dispatch(anonymousUser());
-//     } catch (e) {
-//       return dispatch(anonymousUser());
-//     }
-//   };
-// }
-
-// const anonymousUser = () => async (dispatch) => {
-//   let uniqueId = DeviceInfo.getUniqueId();
-//   const anonymousConfig = { id: uniqueId };
-//   try {
-//     if (Platform.OS === 'ios') {
-//       uniqueId = md5.hex_md5(uniqueId).substring(8, 24);
-//     }
-//     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
-//     const user = await get(userInfoParmas);
-//     await dispatch(_loginSucceed(user));
-//     await dispatch(addSample(user));
-
-//     return user;
-//     // console.log('user:', user);
-//   } catch (e) {
-//     // Toast.show(e.message)
-//     console.log('anonymousUser error:', e.message);
-//     const userInfoParmas = thirdLogin('anonymous', anonymousConfig);
-//     dispatch(_loginFailed());
-//     return await get(userInfoParmas);
-//   }
-// };
-
-// const iCardSample = (objectId: string) => [
-//   {
-//     title: '示例：早睡',
-//     period: '7',
-//     record: [],
-//     recordDay: [1, 2, 3, 4, 5, 6, 7],
-//     iconAndColor: {
-//       name: 'sleepBoy',
-//       color: '#F08200',
-//     },
-//     notifyText: '早睡早起身体好!',
-//     notifyTimes: ['22:00'],
-//     limitTimes: ['20:00', '24:00'],
-//     price: 0,
-//     state: 0,
-//     // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-//     user: {
-//       __type: 'Pointer',
-//       className: '_User',
-//       objectId,
-//     },
-//   },
-//   {
-//     title: '示例：记单词',
-//     period: '7',
-//     record: [],
-//     recordDay: [1, 2, 3, 4, 5, 6, 7],
-//     iconAndColor: {
-//       name: 'homework',
-//       color: '#FFC076',
-//     },
-//     notifyText: '坚持鸭!',
-//     notifyTimes: ['20:00'],
-//     limitTimes: ['00:00', '24:00'],
-//     price: 0,
-//     state: 0,
-//     // doneDate: {"__type": "Date", "iso": moment('2017-03-20')},
-//     user: {
-//       __type: 'Pointer',
-//       className: '_User',
-//       objectId,
-//     },
-//   },
-// ];
-
-// const iUseSample = (objectId, iCardId) => ({
-//   time: 0,
-//   // notifyTime:option&&option.notifyTime||"20.00",
-//   doneDate: { __type: 'Date', iso: moment('2017-03-20').toISOString() },
-//   user: {
-//     __type: 'Pointer',
-//     className: '_User',
-//     objectId,
-//   },
-//   iCard: {
-//     __type: 'Pointer',
-//     className: 'iCard',
-//     objectId: iCardId,
-//   },
-//   statu: 'start',
-//   privacy: 2,
-// });
-
-// // 预设示例
-// function addSample(user: UserType) {
-//   return async (dispatch) => {
-//     const { createdAt, updatedAt, objectId } = user;
-//     const createdAtTime = new Date(createdAt).getTime();
-//     const updatedAtTime = new Date(updatedAt).getTime();
-//     // console.log('time:', updatedAtTime,createdAtTime);
-//     if (updatedAtTime - createdAtTime < 5000) {
-//       // 生成一个icard
-//       dispatch(loginLoad(true));
-//       const iCards = iCardSample(objectId);
-//       const iCardsReq = iCards.map((item) => classCreatNewOne('iCard', item));
-//       const iCardsBatch = classBatch(iCardsReq);
-//       const iCardsRes = await get(iCardsBatch);
-//       const iUseReq = iCardsRes.map((item) => {
-//         if (item.success) {
-//           const iUseParam = iUseSample(objectId, item.success.objectId);
-//           return classCreatNewOne('iUse', iUseParam);
-//         }
-//       });
-//       // 添加圈子示例
-//       const iUseParam = iUseSample(objectId, '5be8f3f0ee920a00668767bc');
-//       iUseReq.push(classCreatNewOne('iUse', iUseParam));
-//       const iUseBatch = classBatch(iUseReq);
-//       await get(iUseBatch);
-//       return dispatch(loginLoad(false));
-//     }
-//   };
-// }
-
 /**
  * 登录
  * @param  {[type]} state:Object [description]
@@ -593,14 +407,9 @@ export function weChatLogin(user: UserType | PostUsersResponse) {
         // const params = bindingToUser(user.objectId, exData);
         // const res = await get(params);
 
-        const res = await putUsersId({ id: user.objectId, ...exData });
+        // const res = await putUsersId({ id: user.objectId, ...exData });
 
-        dispatch(
-          updateUserData({
-            ...exData,
-            ...res,
-          }),
-        );
+        dispatch(updateUserInfo(user.objectId, exData));
       }
       // return dispatch(bindingAuthData('weixin', KEY, weInfo,exData))
     } catch (e) {
@@ -687,16 +496,11 @@ export function qqLogin(user: UserType | PostUsersResponse) {
           headimgurl: figureurl_qq_2,
         };
         // const params = bindingToUser(user.objectId, exData);
-        const res = await putUsersId({ id: user.objectId, ...exData });
+        // const res = await putUsersId({ id: user.objectId, ...exData });
         // console.log('params:', params);
         // const res = await get(params);
 
-        dispatch(
-          updateUserData({
-            ...exData,
-            ...res,
-          }),
-        );
+        dispatch(updateUserInfo(user.objectId, exData));
       }
     } catch (e) {
       dispatch(thirdLoaded(''));
@@ -789,13 +593,8 @@ export function appleLogin(user: UserType | PostUsersResponse) {
         // const params = bindingToUser(user.objectId, exData);
         // // console.log('params:', params);
         // const res = await get(params);
-        const res = await putUsersId({ id: user.objectId, ...exData });
-        dispatch(
-          updateUserData({
-            ...exData,
-            ...res,
-          }),
-        );
+        // const res = await putUsersId({ id: user.objectId, ...exData });
+        return dispatch(updateUserInfo(user.objectId, exData));
       }
     } catch (e) {
       console.log(e);
@@ -806,112 +605,27 @@ export function appleLogin(user: UserType | PostUsersResponse) {
   };
 }
 
+export const updateUserInfo = (
+  id: string,
+  data: Omit<PutUsersIdRequest, 'id' | 'authData'>,
+) => {
+  // @ts-ignore: Unreachable code error
+  return async (dispatch) => {
+    const res = await putUsersId({ id, ...data });
+    return dispatch(
+      updateUserData({
+        ...data,
+        ...res,
+      }),
+    );
+  };
+};
+
 export function thirdLoaded(key: string) {
   return {
     type: THIRD_LOAD,
     theThirdLoaded: key,
   };
-}
-
-export async function wechatBinding(user: UserType) {
-  // try {
-  const weConfig = await WeChat.sendAuthRequest('snsapi_userinfo');
-  const { code } = weConfig;
-
-  // 获取openid
-  const wechatInfoParam = wechatInfo(wechatAppID, secret, code || '');
-  const weInfo = await get(wechatInfoParam);
-  const { access_token, openid } = weInfo;
-
-  // 获取微信用户信息
-  let exData = {};
-  if (openid && !user.headimgurl) {
-    const userInfoParams = wechatUserInfo(access_token, openid);
-    const userInfo = await get(userInfoParams);
-    let { nickname, headimgurl } = userInfo;
-
-    nickname = user.nickname || nickname;
-    exData = {
-      nickname,
-      headimgurl,
-    };
-  }
-
-  return bindingAuthData('weixin', user, weInfo, exData);
-  // } catch (e) {
-  //   if (e instanceof WeChat.WechatError) {
-  //     const errObj = {
-  //       '-1': '普通错误类型',
-  //       '-2': '取消',
-  //       '-3': '发送失败',
-  //       '-4': '授权失败',
-  //       '-5': '微信不支持',
-  //     };
-  //     Toast.show(errObj[`${e.code}`]);
-  //   } else {
-  //     Toast.show(e.message);
-  //   }
-  // }
-
-  // const res2 = req(params)
-}
-
-export async function qqBinding(user: UserType) {
-  // try {
-  const qqConfig = await QQAPI.login();
-
-  const { access_token, oauth_consumer_key, openid } = qqConfig;
-
-  // 获取微信用户信息
-  let exData = {};
-
-  if (!user.headimgurl) {
-    const params = QQUserInfo(access_token, oauth_consumer_key, openid);
-    const info = await get(params);
-    const userInfo = JSON.parse(info);
-
-    let { nickname, figureurl_qq_2 } = userInfo;
-
-    nickname = user.nickname || nickname;
-    exData = {
-      nickname,
-      headimgurl: figureurl_qq_2,
-    };
-  }
-
-  return bindingAuthData('qq', user, qqConfig, exData);
-  // } catch (e) {
-  //   Toast.show(e.message);
-  // }
-
-  // const res2 = req(params)
-}
-
-export function breakBinding(key: string, user: UserType) {
-  return bindingAuthData(key, user, null);
-}
-
-export async function bindingAuthData(
-  key: string,
-  user: UserType,
-  authData: {} | null,
-  exData?: Omit<PutUsersIdRequest, 'id' | 'authData'>,
-) {
-  const params: Omit<PutUsersIdRequest, 'id'> = {
-    authData: { [key]: authData },
-    ...exData,
-  };
-  const res = await putUsersId({
-    id: user.objectId,
-    ...params,
-  });
-  if (res.objectId) {
-    return {
-      ...params,
-      ...res,
-    };
-  }
-  return null;
 }
 
 // 判断user 是否存在

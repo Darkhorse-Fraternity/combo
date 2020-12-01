@@ -43,7 +43,7 @@ import {
   StyledHedaderIconBack,
 } from './infoStyle';
 
-import { CircleState, DeviceEventEmitterKey } from '../../../configure/enum';
+import { DeviceEventEmitterKey } from '../../../configure/enum';
 import FlipButton from '../../../components/Button/FlipButton';
 import { daysText } from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
@@ -240,15 +240,17 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
           title="加入费用:"
           des={iCard.price === 0 ? '免费' : `${iCard.price}元`}
         />
-        <Row
+        {/* <Row
           title="是否开启圈子:"
           des={iCard.state !== CircleState.open ? '关闭' : '开启'}
-        />
+        /> */}
 
         <Row
           title="提醒时间:"
           des={
-            iCard.notifyTimes.length > 0 ? iCard.notifyTimes.join('、') : '无'
+            iCard.notifyTimes && iCard.notifyTimes.length > 0
+              ? iCard.notifyTimes?.join('、')
+              : '无'
           }
         />
         {/* {row('关键字:', iCard.keys.join("+"))} */}
@@ -257,11 +259,7 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
         <Row title="打卡要求:" des={iCard.record?.join('+') || '默认点击'} />
         <Row
           title="创建时间:"
-          des={moment(iCard.createdAt).format('MMM YYYY')}
-        />
-        <Row
-          title="创建时间:"
-          des={moment(iCard.createdAt).format('MMM YYYY')}
+          des={moment(iCard.createdAt).format('YYYY年 MMM DD号')}
         />
         <Button
           onPress={() => {
@@ -350,8 +348,10 @@ const CardInfo: FC<{}> = (props): JSX.Element => {
   const [hasJoin, setHasJoin] = useState(false);
   const addUse = async () => {
     const res = await run();
-    res.objectId && setHasJoin(true);
-    DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+    if (res.objectId) {
+      setHasJoin(true);
+      DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+    }
   };
 
   if (!data || !iCard) {

@@ -13,7 +13,7 @@ export const StyledNarBarRightView = styled.View`
 
 export const StyledSearchInput = styled.TextInput`
   padding: 10px 20px;
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 17px;
 `;
 

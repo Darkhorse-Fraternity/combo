@@ -14,7 +14,10 @@ import { UserType } from 'src/data/data-context/interface';
 import PageList from '@components/Base/PageList';
 import { useNavigation } from '@react-navigation/native';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
-import { getUsersIdFollowers } from 'src/hooks/interface';
+import {
+  getUsersIdFollowers,
+  GetUsersIdFollowersRequest,
+} from 'src/hooks/interface';
 
 // const listKey = USER;
 
@@ -66,10 +69,11 @@ export const Follower: FC<{ tabLabel?: string }> = () => {
   const { navigate } = useNavigation();
   const { user } = useGetInfoOfMe();
   const loadPage = (page_index: number, page_size: number) => {
-    const param = {
+    const param: GetUsersIdFollowersRequest = {
       id: user.objectId,
       limit: page_size + '',
       skip: page_index * page_size + '',
+      order: '-createdAt',
     };
     return getUsersIdFollowers(param).then((res) =>
       res.results?.map((item) => item.follower as UserType),

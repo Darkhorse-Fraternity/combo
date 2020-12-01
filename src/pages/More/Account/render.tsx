@@ -6,11 +6,6 @@ import * as WeChat from 'react-native-wechat';
 import DeviceInfo from 'react-native-device-info';
 
 import {
-  wechatBinding,
-  qqBinding,
-  breakBinding,
-} from '../../../redux/actions/user';
-import {
   StyledContent,
   StyledButton,
   StyledTitle,
@@ -36,7 +31,12 @@ import { useGetUserInfo } from 'src/data/data-context';
 import { StackActions, useNavigation } from '@react-navigation/native';
 import { putUsersId } from 'src/hooks/interface';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
-import { useGetInfoOfMe } from 'src/data/data-context/user';
+import {
+  breakBinding,
+  qqBinding,
+  useGetInfoOfMe,
+  wechatBinding,
+} from 'src/data/data-context/user';
 
 // @connect(
 //   () => ({

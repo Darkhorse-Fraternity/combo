@@ -15,7 +15,10 @@ import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import PageList from '@components/Base/PageList';
 import { UserType } from 'src/data/data-context/interface';
 import { useNavigation } from '@react-navigation/native';
-import { getUsersIdFollowees } from 'src/hooks/interface';
+import {
+  getUsersIdFollowees,
+  GetUsersIdFolloweesRequest,
+} from 'src/hooks/interface';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 
 // const listKey = USER;
@@ -68,10 +71,11 @@ export const Followee: FC<{ tabLabel?: string }> = () => {
   const { navigate } = useNavigation();
   const { user } = useGetInfoOfMe();
   const loadPage = (page_index: number, page_size: number) => {
-    const param = {
+    const param: GetUsersIdFolloweesRequest = {
       id: user.objectId,
       limit: page_size + '',
       skip: page_index * page_size + '',
+      order: '-createdAt',
     };
     return getUsersIdFollowees(param).then((res) =>
       res.results?.map((item) => item.followee as UserType),

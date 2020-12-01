@@ -43,6 +43,7 @@ import { LoadAnimation } from '@components/Load';
 import { IUseType2, UserType } from 'src/data/data-context/interface';
 import { useNavigation } from '@react-navigation/native';
 import PageList from '@components/Base/PageList';
+import SimpleToast from 'react-native-simple-toast';
 
 interface FollowingProps {
   followers_count: number;
@@ -165,7 +166,7 @@ const RenderHeader: FC<FollowingProps> = (props) => {
 
 const Following: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
-  // const { navigate } = useNavigation();
+  const { navigate } = useNavigation();
   const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
   console.log('userId', userId);
 
@@ -227,10 +228,10 @@ const Following: FC<{}> = () => {
   );
 
   const onFollow = () => {
-    // if (user.isTourist) {
-    //   SimpleToast.show('需要登录后才可以关注他人哦～');
-    //   return navigate('login');
-    // }
+    if (user.isTourist) {
+      SimpleToast.show('需要登录后才可以关注他人哦～');
+      return navigate('login');
+    }
 
     if (!friendeExist) {
       addFrirun().then(() => {
@@ -259,10 +260,10 @@ const Following: FC<{}> = () => {
       where: JSON.stringify(where),
     };
     return getClassesIUse(param).then((res) => {
-      const data =
+      const data1 =
         res.results?.filter((item) => item.iCard?.state! >= CircleState.open) ||
         [];
-      return { data: data, hasMore: data?.length === page_size };
+      return { data: data1, hasMore: data1?.length === page_size };
     });
   };
 

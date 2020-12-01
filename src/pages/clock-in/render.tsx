@@ -6,6 +6,7 @@ import UpdateImageView, {
 import { useNavigation } from '@react-navigation/native';
 import React, {
   FC,
+  forwardRef,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -88,7 +89,7 @@ interface CustomMaskedInputProps extends Omit<TextInputProps, 'onChange'> {
   onChange?: (text: string) => void;
 }
 
-const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
+const CustomMaskedInput: FC<CustomMaskedInputProps> = forwardRef((props, _) => {
   const { onChange, ...rest } = props;
   return (
     // @ts-ignore: Unreachable code error
@@ -100,12 +101,12 @@ const CustomMaskedInput: FC<CustomMaskedInputProps> = (props) => {
       }}
     />
   );
-};
+});
 
 // const CutsomUpdateImageView: FC<CustomMaskedInputProps> = (props) => {
 
 // }
-const CustomImagePick: FC<UpdateImageViewType> = (props) => {
+const CustomImagePick: FC<UpdateImageViewType> = forwardRef((props, _) => {
   const { value, onChange, ...rest } = props;
   return (
     <View
@@ -121,7 +122,7 @@ const CustomImagePick: FC<UpdateImageViewType> = (props) => {
       />
     </View>
   );
-};
+});
 
 interface ToolBarProps {
   control: Control<FormData>;

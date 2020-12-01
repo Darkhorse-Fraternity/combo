@@ -1424,13 +1424,14 @@ const dataKey_0_1_0_1 = undefined as any
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 export interface GetClassesICardRequest {
   count?: string
   where?: string
   limit?: string
   skip?: string
+  order?: string
 }
 
 /**
@@ -1438,7 +1439,7 @@ export interface GetClassesICardRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 export interface GetClassesICardResponse {
   results?: {
@@ -1487,7 +1488,7 @@ export interface GetClassesICardResponse {
       metaData?: {}
       bucket?: string
     }
-    notifyTimes: string[]
+    notifyTimes?: string[]
     color: string
     circleState: number
     icon: string
@@ -1510,7 +1511,7 @@ export interface GetClassesICardResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 type GetClassesICardRequestConfig = Readonly<
   RequestConfig<
@@ -1520,7 +1521,7 @@ type GetClassesICardRequestConfig = Readonly<
     '/classes/iCard',
     undefined,
     string,
-    'count' | 'where' | 'limit' | 'skip',
+    'count' | 'where' | 'limit' | 'skip' | 'order',
     false
   >
 >
@@ -1530,7 +1531,7 @@ type GetClassesICardRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 const getClassesICardRequestConfig: GetClassesICardRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1542,7 +1543,7 @@ const getClassesICardRequestConfig: GetClassesICardRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_1,
   paramNames: [],
-  queryNames: ['count', 'where', 'limit', 'skip'],
+  queryNames: ['count', 'where', 'limit', 'skip', 'order'],
   requestDataOptional: false,
 }
 
@@ -1551,7 +1552,7 @@ const getClassesICardRequestConfig: GetClassesICardRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 export const getClassesICard = makeRequest<
   GetClassesICardRequest,
@@ -1564,7 +1565,7 @@ export const getClassesICard = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard`
- * @更新时间 `2020-11-23 13:13:05`
+ * @更新时间 `2020-12-01 13:36:38`
  */
 export const useGetClassesICard = makeRequestHook<
   GetClassesICardRequest,
@@ -1723,7 +1724,7 @@ export const usePostCallCardList = makeRequestHook<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 export interface GetClassesICardIdRequest {
   include?: string
@@ -1736,10 +1737,10 @@ export interface GetClassesICardIdRequest {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 export interface GetClassesICardIdResponse {
-  notifyTimes: string[]
+  notifyTimes?: string[]
   sound: {
     open: boolean
     item: {
@@ -1787,7 +1788,7 @@ export interface GetClassesICardIdResponse {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 type GetClassesICardIdRequestConfig = Readonly<
   RequestConfig<
@@ -1807,7 +1808,7 @@ type GetClassesICardIdRequestConfig = Readonly<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
   mockUrl: mockUrl_0_1_0_1,
@@ -1828,7 +1829,7 @@ const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 export const getClassesICardId = makeRequest<
   GetClassesICardIdRequest,
@@ -1841,7 +1842,7 @@ export const getClassesICardId = makeRequest<
  *
  * @分类 [iCard↗](http://121.89.170.197:3000/project/59/interface/api/cat_375)
  * @请求头 `GET /classes/iCard/:id`
- * @更新时间 `2020-11-19 16:57:55`
+ * @更新时间 `2020-12-01 13:30:13`
  */
 export const useGetClassesICardId = makeRequestHook<
   GetClassesICardIdRequest,
@@ -3305,12 +3306,14 @@ export const useGetUsersIdFollowersAndFollowees = makeRequestHook<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 export interface GetUsersIdFolloweesRequest {
   count?: string
   limit?: string
   where?: string
+  order?: string
+  skip?: string
   id: string
 }
 
@@ -3319,7 +3322,7 @@ export interface GetUsersIdFolloweesRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 export interface GetUsersIdFolloweesResponse {
   results?: {
@@ -3369,7 +3372,7 @@ export interface GetUsersIdFolloweesResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 type GetUsersIdFolloweesRequestConfig = Readonly<
   RequestConfig<
@@ -3379,7 +3382,7 @@ type GetUsersIdFolloweesRequestConfig = Readonly<
     '/users/:id/followees',
     undefined,
     'id',
-    'count' | 'limit' | 'where',
+    'count' | 'limit' | 'where' | 'order' | 'skip',
     false
   >
 >
@@ -3389,7 +3392,7 @@ type GetUsersIdFolloweesRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -3401,7 +3404,7 @@ const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_3,
   paramNames: ['id'],
-  queryNames: ['count', 'limit', 'where'],
+  queryNames: ['count', 'limit', 'where', 'order', 'skip'],
   requestDataOptional: false,
 }
 
@@ -3410,7 +3413,7 @@ const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 export const getUsersIdFollowees = makeRequest<
   GetUsersIdFolloweesRequest,
@@ -3423,7 +3426,7 @@ export const getUsersIdFollowees = makeRequest<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followees`
- * @更新时间 `2020-11-20 17:03:54`
+ * @更新时间 `2020-12-01 14:57:32`
  */
 export const useGetUsersIdFollowees = makeRequestHook<
   GetUsersIdFolloweesRequest,
@@ -3436,12 +3439,14 @@ export const useGetUsersIdFollowees = makeRequestHook<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 export interface GetUsersIdFollowersRequest {
   count?: string
   limit?: string
   where?: string
+  order?: string
+  skip?: string
   id: string
 }
 
@@ -3450,7 +3455,7 @@ export interface GetUsersIdFollowersRequest {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 export interface GetUsersIdFollowersResponse {
   results?: {
@@ -3500,7 +3505,7 @@ export interface GetUsersIdFollowersResponse {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 type GetUsersIdFollowersRequestConfig = Readonly<
   RequestConfig<
@@ -3510,7 +3515,7 @@ type GetUsersIdFollowersRequestConfig = Readonly<
     '/users/:id/followers',
     undefined,
     'id',
-    'count' | 'limit' | 'where',
+    'count' | 'limit' | 'where' | 'order' | 'skip',
     false
   >
 >
@@ -3520,7 +3525,7 @@ type GetUsersIdFollowersRequestConfig = Readonly<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 const getUsersIdFollowersRequestConfig: GetUsersIdFollowersRequestConfig = {
   mockUrl: mockUrl_0_1_0_3,
@@ -3532,7 +3537,7 @@ const getUsersIdFollowersRequestConfig: GetUsersIdFollowersRequestConfig = {
   responseBodyType: ResponseBodyType.json,
   dataKey: dataKey_0_1_0_3,
   paramNames: ['id'],
-  queryNames: ['count', 'limit', 'where'],
+  queryNames: ['count', 'limit', 'where', 'order', 'skip'],
   requestDataOptional: false,
 }
 
@@ -3541,7 +3546,7 @@ const getUsersIdFollowersRequestConfig: GetUsersIdFollowersRequestConfig = {
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 export const getUsersIdFollowers = makeRequest<
   GetUsersIdFollowersRequest,
@@ -3554,7 +3559,7 @@ export const getUsersIdFollowers = makeRequest<
  *
  * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
  * @请求头 `GET /users/:id/followers`
- * @更新时间 `2020-11-20 19:10:00`
+ * @更新时间 `2020-12-01 14:57:40`
  */
 export const useGetUsersIdFollowers = makeRequestHook<
   GetUsersIdFollowersRequest,
