@@ -279,6 +279,7 @@ export default class RNUpdate extends Component<RNUpdateProps, RNUpdateState> {
         </Text>
       );
     }
+    return null;
   };
 
   render() {
