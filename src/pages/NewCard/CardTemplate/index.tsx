@@ -4,16 +4,11 @@
  */
 'use strict';
 
+import { CardItemType } from '@pages/interface';
 import React, { FC } from 'react';
 import CardCell from '../CardCell';
 
 import { StyledRow } from './style';
-
-interface CardItemType {
-  title: string;
-  icon: string;
-  color: string;
-}
 
 interface CardTemplateType {
   data: CardItemType[];

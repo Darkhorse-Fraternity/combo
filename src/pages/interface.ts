@@ -45,6 +45,12 @@ export enum RouteKey {
   test = 'test',
 }
 
+export interface CardItemType {
+  title: string;
+  icon: string;
+  color: string;
+}
+
 // type RecordType = '文字' | '图片';
 
 export type RootStackParamList = {
@@ -65,7 +71,7 @@ export type RootStackParamList = {
   [RouteKey.follower]: undefined;
   [RouteKey.follow]: undefined;
   [RouteKey.following]: { userId: string };
-  [RouteKey.creat]: undefined;
+  [RouteKey.creat]: { habit?: CardItemType };
   [RouteKey.newCard]: undefined;
   [RouteKey.record]: undefined;
   [RouteKey.cardConfig]: { iCardId: string };

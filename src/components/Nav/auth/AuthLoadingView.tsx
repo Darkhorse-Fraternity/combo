@@ -15,6 +15,7 @@ import {
 import { updateLocation, userInfo } from 'src/data/data-context/user';
 import DataContext from 'src/data/data-context';
 import { useGetIuseData } from 'src/data/data-context/core';
+import { RouteKey } from '@pages/interface';
 
 const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
   const { data, dispatch: contextDispatch } = useContext(DataContext);
@@ -52,7 +53,7 @@ const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
       firstInstaller().then((isFirstInstaller) => {
         props.navigation.dispatch(StackActions.replace('tab'));
         if (isTourist && isFirstInstaller) {
-          props.navigation.navigate('login');
+          props.navigation.navigate(RouteKey.login);
         }
       });
     }

@@ -80,4 +80,5 @@ export const StyledImg = styled(AutoHeightImage)``;
 
 export const StyledIcon = styled(BaseIcon)`
   align-self: center;
+  margin-top: 5px;
 `;

@@ -120,6 +120,8 @@ const RenderComponent: FC<RenderComponentProps> = ({
 
 const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
   const { options, onChange } = props;
+  console.log('options', options);
+
   const [isDelete, setIsDelete] = useState(false);
   const [index, setIndex] = useState(-1);
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
@@ -179,12 +181,14 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
         onPress={async (index, ref) => {
           if (index !== 0 && isDelete) {
             const fn = await ref?.current?.bounceOut?.call(undefined);
-            console.log(fn);
+            // console.log(fn);
             if (fn && fn.finished && onChange) {
               // const numb = index - 1;
-              const data = options.splice(index);
-              console.log('data', data);
-              onChange(data);
+              options.splice(index, 1);
+              console.log('options？？？', options);
+              console.log('index', index);
+              // console.log('data', data);
+              onChange(options);
             }
           } else {
             if (isDelete) {

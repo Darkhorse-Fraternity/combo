@@ -25,6 +25,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ICardType } from 'src/data/data-context/interface';
 import PageList from '@components/Base/PageList';
 import { postCallCardList } from 'src/hooks/interface';
+import { RouteKey } from '@pages/interface';
 
 const ListHeaderComponet = () => {
   const { navigate } = useNavigation();
@@ -38,7 +39,7 @@ const ListHeaderComponet = () => {
         key={`template ${name}`}
         data={habits[name]}
         onPress={(habit) => {
-          navigate('creat', { habit });
+          navigate(RouteKey.creat, { habit });
         }}
       />
     </Fragment>
@@ -57,7 +58,7 @@ const ListHeaderComponet = () => {
           // style={styles.headerBtn}
           title="自建习惯卡片"
           onPress={() => {
-            navigate('creat');
+            navigate(RouteKey.creat);
           }}
         />
       </View>
@@ -89,7 +90,7 @@ const RenderRow: FC<ICardType> = (props) => {
       color={'white'}
       des={notifyText}
       onPress={() => {
-        navigate('cardInfo', { iCardId: objectId });
+        navigate(RouteKey.cardInfo, { iCardId: objectId });
       }}
     />
   );
@@ -109,7 +110,7 @@ const NewCard: FC<{}> = () => {
       ListHeaderComponent={ListHeaderComponet}
       loadPage={loadPage}
       style={styles.list}
-      columnWrapperStyle={{ padding: 0 }}
+      columnWrapperStyle={styles.columnWrapperStyle}
       numColumns={4}
       // footerStyle={{ paddingBottom: 60 }}
       renderItem={renderRow}
@@ -125,7 +126,9 @@ const styles = StyleSheet.create({
     flex: 1,
     overflow: 'hidden',
   },
-
+  columnWrapperStyle: {
+    padding: 0,
+  },
   itemAdd: {
     width: width / 2 - 15,
     height: 200,

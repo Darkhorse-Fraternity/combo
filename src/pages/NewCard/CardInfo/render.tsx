@@ -273,11 +273,7 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
             flexDirection: 'row',
           }}>
           <Row title="参与人数:" des={iCard.useNum + ''} />
-          <StyledIcon
-            size={15}
-            style={{ marginTop: 5 }}
-            name="ios-arrow-forward"
-          />
+          <StyledIcon size={15} name="ios-arrow-forward" />
         </Button>
         {/* {rowTouch('使用人数:', iCard.useNum + '人', () => [])} */}
 

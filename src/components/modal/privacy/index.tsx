@@ -15,6 +15,7 @@ import { BackHandler } from 'react-native';
 import { appChannel, app_channel } from '@helps/util';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { RouteKey } from '@pages/interface';
 
 interface PrivacyModal {}
 
@@ -57,7 +58,7 @@ export const PrivacyModal = (props: PrivacyModal) => {
           <StyledDiscribIn
             onPress={() => {
               setState(false);
-              navgaition.navigate('web', {
+              navgaition.navigate(RouteKey.web, {
                 url: 'https://icourage.cn/userAgreement',
               });
             }}>
@@ -67,7 +68,7 @@ export const PrivacyModal = (props: PrivacyModal) => {
           <StyledDiscribIn
             onPress={() => {
               setState(false);
-              navgaition.navigate('web', {
+              navgaition.navigate(RouteKey.web, {
                 url: 'https://icourage.cn/privacyAgreement',
               });
             }}>

@@ -32,7 +32,7 @@ import {
 import { DeviceEventEmitterKey } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { Route, StackActions, useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
 import {
   CardFormData,
@@ -48,6 +48,8 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { postClassesICard, postClassesIUse } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { RouteKey } from '@pages/interface';
 
 const RenderIconAndColor: FC<{
   value?: { name: string; color: string };
@@ -93,18 +95,22 @@ const RenderName: FC<{
 const Render: FC<{}> = () => {
   const [step, setStep] = useState(0);
   const user = useGetUserInfo();
+  const { habit } = useNavigationAllParamsWithType<RouteKey.creat>();
   const { goBack, dispatch } = useNavigation();
   const [loading, setLoading] = useState(false);
   const { getValues, handleSubmit, control } = useForm<CardFormData>({
     resolver: yupResolver(cardValidationSchema),
     defaultValues: {
-      [CardTitle]: '',
+      [CardTitle]: habit?.title || '',
       [CardNotifyTimes]: [],
       [CardLimitDayAndTimes]: {
         time: ['00:00', '24:00'],
         day: [1, 2, 3, 4, 5, 6, 7],
       },
-      [CardIconAndColor]: { name: 'sun', color: '#f6f7f9' },
+      [CardIconAndColor]: {
+        name: habit?.icon,
+        color: habit?.color || '#f6f7f9',
+      },
       [CardNotifyText]: '时不我待！',
       [CardRecord]: [],
       [CardSound]: {
