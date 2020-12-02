@@ -108,10 +108,17 @@ export const useMutateIuseData = () => {
         iUse: data.iUses_self.entities,
         iCard: data.iCards_self,
       });
+
+      if (!oldData) {
+        throw new Error('传入的id 错误，未发现已含有的 iUser id');
+      }
+
       const newData = {
         ...oldData,
         ...params,
       };
+      console.log('newData', newData);
+
       dispatch({ type: 'update_iUse', data: newData });
     },
     [data.iCards_self, data.iUses_self.entities, dispatch],
