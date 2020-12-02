@@ -55,7 +55,7 @@ import { isTablet } from 'react-native-device-info';
 import { useOrientation } from '@components/util/hooks';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
 import { LoadAnimation } from '@components/Load';
-import { useMutateIuseData } from 'src/data/data-context/core';
+import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -213,10 +213,7 @@ const Render: FC<{}> = () => {
   }
   // console.log('type', type);
 
-  const { data, loading } = useGetClassesIUseId(
-    { id: iUseId },
-    // { defaultLoading: true },
-  );
+  const { data } = useGetIuseData(iUseId);
   const { time } = data || { time: 0 };
   const record = data?.iCard.record;
   const iCardId = data?.iCard.objectId || '';
@@ -415,9 +412,9 @@ const Render: FC<{}> = () => {
 
   // console.log('keyboardVerticalOffsetDefault', keyboardVerticalOffsetDefault);
 
-  if (loading) {
-    return <LoadAnimation />;
-  }
+  // if (loading) {
+  //   return <LoadAnimation />;
+  // }
 
   return (
     <StyledContent>
