@@ -30,10 +30,7 @@ export interface ExceptionViewProps {
   promptImage?: ImageSourcePropType;
 }
 
-export default class ExceptionView extends PureComponent<
-  ExceptionViewProps,
-  any
-> {
+export default class ExceptionView extends PureComponent<ExceptionViewProps> {
   static defaultProps = {
     exceptionType: ExceptionType.Loading,
   };

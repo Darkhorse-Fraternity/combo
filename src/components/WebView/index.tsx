@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { memo, useCallback, useMemo, useRef, Ref } from 'react';
 import { default as WebViewType } from 'react-native-webview';
 import { LoadAnimation } from '@components/Load';
@@ -32,7 +33,7 @@ const MemoWebView = memo(StyledWebView);
 //              getObjectSch
 //  ```
 
-export const useCombinedRefs = <T extends any>(...refs: Ref<T>[]): Ref<T> =>
+export const useCombinedRefs = <T extends {}>(...refs: Ref<T>[]): Ref<T> =>
   useCallback(
     (element: T) =>
       refs.forEach((ref) => {

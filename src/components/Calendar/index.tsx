@@ -46,7 +46,7 @@ export default class Calendar<ItemT> extends PureComponent<
   timer: number | undefined;
   trueScroll: ScrollView | null | undefined;
   trueViewPager: ViewPagerAndroid | null | undefined;
-  constructor(props: any) {
+  constructor(props: CalendarProps<ItemT>) {
     super(props);
     this.state = {
       year: this.props.date.getFullYear(),
@@ -108,7 +108,6 @@ export default class Calendar<ItemT> extends PureComponent<
       }
       this.trueScroll?.scrollTo({ x: width, y: 0, animated: false });
     } else {
-      // console.log('event', event);
       const nativeEvent = event.nativeEvent as ViewPagerOnPageSelectedEventData;
       if (nativeEvent.position === 2) {
         this.nextMonth();

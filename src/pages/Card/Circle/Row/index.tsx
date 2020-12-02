@@ -95,7 +95,7 @@ const RenderLikes: FC<ItemType> = (props) => {
         run({ iDoId: objectId, addNum: !liked ? 1 : -1 });
         setLiked((res) => !res);
       }}>
-      <Animatable.View ref={handleViewRef as any}>
+      <Animatable.View ref={(handleViewRef as unknown) as null}>
         <StyledMaterialCommunityIcons
           name={liked ? 'favorite' : 'favorite-border'}
           size={20}
@@ -145,11 +145,15 @@ const RenderChatBtn: FC<ItemType> = (item) => {
   );
 };
 
+interface RecordRowProps {
+  item: ItemType;
+}
+
 export default class RecordRow extends Component<
-  { item: ItemType },
+  RecordRowProps,
   { visible: boolean; index: number }
 > {
-  constructor(props: any) {
+  constructor(props: RecordRowProps) {
     super(props);
     this.state = {
       visible: false,

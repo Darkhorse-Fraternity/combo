@@ -45,7 +45,6 @@ import {
   getClassesIDoId,
   postClassesIDo,
   putClassesIDoId,
-  useGetClassesIUseId,
 } from 'src/hooks/interface';
 import { getUerInfo, useGetUserInfo } from 'src/data/data-context';
 import { iUsePoint, userPoint } from '@request/LCModle';
@@ -54,7 +53,7 @@ import { DeviceEventEmitterKey } from '@configure/enum';
 import { isTablet } from 'react-native-device-info';
 import { useOrientation } from '@components/util/hooks';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
-import { LoadAnimation } from '@components/Load';
+// import { LoadAnimation } from '@components/Load';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';

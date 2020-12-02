@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { StackNavigationOptions } from '@react-navigation/stack';
 import {
+  EventMapBase,
+  NavigationContainerProps,
   NavigationHelpers,
   NavigationProp,
+  NavigationState,
   RouteProp,
 } from '@react-navigation/native';
 import { WebViewProp } from '@components/WebView/interface';
@@ -100,7 +102,9 @@ export type RouteNameType = keyof RootStackParamList;
 type NavigationType<T extends RouteKey> = NavigationHelpers<
   RootStackParamList
 > &
-  Partial<NavigationProp<RootStackParamList, T, any, any, any>>;
+  Partial<
+    NavigationProp<RootStackParamList, T, NavigationState, {}, EventMapBase>
+  >;
 
 export type NavigationOptionsType<T extends RouteKey> =
   | StackNavigationOptions
@@ -110,8 +114,8 @@ export type NavigationOptionsType<T extends RouteKey> =
     }) => StackNavigationOptions);
 
 export interface ToLazyExoticComponentReturnType {
-  component: React.ComponentType<any>;
-  options?: NavigationOptionsType<any>;
+  component: React.ComponentType<NavigationContainerProps>;
+  options?: NavigationOptionsType<RouteKey>;
   initialParams?: object;
 }
 

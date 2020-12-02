@@ -443,7 +443,7 @@ const ListHeaderComponent: FC<{
           </StyledSubTitleText>
         </StyledRowInner>
         <StyledSwitch
-          {...(propsColor as any)}
+          {...(propsColor as unknown)}
           value={value}
           onValueChange={async (value1) => {
             remind(id, value1);

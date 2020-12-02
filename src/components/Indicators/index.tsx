@@ -8,17 +8,19 @@ import { Image, Animated } from 'react-native';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
-export default class Indicators extends PureComponent<{
+interface IndicatorsProps {
   size: number;
   animated: boolean;
-}> {
+}
+
+export default class Indicators extends PureComponent<IndicatorsProps> {
   static defaultProps = {
     size: 30,
     animated: true,
   };
   springValue: Animated.Value;
 
-  constructor(props: any) {
+  constructor(props: IndicatorsProps) {
     super(props);
     this.springValue = new Animated.Value(0);
   }

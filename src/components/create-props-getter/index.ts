@@ -3,6 +3,6 @@ export const createPropsGetter = <DP extends object>(_: DP) => {
     type PropsExcludingDefaults = Pick<P, Exclude<keyof P, keyof DP>>;
     type RecomposeProps = DP & PropsExcludingDefaults;
 
-    return (props as any) as RecomposeProps;
+    return (props as never) as RecomposeProps;
   };
 };

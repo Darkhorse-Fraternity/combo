@@ -10,7 +10,7 @@ export interface parasProps<T> extends dataProps<T> {
 }
 
 export interface ParsedUrlQuery {
-  [key: string]: any;
+  [key: string]: never;
 }
 
 export enum schemeType {

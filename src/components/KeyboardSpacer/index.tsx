@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Platform,
   Dimensions,
+  EmitterSubscription,
 } from 'react-native';
 // import {DP_HEIGHT, IS_ANDROID, IS_IOS} from '../../defines/device';
 
@@ -45,7 +46,7 @@ class KeyboardSpacer extends Component<Props, States> {
     keyboardSpace: 0,
     isKeyboardOpened: false,
   };
-  listeners?: any[];
+  listeners?: EmitterSubscription[];
 
   componentDidMount() {
     const updateListener = IS_ANDROID ? 'keyboardDidShow' : 'keyboardWillShow';

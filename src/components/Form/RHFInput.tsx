@@ -26,7 +26,7 @@ const RHFInput = ({
   as: InnerComponent = StyledTextInput,
   ...rest
 }: Props & TextInputProps) => {
-  const onChange = (args: any) => ({
+  const onChange = (args: { nativeEvent: { text: string } }[]) => ({
     value: args[0].nativeEvent.text,
   });
   return (

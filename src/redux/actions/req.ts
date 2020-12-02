@@ -123,6 +123,7 @@ export async function get(params: {}) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function cleanData(response: {}, option: any) {
   // @ts-ignore: Unreachable code error
   return async (dispatch) => {
@@ -159,7 +160,7 @@ export function requestSucceed(key: string, data: Object) {
  * @param  {[type]} response:Object [description]
  * @return {[type]}                 [description]
  */
-export function requestFailed(key: string, err: any) {
+export function requestFailed(key: string, err: unknown) {
   return {
     type: REQUEST_FAILED,
     load: false,

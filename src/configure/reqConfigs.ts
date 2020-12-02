@@ -111,7 +111,7 @@ const cache = new Cache({
   backend: AsyncStorage,
 });
 
-export const setCache = (key: string, value: any) =>
+export const setCache = (key: string, value: unknown) =>
   new Promise((resolve, reject) => {
     cache.setItem(key, value, (err: Error) => {
       // key 'hello' is 'world' in cache
@@ -166,7 +166,7 @@ const dataMap = async <T extends {}>(data: T, e?: eType) => {
   return { result: data, code: 200 };
 };
 
-setDataMap(<any>dataMap);
+setDataMap(<never>dataMap);
 
 const errorAction = (_: ReqProps, error: string, code: number) => {
   // if (code === 432) {

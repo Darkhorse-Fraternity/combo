@@ -3,6 +3,7 @@ import { loadGif } from '../Load';
 
 import { StackNavigationOptions } from '@react-navigation/stack';
 import { ToLazyExoticComponentReturnType } from '@pages/interface';
+import { NavigationContainerProps } from '@react-navigation/native';
 // interface RHType {
 //   readonly navigationOptions: Function;
 //   readonly render: LazyExoticComponent<() => ReactElement>;
@@ -19,7 +20,8 @@ export const LazyRender: FC<LazyRenderT> = ({ showBar, ...props }) => {
 };
 
 export const toLazyExoticComponent = (
-  Render: React.ComponentType<any>,
+  Render: React.ComponentType<NavigationContainerProps>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   navigationOptions?: any,
 ): ToLazyExoticComponentReturnType => {
   let option = navigationOptions || {};
@@ -37,7 +39,7 @@ export const toLazyExoticComponent = (
 
   const showBar = headerShown && !headerTransparent && !headerBackground;
 
-  const LazyRenderIn = (props: {}) => {
+  const LazyRenderIn = (props: NavigationContainerProps) => {
     // useTrackView();
     return (
       <LazyRender showBar={showBar}>

@@ -45,7 +45,7 @@ import { isLandscapeSync, isTablet } from 'react-native-device-info';
 import Orientation from 'react-native-orientation';
 import { RouteKey } from '@pages/interface';
 import { GetClassesIUseIdResponse, postClassesIDo } from 'src/hooks/interface';
-import { Descriptor, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import SimpleToast from 'react-native-simple-toast';
 
 import { useGetUserInfo } from 'src/data/data-context';
@@ -342,7 +342,7 @@ const RenderNoData: FC<{ refreshLoad: boolean; onRefresh: () => void }> = ({
   );
 };
 
-const Punch: FC<Descriptor<{}>> = () => {
+const Punch: FC<{}> = () => {
   console.log('puch render');
 
   const [numColumns, setNumColumns] = useState(

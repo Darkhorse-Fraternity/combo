@@ -31,8 +31,8 @@ const middlewares = [thunk];
 const enhancer = applyMiddleware(...middlewares);
 // }
 
-let store: any;
-export function creatStore(route: any) {
+let store: unknown;
+export function creatStore(route: unknown) {
   if (!store && route) {
     // const navReducer = createNavigationReducer(route);
     const reducer = combineReducers({
