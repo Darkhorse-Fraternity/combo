@@ -362,7 +362,7 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
       </StyledTitleView>
       <View style={{ height: 10 }} />
       {/* {this._renderRow('已完成周期', `${(time / iCard.period).toFixed(2)}轮`)} */}
-      <RenderTitle title={'总打卡天数'} des={`${time + 1}日`} />
+      <RenderTitle title={'总打卡天数'} des={`${time}日`} />
       <RenderTitle title={'上次打卡'} des={fromNow} />
       <RenderTitle title={'加入天数'} des={`${date}天`} />
       <RenderTitle title={'建立日期'} des={cardCreatedAt} />

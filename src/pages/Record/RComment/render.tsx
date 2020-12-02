@@ -31,6 +31,7 @@ import * as Animatable from 'react-native-animatable';
 import { KeyboardAccessoryView } from 'react-native-keyboard-input';
 import Toast from 'react-native-simple-toast';
 import { useGetUserInfo } from 'src/data/data-context';
+import { useMutateIuseData } from 'src/data/data-context/core';
 import {
   getClassesIComment,
   GetClassesICommentResponse,
@@ -81,6 +82,7 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   useEffect(() => {
     if (deleteData) {
       DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+      DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {}); // 简单做，不在远程更新了。
       goBack();
     }
   }, [deleteData, goBack]);

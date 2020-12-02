@@ -40,61 +40,6 @@ interface PunchItemProps {
   color?: string;
 }
 
-// interface PunchItemState {
-//   flip: boolean;
-//   // isLandscape: boolean;
-// }
-
-// export default class PunchItem extends PureComponent<
-//   PunchItemProps,
-//   PunchItemState
-// > {
-//   constructor(props: PunchItemProps) {
-//     super(props);
-//     if (props.openSound && props.soundsKey) {
-//       const source = soundsSource();
-//       const data = source[props.soundsKey];
-//       if (data?.source && !props.done) {
-//         this.sound = new Sounds(data.source);
-//       }
-//     }
-//     this.state = {
-//       flip: props.done,
-//       // isLandscape: isLandscapeSync(),
-//     };
-//   }
-
-//   sound?: Sounds;
-
-//   flipDo = () => {
-//     if (this.props.done !== this.state.flip) {
-//       // console.log('title2:', this.props.title);
-//       // console.log('flip2:', this.props.done);
-//       this.setState({ flip: this.props.done });
-
-//       if (this.props.done) {
-//         this.sound?.play();
-//       }
-//     }
-//   };
-
-//   debounceFlip = debounce(this.flipDo, 1000, {
-//     leading: false,
-//     trailing: true,
-//   });
-
-//   componentWillReceiveProps() {
-//     // TODO： 这边这样设置会有反复哦，所以这边就先避免了
-
-//     // const debounceFlip = debounceFlipConfig(nextProps,this.state)
-
-//     this.debounceFlip();
-//   }
-
-//   componentWillUnmount() {
-//     this.sound?.release();
-//   }
-
 const PunchItem: FC<PunchItemProps> = (props) => {
   const {
     title,
@@ -160,12 +105,8 @@ const PunchItem: FC<PunchItemProps> = (props) => {
       onPress={() => {
         onPress &&
           onPress(flip, () => {
-            console.log('flip', flip);
-
             // self.setState({ flip: !flip });
             if (!flip) {
-              console.log('???');
-
               soundRef.current?.play();
             }
             setFlip((res) => !res);

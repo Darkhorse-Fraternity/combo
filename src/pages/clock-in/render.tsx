@@ -217,6 +217,7 @@ const Render: FC<{}> = () => {
     { id: iUseId },
     // { defaultLoading: true },
   );
+  const { time } = data || { time: 0 };
   const record = data?.iCard.record;
   const iCardId = data?.iCard.objectId || '';
 
@@ -357,6 +358,7 @@ const Render: FC<{}> = () => {
           update({
             objectId,
             doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },
+            time: time + 1,
           });
           goBack();
         }
@@ -365,7 +367,17 @@ const Render: FC<{}> = () => {
       }
       setLoad(false);
     },
-    [doneDateIso, goBack, iCardId, iUseId, record, setValue, type, update],
+    [
+      doneDateIso,
+      goBack,
+      iCardId,
+      iUseId,
+      record,
+      setValue,
+      time,
+      type,
+      update,
+    ],
   );
 
   useEffect(() => {
