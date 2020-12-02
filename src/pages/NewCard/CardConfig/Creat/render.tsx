@@ -32,7 +32,7 @@ import {
 import { DeviceEventEmitterKey } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import { Route, StackActions, useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
 import {
   CardFormData,

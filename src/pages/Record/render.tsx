@@ -285,10 +285,10 @@ const _renderSwipeOutDeleteBtn = (
   title: string,
   color: string,
   name: string,
-  CMP = StyledIcon,
+  Cmp = StyledIcon,
 ) => (
   <StyledDeleteBtn>
-    <CMP size={25} color={color} name={name} />
+    <Cmp size={25} color={color} name={name} />
     <StyledDeleteBtnText color={color}>{title}</StyledDeleteBtnText>
   </StyledDeleteBtn>
 );

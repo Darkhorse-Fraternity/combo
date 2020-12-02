@@ -31,7 +31,6 @@ import * as Animatable from 'react-native-animatable';
 import { KeyboardAccessoryView } from 'react-native-keyboard-input';
 import Toast from 'react-native-simple-toast';
 import { useGetUserInfo } from 'src/data/data-context';
-import { useMutateIuseData } from 'src/data/data-context/core';
 import {
   getClassesIComment,
   GetClassesICommentResponse,

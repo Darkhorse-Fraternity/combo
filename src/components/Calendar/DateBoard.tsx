@@ -19,7 +19,7 @@ export const isLeap = (year: number) => {
 export interface DateBoardProps<ItemT> {
   year: number;
   month: number;
-  doneDay: (item: ItemT) => void;
+  doneDay: (item: string) => void;
   date: Date;
   busyDay?: Record<string, ItemT>;
   canceDay: (item: ItemT) => void;
@@ -146,17 +146,11 @@ export default class DateBoard<ItemT> extends PureComponent<
         arr.push(
           <Button
             background={background}
-            onPress={() => {
-              // this.props.selectDay(now)
-              busyDay &&
-                busyDay[now] &&
-                this.props.canceDay &&
-                this.props.canceDay(busyDay[now]);
-            }}
+            onPress={this.props.doneDay.bind(this, now)}
             key={i}
             style={styles.dateBox}>
             <View style={[styles.selected]}>
-              <Text style={[styles.dateText]}>{i + ''}</Text>
+              <Text style={[styles.dateText1]}>{i + ''}</Text>
             </View>
           </Button>,
         );
@@ -164,7 +158,7 @@ export default class DateBoard<ItemT> extends PureComponent<
         arr.push(
           <Button
             background={background}
-            onPress={this.props.doneDay.bind(this, busyDay[now])}
+            onPress={this.props.doneDay.bind(this, now)}
             key={i}
             style={styles.dateBox}>
             <View style={[styles.selected]}>
@@ -208,6 +202,12 @@ const styles = StyleSheet.create({
   dateText: {
     fontSize: 13,
     minWidth: 20,
+    textAlign: 'center',
+  },
+  dateText1: {
+    fontSize: 19,
+    minWidth: 20,
+    // color: 'green',
     textAlign: 'center',
   },
   dateText2: {

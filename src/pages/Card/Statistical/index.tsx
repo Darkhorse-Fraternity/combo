@@ -77,15 +77,16 @@ type ItemType = GetClassesIDoResponse['results'][number];
 //   //   }
 //   // }));
 // };
-
 const retroactive = (
-  item: any,
+  item: string,
   activityEndDateISO: string,
   redo: number,
   clockin: (type: number, date?: Date) => void,
 ) => {
   // 补打卡
   // 判断卡片是否在活动中,判断是否有补签卡片
+
+  console.log('item???', item);
 
   try {
     // 只有自己可以补打卡
@@ -100,19 +101,21 @@ const retroactive = (
       : moment('2016-01-01');
 
     const isAfter = moment().isAfter(activityMoment);
-
+    console.log('isAfter', isAfter);
     if (isAfter) {
       // 如果是今天则正常打卡
       const before = moment(0, 'HH').subtract(1, 'minutes');
       const after = moment(24, 'HH');
       const momentIn = doMoment.isBetween(before, after);
-
+      console.log('!!!', momentIn);
       if (momentIn) {
         // return dispatch(doCardWithNone(iUse));
         return clockin(0);
       }
 
       // 如果打卡的时间超过今天,则提示该时间还不允许打卡。
+
+      console.log('???');
 
       if (doMoment.isAfter(before)) {
         SimpleToast.show('这个时间段还没有到~!');
@@ -269,11 +272,10 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
       lesten.remove();
     };
   }, []);
-
-  const selectDay = (item: ItemType) =>
+  const selectDay = (item: string) =>
     isSelf &&
     retroactive(
-      item,
+      item || '',
       activityEndDate?.iso || '',
       toolConfig?.redo || 0,
       async (type, date) => {
