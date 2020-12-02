@@ -95,7 +95,7 @@ const RenderName: FC<{
 const Render: FC<{}> = () => {
   const [step, setStep] = useState(0);
   const user = useGetUserInfo();
-  const { habit } = useNavigationAllParamsWithType<RouteKey.creat>();
+  const { habit } = useNavigationAllParamsWithType<RouteKey.creat>() || {};
   const { goBack, dispatch } = useNavigation();
   const [loading, setLoading] = useState(false);
   const { getValues, handleSubmit, control } = useForm<CardFormData>({
@@ -108,7 +108,7 @@ const Render: FC<{}> = () => {
         day: [1, 2, 3, 4, 5, 6, 7],
       },
       [CardIconAndColor]: {
-        name: habit?.icon,
+        name: habit?.icon || 'sun',
         color: habit?.color || '#f6f7f9',
       },
       [CardNotifyText]: '时不我待！',

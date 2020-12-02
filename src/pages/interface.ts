@@ -71,7 +71,7 @@ export type RootStackParamList = {
   [RouteKey.follower]: undefined;
   [RouteKey.follow]: undefined;
   [RouteKey.following]: { userId: string };
-  [RouteKey.creat]: { habit?: CardItemType };
+  [RouteKey.creat]: { habit: CardItemType } | undefined;
   [RouteKey.newCard]: undefined;
   [RouteKey.record]: undefined;
   [RouteKey.cardConfig]: { iCardId: string };

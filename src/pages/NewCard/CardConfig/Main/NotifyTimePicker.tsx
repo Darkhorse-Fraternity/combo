@@ -26,6 +26,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { useLocalRemindConfig } from '@configure/app';
 import SimpleToast from 'react-native-simple-toast';
+import moment from 'moment';
 
 function PrefixInteger(num: number, length: number) {
   return (Array(length).join('0') + num).slice(-length);
@@ -134,11 +135,19 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
     const position = options.findIndex((item) => item === time);
     if (position === -1 && onChange) {
       if (index === 0) {
-        onChange([...options, time]);
+        onChange(
+          [...options, time].sort((a, b) =>
+            moment(a, 'HH:mm').isAfter(moment(b, 'HH:mm')) ? 1 : -1,
+          ),
+        );
       } else {
         //  options
         options.splice(index - 1, 1, time);
-        onChange(options);
+        onChange(
+          [...options].sort((a, b) =>
+            moment(a, 'HH:mm').isAfter(moment(b, 'HH:mm')) ? 1 : -1,
+          ),
+        );
       }
     } else {
       Toast.showWithGravity(
@@ -184,11 +193,12 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
             // console.log(fn);
             if (fn && fn.finished && onChange) {
               // const numb = index - 1;
-              options.splice(index, 1);
-              console.log('options？？？', options);
-              console.log('index', index);
+              options.splice(index - 1, 1);
               // console.log('data', data);
-              onChange(options);
+              if (options.length === 0) {
+                setIsDelete(false);
+              }
+              onChange([...options]);
             }
           } else {
             if (isDelete) {

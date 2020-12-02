@@ -53,6 +53,7 @@ import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { UserType } from 'src/data/data-context/interface';
 import { point } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
+import { SoundsKeys } from '@configure/source';
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy?: boolean;
@@ -112,7 +113,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
       numColumns={numColumns}
       showFB={isFb}
       openSound={sound?.open ?? false}
-      soundsKey={sound?.item?.key}
+      soundsKey={sound?.item?.key as SoundsKeys}
       key={title}
       name={iconAndColor.name}
       scWidth={
