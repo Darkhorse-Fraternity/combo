@@ -223,7 +223,7 @@
         // 设置展开的新高度
         CGFloat preferredContentH = 0;
         if (self.habitCount > 0) {
-            preferredContentH = self.collectionView.frame.size.height+self.collectionView.frame.origin.y;
+            preferredContentH = self.collectionView.frame.size.height+self.collectionView.frame.origin.y+5;
         }else{
             preferredContentH = 110;
         }
