@@ -1,6 +1,7 @@
 import { denormalize, schema } from 'normalizr';
 import { useCallback, useContext, useEffect, useRef } from 'react';
 import {
+  GetClassesICardIdResponse,
   GetClassesIUseIdResponse,
   useGetClassesIUseId,
   usePostCallIUseList3,
@@ -139,7 +140,7 @@ export const useMutateIuseData = () => {
   return { update, remove, add };
 };
 
-export const useMutateICardData = () => {
+export const useMutateICardData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
 
   const update = useCallback(
@@ -155,5 +156,13 @@ export const useMutateICardData = () => {
     },
     [data.iCards_self, dispatch],
   );
-  return { update };
+
+  const outData =
+    typeof id === 'string' ? data.iCards_self[id] : data.iCards_self;
+  return {
+    update,
+    data: outData as T extends string
+      ? GetClassesICardIdResponse
+      : iCards_self_type,
+  };
 };

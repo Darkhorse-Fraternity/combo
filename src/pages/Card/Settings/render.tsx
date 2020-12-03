@@ -113,7 +113,7 @@ const Settings = () => {
           iUse?.statu !== 'del' && (
             <RenderItem
               onPress={() => {
-                navigate('cardConfig', { iCardId: iCard.objectId });
+                navigate(RouteKey.cardConfig, { iCardId: iCard.objectId });
               }}
               name="md-settings"
               title="卡片配置"

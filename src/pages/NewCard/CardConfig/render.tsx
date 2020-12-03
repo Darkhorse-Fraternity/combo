@@ -37,7 +37,6 @@ import { RouteKey } from '@pages/interface';
 import {
   putClassesICardId,
   PutClassesICardIdRequest,
-  useGetClassesICardId,
 } from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
 import { useMutateICardData } from 'src/data/data-context/core';
@@ -49,7 +48,8 @@ const CardConfig: FC<{}> = () => {
   const { iCardId } = useNavigationAllParamsWithType<RouteKey.cardConfig>();
 
   // 获取已经有的icard 数据
-  const { data } = useGetClassesICardId({ id: iCardId });
+  // const { data } = useGetClassesICardId({ id: iCardId });
+  const { data } = useMutateICardData(iCardId);
   const { update } = useMutateICardData();
   const { setValue, handleSubmit, control } = useForm<CardFormData>({
     resolver: yupResolver(cardValidationSchema),

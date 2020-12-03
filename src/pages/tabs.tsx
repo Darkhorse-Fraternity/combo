@@ -166,15 +166,15 @@ export default function App() {
       //   showLabel: false,
       // }}
       tabBarOptions={tabBarOptions}
-      tabBar={({ style: _, ...rest }) => (
+      tabBar={({ style, ...rest }) => (
         <AnimatedTabBar
           preset="flashy"
           tabs={tabs}
           iconSize={25}
           itemOuterSpace={12}
           itemInnerSpace={12}
+          style={style as never}
           {...rest}
-          // style={props.style}
         />
       )}>
       <Tab.Screen

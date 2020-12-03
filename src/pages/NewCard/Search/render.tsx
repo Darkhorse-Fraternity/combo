@@ -85,6 +85,7 @@ const Search = () => {
         autoFocus
         placeholder="请输入查询内容"
         onChangeText={debounced.callback}
+        clearButtonMode={'while-editing'}
       />
       <StyledLine />
       <PageList<ICardType2>
