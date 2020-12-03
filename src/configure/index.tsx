@@ -184,26 +184,26 @@ const keyboardConfig = () => {
   }
 };
 
-const UserDepends: FC<{ user: UserType }> = ({ user }) => {
-  const { dispatch } = useContext(DataContext);
-  const userString = JSON.stringify(user);
-  useEffect(() => {
-    if (user && user.objectId) {
-      dispatch({ type: 'update_user_info', user });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userString, dispatch]);
-  return null;
-};
+// const UserDepends: FC<{ user: UserType }> = ({ user }) => {
+//   const { dispatch } = useContext(DataContext);
+//   const userString = JSON.stringify(user);
+//   useEffect(() => {
+//     if (user && user.objectId) {
+//       dispatch({ type: 'update_user_info', user });
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [userString, dispatch]);
+//   return null;
+// };
 
 // @ts-ignore: Unreachable code error
-@connect((state) => ({ user: state.user.data }))
-class UserDependsClass extends PureComponent {
-  render() {
-    // @ts-ignore: Unreachable code error
-    return <UserDepends user={this.props.user} />;
-  }
-}
+// @connect((state) => ({ user: state.user.data }))
+// class UserDependsClass extends PureComponent {
+//   render() {
+//     // @ts-ignore: Unreachable code error
+//     return <UserDepends user={this.props.user} />;
+//   }
+// }
 
 const Configure: FC<{}> = ({ children }) => {
   const user = useGetUserInfo();
@@ -272,7 +272,7 @@ const Configure: FC<{}> = ({ children }) => {
       <ConfigureClass isLogin={isLogin} uid={user.objectId} />
       {children}
       {/* <InfoBar /> */}
-      <UserDependsClass />
+      {/* <UserDependsClass /> */}
     </>
   );
 };

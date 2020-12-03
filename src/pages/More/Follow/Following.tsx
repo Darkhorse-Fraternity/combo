@@ -27,7 +27,7 @@ import Cell from '../../Habit/Cell';
 import { userPoint } from '../../../request/LCModle';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import Avatar from '../../../components/Avatar/Avatar2';
-import { isTablet } from 'react-native-device-info';
+// import { isTablet } from 'react-native-device-info';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
@@ -285,7 +285,7 @@ const Following: FC<{}> = () => {
       /> */}
       <PageList<IUseType2>
         loadPage={loadPage}
-        numColumns={isTablet() ? 2 : 1}
+        numColumns={1}
         // style={{ backgroundColor: 'transparent' }}
         // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
         // prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}

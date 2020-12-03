@@ -1,19 +1,21 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableNativeFeedback,
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableNativeFeedback } from 'react-native';
 
-const { width } = Dimensions.get('window');
-import React, { PureComponent } from 'react';
+// const { width } = Dimensions.get('window');
+import React, { PropsWithChildren } from 'react';
 import { theme } from '../../Theme';
 import Button from '../Button';
 import moment from 'moment';
+import styled from 'styled-components/native';
 
 export const isLeap = (year: number) => {
   return year % 100 === 0 ? (year % 400 === 0 ? 1 : 0) : year % 4 === 0 ? 1 : 0;
+};
+
+const getNowDay = (year: number, month: number, day: number) => {
+  // month = month - 1;
+  const monthStr = month < 10 ? `0${month}` : `${month}`;
+  const dayStr = day < 10 ? `0${day}` : `${day}`;
+  return `${year}-${monthStr}-${dayStr}`;
 };
 
 export interface DateBoardProps<ItemT> {
@@ -24,6 +26,7 @@ export interface DateBoardProps<ItemT> {
   busyDay?: Record<string, ItemT>;
   canceDay: (item: ItemT) => void;
   color: string;
+  width: number;
 }
 
 // interface DateBoardState {
@@ -32,173 +35,192 @@ export interface DateBoardProps<ItemT> {
 //   busyDay: { number: { number: [number] } };
 // }
 
-export default class DateBoard<ItemT> extends PureComponent<
-  DateBoardProps<ItemT>
-  // DateBoardState
-> {
-  static defaultProps = {
-    year: 2018,
-    month: 0,
-    busyDay: {
-      '2018': {
-        // 3: [1, 22],
-        // 2: [3, 22],
-        // 6: [4, 22],
-      },
-    },
-  };
+// class DateBoardClass<ItemT> extends PureComponent<
+//   DateBoardProps<ItemT>
+//   // DateBoardState
+// > {
+const RenderMain = <ItemT extends unknown>(
+  props: PropsWithChildren<DateBoardProps<ItemT>>,
+) => {
+  let myMonth;
+  let myYear;
+  let lastMonth = 0;
 
-  getNowDay(year: number, month: number, day: number) {
-    // month = month - 1;
-    const monthStr = month < 10 ? `0${month}` : `${month}`;
-    const dayStr = day < 10 ? `0${day}` : `${day}`;
-    return `${year}-${monthStr}-${dayStr}`;
+  const {
+    month = 0,
+    year = 2018,
+    busyDay = {
+      '2018': {},
+    },
+    date,
+    color,
+    doneDay,
+    canceDay,
+    width,
+  } = props;
+
+  if (month === 12) {
+    myMonth = 0;
+    myYear = year + 1;
+  } else if (month === -1) {
+    myMonth = 11;
+    myYear = year - 1;
+  } else {
+    myMonth = month;
+    myYear = year;
   }
 
-  renderDate() {
-    let myMonth;
-    let myYear;
-    let lastMonth = 0;
-    if (this.props.month === 12) {
-      myMonth = 0;
-      myYear = this.props.year + 1;
-    } else if (this.props.month === -1) {
-      myMonth = 11;
-      myYear = this.props.year - 1;
-    } else {
-      myMonth = this.props.month;
-      myYear = this.props.year;
-    }
+  lastMonth = myMonth === 0 ? 11 : myMonth - 1;
 
-    const { busyDay = {} } = this.props;
+  const fd = new Date(myYear, myMonth, 1);
+  const firstDay = fd.getDay();
+  const monthDay = [
+    31,
+    28 + isLeap(year),
+    31,
+    30,
+    31,
+    30,
+    31,
+    31,
+    30,
+    31,
+    30,
+    31,
+  ];
+  const arr = [];
+  for (let i = 0; i < firstDay; i++) {
+    arr.push(
+      <StyledDateBox key={-i} width={width}>
+        <Text style={styles.dateText2}>{`${
+          monthDay[lastMonth] - firstDay + i + 1
+        }`}</Text>
+      </StyledDateBox>,
+    );
+  }
 
-    lastMonth = myMonth === 0 ? 11 : myMonth - 1;
+  const background =
+    TouchableNativeFeedback.SelectableBackgroundBorderless &&
+    TouchableNativeFeedback.SelectableBackgroundBorderless();
 
-    const fd = new Date(myYear, myMonth, 1);
-    const firstDay = fd.getDay();
-    const monthDay = [
-      31,
-      28 + isLeap(this.props.year),
-      31,
-      30,
-      31,
-      30,
-      31,
-      31,
-      30,
-      31,
-      30,
-      31,
-    ];
-    const arr = [];
-    for (let i = 0; i < firstDay; i++) {
+  for (let i = 1; i < monthDay[myMonth] + 1; i++) {
+    const now = getNowDay(myYear, myMonth + 1, i);
+    const today = moment(date).format('YYYY-MM-DD');
+
+    // console.log('today', today);
+    // console.log('test:', i);
+    if (busyDay[now]) {
+      // const d = i;
       arr.push(
-        <View key={-i} style={styles.dateBox}>
-          <Text style={styles.dateText2}>{`${
-            monthDay[lastMonth] - firstDay + i + 1
-          }`}</Text>
-        </View>,
-      );
-    }
-
-    const background =
-      TouchableNativeFeedback.SelectableBackgroundBorderless &&
-      TouchableNativeFeedback.SelectableBackgroundBorderless();
-
-    for (let i = 1; i < monthDay[myMonth] + 1; i++) {
-      const now = this.getNowDay(myYear, myMonth + 1, i);
-      const today = moment(this.props.date).format('YYYY-MM-DD');
-
-      // console.log('today', today);
-      // console.log('test:', i);
-      if (busyDay[now]) {
-        // const d = i;
-        arr.push(
-          <Button
-            background={background}
-            onPress={() => {
-              // this.props.selectDay(now)
-              this.props.canceDay && this.props.canceDay(busyDay[now]);
-            }}
-            key={i}
-            style={styles.dateBox}>
-            <View
+        <StyledDateBoxBtn
+          width={width}
+          background={background}
+          onPress={() => {
+            // this.props.selectDay(now)
+            canceDay && canceDay(busyDay[now]);
+          }}
+          key={i}>
+          <View
+            style={[
+              styles.selected,
+              {
+                backgroundColor: color || theme.mainLightColor,
+                borderRadius: 17,
+              },
+            ]}>
+            <Text
               style={[
-                styles.selected,
+                styles.dateText,
                 {
-                  backgroundColor: this.props.color || theme.mainLightColor,
-                  borderRadius: 17,
+                  color: 'white',
                 },
               ]}>
-              <Text
-                style={[
-                  styles.dateText,
-                  {
-                    color: 'white',
-                  },
-                ]}>
-                {i + ''}
-              </Text>
-            </View>
-          </Button>,
-        );
-      } else if (today === now) {
-        arr.push(
-          <Button
-            background={background}
-            onPress={this.props.doneDay.bind(this, now)}
-            key={i}
-            style={styles.dateBox}>
-            <View style={[styles.selected]}>
-              <Text style={[styles.dateText1]}>{i + ''}</Text>
-            </View>
-          </Button>,
-        );
-      } else {
-        arr.push(
-          <Button
-            background={background}
-            onPress={this.props.doneDay.bind(this, now)}
-            key={i}
-            style={styles.dateBox}>
-            <View style={[styles.selected]}>
-              <Text style={[styles.dateText]}>{`${i}`}</Text>
-            </View>
-          </Button>,
-        );
-      }
-    }
-    const lastDay = 43 - firstDay - monthDay[myMonth];
-    for (let i = 1; i < lastDay; i++) {
+              {i + ''}
+            </Text>
+          </View>
+        </StyledDateBoxBtn>,
+      );
+    } else if (today === now) {
       arr.push(
-        <View key={i + 100} style={styles.dateBox}>
-          <Text style={styles.dateText2}>{i}</Text>
-        </View>,
+        <StyledDateBoxBtn
+          width={width}
+          background={background}
+          onPress={doneDay.bind(this, now)}
+          key={i}>
+          <View style={[styles.selected]}>
+            <Text style={[styles.dateText1]}>{i + ''}</Text>
+          </View>
+        </StyledDateBoxBtn>,
+      );
+    } else {
+      arr.push(
+        <StyledDateBoxBtn
+          width={width}
+          background={background}
+          onPress={doneDay.bind(this, now)}
+          key={i}>
+          <View style={[styles.selected]}>
+            <Text style={[styles.dateText]}>{`${i}`}</Text>
+          </View>
+        </StyledDateBoxBtn>,
       );
     }
-
-    return arr;
+  }
+  const lastDay = 43 - firstDay - monthDay[myMonth];
+  for (let i = 1; i < lastDay; i++) {
+    arr.push(
+      <StyledDateBox key={i + 100} width={width}>
+        <Text style={styles.dateText2}>{i}</Text>
+      </StyledDateBox>,
+    );
   }
 
-  render() {
-    return <View style={styles.dateBoard}>{this.renderDate()}</View>;
-  }
-}
+  return <>{arr}</>;
+};
+// }
+
+const DateBoard = <ItemT extends unknown>({
+  width,
+  ...rest
+}: PropsWithChildren<DateBoardProps<ItemT>>) => {
+  return (
+    <StyleddateBoard width={width}>
+      <RenderMain<ItemT> {...rest} width={width} />
+    </StyleddateBoard>
+  );
+};
+
+export default DateBoard;
+
+export const StyledDateBox = styled.View<{ width: number }>`
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: ${(props) => (props.width - 25) / 7};
+`;
+
+export const StyledDateBoxBtn = styled(Button)<{ width: number }>`
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: ${(props) => (props.width - 25) / 7};
+`;
+
+export const StyleddateBoard = styled.View<{ width: number }>`
+  margin-top: 8px;
+  width: ${(props) => props.width};
+  padding: 0px 12px;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
 
 const styles = StyleSheet.create({
-  dateBoard: {
-    marginTop: 8,
-    width,
-    paddingHorizontal: 12,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  dateBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: (width - 24 - 1) / 7,
-    height: 40,
-  },
+  // dateBox: {
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   width: (width1 - 24 - 1) / 7,
+  //   height: 40,
+  // },
   dateText: {
     fontSize: 13,
     minWidth: 20,
@@ -222,10 +244,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 35,
     height: 35,
-  },
-  addBtn: {
-    width,
-    height: 60,
   },
   point: {
     position: 'absolute',

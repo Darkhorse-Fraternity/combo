@@ -75,3 +75,5 @@ export const useScrollTitle = (title: string, offsetY: number = 35) => {
 
   return useCallback(onScroll, [offsetY, setOptions, title]);
 };
+
+export const use;
