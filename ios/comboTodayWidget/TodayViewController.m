@@ -15,7 +15,7 @@
 
 #define isIpad (([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] ? [[UIDevice currentDevice] userInterfaceIdiom] : UIUserInterfaceIdiomPhone)== UIUserInterfaceIdiomPad)
 #define LINEMAXHABITCOUNT  (isIpad ? 4 : 5)
-#define CELLHEIGTH  90
+#define CELLHEIGTH  80
 @interface TodayViewController () <NCWidgetProviding,UICollectionViewDelegate, UICollectionViewDataSource>
 //无数据
 @property (nonatomic,strong) UILabel *mianLab;
@@ -201,7 +201,7 @@
         // 设置展开的新高度
         CGFloat preferredContentH = 0;
         if (self.habitCount > 0) {
-            preferredContentH = self.collectionView.frame.size.height+self.collectionView.frame.origin.y+5;
+            preferredContentH = self.collectionView.frame.size.height+self.collectionView.frame.origin.y+20;
         }else{
             preferredContentH = 110;
         }
