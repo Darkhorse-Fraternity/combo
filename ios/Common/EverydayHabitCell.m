@@ -93,7 +93,7 @@
     }
 }
 -(void)tapView:(UITapGestureRecognizer *)sender{
-    if (self.model.canDone) {//能打卡
+    if (self.model.canDone && !self.model.isDone) {//能打卡 并且未打卡
         [UIView animateWithDuration:1.0 animations:^{
             //CALayer的3D旋转
             CATransform3D turnTrans = CATransform3DMakeRotation(M_PI, 0, 1, 0);
