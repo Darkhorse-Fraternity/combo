@@ -306,12 +306,10 @@ const CardInfo: FC<{}> = (props): JSX.Element => {
       user: userPoint(user.objectId), //粉丝查看也是这个入口，此时userid 不为自己
       // ...iCardM(iCardId),
       iCard: iCardPoint(iCardId),
-      statu: 'start',
+      statu: 'start', // Warning: '这样的话，当卡片为暂停时候，会重复加入，这么写是因为方便，否则要判段是否为开启状态'
     }),
     ...res,
   }));
-
-  console.log('data', data);
 
   // 添加习惯
   const { run, loading, data: iUseData } = usePostClassesIUse(

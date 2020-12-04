@@ -1,4 +1,4 @@
-import React, { useCallback, PureComponent, FC } from 'react';
+import React, { useCallback, FC } from 'react';
 
 import {
   StyledButton,

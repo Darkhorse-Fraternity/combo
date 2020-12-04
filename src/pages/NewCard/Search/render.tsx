@@ -43,8 +43,8 @@ const Search = () => {
       setText(value);
     },
     // delay in ms
-    500,
-    // { leading: true, trailing: true },
+    150,
+    { leading: true, trailing: true },
   );
 
   const firstRef = useRef(true);

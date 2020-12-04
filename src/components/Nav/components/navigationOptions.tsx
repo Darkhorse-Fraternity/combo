@@ -34,7 +34,7 @@ export const defaultNavigationOptions: StackNavigationOptions = {
   headerTintColor: 'black',
   headerTitleStyle: {
     alignItems: 'center',
-    fontSize: 23,
+    fontSize: 19,
     fontWeight: '400',
   },
   cardStyle: { backgroundColor: 'white' },

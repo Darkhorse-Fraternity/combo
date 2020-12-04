@@ -54,6 +54,7 @@ import { UserType } from 'src/data/data-context/interface';
 import { point } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { SoundsKeys } from '@configure/source';
+import { useScrollTitle } from '@components/util/hooks';
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy?: boolean;
@@ -316,9 +317,9 @@ const renderHeader = () => (
 const _renderSectionHeader = (info: {
   section: SectionListData<ItemType[], { title: string }>;
 }) => {
-  // if (info.section.title.length === 0) {
-  //   return <View style={{height: 30}} />;
-  // }
+  if (info.section.title.length === 0) {
+    return null;
+  }
   return (
     <StyledSectionHeader>
       <StyledSectionHeaderTitle numberOfLines={1}>
@@ -393,21 +394,22 @@ const Punch: FC<{}> = () => {
     };
   }, [run]);
 
-  const openSmallTitleRef = useRef(false);
-  const onScroll = useCallback(
-    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const y = event.nativeEvent.contentOffset.y;
-      if (!openSmallTitleRef.current && y > 35) {
-        openSmallTitleRef.current = true;
-        setOptions({ title: '小改变' });
-      }
-      if (openSmallTitleRef.current && y < 35) {
-        openSmallTitleRef.current = false;
-        setOptions({ title: '' });
-      }
-    },
-    [setOptions],
-  );
+  // const openSmallTitleRef = useRef(false);
+  // const onScroll = useCallback(
+  //   (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  //     const y = event.nativeEvent.contentOffset.y;
+  //     if (!openSmallTitleRef.current && y > 35) {
+  //       openSmallTitleRef.current = true;
+  //       setOptions({ title: '小改变' });
+  //     }
+  //     if (openSmallTitleRef.current && y < 35) {
+  //       openSmallTitleRef.current = false;
+  //       setOptions({ title: '' });
+  //     }
+  //   },
+  //   [setOptions],
+  // );
+  const onScroll = useScrollTitle('小改变');
 
   return (
     <StyledContent>
