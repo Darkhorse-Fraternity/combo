@@ -44,8 +44,6 @@ export const loadlocalRemind = async (): Promise<RemindDataType> => {
   const ids = await storage.getIdsForKey(remindKey);
   let values: boolean[] = [];
   try {
-    console.log('ids', ids);
-
     values = await storage.getBatchDataWithIds<boolean>({
       key: remindKey,
       ids,
@@ -58,8 +56,6 @@ export const loadlocalRemind = async (): Promise<RemindDataType> => {
   ids.forEach((id, index) => {
     data[id] = values[index];
   });
-
-  console.log('values', values);
 
   return data;
 };
@@ -95,13 +91,15 @@ export const useLoadlocalRemind = () => {
 };
 
 export const remind = (id: string, value: boolean) => {
-  console.log(id, value);
+  if (typeof value !== 'boolean') {
+    throw new Error('value类型错误');
+  }
 
   return storage
     .save({
       key: remindKey,
       id, // 注意:请不要在key中使用_下划线符号!
-      data: value,
+      data: !!value,
     })
     .then(() => {
       DeviceEventEmitter.emit(DeviceEventEmitterKey.remind_reload);
