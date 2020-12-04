@@ -5,7 +5,7 @@ import { ViewProps } from 'react-native';
 
 export interface CModalPropsType extends ViewProps {
   show?: boolean;
-  onClose?: () => void;
+  onClose: () => void;
   modalProps?: ModalProps;
   children?: React.ReactElement<ViewProps>;
 }

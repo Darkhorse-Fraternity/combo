@@ -248,7 +248,7 @@ const Following: FC<{}> = () => {
 
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
-      statu: { $ne: 'del' },
+      statu: 'start',
       user: userPoint(userId),
       privacy: Privacy.open,
     };
