@@ -109,7 +109,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
     if (isTourist) {
       Toast.show('参加副本需要先登录~!');
       // @ts-ignore: Unreachable code error
-      return this.props.navigation.navigate('login', {
+      return this.props.navigation.navigate(RouteKey.login, {
         transition: 'forVertical',
       });
     }
@@ -300,7 +300,7 @@ const RenderAppeal = () => {
             if (supported) {
               Linking.openURL('sinaweibo://messagelist?uid=6861885697');
             } else {
-              navigate('web', {
+              navigate(RouteKey.web, {
                 url: 'https://www.weibo.com/u/6861885697',
                 title: '小改变的微博',
               });

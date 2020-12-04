@@ -19,6 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useOrientation, useScrollTitle } from '@components/util/hooks';
 import PageList from '@components/Base/PageList';
 import { postCallFbList, PostCallFbListResponse } from 'src/hooks/interface';
+import { RouteKey } from '@pages/interface';
 
 type ItemType = NonNullable<PostCallFbListResponse['result']>[number];
 
@@ -60,7 +61,7 @@ const RenderItem = ({
   return (
     <StyledItem
       onPress={() => {
-        navigate('flagDetail', {
+        navigate(RouteKey.flagDetail, {
           flagId: objectId,
           iCardId: iCard.objectId,
         });

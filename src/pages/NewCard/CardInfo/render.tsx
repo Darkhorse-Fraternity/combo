@@ -243,7 +243,7 @@ const CardInfoClass: FC<PropsType> = (props) => {
         />
         <Button
           onPress={() => {
-            navigate('cardUse', {
+            navigate(RouteKey.cardUse, {
               iCardId: iCard.objectId,
             });
           }}

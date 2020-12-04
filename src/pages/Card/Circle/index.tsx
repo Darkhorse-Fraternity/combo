@@ -124,12 +124,12 @@ const RenderRow: FC<
     <>
       <StyledRow
         onPress={() => {
-          navigate('rcomment', { iDoID: item.objectId });
+          navigate(RouteKey.rcomment, { iDoID: item.objectId });
         }}>
         <Header
           user={item.user as UserType}
           onPress={() => {
-            navigate('following', {
+            navigate(RouteKey.following, {
               userId: item.user.objectId,
             });
           }}
@@ -202,7 +202,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
         title="成员"
         source={require('../../../../source/img/circle/member.png')}
         onPress={() => {
-          navigate('cardUse', {
+          navigate(RouteKey.cardUse, {
             iCardId: iCard.objectId,
           });
         }}
@@ -220,7 +220,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
           title={'设置'}
           source={require('../../../../source/img/circle/settings.png')}
           onPress={() => {
-            navigate('cirlcleSetting', {
+            navigate(RouteKey.cirlcleSetting, {
               iCardId: iCard.objectId,
             });
           }}

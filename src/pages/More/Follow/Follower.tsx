@@ -18,6 +18,7 @@ import {
   getUsersIdFollowers,
   GetUsersIdFollowersRequest,
 } from 'src/hooks/interface';
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 
 // const listKey = USER;
 
@@ -67,10 +68,11 @@ import {
 
 export const Follower: FC<{ tabLabel?: string }> = () => {
   const { navigate } = useNavigation();
-  const { user } = useGetInfoOfMe();
+  // const { user } = useGetInfoOfMe();
+  const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
   const loadPage = (page_index: number, page_size: number) => {
     const param: GetUsersIdFollowersRequest = {
-      id: user.objectId,
+      id: userId,
       limit: page_size + '',
       skip: page_index * page_size + '',
       order: '-createdAt',
@@ -94,8 +96,12 @@ export const Follower: FC<{ tabLabel?: string }> = () => {
           <FollowRow
             user={data.item}
             onPress={() => {
-              navigate('following', {
-                userId: data.item.objectId,
+              navigate({
+                name: RouteKey.following,
+                key: RouteKey.following + data.item.objectId,
+                params: {
+                  userId: data.item.objectId,
+                },
               });
             }}
           />

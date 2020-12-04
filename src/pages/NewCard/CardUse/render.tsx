@@ -26,8 +26,12 @@ const RenderItem: ListRenderItem<IUseType2> = ({ item }) => {
     <FollowRow
       user={(item.user as never) as UserType}
       onPress={() => {
-        navigate('following', {
-          userId: item.user.objectId,
+        navigate({
+          name: RouteKey.following,
+          key: RouteKey.following + item.user.objectId,
+          params: {
+            userId: item.user.objectId,
+          },
         });
       }}
     />

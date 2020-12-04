@@ -65,7 +65,15 @@ const RenderFollow: FC<{
     <StyleFolllow>
       <Button
         onPress={() => {
-          navigate('followee', { userId: data.objectId });
+          // navigate('followee', { userId: data.objectId });
+
+          navigate({
+            name: RouteKey.followee,
+            key: RouteKey.followee + data.objectId,
+            params: {
+              userId: data.objectId,
+            },
+          });
         }}>
         <StyleFollowText>{followees_count}</StyleFollowText>
         <StyleFollowTipText>关注</StyleFollowTipText>
@@ -73,7 +81,14 @@ const RenderFollow: FC<{
       <Button
         style={{ marginLeft: 50 }}
         onPress={() => {
-          navigate('follower', { userId: data.objectId });
+          // navigate('follower', { userId: data.objectId });
+          navigate({
+            name: RouteKey.follower,
+            key: RouteKey.follower + data.objectId,
+            params: {
+              userId: data.objectId,
+            },
+          });
         }}>
         <StyleFollowText>{followers_count}</StyleFollowText>
         <StyleFollowTipText>被关注</StyleFollowTipText>
@@ -91,7 +106,7 @@ const RenderRow = ({ item }: ListRenderItemInfo<IUseType2>) => {
       data={item}
       // img={img}
       onPress={() => {
-        navigate('recordDetail', {
+        navigate(RouteKey.recordDetail, {
           iUseId: item.objectId,
         });
       }}
@@ -168,7 +183,6 @@ const Following: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
   const { navigate } = useNavigation();
   const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
-  console.log('userId', userId);
 
   const { data } = useGetUsersId({ id: userId });
   // where: {

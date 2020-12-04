@@ -152,7 +152,7 @@ const Card: FC<{}> = (props) => {
                   );
                 }
               } else {
-                navigate('cardSetting', {
+                navigate(RouteKey.cardSetting, {
                   iCardId: iCard.objectId,
                   iUseId: iUseId,
                 });

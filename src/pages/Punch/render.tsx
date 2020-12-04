@@ -3,15 +3,7 @@
  * @flow
  */
 
-import React, {
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
   SectionList,
@@ -354,7 +346,6 @@ const Punch: FC<{}> = () => {
   const { objectId: uid } = user;
   const { data = [], loading, run } = useGetIuseData();
 
-  const { setOptions } = useNavigation();
   // console.log('data',data?.result);
 
   const _orientationDidChange = (orientation: string) => {

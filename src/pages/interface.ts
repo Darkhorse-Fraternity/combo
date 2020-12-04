@@ -13,7 +13,7 @@ export enum RouteKey {
   web = 'web',
   search = 'search',
   tool = 'tool',
-  flagRecord = 'FlagRecord',
+  flagRecord = 'flagRecord',
   earnings = 'earnings',
   remind = 'remind',
   cash = 'cash',
@@ -35,7 +35,7 @@ export enum RouteKey {
   more = 'more',
   login = 'login',
   flagDetail = 'flagDetail',
-  FRDetail = 'FRDetail',
+  frDetail = 'frDetail',
   cirlcleSetting = 'cirlcleSetting',
   clockIn = 'clockIn',
   log = 'log',
@@ -69,8 +69,8 @@ export type RootStackParamList = {
   [RouteKey.cash]: undefined;
   [RouteKey.recordDetail]: { iUseId: string };
   [RouteKey.cardSetting]: { iCardId: string; iUseId: string };
-  [RouteKey.followee]: undefined;
-  [RouteKey.follower]: undefined;
+  [RouteKey.followee]: { userId: string };
+  [RouteKey.follower]: { userId: string };
   [RouteKey.follow]: undefined;
   [RouteKey.following]: { userId: string };
   [RouteKey.creat]: { habit: CardItemType } | undefined;
@@ -86,7 +86,7 @@ export type RootStackParamList = {
   [RouteKey.more]: undefined;
   [RouteKey.login]: undefined;
   [RouteKey.flagDetail]: { iCardId: string; flagId: string; title?: string };
-  [RouteKey.FRDetail]: { flagId: string };
+  [RouteKey.frDetail]: { flagId: string };
   [RouteKey.cirlcleSetting]: { iCardId: string };
   [RouteKey.clockIn]: { iUseId: string; doneDateIso?: string; iDoId?: string };
   //tabs
