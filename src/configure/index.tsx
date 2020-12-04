@@ -1,13 +1,5 @@
-import React, {
-  FC,
-  memo,
-  PureComponent,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { FC, memo, PureComponent, useEffect, useRef } from 'react';
 // @ts-ignore: Unreachable code error
-import { connect } from 'react-redux';
 import { Platform, UIManager, Linking } from 'react-native';
 import Orientation from 'react-native-orientation';
 
@@ -20,11 +12,10 @@ import { epUpdate } from '../components/Update/EPUpdate';
 
 import LightStatuBar from '../Theme/LightStatuBar';
 // import InfoBar from '../components/InfoBar';
-import DataContext, { useGetUserInfo } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { isTablet } from 'react-native-device-info';
 import { navigationRef } from '@components/Nav/navigators';
 import { RouteKey } from '@pages/interface';
-import { UserType } from 'src/data/data-context/interface';
 import useLocalNotification from './localNotification';
 
 require('../../helps/AnimatableRegist');
@@ -270,7 +261,7 @@ const Configure: FC<{}> = ({ children }) => {
     <>
       <LightStatuBar />
       <ConfigureClass isLogin={isLogin} uid={user.objectId} />
-      {children}
+      {/* {children} */}
       {/* <InfoBar /> */}
       {/* <UserDependsClass /> */}
     </>

@@ -148,7 +148,7 @@ const RenderMain = <ItemT extends unknown>(
           onPress={doneDay.bind(this, now)}
           key={i}>
           <View style={[styles.selected]}>
-            <Text style={[styles.dateText1]}>{i + ''}</Text>
+            <Text style={[styles.dateText1]}>今</Text>
           </View>
         </StyledDateBoxBtn>,
       );
@@ -222,12 +222,12 @@ const styles = StyleSheet.create({
   //   height: 40,
   // },
   dateText: {
-    fontSize: 13,
+    fontSize: 15,
     minWidth: 20,
     textAlign: 'center',
   },
   dateText1: {
-    fontSize: 19,
+    fontSize: 14,
     minWidth: 20,
     // color: 'green',
     textAlign: 'center',

@@ -41,15 +41,25 @@ export const useLocalRemindConfig = () => {
 const remindKey = 'localRemind';
 export type RemindDataType = { [x: string]: boolean; all: boolean };
 export const loadlocalRemind = async (): Promise<RemindDataType> => {
-  const ids = await storage.getIdsForKey('localRemind');
-  const values = await storage.getBatchDataWithIds({
-    key: remindKey,
-    ids,
-  });
+  const ids = await storage.getIdsForKey(remindKey);
+  let values: boolean[] = [];
+  try {
+    console.log('ids', ids);
+
+    values = await storage.getBatchDataWithIds<boolean>({
+      key: remindKey,
+      ids,
+    });
+  } catch (error) {
+    console.log('loadlocalRemind error:', error);
+  }
+
   const data = { all: Platform.OS === 'ios' };
   ids.forEach((id, index) => {
     data[id] = values[index];
   });
+
+  console.log('values', values);
 
   return data;
 };
@@ -85,6 +95,8 @@ export const useLoadlocalRemind = () => {
 };
 
 export const remind = (id: string, value: boolean) => {
+  console.log(id, value);
+
   return storage
     .save({
       key: remindKey,

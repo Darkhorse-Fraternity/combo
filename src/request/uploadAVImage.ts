@@ -8,6 +8,7 @@
 import AV from 'leancloud-storage';
 import * as adapters from '@leancloud/platform-adapters-react-native';
 // import AsyncStorage from '@react-native-community/async-storage';
+//@ts-expect-error
 AV.setAdapters(adapters);
 import { LeanCloud_APP_ID, LeanCloud_APP_KEY } from '../configure/leancloud';
 // AV.initialize(LeanCloud_APP_ID, LeanCloud_APP_KEY);

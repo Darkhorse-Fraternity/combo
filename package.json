@@ -20,7 +20,7 @@
     "release-ios": "cd ios && fastlane beta && cd ../",
     "release": "semantic-release",
     "postversion": "react-native-version --never-amend",
-    "preminor":"npm version preminor  -m 'Upgrade to %s for reasons'"
+    "preminor": "npm version preminor  -m 'Upgrade to %s for reasons'"
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6",
@@ -28,9 +28,8 @@
     "@gorhom/animated-tabbar": "^2.1.0",
     "@hookform/resolvers": "^1.0.0",
     "@invertase/react-native-apple-authentication": "^1.1.2",
-    "@leancloud/platform-adapters-react-native": "^0.3.0",
-    "@react-native-community/async-storage": "1.7.1",
-    "@react-native-community/async-storage-backend-legacy": "^2.0.0-rc.3",
+    "@leancloud/platform-adapters-react-native": "^0.5.0",
+    "@react-native-community/async-storage": "1",
     "@react-native-community/blur": "git+https://github.com/react-native-community/react-native-blur.git",
     "@react-native-community/cameraroll": "4.0.0",
     "@react-native-community/clipboard": "^1.5.0",
@@ -45,7 +44,7 @@
     "axios": "^0.21.0",
     "i18n-js": "^3.5.1",
     "immutable": "3.8.2",
-    "leancloud-storage": "^4.6.1",
+    "leancloud-storage": "^4.8.1",
     "moment": "2.29.0",
     "normalizr": "3.6.1",
     "react": "16.13.1",

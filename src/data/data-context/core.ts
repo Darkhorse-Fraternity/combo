@@ -118,7 +118,7 @@ export const useMutateIuseData = () => {
         ...oldData,
         ...params,
       };
-      console.log('newData', newData);
+      // console.log('newData', newData);
 
       dispatch({ type: 'update_iUse', data: newData });
     },

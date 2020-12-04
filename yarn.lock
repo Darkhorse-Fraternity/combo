@@ -1449,6 +1449,14 @@
   resolved "https://registry.yarnpkg.com/@leancloud/adapter-utils/-/adapter-utils-1.0.0.tgz#1080561e72e14a55a77060ecf61e0f320260552e"
   integrity sha512-1K9w9IZmTRtQYgvAk90y7JtD4yzSH3GzmYzpTeRisR1MfzmyPObj+hd/H7h0et7Vvzq80NS9c68ieuvLcxviOQ==
 
+"@leancloud/adapter-utils@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@leancloud/adapter-utils/-/adapter-utils-1.2.0.tgz#fcfa38a7728413aae6886fe9fbfe81ecbf0e544a"
+  integrity sha512-+sjM8N6TNqlBKnlYjGqsb3wJ3kZDN2PiXnfE+DYsk/3DdeLesyn9gldr3yXtOYgQMgIsV+t7idvRcA7K33pSRA==
+  dependencies:
+    "@leancloud/adapter-types" "^4.0.0"
+    event-target-shim "^5.0.1"
+
 "@leancloud/adapters-superagent@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@leancloud/adapters-superagent/-/adapters-superagent-1.1.0.tgz#a57ba8bdc0cefdb1b962dfa9e14b993f5dc4beb4"
@@ -1459,13 +1467,31 @@
     "@types/superagent" "^4.1.7"
     superagent "^5.2.2"
 
-"@leancloud/platform-adapters-browser@^1.1.0", "@leancloud/platform-adapters-browser@^1.2.0":
+"@leancloud/adapters-superagent@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@leancloud/adapters-superagent/-/adapters-superagent-1.3.0.tgz#8a5f4ff22bce109da149a73aecc2b4396e43f047"
+  integrity sha512-778mAgKle6cxtSbmk6JCXVslPIvfN6XDRVxiDrWjpMopDhN9FqX5vH/X0+fl+mp9NcFwRH18cuXBzf8Ps70c/w==
+  dependencies:
+    "@leancloud/adapter-types" "^4.0.0"
+    "@leancloud/adapter-utils" "^1.2.0"
+    "@types/superagent" "^4.1.7"
+    superagent "^5.2.2"
+
+"@leancloud/platform-adapters-browser@^1.1.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@leancloud/platform-adapters-browser/-/platform-adapters-browser-1.2.0.tgz#43795b08fafd59e4e5853ae96e8416cdaf16f853"
   integrity sha512-++rT5hq/ALUUk6uzMYG9io/LL90+gzixoU1LypQYb25Fke2fAx0KdN0e+iCahSMjtfpx3CxowJDYAclxkLz/DA==
   dependencies:
     "@leancloud/adapter-types" "^4.0.0"
     "@leancloud/adapters-superagent" "^1.1.0"
+
+"@leancloud/platform-adapters-browser@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@leancloud/platform-adapters-browser/-/platform-adapters-browser-1.4.0.tgz#b414adf4c53bf18d6159c87f11c5f4b088a82793"
+  integrity sha512-6FB6osZuL9WkeMgYIOYiQGHU/Vs6k1COA1BhzM+nCl0LI9RMXZ4GTCkpGIvTAb6HJxIeWNB/i2ryHbCMejufxg==
+  dependencies:
+    "@leancloud/adapter-types" "^4.0.0"
+    "@leancloud/adapters-superagent" "^1.3.0"
 
 "@leancloud/platform-adapters-node@^1.1.0":
   version "1.2.0"
@@ -1478,15 +1504,14 @@
     localstorage-memory "^1.0.2"
     ws "^5.2.2"
 
-"@leancloud/platform-adapters-react-native@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@leancloud/platform-adapters-react-native/-/platform-adapters-react-native-0.3.0.tgz#187754c4b3aa923ae165d89e4df09fd1870fa96b"
-  integrity sha512-5Ttlm4e74Nu4Wd3J/WiP480rZ5k8+qk0dDHw1hO9px305Mho5B/1xfKh/awfgG/vDflruU6rPItY/ZaRn9JVmQ==
+"@leancloud/platform-adapters-react-native@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@leancloud/platform-adapters-react-native/-/platform-adapters-react-native-0.5.0.tgz#56429576854733fb734b84398a122a073dd7c9e2"
+  integrity sha512-rX10gFxXTEabXQ+K188rqGYnLNaKThSl4eZ7+9TWEBkpjmBchGXQGr0sDaaQWp0POP1rhC27QMjt+AhsWyum2Q==
   dependencies:
     "@leancloud/adapter-types" "^4.0.0"
-    "@leancloud/platform-adapters-browser" "^1.2.0"
-    "@react-native-community/async-storage" "^2.0.0-rc.2"
-    "@react-native-community/async-storage-backend-legacy" "^2.0.0-rc.2"
+    "@leancloud/platform-adapters-browser" "^1.4.0"
+    "@react-native-community/async-storage" "^1.11.0"
 
 "@leancloud/platform-adapters-weapp@^1.2.0":
   version "1.3.0"
@@ -1615,22 +1640,12 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@react-native-community/async-storage-backend-legacy@^2.0.0-rc.2", "@react-native-community/async-storage-backend-legacy@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage-backend-legacy/-/async-storage-backend-legacy-2.0.0-rc.3.tgz#4f905bcfa4168918b61835bcd80ab16c68e2f5a5"
-  integrity sha512-nWH8GDMxQ93Ayx1ZhQWZkH70yz8e2mGOeiF7xY7h1/GNxl0taWJrjaWRaHb9FNcC7xe42c33hIjJBRZe0cMlFQ==
+"@react-native-community/async-storage@1", "@react-native-community/async-storage@^1.11.0":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.12.1.tgz#25f821b4f6b13abe005ad67e47c6f1cee9f27b24"
+  integrity sha512-70WGaH3PKYASi4BThuEEKMkyAgE9k7VytBqmgPRx3MzJx9/MkspwqJGmn3QLCgHLIFUgF1pit2mWICbRJ3T3lg==
   dependencies:
-    "@react-native-community/async-storage" "^2.0.0-rc.3"
-
-"@react-native-community/async-storage@1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.7.1.tgz#ef2104d865de61ad91bba66613e57e689ff4e6a1"
-  integrity sha512-/oX/x+EU4xNaqIaC/epVKzO8XghzImPA7l8cLz3USEFmtFiXFjBbTeeIFjjEm/u4/cv38Wi1xMEa10PHIWygRg==
-
-"@react-native-community/async-storage@^2.0.0-rc.2", "@react-native-community/async-storage@^2.0.0-rc.3":
-  version "2.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-2.0.0-rc.3.tgz#e2ad162ef5eff1a32005753a7c054d463307b38f"
-  integrity sha512-inAIetMy5HwKA9vZGKrVzXA+Uxr7EzKy/IG+DsWTISEqQMwl0b3JWufRZHk3Xj7MqMSn8PdBDM/mmk5tY15qLg==
+    deep-assign "^3.0.0"
 
 "@react-native-community/blur@git+https://github.com/react-native-community/react-native-blur.git":
   version "3.5.0"
@@ -4821,6 +4836,13 @@ decompress-response@^6.0.0:
   integrity sha512-aW35yZM6Bb/4oJlZncMH2LCoZtJXTRxES17vE3hoRiowU2kWHaJKFkSBDnDR+cm9J+9QhXmREyIfv0pji9ejCQ==
   dependencies:
     mimic-response "^3.1.0"
+
+deep-assign@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/deep-assign/-/deep-assign-3.0.0.tgz#c8e4c4d401cba25550a2f0f486a2e75bc5f219a2"
+  integrity sha512-YX2i9XjJ7h5q/aQ/IM9PEwEnDqETAIYbggmdDB3HLTlSgo1CxPsj6pvhPG68rq6SVE0+p+6Ywsm5fTYNrYtBWw==
+  dependencies:
+    is-obj "^1.0.0"
 
 deep-extend@^0.6.0:
   version "0.6.0"
@@ -8235,10 +8257,10 @@ leancloud-realtime@^5.0.0-rc.2:
     protobufjs "^5.0.1"
     uuid "^3.0.0"
 
-leancloud-storage@^4.6.1:
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/leancloud-storage/-/leancloud-storage-4.6.1.tgz#48d11ab0a8a313e320f5de3f1b5d2c8983fb8491"
-  integrity sha512-eK6hgHiFMa8Nw7Y9EJoP2kmq5VKVEK6leWjm5HN3EDoaCIX/YlJVWFuwqiDeDrdqrHzW1eYSBWZMOiWOYNIgyA==
+leancloud-storage@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/leancloud-storage/-/leancloud-storage-4.8.1.tgz#f963fe3f6a29ee3ba38059c77b8e62a031298e5f"
+  integrity sha512-9UBCzdrq9qWIg44j3rgT55VQG3hOTHnS5/gx0O7ze6ZPsw1J5EK6UZ+YNxI2AGOWS+jC06VAroNhxRU3kmpmNw==
   dependencies:
     "@leancloud/adapter-types" "^3.0.0"
     "@leancloud/platform-adapters-browser" "^1.1.0"

@@ -94,6 +94,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
         update({
           objectId,
           doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },
+          time: time + 1,
         });
       } else {
         doIt();

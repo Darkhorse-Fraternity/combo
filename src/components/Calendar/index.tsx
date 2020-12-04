@@ -20,10 +20,10 @@ import ViewPagerAndroid, {
 import DateBoard, { DateBoardProps, isLeap } from './DateBoard';
 import { useDimensions } from '@components/util/hooks';
 
-interface CalendarProps<ItemT>
+export interface CalendarProps<ItemT>
   extends Omit<DateBoardProps<ItemT>, 'year' | 'month' | 'width'> {
   load: boolean;
-  move: (first: string, last: string) => void; // 加载当前月
+  fetch: (first: string, last: string) => void; // 加载当前月
 }
 
 interface CalendarState {
@@ -36,7 +36,7 @@ interface CalendarState {
   nextMonth: number;
   date: number; //月份
 }
-class CalendarClass<ItemT> extends PureComponent<
+export class CalendarClass<ItemT> extends PureComponent<
   CalendarProps<ItemT> & { width: number },
   CalendarState
 > {
@@ -201,7 +201,7 @@ class CalendarClass<ItemT> extends PureComponent<
     const monthString = month < 10 ? `0${month}` : `${month}`;
     const firstDay = `${monthString}-${monthString}-01`;
     const lastDay = `${year}-${monthString}-${this.monthDay[this.state.month]}`;
-    this.props.move && this.props.move(firstDay, lastDay);
+    this.props.fetch && this.props.fetch(firstDay, lastDay);
   };
 
   componentWillUnmount() {
@@ -301,14 +301,19 @@ class CalendarClass<ItemT> extends PureComponent<
   }
 }
 
-const Calendar = <ItemT extends unknown>(
-  props: PropsWithChildren<CalendarProps<ItemT>>,
-) => {
+const Calendar = <ItemT extends unknown>({
+  calendarRef,
+  ...rest
+}: PropsWithChildren<
+  CalendarProps<ItemT> & {
+    calendarRef?: React.RefObject<CalendarClass<ItemT>>;
+  }
+>) => {
   const {
     window: { width },
   } = useDimensions();
 
-  return <CalendarClass {...props} width={width} />;
+  return <CalendarClass {...rest} width={width} ref={calendarRef} />;
 };
 
 export default Calendar;

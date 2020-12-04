@@ -14,7 +14,6 @@ const initialUtilState = immutable.fromJS({
   loadAvatar: false,
   appState: '',
   loadStatu: {},
-  localRemind: {},
 });
 
 export default function drawState(state = initialUtilState, action) {
@@ -36,10 +35,6 @@ export default function drawState(state = initialUtilState, action) {
 
     case APP_STATE_UPDATE: {
       return state.set('appState', action.state);
-    }
-
-    case LOCAL_REMIND: {
-      return state.mergeDeep({ localRemind: action.data });
     }
 
     default:

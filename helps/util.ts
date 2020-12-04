@@ -3,6 +3,32 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const { RNAppUtil } = NativeModules;
 
+export function hexToRgb(hex: string) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  //@ts-nocheck
+  const normal = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  if (normal) {
+    return normal.slice(1).map((e) => parseInt(e, 16));
+  }
+  const shorthand = hex.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
+  if (shorthand) {
+    return shorthand.slice(1).map((e) => 0x11 * parseInt(e, 16));
+  }
+
+  return null;
+}
+
+export const rgbToHex = (r: number, g: number, b: number) =>
+  '#' + [r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('');
+
+// 判断颜色深浅
+export const isLightColorAction = (r: number, g: number, b: number) => {
+  const an = r * 0.299 + g * 0.578 + b * 0.114;
+  console.log('an', an);
+
+  return an > 192;
+};
+
 export function shadeBlend(p: number, c0: string, c1?: string) {
   const n = p < 0 ? p * -1 : p;
   const u = Math.round;
