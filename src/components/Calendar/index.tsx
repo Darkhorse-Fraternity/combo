@@ -13,12 +13,12 @@ import {
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  useWindowDimensions,
 } from 'react-native';
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard, { DateBoardProps, isLeap } from './DateBoard';
-import { useDimensions } from '@components/util/hooks';
 
 export interface CalendarProps<ItemT>
   extends Omit<DateBoardProps<ItemT>, 'year' | 'month' | 'width'> {
@@ -309,9 +309,7 @@ const Calendar = <ItemT extends unknown>({
     calendarRef?: React.RefObject<CalendarClass<ItemT>>;
   }
 >) => {
-  const {
-    window: { width },
-  } = useDimensions();
+  const { width } = useWindowDimensions();
 
   return <CalendarClass {...rest} width={width} ref={calendarRef} />;
 };

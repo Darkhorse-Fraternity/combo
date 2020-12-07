@@ -78,8 +78,6 @@ export default class ImagesViewModals extends Component<
 
   render() {
     const { imageUrls, visible, closeCallBack, index } = this.props;
-
-    console.log('test222`:', imageUrls);
     return (
       <Modal
         animated

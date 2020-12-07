@@ -378,28 +378,15 @@ const Punch: FC<{}> = () => {
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iUse_reload,
-      run,
+      () => {
+        run();
+      },
     );
     return () => {
       deEmitter.remove();
     };
   }, [run]);
 
-  // const openSmallTitleRef = useRef(false);
-  // const onScroll = useCallback(
-  //   (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-  //     const y = event.nativeEvent.contentOffset.y;
-  //     if (!openSmallTitleRef.current && y > 35) {
-  //       openSmallTitleRef.current = true;
-  //       setOptions({ title: '小改变' });
-  //     }
-  //     if (openSmallTitleRef.current && y < 35) {
-  //       openSmallTitleRef.current = false;
-  //       setOptions({ title: '' });
-  //     }
-  //   },
-  //   [setOptions],
-  // );
   const onScroll = useScrollTitle('小改变');
 
   return (

@@ -19,7 +19,6 @@ import {
   getUsersIdFollowees,
   GetUsersIdFolloweesRequest,
 } from 'src/hooks/interface';
-import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 
 // const listKey = USER;

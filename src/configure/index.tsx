@@ -196,7 +196,7 @@ const keyboardConfig = () => {
 //   }
 // }
 
-const Configure: FC<{}> = ({ children }) => {
+const Configure: FC<{}> = () => {
   const user = useGetUserInfo();
   // const { navigate } = useNavigation();
   const isLogin = !!user?.objectId;

@@ -13,7 +13,6 @@ import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import { UserType } from 'src/data/data-context/interface';
 import PageList from '@components/Base/PageList';
 import { useNavigation } from '@react-navigation/native';
-import { useGetInfoOfMe } from 'src/data/data-context/user';
 import {
   getUsersIdFollowers,
   GetUsersIdFollowersRequest,
