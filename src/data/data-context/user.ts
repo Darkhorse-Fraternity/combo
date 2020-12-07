@@ -30,7 +30,7 @@ import moment from 'moment';
 // @ts-ignore: Unreachable code error
 import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import DataContext from './index';
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c';
@@ -103,21 +103,25 @@ export function updateLocation(user: GetUsersMeResponse | GetUsersIdResponse) {
 
 export const useGetInfoOfMe = () => {
   const { data, dispatch } = useContext(DataContext);
+  // 这样写是为了避免在同一个方法内连续调用update，此时如果直接在usecallback 内调用data, data 是不可变的。并且无法被插件识别。
+  const userRef = useRef(data);
+  userRef.current = data;
   const updateMe = useCallback(
     (info: Partial<GetUsersIdResponse | GetUsersMeResponse>) => {
       updateLocation({
-        ...data.user,
+        ...userRef.current.user,
         ...info,
       });
+
       dispatch({
         type: 'update_user_info',
         user: {
-          ...data.user,
+          ...userRef.current.user,
           ...(info as UserType),
         },
       });
     },
-    [data.user, dispatch],
+    [dispatch],
   );
 
   const replaceMe = useCallback(
@@ -605,7 +609,7 @@ export const useQQLogin = () => {
           authData: {
             ...user.authData,
             anonymous: { __op: 'Delete' },
-            weixin: qqConfig,
+            qq: qqConfig,
           },
         };
         putUsersId({ id: user.objectId, ...params });
@@ -662,8 +666,6 @@ export const useAppleLogin = () => {
   const { user, replaceMe, updateMe } = useGetInfoOfMe();
   const run = useCallback(async () => {
     try {
-    } catch (e) {
-      // console.log(e);
       setLoading(true);
       // let user = getState().user.data;
       const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -686,6 +688,8 @@ export const useAppleLogin = () => {
       if (credentialState !== 1) {
         return setLoading(false);
       }
+
+      console.log('appleAuthRequestResponse', appleAuthRequestResponse);
 
       const userExsit = await getUserExsitJudge(
         'lc_apple',
@@ -742,7 +746,10 @@ export const useAppleLogin = () => {
         // return dispatch(updateUserInfo(user.objectId, exData));
       }
       setLoading(false);
-      SimpleToast.show(e.message);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      // SimpleToast.show(e.message);
     }
   }, [replaceMe, updateMe, user]);
   return { loading, run };

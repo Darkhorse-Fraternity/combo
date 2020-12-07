@@ -31,6 +31,7 @@ export const StyledHeaderName = styled.Text`
   font-weight: 300;
   max-width: 150px;
   margin-top: 5px;
+  text-align: center;
 `;
 
 export const StyledAvatar = styled.Image`

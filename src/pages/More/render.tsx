@@ -111,7 +111,6 @@ const RenderHeadRow = () => {
   const { navigate } = useNavigation();
   const user = useGetUserInfo();
   const { isTourist, ...data } = user!;
-
   const name = isTourist ? '点击登录' : data.nickname || '匿名';
 
   return (

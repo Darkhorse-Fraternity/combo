@@ -102,12 +102,15 @@ const denormalizeIUse = <T>(
 
 export const useMutateIuseData = () => {
   const { data, dispatch } = useContext(DataContext);
+  // 这样写是为了避免在同一个方法内连续调用update，此时如果直接在usecallback 内调用data, data 是不可变的。并且无法被识别。
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
   const update = useCallback(
     (params: IUseUpdateType) => {
       const oldData = denormalize(params.objectId, iUseSceme, {
-        iUse: data.iUses_self.entities,
-        iCard: data.iCards_self,
+        iUse: dataRef.current.iUses_self.entities,
+        iCard: dataRef.current.iCards_self,
       });
 
       if (!oldData) {
@@ -122,7 +125,7 @@ export const useMutateIuseData = () => {
 
       dispatch({ type: 'update_iUse', data: newData });
     },
-    [data.iCards_self, data.iUses_self.entities, dispatch],
+    [dispatch],
   );
 
   const add = useCallback(
@@ -142,11 +145,12 @@ export const useMutateIuseData = () => {
 
 export const useMutateICardData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
-
+  const userRef = useRef(data.iCards_self);
+  userRef.current = data.iCards_self;
   const update = useCallback(
     (params: ICardUpdateType) => {
       const oldData = denormalize(params.objectId, iCardSceme, {
-        iCard: data.iCards_self,
+        iCard: userRef.current.iCards_self,
       });
       const newData = {
         ...oldData,
@@ -154,7 +158,7 @@ export const useMutateICardData = <T>(id?: T) => {
       };
       dispatch({ type: 'update_iCard', data: newData });
     },
-    [data.iCards_self, dispatch],
+    [dispatch],
   );
 
   const outData =
