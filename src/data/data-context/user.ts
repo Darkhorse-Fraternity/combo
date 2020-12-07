@@ -4,6 +4,7 @@ import {
   getUsersMe,
   GetUsersMeResponse,
   postBatch,
+  PostBatchResponse,
   postCallUserExsitJudge,
   postUsers,
   postUsersByMobilePhone,
@@ -164,7 +165,7 @@ const anonymousUser = async () => {
 
     const user = await postUsers({ authData: { anonymous: anonymousConfig } });
     setLeanCloudSession(user.sessionToken || '');
-    addSample(user);
+    await addSample(user);
 
     return user;
     // console.log('user:', user);
@@ -194,9 +195,13 @@ const addSample = async (user: PostUsersResponse) => {
     // const iCardsBatch = classBatch(iCardsReq);
     // const iCardsRes = await get(iCardsBatch);
     const iUseReq: ReturnType<typeof classCreatNewOne>[] = [];
-    iCardsRes.forEach((item) => {
-      if (item.success) {
-        const iUseParam = iUseSample(objectId, item.success.objectId);
+
+    //@ts-expect-error
+    const values = Object.values<PostBatchResponse['number']>(iCardsRes);
+
+    values.forEach((item) => {
+      if (item?.success) {
+        const iUseParam = iUseSample(objectId, item?.success.objectId);
         iUseReq.push(classCreatNewOne('iUse', iUseParam));
       }
     });

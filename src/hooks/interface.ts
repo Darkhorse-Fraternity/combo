@@ -5770,7 +5770,7 @@ const dataKey_0_1_0_8 = undefined as any
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
 export interface PostBatchRequest {
   requests: {
@@ -5785,25 +5785,27 @@ export interface PostBatchRequest {
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
-export type PostBatchResponse = {
-  error?: {
-    code: number
-    error: string
+export interface PostBatchResponse {
+  number?: {
+    error?: {
+      code: number
+      error: string
+    }
+    success?: {
+      updatedAt: string
+      objectId: string
+    }
   }
-  success?: {
-    updatedAt: string
-    objectId: string
-  }
-}[]
+}
 
 /**
  * 接口 [组合请求↗](http://121.89.170.197:3000/project/59/interface/api/582) 的 **请求配置的类型**
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
 type PostBatchRequestConfig = Readonly<
   RequestConfig<
@@ -5823,7 +5825,7 @@ type PostBatchRequestConfig = Readonly<
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
 const postBatchRequestConfig: PostBatchRequestConfig = {
   mockUrl: mockUrl_0_1_0_8,
@@ -5844,7 +5846,7 @@ const postBatchRequestConfig: PostBatchRequestConfig = {
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
 export const postBatch = makeRequest<PostBatchRequest, PostBatchResponse, PostBatchRequestConfig>(
   postBatchRequestConfig,
@@ -5855,7 +5857,7 @@ export const postBatch = makeRequest<PostBatchRequest, PostBatchResponse, PostBa
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /batch`
- * @更新时间 `2020-12-01 10:04:46`
+ * @更新时间 `2020-12-07 16:52:52`
  */
 export const usePostBatch = makeRequestHook<PostBatchRequest, PostBatchRequestConfig, ReturnType<typeof postBatch>>(
   postBatch,
