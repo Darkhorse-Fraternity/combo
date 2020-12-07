@@ -31,8 +31,11 @@ export const StyledItem = styled(Button)`
   shadow-offset: 0px 3px;
 `;
 
-export const StyledItemImage = styled(FastImage)<{ numColumns: number }>`
-  width: ${(props) => props.theme.getWidth() / props.numColumns - 40};
+export const StyledItemImage = styled(FastImage)<{
+  numColumns: number;
+  width: number;
+}>`
+  width: ${(props) => props.width / props.numColumns - 40};
   aspect-ratio: 1.5;
   border-radius: 20px;
   align-self: center;

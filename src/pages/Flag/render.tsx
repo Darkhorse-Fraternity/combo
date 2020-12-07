@@ -20,6 +20,7 @@ import { useOrientation, useScrollTitle } from '@components/util/hooks';
 import PageList from '@components/Base/PageList';
 import { postCallFbList, PostCallFbListResponse } from 'src/hooks/interface';
 import { RouteKey } from '@pages/interface';
+import { useWindowDimensions } from 'react-native';
 
 type ItemType = NonNullable<PostCallFbListResponse['result']>[number];
 
@@ -39,7 +40,7 @@ const RenderItem = ({
   numColumns: number;
 }) => {
   const { navigate } = useNavigation();
-
+  const { width } = useWindowDimensions();
   const {
     title,
     objectId,
@@ -67,6 +68,7 @@ const RenderItem = ({
         });
       }}>
       <StyledItemImage
+        width={width}
         numColumns={numColumns}
         source={{ uri: item.cover.url }}
       />

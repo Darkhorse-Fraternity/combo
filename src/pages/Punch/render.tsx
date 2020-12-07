@@ -359,7 +359,7 @@ const Punch: FC<{}> = () => {
   };
 
   useEffect(() => {
-    isTablet() && Orientation.removeOrientationListener(_orientationDidChange);
+    isTablet() && Orientation.addOrientationListener(_orientationDidChange);
     return () => {
       isTablet() &&
         Orientation.removeOrientationListener(_orientationDidChange);

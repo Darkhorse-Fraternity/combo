@@ -12,7 +12,7 @@ import CodePush, { DownloadProgress } from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
 
 import { creatStore } from './redux/store';
-import { theme } from './Theme';
+import theme, { getTheme } from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,6 +22,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from '@components/Nav/navigators';
 import { Provider } from './data/data-context';
 import { useTracker } from '@components/umeng/umTracking';
+import { useDimensions } from '@components/util/hooks';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);

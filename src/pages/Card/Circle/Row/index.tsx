@@ -52,8 +52,8 @@ const RenderLikes: FC<ItemType> = (props) => {
         key: 'likeRecord',
         id: objectId,
       })
-      .then((liked: boolean) => {
-        setLiked(liked);
+      .then((liked1: boolean) => {
+        setLiked(liked1);
       })
       .catch();
   }, [objectId]);
