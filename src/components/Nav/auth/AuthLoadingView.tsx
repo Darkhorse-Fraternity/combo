@@ -49,14 +49,20 @@ const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
   }, [run, uid]);
 
   useEffect(() => {
+    let timeId: number | undefined;
     if (state) {
       firstInstaller().then((isFirstInstaller) => {
         props.navigation.dispatch(StackActions.replace('tab'));
         if (isTourist && isFirstInstaller) {
-          props.navigation.navigate(RouteKey.login);
+          timeId = setTimeout(() => {
+            props.navigation.navigate(RouteKey.login);
+          }, 100);
         }
       });
     }
+    return () => {
+      timeId && clearTimeout(timeId);
+    };
   }, [isTourist, state, props.navigation]);
 
   return (
