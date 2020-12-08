@@ -71,6 +71,7 @@ export const StyledDiscrib = styled.Text`
   margin-top: 5px;
   color: #9ea0a0;
   font-size: 13px;
+  min-width: 150px;
 `;
 
 export const StyledArrow = styled.View`

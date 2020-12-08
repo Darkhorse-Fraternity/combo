@@ -24,7 +24,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { usePostClassesEnchashment } from 'src/hooks/interface';
 import SimpleToast from 'react-native-simple-toast';
 import { useNavigation } from '@react-navigation/native';
-import { TextInputProps } from 'react-native';
+import { TextInputProps, View } from 'react-native';
 // const selector = formValueSelector(FormID);
 
 // @connect(
@@ -122,7 +122,7 @@ const Cash: FC<{}> = () => {
   const { goBack } = useNavigation();
   const { getValues, handleSubmit, control, errors } = useForm<FormData>({
     resolver: yupResolver(validationSchema),
-    defaultValues: { amount: 0, name: '', account: '' },
+    defaultValues: { amount: 10, name: '', account: '' },
     mode: 'onSubmit',
   });
 
@@ -231,7 +231,7 @@ const Cash: FC<{}> = () => {
           // onChangeText={text => setval}
           as={ControlStyledInput}
         />
-
+        <View style={{ height: 50 }} />
         {des.map((text, index) => (
           <StyledDiscrib key={index}>{text}</StyledDiscrib>
         ))}

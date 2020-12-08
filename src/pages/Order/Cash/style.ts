@@ -26,12 +26,12 @@ export const StyledRowInner = styled.View``;
 
 export const StyledDiscrib = styled.Text`
   margin-bottom: 3px;
-  font-size: 17px;
+  font-size: 13px;
   color: #bfc2ce;
   line-height: 25px;
 `;
 
-export const StyledContent = styled.View`
+export const StyledContent = styled.ScrollView`
   background-color: white;
   padding-bottom: 20px;
 `;

@@ -20,11 +20,19 @@ export const StyledRowInner = styled.View`
 `;
 
 export const StyledRowTitle = styled.Text`
-  font-size: 17px;
+  font-size: 15px;
+  min-width: 180px;
 `;
 
 export const StyledRowDate = styled.Text`
   font-size: 15px;
+  min-width: 90px;
+  text-align: right;
+`;
+export const StyledRowDate2 = styled.Text`
+  font-size: 15px;
+  min-width: 140px;
+  text-align: left;
 `;
 
 export const StyledRowAmount = styled.Text`
