@@ -38,7 +38,10 @@ export const useGetIuseData = <T>(id?: T) => {
 
   const { data: iUseData, run, ...other } = usePostCallIUseList3(
     {},
-    { manual: true, cacheTime: 0, staleTime: 100 },
+    {
+      manual: true,
+      // cacheKey: ('PostCallIUseList3' + getHeader()?.token) as string,
+    },
   );
 
   const addIuse = useCallback(
@@ -60,7 +63,7 @@ export const useGetSafeIUseData = (id: string) => {
   const { data: loaclData, ...rest1 } = useGetIuseData(id);
   const { data, run, ...rest2 } = useGetClassesIUseId(
     { id, include: 'iCard' },
-    { manual: true },
+    { manual: true, cacheKey: 'GetClassesIUseId' },
   );
 
   useEffect(() => {

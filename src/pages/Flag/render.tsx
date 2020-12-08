@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import {
   StyledHeader,
@@ -20,7 +20,7 @@ import { useOrientation, useScrollTitle } from '@components/util/hooks';
 import PageList from '@components/Base/PageList';
 import { postCallFbList, PostCallFbListResponse } from 'src/hooks/interface';
 import { RouteKey } from '@pages/interface';
-import { useWindowDimensions } from 'react-native';
+import { ListRenderItem, useWindowDimensions } from 'react-native';
 
 type ItemType = NonNullable<PostCallFbListResponse['result']>[number];
 
@@ -67,15 +67,17 @@ const RenderItem = ({
           iCardId: iCard.objectId,
         });
       }}>
-      <StyledItemImage
-        width={width}
-        numColumns={numColumns}
-        source={{ uri: item.cover.url }}
-      />
-      <StyledItemCover position={position}>
-        <StyledItemTitle color={color}>{title}</StyledItemTitle>
-        <StyledItemText color={dColor}>{discirb}</StyledItemText>
-      </StyledItemCover>
+      <>
+        <StyledItemImage
+          width={width}
+          numColumns={numColumns}
+          source={{ uri: item.cover.url }}
+        />
+        <StyledItemCover position={position}>
+          <StyledItemTitle color={color}>{title}</StyledItemTitle>
+          <StyledItemText color={dColor}>{discirb}</StyledItemText>
+        </StyledItemCover>
+      </>
     </StyledItem>
   );
 };
@@ -85,22 +87,27 @@ const Render: FC<{}> = () => {
   const ori = useOrientation();
   const numColumns = isTablet() ? (ori === 'LANDSCAPE' ? 3 : 2) : 1;
 
-  const loadPage = (page_index: number, page_size: number) => {
+  const loadPage = useCallback((page_index: number, page_size: number) => {
     const param = {
       limit: page_size + '',
       skip: page_index * page_size + '',
     };
     return postCallFbList(param).then((res) => res.result);
-  };
+  }, []);
+
+  const renderItem: ListRenderItem<ItemType> = useCallback(
+    (props) => <RenderItem {...props} numColumns={numColumns} />,
+    [numColumns],
+  );
 
   return (
     <PageList<ItemType>
       loadPage={loadPage}
-      style={{ overflow: 'visible' }}
+      // style={{ overflow: 'visible' }}
       numColumns={numColumns}
       key={numColumns} // https://stackoverflow.com/questions/44291781/dynamically-changing-number-of-columns-in-react-native-flat-list
       onScroll={onScroll}
-      renderItem={(props) => <RenderItem {...props} numColumns={numColumns} />}
+      renderItem={renderItem}
       ListHeaderComponent={RenderHeader}
     />
   );

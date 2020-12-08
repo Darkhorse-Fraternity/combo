@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useRef } from 'react';
 import { Animated } from 'react-native';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view';
@@ -19,7 +19,10 @@ import EarningRecord from '../Record/EarningsRecord';
 import CostRecord from '../Record/CostRecord';
 import CashRecord from '../Record/CashRecord';
 import EZTabBar from '../../../components/Groceries/EZTabBar';
-import { useGetInfoOfMe, useUpdateMe } from 'src/data/data-context/user';
+import {
+  useGetInfoOfMe,
+  useUpdateMeFromRemote,
+} from 'src/data/data-context/user';
 import { UserType } from 'src/data/data-context/interface';
 import { useNavigation } from '@react-navigation/native';
 
@@ -81,11 +84,7 @@ const RenderHeader: FC<{ user: UserType }> = (props) => {
 
 const Earnings: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
-  const { run } = useUpdateMe();
-
-  useEffect(() => {
-    run();
-  }, [run]);
+  useUpdateMeFromRemote();
 
   return (
     <StyledContent>

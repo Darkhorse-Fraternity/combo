@@ -13,6 +13,7 @@ import {
   postVerifySmsCodeCode,
   putUsersId,
   PutUsersIdRequest,
+  useGetUsersMe,
   usePutUsersId,
 } from 'src/hooks/interface';
 import { AuthDataKey, UserType } from './interface';
@@ -45,18 +46,20 @@ import appleAuth, {
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
 
-export const useUpdateMe = () => {
-  const { dispatch: contextDispatch } = useContext(DataContext);
-  const run = useCallback(() => {
-    userInfo().then((user) => {
-      updateLocation(user as never);
-      contextDispatch({ type: 'update_user_info', user: user as never });
-    });
-  }, [contextDispatch]);
+export const useUpdateMeFromRemote = (manual: boolean = false) => {
+  const { replaceMe } = useGetInfoOfMe();
+  const { run } = useGetUsersMe(
+    {},
+    {
+      manual,
+      onSuccess: (me) => replaceMe(me),
+      cacheKey: 'GetInfoOfMe',
+    },
+  );
   return { run };
 };
 
-export async function userInfo() {
+export async function userInfoFromLocal() {
   // const uuid =  DeviceInfo.getUniqueID()
 
   try {
@@ -68,22 +71,16 @@ export async function userInfo() {
       const { sessionToken } = user;
       if (sessionToken) {
         // 更新用户数据
-        setLeanCloudSession(sessionToken);
-        update();
-
         return user;
-      } else {
-        return anonymousUser();
       }
-    } else {
-      return anonymousUser();
     }
+    return null;
   } catch (e) {
-    return anonymousUser();
+    return null;
   }
 }
 
-export async function update() {
+export async function updateFromRemote() {
   //   const params = usersMe();
   //   const res = await get(params);
 
@@ -154,7 +151,7 @@ export const useGetInfoOfMe = () => {
   return { user: data.user, updateMe, replaceMe, logout };
 };
 
-const anonymousUser = async () => {
+export const anonymousUser = async () => {
   let uniqueId = DeviceInfo.getUniqueId();
   // console.log('uniqueId', uniqueId);
   if (Platform.OS === 'ios') {
@@ -168,10 +165,10 @@ const anonymousUser = async () => {
     // await dispatch(_loginSucceed(user));
 
     const user = await postUsers({ authData: { anonymous: anonymousConfig } });
-    setLeanCloudSession(user.sessionToken || '');
+    setLeanCloudSession(user.sessionToken || ''); //需要提前加，否则addSample 会出错。
     await addSample(user);
 
-    return user;
+    return user as UserType;
     // console.log('user:', user);
   } catch (e) {
     SimpleToast.show(e.message);
@@ -181,7 +178,7 @@ const anonymousUser = async () => {
     // const user = await anonymousUser();
     // return user;
     const user = postUsers({ authData: { anonymous: anonymousConfig } });
-    return user;
+    return (user as unknown) as UserType;
   }
 };
 

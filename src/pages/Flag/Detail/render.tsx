@@ -342,7 +342,10 @@ const FlagDetail: FC<{}> = (props) => {
   const { flagId, iCardId } = useNavigationAllParamsWithType<
     RouteKey.flagDetail
   >();
-  const { data } = useGetClassesFlagId({ id: flagId, include: 'iCard' });
+  const { data } = useGetClassesFlagId(
+    { id: flagId, include: 'iCard' },
+    { cacheKey: 'GetClassesFlagId' },
+  );
   const { user } = useGetInfoOfMe();
   const { setParams } = useNavigation();
   const where = {
@@ -351,11 +354,14 @@ const FlagDetail: FC<{}> = (props) => {
     user: userPoint(user.objectId),
     Flag: FlagPoint(flagId),
   };
-  const { data: record } = useGetClassesFlagRecord({
-    count: '1',
-    limit: '0',
-    where: JSON.stringify(where),
-  });
+  const { data: record } = useGetClassesFlagRecord(
+    {
+      count: '1',
+      limit: '0',
+      where: JSON.stringify(where),
+    },
+    { cacheKey: 'GetClassesFlagRecord' },
+  );
 
   useEffect(() => {
     if (data?.iCard?.title) {

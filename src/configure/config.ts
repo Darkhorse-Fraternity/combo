@@ -73,7 +73,7 @@ export const getNetworkConfig = () => {
 };
 
 export const getHeader = () => {
-  return networkConifg.headers;
+  return networkConifg.headers as { token: string };
 };
 
 export const getHost = () => {

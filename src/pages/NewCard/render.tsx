@@ -18,6 +18,7 @@ import {
   StyledTop,
   StyledHerderButton,
   StyledHeaderText,
+  StyledContent,
 } from './style';
 import CardTemplate from './CardTemplate';
 import { habits } from '../../configure/habit';
@@ -106,15 +107,17 @@ const NewCard: FC<{}> = () => {
   };
 
   return (
-    <PageList<ICardType>
-      ListHeaderComponent={ListHeaderComponet}
-      loadPage={loadPage}
-      style={styles.list}
-      columnWrapperStyle={styles.columnWrapperStyle}
-      numColumns={4}
-      // footerStyle={{ paddingBottom: 60 }}
-      renderItem={renderRow}
-    />
+    <StyledContent>
+      <PageList<ICardType>
+        ListHeaderComponent={ListHeaderComponet}
+        loadPage={loadPage}
+        style={styles.list}
+        columnWrapperStyle={styles.columnWrapperStyle}
+        numColumns={4}
+        // footerStyle={{ paddingBottom: 60 }}
+        renderItem={renderRow}
+      />
+    </StyledContent>
   );
 };
 

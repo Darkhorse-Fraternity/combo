@@ -3,6 +3,8 @@ import { Request } from './interface';
 import baseRequest from './request';
 import useRequest from '@ahooksjs/use-request';
 import { OptionsWithFormat } from '@ahooksjs/use-request/lib/types';
+// import axios from 'axios';
+// import { useEffect, useMemo } from 'react';
 
 interface OptionsWithFormat2<R, P extends unknown[], U, UU extends U>
   extends Omit<OptionsWithFormat<R, P, U, UU>, 'formatResult'> {
@@ -30,11 +32,26 @@ export default function makeRequestHook<
 
   return <U = unknown, R = ThenArg<TRequestResult>, N = U extends {} ? U : R>(
     requestData: RequestDataType<TRequestData, TRequestResult>,
-    config?: OptionsWithFormat2<R, P, N, N>,
+    config?: OptionsWithFormat2<R, P, N, N> & { isUnmountedAbort?: boolean },
   ) => {
+    // 全局添加取消,对外会描述性太差。
+    // const cancelTokenSource = useMemo(() => axios.CancelToken.source(), []);
+    // useEffect(() => {
+    //   return () => {
+    //     cancelTokenSource.cancel();
+    //   };
+    // }, [cancelTokenSource]);
+
+    const newConfig: OptionsWithFormat<R, P, N, N> = {
+      cacheTime: -1,
+      ...config,
+    } as OptionsWithFormat<R, P, N, N>;
+
     return useRequest<R, P, N>(requestData, {
-      requestMethod: (param: TRequestData) => request(param),
-      ...((config as unknown) as OptionsWithFormat<R, P, N, N>),
+      requestMethod: (param: TRequestData) =>
+        // request({ ...param, cancelToken: cancelTokenSource.token }),
+        request(param),
+      ...newConfig,
     });
   };
 }

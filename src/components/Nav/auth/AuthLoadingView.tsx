@@ -1,8 +1,6 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
-
-// import { userInfo } from '../../../redux/actions/user';
 
 import { firstInstaller } from '../../../../helps/util';
 import Indicators from '../../Indicators';
@@ -12,33 +10,43 @@ import {
   ParamListBase,
   StackActions,
 } from '@react-navigation/native';
-import { updateLocation, userInfo } from 'src/data/data-context/user';
-import DataContext from 'src/data/data-context';
+import {
+  anonymousUser,
+  useGetInfoOfMe,
+  userInfoFromLocal,
+  useUpdateMeFromRemote,
+} from 'src/data/data-context/user';
 import { useGetIuseData } from 'src/data/data-context/core';
 import { RouteKey } from '@pages/interface';
 
 const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
-  const { data, dispatch: contextDispatch } = useContext(DataContext);
-  const {
-    user: { objectId: uid, isTourist },
-  } = data;
-
   const { run } = useGetIuseData();
+  const { run: updateMeFromRemoteRun } = useUpdateMeFromRemote(true);
+  const { user, replaceMe } = useGetInfoOfMe();
+  const { objectId: uid, isTourist } = user;
   const [state, setstate] = useState(false);
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
       if (isConnected) {
         console.log('join');
-        userInfo().then((user) => {
-          updateLocation(user as never);
-          contextDispatch({ type: 'update_user_info', user: user as never });
+        userInfoFromLocal().then((user1) => {
+          //先从本地获取数据
+          if (user1) {
+            replaceMe(user1);
+            updateMeFromRemoteRun(); // 远程更新
+          } else {
+            //如果本地没有缓存则注册匿名用户。
+            anonymousUser().then((user2) => {
+              replaceMe(user2);
+            });
+          }
         });
       }
     });
     return () => {
       unsubscribe();
     };
-  }, [contextDispatch]);
+  }, [replaceMe, updateMeFromRemoteRun]);
 
   useEffect(() => {
     if (uid && uid.length > 0) {

@@ -6,18 +6,15 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Image,
   Dimensions,
   StatusBar,
   Platform,
-  ActivityIndicator,
   Modal,
 } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import { strings } from '../../../locales/i18n';
 import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 // import Modal from 'react-native-modal';
-import Button from '../Button';
 import { Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
