@@ -18,8 +18,10 @@ import { strings } from '../../../locales/i18n';
 import { saveToCameraRoll } from '../../../helps/saveToCameraRoll';
 // import Modal from 'react-native-modal';
 import Button from '../Button';
+import { Text } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
+import { LoadAnimation } from '@components/Load';
 
 interface ImagesViewModalsPorps {
   imageUrls?: IImageInfo[];
@@ -28,6 +30,45 @@ interface ImagesViewModalsPorps {
   index: number;
   height: number;
 }
+
+const renderIndicator = (currentIndex?: number, allSize?: number) => {
+  if (allSize === 1) {
+    return <Text />;
+  }
+  return <Text style={styles.indicator}>{`${currentIndex} / ${allSize}`}</Text>;
+};
+
+const loadingRender = () => {
+  return <LoadAnimation />;
+};
+
+const failImageSource = {
+  url: 'http://file.icourage.cn/a246745cdeec889e50c6.png/error.png',
+  width: Dimensions.get('window').width,
+  height: Dimensions.get('window').width,
+};
+
+// const renderHeader = (props: { closeCallBack: () => void }) => (
+//   <Button
+//     hitSlop={{
+//       top: 15,
+//       left: 15,
+//       bottom: 25,
+//       right: 40,
+//     }}
+//     style={styles.header}
+//     onPress={() => {
+//       // this.setState({ visible: false })
+
+//       const { closeCallBack } = props;
+//       closeCallBack && closeCallBack();
+//     }}>
+//     <Image
+//       source={require('../../../source/img/visitor/visitor_delete.png')}
+//       style={styles.close}
+//     />
+//   </Button>
+// );
 
 export default class ImagesViewModals extends Component<
   ImagesViewModalsPorps,
@@ -54,44 +95,18 @@ export default class ImagesViewModals extends Component<
   //   this.jobId && RNFS.stopDownload(this.jobId)
   // }
 
-  __renderHeader = () => (
-    <Button
-      hitSlop={{
-        top: 15,
-        left: 15,
-        bottom: 25,
-        right: 40,
-      }}
-      style={styles.header}
-      onPress={() => {
-        // this.setState({ visible: false })
-
-        const { closeCallBack } = this.props;
-        closeCallBack && closeCallBack();
-      }}>
-      <Image
-        source={require('../../../source/img/visitor/visitor_delete.png')}
-        style={styles.close}
-      />
-    </Button>
-  );
-
   render() {
     const { imageUrls, visible, closeCallBack, index } = this.props;
     return (
       <Modal
         animated
         animationType={'fade'}
-        // useNativeDriver
         style={styles.modal}
         // animationIn={'fadeIn'}
         // animationOut={'fadeOut'}
         // backdropColor={'black'}
         // backdropOpacity={1}
-        onRequestClose={() => {
-          closeCallBack && closeCallBack();
-        }}
-        // useNativeDriver
+        onRequestClose={closeCallBack}
         visible={visible}>
         {Platform.OS !== 'ios' && (
           <StatusBar
@@ -101,17 +116,15 @@ export default class ImagesViewModals extends Component<
           />
         )}
         <ImageViewer
-          loadingRender={() => <ActivityIndicator />}
+          style={{ backgroundColor: 'black' }}
+          useNativeDriver
+          renderIndicator={renderIndicator}
+          backgroundColor={'black'}
+          loadingRender={loadingRender}
           imageUrls={imageUrls}
-          onClick={() => {
-            closeCallBack && closeCallBack();
-          }}
+          onClick={closeCallBack}
           enableSwipeDown
-          onCancel={() => {
-            // this.setState({ visible: false })
-
-            closeCallBack && closeCallBack();
-          }}
+          onCancel={closeCallBack}
           enablePreload
           doubleClickInterval={200}
           menuContext={{
@@ -120,16 +133,10 @@ export default class ImagesViewModals extends Component<
           }}
           {...this.props}
           index={index}
-          onSave={async (url) => {
-            saveToCameraRoll(url);
-          }}
+          onSave={saveToCameraRoll}
           // saveToLocalByLongPress={()=>{}}
-          renderHeader={this.__renderHeader}
-          failImageSource={{
-            url: 'https://avatars2.githubusercontent.com/u/7970947?v=3&s=460',
-            width: Dimensions.get('window').width,
-            height: Dimensions.get('window').width,
-          }}
+          // renderHeader={this.__renderHeader}
+          failImageSource={failImageSource}
         />
       </Modal>
     );
@@ -157,8 +164,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     maxWidth: 50,
   },
-  pageStyle: {
-    alignItems: 'center',
-    padding: 20,
+  indicator: {
+    color: 'white',
+    width: '100%',
+    textAlign: 'center',
+    top: 30,
+    zIndex: 100,
+    position: 'absolute',
   },
 });

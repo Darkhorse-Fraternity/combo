@@ -51,6 +51,7 @@ export const StyledCardDis = styled.Text`
   font-style: italic;
   margin-bottom: 5px;
   text-align: right;
+  min-width: 40px;
 `;
 
 export const StyledMaterialCommunityIcons = styled(MaterialCommunityIcons)``;

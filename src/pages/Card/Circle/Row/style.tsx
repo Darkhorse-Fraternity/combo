@@ -64,6 +64,7 @@ export const StyledDateText = styled.Text`
   margin-left: 60px;
   font-size: 13px;
   color: #646464;
+  min-width: 120px;
 `;
 
 export const StyledBottomBtnView = styled.View`

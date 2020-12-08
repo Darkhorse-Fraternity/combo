@@ -116,7 +116,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
       color={iconAndColor.color}
       done={done}
       title={title || ''}
-      discrib={unSatisfyDiscrib || `第${time}日`}
+      discrib={(unSatisfyDiscrib || `第${time}日`) + ' '}
       onPress={async (flip, doIt) => {
         // const iCardM = iCard.toJS()
         // 如果没有强制打卡类型，则直接翻转

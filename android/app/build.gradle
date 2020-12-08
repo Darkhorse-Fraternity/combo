@@ -136,8 +136,8 @@ android {
         javaMaxHeapSize "2g"
     }
     defaultConfig {
-        renderscriptTargetApi 28
-        renderscriptSupportModeEnabled true
+//        renderscriptTargetApi 28
+//        renderscriptSupportModeEnabled true
         applicationId "com.combo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

@@ -162,8 +162,7 @@ const RenderRow: FC<{
     <StyledButton disabled={load} onPress={onPress}>
       <StyledTitle>{title}</StyledTitle>
       <StyledRow>
-        <StyledDes>{des}</StyledDes>
-        {load ? <StyledActivityIndicator /> : <View />}
+        {load ? <StyledActivityIndicator /> : <StyledDes>{des}</StyledDes>}
       </StyledRow>
     </StyledButton>
   );
