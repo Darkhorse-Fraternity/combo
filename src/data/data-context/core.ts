@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { denormalize, schema } from 'normalizr';
 import { useCallback, useContext, useEffect, useRef } from 'react';
 import {
@@ -29,7 +30,8 @@ export const useGetIuseData = <T>(id?: T) => {
   const dataRef = useRef<T extends string ? IUseType : IUseType[]>();
 
   const memoDenormalizeIUse = useCallback(
-    () => denormalizeIUse<T>(iUses_self, iCards_self, id),
+    // useContext 居然无法在里面做cloneDeep，有点sb 啊。
+    () => _.cloneDeep(denormalizeIUse<T>(iUses_self, iCards_self, id)),
     [iCards_self, iUses_self, id],
   );
 
@@ -148,8 +150,10 @@ export const useMutateIuseData = () => {
 
 export const useMutateICardData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
-  const userRef = useRef(data.iCards_self);
-  userRef.current = data.iCards_self;
+  const { iCards_self } = data;
+  const userRef = useRef(iCards_self);
+
+  userRef.current = iCards_self;
 
   const update = useCallback(
     (params: ICardUpdateType) => {
@@ -170,11 +174,10 @@ export const useMutateICardData = <T>(id?: T) => {
     [dispatch],
   );
 
-  const outData =
-    typeof id === 'string' ? data.iCards_self[id] : data.iCards_self;
+  const outData = typeof id === 'string' ? iCards_self[id] : iCards_self;
   return {
     update,
-    data: outData as T extends string
+    data: _.cloneDeep(outData) as T extends string
       ? GetClassesICardIdResponse
       : iCards_self_type,
   };
