@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ListLoadType } from './interface';
-import List, { BaseListBaseProps } from './BaseSectionView';
+import List, { BaseListBaseProps } from './RefreshList';
 
 export type PageListT<T> = Omit<BaseListBaseProps<T>, 'data'> & {
   loadPage?: (

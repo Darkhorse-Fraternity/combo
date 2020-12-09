@@ -57,7 +57,7 @@ interface IState {
   shouldShowloadMore: boolean;
 }
 
-export default class BaseSectionView<
+export default class RefreshList<
   ItemT extends { objectId?: string }
 > extends PureComponent<BaseListProps<ItemT>, IState> {
   constructor(props: BaseListProps<ItemT>) {
