@@ -45,6 +45,7 @@ import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
+import _ from 'lodash';
 
 export const useUpdateMeFromRemote = (manual: boolean = false) => {
   const { replaceMe } = useGetInfoOfMe();
@@ -148,7 +149,7 @@ export const useGetInfoOfMe = () => {
     });
   }, [dispatch]);
 
-  return { user: data.user, updateMe, replaceMe, logout };
+  return { user: _.cloneDeep(data.user), updateMe, replaceMe, logout };
 };
 
 export const anonymousUser = async () => {
