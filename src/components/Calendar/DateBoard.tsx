@@ -225,11 +225,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     minWidth: 20,
     textAlign: 'center',
+    color: 'rgb(100,100,100)',
   },
   dateText1: {
     fontSize: 14,
     minWidth: 20,
     // color: 'green',
+    color: 'rgb(100,100,100)',
     textAlign: 'center',
   },
   dateText2: {
