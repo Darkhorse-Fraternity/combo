@@ -11,7 +11,6 @@ import { userPoint } from '../../../request/LCModle';
 import {
   StyledRow,
   StyledRowTitle,
-  StyledRowDate,
   StyledRowAmount,
   StyledRowStatu,
   StyledRowInner,
