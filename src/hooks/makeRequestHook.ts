@@ -32,16 +32,8 @@ export default function makeRequestHook<
 
   return <U = unknown, R = ThenArg<TRequestResult>, N = U extends {} ? U : R>(
     requestData: RequestDataType<TRequestData, TRequestResult>,
-    config?: OptionsWithFormat2<R, P, N, N> & { isUnmountedAbort?: boolean },
+    config?: OptionsWithFormat2<R, P, N, N>,
   ) => {
-    // 全局添加取消,对外会描述性太差。
-    // const cancelTokenSource = useMemo(() => axios.CancelToken.source(), []);
-    // useEffect(() => {
-    //   return () => {
-    //     cancelTokenSource.cancel();
-    //   };
-    // }, [cancelTokenSource]);
-
     const newConfig: OptionsWithFormat<R, P, N, N> = {
       cacheTime: -1,
       ...config,

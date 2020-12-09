@@ -63,7 +63,7 @@ export const useGetSafeIUseData = (id: string) => {
   const { data: loaclData, ...rest1 } = useGetIuseData(id);
   const { data, run, ...rest2 } = useGetClassesIUseId(
     { id, include: 'iCard' },
-    { manual: true, cacheKey: 'GetClassesIUseId' },
+    { manual: true, cacheKey: 'GetClassesIUseId' + id },
   );
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const denormalizeIUse = <T>(
   iUses_self: iUses_self_type,
   iCards_self: iCards_self_type,
   id?: T,
-  type?: string,
+  // type?: string,
 ) => {
   if (!id) {
     return denormalize(iUses_self.list, new schema.Array(iUseSceme), {
@@ -91,15 +91,15 @@ const denormalizeIUse = <T>(
       iCard: iCards_self,
     });
   } else {
-    const list = denormalize(id, iUseSceme, {
+    return denormalize(id, iUseSceme, {
       iUse: iUses_self.entities,
       iCard: iCards_self,
-    }) as IUseType[];
-    if (type) {
-      return list.filter((item) => item.statu === type);
-    }
+    });
+    // if (type) {
+    //   return list.filter((item) => item.statu === type);
+    // }
 
-    return list;
+    // return entity;
   }
 };
 
@@ -150,11 +150,17 @@ export const useMutateICardData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
   const userRef = useRef(data.iCards_self);
   userRef.current = data.iCards_self;
+
   const update = useCallback(
     (params: ICardUpdateType) => {
       const oldData = denormalize(params.objectId, iCardSceme, {
-        iCard: userRef.current.iCards_self,
+        iCard: userRef.current,
       });
+
+      if (!oldData) {
+        throw new Error('传入的id 错误，未发现已含有的 iCard id');
+      }
+
       const newData = {
         ...oldData,
         ...params,

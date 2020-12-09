@@ -344,7 +344,7 @@ const FlagDetail: FC<{}> = (props) => {
   >();
   const { data } = useGetClassesFlagId(
     { id: flagId, include: 'iCard' },
-    { cacheKey: 'GetClassesFlagId' },
+    { cacheKey: 'GetClassesFlagId' + flagId },
   );
   const { user } = useGetInfoOfMe();
   const { setParams } = useNavigation();
@@ -360,7 +360,7 @@ const FlagDetail: FC<{}> = (props) => {
       limit: '0',
       where: JSON.stringify(where),
     },
-    { cacheKey: 'GetClassesFlagRecord' },
+    { cacheKey: 'GetClassesFlagRecord' + flagId + iCardId },
   );
 
   useEffect(() => {

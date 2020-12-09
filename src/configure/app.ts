@@ -7,9 +7,12 @@ import { storage } from './storage';
 const allKey = 'all';
 const defaultValue = Platform.OS === 'ios' ? true : false;
 // 是否开启了本地提醒功能
+
+const remindKey = 'LocalRemindkey8';
+
 export const localRemindConfig = async () => {
   const res = await storage.getBatchDataWithIds({
-    key: 'localRemind',
+    key: remindKey,
     ids: [allKey],
   });
 
@@ -21,7 +24,7 @@ export const localRemindConfig = async () => {
 };
 
 export const useLocalRemindConfig = () => {
-  const [state, setstate] = useState(true);
+  const [state, setstate] = useState(Platform.OS === 'ios');
   // useFocusEffect(() => {
   //   localRemindConfig().then((res)=>{
   //     setstate(res);
@@ -30,15 +33,19 @@ export const useLocalRemindConfig = () => {
 
   useFocusEffect(
     useCallback(() => {
-      localRemindConfig().then((res) => {
-        setstate(res);
-      });
+      localRemindConfig()
+        .then((res) => {
+          setstate(res);
+        })
+        .catch((e) => {
+          console.log('e', e);
+        });
     }, []),
   );
 
   return state;
 };
-const remindKey = 'localRemind';
+
 export type RemindDataType = { [x: string]: boolean; all: boolean };
 export const loadlocalRemind = async (): Promise<RemindDataType> => {
   const ids = await storage.getIdsForKey(remindKey);

@@ -26,18 +26,16 @@ export default function request<TResponseData>(
   },
   // ): Promise<TResponseData & AxiosResponseOtherInfoType> {
 ): Promise<TResponseData> {
-  const { path, method, data, devUrl, prodUrl, allData } = payload;
+  const { path, method, data, devUrl, prodUrl } = payload;
   const baseURL = options.server === 'dev' ? devUrl : prodUrl;
   // 请求地址
   const config = method === 'GET' ? { params: data } : { data };
-  const { cancelToken } = allData;
   return axios
     .request<TResponseData>({
       baseURL,
       url: path,
       method,
       headers: httpHeaders(),
-      cancelToken: cancelToken,
       ...config,
     })
     .then((res) => {
