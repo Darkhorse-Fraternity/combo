@@ -235,7 +235,7 @@ const RenderRow: FC<{
             });
           }}>
           <AvatarAuto
-            radius={15}
+            // radius={40}
             headimgurl={item.user.headimgurl || ''}
             avatarUrl={item.user.avatar?.url || ''}
           />
