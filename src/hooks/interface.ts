@@ -161,6 +161,8 @@ const getFbRequestConfig: GetFbRequestConfig = {
   paramNames: [],
   queryNames: ['offset', 'limit', 'active', 'verify'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -247,6 +249,8 @@ const getFbIdRequestConfig: GetFbIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [':id'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -384,6 +388,8 @@ const postFbRequestConfig: PostFbRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -470,6 +476,8 @@ const postCheckFbJoinRequestConfig: PostCheckFbJoinRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -590,6 +598,8 @@ const postFbJoinRequestConfig: PostFbJoinRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -687,6 +697,8 @@ const putFbJoinSelectPayTypeIdRequestConfig: PutFbJoinSelectPayTypeIdRequestConf
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -876,6 +888,8 @@ const postCallIUseList3RequestConfig: PostCallIUseList3RequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1017,6 +1031,8 @@ const getClassesIUseIdRequestConfig: GetClassesIUseIdRequestConfig = {
   paramNames: ['id'],
   queryNames: ['include', 'where'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1109,6 +1125,8 @@ const putClassesIUseIdRequestConfig: PutClassesIUseIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1210,6 +1228,8 @@ const postClassesIUseRequestConfig: PostClassesIUseRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1388,6 +1408,8 @@ const getClassesIUseRequestConfig: GetClassesIUseRequestConfig = {
   paramNames: [],
   queryNames: ['count', 'where', 'limit', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1545,6 +1567,8 @@ const getClassesICardRequestConfig: GetClassesICardRequestConfig = {
   paramNames: [],
   queryNames: ['count', 'where', 'limit', 'skip', 'order'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1691,6 +1715,8 @@ const postCallCardListRequestConfig: PostCallCardListRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1822,6 +1848,8 @@ const getClassesICardIdRequestConfig: GetClassesICardIdRequestConfig = {
   paramNames: ['id'],
   queryNames: ['include', 'where'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -1934,6 +1962,8 @@ const putClassesICardIdRequestConfig: PutClassesICardIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2048,6 +2078,8 @@ const postClassesICardRequestConfig: PostClassesICardRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2164,6 +2196,8 @@ const postClassesIDoRequestConfig: PostClassesIDoRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2282,6 +2316,8 @@ const getClassesIDoIdRequestConfig: GetClassesIDoIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2408,6 +2444,8 @@ const getClassesIDoRequestConfig: GetClassesIDoRequestConfig = {
   paramNames: [],
   queryNames: ['count', 'limit', 'where', 'skip', 'order', 'include'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2499,6 +2537,8 @@ const putClassesIDoIdRequestConfig: PutClassesIDoIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2595,6 +2635,8 @@ const postCallIDoLikeRequestConfig: PostCallIDoLikeRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2733,6 +2775,8 @@ const getUsersIdRequestConfig: GetUsersIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2865,6 +2909,8 @@ const postUsersRequestConfig: PostUsersRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -2993,6 +3039,8 @@ const getUsersMeRequestConfig: GetUsersMeRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3104,6 +3152,8 @@ const putUsersIdRequestConfig: PutUsersIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3273,6 +3323,8 @@ const getUsersIdFollowersAndFolloweesRequestConfig: GetUsersIdFollowersAndFollow
   paramNames: ['id'],
   queryNames: ['count', 'limit'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3406,6 +3458,8 @@ const getUsersIdFolloweesRequestConfig: GetUsersIdFolloweesRequestConfig = {
   paramNames: ['id'],
   queryNames: ['count', 'limit', 'where', 'order', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3539,6 +3593,8 @@ const getUsersIdFollowersRequestConfig: GetUsersIdFollowersRequestConfig = {
   paramNames: ['id'],
   queryNames: ['count', 'limit', 'where', 'order', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3633,6 +3689,8 @@ const postUsersUidFriendshipFriendshipIdRequestConfig: PostUsersUidFriendshipFri
   paramNames: ['uid', 'friendshipId'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3727,6 +3785,8 @@ const deleteUsersUidFriendshipFriendshipIdRequestConfig: DeleteUsersUidFriendshi
   paramNames: ['uid', 'friendshipId'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3817,6 +3877,8 @@ const postRequestSmsCodeRequestConfig: PostRequestSmsCodeRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -3911,6 +3973,8 @@ const postCallUserExsitJudgeRequestConfig: PostCallUserExsitJudgeRequestConfig =
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4002,6 +4066,8 @@ const postVerifySmsCodeCodeRequestConfig: PostVerifySmsCodeCodeRequestConfig = {
   paramNames: ['code'],
   queryNames: ['mobilePhoneNumber'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4137,6 +4203,8 @@ const postUsersByMobilePhoneRequestConfig: PostUsersByMobilePhoneRequestConfig =
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4275,6 +4343,8 @@ const getClassesICommentRequestConfig: GetClassesICommentRequestConfig = {
   paramNames: [],
   queryNames: ['limit', 'skip', 'include', 'where', 'order', 'count'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4375,6 +4445,8 @@ const postClassesICommentRequestConfig: PostClassesICommentRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4462,6 +4534,8 @@ const deleteClassesICommentIdRequestConfig: DeleteClassesICommentIdRequestConfig
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4639,6 +4713,8 @@ const postCallFbListRequestConfig: PostCallFbListRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4810,6 +4886,8 @@ const getClassesFlagIdRequestConfig: GetClassesFlagIdRequestConfig = {
   paramNames: ['id'],
   queryNames: ['include'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -4938,6 +5016,8 @@ const getClassesFlagRecordRequestConfig: GetClassesFlagRecordRequestConfig = {
   paramNames: [],
   queryNames: ['where', 'count', 'limit', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5081,6 +5161,8 @@ const getClassesFlagRequestConfig: GetClassesFlagRequestConfig = {
   paramNames: [],
   queryNames: ['where', 'count', 'limit', 'skip', 'include'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5218,6 +5300,8 @@ const postCallFbJoinRequestConfig: PostCallFbJoinRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5336,6 +5420,8 @@ const getClassesOrderRequestConfig: GetClassesOrderRequestConfig = {
   paramNames: [],
   queryNames: ['count', 'where', 'include', 'limit', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5443,6 +5529,8 @@ const getClassesEnchashmentRequestConfig: GetClassesEnchashmentRequestConfig = {
   paramNames: [],
   queryNames: ['count', 'where', 'include', 'limit', 'skip'],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5541,6 +5629,8 @@ const postClassesEnchashmentRequestConfig: PostClassesEnchashmentRequestConfig =
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5638,6 +5728,8 @@ const postInstallationsRequestConfig: PostInstallationsRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5732,6 +5824,8 @@ const putInstallationsIdRequestConfig: PutInstallationsIdRequestConfig = {
   paramNames: ['id'],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5839,6 +5933,8 @@ const postBatchRequestConfig: PostBatchRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
@@ -5927,6 +6023,8 @@ const postCallAppUpdateInfoRequestConfig: PostCallAppUpdateInfoRequestConfig = {
   paramNames: [],
   queryNames: [],
   requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
 }
 
 /**
