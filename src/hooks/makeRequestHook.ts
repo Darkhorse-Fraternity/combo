@@ -6,38 +6,25 @@ import useRequest from '@ahooksjs/use-request';
 import {
   BaseOptions,
   BaseResult,
-  CombineService,
+  // CombineService,
   LoadMoreFormatReturn,
   LoadMoreOptions,
   LoadMoreOptionsWithFormat,
   LoadMoreParams,
   LoadMoreResult,
   OptionsWithFormat,
+  Service,
 } from '@ahooksjs/use-request/lib/types';
-// import axios from 'axios';
-// import { useEffect, useMemo } from 'react';
 
-// interface OptionsWithFormat2<R, P extends unknown[], U, UU extends U>
-//   extends Omit<OptionsWithFormat<R, P, U, UU>, 'formatResult'> {
-//   formatResult?: (res: R) => U;
-// }
+type PromiseArg<T> = T extends PromiseLike<infer U> ? U : T;
 
-// type CombineService<R, P extends any[]> =
-//   | RequestService
-//   | ((...args: P) => RequestService)
-//   | Service<R, P>;
+type ArrayArg<T> = T extends ArrayLike<infer U> ? U : T;
 
-// type Test = CombineService<{}, { id: string }[]>;
-
-// const ts: Test = { id: 56478 };
-// console.log(ts);
-
-type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
-
-// type RequestDataType<R, T> =
-//   | R
-//   | ((...args: R[]) => R)
-//   | ((...args: R[]) => Promise<T>);
+type CombineService<
+  R,
+  P extends any[],
+  RequestService = string | ArrayArg<P>
+> = RequestService | ((...args: P) => RequestService) | Service<R, P>;
 
 type ReturnS<R = any, P extends any[] = any> = {
   <U = any, UU extends U = any>(
@@ -64,7 +51,7 @@ type MakeRequestHookType = <
   TRequestResult extends ReturnType<typeof baseRequest>
 >(
   request: Request<TRequestData, TRequestConfig, TRequestResult>,
-) => ReturnS<ThenArg<TRequestResult>, TRequestData[]>;
+) => ReturnS<PromiseArg<TRequestResult>, TRequestData[]>;
 
 const makeRequestHook: MakeRequestHookType = (request) => {
   // type Data = TRequestResult extends Promise<infer R> ? R : TRequestResult
