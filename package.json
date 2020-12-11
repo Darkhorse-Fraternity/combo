@@ -12,7 +12,7 @@
     "prettier": "prettier --check \"**/*.tsx\" \"**/*.ts\"",
     "lint": "concurrently \"yarn type-check\" \"yarn eslint\" \"yarn prettier\"",
     "reload": "curl http://localhost:8081/reload",
-    "postinstall": "npx jetify && npx patch-package",
+    "postinstall": "npx jetify  && husky install",
     "run-ios": "yarn react-native run-ios",
     "run-android": "yarn react-native run-android",
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
@@ -22,6 +22,11 @@
     "postversion": "react-native-version --never-amend",
     "preminor": "npm version preminor  -m 'Upgrade to %s for reasons'",
     "launch": "idb launch com.rn.combo && yarn start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   },
   "dependencies": {
     "@0x5e/react-native-alipay": "git+https://github.com/Darkhorse-Fraternity/react-native-alipay.git#v0.2.6",
@@ -145,6 +150,7 @@
     "babel-plugin-transform-strict-mode": "^6.24.1",
     "babel-preset-react-native": "^4.0.1",
     "eslint": "^7.9.0",
+    "husky": "^5.0.4",
     "immutable-devtools": "^0.1.3",
     "jest": "^24.9.0",
     "jest-react-native": "^18.0.0",

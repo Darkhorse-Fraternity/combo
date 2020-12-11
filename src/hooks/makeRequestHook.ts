@@ -10,11 +10,12 @@ import {
   LoadMoreFormatReturn,
   LoadMoreOptions,
   LoadMoreOptionsWithFormat,
-  LoadMoreParams,
+  // LoadMoreParams,
   LoadMoreResult,
   OptionsWithFormat,
   Service,
 } from '@ahooksjs/use-request/lib/types';
+import SimpleToast from 'react-native-simple-toast';
 
 type PromiseArg<T> = T extends PromiseLike<infer U> ? U : T;
 
@@ -35,12 +36,12 @@ type ReturnS<R = any, P extends any[] = any> = {
     R,
     P
   >;
-  <R1 extends LoadMoreFormatReturn>(
-    service: CombineService<R, LoadMoreParams<R1>>,
+  <R1 extends LoadMoreFormatReturn & R>(
+    service: CombineService<R, P>,
     options: LoadMoreOptionsWithFormat<R1, R>,
   ): LoadMoreResult<R1>;
   <R1 extends LoadMoreFormatReturn & R, RR extends R1>(
-    service: CombineService<R1, LoadMoreParams<R1>>,
+    service: CombineService<R1, P>,
     options: LoadMoreOptions<RR>,
   ): LoadMoreResult<R1>;
 };
@@ -59,6 +60,13 @@ const makeRequestHook: MakeRequestHookType = (request) => {
     return useRequest(requestData, {
       requestMethod: (param) => request(param),
       throwOnError: true,
+      onError: (e) => {
+        SimpleToast.showWithGravity(
+          e.message,
+          SimpleToast.LONG,
+          SimpleToast.CENTER,
+        );
+      },
       ...config,
     });
   }) as typeof useRequest;

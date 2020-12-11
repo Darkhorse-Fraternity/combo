@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { Fragment, FC } from 'react';
+import React, { Fragment, FC, useRef, useEffect, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -24,9 +24,13 @@ import CardTemplate from './CardTemplate';
 import { habits } from '../../configure/habit';
 import { useNavigation } from '@react-navigation/native';
 import { ICardType } from 'src/data/data-context/interface';
-import PageList from '@components/Base/PageList';
-import { postCallCardList } from 'src/hooks/interface';
+import { usePostCallCardList } from 'src/hooks/interface';
 import { RouteKey } from '@pages/interface';
+import LoadMoreList from '@components/Base/LoadMoreList';
+import {
+  LoadMoreFormatReturn,
+  LoadMoreOptionsWithFormat,
+} from '@ahooksjs/use-request/lib/types';
 
 const ListHeaderComponet = () => {
   const { navigate } = useNavigation();
@@ -97,25 +101,82 @@ const RenderRow: FC<ICardType> = (props) => {
   );
 };
 
-const NewCard: FC<{}> = () => {
-  const loadPage = (page_index: number, page_size: number) => {
-    const param = {
-      limit: page_size + '',
-      skip: page_index * page_size + '',
-    };
-    return postCallCardList(param).then((res) => res.result);
-  };
+// const useLoadMoreWithLCConfig = <T extends {}>(limit: number = 20) => {
+//   const skipRef = useRef(0);
+//   const params = { limit: limit + '', skip: skipRef.current + '' };
+//   const option: LoadMoreOptionsWithFormat<
+//     LoadMoreFormatReturn,
+//     { result: T[] }
+//   > = {
+//     loadMore: true,
+//     formatResult: (res) => ({
+//       list: res.result,
+//     }),
+//     isNoMore: (nData) => !nData?.list?.length || nData?.list?.length < limit,
+//     onSuccess: (data, params) => {
+//       console.log('params', params);
 
+//       return (skipRef.current = data?.list.length || 0);
+//     },
+//   };
+//   return { params, option };
+// };
+
+// 上拉加载数据请求与管理
+
+const useLoadMore = ({
+  limit = 40,
+  mapKey = 'result',
+}: {
+  limit?: number;
+  mapKey?: string;
+}) => {
+  const skipRef = useRef(0);
+  const { data, refresh, cancel, ...rest } = usePostCallCardList(
+    { limit: limit + '', skip: skipRef.current + '' },
+    {
+      loadMore: true,
+      isNoMore: (nData) =>
+        !nData || !nData[mapKey]?.length || nData[mapKey].length < limit,
+      formatResult: (res) => ({
+        list: res[mapKey] ?? [],
+        ...res,
+      }),
+      cacheKey: 'postCallCardList',
+      staleTime: 100 * 60 * 60 * 24,
+      cacheTime: 100 * 60 * 60 * 24,
+    },
+  );
+  skipRef.current = data?.list.length ?? 0;
+
+  const cancelRef = useRef(cancel);
+  cancelRef.current = cancel;
+  useEffect(() => {
+    return () => {
+      cancelRef.current();
+    };
+  }, []);
+
+  const resetRefresh = useCallback(() => {
+    skipRef.current = 0;
+    refresh();
+  }, [refresh]);
+
+  return { data: data?.list, refresh: resetRefresh, cancel, ...rest };
+};
+
+const NewCard: FC<{}> = () => {
+  const lmProps = useLoadMore({});
   return (
     <StyledContent>
-      <PageList<ICardType>
+      <LoadMoreList<ICardType>
         ListHeaderComponent={ListHeaderComponet}
-        loadPage={loadPage}
         style={styles.list}
         columnWrapperStyle={styles.columnWrapperStyle}
         numColumns={4}
         // footerStyle={{ paddingBottom: 60 }}
         renderItem={renderRow}
+        {...lmProps}
       />
     </StyledContent>
   );
