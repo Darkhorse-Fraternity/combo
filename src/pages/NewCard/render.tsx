@@ -27,10 +27,6 @@ import { ICardType } from 'src/data/data-context/interface';
 import { usePostCallCardList } from 'src/hooks/interface';
 import { RouteKey } from '@pages/interface';
 import LoadMoreList from '@components/Base/LoadMoreList';
-import {
-  LoadMoreFormatReturn,
-  LoadMoreOptionsWithFormat,
-} from '@ahooksjs/use-request/lib/types';
 
 const ListHeaderComponet = () => {
   const { navigate } = useNavigation();
