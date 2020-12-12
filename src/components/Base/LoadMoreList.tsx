@@ -49,7 +49,7 @@ export type LoadMoreListprops<T extends {}> = FlatListProps<T> &
 
 export interface BaseListProps<T> extends LoadMoreListprops<T> {
   // loadStatu: ListLoadType;
-  refresh: () => void;
+  reload: () => void;
   loadMore: () => void;
   noMore?: boolean;
   loading: boolean;
@@ -86,6 +86,7 @@ export default class LoadMoreList<
       contentOffset.y > layoutMeasurementHeight - 100;
 
     // console.log('nativeEvent:', nativeEvent);
+    // console.log('????=-=====', layoutMeasurementHeight);
 
     // TODO 这样写会导致，已有数据时候，直接往下拉，会有一瞬间renderFooter，似乎是转化时间有问题
     this.state.shouldShowloadMore !== shouldShowloadMore &&
@@ -105,7 +106,7 @@ export default class LoadMoreList<
       return;
     }
 
-    this.props.refresh && this.props.refresh();
+    this.props.reload && this.props.reload();
   };
 
   _handleloadMore = () => {

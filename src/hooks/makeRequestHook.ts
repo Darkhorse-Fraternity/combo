@@ -36,11 +36,11 @@ type ReturnS<R = any, P extends any[] = any> = {
     R,
     P
   >;
-  <R1 extends LoadMoreFormatReturn & R>(
+  <R1 extends LoadMoreFormatReturn>(
     service: CombineService<R, P>,
     options: LoadMoreOptionsWithFormat<R1, R>,
   ): LoadMoreResult<R1>;
-  <R1 extends LoadMoreFormatReturn & R, RR extends R1>(
+  <R1 extends LoadMoreFormatReturn, RR extends R1>(
     service: CombineService<R1, P>,
     options: LoadMoreOptions<RR>,
   ): LoadMoreResult<R1>;

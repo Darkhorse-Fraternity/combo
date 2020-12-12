@@ -237,23 +237,23 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
             }); */
   }
 
-  const { data: calendarData, run, loading } = useGetClassesIDo<
-    Record<string, ItemType>
-  >((item) => item, {
-    manual: true,
-    cacheKey: 'GetClassesIDo' + iUseId + iUse.user?.objectId,
-    formatResult: (res) => {
-      const data1 = {};
-      res.results.forEach((item) => {
-        const { createdAt, doneDate } = item;
-        const timeIn = doneDate ? doneDate.iso : createdAt;
-        const dateIn = moment(timeIn).format('YYYY-MM-DD');
-        data1[dateIn] = item;
-      });
-
-      return data1;
+  const { data: calendarData, run, loading } = useGetClassesIDo(
+    (item) => item,
+    {
+      manual: true,
+      cacheKey: 'GetClassesIDo' + iUseId + iUse.user?.objectId,
+      formatResult: (res) => {
+        const data1: Record<string, ItemType> = {};
+        res.results.forEach((item) => {
+          const { createdAt, doneDate } = item;
+          const timeIn = doneDate ? doneDate.iso : createdAt;
+          const dateIn = moment(timeIn).format('YYYY-MM-DD');
+          data1[dateIn] = item;
+        });
+        return data1;
+      },
     },
-  });
+  );
   // const { count } = data;
 
   const ref = useRef<CalendarClass<ItemType>>(null);
