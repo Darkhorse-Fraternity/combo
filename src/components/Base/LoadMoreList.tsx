@@ -24,16 +24,6 @@ import ExceptionView, {
 } from './ExceptionView';
 import { ListLoadType } from './interface';
 
-// const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
-
-// const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN';
-// // export const LIST_NO_DATA = 'LIST_NO_DATA'
-// export const LIST_LOAD_DATA = 'LIST_LOAD_DATA';
-// export const LIST_LOAD_MORE = 'LIST_LOAD_MORE';
-// export const LIST_LOAD_NO_MORE = 'LIST_LOAD_NO_MORE';
-// export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
-// export const LIST_NORMAL = 'LIST_NORMAL';
-
 export type LoadMoreListprops<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;

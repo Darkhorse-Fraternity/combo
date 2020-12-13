@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { ListLoadType } from './interface';
-import List, { BaseListBaseProps } from './RefreshList';
+import LoadMoreList, { LoadMoreListprops } from './LoadMoreList';
 
-export type PageListT<T> = Omit<BaseListBaseProps<T>, 'data'> & {
+export type PageListT<T> = Omit<LoadMoreListprops<T>, 'data'> & {
   loadPage?: (
     pageIndex: number,
     pageSize: number,
@@ -95,12 +95,15 @@ export default class PageList<ItemT> extends Component<
     const { ...otherProps } = this.props;
 
     return (
-      <List<ItemT>
+      <LoadMoreList<ItemT>
         {...otherProps}
         // ref={ref=>ref.}
         data={data}
-        loadStatu={loadStatu}
-        loadData={this.reload.bind(this, 0)}
+        loading={loadStatu === ListLoadType.LIST_LOAD_DATA}
+        loadingMore={loadStatu === ListLoadType.LIST_LOAD_MORE}
+        noMore={loadStatu === ListLoadType.LIST_LOAD_NO_MORE}
+        // loadStatu={loadStatu}
+        reload={this.reload.bind(this, 0)}
         loadMore={this.reload.bind(this, page + 1)}
       />
     );
