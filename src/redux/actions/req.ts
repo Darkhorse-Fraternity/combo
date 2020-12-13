@@ -7,7 +7,6 @@ import Toast from 'react-native-simple-toast';
 import { normalize } from 'normalizr';
 import { send } from '../../request';
 import { addEntities } from '../module/normalizr';
-import { schemas } from '../scemes';
 
 export const REQUEST_LOAD = 'REQUEST_LOAD';
 export const REQUEST_SUCCEEED = 'REQUEST_SUCCEEED';
@@ -104,11 +103,6 @@ export function req(params: Object, key: string, option: Object = {}) {
       }
     }
   };
-}
-
-export function load(params: Object, key: string) {
-  // @ts-ignore: Unreachable code error
-  return (dispatch) => dispatch(req(params, key, { sceme: schemas[key] }));
 }
 
 export async function get(params: {}) {
