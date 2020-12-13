@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import {
   DeviceEventEmitter,
   TouchableOpacityProps,
@@ -30,9 +30,10 @@ import { GTDAppId, GTDUnifiedNativeplacementId } from '@configure/tencent_ad';
 import { useNavigation } from '@react-navigation/native';
 import { RouteKey } from '@pages/interface';
 import {
-  getClassesIDo,
+  // getClassesIDo,
   GetClassesIDoResponse,
   putClassesIUseId,
+  useGetClassesIDo,
 } from 'src/hooks/interface';
 import PageList from '@components/Base/PageList';
 import { useGetUserInfo } from 'src/data/data-context';
@@ -41,6 +42,8 @@ import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
 import { IUseType, UserType } from 'src/data/data-context/interface';
 import { useMutateIuseData } from 'src/data/data-context/core';
+import LoadMoreList from '@components/Base/LoadMoreList';
+import { useCanceWhenLeave } from 'src/hooks/util';
 type ItemType = GetClassesIDoResponse['results'][number];
 
 const pickPrivacy = async (privacy: number, isSelf: boolean) => {
@@ -236,8 +239,52 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   );
 };
 
+const useLoadMore = (iCardId: string, privacy: number) => {
+  const limit = 40;
+
+  const where = {
+    iCard: iCardPoint(iCardId),
+    $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+    state: { $ne: -1 }, // -1 为已删除
+  };
+  const param = {
+    include: 'user,iUse',
+    order: '-doneDate,-createdAt',
+    where: JSON.stringify(where),
+  };
+
+  const { data, cancel, loading, loadingMore, ...rest } = useGetClassesIDo<{
+    list: NonNullable<GetClassesIDoResponse['results']>;
+  }>((res) => ({ limit: limit + '', skip: res?.list?.length || 0, ...param }), {
+    loadMore: true,
+    isNoMore: (nData) =>
+      !nData?.['result']?.length || nData?.['result']?.length < limit,
+    formatResult: (res) => ({
+      list: res?.results ?? [],
+    }),
+    onSuccess: (data1) => {
+      lastDataRef.current = data1.list;
+    },
+    cacheKey: 'GetClassesIDo' + iCardId,
+    refreshDeps: [privacy],
+  });
+  const lastDataRef = useRef(data?.list);
+
+  useCanceWhenLeave(cancel, loading || loadingMore);
+
+  const midData = loading ? lastDataRef.current : data?.list;
+
+  const lastData = useMemo(
+    () => midData?.filter((item) => item.iUse.privacy! >= privacy),
+    [midData, privacy],
+  );
+
+  return { data: lastData, loading, loadingMore, ...rest };
+};
+
 const Circle: FC<CircleProps> = (props) => {
   const { iCard, ...other } = props;
+
   const user = useGetUserInfo();
   const [count, setCount] = useState(0);
   const ref = useRef<PageList<ItemType>>(null);
@@ -267,52 +314,53 @@ const Circle: FC<CircleProps> = (props) => {
 
   const privacy =
     iCard.user.objectId === user?.objectId ? Privacy.openToCoach : Privacy.open;
+  const lm = useLoadMore(iCard.objectId, privacy);
 
-  const fristRef = useRef(true);
+  // const fristRef = useRef(true);
 
-  useEffect(() => {
-    if (!fristRef.current) {
-      ref.current?.reload(0);
-    }
-    fristRef.current = false;
-  }, [privacy]);
+  // useEffect(() => {
+  //   if (!fristRef.current) {
+  //     ref.current?.reload(0);
+  //   }
+  //   fristRef.current = false;
+  // }, [privacy]);
 
-  const loadPage = (page_index: number, page_size: number) => {
-    const where = {
-      iCard: iCardPoint(iCard.objectId),
-      $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
-      state: { $ne: -1 }, // -1 为已删除
-    };
-    const param = {
-      limit: page_size + '',
-      skip: page_index * page_size + '',
-      include: 'user,iUse',
-      order: '-doneDate,-createdAt',
-      where: JSON.stringify(where),
-    };
-    return getClassesIDo(param).then((res) => {
-      const { results } = res;
-      // console.log('results', results);
-      const results2 = results.filter((item) => item.iUse.privacy! >= privacy);
+  // const loadPage = (page_index: number, page_size: number) => {
+  //   const where = {
+  //     iCard: iCardPoint(iCard.objectId),
+  //     $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+  //     state: { $ne: -1 }, // -1 为已删除
+  //   };
+  //   const param = {
+  //     limit: page_size + '',
+  //     skip: page_index * page_size + '',
+  //     include: 'user,iUse',
+  //     order: '-doneDate,-createdAt',
+  //     where: JSON.stringify(where),
+  //   };
+  //   return getClassesIDo(param).then((res) => {
+  //     const { results } = res;
+  //     // console.log('results', results);
+  //     const results2 = results.filter((item) => item.iUse.privacy! >= privacy);
 
-      return { data: results2, hasMore: results.length === page_size };
-    });
-  };
+  //     return { data: results2, hasMore: results.length === page_size };
+  //   });
+  // };
 
   return (
-    <PageList<ItemType>
-      ref={ref}
+    <LoadMoreList<ItemType>
+      // ref={ref}
       showsVerticalScrollIndicator={false}
-      loadPage={loadPage}
+      // loadPage={loadPage}
       keyId={'objectId'}
       style={{ backgroundColor: 'transparent' }}
       // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
-      prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}
       noDataPrompt="暂无日志信息"
       footerStyle={{ paddingBottom: 60 }}
       renderItem={(props) => <RenderRow {...props} count={count} />}
       ListHeaderComponent={<TopMenu {...props} />}
       numColumns={1}
+      {...lm}
       // columnWrapperStyle={{
       //   marginLeft: 8,
       //   marginRight: 15,

@@ -3,11 +3,11 @@
  * @flow
  */
 
+import Indicators from '@components/Indicators';
 import React, { LegacyRef, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   Text,
   Platform,
   Dimensions,
@@ -134,11 +134,13 @@ export default class LoadMoreList<
 
       return (
         <View style={styles.footer}>
-          <ActivityIndicator
+          {/* <ActivityIndicator
             style={{ marginTop: 8, marginBottom: 8 }}
             size="small"
             animating
-          />
+          /> */}
+          <View style={{ height: 30 }} />
+          <Indicators />
         </View>
       );
     }
@@ -206,9 +208,7 @@ export default class LoadMoreList<
                 : ExceptionType.NoData
             }
             prompt={
-              exceptionType !== ExceptionType.Loading
-                ? noDataPrompt
-                : '加载中～'
+              exceptionType !== ExceptionType.Loading ? noDataPrompt : null
             }
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap || this._handleRefresh}
@@ -239,6 +239,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 30,
+    // backgroundColor: 'red',
   },
   noMorefooter: {
     flex: 1,

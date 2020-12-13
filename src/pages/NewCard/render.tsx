@@ -125,14 +125,23 @@ const RenderRow: FC<ICardType> = (props) => {
 // 上拉加载数据请求与管理
 
 const useLoadMore = () => {
-  const limit = 40;
-  const { data, cancel, loading, ...rest } = usePostCallCardList<{
+  const limit = 80;
+  const {
+    data,
+    cancel,
+    loading,
+    loadingMore,
+    // noMore,
+    ...rest
+  } = usePostCallCardList<{
     list: NonNullable<PostCallCardListResponse['result']>;
   }>((res) => ({ limit: limit + '', skip: res?.list?.length || 0 }), {
     loadMore: true,
-    isNoMore: (nData) => !nData?.list?.length || nData?.list?.length < limit,
+    isNoMore: (nData) =>
+      !nData?.['result']?.length || nData?.['result']?.length < limit,
     formatResult: (res) => ({
       list: res?.result ?? [],
+      ...res,
     }),
     onSuccess: (data1) => {
       lastDataRef.current = data1.list;
@@ -143,8 +152,16 @@ const useLoadMore = () => {
   });
   const lastDataRef = useRef(data?.list);
 
-  useCanceWhenLeave(cancel);
-  return { data: loading ? lastDataRef.current : data?.list, loading, ...rest };
+  useCanceWhenLeave(cancel, loading || loadingMore);
+
+  // console.log('noMore', noMore);
+
+  return {
+    data: loading ? lastDataRef.current : data?.list,
+    loading,
+    loadingMore,
+    ...rest,
+  };
 };
 
 const NewCard: FC<{}> = () => {

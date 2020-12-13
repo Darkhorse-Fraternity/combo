@@ -302,7 +302,7 @@ const RenderAppeal = () => {
             } else {
               navigate(RouteKey.web, {
                 url: 'https://www.weibo.com/u/6861885697',
-                title: '小改变的微博',
+                // title: '小改变的微博',
               });
             }
           });

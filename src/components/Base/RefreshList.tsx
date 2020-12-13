@@ -3,11 +3,11 @@
  * @flow
  */
 
+import Indicators from '@components/Indicators';
 import React, { LegacyRef, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   Text,
   Platform,
   Dimensions,
@@ -154,11 +154,7 @@ export default class RefreshList<
       ) {
         return (
           <View style={styles.footer}>
-            <ActivityIndicator
-              style={{ marginTop: 8, marginBottom: 8 }}
-              size="small"
-              animating
-            />
+            <Indicators />
           </View>
         );
       }
@@ -230,9 +226,7 @@ export default class RefreshList<
                 : ExceptionType.NoData
             }
             prompt={
-              exceptionType !== ExceptionType.Loading
-                ? noDataPrompt
-                : '加载中～'
+              exceptionType !== ExceptionType.Loading ? noDataPrompt : null
             }
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap || this._handleRefresh}

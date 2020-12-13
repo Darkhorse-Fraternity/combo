@@ -54,7 +54,6 @@ export const useUpdateMeFromRemote = (manual: boolean = false) => {
     {
       manual,
       onSuccess: (me) => replaceMe(me),
-      cacheKey: 'GetInfoOfMe',
     },
   );
   return { run };

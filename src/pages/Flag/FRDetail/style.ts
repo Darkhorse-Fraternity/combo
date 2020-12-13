@@ -43,6 +43,8 @@ export const StyledCellDiscrib = styled.Text<{ done: boolean }>`
   color: ${(props) => (props.done ? 'green' : '#888888')};
   font-size: 15px;
   font-style: italic;
+  min-width: 90px;
+  text-align: right;
 `;
 
 export const StyledInner = styled.View`

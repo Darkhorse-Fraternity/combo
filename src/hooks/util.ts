@@ -4,12 +4,19 @@ import makeRequestHook from './makeRequestHook';
 
 type PromiseArg<T> = T extends PromiseLike<infer U> ? U : T;
 
-export const useCanceWhenLeave = (cancel: (...args: any[]) => void) => {
+export const useCanceWhenLeave = (
+  cancel: (...args: any[]) => void,
+  loading: boolean,
+) => {
   const cancelRef = useRef(cancel);
   cancelRef.current = cancel;
+  const loadingRef = useRef(loading);
+  loadingRef.current = loading;
   useEffect(() => {
     return () => {
-      cancelRef.current();
+      if (loadingRef.current) {
+        cancelRef.current();
+      }
     };
   }, []);
 };

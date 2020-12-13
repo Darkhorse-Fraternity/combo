@@ -155,14 +155,16 @@ export const epUpdate = async () => {
       appChannel === 'andoird_inhouse'
     ) {
       // 本地版本号大于远程版本号 查询编译号，是否进入测试升级
-      const res = await sendBack(bundleId);
-      // console.log('update:', res);
-      const callback = () => {
-        Linking.openURL(res.install_url);
-        Linking.openURL(res.update_url);
-      };
-      // Android 识别当前测试版本号 来检测更新
-      checkUpdate(res, callback);
+      try {
+        const res = await sendBack(bundleId);
+        // console.log('update:', res);
+        const callback = () => {
+          Linking.openURL(res.install_url);
+          Linking.openURL(res.update_url);
+        };
+        // Android 识别当前测试版本号 来检测更新
+        checkUpdate(res, callback);
+      } catch (error) {}
     }
   }
 };

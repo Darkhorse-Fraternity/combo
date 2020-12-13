@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 
 import { firstInstaller } from '../../../../helps/util';
@@ -76,7 +76,7 @@ const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
   return (
     <View style={styles.container}>
       <Indicators size={40} />
-      <Text style={styles.text}>加载中...</Text>
+      {/* <Text style={styles.text}>加载中...</Text> */}
       {/* <AuthLoadingScreenClass {...props} /> */}
     </View>
   );

@@ -15,6 +15,7 @@ LogBox.ignoreLogs([
   //'Warning: Async Storage has been extracted',
   'BugReporting extraData:',
   'Expected style',
+  'Setting a timer',
   'Battery state',
   'componentWillMount',
   'componentWillUpdate',

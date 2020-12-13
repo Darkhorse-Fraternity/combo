@@ -20,7 +20,7 @@ export enum ExceptionType {
 
 export interface ExceptionViewProps {
   exceptionType?: ExceptionType;
-  prompt?: Function | ReactChild[] | ReactChild;
+  prompt?: Function | ReactChild[] | ReactChild | null;
   otherTips?: string;
   onRefresh?: Function | (() => void) | null;
   tipBtnText?: string;
@@ -56,6 +56,10 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps> {
       exceptionType === ExceptionType.Loading ? '正在加载～' : '没有数据～';
     const text = prompt || defaultPrompt;
     // console.log('defaultPrompt', defaultPrompt);
+
+    if (prompt === null) {
+      return null;
+    }
 
     if (isValidElement(prompt)) {
       return prompt;

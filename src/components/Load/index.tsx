@@ -1,5 +1,5 @@
 import Indicators from '@components/Indicators';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   View,
@@ -73,6 +73,20 @@ export function LoadAnimation(props?: LoadAnimationProps) {
   // const { height } = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
   const lastTop = Platform.OS === 'ios' ? 0 : getStatusBarHeight();
+
+  const [show, setshow] = useState(false);
+  // 前两秒不出现
+
+  useEffect(() => {
+    const time = setTimeout(setshow.bind(undefined, true), 1000);
+    return () => {
+      clearTimeout(time);
+    };
+  }, []);
+
+  if (!show) {
+    return null;
+  }
 
   return (
     <View

@@ -7,6 +7,7 @@ import {
   useGetClassesIUseId,
   usePostCallIUseList3,
 } from 'src/hooks/interface';
+import { useCanceWhenLeave } from 'src/hooks/util';
 import DataContext from './index';
 import {
   iCardSceme,
@@ -38,13 +39,20 @@ export const useGetIuseData = <T>(id?: T) => {
   dataRef.current =
     iUses_self.list.length > 0 ? memoDenormalizeIUse() : undefined;
 
-  const { data: iUseData, run, ...other } = usePostCallIUseList3(
+  const {
+    data: iUseData,
+    run,
+    cancel,
+    loading,
+    ...other
+  } = usePostCallIUseList3(
     {},
     {
       manual: true,
       // cacheKey: ('PostCallIUseList3' + getHeader()?.token) as string,
     },
   );
+  useCanceWhenLeave(cancel, loading);
 
   const addIuse = useCallback(
     (info: IUseComboType) => {
@@ -58,7 +66,7 @@ export const useGetIuseData = <T>(id?: T) => {
     }
   }, [dispatch, iUseData, addIuse]);
 
-  return { data: dataRef.current, addIuse, run, ...other };
+  return { data: dataRef.current, addIuse, cancel, loading, run, ...other };
 };
 
 export const useGetSafeIUseData = (id: string) => {
