@@ -247,9 +247,9 @@ const PunchClass: FC<PunchProps> = (props): JSX.Element => {
 
   return (
     <SectionList
-      refreshing={false}
+      // refreshing={false}
       onScroll={onScroll}
-      onRefresh={onRefresh}
+      // onRefresh={onRefresh}
       // data={data}
       sections={sections}
       // numColumns={numColumns}

@@ -202,7 +202,7 @@ const _keyExtractor = (item: IUseType) => {
 
 const Habit = () => {
   // const { user } = useGetInfoOfMe();
-  const { data, run, loading } = useGetIuseData();
+  const { data, loading } = useGetIuseData();
   const onScroll = useScrollTitle('日常习惯');
 
   const handleRef = useRef<AppleStyleSwipeableRow>();
@@ -234,13 +234,13 @@ const Habit = () => {
       onScroll={onScroll}
       // scrollEnabled={!!handleRef.current}
       refreshing={false}
-      onRefresh={() => {
-        if (handleRef.current) {
-          handleRef.current?.close();
-          handleRef.current = undefined;
-        }
-        run();
-      }}
+      // onRefresh={() => {
+      //   if (handleRef.current) {
+      //     handleRef.current?.close();
+      //     handleRef.current = undefined;
+      //   }
+      //   run();
+      // }}
       data={data}
       // removeClippedSubviews={true}
       // pagingEnabled={true}
