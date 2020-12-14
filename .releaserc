@@ -3,6 +3,7 @@
   "branch": "master",
   // This isn't an npm package
   "npmPublish": false,
+  "dryRun": false,
   // We're initiating the release from
   // our local machine. You could set this
   // to true and set up releasing on every push
