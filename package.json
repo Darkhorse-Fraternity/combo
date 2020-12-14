@@ -1,6 +1,6 @@
 {
   "name": "Combo",
-  "version": "1.4.4",
+  "version": "1.5.5",
   "private": true,
   "scripts": {
     "start": "export RCT_METRO_PORT=8081  && node node_modules/react-native/local-cli/cli.js start ",
@@ -18,7 +18,7 @@
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
     "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../",
-    "release": "semantic-release",
+    "release": "semantic-release --no-ci",
     "postversion": "react-native-version --never-amend",
     "preminor": "npm version preminor  -m 'Upgrade to %s for reasons'",
     "launch": "idb launch com.rn.combo && yarn start"
