@@ -3,15 +3,7 @@
  * @flow
  */
 
-import React, {
-  FC,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, memo, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
   SectionList,
@@ -54,6 +46,7 @@ import { UserType } from 'src/data/data-context/interface';
 import { point } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { SoundsKeys } from '@configure/source';
+import { useScrollTitle } from '@components/util/hooks';
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy?: boolean;
@@ -94,6 +87,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
         update({
           objectId,
           doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },
+          time: time + 1,
         });
       } else {
         doIt();
@@ -122,7 +116,7 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
       color={iconAndColor.color}
       done={done}
       title={title || ''}
-      discrib={unSatisfyDiscrib || `第${time}日`}
+      discrib={(unSatisfyDiscrib || `第${time}日`) + ' '}
       onPress={async (flip, doIt) => {
         // const iCardM = iCard.toJS()
         // 如果没有强制打卡类型，则直接翻转
@@ -315,9 +309,9 @@ const renderHeader = () => (
 const _renderSectionHeader = (info: {
   section: SectionListData<ItemType[], { title: string }>;
 }) => {
-  // if (info.section.title.length === 0) {
-  //   return <View style={{height: 30}} />;
-  // }
+  if (info.section.title.length === 0) {
+    return null;
+  }
   return (
     <StyledSectionHeader>
       <StyledSectionHeaderTitle numberOfLines={1}>
@@ -352,7 +346,6 @@ const Punch: FC<{}> = () => {
   const { objectId: uid } = user;
   const { data = [], loading, run } = useGetIuseData();
 
-  const { setOptions } = useNavigation();
   // console.log('data',data?.result);
 
   const _orientationDidChange = (orientation: string) => {
@@ -366,7 +359,7 @@ const Punch: FC<{}> = () => {
   };
 
   useEffect(() => {
-    isTablet() && Orientation.removeOrientationListener(_orientationDidChange);
+    isTablet() && Orientation.addOrientationListener(_orientationDidChange);
     return () => {
       isTablet() &&
         Orientation.removeOrientationListener(_orientationDidChange);
@@ -385,28 +378,16 @@ const Punch: FC<{}> = () => {
   useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iUse_reload,
-      run,
+      () => {
+        run();
+      },
     );
     return () => {
       deEmitter.remove();
     };
   }, [run]);
 
-  const openSmallTitleRef = useRef(false);
-  const onScroll = useCallback(
-    (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-      const y = event.nativeEvent.contentOffset.y;
-      if (!openSmallTitleRef.current && y > 35) {
-        openSmallTitleRef.current = true;
-        setOptions({ title: '小改变' });
-      }
-      if (openSmallTitleRef.current && y < 35) {
-        openSmallTitleRef.current = false;
-        setOptions({ title: '' });
-      }
-    },
-    [setOptions],
-  );
+  const onScroll = useScrollTitle('小改变');
 
   return (
     <StyledContent>

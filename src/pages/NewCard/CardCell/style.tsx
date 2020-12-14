@@ -9,11 +9,10 @@ import styled from 'styled-components/native';
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
 export const StyledContent = styled(TouchableBounce)`
-    /* width: ${(props) => (props.theme.getWidth() - 10) / 4}; */
-    flex:1;
-    padding: 0px;
-    align-items: center;
-    margin-top: 15px;
+  flex: 0.25;
+  padding: 0px;
+  align-items: center;
+  margin-top: 15px;
 `;
 
 export const StyledContent2 = styled(TouchableBounce)`

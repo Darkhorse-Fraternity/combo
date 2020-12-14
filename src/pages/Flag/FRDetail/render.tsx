@@ -71,7 +71,7 @@ const RenderItem: FC<{ size: number; index: number } & ItemType> = (props) => {
 };
 
 const FRDetail: FC<{}> = () => {
-  const { flagId } = useNavigationAllParamsWithType<RouteKey.FRDetail>();
+  const { flagId } = useNavigationAllParamsWithType<RouteKey.frDetail>();
   const { data } = useGetClassesFlagId({ id: flagId });
 
   if (!data) {

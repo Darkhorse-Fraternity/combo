@@ -30,7 +30,6 @@ export default function request<TResponseData>(
   const baseURL = options.server === 'dev' ? devUrl : prodUrl;
   // 请求地址
   const config = method === 'GET' ? { params: data } : { data };
-
   return axios
     .request<TResponseData>({
       baseURL,

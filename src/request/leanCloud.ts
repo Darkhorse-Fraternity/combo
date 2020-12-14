@@ -329,7 +329,7 @@ export function existSearch(className: string, other: Object = {}) {
  */
 export function classCreatNewOne(className: string, body: Object) {
   return {
-    path: `/classes/${className}`,
+    path: `/1.1/classes/${className}`,
     method: methodType.post,
     body,
   };

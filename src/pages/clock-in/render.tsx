@@ -351,6 +351,7 @@ const Render: FC<{}> = () => {
         if (objectId) {
           //发消息通知。
           DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+
           update({
             objectId: iUseId,
             doneDate: { __type: 'Date', iso: moment(createdAt).toISOString() },

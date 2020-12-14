@@ -35,7 +35,7 @@ const RenderItem: FC<ItemType> = (props) => {
   return (
     <StyledItem
       onPress={() => {
-        navigate('FRDetail', { flagId: objectId });
+        navigate(RouteKey.frDetail, { flagId: objectId });
       }}>
       <StyledCellInner>
         <StyledCellTitle numberOfLines={1}>

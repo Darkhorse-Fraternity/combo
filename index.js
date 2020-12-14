@@ -15,6 +15,7 @@ LogBox.ignoreLogs([
   //'Warning: Async Storage has been extracted',
   'BugReporting extraData:',
   'Expected style',
+  'Setting a timer',
   'Battery state',
   'componentWillMount',
   'componentWillUpdate',
@@ -22,6 +23,7 @@ LogBox.ignoreLogs([
   '[location] ERROR - 0',
   'Warning: DatePickerAndroid', // will be fixed with https://github.com/mmazzarolo/react-native-modal-datetime-picker/pull/262
   'RCTRootView cancelTouches', // https://github.com/kmagiera/react-native-gesture-handler/issues/746
+  'Sending `onAnimatedValueUpdate` with no listeners registered.', //https://github.com/react-navigation/react-navigation/issues/7839
 ]);
 
 AppRegistry.registerComponent(name, () => App);

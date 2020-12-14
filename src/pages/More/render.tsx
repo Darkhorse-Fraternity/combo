@@ -98,7 +98,7 @@ const RenderMain: FC<{}> = () => {
             } else {
               navigate('web', {
                 url: 'https://www.weibo.com/u/6861885697',
-                title: '小改变的微博',
+                // title: '小改变的微博',
               });
             }
           });
@@ -111,7 +111,6 @@ const RenderHeadRow = () => {
   const { navigate } = useNavigation();
   const user = useGetUserInfo();
   const { isTourist, ...data } = user!;
-
   const name = isTourist ? '点击登录' : data.nickname || '匿名';
 
   return (

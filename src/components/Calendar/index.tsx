@@ -3,29 +3,27 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { PropsWithChildren, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
-  Dimensions,
   Text,
   ActivityIndicator,
   Platform,
   ScrollView,
   NativeSyntheticEvent,
   NativeScrollEvent,
+  useWindowDimensions,
 } from 'react-native';
 import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard, { DateBoardProps, isLeap } from './DateBoard';
 
-const { width } = Dimensions.get('window');
-
-interface CalendarProps<ItemT>
-  extends Omit<DateBoardProps<ItemT>, 'year' | 'month'> {
+export interface CalendarProps<ItemT>
+  extends Omit<DateBoardProps<ItemT>, 'year' | 'month' | 'width'> {
   load: boolean;
-  move: (first: string, last: string) => void; // 加载当前月
+  fetch: (first: string, last: string) => void; // 加载当前月
 }
 
 interface CalendarState {
@@ -38,15 +36,14 @@ interface CalendarState {
   nextMonth: number;
   date: number; //月份
 }
-
-export default class Calendar<ItemT> extends PureComponent<
-  CalendarProps<ItemT>,
+export class CalendarClass<ItemT> extends PureComponent<
+  CalendarProps<ItemT> & { width: number },
   CalendarState
 > {
   timer: number | undefined;
   trueScroll: ScrollView | null | undefined;
   trueViewPager: ViewPagerAndroid | null | undefined;
-  constructor(props: CalendarProps<ItemT>) {
+  constructor(props: CalendarProps<ItemT> & { width: number }) {
     super(props);
     this.state = {
       year: this.props.date.getFullYear(),
@@ -97,6 +94,7 @@ export default class Calendar<ItemT> extends PureComponent<
       ViewPagerOnPageSelectedEventData | NativeScrollEvent
     >,
   ) {
+    const { width } = this.props;
     if (Platform.OS === 'ios') {
       const nativeEvent = event.nativeEvent as NativeScrollEvent;
       const scrollX = nativeEvent.contentOffset.x;
@@ -203,32 +201,18 @@ export default class Calendar<ItemT> extends PureComponent<
     const monthString = month < 10 ? `0${month}` : `${month}`;
     const firstDay = `${monthString}-${monthString}-01`;
     const lastDay = `${year}-${monthString}-${this.monthDay[this.state.month]}`;
-    this.props.move && this.props.move(firstDay, lastDay);
+    this.props.fetch && this.props.fetch(firstDay, lastDay);
   };
 
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
   }
 
-  renderDateBorad = (month: number) => (
-    <DateBoard
-      color={this.props.color}
-      key={month}
-      year={this.state.year}
-      month={month}
-      date={this.props.date}
-      doneDay={this.props.doneDay}
-      canceDay={this.props.canceDay}
-      busyDay={this.props.busyDay}
-    />
-  );
-
   renderMain = () => {
-    const pageMonth = [
-      this.state.month - 1,
-      this.state.month,
-      this.state.month + 1,
-    ];
+    const { month, year } = this.state;
+    const { width } = this.props;
+
+    const pageMonth = [month - 1, month, month + 1];
 
     if (Platform.OS === 'ios') {
       return (
@@ -240,7 +224,14 @@ export default class Calendar<ItemT> extends PureComponent<
           ref={(ref) => (this.trueScroll = ref)}
           showsHorizontalScrollIndicator={false}
           pagingEnabled>
-          {pageMonth.map((mouth) => this.renderDateBorad(mouth))}
+          {pageMonth.map((item) => (
+            <DateBoard<ItemT>
+              key={item}
+              month={item}
+              {...this.props}
+              year={year}
+            />
+          ))}
         </ScrollView>
       );
     }
@@ -250,9 +241,11 @@ export default class Calendar<ItemT> extends PureComponent<
         initialPage={1}
         onPageSelected={(event) => this.myScroll(event)}
         ref={(ref) => (this.trueViewPager = ref)}>
-        <View key="1">{this.renderDateBorad(pageMonth[0])}</View>
-        <View key="2">{this.renderDateBorad(pageMonth[1])}</View>
-        <View key="3">{this.renderDateBorad(pageMonth[2])}</View>
+        {pageMonth.map((item, index) => (
+          <View key={index}>
+            <DateBoard<ItemT> month={item} {...this.props} year={year} />
+          </View>
+        ))}
       </ViewPagerAndroid>
     );
   };
@@ -277,7 +270,7 @@ export default class Calendar<ItemT> extends PureComponent<
     // console.log('this.syaye', this.state);
 
     return (
-      <View>
+      <>
         <View style={styles.dayTitle}>
           {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
           {/* <View style={styles.leftBtn}/> */}
@@ -303,10 +296,26 @@ export default class Calendar<ItemT> extends PureComponent<
         </View>
 
         {this.renderMain()}
-      </View>
+      </>
     );
   }
 }
+
+const Calendar = <ItemT extends unknown>({
+  calendarRef,
+  ...rest
+}: PropsWithChildren<
+  CalendarProps<ItemT> & {
+    calendarRef?: React.RefObject<CalendarClass<ItemT>>;
+  }
+>) => {
+  const { width } = useWindowDimensions();
+
+  return <CalendarClass {...rest} width={width} ref={calendarRef} />;
+};
+
+export default Calendar;
+
 const styles = StyleSheet.create({
   dayTitle: {
     height: 40,

@@ -29,6 +29,7 @@ import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { useScrollTitle } from '@components/util/hooks';
 import AnimationRow from '@components/AnimationRow';
 import { putClassesIUseId } from 'src/hooks/interface';
+import { RouteKey } from '@pages/interface';
 
 const RenderNoData = (refreshLoad: boolean) => {
   const { navigate } = useNavigation();
@@ -39,7 +40,7 @@ const RenderNoData = (refreshLoad: boolean) => {
       tipBtnText="添加卡片"
       // prompt={refreshLoad ? '正在加载' : '暂无数据'}
       onRefresh={() => {
-        navigate('newCard');
+        navigate(RouteKey.newCard);
       }}
     />
   );

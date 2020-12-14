@@ -3,11 +3,11 @@
  * @flow
  */
 
+import Indicators from '@components/Indicators';
 import React, { LegacyRef, PureComponent } from 'react';
 import {
   View,
   StyleSheet,
-  ActivityIndicator,
   Text,
   Platform,
   Dimensions,
@@ -24,17 +24,7 @@ import ExceptionView, {
 } from './ExceptionView';
 import { ListLoadType } from './interface';
 
-// const delay = () => new Promise((resolve) => InteractionManager.runAfterInteractions(resolve));
-
-// const LIST_FIRST_JOIN = 'LIST_FIRST_JOIN';
-// // export const LIST_NO_DATA = 'LIST_NO_DATA'
-// export const LIST_LOAD_DATA = 'LIST_LOAD_DATA';
-// export const LIST_LOAD_MORE = 'LIST_LOAD_MORE';
-// export const LIST_LOAD_NO_MORE = 'LIST_LOAD_NO_MORE';
-// export const LIST_LOAD_ERROR = 'LIST_LOAD_ERROR';
-// export const LIST_NORMAL = 'LIST_NORMAL';
-
-export type BaseListBaseProps<T extends {}> = FlatListProps<T> &
+export type LoadMoreListprops<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;
     tipTap?: Function;
@@ -47,17 +37,20 @@ export type BaseListBaseProps<T extends {}> = FlatListProps<T> &
     showLoadingInView?: boolean;
   };
 
-export interface BaseListProps<T> extends BaseListBaseProps<T> {
-  loadStatu: ListLoadType;
-  loadData: Function;
-  loadMore: Function;
+export interface BaseListProps<T> extends LoadMoreListprops<T> {
+  // loadStatu: ListLoadType;
+  reload: () => void;
+  loadMore: () => void;
+  noMore?: boolean;
+  loading: boolean;
+  loadingMore: boolean;
 }
 
 interface IState {
   shouldShowloadMore: boolean;
 }
 
-export default class BaseSectionView<
+export default class LoadMoreList<
   ItemT extends { objectId?: string }
 > extends PureComponent<BaseListProps<ItemT>, IState> {
   constructor(props: BaseListProps<ItemT>) {
@@ -70,9 +63,7 @@ export default class BaseSectionView<
   static defaultProps = {
     loadStatu: ListLoadType.LIST_FIRST_JOIN,
     noDataPrompt: '',
-    type: 'list',
     data: [],
-    sections: [],
   };
 
   onScroll(e: NativeSyntheticEvent<NativeScrollEvent>) {
@@ -85,6 +76,7 @@ export default class BaseSectionView<
       contentOffset.y > layoutMeasurementHeight - 100;
 
     // console.log('nativeEvent:', nativeEvent);
+    // console.log('????=-=====', layoutMeasurementHeight);
 
     // TODO 这样写会导致，已有数据时候，直接往下拉，会有一瞬间renderFooter，似乎是转化时间有问题
     this.state.shouldShowloadMore !== shouldShowloadMore &&
@@ -96,72 +88,51 @@ export default class BaseSectionView<
   }
 
   componentDidMount() {
-    this._handleRefresh();
+    this.firstJoin = false;
   }
 
   _handleRefresh = () => {
-    if (this.props.loadStatu === ListLoadType.LIST_LOAD_DATA) {
+    if (this.props.loading) {
       return;
     }
 
-    this.props.loadData && this.props.loadData();
+    this.props.reload && this.props.reload();
   };
 
   _handleloadMore = () => {
-    const { loadStatu, loadMore } = this.props;
+    const { loadMore, noMore, loadingMore } = this.props;
     const { shouldShowloadMore } = this.state;
-
-    if (
-      loadStatu === ListLoadType.LIST_LOAD_MORE ||
-      loadStatu === ListLoadType.LIST_LOAD_NO_MORE ||
-      loadStatu === ListLoadType.LIST_LOAD_DATA ||
-      loadStatu === ListLoadType.LIST_LOAD_ERROR
-    ) {
-      return;
-    }
-    // console.log('loadStatu', loadStatu);
-    // console.log('shouldShowloadMore', shouldShowloadMore);
-    // console.log('distanceFromEnd:', info.distanceFromEnd);
-    // console.log('loadStatu:', this.props.loadStatu);
-    if (shouldShowloadMore && loadMore) {
+    if (!noMore && !loadingMore && shouldShowloadMore && loadMore) {
       loadMore();
     }
   };
 
   renderFooter() {
-    // console.log('loadStatu:', this.props.loadStatu);
-
-    // console.log('this.shouldShowloadMore:', this.props.loadStatu == LIST_LOAD_NO_MORE && this.state.shouldShowloadMore);
-
-    // const { shouldShowloadMore } = this.state;
-
-    const { loadStatu, data, footerStyle } = this.props;
+    const { data, footerStyle, noMore } = this.props;
     const hasData = data && data.length > 0;
 
     // console.log('data:',this.props.data, hasData);
 
     if (this.state.shouldShowloadMore && hasData) {
-      if (loadStatu === ListLoadType.LIST_LOAD_NO_MORE) {
+      if (noMore) {
         return (
           <View style={[styles.footer, footerStyle]}>
             <Text style={{ color: 'rgb(150,150,150)' }}>没有更多了</Text>
           </View>
         );
       }
-      if (
-        loadStatu === ListLoadType.LIST_LOAD_MORE ||
-        loadStatu === ListLoadType.LIST_NORMAL
-      ) {
-        return (
-          <View style={styles.footer}>
-            <ActivityIndicator
-              style={{ marginTop: 8, marginBottom: 8 }}
-              size="small"
-              animating
-            />
-          </View>
-        );
-      }
+
+      return (
+        <View style={styles.footer}>
+          {/* <ActivityIndicator
+            style={{ marginTop: 8, marginBottom: 8 }}
+            size="small"
+            animating
+          /> */}
+          {/* <View style={{ height: 30 }} /> */}
+          <Indicators />
+        </View>
+      );
     }
 
     return <View style={{ height: 50 }} />;
@@ -176,13 +147,13 @@ export default class BaseSectionView<
   };
 
   openRefreshing = false;
-
+  firstJoin = true;
   render() {
-    // const refreshable = this.props.refreshable && this.props.loadData;
-
+    const { props, firstJoin, openRefreshing } = this;
     const {
       data,
-      loadStatu,
+      // loadStatu,
+      loading,
       tipTap,
       noDataPrompt,
       tipBtnText,
@@ -190,17 +161,15 @@ export default class BaseSectionView<
       listRef,
       showLoadingInView = true,
       ...otherProps
-    } = this.props;
+    } = props;
 
     // console.log('loadStatu:', loadStatu);
 
-    const exceptionViewRefreshing = loadStatu === ListLoadType.LIST_LOAD_DATA;
-    const isFirst = loadStatu === ListLoadType.LIST_FIRST_JOIN;
-    const refreshing =
-      loadStatu === ListLoadType.LIST_LOAD_DATA && this.openRefreshing;
+    const exceptionViewRefreshing = loading;
+    const refreshing = loading && openRefreshing;
     const exceptionType =
-      (exceptionViewRefreshing || isFirst) &&
-      !this.openRefreshing &&
+      (exceptionViewRefreshing || firstJoin) &&
+      !openRefreshing &&
       showLoadingInView
         ? ExceptionType.Loading
         : ExceptionType.NoData;
@@ -209,7 +178,6 @@ export default class BaseSectionView<
       <FlatList<ItemT>
         data={data}
         ref={listRef}
-        // sections={sections}
         refreshing={refreshing}
         onRefresh={() => {
           this.openRefreshing = true;
@@ -225,14 +193,12 @@ export default class BaseSectionView<
             style={styles.exceptionViewStyle}
             tipBtnText={tipBtnText}
             exceptionType={
-              exceptionViewRefreshing || isFirst
+              exceptionViewRefreshing || firstJoin
                 ? ExceptionType.Loading
                 : ExceptionType.NoData
             }
             prompt={
-              exceptionType !== ExceptionType.Loading
-                ? noDataPrompt
-                : '加载中～'
+              exceptionType !== ExceptionType.Loading ? noDataPrompt : null
             }
             // otherTips={this.renderNoDataTips()}
             onRefresh={tipTap || this._handleRefresh}
@@ -263,6 +229,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 30,
+    // backgroundColor: 'red',
   },
   noMorefooter: {
     flex: 1,

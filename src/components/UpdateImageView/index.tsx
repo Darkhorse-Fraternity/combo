@@ -2,6 +2,7 @@ import React, { useState, useRef, memo, FC } from 'react';
 import {
   GestureResponderEvent,
   LayoutAnimation,
+  useWindowDimensions,
   ViewProps,
 } from 'react-native';
 import {
@@ -23,7 +24,6 @@ import ImagePicker, {
 // import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 import ImagesViewModals from '@components/ZoomImage/ImagesViewModal';
 import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
-import { useDimensions } from '@components/util/hooks';
 export interface UpdateImage {
   url: string;
 }
@@ -91,7 +91,7 @@ export const ImagesList = ({
   // console.log('countInrow', countInrow);
   // console.log('width', Dimensions.get('window').width);
 
-  const { window } = useDimensions();
+  const window = useWindowDimensions();
 
   return (
     // @ts-ignore: Unreachable code error

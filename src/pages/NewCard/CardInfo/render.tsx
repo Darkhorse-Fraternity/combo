@@ -47,7 +47,7 @@ import { DeviceEventEmitterKey } from '../../../configure/enum';
 import FlipButton from '../../../components/Button/FlipButton';
 import { daysText } from '../../../configure/enum';
 import Avatar from '../../../components/Avatar/Avatar2';
-import { PasswordValidation } from './PasswordValidation';
+import PasswordValidation from './PasswordValidation';
 import { RouteKey } from '@pages/interface';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import {
@@ -58,7 +58,7 @@ import {
 } from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
-import { IUseType2, UserType } from 'src/data/data-context/interface';
+import { UserType } from 'src/data/data-context/interface';
 import { iCardPoint, userPoint } from '@request/LCModle';
 import { useNavigation } from '@react-navigation/native';
 // import { NavigationInjectedProps } from '@react-navigation/native';
@@ -69,13 +69,11 @@ interface PropsType {
   // exist: (id: number) => void;
   iCard: GetClassesICardIdResponse;
   isTourist: boolean;
-  load: boolean;
+  loading: boolean;
   exist: boolean;
-  iUseData: IUseType2;
+  iUseId?: string;
   use: () => void;
 }
-
-type NavAndPropsType = PropsType;
 
 const Row: FC<{ title: string; des: string }> = ({ title, des }) => (
   <StyledRow>
@@ -84,35 +82,18 @@ const Row: FC<{ title: string; des: string }> = ({ title, des }) => (
   </StyledRow>
 );
 
-const CardInfoClass: FC<NavAndPropsType> = (props) => {
+const CardInfoClass: FC<PropsType> = (props) => {
   // const [visible, setVisible] = useState(false);
   // const [index, setIndex] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const { navigate } = useNavigation();
 
-  const { selfUser, iCard, user: iCardUser, load, exist, iUseData } = props;
+  const { selfUser, iCard, user: iCardUser, loading, exist, iUseId } = props;
 
   const cover = iCard.img ? { uri: iCard.img.url } : null;
 
-  // const exist = this.props.useExist.get('data').size >= 1;
-  // const load = this.props.useExist.get('load');
   const nickName = iCardUser.nickname;
-  // const { keys } = iCard;
   const { describe, iconAndColor } = iCard;
-  // const iUseData = this.props.data && this.props.data.toJS();
-
-  // const { userLoad } = this.props;
-
-  // const imgs = iCard && iCard.imgs;
-
-  // const urlList =
-  //   (imgs &&
-  //     imgs.map((item) => ({
-  //       url: item.img.url,
-  //     }))) ||
-  //   [];
-
-  // console.log('iconAndColor:', iconAndColor);
 
   const isSelf = selfUser.objectId === iCard.user.objectId;
 
@@ -121,7 +102,6 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
   limitTimesString =
     limitTimesString === '00:00~24:00' ? '' : `，${limitTimesString}`;
   const limitTime = daysText(iCard.recordDay) + limitTimesString;
-  // console.log('iCard.img:', iCard.img);
 
   return (
     <StyledContent colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
@@ -155,13 +135,13 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
       <FlipButton
         faceText={'马上\n参与'}
         backText="已参与"
-        load={load}
+        load={loading}
         flip={exist}
         animation={Platform.OS === 'ios' ? 'bounceIn' : 'bounceInRight'}
         onPress={() => {
-          if (exist && iUseData) {
+          if (exist && iUseId) {
             navigate('card', {
-              iUseId: iUseData.objectId,
+              iUseId: iUseId,
               iCardId: iCard.objectId,
             });
           } else {
@@ -263,7 +243,7 @@ const CardInfoClass: FC<NavAndPropsType> = (props) => {
         />
         <Button
           onPress={() => {
-            navigate('cardUse', {
+            navigate(RouteKey.cardUse, {
               iCardId: iCard.objectId,
             });
           }}
@@ -326,13 +306,13 @@ const CardInfo: FC<{}> = (props): JSX.Element => {
       user: userPoint(user.objectId), //粉丝查看也是这个入口，此时userid 不为自己
       // ...iCardM(iCardId),
       iCard: iCardPoint(iCardId),
-      statu: { $ne: 'del' },
+      statu: 'start', // Warning: '这样的话，当卡片为暂停时候，会重复加入，这么写是因为方便，否则要判段是否为开启状态'
     }),
     ...res,
   }));
 
   // 添加习惯
-  const { run, loading } = usePostClassesIUse(
+  const { run, loading, data: iUseData } = usePostClassesIUse(
     {
       user: userPoint(user.objectId), //粉丝查看也是这个入口，此时userid 不为自己
       // ...iCardM(iCardId),
@@ -363,8 +343,8 @@ const CardInfo: FC<{}> = (props): JSX.Element => {
       selfUser={user}
       isTourist={user.isTourist}
       exist={count > 0 || hasJoin}
-      iUseData={results[0]}
-      load={loading}
+      iUseId={results[0]?.objectId || iUseData?.objectId}
+      loading={loading}
       use={addUse}
     />
   );

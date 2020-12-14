@@ -80,7 +80,7 @@ const Settings = () => {
     { manual: true },
   );
   const { run: deleteRun, loading: deleteLoading } = usePutClassesIUseId(
-    { id: iUseId, statu: 'stop' },
+    { id: iUseId, statu: 'del' },
     { manual: true },
   );
   const stopAction = async () => {

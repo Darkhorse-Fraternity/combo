@@ -11,10 +11,10 @@ import { userPoint } from '../../../request/LCModle';
 import {
   StyledRow,
   StyledRowTitle,
-  StyledRowDate,
   StyledRowAmount,
   StyledRowStatu,
   StyledRowInner,
+  StyledRowDate2,
 } from './style';
 import { useGetUserInfo } from 'src/data/data-context';
 import {
@@ -45,10 +45,10 @@ const renderRow: ListRenderItem<ItemType> = ({ item }) => {
         <StyledRowAmount>￥{item.amount}</StyledRowAmount>
       </StyledRowInner>
       <StyledRowInner style={{ marginTop: 10 }}>
-        <StyledRowDate>
+        <StyledRowDate2>
           日期:
           {moment(item.createdAt).format('YYYY-MM-DD')}
-        </StyledRowDate>
+        </StyledRowDate2>
 
         <StyledRowStatu>{statu}</StyledRowStatu>
       </StyledRowInner>

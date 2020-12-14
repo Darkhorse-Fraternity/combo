@@ -51,6 +51,7 @@ export const StyledButton = styled(Button)`
 export const StyledTime = styled.Text`
   font-size: 18px;
   font-weight: 600;
+  min-width: 50px;
 `;
 
 export const StyledName = styled.Text`

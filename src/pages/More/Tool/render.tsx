@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
 import {
@@ -11,7 +11,10 @@ import {
   StyledRowInner,
 } from './style';
 import { isTablet } from 'react-native-device-info';
-import { useGetInfoOfMe, useUpdateMe } from 'src/data/data-context/user';
+import {
+  useGetInfoOfMe,
+  useUpdateMeFromRemote,
+} from 'src/data/data-context/user';
 
 type ItemT = number;
 
@@ -45,11 +48,7 @@ const _keyExtractor = (_: ItemT, index: number) => {
 
 const Tool: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
-  const { run } = useUpdateMe();
-
-  useEffect(() => {
-    run();
-  }, [run]);
+  useUpdateMeFromRemote();
 
   const { toolConfig } = user;
   const { redo = 0 } = toolConfig;

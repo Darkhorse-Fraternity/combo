@@ -109,7 +109,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
     if (isTourist) {
       Toast.show('参加副本需要先登录~!');
       // @ts-ignore: Unreachable code error
-      return this.props.navigation.navigate('login', {
+      return this.props.navigation.navigate(RouteKey.login, {
         transition: 'forVertical',
       });
     }
@@ -300,9 +300,9 @@ const RenderAppeal = () => {
             if (supported) {
               Linking.openURL('sinaweibo://messagelist?uid=6861885697');
             } else {
-              navigate('web', {
+              navigate(RouteKey.web, {
                 url: 'https://www.weibo.com/u/6861885697',
-                title: '小改变的微博',
+                // title: '小改变的微博',
               });
             }
           });
@@ -342,7 +342,10 @@ const FlagDetail: FC<{}> = (props) => {
   const { flagId, iCardId } = useNavigationAllParamsWithType<
     RouteKey.flagDetail
   >();
-  const { data } = useGetClassesFlagId({ id: flagId, include: 'iCard' });
+  const { data } = useGetClassesFlagId(
+    { id: flagId, include: 'iCard' },
+    { cacheKey: 'GetClassesFlagId' + flagId },
+  );
   const { user } = useGetInfoOfMe();
   const { setParams } = useNavigation();
   const where = {
@@ -351,11 +354,14 @@ const FlagDetail: FC<{}> = (props) => {
     user: userPoint(user.objectId),
     Flag: FlagPoint(flagId),
   };
-  const { data: record } = useGetClassesFlagRecord({
-    count: '1',
-    limit: '0',
-    where: JSON.stringify(where),
-  });
+  const { data: record } = useGetClassesFlagRecord(
+    {
+      count: '1',
+      limit: '0',
+      where: JSON.stringify(where),
+    },
+    { cacheKey: 'GetClassesFlagRecord' + flagId + iCardId },
+  );
 
   useEffect(() => {
     if (data?.iCard?.title) {

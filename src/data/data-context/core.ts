@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { denormalize, schema } from 'normalizr';
 import { useCallback, useContext, useEffect, useRef } from 'react';
 import {
@@ -6,6 +7,7 @@ import {
   useGetClassesIUseId,
   usePostCallIUseList3,
 } from 'src/hooks/interface';
+import { useCanceWhenLeave } from 'src/hooks/util';
 import DataContext from './index';
 import {
   iCardSceme,
@@ -29,17 +31,28 @@ export const useGetIuseData = <T>(id?: T) => {
   const dataRef = useRef<T extends string ? IUseType : IUseType[]>();
 
   const memoDenormalizeIUse = useCallback(
-    () => denormalizeIUse<T>(iUses_self, iCards_self, id),
+    // useContext 居然无法在里面做cloneDeep，有点sb 啊。
+    () => _.cloneDeep(denormalizeIUse<T>(iUses_self, iCards_self, id)),
     [iCards_self, iUses_self, id],
   );
 
   dataRef.current =
     iUses_self.list.length > 0 ? memoDenormalizeIUse() : undefined;
 
-  const { data: iUseData, run, ...other } = usePostCallIUseList3(
+  const {
+    data: iUseData,
+    run,
+    cancel,
+    loading,
+    ...other
+  } = usePostCallIUseList3(
     {},
-    { manual: true, cacheTime: 0, staleTime: 100 },
+    {
+      manual: true,
+      // cacheKey: ('PostCallIUseList3' + getHeader()?.token) as string,
+    },
   );
+  useCanceWhenLeave(cancel, loading);
 
   const addIuse = useCallback(
     (info: IUseComboType) => {
@@ -53,14 +66,14 @@ export const useGetIuseData = <T>(id?: T) => {
     }
   }, [dispatch, iUseData, addIuse]);
 
-  return { data: dataRef.current, addIuse, run, ...other };
+  return { data: dataRef.current, addIuse, cancel, loading, run, ...other };
 };
 
 export const useGetSafeIUseData = (id: string) => {
   const { data: loaclData, ...rest1 } = useGetIuseData(id);
   const { data, run, ...rest2 } = useGetClassesIUseId(
     { id, include: 'iCard' },
-    { manual: true },
+    { manual: true, cacheKey: 'GetClassesIUseId' + id },
   );
 
   useEffect(() => {
@@ -80,7 +93,7 @@ const denormalizeIUse = <T>(
   iUses_self: iUses_self_type,
   iCards_self: iCards_self_type,
   id?: T,
-  type?: string,
+  // type?: string,
 ) => {
   if (!id) {
     return denormalize(iUses_self.list, new schema.Array(iUseSceme), {
@@ -88,26 +101,29 @@ const denormalizeIUse = <T>(
       iCard: iCards_self,
     });
   } else {
-    const list = denormalize(id, iUseSceme, {
+    return denormalize(id, iUseSceme, {
       iUse: iUses_self.entities,
       iCard: iCards_self,
-    }) as IUseType[];
-    if (type) {
-      return list.filter((item) => item.statu === type);
-    }
+    });
+    // if (type) {
+    //   return list.filter((item) => item.statu === type);
+    // }
 
-    return list;
+    // return entity;
   }
 };
 
 export const useMutateIuseData = () => {
   const { data, dispatch } = useContext(DataContext);
+  // 这样写是为了避免在同一个方法内连续调用update，此时如果直接在usecallback 内调用data, data 是不可变的。并且无法被识别。
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
   const update = useCallback(
     (params: IUseUpdateType) => {
       const oldData = denormalize(params.objectId, iUseSceme, {
-        iUse: data.iUses_self.entities,
-        iCard: data.iCards_self,
+        iUse: dataRef.current.iUses_self.entities,
+        iCard: dataRef.current.iCards_self,
       });
 
       if (!oldData) {
@@ -118,11 +134,11 @@ export const useMutateIuseData = () => {
         ...oldData,
         ...params,
       };
-      console.log('newData', newData);
+      // console.log('newData', newData);
 
       dispatch({ type: 'update_iUse', data: newData });
     },
-    [data.iCards_self, data.iUses_self.entities, dispatch],
+    [dispatch],
   );
 
   const add = useCallback(
@@ -142,26 +158,34 @@ export const useMutateIuseData = () => {
 
 export const useMutateICardData = <T>(id?: T) => {
   const { data, dispatch } = useContext(DataContext);
+  const { iCards_self } = data;
+  const userRef = useRef(iCards_self);
+
+  userRef.current = iCards_self;
 
   const update = useCallback(
     (params: ICardUpdateType) => {
       const oldData = denormalize(params.objectId, iCardSceme, {
-        iCard: data.iCards_self,
+        iCard: userRef.current,
       });
+
+      if (!oldData) {
+        throw new Error('传入的id 错误，未发现已含有的 iCard id');
+      }
+
       const newData = {
         ...oldData,
         ...params,
       };
       dispatch({ type: 'update_iCard', data: newData });
     },
-    [data.iCards_self, dispatch],
+    [dispatch],
   );
 
-  const outData =
-    typeof id === 'string' ? data.iCards_self[id] : data.iCards_self;
+  const outData = typeof id === 'string' ? iCards_self[id] : iCards_self;
   return {
     update,
-    data: outData as T extends string
+    data: _.cloneDeep(outData) as T extends string
       ? GetClassesICardIdResponse
       : iCards_self_type,
   };

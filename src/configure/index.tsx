@@ -1,13 +1,5 @@
-import React, {
-  FC,
-  memo,
-  PureComponent,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { FC, memo, PureComponent, useEffect, useRef } from 'react';
 // @ts-ignore: Unreachable code error
-import { connect } from 'react-redux';
 import { Platform, UIManager, Linking } from 'react-native';
 import Orientation from 'react-native-orientation';
 
@@ -20,11 +12,10 @@ import { epUpdate } from '../components/Update/EPUpdate';
 
 import LightStatuBar from '../Theme/LightStatuBar';
 // import InfoBar from '../components/InfoBar';
-import DataContext, { useGetUserInfo } from 'src/data/data-context';
+import { useGetUserInfo } from 'src/data/data-context';
 import { isTablet } from 'react-native-device-info';
 import { navigationRef } from '@components/Nav/navigators';
 import { RouteKey } from '@pages/interface';
-import { UserType } from 'src/data/data-context/interface';
 import useLocalNotification from './localNotification';
 
 require('../../helps/AnimatableRegist');
@@ -184,28 +175,28 @@ const keyboardConfig = () => {
   }
 };
 
-const UserDepends: FC<{ user: UserType }> = ({ user }) => {
-  const { dispatch } = useContext(DataContext);
-  const userString = JSON.stringify(user);
-  useEffect(() => {
-    if (user && user.objectId) {
-      dispatch({ type: 'update_user_info', user });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userString, dispatch]);
-  return null;
-};
+// const UserDepends: FC<{ user: UserType }> = ({ user }) => {
+//   const { dispatch } = useContext(DataContext);
+//   const userString = JSON.stringify(user);
+//   useEffect(() => {
+//     if (user && user.objectId) {
+//       dispatch({ type: 'update_user_info', user });
+//     }
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [userString, dispatch]);
+//   return null;
+// };
 
 // @ts-ignore: Unreachable code error
-@connect((state) => ({ user: state.user.data }))
-class UserDependsClass extends PureComponent {
-  render() {
-    // @ts-ignore: Unreachable code error
-    return <UserDepends user={this.props.user} />;
-  }
-}
+// @connect((state) => ({ user: state.user.data }))
+// class UserDependsClass extends PureComponent {
+//   render() {
+//     // @ts-ignore: Unreachable code error
+//     return <UserDepends user={this.props.user} />;
+//   }
+// }
 
-const Configure: FC<{}> = ({ children }) => {
+const Configure: FC<{}> = () => {
   const user = useGetUserInfo();
   // const { navigate } = useNavigation();
   const isLogin = !!user?.objectId;
@@ -270,9 +261,9 @@ const Configure: FC<{}> = ({ children }) => {
     <>
       <LightStatuBar />
       <ConfigureClass isLogin={isLogin} uid={user.objectId} />
-      {children}
+      {/* {children} */}
       {/* <InfoBar /> */}
-      <UserDependsClass />
+      {/* <UserDependsClass /> */}
     </>
   );
 };

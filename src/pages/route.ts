@@ -64,7 +64,7 @@ export const otherRoute = {
   [RouteKey.cardUse]: CardUse,
   [RouteKey.login]: LoginView,
   [RouteKey.flagDetail]: FlagDetail,
-  [RouteKey.FRDetail]: FRDetail,
+  [RouteKey.frDetail]: FRDetail,
   [RouteKey.cirlcleSetting]: CirlcleSetting,
   // pptDescribe: { screen: PPTDescribe },
 };

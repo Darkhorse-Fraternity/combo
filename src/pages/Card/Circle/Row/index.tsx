@@ -30,6 +30,7 @@ import { GetClassesIDoResponse, usePostCallIDoLike } from 'src/hooks/interface';
 import { storage } from '@configure/storage';
 import { useNavigation } from '@react-navigation/native';
 import { useGetUserInfo } from 'src/data/data-context';
+import { RouteKey } from '@pages/interface';
 // static displayName = RecordRow
 
 type ItemType = GetClassesIDoResponse['results'][number];
@@ -51,8 +52,8 @@ const RenderLikes: FC<ItemType> = (props) => {
         key: 'likeRecord',
         id: objectId,
       })
-      .then((liked: boolean) => {
-        setLiked(liked);
+      .then((liked1: boolean) => {
+        setLiked(liked1);
       })
       .catch();
   }, [objectId]);
@@ -129,7 +130,7 @@ const RenderChatBtn: FC<ItemType> = (item) => {
       disabled
       background={background}
       onPress={() => {
-        navigate('rcomment', { iDoID: objectId });
+        navigate(RouteKey.rcomment, { iDoID: objectId });
       }}>
       <StyledMaterialCommunityIcons
         name="chat-bubble-outline"

@@ -7,7 +7,7 @@ import React, { FC, PureComponent, useEffect } from 'react';
 import { Animated, Platform } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import Toast from 'react-native-simple-toast';
-import { StyledHeaderRight, StyledIcon } from './style';
+import { StyledContent, StyledHeaderRight, StyledIcon } from './style';
 
 import TitleTabBar from '../../components/Groceries/TitleTabBar';
 import Statistical from './Statistical';
@@ -152,7 +152,7 @@ const Card: FC<{}> = (props) => {
                   );
                 }
               } else {
-                navigate('cardSetting', {
+                navigate(RouteKey.cardSetting, {
                   iCardId: iCard.objectId,
                   iUseId: iUseId,
                 });
@@ -169,17 +169,19 @@ const Card: FC<{}> = (props) => {
   }
   const { title, state } = iCard;
   return (
-    <Main {...props} iCard={iCard}>
-      {state === CircleState.open && (
-        <Circle iUse={data!} iCard={iCard!} {...props} tabLabel="圈子" />
-      )}
-      <Statistical
-        {...props}
-        iUse={data!}
-        iCard={iCard!}
-        tabLabel={state === CircleState.open ? '统计' : title}
-      />
-    </Main>
+    <StyledContent>
+      <Main {...props} iCard={iCard}>
+        {state === CircleState.open && (
+          <Circle iUse={data!} iCard={iCard!} {...props} tabLabel="圈子" />
+        )}
+        <Statistical
+          {...props}
+          iUse={data!}
+          iCard={iCard!}
+          tabLabel={state === CircleState.open ? '统计' : title}
+        />
+      </Main>
+    </StyledContent>
   );
 };
 export default Card;

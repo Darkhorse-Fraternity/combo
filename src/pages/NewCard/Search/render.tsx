@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import { ListRenderItem } from 'react-native';
 
 import { useDebouncedCallback } from 'use-debounce';
-import { StyledLine, StyledSearchInput } from './style';
+import { StyledContent, StyledLine, StyledSearchInput } from './style';
 
 import CardCell from '../CardCell/CardCell2';
 import { ICardType2 } from 'src/data/data-context/interface';
@@ -43,8 +43,8 @@ const Search = () => {
       setText(value);
     },
     // delay in ms
-    500,
-    // { leading: true, trailing: true },
+    150,
+    { leading: true, trailing: true },
   );
 
   const firstRef = useRef(true);
@@ -80,7 +80,7 @@ const Search = () => {
     }).then((res) => res.results);
   };
   return (
-    <>
+    <StyledContent>
       <StyledSearchInput
         autoFocus
         placeholder="请输入查询内容"
@@ -96,7 +96,7 @@ const Search = () => {
         // footerStyle={{ paddingBottom: 60 }}
         renderItem={renderRow}
       />
-    </>
+    </StyledContent>
   );
 };
 

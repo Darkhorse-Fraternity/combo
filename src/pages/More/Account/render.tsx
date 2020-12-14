@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { FC, useEffect, useState } from 'react';
-import { View, Alert, TouchableOpacity } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import * as WeChat from 'react-native-wechat';
 import DeviceInfo from 'react-native-device-info';
 
@@ -162,8 +162,7 @@ const RenderRow: FC<{
     <StyledButton disabled={load} onPress={onPress}>
       <StyledTitle>{title}</StyledTitle>
       <StyledRow>
-        <StyledDes>{des}</StyledDes>
-        {load ? <StyledActivityIndicator /> : <View />}
+        {load ? <StyledActivityIndicator /> : <StyledDes>{des}</StyledDes>}
       </StyledRow>
     </StyledButton>
   );

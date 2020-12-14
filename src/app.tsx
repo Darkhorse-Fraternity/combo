@@ -12,7 +12,7 @@ import CodePush, { DownloadProgress } from 'react-native-code-push';
 // import { useScreens } from "react-native-screens";
 
 import { creatStore } from './redux/store';
-import { theme } from './Theme';
+import theme from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';

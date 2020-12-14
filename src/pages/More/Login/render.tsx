@@ -345,8 +345,6 @@ const LoginView: FC<{}> = () => {
 
   useEffect(() => {
     WeChat.isWXAppInstalled().then((is) => {
-      console.log('is', is);
-
       setIsWXAppInstalled(is);
     });
   }, []);

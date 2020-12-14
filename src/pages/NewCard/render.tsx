@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { Fragment, FC } from 'react';
+import React, { Fragment, FC, useRef } from 'react';
 import {
   View,
   StyleSheet,
@@ -18,14 +18,19 @@ import {
   StyledTop,
   StyledHerderButton,
   StyledHeaderText,
+  StyledContent,
 } from './style';
 import CardTemplate from './CardTemplate';
 import { habits } from '../../configure/habit';
 import { useNavigation } from '@react-navigation/native';
 import { ICardType } from 'src/data/data-context/interface';
-import PageList from '@components/Base/PageList';
-import { postCallCardList } from 'src/hooks/interface';
+import {
+  PostCallCardListResponse,
+  usePostCallCardList,
+} from 'src/hooks/interface';
 import { RouteKey } from '@pages/interface';
+import LoadMoreList from '@components/Base/LoadMoreList';
+import { useCanceWhenLeave } from 'src/hooks/util';
 
 const ListHeaderComponet = () => {
   const { navigate } = useNavigation();
@@ -96,25 +101,84 @@ const RenderRow: FC<ICardType> = (props) => {
   );
 };
 
-const NewCard: FC<{}> = () => {
-  const loadPage = (page_index: number, page_size: number) => {
-    const param = {
-      limit: page_size + '',
-      skip: page_index * page_size + '',
-    };
-    return postCallCardList(param).then((res) => res.result);
+// const useLoadMoreWithLCConfig = <T extends {}>(limit: number = 20) => {
+//   const skipRef = useRef(0);
+//   const params = { limit: limit + '', skip: skipRef.current + '' };
+//   const option: LoadMoreOptionsWithFormat<
+//     LoadMoreFormatReturn,
+//     { result: T[] }
+//   > = {
+//     loadMore: true,
+//     formatResult: (res) => ({
+//       list: res.result,
+//     }),
+//     isNoMore: (nData) => !nData?.list?.length || nData?.list?.length < limit,
+//     onSuccess: (data, params) => {
+//       console.log('params', params);
+
+//       return (skipRef.current = data?.list.length || 0);
+//     },
+//   };
+//   return { params, option };
+// };
+
+// 上拉加载数据请求与管理
+
+const useLoadMore = () => {
+  const limit = 80;
+  const {
+    data,
+    cancel,
+    loading,
+    loadingMore,
+    // noMore,
+    ...rest
+  } = usePostCallCardList<{
+    list: NonNullable<PostCallCardListResponse['result']>;
+  }>((res) => ({ limit: limit + '', skip: res?.list?.length || 0 }), {
+    loadMore: true,
+    isNoMore: (nData) =>
+      !nData?.['result']?.length || nData?.['result']?.length < limit,
+    formatResult: (res) => ({
+      list: res?.result ?? [],
+      ...res,
+    }),
+    onSuccess: (data1) => {
+      lastDataRef.current = data1.list;
+    },
+    cacheKey: 'postCallCardList',
+    staleTime: 100 * 60 * 60 * 24,
+    cacheTime: 100 * 60 * 60 * 24,
+  });
+  const lastDataRef = useRef(data?.list);
+
+  useCanceWhenLeave(cancel, loading || loadingMore);
+
+  // console.log('noMore', noMore);
+
+  return {
+    data: loading ? lastDataRef.current : data?.list,
+    loading,
+    loadingMore,
+    ...rest,
   };
+};
+
+const NewCard: FC<{}> = () => {
+  const lm = useLoadMore();
 
   return (
-    <PageList<ICardType>
-      ListHeaderComponent={ListHeaderComponet}
-      loadPage={loadPage}
-      style={styles.list}
-      columnWrapperStyle={styles.columnWrapperStyle}
-      numColumns={4}
-      // footerStyle={{ paddingBottom: 60 }}
-      renderItem={renderRow}
-    />
+    <StyledContent>
+      <LoadMoreList<ICardType>
+        ListHeaderComponent={ListHeaderComponet}
+        style={styles.list}
+        columnWrapperStyle={styles.columnWrapperStyle}
+        numColumns={4}
+        // footerStyle={{ paddingBottom: 60 }}
+        renderItem={renderRow}
+        {...lm}
+      />
+    </StyledContent>
   );
 };
 

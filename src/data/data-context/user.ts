@@ -4,6 +4,7 @@ import {
   getUsersMe,
   GetUsersMeResponse,
   postBatch,
+  PostBatchResponse,
   postCallUserExsitJudge,
   postUsers,
   postUsersByMobilePhone,
@@ -12,6 +13,7 @@ import {
   postVerifySmsCodeCode,
   putUsersId,
   PutUsersIdRequest,
+  useGetUsersMe,
   usePutUsersId,
 } from 'src/hooks/interface';
 import { AuthDataKey, UserType } from './interface';
@@ -29,7 +31,7 @@ import moment from 'moment';
 // @ts-ignore: Unreachable code error
 import md5 from 'react-native-md5';
 import { setLeanCloudSession } from '@configure/reqConfigs';
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import DataContext from './index';
 
 const secret = '00e7625e8d2fdd453ac54e83f2de153c';
@@ -43,19 +45,21 @@ import appleAuth, {
   AppleAuthRequestOperation,
   AppleAuthRequestScope,
 } from '@invertase/react-native-apple-authentication';
+import _ from 'lodash';
 
-export const useUpdateMe = () => {
-  const { dispatch: contextDispatch } = useContext(DataContext);
-  const run = useCallback(() => {
-    userInfo().then((user) => {
-      updateLocation(user as never);
-      contextDispatch({ type: 'update_user_info', user: user as never });
-    });
-  }, [contextDispatch]);
+export const useUpdateMeFromRemote = (manual: boolean = false) => {
+  const { replaceMe } = useGetInfoOfMe();
+  const { run } = useGetUsersMe(
+    {},
+    {
+      manual,
+      onSuccess: (me) => replaceMe(me),
+    },
+  );
   return { run };
 };
 
-export async function userInfo() {
+export async function userInfoFromLocal() {
   // const uuid =  DeviceInfo.getUniqueID()
 
   try {
@@ -67,22 +71,16 @@ export async function userInfo() {
       const { sessionToken } = user;
       if (sessionToken) {
         // 更新用户数据
-        setLeanCloudSession(sessionToken);
-        update();
-
         return user;
-      } else {
-        return anonymousUser();
       }
-    } else {
-      return anonymousUser();
     }
+    return null;
   } catch (e) {
-    return anonymousUser();
+    return null;
   }
 }
 
-export async function update() {
+export async function updateFromRemote() {
   //   const params = usersMe();
   //   const res = await get(params);
 
@@ -102,21 +100,25 @@ export function updateLocation(user: GetUsersMeResponse | GetUsersIdResponse) {
 
 export const useGetInfoOfMe = () => {
   const { data, dispatch } = useContext(DataContext);
+  // 这样写是为了避免在同一个方法内连续调用update，此时如果直接在usecallback 内调用data, data 是不可变的。并且无法被插件识别。
+  const userRef = useRef(data);
+  userRef.current = data;
   const updateMe = useCallback(
     (info: Partial<GetUsersIdResponse | GetUsersMeResponse>) => {
       updateLocation({
-        ...data.user,
+        ...userRef.current.user,
         ...info,
       });
+
       dispatch({
         type: 'update_user_info',
         user: {
-          ...data.user,
+          ...userRef.current.user,
           ...(info as UserType),
         },
       });
     },
-    [data.user, dispatch],
+    [dispatch],
   );
 
   const replaceMe = useCallback(
@@ -146,10 +148,10 @@ export const useGetInfoOfMe = () => {
     });
   }, [dispatch]);
 
-  return { user: data.user, updateMe, replaceMe, logout };
+  return { user: _.cloneDeep(data.user), updateMe, replaceMe, logout };
 };
 
-const anonymousUser = async () => {
+export const anonymousUser = async () => {
   let uniqueId = DeviceInfo.getUniqueId();
   // console.log('uniqueId', uniqueId);
   if (Platform.OS === 'ios') {
@@ -163,10 +165,10 @@ const anonymousUser = async () => {
     // await dispatch(_loginSucceed(user));
 
     const user = await postUsers({ authData: { anonymous: anonymousConfig } });
-    setLeanCloudSession(user.sessionToken || '');
-    addSample(user);
+    setLeanCloudSession(user.sessionToken || ''); //需要提前加，否则addSample 会出错。
+    await addSample(user);
 
-    return user;
+    return user as UserType;
     // console.log('user:', user);
   } catch (e) {
     SimpleToast.show(e.message);
@@ -176,7 +178,7 @@ const anonymousUser = async () => {
     // const user = await anonymousUser();
     // return user;
     const user = postUsers({ authData: { anonymous: anonymousConfig } });
-    return user;
+    return (user as unknown) as UserType;
   }
 };
 
@@ -194,9 +196,13 @@ const addSample = async (user: PostUsersResponse) => {
     // const iCardsBatch = classBatch(iCardsReq);
     // const iCardsRes = await get(iCardsBatch);
     const iUseReq: ReturnType<typeof classCreatNewOne>[] = [];
-    iCardsRes.forEach((item) => {
-      if (item.success) {
-        const iUseParam = iUseSample(objectId, item.success.objectId);
+
+    //@ts-expect-error
+    const values = Object.values<PostBatchResponse['number']>(iCardsRes);
+
+    values.forEach((item) => {
+      if (item?.success) {
+        const iUseParam = iUseSample(objectId, item?.success.objectId);
         iUseReq.push(classCreatNewOne('iUse', iUseParam));
       }
     });
@@ -600,7 +606,7 @@ export const useQQLogin = () => {
           authData: {
             ...user.authData,
             anonymous: { __op: 'Delete' },
-            weixin: qqConfig,
+            qq: qqConfig,
           },
         };
         putUsersId({ id: user.objectId, ...params });
@@ -657,8 +663,6 @@ export const useAppleLogin = () => {
   const { user, replaceMe, updateMe } = useGetInfoOfMe();
   const run = useCallback(async () => {
     try {
-    } catch (e) {
-      // console.log(e);
       setLoading(true);
       // let user = getState().user.data;
       const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -681,6 +685,8 @@ export const useAppleLogin = () => {
       if (credentialState !== 1) {
         return setLoading(false);
       }
+
+      console.log('appleAuthRequestResponse', appleAuthRequestResponse);
 
       const userExsit = await getUserExsitJudge(
         'lc_apple',
@@ -737,7 +743,10 @@ export const useAppleLogin = () => {
         // return dispatch(updateUserInfo(user.objectId, exData));
       }
       setLoading(false);
-      SimpleToast.show(e.message);
+    } catch (e) {
+      console.log(e);
+      setLoading(false);
+      // SimpleToast.show(e.message);
     }
   }, [replaceMe, updateMe, user]);
   return { loading, run };

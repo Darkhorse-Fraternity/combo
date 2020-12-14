@@ -26,7 +26,7 @@ const RenderRow: FC<ListRenderItemInfo<ItemType>> = ({ item }) => {
       color={color}
       user={user!}
       onPress={() => {
-        navigate('rcomment', {
+        navigate(RouteKey.rcomment, {
           iDoID: item.objectId,
         });
       }}

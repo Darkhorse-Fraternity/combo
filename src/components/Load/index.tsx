@@ -1,12 +1,12 @@
 import Indicators from '@components/Indicators';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   View,
-  Dimensions,
   Platform,
   StyleSheet,
   ViewProps,
+  useWindowDimensions,
 } from 'react-native';
 // import {hideLoding, showLoading} from '../NativeTool';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
@@ -69,15 +69,30 @@ interface LoadAnimationProps extends ViewProps {
 
 export function LoadAnimation(props?: LoadAnimationProps) {
   const { top = 44 + getStatusBarHeight() } = props || {};
-  const { height } = Dimensions.get('window');
+  const { width, height } = useWindowDimensions();
+  // const { height } = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
   const lastTop = Platform.OS === 'ios' ? 0 : getStatusBarHeight();
+
+  const [show, setshow] = useState(false);
+  // 前两秒不出现
+
+  useEffect(() => {
+    const time = setTimeout(setshow.bind(undefined, true), 1000);
+    return () => {
+      clearTimeout(time);
+    };
+  }, []);
+
+  if (!show) {
+    return null;
+  }
 
   return (
     <View
       style={[
         styles.lottieViewBC,
-        { top: (height - size + lastTop) / 2 - top },
+        { top: (height - size + lastTop) / 2 - top, left: (width - size) / 2 },
       ]}>
       {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
       <Indicators size={30} />
@@ -106,6 +121,6 @@ const styles = StyleSheet.create({
   lottieViewBC: {
     zIndex: 100000,
     position: 'absolute',
-    left: (Dimensions.get('window').width - size) / 2,
+    // left: (Dimensions.get('window').width - size) / 2,
   },
 });

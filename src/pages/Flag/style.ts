@@ -6,7 +6,7 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
-import Button from '../../components/Button';
+import { ButtonItem } from '../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
@@ -23,7 +23,7 @@ export const StyledHeaderTitle = styled.Text`
   font-weight: 500;
 `;
 
-export const StyledItem = styled(Button)`
+export const StyledItem = styled(ButtonItem)`
   margin: 10px 20px 10px 20px;
   shadow-opacity: 0.7;
   shadow-radius: 5px;
@@ -31,8 +31,11 @@ export const StyledItem = styled(Button)`
   shadow-offset: 0px 3px;
 `;
 
-export const StyledItemImage = styled(FastImage)<{ numColumns: number }>`
-  width: ${(props) => props.theme.getWidth() / props.numColumns - 40};
+export const StyledItemImage = styled(FastImage)<{
+  numColumns: number;
+  width: number;
+}>`
+  width: ${(props) => props.width / props.numColumns - 40};
   aspect-ratio: 1.5;
   border-radius: 20px;
   align-self: center;

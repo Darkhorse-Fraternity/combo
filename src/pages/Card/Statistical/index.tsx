@@ -28,7 +28,7 @@ import { useGetUserInfo } from 'src/data/data-context';
 import SimpleToast from 'react-native-simple-toast';
 import { iUsePoint, point, userPoint } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
-import Calendar from '@components/Calendar';
+import Calendar, { CalendarClass } from '@components/Calendar';
 import { IUseType } from 'src/data/data-context/interface';
 
 type ItemType = GetClassesIDoResponse['results'][number];
@@ -213,16 +213,19 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
   const iUseId = iUse.objectId;
   const iCardId = iCard.objectId;
 
-  const { data } = useGetClassesIDo({
-    count: '1',
-    limit: '0',
-    where: JSON.stringify({
-      user: userPoint(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
-      iUse: iUsePoint(iUseId),
-      $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
-      state: { $ne: -1 },
-    }),
-  });
+  const { data } = useGetClassesIDo(
+    {
+      count: '1',
+      limit: '0',
+      where: JSON.stringify({
+        user: userPoint(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己
+        iUse: iUsePoint(iUseId),
+        $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
+        state: { $ne: -1 },
+      }),
+    },
+    { cacheKey: 'GetClassesIDo' + iUseId + iUse.user?.objectId },
+  );
 
   //本月的打卡记录
   {
@@ -238,21 +241,22 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
     Record<string, ItemType>
   >((item) => item, {
     manual: true,
+    cacheKey: 'GetClassesIDo' + iUseId + iUse.user?.objectId,
     formatResult: (res) => {
-      const data = {};
+      const data1 = {};
       res.results.forEach((item) => {
         const { createdAt, doneDate } = item;
-        const time = doneDate ? doneDate.iso : createdAt;
-        const date = moment(time).format('YYYY-MM-DD');
-        data[date] = item;
+        const timeIn = doneDate ? doneDate.iso : createdAt;
+        const dateIn = moment(timeIn).format('YYYY-MM-DD');
+        data1[dateIn] = item;
       });
 
-      return data;
+      return data1;
     },
   });
   // const { count } = data;
 
-  const ref = useRef<Calendar<ItemType>>(null);
+  const ref = useRef<CalendarClass<ItemType>>(null);
   useEffect(() => {
     const lesten = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iDO_reload,
@@ -321,13 +325,13 @@ const Statistical: FC<StatisticalProps> = ({ iCard, iUse }) => {
     <StyledInner>
       <Calendar<ItemType>
         color={color}
-        ref={ref}
+        calendarRef={ref}
         date={new Date()}
         load={loading}
         canceDay={canceDay} // 取消点击日打卡
         doneDay={selectDay} // 点击特定日
         busyDay={calendarData} // 全部数据
-        move={(first, last) => {
+        fetch={(first, last) => {
           // 加载本月数据
           const where = {
             user: userPoint(iUse.user?.objectId || ''), //粉丝查看也是这个入口，此时userid 不为自己

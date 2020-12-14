@@ -27,7 +27,7 @@ import Cell from '../../Habit/Cell';
 import { userPoint } from '../../../request/LCModle';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import Avatar from '../../../components/Avatar/Avatar2';
-import { isTablet } from 'react-native-device-info';
+// import { isTablet } from 'react-native-device-info';
 import { NavigationOptionsType, RouteKey } from '@pages/interface';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
@@ -65,7 +65,15 @@ const RenderFollow: FC<{
     <StyleFolllow>
       <Button
         onPress={() => {
-          navigate('followee', { userId: data.objectId });
+          // navigate('followee', { userId: data.objectId });
+
+          navigate({
+            name: RouteKey.followee,
+            key: RouteKey.followee + data.objectId,
+            params: {
+              userId: data.objectId,
+            },
+          });
         }}>
         <StyleFollowText>{followees_count}</StyleFollowText>
         <StyleFollowTipText>关注</StyleFollowTipText>
@@ -73,7 +81,14 @@ const RenderFollow: FC<{
       <Button
         style={{ marginLeft: 50 }}
         onPress={() => {
-          navigate('follower', { userId: data.objectId });
+          // navigate('follower', { userId: data.objectId });
+          navigate({
+            name: RouteKey.follower,
+            key: RouteKey.follower + data.objectId,
+            params: {
+              userId: data.objectId,
+            },
+          });
         }}>
         <StyleFollowText>{followers_count}</StyleFollowText>
         <StyleFollowTipText>被关注</StyleFollowTipText>
@@ -91,7 +106,7 @@ const RenderRow = ({ item }: ListRenderItemInfo<IUseType2>) => {
       data={item}
       // img={img}
       onPress={() => {
-        navigate('recordDetail', {
+        navigate(RouteKey.recordDetail, {
           iUseId: item.objectId,
         });
       }}
@@ -168,7 +183,6 @@ const Following: FC<{}> = () => {
   const { user } = useGetInfoOfMe();
   const { navigate } = useNavigation();
   const { userId } = useNavigationAllParamsWithType<RouteKey.following>();
-  console.log('userId', userId);
 
   const { data } = useGetUsersId({ id: userId });
   // where: {
@@ -248,7 +262,7 @@ const Following: FC<{}> = () => {
 
   const loadPage = (page_index: number, page_size: number) => {
     const where = {
-      statu: { $ne: 'del' },
+      statu: 'start',
       user: userPoint(userId),
       privacy: Privacy.open,
     };
@@ -285,7 +299,7 @@ const Following: FC<{}> = () => {
       /> */}
       <PageList<IUseType2>
         loadPage={loadPage}
-        numColumns={isTablet() ? 2 : 1}
+        numColumns={1}
         // style={{ backgroundColor: 'transparent' }}
         // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
         // prompIamgeStyle={{ height: 30, width: 30, marginTop: -120 }}

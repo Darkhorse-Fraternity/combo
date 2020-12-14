@@ -1,4 +1,4 @@
-import React, { useCallback, PureComponent } from 'react';
+import React, { useCallback, FC } from 'react';
 
 import {
   StyledButton,
@@ -22,10 +22,16 @@ type FormData = {
 
 interface RenderPropsType extends CModalPropsType {
   onDone: (password: string, pdErrorAction: () => void) => void;
+  onClose: () => void;
   loading?: boolean;
 }
 
-const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
+const PasswordValidation: FC<RenderPropsType> = ({
+  show = false,
+  onDone,
+  loading,
+  onClose,
+}) => {
   const { register, setValue, handleSubmit, errors, setError } = useForm<
     FormData
   >({
@@ -46,7 +52,7 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
   );
 
   return (
-    <CModal show={show}>
+    <CModal show={show} onClose={onClose}>
       <StyleModalMain>
         <StyleTitle>请输入加入密码</StyleTitle>
         <MemoRHFInput
@@ -80,10 +86,10 @@ const Render = ({ show = false, onDone, loading }: RenderPropsType) => {
   );
 };
 
-export default Render;
+export default PasswordValidation;
 
-export class PasswordValidation extends PureComponent<RenderPropsType> {
-  render() {
-    return <Render {...this.props} />;
-  }
-}
+// export class PasswordValidation extends PureComponent<RenderPropsType> {
+//   render() {
+//     return <Render {...this.props} />;
+//   }
+// }
