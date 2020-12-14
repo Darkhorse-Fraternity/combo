@@ -129,7 +129,7 @@ export default class LoadMoreList<
             size="small"
             animating
           /> */}
-          <View style={{ height: 30 }} />
+          {/* <View style={{ height: 30 }} /> */}
           <Indicators />
         </View>
       );
@@ -149,7 +149,7 @@ export default class LoadMoreList<
   openRefreshing = false;
   firstJoin = true;
   render() {
-    const { props, firstJoin } = this;
+    const { props, firstJoin, openRefreshing } = this;
     const {
       data,
       // loadStatu,
@@ -166,10 +166,10 @@ export default class LoadMoreList<
     // console.log('loadStatu:', loadStatu);
 
     const exceptionViewRefreshing = loading;
-    const refreshing = loading && this.openRefreshing;
+    const refreshing = loading && openRefreshing;
     const exceptionType =
       (exceptionViewRefreshing || firstJoin) &&
-      !this.openRefreshing &&
+      !openRefreshing &&
       showLoadingInView
         ? ExceptionType.Loading
         : ExceptionType.NoData;
