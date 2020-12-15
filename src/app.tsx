@@ -5,20 +5,16 @@
 
 import React, { useEffect } from 'react';
 // @ts-ignore: Unreachable code error
-import { Provider as ReduxProvider } from 'react-redux';
+
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
 import CodePush, { DownloadProgress } from 'react-native-code-push';
-// import { useScreens } from "react-native-screens";
-
-import { creatStore } from './redux/store';
 import theme from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-// import ContextProvide from './data/data-context/context-provide-class';
-// import tracker from 'react-native-umeng-analytics';
+
 import { navigationRef } from '@components/Nav/navigators';
 import { Provider } from './data/data-context';
 import { useTracker } from '@components/umeng/umTracking';
@@ -77,19 +73,17 @@ const App = () => {
 
   return (
     <Provider>
-      <ReduxProvider store={creatStore(SwitchNavigator)}>
-        <ThemeProvider theme={theme}>
-          <Configure />
-          <SafeAreaProvider>
-            <NavigationContainer
-              ref={navigationRef}
-              onReady={onReady}
-              onStateChange={onStateChange}>
-              <SwitchNavigator />
-            </NavigationContainer>
-          </SafeAreaProvider>
-        </ThemeProvider>
-      </ReduxProvider>
+      <ThemeProvider theme={theme}>
+        <Configure />
+        <SafeAreaProvider>
+          <NavigationContainer
+            ref={navigationRef}
+            onReady={onReady}
+            onStateChange={onStateChange}>
+            <SwitchNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </ThemeProvider>
     </Provider>
   );
 };

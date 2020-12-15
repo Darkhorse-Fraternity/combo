@@ -20,14 +20,6 @@ import {
   TextInputProps,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
-// @ts-ignore: Unreachable code error
-// import { connect } from 'react-redux';
-// import { req } from '../../../redux/actions/req';
-// import { APPLELOGIN } from '../../../redux/reqKeys';
-// import { requestSmsCode } from '../../../request/leanCloud';
-// import { weChatLogin, qqLogin, appleLogin } from '../../../redux/actions/user';
-
-// import { WECHATLOGIN, QQLOGIN, APPLELOGIN } from '../../../redux/reqKeys';
 import * as Animatable from 'react-native-animatable';
 import { checkPhoneNum } from '../../../request/validation';
 import {
