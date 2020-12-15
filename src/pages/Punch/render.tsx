@@ -33,8 +33,7 @@ import { strings } from '../../../locales/i18n';
 import Item from './Item';
 import rate from '../../../helps/rate';
 import { PrivacyModal } from '@components/modal/privacy';
-import { isLandscapeSync, isTablet } from 'react-native-device-info';
-import Orientation from 'react-native-orientation';
+import { isTablet } from 'react-native-device-info';
 import { RouteKey } from '@pages/interface';
 import { GetClassesIUseIdResponse, postClassesIDo } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
@@ -46,7 +45,7 @@ import { UserType } from 'src/data/data-context/interface';
 import { point } from '@request/LCModle';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { SoundsKeys } from '@configure/source';
-import { useScrollTitle } from '@components/util/hooks';
+import { useOrientation, useScrollTitle } from '@components/util/hooks';
 
 type ItemType = GetClassesIUseIdResponse & {
   satisfy?: boolean;
@@ -339,32 +338,11 @@ const RenderNoData: FC<{ refreshLoad: boolean; onRefresh: () => void }> = ({
 const Punch: FC<{}> = () => {
   console.log('puch render');
 
-  const [numColumns, setNumColumns] = useState(
-    isTablet() ? (isLandscapeSync() ? 7 : 5) : 3,
-  );
+  const ori = useOrientation();
+  const numColumns = isTablet() ? (ori === 'LANDSCAPE' ? 7 : 5) : 3;
   const user = useGetUserInfo();
   const { objectId: uid } = user;
   const { data = [], loading, run } = useGetIuseData();
-
-  // console.log('data',data?.result);
-
-  const _orientationDidChange = (orientation: string) => {
-    if (orientation === 'LANDSCAPE') {
-      setNumColumns(7);
-      // do something with landscape layout
-    } else {
-      setNumColumns(5);
-      // do something with portrait layout
-    }
-  };
-
-  useEffect(() => {
-    isTablet() && Orientation.addOrientationListener(_orientationDidChange);
-    return () => {
-      isTablet() &&
-        Orientation.removeOrientationListener(_orientationDidChange);
-    };
-  }, []);
 
   //当切换用户的时候,发起请求
   const firstRef = useRef(true);

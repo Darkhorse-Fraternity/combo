@@ -31,26 +31,26 @@ const middlewares = [thunk];
 const enhancer = applyMiddleware(...middlewares);
 // }
 
-let store: unknown;
-export function creatStore(route: unknown) {
-  if (!store && route) {
-    // const navReducer = createNavigationReducer(route);
-    const reducer = combineReducers({
-      ...reducers,
-      // nav: navReducer,
-    });
-    // const rootReducer = (state, action) => {
-    //   if (action.type === 'LOGOUT') {
-    //     const { nav } = state;
-    //     state = { nav };
-    //   }
-    //   return reducer(state, action);
-    // };
+export function creatStore() {
+  // const navReducer = createNavigationReducer(route);
+  const reducer = combineReducers({
+    ...reducers,
+    // nav: navReducer,
+  });
+  // const rootReducer = (state, action) => {
+  //   if (action.type === 'LOGOUT') {
+  //     const { nav } = state;
+  //     state = { nav };
+  //   }
+  //   return reducer(state, action);
+  // };
 
-    store = createStore(reducer, {}, enhancer);
-    // if (global.reduxNativeDevTools) {
-    //   global.reduxNativeDevToolsCompose(store);
-    // }
-  }
+  const store = createStore(reducer, {}, enhancer);
+  // if (global.reduxNativeDevTools) {
+  //   global.reduxNativeDevToolsCompose(store);
+  // }
+
   return store;
 }
+
+export const store = creatStore();

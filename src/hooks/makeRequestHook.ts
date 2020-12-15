@@ -72,7 +72,10 @@ const makeRequestHook: MakeRequestHookType = (request) => {
     return useRequest(requestData, {
       requestMethod: (param) => request(param),
       throwOnError: true,
-      onError: (e) => {
+      onError: (e, params) => {
+        console.log('makeRequestHook', e.message);
+        console.log('makeRequestHook params', params);
+
         SimpleToast.showWithGravity(
           e.message,
           SimpleToast.LONG,

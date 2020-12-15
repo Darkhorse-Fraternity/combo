@@ -440,9 +440,7 @@ const Render: FC<{}> = () => {
           control={control}
           // data={imgs}
           onPress={Keyboard.dismiss}
-          countInrow={
-            ori === 'PORTRAIT' || ori === 'PORTRAITUPSIDEDOWN' ? countInrow : 9
-          }
+          countInrow={ori === 'PORTRAIT' ? countInrow : 9}
           maxNumber={maxNumber}
           // onChange={onChangeImageArray}
           as={CustomImagePick}

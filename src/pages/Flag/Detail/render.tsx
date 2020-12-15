@@ -12,13 +12,12 @@ import {
   Linking,
   DeviceEventEmitter,
 } from 'react-native';
-// @ts-ignore: Unreachable code error
-import { connect } from 'react-redux';
 import moment from 'moment';
 import Toast from 'react-native-simple-toast';
 import FlipButton from '../../../components/Button/FlipButton';
 import { iCardPoint, FlagPoint, userPoint } from '../../../request/LCModle';
-
+//@ts-expect-error
+import { Provider as ReduxProvider, connect } from 'react-redux';
 import PayForm from '../../../components/modal/pay';
 import { pay } from '../../../redux/module/pay';
 
@@ -48,6 +47,7 @@ import { RouteKey } from '@pages/interface';
 import { LoadAnimation } from '@components/Load';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useNavigation } from '@react-navigation/native';
+import { store } from '@redux/store';
 
 interface StateType {
   showPay: boolean;
@@ -411,15 +411,17 @@ const FlagDetail: FC<{}> = (props) => {
         {cost > 0 && <RenderAppeal />}
         <View style={{ height: 100 }} />
       </StyledContent>
-      <FlagDetailClass
-        {...props}
-        flag={data}
-        selfUser={user}
-        isTourist={user.isTourist}
-        iCard={data.iCard!}
-        flip={!!record?.count}
-        join={join}
-      />
+      <ReduxProvider store={store}>
+        <FlagDetailClass
+          {...props}
+          flag={data}
+          selfUser={user}
+          isTourist={user.isTourist}
+          iCard={data.iCard!}
+          flip={!!record?.count}
+          join={join}
+        />
+      </ReduxProvider>
     </StyledSafeAreaView>
   );
 };

@@ -1,32 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
-import { isLandscapeSync, isTablet } from 'react-native-device-info';
-import Orientation from 'react-native-orientation';
-type OrientationType =
-  | 'LANDSCAPE'
-  | 'PORTRAIT'
-  | 'UNKNOWN'
-  | 'PORTRAITUPSIDEDOWN';
-export const useOrientation = () => {
-  const [orientation, setOrientation] = useState<OrientationType>(
-    isLandscapeSync() ? 'LANDSCAPE' : 'PORTRAIT',
-  );
-  const orientationDidChange = (ori: OrientationType) => {
-    setOrientation(ori);
-  };
+import { useCallback, useRef } from 'react';
+import {
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  useWindowDimensions,
+} from 'react-native';
 
-  useEffect(() => {
-    if (isTablet()) {
-      Orientation.addOrientationListener(orientationDidChange);
-    }
-    return () => {
-      if (isTablet()) {
-        Orientation.removeOrientationListener(orientationDidChange);
-      }
-    };
-  }, []);
-  return orientation;
+export const useOrientation = () => {
+  const { width, height } = useWindowDimensions();
+  return width > height ? 'LANDSCAPE' : 'PORTRAIT';
 };
 
 // export const useDimensions = () => {

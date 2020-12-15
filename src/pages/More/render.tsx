@@ -89,7 +89,7 @@ const RenderMain: FC<{}> = () => {
       <RenderRow title="好评鼓励" onPress={marketRate} />
 
       <RenderRow
-        title="微博反馈"
+        title="小改变微博"
         onPress={() => {
           Linking.canOpenURL('sinaweibo://').then((supported) => {
             // weixin://  alipay://
