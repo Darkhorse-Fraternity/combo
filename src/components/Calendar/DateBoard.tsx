@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableNativeFeedback } from 'react-native';
 
 // const { width } = Dimensions.get('window');
 import React, { PropsWithChildren } from 'react';
-import { theme } from '../../Theme';
 import Button from '../Button';
 import moment from 'moment';
 import styled from 'styled-components/native';
@@ -124,7 +123,7 @@ const RenderMain = <ItemT extends unknown>(
             style={[
               styles.selected,
               {
-                backgroundColor: color || theme.mainLightColor,
+                backgroundColor: color || 'grey',
                 borderRadius: 17,
               },
             ]}>

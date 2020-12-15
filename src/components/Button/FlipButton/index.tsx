@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import { debounce } from 'lodash'; // 4.0.8
 import * as Animatable from 'react-native-animatable';
-import { theme } from '../../../Theme';
 
 import {
   StyledContent,
@@ -81,10 +80,7 @@ const RenderActivety: FC<{ containStyle: StyleProp<ViewStyle> }> = (props) => {
   const { containStyle } = props;
   return (
     <StyledFace style={containStyle as {}}>
-      <ActivityIndicator
-        size="small"
-        color={theme.normalBtn.activityIndicatorColor}
-      />
+      <ActivityIndicator size="small" color={'grey'} />
     </StyledFace>
   );
 };

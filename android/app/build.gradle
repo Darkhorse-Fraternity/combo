@@ -141,7 +141,7 @@ android {
         applicationId "com.combo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
+        versionCode 2009251350
         versionName '1.5.5'
         ndk {
             abiFilters "armeabi-v7a", 'arm64-v8a','x86','x86_64'

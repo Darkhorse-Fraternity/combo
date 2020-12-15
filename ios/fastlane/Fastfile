@@ -4,6 +4,10 @@
 # For a list of all available actions, check out
 #
 #     https://docs.fastlane.tools/actions
+#     https://carloscuesta.me/blog/shipping-react-native-apps-with-fastlane
+#     https://shift.infinite.red/simple-react-native-ios-releases-4c28bb53a97b
+#
+#     https://stackoverflow.com/questions/56179677/how-to-renew-expired-certificate-with-fastlane
 #
 
 # Uncomment the line if you want fastlane to automatically update itself
@@ -13,8 +17,13 @@ default_platform(:ios)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
+  desc "This will also make sure the profile is up to date"
   lane :beta do
-    build_app(workspace: "Combo.xcworkspace", scheme: "Combo",clean: true,export_method: "app-store",export_xcargs: "-allowProvisioningUpdates")
+    match(type: 'appstore')
+    # build_app(workspace: "Combo.xcworkspace", scheme: "Combo",clean: true,export_method: "app-store",export_xcargs: "-allowProvisioningUpdates")
+    build_app(workspace: "Combo.xcworkspace", scheme: "Combo",clean: true)
+
     upload_to_testflight
   end
 end
+

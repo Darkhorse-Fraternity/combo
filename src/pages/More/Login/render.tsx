@@ -44,7 +44,7 @@ import {
   StyledMoreBtnText,
   StyledInputView,
 } from './style';
-import { getTheme } from '../../../Theme/index';
+import { theme } from '../../../Theme/index';
 import * as WeChat from 'react-native-wechat';
 import { strings } from '../../../../locales/i18n';
 // const webUrl = 'https://static.dayi.im/static/fudaojun/rule.html?version=20160603182000';
@@ -60,7 +60,7 @@ import {
   useWechatLogin,
 } from 'src/data/data-context/user';
 import { useNavigation } from '@react-navigation/native';
-const { mainColor } = getTheme();
+const { mainColor } = theme;
 
 interface LoginProps {
   isWXAppInstalled: boolean;
