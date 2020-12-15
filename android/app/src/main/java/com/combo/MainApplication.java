@@ -22,7 +22,7 @@ import com.facebook.soloader.SoLoader;
 
 import com.ineva.gdt.GTDConfig;
 import com.microsoft.codepush.react.CodePush;
-
+import org.wonday.orientation.OrientationActivityLifecycle;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
@@ -81,6 +81,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         PushService.setDefaultChannelId(this, packageName + "android.push");
         AVOSCloud.initialize(this, "cmwLjTYWoYfN4jCgPR49rsi6-gzGzoHsz",
                 "S6wxWnhQfL9rBLo2ngEctK0u");
+        registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance());
         // 用于推送判断前后台
 //        ActivityLifecycleCallbacks();
 

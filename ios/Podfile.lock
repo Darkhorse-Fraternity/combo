@@ -291,7 +291,7 @@ PODS:
     - React-Core
   - react-native-netinfo (5.9.7):
     - React-Core
-  - react-native-orientation (3.1.3):
+  - react-native-orientation-locker (1.2.0):
     - React
   - react-native-qq (3.0.0):
     - React
@@ -497,7 +497,7 @@ DEPENDENCIES:
   - "react-native-cameraroll (from `../node_modules/@react-native-community/cameraroll`)"
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - react-native-orientation (from `../node_modules/react-native-orientation`)
+  - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-qq (from `../node_modules/react-native-qq`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-simple-toast (from `../node_modules/react-native-simple-toast`)
@@ -622,8 +622,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
-  react-native-orientation:
-    :path: "../node_modules/react-native-orientation"
+  react-native-orientation-locker:
+    :path: "../node_modules/react-native-orientation-locker"
   react-native-qq:
     :path: "../node_modules/react-native-qq"
   react-native-safe-area-context:
@@ -758,7 +758,7 @@ SPEC CHECKSUMS:
   react-native-cameraroll: ae0a7c0cc8462508855707ff623b1e789b692865
   react-native-image-picker: c6d75c4ab2cf46f9289f341242b219cb3c1180d3
   react-native-netinfo: 250dc0ca126512f618a8a2ca6a936577e1f66586
-  react-native-orientation: f1caf84d65f1a4fd4511a18f2b924e634ad7a628
+  react-native-orientation-locker: 47aaa55d59bfc1613804dc22f159e6bb1cca5f30
   react-native-qq: 06b6e0afc116eebfabfd4bd3070befaa437b5384
   react-native-safe-area-context: 79fea126c6830c85f65947c223a5e3058a666937
   react-native-simple-toast: 58b71ef003f01d2c0bf5dcd2fdccc75861dabade

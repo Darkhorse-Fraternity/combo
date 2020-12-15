@@ -1,7 +1,7 @@
 import React, { FC, memo, PureComponent, useEffect, useRef } from 'react';
 // @ts-ignore: Unreachable code error
 import { Platform, UIManager, Linking } from 'react-native';
-import Orientation from 'react-native-orientation';
+import Orientation from 'react-native-orientation-locker';
 
 // @ts-ignore: Unreachable code error
 import KeyboardManager from 'react-native-keyboard-manager';
