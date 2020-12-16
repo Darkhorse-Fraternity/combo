@@ -203,7 +203,7 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
 
   const onSuccess = (data: PickerImage | PickerImage[]) => {
     // upload(path);
-    const image = data as PickerImage[];
+    const image = Array.isArray(data) ? data : [data];
     LayoutAnimation.spring();
     if (onChange && image && image.length > 0) {
       // let imageArray: string[] = [];
