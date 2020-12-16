@@ -201,13 +201,11 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
     // const image = await pickerImage(imageCount);
   };
 
-  const onSuccess = (data: PickerImage[]) => {
+  const onSuccess = (data: PickerImage | PickerImage[]) => {
     // upload(path);
     const image = data as PickerImage[];
     LayoutAnimation.spring();
-    console.log('imgs111', image);
     if (onChange && image && image.length > 0) {
-      console.log('onChange', onChange);
       // let imageArray: string[] = [];
       // imagesDataArray.map((item: IImageInfo) => {
       //   imageArray.push(item.url);
@@ -219,7 +217,6 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
         ...value.map((item) => item.url),
         ...image.map((item) => item.path),
       ];
-      console.log('imgs', imgs);
       onChange([...new Set(imgs)].map((item) => ({ url: item })));
     }
   };
