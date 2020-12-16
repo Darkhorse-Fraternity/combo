@@ -4,25 +4,24 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Image, StyleSheet, Platform } from 'react-native';
 // import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 
-export default class HeaderBackImage extends Component {
-  constructor(props: Object) {
-    super(props);
-    this.state = {};
-  }
+interface HeaderBackImageProps {
+  tintColor: string;
+}
 
-  state: {};
-  static propTypes = {};
-  static defaultProps = {};
-
+export default class HeaderBackImage extends PureComponent<
+  HeaderBackImageProps
+> {
   render() {
+    console.log('this.props.tintColor', this.props.tintColor);
+
     return (
       <Image
         source={require('../../../../source/img/bar/back-icon.png')}
-        style={styles.image}
+        style={[styles.image, { tintColor: this.props.tintColor }]}
       />
     );
   }

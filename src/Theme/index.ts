@@ -1,8 +1,15 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ColorSchemeName,
+} from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { randFlowCoverColor } from './color';
-const getTheme = () => {
+const getTheme = (colorScheme: ColorSchemeName) => {
   const { height, width } = Dimensions.get('window');
+  console.log('colorScheme', colorScheme);
+
   return {
     width,
     height,
@@ -20,13 +27,13 @@ const getTheme = () => {
     blackTertiary: 'rgba(0,0,0,0.38)',
     mainColor: '#fdd83c',
     textinputbackgroundColor: '#f6f7f9',
-
+    backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
     //图片随机背景颜色
     randFlowCoverColor: randFlowCoverColor,
   };
 };
-
-const theme = getTheme();
+const colorScheme = Appearance.getColorScheme();
+const theme = getTheme(colorScheme);
 export { getTheme, theme };
 export default theme;
 export type ThemeInterface = typeof theme;

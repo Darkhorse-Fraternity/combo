@@ -9,15 +9,20 @@ import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 // import SplashScreen from 'react-native-splash-screen';
 import CodePush, { DownloadProgress } from 'react-native-code-push';
-import theme from './Theme';
+import { getTheme } from './Theme';
 import Configure from './configure';
 import { SwitchNavigator } from '@pages/index';
-import { NavigationContainer } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { navigationRef } from '@components/Nav/navigators';
 import { Provider } from './data/data-context';
 import { useTracker } from '@components/umeng/umTracking';
+import { useColorScheme } from 'react-native';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -70,13 +75,16 @@ const App = () => {
   //   };
   // }, []);
   const { onReady, onStateChange } = useTracker();
+  const colorScheme = useColorScheme();
+  console.log('DarkTheme', DarkTheme);
 
   return (
     <Provider>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={getTheme(colorScheme)}>
         <Configure />
         <SafeAreaProvider>
           <NavigationContainer
+            theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
             ref={navigationRef}
             onReady={onReady}
             onStateChange={onStateChange}>

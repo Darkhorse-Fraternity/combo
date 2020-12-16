@@ -11,8 +11,6 @@
 		27FD1E63F3F5DA71D877ABD9 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8FE12D20804EDE00413559 /* libPods-Combo.a */; };
 		74B0FEE9FE2107461CC1DD5E /* libPods-comboUnFinished.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F409503550D6680E286CB26 /* libPods-comboUnFinished.a */; };
 		762383A1B9F2C1920B2C6146 /* libPods-comboTodayWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66A4CAE8D21393F72CEC1545 /* libPods-comboTodayWidget.a */; };
-		77821596248E0AAB00AF3F2F /* logo-horizontal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */; };
-		77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */; };
 		77A60D1A2318BB5100D48BEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D192318BB5100D48BEF /* SystemConfiguration.framework */; };
 		77A60D1C2318BB6700D48BEF /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 77A60D1B2318BB6700D48BEF /* libsqlite3.0.tbd */; };
 		AEF1A24D380BFD453786DA81 /* libPods-Combo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C22219815181E16F163146 /* libPods-Combo.a */; };
@@ -145,8 +143,6 @@
 		6726C820089B4C888439340C /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		69E7D30C48234DA5890EFBF9 /* libRNCNetInfo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCNetInfo.a; sourceTree = "<group>"; };
 		6C421093BF46426F94553282 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
-		77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-horizontal@3x.png"; sourceTree = "<group>"; };
-		77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo-horizontal@2x.png"; sourceTree = "<group>"; };
 		77A60D172318B47000D48BEF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		77A60D192318BB5100D48BEF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		77A60D1B2318BB6700D48BEF /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -333,7 +329,6 @@
 			isa = PBXGroup;
 			children = (
 				EA88511D25205C150006A93E /* Common */,
-				77821593248E0AA100AF3F2F /* Images */,
 				CCB9FFCA21A402AA005BD7C5 /* Util */,
 				CCFBC84B1FEA7B2200DA269C /* Config */,
 				CC01F7A51FD6826F00A18EFD /* Source */,
@@ -371,16 +366,6 @@
 			children = (
 			);
 			name = Resources;
-			sourceTree = "<group>";
-		};
-		77821593248E0AA100AF3F2F /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				77821595248E0AAB00AF3F2F /* logo-horizontal@2x.png */,
-				77821594248E0AAB00AF3F2F /* logo-horizontal@3x.png */,
-			);
-			name = Images;
-			path = ../Images;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
@@ -723,12 +708,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77821596248E0AAB00AF3F2F /* logo-horizontal@3x.png in Resources */,
 				CCCE41AE2064A0F000F282E3 /* Images.xcassets in Resources */,
 				CCCE41AF2064A0F000F282E3 /* InfoPlist.strings in Resources */,
 				CCCE41B02064A0F000F282E3 /* LaunchScreen.xib in Resources */,
 				CCCE41B92064A0F000F282E3 /* tip.mp3 in Resources */,
-				77821597248E0AAB00AF3F2F /* logo-horizontal@2x.png in Resources */,
 				EA6EA36C2547EE75007D484B /* TTProgressHUDResource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
