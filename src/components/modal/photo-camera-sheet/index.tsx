@@ -42,7 +42,7 @@ export interface PickViewProps extends InnerViewProps {
 }
 
 export interface InnerViewProps {
-  onSuccess: (img: CropImage | CropImage[]) => void;
+  onSuccess: (img: CropImage[]) => void;
   onClose?: () => void;
   option?: Options;
   onPick?: () => void;
@@ -72,7 +72,7 @@ const InnerView = (props: InnerViewProps) => {
           if (!onPick) {
             selectCamera(option)
               .then((res) => {
-                onSuccess(res);
+                onSuccess([res]);
                 setLoding(false);
               })
               .catch(() => {
@@ -89,11 +89,13 @@ const InnerView = (props: InnerViewProps) => {
       <StyledCellTopLine />
       <Button
         onPress={() => {
+          console.log('onPick', onPick);
+
           onPick && onPick();
           if (!onPick) {
             setLoding(true);
             selectAlbum(option)
-              .then((res) => onSuccess(res))
+              .then((res) => onSuccess([res]))
               .catch(() => {
                 setLoding(false);
               });
