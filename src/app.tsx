@@ -76,7 +76,6 @@ const App = () => {
   // }, []);
   const { onReady, onStateChange } = useTracker();
   const colorScheme = useColorScheme();
-  console.log('DarkTheme', DarkTheme);
 
   return (
     <Provider>

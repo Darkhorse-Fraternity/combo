@@ -8,18 +8,13 @@ import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
   return {
     title: '',
-    headerRight: (headerRightProps) => (
+    headerRight: ({ tintColor }) => (
       <TouchableItem
         style={{ marginRight: 15 }}
-        {...headerRightProps}
         onPress={() => {
           props.navigation.navigate(RouteKey.newCard);
         }}>
-        <StyledIonicons
-          // color={'#39ba98'}
-          size={25}
-          name="plus-circle"
-        />
+        <StyledIonicons color={tintColor} size={25} name="plus-circle" />
       </TouchableItem>
     ),
     // headerRight,

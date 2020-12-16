@@ -17,6 +17,7 @@ import AnimatedTabBar, {
   TabsConfig,
 } from '@gorhom/animated-tabbar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useColorScheme } from 'react-native';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
@@ -24,13 +25,14 @@ const OrigenStack = (props: StackPropsType) => {
 
   const Stack = createStackNavigator<RootStackParamList>();
   const keys = Object.keys(route) as (keyof RootStackParamList)[];
+  const scheme = useColorScheme();
 
   return (
     <Stack.Navigator
       initialRouteName={initialRouteName}
       // initialParams={}
       headerMode="screen"
-      screenOptions={defaultNavigationOptions}>
+      screenOptions={defaultNavigationOptions(scheme)}>
       {keys.map((key) => (
         <Stack.Screen
           name={key}

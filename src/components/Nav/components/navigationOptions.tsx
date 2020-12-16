@@ -1,10 +1,11 @@
-import { Platform, StatusBar } from 'react-native';
+import { ColorSchemeName, Platform, StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import React from 'react';
 import { strings } from '../../../../locales/i18n';
 import HeaderBackImage from './HeaderBackImage';
 import { StackNavigationOptions } from '@react-navigation/stack';
 import { TransitionPresets } from '@react-navigation/stack';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 
 const currentHeight = StatusBar.currentHeight || 20;
 
@@ -15,41 +16,51 @@ const headerStyleAndroid =
         height: 64 + currentHeight - 20,
       };
 
-export const defaultNavigationOptions: StackNavigationOptions = {
-  headerStyle: {
-    // backgroundColor: 'red',
-    shadowColor: 'red',
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    shadowOffset: {
-      height: 0,
-      width: 0,
-    },
-    ...headerStyleAndroid,
-    borderBottomColor: '#F5FCFF',
-    elevation: 0,
-    // headerBackTitle:' '
-  },
+export const defaultNavigationOptions: (
+  scheme: ColorSchemeName,
+) => StackNavigationOptions = (scheme) => {
+  const isMode = scheme === 'dark';
 
-  headerTintColor: 'black',
-  headerTitleStyle: {
-    alignItems: 'center',
-    fontSize: 19,
-    fontWeight: '400',
-  },
-  cardStyle: { backgroundColor: 'white' },
-  // headerBackImage: require('../../source/img/bar/back-icon.png'),
-  headerBackImage: (props) => (
-    <HeaderBackImage
-      tintColor={props.tintColor}
-      // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
-    />
-  ),
-  headerBackTitleVisible: false,
-  headerTitleAlign: 'center',
-  title: '',
-  ...TransitionPresets.SlideFromRightIOS,
-  // gesturesEnabled: true,
+  const theme = isMode ? DarkTheme : DefaultTheme;
+  const colors = theme.colors;
+  console.log('colors', theme.colors);
+
+  return {
+    headerStyle: {
+      // backgroundColor: 'red',
+      shadowColor: colors.text,
+      shadowOpacity: 0,
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+        width: 0,
+      },
+      ...headerStyleAndroid,
+      borderBottomColor: '#F5FCFF',
+      elevation: 0,
+      // headerBackTitle:' '
+    },
+
+    headerTintColor: colors.text,
+    headerTitleStyle: {
+      alignItems: 'center',
+      fontSize: 19,
+      fontWeight: '400',
+    },
+    cardStyle: { backgroundColor: colors.card },
+    // headerBackImage: require('../../source/img/bar/back-icon.png'),
+    headerBackImage: (props) => (
+      <HeaderBackImage
+        tintColor={props.tintColor}
+        // style={{marginLeft: Platform.OS === 'ios' ? 15 : 10}}
+      />
+    ),
+    headerBackTitleVisible: false,
+    headerTitleAlign: 'center',
+    title: '',
+    ...TransitionPresets.SlideFromRightIOS,
+    // gesturesEnabled: true,
+  };
 };
 
 export const tabsOptions = {

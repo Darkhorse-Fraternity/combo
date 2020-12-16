@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 
 import { firstInstaller } from '../../../../helps/util';
@@ -73,8 +73,15 @@ const AuthLoadingScreen: FC<Descriptor<ParamListBase>> = (props) => {
     };
   }, [isTourist, state, props.navigation]);
 
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? 'black' : 'white' },
+      ]}>
       <Indicators size={40} />
       {/* <Text style={styles.text}>加载中...</Text> */}
       {/* <AuthLoadingScreenClass {...props} /> */}
@@ -88,6 +95,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor:
   },
   text: {
     marginTop: 10,
