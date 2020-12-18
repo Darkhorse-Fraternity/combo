@@ -24,6 +24,7 @@ export const StyledHeaderTitle = styled.Text`
   max-width: 200px;
   margin-left: 20px;
   margin: 10px 20px 20px 20px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledAdd = styled(BorderlessButton)`

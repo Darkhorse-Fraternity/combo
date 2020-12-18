@@ -353,7 +353,7 @@ const Circle: FC<CircleProps> = (props) => {
       showsVerticalScrollIndicator={false}
       // loadPage={loadPage}
       keyId={'objectId'}
-      style={{ backgroundColor: 'transparent' }}
+      // style={{ backgroundColor: 'transparent' }}
       // promptImage={require('@img/LiveManagement/live_video_nodata.webp')}
       noDataPrompt="暂无日志信息"
       footerStyle={{ paddingBottom: 60 }}

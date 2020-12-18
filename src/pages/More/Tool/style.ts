@@ -12,6 +12,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledRow = styled.View<{ num: number }>`

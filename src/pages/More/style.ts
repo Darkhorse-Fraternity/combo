@@ -33,6 +33,7 @@ export const StyledHeaderName = styled.Text`
   margin-top: 5px;
   text-align: center;
   min-width: 100px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledAvatar = styled.Image`
@@ -80,4 +81,19 @@ export const StyleFollowText = styled.Text`
   margin-top: 10px;
   font-size: 23px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StyledRowText = styled.Text`
+  /* margin */
+  margin-left: 10px;
+  font-size: 17px;
+  color: ${({ theme }) => theme.colors.text};
+  /* color: */
+`;
+
+export const StyledDescription = styled.Text`
+  margin-right: 12px;
+  font-size: 13px;
+  color: #333333;
 `;

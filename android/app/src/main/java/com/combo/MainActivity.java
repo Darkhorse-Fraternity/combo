@@ -12,7 +12,7 @@ import com.facebook.react.ReactRootView;
 import com.ineva.gdt.SplashActivity;
 import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import com.umeng.analytics.MobclickAgent;
-import org.devio.rn.splashscreen.SplashScreen;
+//import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -43,9 +43,11 @@ public class MainActivity extends ReactActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+        getReactInstanceManager().onConfigurationChanged(this, newConfig);
         Intent intent = new Intent("onConfigurationChanged");
         intent.putExtra("newConfig", newConfig);
-        this.sendBroadcast(intent);
+        sendBroadcast(intent);
+
     }
 
     /**

@@ -47,7 +47,7 @@ export const StyledSmallAvatar = styled(FastImage)`
 `;
 
 export const StyledRowContent = styled(Button)`
-  background-color: white;
+  /* background-color: white; */
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -65,6 +65,7 @@ export const StyledInnerRight = styled.View`
 
 export const StyledName = styled.Text`
   font-size: 17px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledDiscrib = styled.Text`
@@ -92,6 +93,7 @@ export const StyledHeaderName = styled.Text`
   font-size: 21px;
   font-weight: 500;
   max-width: 150px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledZoomImage = styled(ZoomImage)`
@@ -102,7 +104,8 @@ export const StyledZoomImage = styled(ZoomImage)`
 export const StyleFollowTipText = styled.Text`
   margin-top: 1px;
   font-size: 13px;
-  color: #646464;
+  color: ${({ theme }) => theme.colors.titleSecondary};
+  /* color: #646464; */
 `;
 
 export const StyledBottomTitle = styled.Text``;

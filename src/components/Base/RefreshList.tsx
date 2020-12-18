@@ -37,7 +37,7 @@ import { ListLoadType } from './interface';
 export type BaseListBaseProps<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;
-    tipTap?: Function;
+    tipTap?: () => void;
     keyId?: keyof T;
     // noDataImg?: ImageSourcePropType;
     tipBtnText?: string;

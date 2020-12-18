@@ -89,3 +89,9 @@ export const StyledArrowView = styled.View`
   height: 10px;
   margin-left: 5px;
 `;
+
+export const StyledName = styled.Text`
+  margin-left: 10;
+  min-width: 100;
+  color: ${({ theme }) => theme.colors.text};
+`;

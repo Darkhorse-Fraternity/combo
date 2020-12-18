@@ -4,11 +4,12 @@
  */
 
 import React, { PureComponent } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Avatar from '../../../components/Avatar/Avatar2';
 
 import Button from '../../../components/Button';
 import { UserType } from 'src/data/data-context/interface';
+import { StyledName } from './style';
 
 interface HeaderProps {
   user: UserType;
@@ -22,7 +23,7 @@ export default class Header extends PureComponent<HeaderProps> {
       <View style={styles.header}>
         <Button onPress={onPress} style={styles.top}>
           <Avatar radius={20} user={user} />
-          <Text style={styles.name}>{user.nickname || '路人甲'}</Text>
+          <StyledName>{user.nickname || '路人甲'}</StyledName>
         </Button>
         <View />
       </View>
@@ -46,8 +47,5 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 15,
     backgroundColor: 'rgba(0,0,0,0.3)',
-  },
-  name: {
-    marginLeft: 10,
   },
 });

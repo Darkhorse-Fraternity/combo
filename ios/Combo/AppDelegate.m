@@ -117,7 +117,13 @@ static void InitializeFlipper(UIApplication *application) {
   [logo setFrame:CGRectMake(0, -10,189, 54)];
   [_bottomView addSubview:logo];
   logo.center = _bottomView.center;
-  _bottomView.backgroundColor = [UIColor whiteColor];
+    
+    
+  if (@available(iOS 13.0, *)) {
+    _bottomView.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+        _bottomView.backgroundColor = [UIColor whiteColor];
+    }
   [splash loadAdAndShowInWindow:self.window withBottomView:_bottomView];
 }
 

@@ -3,7 +3,7 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { FC, memo } from 'react';
 
 import {
   StyledContent,
@@ -13,31 +13,34 @@ import {
 } from './style';
 import icons from '../../../../source/icons';
 import { ButtonType } from '@components/Button';
+import { useTheme } from '@react-navigation/native';
 
 interface CardCellProps extends ButtonType {
   title: string;
-  color: string;
+  color?: string;
   des?: string;
   name: string;
 }
 
-export default class CardCell extends PureComponent<CardCellProps> {
-  render() {
-    const { title, onPress, name, color } = this.props;
+const CardCell: FC<CardCellProps> = (props) => {
+  // const colorScheme = useColorScheme();
+  const theme = useTheme();
+  const { title, onPress, name, color = theme.colors.card } = props;
 
-    // const {  iconAndColor,title ,recordDay} = iCard
-    // const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
+  // const {  iconAndColor,title ,recordDay} = iCard
+  // const { color, name } = iconAndColor || {name:'sun',color:'#b0d2ee'}
 
-    // const source = img ? { uri: img.url } :
-    //   require('../../../../source/img/my/icon-60.png')
+  // const source = img ? { uri: img.url } :
+  //   require('../../../../source/img/my/icon-60.png')
 
-    return (
-      <StyledContent onPress={onPress}>
-        <StyledImageBack color={color}>
-          <StyledImage resizeMode="contain" source={icons[name]} />
-        </StyledImageBack>
-        <StyledTitle numberOfLines={1}>{title}</StyledTitle>
-      </StyledContent>
-    );
-  }
-}
+  return (
+    <StyledContent onPress={onPress}>
+      <StyledImageBack color={color}>
+        <StyledImage resizeMode="contain" source={icons[name]} />
+      </StyledImageBack>
+      <StyledTitle numberOfLines={1}>{title}</StyledTitle>
+    </StyledContent>
+  );
+};
+
+export default memo(CardCell);

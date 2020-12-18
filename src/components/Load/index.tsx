@@ -59,30 +59,36 @@ export function loadView(top: number = 44 + getStatusBarHeight()) {
   //     }}
   //   />
   // );
-  return <LoadAnimation top={top} />;
+  return <LoadAnimation top={top} delay={3000} />;
 }
 
 interface LoadAnimationProps extends ViewProps {
   top?: number;
+  delay?: number;
+  modeDark?: boolean;
   // style?
 }
 
 export function LoadAnimation(props?: LoadAnimationProps) {
-  const { top = 44 + getStatusBarHeight() } = props || {};
+  const { top = 44 + getStatusBarHeight(), delay = 0, modeDark } = props || {};
   const { width, height } = useWindowDimensions();
   // const { height } = Dimensions.get('window');
   // const dWidth = Platform.OS === 'ios' ? width / 375 : 200 / 300;
   const lastTop = Platform.OS === 'ios' ? 0 : getStatusBarHeight();
 
-  const [show, setshow] = useState(false);
+  const [show, setshow] = useState(delay === 0);
   // 前两秒不出现
 
   useEffect(() => {
-    const time = setTimeout(setshow.bind(undefined, true), 1000);
+    let time: number;
+    if (delay > 0) {
+      time = setTimeout(setshow.bind(undefined, true), delay);
+    }
+
     return () => {
-      clearTimeout(time);
+      time && clearTimeout(time);
     };
-  }, []);
+  }, [delay]);
 
   if (!show) {
     return null;
@@ -95,7 +101,7 @@ export function LoadAnimation(props?: LoadAnimationProps) {
         { top: (height - size + lastTop) / 2 - top, left: (width - size) / 2 },
       ]}>
       {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
-      <Indicators size={30} />
+      <Indicators size={30} modeDark={modeDark} />
       {/* <LottieLoading style={styles.lottieView} /> */}
     </View>
   );

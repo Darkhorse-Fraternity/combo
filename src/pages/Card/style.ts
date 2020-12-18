@@ -11,7 +11,7 @@ import IconSet from '../../../source/font/Iconfont';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledHeaderRight = styled.View`

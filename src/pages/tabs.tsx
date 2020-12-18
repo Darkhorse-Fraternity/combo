@@ -18,6 +18,7 @@ import AnimatedTabBar, {
 } from '@gorhom/animated-tabbar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 // import {useNavigation, useRoute} from '@react-navigation/native';
 
 const OrigenStack = (props: StackPropsType) => {
@@ -126,7 +127,8 @@ const options = ({ route }: { route: { state: { index: number } } }) => {
 export default function App() {
   // hooks
   const { bottom } = useSafeAreaInsets();
-
+  const colorScheme = useColorScheme();
+  const theme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
   // memos
   // const screenPaddingBottom = useMemo(() => {
   //   // icon size + margin padding + outer space + inner space + screen bottom padding
@@ -145,11 +147,11 @@ export default function App() {
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.0,
-
+        backgroundColor: theme.colors.card,
         elevation: 24,
       },
     }),
-    [bottom],
+    [bottom, theme.colors.card],
   );
 
   return (

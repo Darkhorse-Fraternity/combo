@@ -17,7 +17,11 @@ import {
   StyledHeader,
 } from './style';
 
-import { StackActions, useNavigation } from '@react-navigation/native';
+import {
+  StackActions,
+  useNavigation,
+  useTheme,
+} from '@react-navigation/native';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
@@ -47,6 +51,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
     style,
   } = props;
   const IconIN = Icon || StyledIcon;
+  const theme = useTheme();
   return (
     <StyledBottomMenuButton
       style={style}
@@ -61,7 +66,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
       {load ? (
         <StyledActivityIndicator color={'gray'} />
       ) : (
-        <IconIN size={size} name={name} />
+        <IconIN size={size} name={name} color={theme.colors.text} />
       )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>

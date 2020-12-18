@@ -21,6 +21,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledItem = styled(ButtonItem)`
@@ -39,7 +40,7 @@ export const StyledItemImage = styled(FastImage)<{
   aspect-ratio: 1.5;
   border-radius: 20px;
   align-self: center;
-  background-color: ${(props) => props.theme.randFlowCoverColor()};
+  background-color: #afcccb;
   elevation: 5;
 `;
 export const StyledItemCover = styled.View<{ position: string }>`

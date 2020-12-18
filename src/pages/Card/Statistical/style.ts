@@ -48,6 +48,7 @@ export const StyledRowText = styled.Text`
   font-size: 15px;
   color: black;
   font-style: italic;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledAdd = styled(BorderlessButton)`

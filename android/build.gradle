@@ -9,12 +9,12 @@ buildscript {
     }
     repositories {
         jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
         maven { url 'https://dl.bintray.com/umsdk/release' }
         google()
+        maven { url "https://maven.aliyun.com/repository/google" }//google国内镜像地址
+        maven { url "https://maven.aliyun.com/repository/jcenter" }//jcenter国内镜像地址
+        maven { url 'https://maven.aliyun.com/repository/releases' }//阿里云播放器
+        maven { url "http://nexus2.tingyun.com/nexus/content/repositories/snapshots/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
@@ -26,9 +26,8 @@ buildscript {
 allprojects {
     repositories {
         mavenLocal()
-        maven { url 'https://maven.google.com' }
+//        maven { url 'https://maven.google.com' }
         maven { url 'https://www.jitpack.io' }
-        jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
         maven {
             // Android JSC is installed from npm
@@ -38,11 +37,10 @@ allprojects {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
         google()
+        jcenter()
+        maven { url "https://maven.aliyun.com/repository/google" }//google国内镜像地址
+        maven { url "https://maven.aliyun.com/repository/jcenter" }//jcenter国内镜像地址
     }
 }
 

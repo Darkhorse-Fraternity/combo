@@ -8,7 +8,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.flagDetail> = (
 ) => {
   return {
     title: '',
-    headerRight: () => (
+    headerRight: (headerRightProps) => (
       <StyledBtn
         hitSlop={{
           top: 5,
@@ -22,7 +22,9 @@ const navigationOptions: NavigationOptionsType<RouteKey.flagDetail> = (
             title: props.route.params.title || '',
           });
         }}>
-        <StyledHeaderBtnText>副本记录</StyledHeaderBtnText>
+        <StyledHeaderBtnText color={headerRightProps.tintColor}>
+          副本记录
+        </StyledHeaderBtnText>
       </StyledBtn>
     ),
   };

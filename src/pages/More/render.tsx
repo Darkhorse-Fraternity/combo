@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { FC } from 'react';
-import { StyleSheet, Text, View, Linking } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import Button, { ButtonType } from '../../components/Button/index';
 
 import {
@@ -11,6 +11,8 @@ import {
   StyledHeaderName,
   StyledAvatarView,
   StyledInnerContent,
+  StyledRowText,
+  StyledDescription,
 } from './style';
 
 import Avatar from '../../components/Avatar';
@@ -32,11 +34,11 @@ const RenderRow: FC<ButtonType & { title: string; description?: string }> = ({
                        source={source}
                        style={styles.imageNail}
                        /> */}
-        <Text style={styles.rowText}>{title}</Text>
+        <StyledRowText>{title}</StyledRowText>
       </View>
       <View style={styles.row2}>
         {description ? (
-          <Text style={styles.description}>{description}</Text>
+          <StyledDescription>{description}</StyledDescription>
         ) : null}
       </View>
     </Button>

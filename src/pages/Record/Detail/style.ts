@@ -15,7 +15,7 @@ import { Platform, SafeAreaView } from 'react-native';
 
 export const Styledcontain = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledHeaderTitle = styled.Text`
@@ -24,7 +24,8 @@ export const StyledHeaderTitle = styled.Text`
   max-width: 200px;
   margin-left: 20px;
   margin: 10px 20px 20px 20px;
-  background-color: white;
+  /* background-color: white; */
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledAdd = styled(BorderlessButton)`

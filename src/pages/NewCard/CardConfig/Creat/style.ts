@@ -8,7 +8,7 @@ import { SafeAreaView } from 'react-native';
 import HeaderBtn from '../../../../components/Button/HeaderBtn';
 
 export const StyledContent = styled(SafeAreaView)`
-  background-color: white;
+  /* background-color: white; */
   flex: 1;
 `;
 
@@ -22,6 +22,7 @@ export const StyledHeader = styled.View`
 export const StyledTitle = styled.Text`
   font-weight: 500;
   font-size: 21px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledHeaderInner = styled.View`
@@ -45,6 +46,7 @@ export const StyledSubTitle = styled.Text`
   font-size: 15px;
   margin: 0px 0px 10px 15px;
   padding: 5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledInnerScrollView = styled.ScrollView`

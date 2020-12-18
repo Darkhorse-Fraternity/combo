@@ -88,6 +88,7 @@ export const StyledHeaderTitle = styled.Text`
   font-weight: 700;
   margin-top: 15px;
   max-width: 200px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledHeaderInner = styled.View`

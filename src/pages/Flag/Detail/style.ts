@@ -64,7 +64,9 @@ export const StyledEvilIcons = styled(EvilIcons)`
   align-self: center;
 `;
 
-export const StyledHeaderBtnText = styled.Text``;
+export const StyledHeaderBtnText = styled.Text<{ color?: string }>`
+  color: ${(props) => props.color};
+`;
 
 export const StyledComplaintText = styled.Text`
   font-size: 15px;

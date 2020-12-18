@@ -45,7 +45,7 @@ export const StyledDes = styled.Text`
 `;
 
 export const StyledTitle = styled.Text`
-  color: #1a1917;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 11px;
   letter-spacing: 0.5px;
   margin-top: 3px;
@@ -54,7 +54,7 @@ export const StyledTitle = styled.Text`
 `;
 
 export const StyledTitle2 = styled.Text`
-  color: #1a1917;
+  color: ${({ theme }) => theme.colors.text};
   font-size: 17px;
   margin-left: 10px;
   margin-top: 5px;

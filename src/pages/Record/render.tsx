@@ -371,6 +371,8 @@ const RenderCell: FC<{
     ]);
   };
 
+  const backgroundColor = 'transparent';
+
   return (
     <StyledAnimationRow ref={handleViewRef as never}>
       <AppleStyleSwipeableRow
@@ -405,7 +407,7 @@ const RenderCell: FC<{
               // this.setState({ openIndex: -1 })
             },
             component: _renderSwipeOutDeleteBtn('查看', '#388e3c', 'info'),
-            backgroundColor: '#fdfbfb',
+            backgroundColor: backgroundColor,
           },
           {
             type: 'delete',
@@ -416,7 +418,7 @@ const RenderCell: FC<{
               'delete',
               StyledAntDesign,
             ),
-            backgroundColor: '#fdfbfb',
+            backgroundColor: backgroundColor,
           },
           {
             type: 'primary',
@@ -426,7 +428,7 @@ const RenderCell: FC<{
               '#009afb',
               'refresh-ccw',
             ),
-            backgroundColor: '#fdfbfb',
+            backgroundColor: backgroundColor,
           },
         ]}>
         <CardRow

@@ -23,7 +23,6 @@ export const defaultNavigationOptions: (
 
   const theme = isMode ? DarkTheme : DefaultTheme;
   const colors = theme.colors;
-  console.log('colors', theme.colors);
 
   return {
     headerStyle: {

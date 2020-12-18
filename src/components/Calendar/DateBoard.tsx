@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View, TouchableNativeFeedback } from 'react-native';
+import { StyleSheet, View, TouchableNativeFeedback } from 'react-native';
 
 // const { width } = Dimensions.get('window');
 import React, { PropsWithChildren } from 'react';
 import Button from '../Button';
 import moment from 'moment';
 import styled from 'styled-components/native';
+import { StyledDateText, StyledDateText1, StyledDateText2 } from './style';
 
 export const isLeap = (year: number) => {
   return year % 100 === 0 ? (year % 400 === 0 ? 1 : 0) : year % 4 === 0 ? 1 : 0;
@@ -91,9 +92,9 @@ const RenderMain = <ItemT extends unknown>(
   for (let i = 0; i < firstDay; i++) {
     arr.push(
       <StyledDateBox key={-i} width={width}>
-        <Text style={styles.dateText2}>{`${
+        <StyledDateText2>{`${
           monthDay[lastMonth] - firstDay + i + 1
-        }`}</Text>
+        }`}</StyledDateText2>
       </StyledDateBox>,
     );
   }
@@ -127,15 +128,14 @@ const RenderMain = <ItemT extends unknown>(
                 borderRadius: 17,
               },
             ]}>
-            <Text
+            <StyledDateText
               style={[
-                styles.dateText,
                 {
                   color: 'white',
                 },
               ]}>
               {i + ''}
-            </Text>
+            </StyledDateText>
           </View>
         </StyledDateBoxBtn>,
       );
@@ -147,7 +147,7 @@ const RenderMain = <ItemT extends unknown>(
           onPress={doneDay.bind(this, now)}
           key={i}>
           <View style={[styles.selected]}>
-            <Text style={[styles.dateText1]}>今</Text>
+            <StyledDateText1>今</StyledDateText1>
           </View>
         </StyledDateBoxBtn>,
       );
@@ -159,7 +159,7 @@ const RenderMain = <ItemT extends unknown>(
           onPress={doneDay.bind(this, now)}
           key={i}>
           <View style={[styles.selected]}>
-            <Text style={[styles.dateText]}>{`${i}`}</Text>
+            <StyledDateText>{`${i}`}</StyledDateText>
           </View>
         </StyledDateBoxBtn>,
       );
@@ -169,7 +169,7 @@ const RenderMain = <ItemT extends unknown>(
   for (let i = 1; i < lastDay; i++) {
     arr.push(
       <StyledDateBox key={i + 100} width={width}>
-        <Text style={styles.dateText2}>{i}</Text>
+        <StyledDateText2>{i}</StyledDateText2>
       </StyledDateBox>,
     );
   }
@@ -220,25 +220,6 @@ const styles = StyleSheet.create({
   //   width: (width1 - 24 - 1) / 7,
   //   height: 40,
   // },
-  dateText: {
-    fontSize: 15,
-    minWidth: 20,
-    textAlign: 'center',
-    color: 'rgb(100,100,100)',
-  },
-  dateText1: {
-    fontSize: 14,
-    minWidth: 20,
-    // color: 'green',
-    color: 'rgb(100,100,100)',
-    textAlign: 'center',
-  },
-  dateText2: {
-    fontSize: 11,
-    minWidth: 20,
-    color: 'rgb(150,150,150)',
-    textAlign: 'center',
-  },
 
   selected: {
     alignItems: 'center',

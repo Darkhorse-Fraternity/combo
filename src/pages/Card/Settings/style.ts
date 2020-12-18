@@ -31,7 +31,6 @@ import Button from '../../../components/Button';
 
 export const StyledContent = styled.View`
   flex: 1;
-  background-color: white;
 `;
 
 export const StyledTitleView = styled.View`
@@ -53,6 +52,7 @@ export const StyledBottomMenu = styled.View`
 export const StyledBottomMenuText = styled.Text`
   font-size: 14px;
   margin-top: 7.5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledBottomMenuButton = styled(Button)`
@@ -61,7 +61,7 @@ export const StyledBottomMenuButton = styled(Button)`
   margin-bottom: 15px;
   background-color: ${(props) => props.theme.textinputbackgroundColor};
   width: 107px;
-  margin-right:15px
+  margin-right: 15px;
   /* max-width: 100; */
   border-radius: 10px;
   height: 85px;
@@ -100,6 +100,7 @@ export const StyledRowDes = styled.Text`
   color: #323232;
   font-size: 19px;
   font-weight: bold;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledRowInner = styled.View`
@@ -110,8 +111,9 @@ export const StyledRowInner = styled.View`
 export const StyledBtn = styled(Button)`
   padding: 10px 20px;
 `;
-export const StyledBtnTitle = styled.Text`
+export const StyledBtnTitle = styled.Text<{ color?: string }>`
   font-size: 15px;
+  color: ${({ color }) => color};
 `;
 
 export const StyledArrow = styled.View`

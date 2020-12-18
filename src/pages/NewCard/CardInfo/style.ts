@@ -7,11 +7,11 @@ import styled from 'styled-components/native';
 
 // import Button from '../../../components/Button'
 
-import LinearGradient from 'react-native-linear-gradient';
+// import LinearGradient from 'react-native-linear-gradient';
 import AutoHeightImage from 'react-native-auto-height-image';
 import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 
-export const StyledContent = styled(LinearGradient)`
+export const StyledContent = styled.SafeAreaView`
   flex: 1;
 `;
 

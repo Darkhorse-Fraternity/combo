@@ -103,7 +103,7 @@ const Render: FC<{}> = () => {
   return (
     <PageList<ItemType>
       loadPage={loadPage}
-      // style={{ overflow: 'visible' }}
+      style={{ overflow: 'visible' }}
       numColumns={numColumns}
       key={numColumns} // https://stackoverflow.com/questions/44291781/dynamically-changing-number-of-columns-in-react-native-flat-list
       onScroll={onScroll}

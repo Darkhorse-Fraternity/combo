@@ -19,6 +19,7 @@ import ViewPagerAndroid, {
   ViewPagerOnPageSelectedEventData,
 } from '@react-native-community/viewpager';
 import DateBoard, { DateBoardProps, isLeap } from './DateBoard';
+import { StyledTitle } from './style';
 
 export interface CalendarProps<ItemT>
   extends Omit<DateBoardProps<ItemT>, 'year' | 'month' | 'width'> {
@@ -275,9 +276,9 @@ export class CalendarClass<ItemT> extends PureComponent<
           {/* <TouchableOpacity onPress={()=>this.goTo('left')}> */}
           {/* <View style={styles.leftBtn}/> */}
           {/* </TouchableOpacity> */}
-          <Text style={styles.t1}>
+          <StyledTitle>
             {`${this.state.year} ${month[this.state.month]}月  `}
-          </Text>
+          </StyledTitle>
           <ActivityIndicator
             style={{ marginLeft: 0 }}
             color={'gray'}
@@ -360,9 +361,6 @@ const styles = StyleSheet.create({
     height: 10,
     marginHorizontal: 40,
     marginVertical: 10,
-  },
-  t1: {
-    fontSize: 17,
   },
   closeBtn: {},
   closeText: {

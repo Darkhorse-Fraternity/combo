@@ -27,7 +27,7 @@ import { ListLoadType } from './interface';
 export type LoadMoreListprops<T extends {}> = FlatListProps<T> &
   ExceptionViewProps & {
     noDataPrompt?: string;
-    tipTap?: Function;
+    tipTap?: () => void;
     keyId?: keyof T;
     // noDataImg?: ImageSourcePropType;
     tipBtnText?: string;
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
     overflow: 'hidden',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
   },
 
   footer: {

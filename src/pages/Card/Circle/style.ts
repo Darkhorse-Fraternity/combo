@@ -11,18 +11,18 @@ import { Platform } from 'react-native';
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledRow = styled(Button)``;
 
 export const StyledHeader = styled.View`
   padding: 0px 10px 10px 10px;
-  background-color: white;
+  /* background-color: white; */
   flex-direction: row;
   flex-wrap: wrap;
   border-bottom-width: ${(props) => props.theme.hairlineWidth};
-  border-bottom-color: #e4e4e4;
+  border-bottom-color: ${(props) => props.theme.colors.hairlineColor};
 `;
 
 export const StyledTitleView = styled.View`
@@ -53,6 +53,7 @@ export const StyledHeaderImage = styled.Image`
 export const StyledHeaderText = styled.Text`
   margin-top: 8px;
   font-size: 12px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 const imageRate = 16 / 9.0;

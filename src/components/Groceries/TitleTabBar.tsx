@@ -1,5 +1,12 @@
-import React, { PureComponent } from 'react';
-import { StyleSheet, View, Animated, ViewStyle, StyleProp } from 'react-native';
+import React, { FC, memo } from 'react';
+import {
+  StyleSheet,
+  View,
+  Animated,
+  ViewStyle,
+  StyleProp,
+  useColorScheme,
+} from 'react-native';
 
 import Button from '../Button';
 
@@ -9,97 +16,114 @@ interface TitleTabBarProps {
   // underlineColor: string;
   scrollValueWithOutNative: Animated.Value;
   activeTab?: number;
-  tabs?: [];
+  tabs?: string[];
   textStyle?: {};
   style?: StyleProp<ViewStyle>;
   goToPage?: (page: number) => void;
 }
 
-export default class TitleTabBar extends PureComponent<TitleTabBarProps> {
-  renderTabOption(name: string, page: number) {
-    const {
-      activeTextColor = '#rgb(50,50,50)',
-      inactiveTextColor = '#979797',
-      textStyle = {},
-      tabs,
-      scrollValueWithOutNative,
-    } = this.props;
+const TitleTabBarClass: FC<
+  TitleTabBarProps & { name: string; page: number }
+> = (props) => {
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
 
-    const numberOfTabs = tabs?.length ?? 0;
-    // const tabUnderlineStyle = {
-    //   width: tabUnderlineWidth,
-    //   height: 7,
-    //   backgroundColor: underlineColor || theme.mainColor,
-    // };
+  const {
+    activeTextColor = isDarkMode ? 'rgb(200,200,200)' : 'rgb(50,50,50)',
+    inactiveTextColor = isDarkMode ? 'rgb(100,100,100)' : '#979797',
+    textStyle = {},
+    tabs,
+    scrollValueWithOutNative,
+    name,
+    page,
+    goToPage,
+  } = props;
 
-    const inputRange = [];
-    const outputRange = [];
-    const outputRangeColor = [];
-    const outputRangefontSize = [];
-    for (let i = -1; i < numberOfTabs + 1; i++) {
-      inputRange.push(i);
-      outputRange.push(0.001);
-      outputRangeColor.push(inactiveTextColor);
-      outputRangefontSize.push(15);
-    }
-    outputRange.splice(page + 1, 1, 1);
-    outputRangeColor.splice(page + 1, 1, activeTextColor);
-    outputRangefontSize.splice(page + 1, 1, 21);
+  const numberOfTabs = tabs?.length ?? 0;
+  // const tabUnderlineStyle = {
+  //   width: tabUnderlineWidth,
+  //   height: 7,
+  //   backgroundColor: underlineColor || theme.mainColor,
+  // };
 
-    // const scaleX = scrollValue.interpolate({
-    //   inputRange: inputRange,
-    //   outputRange: outputRange,
-    // });
-
-    const color = scrollValueWithOutNative.interpolate({
-      inputRange,
-      outputRange: outputRangeColor,
-    });
-
-    const fontSize = scrollValueWithOutNative.interpolate({
-      inputRange,
-      outputRange: outputRangefontSize,
-    });
-
-    return (
-      <Button
-        key={name}
-        accessible
-        accessibilityLabel={name}
-        accessibilityTraits="button"
-        style={{ paddingVertical: 20, paddingHorizontal: 10 }}
-        onPress={() => this.props.goToPage && this.props.goToPage(page)}>
-        <Animated.Text
-          style={[
-            {
-              color,
-              fontWeight: 'bold',
-              fontSize,
-            },
-            textStyle,
-          ]}>
-          {name}
-        </Animated.Text>
-      </Button>
-    );
+  const inputRange = [];
+  const outputRange = [];
+  const outputRangeColor: string[] = [];
+  const outputRangefontSize = [];
+  for (let i = -1; i < numberOfTabs + 1; i++) {
+    inputRange.push(i);
+    outputRange.push(0.001);
+    outputRangeColor.push(inactiveTextColor);
+    outputRangefontSize.push(15);
   }
+  outputRange.splice(page + 1, 1, 1);
+  outputRangeColor.splice(page + 1, 1, activeTextColor);
+  outputRangefontSize.splice(page + 1, 1, 21);
 
-  render() {
-    // const containerWidth = this.props.containerWidth;
-    // const numberOfTabs = this.props.tabs.length;
-    // const tabWidth = containerWidth / numberOfTabs/2;
-    return (
-      <View style={[styles.tab, this.props.style]}>
-        <View style={styles.tabs1}>
-          {this.props.tabs?.map((tab, i) => this.renderTabOption(tab, i))}
-        </View>
-        {/* <View style={styles.tabs2}>
-          {this.props.rightView && this.props.rightView()}
-        </View> */}
+  // const scaleX = scrollValue.interpolate({
+  //   inputRange: inputRange,
+  //   outputRange: outputRange,
+  // });
+
+  const color = scrollValueWithOutNative.interpolate({
+    inputRange,
+    outputRange: outputRangeColor,
+  });
+
+  const fontSize = scrollValueWithOutNative.interpolate({
+    inputRange,
+    outputRange: outputRangefontSize,
+  });
+
+  return (
+    <Button
+      key={name}
+      accessible
+      accessibilityLabel={name}
+      accessibilityTraits="button"
+      style={{ paddingVertical: 20, paddingHorizontal: 10 }}
+      onPress={() => {
+        goToPage && goToPage(page);
+      }}>
+      <Animated.Text
+        style={[
+          {
+            color,
+            fontWeight: 'bold',
+            fontSize,
+          },
+          textStyle,
+        ]}>
+        {name}
+      </Animated.Text>
+    </Button>
+  );
+};
+
+const TitleTabBar: FC<TitleTabBarProps> = (props) => {
+  const {
+    tabs,
+
+    ...rest
+  } = props;
+  return (
+    <View style={[styles.tab, props.style]}>
+      <View style={styles.tabs1}>
+        {tabs?.map((tab, i) => (
+          <TitleTabBarClass
+            key={tab}
+            name={tab}
+            page={i}
+            tabs={tabs}
+            {...rest}
+          />
+        ))}
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
+
+export default memo(TitleTabBar);
 
 const styles = StyleSheet.create({
   tab: {

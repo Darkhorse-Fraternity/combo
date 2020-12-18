@@ -1,23 +1,41 @@
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import {
   StyleSheet,
   Dimensions,
   Appearance,
   ColorSchemeName,
+  Platform,
 } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { randFlowCoverColor } from './color';
 const getTheme = (colorScheme: ColorSchemeName) => {
   const { height, width } = Dimensions.get('window');
-  console.log('colorScheme', colorScheme);
+  if (Platform.OS === 'android') {
+    DefaultTheme.colors.text = 'rgb(100,100,100)';
+  } else {
+    DefaultTheme.colors.text = 'rgb(50,50,50)';
+  }
+  const isDarkMode = colorScheme === 'dark';
+  const theme = isDarkMode ? DarkTheme : DefaultTheme;
+
+  // theme.colors.card = theme.colors.primary;
+  const colors = {
+    ...theme.colors,
+    hairlineColor: isDarkMode ? 'rgb(100,100,100)' : '#e4e4e4',
+    titlePrimary: isDarkMode ? 'rgb(200,200,200)' : 'rgb(100,100,100)',
+    titleSecondary: isDarkMode ? 'rgb(150,150,150)' : '#646464',
+    titleTertiary: isDarkMode ? 'rgb(100,100,100)' : 'rgb(100,100,100)',
+    textinputbackgroundColor: isDarkMode ? 'rgb(30,30,30)' : '#f6f7f9',
+  };
 
   return {
     width,
     height,
+    isDarkMode,
     widthProportion: width / 375, // 用于高度根据长度进行缩放
     hairlineWidth: StyleSheet.hairlineWidth,
     statusBarHeight: getStatusBarHeight(),
 
-    hairlineColor: 'rgb(200,200,200)',
     titleBackViewColor: '#f6f7f9',
     showItem: '#f5f8f6',
     disabledColor: '#bfc2c7',
@@ -26,8 +44,9 @@ const getTheme = (colorScheme: ColorSchemeName) => {
     blackSecondary: 'rgba(0,0,0,0.54)',
     blackTertiary: 'rgba(0,0,0,0.38)',
     mainColor: '#fdd83c',
-    textinputbackgroundColor: '#f6f7f9',
-    backgroundColor: colorScheme === 'dark' ? 'black' : 'white',
+    textinputbackgroundColor: isDarkMode ? 'rgb(35,35,35)' : '#f6f7f9',
+    backgroundColor: colorScheme === 'dark' ? colors.card : 'white',
+    colors,
     //图片随机背景颜色
     randFlowCoverColor: randFlowCoverColor,
   };

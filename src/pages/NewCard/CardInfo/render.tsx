@@ -104,7 +104,7 @@ const CardInfoClass: FC<PropsType> = (props) => {
   const limitTime = daysText(iCard.recordDay) + limitTimesString;
 
   return (
-    <StyledContent colors={['#ffffff', '#f1f6f9', '#ebf0f3', '#ffffff']}>
+    <StyledContent>
       <PasswordValidation
         show={showModal}
         onDone={(password, pdErrorAction) => {

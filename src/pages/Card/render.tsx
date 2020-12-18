@@ -26,15 +26,20 @@ import { IUseType } from 'src/data/data-context/interface';
 interface RenderHeaderRightProps {
   isSelf: boolean;
   onPress: (type: 'log' | 'setting') => void;
+  tintColor?: string;
 }
 
-const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
+const RenderHeaderRight: FC<RenderHeaderRightProps> = ({
+  isSelf,
+  tintColor,
+  onPress,
+}) => {
   return (
     <StyledHeaderRight>
       {isSelf && (
         <Button onPress={onPress.bind(undefined, 'log')}>
           <StyledIcon
-            color="black"
+            color={tintColor}
             style={{ marginRight: 0, marginTop: Platform.OS === 'ios' ? 5 : 2 }}
             size={20}
             name="users"
@@ -43,7 +48,7 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({ isSelf, onPress }) => {
       )}
       <Button onPress={onPress.bind(undefined, 'setting')}>
         <StyledIcon
-          color="black"
+          color={tintColor}
           style={{ marginRight: 10 }}
           size={20}
           name="more-horizontal"
@@ -126,9 +131,10 @@ const Card: FC<{}> = (props) => {
       //   </TouchableItem>
       // )
       setOptions({
-        headerRight: () => (
+        headerRight: (props1: { tintColor?: string }) => (
           <RenderHeaderRight
             isSelf={isSelf}
+            {...props1}
             onPress={async (type) => {
               if (type === 'log') {
                 // this.props.setCircleState(iCard);

@@ -10,7 +10,6 @@ import HeaderBtn from '../../components/Button/HeaderBtn';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
 `;
 
 export const StyledTitleView = styled.View`
@@ -38,6 +37,7 @@ export const StyledHeaderText = styled.Text`
   overflow: visible;
   padding: 20px 15px;
   align-self: center;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledHerderButton = styled(HeaderBtn)`

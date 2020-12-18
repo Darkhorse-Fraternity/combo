@@ -32,7 +32,7 @@ export const StyledImage = styled(FastImage)`
   height: ${(minWidth * 0.65 * 9) / 16};
   border-radius: 10px;
   margin: 0px 15px 0px 0px;
-  background-color: ${(props) => props.theme.randFlowCoverColor()};
+  background-color: #afcccb;
 `;
 
 export const StyledImageButton = styled(Button)``;
@@ -76,6 +76,7 @@ export const StyledRecordText = styled.Text`
   font-size: 15px;
   margin: 10px 0px 5px 0px;
   line-height: 25;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledIcon = styled(Icon)`

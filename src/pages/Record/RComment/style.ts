@@ -17,7 +17,7 @@ export const StyledKeyboardAvoidingView = styled.KeyboardAvoidingView`
 export const StyledHeader = styled.View`
   padding: 10px 20px;
   border-bottom-width: ${(props) => props.theme.hairlineWidth};
-  border-bottom-color: ${(props) => props.theme.hairlineColor};
+  border-bottom-color: ${(props) => props.theme.colors.hairlineColor};
 `;
 
 export const StyledRow = styled(Button)`
@@ -38,7 +38,7 @@ export const StyledAvatar = styled.Image`
 export const StyledRowRight = styled.View`
   flex: 1;
   border-bottom-width: ${(props) => props.theme.hairlineWidth};
-  border-bottom-color: ${(props) => props.theme.hairlineColor};
+  border-bottom-color: ${(props) => props.theme.colors.hairlineColor};
 `;
 
 export const StyledNickText = styled.Text`

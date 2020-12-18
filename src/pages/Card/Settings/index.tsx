@@ -10,7 +10,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.cardSetting> = (
   const { iCardId } = props.route.params;
   return {
     title: '',
-    headerRight: () => (
+    headerRight: (p) => (
       <StyledBtn
         // backgroundColor={iCard.iconAndColor && iCard.iconAndColor.color}
         hitSlop={{
@@ -22,7 +22,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.cardSetting> = (
         onPress={() => {
           props.navigation.navigate(RouteKey.cardInfo, { iCardId });
         }}>
-        <StyledBtnTitle>查看</StyledBtnTitle>
+        <StyledBtnTitle color={p.tintColor}>查看</StyledBtnTitle>
       </StyledBtn>
     ),
   };

@@ -36,7 +36,7 @@ const renderIndicator = (currentIndex?: number, allSize?: number) => {
 };
 
 const loadingRender = () => {
-  return <LoadAnimation />;
+  return <LoadAnimation delay={0} modeDark />;
 };
 
 const failImageSource = {

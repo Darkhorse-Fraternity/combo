@@ -90,9 +90,10 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   useEffect(() => {
     if (data && first.current) {
       setOptions({
-        headerRight: () => (
+        headerRight: (p: { tintColor?: string }) => (
           <RenderRightView
             iDo={data}
+            color={p.tintColor}
             load={deleteLoading}
             onDelete={() => {
               Alert.alert('确定删除?', '删除后不可恢复~！', [
@@ -137,7 +138,8 @@ const RenderRightView: FC<{
   iDo: GetClassesIDoIdResponse;
   load: boolean;
   onDelete: () => void;
-}> = ({ iDo, load, onDelete }) => {
+  color?: string;
+}> = ({ iDo, load, onDelete, color }) => {
   const { navigate } = useNavigation();
   const user = useGetUserInfo();
 
@@ -164,7 +166,7 @@ const RenderRightView: FC<{
           });
         }}
         style={{ paddingHorizontal: 10 }}>
-        <StyledIcon size={20} color="black" name="edit" />
+        <StyledIcon size={20} color={color} name="edit" />
       </Button>
       <Button
         loading={load}
@@ -177,7 +179,7 @@ const RenderRightView: FC<{
         {load ? (
           <ActivityIndicator />
         ) : (
-          <StyledIcon size={20} color="black" name="close" />
+          <StyledIcon size={20} color={color} name="close" />
         )}
       </Button>
     </StyledRightView>

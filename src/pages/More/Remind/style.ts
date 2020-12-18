@@ -12,7 +12,7 @@ import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledHeader = styled.View`
@@ -22,6 +22,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledSubTitle = styled.View`

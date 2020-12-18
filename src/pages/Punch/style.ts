@@ -22,16 +22,18 @@ export const StyledHeaderTitle = styled.Text`
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 20px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledSectionHeader = styled.View`
   padding: 10px 0px 15px 0px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.card};
 `;
 
 export const StyledSectionHeaderTitle = styled.Text`
   font-size: 19px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledAdd = styled(BorderlessButton)`

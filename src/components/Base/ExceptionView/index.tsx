@@ -8,6 +8,7 @@ import {
   ViewStyle,
   ImageSourcePropType,
   ImageStyle,
+  useColorScheme,
 } from 'react-native';
 import Indicators from '../../Indicators';
 import { StyledContent, StyledReportBtn, StyledReportText } from './style';
@@ -18,11 +19,29 @@ export enum ExceptionType {
   NetError = 'exceptionTypeError',
 }
 
+interface RenderPromptImageProp {
+  promptImage?: ImageSourcePropType;
+  prompIamgeStyle?: StyleProp<ImageStyle>;
+}
+
+const RenderPromptImage = (props: RenderPromptImageProp) => {
+  const sc = useColorScheme();
+  const isMode = sc === 'dark';
+
+  const {
+    prompIamgeStyle,
+    promptImage = isMode
+      ? require('@img/my/logo.png')
+      : require('@img/my/logo-dark.png'),
+  } = props;
+  return <Image source={promptImage} style={[styles.image, prompIamgeStyle]} />;
+};
+
 export interface ExceptionViewProps {
   exceptionType?: ExceptionType;
   prompt?: Function | ReactChild[] | ReactChild | null;
   otherTips?: string;
-  onRefresh?: Function | (() => void) | null;
+  onRefresh?: () => void;
   tipBtnText?: string;
   // children?: ReactChild[] | ReactChild;
   prompIamgeStyle?: StyleProp<ImageStyle>;
@@ -41,10 +60,7 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps> {
 
   renderTipButton = () =>
     this.props.tipBtnText ? (
-      <StyledReportBtn
-        onPress={() => {
-          this.props.onRefresh && this.props.onRefresh();
-        }}>
+      <StyledReportBtn onPress={this.props.onRefresh}>
         <StyledReportText>{this.props.tipBtnText}</StyledReportText>
       </StyledReportBtn>
     ) : null;
@@ -76,44 +92,24 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps> {
     return <Text style={styles.otherTips}>{otherTips}</Text>;
   }
 
-  renderPromptLoad() {
-    return <Indicators />;
-  }
-
-  renderPromptImage(promptImage: ImageSourcePropType) {
-    const { prompIamgeStyle } = this.props;
-    //console.log('promptImage', promptImage);
-
-    return (
-      <Image source={promptImage} style={[styles.image, prompIamgeStyle]} />
-    );
-  }
-
   render() {
     const {
       style,
       exceptionType = ExceptionType.Loading,
-      promptImage = require('@img/my/logo.png'),
+      promptImage,
     } = this.props;
 
     // console.log("exceptionType", exceptionType);
     return (
       // @ts-ignore: Unreachable code error
       <StyledContent style={style}>
-        {exceptionType === ExceptionType.Loading && this.renderPromptLoad()}
-        {exceptionType === ExceptionType.NoData &&
-          this.renderPromptImage(promptImage)}
+        {exceptionType === ExceptionType.Loading && <Indicators />}
+        {exceptionType === ExceptionType.NoData && (
+          <RenderPromptImage promptImage={promptImage} {...this.props} />
+        )}
         {this.renderPrompt()}
 
         {this.renderTipButton()}
-        {/* <Button */}
-        {/* style={} */}
-        {/* onPress={() => { */}
-        {/* this.props.onRefresh && this.props.onRefresh() */}
-        {/* }}> */}
-
-        {/**/}
-        {/* </Button> */}
       </StyledContent>
     );
   }

@@ -11,10 +11,11 @@ const AnimatedImage = Animated.createAnimatedComponent(Image);
 interface IndicatorsProps {
   size?: number;
   animated?: boolean;
+  modeDark?: boolean;
 }
 
 const Indicators: FC<IndicatorsProps> = (props) => {
-  const { animated = true, size = 30 } = props;
+  const { animated = true, size = 30, modeDark } = props;
 
   const springValueRef = useRef(new Animated.Value(0));
   const springValue = springValueRef.current;
@@ -40,7 +41,7 @@ const Indicators: FC<IndicatorsProps> = (props) => {
   }, []);
 
   const colorScheme = useColorScheme();
-  const isMode = colorScheme === 'dark';
+  const isMode = modeDark ?? colorScheme === 'dark';
 
   const spin = springValue.interpolate({
     inputRange: [0, 1],

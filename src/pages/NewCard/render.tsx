@@ -32,6 +32,9 @@ import { RouteKey } from '@pages/interface';
 import LoadMoreList from '@components/Base/LoadMoreList';
 import { useCanceWhenLeave } from 'src/hooks/util';
 
+//适配安卓
+const style = Platform.OS === 'ios' ? {} : { height: 1062 };
+
 const ListHeaderComponet = () => {
   const { navigate } = useNavigation();
 
@@ -49,9 +52,6 @@ const ListHeaderComponet = () => {
       />
     </Fragment>
   ));
-
-  //适配安卓
-  const style = Platform.OS === 'ios' ? {} : { height: 1062 };
 
   return (
     <StyledTop style={style}>
@@ -92,7 +92,7 @@ const RenderRow: FC<ICardType> = (props) => {
       key={title}
       title={title}
       name={name || ''}
-      color={'white'}
+      // color={'white'}
       des={notifyText}
       onPress={() => {
         navigate(RouteKey.cardInfo, { iCardId: objectId });

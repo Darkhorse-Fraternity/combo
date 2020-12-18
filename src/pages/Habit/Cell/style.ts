@@ -23,11 +23,13 @@ export const StyledTitle = styled.Text`
   font-size: 13px;
   font-weight: bold;
   letter-spacing: 0.5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledTime = styled.Text`
   margin-top: ${Platform.OS === 'ios' ? 5 : 2};
   font-size: 12px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledDes = styled.Text`

@@ -5,10 +5,11 @@ import { Image as CropImage } from 'react-native-image-crop-picker';
 import {
   StyledCaramerBackView,
   StyledContent,
+  StyledContentInner,
   StyledHeaderRow,
   StyledIcon,
-  StyledIndicator,
 } from './style';
+import Indicators from '@components/Indicators';
 interface AvatarPickerType extends AvatarProps {
   load: boolean;
   upload: (uri: string) => void;
@@ -28,9 +29,17 @@ export const AvatarPicker: FC<AvatarPickerType> = (props) => {
   return (
     <>
       <StyledHeaderRow disabled={load} onPress={setstate.bind(undefined, true)}>
-        <StyledContent radius={radius}>
+        <StyledContent
+          radius={radius}
+          style={{
+            width: radius,
+            height: radius,
+          }}>
           {load ? (
-            <StyledIndicator radius={radius / 2} />
+            // <StyledIndicator radius={radius / 2} />
+            <StyledContentInner>
+              <Indicators size={radius / 3} />
+            </StyledContentInner>
           ) : (
             <Avatar radius={radius} {...other} />
           )}

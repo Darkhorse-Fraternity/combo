@@ -18,9 +18,19 @@ export const StyledContent = styled.View<{ radius: number }>`
   shadow-opacity: 1;
   shadow-radius: 5px;
   shadow-color: #979797;
-  shadow-offset: 0px 0px;
+  shadow-offset: 0px 3px;
   elevation: 5;
   margin: 5px;
+  /* align-items: center;
+  justify-content: center; */
+  /* width: ${(props) => props.radius};
+  height: ${(props) => props.radius}; */
+`;
+
+export const StyledContentInner = styled.View`
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `;
 
 export const StyledContent2 = styled.View<{ radius: number }>`
