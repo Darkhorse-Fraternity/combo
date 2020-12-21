@@ -200,7 +200,7 @@ export class CalendarClass<ItemT> extends PureComponent<
     const year = `${this.state.year}`;
     const month = this.state.month + 1;
     const monthString = month < 10 ? `0${month}` : `${month}`;
-    const firstDay = `${monthString}-${monthString}-01`;
+    const firstDay = `${year}-${monthString}-01`;
     const lastDay = `${year}-${monthString}-${this.monthDay[this.state.month]}`;
     this.props.fetch && this.props.fetch(firstDay, lastDay);
   };

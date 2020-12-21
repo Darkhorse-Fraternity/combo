@@ -111,7 +111,7 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
       time: 60,
       codeName: '',
       phone: props.user.mobilePhoneNumber ?? (__DEV__ ? '13588833404' : ''), // 号码
-      ymCode: __DEV__ ? '924007' : '', // 验证码
+      ymCode: __DEV__ ? '214663' : '', // 验证码
       isTap: false,
       showMobile: true,
     };
@@ -186,7 +186,7 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
   render() {
     const { authLoad } = this.props;
     const { phone, time, isTap, ymCode } = this.state;
-    const { setState, phoneRef, ymCodeRef, _onClickCode, _goRegist } = this;
+    const { phoneRef, ymCodeRef, _onClickCode, _goRegist } = this;
     const codeEnable = checkPhoneNum(phone) && time === 60 && !isTap;
     const reg = /^\d{6}$/;
     const { loaded } = this.props;
@@ -198,7 +198,7 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
             <RenderRowMain
               title={'手机号:'}
               placeholder="请填入手机号"
-              onChangeText={(text) => setState({ phone: text })}
+              onChangeText={(text) => this.setState({ phone: text })}
               keyboardType="numeric"
               maxLength={11}
               inputRef={phoneRef}
@@ -212,7 +212,7 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
             <RenderRowMain
               title={'验证码:'}
               placeholder="请输入验证码"
-              onChangeText={(text) => setState({ ymCode: text })}
+              onChangeText={(text) => this.setState({ ymCode: text })}
               keyboardType="numeric"
               maxLength={6}
               defaultValue={ymCode}
