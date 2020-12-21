@@ -64,6 +64,7 @@ export const StyledRecordText = styled.Text`
   line-height: 25px;
   font-size: 15px;
   margin: 20px 0px 0px 0px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledIcon = styled(Icon)`

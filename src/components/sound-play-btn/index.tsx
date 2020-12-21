@@ -12,6 +12,7 @@ import Foundation from 'react-native-vector-icons/Foundation';
 import Sounds from 'react-native-sound';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import * as Animatable from 'react-native-animatable';
+import { useTheme } from '@react-navigation/native';
 
 const SOUND_PLAY_BTN_STOP_KEY = 'SOUND_PLAY_BTN_STOP_KEY';
 
@@ -26,12 +27,13 @@ interface SoundPlayBtn extends Omit<TouchableOpacityProps, 'onPress'> {
 }
 
 export const SoundPlayBtn = (props: SoundPlayBtn) => {
+  const theme = useTheme();
   const {
     uri,
     style,
     size = 45,
     progressColor = '#e575ec',
-    color = 'rgb(80,80,80)',
+    color = theme.colors.text,
     title,
     onPress,
     choice = false,
@@ -136,7 +138,7 @@ export const SoundPlayBtn = (props: SoundPlayBtn) => {
         backgroundColor={color}
       />
       <Icon
-        color={color}
+        color={theme.colors.text}
         size={size}
         name={paused ? 'pause-circle-outline' : 'play-circle-outline'}
       />

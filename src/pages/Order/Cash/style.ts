@@ -32,17 +32,19 @@ export const StyledDiscrib = styled.Text`
 `;
 
 export const StyledContent = styled.ScrollView`
-  background-color: white;
+  /* background-color: white; */
   padding-bottom: 20px;
 `;
 
 export const StyledInput = styled.TextInput`
   height: 45px;
   border-bottom-width: ${(props) => props.theme.hairlineWidth};
-  border-bottom-color: rgba(1, 1, 1, 0.2);
+  border-bottom-color: ${(props) => props.theme.colors.hairlineColor};
+  background-color: ${(props) => props.theme.colors.card};
+  color: ${(props) => props.theme.colors.text};
   margin: 20px 0px;
   font-size: 17px;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledHeaderTop = styled.View`
@@ -54,6 +56,7 @@ export const StyledHeaderTop = styled.View`
 
 export const StyledHeaderTitle = styled.Text`
   font-size: 20px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledHeaderBtn = styled(HeaderBtn)``;
@@ -61,4 +64,5 @@ export const StyledHeaderBtn = styled(HeaderBtn)``;
 export const StyledTitleText = styled.Text`
   margin-top: 15px;
   font-size: 15px;
+  color: ${(props) => props.theme.colors.text};
 `;

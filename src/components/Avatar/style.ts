@@ -14,7 +14,7 @@ export const StyledContent = styled.View<{ radius: number }>`
   background-color: white;
   border-radius: ${(props) => props.radius};
   border-width: ${Platform.OS === 'ios' ? 1 : 2}px;
-  border-color: white;
+  border-color: ${(props) => props.theme.colors.card};;
   shadow-opacity: 1;
   shadow-radius: 5px;
   shadow-color: #979797;
@@ -44,7 +44,7 @@ export const StyledAvatar = styled(FastImage)<{ radius: number }>`
   width: ${(props) => props.radius * 2};
   height: ${(props) => props.radius * 2};
   border-radius: ${(props) => props.radius};
-  background-color: #fdfbfb;
+  /* background-color: #fdfbfb; */
 `;
 
 export const StyledIndicator = styled.ActivityIndicator<{ radius: number }>`

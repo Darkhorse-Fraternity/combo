@@ -15,7 +15,7 @@ export const StyledSafeAreaView = styled(SafeAreaView)`
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 
 export const StyledHeader = styled.View`
@@ -27,6 +27,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledCover = styled(FastImage)`
@@ -54,6 +55,7 @@ export const StyledDiscrib = styled.Text`
   font-size: 17px;
   font-style: italic;
   line-height: 25px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledBtn = styled(Button)`

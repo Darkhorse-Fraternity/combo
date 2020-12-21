@@ -11,6 +11,7 @@ import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledHeader = styled.View`
@@ -22,6 +23,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledItem = styled(Button)`
@@ -37,6 +39,7 @@ export const StyledCellTitle = styled.Text`
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.5px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledCellDiscrib = styled.Text`

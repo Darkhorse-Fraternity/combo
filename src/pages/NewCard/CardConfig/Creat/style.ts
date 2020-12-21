@@ -60,6 +60,7 @@ export const StyledInnerView = styled.View`
 
 export const StyledTitleInput = styled.TextInput`
   font-size: 17px;
-  background: ${(props) => props.theme.textinputbackgroundColor};
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
   height: 50px;
+  color: ${({ theme }) => theme.colors.text};
 `;

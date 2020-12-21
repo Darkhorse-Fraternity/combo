@@ -17,7 +17,8 @@ export const StyledCell = styled(TouchableBounce)`
   height: 60px;
   align-items: center;
   justify-content: center;
-  border-color: ${(props) => (props.select ? 'black' : 'white')};
+  border-color: ${(props) =>
+    props.select ? props.theme.colors.text : props.theme.colors.card};
   border-width: 2px;
 `;
 
@@ -34,6 +35,7 @@ export const StyledColorCell = styled(TouchableBounce)<{ color: string }>`
   margin: 15px 20px 15px 30px;
   background-color: ${(props) => props.color};
   border-radius: 20px;
-  border-color: ${(props) => (props.select ? 'black' : props.color)};
+  border-color: ${(props) =>
+    props.select ? props.theme.colors.text : props.color};
   border-width: 2px;
 `;

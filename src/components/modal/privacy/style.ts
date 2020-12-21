@@ -26,6 +26,7 @@ export const StyleAgree = styled(Button)`
 export const StyledTitle = styled.Text`
   align-self: center;
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledDiscrib = styled.Text`

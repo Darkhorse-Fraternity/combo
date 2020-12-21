@@ -8,7 +8,8 @@ import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledHeader = styled.View`

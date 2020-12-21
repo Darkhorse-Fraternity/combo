@@ -10,6 +10,7 @@ import Button from '../../../components/Button';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledHeader = styled.View`
@@ -21,6 +22,7 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 21px;
   font-weight: 500;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledItem = styled(Button)`
@@ -36,6 +38,7 @@ export const StyledCellName = styled.Text`
   letter-spacing: 0.5px;
   margin-left: 10px;
   max-width: 100px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledCellDiscrib = styled.Text<{ done: boolean }>`
@@ -56,4 +59,5 @@ export const StyledRanking = styled.Text<{ size: number }>`
   font-size: ${(props) => props.size}px;
   font-weight: 500;
   margin-right: 15px;
+  color: ${(props) => props.theme.colors.text};
 `;

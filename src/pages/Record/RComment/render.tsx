@@ -24,6 +24,7 @@ import {
   TextInput,
   TouchableNativeFeedback,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -274,6 +275,11 @@ const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
   iDoId,
 }) => {
   const user = useGetUserInfo();
+  const colorScheme = useColorScheme();
+  const isDarkMode = colorScheme === 'dark';
+  const colorRest = isDarkMode
+    ? { placeholderTextColor: 'rgb(100,100,100)' }
+    : {};
   const [state, setState] = useState('');
   const { loading, run } = usePostClassesIComment(
     {
@@ -303,16 +309,19 @@ const KeyboardAccessoryViewContent: FC<KeyboardAccessoryViewContentProps> = ({
       <InnerContainerComponent blurType="xlight">
         <Form>
           {/* <View style={{borderTopWidth: StyleSheet.hairlineWidth, borderColor: '#bbb'}}/> */}
+
           <StyleAutoGrowingChatTextInput
             ref={inputRef}
             maxHeight={200}
             maxLength={5000}
             placeholder="请输入评论"
+            // placeholderTextColor={'red'}
             value={state}
             // onFocus={() => this.resetKeyboardView()}
             onChangeText={(text: string) => setState(text)}
             onSubmit={onSubmit}
             underlineColorAndroid="transparent"
+            {...colorRest}
           />
           <StyledSumbitBtn
             disabled={state.length === 0}

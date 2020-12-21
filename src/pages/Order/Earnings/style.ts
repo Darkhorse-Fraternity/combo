@@ -9,7 +9,7 @@ import HeaderBtn from '../../../components/Button/HeaderBtn';
 
 export const StyledContent = styled.View`
   flex: 1;
-  background-color: white;
+  /* background-color: white; */
 `;
 export const StyledHeader = styled.View`
   padding: 15px 20px 0px 20px;
@@ -18,12 +18,13 @@ export const StyledHeader = styled.View`
 export const StyledHeaderTitle = styled.Text`
   font-size: 20px;
   font-weight: 500;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledHeaderCash = styled.Text`
   font-size: 40px;
   font-weight: 500;
-
+  color: ${(props) => props.theme.colors.text};
   margin-left: -5px;
 `;
 

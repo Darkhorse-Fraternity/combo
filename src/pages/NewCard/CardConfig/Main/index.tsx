@@ -186,7 +186,7 @@ const RemderRecord: FC<{
     <StyledSubView>
       <Animatable.View animation="fadeInUp" delay={300 + Math.random() * 300}>
         <StyledSubTitleView>
-          <StyledSubTitle>打卡必填</StyledSubTitle>
+          <StyledSubTitle>打卡填写要求</StyledSubTitle>
         </StyledSubTitleView>
 
         <Multiple<string>
@@ -263,7 +263,7 @@ const RenderTitle: FC<
             maxLength={50}
             onChange={(e) => onChange?.call(undefined, e.nativeEvent.text)}
             // keyboardType={boardType}
-            style={[styles.textInputTitle]}
+            style={styles.textInputTitle}
             underlineColorAndroid="transparent"
             placeholder="例如跑步、早睡等"
             // clearButtonMode='while-editing'
@@ -681,7 +681,6 @@ const styles = StyleSheet.create({
     height: 50,
     textAlign: 'left',
     fontSize: 15,
-    color: 'black',
     paddingHorizontal: 10,
     borderRadius: 8,
     marginHorizontal: 15,

@@ -22,23 +22,28 @@ export const StyledRowInner = styled.View`
 export const StyledRowTitle = styled.Text`
   font-size: 15px;
   min-width: 180px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledRowDate = styled.Text`
   font-size: 15px;
   min-width: 90px;
   text-align: right;
+  color: ${({ theme }) => theme.colors.text};
 `;
 export const StyledRowDate2 = styled.Text`
   font-size: 15px;
   min-width: 140px;
   text-align: left;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledRowAmount = styled.Text`
   font-size: 19px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledRowStatu = styled.Text`
   font-size: 17px;
+  color: ${({ theme }) => theme.colors.text};
 `;

@@ -46,7 +46,6 @@ export const StyledRow = styled.View`
 
 export const StyledRowText = styled.Text`
   font-size: 15px;
-  color: black;
   font-style: italic;
   color: ${({ theme }) => theme.colors.text};
 `;
@@ -68,4 +67,5 @@ export const StyledLogButton = styled(ButtonOpacity)<{ color: string }>`
 
 export const StyledLogButtonText = styled.Text`
   margin: 10px 20px;
+  /* color: ${({ theme }) => theme.colors.text}; */
 `;

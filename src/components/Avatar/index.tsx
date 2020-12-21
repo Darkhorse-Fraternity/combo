@@ -3,67 +3,61 @@
  * @flow
  */
 
-import React, { PureComponent } from 'react';
+import React, { FC, memo } from 'react';
 
 import { StyledContent, StyledAvatar, StyledIndicator } from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 import { UserType } from 'src/data/data-context/interface';
+import { useColorScheme } from 'react-native';
 
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
 // ?imageView/1/w/10/h/10/q/100/format/png
 
 interface AvatarType {
-  type?: string;
   radius?: number;
   load?: boolean;
   user: UserType;
 }
 
-export default class Avatar extends PureComponent<AvatarType> {
-  constructor(props: AvatarType) {
-    super(props);
-  }
+const Avatar: FC<AvatarType> = (props) => {
+  const { radius = 40, user, load = false } = props;
 
-  static defaultProps = {
-    type: 'small',
-    radius: 40,
-    load: false,
-  };
-
-  render() {
-    const { radius = 40, user, load = false } = this.props;
-
-    const { avatar, headimgurl } = user;
-    let avatarUrl = avatar ? avatar.url : headimgurl;
-    avatarUrl = !avatarUrl
-      ? avatarUrl
-      : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 8, radius * 8);
-    const avatarSource = avatarUrl
-      ? { uri: avatarUrl }
+  const colorScheme = useColorScheme();
+  const defaultImage =
+    colorScheme === 'dark'
+      ? require('../../../source/img/my/logo-dark.png')
       : require('../../../source/img/my/icon-60.png');
 
-    // console.log('avatarUrl:', avatarUrl);
+  const { avatar, headimgurl } = user;
+  let avatarUrl = avatar ? avatar.url : headimgurl;
+  avatarUrl = !avatarUrl
+    ? avatarUrl
+    : add_Leancloud_Thumbnail_Suffix(avatarUrl, radius * 8, radius * 8);
+  const avatarSource = avatarUrl ? { uri: avatarUrl } : defaultImage;
 
-    if (!avatarUrl) {
-      return (
-        <StyledAvatar
-          style={{ margin: 5 }}
-          radius={radius * 0.75}
-          source={avatarSource}
-        />
-      );
-    }
+  // console.log('avatarUrl:', avatarUrl);
 
+  if (!avatarUrl) {
     return (
-      <StyledContent radius={radius}>
-        {load ? (
-          <StyledIndicator color={'grey'} radius={radius} />
-        ) : (
-          <StyledAvatar radius={radius} source={avatarSource} />
-        )}
-      </StyledContent>
+      <StyledAvatar
+        style={{ margin: 5 }}
+        radius={radius * 0.75}
+        source={avatarSource}
+      />
     );
   }
-}
+
+  return (
+    <StyledContent radius={radius}>
+      {load ? (
+        <StyledIndicator color={'grey'} radius={radius} />
+      ) : (
+        <StyledAvatar radius={radius} source={avatarSource} />
+      )}
+    </StyledContent>
+  );
+};
+
+export default memo(Avatar);

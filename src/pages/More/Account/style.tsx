@@ -45,10 +45,11 @@ export const StyledTitle = styled.Text`
   font-size: 17px;
   font-weight: 500;
   min-width: 60;
+  color: ${(props) => props.theme.colors.text};
 `;
 
-export const StyledDes = styled.Text`
-  color: #a4a4a4;
+export const StyledDes = styled.Text<{ heighLight: boolean }>`
+  color: ${(props) => (props.heighLight ? 'green' : '#a4a4a4')};
   font-size: 14px;
 `;
 
@@ -67,8 +68,9 @@ export const StyledActivityIndicator = styled.ActivityIndicator`
 
 export const StyledInput = styled.TextInput`
   font-size: 17px;
-  background-color: ${(props) => props.theme.textinputbackgroundColor};
+  background-color: ${(props) => props.theme.colors.textinputbackgroundColor};
   width: ${(props) => props.theme.width - 40};
+  color: ${(props) => props.theme.colors.text};
   text-align: center;
   padding: 15px;
   margin: 10px 0px;

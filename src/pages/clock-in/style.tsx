@@ -18,6 +18,7 @@ export const StyledTexInput = styled.TextInput`
   flex: 1;
   margin: 10px 15px;
   text-align-vertical: top;
+  color: ${({ theme }) => theme.colors.text};
   /* background-color:red; */
   /* padding:0px; */
   /* text-align-vertical:top; */
@@ -40,6 +41,7 @@ export const StyledToolBarItem = styled(Feather)`
   width: 20px;
   height: 20px;
   margin: 5px 5px 10px 5px;
+  color: ${({ theme }) => theme.colors.text};
   /* background-color:red; */
 `;
 

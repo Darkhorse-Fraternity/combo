@@ -138,6 +138,7 @@ const AccountClass: FC<{ isWXAppInstalled: boolean }> = (props) => {
         <RenderRow
           title="微信"
           des={weixin ? '解除绑定' : '点击绑定'}
+          heighLight={!weixin}
           onPress={onUpdate.bind(undefined, 'weixin')}
           load={wxLoad}
         />
@@ -145,6 +146,7 @@ const AccountClass: FC<{ isWXAppInstalled: boolean }> = (props) => {
       <RenderRow
         title="QQ"
         des={qq ? '解除绑定' : '点击绑定'}
+        heighLight={!qq}
         onPress={onUpdate.bind(undefined, 'qq')}
         load={qqLoad}
       />
@@ -157,12 +159,17 @@ const RenderRow: FC<{
   des: string;
   onPress: () => void;
   load?: boolean;
-}> = ({ title, des, onPress, load = false }) => {
+  heighLight?: boolean;
+}> = ({ title, des, onPress, load = false, heighLight = false }) => {
   return (
     <StyledButton disabled={load} onPress={onPress}>
       <StyledTitle>{title}</StyledTitle>
       <StyledRow>
-        {load ? <StyledActivityIndicator /> : <StyledDes>{des}</StyledDes>}
+        {load ? (
+          <StyledActivityIndicator />
+        ) : (
+          <StyledDes heighLight={heighLight}>{des}</StyledDes>
+        )}
       </StyledRow>
     </StyledButton>
   );

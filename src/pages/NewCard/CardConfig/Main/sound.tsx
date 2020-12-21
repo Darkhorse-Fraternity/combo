@@ -48,7 +48,7 @@ export const RenderSounds: FC<RenderSoundsType> = ({
     <>
       <StyledSubTitle>
         <StyledRowInner>
-          <Icon size={30} color={'#333333'} name="musical-notes-outline" />
+          <StyledIcon size={30} name="musical-notes-outline" />
           <StyledSubTitleText>开启打卡音效</StyledSubTitleText>
         </StyledRowInner>
         <StyledSwitch
@@ -130,7 +130,7 @@ export const StyledSubTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.colors.titleBackViewColor};
   border-radius: 10px;
   padding: 10px 8px;
   margin: 10px 20px 0px 20px;
@@ -146,7 +146,11 @@ export const StyledRowInner = styled.View`
 export const StyledSubTitleText = styled.Text`
   font-size: 17px;
   margin-left: 10px;
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
+`;
+
+export const StyledIcon = styled(Icon)`
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledSwitch = styled.Switch``;
@@ -155,5 +159,5 @@ export const StyledSubTitle2 = styled.Text`
   font-size: 15px;
   margin: 20px 0px 0px 5px;
   padding: 5px 20px;
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
 `;

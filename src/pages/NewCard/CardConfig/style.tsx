@@ -54,6 +54,7 @@ export const StyledSubTitle = styled.Text`
   font-size: 15px;
   margin: 30px 0px 10px 0px;
   padding: 5px 20px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledControl = styled(TouchableOpacity)`
@@ -93,7 +94,7 @@ export const StyledNotifyButtonInner = styled.View`
 `;
 
 export const StyledMaterialIcons = styled(MaterialIcons)`
-  color: ${(props) => props.theme.blackSecondary};
+  color: ${(props) => props.theme.colors.titleSecondary};
 `;
 
 export const StyledIonicons = styled(Ionicons)``;
@@ -126,7 +127,7 @@ export const StyledInner = styled.View`
 
 export const StyledNotifyTime = styled.Text`
   text-align: center;
-  color: ${(props) => props.theme.blackSecondary};
+  color: ${(props) => props.theme.colors.titleSecondary};
 `;
 
 export const StyledLogoImage = styled.Image`

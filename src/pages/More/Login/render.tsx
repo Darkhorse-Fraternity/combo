@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* @flow */
 // 注册页面
 
@@ -12,12 +13,12 @@ import React, {
 } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   TextInput,
   Platform,
   Keyboard,
   TextInputProps,
+  useColorScheme,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
@@ -35,6 +36,8 @@ import {
   StyledMoreBtn,
   StyledMoreBtnText,
   StyledInputView,
+  StyledInputTitle,
+  StyledTopTextInput,
 } from './style';
 import { theme } from '../../../Theme/index';
 import * as WeChat from 'react-native-wechat';
@@ -264,8 +267,8 @@ const RenderRowMain: FC<
 > = ({ title, inputRef, ...rest }) => {
   return (
     <View style={styles.rowMainStyle}>
-      <Text style={styles.textStyle}>{title}</Text>
-      <TextInput
+      <StyledInputTitle style={styles.textStyle}>{title}</StyledInputTitle>
+      <StyledTopTextInput
         placeholderTextColor="rgba(180,180,180,1)"
         selectionColor={mainColor}
         returnKeyType="next"
@@ -274,8 +277,8 @@ const RenderRowMain: FC<
         underlineColorAndroid="transparent"
         clearButtonMode="while-editing"
         enablesReturnKeyAutomatically
-        ref={inputRef}
-        {...rest}
+        ref={inputRef as any}
+        {...(rest as unknown)}
         // onSubmitEditing={() => this.focusNextField(ref)}
       />
     </View>
@@ -289,11 +292,16 @@ interface RenderWechatProps {
 }
 
 const RenderWechat: FC<RenderWechatProps> = ({ load, onWeChat, onMore }) => {
+  const colorScheme = useColorScheme();
   return (
     <StyledContent style={{ justifyContent: 'space-between' }}>
       <Animatable.View animation="fadeIn">
         <StyledImage
-          source={require('../../../../source/img/my/icon-60.png')}
+          source={
+            colorScheme === 'dark'
+              ? require('../../../../source/img/my/logo-dark.png')
+              : require('../../../../source/img/my/icon-60.png')
+          }
         />
         <SyledImageName>{strings('app.name')}</SyledImageName>
       </Animatable.View>
@@ -426,7 +434,7 @@ const styles = StyleSheet.create({
     // flex: ,
     width: 55,
     fontSize: 14,
-    color: '#333333',
+    // color: '#333333',
   },
   textInputStyle: {
     // width:200,
@@ -434,7 +442,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     textAlign: 'left',
     fontSize: 14,
-    color: 'black',
+    // color: 'black',
     // backgroundColor: 'red',
     height: 50,
   },
@@ -484,8 +492,9 @@ const styles = StyleSheet.create({
   },
   valLine: {
     width: StyleSheet.hairlineWidth,
-    backgroundColor: '#ebebeb',
+    backgroundColor: 'rgb(200,200,200)',
     marginVertical: 8,
+    marginRight: 10,
   },
   titleStyle: {
     color: 'black',

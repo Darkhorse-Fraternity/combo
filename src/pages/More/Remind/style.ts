@@ -29,7 +29,7 @@ export const StyledSubTitle = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.colors.titleBackViewColor};
   border-radius: 10px;
   padding: 10px 8px;
   margin: 30px 20px 0px 20px;
@@ -38,6 +38,7 @@ export const StyledSubTitle = styled.View`
 export const StyledSubTitleText = styled.Text`
   font-size: 17px;
   margin-left: 10px;
+  color: ${(props) => props.theme.colors.text};
 `;
 export const StyledSwitch = styled.Switch``;
 export const StyledButton = styled(Button)`
@@ -46,17 +47,19 @@ export const StyledButton = styled(Button)`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledTime = styled.Text`
   font-size: 18px;
   font-weight: 600;
   min-width: 50px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledName = styled.Text`
   font-size: 15px;
+  color: ${(props) => props.theme.colors.text};
 `;
 export const StyledDays = styled.Text`
   font-size: 11px;
@@ -75,7 +78,7 @@ export const StyledRowDis = styled.View`
 `;
 
 export const StyledLine = styled.View`
-  background-color: ${(props) => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.colors.titleBackViewColor};
   height: 80px;
   width: 3px;
   margin: 0px 15px 0px 5px;
@@ -84,7 +87,7 @@ export const StyledLine = styled.View`
 `;
 
 export const StyledRound = styled.View`
-  background-color: ${(props) => props.theme.titleBackViewColor};
+  background-color: ${(props) => props.theme.colors.titleBackViewColor};
   width: 15px;
   height: 15px;
   border-radius: 7.5px;
@@ -110,6 +113,7 @@ export const StyledIconImage = styled.Image<{ size: number }>`
 
 export const StyledIcon = styled(Icon)`
   align-self: center;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledAntDesign = styled(AntDesign)`
@@ -120,6 +124,7 @@ export const StyledDeleteBtn = styled.View`
   align-items: center;
   justify-content: center;
   flex: 1;
+  background-color: ${(props) => props.theme.colors.titleBackViewColor};
 `;
 
 export const StyledDeleteBtnText = styled.Text`

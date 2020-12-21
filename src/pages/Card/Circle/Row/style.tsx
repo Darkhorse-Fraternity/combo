@@ -79,9 +79,9 @@ export const StyledRecordText = styled.Text`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const StyledIcon = styled(Icon)`
-  align-self: center;
-`;
+// export const StyledIcon = styled(Icon)`
+//   align-self: center;
+// `;
 
 export const StyledChatbtn = styled(Button)`
   justify-content: space-between;

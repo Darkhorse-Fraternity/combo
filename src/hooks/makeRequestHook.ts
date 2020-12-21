@@ -76,8 +76,13 @@ const makeRequestHook: MakeRequestHookType = (request) => {
         console.log('makeRequestHook', e.message);
         console.log('makeRequestHook params', params);
 
+        //@ts-expect-error
+        const message = e.response?.data?.error
+          ? //@ts-expect-error
+            e.response?.data?.error
+          : e.message;
         SimpleToast.showWithGravity(
-          e.message,
+          message,
           SimpleToast.LONG,
           SimpleToast.CENTER,
         );

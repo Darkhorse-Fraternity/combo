@@ -264,8 +264,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     height: 50,
     textAlign: 'left',
-    fontSize: 15,
-    color: 'black',
+    // fontSize: 15,
     paddingHorizontal: 10,
     borderRadius: 8,
     marginHorizontal: 15,

@@ -43,8 +43,8 @@ export const StyledItemText = styled.Text<StyledItemViewType>`
     props.contain
       ? 'white'
       : Platform.OS === 'ios'
-      ? 'black'
-      : props.theme.blackTertiary};
+      ? props.theme.colors.titleTertiary
+      : props.theme.colors.titleTertiary};
 
   font-size: 14px;
 `;
@@ -63,6 +63,7 @@ export const StyledSubTitle = styled.Text`
   font-size: 15px;
   margin: 15px 0px 10px 0px;
   padding: 5px 20px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledControl = styled(TouchableOpacity)`
@@ -125,11 +126,13 @@ export const StyledTitleView = styled.View`
 export const StyledIcon = styled(FontAwesome)`
   align-self: center;
   margin-left: 5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledTitle = styled.Text`
   font-size: 15px;
   letter-spacing: 0.5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledCellButton = styled(Button)`
@@ -146,6 +149,7 @@ export const StyledCellTitle = styled.Text`
   font-size: 15px;
   font-weight: bold;
   letter-spacing: 0.5px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledCellDiscrib = styled.Text`
@@ -165,7 +169,8 @@ export const StyledArrow = styled.View`
 `;
 
 export const StyledTitleInput = styled.TextInput`
-  font-size: 17px;
-  background: ${(props) => props.theme.textinputbackgroundColor};
+  font-size: 15px;
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
   height: 50px;
+  color: ${({ theme }) => theme.colors.text};
 `;

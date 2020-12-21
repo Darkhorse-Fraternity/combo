@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export const StyledContent = styled.View`
   flex: 1;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledImage = styled.Image`
@@ -32,6 +32,7 @@ export const SyledImageName = styled.Text`
   margin-top: 10px;
   font-size: 20px;
   align-self: center;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const ThirdPartyLoginView = styled.View`
@@ -93,7 +94,9 @@ export const StyledCodeButton = styled(Button)``;
 export const StyledCodeButtonText = styled.Text`
   font-size: 14px;
   font-weight: 400;
-  color: #333333;
+  min-width: 40px;
+  color: ${(props) => props.theme.colors.text};
+  text-align: center;
 `;
 
 export const StyledSignInBtn = styled(HeaderBtn)`
@@ -122,6 +125,7 @@ export const StyledMoreBtn = styled(Button)`
 export const StyledMoreBtnText = styled.Text`
   font-size: 15px;
   font-weight: 300;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledBtnContnet = styled.View`
@@ -130,9 +134,17 @@ export const StyledBtnContnet = styled.View`
 
 export const StyledInputView = styled.View`
   flex-direction: row;
-  background-color: #f0f0f0;
+  background-color: ${(props) => props.theme.colors.textinputbackgroundColor};
   // width: Dimensions.get('window').width - 40,
   padding: 0px 20px;
   margin: 0px 20px;
   max-width: 500px;
+`;
+
+export const StyledInputTitle = styled.Text`
+  color: ${(props) => props.theme.colors.text};
+`;
+
+export const StyledTopTextInput = styled.TextInput`
+  color: ${(props) => props.theme.colors.text};
 `;

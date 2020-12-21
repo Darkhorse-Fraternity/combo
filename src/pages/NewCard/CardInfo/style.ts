@@ -13,6 +13,7 @@ import { default as BaseIcon } from 'react-native-vector-icons/Ionicons';
 
 export const StyledContent = styled.SafeAreaView`
   flex: 1;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledRow = styled.View`
@@ -22,13 +23,14 @@ export const StyledRow = styled.View`
 `;
 
 export const StyledRowText = styled.Text`
-  color: #323232;
+  /* color: #323232; */
+  color: ${(props) => props.theme.colors.titlePrimary};
   font-size: 17px;
   font-style: italic;
 `;
 
 export const StyledRowDes = styled.Text`
-  color: #323232;
+  color: ${(props) => props.theme.colors.titlePrimary};
   font-size: 17px;
   font-style: italic;
   margin-right: 60px;
@@ -81,4 +83,5 @@ export const StyledImg = styled(AutoHeightImage)``;
 export const StyledIcon = styled(BaseIcon)`
   align-self: center;
   margin-top: 5px;
+  color: ${(props) => props.theme.colors.titlePrimary};
 `;

@@ -38,9 +38,9 @@ export const StyledTitleView = styled.View`
   padding: 15px;
 `;
 
-export const StyledTitleText = styled.Text`
-  font-size: 17px;
-`;
+// export const StyledTitleText = styled.Text`
+//   font-size: 17px;
+// `;
 
 export const StyledBottomMenu = styled.View`
   flex-direction: row;
@@ -91,10 +91,10 @@ export const StyledRowTouch = styled.View`
   justify-content: space-between;
 `;
 
-export const StyledRowText = styled.Text`
-  color: #323232;
-  font-size: 18px;
-`;
+// export const StyledRowText = styled.Text`
+//   color: #323232;
+//   font-size: 18px;
+// `;
 
 export const StyledRowDes = styled.Text`
   color: #323232;

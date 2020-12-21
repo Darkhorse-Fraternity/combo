@@ -24,6 +24,7 @@ export const StyledHeaderView = styled.View`
 `;
 export const StyledHeaderTitle = styled.Text`
   font-size: 23px;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledIconAwesome = styled(IconAwesome)``;
@@ -66,7 +67,7 @@ export const StyledRadioInnner = styled.View`
 
 export const StyleRadioText = styled.Text`
   font-size: 20px;
-  color: black;
+  color: ${({ theme }) => theme.colors.text};
   text-align: center;
 `;
 export const RadioIcon = styled(BaseIcon)`

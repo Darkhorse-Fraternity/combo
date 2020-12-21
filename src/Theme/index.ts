@@ -22,10 +22,11 @@ const getTheme = (colorScheme: ColorSchemeName) => {
   const colors = {
     ...theme.colors,
     hairlineColor: isDarkMode ? 'rgb(100,100,100)' : '#e4e4e4',
-    titlePrimary: isDarkMode ? 'rgb(200,200,200)' : 'rgb(100,100,100)',
+    titlePrimary: isDarkMode ? 'rgb(200,200,200)' : '#323232',
     titleSecondary: isDarkMode ? 'rgb(150,150,150)' : '#646464',
     titleTertiary: isDarkMode ? 'rgb(100,100,100)' : 'rgb(100,100,100)',
     textinputbackgroundColor: isDarkMode ? 'rgb(30,30,30)' : '#f6f7f9',
+    titleBackViewColor: isDarkMode ? 'rgb(30,30,30)' : '#f6f7f9',
   };
 
   return {
@@ -35,9 +36,7 @@ const getTheme = (colorScheme: ColorSchemeName) => {
     widthProportion: width / 375, // 用于高度根据长度进行缩放
     hairlineWidth: StyleSheet.hairlineWidth,
     statusBarHeight: getStatusBarHeight(),
-
-    titleBackViewColor: '#f6f7f9',
-    showItem: '#f5f8f6',
+    showItem: isDarkMode ? 'rgb(35,35,35)' : '#f5f8f6',
     disabledColor: '#bfc2c7',
     sureColor: '#66bb6a',
     blackPrimary: 'rgba(0,0,0,0.87)',

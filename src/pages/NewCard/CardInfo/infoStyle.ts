@@ -104,6 +104,7 @@ export const StyledNickName = styled.Text`
   margin: 3px 0px;
   max-width: 120px;
   min-height: 30px;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledSubTitle = styled.Text`

@@ -7,6 +7,7 @@ import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${(props) => props.theme.colors.card};
   /* justify-content: space-between; */
 `;
 
@@ -74,7 +75,7 @@ export const StyleAutoGrowingChatTextInput = styled(AutoGrowingTextInput)`
   padding-bottom: 5px;
   padding-left: 10px;
   font-size: 16px;
-  background-color: white;
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const StyledSumbitBtn = styled(Button)``;
@@ -87,7 +88,7 @@ export const Form = styled.View`
   flex-direction: row;
   align-items: center;
   padding: 10px 15px 10px 5px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.card};
   border-top-color: #c8c8c8;
   border-top-width: ${(props) => props.theme.hairlineWidth};
   border-bottom-color: #c8c8c8;

@@ -74,8 +74,8 @@ interface FDProps {
         pay(
           type,
           amount,
-          description,
           'fb',
+          description,
           props.selfUser.objectId,
           undefined,
           {
@@ -116,7 +116,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
     if (cost > 0) {
       this.setState({ showPay: true });
     } else {
-      console.log('???');
+      // console.log('???');
 
       try {
         this.setState({ load: true });

@@ -44,11 +44,11 @@ export const StyledRow = styled.View`
   flex-direction: row;
 `;
 
-export const StyledRowText = styled.Text`
-  font-size: 15px;
-  color: black;
-  font-style: italic;
-`;
+// export const StyledRowText = styled.Text`
+//   font-size: 15px;
+//   color: ${({ theme }) => theme.colors.text};
+//   font-style: italic;
+// `;
 
 export const StyledAdd = styled(BorderlessButton)`
   padding: 10px;
@@ -65,6 +65,6 @@ export const StyledLogButton = styled(ButtonOpacity)<{ color: string }>`
   border-radius: 10px;
 `;
 
-export const StyledLogButtonText = styled.Text`
-  margin: 10px 20px;
-`;
+// export const StyledLogButtonText = styled.Text`
+//   margin: 10px 20px;
+// `;
