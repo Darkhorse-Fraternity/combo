@@ -45,6 +45,7 @@ export const StyledBack = styled.View`
 export const StyledFaceText = styled.Text`
   font-weight: 500;
   line-height: 18px;
+  color: black;
 `;
 
 export const StyledBackText = styled.Text`
