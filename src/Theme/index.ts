@@ -11,7 +11,7 @@ import { randFlowCoverColor } from './color';
 const getTheme = (colorScheme: ColorSchemeName) => {
   const { height, width } = Dimensions.get('window');
   if (Platform.OS === 'android') {
-    DefaultTheme.colors.text = 'rgb(100,100,100)';
+    DefaultTheme.colors.text = 'rgb(50,50,50)';
   } else {
     DefaultTheme.colors.text = 'rgb(50,50,50)';
   }
