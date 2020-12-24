@@ -71,7 +71,7 @@ const ListHeaderComponet = () => {
       {habitTemplate}
 
       <StyledTitleView key="bottom">
-        <StyledTitleText>圈子推荐</StyledTitleText>
+        <StyledTitleText>小组推荐</StyledTitleText>
       </StyledTitleView>
     </StyledTop>
   );

@@ -178,7 +178,7 @@ const Card: FC<{}> = (props) => {
     <StyledContent>
       <Main {...props} iCard={iCard}>
         {state === CircleState.open && (
-          <Circle iUse={data!} iCard={iCard!} {...props} tabLabel="圈子" />
+          <Circle iUse={data!} iCard={iCard!} {...props} tabLabel="小组" />
         )}
         <Statistical
           {...props}

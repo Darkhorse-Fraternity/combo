@@ -104,7 +104,7 @@ const Render = (): JSX.Element => {
   return (
     <StyledContent>
       <StyledNavBar>
-        <StyledText>圈子设置</StyledText>
+        <StyledText>小组设置</StyledText>
         <StyledButton
           loading={loading}
           hitSlop={{ top: 10, bottom: 10, left: 20, right: 20 }}

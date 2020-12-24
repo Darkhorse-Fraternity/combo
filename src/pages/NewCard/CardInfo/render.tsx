@@ -147,7 +147,7 @@ const CardInfoClass: FC<PropsType> = (props) => {
           } else {
             if (props.isTourist) {
               navigate('login');
-              return Toast.show('加入圈子必须先登录哦~!');
+              return Toast.show('加入小组必须先登录哦~!');
             }
 
             if (iCard.password && iCard.password.length > 0 && !isSelf) {
