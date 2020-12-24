@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import FastImage from 'react-native-fast-image';
 import Button from '../../../components/Button';
 import ZoomImage from '../../../components/ZoomImage/ZoomImage';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export const StyledButton = styled.TouchableOpacity``;
 
@@ -95,4 +96,10 @@ export const StyledName = styled.Text`
   margin-left: 10;
   min-width: 100;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StyledAntDesign = styled(AntDesign)`
+  margin-top: 15px;
+  margin-right: 15px;
+  color: ${({ theme }) => theme.colors.titleSecondary};
 `;

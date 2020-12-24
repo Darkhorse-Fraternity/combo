@@ -30,7 +30,7 @@ const RenderPromptImage = (props: RenderPromptImageProp) => {
 
   const {
     prompIamgeStyle,
-    promptImage = isMode
+    promptImage = !isMode
       ? require('@img/my/logo.png')
       : require('@img/my/logo-dark.png'),
   } = props;

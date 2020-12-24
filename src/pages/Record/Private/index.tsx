@@ -2,9 +2,9 @@ import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
 import { toLazyExoticComponent } from '@components/util/toLazyExoticComponent';
 
-const navigationOptions: NavigationOptionsType<RouteKey.log> = () => {
+const navigationOptions: NavigationOptionsType<RouteKey.recordPrivate> = () => {
   return {
-    title: '',
+    title: '隐私保护',
   };
 };
 

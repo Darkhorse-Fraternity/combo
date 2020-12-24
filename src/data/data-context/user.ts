@@ -54,6 +54,11 @@ export const useUpdateMeFromRemote = (manual: boolean = false) => {
     {
       manual,
       onSuccess: (me) => replaceMe(me),
+      onError: () => {
+        anonymousUser().then((user2) => {
+          replaceMe(user2);
+        });
+      },
     },
   );
   return { run };

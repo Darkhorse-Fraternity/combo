@@ -35,10 +35,12 @@ import { AndroidBackHandleHOCComponent } from '../configure/androidBackHandle';
 import ClockIn from '../pages/clock-in';
 import Test from './test';
 import log from './Card/Log';
+import RecordPrivate from './Record/Private';
 
 export const otherRoute = {
   [RouteKey.web]: web,
   [RouteKey.log]: log,
+  [RouteKey.recordPrivate]: RecordPrivate,
   [RouteKey.clockIn]: ClockIn,
   [RouteKey.test]: Test,
   [RouteKey.search]: Search,

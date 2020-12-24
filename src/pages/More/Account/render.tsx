@@ -20,6 +20,7 @@ import {
   StyledAppPrivacyPolicyText,
   StyledAppPrivacyPolicyView,
   StyledAppPrivacyLine,
+  StyledUIDText,
 } from './style';
 
 import {
@@ -235,6 +236,7 @@ const RenderHeadRow: FC<{}> = () => {
         source={{ uri: avatarUrl }}
         load={loading}
       />
+      <StyledUIDText>{user.uid}</StyledUIDText>
 
       {/* <StyledArrow/> */}
 

@@ -26,11 +26,13 @@ export enum RouteKey {
   creat = 'creat',
   newCard = 'newCard',
   record = 'record',
+  recordPrivate = 'recordPrivate',
   cardConfig = 'cardConfig',
   account = 'account',
   cardInfo = 'cardInfo',
   rcomment = 'rcomment',
   card = 'card',
+
   cardUse = 'cardUse',
   more = 'more',
   login = 'login',
@@ -82,6 +84,7 @@ export type RootStackParamList = {
   [RouteKey.cardInfo]: { iCardId: string };
   [RouteKey.rcomment]: { iDoID: string };
   [RouteKey.card]: { iUseId: string };
+  [RouteKey.recordPrivate]: { iUseId: string };
   [RouteKey.cardUse]: { iCardId: string };
   [RouteKey.more]: undefined;
   [RouteKey.login]: undefined;

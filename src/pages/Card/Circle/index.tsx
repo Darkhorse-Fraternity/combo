@@ -44,6 +44,7 @@ import { IUseType, UserType } from 'src/data/data-context/interface';
 import { useMutateIuseData } from 'src/data/data-context/core';
 import LoadMoreList from '@components/Base/LoadMoreList';
 import { useCanceWhenLeave } from 'src/hooks/util';
+import { useGetInfoOfMe } from 'src/data/data-context/user';
 type ItemType = GetClassesIDoResponse['results'][number];
 
 const pickPrivacy = async (privacy: number, isSelf: boolean) => {
@@ -123,6 +124,7 @@ const RenderRow: FC<
 > = ({ item, index, count }) => {
   const { navigate } = useNavigation();
   const showAd = index % 15 === 14;
+  // item.iUse.privacy
   return (
     <>
       <StyledRow
@@ -131,6 +133,8 @@ const RenderRow: FC<
         }}>
         <Header
           user={item.user as UserType}
+          iUseId={item.iUse.objectId}
+          privacy={item.iUse.privacy}
           onPress={() => {
             navigate(RouteKey.following, {
               userId: item.user.objectId,
@@ -155,7 +159,7 @@ const PrivacyItem: FC<{
   iCard: IUseType['iCard'];
 }> = (props) => {
   const { iCard, iUse } = props;
-  const user = useGetUserInfo();
+  const { user } = useGetInfoOfMe();
   const { update } = useMutateIuseData();
   return (
     <MenuItem
@@ -268,24 +272,30 @@ const useLoadMore = (iCardId: string, privacy: number) => {
     cacheKey: 'GetClassesIDo' + iCardId,
     refreshDeps: [privacy],
   });
+
   const lastDataRef = useRef(data?.list);
 
   useCanceWhenLeave(cancel, loading || loadingMore);
+  const { user } = useGetInfoOfMe();
 
   const midData = loading ? lastDataRef.current : data?.list;
 
   const lastData = useMemo(
-    () => midData?.filter((item) => item.iUse.privacy! >= privacy),
-    [midData, privacy],
+    () =>
+      midData?.filter(
+        (item) =>
+          item.iUse.privacy! >= privacy || item.user.objectId === user.objectId,
+      ),
+    [midData, privacy, user.objectId],
   );
 
   return { data: lastData, loading, loadingMore, ...rest };
 };
 
 const Circle: FC<CircleProps> = (props) => {
-  const { iCard, ...other } = props;
+  const { iCard, iUse, ...other } = props;
 
-  const user = useGetUserInfo();
+  // const user = useGetUserInfo();
   const [count, setCount] = useState(0);
   const ref = useRef<PageList<ItemType>>(null);
   useEffect(() => {
@@ -312,40 +322,7 @@ const Circle: FC<CircleProps> = (props) => {
     };
   }, []);
 
-  const privacy =
-    iCard.user.objectId === user?.objectId ? Privacy.openToCoach : Privacy.open;
-  const lm = useLoadMore(iCard.objectId, privacy);
-
-  // const fristRef = useRef(true);
-
-  // useEffect(() => {
-  //   if (!fristRef.current) {
-  //     ref.current?.reload(0);
-  //   }
-  //   fristRef.current = false;
-  // }, [privacy]);
-
-  // const loadPage = (page_index: number, page_size: number) => {
-  //   const where = {
-  //     iCard: iCardPoint(iCard.objectId),
-  //     $or: [{ imgs: { $exists: true } }, { recordText: { $exists: true } }],
-  //     state: { $ne: -1 }, // -1 为已删除
-  //   };
-  //   const param = {
-  //     limit: page_size + '',
-  //     skip: page_index * page_size + '',
-  //     include: 'user,iUse',
-  //     order: '-doneDate,-createdAt',
-  //     where: JSON.stringify(where),
-  //   };
-  //   return getClassesIDo(param).then((res) => {
-  //     const { results } = res;
-  //     // console.log('results', results);
-  //     const results2 = results.filter((item) => item.iUse.privacy! >= privacy);
-
-  //     return { data: results2, hasMore: results.length === page_size };
-  //   });
-  // };
+  const lm = useLoadMore(iCard.objectId, iUse.privacy);
 
   return (
     <LoadMoreList<ItemType>
