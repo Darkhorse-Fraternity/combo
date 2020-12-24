@@ -102,6 +102,8 @@ const PunchItem: FC<PunchItemProps> = (props) => {
     <StyledButton
       // disabled={flip}
       // onLongPress={onLongPress}
+      // onp
+      onLongPress={() => {}}
       onPress={() => {
         onPress &&
           onPress(flip, () => {

@@ -115,4 +115,6 @@ export const StyledAppPrivacyLine = styled.View`
 
 export const StyledUIDText = styled.Text`
   align-self: center;
+  color: ${({ theme }) => theme.colors.text};
+  margin-top: 10;
 `;

@@ -236,7 +236,7 @@ const RenderHeadRow: FC<{}> = () => {
         source={{ uri: avatarUrl }}
         load={loading}
       />
-      <StyledUIDText>{user.uid}</StyledUIDText>
+      <StyledUIDText>UID: {user.uid}</StyledUIDText>
 
       {/* <StyledArrow/> */}
 

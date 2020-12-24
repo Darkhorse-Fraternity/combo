@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2020-12-23 16:51:29
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2020-12-24 16:59:33
+ * @FilePath: /Combo/src/pages/Punch/Item/style.ts
+ */
 /**
  * Created by lintong on 2018/10/11.
  * @flow
@@ -5,10 +12,10 @@
 import styled from 'styled-components/native';
 import FlipCard from 'react-native-flip-card';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// @ts-ignore: Unreachable code error
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-export const StyledButton = styled(TouchableBounce)``;
+import { ButtonBounce } from '@components/Button';
+
+export const StyledButton = styled(ButtonBounce)``;
 
 export const StyledFlipCard = styled(FlipCard)`
   border-width: 0;

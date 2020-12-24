@@ -2,6 +2,8 @@ import TouchableItem from '@react-navigation/stack/src/views/TouchableItem';
 import { debounce } from 'lodash';
 
 import React, { ComponentType, FC } from 'react';
+// @ts-ignore: Unreachable code error
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 import {
   TouchableOpacity,
   Platform,
@@ -141,6 +143,12 @@ export const ButtonHighlight = withPeddingClick(
 
 export const ButtonItem = withPeddingClick(
   withPreventDoubleClick(TouchableItem),
+);
+
+// type TouchableBounceType = Omit<typeof TouchableOpacity, 'activeOpacity'>;
+
+export const ButtonBounce = withPeddingClick(
+  withPreventDoubleClick(TouchableBounce as typeof TouchableNativeFeedback),
 );
 
 // const styles = StyleSheet.create({
