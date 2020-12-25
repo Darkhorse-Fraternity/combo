@@ -18,7 +18,7 @@
     "release-android": "cd android && ./gradlew assembleRelease && cd ../ && open ./android/app/build/outputs/apk/release",
     "bundleRelease-android": "cd android && ./gradlew bundleRelease && cd ../ && open ./android/app/build/outputs/bundle/release",
     "release-ios": "cd ios && fastlane beta && cd ../",
-    "release": "semantic-release --no-ci",
+    "release": "semantic-release --no-ci && yarn notify-dingtalk",
     "preminor": "npm version preminor  -m 'Upgrade to %s for reasons'",
     "launch": "idb launch com.rn.combo && yarn start"
   },
@@ -168,6 +168,7 @@
     "jest-react-native": "^18.0.0",
     "jetifier": "^1.6.4",
     "metro-react-native-babel-preset": "^0.59.0",
+    "notify-dingtalk": "^1.1.1",
     "prettier": "2.0.5",
     "prettier-eslint-cli": "5.0.0",
     "react-test-renderer": "^16.13.1",
