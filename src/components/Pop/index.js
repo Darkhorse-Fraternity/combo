@@ -8,8 +8,6 @@ import React from 'react';
 import topView from 'rn-topview';
 import PopContainer from './PopContainer';
 
-import { Platform, StatusBar } from 'react-native';
-
 let popupInstance;
 let mContent;
 export default {

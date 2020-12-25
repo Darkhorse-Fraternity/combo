@@ -129,7 +129,7 @@
     "styled-components": "^5.2.0",
     "use-debounce": "^5.1.0",
     "uuid": "3.2.1",
-    "validator": "10.5.0",
+    "validator": "13.5.2",
     "wurl": "2.5.3",
     "yup": "^0.29.3"
   },
@@ -153,6 +153,7 @@
     "@types/react-native-vector-icons": "^6.4.5",
     "@types/react-test-renderer": "^16.9.0",
     "@types/styled-components": "5.1.5",
+    "@types/validator": "^13.1.1",
     "@types/yup": "^0.26.27",
     "babel-jest": "^25.1.0",
     "babel-plugin-import": "^1.6.5",

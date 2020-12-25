@@ -390,7 +390,15 @@ export const usePhoneLogin = () => {
           replaceMe(user);
         }
         return setLoading(false);
-      } catch (error) {
+      } catch (e) {
+        const message = e.response?.data?.error
+          ? e.response?.data?.error
+          : e.message;
+        SimpleToast.showWithGravity(
+          message,
+          SimpleToast.LONG,
+          SimpleToast.CENTER,
+        );
         setLoading(false);
       }
     },

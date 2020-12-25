@@ -22,7 +22,6 @@ import {
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
-import { checkPhoneNum } from '../../../request/validation';
 import {
   StyledContent,
   ThirdPartyInnerLoginView,
@@ -55,6 +54,7 @@ import {
   useWechatLogin,
 } from 'src/data/data-context/user';
 import { useNavigation } from '@react-navigation/native';
+import isMobilePhone from 'validator/lib/isMobilePhone';
 const { mainColor } = theme;
 
 interface LoginProps {
@@ -78,33 +78,6 @@ interface LoginState {
 
 type LoginKey = 'qqLogin' | 'wxLogin' | 'appleLogin';
 
-// @connect(
-//   // @ts-ignore: Unreachable code error
-//   (state) => ({
-//     // data:state.req.get()
-//     // loaded: state.user.loaded,
-//     theThirdLoaded: state.user.theThirdLoaded,
-//     // auth: state.req.get(AUTHCODE),
-//   }),
-//   // @ts-ignore: Unreachable code error
-//   (dispatch) => ({
-//     // ...bindActionCreators({},dispatch),
-//     //换成 hook 写法
-//     // mRegister: (state: { phone: string; ymCode: string }, uid: string) => {
-//     //   dispatch(register(state, uid));
-//     // },
-//     //三合一
-//     qqLogin: (user: UserType) => {
-//       dispatch(qqLogin(user));
-//     },
-//     wxLogin: (user: UserType) => {
-//       dispatch(weChatLogin(user));
-//     },
-//     appleLogin: (user: UserType) => {
-//       dispatch(appleLogin(user));
-//     },
-//   }),
-// )
 class LoginViewClass extends Component<LoginProps, LoginState> {
   phoneRef: RefObject<TextInput> | undefined;
   ymCodeRef: RefObject<TextInput> | undefined;
@@ -156,7 +129,8 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
 
   _goRegist = () => {
     // 判断手机号的正则
-    if (!checkPhoneNum(this.state.phone)) {
+
+    if (!isMobilePhone(this.state.phone)) {
       Toast.show('不是正确的手机号码');
       this.ymCodeRef?.current?.focus();
       return;
@@ -178,22 +152,14 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
     this.id && clearInterval(this.id);
   }
 
-  // componentWillReceiveProps(props: LoginProps) {
-  //   if (
-  //     props.userData.mobilePhoneNumber !== this.props.userData.mobilePhoneNumber
-  //   ) {
-  //     this.setState({ phone: props.userData.mobilePhoneNumber });
-  //   }
-  // }
-
   render() {
     const { authLoad } = this.props;
     const { phone, time, isTap, ymCode } = this.state;
     const { phoneRef, ymCodeRef, _onClickCode, _goRegist } = this;
-    const codeEnable = checkPhoneNum(phone) && time === 60 && !isTap;
+    const codeEnable = isMobilePhone(phone) && time === 60 && !isTap;
     const reg = /^\d{6}$/;
     const { loaded } = this.props;
-    const flag = reg.test(ymCode) && checkPhoneNum(phone);
+    const flag = reg.test(ymCode) && isMobilePhone(phone);
     return (
       <>
         <View style={styles.top}>
@@ -203,7 +169,7 @@ class LoginViewClass extends Component<LoginProps, LoginState> {
               placeholder="请填入手机号"
               onChangeText={(text) => this.setState({ phone: text })}
               keyboardType="numeric"
-              maxLength={11}
+              maxLength={16}
               inputRef={phoneRef}
               defaultValue={phone}
               onSubmitEditing={() => phoneRef?.current?.focus()}

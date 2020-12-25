@@ -2352,6 +2352,11 @@
   resolved "https://registry.yarnpkg.com/@types/tough-cookie/-/tough-cookie-4.0.0.tgz#fef1904e4668b6e5ecee60c52cc6a078ffa6697d"
   integrity sha512-I99sngh224D0M7XgW1s120zxCt3VYQ3IQsuw3P3jbq5GG4yc79+ZjyKznyOGIQrflfylLgcfekeZW/vk0yng6A==
 
+"@types/validator@^13.1.1":
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.1.1.tgz#8d220ae4851a1e745764c7ca72294b6d46aeb533"
+  integrity sha512-/39uXOKe1KV4ElXb8cp0RVyeRn9X1QRwllComMMql+FQ9nhmTx0Yhw+kJtccPSShsjma+KXjW/TiXyGUNqNn+w==
+
 "@types/ws@^7.2.2":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.2.6.tgz#516cbfb818310f87b43940460e065eb912a4178d"
@@ -9966,10 +9971,10 @@ normalizr@3.6.1:
   resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.6.1.tgz#d367ab840e031ff382141b8d81ce279292ff69fe"
   integrity sha512-8iEmqXmPtll8PwbEFrbPoDxVw7MKnNvt3PZzR2Xvq9nggEEOgBlNICPXYzyZ4w4AkHUzCU998mdatER3n2VaMA==
 
-notify-dingtalk@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/notify-dingtalk/-/notify-dingtalk-1.1.1.tgz#50a1b2e79fc2fd53966bb142fccb70aa07768a4e"
-  integrity sha512-piVJ2WImAydGzsGG6QI4Lz4b9uWMNEJQv9JK2EEf9hhgFplXqOjZpVZLRkStC+u6rNm1DMlMPbV9dH2aVjgkbw==
+notify-dingtalk@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/notify-dingtalk/-/notify-dingtalk-1.1.2.tgz#32f3f18998b17c7aa52a0683dcfde5cd271635fc"
+  integrity sha512-B53Ra6OcERYidd4LKivqydoVFMtUZldvvfBRgsBHzfkhuWi6dfzaBGOb7Bg3lMa2URK6Qqli/pGwXkC9wO52XQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     got "^11.8.1"
@@ -14210,10 +14215,10 @@ validate-npm-package-name@^3.0.0, validate-npm-package-name@~3.0.0:
   dependencies:
     builtins "^1.0.3"
 
-validator@10.5.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-10.5.0.tgz#1debbe1e6f5fd0c920ed2af47516f3762033939c"
-  integrity sha512-6OOi+eV2mOxCFLq0f2cJDrdB6lrtLXEUxabhNRGjgOLT/l3SSll9J49Cl+LIloUqkWWTPraK/mucEQ3dc2jStQ==
+validator@13.5.2:
+  version "13.5.2"
+  resolved "https://registry.yarnpkg.com/validator/-/validator-13.5.2.tgz#c97ae63ed4224999fb6f42c91eaca9567fe69a46"
+  integrity sha512-mD45p0rvHVBlY2Zuy3F3ESIe1h5X58GPfAtslBjY7EtTqGquZTj+VX/J4RnHWN8FKq0C9WRVt1oWAcytWRuYLQ==
 
 vary@~1.1.2:
   version "1.1.2"
