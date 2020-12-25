@@ -569,6 +569,7 @@
 				62991423853992130A7E27F2 /* [CP] Copy Pods Resources */,
 				77A60D162318B26600D48BEF /* Start Pakage */,
 				775FA08B259579A000E24474 /* Set Version */,
+				775FA09425957A3000E24474 /* Set Build */,
 			);
 			buildRules = (
 			);
@@ -857,6 +858,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "PACKAGE_VERSION=$(cat ../app.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n\n";
+		};
+		775FA09425957A3000E24474 /* Set Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"$INFOPLIST_FILE\"\n";
 		};
 		77A60D162318B26600D48BEF /* Start Pakage */ = {
 			isa = PBXShellScriptBuildPhase;
