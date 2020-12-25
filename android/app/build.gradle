@@ -83,13 +83,13 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
-//import groovy.json.JsonSlurper
-//def getAppVersion() {
-//    def inputFile = new File("../app.json")
-//    def packageJson = new JsonSlurper().parseText(inputFile.text)
-//    return packageJson["version"]
-//}
-//def appVersion = getAppVersion()
+import groovy.json.JsonSlurper
+def getAppVersion() {
+    def inputFile = new File("../app.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+    return packageJson["version"]
+}
+def appVersion = getAppVersion()
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -142,7 +142,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 2009251356
-        versionName '1.5.7'
+        versionName appVersion
         ndk {
             abiFilters "armeabi-v7a", 'arm64-v8a','x86','x86_64'
         }
