@@ -16,8 +16,6 @@ export default class HeaderBackImage extends PureComponent<
   HeaderBackImageProps
 > {
   render() {
-    console.log('this.props.tintColor', this.props.tintColor);
-
     return (
       <Image
         source={require('../../../../source/img/bar/back-icon.png')}

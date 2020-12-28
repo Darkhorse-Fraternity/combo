@@ -10,45 +10,54 @@ import {
   StyledLogo,
   StyledLogoView,
   StyledBG,
+  StyledTitle,
+  StyledMessage,
 } from './style';
 // import Modal from 'react-native-modal';
-import Button from '@components/Button';
-import { View } from 'react-native-animatable';
-import { Modal } from 'react-native';
+import { ButtonOpacity } from '@components/Button';
+import { GestureResponderEvent, Modal, useColorScheme } from 'react-native';
 
 export interface PickViewProps extends InnerViewProps {
   isVisiable?: boolean;
 }
 
 export interface InnerViewProps {
-  onSuccess: () => void;
-  onClose?: () => void;
+  onSuccess: (event: GestureResponderEvent) => void;
+  onClose?: (event: GestureResponderEvent) => void;
+  title: string;
+  message?: string;
 }
 
 const InnerView = (props: InnerViewProps) => {
-  const { onSuccess, onClose } = props;
-
+  const { onSuccess, onClose, title, message } = props;
+  const colorScheme = useColorScheme();
   return (
     <ContentView>
       <StyledLogoView>
         <StyledLogo
           resizeMode={'contain'}
-          source={require('@img/my/icon-60.png')}
+          source={
+            colorScheme === 'dark'
+              ? require('@img/my/logo-dark.png')
+              : require('@img/my/icon-60.png')
+          }
         />
       </StyledLogoView>
+      <StyledTitle>{title}</StyledTitle>
+      {!!message && <StyledMessage>{message}</StyledMessage>}
       <StyledButtonView>
-        <Button onPress={onSuccess}>
+        <ButtonOpacity style={{ flex: 1 }} onPress={onClose}>
           <StyledSubmit>
             <CommitBtn color={'#848494'}>取消</CommitBtn>
           </StyledSubmit>
-        </Button>
-        <View style={{ width: 80 }} />
+        </ButtonOpacity>
+        {/* <View style={{ width: 80 }} /> */}
         <StyledSplitView />
-        <Button onPress={onClose}>
+        <ButtonOpacity style={{ flex: 1 }} onPress={onSuccess}>
           <StyledSubmit>
-            <CommitBtn color={'#848494'}>确定</CommitBtn>
+            <CommitBtn color={'green'}>确定</CommitBtn>
           </StyledSubmit>
-        </Button>
+        </ButtonOpacity>
       </StyledButtonView>
     </ContentView>
   );

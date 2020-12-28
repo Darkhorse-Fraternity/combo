@@ -337,15 +337,6 @@ const RenderCell: FC<{
     handleViewRef.current?.reset();
   };
   const deleteAction = () => {
-    // this.props.delete(item, handleViewRef, data.isFb);
-    // if (item.isFb) {
-    //   Alert.alert(
-    //     '主人，我正参与副本活动，不可以被删除哦～！',
-    //     '等活动结束后再来吧。',
-    //     [{ text: '知道了' }],
-    //   );
-    //   return;
-    // }
     Alert.alert('确定删除?', '删除后不可恢复~！', [
       { text: '取消' },
       {

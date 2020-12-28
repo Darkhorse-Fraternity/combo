@@ -17,7 +17,7 @@ import moment from 'moment';
 import React, { FC, useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
-  Alert,
+  // Alert,
   DeviceEventEmitter,
   Keyboard,
   Platform,
@@ -27,6 +27,7 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import Alert from '@components/modal/alert';
 import * as Animatable from 'react-native-animatable';
 // @ts-ignore: Unreachable code error
 import { KeyboardAccessoryView } from 'react-native-keyboard-input';
@@ -72,6 +73,8 @@ const TrackInteractive = true;
 
 const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
   const { data, run } = useGetClassesIDoId({ id: iDoId });
+  const [isVisiable, setisVisiable] = useState(false);
+
   const {
     run: deleteRun,
     loading: deleteLoading,
@@ -97,13 +100,14 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
             color={p.tintColor}
             load={deleteLoading}
             onDelete={() => {
-              Alert.alert('确定删除?', '删除后不可恢复~！', [
-                { text: '取消' },
-                {
-                  text: '确定',
-                  onPress: () => deleteRun(),
-                },
-              ]);
+              // Alert.alert('确定删除?', '删除后不可恢复~！', [
+              //   { text: '取消' },
+              //   {
+              //     text: '确定',
+              //     onPress: () => deleteRun(),
+              //   },
+              // ]);
+              setisVisiable(true);
             }}
           />
         ),
@@ -131,7 +135,21 @@ const RenderHeader: FC<{ iDoId: string }> = ({ iDoId }) => {
     return <LoadAnimation />;
   }
   return (
-    <StyledHeader>{data && <RecordRow item={data as never} />}</StyledHeader>
+    <>
+      <StyledHeader>{data && <RecordRow item={data as never} />}</StyledHeader>
+      <Alert
+        isVisiable={isVisiable}
+        title={'确定删除?'}
+        message={'删除后将无法恢复。'}
+        onSuccess={() => {
+          deleteRun();
+          setisVisiable(false);
+        }}
+        onClose={() => {
+          setisVisiable(false);
+        }}
+      />
+    </>
   );
 };
 

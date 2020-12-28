@@ -3,7 +3,7 @@ import UpdateImageView, {
   UpdateImage,
   UpdateImageViewType,
 } from '@components/UpdateImageView';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import React, {
   FC,
   forwardRef,
@@ -34,7 +34,7 @@ import {
   StyledTitle,
   StyledTitleView,
   StyledToolBar,
-  // StyledToolBarAntDesignItem,
+  StyledToolBarAntDesignItem,
   StyledToolBarItem,
   StyledToolBarItemTip,
 } from './style';
@@ -62,7 +62,7 @@ import { useOrientation } from '@components/util/hooks';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
 // import { LoadAnimation } from '@components/Load';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
-// import Alert from '@components/modal/alert';
+import Alert from '@components/modal/alert';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -162,33 +162,39 @@ const ToolBarImagePickerItem: FC<
   );
 };
 
-// const ToolBarDeleteItem: FC<TouchableOpacityProps> = ({
-//   // onPress,
-//   ...other
-// }) => {
-//   const [isVisiable, setisVisiable] = useState(false);
-//   return (
-//     <>
-//       <TouchableOpacity
-//         hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
-//         onPress={() => {
-//           setisVisiable(true);
-//         }}
-//         {...other}>
-//         <StyledToolBarAntDesignItem name="delete" size={19} />
-//       </TouchableOpacity>
-//       <Alert
-//         isVisiable={isVisiable}
-//         onSuccess={() => {
-//           setisVisiable(false);
-//         }}
-//         onClose={() => {
-//           setisVisiable(false);
-//         }}
-//       />
-//     </>
-//   );
-// };
+const ToolBarDeleteItem: FC<TouchableOpacityProps> = ({
+  onPress,
+  ...other
+}) => {
+  const [isVisiable, setisVisiable] = useState(false);
+
+  return (
+    <>
+      <TouchableOpacity
+        hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+        onPress={() => {
+          // console.log('!!!');
+          // alert('asd');
+          setisVisiable(true);
+        }}
+        {...other}>
+        <StyledToolBarAntDesignItem name="delete" size={19} />
+      </TouchableOpacity>
+      <Alert
+        isVisiable={isVisiable}
+        title={'确定删除?'}
+        message={'删除后将无法恢复。'}
+        onSuccess={(e) => {
+          onPress && onPress(e);
+          setisVisiable(false);
+        }}
+        onClose={() => {
+          setisVisiable(false);
+        }}
+      />
+    </>
+  );
+};
 
 const ToolBar: FC<
   ToolBarProps & { showImagePickTip: boolean; onPress: (type: string) => void }
@@ -208,10 +214,10 @@ const ToolBar: FC<
         onResponderGrant={Keyboard.dismiss}
         onStartShouldSetResponder={() => true}
       />
-      {/* <ToolBarDeleteItem
+      <ToolBarDeleteItem
         onPress={onPress.bind(undefined, 'delete')}
         {...other}
-      /> */}
+      />
     </StyledToolBar>
   );
 };
@@ -225,7 +231,7 @@ function point(className: string, objectId: string) {
 }
 
 const Render: FC<{}> = () => {
-  const { setOptions, goBack } = useNavigation();
+  const { setOptions, goBack, dispatch } = useNavigation();
   const [iDo, setIDo] = useState<GetClassesIDoIdResponse>();
   const { update } = useMutateIuseData();
   const user = useGetUserInfo();
@@ -277,6 +283,30 @@ const Render: FC<{}> = () => {
   // }, [done, loading]);
 
   // 如果没有iDoid 怎查询今天的最新打卡。如果有，则修改打卡
+
+  const onDelete = () => {
+    if (idRef.current) {
+      putClassesIDoId({ id: idRef.current, state: -1 }).then((res) => {
+        if (res) {
+          DeviceEventEmitter.emit(DeviceEventEmitterKey.iDO_reload, {});
+          DeviceEventEmitter.emit(DeviceEventEmitterKey.iUse_reload, {});
+          dispatch((state) => {
+            const routes = state.routes.filter(
+              (r) =>
+                r.name !== RouteKey.rcomment && r.name !== RouteKey.clockIn,
+            );
+            return CommonActions.reset({
+              ...state,
+              routes,
+              index: routes.length - 1,
+            });
+          });
+          // goBack();
+        }
+      });
+    }
+  };
+
   useEffect(() => {
     if (done && !iDoId) {
       // getClassesIDoId({ id: iDoId }).then(({ recordText, imgs }) => {
@@ -511,6 +541,7 @@ const Render: FC<{}> = () => {
             if (toolBartype === 'imagePick') {
               ref?.current?.call(undefined, true);
             } else if (toolBartype === 'delete') {
+              onDelete();
             }
           }}
           showImagePickTip={!!record?.includes('图片')}
