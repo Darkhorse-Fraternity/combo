@@ -140,6 +140,7 @@ interface ToolBarProps {
     name: TFieldName,
     value: TFieldValue,
   ) => void;
+  iDo?: GetClassesIDoIdResponse;
 }
 
 interface ToolBarItemProps {
@@ -196,9 +197,11 @@ const ToolBarDeleteItem: FC<TouchableOpacityProps> = ({
   );
 };
 
+// interface ToolBarProps extends
+
 const ToolBar: FC<
   ToolBarProps & { showImagePickTip: boolean; onPress: (type: string) => void }
-> = ({ showImagePickTip, onPress, ...other }) => {
+> = ({ showImagePickTip, onPress, iDo, ...other }) => {
   return (
     <StyledToolBar>
       {/* <ToolBarImagePickerItem
@@ -214,10 +217,12 @@ const ToolBar: FC<
         onResponderGrant={Keyboard.dismiss}
         onStartShouldSetResponder={() => true}
       />
-      <ToolBarDeleteItem
-        onPress={onPress.bind(undefined, 'delete')}
-        {...other}
-      />
+      {!!iDo && (
+        <ToolBarDeleteItem
+          onPress={onPress.bind(undefined, 'delete')}
+          {...other}
+        />
+      )}
     </StyledToolBar>
   );
 };
@@ -537,6 +542,7 @@ const Render: FC<{}> = () => {
           </StyledTipText>
         )}
         <ToolBar
+          iDo={iDo}
           onPress={(toolBartype) => {
             if (toolBartype === 'imagePick') {
               ref?.current?.call(undefined, true);
