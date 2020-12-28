@@ -99,8 +99,6 @@ const Render = (): JSX.Element => {
     return <LoadAnimation />;
   }
 
-  console.log('searchResult?.password', searchResult?.password);
-
   return (
     <StyledContent>
       <StyledNavBar>

@@ -35,7 +35,6 @@ import {
   putClassesIUseId,
   useGetClassesIDo,
 } from 'src/hooks/interface';
-import PageList from '@components/Base/PageList';
 import { useGetUserInfo } from 'src/data/data-context';
 import { ShareModal } from '@components/Share/ShareView';
 import moment from 'moment';
@@ -297,7 +296,8 @@ const Circle: FC<CircleProps> = (props) => {
 
   // const user = useGetUserInfo();
   const [count, setCount] = useState(0);
-  const ref = useRef<PageList<ItemType>>(null);
+  // const { reload, ...rest } = useRef<LoadMoreList<ItemType>>(null);
+  const { reload, ...rest } = useLoadMore(iCard.objectId, iUse.privacy);
   useEffect(() => {
     loadWithObjectInfo({
       appId: GTDAppId,
@@ -313,16 +313,14 @@ const Circle: FC<CircleProps> = (props) => {
     const deEmitter = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iDO_reload,
       () => {
-        ref.current?.reload(0);
+        reload();
       },
     );
 
     return () => {
       deEmitter.remove();
     };
-  }, []);
-
-  const lm = useLoadMore(iCard.objectId, iUse.privacy);
+  }, [reload]);
 
   return (
     <LoadMoreList<ItemType>
@@ -337,7 +335,8 @@ const Circle: FC<CircleProps> = (props) => {
       renderItem={(props) => <RenderRow {...props} count={count} />}
       ListHeaderComponent={<TopMenu {...props} />}
       numColumns={1}
-      {...lm}
+      reload={reload}
+      {...rest}
       // columnWrapperStyle={{
       //   marginLeft: 8,
       //   marginRight: 15,

@@ -4,7 +4,12 @@
  */
 
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { View, StyleProp, ViewStyle } from 'react-native';
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  GestureResponderEvent,
+} from 'react-native';
 
 import {
   StyledFlipCard,
@@ -38,12 +43,13 @@ interface PunchItemProps {
   showFB?: boolean;
   name?: string;
   color?: string;
+  onLongPress?: (event: GestureResponderEvent) => void;
 }
 
 const PunchItem: FC<PunchItemProps> = (props) => {
   const {
     title,
-    // onLongPress,
+    onLongPress,
     style,
     name = 'sun',
     color = '#afd2ef',
@@ -103,7 +109,7 @@ const PunchItem: FC<PunchItemProps> = (props) => {
       // disabled={flip}
       // onLongPress={onLongPress}
       // onp
-      onLongPress={() => {}}
+      onLongPress={onLongPress}
       onPress={() => {
         onPress &&
           onPress(flip, () => {

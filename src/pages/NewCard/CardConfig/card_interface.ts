@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2020-12-25 09:38:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2020-12-25 16:56:34
+ * @FilePath: /Combo/src/pages/NewCard/CardConfig/card_interface.ts
+ */
 import { SoundsType } from '@configure/source';
 import * as yup from 'yup';
 
@@ -82,6 +89,6 @@ export const cardValidationSchema = yup.object().shape({
     })
     .label('打卡音效'),
   // [CardLimitTimes]: yup.array().of(yup.string()).label('打卡时间限制'),
-  [CardNotifyText]: yup.string().max(50).trim().label('打卡提醒语'),
+  [CardNotifyText]: yup.string().max(50).trim().label('打卡激励语'),
   [CardNotifyTimes]: yup.array().of(yup.string()).label('打卡提醒时间'),
 });

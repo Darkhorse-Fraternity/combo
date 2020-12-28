@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2020-12-25 09:38:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2020-12-25 16:59:49
+ * @FilePath: /Combo/source/icons.ts
+ */
 export default {
   apple: require('./icons/apple.png'),
   watermelon: require('./icons/watermelon.png'),

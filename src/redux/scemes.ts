@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2020-12-25 09:38:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2020-12-25 17:00:14
+ * @FilePath: /Combo/src/redux/scemes.ts
+ */
 import {
   registerListKeys,
   ICARD,

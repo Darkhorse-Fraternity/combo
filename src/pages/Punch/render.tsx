@@ -104,6 +104,9 @@ const RenderCell: FC<CellProps> = ({ iCard, iUse, numColumns }) => {
   return (
     <Item
       numColumns={numColumns}
+      onLongPress={() => {
+        navigate(RouteKey.clockIn, { iUseId: iUse.objectId });
+      }}
       showFB={isFb}
       openSound={sound?.open ?? false}
       soundsKey={sound?.item?.key as SoundsKeys}

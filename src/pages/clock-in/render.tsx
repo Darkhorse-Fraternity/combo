@@ -23,12 +23,18 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
+import svgs from '../../../source/icons';
 import {
   StyledContent,
   StyledHeaderText,
+  StyledIconImage,
   StyledKeyboardAvoidingView,
   StyledTexInput,
+  StyledTipText,
+  StyledTitle,
+  StyledTitleView,
   StyledToolBar,
+  // StyledToolBarAntDesignItem,
   StyledToolBarItem,
   StyledToolBarItemTip,
 } from './style';
@@ -43,6 +49,7 @@ import { RouteKey } from '@pages/interface';
 import {
   getClassesIDo,
   getClassesIDoId,
+  GetClassesIDoIdResponse,
   postClassesIDo,
   putClassesIDoId,
 } from 'src/hooks/interface';
@@ -55,6 +62,7 @@ import { useOrientation } from '@components/util/hooks';
 import { uploadFilesByLeanCloud } from '@request/uploadAVImage';
 // import { LoadAnimation } from '@components/Load';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
+// import Alert from '@components/modal/alert';
 const RecordText = 'recordText';
 const RecordImgs = 'recordImgs';
 type FormData = {
@@ -154,6 +162,34 @@ const ToolBarImagePickerItem: FC<
   );
 };
 
+// const ToolBarDeleteItem: FC<TouchableOpacityProps> = ({
+//   // onPress,
+//   ...other
+// }) => {
+//   const [isVisiable, setisVisiable] = useState(false);
+//   return (
+//     <>
+//       <TouchableOpacity
+//         hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+//         onPress={() => {
+//           setisVisiable(true);
+//         }}
+//         {...other}>
+//         <StyledToolBarAntDesignItem name="delete" size={19} />
+//       </TouchableOpacity>
+//       <Alert
+//         isVisiable={isVisiable}
+//         onSuccess={() => {
+//           setisVisiable(false);
+//         }}
+//         onClose={() => {
+//           setisVisiable(false);
+//         }}
+//       />
+//     </>
+//   );
+// };
+
 const ToolBar: FC<
   ToolBarProps & { showImagePickTip: boolean; onPress: (type: string) => void }
 > = ({ showImagePickTip, onPress, ...other }) => {
@@ -172,6 +208,10 @@ const ToolBar: FC<
         onResponderGrant={Keyboard.dismiss}
         onStartShouldSetResponder={() => true}
       />
+      {/* <ToolBarDeleteItem
+        onPress={onPress.bind(undefined, 'delete')}
+        {...other}
+      /> */}
     </StyledToolBar>
   );
 };
@@ -186,6 +226,7 @@ function point(className: string, objectId: string) {
 
 const Render: FC<{}> = () => {
   const { setOptions, goBack } = useNavigation();
+  const [iDo, setIDo] = useState<GetClassesIDoIdResponse>();
   const { update } = useMutateIuseData();
   const user = useGetUserInfo();
   // useGetUserInfo();
@@ -213,10 +254,10 @@ const Render: FC<{}> = () => {
   // console.log('type', type);
 
   const { data } = useGetIuseData(iUseId);
-  const { time } = data || { time: 0 };
-  const record = data?.iCard.record;
-  const iCardId = data?.iCard.objectId || '';
-
+  const { time, iCard } = data || { time: 0 };
+  const { record, notifyText = '', title, iconAndColor } = iCard || {};
+  const iCardId = iCard?.objectId || '';
+  const icon = iconAndColor?.name || 'sun';
   // const doneDate = data?.doneDate
 
   // const limitTimes = data?.iCard.limitTimes || ['00:00', '24:00'];
@@ -255,8 +296,9 @@ const Render: FC<{}> = () => {
         where: JSON.stringify(where),
       }).then((res) => {
         if (res.results[0]) {
-          const data = res.results[0];
-          const { recordText, imgs, objectId } = data;
+          const idoData = res.results[0];
+          setIDo(idoData as GetClassesIDoIdResponse);
+          const { recordText, imgs, objectId } = idoData;
           idRef.current = objectId;
           recordText && setValue(RecordText, recordText);
           imgs &&
@@ -275,6 +317,7 @@ const Render: FC<{}> = () => {
     if (iDoId) {
       getClassesIDoId({ id: iDoId }).then((res) => {
         const { recordText, imgs } = res;
+        setIDo(res);
         recordText && setValue(RecordText, recordText);
         imgs &&
           setValue(
@@ -389,6 +432,16 @@ const Render: FC<{}> = () => {
   useLayoutEffect(() => {
     if (iCardId) {
       setOptions({
+        headerTitle: () => (
+          <StyledTitleView>
+            <StyledIconImage
+              size={25}
+              source={svgs[icon]}
+              resizeMode="contain"
+            />
+            <StyledTitle>{title}</StyledTitle>
+          </StyledTitleView>
+        ),
         headerRight: (headerRightProps: { tintColor?: string }) => (
           <ButtonItem
             loading={load}
@@ -401,7 +454,7 @@ const Render: FC<{}> = () => {
         ),
       });
     }
-  }, [load, iCardId, setOptions, handleSubmit, onSubmit]);
+  }, [load, iCardId, setOptions, handleSubmit, onSubmit, title, icon]);
   const ref = useRef<React.Dispatch<React.SetStateAction<boolean>>>();
   // setOptions({onSumbmit: handleOnSubmit })
   // useEffect(() => {
@@ -422,13 +475,16 @@ const Render: FC<{}> = () => {
         behavior="padding"
         enabled
         keyboardVerticalOffset={keyboardVerticalOffsetDefault}>
+        {/* <StyledTitle>{title}</StyledTitle>
+        <StyledLine /> */}
         <Controller
           // defaultValue=''
           autoFocus={Platform.OS === 'android'}
           name={RecordText}
           control={control}
           multiline
-          placeholder={'记录每一天的改变～'}
+          placeholder={`坚持的第${time}天,${notifyText}`}
+          placeholderTextColor={'rgb(180,180,180)'}
           maxLength={5000}
           // onChangeText={text => setval}
           as={CustomMaskedInput}
@@ -445,10 +501,16 @@ const Render: FC<{}> = () => {
           // onChange={onChangeImageArray}
           as={CustomImagePick}
         />
+        {!!iDo && (
+          <StyledTipText>
+            更新时间：{moment(iDo.updatedAt).format('yyyy-MM-DD HH:mm')}
+          </StyledTipText>
+        )}
         <ToolBar
           onPress={(toolBartype) => {
             if (toolBartype === 'imagePick') {
               ref?.current?.call(undefined, true);
+            } else if (toolBartype === 'delete') {
             }
           }}
           showImagePickTip={!!record?.includes('图片')}
