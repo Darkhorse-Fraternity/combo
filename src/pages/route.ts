@@ -36,9 +36,11 @@ import ClockIn from '../pages/clock-in';
 import Test from './test';
 import log from './Card/Log';
 import RecordPrivate from './Record/Private';
+import feedback from './feedback';
 
 export const otherRoute = {
   [RouteKey.web]: web,
+  [RouteKey.feedback]: feedback,
   [RouteKey.log]: log,
   [RouteKey.recordPrivate]: RecordPrivate,
   [RouteKey.clockIn]: ClockIn,

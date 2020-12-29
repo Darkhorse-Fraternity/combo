@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { FC, memo, useEffect, useRef, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 // import Button from 'components/Button';
 import {
   ContentView,
@@ -15,7 +15,7 @@ import ImagePicker, {
   Options,
 } from 'react-native-image-crop-picker';
 
-const ImagePickerConfig: Options = {
+export const ImagePickerConfig: Options = {
   width: 1000,
   height: 1000,
   cropping: true,
@@ -29,11 +29,13 @@ const ImagePickerConfig: Options = {
   multiple: false,
 };
 
-const selectCamera = (op?: Options) => {
+export type OnlyType = 'Camera' | 'Album';
+
+export const selectCamera = (op?: Options) => {
   return ImagePicker.openCamera({ ...ImagePickerConfig, ...op });
 };
 
-const selectAlbum = (op?: Options) => {
+export const selectAlbum = (op?: Options) => {
   return ImagePicker.openPicker({ ...ImagePickerConfig, ...op });
 };
 
@@ -46,19 +48,12 @@ export interface InnerViewProps {
   onClose?: () => void;
   option?: Options;
   onPick?: () => void;
+  // only?: OnlyType;
 }
 
 const InnerView = (props: InnerViewProps) => {
   const [loading, setLoding] = useState(false);
   const { onSuccess, onClose, option, onPick } = props;
-
-  const ref = useRef<NodeJS.Timeout>();
-  useEffect(() => {
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      ref.current && clearTimeout(ref.current);
-    };
-  }, []);
 
   if (loading) {
     return null;
@@ -70,6 +65,7 @@ const InnerView = (props: InnerViewProps) => {
         onPress={() => {
           // onSuccess(0);
           if (!onPick) {
+            setLoding(true);
             selectCamera(option)
               .then((res) => {
                 onSuccess(res);
@@ -115,7 +111,7 @@ const InnerView = (props: InnerViewProps) => {
   );
 };
 const Render: FC<PickViewProps> = (props) => {
-  const { isVisiable = false, onSuccess, onClose, ...other } = props;
+  const { isVisiable = false, onSuccess, onClose, option, ...other } = props;
 
   return (
     <Modal
@@ -131,7 +127,12 @@ const Render: FC<PickViewProps> = (props) => {
         marginBottom: 0,
       }}
       isVisible={isVisiable}>
-      <InnerView onSuccess={onSuccess} onClose={onClose} {...other} />
+      <InnerView
+        onSuccess={onSuccess}
+        onClose={onClose}
+        option={option}
+        {...other}
+      />
     </Modal>
   );
 };

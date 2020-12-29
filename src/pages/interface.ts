@@ -41,6 +41,7 @@ export enum RouteKey {
   cirlcleSetting = 'cirlcleSetting',
   clockIn = 'clockIn',
   log = 'log',
+  feedback = 'feedback',
 
   //tabs
   punch = 'punch',
@@ -63,6 +64,7 @@ export type RootStackParamList = {
     headerShown?: boolean;
   } & WebViewProp;
   [RouteKey.test]: undefined;
+  [RouteKey.feedback]: undefined;
   [RouteKey.search]: undefined;
   [RouteKey.tool]: undefined;
   [RouteKey.flagRecord]: { iCardId: string; title: string };

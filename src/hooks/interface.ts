@@ -4233,6 +4233,92 @@ export const usePostUsersByMobilePhone = makeRequestHook<
   ReturnType<typeof postUsersByMobilePhone>
 >(postUsersByMobilePhone)
 
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **请求类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+export interface PostLoginRequest {
+  username: string
+  password: string
+}
+
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **返回类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+export interface PostLoginResponse {}
+
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **请求配置的类型**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+type PostLoginRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/login',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **请求配置**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+const postLoginRequestConfig: PostLoginRequestConfig = {
+  mockUrl: mockUrl_0_1_0_3,
+  devUrl: devUrl_0_1_0_3,
+  prodUrl: prodUrl_0_1_0_3,
+  path: '/login',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_3,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
+}
+
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **请求函数**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+export const postLogin = makeRequest<PostLoginRequest, PostLoginResponse, PostLoginRequestConfig>(
+  postLoginRequestConfig,
+)
+
+/**
+ * 接口 [用户名登录↗](http://121.89.170.197:3000/project/59/interface/api/586) 的 **React Hook**
+ *
+ * @分类 [user↗](http://121.89.170.197:3000/project/59/interface/api/cat_389)
+ * @请求头 `POST /login`
+ * @更新时间 `2020-12-21 11:23:14`
+ */
+export const usePostLogin = makeRequestHook<PostLoginRequest, PostLoginRequestConfig, ReturnType<typeof postLogin>>(
+  postLogin,
+)
+
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any
 const prodUrl_0_1_0_4 = 'http://api.icourage.cn/1.1' as any
@@ -6052,5 +6138,104 @@ export const usePostCallAppUpdateInfo = makeRequestHook<
   PostCallAppUpdateInfoRequestConfig,
   ReturnType<typeof postCallAppUpdateInfo>
 >(postCallAppUpdateInfo)
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **请求类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+export interface PostClassesFeedbackRequest {
+  text: string
+  email?: string
+  images?: string[]
+  user: {
+    __type: string
+    className: string
+    objectId: string
+  }
+}
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **返回类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+export interface PostClassesFeedbackResponse {
+  objectId?: string
+  createdAt?: string
+}
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **请求配置的类型**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+type PostClassesFeedbackRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/59',
+    'https://api.icourage.cn/1.1',
+    'http://api.icourage.cn/1.1',
+    '/classes/Feedback',
+    undefined,
+    string,
+    string,
+    false
+  >
+>
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **请求配置**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+const postClassesFeedbackRequestConfig: PostClassesFeedbackRequestConfig = {
+  mockUrl: mockUrl_0_1_0_8,
+  devUrl: devUrl_0_1_0_8,
+  prodUrl: prodUrl_0_1_0_8,
+  path: '/classes/Feedback',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.json,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_1_0_8,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: false,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
+}
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **请求函数**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+export const postClassesFeedback = makeRequest<
+  PostClassesFeedbackRequest,
+  PostClassesFeedbackResponse,
+  PostClassesFeedbackRequestConfig
+>(postClassesFeedbackRequestConfig)
+
+/**
+ * 接口 [意见反馈↗](http://121.89.170.197:3000/project/59/interface/api/590) 的 **React Hook**
+ *
+ * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
+ * @请求头 `POST /classes/Feedback`
+ * @更新时间 `2020-12-28 17:13:50`
+ */
+export const usePostClassesFeedback = makeRequestHook<
+  PostClassesFeedbackRequest,
+  PostClassesFeedbackRequestConfig,
+  ReturnType<typeof postClassesFeedback>
+>(postClassesFeedback)
 
 /* prettier-ignore-end */

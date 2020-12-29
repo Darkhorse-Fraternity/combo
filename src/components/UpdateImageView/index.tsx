@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo, FC } from 'react';
+import React, { useState, useRef, memo, FC, useMemo } from 'react';
 import {
   GestureResponderEvent,
   LayoutAnimation,
@@ -18,12 +18,14 @@ import {
 } from './style';
 
 // import ImagesViewModals from '../ImagesViewModal/ImagesViewModal';
-import ImagePicker, {
-  Image as PickerImage,
-} from 'react-native-image-crop-picker';
+import { Image as PickerImage } from 'react-native-image-crop-picker';
 // import { IImageInfo } from 'react-native-image-zoom-viewer/built/image-viewer.type';
 import ImagesViewModals from '@components/ZoomImage/ImagesViewModal';
-import PhotoOrCameraSheet from '@components/modal/photo-camera-sheet';
+import PhotoOrCameraSheet, {
+  OnlyType,
+  selectAlbum,
+  selectCamera,
+} from '@components/modal/photo-camera-sheet';
 export interface UpdateImage {
   url: string;
 }
@@ -38,45 +40,47 @@ export interface UpdateImageViewType extends Omit<ViewProps, 'children'> {
   openPickRef?: React.MutableRefObject<
     React.Dispatch<React.SetStateAction<boolean>> | undefined
   >;
+  openDirectlyRef?: React.MutableRefObject<(() => void) | undefined>;
+  only?: OnlyType;
   hide?: boolean;
 }
 interface ImagesListType extends UpdateImageViewType {
   deleteImage: (event: GestureResponderEvent, index: number) => void;
   showImage: (event: GestureResponderEvent, index: number) => void;
-  addImage: (event: GestureResponderEvent, index: number) => void;
+  addImage: (event: GestureResponderEvent) => void;
 }
 
-export const pickerImage = async (
-  maxFiles: number,
-): Promise<UpdateImage[] | null> => {
-  const image = await ImagePicker.openPicker({
-    maxFiles: maxFiles,
-    showsSelectedCount: true,
-    multiple: true,
-    cropping: false,
-    compressImageMaxWidth: 500,
-    hideBottomControls: true, //隐藏底部控制栏，andorid 特有
-    showCropGuidelines: false,
-    cropperToolbarTitle: '',
-    mediaType: 'photo',
-    sortOrder: 'desc',
-    cropperCancelText: '取消',
-    cropperChooseText: '选择',
-  });
+// export const pickerImage = async (
+//   maxFiles: number,
+// ): Promise<UpdateImage[] | null> => {
+//   const image = await ImagePicker.openPicker({
+//     maxFiles: maxFiles,
+//     showsSelectedCount: true,
+//     multiple: true,
+//     cropping: false,
+//     compressImageMaxWidth: 500,
+//     hideBottomControls: true, //隐藏底部控制栏，andorid 特有
+//     showCropGuidelines: false,
+//     cropperToolbarTitle: '',
+//     mediaType: 'photo',
+//     sortOrder: 'desc',
+//     cropperCancelText: '取消',
+//     cropperChooseText: '选择',
+//   });
 
-  if (!image) {
-    return null;
-  }
-  if (Array.isArray(image)) {
-    return image.map((obj) => ({ url: obj.path }));
-  } else {
-    return [
-      {
-        url: (image as PickerImage).path,
-      },
-    ];
-  }
-};
+//   if (!image) {
+//     return null;
+//   }
+//   if (Array.isArray(image)) {
+//     return image.map((obj) => ({ url: obj.path }));
+//   } else {
+//     return [
+//       {
+//         url: (image as PickerImage).path,
+//       },
+//     ];
+//   }
+// };
 
 export const ImagesList = ({
   maxNumber,
@@ -130,7 +134,7 @@ export const ImagesList = ({
       {value && value.length < maxNumber && (
         <StyledCoverBtn
           // activeOpacity={1}
-          onPress={(event) => addImage(event, value.length)}>
+          onPress={(event) => addImage(event)}>
           <StyledListItemV
             width={window.width}
             index={value.length}
@@ -153,16 +157,15 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   value = [],
   openPickRef,
   hide = false,
+  openDirectlyRef,
+  only,
   ...other
 }) => {
-  // const [imagesData, setImagesData] = useState<IImageInfo[]>([]);
   const [state, setstate] = useState(false);
   const [imageViewShow, setImageViewShow] = useState(false);
-  const [imageCount, setImageCount] = useState(9);
 
   if (openPickRef) {
     openPickRef.current = setstate;
-    // console.log('openPickRef?.current', openPickRef?.current);
   }
 
   const selectIndex = useRef(0);
@@ -187,20 +190,6 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
     setImageViewShow(true);
   };
 
-  const addImage = async (_: GestureResponderEvent, index: number) => {
-    onPress && onPress();
-    const imageCount1 = maxNumber - index;
-    if (imageCount1 < 1) {
-      return;
-    }
-
-    setImageCount(imageCount1);
-    setstate(true);
-
-    // const imagesDataArray = [...data];
-    // const image = await pickerImage(imageCount);
-  };
-
   const onSuccess = (data: PickerImage | PickerImage[]) => {
     // upload(path);
     const image = Array.isArray(data) ? data : [data];
@@ -222,6 +211,34 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
   };
 
   const onClose = setstate.bind(undefined, false);
+  const imageCount = maxNumber - value.length;
+  const option = useMemo(() => {
+    return {
+      multiple: true,
+      maxFiles: imageCount,
+      showsSelectedCount: true,
+      cropping: false,
+    };
+  }, [imageCount]);
+
+  const pickerOnly = () => {
+    const picker = only === 'Camera' ? selectCamera : selectAlbum;
+    picker(option)
+      .then(onSuccess)
+      .catch((_) => {});
+  };
+
+  if (openDirectlyRef) {
+    openDirectlyRef.current = pickerOnly;
+  }
+
+  const addImage = async () => {
+    onPress && onPress();
+    if (imageCount < 1) {
+      return;
+    }
+    !only ? setstate(true) : pickerOnly();
+  };
 
   return (
     <>
@@ -244,12 +261,7 @@ const UpdateImageView: FC<UpdateImageViewType> = ({
         />
       )}
       <PhotoOrCameraSheet
-        option={{
-          multiple: true,
-          maxFiles: imageCount,
-          showsSelectedCount: true,
-          cropping: false,
-        }}
+        option={option}
         // onPick={onClose}
         onClose={onClose}
         onSuccess={onSuccess}

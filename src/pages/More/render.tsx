@@ -19,6 +19,7 @@ import Avatar from '../../components/Avatar';
 import { marketRate } from '@helps/rate';
 import { useGetUserInfo } from 'src/data/data-context';
 import { useNavigation } from '@react-navigation/native';
+import { RouteKey } from '@pages/interface';
 
 const RenderRow: FC<ButtonType & { title: string; description?: string }> = ({
   title,
@@ -89,6 +90,13 @@ const RenderMain: FC<{}> = () => {
         />
       )}
       <RenderRow title="好评鼓励" onPress={marketRate} />
+
+      <RenderRow
+        title="意见反馈"
+        onPress={() => {
+          navigate(RouteKey.feedback);
+        }}
+      />
 
       <RenderRow
         title="小改变微博"
