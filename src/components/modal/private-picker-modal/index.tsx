@@ -11,6 +11,7 @@ import {
   StyledText,
 } from './style';
 import BottomSheetHandle from '@components/modal/bottom-sheet-handle';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface ItemType {
   id: string;
@@ -32,7 +33,10 @@ const PrivatePickerModalRef: FC<
   // const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   // variables
-  const snapPoints = useMemo(() => [180], []);
+
+  const { bottom } = useSafeAreaInsets();
+
+  const snapPoints = useMemo(() => [150 + bottom], [bottom]);
 
   // callbacks
 

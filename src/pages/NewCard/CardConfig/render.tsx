@@ -5,7 +5,7 @@
 
 // import * as immutable from 'immutable';
 import React, { FC, useEffect, useState } from 'react';
-import { BackHandler } from 'react-native';
+import { BackHandler, Platform } from 'react-native';
 
 import { StyledContent } from './style';
 import Main from './Main';
@@ -17,7 +17,7 @@ import {
   StyledHeaderBtn,
   StyledInnerView,
 } from './Creat/style';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -63,9 +63,10 @@ const CardConfig: FC<{}> = () => {
       [CardSound]: {},
     },
     mode: 'onSubmit',
+    shouldUnregister: false,
   });
   // console.log('data', data);
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     if (data) {
       const {
@@ -85,6 +86,7 @@ const CardConfig: FC<{}> = () => {
       setValue(CardNotifyText, notifyText || '');
       setValue(CardRecord, record || []);
       setValue(CardSound, sound as never);
+      setShow(true);
     }
   }, [data, setValue]);
 
@@ -130,16 +132,45 @@ const CardConfig: FC<{}> = () => {
       // update iUse
       handleSubmit(onSubmit)();
     }
-    return null;
   };
 
+  // useEffect(() => {
+  //   BackHandler.addEventListener('hardwareBackPress', backStep);
+  //   return () => {
+  //     BackHandler.removeEventListener('hardwareBackPress', backStep);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [step]);
+
+  const { setOptions } = useNavigation();
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backStep);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', backStep);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
+    if (Platform.OS === 'ios') {
+      if (step === 0) {
+        setOptions({ gestureEnabled: true });
+      } else {
+        setOptions({ gestureEnabled: false });
+      }
+    }
+  }, [setOptions, step]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (step === 0) {
+          goBack();
+        } else {
+          setStep((s) => s - 1);
+        }
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      //   lastTimesRef.current = 0;
+    }, [goBack, step]),
+  );
 
   const color = data?.iconAndColor.color || '';
 
@@ -186,8 +217,8 @@ const CardConfig: FC<{}> = () => {
       </StyledHeader>
 
       <StyledInnerView>
-        {!data && <LoadAnimation top={120} />}
-        {data && <Main control={control} step={step} nextStep={nextStep} />}
+        {!show && <LoadAnimation top={120} />}
+        {show && <Main control={control} step={step} nextStep={nextStep} />}
       </StyledInnerView>
     </StyledContent>
   );

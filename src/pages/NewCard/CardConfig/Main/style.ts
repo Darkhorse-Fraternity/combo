@@ -157,6 +157,7 @@ export const StyledCellDiscrib = styled.Text`
   color: #888888;
   font-size: 15px;
   font-style: italic;
+  min-width: 200px;
 `;
 
 export const StyledArrow = styled.View`
@@ -173,4 +174,11 @@ export const StyledTitleInput = styled.TextInput`
   background-color: ${(props) => props.theme.textinputbackgroundColor};
   height: 50px;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StyledTitleInputBg = styled.View`
+  background-color: ${(props) => props.theme.textinputbackgroundColor};
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 0px 15px;
 `;

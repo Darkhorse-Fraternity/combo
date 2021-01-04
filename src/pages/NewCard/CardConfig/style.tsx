@@ -15,7 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native';
 
 export const StyledContent = styled(SafeAreaView)`
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.card};
   flex: 1;
 `;
 

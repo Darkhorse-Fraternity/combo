@@ -10,6 +10,7 @@ import {
   // TextInput,
   BackHandler,
   DeviceEventEmitter,
+  Platform,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 
@@ -32,7 +33,11 @@ import {
 import { DeviceEventEmitterKey } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import {
+  StackActions,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native';
 import { Controller, useForm } from 'react-hook-form';
 import {
   CardFormData,
@@ -183,15 +188,33 @@ const Render: FC<{}> = () => {
       setStep((data) => data - 1);
       // update iUse
     }
-    return null;
   }, [goBack, step]);
 
+  const { setOptions } = useNavigation();
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backStep);
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', backStep);
-    };
-  }, [step, backStep]);
+    if (Platform.OS === 'ios') {
+      if (step <= 1) {
+        setOptions({ gestureEnabled: true });
+      } else {
+        setOptions({ gestureEnabled: false });
+      }
+    }
+  }, [setOptions, step]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        backStep();
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+      //   lastTimesRef.current = 0;
+    }, [backStep]),
+  );
 
   return (
     <StyledContent>

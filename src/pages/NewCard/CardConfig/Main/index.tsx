@@ -31,6 +31,7 @@ import {
   StyledTitleView,
   StyledIcon,
   StyledTitleInput,
+  StyledTitleInputBg,
 } from './style';
 import IconAndColor from '../Creat/IconAndColor';
 import svgs from '../../../../../source/icons';
@@ -86,16 +87,7 @@ const RemderNotifyText: FC<{
     <StyledSubTitleView>
       <StyledSubTitle>给自己的激励</StyledSubTitle>
     </StyledSubTitleView>
-    <View
-      style={[
-        {
-          backgroundColor: '#f6f7f9',
-          padding: 5,
-          paddingHorizontal: 10,
-          borderRadius: 5,
-          marginHorizontal: 20,
-        },
-      ]}>
+    <StyledTitleInputBg>
       <StyledTitleInput
         value={value}
         onChange={onChange}
@@ -111,7 +103,7 @@ const RemderNotifyText: FC<{
         clearButtonMode="while-editing"
         enablesReturnKeyAutomatically
       />
-    </View>
+    </StyledTitleInputBg>
   </>
 ));
 
@@ -204,211 +196,72 @@ const RemderRecord: FC<{
   );
 });
 
-interface StepAndTypeProps {
-  step: number;
-  type: CardProps;
-}
-
-const RenderTitle: FC<
-  ButtonType &
-    StepAndTypeProps & {
-      value?: string;
-      onChange?: (title: string) => void;
-    }
-> = forwardRef(({ step, value, onPress, onChange, type }, _) => {
-  // const { title, icon } = value;
-  const ref = useRef<Animatable.View>(null);
-  const firstRef = useRef(true);
-  useEffect(() => {
-    if (step === 0 && !firstRef.current) {
-      ref.current?.fadeInUp?.call(undefined);
-    }
-    if (step === 1) {
-      ref.current?.fadeInUp?.call(100);
-    }
-    firstRef.current = false;
-  }, [step]);
-
+const RenderTitle: FC<{
+  value?: string;
+  onChange?: (title: string) => void;
+}> = forwardRef(({ value, onChange }, _) => {
   return (
-    <Animatable.View ref={ref as never} useNativeDriver animation="fadeInUp">
-      {step === 0 && (
-        <>
-          <StyledTopButton top={0} onPress={onPress}>
-            {/* <StyledIconBG color={color || '#afd2ef'}>
-              <StyledIconImage
-                resizeMode="contain"
-                size={40}
-                source={svgs[icon || 'sun']}
-              />
-            </StyledIconBG> */}
-            <StyledTitleView>
-              <StyledTitle>{value}</StyledTitle>
-              <StyledIcon size={15} name="edit" />
-            </StyledTitleView>
-          </StyledTopButton>
-        </>
-      )}
-      {step === 1 && (type === CardTitle || type === CardIconAndColor) && (
-        <>
-          <StyledSubTitleView>
-            <StyledSubTitle>习惯标题</StyledSubTitle>
-          </StyledSubTitleView>
+    <>
+      <StyledSubTitleView>
+        <StyledSubTitle>习惯标题</StyledSubTitle>
+      </StyledSubTitleView>
 
-          <StyledTitleInput
-            // name="title"
-            value={value}
-            placeholderTextColor="rgba(180,180,180,1)"
-            returnKeyType="done"
-            autoFocus={false}
-            maxLength={50}
-            onChange={(e) => onChange?.call(undefined, e.nativeEvent.text)}
-            // keyboardType={boardType}
-            style={styles.textInputTitle}
-            underlineColorAndroid="transparent"
-            placeholder="例如跑步、早睡等"
-            // clearButtonMode='while-editing'
-            enablesReturnKeyAutomatically
-          />
-          {/* <Animatable.View key="IconAndColor" animation="fadeInUp" delay={500}> */}
-          {/* <IconAndColor /> */}
-          {/* </Animatable.View> */}
-        </>
-      )}
-    </Animatable.View>
+      <StyledTitleInput
+        // name="title"
+        value={value}
+        placeholderTextColor="rgba(180,180,180,1)"
+        returnKeyType="done"
+        autoFocus={false}
+        maxLength={50}
+        onChange={(e) => onChange?.call(undefined, e.nativeEvent.text)}
+        // keyboardType={boardType}
+        style={styles.textInputTitle}
+        underlineColorAndroid="transparent"
+        placeholder="例如跑步、早睡等"
+        // clearButtonMode='while-editing'
+        enablesReturnKeyAutomatically
+      />
+    </>
   );
 });
 
-const RenderIconAndColor: FC<
-  ButtonType &
-    StepAndTypeProps & {
-      value?: { name: string; color: string };
-      onChange?: (data: { name: string; color: string }) => void;
-    }
-> = forwardRef(({ step, value, onPress, onChange, type }, _) => {
+const RenderIconAndColor: FC<{
+  value?: { name: string; color: string };
+  onChange?: (data: { name: string; color: string }) => void;
+}> = forwardRef(({ value, onChange }, _) => {
   const { name = '', color = '' } = value || {};
+  return <IconAndColor icon={name} color={color} onChange={onChange} />;
+});
 
-  const ref = useRef<Animatable.View>(null);
-  const firstRef = useRef(true);
-  useEffect(() => {
-    if (step === 0 && !firstRef.current) {
-      ref.current?.fadeInUp?.call(undefined);
-    }
-    if (step === 1) {
-      ref.current?.fadeInUp?.call(100);
-    }
-    firstRef.current = false;
-  }, [step]);
-
+const RenderNotifyTimePicker: FC<{
+  value?: string[];
+  onChange?: (options: string[]) => void;
+}> = forwardRef(({ value = [], onChange }, _) => {
   return (
-    <Animatable.View ref={ref as never} useNativeDriver animation="fadeInUp">
-      {step === 0 && (
-        <>
-          <StyledTopButton onPress={onPress}>
-            <StyledIconBG color={color || '#afd2ef'}>
-              <StyledIconImage
-                resizeMode="contain"
-                size={40}
-                source={svgs[name || 'sun']}
-              />
-            </StyledIconBG>
-          </StyledTopButton>
-        </>
-      )}
-      {step === 1 && (type === CardTitle || type === CardIconAndColor) && (
-        <IconAndColor icon={name} color={color} onChange={onChange} />
-      )}
-    </Animatable.View>
+    <NotifyTimePicker
+      // name="notifyTimes"
+      onChange={onChange}
+      // keyName='ItemId'
+      options={value}
+    />
   );
 });
 
-const RenderNotifyTimePicker: FC<
-  Omit<RenderItemProps, 'discrib'> &
-    StepAndTypeProps & {
-      value?: string[];
-      onChange?: (options: string[]) => void;
-    }
-> = forwardRef(
-  ({ step, type, index = 1, value = [], onChange, ...other }, _) => {
-    const ref = useRef<Animatable.View>(null);
-    const firstRef = useRef(true);
-    useEffect(() => {
-      if (step === 0 && !firstRef.current) {
-        ref.current?.fadeInUp?.call(index * 100);
-      }
-      if (step === 1) {
-        ref.current?.fadeInUp?.call(100);
-      }
-      firstRef.current = false;
-    }, [index, step]);
+const RemderComboNotifyText: FC<{
+  value?: string;
+  onChange?: (options: string) => void;
+}> = forwardRef(({ value = '', onChange }, _) => {
+  // console.log('value', value);
 
-    // console.log('value', value);
-
-    return (
-      <Animatable.View
-        animation="fadeInUp"
-        ref={ref as never}
-        useNativeDriver
-        delay={index * 100}>
-        {step === 0 && (
-          <RenderItem
-            {...other}
-            discrib={value.length > 0 ? value.toString() : '无'}
-          />
-        )}
-        {step === 1 && type === CardNotifyTimes && (
-          <NotifyTimePicker
-            // name="notifyTimes"
-            onChange={onChange}
-            // keyName='ItemId'
-            options={value}
-          />
-        )}
-      </Animatable.View>
-    );
-  },
-);
-
-const RemderComboNotifyText: FC<
-  Omit<RenderItemProps, 'discrib'> &
-    StepAndTypeProps & {
-      value?: string;
-      onChange?: (options: string) => void;
-    }
-> = forwardRef(
-  ({ value = '', onChange, index = 0, type, step, ...other }, _) => {
-    const ref = useRef<Animatable.View>(null);
-    const firstRef = useRef(true);
-    useEffect(() => {
-      if (step === 0 && !firstRef.current) {
-        ref.current?.fadeInUp?.call(index * 100);
-      }
-      if (step === 1) {
-        ref.current?.fadeInUp?.call(100);
-      }
-      firstRef.current = false;
-    }, [index, step]);
-
-    // console.log('value', value);
-
-    return (
-      <Animatable.View
-        animation="fadeInUp"
-        ref={ref as never}
-        useNativeDriver
-        delay={index * 100}>
-        {step === 0 && <RenderItem {...other} discrib={value} />}
-        {step === 1 && type === CardNotifyText && (
-          <RemderNotifyText
-            value={value}
-            onChange={(e) => {
-              onChange && onChange(e.nativeEvent.text);
-            }}
-          />
-        )}
-      </Animatable.View>
-    );
-  },
-);
+  return (
+    <RemderNotifyText
+      value={value}
+      onChange={(e) => {
+        onChange && onChange(e.nativeEvent.text);
+      }}
+    />
+  );
+});
 
 const dayText = (recordDay: number[]) => {
   const days = recordDay.sort();
@@ -431,139 +284,118 @@ const dayText = (recordDay: number[]) => {
   return days.map((day) => names[day - 1]).toString();
 };
 
-const RenderLimitTimesPicker: FC<
-  Omit<RenderItemProps, 'discrib'> &
-    StepAndTypeProps & {
-      value?: { day: number[]; time: string[] };
-      onChange?: (options: { day: number[]; time: string[] }) => void;
-    }
-> = forwardRef(({ step, type, index = 1, value, onChange, ...other }, _) => {
-  const ref = useRef<Animatable.View>(null);
-  const firstRef = useRef(true);
-  useEffect(() => {
-    if (step === 0 && !firstRef.current) {
-      ref.current?.fadeInUp?.call(index * 100);
-    }
-    if (step === 1) {
-      ref.current?.fadeInUp?.call(100);
-    }
-    firstRef.current = false;
-  }, [index, step]);
-
-  const { day, time } = value || {};
-
+const RenderLimitTimesPicker: FC<{
+  value?: { day: number[]; time: string[] };
+  onChange?: (options: { day: number[]; time: string[] }) => void;
+}> = forwardRef(({ value, onChange }, _) => {
   return (
-    <Animatable.View
-      animation="fadeInUp"
-      ref={ref as never}
-      useNativeDriver
-      delay={index * 100}>
-      {step === 0 && (
-        <RenderItem
-          {...other}
-          discrib={
-            day?.length! > 0 ? dayText(day || []) + ':' + time?.join('~') : '无'
-          }
-        />
-      )}
-      {step === 1 && type === CardLimitDayAndTimes && (
-        <RenderRecordDay
-          // name="notifyTimes"
-          onChange={onChange}
-          // keyName='ItemId'
-          value={value}
-        />
-      )}
-    </Animatable.View>
+    <RenderRecordDay
+      // name="notifyTimes"
+      onChange={onChange}
+      // keyName='ItemId'
+      value={value}
+    />
   );
 });
 
-const RenderComboRecord: FC<
-  Omit<RenderItemProps, 'discrib'> &
-    StepAndTypeProps & {
-      value?: string[];
-      onChange?: (records: string[]) => void;
-    }
-> = forwardRef(
-  ({ step, type, index = 1, value = [], onChange, ...other }, _) => {
-    const ref = useRef<Animatable.View>(null);
-    const firstRef = useRef(true);
-    useEffect(() => {
-      if (step === 0 && !firstRef.current) {
-        ref.current?.fadeInUp?.call(index * 100);
-      }
-      if (step === 1) {
-        ref.current?.fadeInUp?.call(100);
-      }
-      firstRef.current = false;
-    }, [index, step]);
+const RenderComboRecord: FC<{
+  value?: string[];
+  onChange?: (records: string[]) => void;
+}> = forwardRef(({ value = [], onChange }, _) => {
+  return <RemderRecord onChange={onChange} value={value} />;
+});
 
-    return (
-      <Animatable.View
-        animation="fadeInUp"
-        ref={ref as never}
-        useNativeDriver
-        delay={index * 100}>
-        {step === 0 && (
-          <RenderItem
-            {...other}
-            discrib={value.length > 0 ? value.toString() : '无'}
+const RenderComboSounds: FC<{
+  value?: CardFormData['sound'];
+  onChange?: (records: CardFormData['sound']) => void;
+}> = forwardRef(({ value, onChange }, _) => {
+  return (
+    <RenderSounds
+      color={'green'}
+      value={value!}
+      onChange={(item) => {
+        onChange && onChange(item);
+      }}
+    />
+  );
+});
+
+const LauchDisplay: FC<{
+  control: Control<CardFormData>;
+  onPress: (value: CardProps) => void;
+}> = ({ onPress, control }) => {
+  const data = control.getValues();
+  const {
+    iconAndColor,
+    title,
+    notifyTimes = ['00:00', '24:00'],
+    limitTimes,
+    notifyText,
+    record = [],
+    sound,
+  } = data || {};
+  const { color, name } = iconAndColor || {};
+  const { day, time } = limitTimes || {};
+  console.log('control', control.getValues());
+
+  return (
+    <Animatable.View useNativeDriver animation="fadeInUp">
+      <StyledTopButton onPress={onPress.bind(undefined, CardIconAndColor)}>
+        <StyledIconBG color={color || '#afd2ef'}>
+          <StyledIconImage
+            resizeMode="contain"
+            size={40}
+            source={svgs[name || 'sun']}
           />
-        )}
-        {step === 1 && type === CardRecord && (
-          <RemderRecord onChange={onChange} value={value} />
-        )}
-      </Animatable.View>
-    );
-  },
-);
+        </StyledIconBG>
+      </StyledTopButton>
+      <StyledTopButton top={-10} onPress={onPress.bind(undefined, CardTitle)}>
+        {/* <StyledIconBG color={color || '#afd2ef'}>
+              <StyledIconImage
+                resizeMode="contain"
+                size={40}
+                source={svgs[icon || 'sun']}
+              />
+            </StyledIconBG> */}
+        <StyledTitleView>
+          <StyledTitle>{title}</StyledTitle>
+          <StyledIcon size={15} name="edit" />
+        </StyledTitleView>
+      </StyledTopButton>
 
-const RenderComboSounds: FC<
-  Omit<RenderItemProps, 'discrib'> &
-    StepAndTypeProps & {
-      value?: CardFormData['sound'];
-      onChange?: (records: CardFormData['sound']) => void;
-      // color: string;
-    }
-> = forwardRef(({ step, type, index = 1, value, onChange, ...other }, _) => {
-  const ref = useRef<Animatable.View>(null);
-  const firstRef = useRef(true);
-  useEffect(() => {
-    if (step === 0 && !firstRef.current) {
-      ref.current?.fadeInUp?.call(index * 100);
-    }
-    if (step === 1) {
-      ref.current?.fadeInUp?.call(100);
-    }
-    firstRef.current = false;
-  }, [index, step]);
+      <RenderItem
+        title={'提醒时间'}
+        onPress={onPress.bind(undefined, CardNotifyTimes)}
+        discrib={notifyTimes.length > 0 ? notifyTimes.toString() : '无'}
+      />
 
-  return (
-    <Animatable.View
-      animation="fadeInUp"
-      ref={ref as never}
-      useNativeDriver
-      delay={index * 100}>
-      {step === 0 && (
-        <RenderItem
-          {...other}
-          discrib={value?.open ? value?.item.title : '无'}
-        />
-      )}
-      {step === 1 && type === CardSound && (
-        <RenderSounds
-          color={'green'}
-          value={value!}
-          onChange={(item) => {
-            // onSelect('sound', item);
-            //   console.log('key', item?.key);
-            onChange && onChange(item);
-          }}
-        />
-      )}
+      <RenderItem
+        title={'时间限制'}
+        onPress={onPress.bind(undefined, CardLimitDayAndTimes)}
+        discrib={
+          day?.length! > 0 ? dayText(day || []) + ':' + time?.join('~') : '无'
+        }
+      />
+      <RenderItem
+        title={'我的激励'}
+        onPress={onPress.bind(undefined, CardNotifyText)}
+        discrib={notifyText}
+      />
+
+      <RenderItem
+        title={'打卡要求'}
+        onPress={onPress.bind(undefined, CardRecord)}
+        discrib={record.length > 0 ? record.toString() : '无'}
+      />
+
+      <RenderItem
+        title={'打卡音效'}
+        onPress={onPress.bind(undefined, CardSound)}
+        discrib={sound?.open ? sound?.item.title : '无'}
+      />
     </Animatable.View>
   );
-});
+};
 
 const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
   const [type, setType] = useState<CardProps>('menu');
@@ -571,94 +403,69 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
     setType(value);
     nextStep();
   };
+
   return (
     <ScrollView style={[styles.wrap]}>
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardIconAndColor}
-        control={control}
-        onPress={onPress.bind(undefined, CardIconAndColor)}
-        // onChangeText={text => setval}
-        as={RenderIconAndColor}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardTitle}
-        control={control}
-        onPress={onPress.bind(undefined, CardTitle)}
-        // onChangeText={text => setval}
-        as={RenderTitle}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardNotifyTimes}
-        control={control}
-        index={1}
-        title="提醒时间"
-        // discrib={''}
-        onPress={onPress.bind(undefined, CardNotifyTimes)}
-        // onChangeText={text => setval}
-        as={RenderNotifyTimePicker}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardLimitDayAndTimes}
-        control={control}
-        index={2}
-        title="时间限制"
-        // discrib={''}
-        onPress={onPress.bind(undefined, CardLimitDayAndTimes)}
-        // onChangeText={text => setval}
-        as={RenderLimitTimesPicker}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardNotifyText}
-        control={control}
-        index={3}
-        title="我的激励"
-        // discrib={''}
-        onPress={onPress.bind(undefined, CardNotifyText)}
-        // onChangeText={text => setval}
-        as={RemderComboNotifyText}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        type={type}
-        name={CardRecord}
-        control={control}
-        index={4}
-        title="打卡要求"
-        // discrib={''}
-        onPress={onPress.bind(undefined, CardRecord)}
-        // onChangeText={text => setval}
-        as={RenderComboRecord}
-      />
-      <Controller
-        // defaultValue=''
-        step={step}
-        // color={color}
-        type={type}
-        name={CardSound}
-        control={control}
-        index={5}
-        title="打卡音效"
-        // discrib={''}
-        onPress={onPress.bind(undefined, CardSound)}
-        // onChangeText={text => setval}
-        as={RenderComboSounds}
-      />
+      {step === 0 && <LauchDisplay control={control} onPress={onPress} />}
+
+      {step === 1 && (
+        <Animatable.View animation="fadeInUp" useNativeDriver>
+          {type === CardTitle ||
+            (type === CardIconAndColor && (
+              <Controller
+                // defaultValue=''
+                name={CardTitle}
+                control={control}
+                as={RenderTitle}
+              />
+            ))}
+          {type === CardTitle ||
+            (type === CardIconAndColor && (
+              <Controller
+                name={CardIconAndColor}
+                control={control}
+                as={RenderIconAndColor}
+              />
+            ))}
+
+          {type === CardNotifyTimes && (
+            <Controller
+              name={CardNotifyTimes}
+              control={control}
+              as={RenderNotifyTimePicker}
+            />
+          )}
+          {type === CardLimitDayAndTimes && (
+            <Controller
+              name={CardLimitDayAndTimes}
+              control={control}
+              as={RenderLimitTimesPicker}
+            />
+          )}
+          {type === CardNotifyText && (
+            <Controller
+              name={CardNotifyText}
+              control={control}
+              as={RemderComboNotifyText}
+            />
+          )}
+          {type === CardRecord && (
+            <Controller
+              name={CardRecord}
+              control={control}
+              as={RenderComboRecord}
+            />
+          )}
+
+          {type === CardSound && (
+            <Controller
+              name={CardSound}
+              control={control}
+              as={RenderComboSounds}
+            />
+          )}
+        </Animatable.View>
+      )}
       <View style={{ height: 100 }} />
     </ScrollView>
   );

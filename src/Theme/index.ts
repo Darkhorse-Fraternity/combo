@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2020-12-28 14:41:45
+ * @LastEditTime: 2021-01-04 14:01:15
  * @FilePath: /Combo/src/Theme/index.ts
  */
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
