@@ -1,25 +1,64 @@
-import { SoundPlayBtn } from '@components/sound-play-btn';
-import React, { FC, useMemo } from 'react';
-import { soundsSource } from '@configure/source';
-import { StyledContent } from './style';
+import React, { useCallback, useRef, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import {
+  BottomSheetModal,
+  // BottomSheetHandle,
+} from '@gorhom/bottom-sheet';
+import { Button } from 'react-native';
 
-const Render: FC = () => {
-  // const [state, setstate] = useState(true);
+import PrivatePickerModal from '@components/modal/private-picker-modal';
 
-  const sources = useMemo(() => soundsSource(), []);
+const items = [
+  { label: '不对外开放', id: '0' },
+  { label: '仅对卡片拥有者开放', id: '1' },
+  { label: '对外开放', id: '2' },
+];
 
+const App = () => {
+  // ref
+
+  const [selectId, setselectId] = useState<string>('0');
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  // const handleSheetChanges = useCallback((index: number) => {
+  //   console.log('handleSheetChanges', index);
+  // }, []);
+
+  // renders
   return (
-    <StyledContent>
-      {Object.keys(sources).map((item) => (
-        <SoundPlayBtn
-          // style={{ margin: 20 }}
-          key={sources[item].title}
-          title={sources[item].title}
-          uri={sources[item].source}
-        />
-      ))}
-    </StyledContent>
+    <View style={styles.container}>
+      <Button
+        onPress={handlePresentModalPress}
+        title="Present Modal"
+        color="black"
+      />
+      <PrivatePickerModal
+        ref={bottomSheetModalRef}
+        items={items}
+        selectId={selectId}
+        onChange={(id) => {
+          setselectId(id);
+          bottomSheetModalRef.current?.close();
+        }}
+      />
+    </View>
   );
 };
 
-export default Render;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: 'center',
+    backgroundColor: 'grey',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: 'red',
+  },
+});
+
+export default App;

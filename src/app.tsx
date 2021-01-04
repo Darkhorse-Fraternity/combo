@@ -23,6 +23,7 @@ import { navigationRef } from '@components/Nav/navigators';
 import { Provider } from './data/data-context';
 import { useTracker } from '@components/umeng/umTracking';
 import { useColorScheme } from 'react-native';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -81,15 +82,17 @@ const App = () => {
     <Provider>
       <ThemeProvider theme={getTheme(colorScheme)}>
         <Configure />
-        <SafeAreaProvider>
-          <NavigationContainer
-            theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-            ref={navigationRef}
-            onReady={onReady}
-            onStateChange={onStateChange}>
-            <SwitchNavigator />
-          </NavigationContainer>
-        </SafeAreaProvider>
+        <BottomSheetModalProvider>
+          <SafeAreaProvider>
+            <NavigationContainer
+              theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+              ref={navigationRef}
+              onReady={onReady}
+              onStateChange={onStateChange}>
+              <SwitchNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </BottomSheetModalProvider>
       </ThemeProvider>
     </Provider>
   );

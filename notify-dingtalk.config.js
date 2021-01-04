@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:38:45
  * @LastEditors: tonyYo
- * @LastEditTime: 2020-12-28 13:46:15
+ * @LastEditTime: 2020-12-30 14:13:24
  * @FilePath: /Combo/notify-dingtalk.config.js
  */
 
@@ -25,7 +25,7 @@ module.exports = defineConfig({
   secret,
   title: '发布公告',
   content: dedent`
-      # 齐家主项目RN包更新
+      # 小改变移动端发布公告c
   
       ---
   

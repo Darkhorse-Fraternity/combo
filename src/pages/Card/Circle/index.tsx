@@ -3,7 +3,14 @@
  * @flow
  */
 
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   DeviceEventEmitter,
   TouchableOpacityProps,
@@ -13,7 +20,7 @@ import {
 import { DeviceEventEmitterKey, Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
 import Header from '../../Record/RecordRow/Header';
-import Dialog from '@components/Dialog';
+// import Dialog from '@components/Dialog';
 
 import {
   StyledHeader,
@@ -44,29 +51,31 @@ import { useMutateIuseData } from 'src/data/data-context/core';
 import LoadMoreList from '@components/Base/LoadMoreList';
 import { useCanceWhenLeave } from 'src/hooks/util';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import PrivatePickerModal from '@components/modal/private-picker-modal';
 type ItemType = GetClassesIDoResponse['results'][number];
 
-const pickPrivacy = async (privacy: number, isSelf: boolean) => {
-  const items = isSelf
-    ? [
-        { label: '不对外开放', id: '0' },
-        { label: '对外开放', id: '2' },
-      ]
-    : [
-        { label: '不对外开放', id: '0' },
-        { label: '仅对卡片拥有者开放', id: '1' },
-        { label: '对外开放', id: '2' },
-      ];
+// const pickPrivacy = async (privacy: number, isSelf: boolean) => {
+//   const items = isSelf
+//     ? [
+//         { label: '不对外开放', id: '0' },
+//         { label: '对外开放', id: '2' },
+//       ]
+//     : [
+//         { label: '不对外开放', id: '0' },
+//         { label: '仅对卡片拥有者开放', id: '1' },
+//         { label: '对外开放', id: '2' },
+//       ];
 
-  const selectedId = privacy === 1 && isSelf ? 0 : privacy;
+//   const selectedId = privacy === 1 && isSelf ? 0 : privacy;
 
-  return Dialog.showPicker('隐私设置', null, {
-    negativeText: '取消',
-    type: Dialog.listRadio,
-    selectedId: `${selectedId}`,
-    items,
-  });
-};
+//   return Dialog.showPicker('隐私设置', null, {
+//     negativeText: '取消',
+//     type: Dialog.listRadio,
+//     selectedId: `${selectedId}`,
+//     items,
+//   });
+// };
 
 const MenuItem: FC<
   TouchableOpacityProps & { title: string; source: ImageSourcePropType }
@@ -160,24 +169,50 @@ const PrivacyItem: FC<{
   const { iCard, iUse } = props;
   const { user } = useGetInfoOfMe();
   const { update } = useMutateIuseData();
-  return (
-    <MenuItem
-      title="隐私"
-      source={
-        iUse.privacy === Privacy.open
-          ? require('../../../../source/img/circle/privacy_open.png')
-          : require('../../../../source/img/circle/privacy_close.png')
-      }
-      onPress={async () => {
-        const userId = user!.objectId;
-        const beUserId = iCard.user.objectId;
-        const isSelf = userId === beUserId;
-        const { selectedItem } = await pickPrivacy(iUse.privacy || 0, isSelf);
+  const userId = user!.objectId;
+  const beUserId = iCard.user.objectId;
+  const isSelf = userId === beUserId;
+  const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy;
+  const [selectId, setselectId] = useState(selectedId + '');
 
-        if (selectedItem) {
-          const { id } = selectedItem;
-          // iUse.privacy !== Number(id) &&
-          //   updatePrivacy(iUse, Number(id));
+  useEffect(() => {
+    setselectId(selectedId + '');
+  }, [selectedId]);
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const items = isSelf
+    ? [
+        { label: '不对外开放', id: '0' },
+        { label: '对外开放', id: '2' },
+      ]
+    : [
+        { label: '不对外开放', id: '0' },
+        { label: '仅对卡片拥有者开放', id: '1' },
+        { label: '对外开放', id: '2' },
+      ];
+
+  return (
+    <>
+      <MenuItem
+        title="隐私"
+        source={
+          iUse.privacy === Privacy.open
+            ? require('../../../../source/img/circle/privacy_open.png')
+            : require('../../../../source/img/circle/privacy_close.png')
+        }
+        onPress={handlePresentModalPress}
+      />
+      <PrivatePickerModal
+        ref={bottomSheetModalRef}
+        items={items}
+        selectId={selectId}
+        onChange={async (id) => {
+          // setselectId(id);
+          bottomSheetModalRef.current?.close();
           if (iUse.privacy !== Number(id)) {
             const { objectId } = await putClassesIUseId({
               id: iUse.objectId,
@@ -187,9 +222,9 @@ const PrivacyItem: FC<{
               update({ objectId, privacy: Number(id) });
             }
           }
-        }
-      }}
-    />
+        }}
+      />
+    </>
   );
 };
 
