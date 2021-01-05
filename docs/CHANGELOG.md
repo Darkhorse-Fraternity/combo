@@ -1,3 +1,12 @@
+## [1.7.1](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.0...v1.7.1) (2021-01-05)
+
+
+### Bug Fixes
+
+* 习惯设置，动画多次弹出，简介显示不全 ([1124ea5](https://github.com/Darkhorse-Fraternity/combo/commit/1124ea53aa2574af1b80ecfe8229831a8bdb53ef))
+* 修改副本页面UI ([d215821](https://github.com/Darkhorse-Fraternity/combo/commit/d215821755a7a175d56e5d083bd3198c6dc0113c))
+* 修改隐私调整组件 ([7321688](https://github.com/Darkhorse-Fraternity/combo/commit/7321688107515451dbcdd120d1767da06744ccfa))
+
 # [1.7.0](https://github.com/Darkhorse-Fraternity/combo/compare/v1.6.0...v1.7.0) (2020-12-30)
 
 
