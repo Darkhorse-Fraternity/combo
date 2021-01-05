@@ -233,6 +233,16 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   const { navigate } = useNavigation();
   const [showShare, setShowShare] = useState(false);
 
+  // const data = useGetClassesFlag({
+  //   where: JSON.stringify({
+  //     iCard: iCardPoint(iCard.objectId),
+  //     settled: false,
+  //     state: 1,
+  //     startDate,
+  //   }),
+  //   limit: '1',
+  // });
+
   // console.log('iuserid=', iUse.objectId);
 
   return (

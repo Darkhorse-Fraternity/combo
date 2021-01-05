@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-04 14:01:15
+ * @LastEditTime: 2021-01-05 11:41:38
  * @FilePath: /Combo/src/Theme/index.ts
  */
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -29,6 +29,7 @@ const getTheme = (colorScheme: ColorSchemeName) => {
   const colors = {
     ...theme.colors,
     hairlineColor: isDarkMode ? 'rgb(100,100,100)' : '#e4e4e4',
+    textPrimary: isDarkMode ? 'white' : '#020203',
     titlePrimary: isDarkMode ? 'rgb(200,200,200)' : '#323232',
     titleSecondary: isDarkMode ? 'rgb(150,150,150)' : '#646464',
     titleTertiary: isDarkMode ? 'rgb(100,100,100)' : 'rgb(180,180,180)',

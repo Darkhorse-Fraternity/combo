@@ -4,17 +4,9 @@
  */
 
 import React, { FC, PureComponent, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Linking,
-  DeviceEventEmitter,
-} from 'react-native';
+import { View, Text, Linking, DeviceEventEmitter } from 'react-native';
 import moment from 'moment';
 import Toast from 'react-native-simple-toast';
-import FlipButton from '../../../components/Button/FlipButton';
 import { iCardPoint, FlagPoint, userPoint } from '../../../request/LCModle';
 //@ts-expect-error
 import { Provider as ReduxProvider, connect } from 'react-redux';
@@ -28,9 +20,25 @@ import {
   StyledHeaderTitle,
   StyledCover,
   StyledFlagView,
+  StyledMemberView,
   StyledTitle,
   StyledDiscrib,
   StyledComplaintText,
+  StyledHeaderDiecrib,
+  StyledHeaderDiecribView,
+  StyledTaskView,
+  StyledItemView,
+  StyledTaskDiscrib,
+  StyledTaskDiscrib2,
+  StyledTaskLine,
+  // StyledMemberTitle,
+  StyledAvatarView,
+  StyledMoreBg,
+  StyledMoreText,
+  StyledComplaintBtn,
+  StyledBottomView,
+  StyledSubmitText,
+  StyledSubmitBtn,
 } from './style';
 
 import { DeviceEventEmitterKey } from '@configure/enum';
@@ -48,6 +56,8 @@ import { LoadAnimation } from '@components/Load';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useNavigation } from '@react-navigation/native';
 import { store } from '@redux/store';
+import Avatar from '@components/Avatar/Avatar2';
+import { useGetIuseData } from 'src/data/data-context/core';
 
 interface StateType {
   showPay: boolean;
@@ -62,6 +72,7 @@ interface FDProps {
   flag: GetClassesFlagIdResponse;
   flip: boolean;
   join: (tradeId?: string) => Promise<PostCallFbJoinResponse>;
+  onGo: () => void;
 }
 
 @connect(
@@ -151,13 +162,19 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
   };
 
   render() {
-    const { selfUser, flag } = this.props;
+    const { selfUser, flag, onGo } = this.props;
     const { endDate, cost } = flag;
     const overdue = moment().isAfter(moment(endDate.iso));
 
+    const text = !this.state.flip
+      ? '马上参与'
+      : overdue
+      ? '已过期'
+      : '已参与,去打卡';
+    const onPress = !this.state.flip ? this.__payAndJoin : onGo;
     return (
       <>
-        <FlipButton
+        {/* <FlipButton
           disabled={this.state.flip || overdue}
           faceText={'马上\n参与'}
           backText={overdue ? '已过期' : '已参与'}
@@ -167,7 +184,16 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
           onPress={this.__payAndJoin}
           containStyle={styles.containStyle}
           style={styles.flip}
-        />
+        /> */}
+        {/* <RenderBottom /> */}
+        <StyledBottomView>
+          <StyledSubmitBtn
+            loading={this.state.load}
+            onPress={onPress}
+            disabled={overdue}>
+            <StyledSubmitText>{text}</StyledSubmitText>
+          </StyledSubmitBtn>
+        </StyledBottomView>
         <PayForm
           load={this.state.load}
           isVisible={this.state.showPay}
@@ -183,73 +209,134 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
   }
 }
 
-const RenderHeader: FC<{ title: string }> = ({ title }) => {
+const RenderHeader: FC<{ title: string; cost?: number }> = ({
+  title,
+  cost = 0,
+}) => {
   return (
     <StyledHeader>
       <StyledHeaderTitle>{title}</StyledHeaderTitle>
+      {cost > 0 && (
+        <StyledHeaderDiecribView>
+          <StyledHeaderDiecrib>押金:{'  '}</StyledHeaderDiecrib>
+          <StyledHeaderDiecrib fontSize={20}>¥{cost}</StyledHeaderDiecrib>
+        </StyledHeaderDiecribView>
+      )}
     </StyledHeader>
   );
 };
 
 const RenderTaskDesMore: FC<GetClassesFlagIdResponse> = (props) => {
-  const { cost, startDate, endDate, iCard } = props;
+  const { startDate, endDate, iCard } = props;
   const { limitTimes = ['00:00', '24:00'] } = iCard || {};
 
   // const limitEndDate = moment(limitTimes[1], 'HH');
   // const limitEndHour = limitEndDate.hours();
 
   return (
-    <StyledFlagView>
-      <StyledTitle>具体要求</StyledTitle>
-      <StyledDiscrib>
-        活动时间：
-        {moment(startDate?.iso).format('MM月DD日')} -{' '}
-        {moment(endDate?.iso).format('MM月DD日')}
-      </StyledDiscrib>
-      <StyledDiscrib>
-        打卡时段：
-        {limitTimes && (
-          <Text style={{ color: '#f5943f' }}>
-            {limitTimes[0]} - {limitTimes[1]} (北京时间)
-          </Text>
-        )}
-      </StyledDiscrib>
-      <StyledDiscrib>
-        押金：{' '}
-        <Text style={{ color: '#f5943f' }}>
-          {cost > 0 ? `${cost}元` : '无'}{' '}
-        </Text>
-      </StyledDiscrib>
-      <StyledDiscrib>
-        报名截止：
-        {moment(startDate.iso).format('MM-DD HH:mm')}
-      </StyledDiscrib>
-      <StyledDiscrib>
-        结算时间：
-        {moment(endDate.iso).add(300, 'seconds').format('MM-DD HH:mm')}
-      </StyledDiscrib>
-    </StyledFlagView>
+    <StyledTaskView>
+      {/* <StyledTitle>具体要求</StyledTitle> */}
+      <StyledItemView>
+        <StyledTaskDiscrib>活动时间</StyledTaskDiscrib>
+        <StyledTaskDiscrib2
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          fontSize={12}>
+          {moment(startDate?.iso).format('MM.DD')}~
+          {moment(endDate?.iso).format('MM.DD')}
+        </StyledTaskDiscrib2>
+      </StyledItemView>
+      <StyledTaskLine />
+      <StyledItemView>
+        <StyledTaskDiscrib>打卡时段</StyledTaskDiscrib>
+        <StyledTaskDiscrib2
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          fontSize={12}>
+          {limitTimes[0]}~{limitTimes[1]}
+        </StyledTaskDiscrib2>
+      </StyledItemView>
+      <StyledTaskLine />
+      <StyledItemView>
+        <StyledTaskDiscrib>报名截止</StyledTaskDiscrib>
+        <StyledTaskDiscrib2
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          fontSize={12}
+          style={{ color: '#f5943f' }}>
+          {moment(startDate.iso).format('MM-DD HH:mm')}
+        </StyledTaskDiscrib2>
+      </StyledItemView>
+      <StyledTaskLine />
+      <StyledItemView>
+        <StyledTaskDiscrib>结算时间</StyledTaskDiscrib>
+        <StyledTaskDiscrib2
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          fontSize={12}
+          style={{ color: '#f5943f' }}>
+          {moment(endDate.iso).add(300, 'seconds').format('MM-DD HH:mm')}
+        </StyledTaskDiscrib2>
+      </StyledItemView>
+    </StyledTaskView>
   );
 };
 
-const RenderTaskDes: FC<GetClassesFlagIdResponse> = (flag) => {
-  const { startDate, totalBonus, joinNum, reward, iCard } = flag;
-  const { limitTimes = ['00:00', '24:00'], title = '' } = iCard || {};
+const RendeMember: FC<GetClassesFlagIdResponse> = (flag) => {
+  const { navigate } = useNavigation();
+  const { joinNum, objectId = '' } = flag;
+  // const { limitTimes = ['00:00', '24:00'], title = '' } = iCard || {};
 
-  const time = moment(startDate.iso).calendar().split('00:00')[0];
+  const where = {
+    Flag: FlagPoint(objectId),
+  };
+  const param = {
+    limit: '20',
+    skip: '0',
+    order: '-doneState,doneDate',
+    include: 'user',
+    where: JSON.stringify(where),
+  };
+  const { data } = useGetClassesFlagRecord(param, {
+    cacheKey: 'GetClassesFlagRecord' + objectId,
+  });
+  const { results } = data || {};
+
+  if (!results || results.length === 0) {
+    return null;
+  }
+  if (results.length > 10) {
+    results.length = 10;
+  }
+
   return (
-    <StyledFlagView>
-      <StyledTitle>副本说明</StyledTitle>
-      {limitTimes && (
-        <StyledDiscrib>
-          {`${time} ${limitTimes[0]} - ${limitTimes[1]} 内点击首页 副本卡片 - ${title} 完成打卡`}
-        </StyledDiscrib>
-      )}
-      {reward === 'money' && (
-        <StyledDiscrib>奖金池: {totalBonus?.toFixed(1)}元</StyledDiscrib>
-      )}
-      <StyledDiscrib>参与人数: {joinNum}人</StyledDiscrib>
-    </StyledFlagView>
+    <StyledMemberView>
+      <StyledTitle>
+        <StyledTitle color={'#65BB6A'}>{joinNum}</StyledTitle> 人次参与
+      </StyledTitle>
+
+      <StyledAvatarView
+        onPress={() => {
+          navigate(RouteKey.frDetail, { flagId: objectId });
+        }}>
+        {results.map(({ user }) => {
+          const user1 = user as UserType;
+          return (
+            <Avatar
+              style={{ marginLeft: -5 }}
+              key={user.objectId}
+              user={user1}
+              radius={16}
+            />
+          );
+        })}
+        {results.length === 10 && (
+          <StyledMoreBg>
+            <StyledMoreText>···</StyledMoreText>
+          </StyledMoreBg>
+        )}
+      </StyledAvatarView>
+    </StyledMemberView>
   );
 };
 
@@ -293,7 +380,7 @@ const RenderAppeal = () => {
         为保障用户财产不受侵害,当用户因小改变app问题没有正常完成副本任务,
         用户可以通过我们的微博号进行申诉:
       </StyledDiscrib>
-      <TouchableOpacity
+      <StyledComplaintBtn
         onPress={() => {
           Linking.canOpenURL('sinaweibo://').then((supported) => {
             // weixin://  alipay://
@@ -307,8 +394,8 @@ const RenderAppeal = () => {
             }
           });
         }}>
-        <StyledComplaintText>「 点击申诉 」</StyledComplaintText>
-      </TouchableOpacity>
+        <StyledComplaintText>点击申诉</StyledComplaintText>
+      </StyledComplaintBtn>
     </StyledFlagView>
   );
 };
@@ -338,6 +425,16 @@ const RenderBonus = () => (
   </StyledFlagView>
 );
 
+// const RenderBottom: FC<{}> = () => {
+//   return (
+//     <StyledBottomView>
+//       <StyledSubmitBtn>
+//         <StyledSubmitText>马上参与</StyledSubmitText>
+//       </StyledSubmitBtn>
+//     </StyledBottomView>
+//   );
+// };
+
 const FlagDetail: FC<{}> = (props) => {
   const { flagId, iCardId } = useNavigationAllParamsWithType<
     RouteKey.flagDetail
@@ -347,21 +444,19 @@ const FlagDetail: FC<{}> = (props) => {
     { cacheKey: 'GetClassesFlagId' + flagId },
   );
   const { user } = useGetInfoOfMe();
-  const { setParams } = useNavigation();
+  const { setParams, navigate } = useNavigation();
+  const { data: iUses } = useGetIuseData();
   const where = {
     // ...iCard(icardId),
     iCard: iCardPoint(iCardId),
     user: userPoint(user.objectId),
     Flag: FlagPoint(flagId),
   };
-  const { data: record } = useGetClassesFlagRecord(
-    {
-      count: '1',
-      limit: '0',
-      where: JSON.stringify(where),
-    },
-    { cacheKey: 'GetClassesFlagRecord' + flagId + iCardId },
-  );
+  const { data: record } = useGetClassesFlagRecord({
+    count: '1',
+    limit: '0',
+    where: JSON.stringify(where),
+  });
 
   useEffect(() => {
     if (data?.iCard?.title) {
@@ -398,13 +493,28 @@ const FlagDetail: FC<{}> = (props) => {
     });
   };
 
+  const goClockIn = () => {
+    const iCardId1 = data.iCard?.objectId;
+    if (iCardId1) {
+      iUses?.forEach((item) => {
+        if (item.iCard.objectId === iCardId) {
+          navigate('card', {
+            iUseId: item.objectId,
+            iCardId,
+          });
+        }
+      });
+    }
+  };
+
   return (
     <StyledSafeAreaView>
       <StyledContent>
-        <RenderHeader title={title} />
         <StyledCover source={{ uri: cover.url }} />
-        <RenderTaskDes {...data} />
+        <RenderHeader title={title} cost={cost} />
+
         <RenderTaskDesMore {...data} />
+        <RendeMember {...data} />
         <RenderReward {...data} />
         {cost > 0 && <RenderBonus />}
         {cost > 0 && <RenderAudit />}
@@ -420,6 +530,7 @@ const FlagDetail: FC<{}> = (props) => {
           iCard={data.iCard!}
           flip={!!record?.count}
           join={join}
+          onGo={goClockIn}
         />
       </ReduxProvider>
     </StyledSafeAreaView>
@@ -427,17 +538,3 @@ const FlagDetail: FC<{}> = (props) => {
 };
 
 export default FlagDetail;
-
-const styles = StyleSheet.create({
-  flip: {
-    position: 'absolute',
-    zIndex: 100,
-    bottom: 100,
-    right: 15,
-  },
-  containStyle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-});

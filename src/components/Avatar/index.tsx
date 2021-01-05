@@ -41,11 +41,13 @@ const Avatar: FC<AvatarType> = (props) => {
 
   if (!avatarUrl) {
     return (
-      <StyledAvatar
-        style={{ margin: 5 }}
-        radius={radius * 0.75}
-        source={avatarSource}
-      />
+      <StyledContent radius={radius}>
+        <StyledAvatar
+          style={{ margin: 5 }}
+          radius={radius * 0.75}
+          source={avatarSource}
+        />
+      </StyledContent>
     );
   }
 

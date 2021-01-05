@@ -127,7 +127,7 @@ export type ButtonType = TouchableNativeFeedbackProps & {
   activeOpacity?: number;
 };
 
-const button = (Platform.OS !== 'ios'
+const button = (Platform.OS === 'ios'
   ? TouchableOpacity
   : ButtonAndroid) as ComponentType<ButtonType>;
 
