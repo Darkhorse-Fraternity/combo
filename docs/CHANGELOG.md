@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.1...v1.7.2) (2021-01-06)
+
+
+### Bug Fixes
+
+* 修改已经错误 ([9ef6f69](https://github.com/Darkhorse-Fraternity/combo/commit/9ef6f692f3d062ef0254702b6f69d429e1893189))
+
 ## [1.7.1](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.0...v1.7.1) (2021-01-05)
 
 
