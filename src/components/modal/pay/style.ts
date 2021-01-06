@@ -10,7 +10,7 @@ import Button from '../../Button';
 import IconAwesome from 'react-native-vector-icons/EvilIcons';
 
 export const StyledContent = styled.View`
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.card};
   margin-bottom: -50px;
   padding-bottom: 50px;
 `;
@@ -27,7 +27,9 @@ export const StyledHeaderTitle = styled.Text`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const StyledIconAwesome = styled(IconAwesome)``;
+export const StyledIconAwesome = styled(IconAwesome)`
+  color: ${({ theme }) => theme.colors.textPrimary};
+`;
 
 export const StyledBottomView = styled.View`
   width: 100%;
@@ -73,6 +75,7 @@ export const StyleRadioText = styled.Text`
 export const RadioIcon = styled(BaseIcon)`
   height: 30px;
   width: 30px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const RadioImage = styled.Image`

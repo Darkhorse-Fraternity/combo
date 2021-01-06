@@ -1,9 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import {
-  BottomSheetModal,
-  // BottomSheetHandle,
-} from '@gorhom/bottom-sheet';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, SafeAreaView } from 'react-native';
+
 import { Button } from 'react-native';
 
 import PrivatePickerModal from '@components/modal/private-picker-modal';
@@ -18,9 +15,11 @@ const App = () => {
   // ref
 
   const [selectId, setselectId] = useState<string>('0');
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [show, setShow] = useState(false);
+  // const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    // bottomSheetModalRef.current?.present();
+    setShow(true);
   }, []);
   // const handleSheetChanges = useCallback((index: number) => {
   //   console.log('handleSheetChanges', index);
@@ -28,22 +27,27 @@ const App = () => {
 
   // renders
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Button
         onPress={handlePresentModalPress}
         title="Present Modal"
         color="black"
       />
       <PrivatePickerModal
-        ref={bottomSheetModalRef}
+        // ref={bottomSheetModalRef}
+        isVisible={show}
+        onClose={() => {
+          setShow(false);
+        }}
         items={items}
         selectId={selectId}
         onChange={(id) => {
           setselectId(id);
-          bottomSheetModalRef.current?.close();
+          setShow(false);
+          // bottomSheetModalRef.current?.close();
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

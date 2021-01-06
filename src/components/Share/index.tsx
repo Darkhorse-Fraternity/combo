@@ -3,15 +3,12 @@
  * @flow
  */
 
-import * as immutable from 'immutable';
 import React, { Component } from 'react';
 import {
   View,
-  Text,
   Image,
   StyleSheet,
   TouchableNativeFeedback,
-  SafeAreaView,
   ImageSourcePropType,
   GestureResponderEvent,
 } from 'react-native';
@@ -30,6 +27,7 @@ import Button from '../Button';
 import { isQQInstalled } from 'react-native-qq';
 import Modal from 'react-native-modal';
 import { IUseType } from 'src/data/data-context/interface';
+import { StyledPopItemText, StyledSafeAreaView } from './style';
 // import { ShareMetadata } from 'react-native-wechat';
 
 interface ShareModal {
@@ -62,6 +60,24 @@ interface StateType {
   isQQInstalled: boolean;
 }
 
+const item = (
+  source: ImageSourcePropType,
+  titel: string,
+  press?: (event: GestureResponderEvent) => void,
+) => (
+  <Button
+    background={
+      TouchableNativeFeedback.SelectableBackgroundBorderless &&
+      TouchableNativeFeedback.SelectableBackgroundBorderless()
+    }
+    onPress={press}>
+    <View style={{ paddingHorizontal: 15 }}>
+      <Image style={styles.pop_item_image} source={source} />
+      <StyledPopItemText>{titel}</StyledPopItemText>
+    </View>
+  </Button>
+);
+
 export default class ShareView extends Component<ShareModal, StateType> {
   constructor(props: ShareModal) {
     super(props);
@@ -70,12 +86,12 @@ export default class ShareView extends Component<ShareModal, StateType> {
     };
   }
 
-  shouldComponentUpdate(nextProps: ShareModal, nextState: StateType) {
-    return (
-      !immutable.is(this.props, nextProps) ||
-      this.state.isQQInstalled !== nextState.isQQInstalled
-    );
-  }
+  // shouldComponentUpdate(nextProps: ShareModal, nextState: StateType) {
+  //   return (
+  //     !immutable.is(this.props, nextProps) ||
+  //     this.state.isQQInstalled !== nextState.isQQInstalled
+  //   );
+  // }
 
   componentDidMount() {
     isQQInstalled()
@@ -88,24 +104,6 @@ export default class ShareView extends Component<ShareModal, StateType> {
   }
 
   render() {
-    const item = (
-      source: ImageSourcePropType,
-      titel: string,
-      press?: (event: GestureResponderEvent) => void,
-    ) => (
-      <Button
-        background={
-          TouchableNativeFeedback.SelectableBackgroundBorderless &&
-          TouchableNativeFeedback.SelectableBackgroundBorderless()
-        }
-        onPress={press}>
-        <View style={{ paddingHorizontal: 15 }}>
-          <Image style={styles.pop_item_image} source={source} />
-          <Text style={styles.pop_item_text}>{titel}</Text>
-        </View>
-      </Button>
-    );
-
     const { iCard } = this.props;
     const url =
       (iCard.img && iCard.img.url) ||
@@ -124,7 +122,7 @@ export default class ShareView extends Component<ShareModal, StateType> {
     // console.log('xx', this.state.isQQInstalled);
 
     return (
-      <SafeAreaView style={{ backgroundColor: 'white', alignItems: 'center' }}>
+      <StyledSafeAreaView>
         <View style={styles.top}>
           <Button
             background={
@@ -189,7 +187,7 @@ export default class ShareView extends Component<ShareModal, StateType> {
             </View>
           )}
         </View>
-      </SafeAreaView>
+      </StyledSafeAreaView>
     );
   }
 }
@@ -214,12 +212,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  pop_item_text: {
-    fontSize: 13,
-    marginTop: 5,
-    color: 'rgb(100,100,100)',
-    alignSelf: 'center',
-  },
+
   pwd: {
     marginTop: 10,
     color: theme.mainColor,

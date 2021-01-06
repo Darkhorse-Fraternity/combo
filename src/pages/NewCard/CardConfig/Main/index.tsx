@@ -336,7 +336,6 @@ const LauchDisplay: FC<{
   } = data || {};
   const { color, name } = iconAndColor || {};
   const { day, time } = limitTimes || {};
-  console.log('control', control.getValues());
 
   return (
     <Animatable.View useNativeDriver animation="fadeInUp">
@@ -410,23 +409,21 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
 
       {step === 1 && (
         <Animatable.View animation="fadeInUp" useNativeDriver>
-          {type === CardTitle ||
-            (type === CardIconAndColor && (
-              <Controller
-                // defaultValue=''
-                name={CardTitle}
-                control={control}
-                as={RenderTitle}
-              />
-            ))}
-          {type === CardTitle ||
-            (type === CardIconAndColor && (
-              <Controller
-                name={CardIconAndColor}
-                control={control}
-                as={RenderIconAndColor}
-              />
-            ))}
+          {(type === CardTitle || type === CardIconAndColor) && (
+            <Controller
+              // defaultValue=''
+              name={CardTitle}
+              control={control}
+              as={RenderTitle}
+            />
+          )}
+          {(type === CardTitle || type === CardIconAndColor) && (
+            <Controller
+              name={CardIconAndColor}
+              control={control}
+              as={RenderIconAndColor}
+            />
+          )}
 
           {type === CardNotifyTimes && (
             <Controller

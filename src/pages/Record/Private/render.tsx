@@ -2,14 +2,14 @@
  * @Author: tonyYo
  * @Date: 2020-12-24 11:21:53
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-04 13:47:32
+ * @LastEditTime: 2021-01-06 11:08:40
  * @FilePath: /Combo/src/pages/Record/Private/render.tsx
  */
 
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { Privacy } from '@configure/enum';
 import { RouteKey } from '@pages/interface';
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
 import { StykedContent, StyledText } from './style';
 // import Dialog from '@components/Dialog';
@@ -17,7 +17,6 @@ import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { ButtonOpacity } from '@components/Button';
 import { putClassesIUseId } from 'src/hooks/interface';
 import PrivatePickerModal from '@components/modal/private-picker-modal';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 
 // const pickPrivacy = async (privacy: number, isSelf: boolean) => {
 //   const items = isSelf
@@ -60,9 +59,10 @@ export const Private: FC<{}> = () => {
   useEffect(() => {
     setselectId(selectedId + '');
   }, [selectedId]);
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  // const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const [show, setShow] = useState(false);
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    // bottomSheetModalRef.current?.present();
   }, []);
 
   const items = isSelf
@@ -105,12 +105,16 @@ export const Private: FC<{}> = () => {
         <StyledText color="#548afc">• 点击修改隐私规则</StyledText>
       </ButtonOpacity>
       <PrivatePickerModal
-        ref={bottomSheetModalRef}
+        // ref={bottomSheetModalRef}
+        isVisible={show}
+        onClose={() => {
+          setShow(false);
+        }}
         items={items}
         selectId={selectId}
         onChange={async (id) => {
           // setselectId(id);
-          bottomSheetModalRef.current?.close();
+          setShow(false);
           if (iUse?.privacy !== Number(id)) {
             const { objectId } = await putClassesIUseId({
               id: iUse?.objectId || '',

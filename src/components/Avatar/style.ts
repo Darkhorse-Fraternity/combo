@@ -27,6 +27,23 @@ export const StyledContent = styled.View<{ radius: number }>`
   height: ${(props) => props.radius}; */
 `;
 
+export const StyledContent3 = styled.View<{ radius: number }>`
+  background-color: ${(props) => props.theme.colors.card};;
+  border-radius: ${(props) => props.radius};
+  border-width: ${Platform.OS === 'ios' ? 1 : 2}px;
+  border-color: ${(props) => props.theme.colors.card};;
+  shadow-opacity: 1;
+  shadow-radius: 5px;
+  shadow-color: #979797;
+  shadow-offset: 0px 3px;
+  elevation: 5;
+  margin: 5px;
+  align-items: center;
+  justify-content: center;
+  /* width: ${(props) => props.radius};
+  height: ${(props) => props.radius}; */
+`;
+
 export const StyledContentInner = styled.View`
   align-items: center;
   justify-content: center;

@@ -3,14 +3,7 @@
  * @flow
  */
 
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import {
   DeviceEventEmitter,
   TouchableOpacityProps,
@@ -43,7 +36,7 @@ import {
   useGetClassesIDo,
 } from 'src/hooks/interface';
 import { useGetUserInfo } from 'src/data/data-context';
-import { ShareModal } from '@components/Share/ShareView';
+import { ShareModal } from '@components/share';
 import moment from 'moment';
 import SimpleToast from 'react-native-simple-toast';
 import { IUseType, UserType } from 'src/data/data-context/interface';
@@ -51,7 +44,6 @@ import { useMutateIuseData } from 'src/data/data-context/core';
 import LoadMoreList from '@components/Base/LoadMoreList';
 import { useCanceWhenLeave } from 'src/hooks/util';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import PrivatePickerModal from '@components/modal/private-picker-modal';
 type ItemType = GetClassesIDoResponse['results'][number];
 
@@ -174,14 +166,13 @@ const PrivacyItem: FC<{
   const isSelf = userId === beUserId;
   const selectedId = iUse.privacy === 1 && isSelf ? 0 : iUse.privacy;
   const [selectId, setselectId] = useState(selectedId + '');
-
+  const [show, setShow] = useState(false);
   useEffect(() => {
     setselectId(selectedId + '');
   }, [selectedId]);
 
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    setShow(true);
   }, []);
 
   const items = isSelf
@@ -207,12 +198,15 @@ const PrivacyItem: FC<{
         onPress={handlePresentModalPress}
       />
       <PrivatePickerModal
-        ref={bottomSheetModalRef}
+        isVisible={show}
+        onClose={() => {
+          setShow(false);
+        }}
         items={items}
         selectId={selectId}
         onChange={async (id) => {
           // setselectId(id);
-          bottomSheetModalRef.current?.close();
+          setShow(false);
           if (iUse.privacy !== Number(id)) {
             const { objectId } = await putClassesIUseId({
               id: iUse.objectId,
@@ -287,7 +281,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   );
 };
 
-const useLoadMore = (iCardId: string, privacy: number) => {
+const useLoadMore = (iCardId: string, privacy: number, isSelf: boolean) => {
   const limit = 40;
 
   const where = {
@@ -303,15 +297,21 @@ const useLoadMore = (iCardId: string, privacy: number) => {
 
   const { data, cancel, loading, loadingMore, ...rest } = useGetClassesIDo<{
     list: NonNullable<GetClassesIDoResponse['results']>;
+    isNoMore: boolean;
   }>((res) => ({ limit: limit + '', skip: res?.list?.length || 0, ...param }), {
     loadMore: true,
-    isNoMore: (nData) =>
-      !nData?.['result']?.length || nData?.['result']?.length < limit,
+    isNoMore: (nData) => nData?.isNoMore ?? false,
     formatResult: (res) => ({
-      list: res?.results ?? [],
+      list:
+        res?.results.filter(
+          (item) =>
+            item.iUse.privacy! >= privacyLimit ||
+            item.user.objectId === user.objectId,
+        ) ?? [],
+      isNoMore: !!res?.results && res?.results.length < limit,
     }),
-    onSuccess: (data1) => {
-      lastDataRef.current = data1.list;
+    onSuccess: (res) => {
+      lastDataRef.current = res.list;
     },
     cacheKey: 'GetClassesIDo' + iCardId,
     refreshDeps: [privacy],
@@ -324,16 +324,9 @@ const useLoadMore = (iCardId: string, privacy: number) => {
 
   const midData = loading ? lastDataRef.current : data?.list;
 
-  const lastData = useMemo(
-    () =>
-      midData?.filter(
-        (item) =>
-          item.iUse.privacy! >= privacy || item.user.objectId === user.objectId,
-      ),
-    [midData, privacy, user.objectId],
-  );
+  const privacyLimit = isSelf ? Privacy.openToCoach : Privacy.open;
 
-  return { data: lastData, loading, loadingMore, ...rest };
+  return { data: midData, loading, loadingMore, ...rest };
 };
 
 const Circle: FC<CircleProps> = (props) => {
@@ -341,8 +334,12 @@ const Circle: FC<CircleProps> = (props) => {
 
   // const user = useGetUserInfo();
   const [count, setCount] = useState(0);
+  const { user } = useGetInfoOfMe();
+  const userId = user!.objectId;
+  const beUserId = iCard.user.objectId;
+  const isSelf = userId === beUserId;
   // const { reload, ...rest } = useRef<LoadMoreList<ItemType>>(null);
-  const { reload, ...rest } = useLoadMore(iCard.objectId, iUse.privacy);
+  const { reload, ...rest } = useLoadMore(iCard.objectId, iUse.privacy, isSelf);
   useEffect(() => {
     loadWithObjectInfo({
       appId: GTDAppId,

@@ -135,12 +135,13 @@ const useLoadMore = () => {
     ...rest
   } = usePostCallCardList<{
     list: NonNullable<PostCallCardListResponse['result']>;
+    isNoMore: boolean;
   }>((res) => ({ limit: limit + '', skip: res?.list?.length || 0 }), {
     loadMore: true,
-    isNoMore: (nData) =>
-      !nData?.['result']?.length || nData?.['result']?.length < limit,
+    isNoMore: (nData) => nData?.isNoMore ?? false,
     formatResult: (res) => ({
       list: res?.result ?? [],
+      isNoMore: (res && res?.result && res?.result?.length < limit) || false,
       ...res,
     }),
     onSuccess: (data1) => {

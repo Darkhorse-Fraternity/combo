@@ -7,12 +7,12 @@ export const StyledContent = styled.View`
 `;
 
 export const StyledText = styled.Text`
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledTextInput = styled.TextInput`
   margin-top: 10px;
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const StyledError = styled.Text`

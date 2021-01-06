@@ -58,6 +58,7 @@ import { useNavigation } from '@react-navigation/native';
 import { store } from '@redux/store';
 import Avatar from '@components/Avatar/Avatar2';
 import { useGetIuseData } from 'src/data/data-context/core';
+import { isTablet } from 'react-native-device-info';
 
 interface StateType {
   showPay: boolean;
@@ -154,8 +155,16 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
       const { data, statu } = payRes.payload;
       statu === 'suc' && this.setState({ showPay: false });
       const res = statu === 'suc' && (await join(data.out_trade_no));
+
+      Toast.showWithGravity(
+        '已经参与，记得及时打卡哦～！',
+        Toast.SHORT,
+        Toast.CENTER,
+      );
+
       this.setState({ load: false, flip: !!res });
     } catch (e) {
+      Toast.showWithGravity(e.message, Toast.SHORT, Toast.CENTER);
       console.log('e:', e.message);
       this.setState({ load: false });
     }
@@ -305,8 +314,11 @@ const RendeMember: FC<GetClassesFlagIdResponse> = (flag) => {
   if (!results || results.length === 0) {
     return null;
   }
-  if (results.length > 10) {
-    results.length = 10;
+
+  const limit = isTablet() ? 20 : 10;
+
+  if (results.length > limit) {
+    results.length = limit;
   }
 
   return (
@@ -330,7 +342,7 @@ const RendeMember: FC<GetClassesFlagIdResponse> = (flag) => {
             />
           );
         })}
-        {results.length === 10 && (
+        {results.length === limit && (
           <StyledMoreBg>
             <StyledMoreText>···</StyledMoreText>
           </StyledMoreBg>

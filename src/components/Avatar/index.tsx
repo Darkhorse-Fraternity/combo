@@ -5,7 +5,12 @@
 
 import React, { FC, memo } from 'react';
 
-import { StyledContent, StyledAvatar, StyledIndicator } from './style';
+import {
+  StyledContent,
+  StyledAvatar,
+  StyledIndicator,
+  StyledContent3,
+} from './style';
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 import { UserType } from 'src/data/data-context/interface';
@@ -41,13 +46,13 @@ const Avatar: FC<AvatarType> = (props) => {
 
   if (!avatarUrl) {
     return (
-      <StyledContent radius={radius}>
+      <StyledContent3 radius={radius}>
         <StyledAvatar
           style={{ margin: 5 }}
           radius={radius * 0.75}
           source={avatarSource}
         />
-      </StyledContent>
+      </StyledContent3>
     );
   }
 

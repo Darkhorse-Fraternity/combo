@@ -4,7 +4,7 @@ import Button from '@components/Button';
 export const StyledContent = styled.View`
   flex: 1;
   padding: 15px;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.card};
 `;
 
 export const StyledNavBar = styled.View`
@@ -13,14 +13,14 @@ export const StyledNavBar = styled.View`
 `;
 
 export const StyledText = styled.Text`
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
   font-weight: bold;
   font-size: 15px;
 `;
 
 export const StyledTextInput = styled.TextInput`
   margin-top: 5px;
-  color: #333333;
+  color: ${(props) => props.theme.colors.text};
 `;
 
 interface submitType {

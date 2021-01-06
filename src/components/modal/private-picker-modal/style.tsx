@@ -2,11 +2,14 @@ import styled from 'styled-components/native';
 // import {SafeAreaView} from '@react-navigation/native';
 import Button, { ButtonOpacity } from '@components/Button';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-export const StyledContent = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
+export const StyledContent = styled.View<{ paddingBottom?: number }>`
+  /* flex: 1; */
+  padding-top: 20px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-color: ${({ theme }) => theme.colors.cardPrimary};
+  /* margin-bottom:0; */
+  /* padding-bottom: ${(props) => props.paddingBottom || 0}; */
 `;
 
 export const StyledRuleView = styled.View`
@@ -48,9 +51,8 @@ export const StyledTitle = styled.Text`
   color: ${({ theme }) => theme.colors.text};
 `;
 
-export const StyledContentContainer = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.cardPrimary};
+export const StyledContentContainer = styled.SafeAreaView`
+  /* flex: 1; */
 `;
 
 export const StyledImage = styled.Image`

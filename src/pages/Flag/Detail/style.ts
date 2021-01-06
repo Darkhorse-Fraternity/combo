@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-05 16:17:21
+ * @LastEditTime: 2021-01-05 17:37:57
  * @FilePath: /Combo/src/pages/Flag/Detail/style.ts
  */
 /**
@@ -11,7 +11,7 @@
  */
 
 import styled from 'styled-components/native';
-import { SafeAreaView } from 'react-native';
+import { Platform, SafeAreaView } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Button, { ButtonOpacity } from '../../../components/Button';
@@ -115,6 +115,9 @@ export const StyledTaskDiscrib2 = styled.Text<{ fontSize?: number }>`
   line-height: 20px;
   font-weight: bold;
   color: ${(props) => props.theme.colors.text};
+  /* background-color: red; */
+  min-width: 75px;
+  text-align: center;
 `;
 
 export const StyledTaskLine = styled.View`
@@ -169,18 +172,29 @@ export const StyledMoreBg = styled.View`
 `;
 
 export const StyledMoreText = styled.Text`
-  font-size: 16px;
+  font-size: ${Platform.OS === 'ios' ? 16 : 11}px;
+  color:#353535;
+  /* color: ${(props) => props.theme.colors.text}; */
+  min-width: 36px;
+  text-align:center;
+
+  /* background-color: red; */
 `;
 
-export const StyledBottomView = styled.View``;
+export const StyledBottomView = styled.View`
+  align-items: center;
+`;
 
 export const StyledSubmitBtn = styled(Button)`
   background-color: #65bb6a;
   align-items: center;
   justify-content: center;
   margin: 20px;
+  /* flex: 1; */
   height: 44px;
   border-radius: 4px;
+  max-width: 400px;
+  width: ${(props) => props.theme.width - 40}px;
 `;
 
 export const StyledSubmitText = styled.Text`

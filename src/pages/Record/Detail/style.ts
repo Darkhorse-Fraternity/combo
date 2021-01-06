@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2020-12-25 10:04:27
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-06 13:51:57
+ * @FilePath: /Combo/src/pages/Record/Detail/style.ts
+ */
 /**
  * Created by lintong on 2018/9/25.
  * @flow
@@ -15,6 +22,7 @@ import { Platform, SafeAreaView } from 'react-native';
 
 export const Styledcontain = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.card};
   /* background-color: white; */
 `;
 

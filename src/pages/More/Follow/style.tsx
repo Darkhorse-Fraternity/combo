@@ -12,6 +12,7 @@ import FastImage from 'react-native-fast-image';
 
 export const StyledContent = styled(SafeAreaView)`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.card};
 `;
 export const StyleHeader = styled.View`
   padding: 15px 20px;
