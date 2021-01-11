@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-11 11:16:33
+ * @FilePath: /Combo/src/pages/Card/Circle/style.ts
+ */
 /**
  * Created by lintong on 2018/7/12.
  * @flow
@@ -61,4 +68,20 @@ export const StyledNativeUnifiedADView = styled(NativeUnifiedADView)`
   margin-top: ${Platform.OS === 'ios' ? 20 : 0}px;
   width: 100%;
   height: ${(props) => (props.theme.width * 0.65) / imageRate + 114};
+`;
+
+export const StyledTipView = styled.View`
+  width: 90%;
+  height: 20px;
+  margin-left: 10px;
+  background-color: #ebd46a;
+  justify-content: center;
+  border-radius: 5px;
+`;
+
+export const StyledTipText = styled.Text`
+  color: yellow;
+  font-size: 12px;
+  margin-left: 5px;
+  font-weight: bold;
 `;

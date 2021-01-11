@@ -237,7 +237,7 @@ interface PunchProps {
   onScroll: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
 
-const PunchClass: FC<PunchProps> = (props): JSX.Element => {
+const PunchList: FC<PunchProps> = (props): JSX.Element => {
   // const statu = this.props.data.get('loadStatu');
 
   const { iUse, numColumns, onScroll, onRefresh, loading } = props;
@@ -264,9 +264,6 @@ const PunchClass: FC<PunchProps> = (props): JSX.Element => {
       renderItem={(i) => renderItem(i, numColumns)}
       keyExtractor={_keyExtractor}
       ListHeaderComponent={renderHeader}
-      // ListFooterComponent={
-      //   data.length > 0 ? <View style={{ height: 120 }} /> : null
-      // }
       ListEmptyComponent={
         <RenderNoData refreshLoad={loading} onRefresh={onRefresh} />
       }
@@ -274,7 +271,7 @@ const PunchClass: FC<PunchProps> = (props): JSX.Element => {
   );
 };
 
-const MemoPunchList = memo(PunchClass);
+const MemoPunchList = memo(PunchList);
 
 const renderItem = (
   data: SectionListRenderItemInfo<ItemType[], { title: string }>,

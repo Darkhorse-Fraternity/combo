@@ -22,6 +22,8 @@ import {
   StyledHeaderText,
   StyledRow,
   StyledNativeUnifiedADView,
+  // StyledTipView,
+  // StyledTipText,
 } from './style';
 
 import { iCardPoint } from '../../../request/LCModle';
@@ -222,6 +224,19 @@ const PrivacyItem: FC<{
   );
 };
 
+// const TopTip: FC<{ iCard: IUseType['iCard'] }> = ({ iCard }) => {
+//   const limitTimes = iCard.limitTimes || ['00:00', '24:00'];
+//   const before = moment(limitTimes[0], 'HH');
+//   const after = moment(limitTimes[1], 'HH');
+//   const now = moment(new Date());
+//   const momentIn = moment(now).isBetween(before, after);
+//   return (
+//     <StyledTipView>
+//       <StyledTipText>Tip:打卡时段</StyledTipText>
+//     </StyledTipView>
+//   );
+// };
+
 const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
   const user = useGetUserInfo();
   const { navigate } = useNavigation();
@@ -241,6 +256,7 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
 
   return (
     <StyledHeader>
+      {/* <TopTip iCard={iCard} /> */}
       <ClockInMenuItem iCard={iCard} iUseId={iUse.objectId} />
       <PrivacyItem iCard={iCard} iUse={iUse} />
       <MenuItem

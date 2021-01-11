@@ -530,7 +530,7 @@ const FlagDetail: FC<{}> = (props) => {
         <RenderReward {...data} />
         {cost > 0 && <RenderBonus />}
         {cost > 0 && <RenderAudit />}
-        {cost > 0 && <RenderAppeal />}
+        <RenderAppeal />
         <View style={{ height: 100 }} />
       </StyledContent>
       <ReduxProvider store={store}>
