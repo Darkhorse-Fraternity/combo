@@ -84,7 +84,7 @@ const MenuItem: FC<
         right: 10,
       }}
       {...other}>
-      <StyledHeaderImage source={source} />
+      <StyledHeaderImage resizeMode="center" source={source} />
       <StyledHeaderText>{title}</StyledHeaderText>
     </StyledHeaderButton>
   );
@@ -275,6 +275,18 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
           setShowShare(true);
         }}
       />
+
+      {iCard.user.objectId === user?.objectId && (
+        <MenuItem
+          title={'副本创建'}
+          source={require('../../../../source/img/circle/fire.png')}
+          onPress={() => {
+            navigate(RouteKey.flagCreat, {
+              iCardId: iCard.objectId,
+            });
+          }}
+        />
+      )}
 
       {iCard.user.objectId === user?.objectId && (
         <MenuItem

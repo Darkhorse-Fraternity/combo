@@ -565,6 +565,9 @@ export const useWechatLogin = () => {
         let { nickname, headimgurl } = userInfo;
 
         nickname = user.nickname || nickname;
+        console.log('nickname', nickname);
+
+        putUsersId({ id: user1.objectId, nickname, headimgurl });
         updateMe({
           nickname,
           headimgurl,
@@ -660,6 +663,11 @@ export const useQQLogin = () => {
         // const res = await get(params);
 
         // dispatch(updateUserInfo(user.objectId, exData));
+        putUsersId({
+          id: user1.objectId,
+          nickname,
+          headimgurl: figureurl_qq_2,
+        });
         updateMe(exData);
       }
     } catch (e) {
@@ -748,6 +756,7 @@ export const useAppleLogin = () => {
           nickname: fullName?.nickname,
           // headimgurl: figureurl_qq_2,
         };
+        putUsersId({ id: user1.objectId, nickname: fullName?.nickname });
         // const params = bindingToUser(user.objectId, exData);
         // // console.log('params:', params);
         // const res = await get(params);

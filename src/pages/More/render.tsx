@@ -128,9 +128,9 @@ const RenderHeadRow = () => {
       <StyledHeaderTop
         onPress={() => {
           if (isTourist) {
-            navigate('login');
+            navigate(RouteKey.login);
           } else {
-            navigate('account');
+            navigate(RouteKey.account);
           }
         }}>
         <StyledAvatarView>

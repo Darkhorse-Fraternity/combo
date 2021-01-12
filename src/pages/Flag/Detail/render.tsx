@@ -59,6 +59,7 @@ import { store } from '@redux/store';
 import Avatar from '@components/Avatar/Avatar2';
 import { useGetIuseData } from 'src/data/data-context/core';
 import { isTablet } from 'react-native-device-info';
+import { isEmpty } from 'lodash';
 
 interface StateType {
   showPay: boolean;
@@ -109,7 +110,7 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
   }
 
   __payAndJoin = async () => {
-    const { join, flag, isTourist } = this.props;
+    const { join, flag, isTourist, selfUser } = this.props;
     const cost = flag.cost;
     const endDate = flag.endDate;
 
@@ -121,10 +122,15 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
     if (isTourist) {
       Toast.show('参加副本需要先登录~!');
       // @ts-ignore: Unreachable code error
-      return this.props.navigation.navigate(RouteKey.login, {
-        transition: 'forVertical',
-      });
+      return this.props.navigation.navigate(RouteKey.login);
     }
+
+    if (isEmpty(selfUser.headimgurl) || isEmpty(selfUser.nickname)) {
+      Toast.show('参与副本前,头像和昵称不能为空哦～');
+      // @ts-ignore: Unreachable code error
+      return this.props.navigation.navigate(RouteKey.account);
+    }
+
     if (cost > 0) {
       this.setState({ showPay: true });
     } else {

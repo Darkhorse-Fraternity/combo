@@ -37,6 +37,7 @@ import Test from './test';
 import log from './Card/Log';
 import RecordPrivate from './Record/Private';
 import feedback from './feedback';
+import FlagCreat from './Flag/Creat';
 
 export const otherRoute = {
   [RouteKey.web]: web,
@@ -70,6 +71,7 @@ export const otherRoute = {
   [RouteKey.flagDetail]: FlagDetail,
   [RouteKey.frDetail]: FRDetail,
   [RouteKey.cirlcleSetting]: CirlcleSetting,
+  [RouteKey.flagCreat]: FlagCreat,
   // pptDescribe: { screen: PPTDescribe },
 };
 
