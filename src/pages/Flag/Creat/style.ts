@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-12 17:51:14
+ * @LastEditTime: 2021-01-13 13:39:12
  * @FilePath: /Combo/src/pages/Flag/Creat/style.ts
  */
 /**
@@ -46,7 +46,7 @@ export const StyledCoverPickerBtn = styled(Button)`
   width: 88px;
   align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 16px;
 `;
 
 export const StyledCoverPickerBtnText = styled.Text`
@@ -58,6 +58,7 @@ export const StyledTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
   margin-left: 20px;
+  margin-top: 12px;
 `;
 
 export const StyledTitleInput = styled.TextInput`
@@ -89,7 +90,7 @@ export const StyledTitleTip = styled.Text`
 export const StyledLine = styled.View`
   background-color: ${({ theme }) => theme.colors.hairlineColor};
   height: ${({ theme }) => theme.hairlineWidth * 2};
-  margin: 10px 20px 20px 20px;
+  margin: 10px 20px 10px 20px;
 `;
 
 export const StyledSpace = styled.View`

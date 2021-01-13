@@ -38,6 +38,7 @@ import log from './Card/Log';
 import RecordPrivate from './Record/Private';
 import feedback from './feedback';
 import FlagCreat from './Flag/Creat';
+import flagCoverPicker from './Flag/CoverPicker';
 
 export const otherRoute = {
   [RouteKey.web]: web,
@@ -72,6 +73,7 @@ export const otherRoute = {
   [RouteKey.frDetail]: FRDetail,
   [RouteKey.cirlcleSetting]: CirlcleSetting,
   [RouteKey.flagCreat]: FlagCreat,
+  [RouteKey.flagCoverPicker]: flagCoverPicker,
   // pptDescribe: { screen: PPTDescribe },
 };
 

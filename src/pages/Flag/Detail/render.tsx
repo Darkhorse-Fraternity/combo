@@ -513,10 +513,12 @@ const FlagDetail: FC<{}> = (props) => {
 
   const goClockIn = () => {
     const iCardId1 = data.iCard?.objectId;
-    if (iCardId1) {
-      iUses?.forEach((item) => {
+    if (iCardId1 && iUses) {
+      iUses.forEach((item) => {
         if (item.iCard.objectId === iCardId) {
-          navigate('card', {
+          console.log('iCardId', iCardId);
+          console.log('iUseId', item.objectId);
+          navigate(RouteKey.card, {
             iUseId: item.objectId,
             iCardId,
           });
