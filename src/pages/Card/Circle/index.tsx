@@ -368,6 +368,7 @@ const Circle: FC<CircleProps> = (props) => {
   const isSelf = userId === beUserId;
   // const { reload, ...rest } = useRef<LoadMoreList<ItemType>>(null);
   const { reload, ...rest } = useLoadMore(iCard.objectId, iUse.privacy, isSelf);
+
   useEffect(() => {
     loadWithObjectInfo({
       appId: GTDAppId,
@@ -379,7 +380,9 @@ const Circle: FC<CircleProps> = (props) => {
       .catch((e) => {
         console.log('e', e.message);
       });
+  }, []);
 
+  useEffect(() => {
     const deEmitter = DeviceEventEmitter.addListener(
       DeviceEventEmitterKey.iDO_reload,
       () => {
