@@ -4,23 +4,23 @@
  */
 
 import React, { FC } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
 
 import {
   StyledContent,
   StyledBottomMenu,
   StyledBottomMenuText,
-  StyledIcon,
   StyledRowDes,
   StyledBottomMenuButton,
   StyledActivityIndicator,
   StyledHeader,
+  StyledBtnImage,
 } from './style';
 
 import {
   StackActions,
   useNavigation,
-  useTheme,
+  // useTheme,
 } from '@react-navigation/native';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
 import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
@@ -32,26 +32,15 @@ import { usePutClassesIUseId } from 'src/hooks/interface';
 
 interface RenderItemType {
   title: string;
-  name: string;
   load?: boolean;
-  size?: number;
+  source: ImageSourcePropType;
   onPress: () => void;
-  Icon?: typeof StyledIcon;
   style?: StyleProp<ViewStyle>;
 }
 
 const RenderItem: FC<RenderItemType> = (props) => {
-  const {
-    title,
-    name,
-    load = false,
-    size = 30,
-    onPress,
-    Icon = StyledIcon,
-    style,
-  } = props;
-  const IconIN = Icon || StyledIcon;
-  const theme = useTheme();
+  const { title, load = false, onPress, source, style } = props;
+  // const theme = useTheme();
   return (
     <StyledBottomMenuButton
       style={style}
@@ -66,7 +55,8 @@ const RenderItem: FC<RenderItemType> = (props) => {
       {load ? (
         <StyledActivityIndicator color={'gray'} />
       ) : (
-        <IconIN size={size} name={name} color={theme.colors.text} />
+        // <StyledBtnImage />
+        <StyledBtnImage source={source} />
       )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>
@@ -117,26 +107,27 @@ const Settings = () => {
           iCard?.state !== -2 &&
           iUse?.statu !== 'del' && (
             <RenderItem
+              source={require('@img/circle/card_setting.png')}
               onPress={() => {
                 navigate(RouteKey.cardConfig, { iCardId: iCard.objectId });
               }}
-              name="md-settings"
               title="卡片配置"
             />
           )}
         <RenderItem
           load={loading}
+          source={require('@img/circle/card_pause_flat.png')}
           onPress={stopAction}
-          Icon={StyledIcon}
+          // Icon={StyledIcon}
           // name={!reflesh ? 'md-pause' : 'md-refresh'}
-          name={'md-pause'}
           title={'暂停打卡'}
         />
         <RenderItem
+          source={require('@img/circle/card_delete.png')}
           style={{ marginRight: 0 }}
           onPress={deleteAction}
           load={deleteLoading}
-          name="md-trash"
+          // name="md-trash"
           title="删除卡片"
         />
         {/* <SettingsClass user={user} iUse={data} iCard={data?.iCard} /> */}

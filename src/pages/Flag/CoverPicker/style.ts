@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-13 18:23:26
+ * @LastEditTime: 2021-01-14 15:49:06
  * @FilePath: /Combo/src/pages/Flag/CoverPicker/style.ts
  */
 /**
@@ -71,8 +71,8 @@ export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
   bottom: 50px; */
 `;
 
-export const StyledNextBtnText = styled.Text`
-  color: white;
+export const StyledNextBtnText = styled.Text<{ disabled: boolean }>`
+  color: ${({ disabled }) => (disabled ? 'grey' : 'white')};
   font-size: 14px;
 `;
 

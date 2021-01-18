@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-13 13:39:12
+ * @LastEditTime: 2021-01-15 10:42:00
  * @FilePath: /Combo/src/pages/Flag/Creat/style.ts
  */
 /**
@@ -24,7 +24,7 @@ export const StyledContent = styled.ScrollView`
 
 export const StyledTop = styled.View``;
 
-export const StyledCoverPickcerBg = styled.View`
+export const StyledCoverPickcerBg = styled.ImageBackground`
   padding: 20px;
   border-radius: 20px;
   background-color: #edf2f8;
@@ -97,8 +97,8 @@ export const StyledSpace = styled.View`
   flex: 1;
 `;
 
-export const StyledNextBtn = styled(Button)`
-  background-color: #65bb6a;
+export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
+  background-color: ${({ disabled }) => (disabled ? '#eef2f8' : '#65bb6a')};
   border-radius: 4px;
 
   height: 44px;
@@ -114,7 +114,24 @@ export const StyledNextBtn = styled(Button)`
   bottom: 50px; */
 `;
 
-export const StyledNextBtnText = styled.Text`
-  color: white;
+export const StyledNextBtnText = styled.Text<{ disabled: boolean }>`
+  color: ${({ disabled }) => (disabled ? 'grey' : 'white')};
   font-size: 14px;
 `;
+
+export const StyledDeleteBtn = styled(Button)`
+  /* background-color: #ff3232;
+  width: 20.8px;
+  height: 20.8px;
+  border-radius: 10.4px;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-color: #ffffff; */
+  right: 5px;
+  top: 8px;
+  position: absolute;
+  z-index: 100;
+`;
+
+export const StyledCloseImage = styled.Image``;

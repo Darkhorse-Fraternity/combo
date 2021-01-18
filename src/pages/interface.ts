@@ -39,8 +39,10 @@ export enum RouteKey {
   flagDetail = 'flagDetail',
   flagCreat = 'flagCreat',
   flagCoverPicker = 'flagCoverPicker',
+  flagCreatNext = 'flagCreatNext',
   frDetail = 'frDetail',
   cirlcleSetting = 'cirlcleSetting',
+  joinSetting = 'joinSetting',
   clockIn = 'clockIn',
   log = 'log',
   feedback = 'feedback',
@@ -102,7 +104,9 @@ export type RootStackParamList = {
   [RouteKey.flag]: undefined;
   [RouteKey.log]: { iUseId: string; color: string };
   [RouteKey.flagCreat]: { iCardId: string };
-  [RouteKey.flagCoverPicker]: undefined;
+  [RouteKey.joinSetting]: { iCardId: string };
+  [RouteKey.flagCoverPicker]: { url?: string };
+  [RouteKey.flagCreatNext]: { title: string; discrib: string; cover: string };
 };
 
 // type KeyType = keyof typeof RouteKey;

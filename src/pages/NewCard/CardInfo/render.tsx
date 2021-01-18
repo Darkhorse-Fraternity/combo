@@ -216,10 +216,10 @@ const CardInfoClass: FC<PropsType> = (props) => {
           <StyledTitleText>卡片介绍</StyledTitleText>
         </StyledTitleView>
 
-        <Row
+        {/* <Row
           title="加入费用:"
           des={iCard.price === 0 ? '免费' : `${iCard.price}元`}
-        />
+        /> */}
         {/* <Row
           title="是否开启圈子:"
           des={iCard.state !== CircleState.open ? '关闭' : '开启'}

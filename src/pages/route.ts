@@ -38,7 +38,9 @@ import log from './Card/Log';
 import RecordPrivate from './Record/Private';
 import feedback from './feedback';
 import FlagCreat from './Flag/Creat';
+import FlagCreatNext from './Flag/CreatNext';
 import flagCoverPicker from './Flag/CoverPicker';
+import JoinSetting from './Publish/JoinSetting';
 
 export const otherRoute = {
   [RouteKey.web]: web,
@@ -74,6 +76,8 @@ export const otherRoute = {
   [RouteKey.cirlcleSetting]: CirlcleSetting,
   [RouteKey.flagCreat]: FlagCreat,
   [RouteKey.flagCoverPicker]: flagCoverPicker,
+  [RouteKey.flagCreatNext]: FlagCreatNext,
+  [RouteKey.joinSetting]: JoinSetting,
   // pptDescribe: { screen: PPTDescribe },
 };
 

@@ -278,18 +278,6 @@ const TopMenu: FC<CircleProps> = ({ iCard, iUse }) => {
 
       {iCard.user.objectId === user?.objectId && (
         <MenuItem
-          title={'副本创建'}
-          source={require('../../../../source/img/circle/fire.png')}
-          onPress={() => {
-            navigate(RouteKey.flagCreat, {
-              iCardId: iCard.objectId,
-            });
-          }}
-        />
-      )}
-
-      {iCard.user.objectId === user?.objectId && (
-        <MenuItem
           title={'设置'}
           source={require('../../../../source/img/circle/settings.png')}
           onPress={() => {

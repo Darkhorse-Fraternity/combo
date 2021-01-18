@@ -1,43 +1,33 @@
-import styled from 'styled-components/native';
 import Button from '@components/Button';
+import styled from 'styled-components/native';
 
 export const StyledContent = styled.View`
   flex: 1;
   padding: 15px;
   background-color: ${(props) => props.theme.colors.card};
-`;
-
-export const StyledNavBar = styled.View`
   flex-direction: row;
-  justify-content: space-between;
 `;
 
-export const StyledText = styled.Text`
-  color: ${(props) => props.theme.colors.text};
-  font-weight: bold;
-  font-size: 15px;
+export const StyledHeaderButton = styled(Button)`
+  border-radius: 10px;
+  /* padding: 5px 10px; */
+  margin: 5px 15px 5px 10px;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) =>
+    theme.colors.textinputbackgroundColorPrimary};
 `;
 
-export const StyledTextInput = styled.TextInput`
-  margin-top: 5px;
-  color: ${(props) => props.theme.colors.text};
+export const StyledHeaderImage = styled.Image`
+  width: 30px;
+  height: 30px;
 `;
 
-interface submitType {
-  disabled: boolean;
-}
-
-export const StyledButton = styled(Button)`
-  align-self: center;
-  min-height: 20;
-`;
-
-export const StyledButtonText = styled.Text<submitType>`
-  color: ${(props) => (!props.disabled ? 'rgb(50,50,50)' : 'rgb(200,200,200)')};
-`;
-
-export const StyledUnderLine = styled.View`
-  background-color: rgb(200, 200, 200);
-  margin-top: 2;
-  height: ${(props) => props.theme.hairlineWidth};
+export const StyledHeaderText = styled.Text`
+  margin-top: 8px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.text};
 `;

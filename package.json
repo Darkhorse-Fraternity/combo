@@ -100,7 +100,7 @@
     "react-native-localize": "^1.4.0",
     "react-native-md5": "1.0.0",
     "react-native-modal": "11.6.1",
-    "react-native-modal-datetime-picker": "9.0.0",
+    "react-native-modal-datetime-picker": "9.1.0",
     "react-native-orientation-locker": "^1.2.0",
     "react-native-platform-touchable": "1.1.1",
     "react-native-push-notification": "3.4.0",

@@ -9,24 +9,6 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 import Button from '../../../components/Button';
 
-// var hexToRgb = function(hex) {
-//   var color = [], rgb = [];
-//
-//   hex = hex.replace(/#/,"");
-//
-//   if (hex.length == 3) { // 处理 "#abc" 成 "#aabbcc"
-//     var tmp = [];
-//     for (var i = 0; i < 3; i++) {
-//       tmp.push(hex.charAt(i) + hex.charAt(i));
-//     }
-//     hex = tmp.join("");
-//   }
-//
-//   for (var i = 0; i < 3; i++) {
-//     color[i] = "0x" + hex.substr(i * 2, 2);
-//     rgb.push(parseInt(Number(color[i])));
-//   }
-//   return "rgba(" + rgb.join(",") +",0.2"+ ")";
 // };
 
 export const StyledContent = styled.View`
@@ -130,4 +112,9 @@ export const StyeldDoneView = styled.View``;
 
 export const StyledHeader = styled.View`
   padding: 20px 20px 10px 20px;
+`;
+
+export const StyledBtnImage = styled.Image`
+  width: 30px;
+  height: 30px;
 `;

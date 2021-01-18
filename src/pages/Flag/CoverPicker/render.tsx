@@ -3,8 +3,12 @@
  * @flow
  */
 
+import { useNavigationAllParamsWithType } from '@components/Nav/hook';
+import { DeviceEventEmitterKey } from '@configure/enum';
+import { RouteKey } from '@pages/interface';
+import { useNavigation } from '@react-navigation/native';
 import React, { FC, useState } from 'react';
-import { ListRenderItem } from 'react-native';
+import { DeviceEventEmitter, ListRenderItem } from 'react-native';
 import ImagePicker, { Options } from 'react-native-image-crop-picker';
 import {
   StyledCoverPickcerBg,
@@ -139,12 +143,18 @@ const CreatStepOn: FC<ImagePikerType> = (props) => {
 };
 
 const FlagCoverPicker: FC<{}> = () => {
-  const [value, setValue] = useState<string>();
+  const { url } = useNavigationAllParamsWithType<RouteKey.flagCoverPicker>();
+  const { goBack } = useNavigation();
+  const [value, setValue] = useState<string | undefined>(url);
+  const onPress = () => {
+    DeviceEventEmitter.emit(DeviceEventEmitterKey.flag_cover_picker, value);
+    goBack();
+  };
   return (
     <StyledSafeAreaView>
       <CreatStepOn value={value} setValue={setValue} />
-      <StyledNextBtn disabled={!value}>
-        <StyledNextBtnText>保存</StyledNextBtnText>
+      <StyledNextBtn onPress={onPress} disabled={!value}>
+        <StyledNextBtnText disabled={!value}>保存</StyledNextBtnText>
       </StyledNextBtn>
     </StyledSafeAreaView>
   );

@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-12 14:55:17
+ * @LastEditTime: 2021-01-15 16:30:28
  * @FilePath: /Combo/src/Theme/index.ts
  */
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -34,6 +34,9 @@ const getTheme = (colorScheme: ColorSchemeName) => {
     titleSecondary: isDarkMode ? 'rgb(150,150,150)' : '#646464',
     titleTertiary: isDarkMode ? 'rgb(100,100,100)' : 'rgb(180,180,180)',
     textinputbackgroundColor: isDarkMode ? 'rgb(30,30,30)' : '#f6f7f9',
+    textinputbackgroundColorPrimary: isDarkMode
+      ? 'rgb(60,60,60)'
+      : 'rgb(240,240,240)',
     titleBackViewColor: isDarkMode ? 'rgb(30,30,30)' : '#f6f7f9',
     cardPrimary: isDarkMode ? '#232323' : 'white',
   };
