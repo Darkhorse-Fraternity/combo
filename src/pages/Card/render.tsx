@@ -4,9 +4,9 @@
  */
 
 import React, { FC, PureComponent, useEffect } from 'react';
-import { Animated, Platform } from 'react-native';
+import { Animated } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
-import Toast from 'react-native-simple-toast';
+// import Toast from 'react-native-simple-toast';
 import { StyledContent, StyledHeaderRight, StyledIcon } from './style';
 
 import TitleTabBar from '../../components/Groceries/TitleTabBar';
@@ -16,7 +16,7 @@ import Button from '../../components/Button/index';
 import { CircleState } from '../../configure/enum';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { putClassesICardId } from 'src/hooks/interface';
+// import { putClassesICardId } from 'src/hooks/interface';
 import { useNavigation } from '@react-navigation/native';
 import { LoadAnimation } from '@components/Load';
 import { useGetUserInfo } from 'src/data/data-context';
@@ -24,19 +24,19 @@ import { useGetIuseData, useMutateICardData } from 'src/data/data-context/core';
 import { IUseType } from 'src/data/data-context/interface';
 
 interface RenderHeaderRightProps {
-  isSelf: boolean;
+  // isSelf: boolean;
   onPress: (type: 'log' | 'setting') => void;
   tintColor?: string;
 }
 
 const RenderHeaderRight: FC<RenderHeaderRightProps> = ({
-  isSelf,
+  // isSelf,
   tintColor,
   onPress,
 }) => {
   return (
     <StyledHeaderRight>
-      {isSelf && (
+      {/* {isSelf && (
         <Button onPress={onPress.bind(undefined, 'log')}>
           <StyledIcon
             color={tintColor}
@@ -45,7 +45,7 @@ const RenderHeaderRight: FC<RenderHeaderRightProps> = ({
             name="users"
           />
         </Button>
-      )}
+      )} */}
       <Button onPress={onPress.bind(undefined, 'setting')}>
         <StyledIcon
           color={tintColor}
@@ -116,7 +116,7 @@ const Card: FC<{}> = (props) => {
 
   useEffect(() => {
     if (iCard) {
-      const isSelf = iCard.user?.objectId === user?.objectId;
+      // const isSelf = iCard.user?.objectId === user?.objectId;
       // const headerRight = () => (
       //   <TouchableItem
       //     style={{ marginRight: 20, backgroundColor: color, padding: 7, paddingHorizontal: 10, borderRadius: 8 }}
@@ -133,30 +133,30 @@ const Card: FC<{}> = (props) => {
       setOptions({
         headerRight: (props1: { tintColor?: string }) => (
           <RenderHeaderRight
-            isSelf={isSelf}
+            // isSelf={isSelf}
             {...props1}
             onPress={async (type) => {
               if (type === 'log') {
                 // this.props.setCircleState(iCard);
-                const circleState =
-                  iCard.state === CircleState.close
-                    ? CircleState.open
-                    : CircleState.close;
-                const state =
-                  iCard.state === CircleState.close
-                    ? CircleState.open
-                    : CircleState.close;
-                const { objectId } = await putClassesICardId({
-                  id: iCard.objectId,
-                  circleState,
-                  state,
-                });
-                if (objectId) {
-                  update({ state, circleState, objectId: iCard.objectId });
-                  Toast.show(
-                    iCard.state === CircleState.close ? '多人模式' : '单人模式',
-                  );
-                }
+                // const circleState =
+                //   iCard.state === CircleState.close
+                //     ? CircleState.open
+                //     : CircleState.close;
+                // const state =
+                //   iCard.state === CircleState.close
+                //     ? CircleState.open
+                //     : CircleState.close;
+                // const { objectId } = await putClassesICardId({
+                //   id: iCard.objectId,
+                //   circleState,
+                //   state,
+                // });
+                // if (objectId) {
+                //   update({ state, circleState, objectId: iCard.objectId });
+                //   Toast.show(
+                //     iCard.state === CircleState.close ? '打开小组' : '关闭小组',
+                //   );
+                // }
               } else {
                 navigate(RouteKey.cardSetting, {
                   iCardId: iCard.objectId,

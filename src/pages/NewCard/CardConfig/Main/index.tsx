@@ -49,10 +49,13 @@ import {
   CardProps,
   CardRecord,
   CardSound,
+  CardState,
   CardTitle,
 } from '../card_interface';
 import { Control, Controller } from 'react-hook-form';
 import Multiple from './Multiple';
+import { CircleState } from '@configure/enum';
+import { RenderCardState } from './team';
 
 interface OptionDoProps {
   step: number;
@@ -333,6 +336,7 @@ const LauchDisplay: FC<{
     notifyText,
     record = [],
     sound,
+    cardState,
   } = data || {};
   const { color, name } = iconAndColor || {};
   const { day, time } = limitTimes || {};
@@ -392,6 +396,12 @@ const LauchDisplay: FC<{
         onPress={onPress.bind(undefined, CardSound)}
         discrib={sound?.open ? sound?.item.title : '无'}
       />
+
+      <RenderItem
+        title={'小组配置'}
+        onPress={onPress.bind(undefined, CardState)}
+        discrib={cardState === CircleState.close ? '关闭' : '开启'}
+      />
     </Animatable.View>
   );
 };
@@ -404,7 +414,7 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
   };
 
   return (
-    <ScrollView style={[styles.wrap]}>
+    <ScrollView style={styles.wrap}>
       {step === 0 && <LauchDisplay control={control} onPress={onPress} />}
 
       {step === 1 && (
@@ -459,6 +469,14 @@ const OptionDo: FC<OptionDoProps> = ({ step, nextStep, control }) => {
               name={CardSound}
               control={control}
               as={RenderComboSounds}
+            />
+          )}
+          {type === CardState && (
+            <Controller
+              color="green"
+              name={CardState}
+              control={control}
+              as={RenderCardState}
             />
           )}
         </Animatable.View>

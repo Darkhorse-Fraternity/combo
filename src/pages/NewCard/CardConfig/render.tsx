@@ -29,6 +29,7 @@ import {
   CardNotifyTimes,
   CardRecord,
   CardSound,
+  CardState,
   CardTitle,
   cardValidationSchema,
 } from './card_interface';
@@ -40,6 +41,7 @@ import {
 } from 'src/hooks/interface';
 import { LoadAnimation } from '@components/Load';
 import { useMutateICardData } from 'src/data/data-context/core';
+import { CircleState } from '@configure/enum';
 
 const CardConfig: FC<{}> = () => {
   const [step, setStep] = useState(0);
@@ -61,6 +63,7 @@ const CardConfig: FC<{}> = () => {
       [CardNotifyText]: '',
       [CardRecord]: [],
       [CardSound]: {},
+      [CardState]: CircleState.close,
     },
     mode: 'onSubmit',
     shouldUnregister: false,
@@ -78,6 +81,7 @@ const CardConfig: FC<{}> = () => {
         notifyText,
         record,
         sound,
+        state,
       } = data;
       setValue(CardNotifyTimes, notifyTimes);
       setValue(CardLimitDayAndTimes, { day: recordDay, time: limitTimes });
@@ -86,6 +90,7 @@ const CardConfig: FC<{}> = () => {
       setValue(CardNotifyText, notifyText || '');
       setValue(CardRecord, record || []);
       setValue(CardSound, sound as never);
+      setValue(CardState, state);
       setShow(true);
     }
   }, [data, setValue]);
@@ -98,6 +103,7 @@ const CardConfig: FC<{}> = () => {
     notifyText,
     notifyTimes,
     sound,
+    cardState,
   }: CardFormData) => {
     delete sound.item.source;
     setLoading(true);
@@ -110,6 +116,8 @@ const CardConfig: FC<{}> = () => {
       notifyText,
       notifyTimes,
       sound,
+      circleState: cardState,
+      state: cardState,
     };
     const { objectId } = await putClassesICardId({
       id: iCardId,

@@ -30,7 +30,7 @@ import {
   StyledContent,
 } from './style';
 // static displayName = Creat
-import { DeviceEventEmitterKey } from '../../../../configure/enum';
+import { CircleState, DeviceEventEmitterKey } from '../../../../configure/enum';
 
 import IconAndColor from './IconAndColor';
 import {
@@ -47,6 +47,7 @@ import {
   CardNotifyTimes,
   CardRecord,
   CardSound,
+  CardState,
   CardTitle,
   cardValidationSchema,
 } from '../card_interface';
@@ -122,6 +123,7 @@ const Render: FC<{}> = () => {
         open: true,
         item: { title: 'bell', type: 'normal', key: 'bell', source: '' },
       },
+      [CardState]: CircleState.close,
     },
     mode: 'onSubmit',
     shouldUnregister: false,
@@ -135,6 +137,7 @@ const Render: FC<{}> = () => {
     notifyText,
     notifyTimes,
     sound,
+    cardState,
   }: CardFormData) => {
     delete sound.item.source;
     setLoading(true);
@@ -147,6 +150,8 @@ const Render: FC<{}> = () => {
       notifyText,
       notifyTimes,
       sound,
+      circleState: cardState,
+      state: cardState,
       user: userPoint(user.objectId),
     });
 

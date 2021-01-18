@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 09:38:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2020-12-25 16:56:34
+ * @LastEditTime: 2021-01-18 11:23:53
  * @FilePath: /Combo/src/pages/NewCard/CardConfig/card_interface.ts
  */
 import { SoundsType } from '@configure/source';
@@ -31,6 +31,7 @@ export const CardSound = 'sound';
 export const CardLimitDayAndTimes = 'limitTimes';
 export const CardNotifyText = 'notifyText';
 export const CardNotifyTimes = 'notifyTimes';
+export const CardState = 'cardState';
 
 export type CardProps =
   | 'menu'
@@ -40,7 +41,8 @@ export type CardProps =
   | typeof CardSound
   | typeof CardLimitDayAndTimes
   | typeof CardNotifyTimes
-  | typeof CardNotifyText;
+  | typeof CardNotifyText
+  | typeof CardState;
 
 export type CardFormData = {
   [CardTitle]: string;
@@ -54,6 +56,7 @@ export type CardFormData = {
   // [CardLimitTimes]: string[];
   [CardNotifyText]: string;
   [CardNotifyTimes]: string[];
+  [CardState]: number;
 };
 
 export const cardValidationSchema = yup.object().shape({
@@ -91,4 +94,5 @@ export const cardValidationSchema = yup.object().shape({
   // [CardLimitTimes]: yup.array().of(yup.string()).label('打卡时间限制'),
   [CardNotifyText]: yup.string().max(50).trim().label('打卡激励语'),
   [CardNotifyTimes]: yup.array().of(yup.string()).label('打卡提醒时间'),
+  [CardState]: yup.number().required().label('是否开启小组'),
 });

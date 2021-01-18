@@ -16,17 +16,23 @@ import {
   StyledHeader,
   StyledBtnImage,
 } from './style';
-
+import Toast from 'react-native-simple-toast';
 import {
   StackActions,
   useNavigation,
   // useTheme,
 } from '@react-navigation/native';
 import { useGetInfoOfMe } from 'src/data/data-context/user';
-import { useGetIuseData, useMutateIuseData } from 'src/data/data-context/core';
+import {
+  useGetIuseData,
+  useMutateICardData,
+  useMutateIuseData,
+} from 'src/data/data-context/core';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { RouteKey } from '@pages/interface';
-import { usePutClassesIUseId } from 'src/hooks/interface';
+import { putClassesICardId, usePutClassesIUseId } from 'src/hooks/interface';
+import { CircleState } from '@configure/enum';
+import { goBack } from '@components/Nav/navigators';
 
 // const { width } = Dimensions.get('window');
 
@@ -56,7 +62,7 @@ const RenderItem: FC<RenderItemType> = (props) => {
         <StyledActivityIndicator color={'gray'} />
       ) : (
         // <StyledBtnImage />
-        <StyledBtnImage source={source} />
+        <StyledBtnImage resizeMode="center" source={source} />
       )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>
@@ -67,6 +73,7 @@ const Settings = () => {
   const { iUseId } = useNavigationAllParamsWithType<RouteKey.cardSetting>();
   const { user } = useGetInfoOfMe();
   const { data: iUse } = useGetIuseData(iUseId);
+  const { update } = useMutateICardData();
   const iCard = iUse?.iCard;
   const { remove } = useMutateIuseData();
   const { dispatch, navigate } = useNavigation();
@@ -112,6 +119,39 @@ const Settings = () => {
                 navigate(RouteKey.cardConfig, { iCardId: iCard.objectId });
               }}
               title="卡片配置"
+            />
+          )}
+        {iCard?.user.objectId === user.objectId &&
+          iCard?.state !== -2 &&
+          iUse?.statu !== 'del' && (
+            <RenderItem
+              source={require('@img/circle/card_team.png')}
+              onPress={async () => {
+                // navigate(RouteKey.cardConfig, { iCardId: iCard.objectId });
+                const circleState =
+                  iCard.state === CircleState.close
+                    ? CircleState.open
+                    : CircleState.close;
+                const state =
+                  iCard.state === CircleState.close
+                    ? CircleState.open
+                    : CircleState.close;
+                const { objectId } = await putClassesICardId({
+                  id: iCard.objectId,
+                  circleState,
+                  state,
+                });
+                if (objectId) {
+                  update({ state, circleState, objectId: iCard.objectId });
+                  goBack();
+                  Toast.show(
+                    iCard.state === CircleState.close ? '打开小组' : '关闭小组',
+                  );
+                }
+              }}
+              title={
+                iCard.state === CircleState.close ? '打开小组' : '关闭小组'
+              }
             />
           )}
         <RenderItem
