@@ -98,3 +98,24 @@ export const app_channel = async () => {
   }
 };
 app_channel();
+
+export const dayText = (recordDay: number[]) => {
+  const days = recordDay.sort();
+
+  // console.log('days:', days);
+
+  if (days.length === 0) {
+    return '无';
+  }
+  if (days.length === 7) {
+    return '每天';
+  }
+  if (days.length === 2 && days[0] === 6) {
+    return '周六与周日';
+  }
+  if (days.length === 5 && days[4] === 5) {
+    return '周一至周五';
+  }
+  const names = ['周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  return days.map((day) => names[day - 1]).toString();
+};

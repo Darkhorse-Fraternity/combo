@@ -28,19 +28,21 @@ export const RenderCardState: FC<RenderSoundsType> = ({
   });
 
   return (
-    <StyledSubTitle>
-      <StyledRowInner>
-        <StyledIcon size={20} name="user-friends" />
-        <StyledSubTitleText>开启小组</StyledSubTitleText>
-      </StyledRowInner>
-      <StyledSwitch
-        {...propsColor}
-        value={value === CircleState.open}
-        onValueChange={(open) => {
-          onChange && onChange(open ? CircleState.open : CircleState.close);
-        }}
-      />
-    </StyledSubTitle>
+    <>
+      <StyledSubTitle>
+        <StyledRowInner>
+          <StyledIcon size={20} name="user-friends" />
+          <StyledSubTitleText>开启小组</StyledSubTitleText>
+        </StyledRowInner>
+        <StyledSwitch
+          {...propsColor}
+          value={value === CircleState.open}
+          onValueChange={(open) => {
+            onChange && onChange(open ? CircleState.open : CircleState.close);
+          }}
+        />
+      </StyledSubTitle>
+    </>
   );
 };
 

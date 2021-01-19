@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-15 13:59:32
+ * @LastEditTime: 2021-01-19 17:16:52
  * @FilePath: /Combo/src/pages/Flag/CreatNext/style.ts
  */
 /**
@@ -13,8 +13,13 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 import Button from '@components/Button';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export const StyledSafeAreaView = styled(SafeAreaView)`
+  flex: 1;
+`;
+
+export const StyledContent = styled.ScrollView`
   flex: 1;
 `;
 
@@ -86,4 +91,85 @@ export const StyledNextBtnText = styled.Text<{ disabled: boolean }>`
 
 export const StyledSpace = styled.View`
   flex: 1;
+`;
+
+export const StyledTop = styled.View`
+  /* flex: 1; */
+  align-items: center;
+`;
+
+export const StyledTopInfo = styled.View`
+  /* flex: 1; */
+`;
+export const StyledTopInfoItem = styled.View`
+  flex-direction: row;
+  margin-top: 10px;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+`;
+export const StyledTopInfoItemTitle = styled.Text``;
+
+export const StyledTopInfoItemDiscrib = styled.Text``;
+
+export const StyledTopButton = styled(Button)`
+  padding: 10px 20px;
+  border-radius: 20px;
+  border-width: ${({ theme }) => theme.hairlineWidth};
+  border-color: green;
+  margin: 20px;
+`;
+
+interface StyledIconBGType {
+  color: string;
+}
+
+export const StyledIconBG = styled.View<StyledIconBGType>`
+  height: 62px;
+  width: 62px;
+  background-color: ${(props) => props.color};
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  shadow-opacity: 0.6;
+  shadow-radius: 3px;
+  shadow-color: ${(props) => props.color};
+  shadow-offset: 2px 2px;
+`;
+
+interface StyledIconImageType {
+  size: number;
+}
+
+export const StyledIconImage = styled.Image<StyledIconImageType>`
+  width: ${(props) => props.size};
+  height: ${(props) => props.size};
+`;
+
+export const StyledIcon = styled(FontAwesome)`
+  align-self: center;
+  margin-left: 5px;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const StyledTitle = styled.Text`
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  color: ${({ theme }) => theme.colors.text};
+  margin-top: 5px;
+`;
+
+export const StyledTip = styled.Text`
+  color: green;
+  align-self: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+`;
+
+export const StyledErrorsView = styled.View`
+  align-items: center;
+  justify-content: center;
+  margin-top: -15px;
 `;

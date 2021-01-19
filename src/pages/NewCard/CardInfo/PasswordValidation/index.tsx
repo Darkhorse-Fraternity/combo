@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-19 16:52:39
+ * @FilePath: /Combo/src/pages/NewCard/CardInfo/PasswordValidation/index.tsx
+ */
 import React, { useCallback, FC } from 'react';
 
 import {

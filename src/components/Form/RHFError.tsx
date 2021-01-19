@@ -1,32 +1,39 @@
 import React from 'react';
+import { DeepMap, FieldError } from 'react-hook-form';
 import { TextProps, StyleSheet, StyleProp } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-type ErrorFields = Record<
-  string,
-  { message?: string; type: string } | undefined
->;
-type Name = keyof ErrorFields;
+type ErrorFields<T> = DeepMap<T, FieldError>;
 
-interface RHFErrorProps<T, U> {
+interface RHFErrorProps<T> {
   as?: React.ReactElement;
-  errors?: T;
-  name: U;
+  errors?: ErrorFields<T>;
+  name?: keyof ErrorFields<T>;
   messages?: Record<string, string>;
   style?: StyleProp<TextProps>;
 }
 
-type RHFErrorPropsOut = RHFErrorProps<ErrorFields, Name>;
+// type RHFErrorPropsOut = RHFErrorProps<ErrorFields, Name>;
 
-const RHFError = ({
+const oneOfErrors = (errors: ErrorFields<{}>) => {
+  let message = '';
+  const keys = Object.keys(errors);
+  const key = keys[0];
+  if (key) {
+    message = errors[key].message;
+  }
+  return message || '';
+};
+
+const RHFError = <T extends {}>({
   as,
   errors,
   name,
-  messages = {},
+  // messages = {},
   style = {},
-}: RHFErrorPropsOut) => {
+}: RHFErrorProps<T>) => {
   // @ts-ignore
 
-  const message = errors[name]?.message || messages[errors?.type];
+  const message = name && errors ? errors[name]?.message : oneOfErrors(errors);
 
   // const [height, setHeight] = useState(new Animated.Value(0));
 
@@ -52,7 +59,7 @@ const RHFError = ({
 const styles = StyleSheet.create({
   error: {
     color: 'red',
-    fontSize: 11,
+    fontSize: 13,
     marginTop: 5,
   },
 });

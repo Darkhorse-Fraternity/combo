@@ -106,7 +106,12 @@ export type RootStackParamList = {
   [RouteKey.flagCreat]: { iCardId: string };
   [RouteKey.joinSetting]: { iCardId: string };
   [RouteKey.flagCoverPicker]: { url?: string };
-  [RouteKey.flagCreatNext]: { title: string; discrib: string; cover: string };
+  [RouteKey.flagCreatNext]: {
+    title: string;
+    discrib: string;
+    cover: string;
+    iCardId: string;
+  };
 };
 
 // type KeyType = keyof typeof RouteKey;

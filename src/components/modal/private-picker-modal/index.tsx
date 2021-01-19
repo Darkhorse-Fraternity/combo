@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:50:37
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-19 18:12:50
+ * @FilePath: /Combo/src/components/modal/private-picker-modal/index.tsx
+ */
 import React, { FC, memo, Ref } from 'react';
 
 import {
@@ -18,7 +25,7 @@ interface ItemType {
 
 interface PrivatePickerModalType {
   items: ItemType[];
-  onChange: (id: string) => void;
+  onChange: (id: string, index: number) => void;
   selectId: string;
   isVisible: boolean;
   onClose: () => void;
@@ -28,6 +35,8 @@ const PrivatePickerModalRef: FC<
   PrivatePickerModalType & { forwardRef: Ref<Modal> }
 > = ({ items, onChange, selectId, forwardRef, isVisible, onClose }) => {
   const { bottom } = useSafeAreaInsets();
+
+  console.log('selectId', selectId);
 
   return (
     <Modal
@@ -46,12 +55,12 @@ const PrivatePickerModalRef: FC<
       // handleComponent={BottomSheetHandle}
     >
       <StyledContent paddingBottom={bottom}>
-        {items.map(({ label, id }) => (
+        {items.map(({ label, id }, index) => (
           <StyledItem
             // activeOpacity={1}
             key={id}
             onPress={() => {
-              onChange(id);
+              onChange(id, index);
               // console.log('id', id);
 
               // bottomSheetModalRef.current?.close();

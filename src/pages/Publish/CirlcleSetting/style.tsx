@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:50:37
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-19 15:35:09
+ * @FilePath: /Combo/src/pages/Publish/CirlcleSetting/style.tsx
+ */
 import Button from '@components/Button';
 import styled from 'styled-components/native';
 
@@ -13,8 +20,8 @@ export const StyledHeaderButton = styled(Button)`
   /* padding: 5px 10px; */
   margin: 5px 15px 5px 10px;
   align-items: center;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) =>
@@ -22,8 +29,8 @@ export const StyledHeaderButton = styled(Button)`
 `;
 
 export const StyledHeaderImage = styled.Image`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 `;
 
 export const StyledHeaderText = styled.Text`

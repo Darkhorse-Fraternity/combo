@@ -3,7 +3,10 @@
  * @flow
  */
 
-import { useNavigationWithType } from '@components/Nav/hook';
+import {
+  useNavigationAllParamsWithType,
+  useNavigationWithType,
+} from '@components/Nav/hook';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { RouteKey } from '@pages/interface';
 import React, { FC, useEffect, useState } from 'react';
@@ -94,12 +97,18 @@ const CreatStepOn: FC<{}> = () => {
   const [title, setTitle] = useState('');
   const [discrib, setDiscrib] = useState('');
   const { navigate } = useNavigationWithType();
+  const { iCardId } = useNavigationAllParamsWithType<RouteKey.flagCreat>();
 
   const disabled = !cover || title.length === 0 || discrib.length === 0;
 
   const onNext = () => {
     if (cover) {
-      navigate(RouteKey.flagCreatNext, { cover: cover, title, discrib });
+      navigate(RouteKey.flagCreatNext, {
+        cover: cover,
+        title,
+        discrib,
+        iCardId,
+      });
     }
   };
 
