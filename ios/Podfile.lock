@@ -106,6 +106,10 @@ PODS:
     - libwebp/demux
   - libwebp/webp (1.1.0)
   - LookinServer (1.0.0)
+  - lottie-ios (3.1.8)
+  - lottie-react-native (3.5.0):
+    - lottie-ios (~> 3.1.8)
+    - React
   - Masonry (1.1.0)
   - MBProgressHUD (1.0.0)
   - OpenSSL-Universal (1.0.2.19):
@@ -477,6 +481,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - LookinServer
+  - lottie-react-native (from `../node_modules/lottie-react-native`)
   - Masonry (~> 1.1.0)
   - MBProgressHUD (~> 1.0.0)
   - "RCTAlipay (from `../node_modules/@0x5e/react-native-alipay/ios`)"
@@ -564,6 +569,7 @@ SPEC REPOS:
     - JWT
     - libwebp
     - LookinServer
+    - lottie-ios
     - Masonry
     - MBProgressHUD
     - OpenSSL-Universal
@@ -589,6 +595,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  lottie-react-native:
+    :path: "../node_modules/lottie-react-native"
   RCTAlipay:
     :path: "../node_modules/@0x5e/react-native-alipay/ios"
   RCTRequired:
@@ -739,6 +747,8 @@ SPEC CHECKSUMS:
   JWT: 9b5c05abbcc1a0e69c3c91e1655b3387fc7e581d
   libwebp: 04242ef451672185c1fe41b285a034d2fbda483c
   LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  lottie-react-native: 1fb4ce21d6ad37dab8343eaff8719df76035bd93
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
