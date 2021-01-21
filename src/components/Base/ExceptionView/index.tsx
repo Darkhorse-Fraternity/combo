@@ -8,7 +8,7 @@ import {
   ViewStyle,
   ImageSourcePropType,
   ImageStyle,
-  useColorScheme,
+  // useColorScheme,
 } from 'react-native';
 import Indicators from '../../Indicators';
 import { StyledContent, StyledReportBtn, StyledReportText } from './style';
@@ -25,14 +25,14 @@ interface RenderPromptImageProp {
 }
 
 const RenderPromptImage = (props: RenderPromptImageProp) => {
-  const sc = useColorScheme();
-  const isMode = sc === 'dark';
+  // const sc = useColorScheme();
+  // const isMode = sc === 'dark';
 
   const {
     prompIamgeStyle,
-    promptImage = !isMode
-      ? require('@img/my/logo.png')
-      : require('@img/my/logo-dark.png'),
+    promptImage = require('@img/my/logo.png'),
+    // ? require('@img/my/logo.png')
+    // : require('@img/my/logo-dark.png'),
   } = props;
   return <Image source={promptImage} style={[styles.image, prompIamgeStyle]} />;
 };

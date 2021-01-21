@@ -18,7 +18,6 @@ import {
   Platform,
   Keyboard,
   TextInputProps,
-  useColorScheme,
 } from 'react-native';
 import Toast from 'react-native-simple-toast';
 import * as Animatable from 'react-native-animatable';
@@ -258,16 +257,12 @@ interface RenderWechatProps {
 }
 
 const RenderWechat: FC<RenderWechatProps> = ({ load, onWeChat, onMore }) => {
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   return (
     <StyledContent style={{ justifyContent: 'space-between' }}>
       <Animatable.View animation="fadeIn">
         <StyledImage
-          source={
-            colorScheme === 'dark'
-              ? require('../../../../source/img/my/logo-dark.png')
-              : require('../../../../source/img/my/icon-60.png')
-          }
+          source={require('../../../../source/img/my/icon-60.png')}
         />
         <SyledImageName>{strings('app.name')}</SyledImageName>
       </Animatable.View>

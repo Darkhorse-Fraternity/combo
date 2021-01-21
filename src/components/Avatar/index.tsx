@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:50:37
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-20 16:16:01
+ * @FilePath: /Combo/src/components/Avatar/index.tsx
+ */
 /**
  * Created by lintong on 2018/9/29.
  * @flow
@@ -14,7 +21,7 @@ import {
 
 import { add_Leancloud_Thumbnail_Suffix } from '../../../helps/util';
 import { UserType } from 'src/data/data-context/interface';
-import { useColorScheme } from 'react-native';
+// import { useColorScheme } from 'react-native';
 
 // 限定缩略图
 // https://developer.qiniu.com/dora/manual/1279/basic-processing-images-imageview2
@@ -29,11 +36,11 @@ interface AvatarType {
 const Avatar: FC<AvatarType> = (props) => {
   const { radius = 40, user, load = false } = props;
 
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   const defaultImage =
-    colorScheme === 'dark'
-      ? require('../../../source/img/my/logo-dark.png')
-      : require('../../../source/img/my/icon-60.png');
+    // colorScheme === 'dark'
+    //   ? require('../../../source/img/my/logo-dark.png')
+    require('../../../source/img/my/icon-60.png');
 
   const { avatar, headimgurl } = user;
   let avatarUrl = avatar ? avatar.url : headimgurl;

@@ -1,10 +1,17 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-20 16:17:05
+ * @FilePath: /Combo/src/components/Indicators/index.tsx
+ */
 /**
  * Created by lintong on 2019/1/10.
  * @flow
  */
 
 import React, { FC, memo, useEffect, useRef } from 'react';
-import { Image, Animated, useColorScheme } from 'react-native';
+import { Image, Animated } from 'react-native';
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 
@@ -15,7 +22,7 @@ interface IndicatorsProps {
 }
 
 const Indicators: FC<IndicatorsProps> = (props) => {
-  const { animated = true, size = 30, modeDark } = props;
+  const { animated = true, size = 30 } = props;
 
   const springValueRef = useRef(new Animated.Value(0));
   const springValue = springValueRef.current;
@@ -40,8 +47,8 @@ const Indicators: FC<IndicatorsProps> = (props) => {
     ).start();
   }, []);
 
-  const colorScheme = useColorScheme();
-  const isMode = modeDark ?? colorScheme === 'dark';
+  // const colorScheme = useColorScheme();
+  // const isMode = modeDark ?? colorScheme === 'dark';
 
   const spin = springValue.interpolate({
     inputRange: [0, 1],
@@ -57,11 +64,7 @@ const Indicators: FC<IndicatorsProps> = (props) => {
         height: size,
         ...transform,
       }}
-      source={
-        isMode
-          ? require('../../../source/img/my/logo-dark.png')
-          : require('../../../source/img/my/logo.png')
-      }
+      source={require('../../../source/img/my/logo.png')}
     />
   );
 };
