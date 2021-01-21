@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-20 16:16:45
+ * @FilePath: /Combo/src/components/modal/alert/index.tsx
+ */
 /* eslint-disable react-native/no-inline-styles */
 import React, { FC, memo } from 'react';
 // import Button from 'components/Button';
@@ -15,7 +22,7 @@ import {
 } from './style';
 // import Modal from 'react-native-modal';
 import { ButtonOpacity } from '@components/Button';
-import { GestureResponderEvent, Modal, useColorScheme } from 'react-native';
+import { GestureResponderEvent, Modal } from 'react-native';
 
 export interface PickViewProps extends InnerViewProps {
   isVisiable?: boolean;
@@ -30,17 +37,13 @@ export interface InnerViewProps {
 
 const InnerView = (props: InnerViewProps) => {
   const { onSuccess, onClose, title, message } = props;
-  const colorScheme = useColorScheme();
+  // const colorScheme = useColorScheme();
   return (
     <ContentView>
       <StyledLogoView>
         <StyledLogo
           resizeMode={'contain'}
-          source={
-            colorScheme === 'dark'
-              ? require('@img/my/logo-dark.png')
-              : require('@img/my/icon-60.png')
-          }
+          source={require('@img/my/icon-60.png')}
         />
       </StyledLogoView>
       <StyledTitle>{title}</StyledTitle>
