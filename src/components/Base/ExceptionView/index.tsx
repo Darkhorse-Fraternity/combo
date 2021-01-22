@@ -118,8 +118,8 @@ export default class ExceptionView extends PureComponent<ExceptionViewProps> {
 const styles = StyleSheet.create({
   image: {
     // position:'absolute',
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     // marginTop: -StatusBarHeight,
     alignSelf: 'center',
   },

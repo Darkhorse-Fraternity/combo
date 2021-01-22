@@ -98,7 +98,10 @@ export function LoadAnimation(props?: LoadAnimationProps) {
     <View
       style={[
         styles.lottieViewBC,
-        { top: (height - size + lastTop) / 2 - top, left: (width - size) / 2 },
+        {
+          top: (height - size * 12 + lastTop) / 2 - top,
+          left: (width - size * 6) / 2,
+        },
       ]}>
       {/* <ActivityIndicator size={"small"} color={"gray"} /> */}
       <Indicators size={30} modeDark={modeDark} />
