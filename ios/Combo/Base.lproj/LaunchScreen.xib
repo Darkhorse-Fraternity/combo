@@ -29,11 +29,11 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-41.304347826086961" y="305.29891304347831"/>
+            <point key="canvasLocation" x="-41.851851851851848" y="305.27777777777777"/>
         </view>
     </objects>
     <resources>
-        <image name="logo-horizontal-0" width="2683" height="646"/>
+        <image name="logo-horizontal-0" width="268" height="64.5"/>
         <systemColor name="systemGroupedBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

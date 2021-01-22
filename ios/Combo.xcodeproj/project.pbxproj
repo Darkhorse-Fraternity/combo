@@ -590,6 +590,7 @@
 				EA6EA3702547FF1A007D484B /* Sources */,
 				EA6EA3712547FF1A007D484B /* Frameworks */,
 				EA6EA3722547FF1A007D484B /* Resources */,
+				77ABBCF125BAB827002D9CBF /* Set Version */,
 			);
 			buildRules = (
 			);
@@ -608,6 +609,7 @@
 				EA9E5B5D24FFA235001F3ED7 /* Sources */,
 				EA9E5B5E24FFA235001F3ED7 /* Frameworks */,
 				EA9E5B5F24FFA235001F3ED7 /* Resources */,
+				77ABBD1625BABB64002D9CBF /* Set Version */,
 			);
 			buildRules = (
 			);
@@ -894,6 +896,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\nif nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\nif ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\necho \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\nexit 2\nfi\nelse\nopen \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\nfi\nfi\n";
+		};
+		77ABBCF125BAB827002D9CBF /* Set Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "PACKAGE_VERSION=$(cat ../app.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		77ABBD1625BABB64002D9CBF /* Set Version */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Version";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPACKAGE_VERSION=$(cat ../app.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\\\",]//g' | tr -d '[[:space:]]')\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString $PACKAGE_VERSION\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
 		AE43CB8B07860A8DD8EFCDB7 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1877,7 +1915,7 @@
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
@@ -1909,7 +1947,7 @@
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1940,7 +1978,7 @@
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1970,7 +2008,7 @@
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
@@ -2002,7 +2040,7 @@
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2033,7 +2071,7 @@
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.6.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
