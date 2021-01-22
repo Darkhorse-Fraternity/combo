@@ -101,29 +101,6 @@ const RenderRow: FC<ICardType> = (props) => {
   );
 };
 
-// const useLoadMoreWithLCConfig = <T extends {}>(limit: number = 20) => {
-//   const skipRef = useRef(0);
-//   const params = { limit: limit + '', skip: skipRef.current + '' };
-//   const option: LoadMoreOptionsWithFormat<
-//     LoadMoreFormatReturn,
-//     { result: T[] }
-//   > = {
-//     loadMore: true,
-//     formatResult: (res) => ({
-//       list: res.result,
-//     }),
-//     isNoMore: (nData) => !nData?.list?.length || nData?.list?.length < limit,
-//     onSuccess: (data, params) => {
-//       console.log('params', params);
-
-//       return (skipRef.current = data?.list.length || 0);
-//     },
-//   };
-//   return { params, option };
-// };
-
-// 上拉加载数据请求与管理
-
 const useLoadMore = () => {
   const limit = 80;
   const {

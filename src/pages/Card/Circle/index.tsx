@@ -3,7 +3,14 @@
  * @flow
  */
 
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+} from 'react';
 import {
   DeviceEventEmitter,
   TouchableOpacityProps,
@@ -318,12 +325,7 @@ const useLoadMore = (iCardId: string, privacy: number, isSelf: boolean) => {
     loadMore: true,
     isNoMore: (nData) => nData?.isNoMore ?? false,
     formatResult: (res) => ({
-      list:
-        res?.results.filter(
-          (item) =>
-            item.iUse.privacy! >= privacyLimit ||
-            item.user.objectId === user.objectId,
-        ) ?? [],
+      list: res?.results ?? [],
       isNoMore: !!res?.results && res?.results.length < limit,
     }),
     onSuccess: (res) => {
@@ -342,7 +344,24 @@ const useLoadMore = (iCardId: string, privacy: number, isSelf: boolean) => {
 
   const privacyLimit = isSelf ? Privacy.openToCoach : Privacy.open;
 
-  return { data: midData, loading, loadingMore, ...rest };
+  console.log('midData', midData?.length);
+
+  const lastData = useMemo(
+    () =>
+      midData?.filter(
+        (item) =>
+          item.iUse.privacy! >= privacyLimit ||
+          item.user.objectId === user.objectId,
+      ),
+    [midData, privacyLimit, user.objectId],
+  );
+
+  return {
+    data: lastData,
+    loading,
+    loadingMore,
+    ...rest,
+  };
 };
 
 const Circle: FC<CircleProps> = (props) => {

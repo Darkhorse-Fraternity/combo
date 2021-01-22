@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:50:37
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-19 18:12:50
+ * @LastEditTime: 2021-01-22 10:53:57
  * @FilePath: /Combo/src/components/modal/private-picker-modal/index.tsx
  */
 import React, { FC, memo, Ref } from 'react';
@@ -36,7 +36,7 @@ const PrivatePickerModalRef: FC<
 > = ({ items, onChange, selectId, forwardRef, isVisible, onClose }) => {
   const { bottom } = useSafeAreaInsets();
 
-  console.log('selectId', selectId);
+  // console.log('selectId', selectId);
 
   return (
     <Modal

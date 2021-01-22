@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:44:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-14 13:48:21
+ * @LastEditTime: 2021-01-22 11:00:03
  * @FilePath: /Combo/src/configure/enum.ts
  */
 export const Privacy = {

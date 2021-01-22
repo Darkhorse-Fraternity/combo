@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:44:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-22 10:26:15
+ * @LastEditTime: 2021-01-22 11:38:28
  * @FilePath: /Combo/src/components/Indicators/index.tsx
  */
 /**
@@ -58,10 +58,11 @@ const Indicators: FC<IndicatorsProps> = (props) => {
   return (
     <LottieView
       source={require('@source/lottie/plant-animation')}
-      autoPlay={animated}
-      loop
+      autoPlay
+      loop={animated}
+      speed={5}
       resizeMode={'cover'}
-      progress={1000}
+      // progress={1000}
       style={{ width: size * 6, height: size * 6 }}
       {...props}
     />

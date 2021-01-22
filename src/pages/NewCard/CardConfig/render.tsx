@@ -191,7 +191,7 @@ const CardConfig: FC<{}> = () => {
             <StyledHeaderBtn
               load={false}
               // disabled={false}
-              backgroundColor="#bfc2c7"
+              backgroundColor={color}
               hitSlop={{
                 top: 15,
                 left: 10,
