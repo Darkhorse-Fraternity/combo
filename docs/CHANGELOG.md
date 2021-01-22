@@ -1,3 +1,19 @@
+## [1.7.3](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.2...v1.7.3) (2021-01-22)
+
+
+### Bug Fixes
+
+* 更换logo ([1c33ae7](https://github.com/Darkhorse-Fraternity/combo/commit/1c33ae7e69cf4e79c9d7bbf48ec0df343f3adba6))
+* 添加副本基本完成，出了时间验证 ([5ea371e](https://github.com/Darkhorse-Fraternity/combo/commit/5ea371e4d1b5ea5af80cc3fb94972730f10602d2))
+* 添加lottie ([f48a070](https://github.com/Darkhorse-Fraternity/combo/commit/f48a07079dd083d16967399fc322c36a04f23cf1))
+* 图片选择 ([9339e60](https://github.com/Darkhorse-Fraternity/combo/commit/9339e60fb8c458b333fd34eac1ca83f0bd3cbc31))
+* 修复广告加载 ([73bf44b](https://github.com/Darkhorse-Fraternity/combo/commit/73bf44ba8fcfba4d3d35f252f78e616acd767fa2))
+* 修复微信信息上传错误 ([74b9bc3](https://github.com/Darkhorse-Fraternity/combo/commit/74b9bc3068807b350a2d6ff5c92d4ed27ab9bcd3))
+* 修改副本创建页面 ([2cf422e](https://github.com/Darkhorse-Fraternity/combo/commit/2cf422eba5f35ec7fa76dbf23bac988916fc6eca))
+* 修改设置密码页面 ([4d0e2df](https://github.com/Darkhorse-Fraternity/combo/commit/4d0e2df87986aa9b68af706c2b58404ff8e085c8))
+* 修改小组设置和卡片设置的icon ([5daacb5](https://github.com/Darkhorse-Fraternity/combo/commit/5daacb5996065ef2bde168ca72135ad7454f3b26))
+* android logo ([9ae1953](https://github.com/Darkhorse-Fraternity/combo/commit/9ae19536dfd8dd8ab7a0144e705090be82ea9ded))
+
 ## [1.7.2](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.1...v1.7.2) (2021-01-06)
 
 
