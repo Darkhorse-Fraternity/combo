@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-22 13:13:42
+ * @FilePath: /Combo/src/pages/Publish/CirlcleSetting/render.tsx
+ */
 import React, { FC } from 'react';
 
 import {
@@ -43,7 +50,7 @@ const Render = (): JSX.Element => {
 
   return (
     <StyledContent>
-      <MenuItem
+      {/* <MenuItem
         title={'副本创建'}
         source={require('../../../../source/img/circle/fire.png')}
         onPress={() => {
@@ -51,7 +58,7 @@ const Render = (): JSX.Element => {
             iCardId: iCardId,
           });
         }}
-      />
+      /> */}
       <MenuItem
         title={'加入限制'}
         source={require('../../../../source/img/circle/password.png')}

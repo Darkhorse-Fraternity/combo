@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-22 11:46:52
+ * @FilePath: /Combo/src/components/Nav/components/navigationOptions.tsx
+ */
 import { ColorSchemeName, Platform, StatusBar } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import React from 'react';
@@ -71,7 +78,7 @@ export const tabsOptions = {
     color: '#5B37B7',
   },
   [strings('tabs.habit')]: {
-    iconName: 'sun',
+    iconName: 'sunrise',
     size: 27,
     Icon: Feather,
     color: '#E6A919',

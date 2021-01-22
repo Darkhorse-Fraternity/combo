@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="ipad10_2" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
@@ -15,7 +15,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="749" image="logo-horizontal-0" translatesAutoresizingMaskIntoConstraints="NO" id="dSQ-ib-cST">
-                    <rect key="frame" x="211" y="621.33333333333337" width="189" height="54.666666666666629"/>
+                    <rect key="frame" x="211" y="621.5" width="189" height="54.5"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="54.670000000000002" id="AjQ-5R-taf"/>
                         <constraint firstAttribute="width" constant="189" id="qee-xR-tOi"/>
@@ -29,7 +29,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="612.31884057971024" y="569.429347826087"/>
+            <point key="canvasLocation" x="-41.304347826086961" y="305.29891304347831"/>
         </view>
     </objects>
     <resources>
