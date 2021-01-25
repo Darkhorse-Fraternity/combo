@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 15:45:26
+ * @LastEditTime: 2021-01-25 17:56:00
  * @FilePath: /Combo/src/pages/Flag/Creat/style.ts
  */
 /**
@@ -20,6 +20,9 @@ export const StyledSafeAreaView = styled(SafeAreaView)`
 
 export const StyledContent = styled.ScrollView`
   flex: 1;
+  padding: 0px
+    ${({ theme }) =>
+      theme.isTablet && theme.width > 500 ? (theme.width - 500) / 2 : 0}px;
 `;
 
 export const StyledTop = styled.View``;
@@ -111,14 +114,14 @@ export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
   align-self: center;
   width: ${({ theme }) => theme.width - 30};
   max-width: 375px;
-  margin-bottom: 20px;
+  margin-bottom: 60px;
   /* z-index: 100px;
   position: absolute;
   bottom: 50px; */
 `;
 
 export const StyledNextBtnText = styled.Text<{ disabled: boolean }>`
-  color: ${({ disabled }) => (disabled ? 'grey' : 'white')};
+  color: white;
   font-size: 14px;
 `;
 

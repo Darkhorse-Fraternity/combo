@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-15 15:49:30
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-22 10:22:00
+ * @LastEditTime: 2021-01-25 16:35:20
  * @FilePath: /Combo/src/pages/Publish/JoinSetting/style.tsx
  */
 import styled from 'styled-components/native';
@@ -85,6 +85,7 @@ export const StyledSumbmit = styled(Button)`
   align-items: center;
   justify-content: center;
   margin: 20px;
+  margin-bottom: 60px;
   /* flex: 1; */
   height: 44px;
   border-radius: 4px;

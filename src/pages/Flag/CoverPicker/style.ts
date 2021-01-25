@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 15:44:08
+ * @LastEditTime: 2021-01-25 17:55:49
  * @FilePath: /Combo/src/pages/Flag/CoverPicker/style.ts
  */
 /**
@@ -20,6 +20,12 @@ export const StyledSafeAreaView = styled(SafeAreaView)`
 
 export const StyledContent = styled.View`
   flex: 1;
+`;
+
+export const StyledTop = styled.View`
+  margin: 0px
+    ${({ theme }) =>
+      theme.isTablet && theme.width > 500 ? (theme.width - 500) / 2 : 0}px;
 `;
 
 export const StyledCoverPickcerBg = styled.ImageBackground`
@@ -73,7 +79,7 @@ export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
 `;
 
 export const StyledNextBtnText = styled.Text<{ disabled: boolean }>`
-  color: ${({ disabled }) => (disabled ? 'grey' : 'white')};
+  color: white;
   font-size: 14px;
 `;
 
@@ -116,7 +122,7 @@ export const StyledDeleteBtn = styled(Button)`
   border-width: 1px;
   border-color: #ffffff; */
   right: 5px;
-  top: 38px;
+  top: 8px;
   position: absolute;
   z-index: 100;
 `;

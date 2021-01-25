@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:50:37
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 17:58:29
+ * @FilePath: /Combo/src/app.tsx
+ */
 /**
  * Created by lintong on 9/21/16.
  * @flow
@@ -22,7 +29,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { navigationRef } from '@components/Nav/navigators';
 import { Provider } from './data/data-context';
 import { useTracker } from '@components/umeng/umTracking';
-import { useColorScheme } from 'react-native';
+import { useColorScheme, useWindowDimensions } from 'react-native';
 
 const downloadProgressCallback = (data: DownloadProgress) => {
   console.log(`热更新进度：${data.receivedBytes}/${data.totalBytes}`);
@@ -76,10 +83,11 @@ const App = () => {
   // }, []);
   const { onReady, onStateChange } = useTracker();
   const colorScheme = useColorScheme();
+  const windowDimensions = useWindowDimensions();
 
   return (
     <Provider>
-      <ThemeProvider theme={getTheme(colorScheme)}>
+      <ThemeProvider theme={getTheme(colorScheme, windowDimensions)}>
         <Configure />
         <SafeAreaProvider>
           <NavigationContainer

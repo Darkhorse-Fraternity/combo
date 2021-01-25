@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 14:58:08
+ * @LastEditTime: 2021-01-25 17:59:35
  * @FilePath: /Combo/src/Theme/index.ts
  */
 import { DarkTheme, DefaultTheme } from '@react-navigation/native';
@@ -12,11 +12,16 @@ import {
   Appearance,
   ColorSchemeName,
   Platform,
+  ScaledSize,
 } from 'react-native';
+import { isTablet } from 'react-native-device-info';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { randFlowCoverColor } from './color';
-const getTheme = (colorScheme: ColorSchemeName) => {
-  const { height, width } = Dimensions.get('window');
+const getTheme = (
+  colorScheme: ColorSchemeName,
+  windowDimensions?: ScaledSize,
+) => {
+  const { height, width } = windowDimensions || Dimensions.get('window');
   if (Platform.OS === 'android') {
     DefaultTheme.colors.text = 'rgb(50,50,50)';
   } else {
@@ -46,6 +51,7 @@ const getTheme = (colorScheme: ColorSchemeName) => {
     width,
     height,
     isDarkMode,
+    isTablet: isTablet(),
     widthProportion: width / 375, // 用于高度根据长度进行缩放
     hairlineWidth: StyleSheet.hairlineWidth,
     statusBarHeight: getStatusBarHeight(),

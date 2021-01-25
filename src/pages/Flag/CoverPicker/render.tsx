@@ -26,6 +26,7 @@ import {
   StyledIcon,
   StyledDeleteBtn,
   StyledCloseImage,
+  StyledTop,
 } from './style';
 const data = [
   'http://placekitten.com/g/800/450',
@@ -62,35 +63,38 @@ const CoverPicher: FC<ImagePikerType> = ({ value, setValue }) => {
   return (
     <>
       <StyledTitle>上传本地图片</StyledTitle>
-      {value && (
-        <StyledDeleteBtn
-          hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
-          onPress={() => {
-            setValue(undefined);
-          }}>
-          <StyledCloseImage source={require('@img/flag/icon_close.png')} />
-        </StyledDeleteBtn>
-      )}
-      <StyledCoverPickcerBg borderRadius={20} source={{ uri: value }}>
-        {!value && (
-          <>
-            <StyledLogo source={require('@img/my/logo.png')} />
-            <StyledCoverPickerBtn
-              onPress={() => {
-                ImagePicker.openPicker(ImagePickerConfig)
-                  .then((res) => {
-                    setValue(res.path);
-                  })
-                  .catch((e) => {
-                    console.log('e', e.message);
-                  });
-              }}>
-              <StyledIcon name="add" size={18} />
-              <StyledCoverPickerBtnText>上传封面</StyledCoverPickerBtnText>
-            </StyledCoverPickerBtn>
-          </>
+      <StyledTop>
+        {value && (
+          <StyledDeleteBtn
+            hitSlop={{ top: 10, left: 10, bottom: 10, right: 10 }}
+            onPress={() => {
+              setValue(undefined);
+            }}>
+            <StyledCloseImage source={require('@img/flag/icon_close.png')} />
+          </StyledDeleteBtn>
         )}
-      </StyledCoverPickcerBg>
+
+        <StyledCoverPickcerBg borderRadius={20} source={{ uri: value }}>
+          {!value && (
+            <>
+              <StyledLogo source={require('@img/my/logo.png')} />
+              <StyledCoverPickerBtn
+                onPress={() => {
+                  ImagePicker.openPicker(ImagePickerConfig)
+                    .then((res) => {
+                      setValue(res.path);
+                    })
+                    .catch((e) => {
+                      console.log('e', e.message);
+                    });
+                }}>
+                <StyledIcon name="add" size={18} />
+                <StyledCoverPickerBtnText>上传封面</StyledCoverPickerBtnText>
+              </StyledCoverPickerBtn>
+            </>
+          )}
+        </StyledCoverPickcerBg>
+      </StyledTop>
     </>
   );
 };
