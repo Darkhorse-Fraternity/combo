@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-22 14:28:00
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 14:14:28
+ * @LastEditTime: 2021-01-25 14:33:18
  * @FilePath: /Combo/src/pages/Punch/index.tsx
  */
 import React from 'react';
@@ -32,7 +32,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
       <TouchableItem
         borderless
         pressColor="rgba(0, 0, 0, .16)"
-        style={{ padding: 10, margin: 5 }}
+        style={{ padding: 10, marginRight: 5 }}
         onPress={() => {
           props.navigation.navigate(RouteKey.newCard);
         }}>

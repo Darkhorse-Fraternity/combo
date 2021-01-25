@@ -12,7 +12,7 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
       <TouchableItem
         borderless
         pressColor="rgba(0, 0, 0, .16)"
-        style={{ padding: 10, margin: 5 }}
+        style={{ padding: 10, marginRight: 5 }}
         // style={{ marginRight: 20 }}
         {...headerRightProps}
         onPress={() => {

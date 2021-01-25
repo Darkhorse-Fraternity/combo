@@ -132,7 +132,7 @@ export default class LoadMoreList<
           {/* <View style={{ height: 30 }} /> */}
           <Indicators
             source={require('@source/lottie/woman-shower-coins-investments')}
-            size={10}
+            size={15}
           />
         </View>
       );

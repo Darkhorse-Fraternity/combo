@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:44:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 14:15:24
+ * @LastEditTime: 2021-01-25 14:34:08
  * @FilePath: /Combo/src/pages/Record/Detail/render.tsx
  */
 /**
@@ -53,8 +53,8 @@ const RecordDetail: FC<{}> = (porps) => {
 
       const headerRight = () => (
         <TouchableItem
-          borderless
-          pressColor="rgba(0, 0, 0, .16)"
+          // borderless
+          // pressColor="rgba(0, 0, 0, .16)"
           // style={{ padding: 10, margin: 5 }}
           style={{
             marginRight: 20,
