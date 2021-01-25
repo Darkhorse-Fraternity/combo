@@ -1,3 +1,12 @@
+## [1.7.4](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.3...v1.7.4) (2021-01-25)
+
+
+### Bug Fixes
+
+* 修复参与副本必须含有头像的错误 ([21a6d3f](https://github.com/Darkhorse-Fraternity/combo/commit/21a6d3f7b584e5108c8cdc3d7828aee21dc78c0f))
+* 修复android logo ([633804d](https://github.com/Darkhorse-Fraternity/combo/commit/633804d0f0100cca25b134f5f0ad4550e240f4e9))
+* 修复loading 错误，以及无法加入副本 ([2124533](https://github.com/Darkhorse-Fraternity/combo/commit/2124533fa04c50ea283d8a0c3d0d536acb864bc0))
+
 ## [1.7.3](https://github.com/Darkhorse-Fraternity/combo/compare/v1.7.2...v1.7.3) (2021-01-22)
 
 
