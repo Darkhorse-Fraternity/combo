@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-15 10:42:00
+ * @LastEditTime: 2021-01-25 15:45:26
  * @FilePath: /Combo/src/pages/Flag/Creat/style.ts
  */
 /**
@@ -27,7 +27,7 @@ export const StyledTop = styled.View``;
 export const StyledCoverPickcerBg = styled.ImageBackground`
   padding: 20px;
   border-radius: 20px;
-  background-color: #edf2f8;
+  background-color: ${({ theme }) => theme.colors.backViewPrimary};
   margin: 20px;
   align-items: center;
   height: 188px;
@@ -59,18 +59,21 @@ export const StyledTitle = styled.Text`
   font-weight: bold;
   margin-left: 20px;
   margin-top: 12px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const StyledTitleInput = styled.TextInput`
   margin: 15px 20px 0px;
   font-size: 14px;
   padding: 0px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const StyledDiscribInput = styled.TextInput`
   padding: 0px;
   flex: 1;
   font-size: 14px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const StyledDiscribInputBg = styled.View`
@@ -85,6 +88,7 @@ export const StyledDiscribInputBg = styled.View`
 export const StyledTitleTip = styled.Text`
   font-weight: 300;
   font-size: 14px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const StyledLine = styled.View`
@@ -98,9 +102,8 @@ export const StyledSpace = styled.View`
 `;
 
 export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? '#eef2f8' : '#65bb6a')};
+  background-color: ${({ disabled }) => (disabled ? '#b1d5a7' : '#65bb6a')};
   border-radius: 4px;
-
   height: 44px;
   align-items: center;
   justify-content: center;

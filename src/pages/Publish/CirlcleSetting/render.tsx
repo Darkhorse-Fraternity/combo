@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:44:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-22 13:13:42
+ * @LastEditTime: 2021-01-25 14:44:11
  * @FilePath: /Combo/src/pages/Publish/CirlcleSetting/render.tsx
  */
 import React, { FC } from 'react';
@@ -50,15 +50,17 @@ const Render = (): JSX.Element => {
 
   return (
     <StyledContent>
-      {/* <MenuItem
-        title={'副本创建'}
-        source={require('../../../../source/img/circle/fire.png')}
-        onPress={() => {
-          navigate(RouteKey.flagCreat, {
-            iCardId: iCardId,
-          });
-        }}
-      /> */}
+      {__DEV__ && (
+        <MenuItem
+          title={'副本创建'}
+          source={require('../../../../source/img/circle/fire.png')}
+          onPress={() => {
+            navigate(RouteKey.flagCreat, {
+              iCardId: iCardId,
+            });
+          }}
+        />
+      )}
       <MenuItem
         title={'加入限制'}
         source={require('../../../../source/img/circle/password.png')}

@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-14 15:49:06
+ * @LastEditTime: 2021-01-25 15:44:08
  * @FilePath: /Combo/src/pages/Flag/CoverPicker/style.ts
  */
 /**
@@ -25,7 +25,7 @@ export const StyledContent = styled.View`
 export const StyledCoverPickcerBg = styled.ImageBackground`
   padding: 20px;
   border-radius: 20px;
-  background-color: #edf2f8;
+  background-color: ${({ theme }) => theme.colors.backViewPrimary};
   margin: 20px;
   align-items: center;
   height: 188px;
@@ -35,6 +35,7 @@ export const StyledCoverPickcerBg = styled.ImageBackground`
 export const StyledLogo = styled.Image`
   width: 48px;
   height: 48px;
+  ${({ theme }) => theme.colors.backViewPrimary};
 `;
 
 export const StyledCoverPickerBtn = styled(Button)`
@@ -55,7 +56,7 @@ export const StyledCoverPickerBtnText = styled.Text`
 `;
 
 export const StyledNextBtn = styled(Button)<{ disabled: boolean }>`
-  background-color: ${({ disabled }) => (disabled ? '#eef2f8' : '#65bb6a')};
+  background-color: ${({ disabled }) => (disabled ? '#b1d5a7' : '#65bb6a')};
   border-radius: 4px;
 
   height: 44px;

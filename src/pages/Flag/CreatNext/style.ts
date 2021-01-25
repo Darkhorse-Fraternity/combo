@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-19 17:16:52
+ * @LastEditTime: 2021-01-25 15:47:40
  * @FilePath: /Combo/src/pages/Flag/CreatNext/style.ts
  */
 /**
@@ -30,9 +30,10 @@ export const StyledMenuItem = styled(Button)`
 `;
 
 export const StyledMenuItemTitle = styled.Text`
-  color: #020203;
+  /* color: #020203; */
   font-size: 16px;
   font-weight: bold;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 export const StyledMenuItemDiscribPlacehold = styled.Text`
@@ -108,9 +109,13 @@ export const StyledTopInfoItem = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
-export const StyledTopInfoItemTitle = styled.Text``;
+export const StyledTopInfoItemTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.textPrimary};
+`;
 
-export const StyledTopInfoItemDiscrib = styled.Text``;
+export const StyledTopInfoItemDiscrib = styled.Text`
+  color: ${({ theme }) => theme.colors.textPrimary};
+`;
 
 export const StyledTopButton = styled(Button)`
   padding: 10px 20px;
