@@ -125,7 +125,8 @@ class FlagDetailClass extends PureComponent<FDProps, StateType> {
       return this.props.navigation.navigate(RouteKey.login);
     }
 
-    if (isEmpty(selfUser.headimgurl) || isEmpty(selfUser.nickname)) {
+    const avatarObj = selfUser.avatar || selfUser.headimgurl;
+    if (isEmpty(avatarObj) || isEmpty(selfUser.nickname)) {
       Toast.show('参与副本前,头像和昵称不能为空哦～');
       // @ts-ignore: Unreachable code error
       return this.props.navigation.navigate(RouteKey.account);
