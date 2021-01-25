@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-22 14:28:00
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:14:28
+ * @FilePath: /Combo/src/pages/Punch/index.tsx
+ */
 import React from 'react';
 import Render from './render';
 import { RouteKey, NavigationOptionsType } from '@pages/interface';
@@ -11,7 +18,9 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
     headerLeft: __DEV__
       ? ({ tintColor }) => (
           <TouchableItem
-            style={{ marginLeft: 15 }}
+            borderless
+            pressColor="rgba(0, 0, 0, .16)"
+            style={{ padding: 10, marginLeft: 5 }}
             onPress={() => {
               props.navigation.navigate(RouteKey.test);
             }}>
@@ -21,7 +30,9 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
       : undefined,
     headerRight: ({ tintColor }) => (
       <TouchableItem
-        style={{ marginRight: 15 }}
+        borderless
+        pressColor="rgba(0, 0, 0, .16)"
+        style={{ padding: 10, margin: 5 }}
         onPress={() => {
           props.navigation.navigate(RouteKey.newCard);
         }}>

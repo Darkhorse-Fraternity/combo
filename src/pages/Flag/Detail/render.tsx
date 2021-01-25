@@ -496,6 +496,7 @@ const FlagDetail: FC<{}> = (props) => {
   if (!data || !record) {
     return <LoadAnimation />;
   }
+  // 、
 
   const { cover, cost, title } = data;
 

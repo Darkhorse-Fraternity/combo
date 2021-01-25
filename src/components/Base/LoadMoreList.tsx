@@ -130,7 +130,10 @@ export default class LoadMoreList<
             animating
           /> */}
           {/* <View style={{ height: 30 }} /> */}
-          <Indicators />
+          <Indicators
+            source={require('@source/lottie/woman-shower-coins-investments')}
+            size={10}
+          />
         </View>
       );
     }
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 30,
+    margin: 50,
     // backgroundColor: 'red',
   },
   noMorefooter: {

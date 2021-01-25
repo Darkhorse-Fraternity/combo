@@ -100,7 +100,9 @@ export function LoadAnimation(props?: LoadAnimationProps) {
         styles.lottieViewBC,
         {
           top: (height - size * 12 + lastTop) / 2 - top,
-          left: (width - size * 6) / 2,
+          // left: (width - size * 6) / 2,
+          width: width,
+          alignItems: 'center',
         },
       ]}>
       {/* <ActivityIndicator size={"small"} color={"gray"} /> */}

@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:16:20
+ * @FilePath: /Combo/src/pages/Card/Log/style.ts
+ */
 /**
  * Created by lintong on 2018/3/6.
  * @flow
@@ -5,7 +12,6 @@
 
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { BorderlessButton } from 'react-native-gesture-handler';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import { ButtonOpacity } from '@components/Button';
 
@@ -49,10 +55,6 @@ export const StyledRow = styled.View`
 //   color: ${({ theme }) => theme.colors.text};
 //   font-style: italic;
 // `;
-
-export const StyledAdd = styled(BorderlessButton)`
-  padding: 10px;
-`;
 
 export const StyledIonicons = styled(Feather)`
   align-self: center;

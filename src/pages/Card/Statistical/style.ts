@@ -5,7 +5,6 @@
 
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { BorderlessButton } from 'react-native-gesture-handler';
 import HeaderBtn from '../../../components/Button/HeaderBtn';
 import { ButtonOpacity } from '@components/Button';
 
@@ -48,10 +47,6 @@ export const StyledRowText = styled.Text`
   font-size: 15px;
   font-style: italic;
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StyledAdd = styled(BorderlessButton)`
-  padding: 10px;
 `;
 
 export const StyledIonicons = styled(Feather)`

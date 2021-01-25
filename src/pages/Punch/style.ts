@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:17:31
+ * @FilePath: /Combo/src/pages/Punch/style.ts
+ */
 /**
  * Created by lintong on 2018/7/18.
  * @flow
@@ -5,7 +12,6 @@
 
 import styled from 'styled-components/native';
 import Feather from 'react-native-vector-icons/Feather';
-import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const StyledContent = styled.View`
   flex: 1;
@@ -34,11 +40,6 @@ export const StyledSectionHeaderTitle = styled.Text`
   font-size: 19px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StyledAdd = styled(BorderlessButton)`
-  width: 25px;
-  height: 25px;
 `;
 
 export const StyledIonicons = styled(Feather)`

@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:15:50
+ * @FilePath: /Combo/src/pages/Record/style.ts
+ */
 /**
  * Created by lintong on 2018/9/25.
  * @flow
@@ -9,7 +16,6 @@ import HeaderBtn from '../../components/Button/HeaderBtn';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { BorderlessButton } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 import AnimationRow from '@components/AnimationRow';
 
@@ -25,12 +31,6 @@ export const StyledHeaderTitle = styled.Text`
   margin-left: 20px;
   margin: 10px 20px 20px 20px;
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StyledAdd = styled(BorderlessButton)`
-  padding: 10px;
-  flex-direction: row;
-  align-items: center;
 `;
 
 export const StyledIonicons = styled(Ionicons)``;

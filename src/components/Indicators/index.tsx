@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2021-01-06 16:44:48
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-22 11:38:28
+ * @LastEditTime: 2021-01-25 14:02:46
  * @FilePath: /Combo/src/components/Indicators/index.tsx
  */
 /**
@@ -17,10 +17,15 @@ interface IndicatorsProps {
   size?: number;
   animated?: boolean;
   modeDark?: boolean;
+  source?: string | { uri: string };
 }
 
 const Indicators: FC<IndicatorsProps> = (props) => {
-  const { animated = true, size = 30 } = props;
+  const {
+    animated = true,
+    size = 30,
+    source = require('@source/lottie/plant-animation'),
+  } = props;
 
   // const springValueRef = useRef(new Animated.Value(0));
   // const springValue = springValueRef.current;
@@ -57,7 +62,7 @@ const Indicators: FC<IndicatorsProps> = (props) => {
 
   return (
     <LottieView
-      source={require('@source/lottie/plant-animation')}
+      source={source}
       autoPlay
       loop={animated}
       speed={5}

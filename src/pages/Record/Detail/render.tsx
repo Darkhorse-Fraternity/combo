@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:15:24
+ * @FilePath: /Combo/src/pages/Record/Detail/render.tsx
+ */
 /**
  * Created by lintong on 2017/8/31.
  * @flow
@@ -46,6 +53,9 @@ const RecordDetail: FC<{}> = (porps) => {
 
       const headerRight = () => (
         <TouchableItem
+          borderless
+          pressColor="rgba(0, 0, 0, .16)"
+          // style={{ padding: 10, margin: 5 }}
           style={{
             marginRight: 20,
             backgroundColor: color,

@@ -10,7 +10,10 @@ const navigationOptions: NavigationOptionsType<RouteKey.punch> = (props) => {
     title: '',
     headerRight: (headerRightProps) => (
       <TouchableItem
-        style={{ marginRight: 20 }}
+        borderless
+        pressColor="rgba(0, 0, 0, .16)"
+        style={{ padding: 10, margin: 5 }}
+        // style={{ marginRight: 20 }}
         {...headerRightProps}
         onPress={() => {
           props.navigation.navigate(RouteKey.search);

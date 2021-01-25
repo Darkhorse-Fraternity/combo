@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-25 14:16:59
+ * @FilePath: /Combo/src/components/Base/ExceptionView/style.ts
+ */
 /**
  * Created by lintong on 2018/7/17.
  * @flow
@@ -6,8 +13,6 @@
 
 import styled from 'styled-components/native';
 import Button from '../../Button';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const StyledContent = styled.View`
   align-items: center;
@@ -24,9 +29,6 @@ export const StyledReportBtn = styled(Button)`
   shadow-offset: 2px 4px;
   elevation: 10;
 `;
-export const StyledRefresh = styled(BorderlessButton)`
-  padding: 10px;
-`;
 
 export const StyleReportView = styled.View`
   margin: 25px 0px;
@@ -36,11 +38,6 @@ export const StyleReportView = styled.View`
 export const StyledReportText = styled.Text`
   font-size: 15px;
   color: ${({ theme }) => theme.colors.text};
-`;
-
-export const StyledIcon = styled(Ionicons)`
-  align-self: center;
-  margin: 0px 10px;
 `;
 
 export const StyledActivityIndicator = styled.ActivityIndicator`
