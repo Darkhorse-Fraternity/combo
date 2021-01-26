@@ -56,7 +56,9 @@ const RenderComponent: FC<{
       }}>
       <StyledNotifyButtonInner>
         <StyledMaterialIcons size={30} name="alarm" />
-        <StyledNotifyTime>{options[0]} </StyledNotifyTime>
+        <StyledNotifyTime style={{ fontSize: 12 }}>
+          {options[0]}{' '}
+        </StyledNotifyTime>
       </StyledNotifyButtonInner>
     </StyledNotifyButton>
     <StyledNotifyTime style={{ fontSize: 25 }}> ~ </StyledNotifyTime>
@@ -85,7 +87,9 @@ const RenderComponent: FC<{
       }}>
       <StyledNotifyButtonInner>
         <StyledMaterialIcons size={30} name="alarm" />
-        <StyledNotifyTime>{options[1]} </StyledNotifyTime>
+        <StyledNotifyTime style={{ fontSize: 12 }}>
+          {options[1]}{' '}
+        </StyledNotifyTime>
       </StyledNotifyButtonInner>
     </StyledNotifyButton>
   </StyledLimitTimeContent>
@@ -94,23 +98,25 @@ const RenderComponent: FC<{
 const LimitTimePicker: FC<NotifyTimePickerProps> = (props) => {
   const { options, onChange } = props;
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
-  const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState(0);
   const onConfirm = (date: Date) => {
     const hours = PrefixInteger(date.getHours(), 2);
     const minutes = PrefixInteger(date.getMinutes(), 2);
     const time = `${hours}:${minutes}`;
     const data = [...options];
     data[index] = time;
-    console.log('time', time, index);
-    console.log('data', data[index]);
-    console.log('data', data);
+    // console.log('time', time, index);
+    // console.log('data', data[index]);
+    // console.log('data', data);
     const before = moment(data[0], 'HH:mm');
     const after = moment(data[1], 'HH:mm');
     const flag = before.isBefore(after);
     if (flag) {
-      onChange && onChange(data);
+      console.log('????');
       setIsDateTimePickerVisible(false);
-      setIndex(-1);
+      onChange && onChange(data);
+      //
+      // setIndex(0);
     } else {
       Toast.showWithGravity(
         '开始时间要小于结束时间,建议至少有一小时间隔',
@@ -132,6 +138,7 @@ const LimitTimePicker: FC<NotifyTimePickerProps> = (props) => {
       <DateTimePicker
         isVisible={isDateTimePickerVisible}
         mode="time"
+        date={moment(options[index], 'HH:mm').toDate()}
         display="spinner"
         cancelTextIOS="取消"
         headerTextIOS="选择提醒时间"

@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 17:55:23
+ * @LastEditTime: 2021-01-26 09:37:15
  * @FilePath: /Combo/src/pages/Flag/CreatNext/style.ts
  */
 /**
@@ -123,8 +123,8 @@ export const StyledTopInfoItemDiscrib = styled.Text`
 export const StyledTopButton = styled(Button)`
   padding: 10px 20px;
   border-radius: 20px;
-  border-width: ${({ theme }) => theme.hairlineWidth};
-  border-color: green;
+  /* border-width: ${({ theme }) => theme.hairlineWidth};
+  border-color: green; */
   margin: 20px;
 `;
 

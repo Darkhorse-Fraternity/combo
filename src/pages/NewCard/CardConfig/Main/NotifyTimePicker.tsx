@@ -121,10 +121,10 @@ const RenderComponent: FC<RenderComponentProps> = ({
 
 const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
   const { options, onChange } = props;
-  console.log('options', options);
 
   const [isDelete, setIsDelete] = useState(false);
   const [index, setIndex] = useState(-1);
+  console.log('options', options, index);
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
   const onConfirm = (date: Date) => {
     setIsDateTimePickerVisible(false);
@@ -132,7 +132,10 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
     const hours = PrefixInteger(date.getHours(), 2);
     const minutes = PrefixInteger(date.getMinutes(), 2);
     const time = `${hours}:${minutes}`;
+    console.log('time', time);
+
     const position = options.findIndex((item) => item === time);
+
     if (position === -1 && onChange) {
       if (index === 0) {
         onChange(
@@ -157,9 +160,7 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
         ['RCTModalHostViewController'],
       );
     }
-    // onChange([]);
   };
-  // console.log('options', options);
 
   return (
     <>
@@ -198,6 +199,7 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
               if (options.length === 0) {
                 setIsDelete(false);
               }
+
               onChange([...options]);
             }
           } else {
@@ -218,6 +220,9 @@ const NotifyTimePicker: FC<NotifyTimePickerProps> = (props) => {
         isVisible={isDateTimePickerVisible}
         mode="time"
         display="spinner"
+        date={
+          index > 1 ? moment(options[index - 1], 'HH:mm').toDate() : undefined
+        }
         cancelTextIOS="取消"
         headerTextIOS="选择提醒时间"
         // isDarkModeEnabled={true}

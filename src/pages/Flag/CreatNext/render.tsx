@@ -288,7 +288,6 @@ const RenderPay: FC<{
 const FlagCreatNext: FC<{}> = () => {
   // const { iCardId } = useNavigationAllParamsWithType<RouteKey.flagDetail>();
 
-  // const { height } = useWindowDimensions();
   // const [state, setstate] = useState(false);
   const { iCardId, title, discrib, cover } = useNavigationAllParamsWithType<
     RouteKey.flagCreatNext

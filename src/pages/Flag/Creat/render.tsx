@@ -169,7 +169,6 @@ const CreatStepOn: FC<{}> = () => {
 const FlagCreat: FC<{}> = () => {
   // const { iCardId } = useNavigationAllParamsWithType<RouteKey.flagDetail>();
 
-  // const { height } = useWindowDimensions();
   // const [state, setstate] = useState(false);
 
   useEffect(() => {

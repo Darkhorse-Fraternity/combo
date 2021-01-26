@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-07 10:35:57
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-26 09:35:36
+ * @FilePath: /Combo/src/pages/Flag/style.ts
+ */
 /**
  * Created by lintong on 2019/1/2.
  * @flow
