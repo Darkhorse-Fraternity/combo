@@ -29,11 +29,13 @@ import {
   StyledContent,
   StyledTip,
   StyledErrorsView,
+  StyledTopTipText,
+  StyledTopTip,
 } from './style';
 import DateTimePicker, {
   DateTimePickerProps,
 } from 'react-native-modal-datetime-picker';
-import { ButtonType } from '@components/Button';
+import Button, { ButtonType } from '@components/Button';
 import {
   useNavigationAllParamsWithType,
   useNavigationWithType,
@@ -50,6 +52,9 @@ import { dayText } from '@helps/util';
 import PrivatePickerModal from '@components/modal/private-picker-modal';
 import { RHFError } from '@components/Form';
 import moment from 'moment';
+import { useNavigation } from '@react-navigation/native';
+import SimpleToast from 'react-native-simple-toast';
+import { View } from 'react-native-animatable';
 // @ts-ignore: Unreachable code error
 // import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 // import { RouteKey } from '@pages/interface';
@@ -133,6 +138,8 @@ const RenderDateSelect: FC<
         cancelTextIOS="取消"
         headerTextIOS="选择提醒时间"
         confirmTextIOS="确定"
+        minimumDate={new Date()}
+        maximumDate={moment().add(30, 'day').toDate()}
         onConfirm={(date) => {
           onChange && onChange(date);
           setIsDateTimePickerVisible(false);
@@ -155,7 +162,6 @@ const ActivityDateStart: FC<RenderDateSelectType> = (props) => {
 };
 
 const ActivityDateEnd: FC<RenderDateSelectType> = (props) => {
-  // console.log('isDateTimePickerVisible', isDateTimePickerVisible);
   return (
     <RenderDateSelect
       title="结束时间"
@@ -211,40 +217,48 @@ const RenderICardInfo: FC<{ iCardId: string }> = ({ iCardId }) => {
     record = [],
   } = data;
   const { color, name } = iconAndColor;
-
+  // navigate(RouteKey.cardConfig, { iCardId: objectId });
   return (
-    <StyledTopButton
-      onPress={() => {
-        navigate(RouteKey.cardConfig, { iCardId: objectId });
-      }}>
-      <StyledTop>
-        <StyledIconBG color={color || '#afd2ef'}>
-          <StyledIconImage
-            resizeMode="contain"
-            size={40}
-            source={svgs[name || 'sun']}
-          />
-        </StyledIconBG>
-        <StyledTitle>{title}</StyledTitle>
-      </StyledTop>
-      <StyledTopInfo />
-      <RenderICardInfoItem
-        title={'提醒时间'}
-        discirb={notifyTimes.length > 0 ? notifyTimes.toString() : '无'}
-      />
-      <RenderICardInfoItem
-        title={'打卡时间限制'}
-        discirb={
-          recordDay?.length! > 0
-            ? dayText(recordDay || []) + ':' + limitTimes?.join('~')
-            : '无'
-        }
-      />
-      <RenderICardInfoItem
-        title={'打卡要求'}
-        discirb={record.length > 0 ? record.toString() : '无'}
-      />
-    </StyledTopButton>
+    <>
+      <StyledTopButton>
+        <StyledTop>
+          <StyledIconBG color={color || '#afd2ef'}>
+            <StyledIconImage
+              resizeMode="contain"
+              size={40}
+              source={svgs[name || 'sun']}
+            />
+          </StyledIconBG>
+          <StyledTitle>{title}</StyledTitle>
+        </StyledTop>
+        <StyledTopInfo />
+        <RenderICardInfoItem
+          title={'提醒时间'}
+          discirb={notifyTimes.length > 0 ? notifyTimes.toString() : '无'}
+        />
+        <RenderICardInfoItem
+          title={'打卡时间限制'}
+          discirb={
+            recordDay?.length! > 0
+              ? dayText(recordDay || []) + ':' + limitTimes?.join('~')
+              : '无'
+          }
+        />
+        <RenderICardInfoItem
+          title={'打卡要求'}
+          discirb={record.length > 0 ? record.toString() : '无'}
+        />
+      </StyledTopButton>
+      <StyledTopTip>
+        <View />
+        <Button
+          onPress={() => {
+            navigate(RouteKey.cardConfig, { iCardId: objectId });
+          }}>
+          <StyledTopTipText>去更新</StyledTopTipText>
+        </Button>
+      </StyledTopTip>
+    </>
   );
 };
 
@@ -289,6 +303,7 @@ const FlagCreatNext: FC<{}> = () => {
   // const { iCardId } = useNavigationAllParamsWithType<RouteKey.flagDetail>();
 
   // const [state, setstate] = useState(false);
+  const { navigate } = useNavigation();
   const { iCardId, title, discrib, cover } = useNavigationAllParamsWithType<
     RouteKey.flagCreatNext
   >();
@@ -309,8 +324,22 @@ const FlagCreatNext: FC<{}> = () => {
   });
 
   const onSubmit = handleSubmit(
-    ({ cost, startTime, endTime, joinTime, close_at }: FlagFormData) => {
-      postFb({
+    async ({ cost, startTime, endTime, joinTime, close_at }: FlagFormData) => {
+      if (moment(joinTime).isBefore(startTime)) {
+        return SimpleToast.show('报名截止时间需要在活动开始之前～!');
+      }
+      if (moment(startTime).add(1, 'day').isBefore(endTime)) {
+        return SimpleToast.show('活动开始必须要在活动结束前一天设置～！');
+      }
+      if (moment(endTime).isBefore(close_at)) {
+        return SimpleToast.show('活动结束时间必须要在结算前设置～!');
+      }
+
+      if (moment(close_at).subtract(1, 'day').isAfter(endTime)) {
+        return SimpleToast.show('活动结束后需要在一天内完成结算～！');
+      }
+
+      const res = await postFb({
         userID: user.objectId,
         cost: cost,
         coverUrl: cover,
@@ -328,6 +357,9 @@ const FlagCreatNext: FC<{}> = () => {
         close_at: close_at.toISOString(),
         sort: 0,
       });
+      if (res) {
+        navigate(RouteKey.card);
+      }
     },
   );
 
@@ -337,6 +369,12 @@ const FlagCreatNext: FC<{}> = () => {
     <StyledSafeAreaView>
       <StyledContent>
         <RenderICardInfo iCardId={iCardId} />
+        <Controller
+          // defaultValue=''
+          name={'joinTime'}
+          control={control}
+          as={JoinDateEnd}
+        />
         <Controller
           // defaultValue=''
           name={'startTime'}
@@ -350,12 +388,6 @@ const FlagCreatNext: FC<{}> = () => {
           as={ActivityDateEnd}
         />
 
-        <Controller
-          // defaultValue=''
-          name={'joinTime'}
-          control={control}
-          as={JoinDateEnd}
-        />
         <Controller
           // defaultValue=''
           name={'close_at'}

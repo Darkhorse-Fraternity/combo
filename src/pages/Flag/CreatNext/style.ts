@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-26 09:37:15
+ * @LastEditTime: 2021-01-26 14:38:54
  * @FilePath: /Combo/src/pages/Flag/CreatNext/style.ts
  */
 /**
@@ -120,12 +120,25 @@ export const StyledTopInfoItemDiscrib = styled.Text`
   color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
-export const StyledTopButton = styled(Button)`
-  padding: 10px 20px;
+export const StyledTopButton = styled.View`
+  padding: 10px 10px;
   border-radius: 20px;
-  /* border-width: ${({ theme }) => theme.hairlineWidth};
-  border-color: green; */
+  /* border-width: ${({ theme }) => theme.hairlineWidth}; */
+  border-bottom-width:${({ theme }) => theme.hairlineWidth};
+  border-color: green;
   margin: 20px;
+`;
+
+export const StyledTopTip = styled.View`
+  flex-direction: row;
+  margin-top: -10px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+`;
+
+export const StyledTopTipText = styled.Text`
+  color: green;
+  margin-right: 40px;
 `;
 
 interface StyledIconBGType {
