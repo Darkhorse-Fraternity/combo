@@ -180,7 +180,7 @@ const CardConfig: FC<{}> = () => {
     }, [goBack, step]),
   );
 
-  const color = data?.iconAndColor.color || '';
+  // const color = data?.iconAndColor.color || '';
 
   return (
     <StyledContent>
@@ -191,7 +191,7 @@ const CardConfig: FC<{}> = () => {
             <StyledHeaderBtn
               load={false}
               // disabled={false}
-              backgroundColor={color}
+              // backgroundColor={color}
               hitSlop={{
                 top: 15,
                 left: 10,
@@ -206,7 +206,7 @@ const CardConfig: FC<{}> = () => {
             <StyledHeaderBtn
               load={loading}
               // disabled={false}
-              backgroundColor={color}
+              // backgroundColor={color}
               hitSlop={{
                 top: 15,
                 left: 10,

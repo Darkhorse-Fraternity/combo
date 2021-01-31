@@ -16,6 +16,7 @@ import {
   TouchableOpacityProps,
   ImageSourcePropType,
   ListRenderItemInfo,
+  Platform,
 } from 'react-native';
 import { DeviceEventEmitterKey, Privacy } from '../../../configure/enum';
 import RecordRow from './Row';
@@ -91,7 +92,10 @@ const MenuItem: FC<
         right: 10,
       }}
       {...other}>
-      <StyledHeaderImage resizeMode="center" source={source} />
+      <StyledHeaderImage
+        resizeMode={Platform.OS === 'ios' ? 'cover' : 'center'}
+        source={source}
+      />
       <StyledHeaderText>{title}</StyledHeaderText>
     </StyledHeaderButton>
   );

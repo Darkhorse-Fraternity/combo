@@ -3,6 +3,7 @@
  * @flow
  */
 
+import { imagePickCatch } from '@components/modal/photo-camera-sheet';
 import { useNavigationAllParamsWithType } from '@components/Nav/hook';
 import { DeviceEventEmitterKey } from '@configure/enum';
 import { RouteKey } from '@pages/interface';
@@ -85,7 +86,7 @@ const CoverPicher: FC<ImagePikerType> = ({ value, setValue }) => {
                       setValue(res.path);
                     })
                     .catch((e) => {
-                      console.log('e', e.message);
+                      imagePickCatch(e);
                     });
                 }}>
                 <StyledIcon name="add" size={18} />

@@ -29,7 +29,7 @@ import {
   StyledToolBar,
   StyledToolBarItem,
 } from './style';
-
+import DeviceInfo from 'react-native-device-info';
 //
 import { Control, Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -229,6 +229,8 @@ const Render: FC<{}> = () => {
           [OpinionImgs]: imags.map((item) => item.remoteUrl),
           [OpinionText]: data[OpinionText],
           user: point('_User', user?.objectId || ''),
+          platformOS: Platform.OS,
+          version: DeviceInfo.getVersion(),
         };
 
         postClassesFeedback(param).then((res) => {

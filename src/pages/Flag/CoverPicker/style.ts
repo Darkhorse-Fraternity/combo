@@ -2,7 +2,7 @@
  * @Author: tonyYo
  * @Date: 2020-12-25 10:04:27
  * @LastEditors: tonyYo
- * @LastEditTime: 2021-01-25 17:55:49
+ * @LastEditTime: 2021-01-26 17:12:11
  * @FilePath: /Combo/src/pages/Flag/CoverPicker/style.ts
  */
 /**
@@ -88,6 +88,7 @@ export const StyledTitle = styled.Text`
   font-weight: bold;
   margin-left: 20px;
   margin-top: 12px;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 // export const StyledList = styled.FlatList`` as React.ReactNode) as new <T>() => FlatList<T>;

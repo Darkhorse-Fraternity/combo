@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-29 14:18:46
+ * @FilePath: /Combo/src/components/ImagePicker/imagePicker.ts
+ */
 /*!
  *
  * https://github.com/marcshilling/react-native-image-picker
@@ -9,7 +16,6 @@ import ImagePicker, {
   ImagePickerOptions,
   ImagePickerResponse,
 } from 'react-native-image-picker';
-import Toast from 'react-native-simple-toast';
 
 const DEFAULT_OPTIONS: ImagePickerOptions = {
   title: '添加图片', // specify null or empty string to remove the title
@@ -46,36 +52,36 @@ const DEFAULT_OPTIONS: ImagePickerOptions = {
   },
 };
 
-export default function imagePicker(
-  options: ImagePickerOptions,
-  callBack: Function,
-) {
-  // StatusBar.setBarStyle('default', false);
-  ImagePicker.showImagePicker(
-    { ...DEFAULT_OPTIONS, ...options },
-    (response) => {
-      // console.log('Response = ', response);
-      // StatusBar.setBarStyle('light-content', false);
-      // console.log(response);
-      callBack(response);
-      if (response.didCancel) {
-        // console.log('User cancelled image picker');
-      } else if (response.error) {
-        Toast.show(response.error);
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        // You can display the image using either data:
-        // const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-        // uri (on iOS)
-        // const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-        // uri (on android)
-        // const source = {uri: response.uri, isStatic: true};
-      }
-    },
-  );
-}
+// export default function  (
+//   options: ImagePickerOptions,
+//   callBack: Function,
+// ) {
+//   // StatusBar.setBarStyle('default', false);
+//   ImagePicker.showImagePicker(
+//     { ...DEFAULT_OPTIONS, ...options },
+//     (response) => {
+//       // console.log('Response = ', response);
+//       // StatusBar.setBarStyle('light-content', false);
+//       // console.log(response);
+//       callBack(response);
+//       if (response.didCancel) {
+//         // console.log('User cancelled image picker');
+//       } else if (response.error) {
+//         Toast.show(response.error);
+//         console.log('ImagePicker Error: ', response.error);
+//       } else if (response.customButton) {
+//         console.log('User tapped custom button: ', response.customButton);
+//       } else {
+//         // You can display the image using either data:
+//         // const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+//         // uri (on iOS)
+//         // const source = {uri: response.uri.replace('file://', ''), isStatic: true};
+//         // uri (on android)
+//         // const source = {uri: response.uri, isStatic: true};
+//       }
+//     },
+//   );
+// }
 
 export function showImagePicker(
   options: ImagePickerOptions,

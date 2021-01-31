@@ -100,7 +100,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		DC3AFC021B320CCE97E9EEF3 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
@@ -108,7 +108,7 @@
 				EA9E5B6E24FFA235001F3ED7 /* comboTodayWidget.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 

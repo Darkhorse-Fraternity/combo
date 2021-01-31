@@ -4,7 +4,12 @@
  */
 
 import React, { FC } from 'react';
-import { ImageSourcePropType, StyleProp, ViewStyle } from 'react-native';
+import {
+  ImageSourcePropType,
+  Platform,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import {
   StyledContent,
@@ -62,7 +67,10 @@ const RenderItem: FC<RenderItemType> = (props) => {
         <StyledActivityIndicator color={'gray'} />
       ) : (
         // <StyledBtnImage />
-        <StyledBtnImage resizeMode="center" source={source} />
+        <StyledBtnImage
+          resizeMode={Platform.OS === 'ios' ? 'cover' : 'center'}
+          source={source}
+        />
       )}
       <StyledBottomMenuText>{title}</StyledBottomMenuText>
     </StyledBottomMenuButton>

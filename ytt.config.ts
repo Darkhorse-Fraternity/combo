@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-28 13:34:27
+ * @FilePath: /Combo/ytt.config.ts
+ */
 import { Config, ExtendedInterface, ChangeCase } from 'yapi-to-typescript';
 
 const token =

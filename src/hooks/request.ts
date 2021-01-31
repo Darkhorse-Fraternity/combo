@@ -1,3 +1,10 @@
+/*
+ * @Author: tonyYo
+ * @Date: 2021-01-06 16:44:48
+ * @LastEditors: tonyYo
+ * @LastEditTime: 2021-01-31 18:34:36
+ * @FilePath: /Combo/src/hooks/request.ts
+ */
 import { RequestFunctionParams } from 'yapi-to-typescript';
 import axios from 'axios';
 import { httpHeaders } from '@configure/reqConfigs';
@@ -27,7 +34,9 @@ export default function request<TResponseData>(
   // ): Promise<TResponseData & AxiosResponseOtherInfoType> {
 ): Promise<TResponseData> {
   const { path, method, data, devUrl, prodUrl } = payload;
-  const baseURL = options.server === 'dev' ? devUrl : prodUrl;
+
+  let baseURL = options.server === 'dev' ? devUrl : prodUrl;
+
   // 请求地址
   const config = method === 'GET' ? { params: data } : { data };
   return axios

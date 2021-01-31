@@ -122,7 +122,6 @@ const RenderDateSelect: FC<
   RenderDateSelectType & Omit<MenuItemType, 'discrib'>
 > = ({ value, onChange, mode = 'datetime', ...others }) => {
   const [isDateTimePickerVisible, setIsDateTimePickerVisible] = useState(false);
-  console.log('value', value);
 
   return (
     <>
@@ -299,6 +298,32 @@ const RenderPay: FC<{
   );
 });
 
+// 打卡期间内 和 打卡时间限制是否有交集
+
+const recordDayIntersection = (
+  start: Date,
+  end: Date,
+  recordDay: number[] = [1, 2, 3, 4, 5, 6, 7],
+): boolean => {
+  if (moment(start).isBefore(moment(end))) {
+    for (let index = 0; index < recordDay.length; index++) {
+      const day = recordDay[index];
+      console.log('moment(start).weeks()', moment(start).weeks());
+
+      if (moment(start).weeks() === day) {
+        return true;
+      }
+    }
+    return recordDayIntersection(
+      moment(start).add(1, 'day').toDate(),
+      end,
+      recordDay,
+    );
+  }
+
+  return false;
+};
+
 const FlagCreatNext: FC<{}> = () => {
   // const { iCardId } = useNavigationAllParamsWithType<RouteKey.flagDetail>();
 
@@ -309,7 +334,7 @@ const FlagCreatNext: FC<{}> = () => {
   >();
   const { user } = useGetInfoOfMe();
   const { data: iCard } = useMutateICardData(iCardId);
-  const { limitTimes } = iCard;
+  const { limitTimes, recordDay } = iCard;
 
   const { handleSubmit, control, errors } = useForm<FlagFormData>({
     resolver: yupResolver(flagValidationSchema),
@@ -328,6 +353,10 @@ const FlagCreatNext: FC<{}> = () => {
       if (moment(joinTime).isBefore(startTime)) {
         return SimpleToast.show('报名截止时间需要在活动开始之前～!');
       }
+
+      if (moment(joinTime).isBefore(startTime)) {
+        return SimpleToast.show('报名截止时间需要在活动开始之前～!');
+      }
       if (moment(startTime).add(1, 'day').isBefore(endTime)) {
         return SimpleToast.show('活动开始必须要在活动结束前一天设置～！');
       }
@@ -339,26 +368,38 @@ const FlagCreatNext: FC<{}> = () => {
         return SimpleToast.show('活动结束后需要在一天内完成结算～！');
       }
 
-      const res = await postFb({
-        userID: user.objectId,
-        cost: cost,
-        coverUrl: cover,
-        titleConfig: {
-          title,
-          introduction: discrib,
-        },
-        startTime: startTime.toISOString(),
-        endTime: endTime.toISOString(),
-        joinTime: joinTime.toISOString(),
-        limitTime: {
-          start_at: limitTimes[0],
-          end_at: limitTimes[1],
-        },
-        close_at: close_at.toISOString(),
-        sort: 0,
-      });
-      if (res) {
-        navigate(RouteKey.card);
+      //打卡期间内 和 打卡时间限制是否有交集，如果没有，则报警
+      if (!recordDayIntersection(startTime, endTime, recordDay)) {
+        return SimpleToast.show('打卡期间内和打卡时间限制之间没有交集～！');
+      }
+
+      try {
+        const res = await postFb({
+          userID: user.objectId,
+          cost: cost,
+          coverUrl: cover,
+          titleConfig: {
+            title,
+            introduction: discrib,
+          },
+          startTime: startTime.toISOString(),
+          endTime: endTime.toISOString(),
+          joinTime: joinTime.toISOString(),
+          limitTime: {
+            start_at: limitTimes[0],
+            end_at: limitTimes[1],
+          },
+          rewardConfig: {
+            type: 'money',
+          },
+          close_at: close_at.toISOString(),
+          sort: 0,
+        });
+        if (res) {
+          navigate(RouteKey.card);
+        }
+      } catch (error) {
+        console.log('error', error.message);
       }
     },
   );

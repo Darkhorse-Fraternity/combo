@@ -14,6 +14,8 @@ import ImagePicker, {
   Image as CropImage,
   Options,
 } from 'react-native-image-crop-picker';
+import SimpleToast from 'react-native-simple-toast';
+import { Linking } from 'react-native';
 
 export const ImagePickerConfig: Options = {
   width: 1000,
@@ -37,6 +39,26 @@ export const selectCamera = (op?: Options) => {
 
 export const selectAlbum = (op?: Options) => {
   return ImagePicker.openPicker({ ...ImagePickerConfig, ...op });
+};
+
+export const imagePickCatch = (e: Error) => {
+  if (e && e.message && typeof e.message === 'string') {
+    const message = e.message as string;
+    if (message.indexOf('cance') === -1) {
+      if (
+        message.indexOf('permission') !== -1 ||
+        message.indexOf('access') !== -1
+      ) {
+        Linking.openSettings();
+      } else {
+        SimpleToast.showWithGravity(
+          e.message,
+          SimpleToast.LONG,
+          SimpleToast.CENTER,
+        );
+      }
+    }
+  }
 };
 
 export interface PickViewProps extends InnerViewProps {
@@ -71,7 +93,8 @@ const InnerView = (props: InnerViewProps) => {
                 onSuccess(res);
                 setLoding(false);
               })
-              .catch(() => {
+              .catch((e) => {
+                imagePickCatch(e);
                 setLoding(false);
               });
           } else {
@@ -90,7 +113,8 @@ const InnerView = (props: InnerViewProps) => {
             setLoding(true);
             selectAlbum(option)
               .then((res) => onSuccess(res))
-              .catch(() => {
+              .catch((e) => {
+                imagePickCatch(e);
                 setLoding(false);
               });
           } else {
