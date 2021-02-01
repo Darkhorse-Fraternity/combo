@@ -1440,7 +1440,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1784,7 +1784,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1866,7 +1866,7 @@
 				INFOPLIST_FILE = Combo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 1.4.3;
+				MARKETING_VERSION = 1.6.3;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -1908,14 +1908,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
@@ -1940,14 +1940,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1971,14 +1971,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboUnFinished/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboUnFinished;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2001,14 +2001,14 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
@@ -2033,14 +2033,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2064,14 +2064,14 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 673;
+				CURRENT_PROJECT_VERSION = 701;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = G54H3R6236;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = comboTodayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.6.1;
+				MARKETING_VERSION = 1.6.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rn.combo.comboTodayWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
