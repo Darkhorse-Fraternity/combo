@@ -276,7 +276,7 @@ export const useGetFbId = makeRequestHook<GetFbIdRequest, GetFbIdRequestConfig, 
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 export interface PostFbRequest {
   /**
@@ -337,7 +337,7 @@ export interface PostFbRequest {
   /**
    * 排序
    */
-  sort: number
+  sort?: number
 }
 
 /**
@@ -345,7 +345,7 @@ export interface PostFbRequest {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 export interface PostFbResponse {}
 
@@ -354,7 +354,7 @@ export interface PostFbResponse {}
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 type PostFbRequestConfig = Readonly<
   RequestConfig<
@@ -374,7 +374,7 @@ type PostFbRequestConfig = Readonly<
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 const postFbRequestConfig: PostFbRequestConfig = {
   mockUrl: mockUrl_0_0_0_0,
@@ -397,7 +397,7 @@ const postFbRequestConfig: PostFbRequestConfig = {
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 export const postFb = makeRequest<PostFbRequest, PostFbResponse, PostFbRequestConfig>(postFbRequestConfig)
 
@@ -406,7 +406,7 @@ export const postFb = makeRequest<PostFbRequest, PostFbResponse, PostFbRequestCo
  *
  * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
  * @请求头 `POST /fb`
- * @更新时间 `2020-09-21 19:42:00`
+ * @更新时间 `2021-01-28 11:27:17`
  */
 export const usePostFb = makeRequestHook<PostFbRequest, PostFbRequestConfig, ReturnType<typeof postFb>>(postFb)
 
@@ -727,9 +727,179 @@ export const usePutFbJoinSelectPayTypeId = makeRequestHook<
   ReturnType<typeof putFbJoinSelectPayTypeId>
 >(putFbJoinSelectPayTypeId)
 
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **请求类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+export interface PostCoverimgRequest {}
+
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **返回类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+export interface PostCoverimgResponse {}
+
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **请求配置的类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+type PostCoverimgRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/11',
+    'http://121.89.170.197:7001',
+    'http://121.89.170.197:7001',
+    '/coverimg',
+    undefined,
+    string,
+    string,
+    true
+  >
+>
+
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **请求配置**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+const postCoverimgRequestConfig: PostCoverimgRequestConfig = {
+  mockUrl: mockUrl_0_0_0_0,
+  devUrl: devUrl_0_0_0_0,
+  prodUrl: prodUrl_0_0_0_0,
+  path: '/coverimg',
+  method: Method.POST,
+  requestBodyType: RequestBodyType.none,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_0_0_0,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
+}
+
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **请求函数**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+export const postCoverimg = makeRequest<PostCoverimgRequest, PostCoverimgResponse, PostCoverimgRequestConfig>(
+  postCoverimgRequestConfig,
+)
+
+/**
+ * 接口 [添加封面图片↗](http://121.89.170.197:3000/project/11/interface/api/592) 的 **React Hook**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `POST /coverimg`
+ * @更新时间 `2021-02-03 14:59:59`
+ */
+export const usePostCoverimg = makeRequestHook<
+  PostCoverimgRequest,
+  PostCoverimgRequestConfig,
+  ReturnType<typeof postCoverimg>
+>(postCoverimg)
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **请求类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+export interface PutCoverimgRequest {}
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **返回类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+export interface PutCoverimgResponse {}
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **请求配置的类型**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+type PutCoverimgRequestConfig = Readonly<
+  RequestConfig<
+    'http://121.89.170.197:3000/mock/11',
+    'http://121.89.170.197:7001',
+    'http://121.89.170.197:7001',
+    '/coverimg',
+    undefined,
+    string,
+    string,
+    true
+  >
+>
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **请求配置**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+const putCoverimgRequestConfig: PutCoverimgRequestConfig = {
+  mockUrl: mockUrl_0_0_0_0,
+  devUrl: devUrl_0_0_0_0,
+  prodUrl: prodUrl_0_0_0_0,
+  path: '/coverimg',
+  method: Method.PUT,
+  requestBodyType: RequestBodyType.none,
+  responseBodyType: ResponseBodyType.json,
+  dataKey: dataKey_0_0_0_0,
+  paramNames: [],
+  queryNames: [],
+  requestDataOptional: true,
+  requestDataJsonSchema: {},
+  responseDataJsonSchema: {},
+}
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **请求函数**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+export const putCoverimg = makeRequest<PutCoverimgRequest, PutCoverimgResponse, PutCoverimgRequestConfig>(
+  putCoverimgRequestConfig,
+)
+
+/**
+ * 接口 [修改副本封面图↗](http://121.89.170.197:3000/project/11/interface/api/594) 的 **React Hook**
+ *
+ * @分类 [副本接口↗](http://121.89.170.197:3000/project/11/interface/api/cat_270)
+ * @请求头 `PUT /coverimg`
+ * @更新时间 `2021-02-03 15:00:59`
+ */
+export const usePutCoverimg = makeRequestHook<
+  PutCoverimgRequest,
+  PutCoverimgRequestConfig,
+  ReturnType<typeof putCoverimg>
+>(putCoverimg)
+
 const mockUrl_0_1_0_0 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_0 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_0 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_0 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_0 = undefined as any
 
 /**
@@ -860,7 +1030,7 @@ type PostCallIUseList3RequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/iUseList3',
     undefined,
     string,
@@ -1003,7 +1173,7 @@ type GetClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iUse/:id',
     undefined,
     'id',
@@ -1097,7 +1267,7 @@ type PutClassesIUseIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iUse/:id',
     undefined,
     'id',
@@ -1200,7 +1370,7 @@ type PostClassesIUseRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iUse',
     undefined,
     string,
@@ -1380,7 +1550,7 @@ type GetClassesIUseRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iUse',
     undefined,
     string,
@@ -1438,7 +1608,7 @@ export const useGetClassesIUse = makeRequestHook<
 
 const mockUrl_0_1_0_1 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_1 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_1 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_1 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_1 = undefined as any
 
 /**
@@ -1539,7 +1709,7 @@ type GetClassesICardRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iCard',
     undefined,
     string,
@@ -1687,7 +1857,7 @@ type PostCallCardListRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/cardList',
     undefined,
     string,
@@ -1820,7 +1990,7 @@ type GetClassesICardIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iCard/:id',
     undefined,
     'id',
@@ -1934,7 +2104,7 @@ type PutClassesICardIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iCard/:id',
     undefined,
     'id',
@@ -2050,7 +2220,7 @@ type PostClassesICardRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iCard',
     undefined,
     string,
@@ -2110,7 +2280,7 @@ export const usePostClassesICard = makeRequestHook<
 
 const mockUrl_0_1_0_2 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_2 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_2 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_2 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_2 = undefined as any
 
 /**
@@ -2168,7 +2338,7 @@ type PostClassesIDoRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iDo',
     undefined,
     string,
@@ -2288,7 +2458,7 @@ type GetClassesIDoIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iDo/:id',
     undefined,
     'id',
@@ -2416,7 +2586,7 @@ type GetClassesIDoRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iDo',
     undefined,
     string,
@@ -2509,7 +2679,7 @@ type PutClassesIDoIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iDo/:id',
     undefined,
     'id',
@@ -2607,7 +2777,7 @@ type PostCallIDoLikeRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/iDoLike',
     undefined,
     string,
@@ -2667,7 +2837,7 @@ export const usePostCallIDoLike = makeRequestHook<
 
 const mockUrl_0_1_0_3 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_3 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_3 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_3 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_3 = undefined as any
 
 /**
@@ -2747,7 +2917,7 @@ type GetUsersIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:id',
     undefined,
     'id',
@@ -2881,7 +3051,7 @@ type PostUsersRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users',
     undefined,
     string,
@@ -3011,7 +3181,7 @@ type GetUsersMeRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/me',
     undefined,
     string,
@@ -3124,7 +3294,7 @@ type PutUsersIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:id',
     undefined,
     'id',
@@ -3295,7 +3465,7 @@ type GetUsersIdFollowersAndFolloweesRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:id/followersAndFollowees',
     undefined,
     'id',
@@ -3430,7 +3600,7 @@ type GetUsersIdFolloweesRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:id/followees',
     undefined,
     'id',
@@ -3565,7 +3735,7 @@ type GetUsersIdFollowersRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:id/followers',
     undefined,
     'id',
@@ -3661,7 +3831,7 @@ type PostUsersUidFriendshipFriendshipIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:uid/friendship/:friendshipId',
     undefined,
     'uid' | 'friendshipId',
@@ -3757,7 +3927,7 @@ type DeleteUsersUidFriendshipFriendshipIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/users/:uid/friendship/:friendshipId',
     undefined,
     'uid' | 'friendshipId',
@@ -3849,7 +4019,7 @@ type PostRequestSmsCodeRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/requestSmsCode',
     undefined,
     string,
@@ -3945,7 +4115,7 @@ type PostCallUserExsitJudgeRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/userExsitJudge',
     undefined,
     string,
@@ -4038,7 +4208,7 @@ type PostVerifySmsCodeCodeRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/verifySmsCode/:code',
     undefined,
     'code',
@@ -4175,7 +4345,7 @@ type PostUsersByMobilePhoneRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/usersByMobilePhone',
     undefined,
     string,
@@ -4265,7 +4435,7 @@ type PostLoginRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/login',
     undefined,
     string,
@@ -4321,7 +4491,7 @@ export const usePostLogin = makeRequestHook<PostLoginRequest, PostLoginRequestCo
 
 const mockUrl_0_1_0_4 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_4 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_4 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_4 = undefined as any
 
 /**
@@ -4401,7 +4571,7 @@ type GetClassesICommentRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iComment',
     undefined,
     string,
@@ -4503,7 +4673,7 @@ type PostClassesICommentRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iComment',
     undefined,
     string,
@@ -4592,7 +4762,7 @@ type DeleteClassesICommentIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/iComment/:id',
     undefined,
     'id',
@@ -4652,7 +4822,7 @@ export const useDeleteClassesICommentId = makeRequestHook<
 
 const mockUrl_0_1_0_5 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_5 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_5 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_5 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_5 = undefined as any
 
 /**
@@ -4771,7 +4941,7 @@ type PostCallFbListRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/fbList',
     undefined,
     string,
@@ -4944,7 +5114,7 @@ type GetClassesFlagIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Flag/:id',
     undefined,
     'id',
@@ -5074,7 +5244,7 @@ type GetClassesFlagRecordRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/FlagRecord',
     undefined,
     string,
@@ -5219,7 +5389,7 @@ type GetClassesFlagRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Flag',
     undefined,
     string,
@@ -5358,7 +5528,7 @@ type PostCallFbJoinRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/fbJoin',
     undefined,
     string,
@@ -5416,7 +5586,7 @@ export const usePostCallFbJoin = makeRequestHook<
 
 const mockUrl_0_1_0_6 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_6 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_6 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_6 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_6 = undefined as any
 
 /**
@@ -5478,7 +5648,7 @@ type GetClassesOrderRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Order',
     undefined,
     string,
@@ -5587,7 +5757,7 @@ type GetClassesEnchashmentRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Enchashment',
     undefined,
     string,
@@ -5687,7 +5857,7 @@ type PostClassesEnchashmentRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Enchashment',
     undefined,
     string,
@@ -5747,7 +5917,7 @@ export const usePostClassesEnchashment = makeRequestHook<
 
 const mockUrl_0_1_0_7 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_7 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_7 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_7 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_7 = undefined as any
 
 /**
@@ -5786,7 +5956,7 @@ type PostInstallationsRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/installations',
     undefined,
     string,
@@ -5882,7 +6052,7 @@ type PutInstallationsIdRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/installations/:id',
     undefined,
     'id',
@@ -5942,7 +6112,7 @@ export const usePutInstallationsId = makeRequestHook<
 
 const mockUrl_0_1_0_8 = 'http://121.89.170.197:3000/mock/59' as any
 const devUrl_0_1_0_8 = 'https://api.icourage.cn/1.1' as any
-const prodUrl_0_1_0_8 = 'http://api.icourage.cn/1.1' as any
+const prodUrl_0_1_0_8 = 'https://api.icourage.cn/1.1' as any
 const dataKey_0_1_0_8 = undefined as any
 
 /**
@@ -5991,7 +6161,7 @@ type PostBatchRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/batch',
     undefined,
     string,
@@ -6081,7 +6251,7 @@ type PostCallAppUpdateInfoRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/call/appUpdateInfo',
     undefined,
     string,
@@ -6144,7 +6314,7 @@ export const usePostCallAppUpdateInfo = makeRequestHook<
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 export interface PostClassesFeedbackRequest {
   text: string
@@ -6162,7 +6332,7 @@ export interface PostClassesFeedbackRequest {
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 export interface PostClassesFeedbackResponse {
   objectId?: string
@@ -6174,13 +6344,13 @@ export interface PostClassesFeedbackResponse {
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 type PostClassesFeedbackRequestConfig = Readonly<
   RequestConfig<
     'http://121.89.170.197:3000/mock/59',
     'https://api.icourage.cn/1.1',
-    'http://api.icourage.cn/1.1',
+    'https://api.icourage.cn/1.1',
     '/classes/Feedback',
     undefined,
     string,
@@ -6194,7 +6364,7 @@ type PostClassesFeedbackRequestConfig = Readonly<
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 const postClassesFeedbackRequestConfig: PostClassesFeedbackRequestConfig = {
   mockUrl: mockUrl_0_1_0_8,
@@ -6217,7 +6387,7 @@ const postClassesFeedbackRequestConfig: PostClassesFeedbackRequestConfig = {
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 export const postClassesFeedback = makeRequest<
   PostClassesFeedbackRequest,
@@ -6230,7 +6400,7 @@ export const postClassesFeedback = makeRequest<
  *
  * @分类 [其它↗](http://121.89.170.197:3000/project/59/interface/api/cat_445)
  * @请求头 `POST /classes/Feedback`
- * @更新时间 `2020-12-28 17:13:50`
+ * @更新时间 `2020-12-29 17:27:24`
  */
 export const usePostClassesFeedback = makeRequestHook<
   PostClassesFeedbackRequest,

@@ -70,6 +70,7 @@ const header = {
   'X-LC-Id': LeanCloud_APP_ID,
   'X-LC-Prod': __DEV__ ? '0' : '1',
   appVersion: DeviceInfo.getVersion(),
+  'Accept-Encoding': 'br',
   appChannel,
 };
 
